@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -84,9 +84,6 @@ msgstr "حرکت به پایین"
 msgid "Promoted search results"
 msgstr "نتایج جستجوی ترویج شده"
 
-msgid "Add recommended page"
-msgstr "افزودن صفحه توصیه شده"
-
 msgid "Search Terms"
 msgstr "عبارات جستجو"
 
@@ -105,8 +102,26 @@ msgstr "بازدیدها (هفته پیش)"
 msgid "Edit this promotion"
 msgstr "ویرایش این ترویج"
 
+msgid "External link"
+msgstr "لینک بیرونی"
+
 msgid "None"
 msgstr "خالی"
+
+msgid "Popular search terms"
+msgstr "عناوین منتخب جستجو‌شده"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Terms"
+msgstr "عنوان"
+
+msgid "No results found"
+msgstr "هیچ موردی پیدا نشد"
+
+msgid "Choose from popular search terms"
+msgstr "از عناوین منتخب جستجو شده انتخاب کنید"
 
 #, python-format
 msgid "There is %(counter)s match"

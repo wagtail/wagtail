@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -109,6 +109,11 @@ msgstr "Wgraj zdjęcie profilu"
 
 msgid "Enter password"
 msgstr "Wpisz hasło"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Twoje %(username_field)s i hasło nie pasuje. Proszę spróbować ponownie."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -655,8 +660,8 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Przepraszamy, nie ma wyników dla \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Nie utworzono żadnej pozycji."
+msgid "There are no results."
+msgstr "Brak wyników."
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
@@ -709,6 +714,13 @@ msgstr "Czy w dalszym ciągu chcesz opublikować ten %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Anuluj"
+
+msgid "No log entries found."
+msgstr "Brak wpisów w logu."
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "Brak %(model_name)s do wyświetlenia"
 
 msgid "Update"
 msgstr "Uaktualnij"
@@ -774,6 +786,9 @@ msgstr "Zablokowano"
 
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
+
+msgid "Actions"
+msgstr "Akcje"
 
 msgid "Unlock"
 msgstr "Odblokuj"
@@ -895,16 +910,17 @@ msgstr "Zadania"
 msgid "Task submitted by"
 msgstr "Zadanie wysłane przez"
 
+msgid "Compare with live version"
+msgstr "Porównaj z wersją Live"
+
+msgid "Compare with previous version"
+msgstr "Porównaj z poprzednią wersją"
+
 msgid "Sign in"
 msgstr "Zaloguj się"
 
 msgid "Sign in to Wagtail"
 msgstr "Zaloguj się do Wagtaila"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Twoje %(username_field)s i hasło nie pasuje. Proszę spróbować ponownie."
 
 msgid "Forgotten password?"
 msgstr "Zapomniane hasło?"
@@ -1173,11 +1189,26 @@ msgid ""
 msgstr ""
 "Strona \"%(title)s\" została przesłana do procesu moderacji \"%(workflow)s\"."
 
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "Strona \"%(title)s\" została przekierowana do procesu \"%(workflow)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"Strona %(model_name)s \"%(title)s\" została przekierowana do procesu "
+"\"%(workflow)s\""
+
 msgid "Page privacy"
 msgstr "Prywatność strony"
 
 msgid "This page has been made private by a parent page."
 msgstr "Ta strona jest prywatna ze względu na stronę rodzica."
+
+msgid "Save the page before leaving"
+msgstr "Zapisz stronę przed wyjściem"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Masz <span>niezapisanych edycji</span>"
@@ -1187,9 +1218,6 @@ msgstr "Masz <span>niezapisanych komentarzy</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Masz <span>niezapisanych edycji</span> i <span>komentarzy</span>"
-
-msgid "Save the page before leaving"
-msgstr "Zapisz stronę przed wyjściem"
 
 msgid "Publishing…"
 msgstr "Publikowanie..."
@@ -1455,6 +1483,30 @@ msgstr[2] "To również usunie %(translation_count)s tłumaczeń."
 msgstr[3] "To również usunie %(translation_count)s tłumaczeń."
 
 #, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Usunięcie tej strony spowoduje również usunięcie 1 tłumaczenia i jej "
+"powiązanej %(translation_descendant_count)s przetłumaczonej strony "
+"podrzędnej."
+msgstr[1] ""
+"Usunięcie tej strony spowoduje również usunięcie 1 tłumaczenia i jej "
+"powiązanych %(translation_descendant_count)s przetłumaczonych stron "
+"podrzędnych."
+msgstr[2] ""
+"Usunięcie tej strony spowoduje również usunięcie 1 tłumaczenia i jej "
+"powiązanych %(translation_descendant_count)s przetłumaczonych stron "
+"podrzędnych."
+msgstr[3] ""
+"Usunięcie tej strony spowoduje również usunięcie 1 tłumaczenia i jej "
+"powiązanych %(translation_descendant_count)s przetłumaczonych stron "
+"podrzędnych."
+
+#, python-format
 msgid "This action will delete total <b>%(total_pages)s</b> pages."
 msgstr "Ta akcja skasuje <b>%(total_pages)s</b> stron."
 
@@ -1500,6 +1552,22 @@ msgstr "Tak, przesuń tę stronę"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Czy na pewno chcesz cofnąć publikację tej strony?"
 
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] ""
+"Ta strona ma jedną stronę podrzędną. Cofnij również ich jej publikację"
+msgstr[1] ""
+"Ta strona ma %(live_descendant_count)s strony podrzędne. Cofnij również ich "
+"publikację"
+msgstr[2] ""
+"Ta strona ma %(live_descendant_count)s stron podrzędnych. Cofnij również ich "
+"publikację"
+msgstr[3] ""
+"Ta strona ma %(live_descendant_count)s stron podrzędnych. Cofnij również ich "
+"publikację"
+
 msgid "Publish page"
 msgstr "Opublikuj stronę"
 
@@ -1522,9 +1590,6 @@ msgstr "Skopiuj tę stronę"
 #, python-format
 msgid "New %(page_type)s"
 msgstr "Nowa %(page_type)s"
-
-msgid "Actions"
-msgstr "Akcje"
 
 msgid "This page has unsaved changes."
 msgstr "Strona posiada niezapisane zmiany"
@@ -1564,12 +1629,12 @@ msgstr "Wersja Live"
 msgid "Current draft"
 msgstr "Aktualny szkic"
 
-msgid "No log entries found."
-msgstr "Brak wpisów w logu."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Przeglądaj %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Zaznacz wszystkie strony na liście"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1612,9 +1677,6 @@ msgid ""
 msgstr ""
 "Nie utworzono strony głównej dla tego adresu. Strony utworzone tutaj nie "
 "będą dostępne pod jakimkolwiek adresem URL.                    "
-
-msgid "Select all pages in listing"
-msgstr "Zaznacz wszystkie strony na liście"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Ta strona jest zablokowana, przez Ciebie, do dalszej edycji"
@@ -1664,14 +1726,11 @@ msgstr "Strona nie jest publicznie dostępna"
 msgid "Confirm"
 msgstr "Potwierdź"
 
-msgid "History"
-msgstr "Historia"
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
 
 msgid "Review this version"
 msgstr "Zweryfikuj tą wersję"
-
-msgid "Compare with previous version"
-msgstr "Porównaj z poprzednią wersją"
 
 msgid "Compare with current version"
 msgstr "Porównaj z obecną wersją"
@@ -1809,9 +1868,6 @@ msgstr "Przełącz okruszki"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
-msgid "Root"
-msgstr "Główny"
-
 msgid "Close dialog"
 msgstr "Zamknij informację"
 
@@ -1830,6 +1886,9 @@ msgstr "Filtr"
 msgid "Apply filters"
 msgstr "Zastosuj filtry"
 
+msgid "History"
+msgstr "Historia"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nowy: %(model_name)s"
@@ -1837,6 +1896,9 @@ msgstr "Nowy: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Edytujesz %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Główny"
 
 msgid "Current page status:"
 msgstr "Aktualny status strony:"
@@ -1889,9 +1951,6 @@ msgstr "Szerokość panelu bocznego"
 
 msgid "Comment notifications"
 msgstr "Powiadomienia komentarza"
-
-msgid "Page Locale: "
-msgstr "Tłumaczenia strony"
 
 msgid "Locale: "
 msgstr "Lokalizacja:"
@@ -1954,9 +2013,6 @@ msgstr[1] "Użyto %(usage_count)s razy"
 msgstr[2] "Użyto %(usage_count)s razy"
 msgstr[3] "Użyto %(usage_count)s razy"
 
-msgid "Page status: "
-msgstr "Status strony:"
-
 msgid "Status: "
 msgstr "Status:"
 
@@ -2015,7 +2071,7 @@ msgstr "Podgląd stracił ważność"
 msgid "Preview mode"
 msgstr "Tryb podglądu"
 
-msgid "First published "
+msgid "First published"
 msgstr "Pierwsza publikacja"
 
 #, python-format
@@ -2333,9 +2389,6 @@ msgstr "Opublikowano"
 msgid "See full history"
 msgstr "Zobacz pełną historię"
 
-msgid "Compare with live version"
-msgstr "Porównaj z wersją Live"
-
 msgid "More"
 msgstr "Więcej"
 
@@ -2402,6 +2455,14 @@ msgstr "Komentarze"
 
 msgid "Toggle preview"
 msgstr "Przełącz podgląd"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "Sortuj po \"%(label)s\" rosnąco."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "Sortuj po \"%(label)s\" malejąco."
 
 msgid "Select page"
 msgstr "Zaznacz stronę"
@@ -2519,6 +2580,13 @@ msgstr "Kolekcja '%(object)s' usunięta."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 
+msgid "Home"
+msgstr "Start"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Edytuj ten %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Postęp procesu"
 
@@ -2533,6 +2601,25 @@ msgstr "%(model_name)s '%(object)s' utworzony."
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Szukaj %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Edytuj '%(title)s'"
+
+msgid "Inspect"
+msgstr "Sprawdź"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Podejrzyj '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Usuń '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Więcej opcji dla '%(title)s'"
 
 msgid "Editing"
 msgstr "Edytowanie"
@@ -2633,6 +2720,26 @@ msgstr "Odpublikuj wybrane strony"
 
 msgid "1 page has been unpublished"
 msgstr "Publikacja 1 strony została cofnięta."
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"Publikacja %(num_parent_objects)d strony i %(num_child_objects)d strony "
+"podrzędnej została cofnięta."
+msgstr[1] ""
+"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
+"podrzędnych została cofnięta."
+msgstr[2] ""
+"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
+"podrzędnych została cofnięta."
+msgstr[3] ""
+"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
+"podrzędnych została cofnięta."
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2743,6 +2850,9 @@ msgstr "Ukryj akcje komentowania"
 
 msgid "Page history"
 msgstr "Historia strony"
+
+msgid "Search pages…"
+msgstr "Szukaj stron…"
 
 msgid ""
 "Press enter to select an item, use up and down arrows to move the item, "
@@ -2976,27 +3086,12 @@ msgid "Pages"
 msgstr "Strony"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Edytuj '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Podejrzyj szkic '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
-
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Dodaj stronę podrzędną dla '%(title)s' "
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Więcej opcji dla '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

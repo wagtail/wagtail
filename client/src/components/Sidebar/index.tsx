@@ -51,7 +51,6 @@ export function initSidebar() {
       />,
       element,
       () => {
-        document.body.classList.add('ready');
         document
           .querySelector('[data-wagtail-sidebar]')
           ?.classList.remove('sidebar-loading');

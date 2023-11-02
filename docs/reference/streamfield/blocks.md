@@ -66,6 +66,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
@@ -79,6 +80,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param rows: Number of rows to show on the textarea (defaults to 1).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -225,6 +227,7 @@ All block definitions accept the following optional keyword arguments:
     :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
     :param required: If true (the default), the field cannot be left blank.
     :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -267,6 +270,7 @@ All block definitions accept the following optional keyword arguments:
     :param choices: A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -311,6 +315,7 @@ All block definitions accept the following optional keyword arguments:
     :param choices: A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -446,6 +451,7 @@ All block definitions accept the following optional keyword arguments:
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
      Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
 
@@ -482,6 +488,7 @@ All block definitions accept the following optional keyword arguments:
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
     :param min_num: Minimum number of sub-blocks that the list must have.
     :param max_num: Maximum number of sub-blocks that the list may have.
+    :param search_index: If false (default true) , the content of this block will not be indexed for searching.
     :param collapsed: When true, all sub-blocks are initially collapsed.
 
 
@@ -538,6 +545,7 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
     :param min_num: Minimum number of sub-blocks that the stream must have.
     :param max_num: Maximum number of sub-blocks that the stream may have.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
     :param collapsed: When true, all sub-blocks are initially collapsed.
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.

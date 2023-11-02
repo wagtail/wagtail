@@ -290,6 +290,30 @@ def urlconf_time():
   ]
 ```
 
+(register_admin_viewset)=
+
+### `register_admin_viewset`
+
+Register a {class}`~wagtail.admin.viewsets.base.ViewSet` or {class}`~wagtail.admin.viewsets.base.ViewSetGroup` to the admin, which combines a set of views, URL patterns, and menu item into a single unit. The callable fed into this hook should return an instance of `ViewSet` or `ViewSetGroup`.
+
+```python
+from .views import CalendarViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return CalendarViewSet()
+```
+
+Alternatively, it can also return a list of `ViewSet` or `ViewSetGroup` instances.
+
+```python
+from .views import AgendaViewSetGroup, VenueViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return [AgendaViewSetGroup(), VenueViewSet()]
+```
+
 (register_group_permission_panel)=
 
 ### `register_group_permission_panel`
@@ -790,7 +814,6 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
 -   `parent_page` - for `view` = `'create'`, the parent page of the page being created
 -   `request` - the current request object
--   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
 
 ```python
 from wagtail import hooks
@@ -838,7 +861,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks

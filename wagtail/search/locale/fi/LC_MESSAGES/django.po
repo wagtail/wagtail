@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,21 +33,3 @@ msgstr "indeksitietue"
 
 msgid "index entries"
 msgstr "indeksitietuetta"
-
-msgid "Popular search terms"
-msgstr "Suositut hakutermit"
-
-msgid "Search"
-msgstr "Haku"
-
-msgid "Terms"
-msgstr "Termit"
-
-msgid "Views (past week)"
-msgstr "Näytöt (kuluva viikko)"
-
-msgid "No results found"
-msgstr "Ei tuloksia"
-
-msgid "Choose from popular search terms"
-msgstr "Valitse suosituista hakutermeistä"

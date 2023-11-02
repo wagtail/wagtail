@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -98,6 +98,12 @@ msgstr "Učitajte sliku profila"
 
 msgid "Enter password"
 msgstr "Unesite lozinku"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Vaše %(username_field)s i lozinka se ne podudaraju. Molimo pokušajte "
+"ponovno. "
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -489,6 +495,9 @@ msgstr "Ne, nemoj odjaviti"
 msgid "Cancel"
 msgstr "Odustani"
 
+msgid "No log entries found."
+msgstr "Nema pronađenih zapisa."
+
 msgid "Update"
 msgstr "Ažuriraj"
 
@@ -527,6 +536,9 @@ msgstr "Zaključano u"
 
 msgid "Edit this page"
 msgstr "Uredi ovu stranicu"
+
+msgid "Actions"
+msgstr "Postupci"
 
 msgid "Unlock"
 msgstr "Odblokiraj"
@@ -579,17 +591,17 @@ msgstr "Čekaju vaš pregled"
 msgid "Tasks"
 msgstr "Zadaci"
 
+msgid "Compare with live version"
+msgstr "Usporedi sa verzijom uživo"
+
+msgid "Compare with previous version"
+msgstr "Usporedi sa prijašnjom verzijom"
+
 msgid "Sign in"
 msgstr "Prijavi se"
 
 msgid "Sign in to Wagtail"
 msgstr "Prijavite se na Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Vaše %(username_field)s i lozinka se ne podudaraju. Molimo pokušajte "
-"ponovno. "
 
 msgid "Forgotten password?"
 msgstr "Zaboravljena lozinka?"
@@ -845,9 +857,6 @@ msgstr "Kopiraj ovu stranicu"
 msgid "New %(page_type)s"
 msgstr "Nova %(page_type)s"
 
-msgid "Actions"
-msgstr "Postupci"
-
 msgid "This page has unsaved changes."
 msgstr "Stranica sadrži promjene koje nisu spremljene"
 
@@ -882,9 +891,6 @@ msgstr "Verzija uživo"
 
 msgid "Current draft"
 msgstr "Trenutna skica"
-
-msgid "No log entries found."
-msgstr "Nema pronađenih zapisa."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -931,14 +937,8 @@ msgstr "Stranica je sakrivena od javnosti"
 msgid "Confirm"
 msgstr "Potvrdi"
 
-msgid "History"
-msgstr "Povijest"
-
 msgid "Review this version"
 msgstr "Pregledaj ovu verziju"
-
-msgid "Compare with previous version"
-msgstr "Usporedi sa prijašnjom verzijom"
 
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
@@ -1019,9 +1019,6 @@ msgstr "Prikaži/sakrij navigacijsku traku"
 msgid "Breadcrumb"
 msgstr "Navigacijska traka"
 
-msgid "Root"
-msgstr "Korijen"
-
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"
 
@@ -1037,9 +1034,15 @@ msgstr "Filter"
 msgid "Apply filters"
 msgstr "Primjeni filtere"
 
+msgid "History"
+msgstr "Povijest"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Novi: %(model_name)s"
+
+msgid "Root"
+msgstr "Korijen"
 
 msgid "Current page status:"
 msgstr "Trenutni status stranice"
@@ -1286,9 +1289,6 @@ msgstr "Odobrio korisnik %(approved_by)s"
 msgid "Published"
 msgstr "Objavljeno"
 
-msgid "Compare with live version"
-msgstr "Usporedi sa verzijom uživo"
-
 msgid "More"
 msgstr "Više"
 
@@ -1355,6 +1355,13 @@ msgstr "Zbirka '%(object)s' je izbrisana."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 
+msgid "Home"
+msgstr "Naslovna"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Uredi ovaj %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Napredak tijeka rada"
 
@@ -1365,6 +1372,21 @@ msgstr "%(model_name)s '%(object)s' je ažuriran."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' je stvoren."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+msgid "Inspect"
+msgstr "Pregledaj"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Pregledaj '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Izbriši '%(title)s'"
 
 msgid "Editing"
 msgstr "Uređivanje"
@@ -1594,10 +1616,6 @@ msgstr "Zadatak '%(task_name)s' je omogućen."
 
 msgid "Pages"
 msgstr "Stranice"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

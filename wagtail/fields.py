@@ -252,6 +252,7 @@ class StreamField(models.Field):
         return self.get_prep_value(value)
 
     def get_searchable_content(self, value):
+
         return self.stream_block.get_searchable_content(value)
 
     def extract_references(self, value):

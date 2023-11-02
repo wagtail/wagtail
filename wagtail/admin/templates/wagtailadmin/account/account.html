@@ -3,8 +3,7 @@
 
 {% block titletag %}{% trans "Account" %}{% endblock %}
 {% block content %}
-    {% trans "Account" as account_str %}
-    {% include "wagtailadmin/shared/header.html" with title=account_str icon="user" merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Account") icon="user" merged=1 %}
 
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
@@ -14,8 +13,7 @@
                 {% endfor %}
 
                 {% if menu_items %}
-                    {% trans 'More actions' as menu_items_title %}
-                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='actions' title=menu_items_title %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='actions' title=_("More actions") %}
                 {% endif %}
             </div>
         </div>

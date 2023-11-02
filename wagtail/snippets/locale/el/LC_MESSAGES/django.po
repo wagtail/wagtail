@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -118,15 +118,6 @@ msgstr "Δημιουργία"
 msgid "Actions"
 msgstr "Ενέργειες"
 
-msgid "Snippets"
-msgstr "Snippets"
-
-msgid "History"
-msgstr "Ιστορικό"
-
-msgid "Usage"
-msgstr "Χρήση"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -158,6 +149,9 @@ msgstr "Επεξεργασία "
 msgid "Choose"
 msgstr "Επιλογή"
 
+msgid "Snippets"
+msgstr "Snippets"
+
 msgid "Name"
 msgstr "Όνομα"
 
@@ -170,25 +164,11 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
 msgid "Action"
 msgstr "Ενέργεια"
 
-msgid "User"
-msgstr "Χρήστης"
-
 msgid "Date"
 msgstr "Ημερομηνία"
 
-msgid "Snippet history"
-msgstr "Ιστορικό αποσπάσματος"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Αναθεώρηση '%(title)s'"
-
-msgid "Inspect"
-msgstr "Επιθεωρείστε"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Διαγραφή '%(title)s'"
+msgid "Home"
+msgstr "Αρχική"
 
 #, python-format
 msgid "Choose %(object)s"

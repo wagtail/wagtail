@@ -1,6 +1,4 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
-import warnings
-
 from django.conf import settings
 from django.forms import Media
 from django.template.loader import render_to_string
@@ -10,8 +8,6 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.models import UserPagePermissionsProxy
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class ActionMenuItem(Component):
@@ -44,7 +40,6 @@ class ActionMenuItem(Component):
             'view' = 'create', 'edit' or 'revisions_revert'
             'page' (if view = 'edit' or 'revisions_revert') = the page being edited
             'parent_page' (if view = 'create') = the parent page of the page being created
-            'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
             'lock' = a Lock object if the page is locked, otherwise None
             'locked_for_user' = True if the lock prevents the current user from editing the page
             may also contain:
@@ -102,15 +97,6 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     icon_name = "resubmit"
 
     def is_shown(self, context):
-        legacy_setting = getattr(settings, "WAGTAIL_MODERATION_ENABLED", None)
-        if legacy_setting is not None:
-            warnings.warn(
-                "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-                RemovedInWagtail60Warning,
-            )
-            if not legacy_setting:
-                return False
-
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
@@ -177,15 +163,6 @@ class RestartWorkflowMenuItem(ActionMenuItem):
     icon_name = "login"
 
     def is_shown(self, context):
-        legacy_setting = getattr(settings, "WAGTAIL_MODERATION_ENABLED", None)
-        if legacy_setting is not None:
-            warnings.warn(
-                "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-                RemovedInWagtail60Warning,
-            )
-            if not legacy_setting:
-                return False
-
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
         elif context["view"] == "edit":
@@ -291,8 +268,6 @@ class PageActionMenu:
         self.context = kwargs
         self.context["request"] = request
         page = self.context.get("page")
-        user_page_permissions = UserPagePermissionsProxy(self.request.user)
-        self.context["user_page_permissions"] = user_page_permissions
         if page:
             self.context["user_page_permissions_tester"] = page.permissions_for_user(
                 self.request.user

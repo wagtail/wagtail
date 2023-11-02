@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,6 +97,12 @@ msgstr "Sube unha foto do perfil"
 
 msgid "Enter password"
 msgstr "Introduce contrasinal"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"O teu %(username_field)s e contrasinal non coinciden. Por favor, téntao de "
+"novo."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -632,8 +638,8 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Sentímolo, non hai coincidencias para \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Non se creóu ningún ítem"
+msgid "There are no results."
+msgstr "Non hai resultados."
 
 msgid "Yes, delete"
 msgstr "Si, eliminar"
@@ -685,6 +691,17 @@ msgstr "Aínda quererías publicar este %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "No log entries found."
+msgstr "Non se atoparon entradas no rexistro."
+
+#, python-format
+msgid "No %(model_name)s match your query"
+msgstr "Ningún %(model_name)s coincide ca túa busca"
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "Non hai %(model_name)s que amosar"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -746,6 +763,9 @@ msgstr "Bloqueadas en"
 
 msgid "Edit this page"
 msgstr "Editar esta páxina"
+
+msgid "Actions"
+msgstr "Accións"
 
 msgid "Unlock"
 msgstr "Desbloquear"
@@ -860,17 +880,17 @@ msgstr "Tarefas"
 msgid "Task submitted by"
 msgstr "Tarefa enviada por"
 
+msgid "Compare with live version"
+msgstr "Comparar ca versión en vivo"
+
+msgid "Compare with previous version"
+msgstr "Comparar con versión anterior"
+
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
 msgid "Sign in to Wagtail"
 msgstr "Iniciar sesión en Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"O teu %(username_field)s e contrasinal non coinciden. Por favor, téntao de "
-"novo."
 
 msgid "Forgotten password?"
 msgstr "Esqueciches o contrasinal?"
@@ -1173,6 +1193,9 @@ msgstr "Privacidade da páxina"
 msgid "This page has been made private by a parent page."
 msgstr "Esta páxina foi feita privada por unha páxina pai."
 
+msgid "Save the page before leaving"
+msgstr "Gardar a páxina antes de sair"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tes <span>edicións sen gardar</span>"
 
@@ -1181,9 +1204,6 @@ msgstr "Tes <span>comentarios sen gardar</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Tes <span>edicións</span> e <span>comentarios sen gardar</span>"
-
-msgid "Save the page before leaving"
-msgstr "Gardar a páxina antes de sair"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1585,9 +1605,6 @@ msgstr "Copiar esta páxina"
 msgid "New %(page_type)s"
 msgstr "Nova %(page_type)s"
 
-msgid "Actions"
-msgstr "Accións"
-
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
 
@@ -1626,12 +1643,12 @@ msgstr "Versión en vivo"
 msgid "Current draft"
 msgstr "Borrador actual"
 
-msgid "No log entries found."
-msgstr "Non se atoparon entradas no rexistro."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Seleccionar tódalas páxinas no listado"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1674,9 +1691,6 @@ msgstr ""
 "Non hai ningún sitio para esta localización. As páxinas creadas aquí non "
 "serán accesibles en ningunha URL."
 
-msgid "Select all pages in listing"
-msgstr "Seleccionar tódalas páxinas no listado"
-
 msgid "This page is locked, by you, to further editing"
 msgstr "Esta páxina está bloqueada, por ti, para seguir editando."
 
@@ -1703,6 +1717,25 @@ msgstr "Ordenar"
 msgid "Enable ordering of child pages"
 msgstr "Habilitar organización de páxinas fillas"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s de %(result_count)s en todo o sitio."
+
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Buscar dentro de '%(title)s'"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgstr "%(start_index)s.%(end_index)s de %(result_count)s en '%(title)s',"
+
+msgid "Search the whole site"
+msgstr "Buscar no sitio completo"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s de %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Menú de sitios"
 
@@ -1725,14 +1758,11 @@ msgstr "Esta páxina está protexida da vista pública"
 msgid "Confirm"
 msgstr "Confirmar"
 
-msgid "History"
-msgstr "Historial"
+msgid "Add child page"
+msgstr "Engadir páxina filla"
 
 msgid "Review this version"
 msgstr "Revisar esta versión"
-
-msgid "Compare with previous version"
-msgstr "Comparar con versión anterior"
 
 msgid "Compare with current version"
 msgstr "Comparar ca versión actual"
@@ -1877,9 +1907,6 @@ msgstr "Permutar migas de pan"
 msgid "Breadcrumb"
 msgstr "Miga de pan"
 
-msgid "Root"
-msgstr "Raíz"
-
 msgid "Close dialog"
 msgstr "Pechar diálogo"
 
@@ -1898,6 +1925,9 @@ msgstr "Filtro"
 msgid "Apply filters"
 msgstr "Aplicar filtros"
 
+msgid "History"
+msgstr "Historial"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Novo: %(model_name)s"
@@ -1905,6 +1935,9 @@ msgstr "Novo: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Editando %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Raíz"
 
 msgid "Current page status:"
 msgstr "Estado actual da páxina: "
@@ -1957,9 +1990,6 @@ msgstr "Ancho do panel lateral"
 
 msgid "Comment notifications"
 msgstr "Notificacións de comentario"
-
-msgid "Page Locale: "
-msgstr "Rexión da páxina:"
 
 msgid "Locale: "
 msgstr "Rexión:"
@@ -2018,9 +2048,6 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Usado %(usage_count)s vez"
 msgstr[1] "Usado %(usage_count)s veces"
-
-msgid "Page status: "
-msgstr "Estado da páxina: "
 
 msgid "Status: "
 msgstr "Estado: "
@@ -2087,8 +2114,8 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Modo previsualización"
 
-msgid "First published "
-msgstr "Publicada por primeira vez"
+msgid "First published"
+msgstr "Publicado por primeira vez"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2399,9 +2426,6 @@ msgstr "Publicada"
 msgid "See full history"
 msgstr "Ver historial completo"
 
-msgid "Compare with live version"
-msgstr "Comparar ca versión en vivo"
-
 msgid "More"
 msgstr "Máis"
 
@@ -2598,6 +2622,13 @@ msgstr "Colección '%(object)s' eliminada."
 msgid "Are you sure you want to delete this collection?"
 msgstr "¿Seguro que queres eliminar esta colección?"
 
+msgid "Home"
+msgstr "Principal"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Editar este %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Avance no fluxo de traballo"
 
@@ -2688,6 +2719,25 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Procurar %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspeccionar"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspeccionar '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Eliminar '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Máis opcións para '%(title)s'"
 
 msgid "Editing"
 msgstr "Editando"
@@ -2960,6 +3010,9 @@ msgstr "Agachar accións de comentarios"
 msgid "Page history"
 msgstr "Historial da páxina"
 
+msgid "Search pages…"
+msgstr "Buscar páxinas…"
+
 msgid ""
 "Press enter to select an item, use up and down arrows to move the item, "
 "press enter to complete the move or escape to cancel the current move."
@@ -3183,27 +3236,12 @@ msgid "Pages"
 msgstr "Páxinas"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Previsualizar o borrador de '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Ver versión en vivo de '%(title)s'"
-
-msgid "Add child page"
-msgstr "Engadir páxina filla"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Engadir unha páxina filla a '%(title)s'"
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Máis opcións para '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

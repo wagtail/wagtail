@@ -10,7 +10,7 @@ from . import views
 @hooks.register("register_admin_urls")
 def register_admin_urls():
     return [
-        path("styleguide/", views.index, name="wagtailstyleguide"),
+        path("styleguide/", views.IndexView.as_view(), name="wagtailstyleguide"),
     ]
 
 

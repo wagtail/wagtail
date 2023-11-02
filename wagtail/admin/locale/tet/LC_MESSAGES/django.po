@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -80,6 +80,10 @@ msgstr "Upload imajen profile"
 
 msgid "Enter password"
 msgstr "Hatama seña"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -400,6 +404,9 @@ msgstr ""
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
 
+msgid "Actions"
+msgstr "Asaun sira"
+
 msgid "Draft"
 msgstr "Esbosu"
 
@@ -447,10 +454,6 @@ msgstr "Tama"
 
 msgid "Sign in to Wagtail"
 msgstr "Tama ba Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
 
 msgid "Signing in…"
 msgstr "Tama hela..."
@@ -588,9 +591,6 @@ msgstr "Kópia pájina ne'e   "
 msgid "New %(page_type)s"
 msgstr "Foun %(page_type)s"
 
-msgid "Actions"
-msgstr "Asaun sira"
-
 msgid "This page has unsaved changes."
 msgstr "Pajina ne'e iha sasan troka la salva ona."
 
@@ -649,6 +649,9 @@ msgstr "Tuir mai"
 msgid "This page is protected from public view"
 msgstr "Pajina nee la publiku"
 
+msgid "Add child page"
+msgstr "Aumenta pajina iha okos"
+
 msgid "Cancel scheduled publish"
 msgstr "Kansela orariu publiku"
 
@@ -684,14 +687,14 @@ msgstr "Pajina %(page_num)s husi %(total_pages)s"
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
 
-msgid "Root"
-msgstr "Abut"
-
 msgid "Download CSV"
 msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filtru"
+
+msgid "Root"
+msgstr "Abut"
 
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
@@ -790,6 +793,9 @@ msgstr "Koleksaun '%(object)s' hamoos ona."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ita boot serteza hamoos koleksaun nee?"
 
+msgid "Home"
+msgstr "Uma"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' hadia ona."
@@ -797,6 +803,13 @@ msgstr "%(model_name)s '%(object)s' hadia ona."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' kria ona"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspeksaun"
 
 msgid "Editing"
 msgstr "Hadia hela"
@@ -829,10 +842,3 @@ msgstr "Pájina ne'ebé uza"
 
 msgid "Pages"
 msgstr "Pajina sira"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr " Edit '%(title)s'"
-
-msgid "Add child page"
-msgstr "Aumenta pajina iha okos"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,21 +32,3 @@ msgstr "Entrada d'índex"
 
 msgid "index entries"
 msgstr "Entrades d'índex"
-
-msgid "Popular search terms"
-msgstr "Termes de cerca populars"
-
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Terms"
-msgstr "Termes"
-
-msgid "Views (past week)"
-msgstr "Vistes (la setmana pasada)"
-
-msgid "No results found"
-msgstr "No s'han trobat resultats"
-
-msgid "Choose from popular search terms"
-msgstr "Trieu entre els termes de cerca populars"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,21 +115,6 @@ msgstr "Uus"
 msgid "Actions"
 msgstr "Toimingud"
 
-msgid "Breadcrumb"
-msgstr "Riivsai"
-
-msgid "Snippets"
-msgstr "Jupid"
-
-msgid "History"
-msgstr "Ajalugu"
-
-msgid "Usage"
-msgstr "Kasutus"
-
-msgid "No log entries found."
-msgstr "Logikirjeid ei leitud."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s jupid."
@@ -173,6 +158,9 @@ msgstr "Ajastatud avaldamise tühistamine"
 msgid "Choose"
 msgstr "Vali"
 
+msgid "Snippets"
+msgstr "Jupid"
+
 msgid "Name"
 msgstr "Nimi"
 
@@ -185,18 +173,11 @@ msgstr " Seda juppi ei saanud vigade tõttu salvestada."
 msgid "Action"
 msgstr "Tegevus"
 
-msgid "User"
-msgstr "Kasutaja"
-
 msgid "Date"
 msgstr "Kuupäev"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigeeri '%(title)s'"
-
-msgid "Inspect"
-msgstr "Kontrollige"
+msgid "Home"
+msgstr "Kodu"
 
 #, python-format
 msgid "Choose %(object)s"

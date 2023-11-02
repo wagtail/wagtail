@@ -7,7 +7,7 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023
 # Meteor0id, 2018
 # Storm Heg <storm@stormbase.digital>, 2022-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
@@ -16,9 +16,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2023\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, "
+"2015,2018,2020,2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -43,14 +44,35 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Je moet ook een link tekst invoeren als je een externe link invoert."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Je moet een pagina OF externe link aanbevelen."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Kies alsjeblieft alleen een pagina OF externe link."
+
 msgid "Query Daily Hits"
 msgstr "Aantal dagelijkse zoekopdrachten"
 
 msgid "page"
 msgstr "pagina"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Kies een interne pagina voor deze promotie"
+
+msgid "External link URL"
+msgstr "Externe link URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Gebruik anders een externe link voor deze actie"
+
 msgid "description"
 msgstr "omschrijving"
+
+msgid "Applies to internal page or external link"
+msgstr "Geldt voor interne pagina of externe link"
 
 msgid "search promotion"
 msgstr "zoekpromotie"
@@ -62,15 +84,16 @@ msgid "Add search pick"
 msgstr "Voeg een zoekterm toe"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Aanbevolen zoekresultaten zijn een manier om bepaalde pagina's die "
-"normaliter niet hoog in de zoekresultaten zouden komen aan te bevelen. "
-"Bijvoorbeeld het aanbevelen van een doneerpagina aan een gebruiker die zoekt "
-"op de minder gebruikelijke term ' <em>geven</em>'.</p> "
+"<p>Aanbevolen zoekresultaten zijn een manier om specifieke pagina's of "
+"externe links aan te bevelen die organisch mogelijk niet hoog in de "
+"zoekresultaten verschijnen. U kunt bijvoorbeeld uw primaire donatiepagina "
+"aanbevelen aan een gebruiker die zoekt met de minder gebruikelijke term "
+"\"<em>geven</em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -115,14 +138,14 @@ msgstr "Verplaats naar boven"
 msgid "Move down"
 msgstr "Verplaats naar beneden"
 
-msgid "Recommended page"
-msgstr "Aanbevolen pagina"
+msgid "Recommended search result"
+msgstr "Aanbevolen zoekresultaat"
 
 msgid "Promoted search results"
 msgstr "Gepromoveerde zoekresultaten"
 
-msgid "Add recommended page"
-msgstr "Voeg een aanbevolen pagina toe"
+msgid "Add a recommended result"
+msgstr "Voeg een aanbevolen resultaat toe"
 
 msgid "Search Terms"
 msgstr "Zoektermen"
@@ -154,8 +177,26 @@ msgstr "Sorteer op aantal keer bekeken (hoogste eerst)"
 msgid "Edit this promotion"
 msgstr "Wijzig deze zoekpromotie"
 
+msgid "External link"
+msgstr "Externe link"
+
 msgid "None"
 msgstr "Geen"
+
+msgid "Popular search terms"
+msgstr "Populaire zoektermen"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Terms"
+msgstr "Termen"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Choose from popular search terms"
+msgstr "Kies uit populaire zoektermen"
 
 #, python-format
 msgid "There is %(counter)s match"

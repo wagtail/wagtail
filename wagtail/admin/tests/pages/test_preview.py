@@ -637,20 +637,3 @@ class TestDisablePreviewButton(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, "Preview")
         self.assertNotContains(response, preview_url)
-
-    def disable_preview_in_moderation_list(self):
-        # RemovedInWagtail60Warning
-        # Remove this test when the deprecation period for the legacy
-        # moderation system ends.
-        stream_page = StreamPage(title="stream page", body=[("text", "hello")])
-        self.root_page.add_child(instance=stream_page)
-        latest_revision = stream_page.save_revision(
-            user=self.user, submitted_for_moderation=True
-        )
-
-        response = self.client.get(reverse("wagtailadmin_home"))
-        preview_url = reverse(
-            "wagtailadmin_pages:preview_for_moderation", args=(latest_revision.id,)
-        )
-        self.assertNotContains(response, '<li class="preview">')
-        self.assertNotContains(response, 'data-action="%s"' % preview_url)

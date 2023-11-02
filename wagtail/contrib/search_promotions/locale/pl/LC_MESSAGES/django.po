@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
 # Miłosz Miśkiewicz, 2018-2020
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -42,14 +43,37 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Proszę podaj conajmniej jedną rekomendację dla tej frazy wyszukiwania."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Musisz wprowadzić tekst opisu linka, jeśli wprowadzasz URL linka "
+"zewnętrznego."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Musisz polecić stronę LUB zewnętrzny link."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Proszę tylko wybrać stronę LUB podać zewnętrzny link."
+
 msgid "Query Daily Hits"
 msgstr "Dzienny licznik frazy"
 
 msgid "page"
 msgstr "strona"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Wymierz wewnętrzną stronę dla tej promocji"
+
+msgid "External link URL"
+msgstr "URL linka zewnętrznego"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Alternatywnie użyj linka zewnętrznego dla tej promocji"
+
 msgid "description"
 msgstr "opis"
+
+msgid "Applies to internal page or external link"
+msgstr "Dotyczy wewnętrznej strony lub linka zewnętrznego"
 
 msgid "search promotion"
 msgstr "wyszukaj promowane"
@@ -92,11 +116,14 @@ msgstr "Przesuń w górę"
 msgid "Move down"
 msgstr "Przesuń w dół"
 
+msgid "Recommended search result"
+msgstr "Polecane wyniki wyszukiwania"
+
 msgid "Promoted search results"
 msgstr "Promowane wyniki wyszukiwania"
 
-msgid "Add recommended page"
-msgstr "Dodaj polecaną stronę"
+msgid "Add a recommended result"
+msgstr "Dodaj polecany wynik"
 
 msgid "Search Terms"
 msgstr "Frazy wyszukiwania"
@@ -128,8 +155,26 @@ msgstr "Sortuj po widokach (najwięcej pierwsze)"
 msgid "Edit this promotion"
 msgstr "Edytuj promocję"
 
+msgid "External link"
+msgstr "Link zewnętrzny"
+
 msgid "None"
 msgstr "Brak"
+
+msgid "Popular search terms"
+msgstr "Popularne wyszukiwania"
+
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Terms"
+msgstr "Frazy"
+
+msgid "No results found"
+msgstr "Nie znaleziono"
+
+msgid "Choose from popular search terms"
+msgstr "Wybierz z popularnych fraz wyszukiwania"
 
 #, python-format
 msgid "There is %(counter)s match"

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hernandison Da Silva Bispo, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -111,6 +111,11 @@ msgstr "Carregar uma foto do perfil"
 
 msgid "Enter password"
 msgstr "Digite sua senha"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Seu %(username_field)s e senha não estão iguais. Por favor, tente novamente."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -581,6 +586,9 @@ msgstr "Não despublicar"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "No log entries found."
+msgstr "Nenhuma entrada de log encontrada."
+
 msgid "Update"
 msgstr "Atualizar"
 
@@ -619,6 +627,9 @@ msgstr "Bloqueado em"
 
 msgid "Edit this page"
 msgstr "Editar essa página"
+
+msgid "Actions"
+msgstr "Ações"
 
 msgid "Unlock"
 msgstr "Desbloquear"
@@ -683,16 +694,17 @@ msgstr "Tarefas"
 msgid "Task submitted by"
 msgstr "Tarefa submetida por"
 
+msgid "Compare with live version"
+msgstr "Comparar com versão publicada"
+
+msgid "Compare with previous version"
+msgstr "Compare com a versão anterior"
+
 msgid "Sign in"
 msgstr "Entrar"
 
 msgid "Sign in to Wagtail"
 msgstr "Entrar no Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Seu %(username_field)s e senha não estão iguais. Por favor, tente novamente."
 
 msgid "Forgotten password?"
 msgstr "Esqueceu a senha?"
@@ -868,6 +880,9 @@ msgstr "Página privada"
 msgid "This page has been made private by a parent page."
 msgstr "Essa página foi feita privativa por uma página raíz."
 
+msgid "Save the page before leaving"
+msgstr "Salve a página antes de sair"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Você tem <span>edição não salva</span>"
 
@@ -876,9 +891,6 @@ msgstr "Você tem <span>comentários não salvos</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Você tem <span>edições não salvas</span> e <span>comentários</span>"
-
-msgid "Save the page before leaving"
-msgstr "Salve a página antes de sair"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1068,9 +1080,6 @@ msgstr "Copiar esta página"
 msgid "New %(page_type)s"
 msgstr "Adicionar %(page_type)s"
 
-msgid "Actions"
-msgstr "Ações"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações não salvas."
 
@@ -1109,18 +1118,15 @@ msgstr "Versão publicada"
 msgid "Current draft"
 msgstr "Rascunho atual"
 
-msgid "No log entries found."
-msgstr "Nenhuma entrada de log encontrada."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorando %(title)s"
 
-msgid "Configure a site now."
-msgstr "Configurar um site agora."
-
 msgid "Select all pages in listing"
 msgstr "Selecionar todas as páginas da lista"
+
+msgid "Configure a site now."
+msgstr "Configurar um site agora."
 
 msgid "This page is locked to further editing"
 msgstr "Esta página está bloqueada para futuras edições"
@@ -1163,14 +1169,11 @@ msgstr "Esta página está protegida da visualização pública"
 msgid "Confirm"
 msgstr "Confirmar"
 
-msgid "History"
-msgstr "Histórico"
+msgid "Add child page"
+msgstr "Adicionar subpágina"
 
 msgid "Review this version"
 msgstr "Revise esta versão"
-
-msgid "Compare with previous version"
-msgstr "Compare com a versão anterior"
 
 msgid "Compare with current version"
 msgstr "Compare com a versão atual"
@@ -1262,9 +1265,6 @@ msgstr "Página %(page_num)s de %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Navegação"
 
-msgid "Root"
-msgstr "Raiz"
-
 msgid "Download XLSX"
 msgstr "Baixar XLSX"
 
@@ -1279,6 +1279,12 @@ msgstr "Filtro"
 
 msgid "Apply filters"
 msgstr "Aplicar filtros"
+
+msgid "History"
+msgstr "Histórico"
+
+msgid "Root"
+msgstr "Raiz"
 
 msgid "Current page status:"
 msgstr "Estado atual da página:"
@@ -1551,9 +1557,6 @@ msgstr "Publicado"
 msgid "See full history"
 msgstr "Veja o histórico completo"
 
-msgid "Compare with live version"
-msgstr "Comparar com versão publicada"
-
 msgid "More"
 msgstr "Mais"
 
@@ -1643,6 +1646,9 @@ msgstr "Coleção '%(object)s' excluída."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Tem certeza de que deseja excluir esta coleção?"
 
+msgid "Home"
+msgstr "Página inicial"
+
 msgid "Workflow progress"
 msgstr "Progresso do fluxo de trabalho"
 
@@ -1653,6 +1659,17 @@ msgstr "%(model_name)s '%(object)s' atualizado."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' criado."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspecionar"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Excluir '%(title)s'"
 
 msgid "Editing"
 msgstr "Editando"
@@ -2067,23 +2084,12 @@ msgid "Pages"
 msgstr "Páginas"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Visualizar versão de rascunho de '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Ver versão ao vivo de '%(title)s'"
-
-msgid "Add child page"
-msgstr "Adicionar subpágina"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Adicionar uma página filha a '%(title)s' "
 
 #, python-format
 msgid "Move page '%(title)s'"

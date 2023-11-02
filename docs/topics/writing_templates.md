@@ -98,6 +98,42 @@ For example:
 
 See [](image_tag) for full documentation.
 
+### Images in multiple formats
+
+The `picture` tag works like `image`, but allows specifying multiple formats to generate a `<picture>` element with `<source>` elements and a fallback `<img>`.
+
+For example:
+
+```html+django
+{% load wagtailimages_tags %}
+...
+
+{% picture page.photo format-{avif,webp,jpeg} width-400 %}
+```
+
+See [](multiple_formats) for full documentation.
+
+### Images in multiple sizes
+
+The `srcset_image` tag works like `image`, but allows specifying multiple sizes to generate a `srcset` attribute and leverage  [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+
+For example:
+
+```html+django
+{% load wagtailimages_tags %}
+...
+
+{% srcset_image page.photo width-{400,800} sizes="(max-width: 600px) 400px, 80vw" %}
+```
+
+This can also be done with `picture`, to generate multiple formats and sizes at once:
+
+```html+django
+{% picture page.photo format-{avif,webp,jpeg} width-{400,800} sizes="80vw" %}
+```
+
+See [](responsive_images) for full documentation.
+
 (rich_text_filter)=
 
 ## Rich text (filter)

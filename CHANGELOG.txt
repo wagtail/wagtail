@@ -1,16 +1,23 @@
 Changelog
 =========
 
-5.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
+ * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
+ * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
+ * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
+ * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
+ * Maintenance: Migrate the contrib styleguide index view to a class based view (Chiemezuo Akujobi)
+ * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
 
 
-5.2 LTS (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5.2 LTS (01.11.2023)
+~~~~~~~~~~~~~~~~~~~~
 
  * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
@@ -27,7 +34,7 @@ Changelog
  * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
  * Add compare buttons to workflow dashboard panel (Matt Westcott)
  * Add the ability to use filters and to export listings in generic `IndexView` (Sage Abdullah)
- * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah)
+ * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah, Cynthia Kiser)
  * Add default header titles to generic `IndexView` and `CreateView` (Sage Abdullah)
  * Allow overriding `IndexView.export_headings` via `ModelViewSet` (Christer Jensen, Sage Abdullah)
  * Support specifying a `get_object_list` method on `ChooserViewSet` (Matt Westcott)
@@ -88,6 +95,7 @@ Changelog
  * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
  * Fix: Ensure that all password fields consistently allow leading & trailing whitespace (Neeraj P Yetheendran)
+ * Docs: Expand documentation on using `ViewSet` and `ModelViewSet` (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)

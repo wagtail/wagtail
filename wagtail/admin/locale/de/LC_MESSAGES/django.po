@@ -36,7 +36,7 @@
 # Matthias Martin, 2019
 # Matthias Martin, 2019
 # Matti Borchers, 2022
-# Matti Borchers, 2022
+# mattibo, 2022
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
@@ -62,7 +62,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,12 @@ msgstr "Ein Profilbild hochladen"
 
 msgid "Enter password"
 msgstr "Bitte geben Sie Ihr Passwort ein"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ihr %(username_field)s und Ihr Passwort wurden nicht erkannt. Bitte "
+"versuchen Sie es erneut."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -694,8 +700,8 @@ msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr ""
 "Es gibt leider keine Treffer zum Suchbegriff \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Es wurden keine Elemente erstellt."
+msgid "There are no results."
+msgstr "Keine Ergebnisse"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
@@ -751,6 +757,17 @@ msgstr "Möchten Sie dieses %(model_name)s-Objekt dennoch veröffentlichen?"
 
 msgid "Cancel"
 msgstr "Abbrechen"
+
+msgid "No log entries found."
+msgstr "Keine Protokoll-Einträge gefunden."
+
+#, python-format
+msgid "No %(model_name)s match your query"
+msgstr "Keine %(model_name)s entsprechen Ihrer Anfrage"
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "Es sind keine %(model_name)s zum Anzeigen vorhanden"
 
 msgid "Update"
 msgstr "Update"
@@ -812,6 +829,9 @@ msgstr "Gesperrt"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
+
+msgid "Actions"
+msgstr "Aktionen"
 
 msgid "Unlock"
 msgstr "Entsperren"
@@ -927,17 +947,17 @@ msgstr "Arbeitsschritte"
 msgid "Task submitted by"
 msgstr "Auftrag eingereicht von"
 
+msgid "Compare with live version"
+msgstr "Mit veröffentlichter Revision vergleichen"
+
+msgid "Compare with previous version"
+msgstr "Mit vorheriger Version vergleichen"
+
 msgid "Sign in"
 msgstr "Anmelden"
 
 msgid "Sign in to Wagtail"
 msgstr "Bei Wagtail anmelden"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Ihr %(username_field)s und Ihr Passwort wurden nicht erkannt. Bitte "
-"versuchen Sie es erneut."
 
 msgid "Forgotten password?"
 msgstr "Passwort vergessen?"
@@ -1237,6 +1257,9 @@ msgid "This page has been made private by a parent page."
 msgstr ""
 "Diese Seite wurde durch eine übergeordnete Seite als privat gekennzeichnet."
 
+msgid "Save the page before leaving"
+msgstr "Speichern Sie die Seite vor dem Verlassen"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Sie haben <span>ungespeicherte Änderungen</span>"
 
@@ -1246,9 +1269,6 @@ msgstr "Sie haben <span>ungespeicherte Kommentare</span>"
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr ""
 "Sie haben <span>ungespeicherte Änderungen</span> und <span>Kommentare</span>"
-
-msgid "Save the page before leaving"
-msgstr "Speichern Sie die Seite vor dem Verlassen"
 
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
@@ -1677,9 +1697,6 @@ msgstr "Diese Seite kopieren"
 msgid "New %(page_type)s"
 msgstr "%(page_type)s erstellen"
 
-msgid "Actions"
-msgstr "Aktionen"
-
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
 
@@ -1718,12 +1735,12 @@ msgstr "Live-Version"
 msgid "Current draft"
 msgstr "Aktueller Entwurf"
 
-msgid "No log entries found."
-msgstr "Keine Protokoll-Einträge gefunden."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s durchstöbern"
+
+msgid "Select all pages in listing"
+msgstr "Alle Seiten in der Aufzählung auswählen"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1767,9 +1784,6 @@ msgstr ""
 "Es gibt keinen Website-Eintrag für diesen Ort. Seiten, die hier erstellt "
 "werden, sind über keine URL zu erreichen."
 
-msgid "Select all pages in listing"
-msgstr "Alle Seiten in der Aufzählung auswählen"
-
 msgid "This page is locked, by you, to further editing"
 msgstr "Diese Seite ist von Ihnen für die weitere Bearbeitung gesperrt"
 
@@ -1796,6 +1810,27 @@ msgstr "Sortieren"
 msgid "Enable ordering of child pages"
 msgstr "Sortierung von Unterseiten aktivieren"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s von %(result_count)s auf der gesamten Website."
+
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Suche innerhalb von „%(title)s“"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgstr ""
+"%(start_index)s-%(end_index)s von %(result_count)s innerhalb von „%(title)s“."
+
+msgid "Search the whole site"
+msgstr "Die gesamte Website durchsuchen"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s von %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Seitenmenü"
 
@@ -1818,14 +1853,11 @@ msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 msgid "Confirm"
 msgstr "Bestätigen"
 
-msgid "History"
-msgstr "Historie"
+msgid "Add child page"
+msgstr "Unterseite hinzufügen"
 
 msgid "Review this version"
 msgstr "Diese Version überprüfen"
-
-msgid "Compare with previous version"
-msgstr "Mit vorheriger Version vergleichen"
 
 msgid "Compare with current version"
 msgstr "Mit der aktuellen Version vergleichen"
@@ -1974,9 +2006,6 @@ msgstr "Breadcrumbs ein-/ausblenden"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
-msgid "Root"
-msgstr "Ursprung"
-
 msgid "Close dialog"
 msgstr "Dialog schließen"
 
@@ -1995,6 +2024,9 @@ msgstr "Filter"
 msgid "Apply filters"
 msgstr "Filter anwenden"
 
+msgid "History"
+msgstr "Historie"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Neu: %(model_name)s"
@@ -2002,6 +2034,9 @@ msgstr "Neu: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Bearbeite %(page_type)s%(title)s"
+
+msgid "Root"
+msgstr "Ursprung"
 
 msgid "Current page status:"
 msgstr "Status der aktuellen Seite"
@@ -2057,9 +2092,6 @@ msgstr "Breite der Seitenleiste"
 
 msgid "Comment notifications"
 msgstr "Kommentarbenachichtigungen"
-
-msgid "Page Locale: "
-msgstr "Seitenlocale: "
 
 msgid "Locale: "
 msgstr "Locale: "
@@ -2119,9 +2151,6 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s mal benutzt"
 msgstr[1] "%(usage_count)s mal benutzt"
-
-msgid "Page status: "
-msgstr "Seitenstatus: "
 
 msgid "Status: "
 msgstr "Status:"
@@ -2188,8 +2217,8 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Vorschaumodus"
 
-msgid "First published "
-msgstr "Erste Veröffentlichung: "
+msgid "First published"
+msgstr "Erste Veröffentlichung"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2505,9 +2534,6 @@ msgstr "Veröffentlicht"
 msgid "See full history"
 msgstr "Vollständige Historie anzeigen"
 
-msgid "Compare with live version"
-msgstr "Mit veröffentlichter Revision vergleichen"
-
 msgid "More"
 msgstr "Mehr"
 
@@ -2706,6 +2732,13 @@ msgstr "Sammlung ‚%(object)s‘ gelöscht."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sind Sie sicher, dass Sie diese Sammlung löschen möchten?"
 
+msgid "Home"
+msgstr "Home"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Dieses „%(model_name)s“-Objekt bearbeiten"
+
 msgid "Workflow progress"
 msgstr "Workflow-Fortschritt"
 
@@ -2802,6 +2835,25 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Suche %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' bearbeiten"
+
+msgid "Inspect"
+msgstr "Ansehen"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "'%(title)s' ansehen"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "'%(title)s' löschen"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Weitere Optionen für '%(title)s'"
 
 msgid "Editing"
 msgstr "Bearbeite"
@@ -3086,6 +3138,9 @@ msgstr "Kommentaraktionen verbergen"
 msgid "Page history"
 msgstr "Seitenhistorie"
 
+msgid "Search pages…"
+msgstr "Seiten suchen…"
+
 msgid ""
 "Press enter to select an item, use up and down arrows to move the item, "
 "press enter to complete the move or escape to cancel the current move."
@@ -3311,27 +3366,12 @@ msgid "Pages"
 msgstr "Seiten"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' bearbeiten"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Entwurf von '%(title)s' ansehen"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Veröffentlichte Version von '%(title)s' ansehen"
-
-msgid "Add child page"
-msgstr "Unterseite hinzufügen"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Unterseite zu '%(title)s' hinzufügen"
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Weitere Optionen für '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

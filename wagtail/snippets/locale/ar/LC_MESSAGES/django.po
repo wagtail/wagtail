@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -120,12 +120,6 @@ msgstr "جديد"
 msgid "Actions"
 msgstr "النشاطات"
 
-msgid "Snippets"
-msgstr "قصاصات"
-
-msgid "Usage"
-msgstr "استعمال"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "قصاصات %(snippet_type_name_plural)s"
@@ -170,6 +164,9 @@ msgstr "إلغاء النشر المجدول"
 msgid "Choose"
 msgstr "اختر"
 
+msgid "Snippets"
+msgstr "قصاصات"
+
 msgid "Name"
 msgstr "اسم"
 
@@ -179,18 +176,11 @@ msgstr "لم تنشئ القصااصة بسبب أخطاء"
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
 
-msgid "User"
-msgstr "مستعمل"
-
 msgid "Date"
 msgstr "تاريخ"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "عَدِّلْ '%(title)s'"
-
-msgid "Inspect"
-msgstr "فحص"
+msgid "Home"
+msgstr "الرئيسة"
 
 #, python-format
 msgid "Choose %(object)s"

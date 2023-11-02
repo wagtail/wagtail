@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: André Bouatchidzé <a@anbz.net>, 2015\n"
 "Language-Team: Georgian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -37,14 +37,14 @@ msgstr "ადმინისტრატორი"
 msgid "Delete"
 msgstr "წაშლა"
 
-msgid "Delete group"
-msgstr "ჯგუფის წაშლა"
-
 msgid "Add group"
 msgstr "ჯგუფის დამატება"
 
 msgid "Save"
 msgstr "შენახვა"
+
+msgid "Delete group"
+msgstr "ჯგუფის წაშლა"
 
 msgid "Add"
 msgstr "დამატება"
@@ -64,12 +64,6 @@ msgstr "ანგარიში"
 msgid "Roles"
 msgstr "როლები"
 
-msgid "Users"
-msgstr "მომხმარებლები"
-
-msgid "Add a user"
-msgstr "მომხმარებლის დამატება"
-
 msgid "Status"
 msgstr "სტატუსი"
 
@@ -78,6 +72,12 @@ msgstr "აქტიური"
 
 msgid "Groups"
 msgstr "ჯგუფები"
+
+msgid "Add a user"
+msgstr "მომხმარებლის დამატება"
+
+msgid "Users"
+msgstr "მომხმარებლები"
 
 msgid "Edit"
 msgstr "რედაქტირება"

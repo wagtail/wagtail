@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021\n"
@@ -123,21 +123,6 @@ msgstr "Adicionar"
 msgid "Actions"
 msgstr "Ações"
 
-msgid "Breadcrumb"
-msgstr "Breadcrumb"
-
-msgid "Snippets"
-msgstr "Fragmentos"
-
-msgid "History"
-msgstr "Histórico"
-
-msgid "Usage"
-msgstr "Uso"
-
-msgid "No log entries found."
-msgstr "Nenhuma entrada de log encontrada."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmentos %(snippet_type_name_plural)s"
@@ -188,6 +173,9 @@ msgstr "Cancelar publicação agendada"
 msgid "Choose"
 msgstr "Escolha"
 
+msgid "Snippets"
+msgstr "Fragmentos"
+
 msgid "Name"
 msgstr "Nome"
 
@@ -200,25 +188,11 @@ msgstr "O snippet não pode ser salvo por conter erros."
 msgid "Action"
 msgstr "Ação"
 
-msgid "User"
-msgstr "Usuário"
-
 msgid "Date"
 msgstr "Data"
 
-msgid "Snippet history"
-msgstr "Trecho de história"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspecionar"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Excluir '%(title)s'"
+msgid "Home"
+msgstr "Página inicial"
 
 #, python-format
 msgid "Choose %(object)s"

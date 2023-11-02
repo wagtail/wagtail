@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,14 +39,37 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Trebuie să introduceți un text pentru link extern dacă introduceți un URL "
+"pentru link extern."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Trebuie să recomandați o pagină SAU un link extern."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Selectați doar o pagină SAU un link extern."
+
 msgid "Query Daily Hits"
 msgstr "Interogări zilnice"
 
 msgid "page"
 msgstr "pagină"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Alegeți o pagină internă pentru promovarea aceasta"
+
+msgid "External link URL"
+msgstr "URL pentru link extern"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Alternativ, puteți să folosiți un link extern pentru această promovare"
+
 msgid "description"
 msgstr "descriere"
+
+msgid "Applies to internal page or external link"
+msgstr "Se aplică la pagina internă sau linkul extern"
 
 msgid "search promotion"
 msgstr "căutare promovată"
@@ -58,16 +81,15 @@ msgid "Add search pick"
 msgstr "Adaugă selecție de căutare"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Rezultatele de căutare promovate reprezintă o modalitate de recomandare a "
-"paginilor care pot să nu apară în topul rezultatelor de căutare în mod "
-"organic. De exemplu, recomandărea paginii principale de donații unui "
-"utilizator care caută termenul mai puțin frecvent \"<em>dare</em>\".</"
-"p>          "
+"<p>Rezultatele de căutare promovate sunt o modalitate de a recomanda anumite "
+"pagini, sau linkuri externe, care pot să nu apară primele în rezultatele "
+"căutării în mod organic. De exemplu recomandarea paginii de donații unui "
+"utilizator care caută termenul mai puțin comun \"<em>susține</em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -112,14 +134,14 @@ msgstr "Deplasează în sus"
 msgid "Move down"
 msgstr "Deplasează în jos"
 
-msgid "Recommended page"
-msgstr "Recomandă pagina"
+msgid "Recommended search result"
+msgstr "Rezultate de căutare recomandate"
 
 msgid "Promoted search results"
 msgstr "Rezultate de căutare promovate"
 
-msgid "Add recommended page"
-msgstr "Adaugă pagină recomandată"
+msgid "Add a recommended result"
+msgstr "Adaugă un rezultat recomandat"
 
 msgid "Search Terms"
 msgstr "Termeni de căutare"
@@ -151,8 +173,26 @@ msgstr "Ordonează după vizualizări (descendent)"
 msgid "Edit this promotion"
 msgstr "Editează această promovare"
 
+msgid "External link"
+msgstr "Link extern"
+
 msgid "None"
 msgstr "Nici una"
+
+msgid "Popular search terms"
+msgstr "Termeni populari de căutare"
+
+msgid "Search"
+msgstr "Căută"
+
+msgid "Terms"
+msgstr "Termeni"
+
+msgid "No results found"
+msgstr "Nu sunt rezultate"
+
+msgid "Choose from popular search terms"
+msgstr "Alege din termeni populari de căutare"
 
 #, python-format
 msgid "There is %(counter)s match"

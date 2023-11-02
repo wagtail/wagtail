@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -71,6 +71,10 @@ msgstr "อัพโหลดรูปภาพข้อมูลส่วนต
 
 msgid "Enter password"
 msgstr "ใส่รหัสผ่าน"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "ของคุณ %(username_field)s และรหัสผ่านไม่ตรงกัน โปรดลองใหม่อีกครั้ง"
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -399,15 +403,14 @@ msgstr "สรุป,หน้าหลักของเว็บไซด์"
 msgid "Close"
 msgstr "ปิด"
 
+msgid "Compare with live version"
+msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
+
 msgid "Sign in"
 msgstr "ลงชื่อเข้าใช้"
 
 msgid "Sign in to Wagtail"
 msgstr "ลงชื่อเข้าใช้ในWagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "ของคุณ %(username_field)s และรหัสผ่านไม่ตรงกัน โปรดลองใหม่อีกครั้ง"
 
 msgid "Signing in…"
 msgstr "กำลังลงชื่อเข้าใช้"
@@ -599,6 +602,9 @@ msgstr "ถัดไป"
 msgid "This page is protected from public view"
 msgstr "หน้านี้ถูกป้องกันจากสาธารณะ"
 
+msgid "Add child page"
+msgstr "หน้าย่อย"
+
 msgid "Cancel scheduled publish"
 msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 
@@ -634,14 +640,14 @@ msgstr "แก้ไขชิ้นนี้"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "หน้า %(page_num)s ของ%(total_pages)s."
 
-msgid "Root"
-msgstr "ต้นฉบับ"
-
 msgid "Download CSV"
 msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
 
 msgid "Filter"
 msgstr "คัดกรอง"
+
+msgid "Root"
+msgstr "ต้นฉบับ"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -693,9 +699,6 @@ msgstr "หน้า"
 msgid "New"
 msgstr "ใหม่,อันใหม่"
 
-msgid "Compare with live version"
-msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
-
 msgid "More"
 msgstr "เพิ่ม"
 
@@ -737,6 +740,16 @@ msgstr "ลบทิ้งชุดนี้"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "คุณแน่ใจว่าคุณต้องการลบทิ้งชุดนี้?"
+
+msgid "Home"
+msgstr "หน้าหลักของเว็บไซด์"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "แก้ไข'%(title)s'"
+
+msgid "Inspect"
+msgstr "ตรวจ"
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
@@ -861,13 +874,6 @@ msgstr "หน้านี้กำลังถูกใช้อยู่"
 
 msgid "Pages"
 msgstr "หลายหน้า"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "แก้ไข'%(title)s'"
-
-msgid "Add child page"
-msgstr "หน้าย่อย"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

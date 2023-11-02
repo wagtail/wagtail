@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -158,39 +158,6 @@ msgstr "Handlingar"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Redigera %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Växla sökvägsnavigering"
-
-msgid "Breadcrumb"
-msgstr "Sökvägsnavigering"
-
-msgid "Snippets"
-msgstr "Snuttar"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Ny: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Redigera %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historik"
-
-msgid "Usage"
-msgstr "Användning"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Snutthistorik för %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Redigera snutten"
-
-msgid "No log entries found."
-msgstr "Inga loggposter funna"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snuttar %(snippet_type_name_plural)s"
@@ -247,6 +214,9 @@ msgstr "Avbryt schemalagd publicering"
 msgid "Choose"
 msgstr "Välj"
 
+msgid "Snippets"
+msgstr "Snuttar"
+
 msgid "Name"
 msgstr "Namn"
 
@@ -262,14 +232,8 @@ msgstr "Snutten kunde inte sparas p.g.a. fel."
 msgid "Action"
 msgstr "Handling"
 
-msgid "User"
-msgstr "Användare"
-
 msgid "Date"
 msgstr "Datum"
-
-msgid "Snippet history"
-msgstr "Snutthistorik"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -279,16 +243,8 @@ msgstr "Redigera denna %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s historik"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigera '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspektera"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Radera '%(title)s'"
+msgid "Home"
+msgstr "Hem"
 
 #, python-format
 msgid "Choose %(object)s"

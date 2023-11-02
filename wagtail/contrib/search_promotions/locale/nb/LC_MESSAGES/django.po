@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -90,9 +90,6 @@ msgstr "Flytt ned"
 msgid "Promoted search results"
 msgstr "Forfremmede søkeresultater"
 
-msgid "Add recommended page"
-msgstr "Legg til anbefalt side"
-
 msgid "Search Terms"
 msgstr "Søkeord"
 
@@ -111,8 +108,26 @@ msgstr "Visninger (siste uke)"
 msgid "Edit this promotion"
 msgstr "Rediger denne promoteringen"
 
+msgid "External link"
+msgstr "Ekstern lenke"
+
 msgid "None"
 msgstr "Ingen"
+
+msgid "Popular search terms"
+msgstr "Populære søkeord"
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "Terms"
+msgstr "Søkeord"
+
+msgid "No results found"
+msgstr "Ingen resultater funnet"
+
+msgid "Choose from popular search terms"
+msgstr "Velg blant populære søkeord"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

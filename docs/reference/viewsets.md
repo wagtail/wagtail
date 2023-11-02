@@ -1,8 +1,11 @@
+```{module} wagtail.admin.viewsets
+```
+
 (viewsets_reference)=
 
 # Viewsets
 
-Viewsets are Wagtail's mechanism for defining a group of related admin views with shared properties, as a single unit. See [Generic views](../extending/generic_views).
+Viewsets are Wagtail's mechanism for defining a group of related admin views with shared properties, as a single unit.
 
 ## ViewSet
 
@@ -61,8 +64,8 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. attribute:: model
 
    Required; the model class that this viewset will work with. The :attr:`~django.db.models.Options.model_name` will be used
-   as the URL prefix and namespace, unless these are specified explicitly via the ``name``, ``url_prefix`` or
-   ``url_namespace`` attributes.
+   as the URL prefix and namespace, unless these are specified explicitly via the :attr:`~.ViewSet.name`, :attr:`~.ViewSet.url_prefix` or
+   :attr:`~.ViewSet.url_namespace` attributes.
 
    .. attribute:: form_fields
 
@@ -70,7 +73,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: exclude_form_fields
 
-   Used in place of ``form_fields`` to indicate that all of the model's fields except the ones listed here should appear in the create / edit forms. Either ``form_fields`` or ``exclude_form_fields`` must be supplied (unless ``get_form_class`` is being overridden).
+   Used in place of :attr:`form_fields` to indicate that all of the model's fields except the ones listed here should appear in the create / edit forms. Either ``form_fields`` or ``exclude_form_fields`` must be supplied (unless :meth:`get_form_class` is being overridden).
 
    .. automethod:: get_form_class
 
@@ -80,6 +83,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
       :attr:`~django.db.models.Options.verbose_name_plural`.
 
    .. autoattribute:: add_to_reference_index
+   .. autoattribute:: ordering
    .. autoattribute:: list_per_page
    .. autoattribute:: list_display
    .. autoattribute:: list_export
@@ -167,7 +171,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. autoattribute:: model
    .. autoattribute:: chooser_per_page
-   .. autoattribute:: ordering
    .. autoattribute:: admin_url_namespace
    .. autoattribute:: base_url_path
    .. autoattribute:: chooser_admin_url_namespace

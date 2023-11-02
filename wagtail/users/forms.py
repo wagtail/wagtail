@@ -408,8 +408,6 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
                     group=self.instance,
                     page=page,
                     permission=permission,
-                    # RemovedInWagtail60Warning: the 'permission_type' field is removed
-                    permission_type=permission.codename[:-5],
                 )
                 for (page, permission) in permissions_to_add
             ]

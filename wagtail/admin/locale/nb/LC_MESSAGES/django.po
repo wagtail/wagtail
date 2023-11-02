@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, "
 "2015\n"
@@ -79,6 +79,11 @@ msgstr "Last opp profilbilde"
 
 msgid "Enter password"
 msgstr "Skriv inn passord"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s og passord stemmer ikke overens. Vennligst prøv igjen."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -414,6 +419,9 @@ msgstr "Låst den"
 msgid "Edit this page"
 msgstr "Redigér denne siden"
 
+msgid "Actions"
+msgstr "Handlinger"
+
 msgid "Unlock"
 msgstr "Lås opp"
 
@@ -459,16 +467,14 @@ msgstr "Oppsummering for nettstedet"
 msgid "Close"
 msgstr "Lukk"
 
+msgid "Compare with live version"
+msgstr "Sammenlign med publisert versjon"
+
 msgid "Sign in"
 msgstr "Logg inn"
 
 msgid "Sign in to Wagtail"
 msgstr "Logg inn på Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)s og passord stemmer ikke overens. Vennligst prøv igjen."
 
 msgid "Signing in…"
 msgstr "Logger inn..."
@@ -607,9 +613,6 @@ msgstr "Kopier denne siden"
 msgid "New %(page_type)s"
 msgstr "Ny %(page_type)s"
 
-msgid "Actions"
-msgstr "Handlinger"
-
 msgid "This page has unsaved changes."
 msgstr "Denne siden har endringer som ikke er lagret."
 
@@ -671,6 +674,9 @@ msgstr "Neste"
 msgid "This page is protected from public view"
 msgstr "Denne siden er unntatt offentlig visning"
 
+msgid "Add child page"
+msgstr "Legg til underside"
+
 msgid "Cancel scheduled publish"
 msgstr "Avbryt planlagt publisering"
 
@@ -721,9 +727,6 @@ msgstr "Side %(page_num)s av %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Brødsmuler"
 
-msgid "Root"
-msgstr "Rot"
-
 msgid "Download XLSX"
 msgstr "Last ned XLSX"
 
@@ -732,6 +735,9 @@ msgstr "Last ned CSV"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Root"
+msgstr "Rot"
 
 msgid "Current page status:"
 msgstr "Nåværende sidestatus:"
@@ -789,9 +795,6 @@ msgstr "Side"
 
 msgid "New"
 msgstr "Ny"
-
-msgid "Compare with live version"
-msgstr "Sammenlign med publisert versjon"
 
 msgid "More"
 msgstr "Mer"
@@ -855,6 +858,9 @@ msgstr "Samlingen \"%(object)s\" er slettet."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Er du sikker på at du vil slette denne samlingen?"
 
+msgid "Home"
+msgstr "Hjem"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s «%(object)s» oppdatert."
@@ -862,6 +868,13 @@ msgstr "%(model_name)s «%(object)s» oppdatert."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s «%(object)s» opprettet."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Endre «%(title)s»"
+
+msgid "Inspect"
+msgstr "Inspiser"
 
 msgid "Editing"
 msgstr "Redigerer"
@@ -992,23 +1005,12 @@ msgid "Pages"
 msgstr "Sider"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Endre «%(title)s»"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Forhåndsvis kladd av «%(title)s»"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Vis publisert versjon av  «%(title)s»"
-
-msgid "Add child page"
-msgstr "Legg til underside"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Legg en underside til «%(title)s»"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -204,9 +204,6 @@ msgstr "Kyllä, vaihda tila"
 msgid "No, don't change state"
 msgstr "Ei, älä vaihda tilaa"
 
-msgid "Delete group"
-msgstr "Poista ryhmä"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -230,14 +227,14 @@ msgstr "Haluatko varmasti poistaa tämän ryhmän?"
 msgid "Add group"
 msgstr "Lisää ryhmä"
 
-msgid "Editing"
-msgstr "Muokataan"
-
 msgid "View users in this group"
 msgstr "Näytä tämän ryhmän käyttäjät"
 
 msgid "Save"
 msgstr "Tallenna"
+
+msgid "Delete group"
+msgstr "Poista ryhmä"
 
 msgid "Object permissions"
 msgstr "Kohteen oikeudet"
@@ -287,14 +284,8 @@ msgstr ""
 "Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
 "href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
 
-msgid "Delete user"
-msgstr "Poista käyttäjä"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
-
-msgid "Add user"
-msgstr "Lisää käyttäjä"
 
 msgid "Account"
 msgstr "Tili"
@@ -302,11 +293,11 @@ msgstr "Tili"
 msgid "Roles"
 msgstr "Roolit"
 
-msgid "Users"
-msgstr "Käyttäjät"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Lisää käyttäjä"
+
+msgid "Delete user"
+msgstr "Poista käyttäjä"
 
 msgid "Select all users in listing"
 msgstr "Valitse listauksen kaikki käyttäjät"
@@ -381,6 +372,9 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d käyttäjä on poistettu"
 msgstr[1] "%(num_parent_objects)d käyttäjää on poistettu."
 
+msgid "Mark as active"
+msgstr "Merkitse aktiiviseksi"
+
 msgid "Change the active state for selected users"
 msgstr "Muuta valittujen käyttäjien aktiivista tilaa"
 
@@ -420,6 +414,12 @@ msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
 msgid "Group '%(object)s' deleted."
 msgstr "Ryhmä '%(object)s' poistettu."
 
+msgid "Add a user"
+msgstr "Lisää käyttäjä"
+
+msgid "Users"
+msgstr "Käyttäjät"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Käyttäjä '%(object)s' luotu."
@@ -432,18 +432,16 @@ msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Muokataan %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Käyttäjä '%(object)s' poistettu."
 
 msgid "Edit"
 msgstr "Muokkaa"
 
-msgid "Edit this user"
-msgstr "Muokkaa tätä käyttäjää"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Muokkaa käyttäjää '%(name)s'"
 
-msgid "Delete this user"
-msgstr "Poista tämä käyttäjä"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Poista käyttäjä '%(name)s'"

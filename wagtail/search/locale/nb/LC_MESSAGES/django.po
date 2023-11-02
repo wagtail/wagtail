@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2018\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -25,21 +25,3 @@ msgstr "Wagtail-søk"
 
 msgid "Query Daily Hits"
 msgstr "Daglige søketreff"
-
-msgid "Popular search terms"
-msgstr "Populære søkeord"
-
-msgid "Search"
-msgstr "Søk"
-
-msgid "Terms"
-msgstr "Søkeord"
-
-msgid "Views (past week)"
-msgstr "Visninger (siste uke)"
-
-msgid "No results found"
-msgstr "Ingen resultater funnet"
-
-msgid "Choose from popular search terms"
-msgstr "Velg blant populære søkeord"

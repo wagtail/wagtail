@@ -20,7 +20,7 @@
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # Matti Borchers, 2022
-# Matti Borchers, 2022
+# mattibo, 2022
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -188,39 +188,6 @@ msgstr "Aktionen"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Bearbeite %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Breadcrumbs ein-/ausblenden"
-
-msgid "Breadcrumb"
-msgstr "Breadcrumb"
-
-msgid "Snippets"
-msgstr "Schnipsel"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Neu: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Bearbeite %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historie"
-
-msgid "Usage"
-msgstr "Benutzung"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Schnipsel-Historie für %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Dieses Schnipsel bearbeiten"
-
-msgid "No log entries found."
-msgstr "Keine Protokoll-Einträge gefunden."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Schnipsel %(snippet_type_name_plural)s"
@@ -240,7 +207,7 @@ msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 #, python-format
 msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr "Es gibt leider keine %(snippet_type_name_plural)s zu Ihrer Abfrage"
+msgstr "Es gibt leider keine %(snippet_type_name_plural)s zu Ihrer Anfrage"
 
 #, python-format
 msgid ""
@@ -277,11 +244,18 @@ msgstr "Geplante Veröffentlichung aufheben"
 msgid "Choose"
 msgstr "Auswählen"
 
+msgid "Snippets"
+msgstr "Schnipsel"
+
 msgid "Name"
 msgstr "Name"
 
 msgid "Instances"
 msgstr "Instanzen"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Weitere Optionen für '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
@@ -292,14 +266,8 @@ msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 msgid "Action"
 msgstr "Aktion"
 
-msgid "User"
-msgstr "Benutzer"
-
 msgid "Date"
 msgstr "Datum"
-
-msgid "Snippet history"
-msgstr "Schnipselhistorie"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -309,20 +277,8 @@ msgstr "Dieses „%(model_name)s“-Objekt bearbeiten"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s-Historie"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' bearbeiten"
-
-msgid "Inspect"
-msgstr "Ansehen"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "'%(title)s' ansehen"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "'%(title)s' löschen"
+msgid "Home"
+msgstr "Home"
 
 #, python-format
 msgid "Choose %(object)s"

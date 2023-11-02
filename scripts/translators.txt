@@ -135,6 +135,7 @@ Matt Westcott <matthew.torchbox.com>
 Mirek Zvolský <zvolsky.seznam.cz>
 Mořeplavec <stanislav.vasko.gmail.com>
 Tomáš Jeřábek <tomas.tomasjerabek.com>
+Tomáš Podivínský
 Vláďa Macek <macek.sandbox.cz>
 
 Danish - da
@@ -271,6 +272,7 @@ benebun <benedikt.breinbauer.gmail.com>
 fd3e232e7013009a14520c2bc2e16691_e19811b
 jnns
 karlsander <karlsander.gmail.com>
+mattibo
 pcraston <patrick.craston.com>
 tobias schmidt <tobias.schmidt82.gmail.com>
 unicode_it <info.unicode-it.de>

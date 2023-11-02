@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -96,6 +96,12 @@ msgid "Enter password"
 msgstr "Introducir contraseña"
 
 #, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Your %(username_field)s y contraseña no coinciden. Por favor, inténtalo de "
+"nuevo."
+
+#, python-format
 msgid "Enter your %(username_field_name)s"
 msgstr "Introduce tu %(username_field_name)s"
 
@@ -178,6 +184,13 @@ msgstr "Esta copia será hijo de esta página padre."
 msgid "Copy subpages"
 msgstr "Copiar subpáginas"
 
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Esto copiará %(count)s subpágina."
+msgstr[1] "Esto copiará %(count)s subpáginas."
+msgstr[2] "Esto copiará %(count)s subpages."
+
 msgid "Publish copied page"
 msgstr "Publicar página copiada"
 
@@ -186,6 +199,23 @@ msgstr "Esta página está publicada. ¿Deseas publicar también su copia?"
 
 msgid "Publish copies"
 msgstr "Publicar copias"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s de las páginas que se están copiando está publicada. ¿Te gustaría "
+"publicar la copia?"
+msgstr[1] ""
+"%(count)s de las páginas que se están copiando están publicada. ¿Te gustaría "
+"publicar las copias?"
+msgstr[2] ""
+"%(count)s de las páginas que se están copiando están publicadas. ¿Te "
+"gustaría publiar las copias?"
 
 msgid "Alias"
 msgstr "Alias"
@@ -239,6 +269,13 @@ msgstr "Esta página ya tiene asignado el flujo de trabajo '%(workflow_name)s'."
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
 "No puedes asignar este flujo de trabajo a la misma página varias veces."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"El snippet '%(content_type)s' ya tiene asignado el flujo de trabajo "
+"'%(workflow_name)s'."
 
 msgid "Give your workflow a name"
 msgstr "Ponle un nombre a tu flujo de trabajo"
@@ -384,11 +421,225 @@ msgstr "Cambio de contraseña realizado con éxito"
 msgid "Login"
 msgstr "Inicio de sesión"
 
+msgid "Set your new password"
+msgstr "Establece tu nueva contraseña"
+
+msgid "Invalid password reset link"
+msgstr "Enlace de restablecimiento de contraseña no válido"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"El enlace para restablecer la contraseña no es válido, posiblemente porque "
+"ya se ha utilizado."
+
+msgid "Request a new password reset"
+msgstr "Solicitar un nuevo restablecimiento de contraseña"
+
+msgid "Check your email"
+msgstr "Revisa tu correo electrónico"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Se te ha enviado por correo electrónico un enlace para restablecer tu "
+"contraseña si existe una cuenta para esta dirección."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Haz clic en el siguiente enlace para restablecer tu contraseña:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Tu nombre de usuario (en caso de que lo hayas olvidado):"
+
+msgid "Password reset"
+msgstr "Restablecer contraseña"
+
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
+
+msgid "Reset to default"
+msgstr "Restablecer avatar predeterminado"
+
+msgid "Default avatar"
+msgstr "Avatar predeterminado"
+
+msgid "Upload a profile picture:"
+msgstr "Sube una foto de perfil:"
+
+msgid "Sidebar"
+msgstr "Barra lateral"
+
+msgid "Go back"
+msgstr "Volver atrás"
+
+msgid "Bulk actions"
+msgstr "Acciones en bloque"
+
+msgid "Select row"
+msgstr "Seleccionar fila"
+
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+msgid "Internal link"
+msgstr "Enlace interno"
+
+msgid "External link"
+msgstr "Enlace externo"
+
+msgid "Email link"
+msgstr "Enlace de correo electrónico"
+
+msgid "Phone link"
+msgstr "Enlace de teléfono"
+
+msgid "Anchor link"
+msgstr "Enlace de anclaje"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
+
+msgid "Add an anchor link"
+msgstr "Añadir un enlace de anclaje"
+
+msgid "Insert anchor"
+msgstr "Insertar anclaje"
+
+msgid "Choose"
+msgstr "Seleccionar"
+
+msgid "Choose a page"
+msgstr "Seleccionar una página"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"En este campo sólo pueden seleccionarse páginas del tipo \"%(type)s\" may be "
+"chosen for this field. Los resultados de la búsqueda excluirán páginas de "
+"otros tipos."
+msgstr[1] ""
+"En este campo sólo pueden seleccionarse los siguientes tipos de página: "
+"%(type)s. Los resultados de la búsqueda excluirán páginas de otros tipos."
+msgstr[2] ""
+"En este campo sólo pueden seleccionarse los siguientes tipos de página: "
+"%(type)s. Los resultados de la búsqueda excluirán páginas de otros tipos."
+
+msgid "Confirm selection"
+msgstr "Confirmar selección"
+
+msgid "Convert to internal link"
+msgstr "Convertir a enlace interno"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"La URL que has introducido, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, aparentemente coincide con "
+"la página interna %(page)s, que tiene la URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Convertir el URL a un link interno hacia %(page)s haría que el enlace se "
+"actualizara automáticamente si la página subyacente cambia su URL. ¿Deseas "
+"hacerlo?"
+
+msgid "Use external link"
+msgstr "Usar enlace externo"
+
+msgid "Add an email link"
+msgstr "Añadir un enlace de correo electrónico"
+
+msgid "Insert link"
+msgstr "Insertar enlace"
+
+msgid "Add an external link"
+msgstr "Añadir un enlace externo"
+
+msgid "Add a phone link"
+msgstr "Añadir un enlace de teléfono"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Seleccionar %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpáginas de '%(title)s'"
+
+msgid "Explore"
+msgstr "Explorar"
+
+msgid "Collection privacy"
+msgstr "Privacidad de la colección"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Esta colección ha sido convertida en privada por una colección padre."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Puedes editar la configuración de privacidad en:"
+
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Change privacy"
+msgstr "Cambiar privacidad"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"La configuración de privacidad determina quién puede ver los documentos de "
+"esta colección."
+
+msgid "Privacy"
+msgstr "Privacidad"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Establecer la privacidad de la colección. Estado actual: Público"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Establecer privacidad de la colección. Estado actual: Privado"
+
+msgid "Private"
+msgstr "Privado"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
+
+msgid "Name"
+msgstr "Nombre"
 
 msgid "Saving…"
 msgstr "Guardando..."
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Choose an item"
+msgstr "Seleccionar un item"
+
+msgid "Choose another item"
+msgstr "Seleccionar otro item"

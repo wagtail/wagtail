@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -92,15 +92,6 @@ msgstr "Foun"
 msgid "Actions"
 msgstr "Asaun sira"
 
-msgid "Breadcrumb"
-msgstr "Hatudu dalan korta"
-
-msgid "Snippets"
-msgstr "Snippet sira"
-
-msgid "Usage"
-msgstr "Uza"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippet sira %(snippet_type_name_plural)s"
@@ -135,6 +126,9 @@ msgstr "Kansela orariu publiku"
 msgid "Choose"
 msgstr "Hili"
 
+msgid "Snippets"
+msgstr "Snippet sira"
+
 msgid "Name"
 msgstr "Naran"
 
@@ -147,12 +141,8 @@ msgstr "Snippet labele rai tanba erru."
 msgid "Date"
 msgstr "Data"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr " Edit '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspeksaun"
+msgid "Home"
+msgstr "Uma"
 
 #, python-format
 msgid "Choose %(object)s"

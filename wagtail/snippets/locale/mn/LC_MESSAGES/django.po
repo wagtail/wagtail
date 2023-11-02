@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -111,15 +111,6 @@ msgstr "Шинэ %(snippet_type_name)s"
 msgid "New"
 msgstr "Шинэ"
 
-msgid "Snippets"
-msgstr "Хэсэг"
-
-msgid "History"
-msgstr "Түүх"
-
-msgid "Usage"
-msgstr "Хэрэглээ"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s хэсгүүд"
@@ -154,6 +145,9 @@ msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
 msgid "Choose"
 msgstr "Сонгох"
 
+msgid "Snippets"
+msgstr "Хэсэг"
+
 msgid "Name"
 msgstr "Нэр"
 
@@ -169,12 +163,8 @@ msgstr "Үйлдэл"
 msgid "Date"
 msgstr "Огноо"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' засах"
-
-msgid "Inspect"
-msgstr "Шалгалт"
+msgid "Home"
+msgstr "Нүүр хуудас"
 
 #, python-format
 msgid "Choose %(object)s"

@@ -59,7 +59,7 @@ testing_extras = [
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting
-    "djhtml==1.5.2",
+    "djhtml==3.0.6",
     # For validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,9 +90,6 @@ msgstr "Aşağı indir"
 msgid "Promoted search results"
 msgstr "Tanıtılan arama sonuçları"
 
-msgid "Add recommended page"
-msgstr "Öneri sayfası ekle"
-
 msgid "Search Terms"
 msgstr "Arama Terimleri"
 
@@ -111,8 +108,26 @@ msgstr "Görüntülenme (geçen hafta)"
 msgid "Edit this promotion"
 msgstr "Tanıtımı düzenle"
 
+msgid "External link"
+msgstr "Dış bağlantı"
+
 msgid "None"
 msgstr "Yok"
+
+msgid "Popular search terms"
+msgstr "Yaygın arama terimleri"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Terms"
+msgstr "Terimler"
+
+msgid "No results found"
+msgstr "Sonuç bulunamadı"
+
+msgid "Choose from popular search terms"
+msgstr "Yaygın arama terimlerinden seçin"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

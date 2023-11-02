@@ -5,8 +5,7 @@
 {% block titletag %}{% blocktrans trimmed with title=parent_page.get_admin_display_title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    {% trans "Create a page in" as create_str %}
-    {% include "wagtailadmin/shared/header.html" with title=create_str subtitle=parent_page.get_admin_display_title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Create a page in") subtitle=parent_page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         {% if page_types %}
