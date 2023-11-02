@@ -89,9 +89,6 @@ class SiteManager(models.Manager):
 
         Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the return
         value will be cached for the current thread.
-
-        TODO: Consider what can be done to prevent long-running background processes
-        (e.g. Celery workers) from hanging onto cached values.
         """
         caching_enabled = per_thread_site_caching_enabled()
         if caching_enabled:
