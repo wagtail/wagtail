@@ -2,6 +2,7 @@ from collections import namedtuple
 from copy import deepcopy
 from typing import List, Tuple, Union
 
+from asgiref.local import Local
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -9,8 +10,6 @@ from django.db import models
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
 from django.utils.translation import gettext_lazy as _
-
-from asgiref.local import Local
 
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
