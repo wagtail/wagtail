@@ -78,6 +78,12 @@ function initPreview() {
   // the content of the preview panel itself is in a child element
   const previewPanel = previewSidePanel.querySelector('[data-preview-panel]');
 
+  const autoUpdateInterval = Number(
+    previewPanel.getAttribute('data-preview-auto-update-interval') || 'NaN',
+  );
+
+  const autoUpdateEnabled = !Number.isNaN(autoUpdateInterval);
+
   //
   // Preview size handling
   //
@@ -298,7 +304,7 @@ function initPreview() {
     refreshButton.addEventListener('click', handlePreview);
   }
 
-  if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
+  if (autoUpdateEnabled) {
     // Start with an empty payload so that when checkAndUpdatePreview is called
     // for the first time when the panel is opened, it will always update the preview
     let oldPayload = '';
@@ -315,7 +321,7 @@ function initPreview() {
     // Call setPreviewData only if no changes have been made within the interval
     const debouncedSetPreviewData = debounce(
       setPreviewData,
-      WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+      autoUpdateInterval,
     );
 
     const checkAndUpdatePreview = () => {
@@ -332,10 +338,7 @@ function initPreview() {
       // Only set the interval while the panel is shown
       // This interval performs the checks for changes but not necessarily the
       // update itself
-      updateInterval = setInterval(
-        checkAndUpdatePreview,
-        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
-      );
+      updateInterval = setInterval(checkAndUpdatePreview, autoUpdateInterval);
     });
 
     // Use the same processing as the preview panel.
