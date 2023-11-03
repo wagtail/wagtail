@@ -767,6 +767,7 @@
 * Andrey Nehaychik
 * Meli Imelda
 * Kehinde Bobade
+* Joe Tsoi
 
 ## Translators
 
