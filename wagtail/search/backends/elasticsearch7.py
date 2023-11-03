@@ -474,7 +474,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 if field.boost:
                     unique_boosts.add(float(field.boost))
 
-        self.remapped_fields.extend(
+        remapped_fields.extend(
             [
                 Field(self.mapping.get_boost_field_name(boost), boost)
                 for boost in unique_boosts
@@ -1179,7 +1179,8 @@ class Elasticsearch7SearchBackend(BaseSearchBackend):
 
     def _get_options_from_host_urls(self, urls):
         """Given a list of parsed URLs, return a dict of additional options to be passed into the
-        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
+        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config
+        """
         return {}
 
     def __init__(self, params):
