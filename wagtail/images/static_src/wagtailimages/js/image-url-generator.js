@@ -1,5 +1,5 @@
 $(function () {
-  $('.image-url-generator').each(function () {
+  $('[data-generator-url]').each(function () {
     var $this = $(this);
     var $form = $this.find('form');
     var $filterMethodField = $form.find('select#id_filter_method');
@@ -9,7 +9,6 @@ $(function () {
     var $result = $this.find('#result-url');
     var $loadingMask = $this.find('.loading-mask');
     var $preview = $this.find('img.preview');
-    var $sizeNote = $('#note-size');
 
     var generatorUrl = $this.data('generatorUrl');
 
@@ -53,13 +52,6 @@ $(function () {
           $closenessField.prop('disabled', true);
           filterSpec += '-' + $widthField.val() + 'x' + $heightField.val();
         }
-      }
-
-      // Display note about scaled down images if image is large
-      if ($widthField.val() > $(window).width()) {
-        $sizeNote.show();
-      } else {
-        $sizeNote.hide();
       }
 
       // Fields with width and height
