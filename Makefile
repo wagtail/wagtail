@@ -37,7 +37,7 @@ lint: lint-server lint-client lint-docs
 format-server:
 	black --target-version py38 .
 	ruff check . --fix
-	git ls-files '*.html' | xargs djhtml -i
+	git ls-files '*.html' | xargs djhtml
 
 format-client:
 	npm run format

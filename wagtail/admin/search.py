@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 from wagtail import hooks
 from wagtail.admin.forms.search import SearchForm
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class SearchArea(metaclass=MediaDefiningClass):
@@ -29,7 +29,7 @@ class SearchArea(metaclass=MediaDefiningClass):
         if classnames:
             warn(
                 "The `classnames` kwarg for SearchArea is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         self.label = label
         self.url = url

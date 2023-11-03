@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -67,9 +67,6 @@ msgstr "Nový"
 msgid "Actions"
 msgstr "Akcie"
 
-msgid "Snippets"
-msgstr "Snipety"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snipety %(snippet_type_name_plural)s"
@@ -101,6 +98,9 @@ msgstr "Upraviť"
 msgid "Choose"
 msgstr "Zvoliť"
 
+msgid "Snippets"
+msgstr "Snipety"
+
 msgid "Name"
 msgstr "Názov"
 
@@ -110,18 +110,11 @@ msgstr "Snipet nemôže byť vytvorený kvôli chybám."
 msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
 
-msgid "User"
-msgstr "Používateľ"
-
 msgid "Date"
 msgstr "Dátum"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Upraviť '%(title)s'"
-
-msgid "Inspect"
-msgstr "Skontrolovať"
+msgid "Home"
+msgstr "Domov"
 
 #, python-format
 msgid "Choose %(object)s"

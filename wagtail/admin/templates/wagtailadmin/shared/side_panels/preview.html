@@ -43,8 +43,7 @@
                 </div>
             </div>
             {% if has_multiple_modes %}
-                {% trans 'Preview mode' as label_text %}
-                {% field label_text=label_text id_for_label="id_preview_mode" classname="preview-panel__modes" %}
+                {% field label_text=_("Preview mode") id_for_label="id_preview_mode" classname="preview-panel__modes" %}
                     <select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>
                         {% for internal_name, display_name in object.preview_modes %}
                             <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>

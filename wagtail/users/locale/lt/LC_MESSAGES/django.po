@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -113,9 +113,6 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-msgid "Delete group"
-msgstr "Ištrinti grupę"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -127,14 +124,14 @@ msgstr "Ar tikrai norite ištrinti šią grupę?"
 msgid "Add group"
 msgstr "Pridėti grupę"
 
-msgid "Editing"
-msgstr "Redagavimas"
-
 msgid "View users in this group"
 msgstr "Peržiūrėti šios grupės vartotojus"
 
 msgid "Save"
 msgstr "Išsaugoti"
+
+msgid "Delete group"
+msgstr "Ištrinti grupę"
 
 msgid "Object permissions"
 msgstr "Objekto leidimai"
@@ -184,14 +181,8 @@ msgstr ""
 "Nėra sukonfigūruota jokia grupė. Kodėl gi <a "
 "href=\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
 
-msgid "Delete user"
-msgstr "Ištrinti vartotoją"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ar tikrai norite ištrinti šį vartotoją?"
-
-msgid "Add user"
-msgstr "Pridėti vartotoją"
 
 msgid "Account"
 msgstr "Vartotojas"
@@ -199,11 +190,11 @@ msgstr "Vartotojas"
 msgid "Roles"
 msgstr "Rolės"
 
-msgid "Users"
-msgstr "Vartotojai"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Pridėti vartotoją"
+
+msgid "Delete user"
+msgstr "Ištrinti vartotoją"
 
 msgid "Username"
 msgstr "Vartotojo vardas"
@@ -254,6 +245,12 @@ msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupė '%(object)s' ištrinta."
 
+msgid "Add a user"
+msgstr "Pridėti vartotoją"
+
+msgid "Users"
+msgstr "Vartotojai"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Vartotojas '%(object)s' atnaujintas."
@@ -262,18 +259,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Redaguojamas %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Vartotojas '%(object)s' ištrintas."
 
 msgid "Edit"
 msgstr "Redaguoti"
-
-msgid "Edit this user"
-msgstr "Redaguoti šį vartotoją"
-
-msgid "Delete this user"
-msgstr "Ištrinti šį vartotoją"

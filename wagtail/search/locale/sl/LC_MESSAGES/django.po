@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,21 +35,3 @@ msgstr "indeksni vnos"
 
 msgid "index entries"
 msgstr "indeksni vnosi"
-
-msgid "Popular search terms"
-msgstr "Priljubljeni iskalni nizi"
-
-msgid "Search"
-msgstr "Iskanje"
-
-msgid "Terms"
-msgstr "Nizi"
-
-msgid "Views (past week)"
-msgstr "Ogledi (pretekli teden)"
-
-msgid "No results found"
-msgstr "Ni zadetkov"
-
-msgid "Choose from popular search terms"
-msgstr "Izberite med priljubljenimi iskalnimi nizi"

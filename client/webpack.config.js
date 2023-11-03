@@ -9,7 +9,6 @@ const getOutputPath = (app, folder, filename) => {
     'contrib/table_block': 'table_block',
     'contrib/typed_table_block': 'typed_table_block',
     'contrib/styleguide': 'wagtailstyleguide',
-    'contrib/modeladmin': 'wagtailmodeladmin',
   };
 
   const appLabel = exceptions[app] || `wagtail${app}`;
@@ -182,11 +181,6 @@ module.exports = function exports(env, argv) {
           {
             from: 'wagtail/users/static_src/',
             to: 'wagtail/users/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/contrib/modeladmin/static_src/',
-            to: 'wagtail/contrib/modeladmin/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
         ],

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bengali (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,6 +29,9 @@ msgstr "সম্পাদিত হচ্ছে"
 
 msgid "None"
 msgstr "কোনটিই নয়"
+
+msgid "Search"
+msgstr "সার্চ"
 
 msgid "Edit"
 msgstr "সম্পাদনা করুন"

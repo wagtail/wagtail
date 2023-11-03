@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Hantz Vius <vhantz@protonmail.com>, 2020\n"
 "Language-Team: Haitian (Haitian Creole) (http://app.transifex.com/torchbox/"
@@ -24,21 +24,3 @@ msgstr "Rechèch Wagtail"
 
 msgid "Query Daily Hits"
 msgstr "Chèche Hit Kotidyen"
-
-msgid "Popular search terms"
-msgstr "Tèm rechèch ki popilè"
-
-msgid "Search"
-msgstr "Chèche"
-
-msgid "Terms"
-msgstr "Tèm"
-
-msgid "Views (past week)"
-msgstr "Vi (semèn pase)"
-
-msgid "No results found"
-msgstr "Okenn rezilta pa twouve"
-
-msgid "Choose from popular search terms"
-msgstr "Chwazi pami tèm rechèch ki popilè yo"

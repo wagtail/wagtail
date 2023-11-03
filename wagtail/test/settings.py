@@ -139,7 +139,6 @@ INSTALLED_APPS = [
     "wagtail.test.snippets",
     "wagtail.test.routablepage",
     "wagtail.test.search",
-    "wagtail.test.modeladmintest",
     "wagtail.test.i18n",
     "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
@@ -148,7 +147,6 @@ INSTALLED_APPS = [
     "wagtail.contrib.frontend_cache",
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.settings",
-    "wagtail.contrib.modeladmin",
     "wagtail.contrib.table_block",
     "wagtail.contrib.forms",
     "wagtail.contrib.typed_table_block",
@@ -224,10 +222,6 @@ if "ELASTICSEARCH_URL" in os.environ:
         backend = "wagtail.search.backends.elasticsearch8"
     elif os.environ.get("ELASTICSEARCH_VERSION") == "7":
         backend = "wagtail.search.backends.elasticsearch7"
-    elif os.environ.get("ELASTICSEARCH_VERSION") == "6":
-        backend = "wagtail.search.backends.elasticsearch6"
-    elif os.environ.get("ELASTICSEARCH_VERSION") == "5":
-        backend = "wagtail.search.backends.elasticsearch5"
 
     WAGTAILSEARCH_BACKENDS["elasticsearch"] = {
         "BACKEND": backend,

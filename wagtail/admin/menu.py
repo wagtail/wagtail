@@ -8,7 +8,7 @@ from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.coreutils import cautious_slugify
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class MenuItem(metaclass=MediaDefiningClass):
@@ -26,7 +26,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         if classnames:
             warn(
                 "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         self.label = label
         self.url = url

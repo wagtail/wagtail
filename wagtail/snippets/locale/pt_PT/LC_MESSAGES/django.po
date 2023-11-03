@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -123,21 +123,6 @@ msgstr "Adicionar"
 msgid "Actions"
 msgstr "Ações"
 
-msgid "Breadcrumb"
-msgstr "Percurso"
-
-msgid "Snippets"
-msgstr "Trechos"
-
-msgid "History"
-msgstr "Histórico"
-
-msgid "Usage"
-msgstr "Utilização"
-
-msgid "No log entries found."
-msgstr "Nenhuma entrada de diário encontrada."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Trechos %(snippet_type_name_plural)s"
@@ -188,6 +173,9 @@ msgstr "Desmarcar publicação"
 msgid "Choose"
 msgstr "Escolher"
 
+msgid "Snippets"
+msgstr "Trechos"
+
 msgid "Name"
 msgstr "Nome"
 
@@ -200,25 +188,11 @@ msgstr "O trecho não pôde ser gravado devido a erros."
 msgid "Action"
 msgstr "Ação"
 
-msgid "User"
-msgstr "Utilizador"
-
 msgid "Date"
 msgstr "Data"
 
-msgid "Snippet history"
-msgstr "Histórico de trechos"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Alterar '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspecionar"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Apagar '%(title)s'"
+msgid "Home"
+msgstr "Início"
 
 #, python-format
 msgid "Choose another %(object)s"

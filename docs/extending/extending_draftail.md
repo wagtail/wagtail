@@ -83,6 +83,7 @@ Blocks are nearly as simple as inline styles:
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
+from wagtail import hooks
 
 @hooks.register('register_rich_text_features')
 def register_help_text_feature(features):
@@ -352,6 +353,7 @@ Here is an example with a simple sentence counter – first, registering the edi
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')
@@ -422,6 +424,7 @@ Here is an example with highlighting of problematic punctuation – first, regis
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')

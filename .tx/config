@@ -50,12 +50,6 @@ source_file = wagtail/locales/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type        = PO
 
-[o:torchbox:p:wagtail:r:wagtailmodeladmin]
-file_filter = wagtail/contrib/modeladmin/locale/<lang>/LC_MESSAGES/django.po
-source_file = wagtail/contrib/modeladmin/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type        = PO
-
 [o:torchbox:p:wagtail:r:wagtailredirects]
 file_filter = wagtail/contrib/redirects/locale/<lang>/LC_MESSAGES/django.po
 source_file = wagtail/contrib/redirects/locale/en/LC_MESSAGES/django.po

@@ -59,8 +59,6 @@ class IndexView(generic.IndexView):
     search_fields = ["name"]
     context_object_name = "groups"
     paginate_by = 20
-    ordering = ["name"]
-    default_ordering = "name"
 
     columns = [
         TitleColumn(
@@ -157,6 +155,7 @@ class DeleteView(generic.DeleteView):
 class GroupViewSet(ModelViewSet):
     icon = "group"
     model = Group
+    ordering = ["name"]
     add_to_reference_index = False
     _show_breadcrumbs = False
 

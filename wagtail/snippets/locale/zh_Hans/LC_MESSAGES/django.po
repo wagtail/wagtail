@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -125,27 +125,6 @@ msgstr "新增"
 msgid "Actions"
 msgstr "动作"
 
-msgid "Toggle breadcrumbs"
-msgstr "面包屑开关"
-
-msgid "Breadcrumb"
-msgstr "面包屑"
-
-msgid "Snippets"
-msgstr "片段"
-
-msgid "History"
-msgstr "历史"
-
-msgid "Usage"
-msgstr "使用情况"
-
-msgid "Edit this snippet"
-msgstr "编辑此片段"
-
-msgid "No log entries found."
-msgstr "未找到日志记录"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "片段 %(snippet_type_name_plural)s"
@@ -194,6 +173,9 @@ msgstr "取消预定的发布"
 msgid "Choose"
 msgstr "选择"
 
+msgid "Snippets"
+msgstr "片段"
+
 msgid "Name"
 msgstr "名字"
 
@@ -209,25 +191,11 @@ msgstr "无法保存片段，出现错误。"
 msgid "Action"
 msgstr "行为"
 
-msgid "User"
-msgstr "用户"
-
 msgid "Date"
 msgstr "日期"
 
-msgid "Snippet history"
-msgstr "片段历史记录"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "编辑“%(title)s”"
-
-msgid "Inspect"
-msgstr "检查"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "删除“%(title)s”"
+msgid "Home"
+msgstr "首页"
 
 #, python-format
 msgid "Choose %(object)s"

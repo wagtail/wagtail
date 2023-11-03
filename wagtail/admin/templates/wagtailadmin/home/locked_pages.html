@@ -1,8 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 {% load wagtailcore_tags %}
 {% if locked_pages %}
-    {% trans "Your locked pages" as heading %}
-    {% panel id="locked-pages" heading=heading %}
+    {% panel id="locked-pages" heading=_("Your locked pages") %}
         <table class="listing listing-page">
             <col />
             <col width="30%"/>

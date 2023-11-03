@@ -2,8 +2,7 @@
 {% load wagtailcore_tags %}
 {% load i18n wagtailadmin_tags %}
 {% if last_edits %}
-    {% trans "Your most recent edits" as heading %}
-    {% panel id="recent-edits" heading=heading %}
+    {% panel id="recent-edits" heading=_("Your most recent edits") %}
         <table class="listing listing-page">
             <col />
             <col width="30%"/>

@@ -11,14 +11,15 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from taggit.models import Tag
 
-from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail70Warning,
+)
 
 
 class TestHome(WagtailTestUtils, TestCase):
@@ -46,11 +47,8 @@ class TestHome(WagtailTestUtils, TestCase):
             '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classname": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
         )
 
-        # There should be a link to the friend admin in on the home page.
-        self.assertContains(response, '"url": "/admin/friendadmin/"')
-
-        # Since we've marked this as not being shown, it shouldn't be shown.
-        self.assertNotContains(response, '"url": "/admin/enemyadmin/"')
+        # There should be a link to the full-featured snippet admin in on the home page.
+        self.assertContains(response, '"url": "/admin/deep/within/the/admin/"')
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse("wagtailadmin_home") + "?hide-kittens=true")
@@ -156,20 +154,6 @@ class TestEditorHooks(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<script src="/path/to/my/custom.js"></script>')
-
-    def test_deprecated_editor_css_hook(self):
-        def css_hook():
-            return '<link rel="stylesheet" href="/some/custom.css">'
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "The `insert_editor_css` hook is deprecated - use `insert_global_admin_css` instead.",
-        ):
-            with hooks.register_temporarily("insert_editor_css", css_hook):
-                response = self.client.get(reverse("wagtailadmin_home"))
-                self.assertContains(
-                    response, '<link rel="stylesheet" href="/some/custom.css">'
-                )
 
 
 class TestSendMail(TestCase):
@@ -419,7 +403,7 @@ class TestMenuItem(WagtailTestUtils, TestCase):
 
     def test_menuitem_with_deprecated_classnames(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
         ):
             menuitem = MenuItem(

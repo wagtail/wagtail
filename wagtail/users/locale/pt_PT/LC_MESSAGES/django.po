@@ -13,14 +13,15 @@
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, "
+"2015-2016,2022-2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Utilizadores do Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obrigatório. Apenas letras, algarismos e @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -121,11 +125,30 @@ msgstr "Selecione o seu fuso horário atual"
 msgid "profile picture"
 msgstr "foto de perfil"
 
+msgid "System default"
+msgstr "Pré-definição do sistema"
+
+msgid "Light"
+msgstr "Claro"
+
+msgid "Dark"
+msgstr "Escuro"
+
+msgid "admin theme"
+msgstr "tema da administração"
+
 msgid "user profile"
 msgstr "perfil do utilizador"
 
 msgid "user profiles"
 msgstr "perfis de utilizador"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Atribuir papel a 1 utilizador"
+msgstr[1] "Atribuir papel a %(counter)s utilizadores"
+msgstr[2] "Atribuir papel a %(counter)s utilizadores"
 
 msgid "Assign role"
 msgstr "Atribuir papel"
@@ -144,6 +167,13 @@ msgstr "Sim, atribuir"
 
 msgid "No, don't assign"
 msgstr "Não, não atribuir"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Apagar 1 utilizador"
+msgstr[1] "Apagar %(counter)s utilizadores"
+msgstr[2] "Apagar %(counter)s utilizadores"
 
 msgid "Delete"
 msgstr "Apagar"
@@ -178,9 +208,6 @@ msgstr "Sim, mudar estado"
 msgid "No, don't change state"
 msgstr "Não, não alterar estado"
 
-msgid "Delete group"
-msgstr "Apagar grupo"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -194,14 +221,14 @@ msgstr "Tem a certeza que quer apagar este grupo?"
 msgid "Add group"
 msgstr "Adicionar grupo"
 
-msgid "Editing"
-msgstr "A alterar"
-
 msgid "View users in this group"
 msgstr "Ver os utilizadores deste grupo"
 
 msgid "Save"
 msgstr "Gravar"
+
+msgid "Delete group"
+msgstr "Apagar grupo"
 
 msgid "Object permissions"
 msgstr "Permissões de objeto"
@@ -251,14 +278,8 @@ msgstr ""
 "Ainda não foi configurado nenhum grupo. Que tal <a "
 "href=\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
-msgid "Delete user"
-msgstr "Apagar utilizador"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Tem a certeza que quer apagar este utilizador?"
-
-msgid "Add user"
-msgstr "Adicionar utilizador"
 
 msgid "Account"
 msgstr "Conta"
@@ -266,11 +287,11 @@ msgstr "Conta"
 msgid "Roles"
 msgstr "Funções"
 
-msgid "Users"
-msgstr "Utilizadores"
+msgid "Add user"
+msgstr "Adicionar utilizador"
 
-msgid "Add a user"
-msgstr "Adicionar um utilizador"
+msgid "Delete user"
+msgstr "Apagar utilizador"
 
 msgid "Select all users in listing"
 msgstr "Selecionar todos os utilizadores da listagem"
@@ -386,6 +407,12 @@ msgstr "O grupo não pôde ser guardado devido a erros."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupo '%(object)s' apagado."
 
+msgid "Add a user"
+msgstr "Adicionar um utilizador"
+
+msgid "Users"
+msgstr "Utilizadores"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utilizador '%(object)s' atualizado."
@@ -394,18 +421,8 @@ msgid "The user could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "A alterar %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilizador '%(object)s' apagado."
 
 msgid "Edit"
 msgstr "Alterar"
-
-msgid "Edit this user"
-msgstr "Alterar este utilizador"
-
-msgid "Delete this user"
-msgstr "Apagar este utilizador"

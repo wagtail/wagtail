@@ -21,7 +21,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -788,7 +788,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
-    # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
+    # RemovedInWagtail70Warning: legacy integer pk-based URLs will be removed
 
     def setUp(self):
         self.user = self.login()
@@ -803,7 +803,7 @@ class TestLegacyPatterns(WagtailTestUtils, TestCase):
         edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
         legacy_edit_url = "/admin/streammodel/1/"
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
         ):
             response = self.client.get(legacy_edit_url)
@@ -814,7 +814,7 @@ class TestLegacyPatterns(WagtailTestUtils, TestCase):
         delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
         legacy_delete_url = "/admin/streammodel/1/delete/"
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
         ):
             response = self.client.get(legacy_delete_url)

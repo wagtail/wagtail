@@ -92,7 +92,13 @@ Browsers will select the most appropriate image to load based on [responsive ima
 The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential unless you store the output of `srcset_image` for later use.
 
 ```html+jinja
-{{ srcset_image(page.header_image, "fill-{512x100,1024x200}", sizes="100vw", class="header-image") }}
+{{ srcset_image(page.photo, "width-{400,800}", sizes="(max-width: 600px) 400px, 80vw") }}
+```
+
+This outputs:
+
+```html
+<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
 ```
 
 Or resize an image and retrieve the renditions for more bespoke use:
@@ -104,19 +110,39 @@ Or resize an image and retrieve the renditions for more bespoke use:
 
 ### `picture()`
 
-Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes.
+Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes, and a fallback `<img>` tag.
 Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image-formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
 `picture` can render an image in multiple formats:
 
 ```html+jinja
-{{ picture(page.header_image, "format-{avif,jpeg}") }}
+{{ picture(page.photo, "format-{avif,webp,jpeg}|width-400") }}
+```
+
+This outputs:
+
+```html
+<picture>
+    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
+    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
+    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
 ```
 
 Or render multiple formats and multiple sizes like `srcset_image` does. The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential when the picture tag renders images in multiple sizes:
 
 ```html+jinja
-{{ picture(page.header_image, "format-{avif,jpeg}|fill-{512x100,1024x200}", sizes="100vw") }}
+{{ picture(page.header_image, "format-{avif,webp,jpeg}|width-{400,800}", sizes="80vw") }}
+```
+
+This outputs:
+
+```html
+<picture>
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
+    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
 ```
 
 Or resize an image and retrieve the renditions for more bespoke use:

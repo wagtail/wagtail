@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -169,39 +169,6 @@ msgstr "Akcje"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Edycja %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Przełącz okruszki"
-
-msgid "Breadcrumb"
-msgstr "Breadcrumb"
-
-msgid "Snippets"
-msgstr "Snippety"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nowy: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Edycja %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historia"
-
-msgid "Usage"
-msgstr "Użycie"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Historia skrawki dla %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Edytuj skrawkę"
-
-msgid "No log entries found."
-msgstr "Brak wpisów w logu."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippety %(snippet_type_name_plural)s"
@@ -262,11 +229,18 @@ msgstr "Anuluj zaplanowaną publikację"
 msgid "Choose"
 msgstr "Wybierz"
 
+msgid "Snippets"
+msgstr "Snippety"
+
 msgid "Name"
 msgstr "Nazwa"
 
 msgid "Instances"
 msgstr "Instancje"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Więcej opcji dla '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
@@ -277,14 +251,8 @@ msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 msgid "Action"
 msgstr "Akcja"
 
-msgid "User"
-msgstr "Użytkownik"
-
 msgid "Date"
 msgstr "Data"
-
-msgid "Snippet history"
-msgstr "Historia skrawki"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -294,20 +262,8 @@ msgstr "Edytuj ten %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Historia %(model_name)s "
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Edytuj '%(title)s'"
-
-msgid "Inspect"
-msgstr "Sprawdź"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Podejrzyj '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Usuń '%(title)s'"
+msgid "Home"
+msgstr "Start"
 
 #, python-format
 msgid "Choose %(object)s"

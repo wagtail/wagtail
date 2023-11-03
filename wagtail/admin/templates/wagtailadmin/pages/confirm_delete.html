@@ -3,8 +3,7 @@
 {% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    {% trans "Delete" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Delete") subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         {% include "wagtailadmin/shared/usage_summary.html" %}
@@ -82,7 +81,7 @@
                         {% endblocktrans %}
                     </label>
                     <input type="text" name="confirm_site_name" class="w-mb-4"
-                        id="id_confirm_site_name" aria-describedby="id_confirm_site_name-warning" required>
+                           id="id_confirm_site_name" aria-describedby="id_confirm_site_name-warning" required>
                 {% endif %}
                 <input type="hidden" name="next" value="{{ next }}">
                 <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">

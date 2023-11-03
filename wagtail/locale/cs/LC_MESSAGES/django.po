@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -695,10 +695,6 @@ msgstr "Aktualizováno omezení zobrazení"
 
 msgid "Remove view restrictions"
 msgstr "Zrušit omezení zobrazení"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Zrušeno omezení zobrazení '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "Zrušeno omezení zobrazení"

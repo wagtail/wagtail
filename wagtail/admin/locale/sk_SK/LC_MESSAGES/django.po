@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -66,6 +66,10 @@ msgstr "Email"
 
 msgid "Enter password"
 msgstr "Zadajte heslo"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -358,6 +362,9 @@ msgstr ""
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
 
+msgid "Actions"
+msgstr "Akcie"
+
 msgid "Draft"
 msgstr "Koncept"
 
@@ -397,15 +404,14 @@ msgstr "Prehľad sídla"
 msgid "Close"
 msgstr "Zavrieť"
 
+msgid "Compare with live version"
+msgstr "Porovnaj s live verziou"
+
 msgid "Sign in"
 msgstr "Prihlásiť sa"
 
 msgid "Sign in to Wagtail"
 msgstr "Prihlásiť sa do Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -537,9 +543,6 @@ msgstr "Kopírovať túto stránku"
 msgid "New %(page_type)s"
 msgstr "Nový  %(page_type)s"
 
-msgid "Actions"
-msgstr "Akcie"
-
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
@@ -595,6 +598,9 @@ msgstr "Následujúca"
 msgid "This page is protected from public view"
 msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 
+msgid "Add child page"
+msgstr "Pridať podstránku"
+
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
 
@@ -620,14 +626,14 @@ msgstr "Upraviť položku"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
 
-msgid "Root"
-msgstr "Koreň"
-
 msgid "Download CSV"
 msgstr "Stiahnuť CSV"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Root"
+msgstr "Koreň"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
@@ -652,9 +658,6 @@ msgstr "Stránka"
 
 msgid "New"
 msgstr "Nový"
-
-msgid "Compare with live version"
-msgstr "Porovnaj s live verziou"
 
 msgid "More"
 msgstr "Viac"
@@ -701,6 +704,16 @@ msgstr "Kolekcia '%(object)s' bola zmazaná."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Naozaj chcete zmazať túto kolekciu?"
+
+msgid "Home"
+msgstr "Domov"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Upraviť '%(title)s'"
+
+msgid "Inspect"
+msgstr "Skontrolovať"
 
 msgid "Editing"
 msgstr "Editácia"
@@ -823,13 +836,6 @@ msgstr "Stránky požívajúce"
 
 msgid "Pages"
 msgstr "Stránky"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Upraviť '%(title)s'"
-
-msgid "Add child page"
-msgstr "Pridať podstránku"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

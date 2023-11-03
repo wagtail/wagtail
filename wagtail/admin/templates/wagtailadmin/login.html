@@ -46,8 +46,7 @@
                         {% endfor %}
                     {% endblock extra_fields %}
 
-                    {% trans "Remember me" as checkbox_text %}
-                    {% include "wagtailadmin/shared/forms/single_checkbox.html" with label_classname="remember-me" name="remember" text=checkbox_text %}
+                    {% include "wagtailadmin/shared/forms/single_checkbox.html" with label_classname="remember-me" name="remember" text=_("Remember me") %}
                 {% endblock %}
             {% endblock %}
             <footer class="form-actions">

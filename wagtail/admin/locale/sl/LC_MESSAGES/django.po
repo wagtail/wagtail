@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -103,6 +103,11 @@ msgstr "Naloži profilno sliko"
 
 msgid "Enter password"
 msgstr "Vnesite geslo"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Vaše %(username_field)s in geslo se ne ujemata. Prosimo poizkusite znova."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -624,9 +629,6 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Žal ni zadetkov za \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "Ustvarjen ni bil noben element."
-
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -661,6 +663,9 @@ msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Prekliči"
+
+msgid "No log entries found."
+msgstr "Najden ni bil noben vnos v dnevnik."
 
 msgid "Update"
 msgstr "Posodbi"
@@ -726,6 +731,9 @@ msgstr "Zaklenjeno na"
 
 msgid "Edit this page"
 msgstr "Uredi stran"
+
+msgid "Actions"
+msgstr "Dejanja"
 
 msgid "Unlock"
 msgstr "Odkleni"
@@ -846,16 +854,17 @@ msgstr "Naloge"
 msgid "Task submitted by"
 msgstr "Nalogo je poslal"
 
+msgid "Compare with live version"
+msgstr "Primerjaj z objavljeno različico"
+
+msgid "Compare with previous version"
+msgstr "Primerjaj s prejšnjo različico"
+
 msgid "Sign in"
 msgstr "Prijava"
 
 msgid "Sign in to Wagtail"
 msgstr "Prijava v Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Vaše %(username_field)s in geslo se ne ujemata. Prosimo poizkusite znova."
 
 msgid "Forgotten password?"
 msgstr "Ste pozabili geslo?"
@@ -980,6 +989,9 @@ msgstr "Zasebnost strani"
 msgid "This page has been made private by a parent page."
 msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 
+msgid "Save the page before leaving"
+msgstr "Pred odhodom shranite stran"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Imate <span>neshranjene spremembe</span>"
 
@@ -988,9 +1000,6 @@ msgstr "Imate <span>neshranjen komentar</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Imate <span>neshranjene spremembe</span> in <span>komentarje</span>"
-
-msgid "Save the page before leaving"
-msgstr "Pred odhodom shranite stran"
 
 msgid "Publishing…"
 msgstr "Objavljanje…"
@@ -1293,9 +1302,6 @@ msgstr "Kopiraj to stran"
 msgid "New %(page_type)s"
 msgstr "Nov %(page_type)s"
 
-msgid "Actions"
-msgstr "Dejanja"
-
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
 
@@ -1334,12 +1340,12 @@ msgstr "Različica v živo"
 msgid "Current draft"
 msgstr "Trenutni osnutek"
 
-msgid "No log entries found."
-msgstr "Najden ni bil noben vnos v dnevnik."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Raziskovalec: %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Izberite vse strani na seznamu"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1382,9 +1388,6 @@ msgid ""
 msgstr ""
 "Ta lokacija nima nastavljenega spletnega mesta. Strani, ustvarjene tukaj, ne "
 "bodo dostopne na nobenem URL-ju."
-
-msgid "Select all pages in listing"
-msgstr "Izberite vse strani na seznamu"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "To stran ste zaklenili za nadaljnje urejanje"
@@ -1434,14 +1437,11 @@ msgstr "Ta stran je obvarovana pred javnimi ogledi."
 msgid "Confirm"
 msgstr "Potrdi"
 
-msgid "History"
-msgstr "Zgodovina"
+msgid "Add child page"
+msgstr "Dodaj podrejeno stran"
 
 msgid "Review this version"
 msgstr "Preglejte to različico"
-
-msgid "Compare with previous version"
-msgstr "Primerjaj s prejšnjo različico"
 
 msgid "Compare with current version"
 msgstr "Primerjaj s trenutno različico"
@@ -1586,9 +1586,6 @@ msgstr "Preklop navigacijske sledi"
 msgid "Breadcrumb"
 msgstr "Drobtina"
 
-msgid "Root"
-msgstr "Koren"
-
 msgid "Close dialog"
 msgstr "Zapri pogovorno okno"
 
@@ -1607,6 +1604,9 @@ msgstr "Filter"
 msgid "Apply filters"
 msgstr "Uporabi filter"
 
+msgid "History"
+msgstr "Zgodovina"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nov: %(model_name)s"
@@ -1614,6 +1614,9 @@ msgstr "Nov: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Urejanje %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Koren"
 
 msgid "Current page status:"
 msgstr "Trenutno stanje strani:"
@@ -1666,9 +1669,6 @@ msgstr "Širina stranske vrstice"
 
 msgid "Comment notifications"
 msgstr "Obvestila o komentarjih"
-
-msgid "Page Locale: "
-msgstr "Jezik strani:"
 
 msgid "Locale: "
 msgstr "Jezik: "
@@ -1728,9 +1728,6 @@ msgstr[0] "Uporabljeno %(usage_count)s krat"
 msgstr[1] "Uporabljeno %(usage_count)s krat"
 msgstr[2] "Uporabljeno %(usage_count)s krat"
 msgstr[3] "Uporabljeno %(usage_count)s krat"
-
-msgid "Page status: "
-msgstr "Stanje strani:"
 
 msgid "Status: "
 msgstr "Stanje: "
@@ -1797,8 +1794,8 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Način predogleda"
 
-msgid "First published "
-msgstr "Prvič objavljeno "
+msgid "First published"
+msgstr "Prvič objavljeno"
 
 msgid "Edit / Review"
 msgstr "Uredi / Pregled"
@@ -2067,9 +2064,6 @@ msgstr "Objavljeno"
 msgid "See full history"
 msgstr "Oglejte si celotno zgodovino"
 
-msgid "Compare with live version"
-msgstr "Primerjaj z objavljeno različico"
-
 msgid "More"
 msgstr "Več"
 
@@ -2267,6 +2261,13 @@ msgstr "Zbirka '%(object)s' izbrisana."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ali ste prepričani, da želite izbrisati to zbirko?"
 
+msgid "Home"
+msgstr "Domov"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Uredi ta %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Napredek poteka dela"
 
@@ -2300,6 +2301,25 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Išči %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+msgid "Inspect"
+msgstr "Preglejte"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Preglejte '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Izbriši '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Več možnosti za '%(title)s'"
 
 msgid "Editing"
 msgstr "Urejanje"
@@ -2666,27 +2686,12 @@ msgid "Pages"
 msgstr "Strani"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Uredi '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Predogled osnutka različice '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Poglej objavljeno različico '%(title)s'"
-
-msgid "Add child page"
-msgstr "Dodaj podrejeno stran"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Dodajte podrejeno stran  '%(title)s' "
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Več možnosti za '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

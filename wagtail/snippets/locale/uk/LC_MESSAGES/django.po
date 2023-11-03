@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -123,21 +123,6 @@ msgstr "Новий"
 msgid "Actions"
 msgstr "Дії"
 
-msgid "Breadcrumb"
-msgstr "Ланцюжок навігації"
-
-msgid "Snippets"
-msgstr "Уривки"
-
-msgid "History"
-msgstr "Історія змін"
-
-msgid "Usage"
-msgstr "Використання"
-
-msgid "No log entries found."
-msgstr "Записи в журналі не знайдені. "
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Уривки %(snippet_type_name_plural)s"
@@ -181,6 +166,9 @@ msgstr "Скасувати заплановану публікацію"
 msgid "Choose"
 msgstr "Вибрати"
 
+msgid "Snippets"
+msgstr "Уривки"
+
 msgid "Name"
 msgstr "Ім'я"
 
@@ -193,25 +181,11 @@ msgstr "Цей уривок не може бути збережено через
 msgid "Action"
 msgstr "Дія"
 
-msgid "User"
-msgstr "Користувач"
-
 msgid "Date"
 msgstr "Дата"
 
-msgid "Snippet history"
-msgstr "Історія уривку"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редагувати '%(title)s'"
-
-msgid "Inspect"
-msgstr "Переглянути"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Видалити '%(title)s'"
+msgid "Home"
+msgstr "Головна"
 
 #, python-format
 msgid "Choose %(object)s"

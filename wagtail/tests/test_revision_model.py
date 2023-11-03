@@ -10,7 +10,6 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     SimplePage,
 )
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestRevisableModel(TestCase):
@@ -169,12 +168,3 @@ class TestRevisableModel(TestCase):
         # The id is used as a tie breaker
         self.assertEqual(first.created_at, second.created_at)
         self.assertLess(first.id, second.id)
-
-    def test_submitted_revisions_manager(self):
-        self.instance.save_revision()
-        revision = self.instance.save_revision(submitted_for_moderation=True)
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "SubmittedRevisionsManager is deprecated and will be removed in a future release.",
-        ):
-            self.assertEqual(list(Revision.submitted_revisions.all()), [revision])

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -96,6 +96,11 @@ msgstr "Carregar una imatge de perfil"
 
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"El vostre %(username_field)s y contrasenya no concorden. Torneu-ho a provar."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -603,7 +608,7 @@ msgid "Set collection privacy. Current status: Public"
 msgstr "Establir privadesa de la col·lecció. Estat actual: Pública"
 
 msgid "Public"
-msgstr "Publica"
+msgstr "Pública"
 
 msgid "Set collection privacy. Current status: Private"
 msgstr "Estableix la privacitat de la col·lecció. Actualment: Privat"
@@ -631,8 +636,8 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "No hi ha coincidències per \"<em>%(search_query)s</em>\""
 
-msgid "No items have been created."
-msgstr "No s'ha creat cap element."
+msgid "There are no results."
+msgstr "No hi ha resultats."
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
@@ -685,6 +690,17 @@ msgstr "Encara voleu publicar aquest/a %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Cancel·lar"
+
+msgid "No log entries found."
+msgstr "No s'han trobat entrades de registre."
+
+#, python-format
+msgid "No %(model_name)s match your query"
+msgstr "Cap %(model_name)s coincideix amb la vostra consulta."
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "No hi ha cap %(model_name)s per mostrar"
 
 msgid "Update"
 msgstr "Actualitzar"
@@ -746,6 +762,9 @@ msgstr "Bloquejat el"
 
 msgid "Edit this page"
 msgstr "Edita aquesta pàgina"
+
+msgid "Actions"
+msgstr "Accions"
 
 msgid "Unlock"
 msgstr "Desbloqueja"
@@ -860,16 +879,17 @@ msgstr "Tasques"
 msgid "Task submitted by"
 msgstr "Tasca enviada per"
 
+msgid "Compare with live version"
+msgstr "Comparar amb la versió en viu"
+
+msgid "Compare with previous version"
+msgstr "Compara amb la versió anterior"
+
 msgid "Sign in"
 msgstr "Registra't"
 
 msgid "Sign in to Wagtail"
 msgstr "Connecta't a Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"El vostre %(username_field)s y contrasenya no concorden. Torneu-ho a provar."
 
 msgid "Forgotten password?"
 msgstr "Has oblidat la clau?"
@@ -1178,6 +1198,9 @@ msgstr "Privadesa de la pàgina"
 msgid "This page has been made private by a parent page."
 msgstr "Aquesta pàgina ha estat feta privada per una pàgina pare."
 
+msgid "Save the page before leaving"
+msgstr "Desar la pàgina abans de sortir"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Teniu <span>edicions sense desar</span>"
 
@@ -1186,9 +1209,6 @@ msgstr "Teniu <span>comentaris sense desar</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Teniu <span>edicions sense desar</span> i <span>comentaris</span>"
-
-msgid "Save the page before leaving"
-msgstr "Desar la pàgina abans de sortir"
 
 msgid "Publishing…"
 msgstr "Publicant..."
@@ -1594,9 +1614,6 @@ msgstr "Copiar aquesta pàgina"
 msgid "New %(page_type)s"
 msgstr "Nova %(page_type)s"
 
-msgid "Actions"
-msgstr "Accions"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
 
@@ -1635,12 +1652,12 @@ msgstr "Versió en viu"
 msgid "Current draft"
 msgstr "Esborrany actual"
 
-msgid "No log entries found."
-msgstr "No s'han trobat entrades de registre."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorant %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Seleccionar totes les pàgines del llistat"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1683,9 +1700,6 @@ msgstr ""
 "No hi ha registre de lloc per aquesta ubicació. Les pàgines creades aquí no "
 "seran accessibles de cap URL."
 
-msgid "Select all pages in listing"
-msgstr "Seleccionar totes les pàgines del llistat"
-
 msgid "This page is locked, by you, to further editing"
 msgstr "L'edició d'aquesta pàgina ha estat bloquejada per vos"
 
@@ -1712,6 +1726,25 @@ msgstr "Ordenació"
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s de %(result_count)s en tot el lloc."
+
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Cercar a '%(title)s'"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgstr "%(start_index)s-%(end_index)s de %(result_count)sa '%(title)s'."
+
+msgid "Search the whole site"
+msgstr "Cercar en tot el lloc"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s de %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Menú de llocs"
 
@@ -1734,14 +1767,11 @@ msgstr "Aquesta pàgina està protegida de la vista pública"
 msgid "Confirm"
 msgstr "Confirmar"
 
-msgid "History"
-msgstr "Historial"
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
 
 msgid "Review this version"
 msgstr "Revisar aquesta versió"
-
-msgid "Compare with previous version"
-msgstr "Compara amb la versió anterior"
 
 msgid "Compare with current version"
 msgstr "Compara amb la versió actual"
@@ -1886,9 +1916,6 @@ msgstr "Commutar rutes de navegació"
 msgid "Breadcrumb"
 msgstr "Ruta de navegació"
 
-msgid "Root"
-msgstr "Arrel"
-
 msgid "Close dialog"
 msgstr "Tancar el diàleg"
 
@@ -1907,6 +1934,9 @@ msgstr "Filtra"
 msgid "Apply filters"
 msgstr "Aplica els filtres"
 
+msgid "History"
+msgstr "Historial"
+
 #, python-format
 msgid "New: %(model_name)s"
 msgstr "Nou: %(model_name)s"
@@ -1914,6 +1944,9 @@ msgstr "Nou: %(model_name)s"
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Editant%(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Arrel"
 
 msgid "Current page status:"
 msgstr "Estat de la pàgina actual:"
@@ -1966,9 +1999,6 @@ msgstr "Ample del panell lateral"
 
 msgid "Comment notifications"
 msgstr "Notificacions de comentaris"
-
-msgid "Page Locale: "
-msgstr "Localització de la pàgina:"
 
 msgid "Locale: "
 msgstr "Configuració regional:"
@@ -2028,9 +2058,6 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Utilitzat %(usage_count)s vegada"
 msgstr[1] "Utilitzat %(usage_count)s vegades"
-
-msgid "Page status: "
-msgstr "Estat de la pàgina:"
 
 msgid "Status: "
 msgstr "Estat:"
@@ -2097,8 +2124,8 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Mode de previsualització"
 
-msgid "First published "
-msgstr "Primera publicació "
+msgid "First published"
+msgstr "Primera publicació"
 
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
@@ -2408,9 +2435,6 @@ msgstr "Publicada"
 msgid "See full history"
 msgstr "Mostra l'historial complet"
 
-msgid "Compare with live version"
-msgstr "Comparar amb la versió en viu"
-
 msgid "More"
 msgstr "Més"
 
@@ -2608,6 +2632,13 @@ msgstr "Col·lecció '%(object)s' eliminada."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Segur que voleu eliminar aquesta col·lecció?"
 
+msgid "Home"
+msgstr "Inici"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Editar aquest %(model_name)s"
+
 msgid "Workflow progress"
 msgstr "Progrés dels fluxe de treball"
 
@@ -2700,6 +2731,25 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Cercar %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspeccionar"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspeccionar '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Esborrar '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Més opcions per '%(title)s'"
 
 msgid "Editing"
 msgstr "Editant"
@@ -2976,6 +3026,9 @@ msgstr "Amagar les accions de comentaris"
 msgid "Page history"
 msgstr "Historial de pàgina"
 
+msgid "Search pages…"
+msgstr "Cercar pàgines..."
+
 msgid ""
 "Press enter to select an item, use up and down arrows to move the item, "
 "press enter to complete the move or escape to cancel the current move."
@@ -3199,27 +3252,12 @@ msgid "Pages"
 msgstr "Pàgines"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Previsualitzar versió d'esborrany de '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Visualitzar versió En viu de '%(title)s'"
-
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Afegina una pàgina filla a '%(title)s' "
-
-#, python-format
-msgid "More options for '%(title)s'"
-msgstr "Més opcions per '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -290,6 +290,30 @@ def urlconf_time():
   ]
 ```
 
+(register_admin_viewset)=
+
+### `register_admin_viewset`
+
+Register a {class}`~wagtail.admin.viewsets.base.ViewSet` or {class}`~wagtail.admin.viewsets.base.ViewSetGroup` to the admin, which combines a set of views, URL patterns, and menu item into a single unit. The callable fed into this hook should return an instance of `ViewSet` or `ViewSetGroup`.
+
+```python
+from .views import CalendarViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return CalendarViewSet()
+```
+
+Alternatively, it can also return a list of `ViewSet` or `ViewSetGroup` instances.
+
+```python
+from .views import AgendaViewSetGroup, VenueViewSet
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return [AgendaViewSetGroup(), VenueViewSet()]
+```
+
 (register_group_permission_panel)=
 
 ### `register_group_permission_panel`
@@ -441,30 +465,6 @@ Hooks for customising the editing interface for pages and snippets.
 ### `register_rich_text_features`
 
 Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as `RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The `register_rich_text_features` hook allows new feature identifiers to be defined - see [](rich_text_features) for details.
-
-(insert_editor_css)=
-
-### `insert_editor_css`
-
-Add additional CSS files or snippets to the page editor.
-
-```python
-from django.templatetags.static import static
-from django.utils.html import format_html
-
-from wagtail import hooks
-
-@hooks.register('insert_editor_css')
-def editor_css():
-    return format_html(
-        '<link rel="stylesheet" href="{}">',
-        static('demo/css/vendor/font-awesome/css/font-awesome.min.css')
-    )
-```
-
-```{note}
-The `insert_editor_css` hook is deprecated and will be removed in a future release. We recommend using [](insert_global_admin_css) instead.
-```
 
 (insert_global_admin_css)=
 
@@ -790,7 +790,6 @@ The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all acce
 -   `page` - for `view` = `'edit'` or `'revisions_revert'`, the page being edited
 -   `parent_page` - for `view` = `'create'`, the parent page of the page being created
 -   `request` - the current request object
--   `user_page_permissions` - a `UserPagePermissionsProxy` object for the current user, to test permissions against (deprecated)
 
 ```python
 from wagtail import hooks
@@ -838,7 +837,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks

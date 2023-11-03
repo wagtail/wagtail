@@ -10,7 +10,7 @@ from wagtail.models import GroupPagePermission, Locale, Page, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -195,7 +195,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "construct_page_listing_buttons", add_dummy_button
         ):
             with self.assertWarnsMessage(
-                RemovedInWagtail60Warning,
+                RemovedInWagtail70Warning,
                 "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
             ):
                 response = self.client.get(

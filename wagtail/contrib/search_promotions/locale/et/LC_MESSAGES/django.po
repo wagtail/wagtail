@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -89,9 +89,6 @@ msgstr "Mine alla"
 msgid "Promoted search results"
 msgstr "Reklaamitud otsingutulemus"
 
-msgid "Add recommended page"
-msgstr "Lisa soovitatud leht"
-
 msgid "Search Terms"
 msgstr "Otsinguterminid"
 
@@ -122,8 +119,26 @@ msgstr "Järjesta vaadete järgi (kõrgemad enne)"
 msgid "Edit this promotion"
 msgstr "Muutke seda pakkumist"
 
+msgid "External link"
+msgstr "Väline link"
+
 msgid "None"
 msgstr "mitte ühtegi"
+
+msgid "Popular search terms"
+msgstr "Populaarsed otsinguterminid"
+
+msgid "Search"
+msgstr "Otsing"
+
+msgid "Terms"
+msgstr "Terminid"
+
+msgid "No results found"
+msgstr "Tulemusi ei leitud"
+
+msgid "Choose from popular search terms"
+msgstr "Valige populaarsete otsinguterminite hulgast"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

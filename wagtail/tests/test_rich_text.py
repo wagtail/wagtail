@@ -242,7 +242,7 @@ class TestRichTextField(TestCase):
     def test_get_searchable_content(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_page.body = '<p><b>Merry Christmas from <a href="https://wagtail.org/">Wagtail!</a></b> &amp; co.</p>'
-        christmas_page.save_revision(submitted_for_moderation=False)
+        christmas_page.save_revision()
 
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)
@@ -252,7 +252,7 @@ class TestRichTextField(TestCase):
     def test_get_searchable_content_whitespace(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_page.body = "<p>buttery<br />mashed</p><p>po<i>ta</i>toes</p>"
-        christmas_page.save_revision(submitted_for_moderation=False)
+        christmas_page.save_revision()
 
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)

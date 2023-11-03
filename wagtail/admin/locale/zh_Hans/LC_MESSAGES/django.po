@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Terry Peng, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -114,6 +114,10 @@ msgstr "上传新的头像"
 
 msgid "Enter password"
 msgstr "输入密码"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "用户 %(username_field)s 密码不匹配，请重试"
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -593,9 +597,6 @@ msgid ""
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
-msgid "No items have been created."
-msgstr "没有创建任何项目"
-
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
@@ -618,6 +619,9 @@ msgstr "发布 %(model_name)s"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "No log entries found."
+msgstr "未找到日志记录"
 
 msgid "Update"
 msgstr "更新"
@@ -658,6 +662,9 @@ msgstr "锁定于"
 
 msgid "Edit this page"
 msgstr "编辑此页"
+
+msgid "Actions"
+msgstr "动作"
 
 msgid "Unlock"
 msgstr "解锁"
@@ -731,15 +738,17 @@ msgstr "任务"
 msgid "Task submitted by"
 msgstr "任务提交者"
 
+msgid "Compare with live version"
+msgstr "与发布版本进行比较"
+
+msgid "Compare with previous version"
+msgstr "与上一个版本进行比较"
+
 msgid "Sign in"
 msgstr "登录"
 
 msgid "Sign in to Wagtail"
 msgstr "登录Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "用户 %(username_field)s 密码不匹配，请重试"
 
 msgid "Forgotten password?"
 msgstr "忘记密码？"
@@ -912,6 +921,9 @@ msgstr "页面私有设置"
 msgid "This page has been made private by a parent page."
 msgstr "此页面已被父节点设置为私有。"
 
+msgid "Save the page before leaving"
+msgstr "在离开之前保存页面"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "你有<span>未保存的编辑</span>"
 
@@ -920,9 +932,6 @@ msgstr "你有<span>未保存的评论</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "你有<span>未保存的编辑</span>和<span>评论</span>"
-
-msgid "Save the page before leaving"
-msgstr "在离开之前保存页面"
 
 msgid "Publishing…"
 msgstr "正在发布..."
@@ -1140,9 +1149,6 @@ msgstr "复制此页"
 msgid "New %(page_type)s"
 msgstr "新%(page_type)s页面类型"
 
-msgid "Actions"
-msgstr "动作"
-
 msgid "This page has unsaved changes."
 msgstr "页面还没保存"
 
@@ -1181,18 +1187,15 @@ msgstr "发布版本"
 msgid "Current draft"
 msgstr "当前草稿"
 
-msgid "No log entries found."
-msgstr "未找到日志记录"
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览 %(title)s"
 
-msgid "Configure a site now."
-msgstr "现在配置一个站点。"
-
 msgid "Select all pages in listing"
 msgstr "选择列表中的所有页面"
+
+msgid "Configure a site now."
+msgstr "现在配置一个站点。"
 
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
@@ -1235,14 +1238,11 @@ msgstr "此页面已受保护，公众不可见。"
 msgid "Confirm"
 msgstr "确认"
 
-msgid "History"
-msgstr "历史"
+msgid "Add child page"
+msgstr "添加子页面"
 
 msgid "Review this version"
 msgstr "审核这个修订"
-
-msgid "Compare with previous version"
-msgstr "与上一个版本进行比较"
 
 msgid "Compare with current version"
 msgstr "与当前版本进行比较"
@@ -1350,9 +1350,6 @@ msgstr "面包屑开关"
 msgid "Breadcrumb"
 msgstr "面包屑导航"
 
-msgid "Root"
-msgstr "根"
-
 msgid "Close dialog"
 msgstr "关闭对话框"
 
@@ -1371,9 +1368,15 @@ msgstr "过滤器"
 msgid "Apply filters"
 msgstr "应用过滤器"
 
+msgid "History"
+msgstr "历史"
+
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "正在编辑 %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "根"
 
 msgid "Current page status:"
 msgstr "当前页面状态："
@@ -1424,9 +1427,6 @@ msgstr "边栏宽度"
 msgid "Comment notifications"
 msgstr "评论通知"
 
-msgid "Page Locale: "
-msgstr "页面语言:"
-
 msgid "Locale: "
 msgstr "语言区域:"
 
@@ -1458,9 +1458,6 @@ msgstr "使用情况"
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "已使用%(usage_count)s次"
-
-msgid "Page status: "
-msgstr "页面状态: "
 
 msgid "Status: "
 msgstr "状态："
@@ -1507,8 +1504,8 @@ msgstr "预览已过期"
 msgid "Preview mode"
 msgstr "预览模式"
 
-msgid "First published "
-msgstr "首次发布"
+msgid "First published"
+msgstr "首次发布的"
 
 msgid "Edit / Review"
 msgstr "编辑 / 审核"
@@ -1733,9 +1730,6 @@ msgstr "已发布"
 msgid "See full history"
 msgstr "查看完整历史"
 
-msgid "Compare with live version"
-msgstr "与发布版本进行比较"
-
 msgid "More"
 msgstr "更多"
 
@@ -1836,6 +1830,9 @@ msgstr "集合 '%(object)s' 已删除"
 msgid "Are you sure you want to delete this collection?"
 msgstr "确定删除此集合？"
 
+msgid "Home"
+msgstr "首页"
+
 msgid "Workflow progress"
 msgstr "工作流进展"
 
@@ -1850,6 +1847,17 @@ msgstr "%(model_name)s '%(object)s' 已创建。"
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "搜索 %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "编辑“%(title)s”"
+
+msgid "Inspect"
+msgstr "检查"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "删除“%(title)s”"
 
 msgid "Editing"
 msgstr "正在编辑"
@@ -2242,23 +2250,12 @@ msgid "Pages"
 msgstr "页面"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "编辑“%(title)s”"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "预览“%(title)s”的草稿版本"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "查看 '%(title)s' 的发布版本"
-
-msgid "Add child page"
-msgstr "添加子页面"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "添加“%(title)s”的子页面"
 
 #, python-format
 msgid "Move page '%(title)s'"

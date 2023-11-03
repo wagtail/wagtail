@@ -138,9 +138,9 @@ class ListValue(MutableSequence):
 
 
 class ListBlock(Block):
-    def __init__(self, child_block, **kwargs):
+    def __init__(self, child_block, search_index=True, **kwargs):
         super().__init__(**kwargs)
-
+        self.search_index = search_index
         if isinstance(child_block, type):
             # child_block was passed as a class, so convert it to a block instance
             self.child_block = child_block()
@@ -343,8 +343,9 @@ class ListBlock(Block):
         return format_html("<ul>{0}</ul>", children)
 
     def get_searchable_content(self, value):
+        if not self.search_index:
+            return []
         content = []
-
         for child_value in value:
             content.extend(self.child_block.get_searchable_content(child_value))
 

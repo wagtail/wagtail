@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022-2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,6 +91,10 @@ msgstr "بارگذاری یک عکس پروفایل"
 
 msgid "Enter password"
 msgstr "رمزعبور را وارد کنید"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s و رمزعبور با هم تطبیق ندارند. لطفا مجددا سعی کنید."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -584,9 +588,6 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "متاسفانه هیچ انطباقی برای \"<em>%(search_query)s</em>\" وجود ندارد"
 
-msgid "No items have been created."
-msgstr "هیچ آیتمی ساخته نشده است."
-
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
@@ -666,6 +667,9 @@ msgstr "قفل شده در"
 
 msgid "Edit this page"
 msgstr "ویرایش صفحه"
+
+msgid "Actions"
+msgstr "اعمال"
 
 msgid "Unlock"
 msgstr "حذف قفل"
@@ -760,15 +764,17 @@ msgstr ""
 msgid "Awaiting your review"
 msgstr "در انتظار بازنگری شما"
 
+msgid "Compare with live version"
+msgstr "مقایسه با نسخه منتشر شده"
+
+msgid "Compare with previous version"
+msgstr "مقایسه با نسخه‌ی قبلی"
+
 msgid "Sign in"
 msgstr "ورود"
 
 msgid "Sign in to Wagtail"
 msgstr "ورود به وگتیل"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "%(username_field)s و رمزعبور با هم تطبیق ندارند. لطفا مجددا سعی کنید."
 
 msgid "Forgotten password?"
 msgstr "رمز عبور فراموش شده؟"
@@ -1007,9 +1013,6 @@ msgstr "کپی این صفحه"
 msgid "New %(page_type)s"
 msgstr "%(page_type)s جدید"
 
-msgid "Actions"
-msgstr "اعمال"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
@@ -1071,11 +1074,11 @@ msgstr "این صفحه از دید عمومی پنهان شده است"
 msgid "Confirm"
 msgstr "تایید"
 
+msgid "Add child page"
+msgstr "افزودن زیرصفحه"
+
 msgid "Review this version"
 msgstr "بازنگری این نسخه"
-
-msgid "Compare with previous version"
-msgstr "مقایسه با نسخه‌ی قبلی"
 
 msgid "Compare with current version"
 msgstr "مقایسه با نسخه‌ی فعلی"
@@ -1142,9 +1145,6 @@ msgstr "صفحه %(page_num)s از %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "خرده نان"
 
-msgid "Root"
-msgstr "ریشه"
-
 msgid "Download XLSX"
 msgstr "دانلود XLSX"
 
@@ -1156,6 +1156,9 @@ msgstr "افزودن نظر"
 
 msgid "Filter"
 msgstr "فیلتر"
+
+msgid "Root"
+msgstr "ریشه"
 
 msgid "Current page status:"
 msgstr "وضعیت فعلی صفحه"
@@ -1279,9 +1282,6 @@ msgstr "شروع نشده"
 msgid "See full history"
 msgstr "مشاهده‌ی تاریخچه‌ی کامل"
 
-msgid "Compare with live version"
-msgstr "مقایسه با نسخه منتشر شده"
-
 msgid "More"
 msgstr "بیشتر"
 
@@ -1361,6 +1361,9 @@ msgstr "مجموعه  '%(object)s' حذف شد."
 msgid "Are you sure you want to delete this collection?"
 msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 
+msgid "Home"
+msgstr "خانه"
+
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' باز شده است."
@@ -1429,6 +1432,13 @@ msgstr ""
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "جستجوی %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "ویرایش %(title)s"
+
+msgid "Inspect"
+msgstr "بازرسی"
 
 msgid "Editing"
 msgstr "ویرایش"
@@ -1732,23 +1742,12 @@ msgid "Pages"
 msgstr "صفحه ها"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "ویرایش %(title)s"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "پیش نمایش نسخه پیش نویس %(title)s"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "دیدن نسخه منتشر شده‌ی %(title)s"
-
-msgid "Add child page"
-msgstr "افزودن زیرصفحه"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "افزودن صفحه‌ی فرزند به «%(title)s»"
 
 #, python-format
 msgid "Move page '%(title)s'"

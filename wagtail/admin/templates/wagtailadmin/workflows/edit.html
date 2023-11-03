@@ -27,8 +27,7 @@
         <div class="nice-padding w-form-width">
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
-            {% trans "Assign your workflow to pages" as heading %}
-            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=heading %}
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
                 {% if workflow.active %}
                     <p class="help-block help-info">
                         {% icon name='help' %}
@@ -49,8 +48,7 @@
             {% endpanel %}
 
             {% if has_workflow_enabled_models %}
-                {% trans "Assign your workflow to snippets" as heading %}
-                {% panel id="workflow-content-types" icon="snippet" heading=heading %}
+                {% panel id="workflow-content-types" icon="snippet" heading=_("Assign your workflow to snippets") %}
                     {% if workflow.active %}
                         {% include "wagtailadmin/shared/field.html" with field=content_type_form.content_types sr_only_label=True only %}
                     {% else %}

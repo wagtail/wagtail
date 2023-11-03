@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 67feb0cba3962a6c9f09eb0e43697461_528661a "
 "<cbde1c637170da616adcdde6daca673c_96059>, 2014\n"
@@ -124,6 +124,9 @@ msgstr "Gora mugitu"
 
 msgid "Move down"
 msgstr "Behera mugitu"
+
+msgid "Home"
+msgstr "Etxea"
 
 msgid "Dashboard"
 msgstr "Kontrol panela"

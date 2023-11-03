@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -92,9 +92,6 @@ msgstr "Перамясціць уніз"
 msgid "Promoted search results"
 msgstr "Высокі вынік пошуку"
 
-msgid "Add recommended page"
-msgstr "Дадаць рэкамендуемую старонку"
-
 msgid "Search Terms"
 msgstr "Умовы пошуку"
 
@@ -113,8 +110,26 @@ msgstr "Прагляды (за тыдзень)"
 msgid "Edit this promotion"
 msgstr "Змяніць гэтую рэкламу"
 
+msgid "External link"
+msgstr "Знешняя спасылка"
+
 msgid "None"
 msgstr "Нікодны"
+
+msgid "Popular search terms"
+msgstr "Папулярныя пошукавыя запыты"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Тэрміны"
+
+msgid "No results found"
+msgstr "Нічога не знойдзена"
+
+msgid "Choose from popular search terms"
+msgstr "Выбраць з папулярных пошукавых запытаў"
 
 #, python-format
 msgid "There is %(counter)s match"

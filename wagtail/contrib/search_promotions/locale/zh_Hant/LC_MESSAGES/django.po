@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -84,9 +84,6 @@ msgstr "下移"
 msgid "Promoted search results"
 msgstr "推廣搜索結果"
 
-msgid "Add recommended page"
-msgstr "增加推薦頁面"
-
 msgid "Search Terms"
 msgstr "檢索詞"
 
@@ -105,8 +102,26 @@ msgstr "查看 (上周)"
 msgid "Edit this promotion"
 msgstr "編輯此推廣"
 
+msgid "External link"
+msgstr "外部連結"
+
 msgid "None"
 msgstr "無"
+
+msgid "Popular search terms"
+msgstr "熱門關鍵字"
+
+msgid "Search"
+msgstr "搜尋"
+
+msgid "Terms"
+msgstr "詞語"
+
+msgid "No results found"
+msgstr "沒有找到結果"
+
+msgid "Choose from popular search terms"
+msgstr "從熱門關鍵字中選擇"
 
 #, python-format
 msgid "There is %(counter)s match"

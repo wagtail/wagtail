@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022
-# saevarom <saevar@saevar.is>, 2016,2018-2020,2022
+# saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -37,14 +37,35 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Vinsamlegast bættu við amk einum meðmælum fyrir þennan leitarfrasa."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Þú verður að setja texta fyrir hlekkinn ef þú nota ytri hlekk."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Þú verður að mæla með síðu EÐA nota ytri hlekk."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Vinsamlegast veldu síðu EÐA ytri hlekk."
+
 msgid "Query Daily Hits"
 msgstr "Fjöldi daglegra leita"
 
 msgid "page"
 msgstr "síða"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Veldu innri síðu fyrir þessi leitarmeðmæli"
+
+msgid "External link URL"
+msgstr "Hlekkur á ytri síðu"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Þú getur einnig notað ytri hlekk fyrir þessi leitarmeðmæli"
+
 msgid "description"
 msgstr "lýsing"
+
+msgid "Applies to internal page or external link"
+msgstr "Á við um innri síðu eða ytri hlekk"
 
 msgid "search promotion"
 msgstr "leitarmeðmæli"
@@ -56,15 +77,15 @@ msgid "Add search pick"
 msgstr "Bættu við leitar frasa"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
 msgstr ""
-"<p>Meðmæltar leitarniðurstöður eru leið til að mæla með ákveðnum síðum sem "
-"mögulega komast ekki sjálfkrafa hátt í leitarniðurstöðum. T.d. mæla með "
-"framlagssíðu við notanda sem er að leita að leitarfrasanum \"<em>gefa</em>\"."
-"</p>            "
+"<p>Leitarmeðmæli eru leið til þess að mæla með ákveðnum síðum eða ytri "
+"hlekkjum sem birtast ekki endilega efst í leitarniðurstöðum. T.d. getur þú "
+"mælt með aðal styrktar síðunni þinni ef leitað er að orðinu \"<em>gefa</"
+"em>\", sem annars hefði ekki skilað styrktarsíðunni í leitarniðurstöður.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -107,14 +128,14 @@ msgstr "Færa upp"
 msgid "Move down"
 msgstr "Færa niður"
 
-msgid "Recommended page"
-msgstr "Meðmælt síða"
+msgid "Recommended search result"
+msgstr "Meðmæltar leitar niðurstöður"
 
 msgid "Promoted search results"
 msgstr "Meðmæltar leitar niðurstöður"
 
-msgid "Add recommended page"
-msgstr "Bæta við meðmæltri síðu"
+msgid "Add a recommended result"
+msgstr "Bæta við meðmæltum leitarniðurstöðum"
 
 msgid "Search Terms"
 msgstr "Leitarfrasi"
@@ -146,8 +167,26 @@ msgstr "Raða eftir flettingum (hæstur fjöldi efst)"
 msgid "Edit this promotion"
 msgstr "Breyta þessum meðmælum"
 
+msgid "External link"
+msgstr "Ytri hlekkur"
+
 msgid "None"
 msgstr "Ekkert"
+
+msgid "Popular search terms"
+msgstr "Vinsælir leitarfrasar"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Terms"
+msgstr "Leitarorð"
+
+msgid "No results found"
+msgstr "Engar niðurstöður fundust"
+
+msgid "Choose from popular search terms"
+msgstr "Veldu úr vinsælum leitarfrösum"
 
 #, python-format
 msgid "There is %(counter)s match"
