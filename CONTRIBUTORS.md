@@ -12,6 +12,7 @@
 * Matthew Westcott (Torchbox)
 * Meagen Voss (Torchbox)
 * Naomi Morduch Toubman
+* Sævar Öfjörð Magnússon (Overcast)
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
 * Stefan Hammer (wunderweiss)
