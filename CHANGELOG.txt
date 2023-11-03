@@ -52,6 +52,7 @@ Changelog
  * Add support for `caption` on admin UI Table component (Aman Pandey)
  * Add API support for a redirects (contrib) endpoint (Rohit Sharma, Jaap Roes, Andreas Donig)
  * Add the default ability for all `SnippetViewSet` & `ModelViewSet` to support being copied (Shlomo Markowitz)
+ * Support dynamic Wagtail guide links in the admin that are based on the running version of Wagtail (Tidiane Dia)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
