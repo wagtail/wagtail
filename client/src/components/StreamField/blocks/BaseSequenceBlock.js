@@ -134,6 +134,7 @@ export class BaseSequenceChild extends EventEmitter {
     const panelId = `block-${id}-section`;
     const headingId = `block-${id}-heading`;
     const contentId = `block-${id}-content`;
+    const labelId = `block-${id}-label`;
     const blockTypeIcon = h(this.blockDef.meta.icon);
     const blockTypeLabel = h(this.blockDef.meta.label);
 
@@ -165,7 +166,7 @@ export class BaseSequenceChild extends EventEmitter {
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
               <span data-panel-heading-text class="c-sf-block__title"></span>
-              <span class="c-sf-block__type">${blockTypeLabel}</span>
+              <label class="c-sf-block__type" for="${labelId}">${blockTypeLabel}</label>
               ${
                 blockDef.meta.required
                   ? '<span class="w-required-mark" data-panel-required>*</span>'
