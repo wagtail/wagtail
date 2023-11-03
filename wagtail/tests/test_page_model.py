@@ -305,7 +305,7 @@ class TestRouting(TestCase):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # Basic installation only has one site configured, so page.url will return local URLs
@@ -366,7 +366,7 @@ class TestRouting(TestCase):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # with multiple sites, page.url will return full URLs to ensure that
@@ -421,7 +421,7 @@ class TestRouting(TestCase):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # Basic installation only has one site configured, so page.url will return local URLs
@@ -515,7 +515,7 @@ class TestRoutingWithI18N(TestRouting):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # Basic installation only has one site configured, so page.url will return local URLs
@@ -605,7 +605,7 @@ class TestRoutingWithI18N(TestRouting):
         fr_christmas_page.save(update_fields=["slug"])
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # Basic installation only has one site configured, so page.url will return local URLs
@@ -657,7 +657,7 @@ class TestRoutingWithI18N(TestRouting):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
 
         # This should make using url and site-related Page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(0):
             # with multiple sites, page.url will return full URLs to ensure that
@@ -714,7 +714,7 @@ class TestServeView(TestCase):
         # Explicitly clear the cache of site root paths. Normally this would be kept
         # in sync by the Site.save logic, but this is bypassed when the database is
         # rolled back between tests using transactions.
-        Site.clear_caches()
+        Site.clear_caches_for_thread()
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here

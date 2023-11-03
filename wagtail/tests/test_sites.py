@@ -228,7 +228,7 @@ class TestSiteCache(TestCase):
         # trigger clearing of threadlocal caches. So, we manually clear them
         # here, so that cached site/root path values always reflect the data
         # in the fixture
-        Site.clear_caches()
+        Site.clear_caches_for_thread()
 
     def test_cache(self):
         # The cache should be empty to start with

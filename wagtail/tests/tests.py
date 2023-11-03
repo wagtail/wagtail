@@ -25,7 +25,7 @@ class TestPageUrlTags(TestCase):
     def setUp(self):
         # With the site data caches populated, url methods should require far fewer queries
         super().setUp()
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
     def test_pageurl_tag(self):
         response = self.client.get("/events/")

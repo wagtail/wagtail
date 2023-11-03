@@ -341,7 +341,7 @@ class Site(models.Model):
             return deepcopy(result)
 
     @staticmethod
-    def clear_caches():
+    def clear_caches_for_thread():
         """
         Convenience method for clearing both the `Site` and `SiteRootPath`
         threadlocal caches for the current thread.
@@ -354,10 +354,11 @@ class Site(models.Model):
         _site_root_paths_cache.value = None
 
     @staticmethod
-    def refresh_caches():
+    def refresh_caches_for_thread():
         """
-        Convenience method for clearing and repopulating the `Site` and
-        `SiteRootPath` threadlocal caches. Mostly used in tests.
+        Convenience method repopulating the `Site` and
+        `SiteRootPath` threadlocal caches for the current thread.
+        Mostly used in tests.
         """
-        Site.clear_caches()
+        Site.clear_caches_for_thread()
         Site.get_site_root_paths()

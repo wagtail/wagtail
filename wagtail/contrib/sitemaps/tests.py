@@ -109,7 +109,7 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap()
 
         # NOTE: This should make calls to url-related page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(8):
             urls = [
@@ -128,7 +128,7 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
 
         # NOTE: This should make calls to url-related page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(7):
             urls = [
@@ -147,7 +147,7 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap()
 
         # NOTE: This should make calls to url-related page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(8):
             urls = [
@@ -166,7 +166,7 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
 
         # NOTE: This should make calls to url-related page methods more efficient
-        Site.refresh_caches()
+        Site.refresh_caches_for_thread()
 
         with self.assertNumQueries(7):
             urls = [

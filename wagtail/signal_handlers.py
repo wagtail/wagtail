@@ -19,11 +19,11 @@ logger = logging.getLogger("wagtail")
 
 
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
-    Site.clear_caches()
+    Site.clear_caches_for_thread()
 
 
 def post_delete_site_signal_handler(instance, **kwargs):
-    Site.clear_caches()
+    Site.clear_caches_for_thread()
 
 
 def pre_delete_page_unpublish(sender, instance, **kwargs):
