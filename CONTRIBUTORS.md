@@ -755,6 +755,7 @@
 * Chinedu Ihedioha
 * Ian Price
 * Varun Kumar
+* Joe Tsoi
 
 ## Translators
 

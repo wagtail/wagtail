@@ -14,6 +14,7 @@ Changelog
  * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
  * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
  * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
+ * Fix: Prevent snippet permission post-migrate hook from failing on multiple database configurations (Joe Tsoi)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
