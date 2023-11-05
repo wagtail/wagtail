@@ -753,6 +753,7 @@
 * Chris Lawton
 * Meghana Reddy
 * Chinedu Ihedioha
+* Ian Price
 
 ## Translators
 
