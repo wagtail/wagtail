@@ -758,6 +758,7 @@
 * phijma-leukeleu
 * CheesyPhoenix
 * Vedant Pandey
+* Ian Price
 
 ## Translators
 
