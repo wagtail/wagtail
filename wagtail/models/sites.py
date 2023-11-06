@@ -349,12 +349,13 @@ class Site(models.Model):
     @staticmethod
     def clear_caches_for_thread():
         """
-        Convenience method for clearing both the `Site` and `SiteRootPath`
+        A convenience method for clearing the `Site` and `SiteRootPath`
         threadlocal caches for the current thread.
 
-        NOTE: We do not attempt to clear data for other threads or processes
-        because, if they are already using a copy of the data, it could do more
-        harm than good to change that data mid-request.
+        NOTE: We never attempt to clear data for other threads or processes
+        because, if they are already in the process of responding to a request
+        with a copy of the data, it could do more harm than good to change that
+        data mid-request.
         """
         _sites_cache.value = None
         _site_root_paths_cache.value = None
@@ -362,9 +363,12 @@ class Site(models.Model):
     @staticmethod
     def refresh_caches_for_thread():
         """
-        Convenience method repopulating the `Site` and
+        A convenience method for clearing and repopulating the `Site` and
         `SiteRootPath` threadlocal caches for the current thread.
-        Mostly used in tests.
+
+        Mostly used in tests to 'warm' the cache, so that the initial
+        queries associated with site data are not counted in query
+        count assertions.
         """
         Site.clear_caches_for_thread()
         Site.get_site_root_paths()
