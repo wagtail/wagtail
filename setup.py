@@ -48,7 +48,7 @@ testing_extras = [
     "freezegun>=0.3.8",
     "azure-mgmt-cdn>=12.0,<13.0",
     "azure-mgmt-frontdoor>=1.0,<1.1",
-    "django-pattern-library>=0.7,<0.8",
+    "django-pattern-library>=0.7",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "black==22.3.0",
