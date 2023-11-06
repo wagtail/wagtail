@@ -1,6 +1,6 @@
 from collections import namedtuple
 from copy import deepcopy
-from typing import List, Tuple, Union
+from typing import List, Union
 
 from asgiref.local import Local
 from django.apps import apps
@@ -23,6 +23,15 @@ _site_root_paths_cache = Local()
 
 
 SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
+
+
+class WeakRefList(list):
+    """
+    A subclass of list that supports weak referencing (to reliably allow for garbage
+    collection when using threadlocals for caching).
+    """
+
+    pass
 
 
 def per_thread_site_caching_enabled() -> bool:
@@ -114,9 +123,9 @@ class SiteManager(models.Manager):
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
-    def get_all(self) -> Tuple["Site"]:
+    def get_all(self) -> List["Site"]:
         """
-        Returns a tuple of all `Site` objects, ordered for the generation of `SiteRootPath` lists.
+        Returns a list of all `Site` objects, ordered for the generation of `SiteRootPath` lists.
 
         Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the return
         value will be cached for the current thread.
@@ -127,7 +136,7 @@ class SiteManager(models.Manager):
             if cached is not None:
                 return cached
 
-        sites = tuple(
+        sites = WeakRefList(
             self.get_queryset()
             .select_related("root_page", "root_page__locale")
             .order_by("-root_page__url_path", "-is_default_site", "hostname")
@@ -274,9 +283,9 @@ class Site(models.Model):
                 )
 
     @classmethod
-    def get_site_root_paths(cls) -> Tuple[SiteRootPath]:
+    def get_site_root_paths(cls) -> List[SiteRootPath]:
         """
-        Return a tuple of `SiteRootPath` instances, most specific path
+        Return a list of `SiteRootPath` instances, most specific path
         first - used to translate url_paths into actual URLs with hostnames
 
         Each root path is an instance of the `SiteRootPath` named tuple,
@@ -296,7 +305,7 @@ class Site(models.Model):
             if cached_result is not None:
                 return cached_result
 
-        result = []
+        result = WeakRefList()
         for site in Site.objects.get_all():
             if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
                 result.extend(
@@ -321,9 +330,6 @@ class Site(models.Model):
                         site.root_page.locale.language_code,
                     )
                 )
-
-        # Convert to a tuple for weak reference support
-        result = tuple(result)
 
         if caching_enabled:
             # A copy is cached to prevent mutation and creation of

@@ -241,7 +241,7 @@ class TestSiteCache(TestCase):
         # Check return value matches expectations
         self.assertEqual(
             value,
-            tuple(
+            list(
                 Site.objects.order_by(
                     "-root_page__url_path", "-is_default_site", "hostname"
                 )
@@ -252,7 +252,7 @@ class TestSiteCache(TestCase):
         with self.assertNumQueries(0):
             second_value = Site.objects.get_all()
 
-        # The returned tuples should be equal, but should not be the same tuple object
+        # Return values should be equal, but should NOT be the same object
         self.assertEqual(value, second_value)
         self.assertIsNot(value, second_value)
 
