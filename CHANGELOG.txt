@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Migrate the contrib styleguide index view to a class-based view (Chiemezuo Akujobi)
  * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
  * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
 
 
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
