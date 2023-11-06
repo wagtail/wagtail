@@ -143,6 +143,7 @@ class EditView(generic.EditView):
         return self.get_edit_url()
 
     def get_success_message(self):
-        return _("%(setting_type)s updated.") % {
-            "setting_type": capfirst(self.model._meta.verbose_name)
-        }
+        return capfirst(
+            _("%(setting_type)s updated.")
+            % {"setting_type": self.model._meta.verbose_name}
+        )
