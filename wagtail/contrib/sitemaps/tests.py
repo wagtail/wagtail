@@ -101,7 +101,6 @@ class TestSitemapGenerator(TestCase):
         self.assertNotIn(self.unpublished_child_page.page_ptr.specific, pages)
         self.assertNotIn(self.protected_child_page.page_ptr.specific, pages)
 
-    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_get_urls_without_request(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
         req_protocol = request.scheme
@@ -120,7 +119,6 @@ class TestSitemapGenerator(TestCase):
         self.assertIn("http://localhost/", urls)  # Homepage
         self.assertIn("http://localhost/hello-world/", urls)  # Child page
 
-    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_get_urls_with_request_site_cache(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
         req_protocol = request.scheme
@@ -139,7 +137,7 @@ class TestSitemapGenerator(TestCase):
         self.assertIn("http://localhost/", urls)  # Homepage
         self.assertIn("http://localhost/hello-world/", urls)  # Child page
 
-    @override_settings(WAGTAIL_I18N_ENABLED=True, WAGTAIL_PER_THREAD_SITE_CACHING=True)
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_urls_without_request_with_i18n(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
         req_protocol = request.scheme
@@ -158,7 +156,7 @@ class TestSitemapGenerator(TestCase):
         self.assertIn("http://localhost/", urls)  # Homepage
         self.assertIn("http://localhost/hello-world/", urls)  # Child page
 
-    @override_settings(WAGTAIL_I18N_ENABLED=True, WAGTAIL_PER_THREAD_SITE_CACHING=True)
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_urls_with_request_site_cache_with_i18n(self):
         request, django_site = self.get_request_and_django_site("/sitemap.xml")
         req_protocol = request.scheme

@@ -5,7 +5,6 @@ from wagtail.models import Locale, Page, Site, SiteRootPath
 from wagtail.test.testapp.models import SimplePage
 
 
-@override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
 class TestSiteRootPathsCache(TestCase):
     fixtures = ["test.json"]
 

@@ -218,7 +218,6 @@ class TestGetSiteRootPaths(TestCase):
         self.assertEqual(result[2][0], self.def_site.id)
 
 
-@override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
 class TestSiteCache(TestCase):
     fixtures = ["test.json"]
 

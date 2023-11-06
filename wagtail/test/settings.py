@@ -261,12 +261,6 @@ REST_FRAMEWORK = {
 WAGTAILREDIRECTS_AUTO_CREATE = False
 
 
-# Disable per-thread caching of site/SiteRootPath data by default, as it tends to
-# cause confusion between tests that modify site data. It can be overridden on a
-# case-by-case basis when needed.
-WAGTAIL_PER_THREAD_SITE_CACHING = False
-
-
 # https://github.com/wagtail/wagtail/issues/2551 - projects should be able to set
 # MESSAGE_TAGS for their own purposes without them leaking into Wagtail admin styles.
 

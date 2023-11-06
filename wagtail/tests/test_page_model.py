@@ -298,7 +298,6 @@ class TestRouting(TestCase):
 
         clear_url_caches()
 
-    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -346,8 +345,7 @@ class TestRouting(TestCase):
             "testserver",
             "events.example.com",
             "second-events.example.com",
-        ],
-        WAGTAIL_PER_THREAD_SITE_CACHING=True,
+        ]
     )
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path="/home/events/")
@@ -412,9 +410,7 @@ class TestRouting(TestCase):
                 ),
             )
 
-    @override_settings(
-        ROOT_URLCONF="wagtail.test.non_root_urls", WAGTAIL_PER_THREAD_SITE_CACHING=True
-    )
+    @override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
     def test_urls_with_non_root_urlconf(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -508,7 +504,6 @@ class TestRoutingWithI18N(TestRouting):
     # This inherits from TestRouting so contains all the same test cases
     # Only the test cases that behave differently under internationalisation are overridden here
 
-    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls(self, expected_language_code="en"):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -590,7 +585,6 @@ class TestRoutingWithI18N(TestRouting):
         with translation.override("se"):
             self.test_urls()
 
-    @override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
     def test_urls_with_different_language_tree(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -637,8 +631,7 @@ class TestRoutingWithI18N(TestRouting):
             "testserver",
             "events.example.com",
             "second-events.example.com",
-        ],
-        WAGTAIL_PER_THREAD_SITE_CACHING=True,
+        ]
     )
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path="/home/events/")

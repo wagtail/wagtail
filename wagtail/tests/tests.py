@@ -18,7 +18,6 @@ from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 
 
-@override_settings(WAGTAIL_PER_THREAD_SITE_CACHING=True)
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
 
