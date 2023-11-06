@@ -33,6 +33,7 @@ Changelog
  * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
  * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
+ * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 

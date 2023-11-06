@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import paginator
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.widgets import Button
@@ -46,9 +47,8 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.user = self.login()
 
     def test_explore(self):
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+        explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        response = self.client.get(explore_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertEqual(self.root_page, response.context["parent_page"])
@@ -59,6 +59,38 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.new_page.id, self.old_page.id, self.child_page.id]
         )
+        expected_new_page_copy_url = (
+            reverse("wagtailadmin_pages:copy", args=(self.new_page.id,))
+            + "?"
+            + urlencode({"next": explore_url})
+        )
+        self.assertContains(response, f'href="{expected_new_page_copy_url}"')
+
+        self.assertContains(response, "1-3 of 3")
+
+    def test_explore_results(self):
+        explore_results_url = reverse(
+            "wagtailadmin_explore_results", args=(self.root_page.id,)
+        )
+        response = self.client.get(explore_results_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index_results.html")
+        self.assertEqual(self.root_page, response.context["parent_page"])
+
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(
+            page_ids, [self.new_page.id, self.old_page.id, self.child_page.id]
+        )
+        # the 'next' parameter should return to the explore view, NOT
+        # the partial explore_results view
+        explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        expected_new_page_copy_url = (
+            reverse("wagtailadmin_pages:copy", args=(self.new_page.id,))
+            + "?"
+            + urlencode({"next": explore_url})
+        )
+        self.assertContains(response, f'href="{expected_new_page_copy_url}"')
+
         self.assertContains(response, "1-3 of 3")
 
     def test_explore_root(self):
