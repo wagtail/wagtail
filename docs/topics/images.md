@@ -274,8 +274,8 @@ And with the picture tag, to retrieve multiple formats:
 ```html+django
 {% picture page.photo format-{avif,jpeg} as tmp_photo %}
 
-{{ tmp_photo.avif.0.url }}
-{{ tmp_photo.jpeg.0.url }}
+{{ tmp_photo.formats.avif.0.url }}
+{{ tmp_photo.formats.jpeg.0.url }}
 ```
 
 ```{note}

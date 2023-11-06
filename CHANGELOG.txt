@@ -22,7 +22,8 @@ Changelog
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-* Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
 5.2 LTS (01.11.2023)
