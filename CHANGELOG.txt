@@ -24,6 +24,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
