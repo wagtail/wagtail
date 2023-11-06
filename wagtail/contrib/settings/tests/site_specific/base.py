@@ -19,6 +19,9 @@ class SiteSettingsTestMixin:
             title="Other title", email="other@other.com", site=self.other_site
         )
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def get_request(self, site=None):
         if site is None:
             site = self.default_site

@@ -16,6 +16,9 @@ class GenericSettingsTestMixin:
             title="Default GenericSettings title", email="email@example.com"
         )
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def get_request(self, site=None):
         if site is None:
             site = self.default_site

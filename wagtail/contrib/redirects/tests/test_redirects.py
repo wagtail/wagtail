@@ -15,6 +15,10 @@ from wagtail.test.utils import WagtailTestUtils
 class TestRedirects(TestCase):
     fixtures = ["test.json"]
 
+    def setUp(self):
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_path_normalisation(self):
         # Shortcut to normalise function (to keep things tidy)
         normalise_path = models.Redirect.normalise_path

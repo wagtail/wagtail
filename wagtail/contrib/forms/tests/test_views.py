@@ -17,7 +17,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
 )
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
@@ -38,6 +38,9 @@ class TestFormResponsesPanel(TestCase):
         self.request = RequestFactory().get("/")
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
         self.form_page = make_form_page()
 
@@ -81,6 +84,9 @@ class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase
         self.request = RequestFactory().get("/")
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
         # Create a form page
         self.form_page = make_form_page_with_custom_submission()
@@ -131,6 +137,9 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login(username="siteeditor", password="password")
         self.form_page = Page.objects.get(url_path="/home/contact-us/")
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def make_form_pages(self):
         """
@@ -238,6 +247,9 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         self.fr_form_page.save()
 
         self.forms_index_url = reverse("wagtailforms:index")
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def make_form_pages(self, num=100, parent=None):
         """
@@ -347,6 +359,9 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
         old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
         old_form_submission.save()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
         # Login
         self.login()
@@ -538,6 +553,9 @@ class TestFormsSubmissionsExport(WagtailTestUtils, TestCase):
         else:
             new_form_submission.submit_time = "2014-01-01T12:00:00"
         new_form_submission.save()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
         # Login
         self.login()
@@ -1777,6 +1795,9 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.login()
 
         self.homepage = Page.objects.get(id=2)
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_form_is_rendered(self):
         preview_url = reverse(

@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.conf import settings
 
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -13,6 +13,9 @@ class TestCustomPageAssertions(WagtailPageTestCase):
         cls.superuser = cls.create_superuser("super")
 
     def setUp(self):
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
         self.parent = Page.objects.get(id=2)
         self.page = RoutablePageTest(
             title="Hello world!",

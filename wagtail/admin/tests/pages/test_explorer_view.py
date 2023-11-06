@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.widgets import Button
-from wagtail.models import GroupPagePermission, Locale, Page, Workflow
+from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
@@ -44,6 +44,9 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Login
         self.user = self.login()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_explore(self):
         response = self.client.get(
@@ -880,6 +883,9 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.user = self.login()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_in_workflow_status(self):
         workflow = Workflow.objects.first()

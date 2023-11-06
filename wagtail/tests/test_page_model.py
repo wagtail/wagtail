@@ -3243,6 +3243,10 @@ class TestIssue2024(TestCase):
 class TestMakePreviewRequest(TestCase):
     fixtures = ["test.json"]
 
+    def setUp(self):
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_make_preview_request_for_accessible_page(self):
         event_index = Page.objects.get(url_path="/home/events/")
         response = event_index.make_preview_request()

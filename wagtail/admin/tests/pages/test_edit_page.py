@@ -116,6 +116,9 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_page_edit(self):
         # Tests that the edit page loads
         response = self.client.get(

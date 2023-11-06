@@ -10,7 +10,7 @@ from django.utils.http import urlencode
 from django.utils.text import slugify
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
+from wagtail.models import Page, Site
 
 from .form_data import querydict_from_html
 from .wagtail_tests import WagtailTestUtils
@@ -454,4 +454,8 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
 class WagtailPageTests(WagtailPageTestCase):
     def setUp(self):
         super().setUp()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
         self.login()
