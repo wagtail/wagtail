@@ -1,6 +1,6 @@
 {% load l10n %}
 <td id="page_{{ instance.pk|unlocalize }}_title" {% if column.classname %}class="{{ column.classname }}"{% endif %} data-listing-page-title>
-    {% include "wagtailadmin/pages/listing/_page_title_explore.html" with page=instance show_locale_labels=show_locale_labels %}
+    {% include "wagtailadmin/pages/listing/_page_title_explore.html" with page=instance show_locale_labels=show_locale_labels actions_next_url=actions_next_url %}
     {% if parent_page %}
         <div>
             <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-arrow-right">{{ parent_page.get_admin_display_title }}</a>
