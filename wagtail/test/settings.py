@@ -1,5 +1,6 @@
 import os
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
@@ -70,10 +71,10 @@ if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
         "BACKEND"
     ] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-    # DJANGO_VERSION < 4.2
-    STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-    )
+    if DJANGO_VERSION < (4, 2):
+        STATICFILES_STORAGE = (
+            "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+        )
 
 
 USE_TZ = not os.environ.get("DISABLE_TIMEZONE")
