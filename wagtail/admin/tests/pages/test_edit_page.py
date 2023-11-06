@@ -1859,7 +1859,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
-            for (index, item) in enumerate(menu_items):
+            for index, item in enumerate(menu_items):
                 if item.name == "action-publish":
                     # move to top of list
                     menu_items.pop(index)
@@ -2016,7 +2016,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(35):
+        with self.assertNumQueries(34):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2029,7 +2029,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(39):
+        with self.assertNumQueries(38):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )

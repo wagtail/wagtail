@@ -176,13 +176,8 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             with self.subTest(page_fk_field=page_fk_field):
 
                 # only the first request for each URL will trigger queries.
-                # 2 are triggered instead of 1 here, because tests use the
-                # database cache backed, and the cache is queried each time
-                # to fetch site root paths (because there's no 'request' to
-                # store them on)
 
-                with self.assertNumQueries(2):
-
+                with self.assertNumQueries(1):
                     self.assertEqual(
                         settings.get_page_url(page_fk_field), expected_result
                     )
