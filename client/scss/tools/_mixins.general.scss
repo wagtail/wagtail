@@ -85,7 +85,6 @@
 
 @mixin icon() {
   @include font-smoothing;
-  font-family: $font-wagtail-icons;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;

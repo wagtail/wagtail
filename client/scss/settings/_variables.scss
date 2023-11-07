@@ -47,9 +47,6 @@ $breakpoints: (
 $font-sans: theme('fontFamily.sans');
 $font-mono: theme('fontFamily.mono');
 
-// Legacy icon font, to be removed in the near future.
-$font-wagtail-icons: wagtail;
-
 // misc sizing
 $menu-width: 200px;
 $menu-width-slim: 60px;
