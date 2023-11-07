@@ -176,8 +176,7 @@
       background-color: theme('colors.surface-button-hover');
     }
 
-    svg.icon {
-      // TODO: remove svg qualifier once the icon font styles are gone
+    .icon {
       @include svg-icon(1.3em);
     }
   }
@@ -293,8 +292,7 @@
 }
 
 .dropdown-button {
-  .button svg.icon {
-    // TODO: leave only class when iconfont styles are removed
+  .button .icon {
     @include svg-icon();
   }
 }
