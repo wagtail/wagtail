@@ -449,23 +449,23 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
+        self.remapped_fields = self._remap_fields(self.fields)
 
-        # Convert field names into index column names
-        if self.fields:
-            self.remapped_fields = []
-            searchable_fields = {
-                f.field_name: f
-                for f in self.queryset.model.get_searchable_search_fields()
-            }
-            for field_name in self.fields:
+    def _remap_fields(self, fields):
+        """Convert field names into index column names and add boosts."""
+
+        remapped_fields = []
+        if fields:
+            searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
+            for field_name in fields:
                 if field_name in searchable_fields:
                     field_name = self.mapping.get_field_column_name(
                         searchable_fields[field_name]
                     )
 
-                self.remapped_fields.append(Field(field_name))
+                remapped_fields.append(Field(field_name))
         else:
-            self.remapped_fields = [Field(self.mapping.all_field_name)]
+            remapped_fields.append(Field(self.mapping.all_field_name))
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -474,12 +474,14 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 if field.boost:
                     unique_boosts.add(float(field.boost))
 
-        self.remapped_fields.extend(
+        remapped_fields.extend(
             [
                 Field(self.mapping.get_boost_field_name(boost), boost)
                 for boost in unique_boosts
             ]
         )
+
+        return remapped_fields
 
     def get_boosted_fields(self, fields):
         boosted_fields = []
@@ -717,17 +719,20 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         else:
-            if len(fields) == 1:
-                return self._compile_query(self.query, fields[0])
-            else:
-                # Compile a query for each field then combine with disjunction
-                # max (or operator which takes the max score out of each of the
-                # field queries)
-                field_queries = []
-                for field in fields:
-                    field_queries.append(self._compile_query(self.query, field))
+            return self._join_and_compile_queries(self.query, fields)
 
-                return {"dis_max": {"queries": field_queries}}
+    def _join_and_compile_queries(self, query, fields, boost=1.0):
+        if len(fields) == 1:
+            return self._compile_query(query, fields[0], boost)
+        else:
+            # Compile a query for each field then combine with disjunction
+            # max (or operator which takes the max score out of each of the
+            # field queries)
+            field_queries = []
+            for field in fields:
+                field_queries.append(self._compile_query(query, field, boost))
+
+            return {"dis_max": {"queries": field_queries}}
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
@@ -767,6 +772,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
         else:
             return inner_query
+
+    def get_searchable_fields(self):
+        return self.queryset.model.get_searchable_search_fields()
 
     def get_sort(self):
         # Ordering by relevance is the default in Elasticsearch
@@ -1171,7 +1179,8 @@ class Elasticsearch7SearchBackend(BaseSearchBackend):
 
     def _get_options_from_host_urls(self, urls):
         """Given a list of parsed URLs, return a dict of additional options to be passed into the
-        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
+        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config
+        """
         return {}
 
     def __init__(self, params):
