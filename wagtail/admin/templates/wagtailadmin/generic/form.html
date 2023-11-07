@@ -24,13 +24,11 @@
                     </li>
                 {% endfor %}
             {% endblock %}
-
-            <li>
-                {% block actions %}
-                    <input type="submit" value="{{ submit_button_label }}" class="button" />
-                {% endblock %}
-            </li>
         </ul>
+
+        {% block actions %}
+            <button type="submit" class="button">{{ submit_button_label }}</button>
+        {% endblock %}
     </form>
 {% endblock %}
 
