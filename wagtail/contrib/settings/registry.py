@@ -25,16 +25,6 @@ class SettingMenuItem(MenuItem):
                 category=RemovedInWagtail70Warning,
             )
         classname = classname or classnames
-        # Special-case FontAwesome icons to avoid the breaking changes for those customisations.
-        if icon.startswith("fa-"):
-            icon_name = ""
-            icon_classes = "icon icon-" + icon
-            if classname:
-                classname += " " + icon_classes
-            else:
-                classname = icon_classes
-        else:
-            icon_name = icon
 
         self.model = model
         super().__init__(
@@ -44,7 +34,7 @@ class SettingMenuItem(MenuItem):
                 args=[model._meta.app_label, model._meta.model_name],
             ),
             classname=classname,
-            icon_name=icon_name,
+            icon_name=icon,
             **kwargs,
         )
 
