@@ -90,28 +90,6 @@
   &.bicolor {
     padding-inline-start: 3.5em;
 
-    &:before {
-      // iconfont
-      font-size: theme('fontSize.15');
-      position: absolute;
-      inset-inline-start: 0;
-      top: 0;
-      width: 2em;
-      line-height: inherit;
-      height: 100%;
-      text-align: center;
-      background-color: theme('colors.black-20');
-      display: block;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-top-left-radius: inherit;
-      border-start-start-radius: inherit;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-bottom-left-radius: inherit;
-      border-end-start-radius: inherit;
-    }
-
     .icon-wrapper {
       background-color: theme('colors.black-20');
       display: flex;
@@ -135,10 +113,6 @@
     }
 
     &.button--icon {
-      &:before {
-        display: none; // TODO: remove once the icon font styles are gone
-      }
-
       .icon {
         @include svg-icon();
       }
@@ -213,33 +187,8 @@
   }
 
   &.button-longrunning {
-    span {
-      // iconfont
-      @include transition(all 0.3s ease);
-      transform: scale(0.9);
-      display: inline-block;
-      height: 1em;
-      position: relative;
-      opacity: 0;
-      width: 0;
-      visibility: hidden;
-      text-align: center;
-      padding-inline-end: 0;
-    }
-
     em {
       font-style: normal;
-    }
-
-    span.icon-spinner:after {
-      // iconfont
-      text-align: center;
-      position: absolute;
-      inset-inline-start: 0;
-      margin: 0;
-      line-height: 1em;
-      display: inline-block;
-      font-size: 1em;
     }
 
     svg.icon-spinner {
@@ -251,16 +200,6 @@
   &.button-longrunning-active {
     display: inline-flex;
     align-items: center;
-
-    span {
-      // iconfont
-      transform: scale(1);
-      visibility: visible;
-      width: 1em;
-      height: 1em;
-      opacity: 0.8;
-      padding-inline-end: 0.5em;
-    }
 
     svg.icon-spinner {
       @include svg-icon();
@@ -316,18 +255,6 @@
 
   // Buttons which are only an icon
   &.text-replace {
-    &.icon {
-      // iconfont
-      font-size: 0; // unavoidable duplication of setting in icons.scss
-      height: inherit;
-      width: inherit;
-      box-sizing: content-box;
-
-      &:before {
-        line-height: 1.7em;
-      }
-    }
-
     &.button--icon {
       background-color: transparent;
       color: theme('colors.icon-secondary');

@@ -43,21 +43,6 @@ $icons-after: ('arrow-down', 'arrow-right', 'arrow-up');
   // Credit: Icon made by Freepik from Flaticon.com
 }
 
-.icon-view:before,
-.icon-no-view:before {
-  // icon-font
-  vertical-align: -3.5px;
-  font-size: 1.1rem;
-}
-
-.icon-spinner:after,
-.icon-spinner:before {
-  // iconfont
-  width: 1em;
-  animation: spin-wag 0.5s infinite linear;
-  display: inline-block;
-}
-
 // For SVG icons, add spinner styles onto the use element,
 // so an icon can be turned into a spinner by changing the href only.
 // This allows us to switch any icon to a spinner with much less boilerplate.
@@ -72,23 +57,6 @@ use[href='#icon-spinner'] {
 
 .icon-larger:before {
   font-size: 1.5em;
-}
-
-.icon.text-replace {
-  // iconfont
-  font-size: 0;
-  line-height: 0;
-  overflow: hidden;
-
-  &:before {
-    margin-inline-end: 0;
-    font-size: 1rem;
-    display: inline-block;
-    width: 100%;
-    line-height: 1.2em;
-    text-align: center;
-    vertical-align: middle;
-  }
 }
 
 .text-replace {
