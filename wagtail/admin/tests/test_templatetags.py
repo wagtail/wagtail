@@ -25,7 +25,6 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
@@ -582,43 +581,6 @@ class IconTagTest(SimpleTestCase):
         """
 
         self.assertHTMLEqual(expected, Template(template).render(Context()))
-
-    def test_with_deprecated_icon(self):
-        template = """
-            {% load wagtailadmin_tags %}
-            {% icon name="reset" %}
-        """
-
-        expected = """
-            <svg aria-hidden="true" class="icon icon-reset icon"><use href="#icon-reset"></svg>
-        """
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            ("Icon `reset` is deprecated and will be removed in a future release."),
-        ):
-            self.assertHTMLEqual(expected, Template(template).render(Context()))
-
-    def test_with_renamed_icon(self):
-        template = """
-            {% load wagtailadmin_tags %}
-            {% icon name="download-alt" %}
-        """
-
-        expected = """
-            <svg aria-hidden="true" class="icon icon-download icon"><use href="#icon-download"></svg>
-        """
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            (
-                "Icon `download-alt` has been renamed to `download`, "
-                "please adopt the new usage instead. Replace "
-                '`{% icon name="download-alt" ... %}` with '
-                '`{% icon name="download" ... %}'
-            ),
-        ):
-            self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
 class StatusTagTest(SimpleTestCase):
