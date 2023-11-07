@@ -75,7 +75,7 @@ documentation_extras = [
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.1.1",
-    "myst_parser==0.18.1",
+    "myst_parser==0.19.0",
     "sphinx_copybutton>=0.5,<1.0",
 ]
 
