@@ -22,6 +22,7 @@ Changelog
  * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
  * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
+ * Maintenance: Split up functions in Elasticsearch backend for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
 
 
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT

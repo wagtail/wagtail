@@ -760,6 +760,9 @@
 * Vedant Pandey
 * Ian Price
 * Elhussein Almasri
+* Marcel Kornblum
+* Cameron Lamb
+* Sam Dudley
 
 ## Translators
 
