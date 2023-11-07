@@ -758,6 +758,8 @@
 * phijma-leukeleu
 * CheesyPhoenix
 * Vedant Pandey
+* Ian Price
+* Elhussein Almasri
 
 ## Translators
 
