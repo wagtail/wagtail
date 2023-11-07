@@ -1,12 +1,5 @@
 @use 'sass:string';
 
-@font-face {
-  font-family: $font-wagtail-icons;
-  src: url('../fonts/wagtail.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 // Set SVG icons to use the current text color in the location they appear as
 // their default fill color. Can be overridden for a specific icon by either
 // the color or fill properties.
