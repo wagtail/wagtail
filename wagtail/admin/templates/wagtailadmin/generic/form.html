@@ -12,19 +12,23 @@
             {% endfor %}
         {% endblock %}
 
-        {% block hidden_fields %}
-            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-        {% endblock %}
-
-        <ul class="fields">
-            {% block visible_fields %}
-                {% for field in form.visible_fields %}
-                    <li>
-                        {% include "wagtailadmin/shared/field.html" %}
-                    </li>
-                {% endfor %}
+        {% if panel %}
+            {{ panel.render_form_content }}
+        {% else %}
+            {% block hidden_fields %}
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
             {% endblock %}
-        </ul>
+
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" %}
+                        </li>
+                    {% endfor %}
+                {% endblock %}
+            </ul>
+        {% endif %}
 
         {% block actions %}
             <button type="submit" class="button">{{ submit_button_label }}</button>

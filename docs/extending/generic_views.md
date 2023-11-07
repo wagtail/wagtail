@@ -86,6 +86,14 @@ If you would like to make further customisations to the filtering mechanism, you
 
 You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
 
+(modelviewset_create_edit)=
+
+### Create and edit views
+
+You can define a `panels` or `edit_handler` attribute on the `ModelViewSet` or your Django model to use Wagtail's panels mechanism. For more details, see [](forms_panels_overview).
+
+If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.get_edit_handler` method is not overridden, the form will be rendered as a plain Django form. You can customise the form by setting the {attr}`~ModelViewSet.form_fields` attribute to specify the fields to be shown on the form. Alternatively, you can set the {attr}`~ModelViewSet.exclude_form_fields` attribute to specify the fields to be excluded from the form. If panels are not used, you must define `form_fields` or `exclude_form_fields`, unless {meth}`~ModelViewSet.get_form_class` is overridden.
+
 (modelviewset_inspect)=
 
 ### Inspect view
