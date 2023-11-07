@@ -83,20 +83,6 @@
   vertical-align: $position;
 }
 
-@mixin icon() {
-  @include font-smoothing;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  speak: none;
-  text-decoration: none;
-  width: 1.3em;
-  line-height: 1em;
-  text-align: start;
-  vertical-align: middle;
-  margin-inline-end: 0.2em;
-}
-
 // Applies given rules on hover, for devices that support hover.
 @mixin hover {
   @media (hover: hover) {

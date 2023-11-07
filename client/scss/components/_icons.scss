@@ -15,11 +15,6 @@
   color: theme('colors.surface-page');
 }
 
-.icon:before,
-.icon:after {
-  @include icon(); // from _mixins.scss
-}
-
 .icon:after {
   text-align: end;
 }
