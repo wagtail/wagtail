@@ -177,7 +177,7 @@ class JSONMinMaxCountStreamModelViewSet(ModelViewSet):
     url_prefix = "minmaxcount-streammodel"
     model = JSONMinMaxCountStreamModel
     form_fields = ("body",)
-    icon = "reset"
+    icon = "rotate"
     menu_label = "JSON MinMaxCount StreamModel"
 
 
