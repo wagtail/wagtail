@@ -1,17 +1,22 @@
 import { ADMIN_API } from '../config/wagtailConfig';
 import { getPageChildren, getPage } from './admin';
-import * as client from './client';
+import client from './client';
 
-const stubResult = {
-  __types: {
-    test: {
-      verbose_name: 'Test',
+jest.mock('./client', () => {
+  const stubResult = {
+    __types: {
+      test: {
+        verbose_name: 'Test',
+      },
     },
-  },
-  items: [{ meta: { type: 'test' } }, { meta: { type: 'foo' } }],
-};
+    items: [{ meta: { type: 'test' } }, { meta: { type: 'foo' } }],
+  };
 
-client.get = jest.fn(() => Promise.resolve(stubResult));
+  return {
+    __esModule: true,
+    default: { get: jest.fn(() => Promise.resolve(stubResult)) },
+  };
+});
 
 describe('admin API', () => {
   describe('getPageChildren', () => {

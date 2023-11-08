@@ -41,15 +41,15 @@ WAGTAILDOCS_DOCUMENT_MODEL = 'app_label.CustomDocument'
 ```
 
 ```{note}
-Migrating from the builtin document model
+Migrating from the built-in document model:
 
 When changing an existing site to use a custom document model, no documents
 will be copied to the new model automatically. Copying old documents to the
 new model would need to be done manually with a
 {ref}`data migration <django:data-migrations>`.
 
-Any templates that reference the builtin document model will still continue
-to work as before.
+Templates that reference the built-in document model will continue
+to work as before
 ```
 
 ## Referring to the document model

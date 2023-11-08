@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import json
 import unittest
 
@@ -19,9 +17,12 @@ from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import (
+    RemovedInWagtail70Warning,
+)
 
 
-class TestHome(TestCase, WagtailTestUtils):
+class TestHome(WagtailTestUtils, TestCase):
     def setUp(self):
         # Login
         self.login()
@@ -37,20 +38,23 @@ class TestHome(TestCase, WagtailTestUtils):
         # check that custom menu items (including classname / icon_name) are pulled in
         self.assertContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/", "attrs": {"data-is-custom": "true"}}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classname": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
         # Check that the explorer menu item is here, with the right start page.
         self.assertContains(
             response,
-            '{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "url": "/admin/pages/", "attrs": null}, 1]',
+            '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classname": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
         )
+
+        # There should be a link to the full-featured snippet admin in on the home page.
+        self.assertContains(response, '"url": "/admin/deep/within/the/admin/"')
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse("wagtailadmin_home") + "?hide-kittens=true")
         self.assertNotContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/", "attrs": {"data-is-custom": "true"}}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classname": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
     def test_dashboard_panels(self):
@@ -69,7 +73,7 @@ class TestHome(TestCase, WagtailTestUtils):
     def test_summary_items(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<p>0 broken links</p>")
+        self.assertContains(response, "<li>0 broken links</li>")
 
         # check that media attached to summary items is correctly pulled in
         if DJANGO_VERSION >= (4, 1):
@@ -110,7 +114,7 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestEditorHooks(TestCase, WagtailTestUtils):
+class TestEditorHooks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.homepage = Page.objects.get(id=2)
         self.login()
@@ -229,8 +233,80 @@ class TestSendMail(TestCase):
         self.assertEqual(email_message.body, "TEXT content")
         self.assertEqual(email_message.to, ["mr.plain.text@email.com"])
 
+    def test_send_cc(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            cc=["cc.test@email.com"],
+        )
 
-class TestTagsAutocomplete(TestCase, WagtailTestUtils):
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].cc, ["cc.test@email.com"])
+
+    def test_send_bcc(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            bcc=["bcc.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].bcc, ["bcc.test@email.com"])
+
+    def test_send_reply_to(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            reply_to=["reply_to.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].reply_to, ["reply_to.test@email.com"])
+
+    def test_send_all_extra_fields(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            cc=["cc.test@email.com"],
+            bcc=["bcc.test@email.com"],
+            reply_to=["reply_to.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].cc, ["cc.test@email.com"])
+        self.assertEqual(mail.outbox[0].bcc, ["bcc.test@email.com"])
+        self.assertEqual(mail.outbox[0].reply_to, ["reply_to.test@email.com"])
+
+
+class TestTagsAutocomplete(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         Tag.objects.create(name="Test", slug="test")
@@ -307,7 +383,7 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(data, [])
 
 
-class TestMenuItem(TestCase, WagtailTestUtils):
+class TestMenuItem(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -317,8 +393,28 @@ class TestMenuItem(TestCase, WagtailTestUtils):
         menuitem = MenuItem(_("Test"), reverse_lazy("wagtailadmin_home"))
         self.assertIs(menuitem.is_active(self.request), True)
 
+    def test_menuitem_with_classname(self):
+        menuitem = MenuItem(
+            _("Test"),
+            reverse_lazy("wagtailadmin_home"),
+            classname="highlight-item",
+        )
+        self.assertEqual(menuitem.classname, "highlight-item")
 
-class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
+    def test_menuitem_with_deprecated_classnames(self):
+        with self.assertWarnsRegex(
+            RemovedInWagtail70Warning,
+            "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
+        ):
+            menuitem = MenuItem(
+                _("Test"),
+                reverse_lazy("wagtailadmin_home"),
+                classnames="is-dimmed",
+            )
+        self.assertEqual(menuitem.classname, "is-dimmed")
+
+
+class TestUserPassesTestPermissionDecorator(WagtailTestUtils, TestCase):
     """
     Test for custom user_passes_test permission decorators.
     testapp_bob_only_zone is a view configured to only grant access to users with a first_name of Bob
@@ -357,7 +453,7 @@ class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
-class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
+class TestUserHasAnyPagePermission(WagtailTestUtils, TestCase):
     def test_superuser(self):
         user = self.create_superuser(
             username="superuser", email="admin@example.com", password="p"
@@ -395,7 +491,7 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
         self.assertFalse(user_has_any_page_permission(user))
 
 
-class Test404(TestCase, WagtailTestUtils):
+class Test404(WagtailTestUtils, TestCase):
     def test_admin_404_template_used_append_slash_true(self):
         self.login()
         with self.settings(APPEND_SLASH=True):
@@ -414,7 +510,7 @@ class Test404(TestCase, WagtailTestUtils):
         )
 
 
-class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
+class TestAdminURLAppendSlash(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -431,11 +527,7 @@ class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
             self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
-            self.assertTrue(
-                response.context["pages"]
-                .paginator.object_list.filter(id=self.root_page.id)
-                .exists()
-            )
+            self.assertIn(self.root_page, response.context["pages"])
 
 
 class TestRemoveStaleContentTypes(TestCase):

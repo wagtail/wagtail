@@ -13,7 +13,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBulkUnpublish(TestCase, WagtailTestUtils):
+class TestBulkUnpublish(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create pages to unpublish
         self.root_page = Page.objects.get(id=2)
@@ -105,9 +105,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         )
 
         for child_page in self.pages_to_be_unpublished:
-            self.assertInHTML(
-                "<li>{page_title}</li>".format(page_title=child_page.title), html
-            )
+            self.assertInHTML(f"<li>{child_page.title}</li>", html)
 
     def test_unpublish_view_post(self):
         """
@@ -117,28 +115,31 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post to the unpublish page
-        response = self.client.post(self.url)
+        try:
+            # Post to the unpublish page
+            response = self.client.post(self.url)
 
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
+            # Should be redirected to explorer page
+            self.assertEqual(response.status_code, 302)
 
-        # Check that the child pages were unpublished
-        for child_page in self.pages_to_be_unpublished:
-            self.assertFalse(SimplePage.objects.get(id=child_page.id).live)
+            # Check that the child pages were unpublished
+            for child_page in self.pages_to_be_unpublished:
+                self.assertFalse(SimplePage.objects.get(id=child_page.id).live)
 
-        # Check that the child pages not to be unpublished remain
-        for child_page in self.pages_not_to_be_unpublished:
-            self.assertTrue(SimplePage.objects.get(id=child_page.id).live)
+            # Check that the child pages not to be unpublished remain
+            for child_page in self.pages_not_to_be_unpublished:
+                self.assertTrue(SimplePage.objects.get(id=child_page.id).live)
 
-        # Check that the page_unpublished signal was fired
-        self.assertEqual(mock_handler.call_count, len(self.pages_to_be_unpublished))
+            # Check that the page_unpublished signal was fired
+            self.assertEqual(mock_handler.call_count, len(self.pages_to_be_unpublished))
 
-        for i, child_page in enumerate(self.pages_to_be_unpublished):
-            mock_call = mock_handler.mock_calls[i][2]
-            self.assertEqual(mock_call["sender"], child_page.specific_class)
-            self.assertEqual(mock_call["instance"], child_page)
-            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+            for i, child_page in enumerate(self.pages_to_be_unpublished):
+                mock_call = mock_handler.mock_calls[i][2]
+                self.assertEqual(mock_call["sender"], child_page.specific_class)
+                self.assertEqual(mock_call["instance"], child_page)
+                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_after_unpublish_page(self):
         def hook_func(request, action_type, pages, action_class_instance):
@@ -191,12 +192,12 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         # Check the form does not contain the checkbox field include_descendants
         self.assertContains(
             response,
-            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+            'name="include_descendants"',
             count=0,
         )
 
 
-class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
+class TestBulkUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -266,7 +267,7 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         # Check the form contains the checkbox field include_descendants
         self.assertContains(
             response,
-            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+            'name="include_descendants"',
         )
 
     def test_unpublish_include_children_view_post(self):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django import forms
 from django.test import TestCase
 
@@ -229,7 +228,7 @@ class TestFormBuilder(TestCase):
         multiselect_field = FormField.objects.create(
             page=self.form_page,
             sort_order=2,
-            label="Your favorite colors",
+            label="Your favorite colours",
             field_type="multiselect",
             required=True,
             choices="red\r\nblue\r\ngreen",
@@ -283,7 +282,7 @@ class TestFormBuilder(TestCase):
 
         self.assertEqual(
             [("red", "red"), ("blue", "blue"), ("green", "green")],
-            form_class.base_fields["your_favorite_colors"].choices,
+            form_class.base_fields["your_favorite_colours"].choices,
         )
         self.assertEqual(
             [("cat", "cat"), ("dog", "dog"), ("bird", "bird")],
@@ -352,3 +351,34 @@ class TestCustomFormBuilder(TestCase):
         self.assertIsInstance(
             form.base_fields["device_ip_address"], forms.GenericIPAddressField
         )
+
+    def test_unsaved_fields_in_form_builder_formfields_with_clean_name_override(self):
+        """
+        Ensure unsaved FormField instances are added to FormBuilder.formfields dict
+        with a clean_name that uses the `get_field_clean_name` method that can be overridden.
+        """
+
+        unsaved_field_1 = ExtendedFormField(
+            page=self.form_page,
+            sort_order=14,
+            label="Unsaved field 1",
+            field_type="number",
+            required=True,
+        )
+        self.form_page.form_fields.add(unsaved_field_1)
+
+        unsaved_field_2 = ExtendedFormField(
+            page=self.form_page,
+            sort_order=15,
+            label="duplicate (suffix removed)",
+            field_type="singleline",
+            required=True,
+        )
+        self.form_page.form_fields.add(unsaved_field_2)
+
+        form_class = self.form_page.get_form_class()
+        form = form_class()
+
+        # See ExtendedFormField get_field_clean_name method
+        self.assertIn("number_field--unsaved_field_1", form.base_fields)
+        self.assertIn("test duplicate", form.base_fields)

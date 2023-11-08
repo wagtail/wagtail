@@ -77,7 +77,7 @@
   position: initial;
 }
 
-@mixin svg-icon($size: 1.5em, $position: text-top) {
+@mixin svg-icon($size: 1em, $position: text-top) {
   width: $size;
   height: $size;
   vertical-align: $position;
@@ -111,4 +111,19 @@
 // This is useful when focusable items are tightly packed and there is no space in-between.
 @mixin show-focus-outline-inside {
   outline-offset: -1 * $focus-outline-width;
+}
+
+/**
+ * Apply styles for the dark theme only.
+ */
+@mixin dark-theme() {
+  .w-theme-dark & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .w-theme-system & {
+      @content;
+    }
+  }
 }

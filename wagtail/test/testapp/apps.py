@@ -7,3 +7,10 @@ class WagtailTestsAppConfig(AppConfig):
     name = "wagtail.test.testapp"
     label = "tests"
     verbose_name = _("Wagtail tests")
+
+    def ready(self):
+        from wagtail.models.reference_index import ReferenceIndex
+
+        from .models import PageChooserModel
+
+        ReferenceIndex.register_model(PageChooserModel)

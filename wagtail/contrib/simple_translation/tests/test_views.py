@@ -1,3 +1,4 @@
+from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -17,6 +18,7 @@ from wagtail.contrib.simple_translation.views import (
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
+from wagtail.test.testapp.models import FullFeaturedSnippet
 from wagtail.test.utils import TestCase, WagtailTestUtils
 
 
@@ -256,32 +258,29 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         view = SubmitSnippetTranslationView()
         view.object = self.en_snippet
         view.kwargs = {
-            "app_label": "some_app",
-            "model_name": "some_model",
+            "app_label": "snippetstests",
+            "model_name": "translatablesnippet",
             "pk": 99,
         }
         self.assertEqual(
-            view.get_success_url(), "/admin/snippets/some_app/some_model/edit/99/"
+            view.get_success_url(),
+            "/admin/snippets/snippetstests/translatablesnippet/edit/99/",
         )
 
     def test_get_success_url_for_single_locale(self):
         view = SubmitSnippetTranslationView()
         view.object = self.en_snippet
         view.kwargs = {
-            "app_label": "some_app",
-            "model_name": "some_model",
+            "app_label": "snippetstests",
+            "model_name": "translatablesnippet",
             "pk": 99,
         }
 
         self.assertEqual(
             view.get_success_url(view.object),
             reverse(
-                "wagtailsnippets:edit",
-                args=[
-                    "some_app",
-                    "some_model",
-                    view.object.pk,
-                ],
+                "wagtailsnippets_snippetstests_translatablesnippet:edit",
+                args=[view.object.pk],
             ),
         )
 
@@ -291,6 +290,102 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         self.assertEqual(
             view.get_success_message(self.fr_locale),
             f"Successfully created French for translatable snippet 'TranslatableSnippet object ({self.en_snippet.id})'",
+        )
+
+
+@override_settings(
+    LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_CONTENT_LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_I18N_ENABLED=True,
+)
+class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+        self.en_locale = Locale.objects.first()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.de_locale = Locale.objects.create(language_code="de")
+
+        self.en_snippet = FullFeaturedSnippet.objects.create(
+            text="Hello world", locale=self.en_locale, live=False
+        )
+        self.en_snippet.save_revision().publish()
+        self.en_snippet.text = "It's edited"
+        self.en_snippet.save_revision()
+        self.en_snippet.refresh_from_db()
+
+        self.model_opts = self.en_snippet._meta
+        self.app_label = self.model_opts.app_label
+        self.model_name = self.model_opts.model_name
+
+    def get_submit_url(self):
+        return reverse(
+            "simple_translation:submit_snippet_translation",
+            args=(self.app_label, self.model_name, quote(self.en_snippet.pk)),
+        )
+
+    def get_snippet_url(self, view, snippet):
+        return reverse(
+            snippet.snippet_viewset.get_url_name(view),
+            args=(quote(snippet.pk),),
+        )
+
+    def test_submit_snippet_translation_view_test_get(self):
+        response = self.client.get(self.get_submit_url())
+        self.assertIsInstance(response.context["form"], SubmitTranslationForm)
+
+    def test_submit_snippet_translation_view_test_post_invalid(self):
+        response = self.client.post(self.get_submit_url(), {})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["form"].errors,
+            {"locales": ["This field is required."]},
+        )
+
+    def test_submit_snippet_translation_view_test_post_single_locale(self):
+        data = {"locales": [self.de_locale.id], "include_subtree": True}
+        response = self.client.post(self.get_submit_url(), data, follow=True)
+
+        translated_snippet = self.en_snippet.get_translation(self.de_locale.id)
+        self.assertRedirects(response, self.get_snippet_url("edit", translated_snippet))
+
+        self.assertContains(response, "It's edited", count=1)
+        self.assertContains(response, '<h3 id="status-sidebar-german"', count=1)
+        self.assertContains(
+            response,
+            f'<a href="{self.get_snippet_url("edit", self.en_snippet)}"',
+            count=1,
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{self.get_snippet_url("edit", translated_snippet)}"',
+        )
+
+        self.assertEqual(
+            [msg.message for msg in response.context["messages"]],
+            ["Successfully created German for full-featured snippet 'It's edited'"],
+        )
+
+    def test_submit_snippet_translation_view_test_post_multiple_locales(self):
+        url = self.get_submit_url()
+        data = {"locales": [self.de_locale.id, self.fr_locale.id]}
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, self.get_snippet_url("edit", self.en_snippet))
+
+        response = self.client.get(response.url)  # follow the redirect
+        self.assertEqual(
+            [msg.message for msg in response.context["messages"]],
+            ["Successfully created 2 locales for full-featured snippet 'It's edited'"],
         )
 
 

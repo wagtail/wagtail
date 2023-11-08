@@ -1,44 +1,45 @@
+$icon-size: theme('spacing.4');
+
 .c-sf-add-button {
-  width: 100%;
-  height: $add-button-size;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.6');
+  height: theme('spacing.6');
   appearance: none;
-  border: 0 none;
-  color: $teal;
-  font-weight: bold;
-  background: none;
+  color: theme('colors.text-button-outline-default');
+  background-color: theme('colors.surface-page');
   padding: 0;
   cursor: pointer;
-  outline: none;
-  backface-visibility: hidden;
-  overflow: hidden; // Makes the rotated i box not clickable.
-  user-select: none;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 100ms ease-in-out;
+  // Align with guide lines, which are already offset by a half icon size.
+  margin-inline-start: calc(-1 * (1px + $icon-size / 4));
 
-  &:hover {
-    opacity: 1;
+  .icon {
+    width: $icon-size;
+    height: $icon-size;
+    padding: theme('spacing.[0.5]');
+    border: 1px solid currentColor;
+    border-radius: theme('borderRadius.full');
+    transition: transform 0.3s ease;
   }
 
-  i {
-    display: block;
-    transition: transform $add-transition-duration $bounce-transition-timing;
-    font-style: normal;
-    font-size: $add-button-font-size;
-    line-height: $add-button-size;
-  }
-
-  &--visible {
-    opacity: 0.8;
-    pointer-events: unset;
-  }
-
-  &--close i {
+  &[aria-expanded='true'] .icon {
     transform: rotate(45deg);
+  }
+
+  &:hover,
+  &:focus-visible {
+    .icon {
+      color: theme('colors.surface-page');
+      background-color: theme('colors.text-button-outline-default');
+    }
   }
 
   &[disabled] {
     opacity: 0.2;
-    pointer-events: none;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
   }
 }

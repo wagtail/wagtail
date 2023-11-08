@@ -1,0 +1,187 @@
+.preview-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  --w-preview-background-color: var(--w-color-white);
+  --preview-width-ratio: min(
+    1,
+    var(--preview-panel-width, 450) / var(--preview-device-width, 375)
+  );
+  --preview-iframe-width: calc(1px * var(--preview-device-width, 375));
+
+  &__area {
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    // Needed for the warning message when the data is not valid.
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: calc(var(--preview-iframe-width) * var(--preview-width-ratio));
+    height: 100%;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+
+  &__iframe {
+    transform-origin: top left;
+    width: var(--preview-iframe-width);
+    height: calc(100% / var(--preview-width-ratio));
+    transform: scale(var(--preview-width-ratio));
+    display: block;
+
+    &:empty {
+      // Ensure that sites without a background show with a fallback, only when iframe has loaded
+      background-color: var(--w-preview-background-color);
+    }
+
+    [dir='rtl'] & {
+      // Transform with the top-right physical corner as the origin since the layout is reversed.
+      transform-origin: top right;
+    }
+
+    // Prevent the iframe from capturing pointer events when resizing the panel, which
+    // would consume the pointerup event and leaving the panel stuck in a resizing state.
+    .side-panel-resizing & {
+      pointer-events: none;
+    }
+  }
+
+  &__sizes {
+    @apply w-border-border-furniture w-border-b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__size-button {
+    @apply w-text-text-meta w-transition hover:w-transform hover:w-scale-110 hover:w-text-text-label focus:w-text-text-label;
+
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    padding: 0;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    &:focus-within {
+      @include focus-outline;
+    }
+
+    .icon {
+      @include svg-icon(1rem);
+
+      &.icon-tablet-alt,
+      &.icon-desktop {
+        @include svg-icon(1.25rem);
+      }
+
+      &.icon-link-external {
+        @include svg-icon(0.9rem);
+      }
+    }
+
+    input[type='radio'] {
+      position: absolute;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  &__refresh-button.button--icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1.5rem;
+
+    .icon {
+      @include svg-icon(0.9rem);
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1.5rem;
+  }
+
+  &--mobile &__size-button--mobile,
+  &--tablet &__size-button--tablet,
+  &--desktop &__size-button--desktop {
+    @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
+  }
+
+  &__controls {
+    @apply w-border-t w-border-transparent w-duration-500 w-ease-in-out;
+    transition-property: border-color, margin-top, padding-top;
+    margin-top: 0;
+    padding-top: 0;
+
+    // Show the border only if there's an error,
+    // but always show it if there are multiple preview modes
+    .preview-panel--has-errors &:not(&--multiple),
+    &--multiple {
+      @apply w-border-border-furniture w-border-t;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  &__error-banner {
+    @apply w-text-text-context w-duration-1000 w-ease-in-out w-translate-y-20;
+    transition-property: max-height, transform, visibility;
+    visibility: hidden;
+    max-height: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: -1;
+
+    .icon {
+      @apply w-text-warning-100;
+    }
+  }
+
+  &--has-errors &__error-banner {
+    @apply w-translate-y-0;
+    visibility: visible;
+    max-height: 6rem;
+  }
+
+  &__error-title {
+    @apply w-label-2;
+    color: inherit;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  &__error-details {
+    color: inherit;
+  }
+
+  &__modes {
+    margin-bottom: 0;
+    background-color: theme('colors.surface-page');
+
+    .w-field__input {
+      padding-inline-end: 0;
+    }
+  }
+
+  &__mode-select {
+    @apply w-outline-offset-inside;
+  }
+}

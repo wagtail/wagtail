@@ -324,7 +324,7 @@ def collection_member_permission_formset_factory(
         """
         For a given model with CollectionMember behaviour,
         defines the permissions that are assigned to an entity
-        (i.e. group or user) for a specific collection
+        (such as a group or user) for a specific collection
         """
 
         collection = CollectionChoiceField(
@@ -339,7 +339,7 @@ def collection_member_permission_formset_factory(
         )
 
     GroupCollectionMemberPermissionFormSet = type(
-        str("GroupCollectionMemberPermissionFormSet"),
+        "GroupCollectionMemberPermissionFormSet",
         (BaseGroupCollectionMemberPermissionFormSet,),
         {
             "permission_types": permission_types,

@@ -22,7 +22,7 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestAuthentication(TestCase, WagtailTestUtils):
+class TestAuthentication(WagtailTestUtils, TestCase):
     """
     This tests that users can login and logout of the admin interface
     """
@@ -112,7 +112,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.login()
 
         # Get logout page
-        response = self.client.get(reverse("wagtailadmin_logout"))
+        response = self.client.post(reverse("wagtailadmin_logout"))
 
         # Check that the user was redirected to the login page
         self.assertRedirects(response, reverse("wagtailadmin_login"))
@@ -230,12 +230,13 @@ class TestAccountSectionUtilsMixin:
             "notifications-updated_comments_notifications": "true",
             "locale-preferred_language": "es",
             "locale-current_time_zone": "Europe/London",
+            "theme-theme": "dark",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
 
 
-class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
+class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     """
     This tests that the accounts section is working
     """
@@ -257,19 +258,23 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, "name_email")
         self.assertPanelActive(response, "notifications")
         self.assertPanelActive(response, "locale")
+        self.assertPanelActive(response, "theme")
         self.assertPanelActive(response, "password")
 
         # These fields may hide themselves
-        self.assertContains(response, "Email:")
-        self.assertContains(response, "Preferred language:")
+        self.assertContains(response, "Email")
+        self.assertContains(response, "Preferred language")
 
         if settings.USE_TZ:
-            self.assertContains(response, "Current time zone:")
+            self.assertContains(response, "Current time zone")
         else:
-            self.assertNotContains(response, "Current time zone:")
+            self.assertNotContains(response, "Current time zone")
 
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
+
+        # Check if the default title exists
+        self.assertContains(response, "Name and Email")
 
     def test_change_name_post(self):
         response = self.post_form(
@@ -328,7 +333,12 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/account/account.html")
-        self.assertNotContains(response, "Email:")
+        self.assertNotContains(response, "id_name_email-email")
+
+        # Check if the default title does not exist
+        self.assertNotContains(response, "Name and Email")
+        # When WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False, Check if title is "Name"
+        self.assertContains(response, "Name")
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
@@ -361,6 +371,22 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("newpassword"))
 
+    def test_change_password_whitespaced(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "  whitespaced_password  ",
+                "password-new_password2": "  whitespaced_password  ",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        # Check that the password was changed and whitespace was not stripped
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("  whitespaced_password  "))
+
     def test_change_password_post_password_mismatch(self):
         response = self.post_form(
             {
@@ -388,6 +414,22 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
             "The two password fields didn’t match.",
             password_form.errors["new_password2"],
         )
+
+        # Check that the password was not changed
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("password"))
+
+    def test_ignore_change_password_if_only_old_password_supplied(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "",
+                "password-new_password2": "",
+            }
+        )
+
+        # Check that everything runs as usual (with a redirect), instead of a validation error
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
 
         # Check that the password was not changed
         self.user.refresh_from_db()
@@ -434,7 +476,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         # check that the updated language preference is now indicated in HTML header
         response = self.client.get(reverse("wagtailadmin_home"))
-        self.assertContains(response, '<html lang="es" dir="ltr">')
+        self.assertContains(response, '<html lang="es" dir="ltr" class="w-theme-dark">')
 
     def test_unset_language_preferences(self):
         profile = UserProfile.get_for_user(self.user)
@@ -473,7 +515,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Preferred language:")
+        self.assertNotContains(response, "Preferred language")
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_change_current_time_zone(self):
@@ -527,12 +569,12 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAIL_USER_TIME_ZONES=["Europe/London"])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Current time zone:")
+        self.assertNotContains(response, "Current time zone")
 
     @unittest.skipIf(settings.USE_TZ, "Timezone support is enabled")
     def test_not_show_options_if_timezone_support_disabled(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Current time zone:")
+        self.assertNotContains(response, "Current time zone")
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(
@@ -545,6 +587,21 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         response = self.client.get(reverse("wagtailadmin_account"))
         self.assertPanelNotActive(response, "locale")
 
+    def test_change_theme_post(self):
+        response = self.post_form(
+            {
+                "theme-theme": "light",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+
+        self.assertEqual(profile.theme, "light")
+
     def test_sensitive_post_parameters(self):
         request = RequestFactory().post("wagtailadmin_account", data={})
         request.user = self.user
@@ -553,7 +610,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
 
 
-class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
+class TestAccountUploadAvatar(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
         self.avatar = get_test_image_file()
@@ -561,12 +618,12 @@ class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtil
 
     def test_account_view(self):
         """
-        This tests that the account view renders a "Upload a profile picture:" field
+        This tests that the account view renders a "Upload a profile picture" field
         """
         response = self.client.get(reverse("wagtailadmin_account"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Upload a profile picture:")
+        self.assertContains(response, "Upload a profile picture")
 
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
         response = self.post_form(
@@ -644,7 +701,7 @@ class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtil
         self.assertIn("test.png", profile.avatar.url)
 
 
-class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
+class TestAccountManagementForNonModerator(WagtailTestUtils, TestCase):
     """
     Tests of reduced-functionality for editors
     """
@@ -683,7 +740,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
 
 
 class TestAccountManagementForAdminOnlyUser(
-    TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin
+    WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin
 ):
     """
     Tests for users with no edit/publish permissions at all
@@ -711,7 +768,7 @@ class TestAccountManagementForAdminOnlyUser(
         self.assertPanelNotActive(response, "notifications")
 
 
-class TestPasswordReset(TestCase, WagtailTestUtils):
+class TestPasswordReset(WagtailTestUtils, TestCase):
     """
     This tests that the password reset is working
     """

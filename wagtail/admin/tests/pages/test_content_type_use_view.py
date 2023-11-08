@@ -6,7 +6,7 @@ from wagtail.test.testapp.models import EventPage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestContentTypeUse(TestCase, WagtailTestUtils):
+class TestContentTypeUse(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -22,7 +22,8 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/content_type_use.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
+        self.assertTemplateUsed(response, "wagtailadmin/pages/usage_results.html")
         self.assertContains(response, "Christmas")
 
         # Links to 'delete' etc should include a 'next' URL parameter pointing back here
@@ -32,3 +33,4 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
             + urlencode({"next": request_url})
         )
         self.assertContains(response, delete_url)
+        self.assertNotContains(response, "data-bulk-action-select-all-checkbox")

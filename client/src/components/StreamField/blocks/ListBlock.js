@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -8,15 +7,13 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
+import { range } from '../../../utils/range';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 /* global $ */
-
-export class ListBlockValidationError {
-  constructor(blockErrors, nonBlockErrors) {
-    this.blockErrors = blockErrors;
-    this.nonBlockErrors = nonBlockErrors;
-  }
-}
 
 class ListChild extends BaseSequenceChild {
   /*
@@ -63,13 +60,10 @@ class InsertPosition extends BaseInsertionControl {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
     const animate = opts && opts.animate;
-
+    const title = h(opts.strings.ADD);
     const button = $(`
-      <button type="button" title="${h(
-        opts.strings.ADD,
-      )}" data-streamfield-list-add
-          class="c-sf-add-button c-sf-add-button--visible">
-        <i aria-hidden="true">+</i>
+      <button type="button" title="${title}" data-streamfield-list-add class="c-sf-add-button">
+        <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>
     `);
     $(placeholder).replaceWith(button);
@@ -97,12 +91,13 @@ class InsertPosition extends BaseInsertionControl {
 
 export class ListBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+      <div class="${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(
           prefix,
         )}-count" data-streamfield-list-count value="0">
@@ -114,12 +109,11 @@ export class ListBlock extends BaseSequenceBlock {
     if (this.blockDef.meta.helpText) {
       // help text is left unescaped as per Django conventions
       $(`
-        <span>
+        <div class="c-sf-help">
           <div class="help">
-            ${this.blockDef.meta.helpIcon}
             ${this.blockDef.meta.helpText}
           </div>
-        </span>
+        </div>
       `).insertBefore(dom);
     }
 
@@ -197,22 +191,14 @@ export class ListBlock extends BaseSequenceBlock {
     if (typeof this.blockDef.meta.maxNum === 'number') {
       if (this.children.length >= this.blockDef.meta.maxNum) {
         /* prevent adding new blocks */
-        for (let i = 0; i < this.inserters.length; i++) {
+        range(0, this.inserters.length).forEach((i) => {
           this.inserters[i].disable();
-        }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].disableDuplication();
-          this.children[i].disableSplit();
-        }
+        });
       } else {
         /* allow adding new blocks */
-        for (let i = 0; i < this.inserters.length; i++) {
+        range(0, this.inserters.length).forEach((i) => {
           this.inserters[i].enable();
-        }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].enableDuplication();
-          this.children[i].enableSplit();
-        }
+        });
       }
     }
   }
@@ -229,12 +215,14 @@ export class ListBlock extends BaseSequenceBlock {
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    // child.getState() is the state of the ListChild, which is a dict of value and id;
-    // for inserting a new child block, we just want the value (and will assign a new id).
-    const childState = child.getState().value;
+    const { id: newId, value: childValue } = child.getDuplicatedState();
     const animate = opts && opts.animate;
-    this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
-    this.children[index + 1].focus({ soft: true });
+    this.insert(childValue, index + 1, {
+      animate,
+      focus: true,
+      collapsed: child.collapsed,
+      id: newId,
+    });
   }
 
   splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
@@ -243,6 +231,7 @@ export class ListBlock extends BaseSequenceBlock {
     child.setValue(valueBefore);
     const newChild = this.insert(valueAfter, index + 1, {
       animate,
+      focus: true,
       collapsed: child.collapsed,
     });
     const oldContentPath = child.getContentPath();
@@ -261,40 +250,38 @@ export class ListBlock extends BaseSequenceBlock {
         }
       });
     }
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
-    }
-    const error = errorList[0];
+  setError(error) {
+    if (!error) return;
 
     // Non block errors
     const container = this.container[0];
-    container
-      .querySelectorAll(':scope > .help-block.help-critical')
-      .forEach((element) => element.remove());
+    removeErrorMessages(container);
 
-    if (error.nonBlockErrors.length > 0) {
-      // Add a help block for each error raised
-      error.nonBlockErrors.forEach((nonBlockError) => {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('help-block');
-        errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(nonBlockError.messages[0]);
-        container.insertBefore(errorElement, container.childNodes[0]);
-      });
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
     }
 
-    // error.blockErrors = a list with the same length as the data,
-    // with nulls for items without errors
-    error.blockErrors.forEach((blockError, blockIndex) => {
-      if (blockError) {
-        this.children[blockIndex].setError(blockError);
-      }
-    });
+    if (error.blockErrors) {
+      // error.blockErrors = a dict of errors, keyed by block index
+      Object.entries(error.blockErrors).forEach(([index, blockError]) => {
+        this.children[index].setError(blockError);
+      });
+    }
+  }
+
+  getBlockGroups() {
+    const group = ['', [this.blockDef.childBlockDef]];
+    return [group];
+  }
+
+  getBlockCount() {
+    return this.children.length;
+  }
+
+  getBlockMax() {
+    return this.blockDef.meta.maxNum || 0;
   }
 }
 

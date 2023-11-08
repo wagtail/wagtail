@@ -7,17 +7,30 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.query import TreeQuerySet
 from wagtail.search import index
-from wagtail.treebeard import TreebeardPathFixMixin
 
 from .view_restrictions import BaseViewRestriction
 
 
+class CollectionQuerySet(TreeQuerySet):
+    def get_indented_choices(self):
+        """
+        Return a list of (id, label) tuples for use as a list of choices in a collection chooser
+        dropdown, where the label is formatted with get_indented_name to provide a tree layout.
+        The indent level is chosen to place the minimum-depth collection at indent 0.
+        """
+        min_depth = self.aggregate(models.Min("depth"))["depth__min"] or 2
+        return [
+            (collection.pk, collection.get_indented_name(min_depth, html=True))
+            for collection in self
+        ]
+
+
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
-        return TreeQuerySet(self.model).order_by("path")
+        return CollectionQuerySet(self.model).order_by("path")
 
 
-CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+CollectionManager = BaseCollectionManager.from_queryset(CollectionQuerySet)
 
 
 class CollectionViewRestriction(BaseViewRestriction):
@@ -35,7 +48,7 @@ class CollectionViewRestriction(BaseViewRestriction):
         verbose_name_plural = _("collection view restrictions")
 
 
-class Collection(TreebeardPathFixMixin, MP_Node):
+class Collection(MP_Node):
     """
     A location in which resources such as images and documents can be grouped
     """

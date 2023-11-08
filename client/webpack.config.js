@@ -9,7 +9,6 @@ const getOutputPath = (app, folder, filename) => {
     'contrib/table_block': 'table_block',
     'contrib/typed_table_block': 'typed_table_block',
     'contrib/styleguide': 'wagtailstyleguide',
-    'contrib/modeladmin': 'wagtailmodeladmin',
   };
 
   const appLabel = exceptions[app] || `wagtail${app}`;
@@ -31,18 +30,22 @@ module.exports = function exports(env, argv) {
 
   const entrypoints = {
     'admin': [
-      'collapsible',
+      'chooser-modal',
+      'chooser-widget',
+      'chooser-widget-telepath',
       'comments',
       'core',
       'date-time-chooser',
       'draftail',
       'expanding-formset',
       'filtered-select',
-      'lock-unlock-action',
+      'icons',
       'modal-workflow',
       'page-chooser-modal',
       'page-chooser',
+      'page-chooser-telepath',
       'page-editor',
+      'preview-panel',
       'privacy-switch',
       'sidebar',
       'task-chooser-modal',
@@ -53,7 +56,6 @@ module.exports = function exports(env, argv) {
       'userbar',
       'wagtailadmin',
       'workflow-action',
-      'workflow-status',
       'bulk-actions',
     ],
     'images': [
@@ -72,6 +74,7 @@ module.exports = function exports(env, argv) {
   };
 
   const entry = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach((moduleName) => {
       entry[moduleName] = {
@@ -90,92 +93,6 @@ module.exports = function exports(env, argv) {
     'scss',
     'core.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/404')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    '404.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/account')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'account.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/compare-revisions')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'compare-revisions.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/home')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'home.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/login')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'login.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/page-editor')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'page-editor.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/report')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'report.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-edit')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'workflow-edit.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-progress')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'workflow-progress.scss',
-    );
-  // sassEntry[getOutputPath('admin', 'css', 'normalize')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'css', 'normalize.css');
   sassEntry[getOutputPath('admin', 'css', 'panels/draftail')] = path.resolve(
     'wagtail',
     'admin',
@@ -194,95 +111,6 @@ module.exports = function exports(env, argv) {
     'panels',
     'streamfield.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'userbar')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'userbar.scss',
-  );
-  sassEntry[getOutputPath('documents', 'css', 'add-multiple')] = path.resolve(
-    'wagtail',
-    'documents',
-    'static_src',
-    'wagtaildocs',
-    'scss',
-    'add-multiple.scss',
-  );
-  sassEntry[getOutputPath('images', 'css', 'add-multiple')] = path.resolve(
-    'wagtail',
-    'images',
-    'static_src',
-    'wagtailimages',
-    'scss',
-    'add-multiple.scss',
-  );
-  sassEntry[getOutputPath('images', 'css', 'focal-point-chooser')] =
-    path.resolve(
-      'wagtail',
-      'images',
-      'static_src',
-      'wagtailimages',
-      'scss',
-      'focal-point-chooser.scss',
-    );
-  sassEntry[getOutputPath('images', 'css', 'chooser-duplicate-upload')] =
-    path.resolve(
-      'wagtail',
-      'images',
-      'static_src',
-      'wagtailimages',
-      'scss',
-      'chooser-duplicate-upload.scss',
-    );
-  sassEntry[getOutputPath('users', 'css', 'groups_edit')] = path.resolve(
-    'wagtail',
-    'users',
-    'static_src',
-    'wagtailusers',
-    'scss',
-    'groups_edit.scss',
-  );
-  sassEntry[getOutputPath('contrib/styleguide', 'css', 'styleguide')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'styleguide',
-      'static_src',
-      'wagtailstyleguide',
-      'scss',
-      'styleguide.scss',
-    );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'index')] = path.resolve(
-    'wagtail',
-    'contrib',
-    'modeladmin',
-    'static_src',
-    'wagtailmodeladmin',
-    'scss',
-    'index.scss',
-  );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'breadcrumbs_page')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'modeladmin',
-      'static_src',
-      'wagtailmodeladmin',
-      'scss',
-      'breadcrumbs_page.scss',
-    );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'choose_parent_page')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'modeladmin',
-      'static_src',
-      'wagtailmodeladmin',
-      'scss',
-      'choose_parent_page.scss',
-    );
   sassEntry[
     getOutputPath('contrib/typed_table_block', 'css', 'typed_table_block')
   ] = path.resolve(
@@ -346,28 +174,13 @@ module.exports = function exports(env, argv) {
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
-            from: 'wagtail/search/static_src/',
-            to: 'wagtail/search/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/snippets/static_src/',
-            to: 'wagtail/snippets/static/',
+            from: 'wagtail/contrib/search_promotions/static_src/',
+            to: 'wagtail/contrib/search_promotions/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
             from: 'wagtail/users/static_src/',
             to: 'wagtail/users/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/contrib/settings/static_src/',
-            to: 'wagtail/contrib/settings/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/contrib/modeladmin/static_src/',
-            to: 'wagtail/contrib/modeladmin/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
         ],
@@ -397,7 +210,12 @@ module.exports = function exports(env, argv) {
           test: /\.(scss|css)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: false,
+              },
+            },
             {
               loader: 'postcss-loader',
               options: {
@@ -406,7 +224,17 @@ module.exports = function exports(env, argv) {
                 },
               },
             },
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sassOptions: {
+                  // Manually set Sass output so it’s identical in production and development. See:
+                  // https://github.com/tailwindlabs/tailwindcss/issues/11027
+                  // https://github.com/webpack-contrib/sass-loader/issues/1129
+                  outputStyle: 'expanded',
+                },
+              },
+            },
           ],
         },
       ].concat(

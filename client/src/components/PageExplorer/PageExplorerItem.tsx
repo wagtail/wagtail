@@ -2,9 +2,9 @@ import React from 'react';
 
 import { gettext } from '../../utils/gettext';
 import { ADMIN_URLS, LOCALE_NAMES } from '../../config/wagtailConfig';
-import Icon from '../../components/Icon/Icon';
-import Button from '../../components/Button/Button';
-import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
+import Icon from '../Icon/Icon';
+import Button from '../Button/Button';
+import PublicationStatus from '../PublicationStatus/PublicationStatus';
 import { PageState } from './reducers/nodes';
 
 // Hoist icons in the explorer item, as it is re-rendered many times.
@@ -59,7 +59,7 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
       >
         <Icon
           name="edit"
-          title={gettext("Edit '{title}'").replace('{title}', title || '')}
+          title={gettext("Edit '%(title)s'").replace('%(title)s', title || '')}
           className="icon--item-action"
         />
       </Button>
@@ -72,8 +72,8 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
         >
           <Icon
             name="arrow-right"
-            title={gettext("View child pages of '{title}'").replace(
-              '{title}',
+            title={gettext("View child pages of '%(title)s'").replace(
+              '%(title)s',
               title || '',
             )}
             className="icon--item-action"

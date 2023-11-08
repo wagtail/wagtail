@@ -1,7 +1,0 @@
-{% extends "wagtailadmin/widgets/chooser.html" %}
-{% block chooser_class %}task-chooser{% endblock %}
-{% block chooser_attributes %}data-chooser-url="{% url "wagtailadmin_workflows:task_chooser" %}"{% endblock %}
-
-{% block chosen_state_view %}
-    <span class="name">{{ display_title }}</span>
-{% endblock %}

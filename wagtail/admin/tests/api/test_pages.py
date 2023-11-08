@@ -4,11 +4,17 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail import hooks
-from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
+from wagtail.api.v2.tests.test_pages import (
+    TestPageDetail,
+    TestPageListing,
+    TestPageListingSearch,
+)
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
 from wagtail.test.i18n.models import TestPage
@@ -37,6 +43,9 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
     def get_page_id_list(self, content):
         return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
 
     # BASIC TESTS
 
@@ -440,7 +449,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     def test_fields_translations(self):
         # Add a translation of the homepage
         french = Locale.objects.create(language_code="fr")
-        homepage = Page.objects.get(depth=2)
+        homepage = self.get_homepage()
         french_homepage = homepage.copy_for_translation(french)
 
         response = self.get_response(fields="translations")
@@ -475,7 +484,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode("UTF-8"))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [2])
+        self.assertEqual(page_id_list, [2, 24])
 
     def test_child_of_page_1(self):
         # Public API doesn't allow this, as it's the root page
@@ -496,7 +505,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(
             page_id_list,
-            [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12],
+            [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12, 24],
         )
 
     def test_descendant_of_root_doesnt_give_error(self):
@@ -570,7 +579,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode("UTF-8"))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20])
+        self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20, 24])
 
     def test_has_children_filter_off(self):
         response = self.get_response(has_children="false")
@@ -578,7 +587,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(
-            page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12]
+            page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12, 25]
         )
 
     def test_has_children_filter_int(self):
@@ -586,7 +595,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode("UTF-8"))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20])
+        self.assertEqual(page_id_list, [2, 4, 5, 6, 21, 20, 24])
 
     def test_has_children_filter_int_off(self):
         response = self.get_response(has_children=0)
@@ -594,7 +603,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(
-            page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12]
+            page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12, 25]
         )
 
     def test_has_children_filter_invalid_integer(self):
@@ -647,8 +656,79 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 set(page.keys()), {"id", "meta", "title", "admin_display_title"}
             )
 
-        self.assertTrue(blog_page_seen, "No blog pages were found in the items")
-        self.assertTrue(event_page_seen, "No event pages were found in the items")
+        self.assertTrue(blog_page_seen, msg="No blog pages were found in the items")
+        self.assertTrue(event_page_seen, msg="No event pages were found in the items")
+
+    # Not applicable to the admin API
+    test_site_filter_same_hostname_returns_error = None
+    test_site_filter = None
+
+    def test_ordering_default(self):
+        # overridden because the admin API lists all pages, regardless of sites
+
+        response = self.get_response()
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(
+            page_id_list,
+            [2, 4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12, 24],
+        )
+
+    def test_ordering_by_title(self):
+        # overridden because the admin API lists all pages, regardless of sites
+
+        response = self.get_response(order="title")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(
+            page_id_list,
+            [21, 22, 19, 23, 5, 16, 18, 12, 14, 8, 9, 4, 25, 2, 24, 13, 20, 17, 6, 10],
+        )
+
+    def test_ordering_by_title_backwards(self):
+        # overridden because the admin API lists all pages, regardless of sites
+
+        response = self.get_response(order="-title")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(
+            page_id_list,
+            [15, 10, 6, 17, 20, 13, 24, 2, 25, 4, 9, 8, 14, 12, 18, 16, 5, 23, 19, 22],
+        )
+
+    def test_limit_total_count(self):
+        # overridden because the admin API lists all pages, regardless of sites
+        # the function is actually unchanged, but uses a different total page count helper
+
+        response = self.get_response(limit=2)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        # The total count must not be affected by "limit"
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count())
+
+    def test_offset_total_count(self):
+        # overridden because the admin API lists all pages, regardless of sites
+        # the function is actually unchanged, but uses a different total page count helper
+
+        response = self.get_response(offset=10)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        # The total count must not be affected by "offset"
+        self.assertEqual(content["meta"]["total_count"], get_total_page_count())
+
+    @override_settings(WAGTAILAPI_LIMIT_MAX=None)
+    def test_limit_max_none_gives_no_errors(self):
+        # overridden because the admin API lists all pages, regardless of sites
+        # the function is actually unchanged, but uses a different total page count helper
+
+        response = self.get_response(limit=1000000)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(content["items"]), get_total_page_count())
 
 
 class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
@@ -853,7 +933,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
     def test_meta_status_live_draft(self):
         # Save revision without republish
-        Page.objects.get(id=16).save_revision()
+        Page.objects.get(id=16).specific.save_revision()
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -868,7 +948,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Unpublish and save revision with go live date in the future
         Page.objects.get(id=16).unpublish()
         tomorrow = timezone.now() + datetime.timedelta(days=1)
-        Page.objects.get(id=16).save_revision(approved_go_live_at=tomorrow)
+        Page.objects.get(id=16).specific.save_revision(approved_go_live_at=tomorrow)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -1026,7 +1106,20 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         )
 
 
-class TestAdminPageDetailWithStreamField(AdminAPITestCase):
+class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailadmin_api:pages:listing"), params)
+
+    def get_page_id_list(self, content):
+        return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
+
+
+class TestAdminPageDetailWithStreamField(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1069,7 +1162,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
         self.assertEqual(content["body"][0]["value"], 1)
 
 
-class TestCustomAdminDisplayTitle(AdminAPITestCase):
+class TestCustomAdminDisplayTitle(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1100,7 +1193,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         )
 
 
-class TestCopyPageAction(AdminAPITestCase):
+class TestCopyPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1305,10 +1398,17 @@ class TestCopyPageAction(AdminAPITestCase):
 
         self.assertEqual(response.status_code, 400)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"slug": ["This slug is already in use"]})
+        self.assertEqual(
+            content,
+            {
+                "slug": [
+                    "The slug 'events' is already in use within the parent page at '/'"
+                ]
+            },
+        )
 
 
-class TestConvertAliasPageAction(AdminAPITestCase):
+class TestConvertAliasPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1381,7 +1481,7 @@ class TestConvertAliasPageAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class TestDeletePageAction(AdminAPITestCase):
+class TestDeletePageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1419,7 +1519,7 @@ class TestDeletePageAction(AdminAPITestCase):
         self.assertTrue(Page.objects.filter(id=4).exists())
 
 
-class TestPublishPageAction(AdminAPITestCase):
+class TestPublishPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id):
@@ -1475,14 +1575,14 @@ class TestPublishPageAction(AdminAPITestCase):
             content,
             {
                 "message": (
-                    "save_revision() was called on an alias page. "
+                    "page.save_revision() was called on an alias page. "
                     "Revisions are not required for alias pages as they are an exact copy of another page."
                 )
             },
         )
 
 
-class TestUnpublishPageAction(AdminAPITestCase):
+class TestUnpublishPageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1554,7 +1654,7 @@ class TestUnpublishPageAction(AdminAPITestCase):
         )
 
 
-class TestMovePageAction(AdminAPITestCase):
+class TestMovePageAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1593,7 +1693,7 @@ class TestMovePageAction(AdminAPITestCase):
         self.assertEqual(content, {"destination_page_id": ["This field is required."]})
 
 
-class TestCopyForTranslationAction(AdminAPITestCase):
+class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def get_response(self, page_id, data):
@@ -1747,7 +1847,7 @@ class TestCopyForTranslationAction(AdminAPITestCase):
         assert new_post_page.title == new_page_title
 
 
-class TestCreatePageAliasAction(AdminAPITestCase):
+class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1859,7 +1959,7 @@ class TestCreatePageAliasAction(AdminAPITestCase):
         )
 
 
-class TestRevertToPageRevisionAction(AdminAPITestCase):
+class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1868,11 +1968,11 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.events_page = Page.objects.get(id=3)
 
         # Create revision to revert back to
-        self.first_revision = self.events_page.save_revision()
+        self.first_revision = self.events_page.specific.save_revision()
 
         # Change page title
         self.events_page.title = "Evenements"
-        self.events_page.save_revision().publish()
+        self.events_page.specific.save_revision().publish()
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1891,7 +1991,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.events_page.get_latest_revision().publish()
+        self.events_page.specific.get_latest_revision().publish()
         self.events_page.refresh_from_db()
         self.assertEqual(self.events_page.title, "Events")
 
@@ -1929,9 +2029,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(
-            content, {"message": "No PageRevision matches the given query."}
-        )
+        self.assertEqual(content, {"message": "No Revision matches the given query."})
 
 
 # Overwrite imported test cases do Django doesn't run them

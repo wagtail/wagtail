@@ -1,12 +1,13 @@
 import datetime
 
-import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
+from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.models import (
@@ -15,38 +16,17 @@ from wagtail.models import (
     Task,
     TaskState,
     Workflow,
+    WorkflowContentType,
     WorkflowPage,
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel, SimplePage
+from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 
-class TestWorkflows(TestCase):
+class TestWorkflowModels(TestCase):
     fixtures = ["test.json"]
-
-    def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = Task.objects.create(name="test_task_1")
-        task_2 = Task.objects.create(name="test_task_2")
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
-        return workflow, task_1, task_2
-
-    def start_workflow_on_homepage(self):
-        workflow, task_1, task_2 = self.create_workflow_and_tasks()
-        homepage = Page.objects.get(url_path="/home/")
-        homepage.save_revision()
-        user = get_user_model().objects.first()
-        workflow_state = workflow.start(homepage, user)
-        return {
-            "workflow_state": workflow_state,
-            "user": user,
-            "page": homepage,
-            "task_1": task_1,
-            "task_2": task_2,
-            "workflow": workflow,
-        }
 
     def test_create_workflow(self):
         # test creating and retrieving an empty Workflow from the db
@@ -76,6 +56,19 @@ class TestWorkflows(TestCase):
         WorkflowPage.objects.create(page=homepage, workflow=workflow)
         homepage.refresh_from_db()
         self.assertEqual(homepage.workflowpage.workflow, workflow)
+
+    def test_add_workflow_to_snippet(self):
+        # test adding a Workflow to a snippet via WorkflowContentType
+        workflow = Workflow.objects.create(name="test_workflow")
+        content_type = ContentType.objects.get_for_model(FullFeaturedSnippet)
+        WorkflowContentType.objects.create(content_type=content_type, workflow=workflow)
+        snippet = FullFeaturedSnippet.objects.create(text="foo")
+
+        # The FullFeaturedSnippet class should now have a default workflow
+        self.assertEqual(FullFeaturedSnippet.get_default_workflow(), workflow)
+
+        # Instances of FullFeaturedSnippet should have a workflow
+        self.assertEqual(snippet.get_workflow(), workflow)
 
     def test_get_specific_task(self):
         # test ability to get instance of subclassed Task type using Task.specific
@@ -124,57 +117,83 @@ class TestWorkflows(TestCase):
         self.assertTrue(workflow_2.all_pages().filter(id=hello_page.id).exists())
         self.assertTrue(workflow_2.all_pages().filter(id=goodbye_page.id).exists())
 
+
+class TestPageWorkflows(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = Page.objects.get(url_path="/home/")
+
+    def create_workflow_and_tasks(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        task_2 = Task.objects.create(name="test_task_2")
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        return workflow, task_1, task_2
+
+    def start_workflow(self):
+        workflow, task_1, task_2 = self.create_workflow_and_tasks()
+        self.object.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(self.object, user)
+        return {
+            "workflow_state": workflow_state,
+            "user": user,
+            "object": self.object,
+            "task_1": task_1,
+            "task_2": task_2,
+            "workflow": workflow,
+        }
+
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_methods_generate_no_queries_when_disabled(self):
-        homepage = Page.objects.get(url_path="/home/")
         with self.assertNumQueries(0):
-            self.assertIs(homepage.has_workflow, False)
+            self.assertIs(self.object.has_workflow, False)
 
         with self.assertNumQueries(0):
-            self.assertIsNone(homepage.get_workflow())
+            self.assertIsNone(self.object.get_workflow())
 
         with self.assertNumQueries(0):
-            self.assertIs(homepage.workflow_in_progress, False)
+            self.assertIs(self.object.workflow_in_progress, False)
 
         with self.assertNumQueries(0):
-            self.assertIsNone(homepage.current_workflow_state)
+            self.assertIsNone(self.object.current_workflow_state)
 
         with self.assertNumQueries(0):
-            self.assertIsNone(homepage.current_workflow_task_state)
+            self.assertIsNone(self.object.current_workflow_task_state)
 
         with self.assertNumQueries(0):
-            self.assertIsNone(homepage.current_workflow_task)
+            self.assertIsNone(self.object.current_workflow_task)
 
     @freeze_time("2017-01-01 12:00:00")
-    def test_start_workflow_on_page(self):
-        # test the first WorkflowState and TaskState models are set up correctly when Workflow.start(page) is used.
-        workflow, task_1, task_2 = self.create_workflow_and_tasks()
-        homepage = Page.objects.get(url_path="/home/")
-        homepage.save_revision()
-        user = get_user_model().objects.first()
-        workflow_state = workflow.start(homepage, user)
-        self.assertEqual(workflow_state.workflow, workflow)
-        self.assertEqual(workflow_state.page, homepage)
+    def test_start_workflow(self):
+        # test the first WorkflowState and TaskState models are set up correctly when Workflow.start(object) is used.
+        data = self.start_workflow()
+        workflow_state = data["workflow_state"]
+        self.assertEqual(workflow_state.workflow, data["workflow"])
+        self.assertEqual(workflow_state.content_object, data["object"])
         self.assertEqual(workflow_state.status, "in_progress")
         if settings.USE_TZ:
             self.assertEqual(
                 workflow_state.created_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
                 workflow_state.created_at, datetime.datetime(2017, 1, 1, 12, 0, 0)
             )
-        self.assertEqual(workflow_state.requested_by, user)
+        self.assertEqual(workflow_state.requested_by, data["user"])
 
         task_state = workflow_state.current_task_state
-        self.assertEqual(task_state.task, task_1)
+        self.assertEqual(task_state.task, data["task_1"])
         self.assertEqual(task_state.status, "in_progress")
-        self.assertEqual(task_state.page_revision, homepage.get_latest_revision())
+        self.assertEqual(task_state.revision, data["object"].get_latest_revision())
         if settings.USE_TZ:
             self.assertEqual(
                 task_state.started_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -183,42 +202,42 @@ class TestWorkflows(TestCase):
         self.assertIsNone(task_state.finished_at)
 
     @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=True)
-    def test_publishing_page_cancels_workflow_when_cancel_on_publish_true(self):
-        data = self.start_workflow_on_homepage()
-        data["page"].get_latest_revision().publish()
+    def test_publishing_cancels_workflow_when_cancel_on_publish_true(self):
+        data = self.start_workflow()
+        data["object"].get_latest_revision().publish()
         workflow_state = data["workflow_state"]
         workflow_state.refresh_from_db()
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
 
     @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
-    def test_publishing_page_does_not_cancel_workflow_when_cancel_on_publish_false(
+    def test_publishing_does_not_cancel_workflow_when_cancel_on_publish_false(
         self,
     ):
-        data = self.start_workflow_on_homepage()
-        data["page"].get_latest_revision().publish()
+        data = self.start_workflow()
+        data["object"].get_latest_revision().publish()
         workflow_state = data["workflow_state"]
         workflow_state.refresh_from_db()
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
 
     def test_error_when_starting_multiple_in_progress_workflows(self):
-        # test trying to start multiple status='in_progress' workflows on a single page will trigger an IntegrityError
-        self.start_workflow_on_homepage()
+        # test trying to start multiple status='in_progress' workflows on a single object will trigger an IntegrityError
+        self.start_workflow()
         with self.assertRaises((IntegrityError, ValidationError)):
-            self.start_workflow_on_homepage()
+            self.start_workflow()
 
     @freeze_time("2017-01-01 12:00:00")
     def test_approve_workflow(self):
         # tests that approving both TaskStates in a Workflow via Task.on_action approves tasks and publishes the revision correctly
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         task_2 = data["task_2"]
-        page = data["page"]
+        object = data["object"]
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="approve")
         if settings.USE_TZ:
             self.assertEqual(
                 task_state.finished_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -230,23 +249,23 @@ class TestWorkflows(TestCase):
             workflow_state.current_task_state, user=None, action_name="approve"
         )
         self.assertEqual(workflow_state.status, "approved")
-        page.refresh_from_db()
+        object.refresh_from_db()
         self.assertEqual(
-            page.live_revision, workflow_state.current_task_state.page_revision
+            object.live_revision, workflow_state.current_task_state.revision
         )
 
     @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True)
     def test_workflow_resets_when_new_revision_created(self):
         # test that a Workflow on its second Task returns to its first task (upon WorkflowState.update()) if a new revision is created
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         task_1 = data["task_1"]
         task_2 = data["task_2"]
-        page = data["page"]
+        object = data["object"]
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="approve")
         self.assertEqual(workflow_state.current_task_state.task, task_2)
-        page.save_revision()
+        object.save_revision()
         workflow_state.refresh_from_db()
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="approve")
@@ -259,15 +278,15 @@ class TestWorkflows(TestCase):
         self,
     ):
         # test that a Workflow on its second Task does not return to its first task (upon approval) if a new revision is created
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         task_1 = data["task_1"]
         task_2 = data["task_2"]
-        page = data["page"]
+        object = data["object"]
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="approve")
         self.assertEqual(workflow_state.current_task_state.task, task_2)
-        page.save_revision()
+        object.save_revision()
         workflow_state.refresh_from_db()
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="approve")
@@ -279,7 +298,7 @@ class TestWorkflows(TestCase):
     def test_reject_workflow(self):
         # test that TaskState is marked as rejected upon Task.on_action with action=reject
         # and the WorkflowState as needs changes
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name="reject")
@@ -288,7 +307,7 @@ class TestWorkflows(TestCase):
 
     def test_resume_workflow(self):
         # test that a Workflow rejected on its second Task can be resumed on the second task
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         task_2 = data["task_2"]
         workflow_state.current_task_state.approve(user=None)
@@ -307,7 +326,7 @@ class TestWorkflows(TestCase):
 
     def test_tasks_with_status_on_resubmission(self):
         # test that a Workflow rejected and resumed shows the status of the latest tasks when _`all_tasks_with_status` is called
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
 
         tasks = workflow_state.all_tasks_with_status()
@@ -330,11 +349,12 @@ class TestWorkflows(TestCase):
         self.assertEqual(tasks[0].status, TaskState.STATUS_APPROVED)
         self.assertEqual(tasks[1].status, TaskState.STATUS_IN_PROGRESS)
 
-    def cancel_workflow(self):
+    def test_cancel_workflow(self):
         # test that cancelling a workflow state sets both current task state and its own statuses to cancelled, and cancels all in progress states
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
         workflow_state.cancel(user=None)
+        workflow_state.refresh_from_db()
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
         self.assertEqual(
             workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED
@@ -361,7 +381,7 @@ class TestWorkflows(TestCase):
 
     def test_is_at_final_task(self):
         # test that a Workflow rejected on its second Task can be resumed on the second task
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
 
         self.assertFalse(workflow_state.is_at_final_task)
@@ -370,7 +390,7 @@ class TestWorkflows(TestCase):
         self.assertTrue(workflow_state.is_at_final_task)
 
     def test_tasks_with_state(self):
-        data = self.start_workflow_on_homepage()
+        data = self.start_workflow()
         workflow_state = data["workflow_state"]
 
         tasks = workflow_state.all_tasks_with_state()
@@ -397,3 +417,65 @@ class TestWorkflows(TestCase):
                 "-started_at", "-id"
             )[0],
         )
+
+    def test_start_workflow_group_approval_task_locked(self):
+        self.object.locked = True
+        self.object.locked_at = timezone.now()
+        self.object.locked_by = self.create_user("user1")
+        self.object.save()
+
+        # Create a workflow with one group approval task for the moderators group
+        moderators = Group.objects.get(name="Moderators")
+        workflow = Workflow.objects.create(name="test_workflow_foo")
+        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        task_1.groups.add(moderators)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        # The object was locked by a non-moderator
+        self.assertFalse(self.object.locked_by.groups.filter(id=moderators.id).exists())
+
+        # Start the workflow as another user
+        self.object.save_revision()
+        workflow_state = workflow.start(self.object, self.create_user("user2"))
+
+        self.assertEqual(workflow_state.workflow, workflow)
+        self.assertEqual(workflow_state.content_object, self.object)
+        self.assertEqual(workflow_state.status, "in_progress")
+
+        self.object.refresh_from_db()
+
+        # The lock should be removed as otherwise the object would be stuck
+        self.assertFalse(self.object.locked)
+        self.assertIsNone(self.object.locked_at)
+        self.assertIsNone(self.object.locked_by)
+
+
+class TestSnippetWorkflows(TestPageWorkflows):
+    fixtures = None
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="foo")
+
+
+class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
+    model = ModeratedModel
+
+    def test_start_workflow_group_approval_task_locked(self):
+        # Test normal GroupApprovalTask.start() as the object is not lockable
+
+        # Create a workflow with one group approval task for the moderators group
+        moderators = Group.objects.get(name="Moderators")
+        workflow = Workflow.objects.create(name="test_workflow_foo")
+        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        task_1.groups.add(moderators)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        # Start the workflow
+        self.object.save_revision()
+        workflow_state = workflow.start(self.object, self.create_user("user2"))
+
+        self.assertEqual(workflow_state.workflow, workflow)
+        self.assertEqual(workflow_state.content_object, self.object)
+        self.assertEqual(workflow_state.status, "in_progress")

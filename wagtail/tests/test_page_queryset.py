@@ -1,10 +1,13 @@
+from io import StringIO
 from unittest import mock
 
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+from django.core import management
 from django.db.models import Count, Q
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 
-from wagtail.models import Locale, Page, PageViewRestriction, Site
+from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
@@ -13,6 +16,7 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StreamPage,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageQuerySet(TestCase):
@@ -479,6 +483,33 @@ class TestPageQuerySet(TestCase):
             # Check that the event is in the results
             self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_private(self):
+        events_index = Page.objects.get(url_path="/home/events/")
+        event = Page.objects.get(url_path="/home/events/christmas/")
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Add PageViewRestriction to events_index
+        PageViewRestriction.objects.create(page=events_index, password="hello")
+
+        with self.assertNumQueries(4):
+            # Get public pages
+            pages = Page.objects.private()
+
+            # Check that the homepage is not in the results
+            self.assertFalse(pages.filter(id=homepage.id).exists())
+
+            # Check that the events index is in the results
+            self.assertTrue(pages.filter(id=events_index.id).exists())
+
+            # Check that the event is in the results
+            self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_private_with_no_private_page(self):
+        PageViewRestriction.objects.all().delete()
+
+        count = Page.objects.private().count()
+        self.assertEqual(count, 0)
+
     def test_merge_queries(self):
         type_q = Page.objects.type_q(EventPage)
         query = Q()
@@ -559,6 +590,63 @@ class TestPageQuerySet(TestCase):
             else:
                 self.assertIn(page, translations)
 
+    def test_prefetch_workflow_states(self):
+        home = Page.objects.get(url_path="/home/")
+        event_index = Page.objects.get(url_path="/home/events/")
+        user = get_user_model().objects.first()
+        workflow = Workflow.objects.first()
+
+        test_pages = [home.specific, event_index.specific]
+        workflow_states = {}
+        current_tasks = {}
+
+        for page in test_pages:
+            page.save_revision()
+            approved_workflow_state = workflow.start(page, user)
+            task_state = approved_workflow_state.current_task_state
+            task_state.task.on_action(task_state, user=None, action_name="approve")
+
+            workflow_state = workflow.start(page, user)
+
+            # Refresh so that the current_task_state.task is not the specific instance
+            workflow_state.refresh_from_db()
+
+            workflow_states[page.pk] = workflow_state
+            current_tasks[page.pk] = workflow_state.current_task_state.task
+
+        query = Page.objects.filter(pk__in=(home.pk, event_index.pk))
+        queries = [["base", query, 2], ["specific", query.specific(), 4]]
+
+        for case, query, num_queries in queries:
+            with self.subTest(case=case):
+                with self.assertNumQueries(num_queries):
+                    queried_pages = {
+                        page.pk: page for page in query.prefetch_workflow_states()
+                    }
+
+                for test_page in test_pages:
+                    page = queried_pages[test_page.pk]
+                    with self.assertNumQueries(0):
+                        self.assertEqual(
+                            page._current_workflow_states,
+                            [workflow_states[page.pk]],
+                        )
+
+                    with self.assertNumQueries(0):
+                        self.assertEqual(
+                            page._current_workflow_states[0].current_task_state.task,
+                            current_tasks[page.pk],
+                        )
+
+                    with self.assertNumQueries(0):
+                        self.assertTrue(page.workflow_in_progress)
+
+                    with self.assertNumQueries(0):
+                        self.assertTrue(
+                            page.current_workflow_state,
+                            workflow_states[page.pk],
+                        )
+
 
 class TestPageQueryInSite(TestCase):
     fixtures = ["test.json"]
@@ -593,7 +681,7 @@ class TestPageQueryInSite(TestCase):
         self.assertNotIn(self.about_us_page, site_2_pages)
 
 
-class TestPageQuerySetSearch(TestCase):
+class TestPageQuerySetSearch(TransactionTestCase):
     fixtures = ["test.json"]
 
     def test_search(self):
@@ -673,31 +761,34 @@ class TestPageQuerySetSearch(TestCase):
 
         page_unpublished.connect(page_unpublished_handler)
 
-        events_index = Page.objects.get(url_path="/home/events/")
-        events_index.get_children().unpublish()
+        try:
+            events_index = Page.objects.get(url_path="/home/events/")
+            events_index.get_children().unpublish()
 
-        # Previously-live children of event index should now be non-live
-        christmas = EventPage.objects.get(url_path="/home/events/christmas/")
-        saint_patrick = SingleEventPage.objects.get(
-            url_path="/home/events/saint-patrick/"
-        )
-        unpublished_event = EventPage.objects.get(
-            url_path="/home/events/tentative-unpublished-event/"
-        )
+            # Previously-live children of event index should now be non-live
+            christmas = EventPage.objects.get(url_path="/home/events/christmas/")
+            saint_patrick = SingleEventPage.objects.get(
+                url_path="/home/events/saint-patrick/"
+            )
+            unpublished_event = EventPage.objects.get(
+                url_path="/home/events/tentative-unpublished-event/"
+            )
 
-        self.assertFalse(christmas.live)
-        self.assertFalse(saint_patrick.live)
+            self.assertFalse(christmas.live)
+            self.assertFalse(saint_patrick.live)
 
-        # Check that a signal was fired for each unpublished page
-        self.assertIn((EventPage, christmas), unpublish_signals_fired)
-        self.assertIn((SingleEventPage, saint_patrick), unpublish_signals_fired)
+            # Check that a signal was fired for each unpublished page
+            self.assertIn((EventPage, christmas), unpublish_signals_fired)
+            self.assertIn((SingleEventPage, saint_patrick), unpublish_signals_fired)
 
-        # a signal should not be fired for pages that were in the queryset
-        # but already unpublished
-        self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
+            # a signal should not be fired for pages that were in the queryset
+            # but already unpublished
+            self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
+        finally:
+            page_unpublished.disconnect(page_unpublished_handler)
 
 
-class TestSpecificQuery(TestCase):
+class TestSpecificQuery(WagtailTestUtils, TestCase):
     """
     Test the .specific() queryset method. This is isolated in its own test case
     because it is sensitive to database changes that might happen for other
@@ -816,46 +907,18 @@ class TestSpecificQuery(TestCase):
         # Ensure annotations are reapplied to specific() page queries
 
         pages = Page.objects.live()
-        pages.first().save_revision()
-        pages.last().save_revision()
+        user = self.create_test_user()
+        pages.first().subscribers.create(user=user, comment_notifications=False)
+        pages.last().subscribers.create(user=user, comment_notifications=False)
 
         results = (
-            Page.objects.live().specific().annotate(revision_count=Count("revisions"))
+            Page.objects.live()
+            .specific()
+            .annotate(subscribers_count=Count("subscribers"))
         )
 
-        self.assertEqual(results.first().revision_count, 1)
-        self.assertEqual(results.last().revision_count, 1)
-
-    def test_specific_query_with_search_and_annotation(self):
-        # Ensure annotations are reapplied to specific() page queries
-
-        results = (
-            Page.objects.live().specific().search(MATCH_ALL).annotate_score("_score")
-        )
-
-        for result in results:
-            self.assertTrue(hasattr(result, "_score"))
-
-    def test_specific_query_with_search(self):
-        # 1276 - The database search backend didn't return results with the
-        # specific type when searching a specific queryset.
-
-        pages = list(
-            Page.objects.specific()
-            .live()
-            .in_menu()
-            .search(MATCH_ALL, backend="wagtail.search.backends.database")
-        )
-
-        # Check that each page is in the queryset with the correct type.
-        # We don't care about order here
-        self.assertEqual(len(pages), 4)
-        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
-        self.assertIn(
-            Page.objects.get(url_path="/home/events/christmas/").specific, pages
-        )
-        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
-        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
+        self.assertEqual(results.first().subscribers_count, 1)
+        self.assertEqual(results.last().subscribers_count, 1)
 
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
@@ -891,7 +954,7 @@ class TestSpecificQuery(TestCase):
         ):
             with self.assertWarnsRegex(
                 RuntimeWarning,
-                "Specific versions of the following pages could not be found",
+                "Specific versions of the following items could not be found",
             ):
                 pages = list(
                     Page.objects.get(url_path="/home/").get_children().specific()
@@ -1039,6 +1102,66 @@ class TestSpecificQuery(TestCase):
         with self.assertNumQueries(5):
             result_2 = list(queryset.all().iterator(chunk_size=3))
             self.assertEqual(result_2, benchmark_result)
+
+
+class TestSpecificQuerySearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_specific.json"]
+
+    def setUp(self):
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
+
+        self.live_pages = Page.objects.live().specific()
+        self.live_pages_with_annotations = (
+            Page.objects.live().specific().annotate(count=Count("pk"))
+        )
+
+    def test_specific_query_with_match_all_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = (
+            Page.objects.live().specific().search(MATCH_ALL).annotate_score("_score")
+        )
+
+        self.assertGreater(len(results), 0)
+        for result in results:
+            self.assertTrue(hasattr(result, "_score"))
+
+    def test_specific_query_with_real_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = (
+            Page.objects.live().specific().search("event").annotate_score("_score")
+        )
+
+        self.assertGreater(len(results), 0)
+        for result in results:
+            self.assertTrue(hasattr(result, "_score"))
+
+    def test_specific_query_with_search(self):
+        # 1276 - The database search backend didn't return results with the
+        # specific type when searching a specific queryset.
+
+        pages = list(
+            Page.objects.specific()
+            .live()
+            .in_menu()
+            .search(MATCH_ALL, backend="wagtail.search.backends.database")
+        )
+
+        # Check that each page is in the queryset with the correct type.
+        # We don't care about order here
+        self.assertEqual(len(pages), 4)
+        self.assertIn(Page.objects.get(url_path="/home/other/").specific, pages)
+        self.assertIn(
+            Page.objects.get(url_path="/home/events/christmas/").specific, pages
+        )
+        self.assertIn(Page.objects.get(url_path="/home/events/").specific, pages)
+        self.assertIn(Page.objects.get(url_path="/home/about-us/").specific, pages)
 
 
 class TestFirstCommonAncestor(TestCase):

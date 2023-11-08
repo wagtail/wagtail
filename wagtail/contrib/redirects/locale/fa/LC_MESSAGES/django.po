@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,6 +94,9 @@ msgstr "آیا میخواهید این ریدایرکت را حذف کنید؟"
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
+msgid "Confirm"
+msgstr "تایید"
+
 msgid "Cancel"
 msgstr "انصراف"
 
@@ -124,23 +129,29 @@ msgid "Edit this redirect"
 msgstr "ویرایش این ریدایرکت"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s مورد همخوانی دارد"
+msgstr[1] "%(counter)s مورد همخوانی دارد"
+
+#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه هیچ ریدایرکتی منطبق با «<em>%(query_string)s</em>» پیدا نشد"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
+"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
 
 msgid "Search redirects"
 msgstr "ریدایرکت های جستجو"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "ریدایرکت  '{0}' بروزرسانی شد."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "ریدایرکت  '%(redirect_title)s' بروزرسانی شد."
 
 msgid "Edit"
 msgstr "ویرایش"
@@ -148,13 +159,13 @@ msgstr "ویرایش"
 msgid "The redirect could not be saved due to errors."
 msgstr "ریدایرکت به دلیل بروز خطا ذخیره نشد."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "ریدایرکت '{0}' حذف شد."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "ریدایرکت '%(redirect_title)s' حذف شد."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "ریدایرکت '{0}' افزوده شد."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "ریدایرکت '%(redirect_title)s' افزوده شد."
 
 msgid "The redirect could not be created due to errors."
 msgstr "به دلیل بروز خطا ریدایرکتی ساخته نشد."

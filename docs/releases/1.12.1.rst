@@ -2,6 +2,8 @@
 Wagtail 1.12.1 release notes
 ============================
 
+*August 30, 2017*
+
 .. contents::
     :local:
     :depth: 1

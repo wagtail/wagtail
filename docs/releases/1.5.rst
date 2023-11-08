@@ -2,6 +2,8 @@
 Wagtail 1.5 release notes
 =========================
 
+*May 1, 2016*
+
 .. contents::
     :local:
     :depth: 1
@@ -25,7 +27,7 @@ Wagtail now includes an app ``wagtail.contrib.modeladmin`` (previously available
 .. image:: ../_static/images/releasenotes_1_5_modeladmin.png
 
 
-See :doc:`/reference/contrib/modeladmin/index` for full documentation. This feature was developed by Andy Babic.
+This feature was developed by Andy Babic.
 
 
 TableBlock
@@ -63,7 +65,7 @@ Minor features
 ~~~~~~~~~~~~~~
 
 * Password reset email now reminds the user of their username (Matt Westcott)
-* Added :ref:`jinja2 support <settings_tag_jinja2>` for the  ``settings`` template tag (Tim Heap)
+* Added jinja2 support for the  ``settings`` template tag (Tim Heap)
 * Added 'revisions' action to pages list (Roel Bruggink)
 * Added a hook :ref:`insert_global_admin_js` for inserting custom JavaScript throughout the admin backend (Tom Dyson)
 * Recognise instagram embed URLs with ``www`` prefix (Matt Westcott)

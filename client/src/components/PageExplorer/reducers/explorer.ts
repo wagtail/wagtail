@@ -41,7 +41,7 @@ export type Action =
  * - Whether the explorer is open or not.
  */
 export default function explorer(
-  prevState = defaultState,
+  prevState = defaultState /* eslint-disable-line default-param-last */,
   action: Action,
 ): State {
   switch (action.type) {

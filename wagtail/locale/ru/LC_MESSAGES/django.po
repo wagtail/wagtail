@@ -6,34 +6,43 @@
 # ajk, 2014
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexey Trofimov <funkindy@gmail.com>, 2020
+# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Andrey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2021
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
-# Vladislav <integration.into.society@gmail.com>, 2021
+# Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
-# Sergey Mazanov <mvver@outlook.com>, 2021
+# Михаил Герасимов, 2019
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>, 2020-2021\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Andrei Satsevich, 2023\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
@@ -42,12 +51,12 @@ msgid "Add Comment"
 msgstr "Добавить комментарий"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Минимальное количество элементов: %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Минимальное количество элементов: %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максимальное количество элементов: %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальное количество элементов: %(max_num)d"
 
 msgid "Move up"
 msgstr "Двигать вверх"
@@ -74,6 +83,18 @@ msgstr "Этот блок не имеет опций."
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
 
+msgid "Wagtail frontend cache"
+msgstr "Фронтенд кеш Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail маршрутизируемая страница"
+
+msgid "Wagtail sitemaps"
+msgstr "Карта сайта Wagtail"
+
+msgid "Unknown content type"
+msgstr "Неизвестный тип контента."
+
 msgid "Password"
 msgstr "Пароль"
 
@@ -82,6 +103,183 @@ msgstr "Введённый вами пароль неверный. Попроб�
 
 msgid "Comment"
 msgstr "Комментарий"
+
+msgid "Locked"
+msgstr "Заблокировано"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Никто не может вносить изменения, пока %(model_name)s заблокирован"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' был заблокирован </b> <b>вами</b> в <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' заблокирован</b> <b>вами</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' был заблокирован</b><b>{user}</b>в <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' заблокирован</b>."
+
+msgid "Locked by you"
+msgstr "Заблокировано вами"
+
+msgid "Locked by another user"
+msgstr "Заблокировано другим пользователем"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Только вы можете вносить изменения, пока %(model_name)sзаблокирован"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Только %(user)s может вносить изменения, пока  %(model_name)sзаблокирован."
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Эта %(model_name)sв настоящее время ожидает модерации."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Эта {model_name}  ожидает выполнения <b>'{task_name}'</b> в рабочем процессе "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Редактировать %(model_name)s могут только обозреватели этого задания."
+
+msgid "Unlocked"
+msgstr "Разблокировано"
+
+msgid "Locked by workflow"
+msgstr "Заблокировано рабочим процессом"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Обозреватель могут редактировать этот %(model_name)s - заблокируйте его, "
+"чтобы другие обозреватели не могли его редактировать"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Только обозреватели могут редактировать и утверждать %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' заблокировано и запланировано к публикации в "
+"{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Блокировка по расписанию"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr ""
+"В настоящее время заблокирован и будет опубликован в запланированный срок"
+
+msgid "latest revision"
+msgstr "последняя версия"
+
+msgid "live"
+msgstr "опубликовано"
+
+msgid "has unpublished changes"
+msgstr "имеет неопубликованные изменения"
+
+msgid "first published at"
+msgstr "впервые опубликовано"
+
+msgid "last published at"
+msgstr "последний раз публиковалась"
+
+msgid "live revision"
+msgstr "опубликованная версия"
+
+msgid "go live date/time"
+msgstr "дата/время публикации"
+
+msgid "expiry date/time"
+msgstr "дата/время истечения"
+
+msgid "expired"
+msgstr "истекло"
+
+msgid "scheduled"
+msgstr "запланированное"
+
+msgid "draft"
+msgstr "черновик"
+
+msgid "live + scheduled"
+msgstr "размещена + запланированна"
+
+msgid "live + draft"
+msgstr "опубликовано + черновик"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "locked"
+msgstr "заблокировано"
+
+msgid "locked at"
+msgstr "заблокирован в"
+
+msgid "locked by"
+msgstr "заблокирован"
+
+msgid "in moderation"
+msgstr "на модерации"
+
+msgid "live + in moderation"
+msgstr "опубликовано + на модерации"
+
+msgid "Add/edit pages you own"
+msgstr "Добавить/редактировать свои страницы"
+
+msgid "Bulk delete"
+msgstr "Массовое удаление"
+
+msgid "Delete pages with children"
+msgstr "Удалить вместе с дочерними страницами"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit any page"
+msgstr "Редактировать любую страницу"
+
+msgid "Lock"
+msgstr "Заблокировать"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Ваши заблокированные/разблокированные страницы"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Publish any page"
+msgstr "Опубликовать любую страницу"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "Unlock any page"
+msgstr "Разблокировать любую страницу"
 
 msgid "title"
 msgstr "заголовок"
@@ -101,12 +299,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "тип содержимого"
-
-msgid "live"
-msgstr "опубликовано"
-
-msgid "has unpublished changes"
-msgstr "имеет неопубликованные изменения"
 
 msgid "URL path"
 msgstr "Путь URL"
@@ -141,65 +333,25 @@ msgid ""
 "results."
 msgstr "Описание, отображаемое под заголовком в результатах поиска."
 
-msgid "go live date/time"
-msgstr "дата/время публикации"
-
-msgid "expiry date/time"
-msgstr "дата/время истечения"
-
-msgid "expired"
-msgstr "истекло"
-
-msgid "locked"
-msgstr "заблокировано"
-
-msgid "locked at"
-msgstr "заблокирован в"
-
-msgid "locked by"
-msgstr "заблокирован"
-
-msgid "first published at"
-msgstr "впервые опубликовано"
-
-msgid "last published at"
-msgstr "последний раз публиковалась"
-
 msgid "latest revision created at"
 msgstr "последняя версия создана"
 
-msgid "live revision"
-msgstr "опубликованная версия"
-
-msgid "This slug is already in use"
-msgstr "Этот слаг уже используется"
-
-msgid "scheduled"
-msgstr "запланированное"
-
-msgid "in moderation"
-msgstr "на модерации"
-
-msgid "draft"
-msgstr "черновик"
-
-msgid "live + scheduled"
-msgstr "размещена + запланированна"
-
-msgid "live + in moderation"
-msgstr "опубликовано + на модерации"
-
-msgid "live + draft"
-msgstr "опубликовано + черновик"
-
-msgid "Default"
-msgstr "По умолчанию"
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Слаг '%(page_slug)s' уже используется на родительской странице по адресу "
+"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "страница"
 
 msgid "pages"
 msgstr "страницы"
+
+msgid "object id"
+msgstr "идентификатор объекта"
 
 msgid "submitted for moderation"
 msgstr "добавлено на модерацию"
@@ -216,47 +368,17 @@ msgstr "сожержимое JSON"
 msgid "approved go live at"
 msgstr "подтверждено к публикации"
 
-msgid "page revision"
-msgstr "версия страницы"
+msgid "revision"
+msgstr "версия"
 
-msgid "page revisions"
-msgstr "версии страницы"
-
-msgid "Add/edit pages you own"
-msgstr "Добавить/редактировать свои страницы"
-
-msgid "Edit"
-msgstr "Редактировать"
-
-msgid "Edit any page"
-msgstr "Редактировать любую страницу"
-
-msgid "Publish"
-msgstr "Опубликовать"
-
-msgid "Publish any page"
-msgstr "Опубликовать любую страницу"
-
-msgid "Bulk delete"
-msgstr "Массовое удаление"
-
-msgid "Delete pages with children"
-msgstr "Удалить вместе с дочерними страницами"
-
-msgid "Lock"
-msgstr "Заблокировать"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Ваши заблокированные/разблокированные страницы"
-
-msgid "Unlock"
-msgstr "Разблокировать"
-
-msgid "Unlock any page"
-msgstr "Разблокировать любую страницу"
+msgid "revisions"
+msgstr "версии"
 
 msgid "group"
 msgstr "группа"
+
+msgid "permission"
+msgstr "право доступа"
 
 msgid "permission type"
 msgstr "тип прав"
@@ -311,11 +433,12 @@ msgid "tasks"
 msgstr "задачи"
 
 msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
 msgstr ""
-"Активные рабочие процессы могут быть добавлены к страницам. Деактивация "
-"рабочего процесса не удаляет её из существующих страниц."
+"Активные рабочие процессы могут быть добавлены к страницам/ сниппетам. "
+"Деактивация рабочего процесса не приводит к его удалению с существующих "
+"страниц/сниппетов."
 
 msgid "workflows"
 msgstr "рабочие процессы"
@@ -324,11 +447,11 @@ msgid "groups"
 msgstr "группы"
 
 msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
 msgstr ""
-"Страницы на этом шаге в рабочем процессе будут промодерированы и "
-"утвержденный этой группой пользователей"
+"Страницы/ сниппеты на этом шаге рабочего процесса будут модерироваться или "
+"утверждаться такими группами пользователей"
 
 msgid "Request changes"
 msgstr "Запрос изменений"
@@ -355,7 +478,7 @@ msgid "Approved"
 msgstr "Одобрено"
 
 msgid "Needs changes"
-msgstr "Нужные изменения"
+msgstr "Нужны изменения"
 
 msgid "Cancelled"
 msgstr "Отменено"
@@ -370,14 +493,16 @@ msgid "current task state"
 msgstr "текущее состояние задачи"
 
 msgid ""
-"There may only be one in progress or needs changes workflow state per page."
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
 msgstr ""
-"Только один прогресс выполнения или нужно изменить состояние для каждой "
-"страницы."
+"Может быть только одно состояние рабочего процесса, в процессе выполнения "
+"или требующий изменений для каждой страницы/ сниппета."
 
-#, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Процесс выполнения '{0}' на Странице '{1}': {2} "
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Рабочий процесс '%(workflow_name)s' на %(model_name)s'%(title)s':%(status)s"
 
 msgid "Not started"
 msgstr "Не запущен"
@@ -406,9 +531,9 @@ msgstr "завершен в"
 msgid "finished by"
 msgstr "закончен"
 
-#, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Задача '{0}' на Ревизии Страницы '{1}': {2}"
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Задача '%(task_name)s' на пересмотре '%(revision_info)s':%(status)s"
 
 msgid "Task state"
 msgstr "Статус задачи"
@@ -446,12 +571,9 @@ msgstr "запись в журнале"
 msgid "log entries"
 msgstr "записи в журнале"
 
-msgid "The log action '{}' has not been registered."
-msgstr "Действие лога '{}' не зарегистрировано."
-
 #, python-format
-msgid "user %(id)s (deleted)"
-msgstr "пользователь 1%(id)s (удален)"
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Действие лога '%(action_name)s' не зарегистрировано."
 
 msgid "system"
 msgstr "система"
@@ -478,14 +600,35 @@ msgstr "ограничения на просмотр коллекции"
 msgid "collections"
 msgstr "коллекции"
 
-msgid "permission"
-msgstr "право доступа"
-
 msgid "group collection permission"
 msgstr "право доступа к коллекции у группы"
 
 msgid "group collection permissions"
 msgstr "права доступа к коллекции у группы"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)sтакже будут удалены"
+
+msgid "prevents deletion"
+msgstr "препятствует удалению"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "будет установлено значение по умолчанию %(model_name)s"
+
+msgid "will do nothing"
+msgstr "ничего не сделает"
+
+msgid "may prevent deletion"
+msgstr "может помешать удалению"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "будет установлено значение %(model_name)s заданное системой"
+
+msgid "will unset the reference"
+msgstr "снимет значение ссылки"
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -582,15 +725,6 @@ msgstr "Вам нужен пароль для доступа к этой стр�
 msgid "Continue"
 msgstr "Продолжить"
 
-msgid "English"
-msgstr "Английский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "German"
-msgstr "Немецкий"
-
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
@@ -631,12 +765,6 @@ msgstr "Отменить публикацию запланированного �
 
 msgid "Unpublished scheduled draft"
 msgstr "Снятый с публикации запланированный черновик"
-
-msgid "Locked"
-msgstr "Заблокировано"
-
-msgid "Unlocked"
-msgstr "Разблокировано"
 
 msgid "Reject"
 msgstr "Отклонить"
@@ -782,8 +910,10 @@ msgid "Remove view restrictions"
 msgstr "Убрать ограничения просмотра"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Удалено '%(restriction)s' запрет просмотра"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"Снято ограничение на просмотр '%(restriction)s'. Страница стала "
+"общедоступной."
 
 msgid "Removed view restriction"
 msgstr "Удалено ограничение просмотра"
@@ -896,8 +1026,8 @@ msgid "Workflow: resume task"
 msgstr "Рабочий процесс: возобновить задачу"
 
 #, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Задача '%(task)s' выполнена еще раз. Рабочий процесс возобновлен."
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Повторно отправлено '%(task)s'. Рабочий процесс возобновлен"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."

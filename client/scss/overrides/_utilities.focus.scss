@@ -4,7 +4,7 @@
 // Using !important because we want to enforce only one style is used across the UI.
 // Remove :focus selectors once we stop supporting Safari 15.4.
 *:focus {
-  outline: $focus-outline-width solid $color-focus-outline !important;
+  outline: $focus-outline-width solid theme('colors.focus') !important;
 }
 
 *:focus:not(:focus-visible) {
@@ -12,5 +12,5 @@
 }
 
 *:focus-visible {
-  outline: $focus-outline-width solid $color-focus-outline !important;
+  outline: $focus-outline-width solid theme('colors.focus') !important;
 }

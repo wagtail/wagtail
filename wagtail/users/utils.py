@@ -1,11 +1,11 @@
-import hashlib
-
 from django.conf import settings
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.coreutils import safe_md5
 
-delete_user_perm = "{0}.delete_{1}".format(
+delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
 
@@ -37,10 +37,17 @@ def get_gravatar_url(email, size=50):
     if (not email) or (gravatar_provider_url is None):
         return None
 
+    email_bytes = email.lower().encode("utf-8")
+    hash = safe_md5(email_bytes, usedforsecurity=False).hexdigest()
     gravatar_url = "{gravatar_provider_url}/{hash}?{params}".format(
         gravatar_provider_url=gravatar_provider_url.rstrip("/"),
-        hash=hashlib.md5(email.lower().encode("utf-8")).hexdigest(),
+        hash=hash,
         params=urlencode({"s": size, "d": default}),
     )
 
     return gravatar_url
+
+
+def get_deleted_user_display_name(user_id):
+    # Use a string placeholder as the user id could be non-numeric
+    return _("user %(id)s (deleted)") % {"id": user_id}

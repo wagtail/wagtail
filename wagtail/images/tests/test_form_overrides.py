@@ -1,11 +1,13 @@
 from django import forms
 from django.test import TestCase, override_settings
+from taggit import models as taggit_models
 
 from wagtail.admin import widgets
 from wagtail.admin.widgets import AdminDateTimeInput
 from wagtail.images import models
 from wagtail.images.forms import BaseImageForm, get_image_base_form, get_image_form
 from wagtail.test.testapp.media_forms import AlternateImageForm, OverriddenWidget
+from wagtail.test.testapp.models import CustomRestaurantImage, RestaurantTag
 
 
 class TestImageFormOverride(TestCase):
@@ -21,8 +23,15 @@ class TestImageFormOverride(TestCase):
         form_cls = get_image_form(models.Image)
         form = form_cls()
         self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
+        self.assertEqual(form.fields["tags"].widget.tag_model, taggit_models.Tag)
         self.assertIsInstance(form.fields["file"].widget, forms.FileInput)
         self.assertIsInstance(form.fields["focal_point_x"].widget, forms.HiddenInput)
+
+    def test_tags_widget_with_custom_tag_model(self):
+        form_cls = get_image_form(CustomRestaurantImage)
+        form = form_cls()
+        self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
+        self.assertEqual(form.fields["tags"].widget.tag_model, RestaurantTag)
 
     @override_settings(
         WAGTAILIMAGES_IMAGE_FORM_BASE="wagtail.test.testapp.media_forms.AlternateImageForm"

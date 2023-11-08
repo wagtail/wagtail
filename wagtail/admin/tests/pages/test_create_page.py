@@ -1,5 +1,4 @@
 import datetime
-import unittest
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
@@ -10,8 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.models import GroupPagePermission, Locale, Page, PageRevision
+from wagtail.models import GroupPagePermission, Locale, Page, Revision
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -19,16 +17,24 @@ from wagtail.test.testapp.models import (
     BusinessSubIndex,
     DefaultStreamPage,
     PersonPage,
+    SimpleChildPage,
     SimplePage,
+    SimpleParentPage,
     SingletonPage,
     SingletonPageViaMaxCount,
     StandardChild,
     StandardIndex,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import submittable_timestamp
 
 
-class TestPageCreation(TestCase, WagtailTestUtils):
+class TestPageCreation(WagtailTestUtils, TestCase):
+    STATUS_TOGGLE_BADGE_REGEX = (
+        r'data-side-panel-toggle="status"[^<]+<svg[^<]+<use[^<]+</use[^<]+</svg[^<]+'
+        r"<div data-side-panel-toggle-counter[^>]+w-bg-critical-200[^>]+>\s*%(num_errors)s\s*</div>"
+    )
+
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -69,8 +75,33 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Business child")
+        self.assertContains(response, "A lazy business child page description")
         # List should not contain page types not in the subpage_types list
         self.assertNotContains(response, "Simple page")
+
+    def test_no_subpage_type_available_to_create(self):
+        # Test if all subpages have reached their max_count_per_parent limit
+        simple_parent_page = SimpleParentPage(
+            title="Hello World!",
+            slug="hello-world",
+        )
+        self.root_page.add_child(instance=simple_parent_page)
+        simple_child_page = SimpleChildPage(
+            title="Hello World!",
+            slug="hello-world",
+        )
+        simple_parent_page.add_child(instance=simple_child_page)
+        response = self.client.get(
+            reverse("wagtailadmin_pages:add_subpage", args=(simple_parent_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        # if there is no page_type available then this message should be shown.
+        self.assertContains(
+            response, "Sorry, you cannot create a page at this location."
+        )
+        self.assertNotContains(
+            response, "Choose which type of page you'd like to create."
+        )
 
     def test_add_subpage_with_one_valid_subpage_type(self):
         # Add a BusinessSubIndex to test business rules in
@@ -422,7 +453,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_create_simplepage_scheduled(self):
@@ -453,11 +484,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(page.go_live_at.date(), go_live_at.date())
         self.assertEqual(page.expire_at.date(), expire_at.date())
         self.assertIs(page.expired, False)
-        self.assertTrue(page.status_string, "draft")
+        self.assertEqual(page.status_string, "draft")
 
         # No revisions with approved_go_live_at
         self.assertFalse(
-            PageRevision.objects.filter(page=page)
+            Revision.page_revisions.filter(object_id=page.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -498,6 +529,20 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             "Go live date/time must be before expiry date/time",
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 2
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
 
@@ -525,6 +570,20 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             response, "form", "expire_at", "Expiry date/time must be in the future"
         )
 
+        self.assertContains(
+            response,
+            '<div class="w-label-3 w-text-primary">Invalid schedule</div>',
+            html=True,
+        )
+
+        num_errors = 1
+
+        # Should show the correct number on the badge of the toggle button
+        self.assertRegex(
+            response.content.decode(),
+            self.STATUS_TOGGLE_BADGE_REGEX % {"num_errors": num_errors},
+        )
+
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
 
@@ -533,49 +592,52 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         mock_handler = mock.MagicMock()
         page_published.connect(mock_handler)
 
-        # Post
-        post_data = {
-            "title": "New page!",
-            "content": "Some content",
-            "slug": "hello-world",
-            "action-publish": "Publish",
-        }
-        response = self.client.post(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", self.root_page.id),
-            ),
-            post_data,
-        )
+        try:
+            # Post
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                ),
+                post_data,
+            )
 
-        # Find the page and check it
-        page = Page.objects.get(
-            path__startswith=self.root_page.path, slug="hello-world"
-        ).specific
+            # Find the page and check it
+            page = Page.objects.get(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).specific
 
-        # Should be redirected to explorer
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        self.assertEqual(page.title, post_data["title"])
-        self.assertEqual(page.draft_title, post_data["title"])
-        self.assertIsInstance(page, SimplePage)
-        self.assertTrue(page.live)
-        self.assertTrue(page.first_published_at)
+            self.assertEqual(page.title, post_data["title"])
+            self.assertEqual(page.draft_title, post_data["title"])
+            self.assertIsInstance(page, SimplePage)
+            self.assertTrue(page.live)
+            self.assertTrue(page.first_published_at)
 
-        # Check that the page_published signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_published signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], page.specific_class)
-        self.assertEqual(mock_call["instance"], page)
-        self.assertIsInstance(mock_call["instance"], page.specific_class)
+            self.assertEqual(mock_call["sender"], page.specific_class)
+            self.assertEqual(mock_call["instance"], page)
+            self.assertIsInstance(mock_call["instance"], page.specific_class)
 
-        # treebeard should report no consistency problems with the tree
-        self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
-        )
+            # treebeard should report no consistency problems with the tree
+            self.assertFalse(
+                any(Page.find_problems()), msg="treebeard found consistency problems"
+            )
+        finally:
+            page_published.disconnect(mock_handler)
 
     def test_create_simplepage_post_publish_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
@@ -609,14 +671,14 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # A revision with approved_go_live_at should exist now
         self.assertTrue(
-            PageRevision.objects.filter(page=page)
+            Revision.page_revisions.filter(object_id=page.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
         # But Page won't be live
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
-        self.assertTrue(page.status_string, "scheduled")
+        self.assertEqual(page.status_string, "scheduled")
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
@@ -686,7 +748,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "slug", "This slug is already in use")
+        self.assertFormError(
+            response,
+            "form",
+            "slug",
+            "The slug 'hello-world' is already in use within the parent page",
+        )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, "alwaysDirty: true")
@@ -706,6 +773,47 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 404)
 
+    def test_custom_validation(self):
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "validatedpage", self.root_page.id),
+            ),
+            {
+                "title": "New page!",
+                "foo": "not bar",
+                "slug": "hello-world",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, "form", "foo", "Field foo must be bar")
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).exists()
+        )
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "validatedpage", self.root_page.id),
+            ),
+            {
+                "title": "New page!",
+                "foo": "superbar",
+                "slug": "hello-world",
+            },
+        )
+
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        )
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
     def test_preview_on_create(self):
         post_data = {
             "title": "New page!",
@@ -721,7 +829,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
@@ -734,6 +845,55 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["self"].depth, self.root_page.depth + 1)
         self.assertTrue(response.context["self"].path.startswith(self.root_page.path))
         self.assertEqual(response.context["self"].get_parent(), self.root_page)
+
+        # Should not show edit link in the userbar
+        self.assertNotContains(response, "Edit this page")
+
+    def test_preview_with_custom_validation(self):
+        post_data = {
+            "title": "New page!",
+            "foo": "not bar",
+            "slug": "hello-world",
+            "action-submit": "Submit",
+        }
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "validatedpage", self.root_page.id),
+        )
+        response = self.client.post(preview_url, post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": False, "is_available": False},
+        )
+
+        post_data = {
+            "title": "New page!",
+            "foo": "superbar",
+            "slug": "hello-world",
+            "action-submit": "Submit",
+        }
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "validatedpage", self.root_page.id),
+        )
+        response = self.client.post(preview_url, post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/validated_page.html")
+        self.assertContains(response, "foo = superbar")
 
     def test_whitespace_titles(self):
         post_data = {
@@ -845,6 +1005,39 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             "slug",
             "Ensure this value has at most 255 characters (it has 287).",
         )
+
+    def test_title_field_attrs(self):
+        """
+        Should correctly add the sync field and placeholder attributes to the title field.
+        Note: Many test Page models use a FieldPanel for 'title', StandardChild does not
+        override content_panels (uses the default).
+        """
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "standardchild", self.root_page.id),
+            )
+        )
+
+        html = self.get_soup(response.content)
+
+        actual_attrs = html.find("input", {"name": "title"}).attrs
+
+        expected_attrs = {
+            "aria-describedby": "panel-child-content-child-title-helptext",
+            "data-action": "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
+            "data-controller": "w-sync",
+            "data-w-sync-target-value": "#id_slug",
+            "id": "id_title",
+            "maxlength": "255",
+            "name": "title",
+            "placeholder": "Page title*",
+            "required": "",
+            "type": "text",
+        }
+
+        self.assertEqual(actual_attrs, expected_attrs)
 
     def test_before_create_page_hook(self):
         def hook_func(request, parent_page, page_class):
@@ -1034,10 +1227,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             "Submit for moderation</button>",
         )
 
-    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_hide_moderation_button(self):
         """
-        Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        Tests that if WAGTAIL_WORKFLOW_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(
             reverse(
@@ -1071,7 +1264,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["page"].locale, fr_locale)
 
 
-class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
+class TestPermissionedFieldPanels(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1112,7 +1305,7 @@ class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
         self.assertContains(response, '"secret_data"')
 
 
-class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
+class TestSubpageBusinessRules(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1254,7 +1447,7 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         )
 
 
-class TestInlinePanelMedia(TestCase, WagtailTestUtils):
+class TestInlinePanelMedia(WagtailTestUtils, TestCase):
     """
     Test that form media required by InlinePanels is correctly pulled in to the edit page
     """
@@ -1281,7 +1474,7 @@ class TestInlinePanelMedia(TestCase, WagtailTestUtils):
         self.assertContains(response, "wagtailadmin/js/draftail.js")
 
 
-class TestInlineStreamField(TestCase, WagtailTestUtils):
+class TestInlineStreamField(WagtailTestUtils, TestCase):
     """
     Test that streamfields inside an inline child work
     """
@@ -1302,7 +1495,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertContains(response, '<div id="sections-__prefix__-body" data-block="')
 
 
-class TestIssue2994(TestCase, WagtailTestUtils):
+class TestIssue2994(WagtailTestUtils, TestCase):
     """
     In contrast to most "standard" form fields, StreamField form widgets generally won't
     provide a postdata field with a name exactly matching the field name. To prevent Django
@@ -1338,7 +1531,7 @@ class TestIssue2994(TestCase, WagtailTestUtils):
         self.assertEqual("hello world", new_page.body[0].value)
 
 
-class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
+class TestInlinePanelWithTags(WagtailTestUtils, TestCase):
     # https://github.com/wagtail/wagtail/issues/5414#issuecomment-567080707
 
     def setUp(self):
@@ -1377,7 +1570,7 @@ class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
         self.assertEqual(new_page.addresses.first().tags.count(), 2)
 
 
-class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
+class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):
     """
     Test that non field errors will render for InlinePanels
     https://github.com/wagtail/wagtail/issues/3890
@@ -1431,7 +1624,7 @@ class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelector(TestCase, WagtailTestUtils):
+class TestLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1442,7 +1635,6 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.user = self.login()
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(
@@ -1511,7 +1703,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
+class TestLocaleSelectorOnRootPage(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1519,7 +1711,6 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(
@@ -1530,6 +1721,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
 
         self.assertContains(response, 'id="status-sidebar-english"')
 
+        # Should show a link to switch to another locale
         add_translation_url = (
             reverse(
                 "wagtailadmin_pages:add",
@@ -1538,6 +1730,50 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             + "?locale=fr"
         )
         self.assertContains(response, f'href="{add_translation_url}"')
+
+        # Should not show a link to switch to the current locale
+        self_translation_url = (
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["demosite", "homepage", self.root_page.id],
+            )
+            + "?locale=en"
+        )
+        self.assertNotContains(response, f'href="{self_translation_url}"')
+
+    def test_locale_selector_selected(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["demosite", "homepage", self.root_page.id],
+            )
+            + "?locale=fr"
+        )
+
+        self.assertContains(response, 'id="status-sidebar-french"')
+
+        # Should render the locale input with the currently selected locale
+        self.assertContains(response, '<input type="hidden" name="locale" value="fr">')
+
+        # Should show a link to switch to another locale
+        add_translation_url = (
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["demosite", "homepage", self.root_page.id],
+            )
+            + "?locale=en"
+        )
+        self.assertContains(response, f'href="{add_translation_url}"')
+
+        # Should not show a link to switch to the current locale
+        self_translation_url = (
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["demosite", "homepage", self.root_page.id],
+            )
+            + "?locale=fr"
+        )
+        self.assertNotContains(response, f'href="{self_translation_url}"')
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -1560,7 +1796,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
         self.assertNotContains(response, f'href="{add_translation_url}"')
 
 
-class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)

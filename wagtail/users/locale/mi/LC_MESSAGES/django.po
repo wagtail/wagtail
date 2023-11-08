@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,10 +21,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Kai-whakamahi-a-Wagtail"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Hiahiatia. 30 ō ngā pūāhua iti iho rānei. Reta, nama me @/./+/-/_ only."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -121,14 +117,8 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Delete group"
-msgstr "Mukuhia te rōpu"
-
 msgid "Add group"
 msgstr "Tāpiri he rōpū"
-
-msgid "Editing"
-msgstr "Whakarerekē"
 
 msgid "View users in this group"
 msgstr "Kitea ngā kai-whakamahi ki roto i tēnei rōpū"
@@ -136,8 +126,8 @@ msgstr "Kitea ngā kai-whakamahi ki roto i tēnei rōpū"
 msgid "Save"
 msgstr "Puritia"
 
-msgid "Permissions"
-msgstr "Ngā whakaae"
+msgid "Delete group"
+msgstr "Mukuhia te rōpu"
 
 msgid "Object permissions"
 msgstr "Whakaae-a-ahanoa"
@@ -151,6 +141,15 @@ msgstr "Tāpiri"
 msgid "Change"
 msgstr "Panoni"
 
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Lock"
+msgstr "Raka"
+
+msgid "Unlock"
+msgstr "Iriti"
+
 msgid "Other permissions"
 msgstr "Ē rā atu ahanoa"
 
@@ -163,35 +162,20 @@ msgstr "Whārangi"
 msgid "Add a page permission"
 msgstr "Tāpiri he whakaae-a-whārangi"
 
-msgid "groups"
-msgstr "Ngā rōpū"
-
-msgid "Add a group"
-msgstr "Tāpiri he rōpū"
-
-msgid "Delete user"
-msgstr "Mukuhia kai-whakamahi"
-
-msgid "Add user"
-msgstr "Tāpiri he kai-whakamahi"
-
 msgid "Account"
 msgstr "Rongorua"
 
 msgid "Roles"
 msgstr "Ngā whakatau"
 
-msgid "Users"
-msgstr "Ngā kai-whakamahi"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Tāpiri he kai-whakamahi"
+
+msgid "Delete user"
+msgstr "Mukuhia kai-whakamahi"
 
 msgid "Username"
 msgstr "Ingoa kai-whakamahi"
-
-msgid "Level"
-msgstr "Kōeke"
 
 msgid "Status"
 msgstr "Tūnga"
@@ -208,19 +192,17 @@ msgstr "hohe"
 msgid "Inactive"
 msgstr "Koretake"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s mai rā anō"
+msgid "Add a group"
+msgstr "Tāpiri he rōpū"
 
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Kai whakamahi '{0}' e hanga."
+msgid "Add a user"
+msgstr "Tāpiri he kai-whakamahi"
 
-msgid "Edit"
-msgstr "Whakarerekē"
-
-msgid "The user could not be created due to errors."
-msgstr "Ehara tēnei kaiwhakamahi e taea ki te hangaia, he raruraru "
+msgid "Users"
+msgstr "Ngā kai-whakamahi"
 
 msgid "The user could not be saved due to errors."
 msgstr "Ehara tēnei kaiwhakamahi e taea ki te puritia, he raruraru "
+
+msgid "Edit"
+msgstr "Whakarerekē"

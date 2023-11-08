@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.images import get_image_model
@@ -11,7 +10,7 @@ Image = get_image_model()
 test_file = get_test_image_file()
 
 
-class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
+class TestImageBulkDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -52,9 +51,7 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
         )
 
         for image in self.images:
-            self.assertInHTML(
-                "<li>{image_title}</li>".format(image_title=image.title), html
-            )
+            self.assertInHTML(f"<li>{image.title}</li>", html)
 
         response = self.client.post(self.url)
         # User should be redirected back to the index
@@ -82,7 +79,6 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
         for image in self.images:
             self.assertFalse(Image.objects.filter(id=image.id).exists())
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)

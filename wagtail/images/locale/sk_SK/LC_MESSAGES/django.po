@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,20 +36,22 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Podporované formáty sú: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Nie je podporovaný formát obrázkov. Podporované formáty sú: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Nie je podporovaný formát obrázkov. Podporované formáty sú: "
+"%(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Nie je validný %s obrázok."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tento súbor je príliž veľký (%(file_size)s). Maximálna povolená veľkosť je "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Tento súbor je príliž veľký (%%s). Maximálna povolená veľkosť je %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Tento súbor je príliž veľký. Maximálna veľkosť súboru je %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tento súbor je príliž veľký. Maximálna veľkosť súboru je %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Plná šírka"
@@ -135,17 +137,11 @@ msgstr "obrázok"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
-msgid "Choose an image"
-msgstr "Vybrať obrázok"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Upload"
-msgstr "Nahrať"
-
 msgid "Popular tags"
 msgstr "Populárne tagy"
+
+msgid "New"
+msgstr "Nový"
 
 msgid "Latest images"
 msgstr "Posledné obrázky"
@@ -155,9 +151,6 @@ msgstr "Zvoľte formát"
 
 msgid "Insert image"
 msgstr "Vložiť obrázok"
-
-msgid "Uploading…"
-msgstr "Odosielam…"
 
 msgid "Change image file:"
 msgstr "Zmeniť obrázok:"
@@ -171,15 +164,15 @@ msgstr "Pridať obrázok"
 msgid "Save"
 msgstr "Uložiť"
 
-msgid "Delete image"
-msgstr "Zmazať obrázok"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Úprava obrázka %(title)s"
 
 msgid "Editing"
 msgstr "Upraviť obrázok"
+
+msgid "Delete image"
+msgstr "Zmazať obrázok"
 
 msgid "URL Generator"
 msgstr "URL Generátor"
@@ -202,9 +195,6 @@ msgstr "Súbor nebol nájdený"
 msgid "Images"
 msgstr "Obrázky"
 
-msgid "Clear choice"
-msgstr "Zmazať voľbu"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -213,19 +203,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a href="
-"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a "
+"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
-"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a "
+"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 msgid "Generating URL"
 msgstr "Generovanie URL"
@@ -242,28 +232,6 @@ msgid ""
 msgstr ""
 "Upozorňujeme, že vygenerované obrázky, ktoré sú väčšie ako obrazovka, sa "
 "zobrazia menšie ako v tomto náhľade tak, že sa pispôsobia obrazovke."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použitie %(title)s"
-
-msgid "Usage of"
-msgstr "Použitie"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "Parent"
-msgstr "Rodič"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Edit this page"
-msgstr "Upraviť túto stránku"
 
 msgid "Add multiple images"
 msgstr "Pridať viacero obrázkov"
@@ -304,15 +272,33 @@ msgstr "Oprávnenia obrázku"
 msgid "Add an image permission"
 msgstr "Pridať oprávnenia obrázku"
 
+msgid "Tags"
+msgstr "Tagy"
+
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Upload"
+msgstr "Nahrať"
+
+msgid "Uploading…"
+msgstr "Odosielam…"
+
+msgid "Choose an image"
+msgstr "Vybrať obrázok"
+
+msgid "Choose another image"
+msgstr "Zvoliť iný obrázok"
+
+msgid "Edit this image"
+msgstr "Upraviť tento obrázok"
 
 msgid "Search images"
 msgstr "Hľadat obrázky"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Obrázok '{0}' bol aktualizovaný."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Obrázok '%(image_title)s' bol aktualizovaný."
 
 msgid "Edit again"
 msgstr "Upraviť znovu"
@@ -326,13 +312,13 @@ msgid ""
 msgstr ""
 "Zdroj obrázku nebol nájdený. Prosím aktualizujte zdroj alebo zmažte obrázok."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Obrázok '{0}' bol zmazaný."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Obrázok '%(image_title)s' bol zmazaný."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Obrázok '{0}' bol pridaný."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Obrázok '%(image_title)s' bol pridaný."
 
 msgid "The image could not be created due to errors."
 msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
@@ -344,6 +330,3 @@ msgstr[0] "%(count)s obrázok"
 msgstr[1] "%(count)s obrázky"
 msgstr[2] "%(count)s obrázkov"
 msgstr[3] "%(count)s obrázkov"
-
-msgid "Edit this image"
-msgstr "Upraviť tento obrázok"

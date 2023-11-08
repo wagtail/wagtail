@@ -1,14 +1,13 @@
 import re
 import subprocess
 from collections import defaultdict
-from io import open
 
 from babel import Locale
 
 authors_by_locale = defaultdict(set)
 
 file_listing = subprocess.Popen(
-    "find ../wagtail -iname *.po", shell=True, stdout=subprocess.PIPE
+    "find ./wagtail -iname *.po", shell=True, stdout=subprocess.PIPE
 )
 
 for file_listing_line in file_listing.stdout:
@@ -20,7 +19,7 @@ for file_listing_line in file_listing.stdout:
         continue
 
     # read author list from each file
-    with open(filename, "rt") as f:
+    with open(filename) as f:
         has_found_translators_heading = False
         for line in f:
             line = line.strip()
@@ -60,8 +59,8 @@ language_names = [
 language_names.sort()
 
 for (language_name, locale) in language_names:
-    print(("%s - %s" % (language_name, locale)))
-    print("-----")
+    print(f"{language_name} - {locale}")  # noqa: T201
+    print("-----")  # noqa: T201
     for author in sorted(authors_by_locale[locale]):
-        print(author)
-    print("")
+        print(author.replace("@", "."))  # noqa: T201
+    print("")  # noqa: T201

@@ -2,6 +2,8 @@
 Wagtail 1.0 release notes
 =========================
 
+*July 16, 2015*
+
 .. contents::
     :local:
     :depth: 1
@@ -13,7 +15,7 @@ What's changed
 StreamField - a field type for freeform content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield`.
+StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield_topic`.
 
 
 Wagtail API - A RESTful API for your Wagtail site
@@ -103,7 +105,7 @@ Admin
 * Removed the need to add permission check on admin views (now automated)
 * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
 * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
-* Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
+* Date / time pickers now consistently use times without seconds, to prevent JavaScript behaviour glitches when focusing / unfocusing fields
 * Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
 * Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
 * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
@@ -337,7 +339,7 @@ Previously, the forms for creating and editing images followed Django's default 
 ``construct_wagtail_edit_bird`` hook has been renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+Previously you could customise the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.

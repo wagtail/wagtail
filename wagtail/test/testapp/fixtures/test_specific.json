@@ -1,5 +1,22 @@
 [
   {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 3,
+      "name": "Root"
+    }
+  },
+  {
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {

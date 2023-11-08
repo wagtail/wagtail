@@ -1,134 +1,82 @@
-/*
-TODO this chooser style has been made more generic based on two identical
-methods for choosing pages and images that were previously included in their
-own less files in each app directory (and since deleted). It would be best if
-an admin 'theme' provided all the design for a UI in a single place, but
-should that be a series of overrides to the css provided from an app? If so,
-perhaps those two previous less files should be re-instated and then
-overridden here? hmm.
-*/
+$preview-size: 2.625rem; // 42px
 
 .chooser {
-  // We show the 'chosen' state...
-  @include clearfix();
-
-  input[type='text'] {
-    float: left;
-    width: 50%;
-    margin-inline-end: 1em;
-  }
-
-  .chosen {
-    display: block;
-  }
-
-  .unchosen,
-  .chosen {
-    position: relative;
-
-    .icon {
-      color: $color-grey-3;
-      @include svg-icon(2.5em);
-      vertical-align: middle;
-      margin-inline-end: 0.625rem;
-    }
-
-    // TODO: [icon-font] remove when the Wagtail icon font is removed
-    &:before {
-      vertical-align: middle;
-      font-family: $font-wagtail-icons;
-      content: '';
-      // position: relative
-      display: inline-block;
-      // float: left;
-      color: $color-grey-3;
-      line-height: 1em;
-      font-size: 2.5em;
-      margin-inline-end: 0.3em;
-    }
-  }
-
-  .unchosen {
+  &.blank .chosen {
     display: none;
   }
 
-  .actions {
-    @include clearfix;
-    overflow: hidden;
-
-    li {
-      float: left;
-      margin: 0.3em;
-    }
-  }
-
-  // ...unless the .page-chooser has the 'blank' class set
-  &.blank {
-    .chosen {
-      display: none;
-    }
-
-    .unchosen {
-      display: block;
-    }
+  &:not(.blank) .unchosen {
+    display: none;
   }
 }
 
-// standard way of doing a chooser where the chosen object's title is overlaid
-.page-chooser,
-.snippet-chooser,
-.document-chooser {
-  .chosen {
-    .title {
-      color: $color-grey-1;
-      // display: block;
-      padding-inline-start: 1em;
-      display: inline-block;
-    }
+// Very subdued button style specifically for choosers, as there can be a lot of
+// chooser fields left unused on a page editing form.
+.button.chooser__choose-button {
+  @apply w-label-3;
+  display: flex;
+  align-items: center;
+  color: theme('colors.text-button-outline-default');
+  border-color: transparent;
+  padding: theme('spacing.[1.5]');
 
-    .actions {
-      clear: both;
-      padding-top: 0.6em;
-    }
+  .icon {
+    @include svg-icon(theme('spacing.4'), initial);
+    color: inherit;
+    margin-inline-end: 5px;
+  }
+
+  &:hover,
+  &:focus {
+    color: theme('colors.surface-button-hover');
+    background-color: theme('colors.surface-page');
   }
 }
 
-// TODO: [icon-font] remove when the Wagtail icon font is removed
-.page-chooser,
-.snippet-chooser,
-.document-chooser,
-.image-chooser {
-  .unchosen,
-  .chosen {
-    &:before {
-      display: none;
-    }
+.chosen {
+  display: flex;
+  gap: theme('spacing.4');
+  align-items: center;
+}
+
+.chooser__preview {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: $preview-size;
+  height: $preview-size;
+  // Prevent this item from getting smaller if the title is long.
+  flex-shrink: 0;
+  background-color: theme('colors.border-button-small-outline-default');
+  color: theme('colors.text-button');
+  border-radius: theme('borderRadius.sm');
+
+  @media (forced-colors: active) {
+    border: 1px solid transparent;
   }
 }
 
-.image-chooser {
-  .chosen {
-    padding-inline-start: $thumbnail-width;
+.chooser__title {
+  @apply w-body-text-large;
+}
 
-    &:before {
-      display: inline-block;
-    }
+.chooser__image {
+  max-width: 165px;
+  max-height: 125px;
+  height: auto;
+  width: auto;
+}
 
-    .preview-image {
-      float: left;
-      margin-inline-start: -($thumbnail-width);
-      margin-inline-end: 1em;
-      max-width: $thumbnail-width;
+.chooser .w-dropdown__toggle--icon {
+  width: $preview-size;
+  height: $preview-size;
+}
 
-      // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
-      // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
-      // where images are store off-site with higher rendering times.
-      img {
-        max-width: $thumbnail-width;
-        max-height: $thumbnail-width;
-        height: auto;
-        width: auto;
-      }
-    }
-  }
+// Display these as inline block so that action icons such as comments can appear as close as possible
+.w-field--admin_task_chooser,
+.w-field--admin_page_chooser,
+.w-field--document_chooser_widget,
+.w-field--admin_image_chooser,
+.w-field--admin_snippet_chooser {
+  display: inline-block;
 }

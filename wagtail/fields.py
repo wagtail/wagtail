@@ -1,14 +1,17 @@
 import json
-import warnings
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.rich_text import get_text_for_indexing
-from wagtail.utils.deprecation import RemovedInWagtail40Warning
+from wagtail.rich_text import (
+    RichTextMaxLengthValidator,
+    extract_references_from_rich_text,
+    get_text_for_indexing,
+)
 
 
 class RichTextField(models.TextField):
@@ -18,6 +21,7 @@ class RichTextField(models.TextField):
         # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop("editor", "default")
         self.features = kwargs.pop("features", None)
+
         super().__init__(*args, **kwargs)
 
     def clone(self):
@@ -34,12 +38,24 @@ class RichTextField(models.TextField):
             "widget": get_rich_text_editor_widget(self.editor, features=self.features)
         }
         defaults.update(kwargs)
-        return super().formfield(**defaults)
+        field = super().formfield(**defaults)
+
+        # replace any MaxLengthValidators with RichTextMaxLengthValidators to ignore tags
+        for (i, validator) in enumerate(field.validators):
+            if isinstance(validator, MaxLengthValidator):
+                field.validators[i] = RichTextMaxLengthValidator(
+                    validator.limit_value, message=validator.message
+                )
+
+        return field
 
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
         source = force_str(value)
         return [get_text_for_indexing(source)]
+
+    def extract_references(self, value):
+        yield from extract_references_from_rich_text(force_str(value))
 
 
 # https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
@@ -66,7 +82,10 @@ class Creator:
 
 
 class StreamField(models.Field):
-    def __init__(self, block_types, use_json_field=None, **kwargs):
+    def __init__(self, block_types, use_json_field=True, **kwargs):
+        # use_json_field no longer has any effect but is recognised to support historical
+        # migrations
+
         # extract kwargs that are to be passed on to the block, not handled by super
         block_opts = {}
         for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
@@ -79,8 +98,6 @@ class StreamField(models.Field):
         block_opts["required"] = not kwargs.get("blank", False)
 
         super().__init__(**kwargs)
-
-        self.use_json_field = use_json_field
 
         if isinstance(block_types, Block):
             # use the passed block as the top-level block
@@ -98,35 +115,33 @@ class StreamField(models.Field):
     def json_field(self):
         return models.JSONField(encoder=DjangoJSONEncoder)
 
-    def _check_json_field(self):
-        if type(self.use_json_field) is not bool:
-            warnings.warn(
-                f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
-                RemovedInWagtail40Warning,
-                stacklevel=3,
-            )
-
     def get_internal_type(self):
-        return "JSONField" if self.use_json_field else "TextField"
+        return "JSONField"
 
     def get_lookup(self, lookup_name):
-        if self.use_json_field:
-            return self.json_field.get_lookup(lookup_name)
-        return super().get_lookup(lookup_name)
+        return self.json_field.get_lookup(lookup_name)
 
     def get_transform(self, lookup_name):
-        if self.use_json_field:
-            return self.json_field.get_transform(lookup_name)
-        return super().get_transform(lookup_name)
+        return self.json_field.get_transform(lookup_name)
 
     def deconstruct(self):
         name, path, _, kwargs = super().deconstruct()
         block_types = list(self.stream_block.child_blocks.items())
         args = [block_types]
-        kwargs["use_json_field"] = self.use_json_field
         return name, path, args, kwargs
 
     def to_python(self, value):
+        value = self._to_python(value)
+
+        # The top-level StreamValue is passed a reference to the StreamField, to support
+        # pickling. This is necessary because unpickling needs access to the StreamBlock
+        # definition, which cannot itself be pickled; instead we store a pointer to the
+        # field within the model, which gives us a path to retrieve the StreamBlock definition.
+
+        value._stream_field = self
+        return value
+
+    def _to_python(self, value):
         if value is None or value == "":
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
@@ -149,12 +164,7 @@ class StreamField(models.Field):
                 return StreamValue(self.stream_block, [])
 
             return self.stream_block.to_python(unpacked_value)
-        elif (
-            self.use_json_field
-            and value
-            and isinstance(value, list)
-            and isinstance(value[0], dict)
-        ):
+        elif value and isinstance(value, list) and isinstance(value[0], dict):
             # The value is already unpacked since JSONField-based StreamField should
             # accept deserialised values (no need to call json.dumps() first).
             # In addition, the value is not a list of (block_name, value) tuples
@@ -186,18 +196,27 @@ class StreamField(models.Field):
             # for reverse migrations that convert StreamField data back into plain text
             # fields.)
             return value.raw_text
-        elif isinstance(value, StreamValue) or not self.use_json_field:
+        elif isinstance(value, StreamValue):
             # StreamValue instances must be prepared first.
-            # Before use_json_field was implemented, this is also the value used in queries.
             return json.dumps(
                 self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder
             )
         else:
             # When querying with JSONField features, the rhs might not be a StreamValue.
+            # Note: when Django 4.2 is the minimum supported version, this can be removed
+            # as the serialisation is handled in get_db_prep_value instead.
             return self.json_field.get_prep_value(value)
 
+    def get_db_prep_value(self, value, connection, prepared=False):
+        if not isinstance(value, StreamValue):
+            # When querying with JSONField features, the rhs might not be a StreamValue.
+            # As of Django 4.2, JSONField value serialisation is handled in
+            # get_db_prep_value instead of get_prep_value.
+            return self.json_field.get_db_prep_value(value, connection, prepared)
+        return super().get_db_prep_value(value, connection, prepared)
+
     def from_db_value(self, value, expression, connection):
-        if self.use_json_field and isinstance(expression, KeyTransform):
+        if isinstance(expression, KeyTransform):
             # This could happen when using JSONField key transforms,
             # e.g. Page.object.values('body__0').
             try:
@@ -225,7 +244,18 @@ class StreamField(models.Field):
         return self.get_prep_value(value)
 
     def get_searchable_content(self, value):
+
         return self.stream_block.get_searchable_content(value)
+
+    def extract_references(self, value):
+        yield from self.stream_block.extract_references(value)
+
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        return self.stream_block.get_block_by_content_path(value, path_elements)
 
     def check(self, **kwargs):
         errors = super().check(**kwargs)
@@ -234,11 +264,6 @@ class StreamField(models.Field):
 
     def contribute_to_class(self, cls, name, **kwargs):
         super().contribute_to_class(cls, name, **kwargs)
-
-        # Output deprecation warning on missing use_json_field argument, unless this is a fake model
-        # for a migration
-        if cls.__module__ != "__fake__":
-            self._check_json_field()
 
         # Add Creator descriptor to allow the field to be set from a list or a
         # JSON string.

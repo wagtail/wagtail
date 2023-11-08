@@ -11,15 +11,12 @@
     </p>
 {% endif %}
 
-<table class="listing workflow-pages-listing">
+<table class="listing">
     <col />
     <col />
     <thead>
         <tr>
             <th>{% trans "Page" %}</th>
-            {% for identifier, short_label, long_label in formset.permission_types %}
-                <th title="{{ long_label }}">{{ short_label }}</th>
-            {% endfor %}
             <th></th>
         </tr>
     </thead>
@@ -39,16 +36,14 @@
     </tbody>
 </table>
 
-<script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% escapescript %}
-        <tr id="inline_child_{{ formset.empty_form.prefix }}">
+<template id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    <tr id="inline_child_{{ formset.empty_form.prefix }}">
         {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=formset.empty_form only %}
-        </tr>
-    {% endescapescript %}
-</script>
+    </tr>
+</template>
 
 <p class="add">
-    <a class="button bicolor icon icon-plus" id="id_{{ formset.prefix }}-ADD" value="Add">{% trans "Assign to another page" %}</a>
+    <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button">{% icon name="plus" wrapped=1 %}{% trans "Assign to another page" %}</button>
 </p>
 
 

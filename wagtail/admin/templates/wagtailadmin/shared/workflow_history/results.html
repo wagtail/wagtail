@@ -1,0 +1,17 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if workflow_states %}
+    {% include "wagtailadmin/shared/workflow_history/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=workflow_states linkurl=workflow_history_url_name %}
+{% else %}
+    <p>
+        {% if page %}
+            {% blocktrans trimmed %}This page hasn't been submitted for moderation yet{% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                This {{ model_name }} hasn't been submitted for moderation yet
+            {% endblocktrans %}
+        {% endif %}
+    </p>
+{% endif %}

@@ -1,7 +1,7 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% trans "Insert embed" as ins_emb_str %}
-{% include "wagtailadmin/shared/header.html" with title=ins_emb_str merged=1 %}
+{% include "wagtailadmin/shared/header.html" with title=ins_emb_str %}
 
 <div class="tab-content">
     <section id="form" class="active nice-padding">
@@ -9,9 +9,21 @@
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    <li>
+                        {% include "wagtailadmin/shared/field.html" with field=field %}
+                    </li>
                 {% endfor %}
-                <li><button type="submit" class="button  button-longrunning">{% icon name="spinner" %}<em>{% trans 'Insert' %}</em></button></li>
+                <li>
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Insert' %}</em>
+                    </button>
+                </li>
             </ul>
         </form>
     </section>

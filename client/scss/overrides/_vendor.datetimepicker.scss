@@ -1,28 +1,27 @@
 @use 'sass:map';
 
 .xdsoft_datetimepicker {
-  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.4);
-  background: $color-white;
-  border: 1px solid $color-input-focus-border;
+  box-shadow: 0 5px 10px -5px theme('colors.black-35');
+  background: theme('colors.surface-field');
+  border: 1px solid theme('colors.border-field-default');
   padding: 8px;
   padding-inline-start: 0;
   padding-top: 2px;
   position: absolute;
-  z-index: 5;
-  box-sizing: border-box;
+  z-index: 500;
   display: none;
 
+  .w-dialog & {
+    z-index: calc(theme('zIndex.dialog') + 5);
+  }
+
   * {
-    box-sizing: border-box;
     padding: 0;
     margin: 0;
   }
 
   iframe {
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
     inset-inline-start: 0;
     top: 0;
     width: 75px;
@@ -67,20 +66,25 @@
     position: relative;
     white-space: nowrap;
     width: 2em;
-    color: $color-teal;
+    color: theme('colors.text-button-outline-default');
     text-align: center;
 
     &:before {
-      font-size: 1.5em;
-      font-family: $font-wagtail-icons;
-      width: 1em;
-      line-height: 1.3em;
+      content: '';
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
       text-align: center;
       margin: 0;
+      background-color: currentColor;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &:hover {
-      color: $color-teal-darker;
+      color: theme('colors.surface-button-hover');
     }
   }
 
@@ -88,7 +92,7 @@
     float: left;
 
     &:before {
-      content: map.get($icons, 'arrow-left'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-left.svg');
     }
   }
 
@@ -97,7 +101,7 @@
     margin-inline-start: 5px;
 
     &:before {
-      content: map.get($icons, 'home'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/home.svg');
     }
   }
 
@@ -105,7 +109,7 @@
     float: right;
 
     &:before {
-      content: map.get($icons, 'arrow-right'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-right.svg');
     }
   }
 
@@ -124,31 +128,26 @@
       text-align: center;
       width: 100%;
       padding: 0;
-
-      &:before {
-        width: 100%;
-      }
     }
 
     .xdsoft_prev:before {
-      content: map.get($icons, 'arrow-up'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-up.svg');
     }
 
     .xdsoft_next:before {
-      content: map.get($icons, 'arrow-down'); // UI-Redesign: to be removed
+      mask-image: url('#{$images-root}icons/arrow-down.svg');
     }
 
     .xdsoft_time_box {
       position: relative;
-      border: 1px solid #ccc;
+      border: 1px solid theme('colors.border-furniture');
       height: 170px;
       overflow: hidden;
-      border-bottom: 1px solid #ddd;
 
       > div > div {
-        background: #f5f5f5;
-        border-top: 1px solid #ddd;
-        color: #666;
+        background: theme('colors.surface-header');
+        border-top: 1px solid theme('colors.border-furniture');
+        color: theme('colors.text-context');
         font-size: 1em;
         text-align: center;
         border-collapse: collapse;
@@ -176,7 +175,7 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: bold;
-    background-color: $color-white;
+    background-color: theme('colors.surface-page');
     float: left;
     width: 182px;
     text-align: center;
@@ -187,46 +186,35 @@
     }
 
     > .xdsoft_select {
-      border: 1px solid #ccc;
+      border: 1px solid theme('colors.border-furniture');
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0;
       inset-inline-end: 0;
       top: 30px;
       z-index: 101;
       display: none;
-      background: $color-white;
+      background: theme('colors.surface-field');
       max-height: 160px;
       overflow-y: hidden;
 
       &.xdsoft_monthselect {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: -7px;
         inset-inline-end: -7px;
       }
 
       &.xdsoft_yearselect {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 2px;
         inset-inline-end: 2px;
       }
 
       > div > .xdsoft_option:hover {
-        color: $color-white;
-        background: #ff8000;
+        background: theme('colors.text-highlight');
+
+        // stylelint-disable-next-line max-nesting-depth
+        @media (forced-colors: active) {
+          background: SelectedItem;
+        }
       }
 
       > div > .xdsoft_option {
         padding: 2px 15px 2px 5px;
-      }
-
-      > div > .xdsoft_option.xdsoft_current {
-        background: #3af;
-        color: $color-white;
-        font-weight: 700;
       }
     }
   }
@@ -254,8 +242,8 @@
     td,
     th {
       width: 14.285%;
-      border: 1px solid #ddd;
-      color: #666;
+      border: 1px solid theme('colors.border-furniture');
+      color: theme('colors.text-context');
       font-size: 12px;
       text-align: end;
       padding: 5px 7px;
@@ -265,11 +253,11 @@
     }
 
     td {
-      background-color: $color-white;
+      background-color: theme('colors.surface-page');
     }
 
     th {
-      background: #f1f1f1;
+      background: theme('colors.surface-header');
       font-weight: 700;
       font-size: 0.85em;
       text-align: center;
@@ -280,26 +268,39 @@
   .xdsoft_calendar td.xdsoft_default,
   .xdsoft_calendar td.xdsoft_current,
   .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
-    background: $color-salmon;
-    color: $color-white;
+    background: theme('colors.text-highlight');
     font-weight: 700;
+
+    @media (forced-colors: active) {
+      background: SelectedItem;
+    }
   }
 
   .xdsoft_calendar td.xdsoft_other_month,
   .xdsoft_calendar td.xdsoft_disabled,
   .xdsoft_time_box > div > div.xdsoft_disabled {
     opacity: 0.5;
-    background: $color-grey-3;
+    background: theme('colors.border-furniture');
+
+    @media (forced-colors: active) {
+      opacity: 1;
+      color: GrayText;
+    }
   }
 
   .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
     opacity: 0.2;
+
+    @media (forced-colors: active) {
+      opacity: 1;
+      color: GrayText;
+    }
   }
 
   .xdsoft_calendar td:hover,
   .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
-    color: $color-white;
-    background: $color-teal;
+    color: theme('colors.text-button');
+    background: theme('colors.surface-button-default');
   }
 
   .xdsoft_calendar td.xdsoft_today {
@@ -332,9 +333,6 @@
 .xdsoft_scrollbar {
   position: absolute;
   width: 7px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   top: 0;
   bottom: 0;
@@ -342,7 +340,7 @@
 
   > .xdsoft_scroller {
     // stylelint-disable-next-line declaration-no-important
-    background: #ccc !important;
+    background: theme('colors.border-furniture') !important;
     height: 20px;
     border-radius: 3px;
   }

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Ivan Tyshchenko <iv.tihon@gmail.com>, 2021
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
@@ -11,10 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Ivan Tyshchenko <iv.tihon@gmail.com>, 2021\n"
-"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,9 +29,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зображення Wagtail "
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -44,26 +43,30 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Підтримувані формати: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Зображення має формат, що не підтримується. Підтримувані формати: %s."
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "Не є валідним %s зображенням."
-
-#, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Цей файл занадто великий (%%s). Максимальний розмір файлу %s."
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
-"Цей файл має занадто багато пікселів (%%s). Максимальний кількість пікселів "
-"%s."
+"Зображення має формат, що не підтримується. Підтримувані формати: "
+"%(supported_formats)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Цей файл є занадто великим. Максимальний розмір файлу %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Цей файл занадто великий (%(file_size)s). Максимальний розмір файлу "
+"%(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Цей файл має занадто багато пікселів (%(num_pixels)s). Максимальний "
+"кількість пікселів %(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Цей файл є занадто великим. Максимальний розмір файлу %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Повна довжина"
@@ -166,14 +169,6 @@ msgstr "зображення"
 msgid "images"
 msgstr "зображення"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Додати тег до 1 зображення"
-msgstr[1] "Додати тег до %(counter)s зображення"
-msgstr[2] "Додати тег до %(counter)s зображень"
-msgstr[3] "Додати тег до %(counter)s зображень"
-
 msgid "Add tags to images"
 msgstr "Додати теги до зображень"
 
@@ -196,14 +191,6 @@ msgstr "Так, додати"
 
 msgid "No, don't add"
 msgstr "Ні, не додавати"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "Додати 1 зображення до колекції"
-msgstr[1] "Додати %(counter)s зображення до колекції"
-msgstr[2] "Додати %(counter)s зображень до колекції"
-msgstr[3] "Додати %(counter)s зображень до колекції"
 
 msgid "Add images to collection"
 msgstr "Додати зображення до колекції"
@@ -263,43 +250,14 @@ msgstr "Так, видалити"
 msgid "No, don't delete"
 msgstr "Ні, не видаляти"
 
-msgid "Choose an image"
-msgstr "Оберіть зображення"
-
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Upload"
-msgstr "Надіслати"
-
 msgid "Popular tags"
 msgstr "Популярні теги"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Знайдено %(counter)s збіг\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
+msgid "Existing"
+msgstr "Існуючі"
+
+msgid "New"
+msgstr "Новий"
 
 msgid "Latest images"
 msgstr "Останні зображення"
@@ -309,41 +267,6 @@ msgstr "Оберіть формат"
 
 msgid "Insert image"
 msgstr "Вставити зображення"
-
-msgid "Uploading…"
-msgstr "Йде надсилання..."
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"       <span>%(total)s</span>зображення <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"       "
-msgstr[2] ""
-"\n"
-"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"        "
-msgstr[3] ""
-"\n"
-"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"     "
 
 msgid "Change image file:"
 msgstr "Поміняти файл зображення:"
@@ -357,15 +280,15 @@ msgstr "Додати зображення"
 msgid "Save"
 msgstr "Зберегти"
 
-msgid "Delete image"
-msgstr "Видалити зображення"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Редагування зображення %(title)s"
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Delete image"
+msgstr "Видалити зображення"
 
 msgid "URL Generator"
 msgstr "Генератор URL"
@@ -407,9 +330,6 @@ msgstr "Зображення"
 msgid "Popular Tags:"
 msgstr "Популярні теги:"
 
-msgid "Clear choice"
-msgstr "Очистити вибір"
-
 msgid "Select all images in listing"
 msgstr "Обрати всі зображення у списку"
 
@@ -425,19 +345,19 @@ msgstr "Вибачте, жодне зображення не відповіда�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення до колекції. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення до колекції. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 msgid "Generating URL"
 msgstr "Генерація URL"
@@ -454,28 +374,6 @@ msgid ""
 msgstr ""
 "Зауважте, що зображення, сгенеровані більшими за розмір екрану, будуть "
 "показані тут у меншому розмірі: вони будуть пристосовані до розміру екрану"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Використання %(title)s"
-
-msgid "Usage of"
-msgstr "Використання"
-
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "Parent"
-msgstr "Предок"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Edit this page"
-msgstr "Редагувати цю сторінку"
 
 msgid "Add multiple images"
 msgstr "Додати декілька зображень"
@@ -559,12 +457,24 @@ msgstr[1] "%(num_parent_objects)d зображення було видалено
 msgstr[2] "%(num_parent_objects)d зображень було видалено"
 msgstr[3] "%(num_parent_objects)d зображень було видалено"
 
+msgid "Upload"
+msgstr "Надіслати"
+
+msgid "Uploading…"
+msgstr "Йде надсилання..."
+
+msgid "Choose an image"
+msgstr "Оберіть зображення"
+
+msgid "Edit this image"
+msgstr "Редагувати зображення"
+
 msgid "Search images"
 msgstr "Пошук зображень"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Зображення '{0}' оновлено."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Зображення '%(image_title)s' оновлено."
 
 msgid "Edit again"
 msgstr "Редагувати ще раз"
@@ -579,13 +489,13 @@ msgstr ""
 "Джерело зображення відсутнє. Будь ласка, змініть джерело або видаліть "
 "зображення. "
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Зображення '{0}' видалено."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Зображення '%(image_title)s' видалено."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Зображення '{0}' додано."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Зображення '%(image_title)s' додано."
 
 msgid "The image could not be created due to errors."
 msgstr "Зображення не можна створити через помилки."
@@ -603,6 +513,3 @@ msgstr[3] "%(count)s зображень"
 
 msgid "Change image"
 msgstr "Змінити зображення"
-
-msgid "Edit this image"
-msgstr "Редагувати зображення"

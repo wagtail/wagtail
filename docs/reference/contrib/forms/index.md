@@ -5,7 +5,7 @@
 The `wagtailforms` module allows you to set up single-page forms, such as a 'Contact us' form, as pages of a Wagtail site. It provides a set of base models that site implementers can extend to create their own `FormPage` type with their own site-specific templates. Once a page type has been set up in this way, editors can build forms within the usual page editor, consisting of any number of fields. Form submissions are stored for later retrieval through a new 'Forms' section within the Wagtail admin interface; in addition, they can be optionally e-mailed to an address specified by the editor.
 
 ```{note}
-**wagtailforms is not a replacement for** {doc}`Django's form support <django:topics/forms/index>`. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the [wagtail-form-example project](https://github.com/gasman/wagtail-form-example/commits/master) for an example of integrating a Django form into a Wagtail page.
+**wagtailforms is not a replacement for** [Django's form support](django:topics/forms/index). It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the [wagtail-form-example project](https://github.com/gasman/wagtail-form-example/commits/master) for an example of integrating a Django form into a Wagtail page.
 ```
 
 (form_builder_usage)=
@@ -43,9 +43,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -58,7 +58,7 @@ class FormPage(AbstractEmailForm):
 
 `AbstractEmailForm` defines the fields `to_address`, `from_address` and `subject`, and expects `form_fields` to be defined. Any additional fields are treated as ordinary page content - note that `FormPage` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
 
-Date and datetime values in a form response will be formatted with the [SHORT_DATE_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-date-format) and [SHORT_DATETIME_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-datetime-format) respectively. (see [](form_builder_render_email) for how to customise the email content).
+Date and datetime values in a form response will be formatted with the [SHORT_DATE_FORMAT](https://docs.djangoproject.com/en/stable/ref/settings/#short-date-format) and [SHORT_DATETIME_FORMAT](https://docs.djangoproject.com/en/stable/ref/settings/#short-datetime-format) respectively. (see [](form_builder_render_email) for how to customise the email content).
 
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of `AbstractEmailForm`, and omit the `to_address`, `from_address` and `subject` fields from the `content_panels` definition.
 
@@ -98,7 +98,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         # ...
     ]
 ```

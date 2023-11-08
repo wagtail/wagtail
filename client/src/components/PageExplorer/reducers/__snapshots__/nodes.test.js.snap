@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nodes GET_CHILDREN_FAILURE 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 0,
     "isError": true,
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -25,20 +25,20 @@ Object {
 `;
 
 exports[`nodes GET_CHILDREN_START 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 0,
     "isError": false,
     "isFetchingChildren": true,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -49,11 +49,11 @@ Object {
 `;
 
 exports[`nodes GET_CHILDREN_SUCCESS 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 3,
-      "items": Array [
+      "items": [
         3,
         4,
         5,
@@ -63,67 +63,67 @@ Object {
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
       },
     },
   },
-  "3": Object {
-    "children": Object {
+  "3": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 3,
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
       },
     },
   },
-  "4": Object {
-    "children": Object {
+  "4": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 4,
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
       },
     },
   },
-  "5": Object {
-    "children": Object {
+  "5": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 5,
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -134,20 +134,20 @@ Object {
 `;
 
 exports[`nodes GET_PAGE_FAILURE 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 0,
     "isError": true,
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -158,20 +158,20 @@ Object {
 `;
 
 exports[`nodes GET_PAGE_SUCCESS 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 0,
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -182,20 +182,20 @@ Object {
 `;
 
 exports[`nodes OPEN_EXPLORER 1`] = `
-Object {
-  "1": Object {
-    "children": Object {
+{
+  "1": {
+    "children": {
       "count": 0,
-      "items": Array [],
+      "items": [],
     },
     "id": 0,
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
-    "meta": Object {
-      "children": Object {},
+    "meta": {
+      "children": {},
       "parent": null,
-      "status": Object {
+      "status": {
         "has_unpublished_changes": true,
         "live": false,
         "status": "",
@@ -205,4 +205,4 @@ Object {
 }
 `;
 
-exports[`nodes empty state 1`] = `Object {}`;
+exports[`nodes empty state 1`] = `{}`;

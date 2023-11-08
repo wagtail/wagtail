@@ -4,11 +4,11 @@ $icon-size: 1em;
   cursor: pointer;
 
   &:hover {
-    color: $color-teal;
+    color: theme('colors.surface-button-default');
   }
 
   .icon-warning {
-    color: $color-red;
+    color: theme('colors.critical.200');
   }
 
   .icon {

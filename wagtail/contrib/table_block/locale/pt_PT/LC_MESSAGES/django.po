@@ -5,21 +5,23 @@
 # Translators:
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
 # Tiago Henriques <trinosauro@gmail.com>, 2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2016,2022\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail table block"
 msgstr "Bloco de tabela Wagtail"

@@ -1,65 +1,33 @@
 .comment {
   @include box;
 
-  width: calc(100vw - 40px);
-  max-width: calc(100vw - 19%);
+  width: 300px;
   display: block;
-  // Remove once we drop support for Safari 13.
-  transition: top 0.5s ease 0s, right 0.5s ease 0s,
-    inset-inline-end 0.5s ease 0s, height 0.5s ease 0s;
+  transition:
+    top 0.5s ease 0s,
+    inset-inline-end 0.5s ease 0s,
+    height 0.5s ease 0s;
   pointer-events: auto;
-  box-sizing: border-box;
   padding-bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: -2000px;
-  inset-inline-end: -2000px;
-
-  @include media-breakpoint-up(sm) {
-    width: calc(100vw - 40px);
-    max-width: 400px;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: initial;
-    inset-inline-start: initial;
-  }
-
-  @include media-breakpoint-up(md) {
-    max-width: 200px;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
-    inset-inline-end: 0;
-  }
-
-  @include media-breakpoint-up(lg) {
-    max-width: 275px;
-  }
+  inset-inline-end: 0;
 
   &--focused {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 35px;
-    inset-inline-end: 35px;
-
-    @include media-breakpoint-up(md) {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 50px;
-      inset-inline-end: 50px;
-    }
+    inset-inline-end: 25px;
   }
 
   &__text {
     color: $color-box-text;
-    font-size: 13px;
-    line-height: 19px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
+    word-break: break-all;
+    white-space: pre-wrap;
 
     &--mode-deleting {
-      color: $color-grey-1;
+      color: theme('colors.text-context');
     }
   }
 
@@ -69,15 +37,15 @@
 
   &--mode-creating form {
     border-top: 0;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &--mode-editing form {
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &--mode-deleting &__text {
-    color: $color-grey-3;
+    color: theme('colors.text-placeholder');
   }
 
   &__replies {
@@ -92,13 +60,13 @@
 
   &__actions,
   &__reply-actions {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   &__actions &__button,
   &__reply-actions &__button {
     margin-inline-end: 10px;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &__confirm-delete &__button {
@@ -125,8 +93,8 @@
   }
 
   &__error {
-    color: $color-white;
-    background-color: $color-red-dark;
+    color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.critical.200');
     border-radius: 3px;
     padding: 5px;
     padding-inline-start: 10px;
@@ -138,9 +106,9 @@
       height: 26px;
       float: right;
       margin-inline-start: 5px;
-      color: $color-white;
-      background-color: $color-red-very-dark;
-      border-color: $color-red-very-dark;
+      color: theme('colors.white.DEFAULT');
+      background-color: theme('colors.critical.200');
+      border-color: theme('colors.white.DEFAULT');
       padding: 2px;
       padding-inline-start: 10px;
       padding-inline-end: 10px;

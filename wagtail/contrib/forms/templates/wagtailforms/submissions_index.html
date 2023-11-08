@@ -1,0 +1,64 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+
+    <script>
+        $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
+            months: wagtailConfig.STRINGS.MONTHS,
+            dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
+            dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
+        }
+        $.datetimepicker.setLocale('wagtail_custom_locale');
+
+        $(function() {
+            $('#id_date_from').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+            });
+            $('#id_date_to').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    {% fragment as form_actions %}
+        {% include view.export_buttons_template_name %}
+    {% endfragment %}
+
+    {% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}
+
+    <div class="report filterable">
+        <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-pb-6">
+            {% if submissions %}
+                <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+                    {% include "wagtailforms/list_submissions.html" %}
+                    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
+                </form>
+            {% else %}
+                <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
+            {% endif %}
+        </div>
+        <div class="filterable__filters">
+            <h2>{% trans 'Filter' %}</h2>
+            <form action="" method="get" novalidate>
+                <button
+                    class="button button-longrunning"
+                    type="submit"
+                    data-controller="w-progress"
+                    data-action="w-progress#activate"
+                >
+                    {% icon name="spinner" %}{% trans 'Apply filters' %}
+                </button>
+                {% for field in select_date_form %}
+                    <li>
+                        {% include "wagtailadmin/shared/field.html" with field=field %}
+                    </li>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

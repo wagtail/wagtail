@@ -1,6 +1,6 @@
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.whitelist import (
     Whitelister,
     allow_without_attributes,
@@ -26,9 +26,9 @@ class TestCheckUrl(TestCase):
         self.assertFalse(bool(check_url("jav\tascript:alert('XSS')")))
 
 
-class TestAttributeRule(TestCase):
+class TestAttributeRule(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.soup = BeautifulSoup('<b foo="bar">baz</b>', "html5lib")
+        self.soup = self.get_soup('<b foo="bar">baz</b>', "html5lib")
 
     def test_no_rule_for_attr(self):
         """
@@ -87,7 +87,7 @@ class TestAttributeRule(TestCase):
         Test that attribute_rule() with will drop all
         attributes.
         """
-        soup = BeautifulSoup(
+        soup = self.get_soup(
             '<b foo="bar" baz="quux" snowman="barbecue"></b>', "html5lib"
         )
         tag = soup.b
@@ -95,7 +95,7 @@ class TestAttributeRule(TestCase):
         self.assertEqual(str(tag), "<b></b>")
 
 
-class TestWhitelister(TestCase):
+class TestWhitelister(WagtailTestUtils, TestCase):
     def setUp(self):
         self.whitelister = Whitelister()
 
@@ -103,7 +103,7 @@ class TestWhitelister(TestCase):
         """
         Unknown node should remove a node from the parent document
         """
-        soup = BeautifulSoup("<foo><bar>baz</bar>quux</foo>", "html5lib")
+        soup = self.get_soup("<foo><bar>baz</bar>quux</foo>", "html5lib")
         tag = soup.foo
         self.whitelister.clean_unknown_node("", soup.bar)
         self.assertEqual(str(tag), "<foo>quux</foo>")
@@ -113,7 +113,7 @@ class TestWhitelister(TestCase):
         <b> tags are allowed without attributes. This remains true
         when tags are nested.
         """
-        soup = BeautifulSoup('<b><b class="delete me">foo</b></b>', "html5lib")
+        soup = self.get_soup('<b><b class="delete me">foo</b></b>', "html5lib")
         tag = soup.b
         self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), "<b><b>foo</b></b>")
@@ -122,19 +122,19 @@ class TestWhitelister(TestCase):
         """
         <foo> tags should be removed, even when nested.
         """
-        soup = BeautifulSoup("<b><foo>bar</foo></b>", "html5lib")
+        soup = self.get_soup("<b><foo>bar</foo></b>", "html5lib")
         tag = soup.b
         self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), "<b>bar</b>")
 
     def test_clean_string_node_does_nothing(self):
-        soup = BeautifulSoup("<b>bar</b>", "html5lib")
+        soup = self.get_soup("<b>bar</b>", "html5lib")
         string = soup.b.string
         self.whitelister.clean_string_node(string, string)
         self.assertEqual(str(string), "bar")
 
     def test_clean_node_does_not_change_navigable_strings(self):
-        soup = BeautifulSoup("<b>bar</b>", "html5lib")
+        soup = self.get_soup("<b>bar</b>", "html5lib")
         string = soup.b.string
         self.whitelister.clean_node(string, string)
         self.assertEqual(str(string), "bar")

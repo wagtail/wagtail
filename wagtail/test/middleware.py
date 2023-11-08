@@ -13,6 +13,6 @@ class BlockDodgyUserAgentMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if (
             not request.path.startswith("/admin/")
-            and request.META.get("HTTP_USER_AGENT") == "EvilHacker"
+            and request.headers.get("user-agent") == "EvilHacker"
         ):
             return HttpResponseForbidden("Forbidden")

@@ -1,0 +1,166 @@
+$header-icon-size: theme('spacing.4');
+$header-button-size-mobile: $mobile-nice-padding;
+$header-button-size: theme('spacing.6');
+
+.w-panel {
+  --header-gap: 0;
+  margin-bottom: theme('spacing.10');
+
+  @include media-breakpoint-up(sm) {
+    --header-gap: theme('spacing.4');
+  }
+
+  .content-locked &__content {
+    cursor: not-allowed;
+    user-select: none;
+
+    > * {
+      pointer-events: none;
+    }
+  }
+}
+
+.w-panel__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: theme('spacing.[0.5]');
+  margin-inline-start: -1 * $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-start: calc(
+      -1 * ((2 * $header-button-size) + var(--header-gap))
+    );
+  }
+}
+
+.w-panel__heading {
+  @apply w-h3;
+  display: inline-block;
+  margin: 0;
+  margin-inline-start: var(--header-gap);
+  padding-inline-end: theme('spacing.2');
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  label {
+    cursor: pointer;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-inline-end: theme('spacing.5');
+  }
+}
+
+.w-panel__heading--label {
+  @apply w-label-1;
+}
+
+.w-panel__anchor,
+.w-panel__toggle,
+.w-panel__controls .button.button--icon {
+  @include show-focus-outline-inside();
+  display: inline-grid;
+  justify-content: center;
+  align-content: center;
+  color: theme('colors.icon-primary');
+  border-radius: theme('borderRadius.full');
+  margin: 0;
+  padding: 0;
+  width: $header-button-size-mobile;
+  height: $header-button-size-mobile;
+
+  &:focus-visible,
+  &:hover {
+    color: theme('colors.icon-primary-hover');
+    background-color: theme('colors.white-10');
+
+    @media (forced-colors: active) {
+      border: 1px solid currentColor;
+    }
+  }
+
+  &[disabled] {
+    color: theme('colors.text-placeholder');
+    cursor: not-allowed;
+    // Counter hover styles.
+    background-color: transparent;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    width: $header-button-size;
+    height: $header-button-size;
+  }
+}
+
+.w-panel__anchor {
+  // Only hide anchors for devices that support hover interactions.
+  @media (hover: hover) {
+    .w-panel__header:not(:hover, :focus-within) & {
+      opacity: 0;
+    }
+  }
+}
+
+// The suffix anchor is intended for small viewports only.
+.w-panel__anchor--suffix {
+  @include media-breakpoint-up(sm) {
+    display: none;
+  }
+}
+
+// The prefix anchor can be used when there is enough space in the margin of the page.
+.w-panel__anchor--prefix {
+  display: none;
+
+  @include media-breakpoint-up(sm) {
+    display: inline-grid;
+  }
+}
+
+.w-panel__toggle {
+  appearance: none;
+  background: transparent;
+}
+
+.w-panel__icon {
+  width: $header-icon-size;
+  height: $header-icon-size;
+
+  // Only rotate the default caret icon, not custom ones.
+  [aria-expanded='false'] &.icon-placeholder {
+    transform: rotate(-90deg);
+  }
+
+  &.icon-link {
+    width: theme('spacing.[3.5]');
+    height: theme('spacing.[3.5]');
+  }
+}
+
+.w-panel__divider {
+  flex: 1;
+}
+
+.w-panel__controls {
+  // Prevent shrinking of the buttons when header text is long.
+  flex-shrink: 0;
+  // Add additional invisible padding for a more forgiving hover area.
+  padding: theme('spacing.4');
+  margin: calc(-1 * theme('spacing.4'));
+  margin-inline-end: calc(-1 * theme('spacing.8'));
+  margin-inline-start: 0;
+
+  @include media-breakpoint-up(sm) {
+    margin: calc(-1 * theme('spacing.4'));
+    margin-inline-start: 0;
+  }
+}
+
+.w-panel__wrapper {
+  @include max-form-width();
+}

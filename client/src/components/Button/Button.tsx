@@ -16,6 +16,11 @@ const handleClick = (
     onClick(e);
   }
 
+  // Do not capture click events with modifier keys or non-main buttons.
+  if (e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button !== 0)) {
+    return;
+  }
+
   // If a navigate handler has been specified, replace the default behaviour
   if (navigate && !e.defaultPrevented) {
     e.preventDefault();

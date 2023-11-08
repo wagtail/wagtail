@@ -7,16 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Search term(s)/phrase"
+msgstr "搜索关键词"
 
 msgid "Save"
 msgstr "保存"
@@ -44,9 +47,6 @@ msgstr "向上移动"
 msgid "Move down"
 msgstr "向下移动"
 
-msgid "Add recommended page"
-msgstr "添加推荐页"
-
 msgid "Search Terms"
 msgstr "搜索关键词"
 
@@ -56,19 +56,34 @@ msgstr "搜索关键词"
 msgid "Views (past week)"
 msgstr "查看 （上周）"
 
+msgid "External link"
+msgstr "外部链接"
+
 msgid "None"
 msgstr "没有"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "编辑精选'{0}'已创建。"
+msgid "Popular search terms"
+msgstr "流行的搜索关键词"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Terms"
+msgstr "关键词"
+
+msgid "No results found"
+msgstr "没有找到任何结果"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "编辑精选'%(query)s'已创建。"
 
 msgid "Edit"
 msgstr "编辑"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "编辑精选'{0}'已更新。"
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "编辑精选'%(query)s'已更新。"
 
 msgid "Editor's picks deleted."
 msgstr "编辑精选已删除"

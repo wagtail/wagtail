@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Type"
 msgstr "Төрөл"
+
+msgid "All"
+msgstr "Бүгд"
 
 msgid "From site"
 msgstr "Сайтаас"
@@ -110,42 +113,24 @@ msgid "Edit this redirect"
 msgstr "Redirect-ийг засах"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            %(counter)s илэрц олдлоо\n"
-"        "
-msgstr[1] ""
-"\n"
-"            %(counter)s илэрц олдлоо\n"
-"        "
-
-#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Уучлаарай \"<em>%(query_string)s</em>\" хайлтад тохирох чиглүүлэлт олдсонгүй"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Чиглүүлэлт олдсонгүй. Яагаад <a href=\"%(wagtailredirects_add_redirect_url)s"
-"\">шинийг</a> нэмж болохгүй гэж?"
+"Чиглүүлэлт олдсонгүй. Яагаад <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">шинийг</a> нэмж болохгүй гэж?"
 
 msgid "Search redirects"
 msgstr "Дахин чиглүүлэлт хайх"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "'{0}' чиглүүлэлт шинэчлэгдлээ."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "'%(redirect_title)s' чиглүүлэлт шинэчлэгдлээ."
 
 msgid "Edit"
 msgstr "Засах"
@@ -153,13 +138,13 @@ msgstr "Засах"
 msgid "The redirect could not be saved due to errors."
 msgstr "Дараах алдаанаас болж чиглүүлэлт хадгалагдсангүй."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "'{0}' чиглүүлэлт устлаа."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "'%(redirect_title)s' чиглүүлэлт устлаа."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "'{0}' чиглүүлэлт нэмэгдлээ."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "'%(redirect_title)s' чиглүүлэлт нэмэгдлээ."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Дараах алдаанаас болж чиглүүлэлт үүссэнгүй."

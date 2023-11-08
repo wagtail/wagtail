@@ -2,6 +2,8 @@
 Wagtail 2.8 release notes
 =========================
 
+*February 3, 2020*
+
 .. contents::
     :local:
     :depth: 1
@@ -29,7 +31,7 @@ Other features
 
 * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
 * Combine flake8 configurations (Sergey Fedoseev)
-* Improve diffing behavior for text fields (Aliosha Padovani)
+* Improve diffing behaviour for text fields (Aliosha Padovani)
 * Improve contrast of disabled inputs (Nick Smith)
 * Added ``get_document_model_string`` function (Andrey Smirnov)
 * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)

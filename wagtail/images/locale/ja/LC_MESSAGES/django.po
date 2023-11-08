@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,25 +39,29 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "サポートされている%(supported_formats)s"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "サポートされていない画像形式です。%sをお試しください。"
-
-#, python-format
-msgid "Not a valid %s image."
-msgstr "%sに該当しない画像形式です。"
-
-#, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "このファイルは大きすぎます（%%s）。ファイルサイズの上限は%sです。"
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
-"このファイルのピクセル数 (%%s)は大きすぎます。ピクセル数の上限は%sです。"
+"サポートされていない画像形式です。%(supported_formats)sをお試しください。"
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "このファイルは大きすぎます。ファイルサイズの上限は%sです。"
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"このファイルは大きすぎます（%(file_size)s）。ファイルサイズの上限"
+"は%(max_filesize)sです。"
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"このファイルのピクセル数 (%(num_pixels)s)は大きすぎます。ピクセル数の上限"
+"は%(max_pixels_count)sです。"
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"このファイルは大きすぎます。ファイルサイズの上限は%(max_filesize)sです。"
 
 msgid "Full width"
 msgstr "最大幅"
@@ -157,30 +161,11 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-msgid "Choose an image"
-msgstr "画像を選択"
-
-msgid "Search"
-msgstr "検索"
-
-msgid "Upload"
-msgstr "アップロード"
-
 msgid "Popular tags"
 msgstr "人気のタグ"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s件の一致があります。"
+msgid "New"
+msgstr "新規作成"
 
 msgid "Latest images"
 msgstr "最近の画像"
@@ -190,26 +175,6 @@ msgstr "フォーマットを選択"
 
 msgid "Insert image"
 msgstr "画像を挿入"
-
-msgid "Uploading…"
-msgstr "アップロード中…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span class=\"visuallyhidden\">created in %(site_name)s</span>で作成"
-"された<span>%(total)s</span> 枚の画像\n"
-"    "
 
 msgid "Change image file:"
 msgstr "画像ファイルを変更"
@@ -223,15 +188,15 @@ msgstr "画像を追加"
 msgid "Save"
 msgstr "保存"
 
-msgid "Delete image"
-msgstr "画像を削除"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)sの画像を編集"
 
 msgid "Editing"
 msgstr "編集"
+
+msgid "Delete image"
+msgstr "画像を削除"
 
 msgid "URL Generator"
 msgstr "URLを生成"
@@ -268,9 +233,6 @@ msgstr "使用法"
 msgid "Images"
 msgstr "画像"
 
-msgid "Clear choice"
-msgstr "選択を解除"
-
 msgid "pixels"
 msgstr "ピクセル"
 
@@ -280,19 +242,19 @@ msgstr "<em>%(query_string)s</em>に一致する画像はありませんでし�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだこのコレクションに画像がアップロードされていません。<a href="
-"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだこのコレクションに画像がアップロードされていません。<a "
+"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだ画像がアップロードされていません。<a href="
-"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだ画像がアップロードされていません。<a "
+"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 msgid "Generating URL"
 msgstr "URLを生成"
@@ -309,28 +271,6 @@ msgid ""
 msgstr ""
 "スクリーンの大きさよりも大きく生成された画像はプレビューの際はスクリーンに合"
 "わせて小さく表示されます。"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)sを使用"
-
-msgid "Usage of"
-msgstr "使用"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "Parent"
-msgstr "上位階層"
-
-msgid "Type"
-msgstr "タイプ"
-
-msgid "Status"
-msgstr "ステータス"
-
-msgid "Edit this page"
-msgstr "ページを編集"
 
 msgid "Add multiple images"
 msgstr "複数の画像を追加"
@@ -371,15 +311,33 @@ msgstr "画像権限"
 msgid "Add an image permission"
 msgstr "画像権限を追加"
 
+msgid "Tags"
+msgstr "タグ"
+
 msgid "Delete"
 msgstr "削除"
+
+msgid "Upload"
+msgstr "アップロード"
+
+msgid "Uploading…"
+msgstr "アップロード中…"
+
+msgid "Choose an image"
+msgstr "画像を選択"
+
+msgid "Choose another image"
+msgstr "別の画像を選択"
+
+msgid "Edit this image"
+msgstr "画像を編集"
 
 msgid "Search images"
 msgstr "画像を検索"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "画像 '{0}' がアップロードされました。"
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "画像 '%(image_title)s' がアップロードされました。"
 
 msgid "Edit again"
 msgstr "もう一度編集する"
@@ -394,13 +352,13 @@ msgstr ""
 "画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除して"
 "ください。"
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "画像 '{0}' が削除されました。"
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "画像 '%(image_title)s' が削除されました。"
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "画像 '{0}' が追加されました。 "
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "画像 '%(image_title)s' が追加されました。 "
 
 msgid "The image could not be created due to errors."
 msgstr "この画像はエラーにより生成できませんでした。 "
@@ -415,6 +373,3 @@ msgstr[0] "%(count)s件の画像 "
 
 msgid "Change image"
 msgstr "画像を変更"
-
-msgid "Edit this image"
-msgstr "画像を編集"

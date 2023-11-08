@@ -1,0 +1,86 @@
+#
+# Translators:
+# Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Mongolian (https://app.transifex.com/torchbox/teams/8009/"
+"mn/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
+
+msgid "Close"
+msgstr "Хаах"
+
+msgid "Dashboard"
+msgstr "Хянах самбар"
+
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' засах"
+
+msgid "Edit your account"
+msgstr "Хэрэглэгчийн эрхээ засах"
+
+msgid "Horizontal line"
+msgstr "Хөндлөн зураас"
+
+msgid "Line break"
+msgstr "Шинэ мөр лүү шилжих"
+
+msgid "Loading…"
+msgstr "Уншиж байна..."
+
+msgid "No results"
+msgstr "Үр дүн олдсонгүй"
+
+msgid "Page"
+msgstr "Хуудас"
+
+msgid "Pages"
+msgstr "Хуудсууд"
+
+msgid "Reload saved content"
+msgstr "Хадгалагдсан контентыг дахин ачааллах"
+
+msgid "Reload the page"
+msgstr "Хуудсыг дахин ачааллах"
+
+msgid "Save"
+msgstr "Хадгалах"
+
+msgid "Search"
+msgstr "Хайлт"
+
+msgid "See all"
+msgstr "Бүгдийг харах"
+
+msgid "Server Error"
+msgstr "Северийн алдаа"
+
+msgid "Show error"
+msgstr "Алдаа харуулах"
+
+msgid "Show latest content"
+msgstr "Сүүлийн контент харах"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
+"хадгалагдсан."
+
+msgid "This field is required."
+msgstr "Энэ талбарыг заавал бөглөх шаардлагатай."

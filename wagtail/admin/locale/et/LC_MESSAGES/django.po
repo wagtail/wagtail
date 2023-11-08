@@ -4,16 +4,17 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Ragnar Rebase <rrebase@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,11 +28,13 @@ msgstr "Avalda"
 msgid "Submit for moderation"
 msgstr "Esita modereerimiseks"
 
-msgid "Resubmit to {}"
-msgstr "Esita uuesti {}"
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Esita uuesti %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Esita {}"
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Esita %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Taaskäivitage töövoog"
@@ -41,18 +44,6 @@ msgstr "Töövoo tühistamine"
 
 msgid "Unpublish"
 msgstr "Tühista avaldamine"
-
-msgid "Delete"
-msgstr "Kustuta"
-
-msgid "Lock"
-msgstr "Lukusta"
-
-msgid "Apply editor lock"
-msgstr "Rakenda redaktori lukustus"
-
-msgid "Unlock"
-msgstr "Ava"
 
 msgid "Save Draft"
 msgstr "Salvesta Mustand"
@@ -75,21 +66,6 @@ msgstr "Teil pole administraatorile juurdepääsu luba"
 
 msgid "None"
 msgstr "Puudub"
-
-msgid "Scheduled publishing"
-msgstr "Plaaniline avaldamine"
-
-msgid "Privacy"
-msgstr "Privaatsus"
-
-msgid "Content"
-msgstr "Sisu"
-
-msgid "Promote"
-msgstr "Tõsta esile"
-
-msgid "Settings"
-msgstr "Seaded"
 
 msgid "Date from"
 msgstr "Kuupäev alates"
@@ -122,8 +98,12 @@ msgid "Enter password"
 msgstr "Sisestage parool"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Sisestage oma %s"
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Teie %(username_field)s ja parool ei klappinud. Palun proovi uuesti."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Sisestage oma %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Parooli lähtestamiseks sisestage oma e-posti aadress"
@@ -131,20 +111,39 @@ msgstr "Parooli lähtestamiseks sisestage oma e-posti aadress"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Otsingutermin"
+
+msgid "Search"
+msgstr "Otsing"
+
+msgid "All collections"
+msgstr "Kõik kollektsioonid"
+
+msgid "Collection"
+msgstr "Kogumine"
+
 msgid "Parent"
 msgstr "Vanem"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Teil ei saa olla ühe kogu jaoks mitu lubade kirjet."
 
-msgid "Collection"
-msgstr "Kogumine"
-
 msgid "Add"
 msgstr "Lisama"
 
 msgid "Edit"
 msgstr "Muuda"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Otseülekande kuupäev / kellaaeg peab olema enne aegumiskuupäeva / kellaaega"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Aegumiskuupäev / kellaaeg peavad olema tulevikus"
 
 msgid "New title"
 msgstr "Uus pealkiri"
@@ -196,27 +195,13 @@ msgstr "Teil pole luba lehele kopeerimiseks \"%(page_title)s\\"
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "See nälkjas on juba vanemlehe kontekstis kasutusel \"%s\\"
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"See nälkjas on juba vanemlehe kontekstis kasutusel \"%(parent_page_title)s\\"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alamlehtede kopeerimisel ei saa lehte endasse kopeerida"
-
-msgid "This slug is already in use"
-msgstr "See nälkjas on juba kasutusel"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Otseülekande kuupäev / kellaaeg peab olema enne aegumiskuupäeva / kellaaega"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Aegumiskuupäev / kellaaeg peavad olema tulevikus"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Search term"
-msgstr "Otsingutermin"
 
 msgid "Visibility"
 msgstr "Nähtavus"
@@ -230,9 +215,9 @@ msgstr "Valige vähemalt üks rühm."
 msgid "All types"
 msgstr "Kõik tüübid"
 
-#, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Sellele lehele on juba määratud töövoog '{0}'."
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Sellele lehele on juba määratud töövoog '%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Te ei saa seda töövoogu mitu korda samale lehele määrata."
@@ -243,96 +228,20 @@ msgstr "Andke oma töövoole nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisage töövoole ülesandeid"
 
-msgid "Page"
-msgstr "Leht"
+msgid "Task"
+msgstr "Ülesanne"
 
-msgid "Pages"
-msgstr "Lehed"
+msgid "Content"
+msgstr "Sisu"
 
-msgid "Loading…"
-msgstr "Laadimine ..."
+msgid "Promote"
+msgstr "Tõsta esile"
 
-msgid "No results"
-msgstr "Tulemused puuduvad"
+msgid "Settings"
+msgstr "Seaded"
 
-msgid "Server Error"
-msgstr "Serveri viga"
-
-msgid "See all"
-msgstr "Vaata kõiki"
-
-msgid "Close explorer"
-msgstr "Sule uurija"
-
-msgid "Alt text"
-msgstr "Alt-tekst"
-
-msgid "Write here…"
-msgstr "Kirjuta siia…"
-
-msgid "Horizontal line"
-msgstr "Horisontaalne joon"
-
-msgid "Line break"
-msgstr "Reavahetus"
-
-msgid "Undo"
-msgstr "Võta tagasi"
-
-msgid "Redo"
-msgstr "Tee uuesti"
-
-msgid "Reload the page"
-msgstr "Laadige leht uuesti"
-
-msgid "Reload saved content"
-msgstr "Salvestatud sisu uuesti laadimine"
-
-msgid "Show latest content"
-msgstr "Kuva uusim sisu"
-
-msgid "Show error"
-msgstr "Kuva viga"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Redaktorjooksis kokku. Sisu on lähtestatud viimati salvestatud versioonile."
-
-msgid "Broken link"
-msgstr "Katkine link"
-
-msgid "Missing document"
-msgstr "Puuduv dokument"
-
-msgid "Close"
-msgstr "Sulge"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Muuda üksust „{title}”"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Kuva üksuse „{title}” alamlehed"
-
-msgid "Page explorer"
-msgstr "Leheuurija"
-
-msgid "Save"
-msgstr "Salvesta"
-
-msgid "Cancel"
-msgstr "Tühista"
-
-msgid "Comment"
-msgstr "Kommentaar"
-
-msgid "Dashboard"
-msgstr "Armatuurlaud"
-
-msgid "Edit your account"
-msgstr "Muutke oma kontot"
+msgid "Title"
+msgstr "Pealkiri"
 
 msgid "Error 404: Page not found"
 msgstr "Viga 404: lehte ei leitud"
@@ -348,14 +257,6 @@ msgstr "Minge Wagtail administraatori juurde"
 
 msgid "Account"
 msgstr "Konto"
-
-msgid "Change password"
-msgstr "Muuda salasõna"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Teie parooli ei saa siin muuta. Võtke ühendust saidi administraatoriga."
 
 msgid "Reset password"
 msgstr "Lähtesta parool"
@@ -419,22 +320,6 @@ msgstr "Telefoni link"
 msgid "Anchor link"
 msgstr "Ankrulink"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"On olemas %(counter)s vaste"
-msgstr[1] ""
-"\n"
-"On olemas %(counter)s vastet"
-
 msgid "Add an anchor link"
 msgstr "Lisage ankrulink"
 
@@ -446,26 +331,6 @@ msgstr "Valige"
 
 msgid "Choose a page"
 msgstr "Valige leht"
-
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"Sellele väljale võib valida ainult tüüpi \"%(type)s\" lehti. "
-"Otsingutulemused välistavad muud tüüpi lehed."
-msgstr[1] ""
-"\n"
-"Sellele väljale võib valida ainult järgmised lehetüübid:%(type)s. "
-"Otsingutulemused välistavad muud tüüpi lehed"
 
 msgid "Add an email link"
 msgstr "Lisage e-posti link"
@@ -479,6 +344,13 @@ msgstr "Lisage väline link"
 msgid "Add a phone link"
 msgstr "Lisage telefoni link"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Uurige ' %(title)s' alamlehti"
+
+msgid "Explore"
+msgstr "Avastage"
+
 msgid "Collection privacy"
 msgstr "Kogude privaatsus"
 
@@ -488,11 +360,17 @@ msgstr "Selle kogu on privaatseks muutnud vanemkogu."
 msgid "You can edit the privacy settings on:"
 msgstr "Privaatsusseadeid saate muuta saidil:"
 
+msgid "Save"
+msgstr "Salvesta"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Privaatsusseaded määravad, kes saavad selles kollektsioonis olevaid "
 "dokumente vaadata."
+
+msgid "Privacy"
+msgstr "Privaatsus"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Määra kogu privaatsus. Praegune staatus: avalik"
@@ -515,27 +393,52 @@ msgstr "Nimi"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ühtegi kollektsiooni pole loodud. Miks mitte <a href=\"%(add_collection_url)s"
-"\">lisada üks</a>?"
-
-#, python-format
-msgid "Add %(label)s"
-msgstr "Lisage %(label)s"
-
-msgid "Move up"
-msgstr "Üles liikuma"
-
-msgid "Move down"
-msgstr "Liigu alla"
+"Ühtegi kollektsiooni pole loodud. Miks mitte <a "
+"href=\"%(add_collection_url)s\">lisada üks</a>?"
 
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Tühista %(title)s avaldamine"
+
+msgid "Yes, unpublish it"
+msgstr "Jah, tühista selle avaldamine"
+
+msgid "No, don't unpublish"
+msgstr "Ei, ärge avaldamist tühistage"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "No log entries found."
+msgstr "Logikirjeid ei leitud."
+
 msgid "Update"
 msgstr "Uuenda"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s võrdlemine"
+
+msgid "Comparing"
+msgstr "Võrreldes"
+
+msgid "Fields"
+msgstr "Väljad"
+
+msgid "Changes"
+msgstr "Muutused"
+
+msgid "There are no differences between these two versions"
+msgstr "Nende kahe versiooni vahel pole erinevusi"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -551,24 +454,23 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Teie lukustatud lehed"
 
-msgid "Title"
-msgstr "Pealkiri"
-
 msgid "Locked at"
 msgstr "Lukustatud kell"
 
 msgid "Edit this page"
 msgstr "Muutke seda lehte"
 
+msgid "Actions"
+msgstr "Toimingud"
+
+msgid "Unlock"
+msgstr "Ava"
+
 msgid "Draft"
 msgstr "Mustand"
 
 msgid "Live"
 msgstr "Otseülekanne"
-
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Modereerimist ootavad lehed"
@@ -603,32 +505,6 @@ msgstr "Kuupäev"
 msgid "Site summary"
 msgstr "Saidi kokkuvõte"
 
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Lehte <span class=\"visuallyhidden\"> loodud"
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Lehte <span class=\"visuallyhidden\">loodud "
-"%(site_name)s</span>"
-
-msgid "Your pages in a workflow"
-msgstr "Teie lehed töövoos"
-
-msgid "Task"
-msgstr "Ülesanne"
-
 msgid "Task started"
 msgstr "Ülesanne algas"
 
@@ -638,18 +514,23 @@ msgstr "Muudatused taotletud aadressil"
 msgid "Awaiting"
 msgstr "Ootan"
 
+msgid "Close"
+msgstr "Sulge"
+
 msgid "Awaiting your review"
 msgstr "Teie ülevaatuse ootamine"
 
 msgid "Tasks"
 msgstr "Ülesanded"
 
+msgid "Compare with live version"
+msgstr "Võrdle reaalajas versiooniga"
+
+msgid "Compare with previous version"
+msgstr "Võrdle eelmise versiooniga"
+
 msgid "Sign in"
 msgstr "Logi sisse"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Teie %(username_field)s ja parool ei klappinud. Palun proovi uuesti."
 
 msgid "Sign in to Wagtail"
 msgstr "Logige sisse Wagtailisse"
@@ -721,24 +602,16 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis \"%(task)s"
-"\"."
+"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis "
+"\"%(task)s\"."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis \"%(task)s"
-"\"."
-
-#, python-format
-msgid ""
-"The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
-msgstr ""
-"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis \"%(task)s"
-"\"."
+"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis "
+"\"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -779,39 +652,11 @@ msgid ""
 msgstr ""
 "Leht \"%(title)s\" on edastatud töövoo \"%(workflow)s\" modereerimiseks."
 
-#, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr "Leht \"%(title)s\" on edastatud töövoogu \"%(workflow)s\""
-
 msgid "Page privacy"
 msgstr "Lehe privaatsus"
 
 msgid "This page has been made private by a parent page."
 msgstr "Vanemaleht on selle lehe privaatseks muutnud."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Privaatsuse muudatused kehtivad ka kõigile selle lehe lastele."
-
-msgid "Visit the live page"
-msgstr "Külastage reaalajas lehte"
-
-msgid "This page is live but only available to certain users"
-msgstr "See leht on aktiivne, kuid saadaval ainult teatud kasutajatele"
-
-msgid "restricted"
-msgstr "piiratud"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Määra lehe privaatsus. Praegune staatus: avalik"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Määra lehe privaatsus. Praegune staatus: privaatne"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Lehe privaatsus. Praegune staatus: avalik"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Lehe privaatsus. Praegune staatus: privaatne"
 
 msgid "Publishing…"
 msgstr "Avaldamine ..."
@@ -842,14 +687,8 @@ msgstr "Valige, millist tüüpi lehte soovite luua."
 msgid "Pages using %(page_type)s"
 msgstr "Lehed, mis kasutavad %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Ei, ära kustuta"
-
 msgid "Move"
 msgstr "Liiguta"
-
-msgid "No, don't unpublish"
-msgstr "Ei, ärge avaldamist tühistage"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -857,23 +696,6 @@ msgstr "Kustuta %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Kas soovite kindlasti selle lehe kustutada?"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"See kustutab ka ühe alamlehe."
-msgstr[1] ""
-"\n"
-"See kustutab ka %(descendant_count)s alamlehte."
 
 msgid "Yes, delete it"
 msgstr "Jah, kustuta see"
@@ -910,71 +732,17 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Jah, teisaldage see leht"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tühista %(title)s avaldamine"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Kas olete kindel, et soovite selle lehe avaldamise tühistada?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"Sellel lehel on alamleht. Tühista ka selle avaldamine"
-msgstr[1] ""
-"\n"
-"Sellel lehel on %(live_descendant_count)s alamlehti. Tühista ka nende "
-"avaldamine"
-
-msgid "Yes, unpublish it"
-msgstr "Jah, tühista selle avaldamine"
-
 msgid "Publish page"
 msgstr "Avaldage leht"
-
-#, python-format
-msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"See leht märgiti muudatusi vajavaks <strong>%(task)s</strong> jooksul "
-"<strong>%(workflow)s</strong>."
-
-#, python-format
-msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"See leht on hetkel <strong>%(task)s</strong> faasis <strong>%(workflow)s</"
-"strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Selle lehe avaldamine tühistab praeguse töövoo."
 
 msgid "Would you still like to publish this page?"
 msgstr "Kas soovite ikkagi selle lehe avaldada?"
-
-#, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Lehed, mis kasutavad %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Kasutatavad lehed"
 
 #, python-format
 msgid "Copy %(title)s"
@@ -990,25 +758,12 @@ msgstr "Kopeeri see leht"
 msgid "New %(page_type)s"
 msgstr "Uus  %(page_type)s"
 
-msgid "New"
-msgstr "Uus"
-
-msgid "Actions"
-msgstr "Toimingud"
-
 msgid "This page has unsaved changes."
 msgstr "Sellel lehel on salvestamata muudatusi."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr " %(page_type)s muutmine: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr " %(page_type)s muutmine"
-
-msgid "History"
-msgstr "Ajalugu"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1023,6 +778,9 @@ msgstr "Kasutaja"
 msgid "Date / Time"
 msgstr "Kuupäev Kellaaeg"
 
+msgid "Comment"
+msgstr "Kommentaar"
+
 msgid "Live version"
 msgstr "Reaalajas versioon"
 
@@ -1030,94 +788,14 @@ msgid "Current draft"
 msgstr "Praegune mustand"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
-
-msgid "No log entries found."
-msgstr "Logikirjeid ei leitud."
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s uurimine"
-
-msgid "Drag"
-msgstr "Vedama"
-
-msgid "Updated"
-msgstr "Uuendatud"
-
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"Juure tasemel saate oma Wagtail'i installi lisada uusi saite. Siin loodud "
-"lehtedele ei pääse ühelegi URL-ile juurde enne, kui need on saidiga seotud."
 
 msgid "Configure a site now."
 msgstr "Saidi konfigureerimine kohe."
 
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"Kui soovite lihtsalt olemasolevale saidile lehti lisada, looge need selle "
-"asemel avalehe lastena."
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"Siin loodud lehtedele ei pääse juurde ühelgi URL-il. Lehekülgede lisamiseks "
-"olemasolevale saidile looge need avalehe lastena."
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"Selle asukoha jaoks pole ühtegi saiti seadistatud. Siin loodud lehtedele ei "
-"pääse ühelegi URL-ile juurde enne, kui sait on selle asukohaga seotud"
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"Selle asukoha kohta pole saidi kirjet. Siin loodud lehtedele ei pääse juurde "
-"ühelgi URL-il."
-
-msgid "No pages have been created at this location."
-msgstr "Selles asukohas pole ühtegi lehte loodud."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Miks mitte <a href=\"%(add_page_url)s\">lisada üks</a>?"
-
 msgid "This page is locked to further editing"
 msgstr "See leht on edasiseks muutmiseks lukustatud"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Uurige ' %(title)s' alamlehti"
-
-msgid "Explore"
-msgstr "Avastage"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1127,29 +805,8 @@ msgstr "Avastage ' %(title)s' alamlehti"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisage alamleht lehele %(title)s"
 
-msgid "Sites menu"
-msgstr "Saidimenüü"
-
-msgid "Pagination"
-msgstr "Lehekülgede otsimine"
-
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"Leht %(page_number)s kõigist %(num_pages)s."
-
-msgid "Previous"
-msgstr "Eelmine"
-
-msgid "Next"
-msgstr "Järgmine"
-
-msgid "This page is protected from public view"
-msgstr "See leht on avalike vaadete eest kaitstud"
+msgid "Drag"
+msgstr "Vedama"
 
 msgid "Disable ordering of child pages"
 msgstr "Keela alamlehtede järjestamine"
@@ -1160,40 +817,29 @@ msgstr "Sorteeri"
 msgid "Enable ordering of child pages"
 msgstr "Luba alamlehtede tellimine"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Valige üksuse %(title)s jaoks uus vanemleht"
+msgid "Sites menu"
+msgstr "Saidimenüü"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Valige <span>%(title)s</span> jaoks uus vanemleht"
+msgid "Pagination"
+msgstr "Lehekülgede otsimine"
 
-msgid "Preview error"
-msgstr "Eelvaate viga"
+msgid "Previous"
+msgstr "Eelmine"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"Selle lehe eelvaade on võimatu, mõned vead on alles.\n"
-"Nende vigade parandamiseks sulgege see vaheleht, muutke lehte,\n"
-"siis kasuta uuesti eelvaadet."
+msgid "Next"
+msgstr "Järgmine"
 
-msgid "Current status:"
-msgstr "Praegune seis:"
+msgid "This page is protected from public view"
+msgstr "See leht on avalike vaadete eest kaitstud"
 
-msgid "Set page privacy"
-msgstr "Määra lehe privaatsus"
+msgid "Confirm"
+msgstr "Kinnitage"
+
+msgid "Add child page"
+msgstr "Lapse lisamine"
 
 msgid "Review this version"
 msgstr "Vaadake see versioon üle"
-
-msgid "Compare with previous version"
-msgstr "Võrdle eelmise versiooniga"
 
 msgid "Compare with current version"
 msgstr "Võrdle praeguse versiooniga"
@@ -1201,60 +847,101 @@ msgstr "Võrdle praeguse versiooniga"
 msgid "Cancel scheduled publish"
 msgstr "Ajastatud avaldamise tühistamine"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s võrdlemine"
-
-msgid "Comparing"
-msgstr "Võrreldes"
-
-msgid "Page history"
-msgstr "Lehe ajalugu"
-
-msgid "Fields"
-msgstr "Väljad"
-
-msgid "Changes"
-msgstr "Muutused"
+msgid "Page types"
+msgstr "Lehe tüübid"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Liigu alla 1 koha."
-msgstr[1] ""
-"\n"
-"Liigu alla %(counter)s kohta."
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Kahjuks ei vasta ükski leht <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Sisestage ülal otsingutermin"
+
+msgid "No pages use"
+msgstr "Ühtegi lehte ei kasutata"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Liigu üles 1 koha."
-msgstr[1] ""
-"\n"
-"Liigu üles %(counter)s kohta."
+msgid "Add %(label)s"
+msgstr "Lisage %(label)s"
 
-msgid "There are no differences between these two versions"
-msgstr "Nende kahe versiooni vahel pole erinevusi"
+msgid "Move up"
+msgstr "Üles liikuma"
+
+msgid "Move down"
+msgstr "Liigu alla"
+
+msgid "No pages found."
+msgstr "Ühtegi lehte ei leitud."
+
+msgid "No pages match this report's criteria."
+msgstr "Ükski leht ei vasta selle aruande kriteeriumidele."
+
+msgid "Updated"
+msgstr "Uuendatud"
+
+msgid "Locking status"
+msgstr "Lukustuse olek"
+
+msgid "Locked"
+msgstr "Lukustatud"
+
+msgid "No locked pages found."
+msgstr "Lukustatud lehti ei leitud."
+
+msgid "Edit this item"
+msgstr "Muutke seda üksust"
+
+msgid "By Task"
+msgstr "Autor ülesanne"
+
+msgid "Workflow"
+msgstr "Töövoog"
+
+msgid "Requested by"
+msgstr "Nõutud"
+
+msgid "Started at"
+msgstr "Algus kell"
+
+msgid "Incomplete task"
+msgstr "Mittetäielik ülesanne"
+
+msgid "By Workflow"
+msgstr "Töövoo järgi"
+
+msgid "Completed at"
+msgstr "Valmis kell"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Riivsai"
+
+msgid "Download XLSX"
+msgstr "Laadige alla XLSX"
+
+msgid "Download CSV"
+msgstr "Laadige alla CSV"
+
+msgid "Filter"
+msgstr "Filtreeri"
+
+msgid "Apply filters"
+msgstr "Rakenda filtrid"
+
+msgid "History"
+msgstr "Ajalugu"
+
+msgid "Root"
+msgstr "Juur"
+
+msgid "Current page status:"
+msgstr "Lehe praegune olek:"
+
+msgid "Visit the live page"
+msgstr "Külastage reaalajas lehte"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1272,37 +959,26 @@ msgstr "Jah, ajagraafik lahti"
 msgid "No, don't unschedule"
 msgstr "Ei, ära ajakava tühista"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"On olemas üks vaste."
-msgstr[1] ""
-"\n"
-"On olemas %(counter)s vastet."
+msgid "Other searches"
+msgstr "Muud otsingud"
 
-msgid "Page types"
-msgstr "Lehe tüübid"
+msgid "Unlocked"
+msgstr "Lukustamata"
+
+msgid "Lock"
+msgstr "Lukusta"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Privaatsuse muudatused kehtivad ka kõigile selle lehe lastele."
+
+msgid "Usage"
+msgstr "Kasutus"
 
 #, python-format
-msgid "Sorry, no pages match <em>%(query_string)s</em>"
-msgstr "Kahjuks ei vasta ükski leht <em>%(query_string)s</em>"
-
-msgid "Enter a search term above"
-msgstr "Sisestage ülal otsingutermin"
-
-msgid "No pages use"
-msgstr "Ühtegi lehte ei kasutata"
-
-msgid "Workflow progress"
-msgstr "Töövoo edenemine"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
 
 msgid "Edit / Review"
 msgstr "Redigeerimine / ülevaade"
@@ -1318,37 +994,11 @@ msgstr "Taotleb <b>%(modified_by)s</b>"
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Algas <b>%(started_at)s</b>"
 
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Staatus <span class=\"status-tag primary\"> %(status)s</span>"
-
 msgid "Timeline"
 msgstr "Ajaskaala"
 
 msgid "Initial Revision"
 msgstr "Esmane läbivaatamine"
-
-msgid "Page edited"
-msgstr "Leht muudetud"
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"%(action)s teostatud <b>%(who)s</b> kell <b>%(at)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"%(action)s kell <b>%(at)s</b>"
 
 msgid "with comment:"
 msgstr "koos kommentaariga:"
@@ -1360,160 +1010,17 @@ msgid "Workflow completed"
 msgstr "Töövoog on lõpule viidud"
 
 #, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"%(action)s teostatud <b>%(who)s</b> poolt"
-
-#, python-format
 msgid "Workflow history for %(title)s"
 msgstr "%(title)s töövoo ajalugu"
 
 msgid "Workflow history for"
 msgstr "Töövoo ajalugu"
 
-msgid "Edit page"
-msgstr "Muuda lehte"
-
-msgid "Requested by"
-msgstr "Nõutud"
-
-msgid "Started at"
-msgstr "Algus kell"
-
 msgid "Approved task"
 msgstr "Kinnitatud ülesanne"
 
-msgid "Incomplete task"
-msgstr "Mittetäielik ülesanne"
-
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Seda lehte ei ole veel modereerimiseks esitatud"
-
-msgid "No pages found."
-msgstr "Ühtegi lehte ei leitud."
-
-msgid "No pages match this report's criteria."
-msgstr "Ükski leht ei vasta selle aruande kriteeriumidele."
-
-msgid "Download XLSX"
-msgstr "Laadige alla XLSX"
-
-msgid "Download CSV"
-msgstr "Laadige alla CSV"
-
-msgid "Filter"
-msgstr "Filtreeri"
-
-msgid "Apply filters"
-msgstr "Rakenda filtrid"
-
-msgid "Locking status"
-msgstr "Lukustuse olek"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"Lukustatud <b>sinu</b> pool kell <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"Lukustatud <b>%(locked_by)s</b> kell <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Lukustatud <b>%(locking_date)s</b>"
-
-msgid "Locked"
-msgstr "Lukustatud"
-
-msgid "No locked pages found."
-msgstr "Lukustatud lehti ei leitud."
-
-msgid "Edit this item"
-msgstr "Muutke seda üksust"
-
-msgid "By Task"
-msgstr "Autor ülesanne"
-
-msgid "Workflow"
-msgstr "Töövoog"
-
-msgid "No pages have been submitted for moderation yet"
-msgstr "Ühtegi lehte pole modereerimiseks veel esitatud"
-
-msgid "By Workflow"
-msgstr "Töövoo järgi"
-
-msgid "Completed at"
-msgstr "Valmis kell"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
-
-msgid "Breadcrumb"
-msgstr "Riivsai"
-
-msgid "Root"
-msgstr "Juur"
-
-msgid "Home"
-msgstr "Kodu"
-
-msgid "All collections"
-msgstr "Kõik kollektsioonid"
-
-msgid "Account settings"
-msgstr "Konto seaded"
-
-msgid "Log out"
-msgstr "Logi välja"
-
-msgid "Current page status:"
-msgstr "Lehe praegune olek:"
-
-msgid "Other searches"
-msgstr "Muud otsingud"
-
-msgid "Changes requested"
-msgstr "Taotletud muudatused"
-
-msgid "since"
-msgstr "aastast"
-
-msgid "Published"
-msgstr "Avaldatud"
-
-msgid "Draft saved"
-msgstr "Mustand on salvestatud"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Kasutate <strong>vananenud</strong> brauserit, mida see tarkvara ei toeta. "
-"Palun <a href=\"https://browsehappy.com/\">uuendage oma brauserit</a>."
 
 msgid "Skip to main content"
 msgstr "Otse põhisisu juurde"
@@ -1523,6 +1030,9 @@ msgstr "Lisage lapse leht"
 
 msgid "Show in Explorer"
 msgstr "Näita Exploreris"
+
+msgid "No"
+msgstr "Ei"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Kas soovite selle töövoo kindlasti keelata?"
@@ -1545,12 +1055,14 @@ msgstr "Loo"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Töövood kehtivad ka alamlehtedele. Kui valite siin vanemlehe, kasutavad seda "
-"töövoogu ka tema alamlehed. Vaadake <a href=\"%(workflow_pages_url)s"
-"\">loendeid lehtedest,</a> kus teie töövoog kehtib."
+"töövoogu ka tema alamlehed. Vaadake <a "
+"href=\"%(workflow_pages_url)s\">loendeid lehtedest,</a> kus teie töövoog "
+"kehtib."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "See töövoog on keelatud, nii et seda ei saa ühele lehele määrata."
@@ -1561,8 +1073,17 @@ msgstr "Kasutatakse järgmistel aktiivsetel töövoogudel"
 msgid "Not used"
 msgstr "Pole kasutatud"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+ %(counter)s juurde"
+msgstr[1] "+%(counter)s juurde"
+
 msgid "Assigned pages"
 msgstr "Määratud lehed"
+
+msgid "Page"
+msgstr "Leht"
 
 msgid "Assign to another page"
 msgstr "Määra teisele lehele"
@@ -1577,30 +1098,8 @@ msgid "Used by"
 msgstr "Kasutatud"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"1 leht"
-msgstr[1] ""
-"\n"
-"%(counter)s lehte"
-
-#, python-format
 msgid "Step %(step_number)s"
 msgstr "Samm %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+ %(counter)s juurde"
-msgstr[1] "+%(counter)s juurde"
 
 #, python-format
 msgid ""
@@ -1620,27 +1119,14 @@ msgstr "Valige, millist tüüpi ülesandeid soovite luua."
 msgid "Choose a task"
 msgstr "Valige ülesanne"
 
+msgid "New"
+msgstr "Uus"
+
 msgid "Existing"
 msgstr "Olemasolev"
 
 msgid "Choose a different task type"
 msgstr "Valige mõni muu ülesande tüüp"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"On olemas %(counter)s vaste"
-msgstr[1] ""
-"\n"
-"On olemas %(counter)s vastet"
 
 msgid "Task type"
 msgstr "Ülesande tüüp"
@@ -1654,15 +1140,6 @@ msgstr "Vabandust, ükski ülesanne ei vasta \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Te pole loonud ühtegi ülesannet."
-
-msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Miks mitte  <a class=\"create-one-now\" href=\"#\">nüüd luua üks</a>?"
 
 msgid "Hide disabled tasks"
 msgstr "Peida keelatud ülesanded"
@@ -1690,14 +1167,6 @@ msgstr "Lehed, mis kasutavad töövoogu '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Töövoogu kasutavad lehed"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Esitatud <em>%(workflow_name)s</em> aadressil  %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "poolt %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Esitatud"
 
@@ -1708,15 +1177,31 @@ msgstr "Alustamata"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Muudatusi taotles %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Taotletud muudatused"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Heaks kiitis %(approved_by)s"
 
+msgid "Published"
+msgstr "Avaldatud"
+
 msgid "See full history"
 msgstr "Vaadake kogu ajalugu"
 
-msgid "Compare with live version"
-msgstr "Võrdle reaalajas versiooniga"
+msgid "More"
+msgstr "Veel"
+
+msgid "0 minutes"
+msgstr "0 minutit"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s tagasi"
+
+msgid "Log out"
+msgstr "Logi välja"
 
 #, python-format
 msgid ""
@@ -1734,27 +1219,6 @@ msgstr ""
 "Sortige alamlehekülgede järjestus \"%(parent)s\" ja \"%(label)s\" poolt "
 "kahanevas järjekorras."
 
-msgid "More"
-msgstr "Veel"
-
-msgid "0 minutes"
-msgstr "0 minutit"
-
-msgid "Just now"
-msgstr "Just praegu"
-
-msgid "live"
-msgstr "elama"
-
-msgid "draft"
-msgstr "mustand"
-
-msgid "live + draft"
-msgstr "otse + mustand"
-
-msgid "Test"
-msgstr "Test"
-
 msgid "Password"
 msgstr "Parool"
 
@@ -1770,13 +1234,13 @@ msgstr "Lisage kogu"
 msgid "Add collection"
 msgstr "Lisa kogu"
 
-#, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Kogu '{0}' on loodud."
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kogu '%(object)s' on loodud."
 
-#, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Kogu '{0}' on värskendatud."
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kogu '%(object)s' on värskendatud."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Kogu ei õnnestunud vigade tõttu salvestada."
@@ -1784,23 +1248,63 @@ msgstr "Kogu ei õnnestunud vigade tõttu salvestada."
 msgid "Delete collection"
 msgstr "Kustuta kogu"
 
-#, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Kogu '{0}' on kustutatud."
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kogu '%(object)s' on kustutatud."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
 
+msgid "Home"
+msgstr "Kodu"
+
+msgid "Workflow progress"
+msgstr "Töövoo edenemine"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' on värskendatud."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' on loodud."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redigeeri '%(title)s'"
+
+msgid "Inspect"
+msgstr "Kontrollige"
+
 msgid "Editing"
 msgstr "Redigeerimine"
 
-#, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Leht '{0}' ja {1} alamlehed on kopeeritud."
+msgid "Inspecting"
+msgstr "Ülevaatus"
 
-#, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Leht '{0}' on kopeeritud."
+msgid "Earliest"
+msgstr "Varaseim"
+
+msgid "Latest"
+msgstr "Uusim"
+
+msgid "Usage of"
+msgstr "Kasutamine"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muutke seda %(object)s"
+
+msgid "Dashboard"
+msgstr "Armatuurlaud"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Leht '%(page_title)s' ja %(subpages_count)s alamlehed on kopeeritud."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Leht '%(page_title)s' on kopeeritud."
 
 msgid "View draft"
 msgstr "Kuva mustand"
@@ -1808,92 +1312,82 @@ msgstr "Kuva mustand"
 msgid "View live"
 msgstr "Vaadake otseülekannet"
 
-#, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Leht '{0}' on loodud."
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Leht '%(page_title)s' on loodud."
 
-#, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Leht '{0}' on loodud ja avaldamiseks ajastatud."
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Leht '%(page_title)s' on loodud ja avaldamiseks ajastatud."
 
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Leht '{0}' on loodud ja avaldatud."
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Leht '%(page_title)s' on loodud ja avaldatud."
 
-#, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Leht {0} loodi ja saadeti modereerimiseks."
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Leht %(page_title)s loodi ja saadeti modereerimiseks."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Valideerimisvigade tõttu ei saanud lehte luua"
 
-#, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Leht '{0}' on kustutatud."
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Leht '%(page_title)s' on kustutatud."
 
 msgid "This page is currently awaiting moderation"
 msgstr "See leht ootab praegu modereerimist"
 
-#, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Lehekülg '{0}' on asendatud versiooniga versioonilt {1}."
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"Lehekülg '%(page_title)s' on asendatud versiooniga versioonilt "
+"%(previous_revision_datetime)s."
 
-#, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Lehte '{0}' on värskendatud."
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Lehte '%(page_title)s' on värskendatud."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b> Teie </b> lukustasite <b> lehe '{}' </b> saidil <b> {} </b>."
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Töövoog lehel %(page_title)s on tühistatud."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b> teie </b> on <b> leht '{} lukustatud </b>."
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"Lehe '%(page_title)s' versioon lehelt %(previous_revision_datetime)s on "
+"ajastatud avaldamiseks."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b> Lehe '{}' lukustas </b> <b> {} </b> saidil <b> {} </b>."
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Leht %(page_title)s on aktiivne ja selle versiooni avaldamine on ajastatud."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b> Lehekülg '{}' on lukus </b>."
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Lehe '%(page_title)s' avaldamine on ajastatud."
 
-msgid "This page is currently awaiting moderation."
-msgstr "See leht ootab praegu modereerimist."
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "Lehe '%(page_title)s' versioon lehelt %(datetime)s on avaldatud."
 
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "See leht ootab <b> '{}' </b> töövoos <b> '{}' </b>."
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Leht '%(page_title)s' on avaldatud."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Leht '%(page_title)s' on modereerimiseks esitatud."
 
-#, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Töövoog lehel {0} on tühistatud."
-
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Lehe '{1}' versioon lehelt {0} on ajastatud avaldamiseks."
-
-#, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
-msgstr "Leht {0} on aktiivne ja selle versiooni avaldamine on ajastatud."
-
-#, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Lehe '{0}' avaldamine on ajastatud."
-
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "Lehe '{1}' versioon lehelt {0} on avaldatud."
-
-#, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Leht '{0}' on avaldatud."
-
-#, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Leht '{0}' on modereerimiseks esitatud."
-
-#, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "Töövoog lehel {0} on taaskäivitatud."
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Töövoog lehel %(page_title)s on taaskäivitatud."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
@@ -1901,39 +1395,42 @@ msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
 msgid "The page could not be saved due to validation errors"
 msgstr "Valideerimisvigade tõttu ei õnnestunud lehte salvestada"
 
-#, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Leht {0} on nüüd lukustamata."
+msgid "Page history"
+msgstr "Lehe ajalugu"
 
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Leht {0} ei oota praegu modereerimist."
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Leht %(page_title)s on nüüd lukustamata."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Leht '{0}' on avaldatud."
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Leht %(page_title)s ei oota praegu modereerimist."
+
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "Leht '%(page_title)s' on avaldatud."
 
 msgid "Failed to send approval notifications"
 msgstr "Kinnitamisteatiste saatmine ebaõnnestus"
 
-#, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Leht '{0}' lükati avaldamiseks tagasi."
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Leht '%(page_title)s' lükati avaldamiseks tagasi."
 
 msgid "Failed to send rejection notifications"
 msgstr "Tagasilükkamisteatiste saatmine ebaõnnestus"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
-"Slug '{0}'  on valitud vanemalehel juba kasutusel. Veenduge, et nälkjas on "
-"ainulaadne, ja proovige uuesti"
+"Slug '%(page_slug)s'  on valitud vanemalehel juba kasutusel. Veenduge, et "
+"nälkjas on ainulaadne, ja proovige uuesti"
 
-#, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Leht '{0}' on teisaldatud."
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Leht '%(page_title)s' on teisaldatud."
 
 #, python-format
 msgid ""
@@ -1942,27 +1439,19 @@ msgid ""
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
 
-msgid "Earliest"
-msgstr "Varaseim"
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Lehe '%(page_title)s' avaldamine tühistati."
 
-msgid "Latest"
-msgstr "Uusim"
+msgid "Pages using"
+msgstr "Kasutatavad lehed"
 
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "versioon {0} versioonidest \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Versioon {0} \"{1}\" ajastamata."
-
-#, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Lehe '{0}' avaldamine tühistati."
-
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Leht '{0}' ei oota praegu ülesandes '{1}' modereerimist."
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Leht '%(page_title)s' ei oota praegu ülesandes '%(task_name)s' modereerimist."
 
 msgid "Site history"
 msgstr "Saidi ajalugu"
@@ -1988,15 +1477,6 @@ msgstr "Ootan minu ülevaadet"
 msgid "Workflows"
 msgstr "Töövood"
 
-msgid "Page ID"
-msgstr "Lehe ID"
-
-msgid "Page Type"
-msgstr "Lehe tüüp"
-
-msgid "Page Title"
-msgstr "Lehe pealkiri"
-
 msgid "Workflow tasks"
 msgstr "Töövoo ülesanded"
 
@@ -2009,16 +1489,16 @@ msgstr "Lisage töövoog"
 msgid "New workflow"
 msgstr "Uus töövoog"
 
-#, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "Töövoog '{0}' on loodud."
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Töövoog '%(object)s' on loodud."
 
 msgid "Editing workflow"
 msgstr "Töövoo muutmine"
 
-#, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "Töövoog '{0}' on värskendatud."
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Töövoog '%(object)s' on värskendatud."
 
 msgid "Disable"
 msgstr "Keela"
@@ -2029,45 +1509,31 @@ msgstr "Luba"
 msgid "Disable workflow"
 msgstr "Keela töövoog"
 
-#, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "Töövoog '{0}' on keelatud."
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Töövoog '%(object)s' on keelatud."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"See töövoog on lehel %(states_in_progress)d pooleli. Selle töövoo keelamine "
-"tühistab selle lehe modereerimise."
-msgstr[1] ""
-"See töövoog on %(states_in_progress)d lehtedel pooleli. Selle töövoo "
-"keelamine tühistab nende lehtede modereerimise."
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Töövoog '%(workflow_name)s' on lubatud."
 
-#, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "Töövoog '{0}' on lubatud."
-
-#, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "Töövoog eemaldati lehelt '{0}'."
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Töövoog eemaldati lehelt '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Uus töövoo ülesanne"
 
-#, python-brace-format
-msgid "Task '{0}' created."
-msgstr "Ülesanne '{0}' on loodud."
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Ülesanne '%(object)s' on loodud."
 
 msgid "Editing workflow task"
 msgstr "Töövoo ülesande muutmine"
 
-#, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "Ülesanne '{0}' on värskendatud."
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Ülesanne '%(object)s' on värskendatud."
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2076,17 +1542,16 @@ msgstr "%(task_type)s muutmine"
 msgid "Disable task"
 msgstr "Keela ülesanne"
 
-#, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "Ülesanne '{0}' on keelatud."
-
-#, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "Ülesanne '{0}' on lubatud."
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Ülesanne '%(object)s' on keelatud."
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigeeri '%(title)s'"
+msgid "Task '%(task_name)s' enabled."
+msgstr "Ülesanne '%(task_name)s' on lubatud."
+
+msgid "Pages"
+msgstr "Lehed"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -2095,17 +1560,6 @@ msgstr "„%(title)s” mustandi versiooni eelvaade"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Kuva reaalajas versioon '%(title)s'"
-
-msgid "Add child page"
-msgstr "Lapse lisamine"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Lisage alamleht lehele %(title)s"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Kuva ' %(title)s' rohkem võimalusi"
 
 #, python-format
 msgid "Move page '%(title)s'"
@@ -2161,17 +1615,11 @@ msgstr "Läbikriipsutatud"
 msgid "Code"
 msgstr "Kood"
 
-msgid "Locked Pages"
-msgstr "Lukustatud lehed"
-
 msgid "Reports"
 msgstr "Aruanded"
 
 msgid "Yes"
 msgstr "Jah"
-
-msgid "No"
-msgstr "Ei"
 
 msgid "Choose an item"
 msgstr "Valige üksus"
@@ -2180,7 +1628,7 @@ msgid "Choose another item"
 msgstr "Valige teine ​​üksus"
 
 msgid "Clear choice"
-msgstr "Eemalda valik"
+msgstr "Selge valik"
 
 msgid "Choose another page"
 msgstr "Valige teine ​​leht"

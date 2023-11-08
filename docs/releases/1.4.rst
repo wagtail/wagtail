@@ -1,6 +1,8 @@
-=========================
-Wagtail 1.4 release notes
-=========================
+===============================
+Wagtail 1.4 (LTS) release notes
+===============================
+
+*March 16, 2016*
 
 .. contents::
     :local:
@@ -16,7 +18,7 @@ What's new
 Page revision management
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../_static/images/revision-ui.png
+.. figure:: ../_static/images/releasenotes_1_4_revision-ui.png
     :width: 696px
 
 From the page editing interface, editors can now access a list of previous revisions of the page, and preview or roll back to any earlier revision.
@@ -31,7 +33,7 @@ Images and documents can now be organised into collections, set up by administra
 Redesigned userbar
 ~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../_static/images/userbar-corner.png
+.. figure:: ../_static/images/releasenotes_1_4_userbar-corner.png
     :width: 272px
 
 The Wagtail userbar (which gives editors quick access to the admin from the site frontend) has been redesigned, and no longer depends on an iframe. The new design allows more flexibility in label text, more configurable positioning to avoid overlapping with site navigation, and adds a new "Show in Explorer" option. This feature was developed by Thomas Winter and Gareth Price.

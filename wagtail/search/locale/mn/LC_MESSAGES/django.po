@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +23,3 @@ msgstr ""
 
 msgid "Wagtail search"
 msgstr "Хайлт"
-
-msgid "Search term(s)/phrase"
-msgstr "Хайлтын утга(ууд)/өгүүлбэр"
-
-msgid "Popular search terms"
-msgstr "Түгээмэл хайлтын утга"
-
-msgid "Search"
-msgstr "Хайх"
-
-msgid "Terms"
-msgstr "Утгууд"
-
-msgid "Views (past week)"
-msgstr "Үзэлт (өнгөрсөн долоо хоногийн)"
-
-msgid "No results found"
-msgstr "Үр дүн олдсонгүй"
-
-msgid "Date"
-msgstr "Огноо"
-
-msgid "Choose from popular search terms"
-msgstr "Түгээмэл хайлтын утгуудаас сонгох"

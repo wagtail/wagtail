@@ -1,3 +1,5 @@
+(docs_title_generation_on_upload)=
+
 # Title generation on upload
 
 When uploading a file (document), Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
@@ -8,11 +10,11 @@ You can also customise this [same behaviour for images](../images/title_generati
 
 You can customise the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:documents-upload'` event.
 
-The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
+The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js). However, any JavaScript that adds an event listener will work.
 
 ## DOM Event
 
-The event name to listen for is `'wagtail:documents-upload'`. It will be dispatched on the document upload `form`. The event's `detail` attribute will contain:
+The event name to listen to is `'wagtail:documents-upload'`. It will be dispatched on the document upload `form`. The event's `detail` attribute will contain:
 
 -   `data` - An object which includes the `title` to be used. It is the filename with the extension removed.
 -   `maxTitleLength` - An integer (or `null`) which is the maximum length of the `Document` model title field.
@@ -26,7 +28,7 @@ You can prevent the default behaviour by calling `event.preventDefault()`. For t
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 
-See MDN for more information about [custom JavasScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
+See MDN for more information about [custom JavaScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
 
 ## Code Examples
 
@@ -58,7 +60,7 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Document` upload page, only on page editors.
+Use the [`insert_editor_js` hook](insert_editor_js) instead so that this script will run only on page editors and not on the `Document`.
 
 ```python
 # wagtail_hooks.py

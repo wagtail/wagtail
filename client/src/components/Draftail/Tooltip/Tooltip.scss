@@ -1,27 +1,21 @@
 $tooltip-spacing: 0.625rem;
 $tooltip-arrow-height: 15px;
 $tooltip-arrow-spacing: 25px;
-$tooltip-radius: $draftail-tooltip-radius;
+$tooltip-radius: $draftail-toolbar-radius;
 
-$tooltip-chrome: $draftail-tooltip-chrome;
+$tooltip-chrome: $draftail-editor-chrome;
 $tooltip-chrome-text: $draftail-tooltip-chrome-text;
 
 $tooltip-z-index: $draftail-tooltip-z-index;
 
-$tooltip-color-no: #f48880;
+$tooltip-color-no: theme('colors.critical.100');
 
 @mixin arrow--top {
-  margin-top: $tooltip-arrow-spacing;
-  transform: translateX(-50%);
+  margin-top: $tooltip-spacing;
+  transform: translateX(calc(var(--w-direction-factor) * -50%));
 
   &::before {
-    bottom: 100%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 50%;
-    inset-inline-start: 50%;
-    transform: translateX(-50%);
-    border-bottom-color: $tooltip-chrome;
+    content: none;
   }
 }
 
@@ -31,9 +25,6 @@ $tooltip-color-no: #f48880;
 
   &::before {
     top: 50%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 100%;
     inset-inline-end: 100%;
     transform: translateY(-50%);
     border-inline-end-color: $tooltip-chrome;
@@ -45,9 +36,6 @@ $tooltip-color-no: #f48880;
 
   &::before {
     bottom: 100%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: $tooltip-arrow-spacing;
     inset-inline-start: $tooltip-arrow-spacing;
     border-bottom-color: $tooltip-chrome;
   }
@@ -60,7 +48,7 @@ $tooltip-color-no: #f48880;
   color: $tooltip-chrome-text;
   z-index: $tooltip-z-index;
   border-radius: $tooltip-radius;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px theme('colors.black-35');
 
   &::before {
     content: '';
@@ -88,7 +76,7 @@ $tooltip-color-no: #f48880;
 
     &,
     &:hover {
-      color: $color-white;
+      color: theme('colors.text-button');
     }
   }
 
@@ -98,7 +86,7 @@ $tooltip-color-no: #f48880;
       border-color: currentColor;
 
       &:hover {
-        color: $color-button-no;
+        color: theme('colors.critical.200');
       }
     }
   }

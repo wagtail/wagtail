@@ -2,6 +2,8 @@
 Wagtail 0.4 release notes
 =========================
 
+*July 10, 2014*
+
 .. contents::
     :local:
     :depth: 1
@@ -30,7 +32,7 @@ Scheduled publishing
 
 Editors can now schedule pages to be published or unpublished at specified times.
 
-A new management command has been added (:ref:`publish_scheduled_pages`) to publish pages that have been scheduled by an editor.
+A new management command has been added (:ref:`publish_scheduled_pages <publish_scheduled>`) to publish pages that have been scheduled by an editor.
 
 
 Search on QuerySet with Elasticsearch

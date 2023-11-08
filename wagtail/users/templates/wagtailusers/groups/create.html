@@ -1,41 +1,34 @@
-{% extends "wagtailadmin/base.html" %}
-{% load wagtailusers_tags wagtailimages_tags wagtailadmin_tags i18n %}
-
-{% block titletag %}{% trans "Add group" %}{% endblock %}
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailusers_tags i18n %}
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% versioned_static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
     {{ form_media.css }}
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
+    <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>
+        {% csrf_token %}
 
-    {% trans "Add group" as add_group_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_group_str icon="group" only %}
-
-    <div class="nice-padding">
-        <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>
-            {% csrf_token %}
-
-            <ul class="fields">
-                {% block fields %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
-                    {% block extra_fields %}{% endblock extra_fields %}
-                {% endblock fields %}
+        <ul class="fields">
+            {% block fields %}
                 <li>
-                    {% format_permissions permission_bound_field=form.permissions %}
+                    {% include "wagtailadmin/shared/field.html" with field=form.name %}
                 </li>
-                {% for panel in permission_panels %}
-                    <li>
-                        {{ panel.as_admin_panel }}
-                    </li>
-                {% endfor %}
-                <li><input type="submit" value='{% trans "Add group" %}' class="button" /></li>
-            </ul>
-        </form>
-    </div>
+                {% block extra_fields %}{% endblock extra_fields %}
+            {% endblock fields %}
+            <li>
+                {% format_permissions permission_bound_field=form.permissions %}
+            </li>
+            {% for panel in permission_panels %}
+                <li>
+                    {{ panel.as_admin_panel }}
+                </li>
+            {% endfor %}
+            <li><input type="submit" value="{% trans 'Add group' %}" class="button" /></li>
+        </ul>
+    </form>
 {% endblock %}
 
 {% block extra_js %}

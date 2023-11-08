@@ -1,7 +1,4 @@
-// Returns the value of the first argument. All others are ignored.
-function identity<T extends any[]>(...func: T): T[0] {
-  return func[0];
-}
+import { identity } from './identity';
 
 interface Action<N, P, M> {
   type: N;
@@ -14,13 +11,13 @@ interface Action<N, P, M> {
 // https://github.com/acdlite/redux-actions/blob/79c68635fb1524c1b1cf8e2398d4b099b53ca8de/src/createAction.js
 export function createAction<N extends string, T extends any[], P, M>(
   type: N,
-  actionCreator: (...args: T) => P = identity,
+  actionCreator?: (...args: T) => P,
   metaCreator?: (...args: T) => M,
 ): (...args: T) => Action<N, P, M> {
   return (...args) => {
     const action: Action<N, P, M> = {
       type,
-      payload: actionCreator(...args),
+      payload: (actionCreator || identity)(...args),
     };
 
     if (action.payload instanceof Error) {

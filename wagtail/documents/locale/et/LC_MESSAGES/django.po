@@ -4,15 +4,16 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,57 +75,14 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Choose a document"
-msgstr "Valige dokument"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Upload"
-msgstr "Laadi üles"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Olemas on %(counter)s vaste"
-msgstr[1] ""
-"\n"
-"Olemas on %(counter)s vastet"
-
 msgid "Latest documents"
 msgstr "Viimased dokumendid"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Te pole sellesse kogusse ühtegi dokumenti üles laadinud."
 
 msgid "You haven't uploaded any documents."
 msgstr "Te pole ühtegi dokumenti üles laadinud."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Miks mitte <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">seda kohe üles laadida</a>?"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
 
 msgid "Change document:"
 msgstr "Muuda dokumenti:"
@@ -135,12 +93,11 @@ msgstr "Lisage dokument"
 msgid "Add document"
 msgstr "Lisage dokument"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Kustuta %(title)s"
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
 
-msgid "Delete document"
-msgstr "Kustuta dokument"
+msgid "Upload"
+msgstr "Laadi üles"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -151,6 +108,9 @@ msgstr "Redigeerimine"
 
 msgid "Save"
 msgstr "Salvesta"
+
+msgid "Delete document"
+msgstr "Kustuta dokument"
 
 msgid "Filesize"
 msgstr "Faili suurus"
@@ -174,63 +134,24 @@ msgid "Created"
 msgstr "Loodud"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Te pole sellesse kogusse ühtegi dokumenti üles laadinud. Miks mitte laadida "
 "<a href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a href="
-"\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kasutamine"
-
-msgid "Usage of"
-msgstr "Kasutamine"
-
-msgid "Parent"
-msgstr "Vanem"
-
-msgid "Type"
-msgstr "Tüüp"
-
-msgid "Status"
-msgstr "Staatus"
-
-msgid "Edit this page"
-msgstr "Muutke seda lehte"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Dokumenti <span class=\"visuallyhidden\">loodud "
-"%(site_name)s</span> "
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Dokumenti <span class=\"visuallyhidden\">loodud "
-"%(site_name)s</span>"
+"Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a "
+"href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
 
 msgid "Add multiple documents"
 msgstr "Lisage mitu dokumenti"
@@ -271,30 +192,36 @@ msgstr "Lisage dokumendi luba"
 msgid "Delete"
 msgstr "Kustuta"
 
-msgid "Server Error"
-msgstr "Serveri viga"
+msgid "Choose a document"
+msgstr "Valige dokument"
+
+msgid "Choose another document"
+msgstr "Valige mõni muu dokument"
+
+msgid "Edit this document"
+msgstr "Muutke seda dokumenti"
 
 msgid "Search documents"
 msgstr "Dokumentide otsimine"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokument '{0}' on lisatud."
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' on lisatud."
 
 msgid "The document could not be saved due to errors."
 msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokumendi '{0}' värskendamine on toimunud"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumendi '%(document_title)s' värskendamine on toimunud"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokument '{0}' on kustutatud."
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' on kustutatud."
 
 msgid "Document"
 msgstr "Dokument"
@@ -304,9 +231,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenti."
-
-msgid "Choose another document"
-msgstr "Valige mõni muu dokument"
-
-msgid "Edit this document"
-msgstr "Muutke seda dokumenti"

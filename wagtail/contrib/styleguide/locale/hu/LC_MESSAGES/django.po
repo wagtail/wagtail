@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# B N <biczoxd@gmail.com>, 2018
 # Istvan Farkas <istvan.farkas@gmail.com>, 2020
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 # B N <biczoxd@gmail.com>, 2018
@@ -10,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2020\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,14 +28,14 @@ msgstr "Wagtail stílus útmutató"
 msgid "Styleguide"
 msgstr "Stílus"
 
+msgid "Minimap"
+msgstr "Minitérkép"
+
 msgid "Save"
 msgstr "Mentés"
 
 msgid "Delete image"
 msgstr "Kép törlése"
-
-msgid "Home"
-msgstr "Nyitólap"
 
 msgid "Search something"
 msgstr "Keresés"

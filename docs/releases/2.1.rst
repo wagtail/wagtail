@@ -2,6 +2,8 @@
 Wagtail 2.1 release notes
 =========================
 
+*May 22, 2018*
+
 .. contents::
     :local:
     :depth: 1
@@ -32,7 +34,7 @@ The API now includes an endpoint for finding pages by path; see :ref:`apiv2_find
 User time zone setting
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <WAGTAIL_USER_TIME_ZONES>` setting. This feature was developed by David Moore.
+Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <wagtail_user_time_zones>` setting. This feature was developed by David Moore.
 
 
 Elasticsearch 6 support
@@ -91,7 +93,7 @@ Bug fixes
 * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
 * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
 * Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
-* Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+* Background colour overflow within the Wagtail documentation (Sergey Fedoseev)
 * Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
 * Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
 * Generate URL for the current site when multiple sites share the same root page (Codie Roelf)

@@ -16,12 +16,14 @@ class WagtailDocsAppConfig(AppConfig):
 
         register_signal_handlers()
 
-        # Set up model forms to use AdminDocumentChooser for any ForeignKey to the document model
-        from wagtail.admin.forms.models import register_form_field_override
-
-        from .widgets import AdminDocumentChooser
-
         Document = get_document_model()
-        register_form_field_override(
-            ForeignKey, to=Document, override={"widget": AdminDocumentChooser}
-        )
+
+        from wagtail.admin.ui.fields import register_display_class
+
+        from .components import DocumentDisplay
+
+        register_display_class(ForeignKey, to=Document, display_class=DocumentDisplay)
+
+        from wagtail.models.reference_index import ReferenceIndex
+
+        ReferenceIndex.register_model(Document)

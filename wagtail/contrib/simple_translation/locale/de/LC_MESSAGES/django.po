@@ -4,17 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# oliverengel <codeangel@posteo.de>, 2022
+# Oliver Engel <codeangel@posteo.de>, 2022
+# Loic Teixeira, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
-"Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
+"Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,10 +35,11 @@ msgstr "Locale"
 msgid "All child pages will be created."
 msgstr "Alle Unterseiten werden erstellt."
 
-msgid "Include subtree ({} page)"
-msgid_plural "Include subtree ({} pages)"
-msgstr[0] "Teilbaum ({} Seite) einbeziehen"
-msgstr[1] "Teilbaum ({} Seiten) einbeziehen"
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Teilbaum (%(descendant_count)s Seite) einbeziehen"
+msgstr[1] "Teilbaum (%(descendant_count)s Seiten) einbeziehen"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -59,23 +62,28 @@ msgstr "Absenden"
 msgid "Translate"
 msgstr "Übersetzen"
 
-msgid "{} locales"
-msgstr "{} locale"
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s locale"
 
 msgid "Translate page"
 msgstr "Seite übersetzen"
 
-#, python-brace-format
-msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "Die Seite '{page_title}' wurde erfolgreich in {locales} erstellt"
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Die Seite '%(page_title)s' wurde erfolgreich in %(locales)s erstellt"
 
-#, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Übersetze {model_name}"
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Übersetze %(model_name)s"
 
-#, python-brace-format
-msgid "Successfully created {locales} for {model_name} '{object}'"
-msgstr "Erfolgreich erstellt {locales} für {model_name} '{object}'"
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Erfolgreich erstellt %(locales)s für %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Diese Seite übersetzen"
 
 #, python-format
 msgid "Translate '%(title)s'"

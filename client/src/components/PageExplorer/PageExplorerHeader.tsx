@@ -2,8 +2,8 @@ import React from 'react';
 import { ADMIN_URLS } from '../../config/wagtailConfig';
 
 import { gettext } from '../../utils/gettext';
-import Button from '../../components/Button/Button';
-import Icon from '../../components/Icon/Icon';
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
 import { PageState } from './reducers/nodes';
 
 interface SelectLocaleProps {
@@ -40,10 +40,6 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({
       <select value={locale} onChange={onChange} disabled={options.length < 2}>
         {options}
       </select>
-      <Icon
-        name="arrow-down"
-        className="c-page-explorer__header__select-icon"
-      />
     </div>
   );
 };

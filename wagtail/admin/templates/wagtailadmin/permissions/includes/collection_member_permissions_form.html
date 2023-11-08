@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <td>
-    {% include "wagtailadmin/shared/field.html" with field=form.collection only %}
+    {% include "wagtailadmin/shared/field.html" with field=form.collection sr_only_label=True only %}
     {{ form.DELETE }}
 </td>
 
@@ -13,5 +13,5 @@
 {% endfor %}
 
 <td>
-    <button class="button button-secondary button-small no" type="button" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
+    <button class="button button-small no" type="button" id="{{ form.DELETE.id_for_label }}-button">{% trans "Delete" %}</button>
 </td>

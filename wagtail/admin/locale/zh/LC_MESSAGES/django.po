@@ -4,16 +4,17 @@
 #
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014,2017
+# hanfeng <appweb.cn@gmail.com>, 2014,2017
 # Leway Colin <colin4124@gmail.com>, 2016
 # Orangle Liu <orangleliu@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>, 2014,2017\n"
-"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
+"Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,20 +31,11 @@ msgstr "提交审核"
 msgid "Unpublish"
 msgstr "取消发布"
 
-msgid "Delete"
-msgstr "删除"
-
 msgid "You do not have permission to access the admin"
 msgstr "您没有进入后台的权限"
 
 msgid "None"
 msgstr "没有"
-
-msgid "Content"
-msgstr "内容"
-
-msgid "Settings"
-msgstr "设置"
 
 msgid "First Name"
 msgstr "名"
@@ -63,6 +55,12 @@ msgstr "输入您的电子邮箱来重置您的密码"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "搜索词"
+
+msgid "Search"
+msgstr "搜索"
+
 msgid "Parent"
 msgstr "上一级"
 
@@ -72,39 +70,26 @@ msgstr "添加"
 msgid "Edit"
 msgstr "编辑"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "New title"
 msgstr "新标题"
 
-msgid "This slug is already in use"
-msgstr "这个唯一的地址已被占用"
+msgid "Content"
+msgstr "内容"
 
-msgid "Search"
-msgstr "搜索"
+msgid "Settings"
+msgstr "设置"
 
-msgid "Search term"
-msgstr "搜索词"
+msgid "Title"
+msgstr "标题"
 
-msgid "Server Error"
-msgstr "服务错误"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Saving..."
-msgstr "正在保存"
-
-msgid "Dashboard"
-msgstr "仪表板"
+msgid "Page title"
+msgstr "页面标题"
 
 msgid "Account"
 msgstr "账号"
-
-msgid "Change password"
-msgstr "修改密码"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您的密码不能在此更改。请联系网站管理员。"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -151,17 +136,24 @@ msgstr "插入一个链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid "Explore"
+msgstr "浏览"
+
+msgid "Save"
+msgstr "保存"
+
 msgid "Name"
 msgstr "名字"
 
-msgid "Move up"
-msgstr "向上移动"
-
-msgid "Move down"
-msgstr "向下移动"
-
 msgid "Yes, delete"
 msgstr "是的，删除"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "停止发布%(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "是的，停止发布"
 
 msgid "Update"
 msgstr "更新"
@@ -174,9 +166,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
-
-msgid "Title"
-msgstr "标题"
 
 msgid "Edit this page"
 msgstr "编辑这个页面"
@@ -306,18 +295,8 @@ msgstr "你确定你要移动这页和其所有子页面至'%(title)s'吗?"
 msgid "Yes, move this page"
 msgstr "是的，移动这页"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "停止发布%(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "你确定你想停止发布这页吗？"
-
-msgid "Yes, unpublish it"
-msgstr "是的，停止发布"
-
-msgid "Pages using"
-msgstr "页面在用"
 
 msgid "Copy"
 msgstr "复制"
@@ -326,28 +305,16 @@ msgstr "复制"
 msgid "New %(page_type)s"
 msgstr "新%(page_type)s类"
 
-msgid "New"
-msgstr "新"
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览%(title)s"
-
-msgid "Drag"
-msgstr "拖动"
-
-msgid "Explore"
-msgstr "浏览"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-msgid "Previous"
-msgstr "向前"
-
-msgid "Next"
-msgstr "往后"
+msgid "Drag"
+msgstr "拖动"
 
 msgid "Disable ordering of child pages"
 msgstr "禁止自页面的顺序"
@@ -355,42 +322,48 @@ msgstr "禁止自页面的顺序"
 msgid "Enable ordering of child pages"
 msgstr "开启子页面顺序"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "为%(title)s选择一个新的根页面"
+msgid "Previous"
+msgstr "向前"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "为<span>%(title)s</span>选择一个新的根页面"
+msgid "Next"
+msgstr "往后"
+
+msgid "Add child page"
+msgstr "添加子页面"
 
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
+
+msgid "Move up"
+msgstr "向上移动"
+
+msgid "Move down"
+msgstr "向下移动"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第%(page_num)s页 共%(total_pages)s页"
 
-msgid "Home"
-msgstr "主页"
-
-msgid "Account settings"
-msgstr "账号设置"
-
-msgid "Log out"
-msgstr "登出"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "作者%(modified_by)s"
+msgid "New"
+msgstr "新"
 
 msgid "More"
 msgstr "更多"
 
+msgid "Log out"
+msgstr "登出"
+
 msgid "Password"
 msgstr "密码"
 
+msgid "Home"
+msgstr "主页"
+
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Dashboard"
+msgstr "仪表板"
 
 msgid "View draft"
 msgstr "查看草稿"
@@ -398,13 +371,13 @@ msgstr "查看草稿"
 msgid "View live"
 msgstr "查看在线版"
 
-#, python-brace-format
-msgid "Page '{0}' created."
-msgstr "第 '{0}' 页已创建。"
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "第 '%(page_title)s' 页已创建。"
 
-#, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "第 '{0}' 页已删除"
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "第 '%(page_title)s' 页已删除"
 
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
@@ -412,28 +385,28 @@ msgstr "这页正在等待审核"
 msgid "The page could not be saved due to validation errors"
 msgstr "这页无法保存，因为页面发生验证错误"
 
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "第 '{0}' 页当前不需要等待审核。"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "第 '%(page_title)s' 页当前不需要等待审核。"
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "第 '{0}' 页已发布。"
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "第 '%(page_title)s' 页已发布。"
 
-#, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "第 '{0}' 页已被拒绝发布。"
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "第 '%(page_title)s' 页已被拒绝发布。"
 
-#, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "第 '{0}' 页已移动。"
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "第 '%(page_title)s' 页已移动。"
 
-#, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "第 '{0}' 页已取消发布"
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "第 '%(page_title)s' 页已取消发布"
 
-msgid "Add child page"
-msgstr "添加子页面"
+msgid "Pages using"
+msgstr "页面在用"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

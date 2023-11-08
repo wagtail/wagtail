@@ -18,7 +18,9 @@ from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestDocumentQuerySet(TestCase):
+class TestDocumentQuerySet(TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def test_search_method(self):
         # Make a test document
         document = models.Document.objects.create(title="Test document")
@@ -42,13 +44,17 @@ class TestDocumentQuerySet(TestCase):
         aaa_document = models.Document.objects.create(title="AAA Test document")
         zzz_document = models.Document.objects.create(title="ZZZ Test document")
 
-        results = models.Document.objects.order_by("title").search("Test")
+        results = models.Document.objects.order_by("title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [aaa_document, zzz_document])
-        results = models.Document.objects.order_by("-title").search("Test")
+        results = models.Document.objects.order_by("-title").search(
+            "Test", order_by_relevance=False
+        )
         self.assertEqual(list(results), [zzz_document, aaa_document])
 
 
-class TestDocumentPermissions(TestCase, WagtailTestUtils):
+class TestDocumentPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
         self.user = self.create_user(
@@ -97,22 +103,27 @@ class TestDocumentPermissions(TestCase, WagtailTestUtils):
 class TestDocumentFilenameProperties(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "sample_name.doc",
+            ContentFile("A boring example document"),
+        )
 
         self.pdf_document = models.Document(title="Test document")
         self.pdf_document.file.save(
-            "example.pdf", ContentFile("A boring example document")
+            "sample_name.pdf",
+            ContentFile("A boring example document"),
         )
 
         self.extensionless_document = models.Document(title="Test document")
         self.extensionless_document.file.save(
-            "example", ContentFile("A boring example document")
+            "sample_name",
+            ContentFile("A boring example document"),
         )
 
     def test_filename(self):
-        self.assertEqual("example.doc", self.document.filename)
-        self.assertEqual("example.pdf", self.pdf_document.filename)
-        self.assertEqual("example", self.extensionless_document.filename)
+        self.assertEqual("sample_name.doc", self.document.filename)
+        self.assertEqual("sample_name.pdf", self.pdf_document.filename)
+        self.assertEqual("sample_name", self.extensionless_document.filename)
 
     def test_file_extension(self):
         self.assertEqual("doc", self.document.file_extension)
@@ -126,14 +137,27 @@ class TestDocumentFilenameProperties(TestCase):
             "application/octet-stream", self.extensionless_document.content_type
         )
 
+    def test_file_hash(self):
+        self.assertEqual(
+            self.document.get_file_hash(), "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85"
+        )
+        self.assertEqual(
+            self.pdf_document.get_file_hash(),
+            "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85",
+        )
+        self.assertEqual(
+            self.extensionless_document.get_file_hash(),
+            "7d8c4778b182e4f3bd442408c64a6e22a4b0ed85",
+        )
+
     def test_content_disposition(self):
         self.assertEqual(
-            """attachment; filename=example.doc; filename*=UTF-8''example.doc""",
+            """attachment; filename=sample_name.doc; filename*=UTF-8''sample_name.doc""",
             self.document.content_disposition,
         )
         self.assertEqual("inline", self.pdf_document.content_disposition)
         self.assertEqual(
-            """attachment; filename=example; filename*=UTF-8''example""",
+            """attachment; filename=sample_name; filename*=UTF-8''sample_name""",
             self.extensionless_document.content_disposition,
         )
 
@@ -159,17 +183,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     """
 
-    def setUp(self):
-        # Required to create root collection because the TransactionTestCase
-        # does not make initial data loaded in migrations available and
-        # serialized_rollback=True causes other problems in the test suite.
-        # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path="0001",
-            depth=1,
-            numchild=0,
-        )
+    fixtures = ["test_empty.json"]
 
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
@@ -240,14 +254,14 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         )
 
         #: Sadly signal receivers only get connected when starting django.
-        #: We will re-attach them here to mimic the django startup behavior
+        #: We will re-attach them here to mimic the django startup behaviour
         #: and get the signals connected to our custom model..
         signal_handlers.register_signal_handlers()
 
     def test_document_model(self):
         cls = get_document_model()
         self.assertEqual(
-            "%s.%s" % (cls._meta.app_label, cls.__name__), "tests.CustomDocument"
+            f"{cls._meta.app_label}.{cls.__name__}", "tests.CustomDocument"
         )
 
 

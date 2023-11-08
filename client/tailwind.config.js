@@ -3,13 +3,20 @@ const vanillaRTL = require('tailwindcss-vanilla-rtl');
 /**
  * Design Tokens
  */
-const colors = require('./src/tokens/colors');
+const { staticColors, transparencies } = require('./src/tokens/colors');
+const {
+  generateColorVariables,
+  generateThemeColorVariables,
+} = require('./src/tokens/colorVariables');
+const colorThemes = require('./src/tokens/colorThemes');
 const {
   fontFamily,
   fontSize,
   fontWeight,
   letterSpacing,
   lineHeight,
+  listStyleType,
+  typeScale,
 } = require('./src/tokens/typography');
 const { breakpoints } = require('./src/tokens/breakpoints');
 const {
@@ -22,7 +29,6 @@ const { spacing } = require('./src/tokens/spacing');
 /**
  * Plugins
  */
-const typeScale = require('./src/tokens/typeScale');
 const scrollbarThin = require('./src/plugins/scrollbarThin');
 
 /**
@@ -30,13 +36,24 @@ const scrollbarThin = require('./src/plugins/scrollbarThin');
  * themeColors: For converting our design tokens into a format that tailwind accepts
  */
 const themeColors = Object.fromEntries(
-  Object.entries(colors).map(([key, hues]) => {
+  Object.entries(staticColors).map(([key, hues]) => {
     const shades = Object.fromEntries(
-      Object.entries(hues).map(([k, shade]) => [k, shade.hex]),
+      Object.entries(hues).map(([k, shade]) => [
+        k,
+        `var(${shade.cssVariable})`,
+      ]),
     );
     return [key, shades];
   }),
 );
+
+const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
+  Object.entries(category.tokens).forEach(([name, token]) => {
+    // eslint-disable-next-line no-param-reassign
+    colorTokens[name] = `var(${token.cssVariable})`;
+  });
+  return colorTokens;
+}, {});
 
 /**
  * Root Tailwind config, reusable for other projects.
@@ -49,17 +66,33 @@ module.exports = {
     },
     colors: {
       ...themeColors,
-      inherit: 'inherit',
-      current: 'currentColor',
-      transparent: 'transparent',
+      ...lightThemeColors,
+      'white-10': 'var(--w-color-white-10)',
+      'white-15': 'var(--w-color-white-15)',
+      'white-50': 'var(--w-color-white-50)',
+      'white-80': 'var(--w-color-white-80)',
+      'black-5': 'var(--w-color-black-5)',
+      'black-10': 'var(--w-color-black-10)',
+      'black-20': 'var(--w-color-black-20)',
+      'black-25': 'var(--w-color-black-25)',
+      'black-35': 'var(--w-color-black-35)',
+      'black-50': 'var(--w-color-black-50)',
+      // Color keywords.
+      'inherit': 'inherit',
+      'current': 'currentColor',
+      'transparent': 'transparent',
       /* allow system colours https://www.w3.org/TR/css-color-4/#css-system-colors */
-      LinkText: 'LinkText',
-      ButtonText: 'ButtonText',
+      'LinkText': 'LinkText',
+      'ButtonText': 'ButtonText',
     },
-    fontFamily,
+    fontFamily: {
+      sans: 'var(--w-font-sans)',
+      mono: 'var(--w-font-mono)',
+    },
     fontSize,
     fontWeight,
     lineHeight,
+    listStyleType,
     letterSpacing,
     borderRadius,
     borderWidth,
@@ -67,14 +100,32 @@ module.exports = {
       ...boxShadow,
       none: 'none',
     },
-    spacing,
+    spacing: {
+      ...spacing,
+      'slim-header': '50px',
+    },
     extend: {
-      opacity: {
-        15: '0.15',
-        85: '0.85',
-      },
       outlineOffset: {
         inside: '-3px',
+      },
+      transitionProperty: {
+        sidebar:
+          'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
+      },
+      zIndex: {
+        'header': '100',
+        'sidebar': '110',
+        'sidebar-toggle': '120',
+        'dialog': '130',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 150ms both',
       },
     },
   },
@@ -91,6 +142,45 @@ module.exports = {
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');
     }),
+    /**
+     * TypeScale plugin.
+     * This plugin generates component classes using tailwind's theme values for each object inside of the typeScale configuration.
+     * We have the `w-` prefix added in the configuration for documentation purposes, it needs to be removed here before Tailwind adds it back.
+     */
+    plugin(({ addComponents, theme }) => {
+      const scale = {};
+      Object.entries(typeScale).forEach(([name, styles]) => {
+        scale[`.${name.replace('w-', '')}`] = Object.fromEntries(
+          Object.entries(styles).map(([key, value]) => [key, theme(value)]),
+        );
+      });
+      addComponents(scale);
+    }),
+    /**
+     * CSS Custom properties defined from our design tokens.
+     */
+    plugin(({ addBase }) => {
+      addBase({
+        /** Support for web components */
+        ':root, :host': {
+          '--w-font-sans': fontFamily.sans.join(', '),
+          '--w-font-mono': fontFamily.mono.join(', '),
+          ...transparencies,
+          ...generateColorVariables(staticColors),
+          ...generateThemeColorVariables(colorThemes.light),
+        },
+        '.w-theme-system': {
+          '@media (prefers-color-scheme: dark)': generateThemeColorVariables(
+            colorThemes.dark,
+          ),
+        },
+        '.w-theme-dark': generateThemeColorVariables(colorThemes.dark),
+      });
+    }),
+    /** Support for aria-expanded=true variant */
+    plugin(({ addVariant }) => {
+      addVariant('expanded', '&[aria-expanded=true]');
+    }),
   ],
   corePlugins: {
     ...vanillaRTL.disabledCorePlugins,
@@ -99,5 +189,12 @@ module.exports = {
     clear: false,
     // Disable text-transform so we don’t rely on uppercasing text.
     textTransform: false,
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['forced-colors'],
+      width: ['forced-colors'],
+      height: ['forced-colors'],
+    },
   },
 };

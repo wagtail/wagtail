@@ -4,7 +4,7 @@ describe('Groups', () => {
   }, 10000);
 
   it('has the right heading', async () => {
-    expect(await page.title()).toContain('Wagtail - Editing Editors');
+    expect(await page.title()).toContain('Editing Editors - Wagtail');
   });
 
   it('axe', async () => {

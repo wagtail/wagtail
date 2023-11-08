@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,8 +21,22 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Search term(s)/phrase"
+msgstr "Paieškos terminas(ai)/frazė"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Įveskite pilną paieškos tekstą  kuris atitiktų. Tikslus atitikmuo reikamas "
+"kad jūsų reklamuojami rezultatai būtų atvaizduoti, laisvaženkliai "
+"neleidžiami."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Prašome pateikti bent vieną rekomendaciją šiam paieškos terminui."
+
+msgid "Query Daily Hits"
+msgstr "Kasdieninių paspaudimų užklausa"
 
 msgid "page"
 msgstr "puslapis"
@@ -38,35 +52,6 @@ msgstr "Pridėti paieškos reklamą"
 
 msgid "Add search pick"
 msgstr "Pridėti paieškos pasirinkimą"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Reklamuojami paieškos rezultatai yra būdas rekomenduoti specifinius "
-"puslapius kurie įprastai nebūtų aukštai paieškos rezultatuose. Pvz. "
-"rekomenduoti jūsų pagrindinį aukojimo puslapį vartotojui ieškančiam pagal "
-"rečiau pasitaikantį terminą  \"<em>duoti</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>\"Paieškos terminas(ai)/frazė\" laukas turi turėti pilną ir tikslią "
-"paieškos frazę kuriai norite priskirti rekomenduojamus rezultatus, "
-"<em>įskaitant</em> bet kokius rašymus su klaidomis/vartotojo klaidas. Kad "
-"būtų lengviau, galite rinktis iš paieškos terminų, kurie buvo populiarūs "
-"tarp jūsų tinklalapio vartotojų.</p>"
 
 msgid "Save"
 msgstr "Išsaugoti"
@@ -100,17 +85,11 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
-msgid "Promoted search result"
-msgstr "Reklamuojamas paieškos rezultatas"
-
-msgid "Add recommended page"
-msgstr "Pridėti rekomenduojamą puslapį"
+msgid "Promoted search results"
+msgstr "Reklamuojami paieškos rezultatai"
 
 msgid "Search Terms"
 msgstr "Paieškos terminai"
-
-msgid "Promoted search results"
-msgstr "Reklamuojami paieškos rezultatai"
 
 msgid "Add new promoted result"
 msgstr "Pridėti naują reklamuojamą rezultatą"
@@ -127,29 +106,47 @@ msgstr "Peržiūros (paskutinę savaitę)"
 msgid "Edit this promotion"
 msgstr "Redaguoti šią reklamą"
 
+msgid "External link"
+msgstr "Išorinė nuoroda"
+
 msgid "None"
 msgstr "Joks"
+
+msgid "Popular search terms"
+msgstr "Populiarūs paieškos terminai"
+
+msgid "Search"
+msgstr "Ieškoti"
+
+msgid "Terms"
+msgstr "Terminai"
+
+msgid "No results found"
+msgstr "Nerasta jokių rezultatų"
+
+msgid "Choose from popular search terms"
+msgstr "Pasirinkite iš populiarių paieškos terminų"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Atsiprašome, jokie reklamuojami rezultatai neatitiko <em>\"%(query_string)s"
-"\"</em>"
+"Atsiprašome, jokie reklamuojami rezultatai neatitiko "
+"<em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nebuvo sukurti jokie reklamuojami rezultatai. Kodėl gi <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">nesukūrus vieno</a>?"
+"Nebuvo sukurti jokie reklamuojami rezultatai. Kodėl gi <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">nesukūrus vieno</a>?"
 
 msgid "Search promoted results"
 msgstr "Ieškoti reklamuojamų rezultatų"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Redaktoriaus pasirinkimai '{0}' sukurti."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Redaktoriaus pasirinkimai '%(query)s' sukurti."
 
 msgid "Edit"
 msgstr "Redaguoti"
@@ -157,9 +154,9 @@ msgstr "Redaguoti"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacijos nebuvo sukurtos dėl klaidų"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Redaktoriaus pasirinkimai '{0}' atnaujinti."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Redaktoriaus pasirinkimai '%(query)s' atnaujinti."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Rekomendacijos nebuvo išsaugotos dėl klaidų"

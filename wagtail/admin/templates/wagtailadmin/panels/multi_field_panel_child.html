@@ -1,0 +1,17 @@
+{% load wagtailadmin_tags %}
+<div class="{% classnames "w-panel__wrapper" child.classes|join:' ' %}" {% include "wagtailadmin/shared/attrs.html" with attrs=child.attrs %}>
+    {% if child.heading %}
+        {% fragment as label_content %}
+            {{ child.heading }}{% if child.is_required %}<span class="w-required-mark">*</span>{% endif %}
+        {% endfragment %}
+        {% if child.read_only %}
+            <h3 class="w-field__label" id="{{ child.id_for_label }}-label">{{ label_content }}</h3>
+        {% elif child.id_for_label %}
+            <label class="w-field__label" for="{{ child.id_for_label }}" id="{{ child.id_for_label }}-label">{{ label_content }}</label>
+        {% else %}
+            <h3 class="w-field__label">{{ label_content }}</h3>
+        {% endif %}
+    {% endif %}
+
+    {% component child %}
+</div>

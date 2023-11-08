@@ -1,9 +1,5 @@
 {% load i18n wagtailadmin_tags wagtailimages_tags %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/chooser-duplicate-upload.css' %}" type="text/css" />
-{% endblock %}
-
 <section id="tab-upload" class="duplicate-upload w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-upload">
     <p class="help-block help-warning">
         {% icon name='warning' %}
@@ -27,7 +23,12 @@
         </a>
         <form method="POST">
             {% csrf_token %}
-            <a href="{{ cancel_duplicate_upload_action }}" class="use-existing-image button button-longrunning">
+            <a
+                href="{{ cancel_duplicate_upload_action }}"
+                class="use-existing-image button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+            >
                 {% trans "Use existing and delete new" %}
             </a>
         </form>

@@ -5,18 +5,18 @@ ul.listing {
 
 .listing {
   margin-bottom: 2em;
-  color: $color-text-base;
+  color: theme('colors.text-context');
   font-size: 0.95em;
 
   ul {
     list-style-type: none;
+    margin: 0;
     padding-inline-start: 0;
-    // @include unlist();
   }
 
   > li {
     padding: 1em 0;
-    border-bottom: 1px dashed $color-input-border;
+    border-bottom: 1px dashed theme('colors.border-field-default');
   }
 
   h3 {
@@ -38,10 +38,19 @@ ul.listing {
     padding: 0.6em 1em;
   }
 
+  td {
+    vertical-align: top;
+  }
+
+  td.title {
+    padding: 1em;
+    line-height: 2em;
+  }
+
   thead {
     font-size: 1.1em;
-    color: $color-text-base;
-    border-bottom: 1px solid $color-grey-4;
+    color: theme('colors.text-context');
+    border-bottom: 1px solid theme('colors.border-furniture');
 
     th {
       font-size: 0.9em;
@@ -54,16 +63,12 @@ ul.listing {
       border: 0;
     }
 
-    th a {
+    th a.label {
       text-decoration: none;
       color: inherit;
       position: relative;
 
       &.icon:after {
-        opacity: 0.5;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0;
         inset-inline-end: 0;
       }
     }
@@ -72,41 +77,38 @@ ul.listing {
   &.full-width td:first-child,
   &.full-width th:first-child {
     padding-inline-start: 20px;
+    padding-inline-end: 20px;
+
+    input[type='checkbox'] {
+      margin-inline-end: 0;
+    }
   }
 
   &.full-width {
     margin-bottom: -3em; // this negates the padding added to the bottom of .content
   }
 
-  &.full-width th {
-    background-color: $color-thead-bg;
-  }
-
   .table-headers {
-    border-bottom: 1px solid $color-grey-4;
+    border-bottom: 1px solid theme('colors.border-furniture');
   }
 
   tbody {
-    border-bottom: 1px dashed $color-input-border;
+    border-bottom: 1px dashed theme('colors.border-field-default');
 
     tr {
-      border-top: 1px dashed $color-input-border;
+      border-top: 1px dashed theme('colors.border-field-default');
 
       &:first-child {
-        border-top: 1px dashed $color-input-border;
+        border-top: 1px dashed theme('colors.border-field-default');
       }
 
       &:hover {
-        background-color: #fcfcfc;
+        background-color: theme('colors.white-10');
       }
     }
 
     tr.selected {
-      background-color: #c8eae9;
-
-      &:hover {
-        background-color: #b5e3e2;
-      }
+      background-color: theme('colors.text-highlight');
     }
   }
 
@@ -115,26 +117,42 @@ ul.listing {
   }
 
   &.chooser {
+    tbody .parent-page {
+      font-size: 1.15em;
+      background-color: theme('colors.border-furniture');
+    }
+
+    tbody .parent-page .title {
+      a {
+        display: inline-block;
+      }
+
+      .w-status--label {
+        border: 1px solid;
+      }
+    }
+
     tbody .title a {
       @include transition(none);
       display: block;
     }
 
     tbody tr:hover {
-      background-color: $color-teal;
-      color: $color-white;
+      background-color: theme('colors.surface-button-hover');
+      color: theme('colors.text-button');
 
       .title a,
-      .title a:hover {
-        color: $color-white;
+      .title a:hover,
+      .title label {
+        color: theme('colors.text-button');
       }
 
       .parent a {
-        color: $color-white;
+        color: theme('colors.text-button');
       }
 
-      .status-tag {
-        border-color: $color-white;
+      .w-status {
+        border-color: theme('colors.text-button');
       }
     }
 
@@ -154,7 +172,7 @@ ul.listing {
         cursor: not-allowed;
       }
 
-      .status-tag {
+      .w-status {
         border-color: inherit;
       }
     }
@@ -193,11 +211,10 @@ ul.listing {
 
     .title-wrapper,
     h2 {
+      @apply w-label-1;
+      display: inline;
       margin: 0;
-      font-size: 1.15em;
-      font-weight: 600;
-      color: $color-text-base;
-      line-height: 1.5em;
+      vertical-align: middle;
 
       a {
         color: inherit;
@@ -205,17 +222,21 @@ ul.listing {
 
         // stylelint-disable max-nesting-depth
         &:hover {
-          color: $color-link;
+          color: theme('colors.text-link-default');
         }
       }
+    }
+
+    .icon.initial {
+      margin: 3px 0.3em 0 0;
+      vertical-align: top;
     }
   }
 
   .actions {
-    @include clearfix();
-    margin-top: 0.8em;
-    margin-bottom: -0.5em;
+    float: right;
     font-size: 0.8rem;
+    margin: 0;
 
     a {
       text-decoration: none;
@@ -224,9 +245,23 @@ ul.listing {
     > li {
       float: left;
       padding: 0 0.5em 0 0;
-      margin: 0 0 0.5em;
+      vertical-align: middle;
+    }
+  }
 
-      // line-height: 1em;
+  &--inline-actions td.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .title-wrapper {
+      margin-inline-end: 2.5em;
+    }
+
+    .w-status {
+      margin: 0;
     }
   }
 
@@ -234,27 +269,14 @@ ul.listing {
     display: inline-block;
     margin-top: 0;
     vertical-align: inherit;
-  }
 
-  .button-secondary {
-    border-color: $color-grey-3;
-    background: $color-white;
-
-    &.no:hover {
-      border-color: $color-button-no-hover;
-      background-color: $color-button-no-hover;
-      color: $color-white;
+    li {
+      margin-bottom: 0;
     }
 
-    &:hover {
-      border-color: $color-teal;
-      background-color: $color-teal;
+    .button {
+      vertical-align: inherit;
     }
-  }
-
-  // stylelint-disable-next-line no-duplicate-selectors
-  .button-secondary {
-    background-color: $color-white;
   }
 
   .moderate-actions form {
@@ -266,36 +288,37 @@ ul.listing {
   .no-children {
     padding: 0;
 
-    &:hover {
-      background-color: $color-grey-5;
-    }
-
     a {
       display: block;
-      padding: 2em 0;
+      padding: 0;
     }
   }
 
   .children a {
-    color: $color-teal;
+    color: theme('colors.text-button-outline-default');
     display: block;
+    text-align: center;
 
-    &:before {
-      font-size: 3rem;
+    .icon {
+      width: 3rem;
+      height: 3rem;
     }
   }
 
   .no-children a {
-    color: $color-grey-3;
+    color: theme('colors.text-button-outline-default');
     display: block;
+    text-align: center;
+    line-height: 3rem;
 
-    &:before {
-      font-size: 1.5rem;
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     &:hover,
     &:focus {
-      color: $color-teal;
+      color: theme('colors.text-button-outline-default');
     }
 
     &:focus {
@@ -303,50 +326,39 @@ ul.listing {
     }
   }
 
-  &.small .children a:before {
-    font-size: 30px;
+  &.small .children a .icon {
+    width: 30px;
+    height: 30px;
   }
 
   th.ord {
     text-align: center;
 
     .icon {
-      width: 15px;
-      height: 18px;
+      width: 1rem;
+      height: 1rem;
       vertical-align: middle;
-
-      &::before {
-        margin-inline-end: 2px;
-      }
+      margin-inline-end: 2px;
     }
 
     &--active a,
     a:hover {
-      color: $color-teal;
-    }
-
-    &--active .icon {
-      opacity: 1;
+      color: theme('colors.text-button-outline-default');
     }
   }
 
   .handle {
     cursor: move;
     width: 20px;
+    color: theme('colors.icon-secondary');
 
-    &:before {
-      font-size: 20px;
-      color: $color-grey-3;
-      width: 1em;
-    }
-
-    &:hover:before {
-      color: $color-text-base;
+    &:hover {
+      color: theme('colors.icon-secondary-hover');
     }
   }
 
   .ui-sortable-helper {
-    border: 1px dashed $color-input-border;
+    border: 1px dashed theme('colors.border-field-default');
     border-width: 1px 0;
 
     td {
@@ -359,19 +371,6 @@ ul.listing {
     }
   }
 
-  .dropzone {
-    height: 80px;
-    background-color: $color-grey-1;
-
-    &:hover {
-      background-color: $color-grey-1;
-    }
-
-    td {
-      padding: 0;
-    }
-  }
-
   table .no-results-message {
     padding-inline-start: 20px;
   }
@@ -380,64 +379,14 @@ ul.listing {
     opacity: 0.7;
   }
 
-  .index {
-    background-color: $color-grey-4;
-
-    .title .title-wrapper {
-      font-size: 1.2em;
-      opacity: 1;
-
-      a {
-        @include transition(opacity 0.2s ease);
-      }
-
-      a:hover {
-        opacity: 0.7;
-      }
-    }
-
-    .actions {
-      margin-top: 1em;
-    }
-
-    .button {
-      background-color: $color-white;
-      color: $color-teal;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-        border-color: $color-teal-darker;
-      }
-
-      &:active {
-        color: $color-white;
-        background: #333;
-        border-color: #333;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
-
-        &:active {
-          color: $color-white;
-          background: #484848;
-          border-color: #333;
-        }
-      }
-    }
-  }
-
-  .indicator {
-    margin-inline-end: 0;
-    font-size: 1em;
-    opacity: 0.7;
+  .w-status {
+    margin: 0;
+    margin-inline: 0;
   }
 
   &.images img {
     @include transition(border-color 0.2s ease);
-    border: 3px solid $color-white;
+    border: 3px solid theme('colors.surface-page');
   }
 }
 
@@ -451,7 +400,7 @@ ul.listing {
 
 // stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
-  border-top: 1px dashed $color-input-border;
+  border-top: 1px dashed theme('colors.border-field-default');
   margin-bottom: 2em;
 }
 
@@ -459,63 +408,32 @@ table.listing {
   width: 100%;
 }
 
-// explorer specific tweaks
-.page-explorer .listing {
-  position: relative;
+// Use consistent spacing to the left and right of the header.
+.page-explorer .w-slim-header {
+  @include media-breakpoint-up(md) {
+    padding-inline-end: theme('spacing.6');
+  }
+}
 
-  .index {
-    color: $color-white;
-    background-color: $color-header-bg;
+.page-explorer .w-breadcrumbs {
+  li[hidden] ~ li:last-child,
+  li:only-child {
+    a {
+      font-size: theme('fontSize.18');
+      font-weight: theme('fontWeight.extrabold');
 
-    td {
-      padding-top: 1.5em;
-      padding-bottom: 1.5em;
-    }
-
-    .privacy-indicator {
-      font-size: 1em;
-      opacity: 1;
-      position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 10%;
-      inset-inline-end: 10%;
-      top: 2em;
-    }
-
-    .locked-indicator {
-      font-size: 0.8em;
-    }
-
-    .title {
-      h2 {
-        color: $color-white;
-        font-size: 1.8em;
-        font-weight: 500;
-
-        a:hover {
-          color: $color-white;
-        }
-      }
-    }
-
-    .button {
-      background-color: transparent;
-      color: $color-white;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
+      @include media-breakpoint-up(md) {
+        font-size: theme('fontSize.22');
       }
     }
   }
+}
 
-  .table-headers {
+.page-explorer .listing {
+  position: relative;
+
+  .table-headers,
+  thead tr {
     height: 35px;
 
     .title {
@@ -555,14 +473,14 @@ table.listing {
 
 .listing.full-width + .pagination {
   margin-top: 3em;
-  border-top: 1px dashed #d9d9d9;
+  border-top: 1px dashed theme('colors.border-furniture');
   padding: 2em 50px 0;
 }
 
 // listing filters
 .listing-filter {
   @include clearfix();
-  background-color: $color-grey-5;
+  background-color: theme('colors.surface-header');
   border-width: 1px 0;
   margin: 3em 0;
 }
@@ -572,7 +490,7 @@ table.listing {
   font-size: 0.95em;
   padding: 1em;
   margin: 0 1em 0 0;
-  background-color: $color-grey-4;
+  background-color: theme('colors.border-furniture');
 }
 
 .filter-options {
@@ -598,22 +516,22 @@ table.listing {
 @include media-breakpoint-up(sm) {
   .listing {
     &.horiz {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      align-items: flex-end;
+      justify-items: initial;
     }
 
     &.images {
-      border: 1px solid $color-grey-4;
-      border-width: 0 0 0 1px;
+      border: 0;
 
       > li {
         padding: 1.5em;
-        width: 200px;
+        width: auto;
         height: auto;
         text-align: center;
         margin-top: -1px;
-        border: 1px solid $color-grey-4;
-        border-width: 1px 1px 1px 0;
+        border: 0;
 
         .bulk-action-checkbox {
           float: left;
@@ -644,26 +562,11 @@ table.listing {
         }
 
         &:hover {
-          background-color: #fdfdfd;
-
           img {
-            border-color: $color-teal;
+            border-color: theme('colors.border-button-outline-default');
           }
         }
       }
-    }
-
-    .actions {
-      visibility: hidden;
-    }
-
-    .index .actions {
-      visibility: visible;
-    }
-
-    td:hover .actions,
-    td:focus-within .actions {
-      visibility: visible;
     }
 
     .bulk-action-checkbox {
@@ -700,15 +603,15 @@ table.listing {
     }
 
     tr:hover .children {
-      background-color: $color-teal;
+      background-color: theme('colors.text-button-outline-default');
 
-      a:before {
-        color: $color-white;
+      .icon {
+        color: theme('colors.surface-page');
       }
     }
 
     td.children:hover {
-      background-color: $color-teal-darker;
+      background-color: theme('colors.text-button-outline-default');
     }
 
     table .no-results-message {
@@ -717,7 +620,15 @@ table.listing {
 
     &.full-width td:first-child,
     &.full-width th:first-child {
-      padding-inline-start: 25px;
+      padding-inline-start: 30px;
+      padding-inline-end: 30px;
+    }
+
+    // Reduce padding on sort order controls so total width matches previous state
+    &.full-width td.ord,
+    &.full-width th.ord {
+      padding-inline-end: 20px;
+      padding-inline-start: 20px;
     }
 
     &.full-width .divider td {
@@ -754,33 +665,17 @@ table.listing {
 
 // Ordering
 td.ord {
+  // Align with the row's title text, and the column's label.
+  vertical-align: top;
+
   .handle {
-    // Align with the row's title text, and the column's label.
-    margin-top: -28px;
-    margin-inline-start: 13px;
+    width: 100%;
+    text-align: center;
   }
 }
 
 table.listing {
   th.ordered {
-    color: $color-teal;
-
-    &.ascending {
-      &:before {
-        content: '\25B2'; // up arrow
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-      }
-    }
-
-    &.descending {
-      &:before {
-        content: '\25BC'; // down arrow
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-      }
-    }
+    color: theme('colors.text-link-default');
   }
 }

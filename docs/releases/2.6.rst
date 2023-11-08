@@ -2,6 +2,8 @@
 Wagtail 2.6 release notes
 =========================
 
+*August 1, 2019*
+
 .. contents::
     :local:
     :depth: 1
@@ -20,7 +22,7 @@ Wagtail isn't fully compliant just yet, but we have made many changes to the adm
 Here are changes which should make Wagtail more usable for all users regardless of abilities:
 
 * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
-* Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
+* Improved text colour contrast across the whole admin (Beth Menzies, Katie Locke)
 * Added consistent focus outline styles across the whole admin (Thibaud Colas)
 * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
 
@@ -71,7 +73,7 @@ Other features
 * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
 * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
 * Improve performance of Pages for Moderation panel (Fidel Ramos)
-* Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
+* Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behaviour (Karl Hobley)
 * Added ``Page.with_content_json()``, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
 * Added ``construct_settings_menu`` hook (Jordan Bauer, Quadric)
 * Fixed compatibility of date / time choosers with wagtail-react-streamfield (Mike Hearn)

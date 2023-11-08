@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,20 +34,17 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "รูปที่สามารถใช้ได้: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "รูปนี้ใช้ไม่ได้ รูปที่สามารถใช้ได้: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "รูปนี้ใช้ไม่ได้ รูปที่สามารถใช้ได้: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "ไม่ถูกต้อง %s รูปภาพ"
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "ไฟล์นี้ใหญ่เกินไป (%(file_size)s). ขนาดไฟล์สูงสุด %(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "ไฟล์นี้ใหญ่เกินไป (%%s). ขนาดไฟล์สูงสุด %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "ไฟล์นี้ใหญ่เกินไป ขนาดไฟล์สูงสุด %s"
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "ไฟล์นี้ใหญ่เกินไป ขนาดไฟล์สูงสุด %(max_filesize)s"
 
 msgid "Full width"
 msgstr "ความกว้างแบบเต็ม"
@@ -144,31 +141,11 @@ msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Choose an image"
-msgstr "เลือกรูปภาพ"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Upload"
-msgstr "อัพโหลด"
-
 msgid "Popular tags"
 msgstr "แท็กซ์ที่เป็นที่นิยม"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
+msgid "New"
+msgstr "ใหม่"
 
 msgid "Latest images"
 msgstr "รูปภาพล่าสุด"
@@ -178,9 +155,6 @@ msgstr "เลือกรูปแบบ"
 
 msgid "Insert image"
 msgstr "ใส่รูปภาพ"
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด...."
 
 msgid "Change image file:"
 msgstr "เปลี่ยนแฟ้มรูปภาพ:"
@@ -194,15 +168,15 @@ msgstr "เพิ่มรูปภาพ"
 msgid "Save"
 msgstr "เซฟ"
 
-msgid "Delete image"
-msgstr "ลบรูปภาพ"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "รูปภาพกำลังแก้ไข %(title)s"
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
+
+msgid "Delete image"
+msgstr "ลบรูปภาพ"
 
 msgid "URL Generator"
 msgstr "โปรแกรมก่อกำเนิดURL"
@@ -239,28 +213,25 @@ msgstr "การใช้"
 msgid "Images"
 msgstr "รูปภาพ"
 
-msgid "Clear choice"
-msgstr "ทางเลือกที่ชัดเจน"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย,ไม่มีรูปภาพที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a href="
-"\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a "
+"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a href=\"%(wagtailimages_add_image_url)s"
-"\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a "
+"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 msgid "Generating URL"
 msgstr "ที่ก่อให้เกิด URL"
@@ -277,28 +248,6 @@ msgid ""
 msgstr ""
 "ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,"
 "มันจะได้อยู่ในหน้าจอ"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "การใช้ของ%(title)s"
-
-msgid "Usage of"
-msgstr "การใช้งานของ"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
-
-msgid "Parent"
-msgstr "หน้าแรก,หน้าหลัก"
-
-msgid "Type"
-msgstr "แบบ,รูปแบบ"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Edit this page"
-msgstr "แก้ไขหน้านี้"
 
 msgid "Add multiple images"
 msgstr "แก้ไขหลายรูปภาพ"
@@ -341,12 +290,24 @@ msgstr "เพิ่มการอนุญาตรูปภาพ"
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "Upload"
+msgstr "อัพโหลด"
+
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด...."
+
+msgid "Choose an image"
+msgstr "เลือกรูปภาพ"
+
+msgid "Edit this image"
+msgstr "แก้ไขรูปภาพนี้"
+
 msgid "Search images"
 msgstr "ค้นหารูปภาพ"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "รูปภาพ'{0}'ถูกอัพเดทแล้ว"
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "รูปภาพ'%(image_title)s'ถูกอัพเดทแล้ว"
 
 msgid "Edit again"
 msgstr "แก้ไขอีกครั้ง"
@@ -359,13 +320,13 @@ msgid ""
 "the image."
 msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "รูปภาพ'{0}'ถูกลบแล้ว"
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "รูปภาพ'%(image_title)s'ถูกลบแล้ว"
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "รูปภาพ'{0}' ถูกเพิ่มเรียบร้อยแล้ว"
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "รูปภาพ'%(image_title)s' ถูกเพิ่มเรียบร้อยแล้ว"
 
 msgid "The image could not be created due to errors."
 msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
@@ -380,6 +341,3 @@ msgstr[0] "%(count)s รูปภาพ"
 
 msgid "Change image"
 msgstr "เปลี่ยนรูปภาพ"
-
-msgid "Edit this image"
-msgstr "แก้ไขรูปภาพนี้"

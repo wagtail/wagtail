@@ -1,0 +1,39 @@
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    {% test_page_is_public page as is_public %}
+
+    {# The swap between public and private text is done using JS inside of privacy-switch.js when the response from the modal comes back #}
+    <div class="{% if not is_public %}w-hidden{% endif %}" data-privacy-sidebar-public>
+        {% trans 'Page visibility: ' as screen_reader_title_prefix %}
+        {% trans 'Visible to all' as title %}
+        {% trans 'Once live anyone can view' as help_text %}
+        {% with icon_name='view' %}
+            {{ block.super }}
+        {% endwith %}
+    </div>
+    <div class="{% if is_public %}w-hidden{% endif %}" data-privacy-sidebar-private>
+        {% trans 'Private' as title %}
+        {% trans 'Not visible to the public' as help_text %}
+        {% with icon_name='no-view' %}
+            {{ block.super }}
+        {% endwith %}
+    </div>
+    {% trans 'Change privacy' as set_privacy_title %}
+    {% trans 'Choose who can view the live version of this page' as set_privacy_message %}
+    {% trans 'Privacy changes apply to all children of this page too.' as privacy_message_text %}
+    {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}
+    {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=set_privacy_title subtitle=set_privacy_message message_status='warning' message_heading=privacy_message_text %}
+    {% enddialog %}
+{% endblock %}
+
+{% block action %}
+    {% page_permissions page as page_perms %}
+    {% if page.id and page_perms.can_set_view_restrictions %}
+        {% trans 'Change privacy' as set_privacy_title %}
+        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-text-link-default hover:w-text-text-link-hover w-inline-flex w-justify-center w-transition' dialog_id='set-privacy' text=set_privacy_title %}
+    {% else %}
+        {# Empty actions block because of lack of permissions #}
+    {% endif %}
+{% endblock %}

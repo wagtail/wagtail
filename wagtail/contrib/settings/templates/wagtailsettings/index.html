@@ -4,7 +4,8 @@
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title="Settings" icon="cogs" %}
+    {% trans "Settings" as settings_str %}
+    {% include "wagtailadmin/shared/header.html" with title=settings_str icon="cogs" %}
 
     <div class="nice-padding">
         <ul class="listing">

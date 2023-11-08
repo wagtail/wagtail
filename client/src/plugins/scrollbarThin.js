@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-extraneous-dependencies
 const plugin = require('tailwindcss/plugin');
 
 module.exports = plugin(({ addComponents, theme }) => {
@@ -6,8 +6,8 @@ module.exports = plugin(({ addComponents, theme }) => {
     // Scrollbar styling for firefox
     // https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
     '.scrollbar-thin': {
-      'scrollbarColor': `${theme('colors.grey.100')} ${theme(
-        'colors.white.DEFAULT',
+      'scrollbarColor': `${theme('colors.border-furniture')} ${theme(
+        'colors.surface-page',
       )}`,
       'scrollbarWidth': 'thin',
 
@@ -22,7 +22,7 @@ module.exports = plugin(({ addComponents, theme }) => {
       },
       '&::-webkit-scrollbar-thumb': {
         // Hide the scrollbar arrows on windows
-        backgroundColor: theme('colors.grey.200'),
+        backgroundColor: theme('colors.border-field-default'),
         borderRadius: theme('borderRadius.sm'),
       },
       '&::-webkit-scrollbar-track': {

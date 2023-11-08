@@ -6,6 +6,7 @@
     width: 30px;
     height: 30px;
     border-radius: 15px;
+    object-fit: cover;
   }
 
   &__author,
@@ -15,19 +16,18 @@
     ); // Leave room for actions to the right and avatar to the left
     margin: 0;
     margin-inline-start: 45px;
-    font-size: 11px;
-    line-height: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    color: theme('colors.text-label');
   }
 
   &__date {
-    color: $color-grey-25;
+    color: theme('colors.text-meta');
   }
 
   &__actions {
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
   }
 
@@ -37,10 +37,6 @@
     border-radius: 5px;
     width: 30px;
     height: 30px;
-
-    &:hover {
-      background-color: $color-grey-7;
-    }
 
     > button,
     > details > summary {
@@ -56,14 +52,10 @@
       background-color: unset;
       border: unset;
       padding: 0;
-      box-sizing: border-box;
 
       svg {
         position: absolute;
         top: 7.5px;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        left: 7.5px;
         inset-inline-start: 7.5px;
         width: 15px;
         height: 15px;
@@ -79,9 +71,6 @@
 
       > div {
         position: absolute;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0;
         inset-inline-end: 0;
         top: 35px;
       }
@@ -90,19 +79,14 @@
     &--more {
       > button,
       > details > summary {
-        color: #767676;
-
-        // stylelint-disable-next-line max-nesting-depth
-        &:hover {
-          color: $color-grey-25;
-        }
+        color: theme('colors.text-meta');
       }
     }
   }
 
   &__more-actions {
-    background-color: #333;
-    color: $color-grey-5;
+    background-color: theme('colors.surface-menus');
+    color: theme('colors.text-label-menus-default');
     position: absolute;
     z-index: 1000;
     list-style: none;
@@ -112,13 +96,10 @@
     &:before {
       content: '';
       border: 6px solid transparent;
-      border-bottom-color: #333;
+      border-bottom-color: theme('colors.surface-menus');
       display: block;
       position: absolute;
       bottom: 100%;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 9px;
       inset-inline-end: 9px;
     }
 
@@ -126,16 +107,12 @@
       display: block;
       background: none;
       border: 0;
-      color: #fff;
+      color: theme('colors.text-label-menus-default');
       padding: 5px 10px;
       font-size: 13px;
       width: 100px;
       text-align: start;
-
-      &:hover {
-        color: #aaa;
-        cursor: pointer;
-      }
+      cursor: pointer;
     }
   }
 }

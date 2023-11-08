@@ -1,0 +1,28 @@
+.w-form-width {
+  @include max-form-width();
+}
+
+@include media-breakpoint-up(md) {
+  .side-panel-open,
+  .minimap-open {
+    .tab-content {
+      width: theme('width.[2/3]');
+    }
+  }
+
+  .side-panel-open.minimap-open {
+    .tab-content {
+      width: theme('width.[3/5]');
+    }
+  }
+}
+
+.fields {
+  // Apply the desired form width for legacy `fields` container.
+  max-width: $max-form-width;
+
+  // Remove any spacing in legacy fields markup.
+  > li {
+    padding: 0;
+  }
+}

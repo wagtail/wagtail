@@ -1,4 +1,5 @@
 import uuid
+from typing import Dict
 
 from django.apps import apps
 from django.conf import settings
@@ -10,13 +11,12 @@ from django.utils import translation
 from django.utils.encoding import force_str
 from modelcluster.fields import ParentalKey
 
+from wagtail.actions.copy_for_translation import CopyForTranslationAction
 from wagtail.coreutils import (
     get_content_languages,
     get_supported_content_language_variant,
 )
 from wagtail.signals import pre_validate_delete
-
-from .copying import _copy
 
 
 def pk(obj):
@@ -82,11 +82,96 @@ class Locale(models.Model):
     def language_code_is_valid(self):
         return self.language_code in get_content_languages()
 
-    def get_display_name(self):
-        return get_content_languages().get(self.language_code)
+    def get_display_name(self) -> str:
+        try:
+            return get_content_languages()[self.language_code]
+        except KeyError:
+            pass
+        try:
+            return self.language_name
+        except KeyError:
+            pass
+
+        return self.language_code
 
     def __str__(self):
-        return force_str(self.get_display_name() or self.language_code)
+        return force_str(self.get_display_name())
+
+    def _get_language_info(self) -> Dict[str, str]:
+        return translation.get_language_info(self.language_code)
+
+    @property
+    def language_info(self):
+        return translation.get_language_info(self.language_code)
+
+    @property
+    def language_name(self):
+        """
+        Uses data from ``django.conf.locale`` to return the language name in
+        English. For example, if the object's ``language_code`` were ``"fr"``,
+        the return value would be ``"French"``.
+
+        Raises ``KeyError`` if ``django.conf.locale`` has no information
+        for the object's ``language_code`` value.
+        """
+        return self.language_info["name"]
+
+    @property
+    def language_name_local(self):
+        """
+        Uses data from ``django.conf.locale`` to return the language name in
+        the language itself. For example, if the ``language_code`` were
+        ``"fr"`` (French), the return value would be ``"français"``.
+
+        Raises ``KeyError`` if ``django.conf.locale`` has no information
+        for the object's ``language_code`` value.
+        """
+        return self.language_info["name_local"]
+
+    @property
+    def language_name_localized(self):
+        """
+        Uses data from ``django.conf.locale`` to return the language name in
+        the currently active language. For example, if ``language_code`` were
+        ``"fr"`` (French), and the active language were ``"da"`` (Danish), the
+        return value would be ``"Fransk"``.
+
+        Raises ``KeyError`` if ``django.conf.locale`` has no information
+        for the object's ``language_code`` value.
+
+        """
+        return translation.gettext(self.language_name)
+
+    @property
+    def is_bidi(self) -> bool:
+        """
+        Returns a boolean indicating whether the language is bi-directional.
+        """
+        return self.language_code in settings.LANGUAGES_BIDI
+
+    @property
+    def is_default(self) -> bool:
+        """
+        Returns a boolean indicating whether this object is the default locale.
+        """
+        try:
+            return self.language_code == get_supported_content_language_variant(
+                settings.LANGUAGE_CODE
+            )
+        except LookupError:
+            return False
+
+    @property
+    def is_active(self) -> bool:
+        """
+        Returns a boolean indicating whether this object is the currently active locale.
+        """
+        try:
+            return self.language_code == get_supported_content_language_variant(
+                translation.get_language()
+            )
+        except LookupError:
+            return self.is_default
 
 
 class TranslatableMixin(models.Model):
@@ -94,6 +179,7 @@ class TranslatableMixin(models.Model):
     locale = models.ForeignKey(
         Locale, on_delete=models.PROTECT, related_name="+", editable=False
     )
+    locale.wagtail_reference_index_ignore = True
 
     class Meta:
         abstract = True
@@ -101,7 +187,7 @@ class TranslatableMixin(models.Model):
 
     @classmethod
     def check(cls, **kwargs):
-        errors = super(TranslatableMixin, cls).check(**kwargs)
+        errors = super().check(**kwargs)
         is_translation_model = cls.get_translation_model() is cls
 
         # Raise error if subclass has removed the unique_together constraint
@@ -113,7 +199,7 @@ class TranslatableMixin(models.Model):
         ):
             errors.append(
                 checks.Error(
-                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields".format(
+                    "{}.{} is missing a unique_together constraint for the translation key and locale fields".format(
                         cls._meta.app_label, cls.__name__
                     ),
                     hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(
@@ -132,7 +218,31 @@ class TranslatableMixin(models.Model):
         Finds the translation in the current active language.
 
         If there is no translation in the active language, self is returned.
+
+        Note: This will not return the translation if it is in draft.
+        If you want to include drafts, use the ``.localized_draft`` attribute instead.
         """
+        from wagtail.models import DraftStateMixin
+
+        localized = self.localized_draft
+        if isinstance(self, DraftStateMixin) and not localized.live:
+            return self
+
+        return localized
+
+    @property
+    def localized_draft(self):
+        """
+        Finds the translation in the current active language.
+
+        If there is no translation in the active language, self is returned.
+
+        Note: This will return translations that are in draft. If you want to exclude
+        these, use the ``.localized`` attribute.
+        """
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            return self
+
         try:
             locale = Locale.get_active()
         except (LookupError, Locale.DoesNotExist):
@@ -183,22 +293,17 @@ class TranslatableMixin(models.Model):
             self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
         )
 
-    def copy_for_translation(self, locale):
+    def copy_for_translation(self, locale, exclude_fields=None):
         """
         Creates a copy of this instance with the specified locale.
 
         Note that the copy is initially unsaved.
         """
-        translated, child_object_map = _copy(self)
-        translated.locale = locale
-
-        # Update locale on any translatable child objects as well
-        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
-        for (_child_relation, _old_pk), child_object in child_object_map.items():
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
-
-        return translated
+        return CopyForTranslationAction(
+            self,
+            locale,
+            exclude_fields=exclude_fields,
+        ).execute()
 
     def get_default_locale(self):
         """

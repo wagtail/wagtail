@@ -1,22 +1,50 @@
+from django import forms
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.panels import (
+    FieldPanel,
+    ObjectList,
+    PublishingPanel,
+    TabbedInterface,
+)
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
+from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+from wagtail.test.testapp.models import (
+    DraftStateModel,
+    FullFeaturedSnippet,
+    ModeratedModel,
+    RevisableChildModel,
+    RevisableModel,
+    VariousOnDeleteModel,
+)
+from wagtail.test.testapp.views import (
+    JSONModelViewSetGroup,
+    MiscellaneousViewSetGroup,
+    SearchTestModelViewSet,
+    ToyViewSetGroup,
+    animated_advert_chooser_viewset,
+)
 
 from .forms import FavouriteColourForm
 
 
 # Register one hook using decorators...
-@hooks.register("insert_editor_css")
+@hooks.register("insert_global_admin_css")
 def editor_css():
     return """<link rel="stylesheet" href="/path/to/my/custom.css">"""
 
@@ -30,7 +58,7 @@ hooks.register("insert_editor_js", editor_js)
 
 
 def block_googlebot(page, request, serve_args, serve_kwargs):
-    if request.META.get("HTTP_USER_AGENT") == "GoogleBot":
+    if request.headers.get("user-agent") == "GoogleBot":
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
 
@@ -47,7 +75,8 @@ def register_kittens_menu_item():
     return KittensMenuItem(
         "Kittens!",
         "http://www.tomroyal.com/teaandkittens/",
-        classnames="kitten--test",
+        classname="kitten--test",
+        name="kittens",
         icon_name="kitten",
         attrs={"data-is-custom": "true"},
         order=10000,
@@ -68,7 +97,7 @@ def register_custom_search_area():
     return MyCustomSearchArea(
         "My Search",
         "/customsearch/",
-        classnames="search--custom-class",
+        classname="search--custom-class",
         icon_name="custom",
         attrs={"is-custom": "true"},
         order=10000,
@@ -161,18 +190,6 @@ def register_relax_menu_item(menu_items, request, context):
     menu_items.append(RelaxMenuItem())
 
 
-@hooks.register("construct_page_listing_buttons")
-def register_page_listing_button_item(
-    buttons, page, page_perms, is_parent=False, context=None
-):
-    item = Button(
-        label="Dummy Button",
-        url="/dummy-button",
-        priority=10,
-    )
-    buttons.append(item)
-
-
 @hooks.register("construct_snippet_listing_buttons")
 def register_snippet_listing_button_item(buttons, snippet, user, context=None):
     item = Button(
@@ -213,7 +230,7 @@ class BrokenLinksSummaryItem(SummaryItem):
     order = 100
 
     def render_html(self, parent_context):
-        return mark_safe("<p>0 broken links</p>")
+        return mark_safe("<li>0 broken links</li>")
 
     class Media:
         css = {"all": ["testapp/css/broken-links.css"]}
@@ -222,3 +239,159 @@ class BrokenLinksSummaryItem(SummaryItem):
 @hooks.register("construct_homepage_summary_items")
 def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
+
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    return [
+        MiscellaneousViewSetGroup(),
+        JSONModelViewSetGroup(),
+        SearchTestModelViewSet(name="searchtest"),
+    ]
+
+
+@hooks.register("register_admin_viewset")
+def register_toy_viewset():
+    return ToyViewSetGroup()
+
+
+class FullFeaturedSnippetFilterSet(WagtailFilterSet):
+    class Meta:
+        model = FullFeaturedSnippet
+        fields = ["country_code", "some_date"]
+
+
+class FullFeaturedSnippetChooserViewSet(SnippetChooserViewSet):
+    form_fields = ["text", "country_code", "some_number"]
+
+
+class FullFeaturedSnippetViewSet(SnippetViewSet):
+    icon = "cog"
+    admin_url_namespace = "some_namespace"
+    base_url_path = "deep/within/the/admin"
+    chooser_admin_url_namespace = "my_chooser_namespace"
+    chooser_base_url_path = "choose/wisely"
+    chooser_viewset_class = FullFeaturedSnippetChooserViewSet
+    list_per_page = 5
+    chooser_per_page = 15
+    filterset_class = FullFeaturedSnippetFilterSet
+    list_display = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        UpdatedAtColumn(),
+        "modulo_two",
+        BooleanColumn("tristate"),
+    ]
+    list_export = [
+        "text",
+        "country_code",
+        "get_foo_country_code",
+        "some_date",
+        "some_number",
+        "first_published_at",
+    ]
+    export_filename = "all-fullfeatured-snippets"
+    index_template_name = "tests/fullfeaturedsnippet_index.html"
+    ordering = ["text", "-_updated_at", "-pk"]
+    add_to_admin_menu = True
+    menu_label = "Full-Featured MenuItem"  #
+    menu_name = "fullfeatured"
+    # Ensure that the menu item is placed last
+    menu_order = 999999
+    inspect_view_enabled = True
+
+    # TODO: When specific search fields are supported in SQLite FTS (see #10217),
+    # specify search_fields or get_search_fields here
+
+    def get_history_template(self):
+        return "tests/snippet_history.html"
+
+    def get_queryset(self, request):
+        return self.model._default_manager.all().exclude(text__contains="[HIDDEN]")
+
+
+class RevisableModelViewSet(SnippetViewSet):
+    model = RevisableModel
+
+
+class RevisableChildModelViewSet(SnippetViewSet):
+    model = RevisableChildModel
+
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("text")], heading="Main"),
+            ObjectList(
+                [FieldPanel("secret_text", permission="superuser")],
+                heading="Other",
+                help_text="Other panels help text",
+            ),
+        ],
+        help_text="Top-level help text",
+    )
+
+
+class RevisableViewSetGroup(SnippetViewSetGroup):
+    # Works with both classes and instances
+    items = (RevisableModelViewSet, RevisableChildModelViewSet())
+    menu_label = "Revisables"
+    menu_icon = "tasks"
+
+
+class DraftStateModelViewSet(SnippetViewSet):
+    list_filter = ["text", "first_published_at"]
+    search_fields = ["text"]
+    search_backend_name = None
+    add_to_settings_menu = True
+    # Don't use "Draft" as the menu label,
+    # as it may cause incorrect assertion counts in tests
+    menu_label = "Publishables"
+    # Ensure that the menu item is placed first
+    menu_order = -999999
+
+    panels = [
+        FieldPanel("text"),
+        PublishingPanel(),
+    ]
+
+    def get_form_class(self, for_update=False):
+        form_class = super().get_form_class(for_update)
+        if for_update:
+            form_class.base_fields["text"].widget = forms.TextInput()
+        return form_class
+
+
+class ModeratedModelViewSet(SnippetViewSet):
+    model = ModeratedModel
+
+    list_filter = {
+        "text": ["exact", "contains"],
+        "first_published_at": ["exact", "lt", "gt"],
+    }
+
+
+class VariousOnDeleteModelViewSet(SnippetViewSet):
+    model = VariousOnDeleteModel
+    inspect_view_enabled = True
+
+
+register_snippet(FullFeaturedSnippet, viewset=FullFeaturedSnippetViewSet)
+register_snippet(DraftStateModel, viewset=DraftStateModelViewSet)
+# Works with both classes and instances
+register_snippet(ModeratedModelViewSet())
+register_snippet(RevisableViewSetGroup)
+register_snippet(VariousOnDeleteModelViewSet)
+
+
+@hooks.register("register_bulk_action")
+class DisableBulkAction(SnippetBulkAction):
+    template_name = "wagtailadmin/bulk_actions/confirmation/base.html"
+    models = [FullFeaturedSnippet]
+    display_name = "Disable"
+    aria_label = "Disable selected full-featured snippets"
+    action_type = "disable"
+
+
+@hooks.register("register_admin_viewset")
+def register_animated_advert_chooser_viewset():
+    return animated_advert_chooser_viewset

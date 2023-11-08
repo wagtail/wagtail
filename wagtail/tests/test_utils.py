@@ -1,16 +1,25 @@
-# -*- coding: utf-8 -*
+import hashlib
+import pickle
+import unittest
+from io import BytesIO
+from pathlib import Path
+
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
-from django.test import TestCase, override_settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.coreutils import (
+    InvokeViaAttributeShortcut,
     accepts_kwarg,
     camelcase_to_underscore,
     cautious_slugify,
     find_available_slug,
     get_content_languages,
+    get_content_type_label,
     get_dummy_request,
     get_supported_content_language_variant,
     multigetattr,
@@ -18,6 +27,8 @@ from wagtail.coreutils import (
     string_to_ascii,
 )
 from wagtail.models import Page, Site
+from wagtail.utils.file import hash_filelike
+from wagtail.utils.utils import deep_update
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -136,6 +147,53 @@ class TestAcceptsKwarg(TestCase):
         self.assertTrue(accepts_kwarg(func_with_kwargs, "banana"))
 
 
+class TestTargetClass:
+    """
+    Used in TestInvokeViaAttributeShortcut (below)
+    """
+
+    def __init__(self):
+        self.target_method_called_with = []
+
+    def target_method(self, arg):
+        self.target_method_called_with.append(arg)
+
+
+class TestInvokeViaAttributeShortcut(SimpleTestCase):
+    def setUp(self):
+        self.target_object = TestTargetClass()
+        self.test_object = InvokeViaAttributeShortcut(
+            self.target_object, "target_method"
+        )
+
+    def test_basic(self):
+        for value in ("foo", "bar", "baz"):
+            # Use the shortcut to call the underlying method
+            getattr(self.test_object, value)
+            # Confirm that the underlying method was called
+            self.assertIn(value, self.target_object.target_method_called_with)
+
+    def test_pickleability(self):
+        try:
+            pickled = pickle.dumps(self.test_object, -1)
+        except Exception as e:  # noqa: BLE001
+            raise AssertionError(
+                "An error occured when attempting to pickle %r: %s"
+                % (self.test_object, e)
+            )
+        try:
+            self.test_object = pickle.loads(pickled)
+        except Exception as e:  # noqa: BLE001
+            raise AssertionError(
+                "An error occured when attempting to unpickle %r: %s"
+                % (self.test_object, e)
+            )
+
+        # Confirm unpickled object works the same
+        self.target_object = self.test_object.obj
+        self.test_basic()
+
+
 class TestFindAvailableSlug(TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(depth=1)
@@ -242,6 +300,21 @@ class TestGetContentLanguages(TestCase):
                 "The language zh is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.",
             ),
         )
+
+
+def TestGetContentTypeLabel(TestCase):
+    def test_none(self):
+        self.assertEqual(get_content_type_label(None), "Unknown content type")
+
+    def test_valid_content_type(self):
+        page_content_type = ContentType.objects.get_for_model(Page)
+        self.assertEqual(get_content_type_label(page_content_type), "Page")
+
+    def test_stale_content_type(self):
+        stale_content_type = ContentType.objects.create(
+            app_label="fake_app", model="deleted model"
+        )
+        self.assertEqual(get_content_type_label(stale_content_type), "Deleted model")
 
 
 @override_settings(
@@ -405,3 +478,94 @@ class TestGetDummyRequest(TestCase):
 
         request = get_dummy_request(site=site)
         self.assertEqual(request.get_host(), "other.example.com:8888")
+
+
+class TestDeepUpdate(TestCase):
+    def test_deep_update(self):
+        val = {
+            "captain": "picard",
+            "beverage": {
+                "type": "coffee",
+                "temperature": "hot",
+            },
+        }
+
+        deep_update(
+            val,
+            {
+                "beverage": {
+                    "type": "tea",
+                    "variant": "earl grey",
+                },
+                "starship": "enterprise",
+            },
+        )
+
+        self.assertEqual(
+            val,
+            {
+                "captain": "picard",
+                "beverage": {
+                    "type": "tea",
+                    "variant": "earl grey",
+                    "temperature": "hot",
+                },
+                "starship": "enterprise",
+            },
+        )
+
+
+class HashFileLikeTestCase(SimpleTestCase):
+    test_file = Path.cwd() / "LICENSE"
+
+    def test_hashes_io(self):
+        self.assertEqual(
+            hash_filelike(BytesIO(b"test")), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+        )
+
+    def test_hashes_file(self):
+        with self.test_file.open(mode="rb") as f:
+            self.assertEqual(
+                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
+            )
+
+    def test_hashes_file_bytes(self):
+        with self.test_file.open(mode="rb") as f:
+            self.assertEqual(
+                hash_filelike(f), "9e58400061ca660ef7b5c94338a5205627c77eda"
+            )
+
+    def test_hashes_django_uploaded_file(self):
+        """
+        Check Django's file shims can be hashed as-is.
+        `SimpleUploadedFile` inherits the base `UploadedFile`, but is easiest to test against
+        """
+        self.assertEqual(
+            hash_filelike(SimpleUploadedFile("example.txt", b"test")),
+            "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
+        )
+
+    @unittest.skipIf(
+        hasattr(hashlib, "file_digest"),
+        reason="`file_digest` doesn't support this interface",
+    )
+    def test_hashes_large_file(self):
+        class FakeLargeFile:
+            """
+            A class that pretends to be a huge file (~1.3GB)
+            """
+
+            def __init__(self):
+                self.iterations = 5000
+
+            def read(self, bytes):
+                self.iterations -= 1
+                if not self.iterations:
+                    return b""
+
+                return b"A" * bytes
+
+        self.assertEqual(
+            hash_filelike(FakeLargeFile()),
+            "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
+        )

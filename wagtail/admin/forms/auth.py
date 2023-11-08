@@ -13,22 +13,38 @@ class LoginForm(AuthenticationForm):
             attrs={
                 "placeholder": gettext_lazy("Enter password"),
             }
-        )
+        ),
+        strip=False,
     )
 
     remember = forms.BooleanField(required=False)
 
+    error_messages = {
+        **AuthenticationForm.error_messages,
+        "invalid_login": gettext_lazy(
+            "Your %(username_field)s and password didn't match. Please try again."
+        ),
+    }
+
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=request, *args, **kwargs)
-        self.fields["username"].widget.attrs["placeholder"] = (
-            gettext_lazy("Enter your %s") % self.username_field.verbose_name
-        )
+        self.fields["username"].widget.attrs["placeholder"] = gettext_lazy(
+            "Enter your %(username_field_name)s"
+        ) % {"username_field_name": self.username_field.verbose_name}
+        self.fields["username"].widget.attrs["autofocus"] = ""
 
     @property
     def extra_fields(self):
         for field_name in self.fields.keys():
             if field_name not in ["username", "password", "remember"]:
                 yield field_name, self[field_name]
+
+    def get_invalid_login_error(self):
+        return forms.ValidationError(
+            self.error_messages["invalid_login"],
+            code="invalid_login",
+            params={"username_field": self.username_field.verbose_name},
+        )
 
 
 class PasswordResetForm(DjangoPasswordResetForm):
@@ -37,6 +53,12 @@ class PasswordResetForm(DjangoPasswordResetForm):
         max_length=254,
         required=True,
     )
+
+    @property
+    def extra_fields(self):
+        for field_name in self.fields.keys():
+            if field_name not in ["email"]:
+                yield field_name, self[field_name]
 
 
 class PasswordChangeForm(DjangoPasswordChangeForm):

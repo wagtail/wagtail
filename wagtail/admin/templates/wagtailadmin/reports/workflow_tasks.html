@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block actions %}
-    <div class="addbutton">
+    <div>
         <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
     </div>
     {{ block.super }}
@@ -17,7 +17,7 @@
                         {% trans 'Task' %}
                     </th>
                     <th>
-                        {% trans 'Page' %}
+                        {% trans 'Page/Snippet' %}
                     </th>
                     <th>
                         {% trans 'Status' %}
@@ -37,21 +37,19 @@
                             <b>{{ task_state.task }}</b>
                         </td>
                         <td>
-                            {% with task_state.workflow_state.page as page %}
-                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
-                                    {{ page.specific_deferred.get_admin_display_title }}
+                            {% with task_state.workflow_state.content_object as object %}
+                                <a href="{% admin_edit_url object %}">
+                                    {% latest_str object %}
                                 </a>
                                 {% i18n_enabled as show_locale_labels %}
-                                {% if show_locale_labels %}
-                                    {% locale_label_from_id page.locale_id as locale_label %}
-                                    <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                {% if show_locale_labels and object.locale_id %}
+                                    {% locale_label_from_id object.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
                                 {% endif %}
                             {% endwith %}
                         </td>
                         <td>
-                            <div class="status-tag primary">
-                                {{ task_state.get_status_display }}
-                            </div>
+                            {% status task_state.get_status_display classname="w-status--primary" %}
                         </td>
                         <td>{{ task_state.started_at }}</td>
                         <td>{{ task_state.finished_at }}</td>
@@ -60,6 +58,6 @@
             </tbody>
         </table>
     {% else %}
-        <p>{% blocktrans trimmed %}No pages have been submitted for moderation yet{% endblocktrans %}</p>
+        <p>{% trans "No pages/snippets have been submitted for moderation yet" %}</p>
     {% endif %}
 {% endblock %}

@@ -20,18 +20,26 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 3.2, python 3.7, postgres
-# - django 3.2, python 3.8, mysql
-# - django 4.0, python 3.9, sqlite
-# - django 4.0, python 3.9, mysql
-# - django 4.0, python 3.10, postgres, USE_EMAIL_USER_MODEL=yes
-# - django 4.0, python 3.10, postgres, DISABLE_TIMEZONE=yes
-# - django stable/4.0.x, python 3.10, postgres (allow failures)
-# - django main, python 3.10, postgres (allow failures)
-# - elasticsearch 5, django 3.2, python 3.7, sqlite
-# - elasticsearch 6, django 3.2, python 3.7, postgres
-# - elasticsearch 7, django 4.0, python 3.8, postgres
-# - elasticsearch 7, django 4.0, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
+# - django 3.2, python 3.8, postgres:12, parallel
+# - django 3.2, python 3.9, mysql:8.0
+# - django 4.1, python 3.10, sqlite
+# - django 4.2, python 3.11, mysql:8.1, parallel
+# - django 4.1, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 4.2, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
+# - django stable/5.0.x, python 3.10, postgres (allow failures)
+# - django main, python 3.10, postgres:latest, parallel (allow failures)
+# - elasticsearch 7, django 3.2, python 3.8, postgres:latest
+# - opensearch 2, django 4.1, python 3.9, sqlite
+# - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
+
+# Some tests are run in parallel by passing --parallel to runtests.py.
+# When running tests in parallel, some errors cannot be pickled and result in
+# non-helpful tracebacks (see https://code.djangoproject.com/ticket/29023).
+# Thus, we keep one test run without --parallel for each supported database.
+# ElasticSearch tests are not run in parallel as the test suite is not thread-safe.
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
 
 jobs:
   test-sqlite:
@@ -39,83 +47,33 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
-            django: 'Django>=4.0,<4.1'
+          - python: '3.10'
+            django: 'Django>=4.1,<4.2'
 
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .[testing]
+          pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
-          ./runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   test-postgres:
-    runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
-    strategy:
-      matrix:
-        include:
-          - python: '3.7'
-            django: 'Django>=3.2,<3.3'
-            experimental: false
-          - python: '3.10'
-            django: 'Django>=4.0,<4.1'
-            notz: notz
-            experimental: false
-          - python: '3.10'
-            django: 'Django>=4.0,<4.1'
-            experimental: false
-            emailuser: emailuser
-          - python: '3.10'
-            django: 'git+https://github.com/django/django.git@stable/4.0.x#egg=Django'
-            experimental: true
-          - python: '3.10'
-            django: 'git+https://github.com/django/django.git@main#egg=Django'
-            experimental: true
-            install_extras: 'pip uninstall -y django-taggit ; pip install git+https://github.com/jazzband/django-taggit.git@master#egg=django-taggit'
-
-    services:
-      postgres:
-        image: postgres:10.8
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install "psycopg2>=2.6"
-          pip install -e .[testing]
-          pip install "${{ matrix.django }}"
-          ${{ matrix.install_extras }}
-      - name: Test
-        run: |
-          ./runtests.py
-        env:
-          DATABASE_ENGINE: django.db.backends.postgresql
-          DATABASE_HOST: localhost
-          DATABASE_USER: postgres
-          DATABASE_PASS: postgres
-          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
-          DISABLE_TIMEZONE: ${{ matrix.notz }}
-
-  test-mysql:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -124,89 +82,127 @@ jobs:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
             experimental: false
-          - python: '3.9'
-            django: 'Django>=4.0,<4.1'
+            parallel: '--parallel'
+          - python: '3.11'
+            django: 'Django>=4.1,<4.2'
             experimental: false
+            emailuser: emailuser
+            parallel: '--parallel'
+          - python: '3.12'
+            django: 'Django>=4.2,<4.3'
+            postgres: 'postgres:15'
+            notz: notz
+            experimental: false
+            parallel: '--parallel'
+          - python: '3.10'
+            django: 'git+https://github.com/django/django.git@stable/5.0.x#egg=Django'
+            experimental: true
+          - python: '3.10'
+            django: 'git+https://github.com/django/django.git@main#egg=Django'
+            experimental: true
+            postgres: 'postgres:latest'
+            parallel: '--parallel'
+            install_extras: |
+              pip uninstall -y django-taggit
+              pip install \
+                git+https://github.com/laymonage/django-taggit.git@django-5.1#egg=django-taggit
 
     services:
+      postgres:
+        image: ${{ matrix.postgres || 'postgres:12' }}
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "psycopg2>=2.6"
+          pip install -e '.[testing]' --config-settings editable_mode=strict
+          pip install "${{ matrix.django }}"
+          ${{ matrix.install_extras }}
+      - name: Test
+        run: |
+          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
+        env:
+          DATABASE_ENGINE: django.db.backends.postgresql
+          DATABASE_HOST: localhost
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
+  test-mysql:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        include:
+          - python: '3.9'
+            django: 'Django>=3.2,<3.3'
+            experimental: false
+          - python: '3.11'
+            django: 'Django>=4.2,<4.3'
+            experimental: false
+            parallel: '--parallel'
+            mysql: 'mysql:8.1'
+    services:
       mysql:
-        image: mysql:8.0.23
+        image: ${{ matrix.mysql || 'mysql:8.0' }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install "mysqlclient>=1.4,<2"
-          pip install -e .[testing]
+          pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
-          ./runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.mysql
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: root
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
-  # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
-  # but https://github.com/getong/elasticsearch-action does
-  test-sqlite-elasticsearch5:
+  test-sqlite-elasticsearch8:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - python: '3.7'
-            django: 'Django>=3.2,<3.3'
-    steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: getong/elasticsearch-action@v1.2
-        with:
-          elasticsearch version: 5.6.9
-          host port: 9200
-          container port: 9200
-          host node port: 9300
-          node port: 9300
-          discovery type: 'single-node'
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e .[testing]
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=5,<6"
-          pip install certifi
-      - name: Test
-        run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
-        env:
-          DATABASE_ENGINE: django.db.backends.sqlite3
-
-  test-sqlite-elasticsearch7:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - python: '3.9'
-            django: 'Django>=4.0,<4.1'
+          - python: '3.10'
+            django: 'Django>=4.2,<4.3'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -217,7 +213,7 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
       - uses: getong/elasticsearch-action@v1.2
         with:
-          elasticsearch version: 7.6.1
+          elasticsearch version: 8.8.0
           host port: 9200
           container port: 9200
           host node port: 9300
@@ -225,72 +221,28 @@ jobs:
           discovery type: 'single-node'
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .[testing]
+          pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=7,<8"
+          pip install "elasticsearch>=8,<9"
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch8
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
-
-  # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
-  # but https://github.com/elastic/elastic-github-actions does
-  test-postgres-elasticsearch6:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - python: '3.7'
-            django: 'Django>=3.2,<3.3'
-
-    services:
-      postgres:
-        image: postgres:10.8
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: elastic/elastic-github-actions/elasticsearch@master
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
         with:
-          stack-version: 6.8.13
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install "psycopg2>=2.6"
-          pip install -e .[testing]
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=6,<7"
-          pip install certifi
-      - name: Test
-        run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
-        env:
-          DATABASE_ENGINE: django.db.backends.postgresql
-          DATABASE_HOST: localhost
-          DATABASE_USER: postgres
-          DATABASE_PASS: postgres
-          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          name: coverage-data
+          path: .coverage.*
 
   test-postgres-elasticsearch7:
     runs-on: ubuntu-latest
@@ -299,12 +251,14 @@ jobs:
       matrix:
         include:
           - python: '3.8'
-            django: 'Django>=4.0,<4.1'
+            django: 'Django>=3.2,<3.3'
             experimental: false
 
     services:
       postgres:
-        image: postgres:10.8
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -321,23 +275,122 @@ jobs:
           stack-version: 7.6.1
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install "psycopg2>=2.6"
-          pip install -e .[testing]
+          pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
           pip install "elasticsearch>=7,<8"
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
-          DATABASE_PASS: postgres
+          DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
+  test-sqlite-opensearch2:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        include:
+          - python: '3.9'
+            django: 'Django>=4.1,<4.2'
+            experimental: false
+
+    steps:
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - uses: ankane/setup-opensearch@v1
+        with:
+          opensearch-version: 2
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[testing]' --config-settings editable_mode=strict
+          pip install "${{ matrix.django }}"
+          pip install "elasticsearch==7.13.4"
+          pip install certifi
+      - name: Test
+        run: |
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+        env:
+          DATABASE_ENGINE: django.db.backends.sqlite3
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
+  coverage:
+    needs:
+      - test-sqlite
+      - test-postgres
+      - test-mysql
+      - test-sqlite-elasticsearch8
+      - test-postgres-elasticsearch7
+      - test-sqlite-opensearch2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-data
+
+      - name: Combine coverage data
+        run: |
+          coverage combine
+
+      - name: Generate coverage report
+        run: |
+          coverage report -m --skip-covered --skip-empty | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+          coverage html --skip-covered --skip-empty
+
+      - name: Upload HTML report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage_html_report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          flags: backend

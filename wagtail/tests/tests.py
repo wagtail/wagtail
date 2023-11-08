@@ -1,19 +1,38 @@
+import json
+
 from django import template
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.http import HttpRequest
+from django.template import TemplateSyntaxError, VariableDoesNotExist
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
-from wagtail.coreutils import resolve_model_string
+from wagtail.coreutils import (
+    get_dummy_request,
+    make_wagtail_template_fragment_key,
+    resolve_model_string,
+)
 from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models.sites import (
+    SITE_ROOT_PATHS_CACHE_KEY,
+    SITE_ROOT_PATHS_CACHE_VERSION,
+)
+from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        # Clear caches
+        cache.clear()
 
     def test_pageurl_tag(self):
         response = self.client.get("/events/")
@@ -24,7 +43,8 @@ class TestPageUrlTags(TestCase):
         tpl = template.Template(
             """{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>"""
         )
-        result = tpl.render(template.Context({"page": None}))
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": None}))
         self.assertIn('<a href="/fallback/">Fallback</a>', result)
 
     def test_pageurl_with_get_absolute_url_object_fallback(self):
@@ -81,11 +101,30 @@ class TestPageUrlTags(TestCase):
         )
 
         # no 'request' object in context
-        result = tpl.render(template.Context({"page": page}))
+        with self.assertNumQueries(7):
+            result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
         # 'request' object in context, but no 'site' attribute
-        result = tpl.render(template.Context({"page": page, "request": HttpRequest()}))
+        result = tpl.render(
+            template.Context({"page": page, "request": get_dummy_request()})
+        )
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_pageurl_caches(self):
+        page = Page.objects.get(url_path="/home/events/")
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>"""
+        )
+
+        request = get_dummy_request()
+
+        with self.assertNumQueries(8):
+            result = tpl.render(template.Context({"page": page, "request": request}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
@@ -96,10 +135,10 @@ class TestPageUrlTags(TestCase):
         )
 
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
-        result = tpl.render(template.Context({"page": page, "request": request}))
+        with self.assertNumQueries(8):
+            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     def test_bad_pageurl(self):
@@ -137,9 +176,7 @@ class TestPageUrlTags(TestCase):
         # the first site, but is in a different position in the treeself.
         new_christmas_page = Page(title="Christmas", slug="christmas")
         new_home_page.add_child(instance=new_christmas_page)
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         url = slugurl(context=template.Context({"request": request}), slug="christmas")
         self.assertEqual(url, "/christmas/")
 
@@ -152,9 +189,7 @@ class TestPageUrlTags(TestCase):
         second_site = Site.objects.create(
             hostname="site2.example.com", root_page=new_home_page
         )
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug="christmas", context=template.Context({"request": request}))
@@ -166,26 +201,67 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, "/events/")
 
         # 'request' object in context, but no 'site' attribute
-        result = slugurl(template.Context({"request": HttpRequest()}), "events")
+        with self.assertNumQueries(3):
+            result = slugurl(
+                template.Context({"request": get_dummy_request()}), "events"
+            )
         self.assertEqual(result, "/events/")
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
         result = slugurl(template.Context({"request": request}), "events")
         self.assertEqual(result, "/events/")
+
+    def test_fullpageurl(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
+        )
+        page = Page.objects.get(url_path="/home/events/")
+        with self.assertNumQueries(7):
+            result = tpl.render(template.Context({"page": page}))
+        self.assertIn('<a href="http://localhost/events/">Events</a>', result)
+
+    def test_fullpageurl_with_named_url_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": None}))
+        self.assertIn('<a href="/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_absolute_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(
+                template.Context({"page": None, "request": get_dummy_request()})
+            )
+        self.assertIn('<a href="http://localhost/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
+
+    def test_pageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
 
 
 class TestWagtailSiteTag(TestCase):
     fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "localhost"
-        request.META["SERVER_PORT"] = 80
+        request = get_dummy_request(site=Site.objects.first())
 
         tpl = template.Template(
             """{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}"""
@@ -205,6 +281,11 @@ class TestWagtailSiteTag(TestCase):
 class TestSiteRootPathsCache(TestCase):
     fixtures = ["test.json"]
 
+    def get_cached_site_root_paths(self):
+        return cache.get(
+            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
+        )
+
     def test_cache(self):
         """
         This tests that the cache is populated when building URLs
@@ -213,11 +294,11 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set correctly
         self.assertEqual(
-            cache.get("wagtail_site_root_paths"),
+            self.get_cached_site_root_paths(),
             [
                 SiteRootPath(
                     site_id=1,
@@ -228,6 +309,36 @@ class TestSiteRootPathsCache(TestCase):
             ],
         )
 
+    def test_cache_backend_uses_json_serialization(self):
+        """
+        This tests that, even if the cache backend uses JSON serialization,
+        get_site_root_paths() returns a list of SiteRootPath objects.
+        """
+        result = Site.get_site_root_paths()
+
+        self.assertEqual(
+            result,
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
+
+        # Go through JSON (de)serialisation to check that the result is
+        # still a list of named tuples.
+        cache.set(
+            SITE_ROOT_PATHS_CACHE_KEY,
+            json.loads(json.dumps(result)),
+            version=SITE_ROOT_PATHS_CACHE_VERSION,
+        )
+
+        result = Site.get_site_root_paths()
+        self.assertIsInstance(result[0], SiteRootPath)
+
     def test_cache_clears_when_site_saved(self):
         """
         This tests that the cache is cleared whenever a site is saved
@@ -236,16 +347,26 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
 
         # Save the site
         Site.objects.get(is_default_site=True).save()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_deleted(self):
         """
@@ -255,16 +376,26 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
 
         # Delete the site
         Site.objects.get(is_default_site=True).delete()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_root_moves(self):
         """
@@ -295,7 +426,7 @@ class TestSiteRootPathsCache(TestCase):
         default_site.save()
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Move new homepage to root
         new_homepage.move(root_page, pos="last-child")
@@ -323,7 +454,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Change homepage title and slug
         homepage.title = "New home"
@@ -342,7 +473,7 @@ class TestSiteRootPathsCache(TestCase):
         homepage = Page.objects.get(url_path="/home/")
 
         # Warm up the cache by getting the url
-        _ = homepage.url  # noqa
+        _ = homepage.url
 
         # Translate the homepage
         translated_homepage = homepage.copy_for_translation(
@@ -389,7 +520,8 @@ class TestResolveModelString(TestCase):
         self.assertRaises(ValueError, resolve_model_string, "Page")
 
     def test_resolve_from_class_that_isnt_a_model(self):
-        self.assertRaises(ValueError, resolve_model_string, object)
+        model = resolve_model_string(object)
+        self.assertEqual(model, object)
 
     def test_resolve_from_bad_type(self):
         self.assertRaises(ValueError, resolve_model_string, resolve_model_string)
@@ -419,3 +551,257 @@ class TestRichtextTag(TestCase):
             TypeError, "'richtext' template filter received an invalid value"
         ):
             richtext(b"Hello world!")
+
+
+class TestWagtailCacheTag(TestCase):
+    def setUp(self):
+        cache.clear()
+
+    def test_caches(self):
+        request = get_dummy_request()
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailcache 100 test %}{{ foo.bar }}{% endwagtailcache %}"""
+        )
+
+        result = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "foobar"}})
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "baz"}})
+        )
+        self.assertEqual(result2, "foobar")
+
+        self.assertEqual(cache.get(make_template_fragment_key("test")), "foobar")
+
+    def test_caches_on_additional_parameters(self):
+        request = get_dummy_request()
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailcache 100 test foo %}{{ foo.bar }}{% endwagtailcache %}"""
+        )
+
+        result = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "foobar"}})
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "baz"}})
+        )
+        self.assertEqual(result2, "baz")
+
+        self.assertEqual(
+            cache.get(make_template_fragment_key("test", [{"bar": "foobar"}])), "foobar"
+        )
+        self.assertEqual(
+            cache.get(make_template_fragment_key("test", [{"bar": "baz"}])), "baz"
+        )
+
+    def test_skips_cache_in_preview(self):
+        request = get_dummy_request()
+        request.is_preview = True
+
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailcache 100 test %}{{ foo.bar }}{% endwagtailcache %}"""
+        )
+
+        result = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "foobar"}})
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context({"request": request, "foo": {"bar": "baz"}})
+        )
+        self.assertEqual(result2, "baz")
+
+        self.assertIsNone(cache.get(make_template_fragment_key("test")))
+
+    def test_no_request(self):
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailcache 100 test %}{{ foo.bar }}{% endwagtailcache %}"""
+        )
+
+        result = tpl.render(template.Context({"foo": {"bar": "foobar"}}))
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(template.Context({"foo": {"bar": "baz"}}))
+        self.assertEqual(result2, "baz")
+
+        self.assertIsNone(cache.get(make_template_fragment_key("test")))  #
+
+    def test_invalid_usage(self):
+        with self.assertRaises(TemplateSyntaxError) as e:
+            template.Template(
+                """{% load wagtail_cache %}{% wagtailcache 100 %}{{ foo.bar }}{% endwagtailcache %}"""
+            )
+        self.assertEqual(
+            e.exception.args[0], "'wagtailcache' tag requires at least 2 arguments."
+        )
+
+
+class TestWagtailPageCacheTag(TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.page_1 = Page.objects.first()
+        cls.page_2 = Page.objects.all()[2]
+        cls.site = Site.objects.get(hostname="localhost", port=80)
+
+    def test_caches(self):
+        request = get_dummy_request(site=self.site)
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        result = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "foobar"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "baz"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result2, "foobar")
+
+        self.assertEqual(
+            cache.get(
+                make_wagtail_template_fragment_key("test", self.page_1, self.site)
+            ),
+            "foobar",
+        )
+
+    def test_caches_additional_parameters(self):
+        request = get_dummy_request(site=self.site)
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test foo %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        result = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "foobar"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "baz"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result2, "baz")
+
+        self.assertEqual(
+            cache.get(
+                make_wagtail_template_fragment_key(
+                    "test", self.page_1, self.site, [{"bar": "foobar"}]
+                )
+            ),
+            "foobar",
+        )
+        self.assertEqual(
+            cache.get(
+                make_wagtail_template_fragment_key(
+                    "test", self.page_1, self.site, [{"bar": "baz"}]
+                )
+            ),
+            "baz",
+        )
+
+    def test_doesnt_pollute_cache(self):
+        request = get_dummy_request(site=self.site)
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        context = template.Context(
+            {"request": request, "foo": {"bar": "foobar"}, "page": self.page_1}
+        )
+        result = tpl.render(context)
+        self.assertEqual(result, "foobar")
+
+        self.assertNotIn(WagtailPageCacheNode.CACHE_SITE_TEMPLATE_VAR, context)
+
+    def test_skips_cache_in_preview(self):
+        request = get_dummy_request(site=self.site)
+        request.is_preview = True
+
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        result = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "foobar"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context(
+                {"request": request, "foo": {"bar": "baz"}, "page": self.page_1}
+            )
+        )
+        self.assertEqual(result2, "baz")
+
+        self.assertIsNone(
+            cache.get(
+                make_wagtail_template_fragment_key("test", self.page_1, self.site)
+            )
+        )
+
+    def test_no_request(self):
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        result = tpl.render(
+            template.Context({"foo": {"bar": "foobar"}, "page": self.page_1})
+        )
+        self.assertEqual(result, "foobar")
+
+        result2 = tpl.render(
+            template.Context({"foo": {"bar": "baz"}, "page": self.page_1})
+        )
+        self.assertEqual(result2, "baz")
+
+        self.assertIsNone(
+            cache.get(
+                make_wagtail_template_fragment_key("test", self.page_1, self.site)
+            )
+        )
+
+    def test_no_page(self):
+        request = get_dummy_request()
+
+        tpl = template.Template(
+            """{% load wagtail_cache %}{% wagtailpagecache 100 test %}{{ foo.bar }}{% endwagtailpagecache %}"""
+        )
+
+        with self.assertRaises(VariableDoesNotExist) as e:
+            tpl.render(template.Context({"request": request, "foo": {"bar": "foobar"}}))
+
+        self.assertEqual(e.exception.params[0], "page")
+
+    def test_cache_key(self):
+        self.assertEqual(
+            make_wagtail_template_fragment_key("test", self.page_1, self.site),
+            make_template_fragment_key(
+                "test", vary_on=[self.page_1.cache_key, self.site.id]
+            ),
+        )
+
+    def test_invalid_usage(self):
+        with self.assertRaises(TemplateSyntaxError) as e:
+            template.Template(
+                """{% load wagtail_cache %}{% wagtailpagecache 100 %}{{ foo.bar }}{% endwagtailpagecache %}"""
+            )
+        self.assertEqual(
+            e.exception.args[0], "'wagtailpagecache' tag requires at least 2 arguments."
+        )

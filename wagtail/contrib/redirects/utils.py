@@ -8,7 +8,7 @@ def write_to_file_storage(import_file, input_format):
     FileStorage = get_file_storage()
     file_storage = FileStorage()
 
-    data = bytes()
+    data = b""
     for chunk in import_file.chunks():
         data += chunk
 
@@ -17,7 +17,7 @@ def write_to_file_storage(import_file, input_format):
 
 
 def get_supported_extensions():
-    return ("csv", "tsv", "xls", "xlsx")
+    return tuple(x.__name__.lower() for x in get_import_formats())
 
 
 def get_format_cls_by_extension(extension):
@@ -32,8 +32,7 @@ def get_format_cls_by_extension(extension):
 
 
 def get_import_formats():
-    formats = [f for f in DEFAULT_FORMATS if f().can_import()]
-    return formats
+    return DEFAULT_FORMATS
 
 
 def get_file_storage():

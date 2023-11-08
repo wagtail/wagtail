@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,52 +22,14 @@ msgstr ""
 msgid "Wagtail search"
 msgstr ""
 
-#: forms.py:7
-msgid "Search term(s)/phrase"
-msgstr ""
-
-#: forms.py:9
-msgid ""
-"Enter the full search string to match. An exact match is required for your "
-"Promoted Results to be displayed, wildcards are NOT allowed."
-msgstr ""
-
-#: models.py:100 models.py:101
+#: models.py:128 models.py:129
 msgid "Query Daily Hits"
 msgstr ""
 
-#: models.py:162
+#: models.py:192
 msgid "index entry"
 msgstr ""
 
-#: models.py:163
+#: models.py:193
 msgid "index entries"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:2
-msgid "Popular search terms"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/chooser.html:11
-msgid "Search"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:9
-msgid "Terms"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:10
-msgid "Views (past week)"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser/results.html:24
-msgid "No results found"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser_field.html:3
-msgid "Date"
-msgstr ""
-
-#: templates/wagtailsearch/queries/chooser_field.html:8
-msgid "Choose from popular search terms"
 msgstr ""

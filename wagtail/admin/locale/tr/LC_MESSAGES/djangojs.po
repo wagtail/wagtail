@@ -1,0 +1,100 @@
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
+# Umut Bektaş <info@umutbektas.com>, 2022
+# Ragıp Ünal <ragip@ragipunal.com>, 2022
+# Py Data Geek <pydatageek@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Turkish (https://app.transifex.com/torchbox/teams/8009/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Alt text"
+msgstr "Alt metin"
+
+msgid "Broken link"
+msgstr "Kırık bağlantı"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' düzenle"
+
+msgid "Edit your account"
+msgstr "Hesabını düzenle"
+
+msgid "Horizontal line"
+msgstr "Yatay çizgi"
+
+msgid "Line break"
+msgstr "Satır sonu"
+
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+msgid "Missing document"
+msgstr "Eksik belge"
+
+msgid "No results"
+msgstr "Sonuç yok"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Page explorer"
+msgstr "Sayfa bulucu"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "Reload saved content"
+msgstr "Kayıtlı içeriği yeniden yükle"
+
+msgid "Reload the page"
+msgstr "Sayfayı yeniden yükle"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Saving..."
+msgstr "Kaydediliyor"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "See all"
+msgstr "Tümünü gör"
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Show error"
+msgstr "Hatayı göster"
+
+msgid "Show latest content"
+msgstr "Son içeriği göster"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
+
+msgid "This field is required."
+msgstr "Bu alan gerekli."
+
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s' alt sayfalarını gör"

@@ -1,12 +1,11 @@
-import { gettext } from '../../../utils/gettext';
-import type { CommentApp } from '../../CommentApp/main';
-import type { Annotation } from '../../CommentApp/utils/annotation';
-import type { Comment } from '../../CommentApp/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
+  InlineStyleControl,
+  ControlComponentProps,
+  DraftailEditorProps,
 } from 'draftail';
 import {
   CharacterMetadata,
@@ -20,20 +19,25 @@ import {
   RichUtils,
   SelectionState,
 } from 'draft-js';
-import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, {
   MutableRefObject,
   ReactNode,
-  ReactText,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import type { Comment } from '../../CommentApp/state/comments';
+import type { Annotation } from '../../CommentApp/utils/annotation';
+import type { CommentApp } from '../../CommentApp/main';
+import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
 
 const { isOptionKeyCommand } = KeyBindingUtil;
 
@@ -75,27 +79,32 @@ export class DraftailInlineAnnotation implements Annotation {
     this.focusedBlockKey = '';
     this.cachedMedianRef = null;
   }
+
   addDecoratorRef(ref: DecoratorRef, blockKey: BlockKey) {
     this.decoratorRefs.set(ref, blockKey);
 
     // We're adding a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
+
   removeDecoratorRef(ref: DecoratorRef) {
     this.decoratorRefs.delete(ref);
 
     // We're deleting a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
+
   setFocusedBlockKey(blockKey: BlockKey) {
     this.focusedBlockKey = blockKey;
   }
+
   static getHeightForRef(ref: DecoratorRef) {
     if (ref.current) {
       return ref.current.getBoundingClientRect().top;
     }
     return 0;
   }
+
   static getMedianRef(refArray: Array<DecoratorRef>) {
     const refs = refArray.sort(
       (firstRef, secondRef) =>
@@ -107,9 +116,11 @@ export class DraftailInlineAnnotation implements Annotation {
     }
     return null;
   }
+
   getTab() {
     return this.field.closest('[role="tabpanel"]')?.getAttribute('id');
   }
+
   getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that
@@ -247,20 +258,37 @@ function getCommentPositions(editorState: EditorState) {
   return commentPositions;
 }
 
-interface ControlProps {
-  getEditorState: () => EditorState;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onChange: (editorState: EditorState) => void;
+function createFromBlockArrayOrPlaceholder(blockArray: ContentBlock[]) {
+  // This is needed due to (similar) https://github.com/facebook/draft-js/issues/1660
+  // Causing empty block arrays in an editorState to crash the editor
+  // It is fixed in later versions of draft-js (~11.3?), but this upgrade needs
+  // more evaluation for impact on Draftail/Commenting/other Wagtail usages
+  // TODO: upgrade Draft.js
+  if (blockArray.length > 0) {
+    return ContentState.createFromBlockArray(blockArray);
+  }
+  return ContentState.createFromText(' ');
 }
 
-function splitState(editorState: EditorState) {
+export function splitState(editorState: EditorState) {
   const selection = editorState.getSelection();
   const anchorKey = selection.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
 
+  // In order to use Modifier.splitBlock, we need a collapsed selection
+  // otherwise we will lose highlighted text
+  const collapsedSelection = selection.isCollapsed()
+    ? selection
+    : new SelectionState({
+        anchorKey: selection.getStartKey(),
+        anchorOffset: selection.getStartOffset(),
+        focusKey: selection.getStartKey(),
+        focusOffset: selection.getStartOffset(),
+      });
+
   const multipleBlockContent = Modifier.splitBlock(
     currentContent,
-    selection,
+    collapsedSelection,
   ).getBlocksAsArray();
   const index = multipleBlockContent.findIndex(
     (block) => block.getKey() === anchorKey,
@@ -269,12 +297,12 @@ function splitState(editorState: EditorState) {
   const blocksAfter = multipleBlockContent.slice(index + 1);
   const stateBefore = EditorState.push(
     editorState,
-    ContentState.createFromBlockArray(blocksBefore),
+    createFromBlockArrayOrPlaceholder(blocksBefore),
     'remove-range',
   );
   const stateAfter = EditorState.push(
     editorState,
-    ContentState.createFromBlockArray(blocksAfter),
+    createFromBlockArrayOrPlaceholder(blocksAfter),
     'remove-range',
   );
 
@@ -287,60 +315,12 @@ function splitState(editorState: EditorState) {
   };
 }
 
-export function getSplitControl(
-  splitFn: (
-    stateBefore: EditorState,
-    stateAfter: EditorState,
-    shouldMoveCommentFn: (comment: Comment) => boolean,
-  ) => void,
-  enabled = true,
-) {
-  const title = gettext('Split block');
-  const name = 'split';
-  const icon = <Icon name="cut" />;
-  if (!enabled) {
-    // Taken from https://github.com/springload/draftail/blob/main/lib/components/ToolbarButton.js#L65
-    // as it doesn't take the disabled prop
-    return () => (
-      <button
-        name={name}
-        className={'Draftail-ToolbarButton'}
-        type="button"
-        aria-label={title}
-        data-draftail-balloon={title}
-        tabIndex={-1}
-        disabled={true}
-      >
-        {icon}
-      </button>
-    );
-  }
-  return ({ getEditorState }: ControlProps) => (
-    <ToolbarButton
-      name={name}
-      active={false}
-      title={title}
-      icon={icon}
-      onClick={() => {
-        const result = splitState(getEditorState());
-        if (result) {
-          splitFn(
-            result.stateBefore,
-            result.stateAfter,
-            result.shouldMoveCommentFn,
-          );
-        }
-      }}
-    />
-  );
-}
-
 function getCommentControl(
   commentApp: CommentApp,
   contentPath: string,
   fieldNode: Element,
 ) {
-  return ({ getEditorState, onChange }: ControlProps) => (
+  return ({ getEditorState, onChange }: ControlComponentProps) => (
     <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
@@ -350,11 +330,14 @@ function getCommentControl(
         }`}
         icon={
           <>
-            <Icon name="comment-large-outline" />{' '}
-            <Icon name="comment-large-reversed" />
+            <Icon name="comment-add" />
+            <Icon name="comment-add-reversed" />
           </>
         }
         onClick={() => {
+          // Open the comments side panel
+          commentApp.activate();
+
           onChange(
             addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
           );
@@ -437,7 +420,8 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
   const styleCount = styles.count();
   if (styleCount === 0) {
     return null;
-  } else if (styleCount > 1) {
+  }
+  if (styleCount > 1) {
     // We're dealing with overlapping comments.
     // Find the least frequently occurring style and use that - this isn't foolproof, but in
     // most cases should ensure that all comments have at least one clickable section. This
@@ -452,7 +436,7 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
       findCommentStyleRanges(
         block,
         () => {
-          counter = counter + 1;
+          counter += 1;
         },
         (metadata) =>
           metadata.getStyle().some((rangeStyle) => rangeStyle === style),
@@ -474,7 +458,7 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
 
 interface DecoratorProps {
   contentState: ContentState;
-  children?: Array<DraftEditorLeaf>;
+  children?: Array<typeof DraftEditorLeaf>;
 }
 
 function getCommentDecorator(commentApp: CommentApp) {
@@ -486,7 +470,6 @@ function getCommentDecorator(commentApp: CommentApp) {
       return null;
     }
 
-    const enabled = useSelector(commentApp.selectors.selectEnabled);
     const blockKey: BlockKey = children[0].props.block.getKey();
     const start: number = children[0].props.start;
 
@@ -508,10 +491,6 @@ function getCommentDecorator(commentApp: CommentApp) {
       }
       return undefined; // eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
-
-    if (!enabled) {
-      return <>{children}</>;
-    }
 
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
@@ -636,33 +615,18 @@ function handleArrowAtContentEnd(
   );
 }
 
-interface InlineStyle {
-  label?: string;
-  description?: string;
-  icon?: string | string[] | Node;
-  type: string;
-  style?: Record<string, string | number | ReactText | undefined>;
-}
-
-interface ColorConfigProp {
-  standardHighlight: string;
-  overlappingHighlight: string;
-  focusedHighlight: string;
-}
-
 interface CommentableEditorProps {
   commentApp: CommentApp;
   fieldNode: Element;
   contentPath: string;
   rawContentState: RawDraftContentState;
-  onSave: (rawContent: RawDraftContentState) => void;
-  inlineStyles: Array<InlineStyle>;
+  onSave: (rawContent: RawDraftContentState | null) => void;
+  inlineStyles: InlineStyleControl[];
   editorRef: (editor: ReactNode) => void;
-  colorConfig: ColorConfigProp;
   isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
   plugins?: Record<string, unknown>[];
-  controls?: Array<(props: ControlProps) => JSX.Element>;
+  controls?: DraftailEditorProps['controls'];
 }
 
 function CommentableEditor({
@@ -673,7 +637,6 @@ function CommentableEditor({
   onSave,
   inlineStyles,
   editorRef,
-  colorConfig: { standardHighlight, overlappingHighlight, focusedHighlight },
   isCommentShortcut,
   plugins = [],
   controls = [],
@@ -695,7 +658,6 @@ function CommentableEditor({
     [commentApp],
   );
   const comments = useSelector(commentsSelector, shallowEqual);
-  const enabled = useSelector(commentApp.selectors.selectEnabled);
   const focusedId = useSelector(commentApp.selectors.selectFocused);
 
   const ids = useMemo(
@@ -703,7 +665,7 @@ function CommentableEditor({
     [comments],
   );
 
-  const commentStyles: Array<InlineStyle> = useMemo(
+  const commentStyles: InlineStyleControl[] = useMemo(
     () =>
       ids.map((id) => ({
         type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
@@ -715,7 +677,6 @@ function CommentableEditor({
 
   const previousFocused = usePrevious(focusedId);
   const previousIds = usePrevious(ids);
-  const previousEnabled = usePrevious(enabled);
   useEffect(() => {
     // Only trigger a focus-related rerender if the current focused comment is inside the field, or the previous one was
     const validFocusChange =
@@ -727,7 +688,6 @@ function CommentableEditor({
 
     if (
       !validFocusChange &&
-      previousEnabled === enabled &&
       (previousIds === ids ||
         (previousIds.length === ids.length &&
           previousIds.every((value, index) => value === ids[index])))
@@ -758,7 +718,7 @@ function CommentableEditor({
       ),
     );
     setUniqueStyleId((id) => (id + 1) % 200);
-  }, [focusedId, enabled, inlineStyles, ids, editorState]);
+  }, [focusedId, inlineStyles, ids, editorState]);
 
   useEffect(() => {
     // if there are any comments without annotations, we need to add them to the EditorState
@@ -833,7 +793,7 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={enabled ? controls.concat([CommentControl]) : controls}
+      controls={controls.concat([{ inline: CommentControl }])}
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={plugins.concat([
         {
@@ -865,7 +825,10 @@ function CommentableEditor({
             handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
           },
           handleKeyCommand: (command: string, state: EditorState) => {
-            if (enabled && command === 'comment') {
+            if (command === 'comment') {
+              // Open the comments side panel
+              commentApp.activate();
+
               const selection = state.getSelection();
               const content = state.getCurrentContent();
               if (selection.isCollapsed()) {
@@ -894,9 +857,6 @@ function CommentableEditor({
             return 'not-handled';
           },
           customStyleFn: (styleSet: DraftInlineStyle) => {
-            if (!enabled) {
-              return undefined;
-            }
             // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
             // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
             // this casting should be removed
@@ -909,21 +869,13 @@ function CommentableEditor({
               const commentIds = localCommentStyles.map((style) =>
                 getIdForCommentStyle(style as string),
               ) as unknown as Immutable.OrderedSet<number>;
-              let background = standardHighlight;
-              if (focusedId && commentIds.has(focusedId)) {
-                // Use the focused colour if one of the comments is focused
-                background = focusedHighlight;
-                return {
-                  'background-color': background,
-                  'color': standardHighlight,
-                };
-              } else if (numStyles > 1) {
-                // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
-                // to indicate that
-                background = overlappingHighlight;
-              }
+              const isFocused = focusedId && commentIds.has(focusedId);
+
               return {
-                'background-color': background,
+                backgroundColor: 'var(--w-color-text-highlight)',
+                outline: isFocused
+                  ? '4px solid var(--w-color-text-highlight)'
+                  : null,
               };
             }
             return undefined;

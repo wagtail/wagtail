@@ -1,56 +1,21 @@
 import csv
 import datetime
 from collections import OrderedDict
+from functools import partial
+from io import BytesIO
 
+from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import FieldDoesNotExist
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import FileResponse, StreamingHttpResponse
+from django.utils import timezone
 from django.utils.dateformat import Formatter
 from django.utils.encoding import force_str
 from django.utils.formats import get_format
-from django.utils.translation import gettext as _
-from xlsxwriter.workbook import Workbook
+from django.utils.text import capfirst
+from openpyxl import Workbook
+from openpyxl.cell import WriteOnlyCell
 
-from wagtail.admin.forms.search import SearchForm
 from wagtail.coreutils import multigetattr
-from wagtail.search.backends import get_search_backend
-from wagtail.search.index import class_is_indexed
-
-
-class SearchableListMixin:
-    search_box_placeholder = _("Search")
-    search_fields = None
-
-    def get_search_form(self):
-        return SearchForm(
-            self.request.GET if self.request.GET.get("q") else None,
-            placeholder=self.search_box_placeholder,
-        )
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        search_form = self.get_search_form()
-
-        if search_form.is_valid():
-            q = search_form.cleaned_data["q"]
-
-            if class_is_indexed(queryset.model):
-                search_backend = get_search_backend()
-                queryset = search_backend.search(q, queryset, fields=self.search_fields)
-            else:
-                filters = {
-                    field + "__icontains": q for field in self.search_fields or []
-                }
-
-                queryset = queryset.filter(**filters)
-
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        if "search_form" not in kwargs:
-            kwargs["search_form"] = self.get_search_form()
-            kwargs["is_searching"] = bool(self.request.GET.get("q"))
-
-        return super().get_context_data(**kwargs)
 
 
 class Echo:
@@ -68,44 +33,87 @@ def list_to_str(value):
 class ExcelDateFormatter(Formatter):
     data = None
 
+    # From: https://docs.djangoproject.com/en/stable/ref/templates/builtins/#date
+    # To: https://support.microsoft.com/en-us/office/format-numbers-as-dates-or-times-418bd3fe-0577-47c8-8caa-b4d30c528309#bm2
     _formats = {
-        "d": "DD",
-        "j": "D",
-        "D": "NN",
-        "l": "NNNN",
-        "S": "",
-        "w": "",
-        "z": "",
-        "W": "",
-        "m": "MM",
-        "n": "M",
-        "M": "MMM",
-        "b": "MMM",
-        "F": "MMMM",
-        "E": "MMM",
-        "N": "MMM.",
-        "y": "YY",
-        "Y": "YYYY",
-        "L": "",
-        "o": "",
-        "g": "H",
-        "G": "H",
-        "h": "HH",
-        "H": "HH",
-        "i": "MM",
-        "s": "SS",
-        "u": "",
-        "a": "AM/PM",
-        "A": "AM/PM",
-        "P": "HH:MM AM/PM",
-        "e": "",
-        "I": "",
-        "O": "",
-        "T": "",
-        "Z": "",
-        "c": "YYYY-MM-DD HH:MM:SS",
-        "r": "NN, MMM D YY HH:MM:SS",
-        "U": "[HH]:MM:SS",
+        # Day of the month, 2 digits with leading zeros.
+        "d": "dd",
+        # Day of the month without leading zeros.
+        "j": "d",
+        # Day of the week, textual, 3 letters.
+        "D": "ddd",
+        # Day of the week, textual, full.
+        "l": "dddd",
+        # English ordinal suffix for the day of the month, 2 characters.
+        "S": "",  # Not supported in Excel
+        # Day of the week, digits without leading zeros.
+        "w": "",  # Not supported in Excel
+        # Day of the year.
+        "z": "",  # Not supported in Excel
+        # ISO-8601 week number of year, with weeks starting on Monday.
+        "W": "",  # Not supported in Excel
+        # Month, 2 digits with leading zeros.
+        "m": "mm",
+        # Month without leading zeros.
+        "n": "m",
+        # Month, textual, 3 letters.
+        "M": "mmm",
+        # Month, textual, 3 letters, lowercase. (Not supported in Excel)
+        "b": "mmm",
+        # Month, locale specific alternative representation usually used for long date representation.
+        "E": "mmmm",  # Not supported in Excel
+        # Month, textual, full.
+        "F": "mmmm",
+        # Month abbreviation in Associated Press style. Proprietary extension.
+        "N": "mmm.",  # Approximation, wrong for May
+        # Number of days in the given month.
+        "t": "",  # Not supported in Excel
+        # Year, 2 digits with leading zeros.
+        "y": "yy",
+        # Year, 4 digits with leading zeros.
+        "Y": "yyyy",
+        # Whether it's a leap year.
+        "L": "",  # Not supported in Excel
+        # ISO-8601 week-numbering year.
+        "o": "yyyy",  # Approximation, same as Y
+        # Hour, 12-hour format without leading zeros.
+        "g": "h",  # Only works when combined with AM/PM, 24-hour format is used otherwise
+        # Hour, 24-hour format without leading zeros.
+        "G": "hH",
+        # Hour, 12-hour format with leading zeros.
+        "h": "hh",  # Only works when combined with AM/PM, 24-hour format is used otherwise
+        # Hour, 24-hour format with leading zeros.
+        "H": "hh",
+        # Minutes.
+        "i": "mm",
+        # Seconds.
+        "s": "ss",
+        # Microseconds.
+        "u": ".00",  # Only works when combined with ss
+        # 'a.m.' or 'p.m.'.
+        "a": "AM/PM",  # Approximation, uses AM/PM and only works when combined with h/hh
+        # AM/PM.
+        "A": "AM/PM",  # Only works when combined with h/hh
+        # Time, in 12-hour hours and minutes, with minutes left off if they’re zero.
+        "f": "h:mm",  # Approximation, uses 24-hour format and minutes are never left off
+        # Time, in 12-hour hours, minutes and ‘a.m.’/’p.m.’, with minutes left off if they’re zero and the special-case strings ‘midnight’ and ‘noon’ if appropriate.
+        "P": "h:mm AM/PM",  # Approximation, minutes are never left off, no special case strings
+        # Timezone name.
+        "e": "",  # Not supported in Excel
+        # Daylight saving time, whether it’s in effect or not.
+        "I": "",  # Not supported in Excel
+        # Difference to Greenwich time in hours.
+        "O": "",  # Not supported in Excel
+        # Time zone of this machine.
+        "T": "",  # Not supported in Excel
+        # Timezone offset in seconds.
+        "Z": "",  # Not supported in Excel
+        # ISO 8601 format.
+        "c": "yyyy-mm-ddThh:mm:ss.00",
+        # RFC 5322 formatted date.
+        "r": "ddd, d mmm yyyy hh:mm:ss",
+        # Seconds since the Unix epoch.
+        "U": "",  # Not supported in Excel
     }
 
     def get(self):
@@ -134,15 +142,35 @@ class SpreadsheetExportMixin:
     custom_field_preprocess = {}
     # A dictionary of preprocessing functions by value class and format
     custom_value_preprocess = {
+        datetime.datetime: {
+            FORMAT_XLSX: lambda value: (
+                value
+                if timezone.is_naive(value)
+                else timezone.make_naive(value, datetime.timezone.utc)
+            )
+        },
         (datetime.date, datetime.time): {FORMAT_XLSX: None},
         list: {FORMAT_CSV: list_to_str, FORMAT_XLSX: list_to_str},
     }
     # A dictionary of column heading overrides in the format {field: heading}
     export_headings = {}
 
+    export_buttons_template_name = "wagtailadmin/shared/export_buttons.html"
+
+    export_filename = "spreadsheet-export"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.is_export = request.GET.get("export") in self.FORMATS
+
+    def get_paginate_by(self, queryset):
+        if self.is_export:
+            return None
+        return super().get_paginate_by(queryset)
+
     def get_filename(self):
         """Gets the base filename for the exported spreadsheet, without extensions"""
-        return "spreadsheet-export"
+        return self.export_filename
 
     def to_row_dict(self, item):
         """Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
@@ -165,29 +193,33 @@ class SpreadsheetExportMixin:
                 return format_dict[export_format]
 
         # Finally resort to force_str to prevent encoding errors
-        return force_str
+        return partial(force_str, strings_only=True)
 
-    def write_xlsx_row(self, worksheet, row_dict, row_number):
-        for col_number, (field, value) in enumerate(row_dict.items()):
-            preprocess_function = self.get_preprocess_function(
-                field, value, self.FORMAT_XLSX
+    def preprocess_field_value(self, field, value, export_format):
+        """Preprocesses a field value before writing it to the spreadsheet"""
+        preprocess_function = self.get_preprocess_function(field, value, export_format)
+        if preprocess_function is not None:
+            return preprocess_function(value)
+        else:
+            return value
+
+    def generate_xlsx_row(self, worksheet, row_dict, date_format=None):
+        """Generate cells to append to the worksheet"""
+        for field, value in row_dict.items():
+            cell = WriteOnlyCell(
+                worksheet, self.preprocess_field_value(field, value, self.FORMAT_XLSX)
             )
-            processed_value = (
-                preprocess_function(value) if preprocess_function else value
-            )
-            worksheet.write(row_number, col_number, processed_value)
+            if date_format and isinstance(value, datetime.datetime):
+                cell.number_format = date_format
+            yield cell
 
     def write_csv_row(self, writer, row_dict):
-        processed_row = {}
-        for field, value in row_dict.items():
-            preprocess_function = self.get_preprocess_function(
-                field, value, self.FORMAT_CSV
-            )
-            processed_value = (
-                preprocess_function(value) if preprocess_function else value
-            )
-            processed_row[field] = processed_value
-        return writer.writerow(processed_row)
+        return writer.writerow(
+            {
+                field: self.preprocess_field_value(field, value, self.FORMAT_CSV)
+                for field, value in row_dict.items()
+            }
+        )
 
     def get_heading(self, queryset, field):
         """Get the heading label for a given field for a spreadsheet generated from queryset"""
@@ -195,7 +227,7 @@ class SpreadsheetExportMixin:
         if heading_override:
             return force_str(heading_override)
         try:
-            return force_str(queryset.model._meta.get_field(field).verbose_name.title())
+            return capfirst(force_str(label_for_field(field, queryset.model)))
         except (AttributeError, FieldDoesNotExist):
             return force_str(field)
 
@@ -211,35 +243,35 @@ class SpreadsheetExportMixin:
 
     def write_xlsx(self, queryset, output):
         """Write an xlsx workbook from a queryset"""
-        workbook = Workbook(
-            output,
-            {
-                "in_memory": True,
-                "constant_memory": True,
-                "remove_timezone": True,
-                "default_date_format": ExcelDateFormatter().get(),
-            },
+        workbook = Workbook(write_only=True, iso_dates=True)
+
+        worksheet = workbook.create_sheet(title="Sheet1")
+        worksheet.append(
+            self.get_heading(queryset, field) for field in self.list_export
         )
-        worksheet = workbook.add_worksheet()
 
-        for col_number, field in enumerate(self.list_export):
-            worksheet.write(0, col_number, self.get_heading(queryset, field))
+        date_format = ExcelDateFormatter().get()
+        for item in queryset:
+            worksheet.append(
+                self.generate_xlsx_row(
+                    worksheet, self.to_row_dict(item), date_format=date_format
+                )
+            )
 
-        for row_number, item in enumerate(queryset):
-            self.write_xlsx_row(worksheet, self.to_row_dict(item), row_number + 1)
-
-        workbook.close()
+        workbook.save(output)
 
     def write_xlsx_response(self, queryset):
-        response = HttpResponse(
-            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-        response["Content-Disposition"] = 'attachment; filename="{}.xlsx"'.format(
-            self.get_filename()
-        )
-        self.write_xlsx(queryset, response)
+        """Write an xlsx file from a queryset and return a FileResponse"""
+        output = BytesIO()
+        self.write_xlsx(queryset, output)
+        output.seek(0)
 
-        return response
+        return FileResponse(
+            output,
+            as_attachment=True,
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            filename=f"{self.get_filename()}.xlsx",
+        )
 
     def write_csv_response(self, queryset):
         stream = self.stream_csv(queryset)

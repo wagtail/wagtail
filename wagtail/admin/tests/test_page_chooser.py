@@ -1,12 +1,13 @@
 import json
+import urllib.parse as urlparse
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.models import Locale, Page, UserPagePermissionsProxy
+from wagtail.models import Locale, Page
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
@@ -16,7 +17,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestChooserBrowse(TestCase, WagtailTestUtils):
+class TestChooserBrowse(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -46,11 +47,12 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_page_chooser_queryset", filter_pages):
             response = self.get()
-        self.assertEqual(len(response.context["pages"]), 1)
-        self.assertEqual(response.context["pages"][0].specific, page)
+        # 'results' in the template context consists of the parent page followed by the queryset
+        self.assertEqual(len(response.context["table"].data), 2)
+        self.assertEqual(response.context["table"].data[1].specific, page)
 
 
-class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
+class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -66,7 +68,7 @@ class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
         self.assertContains(response, "/admin/pages/1/edit/")
 
 
-class TestChooserBrowseChild(TestCase, WagtailTestUtils):
+class TestChooserBrowseChild(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -126,7 +128,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
         self.assertEqual(response.context["page_type_string"], "tests.simplepage")
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["table"].data}
 
         # Child page is a simple page directly underneath root
         # so should appear in the list
@@ -160,7 +162,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
-        page_urls = [page.url for page in response.context["pages"]]
+        page_urls = [page.url for page in response.context["table"].data]
 
         self.assertIn("/foo/pointless-suffix/", page_urls)
 
@@ -190,7 +192,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
             response.context["page_type_string"], "tests.simplepage,tests.eventpage"
         )
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["table"].data}
 
         # Simple page in results, as before
         self.assertIn(self.child_page.id, pages)
@@ -256,12 +258,13 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         # Look for a link element in the breadcrumbs with the admin title
         expected = """
-            <li class="breadcrumb-item">
-                <a href="/admin/choose-page/{page_id}/?" class="breadcrumb-link navigate-pages">{page_title}
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold " data-w-breadcrumbs-target="content">
+                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/choose-page/{page_id}/?">
+                    {page_title}
                 </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                   <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """.format(
             page_id=self.child_page.id,
@@ -283,29 +286,31 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.setup_pagination_test_data()
 
         response = self.get()
-        self.assertEqual(response.context["pages"].paginator.num_pages, 5)
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.context["pagination_page"].paginator.num_pages, 5)
+        self.assertEqual(response.context["pagination_page"].number, 1)
 
     def test_pagination_another_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 2})
-        self.assertEqual(response.context["pages"].number, 2)
+        self.assertEqual(response.context["pagination_page"].number, 2)
 
     def test_pagination_invalid_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": "foo"})
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.status_code, 404)
 
     def test_pagination_out_of_range_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 100})
-        self.assertEqual(response.context["pages"].number, 5)
+        self.assertEqual(response.status_code, 404)
 
 
-class TestChooserSearch(TestCase, WagtailTestUtils):
+class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -320,6 +325,13 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get({"q": "foobarbaz"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(response, "foobarbaz")
+
+    def test_partial_match(self):
+        response = self.get({"q": "fooba"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertContains(response, "There is 1 match")
@@ -348,7 +360,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
     def test_with_page_type(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
-            title="foo",
+            title="foobarbaz again",
             location="the moon",
             audience="public",
             cost="free",
@@ -357,7 +369,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=event_page)
 
         # Send request
-        response = self.get({"q": "foo", "page_type": "tests.simplepage"})
+        response = self.get({"q": "foobarbaz", "page_type": "tests.simplepage"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertEqual(response.context["page_type_string"], "tests.simplepage")
@@ -381,7 +393,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
     def test_with_multiple_page_types(self):
         # Add a page that is not a SimplePage
         event_page = EventPage(
-            title="foo",
+            title="foobarbaz again",
             location="the moon",
             audience="public",
             cost="free",
@@ -391,7 +403,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
 
         # Send request
         response = self.get(
-            {"q": "foo", "page_type": "tests.simplepage,tests.eventpage"}
+            {"q": "foobarbaz", "page_type": "tests.simplepage,tests.eventpage"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
@@ -435,7 +447,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["pages"][0].specific, page)
 
 
-class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
+class TestAutomaticRootPageDetection(WagtailTestUtils, TestCase):
     def setUp(self):
         self.tree_root = Page.objects.get(id=1)
         self.home_page = Page.objects.get(id=2)
@@ -525,7 +537,7 @@ class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
         )
 
 
-class TestChooserExternalLink(TestCase, WagtailTestUtils):
+class TestChooserExternalLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.internal_page = SimplePage(title="About", content="About Foo")
@@ -737,7 +749,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
 
-class TestChooserAnchorLink(TestCase, WagtailTestUtils):
+class TestChooserAnchorLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -820,7 +832,7 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestChooserEmailLink(TestCase, WagtailTestUtils):
+class TestChooserEmailLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -857,6 +869,79 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
             result["title"], "contact"
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+    def test_create_link_with_subject_and_body(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-subject": "Awesome Subject",
+                "email-link-chooser-body": "An example body",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(
+            url,
+            "mailto:example@example.com?subject=Awesome%20Subject&body=An%20example%20body",
+        )
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["subject"][0], "Awesome Subject")
+        self.assertEqual(query["body"][0], "An example body")
+
+    def test_create_link_with_subject_only(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-subject": "Awesome Subject",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(url, "mailto:example@example.com?subject=Awesome%20Subject")
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["subject"][0], "Awesome Subject")
+        self.assertTrue("body" not in query)
+
+    def test_create_link_with_body_only(self):
+        response = self.post(
+            {
+                "email-link-chooser-email_address": "example@example.com",
+                "email-link-chooser-link_text": "contact",
+                "email-link-chooser-body": "An example body",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        result = json.loads(response.content.decode())["result"]
+        url = result["url"]
+        self.assertEqual(url, "mailto:example@example.com?body=An%20example%20body")
+        self.assertEqual(
+            result["title"], "contact"
+        )  # When link text is given, it is used
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
+
+        mail_parts = urlparse.urlparse(url)
+        query = urlparse.parse_qs(mail_parts.query)
+        self.assertEqual(mail_parts.path, "example@example.com")
+        self.assertEqual(query["body"][0], "An example body")
+        self.assertTrue("subject" not in query)
 
     def test_create_link_without_text(self):
         response = self.post(
@@ -903,7 +988,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
 
-class TestChooserPhoneLink(TestCase, WagtailTestUtils):
+class TestChooserPhoneLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -981,51 +1066,139 @@ class TestChooserPhoneLink(TestCase, WagtailTestUtils):
         # link text has changed, so tell the caller to use it
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
+    def test_phone_number_has_spaces(self):
+        response = self.post(
+            {
+                "phone-link-chooser-phone_number": "+1 234 567 890",
+                "phone-link-chooser-link_text": "call",
+            }
+        )
+        result = json.loads(response.content.decode())["result"]
+        self.assertEqual(result["url"], "tel:+1234567890")
+        self.assertEqual(result["title"], "call")
+        self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-class TestCanChoosePage(TestCase, WagtailTestUtils):
+
+class TestCanChoosePage(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
-        self.permission_proxy = UserPagePermissionsProxy(self.user)
         self.desired_classes = (Page,)
 
     def test_can_choose_page(self):
         homepage = Page.objects.get(url_path="/home/")
-        result = can_choose_page(homepage, self.permission_proxy, self.desired_classes)
+        result = can_choose_page(homepage, self.user, self.desired_classes)
         self.assertTrue(result)
 
     def test_with_user_no_permission(self):
         homepage = Page.objects.get(url_path="/home/")
         # event editor does not have permissions on homepage
         event_editor = get_user_model().objects.get(email="eventeditor@example.com")
-        permission_proxy = UserPagePermissionsProxy(event_editor)
         result = can_choose_page(
-            homepage, permission_proxy, self.desired_classes, user_perm="copy_to"
+            homepage, event_editor, self.desired_classes, user_perm="copy_to"
         )
         self.assertFalse(result)
 
     def test_with_can_choose_root(self):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
-            root, self.permission_proxy, self.desired_classes, can_choose_root=True
+            root, self.user, self.desired_classes, can_choose_root=True
         )
         self.assertTrue(result)
 
     def test_with_can_not_choose_root(self):
         root = Page.objects.get(url_path="/")
         result = can_choose_page(
-            root, self.permission_proxy, self.desired_classes, can_choose_root=False
+            root, self.user, self.desired_classes, can_choose_root=False
         )
         self.assertFalse(result)
 
+    def test_move_to_same_page(self):
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.user,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[homepage],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_root(self):
+        homepage = Page.objects.get(url_path="/home/")
+        root = Page.objects.get(url_path="/")
+        result = can_choose_page(
+            root,
+            self.user,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[homepage],
+        )
+        self.assertTrue(result)
+
+    def test_move_to_page_with_wrong_parent_types(self):
+        board_meetings = Page.objects.get(
+            url_path="/home/events/businessy-events/board-meetings/"
+        )
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.user,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[board_meetings],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_same_page_bulk(self):
+        homepage = Page.objects.get(url_path="/home/")
+        secret_plans = Page.objects.get(url_path="/home/secret-plans/")
+        result = can_choose_page(
+            homepage,
+            self.user,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[homepage, secret_plans],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_root_bulk(self):
+        homepage = Page.objects.get(url_path="/home/")
+        secret_plans = Page.objects.get(url_path="/home/secret-plans/")
+        root = Page.objects.get(url_path="/")
+        result = can_choose_page(
+            root,
+            self.user,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[homepage, secret_plans],
+        )
+        self.assertTrue(result)
+
+    def test_move_to_page_with_wrong_parent_types_bulk(self):
+        board_meetings = Page.objects.get(
+            url_path="/home/events/businessy-events/board-meetings/"
+        )
+        steal_underpants = Page.objects.get(
+            url_path="/home/secret-plans/steal-underpants/"
+        )
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.user,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[board_meetings, steal_underpants],
+        )
+        self.assertTrue(result)
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
+class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
-    LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
+    LOCALE_SELECTOR_HTML = r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+English"
 
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
@@ -1044,7 +1217,9 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         switch_to_french_url = self.get_choose_page_url(
             self.fr_locale, parent_page_id=self.child_page_fr.pk
         )
-        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        self.LOCALE_SELECTOR_HTML_FR = (
+            f'<a href="{switch_to_french_url}" data-locale-selector-link>'
+        )
 
         self.login()
 
@@ -1072,17 +1247,17 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtailadmin_choose_page"))
         html = response.json().get("html")
 
-        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
 
         switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
-        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        fr_selector = f'<a href="{switch_to_french_url}" data-locale-selector-link>'
         self.assertIn(fr_selector, html)
 
     def test_locale_selector(self):
         response = self.get(self.child_page.pk)
 
         html = response.json().get("html")
-        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
         self.assertIn(self.LOCALE_SELECTOR_HTML_FR, html)
 
     def test_locale_selector_without_translation(self):
@@ -1090,8 +1265,7 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
 
         response = self.get(self.child_page.pk)
         html = response.json().get("html")
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+        self.assertNotIn("data-locale-selector", html)
 
     def test_locale_selector_with_active_locale(self):
         switch_to_french_url = self.get_choose_page_url(
@@ -1100,18 +1274,18 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         response = self.client.get(switch_to_french_url)
         html = response.json().get("html")
 
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
         self.assertNotIn(f'data-title="{self.root_page.title}"', html)
         self.assertIn(self.root_page_fr.title, html)
-        self.assertIn(
-            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">',
+        self.assertRegex(
             html,
+            r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+French",
         )
         switch_to_english_url = self.get_choose_page_url(
             locale=Locale.objects.get(language_code="en")
         )
         self.assertIn(
-            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live">',
+            f'<a href="{switch_to_english_url}" data-locale-selector-link>',
             html,
         )
 
@@ -1119,5 +1293,4 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.get(self.child_page.pk)
         html = response.json().get("html")
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
-        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+        self.assertNotIn("data-locale-selector", html)

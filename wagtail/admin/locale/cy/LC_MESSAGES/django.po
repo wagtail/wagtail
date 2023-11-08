@@ -5,14 +5,15 @@
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2017,2020-2021
 # Philip Crisp, 2022
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,11 +28,13 @@ msgstr "Cyhoeddi"
 msgid "Submit for moderation"
 msgstr "Cyflwyno i'w gymedroli"
 
-msgid "Resubmit to {}"
-msgstr "Ailgyflwyno i {}"
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ailgyflwyno i %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Cyflwyno i {}"
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Cyflwyno i %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Ailgychwyn llif gwaith"
@@ -41,18 +44,6 @@ msgstr "Canslo llif gwaith"
 
 msgid "Unpublish"
 msgstr "Anghyhoedd"
-
-msgid "Delete"
-msgstr "Dileu"
-
-msgid "Lock"
-msgstr "Clo"
-
-msgid "Apply editor lock"
-msgstr "Cymhwyso clo golygydd"
-
-msgid "Unlock"
-msgstr "Datgloi"
 
 msgid "Save Draft"
 msgstr "Cadw drafft"
@@ -76,27 +67,6 @@ msgstr "Nid oes gennych ganiatâd i gael mynediad i'r weinyddiaeth"
 
 msgid "None"
 msgstr "Ddim"
-
-msgid "Scheduled publishing"
-msgstr "Cyhoeddi wedi'i drefnu"
-
-msgid "Privacy"
-msgstr "Preifatrwydd"
-
-msgid "For search engines"
-msgstr "Ar gyfer peiriannau chwilio"
-
-msgid "For site menus"
-msgstr "Ar gyfer ddewislen safle"
-
-msgid "Content"
-msgstr "Cynnwys"
-
-msgid "Promote"
-msgstr "Hyrwyddo"
-
-msgid "Settings"
-msgstr "Gosodiadau"
 
 msgid "Date from"
 msgstr "Dyddiad o"
@@ -129,14 +99,25 @@ msgid "Enter password"
 msgstr "Rhowch cyfrinair "
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Rhowch eich %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Rhowch eich %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Rhowch eich cyfeiriad ebost i ailosod eich cyfrinair"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Search term"
+msgstr ""
+" \n"
+"Term Chwilio"
+
+msgid "Search"
+msgstr "Chwillio"
+
+msgid "Collection"
+msgstr "Casgliad"
 
 msgid "Parent"
 msgstr "Rhiant"
@@ -154,9 +135,6 @@ msgstr "Dwiswch rhiant arall os gwelwch yn dda"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ni allwch gael cofnodion caniatâd lluosog ar gyfer yr un casgliad."
 
-msgid "Collection"
-msgstr "Casgliad"
-
 msgid "Add"
 msgstr "Ychwanegu"
 
@@ -169,11 +147,20 @@ msgstr "Golygu"
 msgid "Edit collections"
 msgstr "Golygu casgliad"
 
+msgid "Delete"
+msgstr "Dileu"
+
 msgid "Delete collections"
 msgstr "Dileu casgliad"
 
 msgid "You cannot edit another user's comment."
 msgstr "Ni allwch olygu sylw defnyddiwr arall."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
 
 msgid "New title"
 msgstr "Teitl newydd"
@@ -239,30 +226,14 @@ msgstr "Nid oes gennych ganiatâd i gopïo i'r dudalen \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
 msgstr ""
 "Mae'r wlithen hon eisoes yn cael ei defnyddio yng nghyd-destun ei riant-"
-"dudalen \"%s\""
+"dudalen \"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Ni allwch gopïo tudalen ynddo'i hun wrth gopïo is-dudalennau"
-
-msgid "This slug is already in use"
-msgstr "Mae'r wlithen hon eisoes yn cael ei defnyddio"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
-
-msgid "Search"
-msgstr "Chwillio"
-
-msgid "Search term"
-msgstr ""
-" \n"
-"Term Chwilio"
 
 msgid "Visibility"
 msgstr "Gwelededd"
@@ -273,50 +244,23 @@ msgstr "Mae angen y'r ffild hon."
 msgid "Please select at least one group."
 msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
 
-msgid "Page"
-msgstr "Tudalen"
+msgid "For search engines"
+msgstr "Ar gyfer peiriannau chwilio"
 
-msgid "Pages"
-msgstr "Tudalennau"
+msgid "For site menus"
+msgstr "Ar gyfer ddewislen safle"
 
-msgid "Server Error"
-msgstr "Gwall Gweinydd"
+msgid "Content"
+msgstr "Cynnwys"
 
-msgid "Alt text"
-msgstr "Testun alt"
+msgid "Promote"
+msgstr "Hyrwyddo"
 
-msgid "Missing document"
-msgstr "Dogfen ar goll"
+msgid "Settings"
+msgstr "Gosodiadau"
 
-msgid "Close"
-msgstr "Cau"
-
-msgid "Save"
-msgstr "Cadw"
-
-msgid "Saving..."
-msgstr "Cadw..."
-
-msgid "Cancel"
-msgstr "Canslo"
-
-msgid "Reply"
-msgstr "Ymateb"
-
-msgid "Resolve"
-msgstr "Datrys"
-
-msgid "Retry"
-msgstr "Ailgynnig"
-
-msgid "Are you sure?"
-msgstr "Wyt ti'n siwr?"
-
-msgid "Save error"
-msgstr "Arbed gwall"
-
-msgid "Comment"
-msgstr "Sylw"
+msgid "Title"
+msgstr "Teitl"
 
 msgid "Error 404"
 msgstr "Gwall 404"
@@ -329,9 +273,6 @@ msgstr "Cyfrif"
 
 msgid "Save account details"
 msgstr "Cadw manylion cyfrif"
-
-msgid "Change password"
-msgstr "Newid cyfrinair"
 
 msgid "Reset password"
 msgstr "Ailosod cyfrinair"
@@ -357,26 +298,35 @@ msgstr "Dewis"
 msgid "Choose a page"
 msgstr "Dewisiwch tudalen"
 
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Privacy"
+msgstr "Preifatrwydd"
+
 msgid "Name"
 msgstr "Enw"
-
-msgid "Move up"
-msgstr "Symyd i fyny"
-
-msgid "Move down"
-msgstr "Symyd i lawr"
 
 msgid "Yes, delete"
 msgstr "Ia, dileu"
 
+msgid "No, don't delete"
+msgstr "Na, peidiwch a ddileu"
+
+msgid "Cancel"
+msgstr "Canslo"
+
 msgid "Update"
 msgstr "Diweddariad"
 
-msgid "Title"
-msgstr "Teitl"
-
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
+
+msgid "Actions"
+msgstr "Gweithredoedd"
+
+msgid "Unlock"
+msgstr "Datgloi"
 
 msgid "Draft"
 msgstr "Drafft"
@@ -396,11 +346,11 @@ msgstr "Statws"
 msgid "Date"
 msgstr "Dyddiad"
 
+msgid "Close"
+msgstr "Cau"
+
 msgid "Saving…"
 msgstr "Cadw…"
-
-msgid "No, don't delete"
-msgstr "Na, peidiwch a ddileu"
 
 msgid "Yes, convert it"
 msgstr "Ia, ei drosi"
@@ -408,21 +358,11 @@ msgstr "Ia, ei drosi"
 msgid "Copy"
 msgstr "Copio"
 
-msgid "New"
-msgstr "Newydd"
-
-msgid "Actions"
-msgstr "Gweithredoedd"
-
-msgid "History"
-msgstr "Hanes"
-
 msgid "Action"
 msgstr "Gweithred"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yn ôl"
+msgid "Comment"
+msgstr "Sylw"
 
 msgid "Pagination"
 msgstr "Tudaleniad"
@@ -433,8 +373,26 @@ msgstr "Blaenorol"
 msgid "Next"
 msgstr "Nesaf"
 
+msgid "Confirm"
+msgstr "Cadarnhau"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
+msgid "Workflow"
+msgstr "Llif gwaith"
+
 msgid "Started at"
 msgstr "Dechreuwyd yn"
+
+msgid "Completed at"
+msgstr "Wedi'i gwblhau yn"
+
+msgid "Breadcrumb"
+msgstr "Briwsion Bara"
 
 msgid "Download XLSX"
 msgstr "Lawrlwythwch XSLX"
@@ -445,26 +403,73 @@ msgstr "Lawrlwythwch CSV"
 msgid "Filter"
 msgstr "Hidlydd"
 
-msgid "Workflow"
-msgstr "Llif gwaith"
+msgid "History"
+msgstr "Hanes"
 
-msgid "Completed at"
-msgstr "Wedi'i gwblhau yn"
+msgid "Lock"
+msgstr "Clo"
 
-msgid "Breadcrumb"
-msgstr "Briwsion Bara"
+msgid "Usage"
+msgstr "Defnydd"
 
-msgid "Home"
-msgstr "Adref"
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Wedi defnyddio %(usage_count)s waith"
+msgstr[1] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[2] "Wedi defnyddio %(usage_count)s o weithiau"
+msgstr[3] "Wedi defnyddio %(usage_count)s o weithiau"
+
+msgid "Page"
+msgstr "Tudalen"
+
+msgid "New"
+msgstr "Newydd"
 
 msgid "Published"
 msgstr "Wedi cyhoeddi"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yn ôl"
+
 msgid "Password"
 msgstr "Cyfrinair"
 
+msgid "Home"
+msgstr "Adref"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' wedi'i diweddaru."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' wedi'i greu."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Golygu '%(title)s'"
+
+msgid "Inspect"
+msgstr "Archwilio"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Dileu '%(title)s'"
+
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Inspecting"
+msgstr "Arolygu"
+
+msgid "Usage of"
+msgstr "Defnydd o"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Golygu %(object)s"
 
 msgid "View live"
 msgstr "Gweld in fyw"
@@ -481,15 +486,8 @@ msgstr "Analluogi"
 msgid "Enable"
 msgstr "Galluogi"
 
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Riportiwch y gwall hwn i weinyddwr eich gwefan gyda'r wybodaeth ganlynol:"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Golygu '%(title)s'"
+msgid "Pages"
+msgstr "Tudalennau"
 
 msgid "Clear choice"
 msgstr "Dewis clir"

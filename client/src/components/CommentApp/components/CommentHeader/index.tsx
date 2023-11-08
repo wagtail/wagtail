@@ -118,7 +118,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                 onClick={toggleMenu}
                 aria-expanded={menuOpen}
               >
-                <Icon name="ellipsis-v" />
+                <Icon name="dots-horizontal" />
               </summary>
 
               <div
@@ -154,7 +154,9 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
         <img
           className="comment-header__avatar"
           src={author.avatarUrl}
-          role="presentation"
+          alt=""
+          decoding="async"
+          loading="lazy"
         />
       )}
       <span id={descriptionId}>

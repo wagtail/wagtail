@@ -1,4 +1,3 @@
-import hashlib
 import os.path
 import urllib
 from contextlib import contextmanager
@@ -12,10 +11,10 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
-from wagtail.admin.models import get_object_usage
-from wagtail.models import CollectionMember
+from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.file import hash_filelike
 
 
 class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
@@ -34,6 +33,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         editable=False,
         on_delete=models.SET_NULL,
     )
+    uploaded_by_user.wagtail_reference_index_ignore = True
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_("tags"))
 
@@ -44,13 +44,13 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     objects = DocumentQuerySet.as_manager()
 
     search_fields = CollectionMember.search_fields + [
-        index.SearchField("title", partial_match=True, boost=10),
+        index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
         index.FilterField("title"),
         index.RelatedFields(
             "tags",
             [
-                index.SearchField("name", partial_match=True, boost=10),
+                index.SearchField("name", boost=10),
                 index.AutocompleteField("name"),
             ],
         ),
@@ -114,7 +114,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         if self.file_size is None:
             try:
                 self.file_size = self.file.size
-            except Exception:
+            except Exception:  # noqa: BLE001
                 # File doesn't exist
                 return
 
@@ -122,17 +122,26 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
         return self.file_size
 
-    def _set_file_hash(self, file_contents):
-        self.file_hash = hashlib.sha1(file_contents).hexdigest()
+    def _set_file_hash(self):
+        with self.open_file() as f:
+            self.file_hash = hash_filelike(f)
 
     def get_file_hash(self):
         if self.file_hash == "":
-            with self.open_file() as f:
-                self._set_file_hash(f.read())
-
+            self._set_file_hash()
             self.save(update_fields=["file_hash"])
 
         return self.file_hash
+
+    def _set_document_file_metadata(self):
+        self.file.open()
+
+        # Set new document file size
+        self.file_size = self.file.size
+
+        # Set new document file hash
+        self._set_file_hash()
+        self.file.seek(0)
 
     def __str__(self):
         return self.title
@@ -157,7 +166,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         return reverse("wagtaildocs_serve", args=[self.id, self.filename])
 
     def get_usage(self):
-        return get_object_usage(self)
+        return ReferenceIndex.get_grouped_references_to(self)
 
     @property
     def usage_url(self):
@@ -225,3 +234,4 @@ class UploadedDocument(models.Model):
         editable=False,
         on_delete=models.SET_NULL,
     )
+    uploaded_by_user.wagtail_reference_index_ignore = True

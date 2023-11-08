@@ -29,7 +29,7 @@ Embedly
 Flickr
 formset
 frontend
-Github
+GitHub
 Gravatar
 Gunicorn
 Hallo

@@ -9,7 +9,7 @@ from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 User = get_user_model()
 
 
-class TestUserSetActiveStateView(TestCase, WagtailTestUtils):
+class TestUserSetActiveStateView(WagtailTestUtils, TestCase):
     def setUp(self):
         # create a set of test users
         self.test_users = [
@@ -66,7 +66,7 @@ class TestUserSetActiveStateView(TestCase, WagtailTestUtils):
         self.assertInHTML("<p>You cannot change your own active status</p>", html)
 
         needle = "<ul>"
-        needle += "<li>{user_email}</li>".format(user_email=self.current_user.email)
+        needle += f"<li>{self.current_user.email}</li>"
         needle += "</ul>"
         self.assertInHTML(needle, html)
 

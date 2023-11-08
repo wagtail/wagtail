@@ -2,27 +2,31 @@ import datetime
 import unittest
 from unittest.mock import Mock
 
-import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
-from django.http import Http404, HttpRequest
-from django.test import Client, TestCase
+from django.http import Http404
+from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
-from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.coreutils import get_dummy_request
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
+    GroupApprovalTask,
     Locale,
     Page,
     PageLogEntry,
     PageManager,
+    PageViewRestriction,
     Site,
+    Workflow,
+    WorkflowTask,
     get_page_models,
     get_translatable_models,
 )
@@ -209,19 +213,13 @@ class TestSiteRouting(TestCase):
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
-        request.META["SERVER_PORT"] = self.events_site.port
+        request = get_dummy_request(site=self.events_site)
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.events_site)
 
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.alternate_port_events_site.hostname
-        request.META["SERVER_PORT"] = self.alternate_port_events_site.port
+        request = get_dummy_request(site=self.alternate_port_events_site)
         with self.assertNumQueries(1):
             self.assertEqual(
                 Site.find_for_request(request), self.alternate_port_events_site
@@ -229,18 +227,14 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_host_header_routes_to_default_site(self):
         # requests with an unrecognised Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.unrecognised_hostname
-        request.META["SERVER_PORT"] = "80"
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
         # requests to the default host on an unrecognised port should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.default_site.hostname
+        request = get_dummy_request(site=self.default_site)
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
@@ -248,8 +242,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
         # should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.unrecognised_hostname
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
@@ -258,8 +251,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
         # requests on an unrecognised port should be directed to the site with
         # matching hostname if there is no ambiguity
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.about_site.hostname
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
@@ -271,18 +263,15 @@ class TestSiteRouting(TestCase):
         # requests on an unrecognised port should be directed to the default
         # site, even if their hostname (but not port) matches more than one
         # other entry
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
+        request = get_dummy_request(site=self.events_site)
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = "%s:%s" % (
+        request = get_dummy_request()
+        request.META["HTTP_HOST"] = "{}:{}".format(
             self.events_site.hostname,
             self.events_site.port,
         )
@@ -393,18 +382,14 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.relative_url(events_site), "/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
 
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = events_site.hostname
-        request.META["SERVER_PORT"] = events_site.port
+        request = get_dummy_request(site=events_site)
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, "http://events.example.com", "/christmas/"),
         )
 
-        request2 = HttpRequest()
-        request2.META["HTTP_HOST"] = second_events_site.hostname
-        request2.META["SERVER_PORT"] = second_events_site.port
+        request2 = get_dummy_request(site=second_events_site)
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (second_events_site.id, "http://second-events.example.com", "/christmas/"),
@@ -453,17 +438,15 @@ class TestRouting(TestCase):
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        request = HttpRequest()
-        request.path = "/events/christmas/"
+        request = get_dummy_request(path="/events/christmas/")
         (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
         self.assertEqual(found_page, christmas_page)
 
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        request = HttpRequest()
+        request = get_dummy_request(site=Site.objects.first())
         request.user = AnonymousUser()
-        request.META["HTTP_HOST"] = Site.objects.first().hostname
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
@@ -474,16 +457,14 @@ class TestRouting(TestCase):
     def test_route_to_unknown_page_returns_404(self):
         homepage = Page.objects.get(url_path="/home/")
 
-        request = HttpRequest()
-        request.path = "/events/quinquagesima/"
+        request = get_dummy_request(path="/events/quinquagesima/")
         with self.assertRaises(Http404):
             homepage.route(request, ["events", "quinquagesima"])
 
     def test_route_to_unpublished_page_returns_404(self):
         homepage = Page.objects.get(url_path="/home/")
 
-        request = HttpRequest()
-        request.path = "/events/tentative-unpublished-event/"
+        request = get_dummy_request(path="/events/tentative-unpublished-event/")
         with self.assertRaises(Http404):
             homepage.route(request, ["events", "tentative-unpublished-event"])
 
@@ -508,9 +489,7 @@ class TestRouting(TestCase):
             self.assertEqual(christmas_page.get_url(), "/events/christmas/")
 
         # with a request, the first call to get_url should issue 1 SQL query
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "dummy"
-        request.META["SERVER_PORT"] = "8888"
+        request = get_dummy_request()
         # first call with "balnk" request issues a extra query for the Site.find_for_request() call
         with self.assertNumQueries(2):
             self.assertEqual(homepage.get_url(request=request), "/")
@@ -699,18 +678,15 @@ class TestRoutingWithI18N(TestRouting):
         self.assertEqual(christmas_page.relative_url(events_site), "/en/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
 
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = events_site.hostname
-        request.META["SERVER_PORT"] = events_site.port
+        request = get_dummy_request(site=events_site)
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, "http://events.example.com", "/en/christmas/"),
         )
 
-        request2 = HttpRequest()
-        request2.META["HTTP_HOST"] = second_events_site.hostname
-        request2.META["SERVER_PORT"] = second_events_site.port
+        request2 = get_dummy_request(site=second_events_site)
+
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (
@@ -741,9 +717,7 @@ class TestRoutingWithI18N(TestRouting):
             self.assertEqual(christmas_page.get_url(), "/en/events/christmas/")
 
         # with a request, the first call to get_url should issue 1 SQL query
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "dummy"
-        request.META["SERVER_PORT"] = "8888"
+        request = get_dummy_request()
         # first call with "balnk" request issues a extra query for the Site.find_for_request() call
         with self.assertNumQueries(3):
             self.assertEqual(homepage.get_url(request=request), "/en/")
@@ -764,9 +738,7 @@ class TestServeView(TestCase):
         # Explicitly clear the cache of site root paths. Normally this would be kept
         # in sync by the Site.save logic, but this is bypassed when the database is
         # rolled back between tests using transactions.
-        from django.core.cache import cache
-
-        cache.delete("wagtail_site_root_paths")
+        Site.clear_site_root_paths_cache()
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here
@@ -863,64 +835,6 @@ class TestServeView(TestCase):
         self.assertContains(response, "bad googlebot no cookie")
 
 
-class TestStaticSitePaths(TestCase):
-    def setUp(self):
-        self.root_page = Page.objects.get(id=1)
-
-        # For simple tests
-        self.home_page = self.root_page.add_child(
-            instance=SimplePage(title="Homepage", slug="home2", content="hello")
-        )
-        self.about_page = self.home_page.add_child(
-            instance=SimplePage(title="About us", slug="about", content="hello")
-        )
-        self.contact_page = self.home_page.add_child(
-            instance=SimplePage(title="Contact", slug="contact", content="hello")
-        )
-
-        # For custom tests
-        self.event_index = self.root_page.add_child(
-            instance=EventIndex(title="Events", slug="events")
-        )
-        for i in range(20):
-            self.event_index.add_child(
-                instance=EventPage(
-                    title="Event " + str(i),
-                    slug="event" + str(i),
-                    location="the moon",
-                    audience="public",
-                    cost="free",
-                    date_from="2001-01-01",
-                )
-            )
-
-    def test_local_static_site_paths(self):
-        paths = list(self.about_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/"])
-
-    def test_child_static_site_paths(self):
-        paths = list(self.home_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/", "/about/", "/contact/"])
-
-    def test_custom_static_site_paths(self):
-        paths = list(self.event_index.get_static_site_paths())
-
-        # Event index path
-        expected_paths = ["/"]
-
-        # One path for each page of results
-        expected_paths.extend(["/" + str(i + 1) + "/" for i in range(5)])
-
-        # One path for each event page
-        expected_paths.extend(["/event" + str(i) + "/" for i in range(20)])
-
-        paths.sort()
-        expected_paths.sort()
-        self.assertEqual(paths, expected_paths)
-
-
 class TestMovePage(TestCase):
     fixtures = ["test.json"]
 
@@ -975,6 +889,21 @@ class TestPrevNextSiblings(TestCase):
         )
 
 
+class TestSaveRevision(TestCase):
+    fixtures = ["test.json"]
+
+    def test_raises_error_if_non_specific_page_used(self):
+        christmas_event = Page.objects.get(url_path="/home/events/christmas/")
+
+        with self.assertRaises(RuntimeError) as e:
+            christmas_event.save_revision()
+
+        self.assertEqual(
+            e.exception.args[0],
+            "page.save_revision() must be called on the specific version of the page. Call page.specific.save_revision() instead.",
+        )
+
+
 class TestLiveRevision(TestCase):
     fixtures = ["test.json"]
 
@@ -990,12 +919,12 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 page.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             # first_published_at should not change
             self.assertEqual(
                 page.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -1008,7 +937,9 @@ class TestLiveRevision(TestCase):
                 # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
                 page.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
 
@@ -1029,18 +960,20 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 page.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 page.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
                 # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
                 page.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
             self.assertEqual(
@@ -1068,11 +1001,11 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 new_about_us.first_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 new_about_us.last_published_at,
-                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -1081,6 +1014,10 @@ class TestLiveRevision(TestCase):
             self.assertEqual(
                 new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0)
             )
+
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
 
     def test_copy_method_without_keep_live_will_not_update_live_revision(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
@@ -1098,13 +1035,39 @@ class TestLiveRevision(TestCase):
         # has not been published
         self.assertIsNone(new_about_us.first_published_at)
         self.assertIsNone(new_about_us.last_published_at)
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
+
+    def test_copy_method_copies_latest_revision(self):
+        about_us = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # make another revision
+        about_us.content = "We are even better than before"
+        about_us.save_revision()
+        about_us.refresh_from_db()
+
+        self.assertEqual(
+            about_us.get_latest_revision_as_object().content,
+            "We are even better than before",
+        )
+
+        new_about_us = about_us.copy(
+            keep_live=False,
+            update_attrs={"title": "New about us", "slug": "new-about-us"},
+        )
+        new_about_us_draft = new_about_us.get_latest_revision_as_object()
+        self.assertEqual(new_about_us_draft.content, "We are even better than before")
+        new_about_us.refresh_from_db()
+        self.assertEqual(new_about_us.title, "New about us")
+        self.assertEqual(new_about_us.draft_title, "New about us")
 
     @freeze_time("2017-01-01 12:00:00")
     def test_publish_with_future_go_live_does_not_set_live_revision(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
         if settings.USE_TZ:
             about_us.go_live_at = datetime.datetime(
-                2018, 1, 1, 12, 0, 0, tzinfo=pytz.utc
+                2018, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
             )
         else:
             about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0)
@@ -1119,23 +1082,27 @@ class TestLiveRevision(TestCase):
         if settings.USE_TZ:
             self.assertEqual(
                 about_us.first_published_at,
-                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
             self.assertEqual(
                 about_us.last_published_at,
-                datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc),
+                datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
                 about_us.first_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
             self.assertEqual(
                 about_us.last_published_at,
                 timezone.make_naive(
-                    datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
+                    datetime.datetime(
+                        2014, 2, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+                    )
                 ),
             )
 
@@ -1482,14 +1449,14 @@ class TestCopyPage(TestCase):
         )
 
         # Check that the attributes were updated in the latest revision
-        latest_revision = new_christmas_event.get_latest_revision_as_page()
+        latest_revision = new_christmas_event.get_latest_revision_as_object()
         self.assertEqual(latest_revision.title, "New christmas event")
         self.assertEqual(latest_revision.slug, "new-christmas-event")
 
-        # get_latest_revision_as_page might bypass the revisions table if it determines
+        # get_latest_revision_as_object might bypass the revisions table if it determines
         # that there are no draft edits since publish - so retrieve it explicitly from the
         # revision data, to ensure it's been updated there too
-        latest_revision = new_christmas_event.get_latest_revision().as_page_object()
+        latest_revision = new_christmas_event.get_latest_revision().as_object()
         self.assertEqual(latest_revision.title, "New christmas event")
         self.assertEqual(latest_revision.slug, "new-christmas-event")
 
@@ -1511,36 +1478,15 @@ class TestCopyPage(TestCase):
             msg="Child objects in revisions were not given a new primary key",
         )
 
-    def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
-        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.save_revision(submitted_for_moderation=True)
-
-        # Copy it
-        new_christmas_event = christmas_event.copy(
-            update_attrs={"title": "New christmas event", "slug": "new-christmas-event"}
-        )
-
-        # Check that the old revision is still submitted for moderation
-        self.assertTrue(
-            christmas_event.revisions.order_by("created_at")
-            .first()
-            .submitted_for_moderation
-        )
-
-        # Check that the new revision is not submitted for moderation
-        self.assertFalse(
-            new_christmas_event.revisions.order_by("created_at")
-            .first()
-            .submitted_for_moderation
-        )
-
     def test_copy_page_copies_revisions_and_doesnt_change_created_at(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.save_revision(submitted_for_moderation=True)
+        christmas_event.save_revision()
 
         # Set the created_at of the revision to a time in the past
         revision = christmas_event.get_latest_revision()
-        revision.created_at = datetime.datetime(2014, 1, 1, 0, 0, 0, tzinfo=pytz.utc)
+        revision.created_at = datetime.datetime(
+            2014, 1, 1, 0, 0, 0, tzinfo=datetime.timezone.utc
+        )
         revision.save()
 
         # Copy it
@@ -1562,7 +1508,7 @@ class TestCopyPage(TestCase):
         if settings.USE_TZ:
             christmas_event.save_revision(
                 approved_go_live_at=datetime.datetime(
-                    2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc
+                    2014, 9, 16, 9, 12, 00, tzinfo=datetime.timezone.utc
                 )
             )
         else:
@@ -1581,7 +1527,7 @@ class TestCopyPage(TestCase):
                 christmas_event.revisions.order_by("created_at")
                 .first()
                 .approved_go_live_at,
-                datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc),
+                datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=datetime.timezone.utc),
             )
         else:
             self.assertEqual(
@@ -1734,7 +1680,7 @@ class TestCopyPage(TestCase):
         old_christmas_event = (
             events_index.get_children().filter(slug="christmas").first()
         )
-        old_christmas_event.save_revision()
+        old_christmas_event.specific.save_revision()
 
         # Copy it
         new_events_index = events_index.copy(
@@ -1863,7 +1809,7 @@ class TestCopyPage(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_copy_subclassed_page_copies_tags(self):
@@ -1896,7 +1842,7 @@ class TestCopyPage(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_copy_page_with_m2m_relations(self):
@@ -2109,12 +2055,15 @@ class TestCopyPage(TestCase):
             signal_page = instance
 
         page_published.connect(page_published_handler)
-        copy_page = christmas_page.copy(
-            update_attrs={"title": "New christmas", "slug": "new-christmas"},
-        )
+        try:
+            copy_page = christmas_page.copy(
+                update_attrs={"title": "New christmas", "slug": "new-christmas"},
+            )
 
-        self.assertTrue(signal_fired)
-        self.assertEqual(signal_page, copy_page)
+            self.assertTrue(signal_fired)
+            self.assertEqual(signal_page, copy_page)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_unpublished_not_emits_signal(self):
         """Test that copying of an unpublished page not emits a page_published signal."""
@@ -2130,8 +2079,11 @@ class TestCopyPage(TestCase):
 
         page_published.connect(page_published_handler)
 
-        homepage.copy(update_attrs={"slug": "new_slug"})
-        self.assertFalse(signal_fired)
+        try:
+            homepage.copy(update_attrs={"slug": "new_slug"})
+            self.assertFalse(signal_fired)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_keep_live_false_not_emits_signal(self):
         """Test that copying of a live page with keep_live=False not emits a page_published signal."""
@@ -2142,10 +2094,13 @@ class TestCopyPage(TestCase):
             nonlocal signal_fired
             signal_fired = True
 
-        page_published.connect(page_published_handler)
+        try:
+            page_published.connect(page_published_handler)
 
-        homepage.copy(keep_live=False, update_attrs={"slug": "new_slug"})
-        self.assertFalse(signal_fired)
+            homepage.copy(keep_live=False, update_attrs={"slug": "new_slug"})
+            self.assertFalse(signal_fired)
+        finally:
+            page_published.disconnect(page_published_handler)
 
     def test_copy_alias_page(self):
         about_us = SimplePage.objects.get(url_path="/home/about-us/")
@@ -2162,6 +2117,82 @@ class TestCopyPage(TestCase):
 
         # The copy should just be a copy of the original page, not an alias
         self.assertIsNone(about_us_alias_copy.alias_of)
+
+    def test_copy_page_copies_restriction(self):
+        """Test that view restrictions attached to a page are copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        homepage.add_child(instance=child_page_1)
+
+        # Add PageViewRestriction to child_page_1
+        PageViewRestriction.objects.create(page=child_page_1, password="hello")
+
+        child_page_2 = child_page_1.copy(
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"}
+        )
+
+        # check that the copied page child_page_2 has a view restriction
+        self.assertTrue(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_copy_page_does_not_copy_restrictions_from_parent(self):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+        PageViewRestriction.objects.create(page=origin_parent, password="hello")
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+
+        child_page_2 = child_page_1.copy(
+            to=destination_parent,
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"},
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_copy_page_does_not_copy_restrictions_when_new_parent_has_one_already(self):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+        PageViewRestriction.objects.create(page=destination_parent, password="hello")
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+        PageViewRestriction.objects.create(page=child_page_1, password="hello")
+
+        child_page_2 = child_page_1.copy(
+            to=destination_parent,
+            update_attrs={"title": "Child Page 2", "slug": "child-page-2"},
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
 
 
 class TestCreateAlias(TestCase):
@@ -2443,7 +2474,7 @@ class TestCreateAlias(TestCase):
 
         # new tagged_item IDs should differ from old ones
         self.assertTrue(
-            all([item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids])
+            all(item_id not in old_tagged_item_ids for item_id in new_tagged_item_ids)
         )
 
     def test_create_alias_with_m2m_relations(self):
@@ -2587,6 +2618,90 @@ class TestCreateAlias(TestCase):
             # reset excluded fields for future tests
             EventPage.exclude_fields_in_copy = []
 
+    def test_alias_page_copies_restriction(self):
+        """Test that view restrictions attached to a page are copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        homepage.add_child(instance=child_page_1)
+
+        # Add PageViewRestriction to child_page_1
+        group = Group.objects.create(name="Test Group")
+        restriction = PageViewRestriction.objects.create(
+            page=child_page_1, restriction_type=PageViewRestriction.GROUPS
+        )
+        restriction.groups.add(group)
+
+        child_page_2 = child_page_1.create_alias(update_slug="child-page-2")
+
+        # check that the copied page child_page_2 has a view restriction
+        copied_restriction = PageViewRestriction.objects.get(page=child_page_2)
+        # check that the copied restriction has the same groups as the original
+        self.assertEqual(
+            list(copied_restriction.groups.values_list("id", flat=True)), [group.pk]
+        )
+
+    def test_alias_page_does_not_copy_restrictions_from_parent(self):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+        PageViewRestriction.objects.create(page=origin_parent, password="hello")
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+
+        child_page_2 = child_page_1.create_alias(
+            parent=destination_parent,
+            update_slug="child-page-2",
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
+    def test_alias_page_does_not_copy_restrictions_when_new_parent_has_one_already(
+        self,
+    ):
+        """Test that view restrictions on a page's ancestor are NOT copied along with the page"""
+
+        homepage = Page.objects.get(url_path="/home/")
+
+        origin_parent = SimplePage(
+            title="Parent 1", slug="parent-1", content="hello parent 1"
+        )
+        homepage.add_child(instance=origin_parent)
+
+        destination_parent = SimplePage(
+            title="Parent 2", slug="parent-2", content="hello parent 2"
+        )
+        homepage.add_child(instance=destination_parent)
+        PageViewRestriction.objects.create(page=destination_parent, password="hello")
+
+        child_page_1 = SimplePage(
+            title="Child Page 1", slug="child-page-1", content="hello child page 1"
+        )
+        origin_parent.add_child(instance=child_page_1)
+        PageViewRestriction.objects.create(page=child_page_1, password="hello")
+
+        child_page_2 = child_page_1.create_alias(
+            parent=destination_parent,
+            update_slug="child-page-2",
+        )
+        # check that the copied page child_page_2 does not have a view restriction
+        self.assertFalse(PageViewRestriction.objects.filter(page=child_page_2).exists())
+
 
 class TestUpdateAliases(TestCase):
     fixtures = ["test.json"]
@@ -2631,11 +2746,11 @@ class TestUpdateAliases(TestCase):
         self.assertEqual(alias.draft_title, "Updated title")
         self.assertEqual(alias_alias.draft_title, "Updated title")
 
-        # Check log entries were created
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
@@ -2676,11 +2791,11 @@ class TestUpdateAliases(TestCase):
         self.assertTrue(alias.live)
         self.assertTrue(alias_alias.live)
 
-        # Check log entries were created
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
@@ -2850,7 +2965,7 @@ class TestCopyForTranslation(TestCase):
         self.assertEqual(fr_eventindex.alias_of, self.en_eventindex)
 
 
-class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
+class TestSubpageTypeBusinessRules(WagtailTestUtils, TestCase):
     def test_allowed_subpage_models(self):
         # SimplePage does not define any restrictions on subpage types
         # SimplePage is a valid subpage of SimplePage
@@ -2981,7 +3096,7 @@ class TestIssue735(TestCase):
     fixtures = ["test.json"]
 
     def test_child_urls_updated_on_parent_publish(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
 
         # Change the event index slug and publish it
@@ -3021,8 +3136,10 @@ class TestIssue1216(TestCase):
     fixtures = ["test.json"]
 
     def test_url_path_can_exceed_255_characters(self):
-        event_index = Page.objects.get(url_path="/home/events/")
-        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
+        christmas_event = EventPage.objects.get(
+            url_path="/home/events/christmas/"
+        ).specific
 
         # Change the christmas_event slug first - this way, we test that the process for
         # updating child url paths also handles >255 character paths correctly
@@ -3037,7 +3154,9 @@ class TestIssue1216(TestCase):
 
         # Check that the url path updated correctly
         new_christmas_event = EventPage.objects.get(id=christmas_event.id)
-        expected_url_path = "/home/%s/%s/" % (new_event_index_slug, new_christmas_slug)
+        expected_url_path = "/home/{}/{}/".format(
+            new_event_index_slug, new_christmas_slug
+        )
         self.assertEqual(new_christmas_event.url_path, expected_url_path)
 
 
@@ -3164,7 +3283,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3191,7 +3310,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost")
+        self.assertEqual(request.headers["host"], "localhost")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3218,7 +3337,7 @@ class TestMakePreviewRequest(TestCase):
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, "/events/")
-        self.assertEqual(request.META["HTTP_HOST"], "localhost:8888")
+        self.assertEqual(request.headers["host"], "localhost:8888")
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META["REQUEST_METHOD"], "GET")
@@ -3255,17 +3374,17 @@ class TestMakePreviewRequest(TestCase):
             request.META["REMOTE_ADDR"], original_request.META["REMOTE_ADDR"]
         )
         self.assertEqual(
-            request.META["HTTP_X_FORWARDED_FOR"],
+            request.headers["x-forwarded-for"],
             original_request.META["HTTP_X_FORWARDED_FOR"],
         )
         self.assertEqual(
-            request.META["HTTP_COOKIE"], original_request.META["HTTP_COOKIE"]
+            request.headers["cookie"], original_request.META["HTTP_COOKIE"]
         )
         self.assertEqual(
-            request.META["HTTP_USER_AGENT"], original_request.META["HTTP_USER_AGENT"]
+            request.headers["user-agent"], original_request.META["HTTP_USER_AGENT"]
         )
         self.assertEqual(
-            request.META["HTTP_AUTHORIZATION"],
+            request.headers["authorization"],
             original_request.META["HTTP_AUTHORIZATION"],
         )
 
@@ -3294,7 +3413,7 @@ class TestMakePreviewRequest(TestCase):
         # in the absence of an actual Site record where we can access this page,
         # make_preview_request should still provide a hostname that Django's host header
         # validation won't reject
-        self.assertEqual(request.META["HTTP_HOST"], "production.example.com")
+        self.assertEqual(request.headers["host"], "production.example.com")
 
     @override_settings(ALLOWED_HOSTS=["*"])
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(
@@ -3306,7 +3425,7 @@ class TestMakePreviewRequest(TestCase):
         request = response.context_data["request"]
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
-        self.assertNotEqual(request.META["HTTP_HOST"], "*")
+        self.assertNotEqual(request.headers["host"], "*")
 
     def test_is_previewable(self):
         event_index = Page.objects.get(url_path="/home/events/")
@@ -3452,11 +3571,11 @@ class TestUnpublish(TestCase):
         self.assertFalse(alias.live)
         self.assertFalse(alias_alias.live)
 
-        # Check log entries were created for the aliases
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.unpublish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.unpublish"
             ).exists()
@@ -3546,6 +3665,7 @@ class TestDefaultLocale(TestCase):
         self.assertEqual(page.locale, fr_locale)
 
 
+@override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocalized(TestCase):
     fixtures = ["test.json"]
 
@@ -3569,6 +3689,13 @@ class TestLocalized(TestCase):
             self.assertEqual(
                 self.event_page.localized_draft, self.fr_event_page.page_ptr
             )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_localized_different_language_with_wagtail_i18n_enabled_false(self):
+        """Should return the same page if WAGTAIL_I18N_ENABLED is False"""
+        with translation.override("fr"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
 
     def test_localized_different_language_unpublished(self):
         # We shouldn't autolocalize if the translation is unpublished
@@ -3607,3 +3734,184 @@ class TestLocalized(TestCase):
             self.assertEqual(self.fr_event_page.localized, self.fr_event_page)
             self.assertEqual(self.event_page.localized_draft, self.event_page)
             self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)
+
+
+class TestGetLock(TestCase):
+    fixtures = ["test.json"]
+
+    def test_when_unlocked(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        self.assertIsNone(christmas_event.get_lock())
+
+    def test_when_locked(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
+        )
+
+    def test_when_locked_without_locked_at(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "<b>'Christmas' is locked</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>'Christmas' is locked</b> by <b>you</b>.",
+        )
+
+    @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
+    def test_when_locked_globally(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertTrue(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
+        )
+
+    def test_when_locked_by_workflow(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.save_revision()
+
+        workflow = Workflow.objects.create(name="test_workflow")
+        task = GroupApprovalTask.objects.create(name="test_task")
+        task.groups.add(Group.objects.get(name="Event moderators"))
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        workflow.start(christmas_event, moderator)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, WorkflowLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is currently awaiting moderation. Only reviewers for this task can edit the page.",
+        )
+        self.assertIsNone(lock.get_message(moderator))
+
+        # When visiting a page in a workflow with multiple tasks, the message displayed to users changes to show the current task the page is on
+
+        # Add a second task to the workflow
+        other_task = GroupApprovalTask.objects.create(name="another_task")
+        WorkflowTask.objects.create(workflow=workflow, task=other_task, sort_order=2)
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is awaiting <b>'test_task'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page.",
+        )
+
+    def test_when_scheduled_for_publish(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        if settings.USE_TZ:
+            christmas_event.go_live_at = datetime.datetime(
+                2030, 7, 29, 16, 32, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
+        rvn = christmas_event.save_revision()
+        rvn.publish()
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, ScheduledForPublishLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 30, 2030, 1:32 a.m."
+        else:
+            expected_date_string = "July 29, 2030, 4:32 p.m."
+
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"Page 'Christmas' is locked and has been scheduled to go live at {expected_date_string}",
+        )
+
+        # Not even superusers can break this lock
+        # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
+        superuser = get_user_model().objects.get(email="superuser@example.com")
+        self.assertTrue(lock.for_user(superuser))
+
+
+class TestPageCacheKey(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.page = Page.objects.last()
+        self.other_page = Page.objects.first()
+
+    def test_cache_key_consistent(self):
+        self.assertEqual(self.page.cache_key, self.page.cache_key)
+        self.assertEqual(self.other_page.cache_key, self.other_page.cache_key)
+
+    def test_no_queries(self):
+        with self.assertNumQueries(0):
+            self.page.cache_key
+            self.other_page.cache_key
+
+    def test_changes_when_slug_changes(self):
+        original_cache_key = self.page.cache_key
+        self.page.slug = "something-else"
+        self.page.save()
+        self.assertNotEqual(self.page.cache_key, original_cache_key)

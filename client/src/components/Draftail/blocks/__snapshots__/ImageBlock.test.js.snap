@@ -3,17 +3,18 @@
 exports[`ImageBlock alt 1`] = `
 <MediaBlock
   alt=""
-  block={Object {}}
+  block={{}}
   blockProps={
-    Object {
-      "editorState": Object {},
-      "entity": Object {
+    {
+      "editorState": {},
+      "entity": {
         "getData": [Function],
       },
-      "entityType": Object {},
+      "entityType": {},
       "onChange": [Function],
     }
   }
+  fallbackText={null}
   src="example.png"
 >
   <p
@@ -38,17 +39,18 @@ exports[`ImageBlock alt 1`] = `
 exports[`ImageBlock no data 1`] = `
 <MediaBlock
   alt=""
-  block={Object {}}
+  block={{}}
   blockProps={
-    Object {
-      "editorState": Object {},
-      "entity": Object {
+    {
+      "editorState": {},
+      "entity": {
         "getData": [Function],
       },
-      "entityType": Object {},
+      "entityType": {},
       "onChange": [Function],
     }
   }
+  fallbackText={null}
   src={null}
 >
   <p
@@ -73,17 +75,18 @@ exports[`ImageBlock no data 1`] = `
 exports[`ImageBlock renders 1`] = `
 <MediaBlock
   alt=""
-  block={Object {}}
+  block={{}}
   blockProps={
-    Object {
-      "editorState": Object {},
-      "entity": Object {
+    {
+      "editorState": {},
+      "entity": {
         "getData": [Function],
       },
-      "entityType": Object {},
+      "entityType": {},
       "onChange": [Function],
     }
   }
+  fallbackText={null}
   src="example.png"
 >
   <p

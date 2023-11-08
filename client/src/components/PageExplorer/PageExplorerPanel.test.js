@@ -36,7 +36,7 @@ describe('PageExplorerPanel', () => {
         shallow(
           <PageExplorerPanel
             {...mockProps}
-            page={Object.assign({ isFetching: true }, mockProps.page)}
+            page={{ isFetching: true, ...mockProps.page }}
           />,
         ),
       ).toMatchSnapshot();
@@ -47,7 +47,7 @@ describe('PageExplorerPanel', () => {
         shallow(
           <PageExplorerPanel
             {...mockProps}
-            page={Object.assign({ isError: true }, mockProps.page)}
+            page={{ isError: true, ...mockProps.page }}
           />,
         ),
       ).toMatchSnapshot();

@@ -1,12 +1,8 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n wagtailadmin_tags %}
-
-{% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
     {{ media.css }}
 {% endblock %}
 
@@ -16,28 +12,31 @@
     {{ media.js }}
 {% endblock %}
 
+{% block main_header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
+{% endblock %}
+
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 only %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
 
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        <div class="nice-padding w-form-width">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
-        <ul class="objects">
-            <li class="object">
-                <div class="title-wrapper">
-                    <label>
-                        {% trans "Assign your workflow to pages" %}
-                    </label>
-                </div>
-                <div class="object-layout">
-                    <div class="object-layout_big-part">
-                        {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
-                    </div>
-                </div>
-            </li>
-        </ul>
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
+                {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+            {% endpanel %}
+
+            {% if has_workflow_enabled_models %}
+                {% panel id="workflow-content-types" icon="snippet" heading=_("Assign your workflow to snippets") %}
+                    {% include "wagtailadmin/shared/field.html" with field=content_type_form.content_types sr_only_label=True only %}
+                {% endpanel %}
+            {% endif %}
+        </div>
 
         {% block footer %}
             <footer class="footer" role="contentinfo">
@@ -45,8 +44,15 @@
                     <li class="actions footer__container">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">
-                                    {% icon name="spinner" %}<em>{% trans 'Create' %}</em>
+                                <button
+                                    type="submit"
+                                    class="button action-save button-longrunning"
+                                    data-controller="w-progress"
+                                    data-action="w-progress#activate"
+                                    data-w-progress-active-value="{% trans 'Creating…' %}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{% trans 'Create' %}</em>
                                 </button>
                             </div>
                         {% endblock %}

@@ -4,6 +4,7 @@ from jinja2.ext import Extension
 from markupsafe import Markup, escape
 
 from .templatetags.wagtailcore_tags import (
+    fullpageurl,
     pageurl,
     richtext,
     slugurl,
@@ -20,6 +21,7 @@ class WagtailCoreExtension(Extension):
 
         self.environment.globals.update(
             {
+                "fullpageurl": jinja2.pass_context(fullpageurl),
                 "pageurl": jinja2.pass_context(pageurl),
                 "slugurl": jinja2.pass_context(slugurl),
                 "wagtail_site": jinja2.pass_context(wagtail_site),

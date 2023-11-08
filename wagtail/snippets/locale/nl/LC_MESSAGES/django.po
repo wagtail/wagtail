@@ -5,17 +5,18 @@
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
-# Storm Heg <storm@stormbase.digital>, 2021
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Storm Heg <storm@stormbase.digital>, 2021-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,63 +24,57 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publiceren"
+
+msgid "Submit for moderation"
+msgstr "Dien in ter controle"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Stuur opnieuw door naar %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Stuur door naar %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Workflow herstarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow annuleren"
+
+msgid "Unpublish"
+msgstr "Publicatie intrekken"
+
 msgid "Delete"
 msgstr "Verwijder"
 
 msgid "Save"
 msgstr "Opslaan"
 
+msgid "Locked"
+msgstr "Vergrendeld"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s en publiceren"
+
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
 
-msgid "Choose"
-msgstr "Kies"
-
-msgid "Search"
-msgstr "Zoeken"
+msgid "Delete selected snippets"
+msgstr "Verwijder geselecteerde snippets"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Er is %(counter)s overeenkomst\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Er zijn %(counter)s overeenkomsten\n"
-"        "
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' verwijderd."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Helaas, er komen geen snippets overeen met de zoekterm \"<em>"
-"%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. Waarom <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">voegt u er niet een toe</a>?"
-
-msgid "Last updated"
-msgstr "Laatst bijgewerkt"
-
-msgid "History"
-msgstr "Geschiedenis"
-
-msgid "Saving…"
-msgstr "Bezig met opslaan…"
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d%(model_name)s verwijderd."
+msgstr[1] "%(count)d%(model_name)s verwijderd."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -96,18 +91,60 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
-msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
+msgstr "Weet je zeker dat je deze %(snippet_type_name)s wilt verwijderen?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "%(count)s%(snippet_type_name)s worden verwijderd. Weet je het zeker?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Je hebt niet de juiste rechten om %(snippet_type_name)s te verwijderen"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
 msgstr ""
-"Weet u zeker dat u deze %(count)s%(snippet_type_name)s wilt verwijderen?"
+"Je hebt niet de juiste rechten om deze %(snippet_plural_name)s te verwijderen"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
 
 msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Sorry, er zijn geen snippets die voldoen aan de zoekopdracht "
+"\"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Voeg er nu een toe</a>"
+
+msgid "Publishing…"
+msgstr "Bezig met publiceren..."
+
+msgid "Publish this version"
+msgstr "Publiceer deze versie"
+
+msgid "Saving…"
+msgstr "Bezig met opslaan…"
+
+msgid "Replace current draft"
+msgstr "Vervang huidig concept"
+
+msgid "Replace current revision"
+msgstr "Vervang huidige revisie"
+
+msgid "Save draft"
+msgstr "Bewaar concept"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -120,101 +157,83 @@ msgid "Actions"
 msgstr "Acties"
 
 #, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Wijzigen %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Usage"
-msgstr "Gebruik"
-
-msgid "Snippets"
-msgstr "Snippets"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Selecteer alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titel"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Selecteer %(snippet)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Wijzigen: %(snippet_type_name)s - %(object)s "
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
 
 #, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
-
-#, python-format
 msgid "Add %(snippet_type_name)s"
-msgstr "Voeg toe %(snippet_type_name)s"
+msgstr "Voeg %(snippet_type_name)s toe"
+
+msgid "Select all snippets in listing"
+msgstr "Selecteer alle snippets in lijst"
 
 #, python-format
-msgid "Usage of %(title)s"
-msgstr "Gebruik van %(title)s"
-
-msgid "Usage of"
-msgstr "Gebruik van"
-
-msgid "Parent"
-msgstr "Bovenliggende"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Wijzig deze pagina"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Zoek %(snippet_type_name)s"
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Sorry, geen %(snippet_type_name_plural)s voldoen aan je zoekopdracht"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' aangemaakt."
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a "
+"href=\"%(wagtailsnippets_create_url)s\">voeg je er niet een toe</a>?"
+
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
+
+msgid "Preview"
+msgstr "Voorvertoning"
 
 msgid "Edit"
 msgstr "Wijzig"
 
+msgid "Review this version"
+msgstr "Beoordeel deze versie"
+
+msgid "Compare with previous version"
+msgstr "Vergelijk met vorige versie"
+
+msgid "Compare with current version"
+msgstr "Vergelijk met huidige versie"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuleer geplande publicatie"
+
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Snippets"
+msgstr "Snippets"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Instances"
+msgstr "Instanties"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Meer opties voor '%(title)s'"
+
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
 
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' gewijzigd."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' verwijderd."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s verwijderd."
-msgstr[1] "%(count)d %(snippet_type)s verwijderd."
-
-msgid "Snippet history"
-msgstr "Snippet geschiedenis"
 
 msgid "Action"
 msgstr "Actie"
@@ -223,21 +242,24 @@ msgid "Date"
 msgstr "Datum"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Wijzig '%(title)s'"
+msgid "Edit this %(model_name)s"
+msgstr "Bewerk %(model_name)s"
 
 #, python-format
-msgid "Delete '%(title)s'"
-msgstr "Verwijder '%(title)s'"
+msgid "%(model_name)s history"
+msgstr "%(model_name)s geschiedenis"
+
+msgid "Home"
+msgstr "Home"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Kies %s"
+msgid "Choose %(object)s"
+msgstr "Kies %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Kies een andere %s"
+msgid "Choose another %(object)s"
+msgstr "Kies een andere %(object)s"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Wijzig %s"
+msgid "Edit this %(object)s"
+msgstr "Wijzig %(object)s"

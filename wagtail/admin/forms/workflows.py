@@ -1,20 +1,25 @@
 from django import forms
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.db import transaction
+from django.db.models import Q
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy as __
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
-from wagtail.coreutils import get_model_string
-from wagtail.models import Page, Task, Workflow, WorkflowPage
+from wagtail.coreutils import get_content_type_label, get_model_string
+from wagtail.models import Page, Task, Workflow, WorkflowContentType, WorkflowPage
+from wagtail.snippets.models import get_workflow_enabled_models
 
 
 class TaskChooserSearchForm(forms.Form):
     q = forms.CharField(
-        label=__("Search term"), widget=forms.TextInput(), required=False
+        label=gettext_lazy("Search term"), widget=forms.TextInput(), required=False
     )
 
     def __init__(self, *args, task_type_choices=None, **kwargs):
@@ -96,9 +101,10 @@ class WorkflowPageForm(forms.ModelForm):
                 self.add_error(
                     "page",
                     ValidationError(
-                        _("This page already has workflow '{0}' assigned.").format(
-                            existing_workflow
-                        ),
+                        _(
+                            "This page already has workflow '%(workflow_name)s' assigned."
+                        )
+                        % {"workflow_name": existing_workflow},
                         code="existing_workflow",
                     ),
                 )
@@ -146,6 +152,107 @@ class BaseWorkflowPagesFormSet(forms.BaseInlineFormSet):
             raise forms.ValidationError(
                 _("You cannot assign this workflow to the same page multiple times.")
             )
+
+
+class WorkflowContentTypeForm(forms.Form):
+    class ContentTypeMultipleChoiceField(forms.ModelMultipleChoiceField):
+        def label_from_instance(self, obj):
+            return get_content_type_label(obj)
+
+    class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+        """Custom CheckboxSelectMultiple widget that renders errors for each content type ID"""
+
+        option_template_name = (
+            "wagtailadmin/workflows/includes/workflow_content_types_checkbox.html"
+        )
+
+        def get_errors_by_id(self, errors):
+            errors_by_id = {}
+            for error in errors.as_data():
+                ct_id = error.params and error.params.get("content_type_id")
+                errors_by_id.setdefault(ct_id, []).append(error)
+            return errors_by_id
+
+        def render_with_errors(
+            self, name, value, attrs=None, renderer=None, errors=None
+        ):
+            context = {
+                **self.get_context(name, value, attrs),
+                "errors_by_id": self.get_errors_by_id(errors),
+            }
+            return self._render(self.template_name, context, renderer)
+
+    content_types = ContentTypeMultipleChoiceField(
+        queryset=ContentType.objects.none(),
+        widget=CheckboxSelectMultiple(),
+        required=False,
+    )
+
+    def __init__(self, *args, workflow=None, **kwargs):
+        self.workflow = workflow
+        if workflow and "initial" not in kwargs:
+            kwargs["initial"] = {"content_types": workflow.workflow_content_types.all()}
+
+        super().__init__(*args, **kwargs)
+
+        # Start with an always-false query, as Django can optimise it by
+        # returning an empty queryset without running any database queries.
+        workflow_enabled_q = Q(pk__in=[])
+
+        # Then union the query for each workflow-enabled model.
+        for model in get_workflow_enabled_models():
+            workflow_enabled_q |= Q(
+                app_label=model._meta.app_label, model=model._meta.model_name
+            )
+
+        self.fields["content_types"].queryset = ContentType.objects.filter(
+            workflow_enabled_q
+        )
+
+    def clean(self):
+        content_types = self.cleaned_data.get("content_types")
+        if not content_types:
+            return
+
+        existing_assignments = WorkflowContentType.objects.filter(
+            content_type__in=content_types,
+            workflow__active=True,
+        ).exclude(workflow=self.workflow)
+        for assignment in existing_assignments:
+            self.add_error(
+                "content_types",
+                ValidationError(
+                    _(
+                        "Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+                    )
+                    % {
+                        "content_type": capfirst(assignment.content_type.name),
+                        "workflow_name": assignment.workflow,
+                    },
+                    code="existing_workflow_content_type",
+                    params={"content_type_id": assignment.content_type_id},
+                ),
+            )
+
+    def save(self, commit=True):
+        if not commit:
+            return
+
+        content_types = self.cleaned_data["content_types"]
+
+        with transaction.atomic():
+            # Remove any content types that are no longer selected
+            WorkflowContentType.objects.filter(workflow=self.workflow).exclude(
+                content_type__in=content_types
+            ).delete()
+
+            # Add any new content types, ignoring conflicts with existing ones
+            # to avoid additional query for existing content types
+            objects = [
+                WorkflowContentType(workflow=self.workflow, content_type=ct)
+                for ct in content_types
+            ]
+            WorkflowContentType.objects.bulk_create(objects, ignore_conflicts=True)
 
 
 WorkflowPagesFormSet = forms.inlineformset_factory(
@@ -204,15 +311,15 @@ def get_workflow_edit_handler():
     # this decision later if we decide to allow custom fields on Workflows.
 
     panels = [
-        FieldPanel(
-            "name", heading=_("Give your workflow a name"), classname="full title"
-        ),
+        FieldPanel("name", heading=_("Give your workflow a name")),
         InlinePanel(
             "workflow_tasks",
             [
                 FieldPanel("task", widget=AdminTaskChooser(show_clear_link=False)),
             ],
             heading=_("Add tasks to your workflow"),
+            label=_("Task"),
+            icon="thumbtack",
         ),
     ]
     edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)

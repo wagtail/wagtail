@@ -6,7 +6,6 @@ from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.contrib.forms.utils import get_field_clean_name
 
 
 class BaseForm(django.forms.Form):
@@ -103,15 +102,15 @@ class FormBuilder:
         """
 
         if "\n" in field.choices:
-            choices = map(
-                lambda x: (
+            choices = (
+                (
                     x.strip().rstrip(",").strip(),
                     x.strip().rstrip(",").strip(),
-                ),
-                field.choices.split("\r\n"),
+                )
+                for x in field.choices.split("\r\n")
             )
         else:
-            choices = map(lambda x: (x.strip(), x.strip()), field.choices.split(","))
+            choices = ((x.strip(), x.strip()) for x in field.choices.split(","))
 
         return choices
 
@@ -142,14 +141,13 @@ class FormBuilder:
             # If the field hasn't been saved to the database yet (e.g. we are previewing
             # a FormPage with unsaved changes) it won't have a clean_name as this is
             # set in FormField.save.
-            clean_name = field.clean_name or get_field_clean_name(field.label)
+            clean_name = field.clean_name or field.get_field_clean_name()
             formfields[clean_name] = create_field(field, options)
 
         return formfields
 
     def get_field_options(self, field):
-        options = {}
-        options["label"] = field.label
+        options = {"label": field.label}
         if getattr(settings, "WAGTAILFORMS_HELP_TEXT_ALLOW_HTML", False):
             options["help_text"] = field.help_text
         else:
@@ -159,7 +157,7 @@ class FormBuilder:
         return options
 
     def get_form_class(self):
-        return type(str("WagtailForm"), (BaseForm,), self.formfields)
+        return type("WagtailForm", (BaseForm,), self.formfields)
 
 
 class SelectDateForm(django.forms.Form):
@@ -175,31 +173,35 @@ class SelectDateForm(django.forms.Form):
 
 class WagtailAdminFormPageForm(WagtailAdminPageForm):
     def clean(self):
-
         super().clean()
 
-        # Check for dupe form field labels - fixes #585
+        # Check for duplicate form fields by comparing their internal clean_names
         if "form_fields" in self.formsets:
-            _forms = self.formsets["form_fields"].forms
-            for f in _forms:
-                f.is_valid()
+            forms = self.formsets["form_fields"].forms
+            for form in forms:
+                form.is_valid()
 
-            for i, form in enumerate(_forms):
-                if "label" in form.changed_data:
-                    label = form.cleaned_data.get("label")
-                    clean_name = get_field_clean_name(label)
-                    for idx, ff in enumerate(_forms):
-                        # Exclude self
-                        ff_clean_name = get_field_clean_name(
-                            ff.cleaned_data.get("label")
+            # Use existing clean_name or generate for new fields.
+            # clean_name is set in FormField.save
+            clean_names = [
+                f.instance.clean_name or f.instance.get_field_clean_name()
+                for f in forms
+            ]
+            duplicate_clean_name = next(
+                (n for n in clean_names if clean_names.count(n) > 1), None
+            )
+            if duplicate_clean_name:
+                duplicate_form_field = next(
+                    f
+                    for f in self.formsets["form_fields"].forms
+                    if f.instance.get_field_clean_name() == duplicate_clean_name
+                )
+                duplicate_form_field.add_error(
+                    "label",
+                    django.forms.ValidationError(
+                        _(
+                            "There is another field with the label %(label_name)s, please change one of them."
                         )
-                        if idx != i and clean_name == ff_clean_name:
-                            form.add_error(
-                                "label",
-                                django.forms.ValidationError(
-                                    _(
-                                        "There is another field with the label %s, please change one of them."
-                                    )
-                                    % label
-                                ),
-                            )
+                        % {"label_name": duplicate_form_field.instance.label}
+                    ),
+                )

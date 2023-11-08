@@ -4,7 +4,7 @@ from django.urls import reverse
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestStyleGuide(TestCase, WagtailTestUtils):
+class TestStyleGuide(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 

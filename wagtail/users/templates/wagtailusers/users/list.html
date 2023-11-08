@@ -25,7 +25,7 @@
                     </a>
                 {% endif %}
             </th>
-            <th class="level">{% trans "Level" %}</th>
+            <th class="level">{% trans "Access level" %}</th>
             <th class="status">{% trans "Status" %}</th>
             <th class="last-login">{% trans "Last Login" %}</th>
         </tr>
@@ -36,7 +36,7 @@
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
                 <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
                     <div class="title-wrapper">
-                        <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
+                        {% avatar user=user size="small" %}
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                     </div>
                     <ul class="actions">
@@ -45,8 +45,16 @@
                 </td>
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
-                <td class="status" valign="top"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
-                <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"DATETIME_FORMAT" }}"{% endif %}>{% if user.last_login %}{% blocktrans trimmed with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>
+                <td class="status" valign="top">
+                    {% if user.is_active %}
+                        {% trans "Active" as status_label %}
+                        {% status status_label classname="w-status--primary" %}
+                    {% else %}
+                        {% trans "Inactive" as status_label %}
+                        {% status status_label %}
+                    {% endif %}
+                </td>
+                <td>{% if user.last_login %}{% human_readable_date user.last_login %}{% endif %}</td>
             </tr>
         {% endfor %}
     </tbody>

@@ -4,14 +4,16 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
+# Naglis Jonaitis, 2022
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Naglis Jonaitis, 2022\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,6 +23,9 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail style guide"
+msgstr "Wagtail stiliaus vadovas"
+
 msgid "Styleguide"
 msgstr "Stiliaus gidas"
 
@@ -29,9 +34,6 @@ msgstr "Išsaugoti"
 
 msgid "Delete image"
 msgstr "Ištrinti paveiksliuką"
-
-msgid "Home"
-msgstr "Namai"
 
 msgid "Search something"
 msgstr "Ko nors ieškoti"

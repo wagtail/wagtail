@@ -2,6 +2,8 @@
 Wagtail 2.0 release notes
 =========================
 
+*February 28, 2018*
+
 .. contents::
     :local:
     :depth: 1
@@ -50,7 +52,7 @@ Other features
 * Added hooks ``before_create_user``, ``after_create_user``, ``before_delete_user``, ``after_delete_user``, ``before_edit_user``, ``after_edit_user`` (Jon Carmack)
 * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
 * Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
-* Optimized preview data storage (Bertrand Bordage)
+* Optimised preview data storage (Bertrand Bordage)
 * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
 * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
 * The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
@@ -64,7 +66,7 @@ Other features
 * Updated documentation styling (LB (Ben Johnston))
 * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
 * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
-* Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
+* Form submission csv exports now have the export date in the filename and can be customised (Johan Arensman)
 * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben Johnston))
 * Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
 * Added a basic Dockerfile to the project template (Tom Dyson)

@@ -1,5 +1,6 @@
-import '../tests/stubs';
+import { domReady } from '../src/utils/domReady';
 
+import '../tests/stubs';
 import '../../wagtail/admin/static_src/wagtailadmin/scss/core.scss';
 import './preview.scss';
 
@@ -29,7 +30,7 @@ const loadIconSprite = () => {
       const sprite = document.createElement('div');
       sprite.innerHTML = html;
       const symbols = Array.from(sprite.querySelectorAll('symbol'));
-      const icons = symbols.map((elt) => elt.id.replace('icon-', ''));
+      const icons = symbols.map((elt) => elt.id.replace('icon-', '')).sort();
 
       window.WAGTAIL_ICONS = icons;
       sessionStorage.setItem('WAGTAIL_ICONS', JSON.stringify(icons));
@@ -43,5 +44,11 @@ const loadIconSprite = () => {
       }
     });
 };
+
+domReady().then(() => {
+  // Add ready class to body to enable CSS transitions
+  // Emulates what happens in Wagtail admin when initial content is loaded
+  document.body.classList.add('ready');
+});
 
 loadIconSprite();

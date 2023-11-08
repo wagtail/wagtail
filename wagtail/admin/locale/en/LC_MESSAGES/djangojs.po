@@ -2,7 +2,33 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:348
+#: src/components/Sidebar/menu/SubMenuItem.tsx:121
+msgid "(%(number)s new items in this menu)"
+msgstr ""
+
+#: src/components/Sidebar/menu/SubMenuItem.tsx:120
+msgid "(1 new item in this menu)"
+msgstr ""
+
+#: src/components/Sidebar/menu/ActionMenuItem.tsx:60
+#: src/components/Sidebar/menu/LinkMenuItem.tsx:77
+msgid "(New)"
+msgstr ""
+
+#: src/components/Minimap/MinimapItem.tsx:38
+#: src/controllers/CountController.ts:61
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/includes/sidePanel.js:152
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:328
 msgid "Add a comment"
 msgstr ""
 
@@ -15,7 +41,11 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/components/Draftail/decorators/Link.js:25
+#: src/entrypoints/admin/telepath/widgets.js:334
+msgid "Blocks"
+msgstr ""
+
+#: src/components/Draftail/decorators/Link.js:26
 msgid "Broken link"
 msgstr ""
 
@@ -30,8 +60,16 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/entrypoints/admin/modal-workflow.js:38
+#: src/components/Draftail/controls/MaxLength.tsx:54
+msgid "Character count:"
+msgstr ""
+
+#: src/entrypoints/admin/modal-workflow.js:50
 msgid "Close"
+msgstr ""
+
+#: src/components/Minimap/CollapseAll.tsx:31
+msgid "Collapse all"
 msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:249
@@ -50,7 +88,7 @@ msgstr ""
 #: src/components/CommentApp/components/Comment/index.tsx:424
 #: src/components/CommentApp/components/CommentHeader/index.tsx:136
 #: src/components/CommentApp/components/CommentReply/index.tsx:205
-#: src/components/Draftail/blocks/EmbedBlock.js:38
+#: src/components/Draftail/blocks/EmbedBlock.js:44
 #: src/components/Draftail/blocks/ImageBlock.js:34
 msgid "Delete"
 msgstr ""
@@ -66,39 +104,58 @@ msgid "Deleting"
 msgstr ""
 
 #: src/components/CommentApp/components/CommentHeader/index.tsx:131
-#: src/components/Draftail/blocks/EmbedBlock.js:32
+#: src/components/Draftail/blocks/EmbedBlock.js:38
 #: src/components/Draftail/blocks/ImageBlock.js:28
 msgid "Edit"
 msgstr ""
 
 #: src/components/PageExplorer/PageExplorerItem.tsx:62
-msgid "Edit '{title}'"
+msgid "Edit '%(title)s'"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:224
-#: src/components/Sidebar/modules/MainMenu.tsx:244
-#: src/components/Sidebar/modules/MainMenu.tsx:246
+#: src/components/Sidebar/modules/MainMenu.tsx:313
+#: src/components/Sidebar/modules/MainMenu.tsx:315
 msgid "Edit your account"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:543
-#: src/entrypoints/admin/comments.js:112
+#: src/components/CommentApp/components/Comment/index.tsx:238
+msgid "Enter your comments..."
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:163
+msgid "Enter your reply..."
+msgstr ""
+
+#: src/entrypoints/admin/preview-panel.js:209
+msgid "Error while sending preview data."
+msgstr ""
+
+#: src/components/Minimap/CollapseAll.tsx:31
+msgid "Expand all"
+msgstr ""
+
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:522
+#: src/entrypoints/admin/comments.js:101
 msgid "Focus comment"
 msgstr ""
 
-#: src/components/Draftail/index.js:93
+#: src/components/Draftail/index.js:162
 msgid "Horizontal line"
 msgstr ""
 
-#: src/components/Draftail/index.js:113
+#: src/components/ComboBox/ComboBox.tsx:9
+msgid "Insert a block"
+msgstr ""
+
+#: src/components/Draftail/index.js:216
 msgid "Line break"
 msgstr ""
 
-#: src/components/LoadingSpinner/LoadingSpinner.js:12
+#: src/components/LoadingSpinner/LoadingSpinner.tsx:12
 msgid "Loading…"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:210
+#: src/components/Sidebar/modules/MainMenu.tsx:283
 msgid "Main menu"
 msgstr ""
 
@@ -110,7 +167,9 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerPanel.tsx:83
+#: src/components/ComboBox/ComboBox.tsx:11
+#: src/components/Draftail/index.js:242
+#: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
 
@@ -118,17 +177,17 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerPanel.tsx:127
+#: src/components/PageExplorer/PageExplorerPanel.tsx:132
 msgid "Page explorer"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:28
-#: src/components/PageExplorer/PageExplorerHeader.tsx:86
+#: src/components/PageExplorer/PageExplorerHeader.tsx:82
 msgid "Pages"
 msgstr ""
 
-#: src/components/Draftail/index.js:117
-msgid "Redo"
+#: src/components/Draftail/index.js:50
+msgid "Pin toolbar"
 msgstr ""
 
 #: src/components/Draftail/EditorFallback/EditorFallback.js:96
@@ -141,6 +200,10 @@ msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:173
 msgid "Reply"
+msgstr ""
+
+#: src/includes/chooserModal.js:52
+msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
 #: src/components/CommentApp/components/CommentHeader/index.tsx:145
@@ -181,11 +244,15 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: src/components/Sidebar/modules/Search.tsx:116
-#: src/components/Sidebar/modules/Search.tsx:53
-#: src/components/Sidebar/modules/Search.tsx:73
-#: src/components/Sidebar/modules/Search.tsx:93
+#: src/components/Sidebar/modules/Search.tsx:117
+#: src/components/Sidebar/modules/Search.tsx:52
+#: src/components/Sidebar/modules/Search.tsx:72
+#: src/components/Sidebar/modules/Search.tsx:92
 msgid "Search"
+msgstr ""
+
+#: src/components/ComboBox/ComboBox.tsx:10
+msgid "Search options…"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:24
@@ -193,7 +260,8 @@ msgid "See all"
 msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
-#: src/components/PageExplorer/PageExplorerPanel.tsx:111
+#: src/components/PageExplorer/PageExplorerPanel.tsx:112
+#: src/includes/chooserModal.js:62
 msgid "Server Error"
 msgstr ""
 
@@ -205,7 +273,7 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:298
+#: src/entrypoints/admin/telepath/widgets.js:225
 msgid "Split block"
 msgstr ""
 
@@ -213,23 +281,31 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/components/Sidebar/Sidebar.tsx:177
-#: src/components/Sidebar/Sidebar.tsx:204
+#: src/includes/chooserModal.js:22
+msgid "This field is required."
+msgstr ""
+
+#: src/components/Minimap/Minimap.tsx:223
+msgid "Toggle side panel"
+msgstr ""
+
+#: src/components/Sidebar/Sidebar.tsx:187
+#: src/components/Sidebar/Sidebar.tsx:222
 msgid "Toggle sidebar"
 msgstr ""
 
-#: src/components/Draftail/index.js:116
-msgid "Undo"
-msgstr ""
-
-#: src/entrypoints/admin/comments.js:107
+#: src/entrypoints/admin/comments.js:96
 msgid "Unfocus comment"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:75
-msgid "View child pages of '{title}'"
+#: src/components/Draftail/index.js:51
+msgid "Unpin toolbar"
 msgstr ""
 
-#: src/components/Draftail/index.js:110
-msgid "Write here…"
+#: src/components/PageExplorer/PageExplorerItem.tsx:75
+msgid "View child pages of '%(title)s'"
+msgstr ""
+
+#: src/components/Draftail/index.js:213
+msgid "Write something or type ‘/’ to insert a block"
 msgstr ""

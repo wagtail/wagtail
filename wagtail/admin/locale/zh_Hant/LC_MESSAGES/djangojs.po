@@ -1,0 +1,131 @@
+#
+# Translators:
+# Yu Hsun Lee <andylee0914.tw@gmail.com>, 2022
+# Yeh Yen-Ke <yyken@outlook.com>, 2022
+# Brian Xu, 2022
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Chinese Traditional (https://app.transifex.com/torchbox/"
+"teams/8009/zh-Hant/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add a comment"
+msgstr "添加注釋"
+
+msgid "Alt text"
+msgstr "替代文字"
+
+msgid "Are you sure?"
+msgstr "你確定嗎？"
+
+msgid "Broken link"
+msgstr "無效連結"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Comment"
+msgstr "評論"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Deleting"
+msgstr "刪除中"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit '%(title)s'"
+msgstr "編輯 '%(title)s'"
+
+msgid "Edit your account"
+msgstr "編輯帳號"
+
+msgid "Horizontal line"
+msgstr "水平線"
+
+msgid "Line break"
+msgstr "換行"
+
+msgid "Loading…"
+msgstr "正在載入..."
+
+msgid "Main menu"
+msgstr "主目錄"
+
+msgid "Missing document"
+msgstr "遺失文件"
+
+msgid "More actions"
+msgstr "更多動作"
+
+msgid "No results"
+msgstr "沒有結果"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Page explorer"
+msgstr "頁面瀏覽器"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Reload saved content"
+msgstr "重新加載已保存內容"
+
+msgid "Reload the page"
+msgstr "刷新頁面"
+
+msgid "Reply"
+msgstr "回覆"
+
+msgid "Resolve"
+msgstr "解決"
+
+msgid "Retry"
+msgstr "重試"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Saving..."
+msgstr "儲存中..."
+
+msgid "Search"
+msgstr "搜尋"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Server Error"
+msgstr "伺服器錯誤"
+
+msgid "Show error"
+msgstr "顯示錯誤"
+
+msgid "Show latest content"
+msgstr "顯示最新內容"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "編輯器崩潰了，內容被重新設置為最後保存的版本。"
+
+msgid "This field is required."
+msgstr "必要欄位"
+
+msgid "View child pages of '%(title)s'"
+msgstr "檢視 '%(title)s' 子頁面"

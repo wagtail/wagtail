@@ -19,11 +19,7 @@
 
 @include media-breakpoint-up(sm) {
   .divider-before {
-    border-inline-start: 1px solid $color-grey-4;
-  }
-
-  .divider-after {
-    border-inline-end: 1px solid $color-grey-4;
+    border-inline-start: 1px solid theme('colors.border-furniture');
   }
 }
 
@@ -47,10 +43,6 @@ body.reordering {
 
 .block {
   display: block;
-}
-
-.unlist {
-  @include unlist();
 }
 
 // utility class to allow things to be scrollable if their contents can't wrap more nicely

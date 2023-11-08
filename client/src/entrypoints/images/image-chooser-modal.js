@@ -1,178 +1,54 @@
 import $ from 'jquery';
-import { initTabs } from '../../includes/tabs';
+import {
+  ChooserModalOnloadHandlerFactory,
+  ChooserModal,
+} from '../../includes/chooserModal';
 
-function ajaxifyImageUploadForm(modal) {
-  $('form.image-upload', modal.body).on('submit', function () {
-    var formdata = new FormData(this);
+class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
+  ajaxifyLinks(modal, context) {
+    super.ajaxifyLinks(modal, context);
 
-    if (!$('#id_image-chooser-upload-title', modal.body).val()) {
-      var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
-      if (!li.hasClass('error')) {
-        li.addClass('error');
-        $('#id_image-chooser-upload-title', modal.body)
-          .closest('.field-content')
-          .append(
-            '<p class="error-message"><span>This field is required.</span></p>',
-          );
+    $('a.upload-one-now').on('click', (event) => {
+      // Set current collection ID at upload form tab
+      const collectionId = $('#id_collection_id').val();
+      if (collectionId) {
+        $('#id_image-chooser-upload-collection').val(collectionId);
       }
-      setTimeout(cancelSpinner, 500);
-    } else {
-      $.ajax({
-        url: this.action,
-        data: formdata,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        dataType: 'text',
-        success: modal.loadResponseText,
-        error: function (response, textStatus, errorThrown) {
-          var message =
-            jsonData.error_message +
-            '<br />' +
-            errorThrown +
-            ' - ' +
-            response.status;
-          $('#tab-upload').append(
-            '<div class="help-block help-critical">' +
-              '<strong>' +
-              jsonData.error_label +
-              ': </strong>' +
-              message +
-              '</div>',
-          );
-        },
-      });
-    }
 
-    return false;
-  });
-
-  var fileWidget = $('#id_image-chooser-upload-file', modal.body);
-  fileWidget.on('change', function () {
-    var titleWidget = $('#id_image-chooser-upload-title', modal.body);
-    var title = titleWidget.val();
-    // do not override a title that already exists (from manual editing or previous upload)
-    if (title === '') {
-      // The file widget value example: `C:\fakepath\image.jpg`
-      var parts = fileWidget.val().split('\\');
-      var filename = parts[parts.length - 1];
-
-      // allow event handler to override filename (used for title) & provide maxLength as int to event
-      var maxTitleLength =
-        parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-      var data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
-      var form = fileWidget.closest('form').get(0);
-      var event = form.dispatchEvent(
-        new CustomEvent('wagtail:images-upload', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: maxTitleLength,
-          },
-        }),
-      );
-
-      if (!event) return; // do not set a title if event.preventDefault(); is called by handler
-
-      titleWidget.val(data.title);
-    }
-  });
-}
-
-window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  chooser: function (modal, jsonData) {
-    var searchForm = $('form.image-search', modal.body);
-    var searchUrl = searchForm.attr('action');
-
-    function ajaxifyLinks(context) {
-      $('.listing a', context).on('click', function () {
-        modal.loadUrl(this.href);
-        return false;
-      });
-
-      $('.pagination a', context).on('click', function () {
-        fetchResults(this.href);
-        return false;
-      });
-    }
-    var request;
-
-    function fetchResults(url, requestData) {
-      var opts = {
-        url: url,
-        success: function (data, status) {
-          request = null;
-          $('#image-results').html(data);
-          ajaxifyLinks($('#image-results'));
-        },
-        error: function () {
-          request = null;
-        },
-      };
-      if (requestData) {
-        opts.data = requestData;
-      }
-      request = $.ajax(opts);
-    }
-
-    function search() {
-      fetchResults(searchUrl, searchForm.serialize());
-      return false;
-    }
-
-    ajaxifyLinks(modal.body);
-    ajaxifyImageUploadForm(modal);
-
-    $('form.image-search', modal.body).on('submit', search);
-
-    $('#id_q').on('input', function () {
-      if (request) {
-        request.abort();
-      }
-      clearTimeout($.data(this, 'timer'));
-      var wait = setTimeout(search, 200);
-      $(this).data('timer', wait);
+      event.preventDefault();
     });
-    $('#collection_chooser_collection_id').on('change', search);
-    $('a.suggested-tag').on('click', function () {
+  }
+
+  onLoadChooseStep(modal) {
+    super.onLoadChooseStep(modal);
+
+    $('a.suggested-tag').on('click', (event) => {
       $('#id_q').val('');
-      fetchResults(searchUrl, {
-        tag: $(this).text(),
-        collection_id: $('#collection_chooser_collection_id').val(),
+      this.searchController.search({
+        tag: $(event.currentTarget).text(),
+        collection_id: $('#id_collection_id').val(),
       });
       return false;
     });
+  }
 
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    initTabs();
-  },
-  image_chosen: function (modal, jsonData) {
-    modal.respond('imageChosen', jsonData.result);
-    modal.close();
-  },
-  duplicate_found: function (modal, jsonData) {
+  onLoadDuplicateFoundStep(modal, jsonData) {
     $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
-    $('.use-new-image', modal.body).on('click', function () {
-      modal.loadUrl(this.href);
+    $('.use-new-image', modal.body).on('click', (event) => {
+      modal.loadUrl(event.currentTarget.href);
       return false;
     });
-    $('.use-existing-image', modal.body).on('click', function () {
-      var form = $(this).closest('form');
+    $('.use-existing-image', modal.body).on('click', (event) => {
+      var form = $(event.currentTarget).closest('form');
       var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
-      modal.postForm(this.href, { csrfmiddlewaretoken: CSRFToken });
+      modal.postForm(event.currentTarget.href, {
+        csrfmiddlewaretoken: CSRFToken,
+      });
       return false;
     });
-  },
-  reshow_upload_form: function (modal, jsonData) {
-    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
-    initTabs();
-    ajaxifyImageUploadForm(modal);
-  },
-  select_format: function (modal) {
+  }
+
+  onLoadSelectFormatStep(modal) {
     var decorativeImage = document.querySelector(
       '#id_image-chooser-insertion-image_is_decorative',
     );
@@ -182,20 +58,6 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     var altTextLabel = document.querySelector(
       '[for="id_image-chooser-insertion-alt_text"]',
     );
-
-    if (decorativeImage.checked) {
-      disableAltText();
-    } else {
-      enableAltText();
-    }
-
-    decorativeImage.addEventListener('change', function (event) {
-      if (event.target.checked) {
-        disableAltText();
-      } else {
-        enableAltText();
-      }
-    });
 
     function disableAltText() {
       altText.setAttribute('disabled', 'disabled');
@@ -207,10 +69,53 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       altTextLabel.classList.add('required');
     }
 
-    $('form', modal.body).on('submit', function () {
-      $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
+    if (decorativeImage.checked) {
+      disableAltText();
+    } else {
+      enableAltText();
+    }
+
+    decorativeImage.addEventListener('change', (event) => {
+      if (event.target.checked) {
+        disableAltText();
+      } else {
+        enableAltText();
+      }
+    });
+
+    $('form', modal.body).on('submit', (event) => {
+      $.post(
+        event.currentTarget.action,
+        $(event.currentTarget).serialize(),
+        modal.loadResponseText,
+        'text',
+      );
 
       return false;
     });
-  },
-};
+  }
+
+  getOnLoadHandlers() {
+    const handlers = super.getOnLoadHandlers();
+    handlers.duplicate_found = (modal, jsonData) => {
+      this.onLoadDuplicateFoundStep(modal, jsonData);
+    };
+    handlers.select_format = (modal, jsonData) => {
+      this.onLoadSelectFormatStep(modal, jsonData);
+    };
+    return handlers;
+  }
+}
+
+window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS =
+  new ImageChooserModalOnloadHandlerFactory({
+    creationFormFileFieldSelector: '#id_image-chooser-upload-file',
+    creationFormTitleFieldSelector: '#id_image-chooser-upload-title',
+    creationFormEventName: 'wagtail:images-upload',
+    creationFormTabSelector: '#tab-upload',
+  }).getOnLoadHandlers();
+
+class ImageChooserModal extends ChooserModal {
+  onloadHandlers = window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+}
+window.ImageChooserModal = ImageChooserModal;

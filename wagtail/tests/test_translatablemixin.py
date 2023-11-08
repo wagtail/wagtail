@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from django.conf import settings
 from django.core import checks
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.models import Locale
 from wagtail.test.i18n.models import (
@@ -21,6 +21,7 @@ def make_test_instance(model=None, **kwargs):
     return model.objects.create(**kwargs)
 
 
+@override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
     def setUp(self):
         language_codes = dict(settings.LANGUAGES).keys()
@@ -158,6 +159,7 @@ class TestTranslatableMixin(TestCase):
         self.assertEqual(copy_translatable_child.locale, self.another_locale)
 
 
+@override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocalized(TestCase):
     def setUp(self):
         self.en_locale = Locale.objects.get()

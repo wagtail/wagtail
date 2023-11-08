@@ -1,4 +1,3 @@
-import unittest
 from datetime import date
 from io import StringIO
 
@@ -33,7 +32,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             )
 
     def test_partial_search(self):
-        results = self.backend.search("Java", models.Book)
+        results = self.backend.autocomplete("Java", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -41,14 +40,14 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         )
 
     def test_disabled_partial_search(self):
-        results = self.backend.search("Java", models.Book, partial_match=False)
+        results = self.backend.search("Java", models.Book)
 
         self.assertUnsortedListEqual([r.title for r in results], [])
 
     def test_disabled_partial_search_with_whole_term(self):
         # Making sure that there isn't a different reason why the above test
         # returned no results
-        results = self.backend.search("JavaScript", models.Book, partial_match=False)
+        results = self.backend.search("JavaScript", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -57,7 +56,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     def test_child_partial_search(self):
         # Note: Expands to "Westeros". Which is in a field on Novel.setting
-        results = self.backend.search("Wes", models.Book)
+        results = self.backend.autocomplete("Wes", models.Book)
 
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -73,7 +72,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         index.add_item(book)
         index.refresh()
 
-        results = self.backend.search("Hello", models.Book)
+        results = self.backend.autocomplete("Hello", models.Book)
 
         self.assertUnsortedListEqual([r.title for r in results], ["Ĥéllø"])
 
@@ -149,7 +148,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )
@@ -167,7 +166,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )
@@ -187,7 +186,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         for i in range(150):
             books.append(
                 models.Book.objects.create(
-                    title="Book {}".format(i),
+                    title=f"Book {i}",
                     publication_date=date(2017, 10, 21),
                     number_of_pages=i,
                 )
@@ -200,37 +199,10 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 54)
 
-    def test_search_with_date_filter(self):
-        after_1900 = models.Book.objects.filter(publication_date__year__gt=1900)
-
-        results = self.backend.search(MATCH_ALL, after_1900)
-        self.assertEqual(len(after_1900), len(results))
-
+    def test_cannot_filter_on_date_parts_other_than_year(self):
         # Filtering by date not supported, should throw a FilterError
         from wagtail.search.backends.base import FilterError
 
         in_jan = models.Book.objects.filter(publication_date__month=1)
         with self.assertRaises(FilterError):
             self.backend.search(MATCH_ALL, in_jan)
-
-    # Elasticsearch always does prefix matching on `partial_match` fields,
-    # even when we don’t use `Prefix`.
-    @unittest.expectedFailure
-    def test_incomplete_term(self):
-        super().test_incomplete_term()
-
-    # Elasticsearch does not accept prefix for multiple words
-    @unittest.expectedFailure
-    def test_prefix_multiple_words(self):
-        super().test_prefix_multiple_words()
-
-    # Elasticsearch always does prefix matching on `partial_match` fields,
-    # even when we don’t use `Prefix`.
-    @unittest.expectedFailure
-    def test_incomplete_plain_text(self):
-        super().test_incomplete_plain_text()
-
-    # Elasticsearch does not support 'fields' arguments on autocomplete queries
-    @unittest.expectedFailure
-    def test_autocomplete_with_fields_arg(self):
-        super().test_autocomplete_with_fields_arg()

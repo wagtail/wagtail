@@ -2,9 +2,6 @@
   display: block;
   position: fixed;
   top: -1000rem;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 1rem;
   inset-inline-start: 1rem;
   z-index: 3000;
 
@@ -13,7 +10,7 @@
   }
 
   &.button {
-    background: $color-green-darker;
-    border: $color-green-darker;
+    background: theme('colors.surface-button-default');
+    border: theme('colors.surface-button-default');
   }
 }

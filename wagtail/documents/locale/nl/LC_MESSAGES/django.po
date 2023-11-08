@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Storm Heg <storm@stormbase.digital>, 2021
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Storm Heg <storm@stormbase.digital>, 2021-2023
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +68,7 @@ msgid "documents"
 msgstr "documenten"
 
 #, python-format
-msgid "Add tags to 1 document "
+msgid "Add tags to 1 document"
 msgid_plural "Add tags to %(counter)s documents"
 msgstr[0] "Voeg tags toe aan 1 document"
 msgstr[1] "Voeg tags toe aan %(counter)s documenten"
@@ -77,15 +78,15 @@ msgstr "Voeg tags toe aan documenten"
 
 msgid "Are you sure you want to tag the following document?"
 msgid_plural "Are you sure you want to tag the following documents?"
-msgstr[0] "Weet u zeker dat u deze tag wilt toevoegen aan dit document?"
-msgstr[1] "Weet u zeker dat u deze tag wilt toevoegen aan deze documenten?"
+msgstr[0] "Weet je zeker dat je deze tag wilt toevoegen aan dit document?"
+msgstr[1] "Weet je zeker dat je deze tag wilt toevoegen aan deze documenten?"
 
 msgid "You don't have permission to add tags to this document"
 msgid_plural "You don't have permission to add tags to these documents"
 msgstr[0] ""
-"U heeft niet de juiste rechten om tags toe te voegen aan dit document"
+"Je hebt niet de juiste rechten om tags toe te voegen aan dit document"
 msgstr[1] ""
-"U heeft niet de juiste rechten om tags toe te voegen aan deze documenten"
+"Je hebt niet de juiste rechten om tags toe te voegen aan deze documenten"
 
 msgid "Yes, add"
 msgstr "Ja, voeg toe"
@@ -94,9 +95,9 @@ msgid "No, don't add"
 msgstr "Nee, niet toevoegen"
 
 #, python-format
-msgid "Add 1 document to new collection "
+msgid "Add 1 document to new collection"
 msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Voeg 1 document toe aan nieuwe collectie"
+msgstr[0] "Voeg 1 document to aan nieuwe collectie"
 msgstr[1] "Voeg %(counter)s documenten toe aan nieuwe collectie"
 
 msgid "Add documents to collection"
@@ -109,34 +110,34 @@ msgid_plural ""
 "Are you sure you want to add the following documents to the selected "
 "collection?"
 msgstr[0] ""
-"Weet u zeker dat u dit document wilt toevoegen aan de geselecteerde "
+"Weet je zeker dat je dit document wilt toevoegen aan de geselecteerde "
 "collectie?"
 msgstr[1] ""
-"Weet u zeker dat u deze documenten wilt toevoegen aan de geselecteerde "
+"Weet je zeker dat je deze documenten wilt toevoegen aan de geselecteerde "
 "collectie?"
 
 msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] ""
-"U heeft niet de juiste rechten om dit document aan een collectie toe te "
+"Je hebt niet de juiste rechten om dit document aan een collectie toe te "
 "voegen"
 msgstr[1] ""
-"U heeft niet de juiste rechten om deze documenten aan een collectie toe te "
+"Je hebt niet de juiste rechten om deze documenten aan een collectie toe te "
 "voegen"
 
 #, python-format
-msgid "Delete 1 document "
+msgid "Delete 1 document"
 msgid_plural "Delete %(counter)s documents"
 msgstr[0] "Verwijder 1 document"
-msgstr[1] "Verwijder %(counter)s document"
+msgstr[1] "Verwijder %(counter)s documenten"
 
 msgid "Delete documents"
 msgstr "Verwijder documenten"
 
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
-msgstr[0] "Weet u zeker dat u dit document wilt verwijderen?"
-msgstr[1] "Weet u zeker dat u deze documenten wilt verwijderen?"
+msgstr[0] "Weet je zeker dat je dit document wilt verwijderen?"
+msgstr[1] "Weet je zeker dat je deze documenten wilt verwijderen?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -146,8 +147,8 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 
 msgid "You don't have permission to delete this document"
 msgid_plural "You don't have permission to delete these documents"
-msgstr[0] "U heeft niet de juiste rechten om dit document te verwijderen"
-msgstr[1] "U heeft niet de juiste rechten om deze documenten te verwijderen"
+msgstr[0] "Je hebt niet de juiste rechten om dit document te verwijderen"
+msgstr[1] "Je hebt niet de juiste rechten om deze documenten te verwijderen"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -155,59 +156,27 @@ msgstr "Ja, verwijder"
 msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
-msgid "Choose a document"
-msgstr "Kies een document"
-
-msgid "Search"
-msgstr "Zoek"
-
-msgid "Upload"
-msgstr "Uploaden"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Er is %(counter)s resultaat"
-msgstr[1] ""
-"\n"
-"Er zijn %(counter)s resultaten."
-
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
+"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(search_query)s</"
 "em>\""
 
 msgid "You haven't uploaded any documents in this collection."
-msgstr "U heeft nog geen documenten aan deze collectie toegevoegd."
+msgstr "Je hebt nog geen documenten aan deze collectie toegevoegd."
 
 msgid "You haven't uploaded any documents."
-msgstr "U heeft nog geen documenten geüpload."
+msgstr "Je hebt nog geen documenten geüpload."
 
-#, python-format
 msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
 msgstr ""
-"\n"
-"Upload <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">een document</a>"
-
-msgid "Uploading…"
-msgstr "Bezig met uploaden…"
+"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
+"nu eentje!</a>"
 
 msgid "Change document:"
 msgstr "Wijzig document:"
@@ -218,12 +187,11 @@ msgstr "Voeg een document toe"
 msgid "Add document"
 msgstr "Voeg document toe"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Verwijder %(title)s"
+msgid "Uploading…"
+msgstr "Bezig met uploaden…"
 
-msgid "Delete document"
-msgstr "Verwijder document"
+msgid "Upload"
+msgstr "Uploaden"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -234,6 +202,9 @@ msgstr "Wijzigen"
 
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "Delete document"
+msgstr "Verwijder document"
 
 msgid "Filesize"
 msgstr "Bestandsgrootte"
@@ -263,65 +234,46 @@ msgid "Select document"
 msgstr "Selecteer document"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
-msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a href="
-"\"%(wagtaildocs_add_document_url)s\">voegt u er niet een toe</a>?"
+"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen documenten toegevoegd. Waarom <a href="
-"\"%(wagtaildocs_add_document_url)s\">voegt u er niet een toe</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Gebruik van %(title)s"
-
-msgid "Usage of"
-msgstr "Gebruik van"
-
-msgid "Parent"
-msgstr "Bovenliggende"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Wijzig deze pagina"
+"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a "
+"href=\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
 
 #, python-format
 msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Er zijn nog geen documenten toegevoegd. Waarom <a "
+"href=\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> document <span class=\"visuallyhidden"
-"\">aangemaakt in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> document <span class=\"visuallyhidden\">aangemaakt in "
+"%(site_name)s</span>"
 msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> documenten <span class=\"visuallyhidden"
-"\">aangemaakt in%(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> documenten <span class=\"visuallyhidden\">aangemaakt "
+"in%(site_name)s</span>    "
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"
@@ -333,7 +285,7 @@ msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Sleep documenten naar dit gebied om ze direct te uploaden."
 
 msgid "Or choose from your computer"
-msgstr "Of kies vanaf uw computer"
+msgstr "Of kies vanaf je computer"
 
 msgid "Add to collection:"
 msgstr "Voeg toe aan collectie:"
@@ -343,8 +295,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Upload is gelukt. U kunt indien nodig het document van een duidelijkere "
-"titel voorzien. U kunt ook het document weer verwijderen."
+"Upload is gelukt. Je kunt indien nodig het document van een duidelijkere "
+"titel voorzien. Je kunt ook het document weer verwijderen."
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, het uploaden is misgegaan."
@@ -353,13 +305,16 @@ msgid "Document updated."
 msgstr "Document is bijgewerkt."
 
 msgid "You need a password to access this document."
-msgstr "U heeft een wachtwoord nodig om dit document te bekijken."
+msgstr "Je hebt een wachtwoord nodig om dit document te bekijken."
 
 msgid "Document permissions"
 msgstr "Documentmachtigingen"
 
 msgid "Add a document permission"
 msgstr "Voeg een documentmachtiging toe"
+
+msgid "Tags"
+msgstr "Tags"
 
 msgid "Tag"
 msgstr "Tag"
@@ -399,27 +354,28 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d document is verwijderd"
 msgstr[1] "%(num_parent_objects)d documenten zijn verwijderd"
 
-msgid "Server Error"
-msgstr "Server Error"
+msgid "Choose a document"
+msgstr "Kies een document"
 
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
+msgid "Choose another document"
+msgstr "Kies een ander document"
+
+msgid "Edit this document"
+msgstr "Wijzig document"
 
 msgid "Search documents"
 msgstr "Zoek documenten"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Document '{0}' toegevoegd."
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Document '%(document_title)s' toegevoegd."
 
 msgid "The document could not be saved due to errors."
 msgstr "Het document kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Document '{0}' is bijgewerkt"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Document '%(document_title)s' is bijgewerkt"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -427,9 +383,9 @@ msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Document '{0}' verwijderd."
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Document '%(document_title)s' verwijderd."
 
 msgid "Document"
 msgstr "Document"
@@ -439,9 +395,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s document"
 msgstr[1] "%(count)s documenten"
-
-msgid "Choose another document"
-msgstr "Kies een ander document"
-
-msgid "Edit this document"
-msgstr "Wijzig document"

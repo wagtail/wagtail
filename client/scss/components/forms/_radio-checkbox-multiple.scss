@@ -1,0 +1,23 @@
+/**
+ * Lists of checkboxes or radios, one after another vertically.
+ * Labels are next to their input, horizontally centered.
+ */
+
+.w-field--checkbox_select_multiple,
+.w-field--checkbox_select_multiple_with_disabled_options,
+.w-field--radio_select {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  label {
+    @apply w-body-text;
+    color: theme('colors.text-context');
+    display: inline-flex;
+    align-items: center;
+    line-height: normal;
+    margin-bottom: theme('spacing.[2.5]');
+  }
+}

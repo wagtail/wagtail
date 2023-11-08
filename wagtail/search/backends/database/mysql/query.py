@@ -62,11 +62,11 @@ class Lexeme(LexemeCombinable, Value):
         template = "%s"
 
         if self.prefix:
-            param = "*{}".format(param)
+            param = f"{param}*"
         if self.invert:
-            param = "(-{})".format(param)
+            param = f"(-{param})"
         else:
-            param = "{}".format(param)
+            param = f"{param}"
 
         return template, [param]
 
@@ -244,9 +244,9 @@ class MatchExpression(Expression):
         compiled_query = compiler.compile(self.query)  # Compile the query to a string
         formatted_query = compiled_query[0] % tuple(
             compiled_query[1]
-        )  # Subsitute the params in the query
+        )  # Substitute the params in the query
         column_list = ", ".join(
-            ["`{}`".format(column) for column in self.columns]
-        )  #  ['title', 'body'] becomes '`title`, `body`'
+            [f"`{column}`" for column in self.columns]
+        )  # ['title', 'body'] becomes '`title`, `body`'
         params = [formatted_query]
         return (self.template % (column_list, "%s"), params)

@@ -4,14 +4,15 @@
 #
 # Translators:
 # ime11 <pmh.yourworstnightmare@gmail.com>, 2019
+# ime11 <pmh.yourworstnightmare@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
-"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "ဝဂ်တေးအသုံးပြုသူများ"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"လိုအပ်သည်။ စာလုံး ၃၀ သို့မဟုတ် ပိုနည်းသောအရေအတွက်။ အက္ခရာများ၊ ကိန်းဂဏန်းများ၊ @/./+/-/_ များသာ။"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "ဤတန်ဖိုးတွင် အက္ခရာများ၊ ကိန်းဂဏန်းများ၊ @/./+/-/_ စာလုံးများသာ ပါဝင်နိုင်သည်။"
@@ -80,20 +77,17 @@ msgstr "ဖျက်သိမ်းပါ"
 msgid "Yes, delete"
 msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
 
-msgid "Delete group"
-msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
-
 msgid "Are you sure you want to delete this group?"
 msgstr "ဤအဖွဲ့ကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
 
 msgid "Add group"
 msgstr "အဖွဲ့ထည့်ပါ"
 
-msgid "Editing"
-msgstr "ပြင်ဆင်နေသည်"
-
 msgid "Save"
 msgstr "သိမ်းဆည်းပါ"
+
+msgid "Delete group"
+msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
 
 msgid "Name"
 msgstr "အမည်"
@@ -107,43 +101,20 @@ msgstr "ပြောင်းလဲပါ"
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-msgid "groups"
-msgstr "အဖွဲ့များ"
-
-msgid "Add a group"
-msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
-
-msgid "Delete user"
-msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
-
-msgid "Add user"
-msgstr "အသုံးပြုသူထည့်ပါ"
 
 msgid "Account"
 msgstr "အကောင့်"
 
+msgid "Add user"
+msgstr "အသုံးပြုသူထည့်ပါ"
+
+msgid "Delete user"
+msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
+
 msgid "Status"
 msgstr "အခြေအနေ"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "လွန်ခဲ့သော %(time_period)sက"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"ကိုက်ညီမှု %(counter)s ခုရှိသည်"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -152,50 +123,37 @@ msgstr "စိတ်မကောင်းပါ၊ ဘယ်အသုံးပ�
 msgid "Groups"
 msgstr "အဖွဲ့များ"
 
+msgid "Add a group"
+msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
+
 msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"
 
-#, python-brace-format
-msgid "Group '{0}' created."
-msgstr "'{0}'အဖွဲ့ကို ဖန်တီးပြီးပါပြီ။"
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s'အဖွဲ့ကို ဖန်တီးပြီးပါပြီ။"
 
-#, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "'{0}'အဖွဲ့ကို မြှင့်တင်ပြီးပါပြီ။"
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s'အဖွဲ့ကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The group could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အဖွဲ့ကို မသိမ်းဆည်းနိုင်ပါ။"
 
-#, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "'{0}'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
 
-msgid "Search users"
-msgstr "အသုံးပြုသူများကို ရှာပါ"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "'{0}'အသုံးပြုသူကို ဖန်တီးပြီးပါပြီ။"
-
-msgid "Edit"
-msgstr "ပြင်ဆင်ပါ"
-
-msgid "The user could not be created due to errors."
-msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မဖန်တီးနိုင်ပါ။"
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "'{0}'အသုံးပြုသူကို မြှင့်တင်ပြီးပါပြီ။"
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s'အသုံးပြုသူကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The user could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မသိမ်းဆည်းနိုင်ပါ။"
 
-#, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "'{0}'အသုံးပြုသူကို ဖျက်သိမ်းပြီးပါပြီ။"
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s'အသုံးပြုသူကို ဖျက်သိမ်းပြီးပါပြီ။"
 
-msgid "Edit this user"
-msgstr "ဤအသုံးပြုသူကို ပြင်ဆင်ပါ"
-
-msgid "Delete this user"
-msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်းပါ"
+msgid "Edit"
+msgstr "ပြင်ဆင်ပါ"

@@ -1,4 +1,7 @@
 @use 'sass:map';
+
+// RemovedInWagtail60Warning
+// Font icons unused in Wagtail core, kept for backwards compatibility with third-party customisations.
 $icons: (
   'arrow-down-big': '\e030',
   'arrow-down': '\e01a',
@@ -32,8 +35,6 @@ $icons: (
   'grip': '\e03b',
   'group': '\e031',
   'help': '\e041',
-  // help-inverse directly renders the corresponding character.
-  'help-inverse': '?',
   'home': '\e035',
   // horizontalrule is not rendered as an icon font – it uses a unicode dash character rendered with a fallback font.
   'horizontalrule': '\2014',
@@ -84,8 +85,4 @@ $icons: (
   'warning': '\e042',
 );
 
-$icons-after: (
-  'arrow-down-after': map.get($icons, 'arrow-down'),
-  'arrow-right-after': map.get($icons, 'arrow-right'),
-  'arrow-up-after': map.get($icons, 'arrow-up'),
-);
+$icons-after: ('arrow-down', 'arrow-right', 'arrow-up');

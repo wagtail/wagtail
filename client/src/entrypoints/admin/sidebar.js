@@ -1,4 +1,5 @@
 import { initSidebar } from '../../components/Sidebar';
+import { ActionMenuItemDefinition } from '../../components/Sidebar/menu/ActionMenuItem';
 import { LinkMenuItemDefinition } from '../../components/Sidebar/menu/LinkMenuItem';
 import { SubMenuItemDefinition } from '../../components/Sidebar/menu/SubMenuItem';
 import { PageExplorerMenuItemDefinition } from '../../components/Sidebar/menu/PageExplorerMenuItem';
@@ -7,6 +8,10 @@ import { WagtailBrandingModuleDefinition } from '../../components/Sidebar/module
 import { SearchModuleDefinition } from '../../components/Sidebar/modules/Search';
 import { MainMenuModuleDefinition } from '../../components/Sidebar/modules/MainMenu';
 
+window.telepath.register(
+  'wagtail.sidebar.ActionMenuItem',
+  ActionMenuItemDefinition,
+);
 window.telepath.register(
   'wagtail.sidebar.LinkMenuItem',
   LinkMenuItemDefinition,

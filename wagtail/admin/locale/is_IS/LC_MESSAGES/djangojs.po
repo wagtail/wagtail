@@ -1,0 +1,224 @@
+#
+# Translators:
+# Loic Teixeira, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
+# saevarom <saevar@saevar.is>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: saevarom <saevar@saevar.is>, 2023\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nýjir hlutir í þessari valmynd)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nýr hlutur í þessari valmynd)"
+
+msgid "(New)"
+msgstr "(Nýtt)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s villa"
+msgstr[1] "%(num)s villur"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixill"
+msgstr[1] "%(num)s pixlar"
+
+msgid "Add a comment"
+msgstr "Bæta við athugasemd"
+
+msgid "Alt text"
+msgstr "Alt eigindi"
+
+msgid "Are you sure?"
+msgstr "Ertu viss?"
+
+msgid "Blocks"
+msgstr "Blokkir"
+
+msgid "Broken link"
+msgstr "Brotinn hlekkur"
+
+msgid "Cancel"
+msgstr "Hætta við"
+
+msgid "Character count:"
+msgstr "Fjöldi stafa"
+
+msgid "Close"
+msgstr "Loka"
+
+msgid "Collapse all"
+msgstr "Fella allt saman"
+
+msgid "Comment"
+msgstr "Athugasemd"
+
+msgid "Dashboard"
+msgstr "Yfirlitssíða"
+
+msgid "Decorative image"
+msgstr "Mynd til skrauts"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Delete error"
+msgstr "Eyða villu"
+
+msgid "Deleting"
+msgstr "Eyði"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit '%(title)s'"
+msgstr "Breyta '%(title)s'"
+
+msgid "Edit your account"
+msgstr "Breyta reikningnum þínum"
+
+msgid "Enter your comments..."
+msgstr "Sláðu inn athugasemdir þínar..."
+
+msgid "Enter your reply..."
+msgstr "Sláðu inn svarið þitt..."
+
+msgid "Error while sending preview data."
+msgstr "Villa við forskoðun"
+
+msgid "Expand all"
+msgstr "Opna allt saman"
+
+msgid "Focus comment"
+msgstr "Setja athugasemd í fókus"
+
+msgid "Horizontal line"
+msgstr "Þverlína"
+
+msgid "Insert a block"
+msgstr "Setja inn blokk"
+
+msgid "Line break"
+msgstr "Ný lína"
+
+msgid "Loading…"
+msgstr "Hleð..."
+
+msgid "Main menu"
+msgstr "Aðalvalmynd"
+
+msgid "Missing document"
+msgstr "Vantar skrá"
+
+msgid "More actions"
+msgstr "Fleiri aðgerðir"
+
+msgid "No results"
+msgstr "Engar niðurstöður"
+
+msgid "Page"
+msgstr "Síða"
+
+msgid "Page explorer"
+msgstr "Veftré"
+
+msgid "Pages"
+msgstr "Síður"
+
+msgid "Pin toolbar"
+msgstr "Festa tækjastiku"
+
+msgid "Reload saved content"
+msgstr "Endurhlaða vistuðu efni"
+
+msgid "Reload the page"
+msgstr "Endurhlaða síðunni"
+
+msgid "Reply"
+msgstr "Svara"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
+
+msgid "Resolve"
+msgstr "Leysa"
+
+msgid "Retry"
+msgstr "Reyna aftur"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Save error"
+msgstr "Vista villu"
+
+msgid "Save the page to add this comment"
+msgstr "Vistaðu síðuna til að bæta þessari athugasemd við"
+
+msgid "Save the page to save this comment"
+msgstr "Vistaðu síðuna til að vista þessa athugasemd"
+
+msgid "Save the page to save this reply"
+msgstr "Vistaðu síðuna til að vista þetta svar"
+
+msgid "Saving..."
+msgstr "Vista..."
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Search options…"
+msgstr "Leitar möguleikar..."
+
+msgid "See all"
+msgstr "Sjá allt"
+
+msgid "Server Error"
+msgstr "Villa á vefþjóni"
+
+msgid "Show error"
+msgstr "Sýna villu"
+
+msgid "Show latest content"
+msgstr "Sýna nýjasta efni"
+
+msgid "Split block"
+msgstr "Skipta í tvennt"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
+"útgáfu."
+
+msgid "This field is required."
+msgstr "Þennan reit þarf að fylla út."
+
+msgid "Toggle side panel"
+msgstr "Sýna/fela hliðarstiku"
+
+msgid "Toggle sidebar"
+msgstr "Hliðarstika af/á"
+
+msgid "Unfocus comment"
+msgstr "Taka fókus af athugasemd"
+
+msgid "Unpin toolbar"
+msgstr "Losa tækjastiku"
+
+msgid "View child pages of '%(title)s'"
+msgstr "Skoða undirsíður '%(title)s'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Skrifaðu eitthvað eða sláðu inn '/' til að setja inn blok"

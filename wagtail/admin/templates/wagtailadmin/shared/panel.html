@@ -1,0 +1,58 @@
+{% load wagtailadmin_tags i18n %}
+{% comment "text/markdown" %}
+    Variables this template accepts:
+
+    - `id_prefix` - A prefix for all id attributes.
+    - `classname` - String of CSS classes to use for the panel.
+    - `id` - Unique to the page.
+    - `heading` - The text of the panel’s heading.
+    - `heading_size` - The size of the heading.
+    - `heading_level` - ARIA override to the default heading level (2).
+    - `icon` - Displayed alongside the heading.
+    - `id_for_label` - id of an associated field.
+    - `is_required` - If the panel contains a required field.
+    - `children` - The panel’s contents.
+    - `header_controls` - Additional panel buttons to display in the header area.
+    - `attrs` - Additional HTML attributes to render on the panel.
+
+{% endcomment %}
+{% fragment as prefix %}{% if id_prefix %}{{ id_prefix }}-{% endif %}{{ id }}{% endfragment %}
+{% fragment as panel_id %}{{ prefix }}-section{% endfragment %}
+{% fragment as heading_id %}{{ prefix }}-heading{% endfragment %}
+{% fragment as content_id %}{{ prefix }}-content{% endfragment %}
+<section class="{% classnames "w-panel" classname %}" id="{{ panel_id }}" {% if heading %}aria-labelledby="{{ heading_id }}"{% endif %} data-panel {% include "wagtailadmin/shared/attrs.html" with attrs=attrs %}>
+    {# If a panel has no heading nor header controls, we don’t want any of the associated UI. #}
+    {% if heading or header_controls %}
+        <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#{{ panel_id }}" data-panel-anchor aria-labelledby="{{ heading_id }}">
+                {% icon name="link" classname="w-panel__icon" %}
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="{% trans 'Toggle section' %}" aria-describedby="{{ heading_id }}" data-panel-toggle aria-controls="{{ content_id }}" aria-expanded="true">
+                {% firstof icon "placeholder" as icon_name %}
+                {% icon name=icon_name classname="w-panel__icon" %}
+            </button>
+            {% if heading %}
+                <h2 class="w-panel__heading {% if heading_size == "label" %}w-panel__heading--label{% endif %}" {% if heading_level %}aria-level="{{ heading_level }}"{% endif %} id="{{ heading_id }}" data-panel-heading>
+                    {% if id_for_label %}
+                        <label for="{{ id_for_label }}" id="{{ id_for_label }}-label"><span data-panel-heading-text>{{ heading }}</span>{% if is_required %}<span class="w-required-mark" data-panel-required>*</span>{% endif %}</label>
+                    {% else %}
+                        <span data-panel-heading-text>{{ heading }}</span>{% if is_required %}<span class="w-required-mark" data-panel-required>*</span>{% endif %}
+                    {% endif %}
+                </h2>
+            {% endif %}
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#{{ panel_id }}" aria-labelledby="{{ heading_id }}">
+                {% icon name="link" classname="w-panel__icon" %}
+            </a>
+            <div class="w-panel__divider"></div>
+            {% if header_controls %}
+                <div class="w-panel__controls" data-panel-controls>
+                    {{ header_controls }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div id="{{ content_id }}" class="w-panel__content">
+        {{ children }}
+    </div>
+</section>

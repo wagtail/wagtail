@@ -5,7 +5,7 @@ By default `wagtail.contrib.forms.models.FormPage` success responses don't do th
 
 Instead of rendering the `render_landing_page` content in the POST response, we will redirect to a `route` of the `FormPage` instance at a child URL path.
 The content will still be managed within the same form page's admin.
-This approach uses the additonal contrib module `wagtail.contrib.routable_page`.
+This approach uses the additional contrib module `wagtail.contrib.routable_page`.
 
 An alternative approach is to redirect to an entirely different page, which does not require the `routable_page` module.
 See [](form_builder_custom_landing_page_redirect).
@@ -16,14 +16,14 @@ Make sure `"wagtail.contrib.routable_page"` is added to `INSTALLED_APPS`, see []
 from django.shortcuts import redirect
 
 from wagtail.contrib.forms.models import AbstractEmailForm
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 
 class FormPage(RoutablePageMixin, AbstractEmailForm):
 
     # fields, content_panels, …
 
-    @route(r"^$")
+    @path("")
     def index_route(self, request, *args, **kwargs):
         """Serve the form, and validate it on POST"""
         return super(AbstractEmailForm, self).serve(request, *args, **kwargs)
@@ -36,7 +36,7 @@ class FormPage(RoutablePageMixin, AbstractEmailForm):
             url += "?id=%s" % form_submission.id
         return redirect(self.url + url, permanent=False)
 
-    @route(r"^thank-you/$")
+    @path("thank-you/")
     def thank_you(self, request):
         """Return the superclass's landing page, after redirect."""
         form_submission = None

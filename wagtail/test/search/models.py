@@ -26,7 +26,7 @@ class Book(index.Indexed, models.Model):
     tags = TaggableManager()
 
     search_fields = [
-        index.SearchField("title", partial_match=True, boost=2.0),
+        index.SearchField("title", boost=2.0),
         index.AutocompleteField("title"),
         index.FilterField("title"),
         index.FilterField("authors"),
@@ -45,7 +45,7 @@ class Book(index.Indexed, models.Model):
 
     @classmethod
     def get_indexed_objects(cls):
-        indexed_objects = super(Book, cls).get_indexed_objects()
+        indexed_objects = super().get_indexed_objects()
 
         # Don't index books using Book class that they have a more specific type
         if cls is Book:
@@ -91,7 +91,8 @@ class Novel(Book):
     )
 
     search_fields = Book.search_fields + [
-        index.SearchField("setting", partial_match=True),
+        index.SearchField("setting"),
+        index.AutocompleteField("setting"),
         index.RelatedFields(
             "characters",
             [
@@ -123,3 +124,12 @@ class ProgrammingGuide(Book):
         index.SearchField("get_programming_language_display"),
         index.FilterField("programming_language"),
     ]
+
+
+class UnindexedBook(index.Indexed, models.Model):
+    title = models.CharField(max_length=255)
+    publication_date = models.DateField()
+    number_of_pages = models.IntegerField()
+    tags = TaggableManager()
+
+    search_fields = []

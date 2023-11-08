@@ -17,14 +17,15 @@ class PermissionPolicyTestUtils:
     def assertResultSetEqual(self, actual, expected):
         self.assertEqual(set(actual), set(expected))
 
-    def assertUserPermissionMatrix(self, test_cases):
+    def assertUserPermissionMatrix(self, test_cases, actions=()):
         """
         Given a list of (user, can_add, can_change, can_delete, can_frobnicate) tuples
         (where 'frobnicate' is an unrecognised action not defined on the model),
         confirm that all tuples correctly represent permissions for that user as
         returned by user_has_permission
         """
-        actions = ["add", "change", "delete", "frobnicate"]
+        if not actions:
+            actions = ["add", "change", "delete", "frobnicate"]
         for test_case in test_cases:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
@@ -33,22 +34,26 @@ class PermissionPolicyTestUtils:
                 if expected_result:
                     self.assertTrue(
                         self.policy.user_has_permission(user, action),
-                        "User %s should be able to %s, but can't" % (user, action),
+                        msg="User {} should be able to {}, but can't".format(
+                            user, action
+                        ),
                     )
                 else:
                     self.assertFalse(
                         self.policy.user_has_permission(user, action),
-                        "User %s should not be able to %s, but can" % (user, action),
+                        msg="User %s should not be able to %s, but can"
+                        % (user, action),
                     )
 
-    def assertUserInstancePermissionMatrix(self, instance, test_cases):
+    def assertUserInstancePermissionMatrix(self, instance, test_cases, actions=()):
         """
         Given a list of (user, can_change, can_delete, can_frobnicate) tuples
         (where 'frobnicate' is an unrecognised action not defined on the model),
         confirm that all tuples correctly represent permissions for that user on
         the given instance, as returned by user_has_permission_for_instance
         """
-        actions = ["change", "delete", "frobnicate"]
+        if not actions:
+            actions = ["change", "delete", "frobnicate"]
         for test_case in test_cases:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
@@ -59,7 +64,7 @@ class PermissionPolicyTestUtils:
                         self.policy.user_has_permission_for_instance(
                             user, action, instance
                         ),
-                        "User %s should be able to %s instance %s, but can't"
+                        msg="User %s should be able to %s instance %s, but can't"
                         % (user, action, instance),
                     )
                 else:
@@ -67,12 +72,12 @@ class PermissionPolicyTestUtils:
                         self.policy.user_has_permission_for_instance(
                             user, action, instance
                         ),
-                        "User %s should not be able to %s instance %s, but can"
+                        msg="User %s should not be able to %s instance %s, but can"
                         % (user, action, instance),
                     )
 
 
-class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Permissions
         image_content_type = ContentType.objects.get_for_model(Image)

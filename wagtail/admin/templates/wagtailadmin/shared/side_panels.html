@@ -1,0 +1,34 @@
+{% load wagtailadmin_tags i18n %}
+
+{% if not in_explorer %}
+    {# Rendering for the minimap is done with React. #}
+    <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
+{% endif %}
+<aside class="form-side form-side--initial" aria-label="{% trans 'Side panels' %}" data-form-side{% if in_explorer %} data-form-side-explorer{% endif %}>
+    <button type="button" class="form-side__close-button" data-form-side-close-button aria-label="{% trans 'Toggle side panel' %}">
+        {% icon name="expand-right" %}
+    </button>
+
+    <div class="form-side__resize-grip-container">
+        <label class="form-side__resize-grip" data-form-side-resize-grip>
+            {% comment %}
+                By default, the `dir` attribute is inherited from the ancestor
+                (i.e. the root `html` element in our case).
+                On Chrome and Firefox, moving the slider with left-right arrow keys
+                is correctly reversed when dir="rtl". On Safari, this isn't the case.
+                So, we explicitly set the `dir` attribute to "ltr" on the input and handle the correct
+                direction in the JS code based on the `dir` attribute of the root `html`.
+            {% endcomment %}
+            <input type="range" step="10" dir="ltr" class="form-side__width-input" name="wagtail-side-panel-width" data-form-side-width-input />
+            <span class="w-sr-only">{% trans 'Side panel width' %}</span>
+            <div class="form-side__resize-grip-icon"></div>
+        </label>
+    </div>
+
+    {% for panel in side_panels %}
+        <div class="form-side__panel" data-side-panel="{{ panel.name }}" hidden>
+            <h2 id="side-panel-{{ panel.name }}-title" class="w-sr-only">{{ panel.title }}</h2>
+            {% component panel %}
+        </div>
+    {% endfor %}
+</aside>

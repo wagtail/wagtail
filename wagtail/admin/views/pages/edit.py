@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
@@ -18,19 +17,25 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
-from wagtail.admin.side_panels import PageSidePanels
+from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.side_panels import (
+    CommentsSidePanel,
+    PageStatusSidePanel,
+    PreviewSidePanel,
+)
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     COMMENTS_RELATION_NAME,
     Comment,
     CommentReply,
     Page,
     PageSubscription,
-    UserPagePermissionsProxy,
     WorkflowState,
 )
+from wagtail.utils.timestamps import render_timestamp
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -41,30 +46,21 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         else:
             return ["wagtailadmin/pages/edit.html"]
 
-    def add_legacy_moderation_warning(self):
-        # Check for revisions still undergoing moderation and warn - this is for the old moderation system
-        if self.latest_revision and self.latest_revision.submitted_for_moderation:
-            buttons = []
-
-            if self.page.live:
-                buttons.append(self.get_compare_with_live_message_button())
-
-            messages.warning(
-                self.request,
-                _("This page is currently awaiting moderation"),
-                buttons=buttons,
-            )
-
     def add_save_confirmation_message(self):
         if self.is_reverting:
-            message = _("Page '{0}' has been replaced with version from {1}.").format(
-                self.page.get_admin_display_title(),
-                self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-            )
+            message = _(
+                "Page '%(page_title)s' has been replaced "
+                "with version from %(previous_revision_datetime)s."
+            ) % {
+                "page_title": self.page.get_admin_display_title(),
+                "previous_revision_datetime": render_timestamp(
+                    self.previous_revision.created_at
+                ),
+            }
         else:
-            message = _("Page '{0}' has been updated.").format(
-                self.page.get_admin_display_title()
-            )
+            message = _("Page '%(page_title)s' has been updated.") % {
+                "page_title": self.page.get_admin_display_title()
+            }
 
         messages.success(self.request, message)
 
@@ -312,8 +308,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.page
 
     def dispatch(self, request, page_id):
-        self.real_page_record = get_object_or_404(Page, id=page_id)
+        self.real_page_record = get_object_or_404(
+            Page.objects.prefetch_workflow_states(), id=page_id
+        )
         self.latest_revision = self.real_page_record.get_latest_revision()
+        self.scheduled_revision = self.real_page_record.scheduled_revision
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
 
@@ -328,10 +327,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "back to a branch where the model class is still present."
             )
 
-        self.page = self.real_page_record.get_latest_revision_as_page()
+        self.page = self.real_page_record.get_latest_revision_as_object()
         self.parent = self.page.get_parent()
+        self.scheduled_page = self.real_page_record.get_scheduled_revision_as_object()
 
         self.page_perms = self.page.permissions_for_user(self.request.user)
+        self.lock = self.page.get_lock()
+        self.locked_for_user = self.lock is not None and self.lock.for_user(
+            self.request.user
+        )
 
         if not self.page_perms.can_edit():
             raise PermissionDenied
@@ -342,14 +346,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        try:
-            self.subscription = PageSubscription.objects.get(
-                page=self.page, user=self.request.user
-            )
-        except PageSubscription.DoesNotExist:
-            self.subscription = PageSubscription(
-                page=self.page, user=self.request.user, comment_notifications=False
-            )
+        self.subscription, created = PageSubscription.objects.get_or_create(
+            page=self.page,
+            user=self.request.user,
+            defaults={
+                "comment_notifications": False,
+            },
+        )
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.form_class = self.edit_handler.get_form_class()
@@ -363,6 +366,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         else:
             self.workflow_state = None
 
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            self.locale = self.page.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
+
         if self.workflow_state:
             self.workflow_tasks = self.workflow_state.all_tasks_with_status()
         else:
@@ -373,79 +383,38 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return super().dispatch(request)
 
     def get(self, request):
-        if self.page_perms.user_has_lock():
-            if self.page.locked_at:
-                lock_message = format_html(
-                    _("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."),
-                    self.page.get_admin_display_title(),
-                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
-                )
-            else:
-                lock_message = format_html(
-                    _("<b>Page '{}' is locked</b> by <b>you</b>."),
-                    self.page.get_admin_display_title(),
-                )
-
-            lock_message += format_html(
-                '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
-                reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
-                _("Unlock"),
-            )
-            messages.warning(self.request, lock_message, extra_tags="lock")
-
-        elif self.page.locked and self.page_perms.page_locked():
-            # the page can also be locked at a permissions level if in a workflow, on a task the user is not a reviewer for
-            # this should be indicated separately
-            if self.page.locked_by and self.page.locked_at:
-                lock_message = format_html(
-                    _("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."),
-                    self.page.get_admin_display_title(),
-                    str(self.page.locked_by),
-                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
-                )
-            else:
-                # Page was probably locked with an old version of Wagtail, or a script
-                lock_message = format_html(
-                    _("<b>Page '{}' is locked</b>."),
-                    self.page.get_admin_display_title(),
-                )
-
-            if self.page_perms.can_unlock():
-                lock_message += format_html(
-                    '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
-                    reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
-                    _("Unlock"),
-                )
-            messages.error(self.request, lock_message, extra_tags="lock")
-
-        if self.page.current_workflow_state:
-            workflow = self.workflow_state.workflow
-            task = self.workflow_state.current_task_state.task
-            if (
-                self.workflow_state.status != WorkflowState.STATUS_NEEDS_CHANGES
-                and task.specific.page_locked_for_user(self.page, self.request.user)
-            ):
-                # Check for revisions still undergoing moderation and warn
-                if len(self.workflow_tasks) == 1:
-                    # If only one task in workflow, show simple message
-                    workflow_info = _("This page is currently awaiting moderation.")
-                else:
-                    workflow_info = format_html(
-                        _(
-                            "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-                        ),
-                        task.name,
-                        workflow.name,
+        if self.lock:
+            lock_message = self.lock.get_message(self.request.user)
+            if lock_message:
+                if isinstance(self.lock, BasicLock) and self.page_perms.can_unlock():
+                    lock_message = format_html(
+                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
+                        lock_message,
+                        reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
+                        _("Unlock"),
                     )
-                messages.error(
-                    self.request,
-                    mark_safe(
-                        workflow_info
-                        + " "
-                        + _("Only reviewers for this task can edit the page.")
-                    ),
-                    extra_tags="lock",
-                )
+
+                if (
+                    isinstance(self.lock, ScheduledForPublishLock)
+                    and self.page_perms.can_unschedule()
+                ):
+                    lock_message = format_html(
+                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{}">{}</button></span>',
+                        lock_message,
+                        reverse(
+                            "wagtailadmin_pages:revisions_unschedule",
+                            args=[self.page.id, self.scheduled_revision.pk],
+                        ),
+                        _("Cancel scheduled publish"),
+                    )
+
+                if (
+                    not isinstance(self.lock, ScheduledForPublishLock)
+                    and self.locked_for_user
+                ):
+                    messages.warning(self.request, lock_message, extra_tags="lock")
+                else:
+                    messages.info(self.request, lock_message, extra_tags="lock")
 
         self.form = self.form_class(
             instance=self.page,
@@ -454,15 +423,14 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
     def add_cancel_workflow_confirmation_message(self):
-        message = _("Workflow on page '{0}' has been cancelled.").format(
-            self.page.get_admin_display_title()
-        )
+        message = _("Workflow on page '%(page_title)s' has been cancelled.") % {
+            "page_title": self.page.get_admin_display_title()
+        }
 
         messages.success(
             self.request,
@@ -494,7 +462,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             and self.workflow_state.user_can_cancel(self.request.user)
         )
 
-        if self.form.is_valid() and not self.page_perms.page_locked():
+        if self.form.is_valid() and not self.locked_for_user:
             return self.form_valid(self.form)
         else:
             return self.form_invalid(self.form)
@@ -614,21 +582,24 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             if self.is_reverting:
                 message = _(
-                    "Version from {0} of page '{1}' has been scheduled for publishing."
-                ).format(
-                    self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                    self.page.get_admin_display_title(),
-                )
+                    "Version from %(previous_revision_datetime)s "
+                    "of page '%(page_title)s' has been scheduled for publishing."
+                ) % {
+                    "previous_revision_datetime": render_timestamp(
+                        self.previous_revision.created_at
+                    ),
+                    "page_title": self.page.get_admin_display_title(),
+                }
             else:
                 if self.page.live:
                     message = _(
-                        "Page '{0}' is live and this version has been scheduled for publishing."
-                    ).format(self.page.get_admin_display_title())
+                        "Page '%(page_title)s' is live and this version has been scheduled for publishing."
+                    ) % {"page_title": self.page.get_admin_display_title()}
 
                 else:
-                    message = _("Page '{0}' has been scheduled for publishing.").format(
-                        self.page.get_admin_display_title()
-                    )
+                    message = _(
+                        "Page '%(page_title)s' has been scheduled for publishing."
+                    ) % {"page_title": self.page.get_admin_display_title()}
 
             messages.success(
                 self.request, message, buttons=[self.get_edit_message_button()]
@@ -639,15 +610,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             if self.is_reverting:
                 message = _(
-                    "Version from {0} of page '{1}' has been published."
-                ).format(
-                    self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                    self.page.get_admin_display_title(),
-                )
+                    "Version from %(datetime)s of page '%(page_title)s' has been published."
+                ) % {
+                    "datetime": render_timestamp(self.previous_revision.created_at),
+                    "page_title": self.page.get_admin_display_title(),
+                }
             else:
-                message = _("Page '{0}' has been published.").format(
-                    self.page.get_admin_display_title()
-                )
+                message = _("Page '%(page_title)s' has been published.") % {
+                    "page_title": self.page.get_admin_display_title()
+                }
 
             buttons = []
             if self.page.url is not None:
@@ -689,9 +660,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             workflow = self.page.get_workflow()
             workflow.start(self.page, self.request.user)
 
-        message = _("Page '{0}' has been submitted for moderation.").format(
-            self.page.get_admin_display_title()
-        )
+        message = _("Page '%(page_title)s' has been submitted for moderation.") % {
+            "page_title": self.page.get_admin_display_title()
+        }
 
         messages.success(
             self.request,
@@ -731,9 +702,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         workflow = self.page.get_workflow()
         workflow.start(self.page, self.request.user)
 
-        message = _("Workflow on page '{0}' has been restarted.").format(
-            self.page.get_admin_display_title()
-        )
+        message = _("Workflow on page '%(page_title)s' has been restarted.") % {
+            "page_title": self.page.get_admin_display_title()
+        }
 
         messages.success(
             self.request,
@@ -838,7 +809,12 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.workflow_state.cancel(user=self.request.user)
             self.add_cancel_workflow_confirmation_message()
 
-        if self.page_perms.page_locked():
+            # Refresh the lock object as now WorkflowLock no longer applies
+            self.lock = self.page.get_lock()
+            self.locked_for_user = self.lock is not None and self.lock.for_user(
+                self.request.user
+            )
+        elif self.locked_for_user:
             messages.error(
                 self.request, _("The page could not be saved as it is locked")
             )
@@ -857,18 +833,51 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
         self.has_unsaved_changes = True
 
-        self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
+    def get_preview_url(self):
+        return reverse("wagtailadmin_pages:preview_on_edit", args=[self.page.id])
+
+    def get_side_panels(self):
+        side_panels = [
+            PageStatusSidePanel(
+                self.page,
+                self.request,
+                show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
+                live_object=self.real_page_record,
+                scheduled_object=self.scheduled_page,
+                locale=self.locale,
+                translations=self.translations,
+            ),
+        ]
+        if self.page.is_previewable():
+            side_panels.append(
+                PreviewSidePanel(
+                    self.page, self.request, preview_url=self.get_preview_url()
+                )
+            )
+        if self.form.show_comments_toggle:
+            side_panels.append(CommentsSidePanel(self.page, self.request))
+        return MediaContainer(side_panels)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user_perms = self.page.permissions_for_user(self.request.user)
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
-        action_menu = PageActionMenu(self.request, view="edit", page=self.page)
-        side_panels = PageSidePanels(self.request, self.page_for_status)
+        action_menu = PageActionMenu(
+            self.request,
+            view="edit",
+            page=self.page,
+            lock=self.lock,
+            locked_for_user=self.locked_for_user,
+        )
+        side_panels = self.get_side_panels()
+
+        media = MediaContainer([bound_panel, self.form, action_menu, side_panels]).media
 
         context.update(
             {
@@ -879,45 +888,39 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
-                "page_locked": self.page_perms.page_locked(),
+                "page_locked": self.locked_for_user,
                 "workflow_state": self.workflow_state
                 if self.workflow_state and self.workflow_state.is_active
                 else None,
                 "current_task_state": self.page.current_workflow_task_state,
                 "publishing_will_cancel_workflow": self.workflow_tasks
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),
-                "locale": None,
-                "translations": [],
-                "media": bound_panel.media
-                + self.form.media
-                + action_menu.media
-                + side_panels.media,
+                "confirm_workflow_cancellation_url": reverse(
+                    "wagtailadmin_pages:confirm_workflow_cancellation",
+                    args=(self.page.id,),
+                ),
+                "user_can_lock": (not self.lock or isinstance(self.lock, WorkflowLock))
+                and user_perms.can_lock(),
+                "user_can_unlock": isinstance(self.lock, BasicLock)
+                and user_perms.can_unlock(),
+                "locale": self.locale,
+                "media": media,
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            user_perms = UserPagePermissionsProxy(self.request.user)
-
-            context.update(
-                {
-                    "locale": self.page.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailadmin_pages:edit", args=[translation.id]
-                            ),
-                        }
-                        for translation in self.page.get_translations()
-                        .only("id", "locale", "depth")
-                        .select_related("locale")
-                        if user_perms.for_page(translation).can_edit()
-                    ],
-                }
-            )
-
         return context
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_pages:edit", args=[translation.id]),
+            }
+            for translation in self.page.get_translations()
+            .only("id", "locale", "depth")
+            .select_related("locale")
+            if translation.permissions_for_user(self.request.user).can_edit()
+        ]

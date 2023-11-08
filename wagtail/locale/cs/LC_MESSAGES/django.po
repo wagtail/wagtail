@@ -5,18 +5,20 @@
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 # Vláďa Macek <macek@sandbox.cz>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +27,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
 msgid "Wagtail core"
 msgstr "Wagtail jádro"
 
@@ -32,12 +37,12 @@ msgid "Add Comment"
 msgstr "Přidat komentář"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimální počet položek je %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimální počet položek je %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maximální počet položek je %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximální počet položek je %(max_num)d"
 
 msgid "Move up"
 msgstr "Posunout nahoru"
@@ -73,6 +78,99 @@ msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
 msgid "Comment"
 msgstr "Komentář"
 
+msgid "Locked"
+msgstr "Uzamčeno"
+
+msgid "Unlocked"
+msgstr "Odemčeno"
+
+msgid "live"
+msgstr "publikováno"
+
+msgid "has unpublished changes"
+msgstr "má nepublikované změny"
+
+msgid "first published at"
+msgstr "poprvé publikováno:"
+
+msgid "last published at"
+msgstr "naposledy publikováno:"
+
+msgid "live revision"
+msgstr "publikováno verze"
+
+msgid "go live date/time"
+msgstr "datum/čas publikování"
+
+msgid "expiry date/time"
+msgstr "datum/čas expirace"
+
+msgid "expired"
+msgstr "platnost skončila"
+
+msgid "scheduled"
+msgstr "naplánováno"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + scheduled"
+msgstr "publikováno + naplánováno"
+
+msgid "live + draft"
+msgstr "publikováno + koncept"
+
+msgid "Default"
+msgstr "Default(ní)"
+
+msgid "locked"
+msgstr "uzamčeno"
+
+msgid "locked at"
+msgstr "uzamčeno: "
+
+msgid "locked by"
+msgstr "uzamčeno uživatelem"
+
+msgid "in moderation"
+msgstr "probíhá schvalování"
+
+msgid "live + in moderation"
+msgstr "publikováno + probíhá schvalování"
+
+msgid "Add/edit pages you own"
+msgstr "Přidat/Editovat vámi vlastněné stránky"
+
+msgid "Bulk delete"
+msgstr "Hromadné zrušení"
+
+msgid "Delete pages with children"
+msgstr "Rušit stránky s podstránkami"
+
+msgid "Edit"
+msgstr "Editovat"
+
+msgid "Edit any page"
+msgstr "Editovat jakoukoliv stránku"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Uzamknout/odemknout vámi uzamčené stránky"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Publish any page"
+msgstr "Možnost publikovat jakoukoliv stránku"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Unlock any page"
+msgstr "Odemknout jakoukoliv stránku"
+
 msgid "title"
 msgstr "titulek"
 
@@ -89,12 +187,6 @@ msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug
 
 msgid "content type"
 msgstr "content type (typ obsahu)"
-
-msgid "live"
-msgstr "publikováno"
-
-msgid "has unpublished changes"
-msgstr "má nepublikované změny"
 
 msgid "URL path"
 msgstr "URL adresa"
@@ -127,59 +219,8 @@ msgid ""
 "results."
 msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
 
-msgid "go live date/time"
-msgstr "datum/čas publikování"
-
-msgid "expiry date/time"
-msgstr "datum/čas expirace"
-
-msgid "expired"
-msgstr "platnost skončila"
-
-msgid "locked"
-msgstr "uzamčeno"
-
-msgid "locked at"
-msgstr "uzamčeno: "
-
-msgid "locked by"
-msgstr "uzamčeno uživatelem"
-
-msgid "first published at"
-msgstr "poprvé publikováno:"
-
-msgid "last published at"
-msgstr "naposledy publikováno:"
-
 msgid "latest revision created at"
 msgstr "poslední verze vytvořena:"
-
-msgid "live revision"
-msgstr "publikováno verze"
-
-msgid "This slug is already in use"
-msgstr "Slug (identifikátor) je už používán"
-
-msgid "scheduled"
-msgstr "naplánováno"
-
-msgid "in moderation"
-msgstr "probíhá schvalování"
-
-msgid "draft"
-msgstr "koncept"
-
-msgid "live + scheduled"
-msgstr "publikováno + naplánováno"
-
-msgid "live + in moderation"
-msgstr "publikováno + probíhá schvalování"
-
-msgid "live + draft"
-msgstr "publikováno + koncept"
-
-msgid "Default"
-msgstr "Default(ní)"
 
 msgid "page"
 msgstr "stránka"
@@ -202,47 +243,11 @@ msgstr "obsah JSON"
 msgid "approved go live at"
 msgstr "povoleno publikovat:"
 
-msgid "page revision"
-msgstr "verze stránky"
-
-msgid "page revisions"
-msgstr "verze stránky"
-
-msgid "Add/edit pages you own"
-msgstr "Přidat/Editovat vámi vlastněné stránky"
-
-msgid "Edit"
-msgstr "Editovat"
-
-msgid "Edit any page"
-msgstr "Editovat jakoukoliv stránku"
-
-msgid "Publish"
-msgstr "Publikovat"
-
-msgid "Publish any page"
-msgstr "Možnost publikovat jakoukoliv stránku"
-
-msgid "Bulk delete"
-msgstr "Hromadné zrušení"
-
-msgid "Delete pages with children"
-msgstr "Rušit stránky s podstránkami"
-
-msgid "Lock"
-msgstr "Uzamknout"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Uzamknout/odemknout vámi uzamčené stránky"
-
-msgid "Unlock"
-msgstr "Odemknout"
-
-msgid "Unlock any page"
-msgstr "Odemknout jakoukoliv stránku"
-
 msgid "group"
 msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnění"
 
 msgid "permission type"
 msgstr "typ oprávnění"
@@ -296,24 +301,11 @@ msgstr ""
 msgid "tasks"
 msgstr "úlohy"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr ""
-"Aktivní postupy mohou být přidány ke stránkám. (Deaktivování postupu jej "
-"neodstraní z existujících stránek.)"
-
 msgid "workflows"
 msgstr "postupy"
 
 msgid "groups"
 msgstr "skupiny"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr ""
-"Stránky na této úrovni postupu budou schváleny těmito skupinami uživatelů"
 
 msgid "Request changes"
 msgstr "Vyžádat změny"
@@ -354,16 +346,6 @@ msgstr "požadováno kým"
 msgid "current task state"
 msgstr "aktuální stav úlohy"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr ""
-"Smí být jen jediný postup se stavem \"probíhá\" nebo \"vyžaduje úpravy\" pro "
-"danou stránku."
-
-#, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Postup '{0}' na stránce '{1}': {2}"
-
 msgid "Not started"
 msgstr "Není spuštěno"
 
@@ -390,10 +372,6 @@ msgstr "dokončeno v"
 
 msgid "finished by"
 msgstr "dokončeno (kým)"
-
-#, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Úloha '{0}' pro Stránku Verze '{1}': {2}"
 
 msgid "Task state"
 msgstr "Stav úlohy"
@@ -431,8 +409,9 @@ msgstr "položka logu"
 msgid "log entries"
 msgstr "položky logu"
 
-msgid "The log action '{}' has not been registered."
-msgstr "Akce logu '{}' není registrována."
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akce logu '%(action_name)s' není registrována."
 
 msgid "system"
 msgstr "systém"
@@ -452,9 +431,6 @@ msgstr "omezení zobrazení kolekcí"
 
 msgid "collections"
 msgstr "kolekce"
-
-msgid "permission"
-msgstr "oprávnění"
 
 msgid "group collection permission"
 msgstr "skupinové oprávnění pro kolekci"
@@ -556,15 +532,6 @@ msgstr "Pro přístup k této stránce potřebujete heslo."
 msgid "Continue"
 msgstr "Pokračovat"
 
-msgid "English"
-msgstr "Angličtina"
-
-msgid "French"
-msgstr "Francouzština"
-
-msgid "German"
-msgstr "Němčina"
-
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
@@ -605,12 +572,6 @@ msgstr "Odvolat zveřejnění plánovaného návrhu"
 
 msgid "Unpublished scheduled draft"
 msgstr "Zveřejnění plánovaného návrhu bylo odvoláno"
-
-msgid "Locked"
-msgstr "Uzamčeno"
-
-msgid "Unlocked"
-msgstr "Odemčeno"
 
 msgid "Reject"
 msgstr "Odmítnout"
@@ -735,15 +696,27 @@ msgstr "Aktualizováno omezení zobrazení"
 msgid "Remove view restrictions"
 msgstr "Zrušit omezení zobrazení"
 
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Zrušeno omezení zobrazení '%(restriction)s'"
-
 msgid "Removed view restriction"
 msgstr "Zrušeno omezení zobrazení"
 
 msgid "Add comment"
 msgstr "Přidat komentář"
+
+msgid "Added a comment"
+msgstr "Komentář přidán"
+
+msgid "Edit comment"
+msgstr "Upravit komentář"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Komentář upraven v poli %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Komentář upraven"
+
+msgid "Delete comment"
+msgstr "Odstranit komentář"
 
 msgid "Workflow: start"
 msgstr "Postup: start"
@@ -781,10 +754,6 @@ msgstr "Úkol postupu byl zamítnut. Postup dokončen"
 
 msgid "Workflow: resume task"
 msgstr "Postup: obnovit úlohu"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Znovu potvrzeno '%(task)s'. Postup byl obnoven"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Úkol postupu byl potvrzen. Postup byl obnoven"

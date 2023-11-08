@@ -25,6 +25,7 @@ fetch.mockResponseFailure = () => {
 
 fetch.mockResponseCrash = () => {
   fetch.mockImplementationOnce(() =>
+    // eslint-disable-next-line prefer-promise-reject-errors
     Promise.reject({
       status: 500,
       statusText: 'Internal Error',

@@ -36,27 +36,121 @@ class TestLocaleModel(TestCase):
         with translation.override("fr"):
             self.assertEqual(Locale.get_active().language_code, "fr")
 
+    def test_language_name(self):
+        for language_code, expected_result in (
+            ("en", "English"),
+            ("fr", "French"),
+            ("zh-hans", "Simplified Chinese"),
+        ):
+            with self.subTest(language_code):
+                locale = Locale(language_code=language_code)
+                self.assertEqual(locale.language_name, expected_result)
+
+    def test_language_name_for_unrecognised_language(self):
+        locale = Locale(language_code="foo")
+        with self.assertRaises(KeyError):
+            locale.language_name
+
+    def test_language_name_local(self):
+        for language_code, expected_result in (
+            ("en", "English"),
+            ("fr", "français"),
+            ("zh-hans", "简体中文"),
+        ):
+            with self.subTest(language_code):
+                locale = Locale(language_code=language_code)
+                self.assertEqual(locale.language_name_local, expected_result)
+
+    def test_language_name_local_for_unrecognised_language(self):
+        locale = Locale(language_code="foo")
+        with self.assertRaises(KeyError):
+            locale.language_name_local
+
+    def test_language_name_localized_reflects_active_language(self):
+        for language_code in (
+            "fr",  # French
+            "zh-hans",  # Simplified Chinese
+            "ca",  # Catalan
+            "de",  # German
+        ):
+            with self.subTest(language_code):
+                locale = Locale(language_code=language_code)
+                with translation.override("en"):
+                    self.assertEqual(
+                        locale.language_name_localized, locale.language_name
+                    )
+                with translation.override(language_code):
+                    # NB: Casing can differ between these, hence the lower()
+                    self.assertEqual(
+                        locale.language_name_localized.lower(),
+                        locale.language_name_local.lower(),
+                    )
+
+    def test_language_name_localized_for_unconfigured_language(self):
+        locale = Locale(language_code="zh-hans")
+        self.assertEqual(locale.language_name_localized, "Simplified Chinese")
+        with translation.override("zh-hans"):
+            self.assertEqual(locale.language_name_localized, locale.language_name_local)
+
+    def test_language_name_localized_for_unrecognised_language(self):
+        locale = Locale(language_code="foo")
+        with self.assertRaises(KeyError):
+            locale.language_name_localized
+
+    def test_is_bidi(self):
+        for language_code, expected_result in (
+            ("en", False),
+            ("ar", True),
+            ("he", True),
+            ("fr", False),
+            ("foo", False),
+        ):
+            with self.subTest(language_code):
+                locale = Locale(language_code=language_code)
+                self.assertIs(locale.is_bidi, expected_result)
+
+    def test_is_default(self):
+        for language_code, expected_result in (
+            (settings.LANGUAGE_CODE, True),  # default
+            ("zh-hans", False),  # alternative
+            ("foo", False),  # invalid
+        ):
+            with self.subTest(language_code):
+                locale = Locale(language_code=language_code)
+                self.assertIs(locale.is_default, expected_result)
+
+    def test_is_active(self):
+        for locale_language, active_language, expected_result in (
+            (settings.LANGUAGE_CODE, settings.LANGUAGE_CODE, True),
+            (settings.LANGUAGE_CODE, "fr", False),
+            ("zh-hans", settings.LANGUAGE_CODE, False),
+            ("en", "en-gb", True),
+            ("foo", settings.LANGUAGE_CODE, False),
+        ):
+            with self.subTest(f"locale={locale_language} active={active_language}"):
+                with translation.override(active_language):
+                    locale = Locale(language_code=locale_language)
+                    self.assertEqual(locale.is_active, expected_result)
+
     def test_get_display_name(self):
-        locale = Locale.objects.get(language_code="en")
-        self.assertEqual(locale.get_display_name(), "English")
+        for language_code, expected_result in (
+            ("en", "English"),  # configured
+            ("zh-hans", "Simplified Chinese"),  # not configured but valid
+            ("foo", "foo"),  # not configured or valid
+        ):
+            locale = Locale(language_code=language_code)
+            with self.subTest(language_code):
+                self.assertEqual(locale.get_display_name(), expected_result)
 
-    def test_get_display_name_for_unconfigured_language(self):
-        # This language is not in LANGUAGES so it should just return the language code
-        locale = Locale.objects.create(language_code="foo")
-        self.assertIsNone(locale.get_display_name())
-
-    def test_str(self):
-        locale = Locale.objects.get(language_code="en")
-        self.assertEqual(str(locale), "English")
-
-    def test_str_for_unconfigured_language(self):
-        # This language is not in LANGUAGES so it should just return the language code
-        locale = Locale.objects.create(language_code="foo")
-        self.assertEqual(str(locale), "foo")
+    def test_str_reflects_get_display(self):
+        for language_code in ("en", "zh-hans", "foo"):
+            locale = Locale(language_code=language_code)
+            with self.subTest(language_code):
+                self.assertEqual(str(locale), locale.get_display_name())
 
     @override_settings(LANGUAGES=[("en", _("English")), ("fr", _("French"))])
     def test_str_when_languages_uses_gettext(self):
-        locale = Locale.objects.get(language_code="en")
+        locale = Locale(language_code="en")
         self.assertIsInstance(locale.__str__(), str)
 
     @override_settings(LANGUAGE_CODE="fr")

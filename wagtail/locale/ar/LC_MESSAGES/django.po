@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +27,12 @@ msgid "Wagtail core"
 msgstr "Wagtail core"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "الحد الأدنى لعدد العناصر هو %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "الحد الأقصى لعدد العناصر هو %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
@@ -58,6 +58,81 @@ msgstr "كلمة سر"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
 
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
+
+msgid "live"
+msgstr "حي"
+
+msgid "has unpublished changes"
+msgstr "يحتوي على تغييرات غير منشورة"
+
+msgid "first published at"
+msgstr "نشر للمرة الأولى في"
+
+msgid "last published at"
+msgstr "نشرت في"
+
+msgid "go live date/time"
+msgstr "تاريخ النشر / الوقت"
+
+msgid "expiry date/time"
+msgstr "تاريخ انتهاء الصلاحية / الوقت"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "scheduled"
+msgstr "موقت"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "live + scheduled"
+msgstr "حي + مجدول"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "locked"
+msgstr "مغلق"
+
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Bulk delete"
+msgstr "حذف بالجملة"
+
+msgid "Delete pages with children"
+msgstr "حذف الصفحات مع التفرعات"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Edit any page"
+msgstr "تحرير أي صفحة"
+
+msgid "Lock"
+msgstr "أقفل"
+
+msgid "Publish"
+msgstr "انشر"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -75,12 +150,6 @@ msgstr "اسم الصفحة كما ستظهر في URLs e.g http://domain.com/bl
 msgid "content type"
 msgstr "نوع المحتوى"
 
-msgid "live"
-msgstr "حي"
-
-msgid "has unpublished changes"
-msgstr "يحتوي على تغييرات غير منشورة"
-
 msgid "URL path"
 msgstr "مسار عنوان URL"
 
@@ -95,44 +164,8 @@ msgid ""
 msgstr ""
 "ما إذا كان رابط إلى هذه الصفحة سيظهر في القوائم التي يتم إنشاؤها تلقائيًا"
 
-msgid "go live date/time"
-msgstr "تاريخ النشر / الوقت"
-
-msgid "expiry date/time"
-msgstr "تاريخ انتهاء الصلاحية / الوقت"
-
-msgid "expired"
-msgstr "منقضٍ"
-
-msgid "locked"
-msgstr "مغلق"
-
-msgid "first published at"
-msgstr "نشر للمرة الأولى في"
-
-msgid "last published at"
-msgstr "نشرت في"
-
 msgid "latest revision created at"
 msgstr "أحدث نسخة تم إنشاؤها في"
-
-msgid "This slug is already in use"
-msgstr "هذه السقالة هي بالفعل قيد الاستخدام"
-
-msgid "scheduled"
-msgstr "موقت"
-
-msgid "draft"
-msgstr "مسود"
-
-msgid "live + scheduled"
-msgstr "حي + مجدول"
-
-msgid "live + draft"
-msgstr "حي + مسودة"
-
-msgid "Default"
-msgstr "عادي"
 
 msgid "page"
 msgstr "صفحة"
@@ -155,41 +188,11 @@ msgstr "محتوى JSON"
 msgid "approved go live at"
 msgstr "وافق على النشر في"
 
-msgid "page revision"
-msgstr "مراجعة صفحة"
-
-msgid "page revisions"
-msgstr "مراجعة صفحات"
-
-msgid "Add/edit pages you own"
-msgstr "أضف أو نقح سفحات أنت الصاحب لها "
-
-msgid "Edit"
-msgstr "تعديل"
-
-msgid "Edit any page"
-msgstr "تحرير أي صفحة"
-
-msgid "Publish"
-msgstr "انشر"
-
-msgid "Publish any page"
-msgstr "انشر أي صفحة"
-
-msgid "Bulk delete"
-msgstr "حذف بالجملة"
-
-msgid "Delete pages with children"
-msgstr "حذف الصفحات مع التفرعات"
-
-msgid "Lock"
-msgstr "أقفل"
-
-msgid "Unlock"
-msgstr "إزالة القفل"
-
 msgid "group"
 msgstr "مجموعة"
+
+msgid "permission"
+msgstr "تصريح"
 
 msgid "permission type"
 msgstr "نوع  التصريح"
@@ -226,9 +229,6 @@ msgstr "قيود عرض المجموعة"
 
 msgid "collections"
 msgstr "مجموعات"
-
-msgid "permission"
-msgstr "تصريح"
 
 msgid "group collection permission"
 msgstr "إذن مجموعة المجموعة"
@@ -330,26 +330,17 @@ msgstr "هذه الصفحة تتطلب كلمة مرور."
 msgid "Continue"
 msgstr "أكمل"
 
-msgid "English"
-msgstr "الإنجليزية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "German"
-msgstr "الألمانية"
+msgid "Created"
+msgstr "تم إنشاؤه"
 
 msgid "Edited"
 msgstr "محررة"
 
+msgid "Published"
+msgstr "تم نشره"
+
 msgid "Unpublish"
 msgstr "غير منشور"
-
-msgid "Locked"
-msgstr "مغلق"
-
-msgid "Unlocked"
-msgstr "غير مغلق"
 
 msgid "Reject"
 msgstr "مرفوض"

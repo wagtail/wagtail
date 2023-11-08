@@ -5,7 +5,7 @@
     {% trans "Choose a page" as choose_str %}
 {% endif %}
 
-{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=page_type_names|join:", " search_url="wagtailadmin_choose_page_search" query_parameters="page_type="|add:page_type_string icon="doc-empty-inverse" search_disable_async=True %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='internal' %}
@@ -21,7 +21,18 @@
         </p>
     {% endif %}
 
-    <div class="page-results">
-        {% include 'wagtailadmin/chooser/_browse_results.html' %}
-    </div>
+    {% if is_multiple_choice %}
+        <form action="{% url 'wagtailadmin_choose_page_chosen_multiple' %}" method="GET" data-multiple-choice-form>
+
+            <div class="page-results">
+                {% include 'wagtailadmin/chooser/_browse_results.html' %}
+            </div>
+
+            <input type="submit" data-multiple-choice-submit value="{% trans 'Confirm selection' %}" class="button" />
+        </form>
+    {% else %}
+        <div class="page-results">
+            {% include 'wagtailadmin/chooser/_browse_results.html' %}
+        </div>
+    {% endif %}
 </div>

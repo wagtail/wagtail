@@ -9,18 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail дакументы "
@@ -78,64 +78,14 @@ msgstr "Так, выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-msgid "Choose a document"
-msgstr "Абраць дакумент"
-
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Upload"
-msgstr "Запампаваць"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Знойдзена %(counter)s супадзенне"
-msgstr[1] ""
-"\n"
-"Знойдзена %(counter)s супадзенняў"
-msgstr[2] ""
-"\n"
-"Знойдзена %(counter)s супадзенняў"
-msgstr[3] ""
-"\n"
-"Знойдзена %(counter)s супадзенняў"
-
 msgid "Latest documents"
 msgstr "Апошнія дакументы"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Вы не загрузілі дакументы ў гэтую калекцыю."
 
 msgid "You haven't uploaded any documents."
 msgstr "Вы не загрузілі ніякіх дакументаў."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Можа <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">загрузіць зараз</a>?"
-
-msgid "Uploading…"
-msgstr "Запампоўваецца..."
 
 msgid "Change document:"
 msgstr "Змяніць дакумент:"
@@ -146,12 +96,11 @@ msgstr "Дадаць дакумент"
 msgid "Add document"
 msgstr "Дадаць дакумент"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Выдаліць %(title)s"
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
 
-msgid "Delete document"
-msgstr "Выдаліць дакумент"
+msgid "Upload"
+msgstr "Запампаваць"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -162,6 +111,9 @@ msgstr "Рэдагаванне"
 
 msgid "Save"
 msgstr "Захаваць"
+
+msgid "Delete document"
+msgstr "Выдаліць дакумент"
 
 msgid "Filesize"
 msgstr "Памер файла"
@@ -185,71 +137,33 @@ msgid "Created"
 msgstr "Створаны"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Ёсць %(counter)s супадзенне"
+msgstr[1] "Ёсць %(counter)s супадзенняў"
+msgstr[2] "Ёсць %(counter)s супадзенняў"
+msgstr[3] "Ёсць %(counter)s супадзенняў"
 
 #, python-format
-msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Вы яшчэ не загрузілі ніводнага дакумента ў гэтую калекцыю. Чаму б не <a href="
-"\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
+"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Вы яшчэ не загрузілі ніводнага дакумента. Чаму б не <a href="
-"\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Выкарыстоўванне %(title)s"
-
-msgid "Usage of"
-msgstr "Выкарыстанне"
-
-msgid "Parent"
-msgstr "Бацькоўскі элемент"
-
-msgid "Type"
-msgstr "Тып"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Edit this page"
-msgstr "Рэдагаваць гэтую старонку"
+"Вы яшчэ не загрузілі ніводнага дакумента ў гэтую калекцыю. Чаму б не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
 
 #, python-format
 msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Дакумент <span class=\"visuallyhidden\">створаны ў "
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
-"%(site_name)s</span>"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
-"%(site_name)s</span>"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
-"(%(site_name)s</span>"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы яшчэ не загрузілі ніводнага дакумента. Чаму б не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
 
 msgid "Add multiple documents"
 msgstr "Дадаць некалькі дакументаў"
@@ -290,30 +204,36 @@ msgstr "Дадаць правы доступу да дакумента"
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "Server Error"
-msgstr "Памылка сервера"
+msgid "Choose a document"
+msgstr "Абраць дакумент"
+
+msgid "Choose another document"
+msgstr "Абраць іншы дакумент"
+
+msgid "Edit this document"
+msgstr "Рэдагаваць гэты дакумент"
 
 msgid "Search documents"
 msgstr "Пошул дакументаў"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Дакумент '{0}' даданы."
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Дакумент '%(document_title)s' даданы."
 
 msgid "The document could not be saved due to errors."
 msgstr "Дакумент на можа быць захаваны з-за памылак."
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Дакумент '{0}' абноўлены"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Дакумент '%(document_title)s' абноўлены"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Дакумент '{0}' выдалены."
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Дакумент '%(document_title)s' выдалены."
 
 msgid "Document"
 msgstr "Дакумент"
@@ -325,9 +245,3 @@ msgstr[0] "%(count)s дакумент"
 msgstr[1] "%(count)s дакументы"
 msgstr[2] "%(count)s дакументаў"
 msgstr[3] "%(count)s дакументаў"
-
-msgid "Choose another document"
-msgstr "Абраць іншы дакумент"
-
-msgid "Edit this document"
-msgstr "Рэдагаваць гэты дакумент"

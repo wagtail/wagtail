@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: André Bouatchidzé <a@anbz.net>, 2015\n"
-"Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Georgian (http://app.transifex.com/torchbox/wagtail/language/"
 "ka/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,8 +31,8 @@ msgstr "დამატება"
 msgid "Edit"
 msgstr "რედაქტირება"
 
-msgid "Search"
-msgstr "ძიება"
+msgid "New"
+msgstr "ახალი"
 
 msgid "Choose a format"
 msgstr "ფორმატის არჩევა"
@@ -55,31 +55,22 @@ msgstr "ფაილის ზომა"
 msgid "Images"
 msgstr "გამოსახულებები"
 
-msgid "Title"
-msgstr "სათაური"
-
-msgid "Type"
-msgstr "ტიპი"
-
-msgid "Status"
-msgstr "სტატუსი"
-
-msgid "Edit this page"
-msgstr "ამ გვერდის რედაქტირება"
-
 msgid "Add images"
 msgstr "გამოსახულებების დამატება"
 
 msgid "Delete"
 msgstr "წაშლა"
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "გამოსახულება '{0}' წაშლილია."
-
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "გამოსახულება '{0}' დამატებულია."
+msgid "Choose another image"
+msgstr "სხვა გამოსახულების არჩევა"
 
 msgid "Edit this image"
 msgstr "ამ გამოსახულების რედაქტირება"
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "გამოსახულება '%(image_title)s' წაშლილია."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "გამოსახულება '%(image_title)s' დამატებულია."

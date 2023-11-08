@@ -4,7 +4,7 @@ from django.urls import reverse
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestBulkActionDispatcher(TestCase, WagtailTestUtils):
+class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
     def setUp(self):
 
         # Login

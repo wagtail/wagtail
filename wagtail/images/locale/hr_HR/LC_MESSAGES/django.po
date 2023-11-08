@@ -3,29 +3,27 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2021\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -40,24 +38,27 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Podržani formati: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Format slike nije podržan. Podržani formati: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Format slike nije podržan. Podržani formati: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Neispravan %s format."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Datoteka je prevelika (%(file_size)s). Najveća dopuštena veličina: "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Datoteka je prevelika (%%). Najveća dopuštena veličina: %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Datoteka ima previše piksela (%(num_pixels)s). Najveća dopuštena količina; "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Datoteka ima previše piksela (%%). Najveća dopuštena količina; %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Datoteka je prevelika. Najveća dopuštena veličina: %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Datoteka je prevelika. Najveća dopuštena veličina: %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Cijela širina"
@@ -156,6 +157,18 @@ msgstr "slika"
 msgid "images"
 msgstr "slike"
 
+msgid "Add tags to images"
+msgstr "Dodaj oznake slikama"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, nemoj dodati"
+
+msgid "Add images to collection"
+msgstr "Dodaj slike u zbirku"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -169,72 +182,30 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-msgid "Choose an image"
-msgstr "Odaberi sliku"
-
-msgid "Search"
-msgstr "Pretraži"
-
-msgid "Upload"
-msgstr "Prijenos"
-
 msgid "Popular tags"
 msgstr "Popularne oznake"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Pronađen je %(counter)s rezultat"
-msgstr[1] ""
-"\n"
-"Pronađeno je %(counter)s rezultata"
-msgstr[2] ""
-"\n"
-"Pronađeno je %(counter)s rezultata"
+msgid "Existing"
+msgstr "Postojeći"
+
+msgid "New"
+msgstr "Novi"
 
 msgid "Latest images"
 msgstr "Najnovije slike"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zašto ne <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>dodate jedan</a>?"
 
 msgid "Choose a format"
 msgstr "Odaberi format"
 
 msgid "Insert image"
 msgstr "Umetni sliku"
-
-msgid "Uploading…"
-msgstr "Prijenos u tijeku..."
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorena u "
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorenih u "
-"%(site_name)s</span>"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorenih u "
-"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Promijeni sliku:"
@@ -248,15 +219,15 @@ msgstr "Dodaj sliku"
 msgid "Save"
 msgstr "Spremi"
 
-msgid "Delete image"
-msgstr "Izbriši sliku"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Uređivanje slike %(title)s"
 
 msgid "Editing"
 msgstr "Uređivanje"
+
+msgid "Delete image"
+msgstr "Izbriši sliku"
 
 msgid "URL Generator"
 msgstr "URL Generator"
@@ -297,8 +268,12 @@ msgstr "Slike"
 msgid "Popular Tags:"
 msgstr "Popularne Oznake:"
 
-msgid "Clear choice"
-msgstr "Poništi odabir"
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Pronađen je %(counter)s rezultat"
+msgstr[1] "Pronađeno je %(counter)s rezultata"
+msgstr[2] "Pronađeno je %(counter)s rezultata"
 
 msgid "pixels"
 msgstr "piksela"
@@ -310,19 +285,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate slika u ovoj zbirci. Zašto ne biste <a href="
-"\"%(wagtailimages_add_image_url)s\">dodali jednu</a>?"
+"Nemate slika u ovoj zbirci. Zašto ne <a "
+"href=\"%(wagtailimages_add_image_url)s\">dodate jednu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate slika. Zašto ne biste <a href=\"%(wagtailimages_add_image_url)s"
-"\">dodali jednu</a>?"
+"Nemate slika. Zašto ne <a href=\"%(wagtailimages_add_image_url)s\">dodate "
+"jednu</a>?"
 
 msgid "Generating URL"
 msgstr "Generiranje URL-a"
@@ -340,28 +315,6 @@ msgstr ""
 "Generirane slike veće od zaslona će ovdje biti prikazane u manjim "
 "dimenzijama kako bi stale na zaslon."
 
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Upotreba %(title)s"
-
-msgid "Usage of"
-msgstr "Upotreba"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "Parent"
-msgstr "Roditelj"
-
-msgid "Type"
-msgstr "Vrsta"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Uredi ovu stranicu"
-
 msgid "Add multiple images"
 msgstr "Dodaj više slika"
 
@@ -369,7 +322,7 @@ msgid "Add images"
 msgstr "Dodaj slike"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Dovucite slike ovdje kako biste ih prenijeli."
+msgstr "Dovucite slike ovdje kako bi ih prenijeli."
 
 msgid "Or choose from your computer"
 msgstr "Ili odaberite sa vašeg računala"
@@ -400,15 +353,36 @@ msgstr "Dozvole slike"
 msgid "Add an image permission"
 msgstr "Dodaj dozvolu slike"
 
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add to collection"
+msgstr "Dodaj u zbirku"
+
 msgid "Delete"
 msgstr "Izbriši"
+
+msgid "Upload"
+msgstr "Prijenos"
+
+msgid "Uploading…"
+msgstr "Prijenos u tijeku..."
+
+msgid "Choose an image"
+msgstr "Odaberi sliku"
+
+msgid "Edit this image"
+msgstr "Uredi ovu sliku"
 
 msgid "Search images"
 msgstr "Pretraži slike"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Slika '{0}' je ažurirana."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Slika '%(image_title)s' je ažurirana."
 
 msgid "Edit again"
 msgstr "Uredi ponovno"
@@ -422,13 +396,13 @@ msgid ""
 msgstr ""
 "Izvorna slika nije pronađena. Molimo promijenite izvor ili izbrišite sliku."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Slika '{0}' je izbrisana."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Slika '%(image_title)s' je izbrisana."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Slika '{0}' je dodana."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Slika '%(image_title)s' je dodana."
 
 msgid "The image could not be created due to errors."
 msgstr "Nije moguće stvoriti sliku zbog grešaka."
@@ -445,6 +419,3 @@ msgstr[2] "%(count)s slika"
 
 msgid "Change image"
 msgstr "Promijeni sliku"
-
-msgid "Edit this image"
-msgstr "Uredi ovu sliku"

@@ -520,7 +520,7 @@ speakerdeck = {
 
 
 spotify = {
-    "endpoint": "https://embed.spotify.com/oembed/",
+    "endpoint": "https://open.spotify.com/oembed",
     "urls": [
         r"^https?://open\.spotify\.com/.+$",
         r"^https?://spoti\.fi/.+$",
@@ -681,6 +681,8 @@ youtube = {
         r"^https?://(?:[-\w]+\.)?youtube\.com/profile.+$",
         r"^https?://(?:[-\w]+\.)?youtube\.com/view_play_list.+$",
         r"^https?://(?:[-\w]+\.)?youtube\.com/playlist.+$",
+        r"^https?://(?:[-\w]+\.)?youtube\.com/shorts/.+$",
+        r"^https?://(?:[-\w]+\.)?youtube\.com/live/.+$",
     ],
 }
 

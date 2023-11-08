@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import unittest
 
 from django import VERSION as DJANGO_VERSION
@@ -18,6 +17,7 @@ from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
     FormField,
+    FormFieldWithCustomSubmission,
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
@@ -182,8 +182,28 @@ class TestFormSubmission(TestCase):
         with self.assertRaises(ValidationError):
             make_form_page(from_address="not an email")
 
+    def test_string_representation_form_submission(self):
+        """
+        Ensure that a form submission can be logged / printed without error.
+        Broke when converting field to JSON - see #8927
+        """
 
-class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
+        self.client.post(
+            "/contact-us/",
+            {
+                "your_email": "bob@example.com",
+                "your_message": "hello world",
+                "your_choices": {},
+            },
+        )
+
+        self.assertGreaterEqual(FormSubmission.objects.count(), 1)
+
+        submission = FormSubmission.objects.first()
+        self.assertIn("hello world", str(submission))
+
+
+class TestFormWithCustomSubmission(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page_with_custom_submission()
@@ -459,7 +479,7 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
 
 
 class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(
-    TestCase, WagtailTestUtils
+    WagtailTestUtils, TestCase
 ):
     def setUp(self):
         # Create a form page
@@ -545,7 +565,7 @@ class TestFormWithRedirect(TestCase):
         )
 
 
-class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
+class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
     def setUp(self):
 
         home_page = Page.objects.get(url_path="/home/")
@@ -759,7 +779,7 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
 
-class TestIssue798(TestCase, WagtailTestUtils):
+class TestIssue798(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -808,3 +828,56 @@ class TestNonHtmlExtension(TestCase):
         self.assertEqual(
             form_page.landing_page_template, "tests/form_page_landing.jade"
         )
+
+
+class TestFormFieldCleanNameCreation(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.login(username="siteeditor", password="password")
+        self.form_page = Page.objects.get(
+            url_path="/home/contact-us-one-more-time/"
+        ).specific
+
+    def test_form_field_clean_name_creation(self):
+        """creating a new field should use clean_name format (anyascii snake_case)"""
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label="Telefón-nummer",
+            field_type="number",
+        )
+
+        self.assertEqual(field.clean_name, "telefon_nummer")
+
+
+class TestFormFieldCleanNameCreationOverride(WagtailTestUtils, TestCase):
+    def setUp(self):
+        # Create a form page
+        home_page = Page.objects.get(url_path="/home/")
+
+        self.form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title="Richiesta Gelato",
+                slug="ice-cream-request",
+                to_address="scoops@pro-eis.co.it",
+                from_address="scoops@pro-eis.co.it",
+                subject="Gelato in arrivo",
+            )
+        )
+
+    def test_form_field_clean_name_override(self):
+        """
+        Creating a new field should use the overridden method
+        See ExtendedFormField get_field_clean_name method
+        """
+
+        field = ExtendedFormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label="quanti ge·là·to?",
+            field_type="number",  # only number fields will add the ID as a prefix to the clean_name
+            required=True,
+        )
+
+        self.assertEqual(field.clean_name, "number_field--quanti_gelato")

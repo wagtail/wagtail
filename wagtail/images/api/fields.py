@@ -3,6 +3,7 @@ from collections import OrderedDict
 from rest_framework.fields import Field
 
 from ..models import SourceImageIOError
+from ..utils import to_svg_safe_spec
 
 
 class ImageRenditionField(Field):
@@ -13,6 +14,7 @@ class ImageRenditionField(Field):
     Example:
     "thumbnail": {
         "url": "/media/images/myimage.max-165x165.jpg",
+        "full_url": "https://media.example.com/media/images/myimage.max-165x165.jpg",
         "width": 165,
         "height": 100,
         "alt": "Image alt text"
@@ -26,17 +28,24 @@ class ImageRenditionField(Field):
     }
     """
 
-    def __init__(self, filter_spec, *args, **kwargs):
+    def __init__(self, filter_spec, preserve_svg=False, *args, **kwargs):
         self.filter_spec = filter_spec
+        self.preserve_svg = preserve_svg
         super().__init__(*args, **kwargs)
 
     def to_representation(self, image):
         try:
-            thumbnail = image.get_rendition(self.filter_spec)
+            if image.is_svg() and self.preserve_svg:
+                filter_spec = to_svg_safe_spec(self.filter_spec)
+            else:
+                filter_spec = self.filter_spec
+
+            thumbnail = image.get_rendition(filter_spec)
 
             return OrderedDict(
                 [
                     ("url", thumbnail.url),
+                    ("full_url", thumbnail.full_url),
                     ("width", thumbnail.width),
                     ("height", thumbnail.height),
                     ("alt", thumbnail.alt),

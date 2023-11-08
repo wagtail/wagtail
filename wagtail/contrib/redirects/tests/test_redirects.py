@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import Page, Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.utils import WagtailTestUtils
@@ -572,7 +572,7 @@ class TestRedirects(TestCase):
         self.assertIs(redirect.is_permanent, True)
 
 
-class TestRedirectsIndexView(TestCase, WagtailTestUtils):
+class TestRedirectsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -600,10 +600,12 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context["redirects"]), 2)
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
     def test_listing_order(self):
         for i in range(0, 10):
@@ -620,7 +622,7 @@ class TestRedirectsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["redirects"][0].old_path, "/aaargh")
 
 
-class TestRedirectsAddView(TestCase, WagtailTestUtils):
+class TestRedirectsAddView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -652,9 +654,14 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
 
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(old_path="/test")
+        redirect = redirects.first()
         self.assertEqual(redirects.count(), 1)
-        self.assertEqual(redirects.first().redirect_link, "http://www.test.com/")
-        self.assertIsNone(redirects.first().site)
+        self.assertEqual(redirect.redirect_link, "http://www.test.com/")
+        self.assertIsNone(redirect.site)
+
+        # Check that the action log is marked as "created"
+        log_entry = log_registry.get_logs_for_instance(redirect).first()
+        self.assertEqual(log_entry.action, "wagtail.create")
 
     def test_add_with_site(self):
         localhost = Site.objects.get(hostname="localhost")
@@ -771,7 +778,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertIsNone(redirects.first().site)
 
 
-class TestRedirectsEditView(TestCase, WagtailTestUtils):
+class TestRedirectsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(
@@ -880,7 +887,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
 
-class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
+class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(

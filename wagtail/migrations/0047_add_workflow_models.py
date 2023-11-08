@@ -104,7 +104,7 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="task_states",
                         to="wagtailcore.PageRevision",
-                        verbose_name="page revision",
+                        verbose_name="revision",
                     ),
                 ),
                 (
@@ -139,7 +139,7 @@ class Migration(migrations.Migration):
                     "active",
                     models.BooleanField(
                         default=True,
-                        help_text="Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages.",
+                        help_text="Active workflows can be added to pages/snippets. Deactivating a workflow does not remove it from existing pages/snippets.",
                         verbose_name="active",
                     ),
                 ),
@@ -339,7 +339,7 @@ class Migration(migrations.Migration):
             model_name="groupapprovaltask",
             name="groups",
             field=models.ManyToManyField(
-                help_text="Pages at this step in a workflow will be moderated or approved by these groups of users",
+                help_text="Pages/snippets at this step in a workflow will be moderated or approved by these groups of users",
                 to="auth.Group",
                 verbose_name="groups",
             ),

@@ -1,5 +1,22 @@
 [
   {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "model": "wagtailcore.collection",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 3,
+      "name": "Root"
+    }
+  },
+  {
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
@@ -717,7 +734,7 @@
     "fields": {
       "group": ["Event editors"],
       "page": 3,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -726,7 +743,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -735,7 +752,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -744,7 +761,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "publish"
+      "permission": ["publish_page", "wagtailcore", "page"]
     }
   },
   {
@@ -753,7 +770,7 @@
     "fields": {
       "group": ["Site-wide editors"],
       "page": 2,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -762,7 +779,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "lock"
+      "permission": ["lock_page", "wagtailcore", "page"]
     }
   },
   {
@@ -771,7 +788,7 @@
     "fields": {
       "group": ["Corporate Editor"],
       "page": 7,
-      "permission_type": "edit"
+      "permission": ["change_page", "wagtailcore", "page"]
     }
   },
   {
@@ -780,7 +797,7 @@
     "fields": {
       "group": ["Corporate Editor"],
       "page": 15,
-      "permission_type": "add"
+      "permission": ["add_page", "wagtailcore", "page"]
     }
   },
   {
@@ -789,7 +806,7 @@
     "fields": {
       "group": ["Event moderators"],
       "page": 3,
-      "permission_type": "unlock"
+      "permission": ["unlock_page", "wagtailcore", "page"]
     }
   },
 
@@ -926,16 +943,6 @@
   },
   {
     "model": "wagtailcore.collection",
-    "pk": 1,
-    "fields": {
-      "path": "0001",
-      "depth": 1,
-      "numchild": 3,
-      "name": "Root"
-    }
-  },
-  {
-    "model": "wagtailcore.collection",
     "pk": 2,
     "fields": {
       "path": "00010001",
@@ -978,6 +985,27 @@
     "fields": {
       "text": "test_advert",
       "url": "http://www.example.com"
+    }
+  },
+  {
+    "pk": "string-pk-1",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "first modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-2",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "second modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-:#?;@&=+$,\"[]<>%",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "non-url-safe pk modelwithstringtypeprimarykey model"
     }
   }
 ]

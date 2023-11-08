@@ -8,7 +8,7 @@ module.exports = {
   content: [
     './wagtail/**/*.{py,html,ts,tsx}',
     './wagtail/**/static_src/**/*.js',
-    './client/**/*.{js,ts,tsx}',
+    './client/**/*.{js,ts,tsx,mdx}',
     './docs/**/*.{md,rst}',
   ],
   corePlugins: {

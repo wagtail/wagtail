@@ -1,4 +1,5 @@
 import React from 'react';
+import FocusTrap from 'focus-trap-react';
 
 import { gettext } from '../../utils/gettext';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
@@ -116,33 +117,40 @@ class PageExplorerPanel extends React.Component<
   }
 
   render() {
-    const { page, depth, gotoPage } = this.props;
+    const { page, depth, gotoPage, onClose } = this.props;
     const { transition } = this.state;
 
     return (
-      <Transition
-        name={transition}
-        className="c-page-explorer"
-        component="nav"
-        label={gettext('Page explorer')}
+      <FocusTrap
+        paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
+        focusTrapOptions={{
+          onDeactivate: onClose,
+          clickOutsideDeactivates: false,
+          allowOutsideClick: true,
+        }}
       >
-        <div key={depth} className="c-transition-group">
-          <PageExplorerHeader
-            depth={depth}
-            page={page}
-            onClick={this.onHeaderClick}
-            gotoPage={gotoPage}
-            navigate={this.props.navigate}
-          />
+        <div role="dialog" aria-label={gettext('Page explorer')}>
+          <Transition name={transition} className="c-page-explorer">
+            <div key={depth} className="c-transition-group">
+              <PageExplorerHeader
+                depth={depth}
+                page={page}
+                onClick={this.onHeaderClick}
+                gotoPage={gotoPage}
+                navigate={this.props.navigate}
+              />
 
-          {this.renderChildren()}
+              {this.renderChildren()}
 
-          {page.isError ||
-          (page.children.items && page.children.count > MAX_EXPLORER_PAGES) ? (
-            <PageCount page={page} />
-          ) : null}
+              {page.isError ||
+              (page.children.items &&
+                page.children.count > MAX_EXPLORER_PAGES) ? (
+                <PageCount page={page} />
+              ) : null}
+            </div>
+          </Transition>
         </div>
-      </Transition>
+      </FocusTrap>
     );
   }
 }

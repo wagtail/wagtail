@@ -4,14 +4,16 @@
 #
 # Translators:
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Soft Exim, 2022\n"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,10 +24,8 @@ msgstr ""
 msgid "Wagtail users"
 msgstr "Хэрэглэгчид"
 
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Заавал бөглөнө. 30-хүртлэх тэмдэгт. Үсэг, цифр болон @/./+/-/_ тэмдэгтүүд "
-"зөвшөөрнө."
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Тоо, үсэг, @/./+/-/_ тэмдэгт шаардлагатай."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -88,6 +88,16 @@ msgstr "татгалзсан мэдэгдлүүд"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Таны хуудсыг нийтлэхээс татгазахад мэдэгдэл хүлээн авах"
 
+msgid "updated comments notifications"
+msgstr "Шинэчлэгдсэн сэтгэгдлийн мэдэгдэл"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Сэтгэгдлийн тухай мэдэгдэл авахаар бүртгүүлснээр тус хуудсанд сэтгэгдэл "
+"шинээр орох, өөрчлөгдөх, устгагдах тохиолдолд мэдэгдэл хүлээн авах болно. "
+
 msgid "preferred language"
 msgstr "сонгосон хэл"
 
@@ -109,36 +119,44 @@ msgstr "хэрэглэгчийн профайл"
 msgid "user profiles"
 msgstr "хэрэглэгчийн профайлууд"
 
+msgid "Assign role"
+msgstr "Эрх олгох"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Хэрэглэгчидэд эрх, үүрэг олгохдоо итгэлтэй байна уу?"
+
+msgid "Yes, assign"
+msgstr "Тийм, олгох"
+
+msgid "No, don't assign"
+msgstr "Үгүй, цуцлах"
+
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Хэрэглэгчийн мэдээллийг устгахдаа итгэлтэй байна уу?"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
-msgid "Delete group"
-msgstr "Бүлэг устгах"
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                '%(group_name)s' бүлэг <strong>%(group_user_count)s</strong> "
-"гишүүнтэй.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                 '%(group_name)s' бүлэг <strong>%(group_user_count)s</"
-"strong> гишүүнтэй.\n"
-"            "
+msgid "Set active state"
+msgstr "Идэвхитэй төлөвт шилжих"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Хэрэглэгчийн идэвхитэй төлвийг өөрчлөхдөө итгэлтэй байна уу?"
+
+msgid "You cannot change your own active status"
+msgstr "Та өөрийн идэвхитэй төлвийг өөрчлөх боломжгүй."
+
+msgid "Yes, change state"
+msgstr "Тийм, төлвийг өөрчлөх"
+
+msgid "No, don't change state"
+msgstr "Үгүй, төлвийг өөрчлөхгүй"
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -153,11 +171,14 @@ msgstr "Энэ бүлгийг үнэхээр устгах уу?"
 msgid "Add group"
 msgstr "Бүлэг нэмэх"
 
-msgid "Editing"
-msgstr "Засч байна"
+msgid "View users in this group"
+msgstr "Группын гишүүдийг харах"
 
 msgid "Save"
 msgstr "Хадгалах"
+
+msgid "Delete group"
+msgstr "Бүлэг устгах"
 
 msgid "Object permissions"
 msgstr "Объектын хандах эрх"
@@ -171,6 +192,18 @@ msgstr "Нэмэх"
 msgid "Change"
 msgstr "Солих"
 
+msgid "Publish"
+msgstr "Нийтлэх"
+
+msgid "Lock"
+msgstr "Түгжих"
+
+msgid "Unlock"
+msgstr "Түгжээг тайлах"
+
+msgid "Custom permissions"
+msgstr "Тохируулсан эрхүүд"
+
 msgid "Other permissions"
 msgstr "Бусад эрхүүд"
 
@@ -183,32 +216,21 @@ msgstr "Хуудас"
 msgid "Add a page permission"
 msgstr "Хуудсын эрх нэмэх"
 
-msgid "groups"
-msgstr "бүлгүүд"
-
-msgid "Add a group"
-msgstr "Бүлэг нэмэх"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Уучлаарай, \"%(query)s\" хайлтаар бүлэг олдсонгүй"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Бүлэг тохируулагүй байна. <a href=\"%(wagtailusers_create_group_url)s"
-"\">Шинийг үүсгэж</a> яагаад болохгүй гэж?"
-
-msgid "Delete user"
-msgstr "Хэрэглэгч устгах"
+"Бүлэг тохируулагүй байна. <a "
+"href=\"%(wagtailusers_create_group_url)s\">Шинийг үүсгэж</a> яагаад болохгүй "
+"гэж?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Энэ хэрэглэгчийг үнэхээр устгах уу?"
-
-msgid "Add user"
-msgstr "Хэрэглэгч нэмэх"
 
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
@@ -216,17 +238,17 @@ msgstr "Хэрэглэгчийн эрх"
 msgid "Roles"
 msgstr "Дүрүүд"
 
-msgid "Users"
-msgstr "Хэрэглэгчид"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Хэрэглэгч нэмэх"
+
+msgid "Delete user"
+msgstr "Хэрэглэгч устгах"
+
+msgid "Select all users in listing"
+msgstr "Жагсаалтын бүх хэрэглэгчийг сонгох"
 
 msgid "Username"
 msgstr "Хэрэглэгчийн нэр"
-
-msgid "Level"
-msgstr "Түвшин"
 
 msgid "Status"
 msgstr "Төлөв"
@@ -244,78 +266,66 @@ msgid "Inactive"
 msgstr "Идэвхгүй"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэрэглэгч олдсонгүй."
 
 #, python-format
 msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            %(counter)s илэрц олдлоо\n"
-"        "
-msgstr[1] ""
-"\n"
-"            %(counter)s илэрц олдлоо\n"
-"        "
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"%(group_name)s группт хэрэглэгч алга. Яагаад <a "
+"href=\"%(wagtailusers_add_url)s\">хэрэглэгч</a> нэмж болохгүй гэж? "
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэрэглэгч олдсонгүй."
+msgid "Assign role to selected users"
+msgstr "Сонгосон хэрэгчидэд эрх олгох"
+
+msgid "Delete selected users"
+msgstr "Сонгосон хэрэглэгчдийг устгах"
+
+msgid "Change the active state for selected users"
+msgstr "Сонгосон хэрэглэгчдийн идэвхитэй төлвийг өөрчлөх"
 
 msgid "Groups"
 msgstr "Бүлгүүд"
 
+msgid "Add a group"
+msgstr "Бүлэг нэмэх"
+
 msgid "Search groups"
 msgstr "Бүлэг хайх"
 
-#, python-brace-format
-msgid "Group '{0}' created."
-msgstr "'{0}' бүлэг үүслээ."
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s' бүлэг үүслээ."
 
-#, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "'{0}' бүлэг шинэчлэгдлээ."
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s' бүлэг шинэчлэгдлээ."
 
 msgid "The group could not be saved due to errors."
 msgstr "Дараах алдаануудаас болж бүлэг хадгалагдсангүй."
 
-#, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "'{0}' бүлэг устгагдлаа."
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s' бүлэг устгагдлаа."
 
-msgid "Search users"
-msgstr "Хэрэглэгч хайх"
+msgid "Add a user"
+msgstr "Хэрэглэгч нэмэх"
 
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "'{0}' хэрэглэгч үүслээ."
+msgid "Users"
+msgstr "Хэрэглэгчид"
 
-msgid "Edit"
-msgstr "Засах"
-
-msgid "The user could not be created due to errors."
-msgstr "Дараах алдаанаас болж хэрэглэгч үүссэнгүй."
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "'{0}' хэрэглэгч шинэчлэгдлээ."
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s' хэрэглэгч шинэчлэгдлээ."
 
 msgid "The user could not be saved due to errors."
 msgstr "Дараах алдаануудаас болж хэрэглэгч хадгалагдсангүй."
 
-#, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "'{0}' хэрэглэгч устгагдлаа."
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s' хэрэглэгч устгагдлаа."
 
-msgid "Edit this user"
-msgstr "Энэ хэрэглэгчийг өөрчлөх"
-
-msgid "Delete this user"
-msgstr "Энэ хэрэглэгчийг устгах"
+msgid "Edit"
+msgstr "Засах"

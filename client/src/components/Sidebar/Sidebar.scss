@@ -3,14 +3,10 @@
 
   position: absolute;
   top: $sidebar-toggle-spacing;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;
-  color: $color-white;
+  color: theme('colors.text-label-menus-default');
   width: $sidebar-toggle-size;
   height: $sidebar-toggle-size;
-  box-sizing: border-box;
   background: transparent;
   place-items: center;
   padding: 0;
@@ -25,10 +21,6 @@
   @include media-breakpoint-up(sm) {
     position: static;
     inset-inline-end: $sidebar-toggle-spacing;
-
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: initial;
     inset-inline-start: initial;
   }
 
@@ -41,24 +33,22 @@
   }
 }
 
-.sidebar {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+.sidebar,
+.sidebar-loading {
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-surface-menus w-z-sidebar w-transition-sidebar;
   width: $menu-width;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
 
-  @include transition(
-    width $menu-transition-duration ease,
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left $menu-transition-duration ease,
-    inset-inline-start $menu-transition-duration ease
-  );
-
-  @media (forced-colors: $media-forced-colours) {
+  @media (forced-colors: active) {
     border-inline-end: 1px solid transparent;
+  }
+
+  .icon--menuitem {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+    margin: 0.046875rem 0;
   }
 
   &--slim {
@@ -67,15 +57,17 @@
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: -$menu-width;
     inset-inline-start: -$menu-width;
+  }
+
+  // When sidebar is completely closed and animations have finished
+  &--closed {
+    display: none;
   }
 
   &__inner {
     // On medium, make it possible for the nav links to scroll.
-    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
+    @apply w-h-full w-bg-surface-menus w-flex w-flex-col w-flex-nowrap;
   }
 
   &__collapse-toggle {
@@ -87,29 +79,25 @@
   &--mobile &__collapse-toggle {
     display: none;
   }
+}
 
-  .icon--menuitem {
-    width: 1.25em;
-    height: 1.25em;
-    min-width: 1.25em;
-    margin-inline-end: 0.5em;
-    vertical-align: text-top;
-  }
+.sidebar-collapsed .sidebar-loading {
+  width: $menu-width-slim;
 }
 
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
+  @apply w-z-sidebar-toggle;
   @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
-  z-index: 305;
 
   &--mobile {
-    @apply w-bg-primary w-top-0 w-left-0 w-h-[50px] w-w-[50px] w-rounded-none hover:w-bg-primary-200;
+    @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;
     display: grid;
   }
 
   &--open {
-    @apply w-fixed hover:w-bg-primary-200 hover:w-text-white;
+    @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
   }
 }
 

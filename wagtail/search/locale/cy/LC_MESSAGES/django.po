@@ -5,14 +5,15 @@
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2017
 # Philip Crisp, 2022
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,17 +25,6 @@ msgstr ""
 msgid "Wagtail search"
 msgstr "Ymchwilio Wagtail"
 
-msgid "Search term(s)/phrase"
-msgstr "Term(au)/ymadrodd chwilio"
-
-msgid ""
-"Enter the full search string to match. An exact match is required for your "
-"Promoted Results to be displayed, wildcards are NOT allowed."
-msgstr ""
-"Rhowch y term chwilio llawn i gyfateb. Mae angen cyfatebiaeth union er mwyn "
-"i'ch Canlyniadau Hyrwyddedig gael eu harddangos, NI chaniateir cardiau "
-"chwilio."
-
 msgid "Query Daily Hits"
 msgstr "Ymholiad Trawiadau Dyddiol"
 
@@ -43,24 +33,3 @@ msgstr "cofnod mynegai"
 
 msgid "index entries"
 msgstr "cofnodion mynegai"
-
-msgid "Popular search terms"
-msgstr "Termau chwilio poblogaidd"
-
-msgid "Search"
-msgstr "Chwilio"
-
-msgid "Terms"
-msgstr "Termau"
-
-msgid "Views (past week)"
-msgstr "Golygfeydd (yr wythnos ddiwethaf)"
-
-msgid "No results found"
-msgstr "Dim chanfuwyd canlyniadau"
-
-msgid "Date"
-msgstr "Dyddiad"
-
-msgid "Choose from popular search terms"
-msgstr "Dewiswch o dermau chwilio poblogaidd"

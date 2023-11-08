@@ -45,13 +45,11 @@ class TagField(TaggitTagField):
                 value_too_long += val
         if value_too_long:
             raise ValidationError(
-                _(
-                    "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
-                    % {
-                        "value_too_long": value_too_long,
-                        "max_tag_length": max_tag_length,
-                    }
-                )
+                _("Tag(s) %(value_too_long)s are over %(max_tag_length)d characters")
+                % {
+                    "value_too_long": value_too_long,
+                    "max_tag_length": max_tag_length,
+                }
             )
 
         if not self.free_tagging:

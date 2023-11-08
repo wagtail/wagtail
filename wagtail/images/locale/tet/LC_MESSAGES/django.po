@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imajen Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -39,24 +36,28 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Suporta formatu: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "La suporta formatu imajen. Suporta formatu: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "La suporta formatu imajen. Suporta formatu: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "La validu %simajen"
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais (%(file_size)s). Maximu Dokumentus nia medida "
+"%(max_filesize)s. "
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dokumentus ne'e bo'ot demais (%%s). Maximu Dokumentus nia medida %s. "
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Dokumentu ne'e iha  piksel barak (%(num_pixels)s).  Maximu piksel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Dokumentu ne'e iha  piksel barak (%%s).  Maximu piksel %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %s. "
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %(max_filesize)s. "
 
 msgid "Full width"
 msgstr "Luan tomak"
@@ -145,37 +146,39 @@ msgstr "imagen"
 msgid "images"
 msgstr "imagen sira"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
 msgid "Yes, delete"
 msgstr "Loos, hamoos"
 
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
-msgid "Choose an image"
-msgstr "Hili imagen ida"
-
-msgid "Search"
-msgstr "Buka"
+msgid "New"
+msgstr "foun"
 
 msgid "Save"
 msgstr "Rai"
 
-msgid "Delete image"
-msgstr "Hamoos imagen"
-
 msgid "Editing"
 msgstr "Hadia hela"
+
+msgid "Delete image"
+msgstr "Hamoos imagen"
 
 msgid "Usage"
 msgstr "Uza"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ita seidauk hatama tiha imajen balu. Tamba sa la<a href="
-"\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
+"Ita seidauk hatama tiha imajen balu. Tamba sa la<a "
+"href=\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
 
 msgid "Generating URL"
 msgstr "Gerandu URL"
@@ -185,28 +188,6 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Pré-visualizasaun"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s uza iha nee"
-
-msgid "Usage of"
-msgstr "uza iha nee"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "Parent"
-msgstr "inan-aman"
-
-msgid "Type"
-msgstr "Tipu"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Hadia pajina nee"
 
 msgid "Server Error"
 msgstr "Servidor erru"
@@ -219,6 +200,12 @@ msgstr "Hatama permisaun imajen"
 
 msgid "Delete"
 msgstr "hamoos"
+
+msgid "Choose an image"
+msgstr "Hili imagen ida"
+
+msgid "Edit this image"
+msgstr "Hadia imajen ne'e"
 
 msgid "Search images"
 msgstr "Buka imajen"
@@ -236,13 +223,13 @@ msgstr ""
 "Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
 "ne'e."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Imajen '{0}' hamoos ona."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Imajen '%(image_title)s' hamoos ona."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Imajen '{0}' hatama ona"
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Imajen '%(image_title)s' hatama ona"
 
 msgid "Image"
 msgstr "Imagen"
@@ -254,6 +241,3 @@ msgstr[0] "%(count)s imagen sira"
 
 msgid "Change image"
 msgstr "Troka imajen"
-
-msgid "Edit this image"
-msgstr "Hadia imajen ne'e"

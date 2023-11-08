@@ -4,8 +4,9 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -14,10 +15,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,6 +32,14 @@ msgstr "Julkaise"
 msgid "Submit for moderation"
 msgstr "Lähetä tarkistettavaksi"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Lähetä uudelleen tehtävään %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Lähetä työnkulkuun %(workflow_name)s"
+
 msgid "Restart workflow "
 msgstr "Käynnistä työnkulku uudelleen"
 
@@ -39,18 +48,6 @@ msgstr "Peruuta työnkulku"
 
 msgid "Unpublish"
 msgstr "Piilota"
-
-msgid "Delete"
-msgstr "Poista"
-
-msgid "Lock"
-msgstr "Lukitse"
-
-msgid "Apply editor lock"
-msgstr "Lukitse editori"
-
-msgid "Unlock"
-msgstr "Poista lukitus"
 
 msgid "Save Draft"
 msgstr "Tallenna luonnos"
@@ -73,27 +70,6 @@ msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
 
 msgid "None"
 msgstr "Ei mitään"
-
-msgid "Scheduled publishing"
-msgstr "Ajastettu julkistus"
-
-msgid "Privacy"
-msgstr "Yksityisyys"
-
-msgid "For search engines"
-msgstr "Hakukoneille"
-
-msgid "For site menus"
-msgstr "Sivustovalikoille"
-
-msgid "Content"
-msgstr "Sisältö"
-
-msgid "Promote"
-msgstr "Nosto"
-
-msgid "Settings"
-msgstr "Asetukset"
 
 msgid "Date from"
 msgstr "Lähtien"
@@ -126,14 +102,31 @@ msgid "Enter password"
 msgstr "Syötä salasana"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Syötä %s"
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s ja salasana eivät täsmänneet. Ole hyvä ja yritä uudelleen."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Syötä %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Search term"
+msgstr "Hakutermi"
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "All collections"
+msgstr "Kaikki kokoelmat"
+
+msgid "Collection"
+msgstr "Kokoelma"
 
 msgid "Parent"
 msgstr "Isäntä"
@@ -143,9 +136,6 @@ msgstr "Valitse toinen isäntä"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
-
-msgid "Collection"
-msgstr "Kokoelma"
 
 msgid "Add"
 msgstr "Lisää"
@@ -159,11 +149,20 @@ msgstr "Muokkaa"
 msgid "Edit collections"
 msgstr "Muokkaa kokoelmia"
 
+msgid "Delete"
+msgstr "Poista"
+
 msgid "Delete collections"
 msgstr "Poista kokoelmia"
 
 msgid "You cannot edit another user's comment."
 msgstr "Et voi muokata toisen käyttäjän kommenttia."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -215,26 +214,12 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%(parent_page_title)s\" alla"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Et voi kopioida sivua itsensä päälle, kun kopioit alasivuja."
-
-msgid "This slug is already in use"
-msgstr "Lyhytnimi on jo käytössä"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
-
-msgid "Search"
-msgstr "Haku"
-
-msgid "Search term"
-msgstr "Hakutermi"
 
 msgid "Visibility"
 msgstr "Näkyvyys"
@@ -248,9 +233,9 @@ msgstr "Valitse vähintään yksi ryhmä."
 msgid "All types"
 msgstr "Kaikki tyypit"
 
-#, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Tähän sivuun on määritetty työnkulku '{0}'."
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Tähän sivuun on määritetty työnkulku '%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Et voi määrittää tätä työnkulkua samalle sivulle useita kertoja."
@@ -261,162 +246,19 @@ msgstr "Anna työnkululle nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisää tehtäviä työnkulkuun"
 
-msgid "Page"
-msgstr "Sivu"
-
-msgid "Pages"
-msgstr "Sivut"
-
-msgid "Loading…"
-msgstr "Haetaan…"
-
-msgid "No results"
-msgstr "Ei tuloksia"
-
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid "See all"
-msgstr "Katso kaikki"
-
-msgid "Close explorer"
-msgstr "Sulje selaus"
-
-msgid "Alt text"
-msgstr "Vaihtoehtoinen teksti"
-
-msgid "Decorative image"
-msgstr "Koristeellinen kuva"
-
-msgid "Write here…"
-msgstr "Kirjoita tähän…"
-
-msgid "Horizontal line"
-msgstr "Vaakaviiva"
-
-msgid "Line break"
-msgstr "Rivinvaihto"
-
-msgid "Undo"
-msgstr "Peru"
-
-msgid "Redo"
-msgstr "Tee uudestaan"
-
-msgid "Reload the page"
-msgstr "Lataa sivu uudestaan"
-
-msgid "Reload saved content"
-msgstr "Lataa tallennettu sisältö"
-
-msgid "Show latest content"
-msgstr "Näytä viimeisin sisältö"
-
-msgid "Show error"
-msgstr "Näytä virheilmoitus"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
-"tallennettu versio. "
-
-msgid "Broken link"
-msgstr "Särkynyt linkki"
-
-msgid "Missing document"
-msgstr "Puuttuva asiakirja"
-
-msgid "Close"
-msgstr "Sulje"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Muokkaa '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Näytä sivun '{title}' alasivut"
-
-msgid "Page explorer"
-msgstr "Sivuselain"
-
-msgid "Save"
-msgstr "Tallenna"
-
-msgid "Saving..."
-msgstr "Tallennetaan..."
-
-msgid "Cancel"
-msgstr "Peruuta"
-
-msgid "Deleting..."
-msgstr "Poistetaan..."
-
-msgid "Add a comment"
-msgstr "Lisää kommentti"
-
-msgid "Show comments"
-msgstr "Näytä kommentit"
-
-msgid "Reply"
-msgstr "Vastaa"
-
-msgid "Resolve"
-msgstr "Selvitä"
-
-msgid "Retry"
-msgstr "Yritä uudelleen"
-
-msgid "Delete error"
-msgstr "Poistamisvirhe"
-
-msgid "Are you sure?"
-msgstr "Oletko varma?"
-
-msgid "Save error"
-msgstr "Tallennusvirhe"
-
-msgid "This will be saved when the page is saved"
-msgstr "Tämä tallennetaan kun sivu tallennetaan"
-
-msgid "Focus comment"
-msgstr "Kohdista kommentti"
-
-msgid "Unfocus comment"
-msgstr "Poista kommentin kohdistus"
-
-msgid "Comment"
-msgstr "Kommentti"
-
-msgid "More actions"
-msgstr "Lisää toimintoja"
-
-msgid "Save the page to add this comment"
-msgstr "Tallenna sivu lisätäksesi tämän kommentin"
-
-msgid "Save the page to save this comment"
-msgstr "Tallenna sivu tallentaaksesi tämän kommentin"
-
-msgid "Save the page to save this reply"
-msgstr "Tallenna sivu tallentaaksesi tämän vastauksen"
-
-msgid "Dashboard"
-msgstr "Kojelauta"
-
-msgid "Edit your account"
-msgstr "Muokkaa tiliäsi"
+msgid "Task"
+msgstr "Tehtävä"
 
 msgid "1 page selected"
 msgstr "1 sivu valittu"
 
-#, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} sivua valittu"
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s sivua valittu"
 
-#, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "Kaikki {0} sivua tässä näytössä valittu"
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Kaikki %(objects)s sivua tässä näytössä valittu"
 
 msgid "All pages in listing selected"
 msgstr "Kaikki listauksen sivut valittu"
@@ -424,13 +266,13 @@ msgstr "Kaikki listauksen sivut valittu"
 msgid "1 document selected"
 msgstr "1 asiakirja valittu"
 
-#, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} asiakirjaa valittu"
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s asiakirjaa valittu"
 
-#, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "Kaikki {0} asiakirjaa tässä näytössä valittu"
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Kaikki %(objects)s asiakirjaa tässä näytössä valittu"
 
 msgid "All documents in listing selected"
 msgstr "Kaikki listauksen asiakirjat valittu"
@@ -438,13 +280,13 @@ msgstr "Kaikki listauksen asiakirjat valittu"
 msgid "1 image selected"
 msgstr "1 kuva valittu"
 
-#, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} kuvaa valittu"
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s kuvaa valittu"
 
-#, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "Kaikki {0} kuvaa tässä näytössä valittu"
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Kaikki %(objects)s kuvaa tässä näytössä valittu"
 
 msgid "All images in listing selected"
 msgstr "Kaikki listauksen kuvat valittu"
@@ -452,30 +294,61 @@ msgstr "Kaikki listauksen kuvat valittu"
 msgid "1 user selected"
 msgstr "1 käyttäjä valittu"
 
-#, python-brace-format
-msgid "{0} users selected"
-msgstr "{0} käyttäjää valittu"
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s käyttäjää valittu"
 
-#, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "Kaikki {0} käyttäjää tässä näytössä valittu"
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Kaikki %(objects)s käyttäjää tässä näytössä valittu"
 
 msgid "All users in listing selected"
 msgstr "Kaikki listauksen käyttäjät valittu"
 
+msgid "1 snippet selected"
+msgstr "1 pätkä valittu"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s pätkää valittu"
+
+msgid "All snippets in listing selected"
+msgstr "Kaikki listauksen pätkät valittu"
+
 msgid "1 item selected"
 msgstr "1 tietue valittu"
 
-#, python-brace-format
-msgid "{0} items selected"
-msgstr "{0} items tietuetta valittu"
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s items tietuetta valittu"
 
-#, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "Kaikki {0} tietuetta tässä näytössä valittu"
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Kaikki %(objects)s tietuetta tässä näytössä valittu"
 
 msgid "All items in listing selected"
 msgstr "Kaikki listauksen tietueet valittu"
+
+msgid "For search engines"
+msgstr "Hakukoneille"
+
+msgid "For site menus"
+msgstr "Sivustovalikoille"
+
+msgid "Content"
+msgstr "Sisältö"
+
+msgid "Promote"
+msgstr "Nosto"
+
+msgid "Settings"
+msgstr "Asetukset"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Page title"
+msgstr "Sivun otsikko"
 
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
@@ -492,17 +365,11 @@ msgstr "Siirry Wagtailin hallintaan"
 msgid "Account"
 msgstr "Tili"
 
+msgid "More actions"
+msgstr "Lisää toimintoja"
+
 msgid "Save account details"
 msgstr "Tallenna tilin tiedot"
-
-msgid "Change password"
-msgstr "Vaihda salasana"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
-"ylläpitäjään."
 
 msgid "Reset password"
 msgstr "Palauta salasana"
@@ -549,11 +416,14 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
+msgid "Reset to default"
+msgstr "Palauta oletusarvoon"
+
 msgid "Upload a profile picture:"
 msgstr "Lähetä profiilikuva:"
 
-msgid "Reset to default"
-msgstr "Palauta oletusarvoon"
+msgid "Sidebar"
+msgstr "Sivupalkki"
 
 msgid "Go back"
 msgstr "Siirry takaisin"
@@ -583,20 +453,10 @@ msgid "Anchor link"
 msgstr "Ankkurilinkki"
 
 #, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 msgid "Add an anchor link"
 msgstr "Lisää ankkurilinkki"
@@ -610,25 +470,8 @@ msgstr "Valitse"
 msgid "Choose a page"
 msgstr "Valitse sivu"
 
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"Ainoastaan tyypin \"%(type)s\" sivuja voidaan valita tähän kentään. "
-"Hakutulokset eivät sisällä muita sivutyyppejä."
-msgstr[1] ""
-"\n"
-"Ainoastaan seuraavia sivutyyppejä voidaan valita tähän kenttään: %(type)s. "
-"Hakutulokset eivät sisällä muita sivutyyppejä."
+msgid "Confirm selection"
+msgstr "Vahvista valinta"
 
 msgid "Convert to internal link"
 msgstr "Muunna sisäiseksi linkiksi"
@@ -648,6 +491,17 @@ msgstr "Lisää ulkoinen linkki"
 msgid "Add a phone link"
 msgstr "Lisää puhelinnumerolinkki"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Valitse %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Selaa sivun %(title)s alasivuja"
+
+msgid "Explore"
+msgstr "Selaa"
+
 msgid "Collection privacy"
 msgstr "Kokoelman yksityisyys"
 
@@ -657,11 +511,20 @@ msgstr "Tämä kokoelma on yksityinen, koska sen isäntäkin on."
 msgid "You can edit the privacy settings on:"
 msgstr "Voit muokata yksityisyysasetuksia:"
 
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Change privacy"
+msgstr "Muuta yksityisyyttä"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Yksityisyysasetukset määräävät, kuka saa nähdä tässä kokoelmassa olevat "
 "dokumentit."
+
+msgid "Privacy"
+msgstr "Yksityisyys"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Aseta kokoelman yksityisyys. Nyt: Julkinen"
@@ -685,36 +548,75 @@ msgstr "Nimi"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
-"\">loisi kokoelmaa</a>?"
+"Kokoelmia ei ole luotu. Mikset vaikka <a "
+"href=\"%(add_collection_url)s\">loisi kokoelmaa</a>?"
 
 #, python-format
-msgid "Add %(label)s"
-msgstr "Lisää %(label)s"
-
-msgid "Move up"
-msgstr "Siirrä ylös"
-
-msgid "Move down"
-msgstr "Siirrä alas"
-
-msgid "Add comment"
-msgstr "Lisää kommentti"
-
-msgid "Comments"
-msgstr "Kommentit"
-
-msgid "Comment notifications"
-msgstr "Kommentti-ilmoitukset"
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Ei tuloksia haulla \"<em>%(search_query)s</em>\""
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Piilota %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Kyllä, piilota"
+
+msgid "No, don't unpublish"
+msgstr "Ei, älä piilota"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Julkaise %(model_name)s"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "No log entries found."
+msgstr "Lokimerkintöjä ei löytynyt."
+
 msgid "Update"
 msgstr "Päivitä"
+
+msgid "Preview not available"
+msgstr "Esikatselu ei ole saatavilla"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Vertaillaan %(title)s"
+
+msgid "Comparing"
+msgstr "Vertaillaan"
+
+msgid "Fields"
+msgstr "Kentät"
+
+msgid "Changes"
+msgstr "Muutokset"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Siirretty alas 1 sija."
+msgstr[1] "Siirretty alas %(counter)s sijaa."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Siirretty ylös 1 sija."
+msgstr[1] "Siirretty ylös %(counter)s sijaa."
+
+msgid "There are no differences between these two versions"
+msgstr "Näiden kahden version välillä ei ole eroja"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -730,14 +632,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Lukitut sivusi"
 
-msgid "Title"
-msgstr "Otsikko"
-
 msgid "Locked at"
 msgstr "Lukittu"
 
 msgid "Edit this page"
 msgstr "Muokkaa tätä sivua"
+
+msgid "Actions"
+msgstr "Toimet"
+
+msgid "Unlock"
+msgstr "Poista lukitus"
 
 msgid "Draft"
 msgstr "Luonnos"
@@ -780,29 +685,30 @@ msgstr "Sivuston yhteenveto"
 
 #, python-format
 msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
-"<span>%(total)s</span> sivu <span class=\"visuallyhidden\">luotiin "
-"sivustolle %(site_name)s</span>"
+"<span>%(total)s</span> sivu <span class=\"visuallyhidden\">luotu sivustolle "
+"%(site_name)s</span>"
 msgstr[1] ""
-"\n"
-"<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotiin "
-"sivustolle %(site_name)s</span>"
+"<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotu sivustolle "
+"%(site_name)s</span>"
 
-msgid "Your pages in a workflow"
-msgstr "Sivusi työnkulussa"
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Wagtail-päivitys saatavilla. Käyttämäsi versio: <strong>%(current_version)s</"
+"strong>. Uusi versio: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
 
-msgid "Task"
-msgstr "Tehtävä"
+msgid "Read the release notes."
+msgstr "Lue julkaisutiedot."
 
 msgid "Task started"
 msgstr "Tehtävä aloitettu"
@@ -810,28 +716,51 @@ msgstr "Tehtävä aloitettu"
 msgid "Awaiting"
 msgstr "Odottaa"
 
+msgid "Close"
+msgstr "Sulje"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Wagtailin versiossa %(version)s on muutoksia!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"Älä huoli, me autamme sinua. Tutustu <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtailin muokkausoppaaseen</a> pysyäksesi ajan tasalla "
+"muutoksista ja uusista ominaisuuksista!"
+
 msgid "Awaiting your review"
 msgstr "Odottaa tarkastustasi"
 
 msgid "Tasks"
 msgstr "Tehtävät"
 
+msgid "Compare with live version"
+msgstr "Vertaile julkaistun version kanssa"
+
+msgid "Compare with previous version"
+msgstr "Vertaa edelliseen versioon"
+
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)s ja salasana eivät täsmänneet. Ole hyvä ja yritä uudelleen."
 
 msgid "Sign in to Wagtail"
 msgstr "Kirjaudu sisään Wagtailiin"
 
-msgid "Signing in…"
-msgstr "Kirjaudutaan…"
-
 msgid "Forgotten password?"
 msgstr "Unohtuiko salasana?"
+
+msgid "Remember me"
+msgstr "Muista minut"
+
+msgid "Signing in…"
+msgstr "Kirjaudutaan…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -874,8 +803,16 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Sivu \"%(page)s\" on lähetetty hyväksyttäväksi"
 
 #, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Voit muokata %(model_name)s täällä:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Sivu \"%(title)s\" on hyväksytty tehtävässä \"%(task)s\"."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Voit esikatsella %(model_name)s täällä:"
 
 msgid "New comments"
 msgstr "Uudet kommentit"
@@ -917,41 +854,14 @@ msgstr "Seuraava kommentti jätettiin: \"%(comment)s\""
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Sivu \"%(title)s\" on hylätty työnkulussa \"%(workflow)s\"."
 
-#, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr "Sivu \"%(title)s\" on lähetetty työnkulkuun \"%(workflow)s\" "
-
 msgid "Page privacy"
 msgstr "Sivun yksityisyys"
 
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
-"alasivuihin."
-
-msgid "Visit the live page"
-msgstr "Vieraile sivulla"
-
-msgid "This page is live but only available to certain users"
-msgstr "Sivu on julkinen, mutta saatavilla vain tietyille käyttäjille"
-
-msgid "restricted"
-msgstr "rajoitettu"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Aseta sivun yksityisyys. Nyt: Julkinen"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Aseta sivun yksityisyys. Nyt: Yksityinen"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Sivun yksityisyys. Nyt: Julkinen"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Sivun yksityisyys. Nyt: Yksityinen"
+msgid "Save the page before leaving"
+msgstr "Tallenna sivu ennen poistumista"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Sinulla on <span>tallentamattomia muokkauksia</span>"
@@ -963,9 +873,6 @@ msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr ""
 "Sinulla on <span>tallentamattomia muokkauksia</span> ja <span>kommentteja</"
 "span>"
-
-msgid "Save the page before leaving"
-msgstr "Tallenna sivu ennen poistumista"
 
 msgid "Publishing…"
 msgstr "Julkaistaan…"
@@ -992,12 +899,15 @@ msgstr "Luo sivu kohteeseen"
 msgid "Choose which type of page you'd like to create."
 msgstr "Valitse minkätyyppisen sivun haluat luoda."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Et voi luoda sivua tähän sijaintiin."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "SIvut tyyppiä %(page_type)s"
 
 #, python-format
-msgid "Delete 1 page "
+msgid "Delete 1 page"
 msgid_plural "Delete %(counter)s pages"
 msgstr[0] "Poista 1 sivu"
 msgstr[1] "Poista %(counter)s sivua"
@@ -1006,30 +916,15 @@ msgid "Are you sure you want to delete these pages?"
 msgstr "Haluatko varmasti poistaa nämä sivut?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This will also delete %(counter)s more subpages.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Tämä poistaa lisäksi yhden alisivun.\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Tämä poistaa lisäksi %(counter)s alisivua.\n"
-"                    "
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Tämä poistaa myös yhden alasivun."
+msgstr[1] "Tämä poistaa myös %(counter)s alasivua."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Oikeutesi eivät riitä tämän sivun poistamiseen"
 msgstr[1] "Oikeutesi eivät riitä näiden sivujen poistamiseen"
-
-msgid "No, don't delete"
-msgstr "Ei, älä poista"
 
 #, python-format
 msgid "Move 1 page"
@@ -1043,16 +938,23 @@ msgstr "SIirrä"
 msgid "Are you sure you want to move these pages?"
 msgstr "Haluatko varmasti siirtää nämä sivut?"
 
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Tällä sivulla on yksi lapsisivu"
+msgstr[1] "Tällä sivulla on %(counter)s lapsisivua"
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Oikeutesi eivät riitä tämän sivun siirtämiseen"
 msgstr[1] "Oikeutesi eivät riitä näiden sivujen siirtämiseen"
 
-#, python-format
-msgid "The following page cannot be moved to %(dest_title)s "
-msgid_plural "The following pages cannot be moved to %(dest_title)s"
-msgstr[0] "Seuraavaa sivua ei voi siirtää kohteeseen %(dest_title)s "
-msgstr[1] "Seuraavia sivuja ei voi siirtää kohteeseen %(dest_title)s"
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"Seuraavaa sivua ei voi siirtää polkutunnuksen kaksoiskappaleen vuoksi"
+msgstr[1] ""
+"Seuraavia sivuja ei voi siirtää polkutunnusten kaksoiskappaleiden vuoksi"
 
 msgid "Yes, move these pages"
 msgstr "Kyllä, siirrä nämä sivut"
@@ -1061,9 +963,9 @@ msgid "No, don't move"
 msgstr "Ei, älä siirrä"
 
 #, python-format
-msgid "Publish 1 page "
+msgid "Publish 1 page"
 msgid_plural "Publish %(counter)s pages"
-msgstr[0] "Julkaise 1 sivu "
+msgstr[0] "Julkaise 1 sivu"
 msgstr[1] "Julkaise %(counter)s sivua"
 
 msgid "Are you sure you want to publish these pages?"
@@ -1084,28 +986,13 @@ msgid "Are you sure you want to unpublish these pages?"
 msgstr "Haluatko varmasti piilottaa näiden sivujen julkaisun?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one subpage\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s subpages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Tällä sivulla on yksi alisivu\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Tällä sivulla on %(counter)s alisivua\n"
-"                    "
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Tällä sivulla on yksi alasivu"
+msgstr[1] "Tällä sivulla on %(counter)s alisivua"
 
 msgid "Yes, unpublish"
 msgstr "Kyllä, piilota julkaisu"
-
-msgid "No, don't unpublish"
-msgstr "Ei, älä piilota"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1134,21 +1021,18 @@ msgid "Are you sure you want to delete this page?"
 msgstr "Haluatko varmasti poistaa tämän sivun?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"Tämä poistaa myös yhden alasivun."
-msgstr[1] ""
-"\n"
-"Tämä poistaa myös %(descendant_count)s alasivua."
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Se tulee myös poistamaan %(translation_count)s käännöksen."
+msgstr[1] "Se tulee myös poistamaan %(translation_count)s käännöstä."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Tämä toiminto tulee poistamaan <b>%(total_pages)s</b> sivua."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Kirjoita <b>%(wagtail_site_name)s</b> vahvistaaksesi."
 
 msgid "Yes, delete it"
 msgstr "Kyllä, poista"
@@ -1184,61 +1068,17 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Kyllä, siirrä sivu"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Piilota %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"Tällä sivulla on yksi alasivu. Poista myös sen julkaisu"
-msgstr[1] ""
-"\n"
-"Tällä sivulla on %(live_descendant_count)s alasivua. Poista niidenkin "
-"julkaisu"
-
-msgid "Yes, unpublish it"
-msgstr "Kyllä, piilota"
-
 msgid "Publish page"
 msgstr "Julkaise sivu"
-
-#, python-format
-msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            Tämä sivu on tehtävässä <strong>%(task)s</strong> työnkulussa "
-"<strong>%(workflow)s</strong>.\n"
-"        "
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Tämän sivun julkaisu peruuttaa nykyisen työnkulun."
 
 msgid "Would you still like to publish this page?"
 msgstr "Haluatko silti julkaista tämän sivun?"
-
-#, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sivut, joiden luokka on %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Käyttävät sivut"
 
 #, python-format
 msgid "Copy %(title)s"
@@ -1254,25 +1094,12 @@ msgstr "Kopioi tämä sivu"
 msgid "New %(page_type)s"
 msgstr "Uusi %(page_type)s"
 
-msgid "New"
-msgstr "Uusi"
-
-msgid "Actions"
-msgstr "Toimet"
-
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Muokataan %(page_type)s-sivua: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "Muokataan %(page_type)s"
-
-msgid "History"
-msgstr "Historia"
 
 msgid "This page is an alias of another page."
 msgstr "Tämä sivu on alias toisesta sivusta."
@@ -1283,6 +1110,10 @@ msgstr "Muokkaa alkuperäistä sivua"
 msgid "Convert this alias into an ordinary page"
 msgstr "Muunna tämä alias tavalliseksi sivuksi"
 
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "Sivun %(subtitle)s sivuhistoria"
+
 msgid "Action"
 msgstr "Toiminto"
 
@@ -1292,6 +1123,9 @@ msgstr "Käyttäjä"
 msgid "Date / Time"
 msgstr "Päivä/aika"
 
+msgid "Comment"
+msgstr "Kommentti"
+
 msgid "Live version"
 msgstr "Esillä oleva versio"
 
@@ -1299,102 +1133,20 @@ msgid "Current draft"
 msgstr "Nykyinen luonnos"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sitten"
-
-msgid "No log entries found."
-msgstr "Lokimerkintöjä ei löytynyt."
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Selataan kohdetta %(title)s"
 
 msgid "Select all pages in listing"
-msgstr "Valitse kaikki listauksen sivut"
-
-msgid "Select page"
-msgstr "Valitse sivu"
-
-msgid "Drag"
-msgstr "Vedä"
-
-msgid "Updated"
-msgstr "Päivitetty"
-
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"Juuritasolla voit lisätä uusia sivustoja Wagtail-asennukseesi. Täällä "
-"luotuja sivuja ei pääse tarkastelemaan URL-osoitteella ennen kuin ne "
-"liitetään sivustoon."
+msgstr "Valitse listauksen kaikki sivut"
 
 msgid "Configure a site now."
 msgstr "Konfiguroi sivusto nyt."
 
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"Jos haluat luoda sivuja olemassaolevaan sivustoon, luo ne kotisivun "
-"alasivuiksi."
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"Tänne luodut sivut eivät ole katseltavissa mistään osoitteesta. Lisätäksesi "
-"sivuja olemassaolevaan sivustoon, luo ne kotisivun alasivuiksi."
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"Sivustoa ei ole asetettu tälle sijainnille. Tänne luodut sivut eivät ole "
-"katseltavissa mistään osoitteesta ennen kuin sivusto on asetettu käyttämään "
-"tätä sijaintia."
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"Tästä sijainnista ei ole olemassa sivustokirjausta. Tänne luodut sivut eivät "
-"ole kasteltavissa mistään osoitteesta."
-
-msgid "No pages have been created at this location."
-msgstr "Tässä sijainnissa ei ole yhtään sivua."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Mikset vaikka <a href=\"%(add_page_url)s\">loisi yhtä</a>?"
+msgid "This page is locked, by you, to further editing"
+msgstr "Tämä sivu on lukittu toimestasi muokkausta varten"
 
 msgid "This page is locked to further editing"
 msgstr "Sivu on lukittu eikä sitä voi muokata."
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Selaa sivun %(title)s alasivuja"
-
-msgid "Explore"
-msgstr "Selaa"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1404,29 +1156,8 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-msgid "Sites menu"
-msgstr "Sivustot-valikko"
-
-msgid "Pagination"
-msgstr "Sivutus"
-
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"Sivu %(page_number)s/%(num_pages)s"
-
-msgid "Previous"
-msgstr "Edellinen"
-
-msgid "Next"
-msgstr "Seuraava"
-
-msgid "This page is protected from public view"
-msgstr "Sivu on suojattu näkymästä julkisesti"
+msgid "Drag"
+msgstr "Vedä"
 
 msgid "Disable ordering of child pages"
 msgstr "Estä alasivujen uudelleenjärjestäminen"
@@ -1437,40 +1168,40 @@ msgstr "Järjestä"
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Valitse uusi isäntäsivu sivulle %(title)s"
+msgid "Search the whole site"
+msgstr "Hae koko sivustolta"
 
 #, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Valitse uusi isäntäsivu sivulle <span>%(title)s</span>"
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s / %(result_count)s"
 
-msgid "Preview error"
-msgstr "VIrhe esikatselussa"
+msgid "Sites menu"
+msgstr "Sivustot-valikko"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"Tätä sivua ei voi esikatsella, virheitä on jäljellä.\n"
-"Sulje tämä välilehti ja korjaa virheet muokkaamalla sivua,\n"
-"valitse sitten esikatselu uudelleen."
+msgid "Pagination"
+msgstr "Sivutus"
 
-msgid "Current status:"
-msgstr "Nykyinen tila:"
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sivu %(page_number)s/%(num_pages)s."
 
-msgid "Set page privacy"
-msgstr "Aseta sivun yksityisyys"
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "This page is protected from public view"
+msgstr "Sivu on suojattu näkymästä julkisesti"
+
+msgid "Confirm"
+msgstr "Vahvista"
+
+msgid "Add child page"
+msgstr "Lisää alasivu"
 
 msgid "Review this version"
 msgstr "Tarkasta tämä versio"
-
-msgid "Compare with previous version"
-msgstr "Vertaa edelliseen versioon"
 
 msgid "Compare with current version"
 msgstr "Vertaa nykyiseen versioon"
@@ -1479,59 +1210,156 @@ msgid "Cancel scheduled publish"
 msgstr "Peruuta ajastettu julkaisu"
 
 #, python-format
-msgid "Comparing %(title)s"
-msgstr "Vertaillaan %(title)s"
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Yksi vastaava sivu"
+msgstr[1] "%(counter)s vastaavaa sivua"
 
-msgid "Comparing"
-msgstr "Vertaillaan"
-
-msgid "Page history"
-msgstr "Sivun historia"
-
-msgid "Fields"
-msgstr "Kentät"
-
-msgid "Changes"
-msgstr "Muutokset"
+msgid "Page types"
+msgstr "Sivutyypit"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Siirrettiin 1 sija alemmas."
-msgstr[1] ""
-"\n"
-"Siirrettin %(counter)s sijaa alemmas."
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Valitettavasti mikään sivu ei vastaa hakua <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Syötä hakutermi ylle"
+
+msgid "No pages use"
+msgstr "Yhtään sivua ei käytä"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Siirrettiin 1 sija ylemmäs."
-msgstr[1] ""
-"\n"
-"Siirrettiin %(counter)s sijaa ylemmäs."
+msgid "Add %(label)s"
+msgstr "Lisää %(label)s"
 
-msgid "There are no differences between these two versions"
-msgstr "Näiden kahden version välillä ei ole eroja"
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Set publishing schedule"
+msgstr "Aseta julkaisuajastus"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Valitse milloin tämän sivun tulee mennä liveksi tai vanhentua"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Kuka tahansa muokkausoikeudet omaava voi luoda aikatauluja"
+
+msgid "Save schedule"
+msgstr "Tallenna ajastus"
+
+msgid "Collection management permissions"
+msgstr "Kokoelman hallinnan oikeudet"
+
+msgid "Add a collection permission"
+msgstr "Lisää kokoelman oikeus"
+
+msgid "Last published"
+msgstr "Viimeksi julkaistu"
+
+msgid "Last published by"
+msgstr "Viimeksi julkaissut"
+
+msgid "No pages found."
+msgstr "Sivuja ei löytynyt."
+
+msgid "No pages match this report's criteria."
+msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
+
+msgid "Updated"
+msgstr "Päivitetty"
+
+msgid "Locking status"
+msgstr "Lukitsemisen tila"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Lukittu <b>sinun</b> toimesta <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "Lukinnut <b>%(locked_by)s</b> <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Lukittu <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Lukittu"
+
+msgid "No locked pages found."
+msgstr "Lukittuja sivuja ei löytynyt."
+
+msgid "Edit this item"
+msgstr "Muokkaa tätä"
+
+msgid "Workflow"
+msgstr "Työnkulku"
+
+msgid "Requested by"
+msgstr "Pyytänyt"
+
+msgid "Started at"
+msgstr "Aloitettu"
+
+msgid "Incomplete task"
+msgstr "Keskeneräinen tehtävä"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+
+msgid "Toggle breadcrumbs"
+msgstr "Murupolut päälle/pois"
+
+msgid "Breadcrumb"
+msgstr "Linkkipolku"
+
+msgid "Download XLSX"
+msgstr "Hae XLSX"
+
+msgid "Download CSV"
+msgstr "Hae CSV"
+
+msgid "Add comment"
+msgstr "Lisää kommentti"
+
+msgid "Filter"
+msgstr "Suodatin"
+
+msgid "Apply filters"
+msgstr "Toteuta suodatukset"
+
+msgid "History"
+msgstr "Historia"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Uusi: %(model_name)s"
+
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Muokataan %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Juuri"
+
+msgid "Current page status:"
+msgstr "Sivun tila nyt:"
+
+msgid "Visit the live page"
+msgstr "Vieraile sivulla"
+
+msgid "Visible to all. Visit the live page"
+msgstr "Näkyvissä kaikille. Käy livesivulla"
+
+msgid "Private. Visit the live page"
+msgstr "Yksityinen. Käy livesivulla"
+
+msgid "Visible to all"
+msgstr "Näkyvissä kaikille"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1549,37 +1377,136 @@ msgstr "Kyllä, poista ajastus"
 msgid "No, don't unschedule"
 msgstr "Ei, älä poista ajastusta"
 
+msgid "Other searches"
+msgstr "Muut haut"
+
+msgid "Minimap"
+msgstr "Pienoiskartta"
+
+msgid "Side panels"
+msgstr "Sivupaneelit"
+
+msgid "Toggle side panel"
+msgstr "Sivupaneeli päälle/pois"
+
+msgid "Side panel width"
+msgstr "Sivupaneelin leveys"
+
+msgid "Comment notifications"
+msgstr "Kommentti-ilmoitukset"
+
+msgid "Locale: "
+msgstr "Maa-asetusto:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Saatavilla %(translations_total)s maa-asetustolla"
+
+msgid "No other translations"
+msgstr "Ei muita käännöksiä"
+
+msgid "Switch locales"
+msgstr "Vaihda maa-asetustoja"
+
+msgid "Locking: "
+msgstr "Lukitus:"
+
+msgid "Unlocked"
+msgstr "Ei lukittu"
+
 #, python-format
 msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"Löytyi yksi täsmäävä sivu"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s täsmäävää sivua"
-
-msgid "Page types"
-msgstr "Sivutyypit"
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Kuka tahansa voi muokata tätä %(model_name)s – lukitse se estääksesi muita "
+"muokkaamasta"
 
 #, python-format
-msgid "Sorry, no pages match <em>%(query_string)s</em>"
-msgstr "Valitettavasti mikään sivu ei vastaa hakua <em>%(query_string)s</em>"
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Kuka tahansa voi muokata tätä %(model_name)s"
 
-msgid "Enter a search term above"
-msgstr "Syötä hakutermi ylle"
+msgid "Lock"
+msgstr "Lukitse"
 
-msgid "No pages use"
-msgstr "Yhtään sivua ei käytä"
+msgid "Page visibility: "
+msgstr "Sivun näkyvyys:"
 
-msgid "Workflow progress"
-msgstr "Työnkulun edistyminen"
+msgid "Not visible to the public"
+msgstr "Ei näkyvissä julkisesti"
+
+msgid "Choose who can view the live version of this page"
+msgstr "Valitse ketkä voivat nähdä tämän sivun liveversion"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
+"alasivuihin."
+
+msgid "Usage"
+msgstr "Käyttö"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
+
+msgid "Status: "
+msgstr "Tila:"
+
+msgid "Expiry:"
+msgstr "Vanheneminen:"
+
+msgid "Edit schedule"
+msgstr "Muokkaa ajastusta"
+
+msgid "In Moderation"
+msgstr "Tarkastatettavana"
+
+msgid "View details"
+msgstr "Näytä tiedot"
+
+msgid "View history"
+msgstr "Näytä historia"
+
+msgid "Invalid schedule"
+msgstr "Virheellinen ajastus"
+
+msgid "Go-live:"
+msgstr "Siirry liveksi:"
+
+msgid "Once published:"
+msgstr "Kun julkaistu:"
+
+msgid "No publishing schedule set"
+msgstr "Julkaisuajastusta ei ole asetettu"
+
+msgid "Set schedule"
+msgstr "Aseta ajastus"
+
+msgid "Preview in mobile size"
+msgstr "Esikatsele mobiiliversiona"
+
+msgid "Preview in tablet size"
+msgstr "Esikatsele tablettiversiona"
+
+msgid "Preview in desktop size"
+msgstr "Esikatsele työpöytäversiona"
+
+msgid "Preview in new tab"
+msgstr "Esikatsele uudessa välilehdessä"
+
+msgid "Loading"
+msgstr "Ladataan"
+
+msgid "Preview is out of date"
+msgstr "Esikatselu ei ole ajan tasalla"
+
+msgid "Preview mode"
+msgstr "Esikatselutila"
+
+msgid "First published"
+msgstr "Ensin julkaistu"
 
 msgid "Edit / Review"
 msgstr "Muokkaa / tarkasta"
@@ -1596,17 +1523,14 @@ msgid "Started at <b>%(started_at)s</b>"
 msgstr "Aloitettu <b>%(started_at)s</b>"
 
 #, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Tila <span class=\"status-tag primary\"> %(status)s</span>"
+msgid "Status %(status)s"
+msgstr "Tila %(status)s"
 
 msgid "Timeline"
 msgstr "Aikajana"
 
 msgid "Initial Revision"
 msgstr "Ensiversio"
-
-msgid "Page edited"
-msgstr "Sivua muokattu"
 
 msgid "with comment:"
 msgstr "kommentilla:"
@@ -1621,164 +1545,22 @@ msgstr "Työnkulku valmistunut"
 msgid "Workflow history for %(title)s"
 msgstr "Työnkulun historia sivulle %(title)s"
 
-msgid "Edit page"
-msgstr "Muokkaa sivua"
-
-msgid "Requested by"
-msgstr "Pyytänyt"
-
-msgid "Started at"
-msgstr "Aloitettu"
-
 msgid "Approved task"
 msgstr "Hyväksytty tehtävä"
-
-msgid "Incomplete task"
-msgstr "Keskeneräinen tehtävä"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
-msgid "Collection management permissions"
-msgstr "Kokoelman hallinnan oikeudet"
-
-msgid "Add a collection permission"
-msgstr "Lisää kokoelman oikeus"
-
-msgid "No pages found."
-msgstr "Sivuja ei löytynyt."
-
-msgid "No pages match this report's criteria."
-msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
-
-msgid "Download XLSX"
-msgstr "Hae XLSX"
-
-msgid "Download CSV"
-msgstr "Hae CSV"
-
-msgid "Filter"
-msgstr "Suodatin"
-
-msgid "Apply filters"
-msgstr "Toteuta suodatukset"
-
-msgid "Locking status"
-msgstr "Lukitsemisen tila"
-
-#, python-format
 msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
-"\n"
-"<b>Sinä</b> lukitsit <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"<b>%(locked_by)s</b> lukitsi <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Lukittu <b>%(locking_date)s</b>"
-
-msgid "Locked"
-msgstr "Lukittu"
-
-msgid "No locked pages found."
-msgstr "Lukittuja sivuja ei löytynyt."
-
-msgid "Edit this item"
-msgstr "Muokkaa tätä"
-
-msgid "Workflow"
-msgstr "Työnkulku"
-
-msgid "No pages have been submitted for moderation yet"
-msgstr "Yhtäkään sivua ei ole lähetetty tarkastettavaksi vielä"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
-
-msgid "Breadcrumb"
-msgstr "Linkkipolku"
-
-msgid "Root"
-msgstr "Juuri"
-
-msgid "Home"
-msgstr "Koti"
-
-msgid "All collections"
-msgstr "Kaikki kokoelmat"
-
-msgid "Account settings"
-msgstr "Tiliasetukset"
-
-msgid "Log out"
-msgstr "Kirjaudu ulos"
-
-msgid "Current page status:"
-msgstr "Sivun tila nyt:"
-
-msgid "Other searches"
-msgstr "Muut haut"
-
-msgid "Changes requested"
-msgstr "Muutoksia pyydetty"
-
-msgid "Published"
-msgstr "Julkaistu"
-
-msgid "Draft saved"
-msgstr "Luonnos tallennettu"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Tämä ohjelmisto ei tue käyttämääsi <strong>vanhentunutta</strong> selainta. "
-"Ole hyvä ja <a href=\"https://browsehappy.com/\">päivitä selaimesi</a>."
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            JavaScript vaaditaan Wagtailin käyttämiseksi, mutta se on pois "
-"käytöstä.<br />\n"
-"            Tässä <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">ohjeet JavaScriptin ottamiseksi "
-"käyttöön selaimessasi</a>.\n"
-"        "
-
-#, python-format
-msgid ""
-"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
-"IE11 alternatives</a>."
-msgstr ""
-"Wagtail on poistanut tuen IE:n versiolle 11. <a href=\"%(url)s\">Lue lisää "
-"vaihtoehdoista IE11:lle</a>."
+"JavaScript vaaditaan Wagtaililin käyttöä varten, mutta se on pois käytöstä."
+"<br /> Tässä <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">ohjeita miten saat JavaScriptin "
+"käyttöön selaimessasi</a>."
 
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
@@ -1786,11 +1568,23 @@ msgstr "Siirry pääsisältöön"
 msgid "View Wagtail quick actions"
 msgstr "Näytä Wagtailin pikatoiminnot"
 
+msgid "Issues found"
+msgstr "Ongelmia löytynyt"
+
+msgid "Accessibility"
+msgstr "Saavutettavuus"
+
+msgid "Warnings"
+msgstr "Varoitukset"
+
 msgid "Add a child page"
 msgstr "Lisää alasivu"
 
 msgid "Show in Explorer"
 msgstr "Näytä sivuselaimessa"
+
+msgid "No"
+msgstr "Ei"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Haluatko varmasti poistaa tämän työnkulun käytöstä?"
@@ -1821,6 +1615,18 @@ msgstr "Käytössä seuraavissa aktiivisissa työnkuluissa"
 msgid "Not used"
 msgstr "Ei käytössä"
 
+msgid "Disabled"
+msgstr "Pois käytöstä"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s lisää"
+msgstr[1] "+%(counter)s lisää"
+
+msgid "Page"
+msgstr "Sivu"
+
 msgid "Assign to another page"
 msgstr "Määritä toiseen sivuun"
 
@@ -1831,32 +1637,14 @@ msgid "Show disabled workflows"
 msgstr "Näytä käytöstä poistetut työnkulut"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            1 sivu\n"
-"                                        "
-msgstr[1] ""
-"\n"
-"                                            %(counter)s sivua\n"
-"                                        "
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1  sivu"
+msgstr[1] "%(counter)s sivua"
 
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Vaihe %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s lisää"
-msgstr[1] "+%(counter)s lisää"
 
 #, python-format
 msgid ""
@@ -1865,11 +1653,24 @@ msgstr ""
 "Työnkulkuja ei ole luotu. Haluatko <a href=\"%(add_url)s\">luoda työnkulun</"
 "a>?"
 
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Työnkulkuja ei ole käytössä. Miksi et <a href=\"%(add_url)s\">lisäisi "
+"sellaista</a>?"
+
 msgid "Choose which type of task you'd like to create."
 msgstr "Valitse minkä tyyppisen tehtävän haluat luoda."
 
 msgid "Choose a task"
 msgstr "Valitse tehtävä"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Existing"
+msgstr "Olemassa oleva"
 
 msgid "Choose a different task type"
 msgstr "Valitse eri tehtävätyyppi"
@@ -1903,10 +1704,6 @@ msgstr "Sivut jotka seuraavat työnkulkua '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Työnkulkua käyttävät sivut"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "tekijänä %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Lähetetty"
 
@@ -1917,15 +1714,40 @@ msgstr "Ei aloitettu"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Muutoksia pyytänyt %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Muutoksia pyydetty"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Hyväksynyt %(approved_by)s"
 
+msgid "Published"
+msgstr "Julkaistu"
+
 msgid "See full history"
 msgstr "Näytä koko historia"
 
-msgid "Compare with live version"
-msgstr "Vertaile julkaistun version kanssa"
+msgid "More"
+msgstr "Lisää"
+
+msgid "0 minutes"
+msgstr "0 minuuttia"
+
+msgid "just now"
+msgstr "juuri nyt"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
+
+msgid "Log out"
+msgstr "Kirjaudu ulos"
+
+msgid "Comments"
+msgstr "Kommentit"
+
+msgid "Select page"
+msgstr "Valitse sivu"
 
 #, python-format
 msgid ""
@@ -1941,29 +1763,8 @@ msgid ""
 msgstr ""
 "Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
 
-msgid "More"
-msgstr "Lisää"
-
-msgid "View more bulk actions"
-msgstr "Näytä lisää massatoimintoja"
-
-msgid "0 minutes"
-msgstr "0 minuuttia"
-
-msgid "Just now"
-msgstr "Juuri nyt"
-
-msgid "live"
-msgstr "julkaistu"
-
-msgid "draft"
-msgstr "luonnos"
-
-msgid "live + draft"
-msgstr "julkaistu + luonnos"
-
-msgid "Test"
-msgstr "Testi"
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "Virheellinen otsikkohierarkia. Vältä tasojen ohittamista."
 
 msgid "Profile"
 msgstr "Profiili"
@@ -1980,6 +1781,9 @@ msgstr "Profiilikuva"
 msgid "Locale"
 msgstr "Maa-asetusto"
 
+msgid "Theme preferences"
+msgstr "Teeman asetukset"
+
 msgid "Password"
 msgstr "Salasana"
 
@@ -1988,6 +1792,9 @@ msgstr "Tilisi asetukset on muutettu onnistuneesti!"
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
+
+msgid "Select"
+msgstr "Valitse"
 
 msgid "Collections"
 msgstr "Kokoelmat"
@@ -1998,13 +1805,13 @@ msgstr "Lisää kokoelma"
 msgid "Add collection"
 msgstr "Lisää kokoelma"
 
-#, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Kokoelma '{0}' luotu."
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kokoelma '%(object)s' luotu."
 
-#, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Kokoelma '{0}' päivitetty."
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kokoelma '%(object)s' päivitetty."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
@@ -2012,15 +1819,93 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
-#, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Kokoelma '{0}' poistettu."
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kokoelma '%(object)s' poistettu."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
+msgid "Home"
+msgstr "Koti"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Muokkaa tätä %(model_name)s"
+
+msgid "Workflow progress"
+msgstr "Työnkulun edistyminen"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' on nyt avattu lukituksesta."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "Mallin %(model_name)s '%(object)s' päivitetty."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "Mallin %(model_name)s '%(object)s' luotu."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' päivitetty ja julkaistu."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' luotu ja julkaistu."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Etsi %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Muokkaa sivua '%(title)s'"
+
+msgid "Inspect"
+msgstr "Tarkastele"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Poista '%(title)s'"
+
 msgid "Editing"
 msgstr "Muokataan"
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Haluatko varmasti poistaa tämän %(model_name)s?"
+
+msgid "Inspecting"
+msgstr "Tarkastellaan"
+
+msgid "Earliest"
+msgstr "Aikaisin"
+
+msgid "Latest"
+msgstr "Viimeisin"
+
+msgid "Usage of"
+msgstr "Käyttö"
+
+msgid "If you confirm deletion"
+msgstr "Jos vahvistat poistamisen"
+
+msgid "Field"
+msgstr "Kenttä"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Yksityinen %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Muokkaa %(object)s-kohdetta"
+
+msgid "Dashboard"
+msgstr "Kojelauta"
 
 msgid "Delete selected pages"
 msgstr "Poista valitut sivut"
@@ -2031,6 +1916,9 @@ msgstr "1 sivu on poistettu"
 #, python-format
 msgid "%(num_parent_objects)d pages have been deleted"
 msgstr "%(num_parent_objects)d sivua on poistettu"
+
+msgid "Select a new parent page"
+msgstr "Valitse uusi isäntäsivu"
 
 msgid "Move selected pages"
 msgstr "Siirrä valitut sivut"
@@ -2051,17 +1939,17 @@ msgstr "1 sivu on julkaistu"
 msgid "%(num_parent_objects)d pages have been published"
 msgstr "%(num_parent_objects)d sivua on julkaistu"
 
-#, python-brace-format
-msgid "Page '{0}' has been converted into an ordinary page."
-msgstr "Sivu '{0}' on muunnettu tavalliseksi sivuksi."
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "Sivu '%(page_title)s' on muunnettu tavalliseksi sivuksi."
 
-#, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Sivu '%(page_title)s' ja %(subpages_count)s alasivua kopioitu."
 
-#, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Sivu '{0}' kopioitu."
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Sivu '%(page_title)s' kopioitu."
 
 msgid "View draft"
 msgstr "Näytä luonnos"
@@ -2069,69 +1957,70 @@ msgstr "Näytä luonnos"
 msgid "View live"
 msgstr "Näytä julkaistu"
 
-#, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Sivu '{0}' luotu."
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Sivu '%(page_title)s' luotu."
 
-#, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Sivu '%(page_title)s' luotu ja ajastettu julkaistavaksi."
 
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Sivu '{0}' luotu ja julkaistu."
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Sivu '%(page_title)s' luotu ja julkaistu."
 
-#, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Sivu '%(page_title)s' luotu ja lähetetty tarkastettavaksi."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
-#, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Sivu '{0}' poistettu."
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Sivu '%(page_title)s' poistettu."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
-#, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Sivu '{0}' päivitetty."
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"Sivu '%(page_title)s' on korvattu versiolla, jonka ajankohta on "
+"%(previous_revision_datetime)s."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Sinä</b> lukitsit <b>sivun '{}'</b> <b>{}</b>."
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Sivu '%(page_title)s' päivitetty."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Sinä</b> olet lukinnut <b>sivun '{}'</b>."
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Työnkulku sivulla '%(page_title)s' on peruttu."
 
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Sivun '{}' lukitsi</b> <b>{}</b> <b>{}</b>."
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Sivu '%(page_title)s' on livenä ja tämä versio on ajastettu julkaistavaksi."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Sivu '{}' on lukittu.</b>"
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Sivu '%(page_title)s' on ajastettu julkaistavaksi."
 
-msgid "This page is currently awaiting moderation."
-msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Sivu '%(page_title)s' julkaistu."
 
-msgid "Only reviewers for this task can edit the page."
-msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Sivu '%(page_title)s' on lähetetty tarkastettavaksi."
 
-#, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
-
-#, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Sivu '{0}' julkaistu."
-
-#, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
-
-#, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "Työnkulku sivulla '{0}' on käynnistetty uudelleen."
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Työnkulku sivulla '%(page_title)s' on käynnistetty uudelleen."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
@@ -2142,53 +2031,52 @@ msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 msgid "Hide commenting actions"
 msgstr "Piilota kommentointitoiminnot"
 
-#, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Sivu '{0}' ei ole enää lukittu."
+msgid "Page history"
+msgstr "Sivun historia"
 
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Sivu '%(page_title)s' ei ole enää lukittu."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Sivu '{0}' julkaistu"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Sivu '%(page_title)s' ei odota parhaillaan tarkastusta."
+
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "Sivu '%(page_title)s' julkaistu"
 
 msgid "Failed to send approval notifications"
 msgstr "Hyväksyntäilmoitusten lähettäminen epäonnistui"
 
-#, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Sivu '{0}' julkaisu hylättiin."
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Sivu '%(page_title)s' julkaisu hylättiin."
 
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
-"Lyhytnimi '{0}' on jo käytössä tällä isäntäsivulla. Valitse lyhytnimi, joka "
-"ei ole käytössä"
+"Lyhytnimi '%(page_slug)s' on jo käytössä tällä isäntäsivulla. Valitse "
+"lyhytnimi, joka ei ole käytössä"
 
-#, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Sivu '{0}' siirretty."
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Sivu '%(page_title)s' siirretty."
 
-msgid "Earliest"
-msgstr "Aikaisin"
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Sivu '%(page_title)s' piilotettu"
 
-msgid "Latest"
-msgstr "Viimeisin"
+msgid "Pages using"
+msgstr "Käyttävät sivut"
 
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "sivun \"{1}\" revisio {0}"
-
-#, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Sivu '{0}' piilotettu"
+msgid "Last published at"
+msgstr "Viimeksi julkaistu"
 
 msgid "Site history"
 msgstr "Sivuston historia"
@@ -2211,11 +2099,14 @@ msgstr "Odottaa tarkastustani"
 msgid "Workflows"
 msgstr "Työnkulut"
 
-msgid "Page Type"
-msgstr "Sivun tyyppi"
+msgid "Page/Snippet ID"
+msgstr "Sivun/pätkän tunniste"
 
-msgid "Page Title"
-msgstr "Sivun otsikko"
+msgid "Page/Snippet Type"
+msgstr "Sivun/pätkän tyyppi"
+
+msgid "Page/Snippet Title"
+msgstr "Sivun/pätkän nimi"
 
 msgid "Workflow tasks"
 msgstr "Työnkulun tehtävät"
@@ -2229,16 +2120,16 @@ msgstr "Lisää työnkulku"
 msgid "New workflow"
 msgstr "Uusi työnkulku"
 
-#, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "Työnkulku '{0}' luotu."
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Työnkulku '%(object)s' luotu."
 
 msgid "Editing workflow"
 msgstr "Muokataan työnkulkua"
 
-#, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "Työnkulku '{0}' päivitetty."
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Työnkulku '%(object)s' päivitetty."
 
 msgid "Disable"
 msgstr "Poista käytöstä"
@@ -2249,31 +2140,31 @@ msgstr "Ota käyttöön"
 msgid "Disable workflow"
 msgstr "Poista työnkulku käytöstä"
 
-#, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "Työnkulku '{0}' poistettu käytöstä."
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Työnkulku '%(object)s' poistettu käytöstä."
 
-#, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "Työnkulku '{0}' otettu käyttöön."
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Työnkulku '%(workflow_name)s' otettu käyttöön."
 
-#, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "Työnkulku poistettu sivulta '{0}'."
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Työnkulku poistettu sivulta '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Uusi työnkulun tehtävä"
 
-#, python-brace-format
-msgid "Task '{0}' created."
-msgstr "Tehtävä '{0}' luotu."
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Tehtävä '%(object)s' luotu."
 
 msgid "Editing workflow task"
 msgstr "Muokataan työnkulun tehtävää"
 
-#, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "Tehtävä '{0}' päivitetty."
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Tehtävä '%(object)s' päivitetty."
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2282,17 +2173,19 @@ msgstr "Muokataan %(task_type)s"
 msgid "Disable task"
 msgstr "Poista tehtävä käytöstä"
 
-#, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "Tehtävä '{0}' poistettu käytöstä."
-
-#, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "Tehtävä '{0}' otettu käyttöön."
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Tehtävä '%(object)s' poistettu käytöstä."
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Muokkaa sivua '%(title)s'"
+msgid "Task '%(task_name)s' enabled."
+msgstr "Tehtävä '%(task_name)s' otettu käyttöön."
+
+msgid "Choose another"
+msgstr "Valitse toinen"
+
+msgid "Pages"
+msgstr "Sivut"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -2301,17 +2194,6 @@ msgstr "Esikatsele sivun '%(title)s' vedosta"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
-
-msgid "Add child page"
-msgstr "Lisää alasivu"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Lisää sivulle '%(title)s' alasivu"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Lisää valintoja sivulle '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"
@@ -2367,17 +2249,21 @@ msgstr "Yliviivattu"
 msgid "Code"
 msgstr "Koodi"
 
-msgid "Locked Pages"
-msgstr "Lukitut sivut"
-
 msgid "Reports"
 msgstr "Raportit"
 
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Mitä uutta Wagtail %(version)s sisältää"
+
+msgid "Editor Guide"
+msgstr "Muokkausopas"
+
+msgid "Help"
+msgstr "Tuki"
+
 msgid "Yes"
 msgstr "Kyllä"
-
-msgid "No"
-msgstr "Ei"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"
@@ -2386,10 +2272,15 @@ msgid "Choose another item"
 msgstr "Valitse toinen vaihtoehto"
 
 msgid "Clear choice"
-msgstr "Tyhjennä valinta"
+msgstr "Poista valinta"
 
 msgid "Choose another page"
 msgstr "Valitse toinen sivu"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"Tunnisteet voivat koostua vain yhdestä sanasta, välilyönnit eivät ole "
+"sallittuja."
 
 msgid "Choose another task"
 msgstr "Valitse toinen tehtävä"

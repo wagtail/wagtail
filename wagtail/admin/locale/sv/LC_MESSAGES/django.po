@@ -8,19 +8,20 @@
 # Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2022
+# Martin Sandström <martin@marteinn.se>, 2020-2023
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2021
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
 # Thomas Kunambi <kunambi@gmail.com>, 2015
+# Tomas Walch <tomas@alternaliv.se>, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2022\n"
-"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,11 +35,13 @@ msgstr "Publicera"
 msgid "Submit for moderation"
 msgstr "Lämna in för moderering"
 
-msgid "Resubmit to {}"
-msgstr "Skicka om till {}"
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Skicka om till %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Lämna in till {}"
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Lämna in till %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Starta om arbetsflöde"
@@ -48,18 +51,6 @@ msgstr "Avbryt arbetsflöde"
 
 msgid "Unpublish"
 msgstr "Avpublicera"
-
-msgid "Delete"
-msgstr "Radera"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Apply editor lock"
-msgstr "Aktivera redaktörslås"
-
-msgid "Unlock"
-msgstr "Lås upp"
 
 msgid "Save Draft"
 msgstr "Spara utkast"
@@ -82,27 +73,6 @@ msgstr "Du har inte rättighet att tillträda admin"
 
 msgid "None"
 msgstr "Inget"
-
-msgid "Scheduled publishing"
-msgstr "Schemalagd publicering"
-
-msgid "Privacy"
-msgstr "Sekretess"
-
-msgid "For search engines"
-msgstr "För sökmotorer"
-
-msgid "For site menus"
-msgstr "För sajtmenyer"
-
-msgid "Content"
-msgstr "Innehåll"
-
-msgid "Promote"
-msgstr "Marknadsför"
-
-msgid "Settings"
-msgstr "Inställningar"
 
 msgid "Date from"
 msgstr "Datum från"
@@ -135,14 +105,31 @@ msgid "Enter password"
 msgstr "Ange lösenord"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Ange ditt %s"
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ditt %(username_field)s och lösenord matchade inte. Vänligen försök igen."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Ange ditt %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Search term"
+msgstr "Sökterm"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "All collections"
+msgstr "Alla samlingar"
+
+msgid "Collection"
+msgstr "Samling"
 
 msgid "Parent"
 msgstr "Topp"
@@ -158,10 +145,7 @@ msgid "Please select another parent"
 msgstr "Vänligen välj en annan föräldersida"
 
 msgid "You cannot have multiple permission records for the same collection."
-msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
-
-msgid "Collection"
-msgstr "Samling"
+msgstr "Du kan inte ha multipla rättigheter för samma samling"
 
 msgid "Add"
 msgstr "Lägg till"
@@ -175,14 +159,23 @@ msgstr "Redigera"
 msgid "Edit collections"
 msgstr "Redigera samlingar"
 
+msgid "Delete"
+msgstr "Radera"
+
 msgid "Delete collections"
 msgstr "Radera samlingar"
 
 msgid "You cannot edit another user's comment."
 msgstr "Du kan inte editera andra användares kommentarer"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Utgångsdatum/-tid måste ske i framtiden"
+
 msgid "New title"
-msgstr "Ny titel"
+msgstr "Ny rubrik"
 
 msgid "New slug"
 msgstr "Nytt URL-fragment"
@@ -235,27 +228,25 @@ msgstr "Du har inte behörighet att kopiera till sidan \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
 msgstr ""
-"Detta URL-fragment är redan i användning inom ramen för sin topp-sida\"%s\""
+"Detta URL-fragment är redan i användning inom ramen för sin topp-"
+"sida\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
 
-msgid "This slug is already in use"
-msgstr "URL-fragmentet är redan i användning"
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "Sluggen '%(page_slug)s' används redan inom föräldersidan"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
+msgid "Select a new parent for this page."
+msgstr "Välj ny föräldersida"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Utgångsdatum/-tid måste ske i framtiden"
-
-msgid "Search"
-msgstr "Sök"
-
-msgid "Search term"
-msgstr "Sökterm"
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tagg(ar) %(value_too_long)s har fler än %(max_tag_length)d tecken"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -269,12 +260,18 @@ msgstr "Vänligen välj minst en grupp"
 msgid "All types"
 msgstr "Alla typer"
 
-#, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Denna sida har redan arbetsflöde '{0}' tilldelat."
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Denna sida har redan arbetsflöde '%(workflow_name)s' tilldelat."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Du kan inte tilldela detta arbetsflöde till samma sida flera gånger."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Snutt '%(content_type)s' har redan arbetsflöde '%(workflow_name)s' tilldelat."
 
 msgid "Give your workflow a name"
 msgstr "Ge ditt arbetsflöde ett namn"
@@ -282,168 +279,19 @@ msgstr "Ge ditt arbetsflöde ett namn"
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
 
-msgid "Page"
-msgstr "Sida"
-
-msgid "Pages"
-msgstr "Sidor"
-
-msgid "Loading…"
-msgstr "Laddar..."
-
-msgid "No results"
-msgstr "Inga resultat funna"
-
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid "See all"
-msgstr "Visa alla"
-
-msgid "Close explorer"
-msgstr "Stäng utforskaren"
-
-msgid "Alt text"
-msgstr "Alternativ text"
-
-msgid "Decorative image"
-msgstr "Dekorativ bild"
-
-msgid "Write here…"
-msgstr "Skriv här..."
-
-msgid "Horizontal line"
-msgstr "Horisontell linje"
-
-msgid "Line break"
-msgstr "Linjebrytning"
-
-msgid "Undo"
-msgstr "Ångra"
-
-msgid "Redo"
-msgstr "Gör om"
-
-msgid "Reload the page"
-msgstr "Ladda om sidan"
-
-msgid "Reload saved content"
-msgstr "Ladda om sparat innehåll"
-
-msgid "Show latest content"
-msgstr "Visa senaste innehållet"
-
-msgid "Show error"
-msgstr "Visa fel"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Textredigeraren kraschade. Innehållet har återställts till den senaste "
-"sparade versionen."
-
-msgid "Broken link"
-msgstr "Bruten länk"
-
-msgid "Missing document"
-msgstr "Dokument saknas"
-
-msgid "Close"
-msgstr "Stäng"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Redigera '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Visa undersidor av '{title}'"
-
-msgid "Page explorer"
-msgstr "Sidutforskare"
-
-msgid "Save"
-msgstr "Spara"
-
-msgid "Saving..."
-msgstr "Sparar..."
-
-msgid "Cancel"
-msgstr "Avbryt"
-
-msgid "Deleting..."
-msgstr "Raderar..."
-
-msgid "Add a comment"
-msgstr "Lägg till kommentar"
-
-msgid "Show comments"
-msgstr "Visa kommentarer"
-
-msgid "Reply"
-msgstr "Svara"
-
-msgid "Resolve"
-msgstr "Lös"
-
-msgid "Retry"
-msgstr "Försök igen"
-
-msgid "Delete error"
-msgstr "Raderingsfel"
-
-msgid "Are you sure?"
-msgstr "Är du säker?"
-
-msgid "Save error"
-msgstr "Fel vid sparande"
-
-msgid "This will be saved when the page is saved"
-msgstr "Detta blir sparat när sidan sparas"
-
-msgid "Focus comment"
-msgstr "Fokusera kommentar"
-
-msgid "Unfocus comment"
-msgstr "Avfokusera kommentar"
-
-msgid "Comment"
-msgstr "Kommentar"
-
-msgid "More actions"
-msgstr "Fler åtgärder"
-
-msgid "Save the page to add this comment"
-msgstr "Spara sidan för att lägga till denna kommentar"
-
-msgid "Save the page to save this comment"
-msgstr "Spara sidan för att spara denna kommentar"
-
-msgid "Save the page to save this reply"
-msgstr "Spara sidan för att spara detta svar"
-
-msgid "Toggle sidebar"
-msgstr "Växla sidorad"
-
-msgid "Main menu"
-msgstr "Huvudmeny"
-
-msgid "Dashboard"
-msgstr "Instrumentpanel"
-
-msgid "Edit your account"
-msgstr "Redigera ditt konto"
+msgid "Task"
+msgstr "Uppgift"
 
 msgid "1 page selected"
 msgstr "1 sida vald"
 
-#, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} sidor valda"
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s sidor valda"
 
-#, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "Alla {0} sidor i denna vy är valda"
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Alla %(objects)s sidor i denna vy är valda"
 
 msgid "All pages in listing selected"
 msgstr "Alla sidor i listan är valda"
@@ -451,13 +299,13 @@ msgstr "Alla sidor i listan är valda"
 msgid "1 document selected"
 msgstr "1 dokument har valts"
 
-#, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} dokument har valts"
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s dokument har valts"
 
-#, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "Alla {0} dokument i denna vy har valts"
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Alla %(objects)s dokument i denna vy har valts"
 
 msgid "All documents in listing selected"
 msgstr "Alla dokument i listan valda"
@@ -465,13 +313,13 @@ msgstr "Alla dokument i listan valda"
 msgid "1 image selected"
 msgstr "1 bild har valts"
 
-#, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} bilder valda"
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s bilder valda"
 
-#, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "Alla {0} bilder i denna vy har valts"
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Alla %(objects)s bilder i denna vy har valts"
 
 msgid "All images in listing selected"
 msgstr "Alla bilder i lista valda"
@@ -479,30 +327,65 @@ msgstr "Alla bilder i lista valda"
 msgid "1 user selected"
 msgstr "1 användare har valts"
 
-#, python-brace-format
-msgid "{0} users selected"
-msgstr "{0} användare valda"
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s användare valda"
 
-#, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "Alla {0} användare i denna vy valda"
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Alla %(objects)s användare i denna vy valda"
 
 msgid "All users in listing selected"
 msgstr "Alla användare i lista valda"
 
+msgid "1 snippet selected"
+msgstr "1 objekt har valts"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s objekt valda"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Alla %(objects)s objekt på denna skärm valda"
+
+msgid "All snippets in listing selected"
+msgstr "Alla snuttar i lista har valts"
+
 msgid "1 item selected"
 msgstr "1 objekt har valts"
 
-#, python-brace-format
-msgid "{0} items selected"
-msgstr "{0} objekt valda"
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s objekt valda"
 
-#, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "Alla {0} objekt i denna vy är valda"
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Alla %(objects)s objekt i denna vy är valda"
 
 msgid "All items in listing selected"
 msgstr "Alla objekt i lista valda"
+
+msgid "For search engines"
+msgstr "För sökmotorer"
+
+msgid "For site menus"
+msgstr "För sajtmenyer"
+
+msgid "Content"
+msgstr "Innehåll"
+
+msgid "Promote"
+msgstr "Marknadsför"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Title"
+msgstr "Rubrik"
+
+msgid "Page title"
+msgstr "Sidrubrik"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -519,16 +402,11 @@ msgstr "Gå till Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
+msgid "More actions"
+msgstr "Fler åtgärder"
+
 msgid "Save account details"
 msgstr "Spara kontodetaljer"
-
-msgid "Change password"
-msgstr "Byt lösenord"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ditt lösenord inte inte ändras här. Vänligen kontakta en administratör."
 
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -577,11 +455,17 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
+msgid "Reset to default"
+msgstr "Återställ till standard"
+
+msgid "Default avatar"
+msgstr "Standardavatar"
+
 msgid "Upload a profile picture:"
 msgstr "Ladda upp profilbild:"
 
-msgid "Reset to default"
-msgstr "Återställ till standard"
+msgid "Sidebar"
+msgstr "Sidorad"
 
 msgid "Go back"
 msgstr "Gå tillbaka"
@@ -611,22 +495,10 @@ msgid "Anchor link"
 msgstr "Förankringslänk"
 
 #, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        Det finns %(counter)s träff\n"
-"    "
-msgstr[1] ""
-"\n"
-"        Det finns %(counter)s träffar\n"
-"    "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
 
 msgid "Add an anchor link"
 msgstr "Lägg till förankringslänk"
@@ -642,59 +514,44 @@ msgstr "Välj en sida"
 
 #, python-format
 msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
 msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
 msgstr[0] ""
-"\n"
-"Bara sidor av typen \"%(type)s\" kan väljas för detta fält. Sökresultat "
-"kommer exludera sidor av andra typer."
+"Endast sidor av typen \"%(type)s\" kan väljas för detta fält. Sökresultat "
+"kommer exkludera övriga sidtyper."
 msgstr[1] ""
-"\n"
-"Bara följande sidtyper kan väljas för detta fält: %(type)s. Sökresultat "
-"kommer exludera sidor av andra typer."
+"Endast följande sidtyper kan väljas för detta fält: %(type)s. Sökresultat "
+"kommer exkludera övriga sidtyper."
+
+msgid "Confirm selection"
+msgstr "Bekräfta val"
 
 msgid "Convert to internal link"
 msgstr "Konvertera till intern länk"
 
 #, python-format
 msgid ""
-"\n"
-"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                looks like it matches the internal page %(page)s, which has "
-"the URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"\n"
-"                Den URL du angett, <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                ser ut att matcha den interna sidan %(page)s, som har URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
+"Den URL du angett, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, verkar matcha den interna "
+"sidan %(page)s, vilket har URL <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
-"\n"
-"                Converting this to an internal link to %(page)s would make "
-"the link more robust.\n"
-"                Would you like to do this?\n"
-"            "
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
 msgstr ""
-"\n"
-"                Att konvertera detta till en internlänk mot %(page)s skulle "
-"göra denna länk mer robust.\n"
-"                Utför?\n"
-"            "
+"Konvertera till en intern länk till %(page)s kommer automatiskt uppdatera om "
+"underliggande sidor ändrar sin URL. Vill du fortsätta?"
 
 msgid "Use external link"
 msgstr "Använd extern länk"
@@ -711,6 +568,17 @@ msgstr "Infoga extern länk"
 msgid "Add a phone link"
 msgstr "Lägg till Telefonlänk"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Välj %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Utforska undersidor till '%(title)s'"
+
+msgid "Explore"
+msgstr "Utforska"
+
 msgid "Collection privacy"
 msgstr "Sekretess för samlingar"
 
@@ -720,11 +588,20 @@ msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan redigera sekretessinställningarna på:"
 
+msgid "Save"
+msgstr "Spara"
+
+msgid "Change privacy"
+msgstr "Ändra sekretess"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Sekretessinställningarna bestämmer vem som kan se dokument i den här "
 "samlingen. "
+
+msgid "Privacy"
+msgstr "Sekretess"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Ställer in samlingens integritet. Nuvarande status: Publik"
@@ -741,49 +618,118 @@ msgstr "Privat"
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
-"Denna kollektion kan inte raderas, eftersom den inte är tom. Den innehåller:"
+"Denna samling kan inte raderas, eftersom den inte är tom. Den innehåller:"
 
 msgid "Name"
 msgstr "Namn"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Inga kollektioner har skapats. Varför inte <a href=\"%(add_collection_url)s"
-"\">skapa en</a>?"
+"Inga samlingar har skapats. Varför inte <a "
+"href=\"%(add_collection_url)s\">skapa en</a>?"
 
 #, python-format
-msgid "Add %(label)s"
-msgstr "Lägg till %(label)s"
-
-msgid "Move up"
-msgstr "Flytta upp"
-
-msgid "Move down"
-msgstr "Flytta ner"
-
-msgid "Add comment"
-msgstr "Lägg till kommentar"
-
-msgid "Comments"
-msgstr "Kommentarer"
-
-msgid "Toggle visibility of comment notifications dropdown"
-msgstr "Växla synlighet på kommentarnotifieringens rullgardinsmeny"
-
-msgid "Commenting on this page"
-msgstr "Kommentering på denna sida"
-
-msgid "Comment notifications"
-msgstr "Kommentarnotifiering"
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Ledsen, det finns inga matchningar på \"<em>%(search_query)s</em>\""
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Avpublicera %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Är du säker på att du vill avpublicera %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, avpublicera den"
+
+msgid "No, don't unpublish"
+msgstr "Nej, avpublicera inte"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publicera %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Denna %(model_name)s markerades att förändringar behövs vid "
+"<strong>%(task)s</strong> i <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Denna %(model_name)s är för närvarande vid <strong>%(task)s</strong> i "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr ""
+"Publicering av %(model_name)s kommer avbryta det aktuella arbetsflödet."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Vill du fortfarande publicera denna %(model_name)s?"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "No log entries found."
+msgstr "Inga loggposter funna"
+
 msgid "Update"
 msgstr "Uppdatera"
+
+msgid "Preview not available"
+msgstr "Förhandsgranskning ej tillgänglig"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Förhandsgranskning kan inte visas p.g.a. valideringsfel <br /> Klicka här "
+"för att markera relevanta fält."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Jämför %(title)s"
+
+msgid "Comparing"
+msgstr "Jämför"
+
+msgid "Fields"
+msgstr "Fält"
+
+msgid "Changes"
+msgstr "Ändringar"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Flyttades ner 1 plats."
+msgstr[1] "Flyttades ner %(counter)s platser."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Flyttades upp 1 plats."
+msgstr[1] "Flyttades upp %(counter)s platser."
+
+msgid "There are no differences between these two versions"
+msgstr "Det finns inga skillnader mellan dessa två versioner"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -799,24 +745,23 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Dina låsta sidor"
 
-msgid "Title"
-msgstr "Titel"
-
 msgid "Locked at"
 msgstr "Låstes"
 
 msgid "Edit this page"
 msgstr "Redigera denna sida"
 
+msgid "Actions"
+msgstr "Handlingar"
+
+msgid "Unlock"
+msgstr "Lås upp"
+
 msgid "Draft"
 msgstr "Utkast"
 
 msgid "Live"
 msgstr "Publicerad"
-
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Sidor som väntar på moderation"
@@ -839,8 +784,12 @@ msgstr "Avvisa"
 msgid "Preview"
 msgstr "Förhandsgranska"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "av %(name)s"
+
 msgid "Your most recent edits"
-msgstr "Dina senaste editeringar"
+msgstr "Dina senaste ändringar"
 
 msgid "Status"
 msgstr "Status"
@@ -853,29 +802,30 @@ msgstr "Sajtsammanställning"
 
 #, python-format
 msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Sida <span class=\"visuallyhidden\">skapad i "
+"<span>%(total)s</span> Sida <span class=\"visuallyhidden\">skapades i "
 "%(site_name)s</span>"
 msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Sidor <span class=\"visuallyhidden\">skapade i "
+"<span>%(total)s</span> Sidor <span class=\"visuallyhidden\">skapades i "
 "%(site_name)s</span>"
 
-msgid "Your pages in a workflow"
-msgstr "Dina sidor i ett arbetsflöde"
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Wagtailuppgradering tillgänglig. Din version: <strong>%(current_version)s</"
+"strong>. Ny version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
 
-msgid "Task"
-msgstr "Uppgift"
+msgid "Your pages and snippets in a workflow"
+msgstr "Dina sidor och snuttar i arbetsflöde"
 
 msgid "Task started"
 msgstr "Uppgift påbörjad"
@@ -886,6 +836,25 @@ msgstr "Förändringar begärdes vid"
 msgid "Awaiting"
 msgstr "Avvaktar"
 
+msgid "Close"
+msgstr "Stäng"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Saker i Wagtail %(version)s har förändrats!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"Oroa dig inte, vi backar upp dig om det behövs. Kolla in <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtails redaktörshandbok</a> för att ta reda på vad som "
+"ändras och några spännande nya funktioner!"
+
 msgid "Awaiting your review"
 msgstr "Inväntar din granskning"
 
@@ -895,25 +864,26 @@ msgstr "Uppgifter"
 msgid "Task submitted by"
 msgstr "Uppgift inskickad av"
 
+msgid "Compare with live version"
+msgstr "Jämför med den publicerade versionen"
+
+msgid "Compare with previous version"
+msgstr "Jämför med föregående version"
+
 msgid "Sign in"
 msgstr "Logga in"
 
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Ditt %(username_field)s och lösenord matchade inte. Vänligen försök igen."
-
 msgid "Sign in to Wagtail"
 msgstr "Logga in till Wagtail"
+
+msgid "Forgotten password?"
+msgstr "Glömt lösenord?"
 
 msgid "Remember me"
 msgstr "Kom ihåg mig"
 
 msgid "Signing in…"
 msgstr "Loggar in..."
-
-msgid "Forgotten password?"
-msgstr "Glömt lösenord?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -962,6 +932,10 @@ msgstr ""
 "Sidan \"%(title)s\" har blivit godkänt i moderationsstadiet \"%(task)s\"."
 
 #, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Du kan redigera %(model_name)s här:"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Sidan \"%(title)s\" har blivit godkänd i \"%(task)s\"."
 
@@ -983,6 +957,10 @@ msgstr ""
 "\"%(task)s\"."
 
 #, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "Du kan förhandsgranska %(model_name)s här:"
+
+#, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
@@ -993,10 +971,10 @@ msgstr ""
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
+"\"%(task)s\""
 msgstr ""
-"Sidan \"%(title)s\" har lämnats in för godkännande i moderationsstadiet "
-"\"%(task)s\" "
+"Sidan \"%(title)s\" har skickats in för godkännande i modereringssteget "
+"\"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -1046,8 +1024,8 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"Sidan \"%(title)s\" har avvisats i \"%(task)s\" i arbetsflödet \"%(workflow)s"
-"\" av %(rejector)s."
+"Sidan \"%(title)s\" har avvisats i \"%(task)s\" i arbetsflödet "
+"\"%(workflow)s\" av %(rejector)s."
 
 #, python-format
 msgid ""
@@ -1082,9 +1060,8 @@ msgstr ""
 "\"%(workflow)s\"."
 
 #, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr ""
-"Sidan \"%(title)s\" har blivit inlämnad till arbetsflöde \"%(workflow)s\" "
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "Sidan \"%(title)s\" har lämnats in till arbetsflöde \"%(workflow)s\""
 
 msgid "Page privacy"
 msgstr "Sidsekretess"
@@ -1092,31 +1069,8 @@ msgstr "Sidsekretess"
 msgid "This page has been made private by a parent page."
 msgstr "Denna sida har gjorts privat p.g.a. en huvudsida."
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Ändring av sekretessinställningar påverkar även alla undersidor till denna "
-"sida."
-
-msgid "Visit the live page"
-msgstr "Besök live-sidan"
-
-msgid "This page is live but only available to certain users"
-msgstr "Denna sida är publicerad men endast tillgänglig för vissa användare"
-
-msgid "restricted"
-msgstr "begränsad"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Ställ in sidans integritet. Nuvarande status: Publik"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Ställ in sidans integritet. Nuvarande status: Privat"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Sidans integritet. Nuvarande status: Publik"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Sidans integritet. Nuvarande status: Privat"
+msgid "Save the page before leaving"
+msgstr "Spara sidan innan du lämnar"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Du har <span>osparade ändringar</span>"
@@ -1126,9 +1080,6 @@ msgstr "Du har <span>osparade kommentarer</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Du har <span>osparade ändringar</span> och <span>kommentarer</span>"
-
-msgid "Save the page before leaving"
-msgstr "Spara sidan innan du lämnar"
 
 msgid "Publishing…"
 msgstr "Publicerar..."
@@ -1155,12 +1106,15 @@ msgstr "Skapa en sida i"
 msgid "Choose which type of page you'd like to create."
 msgstr "Välj vilken typ av sida du skulle vilja skapa"
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Ledsen, du kan inte skapa en sida på denna plats."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Sidor som använder %(page_type)s"
 
 #, python-format
-msgid "Delete 1 page "
+msgid "Delete 1 page"
 msgid_plural "Delete %(counter)s pages"
 msgstr[0] "Radera 1 sida"
 msgstr[1] "Radera %(counter)s sidor"
@@ -1169,30 +1123,15 @@ msgid "Are you sure you want to delete these pages?"
 msgstr "Är du säker på att du vill radera dessa sidor?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This will also delete %(counter)s more subpages.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Detta kommer radera en till undersida.\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Detta kommer radera %(counter)s fler undersidor.\n"
-"                    "
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Detta kommer radera ytterligare 1 undersida."
+msgstr[1] "Detta kommer radera ytterligare %(counter)s undersidor."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Du har inte rättigheter att radera denna sida"
 msgstr[1] "Du har inte rättigheter att radera dessa sidor"
-
-msgid "No, don't delete"
-msgstr "Nej, radera inte"
 
 #, python-format
 msgid "Move 1 page"
@@ -1207,22 +1146,10 @@ msgid "Are you sure you want to move these pages?"
 msgstr "Är du säker på att du vill flytta dessa sidor?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one child page\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s child pages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Denna sida har en undersida\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Denna sida har %(counter)s undersidor\n"
-"                    "
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Denna sida har en undersida"
+msgstr[1] "Denna sida har %(counter)s undersidor"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -1230,10 +1157,10 @@ msgstr[0] "Du saknar rättigheter att flytta denna sida"
 msgstr[1] "Du saknar rättigheter att flytta dessa sidor"
 
 #, python-format
-msgid "The following page cannot be moved to %(dest_title)s "
+msgid "The following page cannot be moved to %(dest_title)s"
 msgid_plural "The following pages cannot be moved to %(dest_title)s"
-msgstr[0] "Följande sida kan inte flyttas till %(dest_title)s "
-msgstr[1] "Följande sidor kan inte flyttas till %(dest_title)s"
+msgstr[0] "Denna sida kan inte flyttas till %(dest_title)s"
+msgstr[1] "Dessa sidor kan inte flyttas till %(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -1250,7 +1177,7 @@ msgid "No, don't move"
 msgstr "Nej, flytta inte"
 
 #, python-format
-msgid "Publish 1 page "
+msgid "Publish 1 page"
 msgid_plural "Publish %(counter)s pages"
 msgstr[0] "Publicera 1 sida"
 msgstr[1] "Publicera %(counter)s sidor"
@@ -1259,22 +1186,10 @@ msgid "Are you sure you want to publish these pages?"
 msgstr "Är du säker på att du vill publicera dessa sidor?"
 
 #, python-format
-msgid ""
-"\n"
-"                This page has one unpublished subpage\n"
-"                "
-msgid_plural ""
-"\n"
-"                This page has %(counter)s unpublished subpages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                Denna sida har en opublicerad undersida\n"
-"                "
-msgstr[1] ""
-"\n"
-"                Denna sida har %(counter)s opublicerade undersidor\n"
-"                "
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Denna sida har en opublicerad undersida"
+msgstr[1] "Denna sida har%(counter)s opublicerade undersidor"
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -1288,7 +1203,7 @@ msgid "No, don't publish"
 msgstr "Nej, publicera inte"
 
 #, python-format
-msgid "Unpublish 1 page "
+msgid "Unpublish 1 page"
 msgid_plural "Unpublish %(counter)s pages"
 msgstr[0] "Avpublicera 1 sida"
 msgstr[1] "Avpublicera %(counter)s sidor"
@@ -1297,22 +1212,10 @@ msgid "Are you sure you want to unpublish these pages?"
 msgstr "Är du säker på att du vill avpublicera dessa sidor?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one subpage\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s subpages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Denna sida har en undersida\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Denna sida har %(counter)s undersidor\n"
-"                    "
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Denna sida har en undersida"
+msgstr[1] "Denna sida har%(counter)s undersidor"
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -1321,9 +1224,6 @@ msgstr[1] "Du saknar rättigheter att avpublicera dessa sidor"
 
 msgid "Yes, unpublish"
 msgstr "Ja, avpublicera"
-
-msgid "No, don't unpublish"
-msgstr "Nej, avpublicera inte"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1352,24 +1252,27 @@ msgid "Are you sure you want to delete this page?"
 msgstr "Är du säker på att du vill radera denna sida?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
+msgid "Deleting this page will also delete %(descendant_count)s child page."
 msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
+"Deleting this page will also delete %(descendant_count)s more child pages."
 msgstr[0] ""
-"\n"
-"                    Detta kommer också radera ytterligare en undersida.\n"
-"                "
+"Radering av sidan kommer radera ytterligare %(descendant_count)s undersidor."
 msgstr[1] ""
-"\n"
-"                    Detta kommer också radera ytterligare "
-"%(descendant_count)s undersidor.\n"
-"                "
+"Radering av sidan kommer radera ytterligare %(descendant_count)s undersidor."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Den kommer även radera %(translation_count)s översättning."
+msgstr[1] "Den kommer även radera %(translation_count)s översättningar."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Denna handling kommer att radera totalt <b>%(total_pages)s</b> sidor."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Vänligen ange <b>%(wagtail_site_name)s</b> för att bekräfta."
 
 msgid "Yes, delete it"
 msgstr "Ja, ta bort"
@@ -1406,75 +1309,41 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Ja, flytta sidan"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublicera %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Är du säker på att du vill avpublicera denna sida?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
+msgid "This page has one subpage. Unpublish this too"
 msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Den här sidan har en undersida. Avpublicera den också\n"
-"                "
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "Denna sida har en undersida. Avpublicera även denna"
 msgstr[1] ""
-"\n"
-"                   Den här sidan har %(live_descendant_count)s undersidor. "
-"Avpublicera dessa också\n"
-"                "
-
-msgid "Yes, unpublish it"
-msgstr "Ja, avpublicera den"
+"Denna sida har%(live_descendant_count)s undersidor. Avpublicera även dessa"
 
 msgid "Publish page"
 msgstr "Publicera sida"
 
 #, python-format
 msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
-"\n"
-"            Denna sida har markerats att den behöver förändringar i <strong>"
-"%(task)s</strong> i <strong>%(workflow)s</strong>.\n"
-"        "
+"Denna sida markerades att förändringar behövs vid <strong>%(task)s</strong> "
+"i <strong>%(workflow)s</strong>."
 
 #, python-format
 msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
 msgstr ""
-"\n"
-"            Denna sida är för närvarande vid <strong>%(task)s</strong> i "
-"<strong>%(workflow)s</strong>.\n"
-"        "
+"Denna sida är för närvarande vid <strong>%(task)s</strong> i "
+"<strong>%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Publicering av denna sida avbryter det aktuella arbetsflödet."
 
 msgid "Would you still like to publish this page?"
 msgstr "Vill du fortfarande publicera denna sida?"
-
-#, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Sidor som använder %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Sidor som använder"
 
 #, python-format
 msgid "Copy %(title)s"
@@ -1490,25 +1359,12 @@ msgstr "Kopiera denna sida"
 msgid "New %(page_type)s"
 msgstr "Nya %(page_type)s"
 
-msgid "New"
-msgstr "Ny"
-
-msgid "Actions"
-msgstr "Handlingar"
-
 msgid "This page has unsaved changes."
 msgstr "Den här sidan har osparade ändringar."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redigerar %(page_type)s: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "Redigerar %(page_type)s"
-
-msgid "History"
-msgstr "Historik"
 
 msgid "This page is an alias of another page."
 msgstr "Denna sida är ett alias av en annan sida."
@@ -1532,18 +1388,14 @@ msgstr "Användare"
 msgid "Date / Time"
 msgstr "Datum / Tid"
 
+msgid "Comment"
+msgstr "Kommentar"
+
 msgid "Live version"
 msgstr "Publicerad version"
 
 msgid "Current draft"
 msgstr "Nuvarande utkast"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sedan"
-
-msgid "No log entries found."
-msgstr "Inga loggposter funna"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1552,95 +1404,52 @@ msgstr "Utforskar %(title)s"
 msgid "Select all pages in listing"
 msgstr "Välj alla sidor i listan"
 
-msgid "Select page"
-msgstr "Välj sida"
-
-msgid "Drag"
-msgstr "Dra"
-
-msgid "Updated"
-msgstr "Uppdaterad"
-
 msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
 msgstr ""
-"\n"
-"                            Rotnivån är där du kan lägga till nya sajter "
-"till din Wagtail installation. Sidor skapade här är inte tillgängliga på "
-"någon URL innan de har associerats till en sajt.\n"
-"                        "
+"Rootnivån är där du kan lägga till nya sajter till din Wagtailinstallation. "
+"Sidor som skapas här kommer inte vara tillgängliga på något URL förrän de är "
+"kopplade till en sajt."
 
 msgid "Configure a site now."
 msgstr "Konfigurera en sajt nu."
 
 msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
 msgstr ""
-"\n"
-"                            Om du bara vill skapa en sida till en befintlig "
-"sajt, skapa dem som barn till hemsidan istället.\n"
-"                        "
+"Om du bara vill lägga till sidor på en befintlig sajt, skapa dom som "
+"undersidor av hemsidan istället."
 
 msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
 msgstr ""
-"\n"
-"                        Sidor skapade här är ej tillgängliga på någon URL. "
-"För att skapa en sida till en existerande sajt, skapa dem som undersidor "
-"till hemsidan.\n"
-"                    "
+"Sidor som skapas här kommer inte vara tillgängliga på någon URL. För att "
+"lägga till sidor på en befintlig sajt, skapa dom som undersidor av hemsidan."
 
 msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
 msgstr ""
-"\n"
-"                        Det finns ingen sajt uppsatt för denna plats. Sidor "
-"som skapas här är inte tillgängliga på någon URL förrän en sajt är "
-"associerad med den här platsen.\n"
-"                    "
+"Det finns ingen sajt uppsatt för denna plats. Sidor som skapas här kommer "
+"inte vara tillgängliga på någon URL förrän en sajt är associerad med denna "
+"plats."
 
 msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
 msgstr ""
-"\n"
-"                        Det finns ingen sajt uppsatt för denna plats. Sidor "
-"som skapas här är inte tillgängliga på någon URL.\n"
-"                    "
+"Det finns inga sidor på denna plats. Sidor som skapas här kommer inte vara "
+"tillgänglig på någon URL."
 
-msgid "No pages have been created at this location."
-msgstr "Inga sidor har skapats på denna plats"
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Varför inte <a href=\"%(add_page_url)s\">skapa en</a>?"
+msgid "This page is locked, by you, to further editing"
+msgstr "Denna sida är låst, av dig, för fortsatt redigering"
 
 msgid "This page is locked to further editing"
 msgstr "Den här sidan är låst för fortsatt editering"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Utforska undersidor till '%(title)s'"
-
-msgid "Explore"
-msgstr "Utforska"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1650,30 +1459,8 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
-msgid "Sites menu"
-msgstr "Sajtmeny"
-
-msgid "Pagination"
-msgstr "Sidnumrering"
-
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"        Sida %(page_number)s av %(num_pages)s.\n"
-"    "
-
-msgid "Previous"
-msgstr "Föregående"
-
-msgid "Next"
-msgstr "Nästa"
-
-msgid "This page is protected from public view"
-msgstr "Denna sida är skyddad från att synas publikt"
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Disable ordering of child pages"
 msgstr "Inaktivera sortering av undersidor"
@@ -1684,40 +1471,33 @@ msgstr "Sortera"
 msgid "Enable ordering of child pages"
 msgstr "Aktivera sortering av undersidor"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Välj en ny topp-sida för %(title)s"
+msgid "Sites menu"
+msgstr "Sajtmeny"
+
+msgid "Pagination"
+msgstr "Sidnumrering"
 
 #, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Välj en ny topp-sida för <span>%(title)s</span>"
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sida %(page_number)s av %(num_pages)s."
 
-msgid "Preview error"
-msgstr "Fel under förhandsgranskning"
+msgid "Previous"
+msgstr "Föregående"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"Omöjligt att förhandsgranska den här sidan, några fel återstår. Vänligen "
-"stäng den här fliken, redigera sidan för att åtgärda felen och klicka "
-"därefter på förhandsgranska igen."
+msgid "Next"
+msgstr "Nästa"
 
-msgid "Current status:"
-msgstr "Nuvarande status:"
+msgid "This page is protected from public view"
+msgstr "Denna sida är skyddad från att synas publikt"
 
-msgid "Set page privacy"
-msgstr "Sätt sidsekretess"
+msgid "Confirm"
+msgstr "Bekräfta"
+
+msgid "Add child page"
+msgstr "Lägg till undersida"
 
 msgid "Review this version"
 msgstr "Granska denna version"
-
-msgid "Compare with previous version"
-msgstr "Jämför med föregående version"
 
 msgid "Compare with current version"
 msgstr "Jämför med nuvarande version"
@@ -1726,67 +1506,174 @@ msgid "Cancel scheduled publish"
 msgstr "Avbryt schemalagd publicering"
 
 #, python-format
-msgid "Comparing %(title)s"
-msgstr "Jämför %(title)s"
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Det finns en matchande sida"
+msgstr[1] "Det finns %(counter)s matchande sidor"
 
-msgid "Comparing"
-msgstr "Jämför"
-
-msgid "Page history"
-msgstr "Sidhistorik"
-
-msgid "Fields"
-msgstr "Fält"
-
-msgid "Changes"
-msgstr "Ändringar"
+msgid "Page types"
+msgstr "Sidtyper"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Nerflyttad 1 "
-"plats.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Nedflyttad "
-"%(counter)s platser.\n"
-"                                                        "
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Ledsen, inga sidor matchar <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Ange en sökterm ovan"
+
+msgid "No pages use"
+msgstr "Inga sidor använder"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Uppflyttad 1 "
-"plats.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Uppflyttad "
-"%(counter)s platser.\n"
-"                                                        "
+msgid "Add %(label)s"
+msgstr "Lägg till %(label)s"
 
-msgid "There are no differences between these two versions"
-msgstr "Det finns inga skillnader mellan dessa två versioner"
+msgid "Move up"
+msgstr "Flytta upp"
+
+msgid "Move down"
+msgstr "Flytta ner"
+
+msgid "Set publishing schedule"
+msgstr "Sätt publiceringsschema"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Välj när denna sida ska publiceras och/eller utgå"
+
+msgid "Save schedule"
+msgstr "Spara schema"
+
+msgid "Collection management permissions"
+msgstr "Samling hantering rättigheter"
+
+msgid "Add a collection permission"
+msgstr "Lägg till rättighet för samling"
+
+msgid "Last published"
+msgstr "Senast publicerad"
+
+msgid "Last published by"
+msgstr "Senast publicerad av"
+
+msgid "No pages found."
+msgstr "Inga sidor funna"
+
+msgid "No pages match this report's criteria."
+msgstr "Inga sidor matchade kriterierna för denna rapport."
+
+msgid "Updated"
+msgstr "Uppdaterad"
+
+msgid "Locking status"
+msgstr "Låsstatus"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Låst av <b>dig</b>vid <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "Låstes av <b>%(locked_by)s</b> vid <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Låstes av <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "No locked pages found."
+msgstr "Inga upplåsta sidor hittades."
+
+msgid "Edit this item"
+msgstr "Redigera objektet"
+
+msgid "By Task"
+msgstr "Av Uppgift"
+
+msgid "Workflow"
+msgstr "Arbetsflöde"
+
+msgid "Page/Snippet"
+msgstr "Sida/Snutt"
+
+msgid "Requested by"
+msgstr "Begärdes av"
+
+msgid "Started at"
+msgstr "Påbörjades vid"
+
+msgid "Incomplete task"
+msgstr "Ej slutförd uppgift"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Inga sidor/snuttar har ännu skickats in för moderering"
+
+msgid "By Workflow"
+msgstr "Av Arbetsflöde"
+
+msgid "Completed at"
+msgstr "Slutfördes vid"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sida %(page_num)s av %(total_pages)s."
+
+msgid "Toggle breadcrumbs"
+msgstr "Växla sökvägsnavigering"
+
+msgid "Breadcrumb"
+msgstr "Sökvägsnavigering"
+
+msgid "Close dialog"
+msgstr "Stäng dialog"
+
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
+msgid "Add comment"
+msgstr "Lägg till kommentar"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filtrera"
+
+msgid "History"
+msgstr "Historik"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Ny: %(model_name)s"
+
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Redigerar %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Rot"
+
+msgid "Current page status:"
+msgstr "Nuvarande sidstatus:"
+
+msgid "Visit the live page"
+msgstr "Besök live-sidan"
+
+msgid "Visible to all. Visit the live page"
+msgstr "Synlig för alla. Besök live-sidan"
+
+msgid "Private. Visit the live page"
+msgstr "Privat. Besök live-sidan"
+
+msgid "Visible to all"
+msgstr "Synlig för alla"
+
+msgid "Toggle section"
+msgstr "Växla sektion"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1804,39 +1691,102 @@ msgstr "Ja, ta bort schemaläggning"
 msgid "No, don't unschedule"
 msgstr "Nej, behåll schemaläggning"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Det finns en matchande sida\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Det finns %(counter)s matchande sidor\n"
-"            "
+msgid "Other searches"
+msgstr "Andra sökningar"
 
-msgid "Page types"
-msgstr "Sidtyper"
+msgid "Toggle side panel"
+msgstr "Växla sidopanel"
+
+msgid "Comment notifications"
+msgstr "Kommentarnotifiering"
+
+msgid "Locale: "
+msgstr "Språk:"
 
 #, python-format
-msgid "Sorry, no pages match <em>%(query_string)s</em>"
-msgstr "Ledsen, inga sidor matchar <em>%(query_string)s</em>"
+msgid "Available in %(translations_total)s locales"
+msgstr "Tillgänglig på %(translations_total)s språk"
 
-msgid "Enter a search term above"
-msgstr "Ange en sökterm ovan"
+msgid "No other translations"
+msgstr "Inga andra översättningar"
 
-msgid "No pages use"
-msgstr "Inga sidor använder"
+msgid "Switch locales"
+msgstr "Växla språk"
 
-msgid "Workflow progress"
-msgstr "Arbetsflöde framsteg"
+msgid "Locking: "
+msgstr "Låsning:"
+
+msgid "Unlocked"
+msgstr "Olåst"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Page visibility: "
+msgstr "Sidans synlighet:"
+
+msgid "Once live anyone can view"
+msgstr "När publicerad kan alla se"
+
+msgid "Not visible to the public"
+msgstr "Ej publikt synlig"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Ändring av sekretessinställningar påverkar även alla undersidor till denna "
+"sida."
+
+msgid "Usage"
+msgstr "Användning"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
+msgid "Status: "
+msgstr "Status:"
+
+msgid "Edit schedule"
+msgstr "Redigera schema"
+
+msgid "In Moderation"
+msgstr "Under moderering"
+
+msgid "View details"
+msgstr "Visa detaljer"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "av %(user)s"
+
+msgid "View history"
+msgstr "Visa historik"
+
+msgid "Set schedule"
+msgstr "Sätt schema"
+
+msgid "Preview in mobile size"
+msgstr "Förhandsgranska i mobilstorlek"
+
+msgid "Preview in tablet size"
+msgstr "Förhandsgranska i tabletstorlek"
+
+msgid "Preview in desktop size"
+msgstr "Förhandsgranska i desktopstorlek"
+
+msgid "Preview in new tab"
+msgstr "Förhandsgranska i ny flik"
+
+msgid "Loading"
+msgstr "Laddar"
+
+msgid "Preview is out of date"
+msgstr "Förhandsgranskning är utdaterad"
+
+msgid "Preview mode"
+msgstr "Förhandsgranskningsläge"
 
 msgid "Edit / Review"
 msgstr "Redigera / Granska"
@@ -1852,40 +1802,19 @@ msgstr "Begärdes av <b>%(modified_by)s</b>"
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Påbörjades vid <b>%(started_at)s</b>"
 
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Status <span class=\"status-tag primary\"> %(status)s</span>"
-
 msgid "Timeline"
 msgstr "Tidslinje"
 
 msgid "Initial Revision"
 msgstr "Initial Revision"
 
-msgid "Page edited"
-msgstr "Sida redigerad"
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s av <b>%(who)s</b> vid <b>%(at)s</b>"
 
 #, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s av <b>%(who)s</b> vid "
-"<b>%(at)s</b>\n"
-"                                        "
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s vid <b>%(at)s</b>\n"
-"                                        "
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s vid <b>%(at)s</b>"
 
 msgid "with comment:"
 msgstr "med kommentar:"
@@ -1897,14 +1826,8 @@ msgid "Workflow completed"
 msgstr "Arbetsflöde slutfört"
 
 #, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"                                        %(action)s av <b>%(who)s</b>\n"
-"                                    "
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s av <b>%(who)s</b>"
 
 #, python-format
 msgid "Workflow history for %(title)s"
@@ -1913,193 +1836,26 @@ msgstr "Arbetsflödeshistorik för %(title)s"
 msgid "Workflow history for"
 msgstr "Arbetsflödeshistorik för"
 
-msgid "Edit page"
-msgstr "Redigera sida"
-
-msgid "Requested by"
-msgstr "Begärdes av"
-
-msgid "Started at"
-msgstr "Påbörjades vid"
-
 msgid "Approved task"
 msgstr "Godkänn uppgift"
-
-msgid "Incomplete task"
-msgstr "Ej slutförd uppgift"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Denna sida här ännu inte lämnats in för moderering"
 
-msgid "Collection management permissions"
-msgstr "Samling hantering rättigheter"
-
-msgid "Add a collection permission"
-msgstr "Lägg till rättighet för samling"
-
-msgid "Last published"
-msgstr "Senast publicerad"
-
-msgid "Last published by"
-msgstr "Senast publicerad av"
-
 #, python-format
-msgid ""
-"\n"
-"                                    %(time_period)s ago\n"
-"                                "
-msgstr ""
-"\n"
-"                                    %(time_period)s sedan\n"
-"                                "
-
-msgid "No pages found."
-msgstr "Inga sidor funna"
-
-msgid "No pages match this report's criteria."
-msgstr "Inga sidor matchade kriterierna för denna rapport."
-
-msgid "Download XLSX"
-msgstr "Ladda ner XLSX"
-
-msgid "Download CSV"
-msgstr "Ladda ner CSV"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Apply filters"
-msgstr "Filtrera"
-
-msgid "Locking status"
-msgstr "Låsstatus"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"Låstes av <b>dig</b> <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"Låstes av <b>%(locked_by)s</b> <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Låstes <b>%(locking_date)s</b>"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "No locked pages found."
-msgstr "Inga upplåsta sidor hittades."
-
-msgid "Edit this item"
-msgstr "Redigera objektet"
-
-msgid "By Task"
-msgstr "Av Uppgift"
-
-msgid "Workflow"
-msgstr "Arbetsflöde"
-
-msgid "No pages have been submitted for moderation yet"
-msgstr "Inga sidor har lämnats in för moderering ännu"
-
-msgid "By Workflow"
-msgstr "Av Arbetsflöde"
-
-msgid "Completed at"
-msgstr "Slutfördes vid"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sida %(page_num)s av %(total_pages)s."
-
-msgid "Breadcrumb"
-msgstr "Sökvägsnavigering"
-
-msgid "Root"
-msgstr "Rot"
-
-msgid "Home"
-msgstr "Hem"
-
-msgid "All collections"
-msgstr "Alla samlingar"
-
-msgid "Account settings"
-msgstr "Kontoinställningar"
-
-msgid "Log out"
-msgstr "Logga ut"
-
-msgid "Current page status:"
-msgstr "Nuvarande sidstatus:"
-
-msgid "Other searches"
-msgstr "Andra sökningar"
-
-msgid "Changes requested"
-msgstr "Ändringar begärs"
-
-msgid "since"
-msgstr "sedan"
-
-msgid "Published"
-msgstr "Publicerad"
-
-msgid "Draft saved"
-msgstr "Utkast sparad"
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "Denna %(model_name)s har inte skickats in för moderering ännu"
 
 msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
-"Du använder en <strong>utdaterad</strong> webbläsare som inte stöds av denna "
-"mjukvara. Vänligen <a href=\"https://browsehappy.com/\">uppgradera din "
-"webbläsare</a>."
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            JavaScript krävs för att använda Wagtail, men är för närvarande "
-"inaktiverat.<br />\n"
-"            Här är <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">instruktioner om hur du aktiverar "
-"JavaScript i din webbläsare</a>.\n"
-"        "
-
-#, python-format
-msgid ""
-"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
-"IE11 alternatives</a>."
-msgstr ""
-"Wagtail har tagit bort stödet för IE11. <a href=\"%(url)s\">Läs mer om "
-"alternativ till IE11</a>."
+"JavaScript krävs för att använda Wagtail, men är för närvarande avstängt."
+"<br /> Här finns <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instruktioner hur du aktiverar "
+"JavaScript i din webbläsare</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -2107,11 +1863,33 @@ msgstr "Hoppa till huvudinnehåll"
 msgid "View Wagtail quick actions"
 msgstr "Se Wagtail snabbhandlingar"
 
+msgid "Issues found"
+msgstr "Problem hittades"
+
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+msgid "Warnings"
+msgstr "Varningar"
+
 msgid "Add a child page"
 msgstr "Lägg till en undersida"
 
 msgid "Show in Explorer"
 msgstr "Visa i utforskaren"
+
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"Detta arbetsflöde pågår för närvarande på %(workflow_states_in_progress)s "
+"sidor. Radering av detta arbetsflöde avbryter modereringen av dessa sidor. "
+"Är du säker på att du vill radera detta arbetsflöde?"
+
+msgid "No"
+msgstr "Nej"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Är du säker på att du vill inaktivera detta arbetsflöde?"
@@ -2125,6 +1903,9 @@ msgstr "Är du säker på att du vill inaktivera denna uppgift?"
 msgid "Assign your workflow to pages"
 msgstr "Tilldela ditt arbetsflöde till sidor"
 
+msgid "Assign your workflow to snippets"
+msgstr "Tilldela arbetsflöde till stutt"
+
 msgid "Creating…"
 msgstr "Skapar..."
 
@@ -2134,12 +1915,14 @@ msgstr "Skapa"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Arbetsflöden påverkar också undersidor. Om du väljer en ny föräldersida så "
-"kommer även undersidor använda detta arbetsflöde. Visa <a href="
-"\"%(workflow_pages_url)s\">listan med sidor</a> ditt arbetsflöde påverkar."
+"kommer även undersidor använda detta arbetsflöde. Visa <a "
+"href=\"%(workflow_pages_url)s\">listan med sidor</a> ditt arbetsflöde "
+"påverkar."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Detta arbetsflöde är inaktiverat och kan inte tilldelas några sidor."
@@ -2150,8 +1933,17 @@ msgstr "Används på följande aktiva arbetsflöden"
 msgid "Not used"
 msgstr "Används ej"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s till"
+msgstr[1] "+%(counter)s till"
+
 msgid "Assigned pages"
 msgstr "Tilldelade sidor"
+
+msgid "Page"
+msgstr "Sida"
 
 msgid "Assign to another page"
 msgstr "Tilldela till en annan sida"
@@ -2166,32 +1958,14 @@ msgid "Used by"
 msgstr "Används av"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            1 sida\n"
-"                                        "
-msgstr[1] ""
-"\n"
-"                                            %(counter)s sidor\n"
-"                                        "
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 sida"
+msgstr[1] "%(counter)s sidor"
 
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Steg %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s till"
-msgstr[1] "+%(counter)s till"
 
 #, python-format
 msgid ""
@@ -2204,8 +1978,8 @@ msgstr ""
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Det finns inga aktiva arbetsflöden. Varför inte <a href=\"%(add_url)s"
-"\">skapa ett</a>?"
+"Det finns inga aktiva arbetsflöden. Varför inte <a "
+"href=\"%(add_url)s\">skapa ett</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Välj vilken typ av uppgift du vill skapa."
@@ -2213,29 +1987,14 @@ msgstr "Välj vilken typ av uppgift du vill skapa."
 msgid "Choose a task"
 msgstr "Välj en uppgift"
 
+msgid "New"
+msgstr "Ny"
+
 msgid "Existing"
 msgstr "Existerande"
 
 msgid "Choose a different task type"
 msgstr "Välj en annan uppgiftstyp"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Det finns en %(counter)s matchning\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Det finns %(counter)s matchningar\n"
-"        "
 
 msgid "Task type"
 msgstr "Uppgiftstyp"
@@ -2251,15 +2010,11 @@ msgid "You haven't created any tasks."
 msgstr "Du har inte skapat några uppgifter."
 
 msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
 msgstr ""
-"\n"
-"                Varför inte <a class=\"create-one-now\" href=\"#\">skapa en "
-"nu</a>?\n"
-"            "
+"Varför inte <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>skapa en nu</a>?"
 
 msgid "Hide disabled tasks"
 msgstr "Dölj inaktiverade uppgifter"
@@ -2287,14 +2042,6 @@ msgstr "Sidor som använder arbetsflöde  '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Sidor som använder arbetsflöde"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Lämnade in till <em>%(workflow_name)s</em> vid %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "av %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Inlämnad"
 
@@ -2305,15 +2052,77 @@ msgstr "Ej påbörjad"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Förändringar har begärts av %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Ändringar begärs"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Godkändes av %(approved_by)s"
 
+msgid "Published"
+msgstr "Publicerad"
+
 msgid "See full history"
 msgstr "Visa full historik"
 
-msgid "Compare with live version"
-msgstr "Jämför med den publicerade versionen"
+msgid "More"
+msgstr "Mer"
+
+msgid "0 minutes"
+msgstr "0 minuter"
+
+msgid "just now"
+msgstr "precis nu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "vid %(time)s av %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "vid %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(time)s av %(user_display_name)s"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "precis nu av%(user_display_name)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s sedan av %(user_display_name)s"
+
+msgid "Log out"
+msgstr "Logga ut"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "Skickad till %(task_name)s %(started_at)s"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Toggle status"
+msgstr "Växla status"
+
+msgid "Toggle comments"
+msgstr "Växla kommentarer"
+
+msgid "Comments"
+msgstr "Kommentarer"
+
+msgid "Toggle preview"
+msgstr "Växla förhandsgranskning"
+
+msgid "Select page"
+msgstr "Välj sida"
 
 #, python-format
 msgid ""
@@ -2330,30 +2139,6 @@ msgid ""
 msgstr ""
 "Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
 "fallande ordning."
-
-msgid "More"
-msgstr "Mer"
-
-msgid "View more bulk actions"
-msgstr "Visa fler massåtgärder"
-
-msgid "0 minutes"
-msgstr "0 minuter"
-
-msgid "Just now"
-msgstr "Just nu"
-
-msgid "live"
-msgstr "publicerad"
-
-msgid "draft"
-msgstr "utkast"
-
-msgid "live + draft"
-msgstr "publicerad + utkast"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Profile"
 msgstr "Profil"
@@ -2379,6 +2164,9 @@ msgstr "Dina kontoinställningar har uppdaterats med bra resultat!"
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
 
+msgid "Select"
+msgstr "Välj"
+
 msgid "Collections"
 msgstr "Samlingar"
 
@@ -2388,13 +2176,13 @@ msgstr "Lägg till en samling"
 msgid "Add collection"
 msgstr "Addera samling"
 
-#, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Samling '{0}' skapad."
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Samling '%(object)s' skapad."
 
-#, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Samling '{0}' uppdaterad."
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Samling '%(object)s' uppdaterad."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Samlingen kunde inte sparas pga fel."
@@ -2402,15 +2190,105 @@ msgstr "Samlingen kunde inte sparas pga fel."
 msgid "Delete collection"
 msgstr "Radera samling"
 
-#, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Samling '{0}' raderad."
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Samling '%(object)s' raderad."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Är du säker på att du vill radera denna samling?"
 
+msgid "Home"
+msgstr "Hem"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Redigera denna %(model_name)s"
+
+msgid "Workflow progress"
+msgstr "Arbetsflöde framsteg"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' uppdaterad."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' skapad."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr "Arbetsflöde på %(model_name)s '%(object)s' har startats om."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
+msgstr ""
+"Version från %(timestamp)s av %(model_name)s '%(object)s' har blivit "
+"publicerad."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
+"for publishing."
+msgstr ""
+"Version från %(timestamp)s av %(model_name)s '%(object)s' har blivit "
+"schemalagt för publicering."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Sök %(model_name)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redigera '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspektera"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Radera '%(title)s'"
+
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Inspecting"
+msgstr "Inspekterar"
+
+msgid "Earliest"
+msgstr "Tidigast"
+
+msgid "Latest"
+msgstr "Senast"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' avschemalagd."
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Version %(revision_id)s av \"%(object)s\" avschemalagd."
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "revision %(revision_id)s av \"%(object)s\""
+
+msgid "Usage of"
+msgstr "Användning av"
+
+msgid "Field"
+msgstr "Fält"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Privat %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Redigera %(object)s"
+
+msgid "Dashboard"
+msgstr "Instrumentpanel"
 
 msgid "Delete selected pages"
 msgstr "Radera valda sidor"
@@ -2515,17 +2393,17 @@ msgstr[1] ""
 "%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har blivit "
 "avpublicerade"
 
-#, python-brace-format
-msgid "Page '{0}' has been converted into an ordinary page."
-msgstr "Sida '{0}' har blivit konverterad till en vanlig sida."
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "Sida '%(page_title)s' har blivit konverterad till en vanlig sida."
 
-#, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Sida '{0}' och {1} undersida kopierad."
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Sida '%(page_title)s' och %(subpages_count)s undersida kopierad."
 
-#, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Sida '{0}' kopierad."
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Sida '%(page_title)s' kopierad."
 
 msgid "View draft"
 msgstr "Se utkast"
@@ -2533,95 +2411,84 @@ msgstr "Se utkast"
 msgid "View live"
 msgstr "Visa publicerad"
 
-#, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Sida '{0}' skapad."
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Sida '%(page_title)s' skapad."
 
-#, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Sida '{0}' skapad och schemalagd för publicering."
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Sida '%(page_title)s' skapad och schemalagd för publicering."
 
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Sida '{0}' skapad och publicerad."
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Sida '%(page_title)s' skapad och publicerad."
 
-#, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sida '{0}' skapad och inlämnad för moderering."
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Sida '%(page_title)s' skapad och inlämnad för moderering."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 
-#, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Sida '{0}' raderad."
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Sida '%(page_title)s' raderad."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
 
-#, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Sidan '{0}' har blivit ersatt med version från {1}."
-
-#, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Sida '{0}' har blivit uppdaterad."
-
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>dig</b> <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Sida '{}' är låst</b> av <b>dig</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>{}</b> <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Sidan '{}' är låst</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Sidan väntar på moderering"
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Endast granskare för denna uppgift kan redigera sidan."
-
-#, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Arbetsflöde på sida '{0}' har avbrutits."
-
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
 msgstr ""
-"Versionen från {0} av sida '{1}' har blivit schemalagd för publicering."
+"Sidan '%(page_title)s' har blivit ersatt med version från "
+"%(previous_revision_datetime)s."
 
-#, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Sida '%(page_title)s' har blivit uppdaterad."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Arbetsflöde på sida '%(page_title)s' har avbrutits."
+
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
 msgstr ""
-"Sida '{0}' är publicerad och denna version har blivit schemalagd för "
-"publicering."
+"Versionen från %(previous_revision_datetime)s av sida '%(page_title)s' har "
+"blivit schemalagd för publicering."
 
-#, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Sida '{0}' har blivit schemalagd för publicering."
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Sida '%(page_title)s' är publicerad och denna version har blivit schemalagd "
+"för publicering."
 
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "Versionen från {0} av sida '{1}' har blivit publicerad."
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Sida '%(page_title)s' har blivit schemalagd för publicering."
 
-#, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Sida '{0}' har blivit publicerad."
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr ""
+"Versionen från %(datetime)s av sida '%(page_title)s' har blivit publicerad."
 
-#, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Sida '{0}' har blivit inlämnad för moderering."
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Sida '%(page_title)s' har blivit publicerad."
 
-#, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "Arbetsflödet på sidan '{0}' har startats om."
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Sida '%(page_title)s' har blivit inlämnad för moderering."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Arbetsflödet på sidan '%(page_title)s' har startats om."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Sidan kunde inte sparas eftersom den är låst"
@@ -2632,39 +2499,50 @@ msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 msgid "Hide commenting actions"
 msgstr "Göm kommenteringshandlingar"
 
-#, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Sida '{0}' är nu olåst."
+msgid "Page history"
+msgstr "Sidhistorik"
 
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Tryck på enter för att välja ett objekt, använd upp och ner pilarna för att "
+"flytta objektet, tryck på enter för att slutföra flytten eller escape för "
+"att avbryta flytten."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Sida '{0}' publicerad."
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Sida '%(page_title)s' är nu olåst."
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Sidan '%(page_title)s' väntar för närvarande inte på moderering."
+
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "Sida '%(page_title)s' publicerad."
 
 msgid "Failed to send approval notifications"
 msgstr "Misslyckades att skicka godkännande notifieringar"
 
-#, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Sida '{0}' avvisad för publicering."
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Sida '%(page_title)s' avvisad för publicering."
 
 msgid "Failed to send rejection notifications"
 msgstr "Misslyckades att skicka nekande notifieringar"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
-"URL-fragmenten '{0}' är redan i användning av den valda huvudsidan. Se till "
-"att URL-fragmentet är unik och försök igen."
+"URL-fragmenten '%(page_slug)s' är redan i användning av den valda "
+"huvudsidan. Se till att URL-fragmentet är unik och försök igen."
 
-#, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Sida '{0}' flyttad."
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Sida '%(page_title)s' flyttad."
 
 #, python-format
 msgid ""
@@ -2674,27 +2552,20 @@ msgstr ""
 "Du tittar på en tidigare version av sidan från <b>%(created_at)s</b> av "
 "%(user)s"
 
-msgid "Earliest"
-msgstr "Tidigast"
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Sida '%(page_title)s' opublicerad."
 
-msgid "Latest"
-msgstr "Senast"
+msgid "Pages using"
+msgstr "Sidor som använder"
 
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revision {0} av \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Version {0} av \"{1}\" ej schemalagt."
-
-#, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Sida '{0}' opublicerad."
-
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Sidan '{0}' väntar för närvarande inte på moderering i uppift '{1}'."
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Sidan '%(page_title)s' väntar för närvarande inte på moderering i uppift "
+"'%(task_name)s'."
 
 msgid "Last published before"
 msgstr "Senast publicerad innan"
@@ -2729,14 +2600,11 @@ msgstr "Inväntar min granskning"
 msgid "Workflows"
 msgstr "Arbetsflöden"
 
-msgid "Page ID"
-msgstr "Sid-ID"
+msgid "Page/Snippet ID"
+msgstr "Sida/Snutt ID"
 
-msgid "Page Type"
-msgstr "Sidtyp"
-
-msgid "Page Title"
-msgstr "Sidtitel"
+msgid "Page/Snippet Title"
+msgstr "Sid-/snutt-rubrik"
 
 msgid "Workflow tasks"
 msgstr "Arbetsflödesuppgifter"
@@ -2750,16 +2618,16 @@ msgstr "Lägg till arbetsflöde"
 msgid "New workflow"
 msgstr "Nytt arbetsflöde"
 
-#, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "Arbetsflöde '{0}' skapad."
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Arbetsflöde '%(object)s' skapad."
 
 msgid "Editing workflow"
 msgstr "Redigerar arbetsflöde"
 
-#, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "Arbetsflöde '{0}' uppdaterades."
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Arbetsflöde '%(object)s' uppdaterades."
 
 msgid "Disable"
 msgstr "Inaktivera"
@@ -2770,45 +2638,31 @@ msgstr "Aktivera"
 msgid "Disable workflow"
 msgstr "Inaktivera arbetsflöde"
 
-#, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "Arbetsflöde '{0}' inaktiverat."
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Arbetsflöde '%(object)s' inaktiverat."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Detta arbetsflöde pågår på %(states_in_progress)d sida. Inaktivering av "
-"detta arbetsflöde avbryter moderering på denna sida.."
-msgstr[1] ""
-"Detta arbetsflöde pågår på %(states_in_progress)d sidor. Inaktivering av "
-"detta arbetsflöde avbryter moderering på dessa sidor.."
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Arbetsflöde '%(workflow_name)s' aktiverat."
 
-#, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "Arbetsflöde '{0}' aktiverat."
-
-#, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "Arbetsflöde togs bort från Sida '{0}'."
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Arbetsflöde togs bort från Sida '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Ny arbetsflödesuppgift"
 
-#, python-brace-format
-msgid "Task '{0}' created."
-msgstr "Uppgift '{0}' skapad."
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Uppgift '%(object)s' skapad."
 
 msgid "Editing workflow task"
 msgstr "Redigerar arbetsflödesuppgift"
 
-#, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "Uppgift '{0}' uppdaterad."
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Uppgift '%(object)s' uppdaterad."
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2817,42 +2671,19 @@ msgstr "Redigerar %(task_type)s"
 msgid "Disable task"
 msgstr "Inaktivera uppgift"
 
-#, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "Uppgift '{0}' inaktiverad.."
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Uppgift '%(object)s' inaktiverad.."
 
 #, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow and not be "
-"listed for selection when editing a workflow."
-msgstr[0] ""
-"Denna uppgift är pågående på %(states_in_progress)d sida. Att inaktivera "
-"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
-"kommer inte längre bli valbar när arbetsflöde redigeras."
-msgstr[1] ""
-"Denna uppgift är pågående på %(states_in_progress)d sidor. Att inaktivera "
-"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
-"kommer inte längre bli valbar när arbetsflöde redigeras."
+msgid "Task '%(task_name)s' enabled."
+msgstr "Uppgift '%(task_name)s' aktiverad."
 
-#, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "Uppgift '{0}' aktiverad."
+msgid "Choose another"
+msgstr "Välj en annan"
 
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Rapportera detta fel till din webbplatsadministratör med följande "
-"information:"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redigera '%(title)s'"
+msgid "Pages"
+msgstr "Sidor"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -2861,17 +2692,6 @@ msgstr "Förhandsvisa utkast till version av '%(title)s'"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Visa live-version av '%(title)s'"
-
-msgid "Add child page"
-msgstr "Lägg till undersida"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Lägg till undersida till '%(title)s'"
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Se fler alternativ för '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"
@@ -2934,17 +2754,21 @@ msgstr "Genomstruket"
 msgid "Code"
 msgstr "Kod"
 
-msgid "Locked Pages"
-msgstr "Låsta sidor"
-
 msgid "Reports"
 msgstr "Rapporter"
 
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Vad är nytt i Wagtail %(version)s"
+
+msgid "Editor Guide"
+msgstr "Redaktörshandbok"
+
+msgid "Help"
+msgstr "Hjälp"
+
 msgid "Yes"
 msgstr "Ja"
-
-msgid "No"
-msgstr "Nej"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"
@@ -2957,6 +2781,9 @@ msgstr "Rensa val"
 
 msgid "Choose another page"
 msgstr "Välj annan sida"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Taggar kan bara bestå av ett ord, mellanslag ej tillåtna."
 
 msgid "Choose another task"
 msgstr "Välj en annan uppgift"

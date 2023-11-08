@@ -1,6 +1,0 @@
-{% load wagtailadmin_tags %}
-
-{% auto_update_preview as auto_update %}
-<button class="button action-preview {% if icon %}button--icon{% endif %}"
-    data-action="{% url 'wagtailadmin_pages:preview_on_edit' page.id %}{% if mode %}?mode={{ mode|urlencode }}{% endif %}"
-    data-auto-update="{{ auto_update|yesno:'true,false' }}">{% if icon %}{% icon name="view" %}{% endif %}{{ label }}</button>

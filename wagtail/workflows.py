@@ -23,5 +23,5 @@ def get_task_types(task_class=None):
 
 
 def publish_workflow_state(workflow_state, user=None):
-    # publish the Page associated with a WorkflowState
-    workflow_state.page.get_latest_revision().publish(user=user)
+    # publish the object associated with a WorkflowState
+    workflow_state.content_object.get_latest_revision().publish(user=user)

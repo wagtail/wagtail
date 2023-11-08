@@ -19,17 +19,21 @@ jobs:
           key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
             - .venv
-      - run: pipenv run flake8
-      - run: pipenv run isort --check-only --diff .
-      - run: pipenv run black --target-version py37 --check --diff .
+      - run: pipenv run ruff check .
+      - run: pipenv run black --target-version py38 --check --diff .
+      - run: pipenv run semgrep --config .semgrep.yml --error .
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs
-      - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
+      - run:
+          name: Run tests
+          command: |
+            export PYTHONUNBUFFERED=1
+            pipenv run python -u runtests.py --parallel=2
 
   frontend:
     docker:
-      - image: circleci/node:16
+      - image: cimg/node:18.12
     steps:
       - checkout
       - restore_cache:
@@ -49,6 +53,7 @@ jobs:
           root: ~/project
           paths:
             - wagtail
+      - run: npm run build-storybook
       - run: npm run lint:js
       - run: npm run lint:css
       - run: npm run lint:format
@@ -102,6 +107,10 @@ jobs:
           command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - run:
+          command: pipenv run ./wagtail/test/manage.py collectstatic --noinput
+          environment:
+            STATICFILES_STORAGE: manifest
       - store_test_results:
           path: ./reports/jest
 

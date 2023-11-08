@@ -6,17 +6,23 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Matthias Martin, 2019
+# Matthias Martin, 2019
+# Matti Borchers, 2022
+# mattibo, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Scriptim <Scriptim@gmx.de>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tibor <tibor@lpld.io>, 2020
 # Scriptim <Scriptim@gmx.de>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2021\n"
-"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Scriptim <Scriptim@gmx.de>, 2020\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,14 +34,18 @@ msgid "default"
 msgstr "Standard"
 
 #, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "%(setting_type_name)s - %(instance)s bearbeiten"
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s von %(site)s"
 
-msgid "Editing"
-msgstr "Bearbeiten"
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Bearbeite %(instance)s"
 
 msgid "Site"
 msgstr "Webseite"
+
+msgid "Editing"
+msgstr "Bearbeite"
 
 msgid "Saving…"
 msgstr "Speichern…"

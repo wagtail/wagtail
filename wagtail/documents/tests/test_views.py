@@ -7,20 +7,22 @@ from unittest import mock
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
+from wagtail.test.utils import override_settings
 
 
 @override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeView(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document", file_hash="123456")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view.doc", ContentFile("A boring example document")
+        )
         self.pdf_document = models.Document(title="Test document", file_hash="123456")
         self.pdf_document.file.save(
-            "example.pdf", ContentFile("A boring example document")
+            "serve_view.pdf", ContentFile("A boring example document")
         )
 
     def tearDown(self):
@@ -49,13 +51,13 @@ class TestServeView(TestCase):
     def test_content_disposition_header(self):
         self.assertEqual(
             self.get(self.document)["Content-Disposition"],
-            'attachment; filename="{}"'.format(self.document.filename),
+            f'attachment; filename="{self.document.filename}"',
         )
 
     def test_inline_content_disposition_header(self):
         self.assertEqual(
             self.get(self.pdf_document)["Content-Disposition"],
-            'inline; filename="{}"'.format(self.pdf_document.filename),
+            f'inline; filename="{self.pdf_document.filename}"',
         )
 
     @mock.patch("wagtail.documents.views.serve.hooks")
@@ -139,11 +141,14 @@ class TestServeView(TestCase):
         mock_handler = mock.MagicMock()
         models.document_served.connect(mock_handler)
 
-        self.get()
+        try:
+            self.get()
 
-        self.assertEqual(mock_handler.call_count, 1)
-        self.assertEqual(mock_handler.mock_calls[0][2]["sender"], models.Document)
-        self.assertEqual(mock_handler.mock_calls[0][2]["instance"], self.document)
+            self.assertEqual(mock_handler.call_count, 1)
+            self.assertEqual(mock_handler.mock_calls[0][2]["sender"], models.Document)
+            self.assertEqual(mock_handler.mock_calls[0][2]["instance"], self.document)
+        finally:
+            models.document_served.disconnect(mock_handler)
 
     def test_with_nonexistent_document(self):
         response = self.client.get(
@@ -166,12 +171,6 @@ class TestServeView(TestCase):
     def test_has_etag_header(self):
         self.assertEqual(self.get()["ETag"], '"123456"')
 
-    def test_has_cache_control_header(self):
-        self.assertIn(
-            self.get()["Cache-Control"],
-            ["max-age=3600, public", "public, max-age=3600"],
-        )
-
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
 
@@ -182,7 +181,10 @@ class TestServeView(TestCase):
 class TestServeViewWithRedirect(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view_with_redirect.doc",
+            ContentFile("A boring example document"),
+        )
         self.serve_view_url = reverse(
             "wagtaildocs_serve", args=(self.document.id, self.document.filename)
         )
@@ -211,7 +213,10 @@ class TestServeViewWithRedirect(TestCase):
 class TestDirectDocumentUrls(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "direct_document_urls.doc",
+            ContentFile("A boring example document"),
+        )
 
     def tearDown(self):
         self.document.delete()
@@ -247,7 +252,10 @@ class TestServeWithExternalStorage(TestCase):
 
     def setUp(self):
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_with_external_storage.doc",
+            ContentFile("A boring example document"),
+        )
         self.serve_view_url = reverse(
             "wagtaildocs_serve", args=(self.document.id, self.document.filename)
         )
@@ -272,12 +280,15 @@ class TestServeViewWithSendfile(TestCase):
         # Import using a try-catch block to prevent crashes if the
         # django-sendfile module is not installed
         try:
-            import sendfile  # noqa
+            import sendfile  # noqa: F401
         except ImportError:
             raise unittest.SkipTest("django-sendfile not installed")
 
         self.document = models.Document(title="Test document")
-        self.document.file.save("example.doc", ContentFile("A boring example document"))
+        self.document.file.save(
+            "serve_view_with_sendfile.doc",
+            ContentFile("A boring example document"),
+        )
 
     def tearDown(self):
         # delete the FieldFile directly because the TestCase does not commit

@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,59 +73,14 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Choose a document"
-msgstr "Kōhiti he pukapuka"
-
-msgid "Search"
-msgstr "Haha"
-
-msgid "Upload"
-msgstr "Tukuatu"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s e whakarite"
-msgstr[1] ""
-"\n"
-"%(counter)s e whakarite"
-
 msgid "Latest documents"
 msgstr "Pukapuka hōu"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</em>"
-"\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga."
 
 msgid "You haven't uploaded any documents."
 msgstr "Ehara koe i tukuatu ētahi pukapuka."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"He aha ai<a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">tukuatu i nāeanei</a>?"
-
-msgid "Uploading…"
-msgstr "Tukuna atu..."
 
 msgid "Change document:"
 msgstr "panoni pukapuka:"
@@ -136,12 +91,11 @@ msgstr "Tāpiri he pukapuka"
 msgid "Add document"
 msgstr "Tāpiri pukapuka"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Muku %(title)s"
+msgid "Uploading…"
+msgstr "Tukuna atu..."
 
-msgid "Delete document"
-msgstr "Mukuhia pukapuka"
+msgid "Upload"
+msgstr "Tukuatu"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -152,6 +106,9 @@ msgstr "Whakarerekē"
 
 msgid "Save"
 msgstr "Puritia"
+
+msgid "Delete document"
+msgstr "Mukuhia pukapuka"
 
 msgid "Filesize"
 msgstr "Kōnae korahi"
@@ -175,63 +132,26 @@ msgid "Created"
 msgstr "Hangaia"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s mai rā anō"
-
-#, python-format
-msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga. He aha ai<a href="
-"\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
+"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ehara koe i tukuatu ētahi pukapuka. He aha ai<a href="
-"\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Te whakamahi ō %(title)s"
-
-msgid "Usage of"
-msgstr "Te whakamahi ō "
-
-msgid "Parent"
-msgstr "Mātua"
-
-msgid "Type"
-msgstr "Momo"
-
-msgid "Status"
-msgstr "Tūnga"
-
-msgid "Edit this page"
-msgstr "Whakarerekē i tēnei whārangi"
+"Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga. He aha ai<a "
+"href=\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
 
 #, python-format
 msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span>Pukapuka<span class=\"visuallyhidden\">I hangaia ki "
-"roto%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span>Pukapuka<span class=\"visuallyhidden\">I hangaia ki "
-"roto%(site_name)s</span>"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ehara koe i tukuatu ētahi pukapuka. He aha ai<a "
+"href=\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
 
 msgid "Add multiple documents"
 msgstr "Tāpiri ngā pukapuka taurea"
@@ -275,22 +195,28 @@ msgstr "Tāpiri he whakaae-a-pukapuka"
 msgid "Delete"
 msgstr "Muku"
 
-msgid "Server Error"
-msgstr "Hapa rorohiko"
+msgid "Choose a document"
+msgstr "Kōhiti he pukapuka"
+
+msgid "Choose another document"
+msgstr "Kōhiti anō he pukapuka "
+
+msgid "Edit this document"
+msgstr "Whakarerekē i tēnei pukapuka"
 
 msgid "Search documents"
 msgstr "Haha ngā pukapuka"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Pukapuka '{0}' kua tāpiri."
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Pukapuka '%(document_title)s' kua tāpiri."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Pukapuka '{0}' kua whakahou"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Pukapuka '%(document_title)s' kua whakahou"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -298,9 +224,9 @@ msgstr ""
 "Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
 "pukapuka rānei."
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Pukapuka '{0}' kua mukuhia."
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Pukapuka '%(document_title)s' kua mukuhia."
 
 msgid "Document"
 msgstr "Pukapuka"
@@ -310,9 +236,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s pukapuka"
 msgstr[1] "%(count)s pukapuka"
-
-msgid "Choose another document"
-msgstr "Kōhiti anō he pukapuka "
-
-msgid "Edit this document"
-msgstr "Whakarerekē i tēnei pukapuka"

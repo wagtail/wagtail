@@ -2,6 +2,8 @@
 Wagtail 2.10 release notes
 ==========================
 
+*August 11, 2020*
+
 .. contents::
     :local:
     :depth: 1
@@ -15,7 +17,7 @@ Moderation workflow
 
 This release introduces a configurable moderation workflow system to replace the single-step "submit for moderation" feature. Workflows can be set up on specific subsections of the page tree and consist of any number of tasks to be completed by designated user groups. To support this, numerous UI improvements have been made to Wagtail's page editor, including a new log viewer to track page history.
 
-For further details, see :ref:`managing_workflows` and :doc:`../extending/custom_tasks`.
+For further details, see our How-to: `Configure workflows for moderation <https://guide.wagtail.org/en-latest/how-to-guides/configure-workflows-for-moderation/>`_ and :doc:`../extending/custom_tasks`.
 
 This feature was developed by Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott and Dan Braghis, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
@@ -153,7 +155,7 @@ Key points:
   this should simply create a task approvable by anybody in the `Moderators` group, and assign a workflow with this task to the root page, creating a standard workflow
   for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
   inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
-  See :ref:`managing_workflows` for the administrator guide.
+  See our How-to: `Configure workflows for moderation <https://guide.wagtail.org/en-latest/how-to-guides/configure-workflows-for-moderation/>`_ for the administrator guide.
 
 
 ``<div class="rich-text">`` wrappers removed from rich text

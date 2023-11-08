@@ -1,8 +1,7 @@
 from django.urls import include, path, reverse
 from django.utils.html import format_html
-from django.utils.translation import gettext
+from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
@@ -26,6 +25,7 @@ from wagtail.images.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
+from wagtail.images.views.chooser import viewset as chooser_viewset
 
 
 @hooks.register("register_admin_urls")
@@ -66,7 +66,7 @@ def editor_js():
             window.chooserUrls.imageChooser = '{0}';
         </script>
         """,
-        reverse("wagtailimages:chooser"),
+        reverse("wagtailimages_chooser:choose"),
     )
 
 
@@ -94,7 +94,7 @@ def register_image_feature(features):
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["id", "src", "alt", "format"],
                 # Keep only images which are from Wagtail.
-                "whitelist": {
+                "allowlist": {
                     "id": True,
                 },
             },
@@ -126,6 +126,7 @@ def register_image_operations():
         ("scale", image_operations.ScaleOperation),
         ("jpegquality", image_operations.JPEGQualityOperation),
         ("webpquality", image_operations.WebPQualityOperation),
+        ("avifquality", image_operations.AvifQualityOperation),
         ("format", image_operations.FormatOperation),
         ("bgcolor", image_operations.BackgroundColorOperation),
     ]
@@ -139,7 +140,9 @@ class ImagesSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_images": get_image_model().objects.count(),
+            "total_images": permission_policy.instances_user_has_any_permission_for(
+                self.request.user, {"add", "change", "delete", "choose"}
+            ).count(),
             "site_name": site_name,
         }
 
@@ -200,3 +203,8 @@ register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)
+
+
+@hooks.register("register_admin_viewset")
+def register_image_chooser_viewset():
+    return chooser_viewset

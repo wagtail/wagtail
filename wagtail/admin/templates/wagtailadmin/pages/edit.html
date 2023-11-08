@@ -3,18 +3,16 @@
 {% load i18n %}
 {% load l10n %}
 {% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
+{% block bodyclass %}{% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
 
 {% block content %}
-    <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
     {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
-    {% include "wagtailadmin/shared/page_side_panels.html" %}
-
     {% block form %}
-        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+
+        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
             {% csrf_token %}
 
             <input type="hidden" name="next" value="{{ next }}">
@@ -35,27 +33,6 @@
                                     </div>
                                 </li>
 
-                                {% if preview_modes %}
-                                    <li class="preview">
-                                        {% trans 'Preview' as preview_label %}
-                                        {% if preview_modes|length > 1 %}
-                                            <div class="dropdown dropup dropdown-button match-width">
-                                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                                <ul>
-                                                    {% for mode_name, mode_display_name in preview_modes %}
-                                                        <li>
-                                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        {% else %}
-                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                        {% endif %}
-                                    </li>
-                                {% endif %}
-
                                 {% block extra_footer_actions %}
                                 {% endblock %}
                             </ul>
@@ -66,12 +43,10 @@
             </footer>
         </form>
     {% endblock %}
-
 {% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ media.css }}
 {% endblock %}
 
@@ -93,37 +68,6 @@
         {% endif %}
 
         $(function() {
-            {% if publishing_will_cancel_workflow %}
-                /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
-                let cancellationConfirmed = false;
-                $('[name=action-publish]').click((e) => {
-                    if (!cancellationConfirmed) {
-                        e.stopImmediatePropagation();
-                        e.preventDefault();
-                        ModalWorkflow({
-                            'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
-                            'onload': {
-                                'confirm': function(modal, jsonData) {
-                                    $('[data-confirm-cancellation]', modal.body).click((event) => {
-                                        cancellationConfirmed = true;
-                                        modal.close();
-                                        e.currentTarget.click();
-                                    })
-                                    $('[data-cancel-dialog]', modal.body).click((event) => {
-                                        modal.close();
-                                    })
-                                },
-                                'no_confirmation_needed': function(modal, jsonData) {
-                                    modal.close();
-                                    cancellationConfirmed = true;
-                                    e.currentTarget.click();
-                                }
-                            },
-                        });
-                    }
-                });
-            {% endif %}
-
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
@@ -135,23 +79,9 @@
                         alwaysDirty: true,
                     {% endif %}
 
-                    commentApp: window.comments.commentApp,
-                    callback: window.updateFooterSaveWarning
+                    commentApp: window.comments.commentApp
                 }
             );
-
-            /* Tooltips used by the workflow status component */
-            $('[data-wagtail-tooltip]').tooltip({
-                animation: false,
-                title: function() {
-                    return $(this).attr('data-wagtail-tooltip');
-                },
-                trigger: 'hover',
-                placement: 'bottom',
-            });
-
-            ActivateWorkflowActionsForEditView('#page-edit-form');
-            LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
 
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
@@ -160,4 +90,6 @@
             {% endif %}
         });
     </script>
+
+    {% include "wagtailadmin/shared/_workflow_init.html" %}
 {% endblock %}

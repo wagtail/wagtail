@@ -1,0 +1,446 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+
+// =============================================================================
+// Variables
+// =============================================================================
+
+$size-home-button: 3.5em;
+$position: 2em;
+$box-shadow-props:
+  0 0 1px 0 rgba(107, 214, 230, 1),
+  0 1px 10px 0 rgba(107, 214, 230, 0.7);
+$max-items: 12;
+$userbar-radius: 6px;
+$userbar-z-index: 9999;
+
+// Possible positions for the userbar to exist in. These are set through the
+// {% wagtailuserbar 'bottom-left' %} template tag.
+$positions: (
+  'top-left': (
+    'vertical': 'top',
+    'horizontal': 'left',
+  ),
+  'top-right': (
+    'vertical': 'top',
+    'horizontal': 'right',
+  ),
+  'bottom-left': (
+    'vertical': 'bottom',
+    'horizontal': 'left',
+  ),
+  'bottom-right': (
+    'vertical': 'bottom',
+    'horizontal': 'right',
+  ),
+);
+
+// =============================================================================
+// Wagtail userbar proper
+// =============================================================================
+.w-userbar {
+  position: fixed;
+  z-index: $userbar-z-index;
+  font-size: initial;
+  line-height: initial;
+  margin: 0;
+  padding: 0;
+  // Stop hiding the userbar once stylesheets are loaded.
+  // stylelint-disable-next-line declaration-no-important
+  display: block !important;
+  border: 0;
+  width: auto;
+  height: auto;
+
+  &-icon {
+    @include svg-icon(2em);
+  }
+}
+
+@media print {
+  .w-userbar {
+    display: none;
+  }
+}
+
+.w-userbar-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size-home-button;
+  height: $size-home-button;
+  margin: 0;
+  background-color: theme('colors.white.DEFAULT');
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: $box-shadow-props;
+  transition: all 0.2s ease-in-out;
+  font-size: 1rem;
+  text-decoration: none;
+  position: relative;
+
+  .w-icon:before {
+    transition: color 0.2s ease;
+    font-size: 2rem;
+    width: auto;
+    margin: 0;
+  }
+
+  .w-userbar-axe-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: theme('colors.critical.200');
+    border-radius: theme('borderRadius.full');
+    color: theme('colors.text-button');
+    font-size: theme('fontSize.14');
+    line-height: theme('lineHeight.none');
+    height: theme('spacing.5');
+    width: theme('spacing.5');
+    position: absolute;
+    inset-inline-end: -5px;
+    top: -5px;
+
+    @media (forced-colors: active) {
+      border: theme('spacing.px') solid ButtonText;
+    }
+  }
+
+  &:focus {
+    outline: theme('colors.focus') solid 3px;
+  }
+}
+
+.w-userbar-items {
+  display: block;
+  list-style: none;
+  position: absolute;
+  margin: 0;
+  min-width: 210px;
+  visibility: hidden;
+  font-family: $font-sans;
+  font-size: 0.875rem;
+  padding-inline-start: 0;
+  text-decoration: none;
+
+  .w-userbar.is-active & {
+    visibility: visible;
+  }
+}
+
+.w-userbar-nav {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: block;
+
+  .w-action {
+    background: transparent;
+  }
+}
+
+.w-userbar__item {
+  margin: 0;
+  background-color: theme('colors.surface-menus');
+  opacity: 0;
+  overflow: hidden;
+  transition-duration: 0.125s;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  font-family: $font-sans;
+  font-size: 1rem;
+  text-decoration: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    // Force disable transitions for all items
+    transition-delay: 0s;
+  }
+
+  &:first-child {
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
+    border-top-left-radius: $userbar-radius;
+    border-start-start-radius: $userbar-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
+    border-top-right-radius: $userbar-radius;
+    border-start-end-radius: $userbar-radius;
+  }
+
+  &:last-child {
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
+    border-bottom-right-radius: $userbar-radius;
+    border-end-end-radius: $userbar-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
+    border-bottom-left-radius: $userbar-radius;
+    border-end-start-radius: $userbar-radius;
+  }
+
+  a,
+  .w-action,
+  button {
+    color: theme('colors.text-label-menus-default');
+    display: block;
+    text-decoration: none;
+    transform: none;
+    transition: none;
+    margin: 0;
+    font-size: 0.875rem;
+
+    &:hover,
+    &:focus {
+      color: theme('colors.text-label-menus-default');
+      background-color: theme('colors.surface-menu-item-active');
+    }
+
+    &:focus {
+      outline: theme('colors.focus') solid 3px;
+    }
+
+    &-icon {
+      @include svg-icon(1em, middle);
+      margin-inline-end: 0.5em;
+      fill: currentColor;
+      opacity: 0.4;
+    }
+
+    .w-a11y-result__count {
+      margin-inline-end: theme('spacing.2');
+    }
+  }
+
+  .w-icon {
+    position: relative;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      inset-inline-start: 14px;
+    }
+  }
+
+  a,
+  button {
+    font-size: 0.875rem;
+    text-align: start;
+    padding: theme('spacing.[3.5]');
+  }
+
+  button {
+    border: 0;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.w-dialog--userbar {
+  // Display off to the side of the page rather than in the middle.
+  inset-inline-start: auto;
+  font-family: $font-sans;
+  padding-inline-end: 2rem;
+  z-index: $userbar-z-index;
+
+  .w-dialog__close-button {
+    $size: theme('spacing.6');
+    width: $size;
+    height: $size;
+    top: calc(-1 * $size / 2);
+    inset-inline-end: calc(-1 * $size / 2);
+    border-radius: theme('borderRadius.full');
+    border: 2px solid theme('colors.icon-primary');
+    background: theme('colors.surface-page');
+  }
+
+  .w-dialog__close-icon {
+    color: theme('colors.text-context');
+  }
+
+  .w-dialog__content {
+    padding: 0;
+    min-height: unset;
+    max-height: 60vh;
+  }
+
+  .w-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .w-dialog__title {
+    @apply w-h3;
+    padding: theme('spacing.4') theme('spacing.5');
+    margin-bottom: 0;
+  }
+
+  .w-dialog__subtitle {
+    @apply w-body-text;
+    padding-inline-end: theme('spacing.5');
+    display: flex;
+    align-items: center;
+    gap: theme('spacing.2');
+    margin-bottom: 0;
+  }
+
+  .w-a11y-result__row {
+    border-top: 1px solid theme('colors.border-furniture');
+  }
+
+  .w-a11y-result__header {
+    margin: 0;
+    padding: theme('spacing.4') theme('spacing.5');
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: theme('spacing.2');
+    font: inherit;
+    font-weight: theme('fontWeight.bold');
+  }
+
+  .w-a11y-result__name {
+    color: theme('colors.text-label');
+  }
+
+  .w-a11y-result__container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 theme('spacing.5') theme('spacing.5') theme('spacing.5');
+  }
+
+  .w-a11y-result__subtotal_count {
+    color: theme('colors.text-context');
+    width: theme('spacing.5');
+    text-align: center;
+  }
+
+  .w-a11y-result__selector {
+    display: flex;
+    align-items: center;
+    background: theme('colors.surface-field-inactive');
+    color: theme('colors.text-context');
+    border-radius: theme('borderRadius.DEFAULT');
+    margin-inline-end: theme('spacing.[2.5]');
+    margin-bottom: theme('spacing.[2.5]');
+    padding: theme('spacing.[1.5]');
+
+    &:hover,
+    &:focus {
+      background: theme('colors.surface-button-default');
+      color: theme('colors.text-button');
+
+      .w-a11y-result__icon {
+        fill: theme('colors.text-button');
+      }
+    }
+
+    @media (forced-colors: active) {
+      border: theme('spacing.px') solid ButtonText;
+    }
+  }
+
+  .w-a11y-result__icon {
+    flex-shrink: 0;
+    fill: theme('colors.surface-button-default');
+    height: theme('spacing.[3.5]');
+    width: theme('spacing.[3.5]');
+    margin-inline-end: theme('spacing.[2.5]');
+  }
+}
+
+.w-a11y-result__count {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: theme('colors.positive.100');
+  border-radius: theme('borderRadius.full');
+  font-size: theme('fontSize.14');
+  line-height: theme('lineHeight.none');
+  height: theme('spacing.5');
+  width: theme('spacing.5');
+  color: theme('colors.text-button');
+
+  &.has-errors {
+    background-color: theme('colors.critical.200');
+  }
+
+  @media (forced-colors: active) {
+    border: theme('spacing.px') solid ButtonText;
+  }
+}
+
+//Media for Windows High Contrast
+
+@media (forced-colors: active) {
+  .w-userbar-icon {
+    fill: LinkText;
+  }
+
+  .w-userbar__item {
+    border: 1px solid ButtonText;
+  }
+}
+
+// =============================================================================
+// Userbar positional classes (tl, tr, bl, br)
+// =============================================================================
+
+@each $pos, $attrs in $positions {
+  $vertical: map.get($attrs, vertical);
+  $horizontal: map.get($attrs, horizontal);
+
+  .w-userbar--#{$pos} {
+    #{$vertical}: $position;
+    #{$horizontal}: $position;
+
+    .w-userbar-items {
+      #{$vertical}: 100%;
+      #{$horizontal}: 0;
+      padding-#{$vertical}: theme('spacing.2');
+    }
+
+    .w-userbar-nav .w-userbar__item {
+      @if $vertical == 'bottom' {
+        transform: translateY(1em);
+      } @else {
+        transform: translateY(-1em);
+      }
+    }
+
+    &.is-active .w-userbar__item {
+      @for $i from 1 through $max-items {
+        @if $vertical == 'bottom' {
+          &:nth-last-child(#{$i}) {
+            transition-delay: 0.05s * $i;
+          }
+        }
+
+        @if $vertical == 'top' {
+          &:nth-child(#{$i}) {
+            transition-delay: 0.05s * $i;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// States
+// =============================================================================
+
+// Active state for the list items comes last.
+.w-userbar.is-active .w-userbar__item {
+  transform: translateY(0);
+  opacity: 1;
+}

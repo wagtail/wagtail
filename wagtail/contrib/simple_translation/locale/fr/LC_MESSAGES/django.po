@@ -4,22 +4,23 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Loic Teixeira, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Loic Teixeira, 2021\n"
-"Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail simple translation"
 msgstr "Traduction Simple Wagtail"
@@ -33,10 +34,12 @@ msgstr "Régions"
 msgid "All child pages will be created."
 msgstr "Toutes les sous-pages seront crées."
 
-msgid "Include subtree ({} page)"
-msgid_plural "Include subtree ({} pages)"
-msgstr[0] "Inclure le sous-arbre ({} page)"
-msgstr[1] "Inclure le sous-arbre ({} pages)"
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Inclure le sous-arbre (%(descendant_count)s page)"
+msgstr[1] "Inclure le sous-arbre (%(descendant_count)s page)"
+msgstr[2] "Inclure le sous-arbre (%(descendant_count)s page)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -45,11 +48,15 @@ msgstr[0] "Une région est désactivée car une page parente n'est pas traduite.
 msgstr[1] ""
 "Certaines régions sont désactivées car certaines pages parentes ne sont pas "
 "traduites."
+msgstr[2] ""
+"Certaines régions sont désactivées car certaines pages parentes ne sont pas "
+"traduites."
 
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Traduire la page parente."
 msgstr[1] "Traduire les pages parentes."
+msgstr[2] "Traduire les pages parentes."
 
 msgid "Submit"
 msgstr "Soumettre"
@@ -57,24 +64,30 @@ msgstr "Soumettre"
 msgid "Translate"
 msgstr "Traduire"
 
-msgid "{} locales"
-msgstr "{} régions"
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s régions"
 
 msgid "Translate page"
 msgstr "Traduire la page"
 
-#, python-brace-format
-msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "La page '{page_title}' a été crée avec succès en {locales}"
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "La page '%(page_title)s' a été crée avec succès en %(locales)s"
 
-#, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Traduire {model_name}"
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Traduire %(model_name)s"
 
-#, python-brace-format
-msgid "Successfully created {locales} for {model_name} '{object}'"
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
 msgstr ""
-"Les régions {locales} ont été créées avec succès pour {model_name} '{object}'"
+"Les régions %(locales)s ont été créées avec succès pour %(model_name)s "
+"'%(object)s'"
+
+msgid "Translate this page"
+msgstr "Traduire cette page"
 
 #, python-format
 msgid "Translate '%(title)s'"

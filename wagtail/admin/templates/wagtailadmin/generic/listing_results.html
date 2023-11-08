@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags i18n %}
+
+{% if object_list %}
+    {% block results %}
+        {% component table %}
+        {% if is_paginated %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+        {% endif %}
+    {% endblock %}
+{% else %}
+    {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+{% endif %}

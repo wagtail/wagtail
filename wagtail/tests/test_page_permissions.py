@@ -10,10 +10,10 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     Page,
-    UserPagePermissionsProxy,
     Workflow,
     WorkflowTask,
 )
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
     EventIndex,
@@ -187,7 +187,7 @@ class TestPagePermission(TestCase):
 
         # Remove 'edit' permission from the event_moderator group
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="edit"
+            group__name="Event moderators", permission__codename="change_page"
         ).delete()
 
         homepage = Page.objects.get(url_path="/home/")
@@ -418,11 +418,16 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        user_perms = UserPagePermissionsProxy(event_editor)
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        policy = PagePermissionPolicy()
+
+        editable_pages = policy.instances_user_has_permission_for(
+            event_editor, "change"
+        )
+        can_edit_pages = policy.user_has_permission(event_editor, "change")
+        publishable_pages = policy.instances_user_has_permission_for(
+            event_editor, "publish"
+        )
+        can_publish_pages = policy.user_has_permission(event_editor, "publish")
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -453,8 +458,8 @@ class TestPagePermission(TestCase):
         )
         about_us_page = Page.objects.get(url_path="/home/about-us/")
 
-        user_perms = UserPagePermissionsProxy(event_editor)
-        explorable_pages = user_perms.explorable_pages()
+        policy = PagePermissionPolicy()
+        explorable_pages = policy.explorable_instances(event_editor)
 
         # Verify all pages below /home/events/ are explorable
         self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
@@ -474,7 +479,7 @@ class TestPagePermission(TestCase):
 
         homepage = Page.objects.get(url_path="/home/")
         explorer_response = client.get(
-            "/admin/api/main/pages/?child_of={}&for_explorer=1".format(homepage.pk)
+            f"/admin/api/main/pages/?child_of={homepage.pk}&for_explorer=1"
         )
         explorer_json = json.loads(explorer_response.content.decode("utf-8"))
 
@@ -489,13 +494,14 @@ class TestPagePermission(TestCase):
         corporate_editor = get_user_model().objects.get(
             email="corporateeditor@example.com"
         )
-        user_perms = UserPagePermissionsProxy(corporate_editor)
+
+        policy = PagePermissionPolicy()
 
         about_us_page = Page.objects.get(url_path="/home/about-us/")
         businessy_events = Page.objects.get(url_path="/home/events/businessy-events/")
         events_page = Page.objects.get(url_path="/home/events/")
 
-        explorable_pages = user_perms.explorable_pages()
+        explorable_pages = policy.explorable_instances(corporate_editor)
 
         self.assertTrue(explorable_pages.filter(id=about_us_page.id).exists())
         self.assertTrue(explorable_pages.filter(id=businessy_events.id).exists())
@@ -514,11 +520,16 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        user_perms = UserPagePermissionsProxy(event_moderator)
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        policy = PagePermissionPolicy()
+
+        editable_pages = policy.instances_user_has_permission_for(
+            event_moderator, "change"
+        )
+        can_edit_pages = policy.user_has_permission(event_moderator, "change")
+        publishable_pages = policy.instances_user_has_permission_for(
+            event_moderator, "publish"
+        )
+        can_publish_pages = policy.user_has_permission(event_moderator, "publish")
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -547,11 +558,12 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        user_perms = UserPagePermissionsProxy(user)
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        policy = PagePermissionPolicy()
+
+        editable_pages = policy.instances_user_has_permission_for(user, "change")
+        can_edit_pages = policy.user_has_permission(user, "change")
+        publishable_pages = policy.instances_user_has_permission_for(user, "publish")
+        can_publish_pages = policy.user_has_permission(user, "publish")
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
@@ -582,11 +594,12 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        user_perms = UserPagePermissionsProxy(user)
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        policy = PagePermissionPolicy()
+
+        editable_pages = policy.instances_user_has_permission_for(user, "change")
+        can_edit_pages = policy.user_has_permission(user, "change")
+        publishable_pages = policy.instances_user_has_permission_for(user, "publish")
+        can_publish_pages = policy.user_has_permission(user, "publish")
 
         self.assertTrue(editable_pages.filter(id=homepage.id).exists())
         self.assertTrue(editable_pages.filter(id=christmas_page.id).exists())
@@ -615,11 +628,12 @@ class TestPagePermission(TestCase):
             url_path="/home/events/someone-elses-event/"
         )
 
-        user_perms = UserPagePermissionsProxy(user)
-        editable_pages = user_perms.editable_pages()
-        can_edit_pages = user_perms.can_edit_pages()
-        publishable_pages = user_perms.publishable_pages()
-        can_publish_pages = user_perms.can_publish_pages()
+        policy = PagePermissionPolicy()
+
+        editable_pages = policy.instances_user_has_permission_for(user, "change")
+        can_edit_pages = policy.user_has_permission(user, "change")
+        publishable_pages = policy.instances_user_has_permission_for(user, "publish")
+        can_publish_pages = policy.user_has_permission(user, "publish")
 
         self.assertFalse(editable_pages.filter(id=homepage.id).exists())
         self.assertFalse(editable_pages.filter(id=christmas_page.id).exists())
@@ -644,8 +658,8 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         locked_page = Page.objects.get(url_path="/home/my-locked-page/")
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
-        locked_perms = UserPagePermissionsProxy(user).for_page(locked_page)
+        perms = christmas_page.permissions_for_user(user)
+        locked_perms = locked_page.permissions_for_user(user)
 
         self.assertTrue(perms.can_lock())
         self.assertFalse(
@@ -657,7 +671,7 @@ class TestPagePermission(TestCase):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertTrue(perms.can_lock())
         self.assertTrue(perms.can_unlock())
@@ -667,10 +681,10 @@ class TestPagePermission(TestCase):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertTrue(perms.can_lock())
         self.assertFalse(perms.can_unlock())
@@ -686,10 +700,10 @@ class TestPagePermission(TestCase):
         christmas_page.save()
 
         GroupPagePermission.objects.filter(
-            group__name="Event moderators", permission_type="unlock"
+            group__name="Event moderators", permission__codename="unlock_page"
         ).delete()
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         # Unlike in the previous test, the user can unlock this page as it was them who locked
         self.assertTrue(perms.can_lock())
@@ -699,7 +713,7 @@ class TestPagePermission(TestCase):
         user = get_user_model().objects.get(email="eventeditor@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertFalse(perms.can_lock())
         self.assertFalse(perms.can_unlock())
@@ -708,7 +722,7 @@ class TestPagePermission(TestCase):
         user = get_user_model().objects.get(email="admin_only_user@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertFalse(perms.can_lock())
         self.assertFalse(perms.can_unlock())
@@ -723,7 +737,7 @@ class TestPagePermission(TestCase):
             permission_type="lock",
         )
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertTrue(perms.can_lock())
 
@@ -734,7 +748,7 @@ class TestPagePermission(TestCase):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         self.assertFalse(perms.page_locked())
 
@@ -748,17 +762,18 @@ class TestPagePermission(TestCase):
         christmas_page.locked_at = timezone.now()
         christmas_page.save()
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         # The user who locked the page shouldn't see the page as locked
         self.assertFalse(perms.page_locked())
 
         # Other users should see the page as locked
         other_user = get_user_model().objects.get(email="eventeditor@example.com")
-        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+
+        other_perms = christmas_page.permissions_for_user(other_user)
         self.assertTrue(other_perms.page_locked())
 
-    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
     def test_page_locked_for_locked_page_with_global_lock_enabled(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -769,14 +784,16 @@ class TestPagePermission(TestCase):
         christmas_page.locked_at = timezone.now()
         christmas_page.save()
 
-        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+        perms = christmas_page.permissions_for_user(user)
 
         # The user who locked the page should now also see the page as locked
         self.assertTrue(perms.page_locked())
 
         # Other users should see the page as locked, like before
         other_user = get_user_model().objects.get(email="eventeditor@example.com")
-        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+
+        other_perms = christmas_page.permissions_for_user(other_user)
+
         self.assertTrue(other_perms.page_locked())
 
     def test_page_locked_in_workflow(self):
@@ -788,19 +805,19 @@ class TestPagePermission(TestCase):
         christmas_page.save_revision()
         workflow.start(christmas_page, editor)
 
-        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+        moderator_perms = christmas_page.permissions_for_user(moderator)
 
         # the moderator is in the group assigned to moderate the task, so the page should
         # not be locked for them
         self.assertFalse(moderator_perms.page_locked())
 
-        superuser_perms = UserPagePermissionsProxy(superuser).for_page(christmas_page)
+        superuser_perms = christmas_page.permissions_for_user(superuser)
 
         # superusers can moderate any GroupApprovalTask, so the page should not be locked
         # for them
         self.assertFalse(superuser_perms.page_locked())
 
-        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+        editor_perms = christmas_page.permissions_for_user(editor)
 
         # the editor is not in the group assigned to moderate the task, so the page should
         # be locked for them
@@ -814,14 +831,14 @@ class TestPagePermission(TestCase):
         christmas_page.save_revision()
         workflow.start(christmas_page, editor)
 
-        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+        moderator_perms = christmas_page.permissions_for_user(moderator)
 
         # the moderator is in the group assigned to moderate the task, so they can lock the page, but can't unlock it
         # unless they're the locker
         self.assertTrue(moderator_perms.can_lock())
         self.assertFalse(moderator_perms.can_unlock())
 
-        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+        editor_perms = christmas_page.permissions_for_user(editor)
 
         # the editor is not in the group assigned to moderate the task, so they can't lock or unlock the page
         self.assertFalse(editor_perms.can_lock())
@@ -915,3 +932,17 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         self.assertFalse(
             singleton_page_perms.can_copy_to(self.singleton_page.get_parent())
         )
+
+
+class TestPagePermissionModel(TestCase):
+    fixtures = [
+        "test.json",
+    ]
+
+    def test_create_with_permission_type_only(self):
+        user = get_user_model().objects.get(email="eventmoderator@example.com")
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        group_permission = GroupPagePermission.objects.create(
+            group=user.groups.first(), page=page, permission_type="add"
+        )
+        self.assertEqual(group_permission.permission.codename, "add_page")

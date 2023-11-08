@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -14,22 +16,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
+"Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail images"
 msgstr "Imagens do Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -44,24 +44,30 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Formatos suportados: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Formato de imagem não suportado. Formatos suportados: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Formato de imagem não suportado. Formatos suportados: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Imagem %s inválida."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este ficheiro é demasiado grande (%(file_size)s). Tamanho máximo "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Este ficheiro é demasiado grande (%%s). Tamanho máximo %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"O ficheiro tem demasiados píxeis (%(num_pixels)s). O máximo de píxeis é "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "O ficheiro tem demasiados píxeis (%%s). O máximo de píxeis é %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Este ficheiro é demasiado grande. Tamanho do ficheiro máximo %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Este ficheiro é demasiado grande. Tamanho do ficheiro máximo "
+"%(max_filesize)s."
 
 msgid "Full width"
 msgstr "Largura completa"
@@ -164,12 +170,6 @@ msgstr "imagem"
 msgid "images"
 msgstr "imagens"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Adicionar palavras-chave a 1 imagem"
-msgstr[1] "Adicionar palavras-chave a %(counter)simagens"
-
 msgid "Add tags to images"
 msgstr "Adicionar palavras-chave a imagens"
 
@@ -178,23 +178,20 @@ msgid_plural "Are you sure you want to tag the following images?"
 msgstr[0] "Tem a certeza que quer adicionar palavras-chave à seguinte imagem?"
 msgstr[1] ""
 "Tem a certeza que quer adicionar palavras-chave às seguintes imagens?"
+msgstr[2] ""
+"Tem a certeza que quer adicionar palavras-chave às seguintes imagens?"
 
 msgid "You don't have permission to add tags to this image"
 msgid_plural "You don't have permission to add tags to these images"
 msgstr[0] "Não tem permissão para adicionar palavras-chave a esta imagem"
 msgstr[1] "Não tem permissão para adicionar palavras-chave a estas imagens"
+msgstr[2] "Não tem permissão para adicionar palavras-chave a estas imagens"
 
 msgid "Yes, add"
 msgstr "Sim, adicionar"
 
 msgid "No, don't add"
 msgstr "Não, não adicionar"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "Adicionar 1 imagem a nova coleção"
-msgstr[1] "Adicionar%(counter)simagens a nova coleção"
 
 msgid "Add images to collection"
 msgstr "Adicionar imagens a coleção"
@@ -207,17 +204,21 @@ msgstr[0] ""
 "Tem a certeza que quer adicionar a seguinte imagem à coleção selecionada?"
 msgstr[1] ""
 "Tem a certeza que quer adicionar as seguintes imagens à coleção selecionada?"
+msgstr[2] ""
+"Tem a certeza que quer adicionar as seguintes imagens à coleção selecionada?"
 
 msgid "You don't have permission to add this image to a collection"
 msgid_plural "You don't have permission to add these images to a collection"
 msgstr[0] "Não tem permissão para adicionar esta imagem a uma coleção"
 msgstr[1] "Não tem permissão para adicionar estas imagens a uma coleção"
+msgstr[2] "Não tem permissão para adicionar estas imagens a uma coleção"
 
 #, python-format
 msgid "Delete 1 image"
 msgid_plural "Delete %(counter)s images"
 msgstr[0] "Apagar 1 imagem"
 msgstr[1] "Apagar %(counter)simagens"
+msgstr[2] "Apagar %(counter)simagens"
 
 msgid "Delete images"
 msgstr "Apagar imagens"
@@ -226,17 +227,20 @@ msgid "Are you sure you want to delete this image?"
 msgid_plural "Are you sure you want to delete these images?"
 msgstr[0] "Tem a certeza que quer apagar esta imagem?"
 msgstr[1] "Tem a certeza que quer apagar estas imagens?"
+msgstr[2] "Tem a certeza que quer apagar estas imagens?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Utilizado %(usage_count)s vez"
 msgstr[1] "Utilizado %(usage_count)s vezes"
+msgstr[2] "Utilizado %(usage_count)s vezes"
 
 msgid "You don't have permission to delete this image"
 msgid_plural "You don't have permission to delete these images"
 msgstr[0] "Não tem permissão para apagar esta imagem"
 msgstr[1] "Não tem permissão para apagar estas imagens"
+msgstr[2] "Não tem permissão para apagar estas imagens"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
@@ -244,35 +248,14 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
-msgid "Choose an image"
-msgstr "Escolher uma imagem"
-
-msgid "Search"
-msgstr "Pesquisar"
-
-msgid "Upload"
-msgstr "Carregar"
-
 msgid "Popular tags"
 msgstr "Palavras-chave populares"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Existe %(counter)s correspondência\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Existem %(counter)s correspondências\n"
-"        "
+msgid "Existing"
+msgstr "Existente"
+
+msgid "New"
+msgstr "Novo"
 
 msgid "Latest images"
 msgstr "Últimas imagens"
@@ -282,31 +265,6 @@ msgstr "Escolher um formato"
 
 msgid "Insert image"
 msgstr "Inserir imagem"
-
-msgid "Uploading…"
-msgstr "A carregar…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Imagem <span class=\"visuallyhidden\">criada "
-"em %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Imagens <span class=\"visuallyhidden"
-"\">criadas em %(site_name)s</span>\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Alterar ficheiro de imagem:"
@@ -320,32 +278,15 @@ msgstr "Adicionar imagem"
 msgid "Save"
 msgstr "Gravar"
 
-msgid "Delete image"
-msgstr "Apagar imagem"
-
-msgid ""
-"\n"
-"                    Are you sure you want to delete this image?\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Are you sure you want to delete these images?\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Tem a certeza que quer apagar esta imagem?\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Tem a certeza que quer apagar estas imagens?\n"
-"                "
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "A alterar imagem %(title)s"
 
 msgid "Editing"
 msgstr "A alterar"
+
+msgid "Delete image"
+msgstr "Apagar imagem"
 
 msgid "URL Generator"
 msgstr "Gerador de URL"
@@ -387,11 +328,15 @@ msgstr "Imagens"
 msgid "Popular Tags:"
 msgstr "Palavras-chave Populares:"
 
-msgid "Clear choice"
-msgstr "Limpar escolha"
-
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da listagem"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrado %(counter)s resultado"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
 
 msgid "Select image"
 msgstr "Selecionar imagem"
@@ -405,19 +350,19 @@ msgstr "Desculpe, nenhuma imagem corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhuma imagem nesta coleção. Que tal <a href="
-"\"%(wagtailimages_add_image_url)s\">carregar uma agora</a>?"
+"Ainda não carregou nenhuma imagem nesta coleção. Que tal <a "
+"href=\"%(wagtailimages_add_image_url)s\">carregar uma agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhuma imagem. Que tal <a href="
-"\"%(wagtailimages_add_image_url)s\">carregar uma agora</a>?"
+"Ainda não carregou nenhuma imagem. Que tal <a "
+"href=\"%(wagtailimages_add_image_url)s\">carregar uma agora</a>?"
 
 msgid "Generating URL"
 msgstr "A gerar URL"
@@ -434,28 +379,6 @@ msgid ""
 msgstr ""
 "Note que as imagens com dimensões superiores às do ecrã irão aparecer "
 "reduzidas, de forma a caberem no ecrã."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Utilização de %(title)s"
-
-msgid "Usage of"
-msgstr "Utilização de"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "Parent"
-msgstr "Mãe"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Edit this page"
-msgstr "Alterar esta página"
 
 msgid "Add multiple images"
 msgstr "Adicionar múltiplas imagens"
@@ -515,6 +438,8 @@ msgstr[0] ""
 "Novas palavras-chave foram adicionadas a %(num_parent_objects)d imagem"
 msgstr[1] ""
 "Novas palavras-chave foram adicionadas a %(num_parent_objects)d imagens"
+msgstr[2] ""
+"Novas palavras-chave foram adicionadas a %(num_parent_objects)d imagens"
 
 msgid "Add to collection"
 msgstr "Adicionar a coleção"
@@ -527,6 +452,7 @@ msgid "%(num_parent_objects)d image has been added to %(collection)s"
 msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
 msgstr[0] "%(num_parent_objects)d imagem foi adicionada a %(collection)s"
 msgstr[1] "%(num_parent_objects)d imagens foram adicionadas a %(collection)s"
+msgstr[2] "%(num_parent_objects)d imagens foram adicionadas a %(collection)s"
 
 msgid "Delete"
 msgstr "Apagar"
@@ -539,13 +465,29 @@ msgid "%(num_parent_objects)d image has been deleted"
 msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)dimagem foi apagada"
 msgstr[1] "%(num_parent_objects)dimagens foram apagadas"
+msgstr[2] "%(num_parent_objects)dimagens foram apagadas"
+
+msgid "Upload"
+msgstr "Carregar"
+
+msgid "Uploading…"
+msgstr "A carregar…"
+
+msgid "Choose an image"
+msgstr "Escolher uma imagem"
+
+msgid "Choose another image"
+msgstr "Escolher outra imagem"
+
+msgid "Edit this image"
+msgstr "Alterar esta imagem"
 
 msgid "Search images"
 msgstr "Pesquisar imagens"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Imagem '{0}' atualizada."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Imagem '%(image_title)s' atualizada."
 
 msgid "Edit again"
 msgstr "Alterar de novo"
@@ -560,13 +502,13 @@ msgstr ""
 "O ficheiro de origem da imagem não foi encontrado. Por favor altere a fonte "
 "ou apague a imagem."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Imagem '{0}' apagada."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Imagem '%(image_title)s' apagada."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Imagem '{0}' adicionada."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Imagem '%(image_title)s' adicionada."
 
 msgid "The image could not be created due to errors."
 msgstr "A imagem não pôde ser criada devido a erros."
@@ -579,9 +521,7 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagem"
 msgstr[1] "%(count)s imagens"
+msgstr[2] "%(count)s imagens"
 
 msgid "Change image"
-msgstr "Alterar imagem"
-
-msgid "Edit this image"
-msgstr "Alterar esta imagem"
+msgstr "Mudar imagem"

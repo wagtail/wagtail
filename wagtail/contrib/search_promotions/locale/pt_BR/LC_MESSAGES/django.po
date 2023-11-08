@@ -12,22 +12,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail search promotions"
 msgstr "Wagtail promoção de pesquisa"
 
+msgid "Search term(s)/phrase"
+msgstr "Buscar termo(s)/frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduza a cadeia de busca completa para corresponder. Uma correspondência "
+"exata é necessário para os seus resultados promovidos ser exibido, curingas "
+"não são permitidos."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
+
+msgid "Query Daily Hits"
+msgstr "Acessos diários da query"
 
 msgid "page"
 msgstr "página"
@@ -43,35 +58,6 @@ msgstr "Adicionar promoção de pesquisa"
 
 msgid "Add search pick"
 msgstr "Adicionar sugestão de pesquisa"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Resultados de busca promovidos são meios de recomendar páginas "
-"específicas que pode não aparecer organicamente nos resultados. Ex. "
-"recomendar sua página de doação principal para um usuário pesquisando com um "
-"termo menos comum  \"<em>doando</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>O \"Termo(s)/frase da busca\" abaixo devem conter a busca exata e "
-"completa para a qual você deseja provê resultados recomendados, "
-"<em>incluíndo</em> qualquer erro de digitação ou do usuário. Para ajudar, "
-"você pode escolher a partir de termos que são populares entre os usuários de "
-"seu site</p>"
 
 msgid "Save"
 msgstr "Salvar"
@@ -105,17 +91,11 @@ msgstr "Mover para cima"
 msgid "Move down"
 msgstr "Mover para baixo"
 
-msgid "Promoted search result"
-msgstr "Resultado promovido"
-
-msgid "Add recommended page"
-msgstr "Adicionar recomendação para página"
+msgid "Promoted search results"
+msgstr "Resultados promovidos"
 
 msgid "Search Terms"
 msgstr "Procurar Termos"
-
-msgid "Promoted search results"
-msgstr "Resultados promovidos"
 
 msgid "Add new promoted result"
 msgstr "Adicionar um novo resultado promovido"
@@ -144,26 +124,33 @@ msgstr "Ordem por visualizações (mais alta primeiro)"
 msgid "Edit this promotion"
 msgstr "Editar esta promoção"
 
+msgid "External link"
+msgstr "Link externo"
+
 msgid "None"
 msgstr "Nenhum"
 
+msgid "Popular search terms"
+msgstr "Termos populares de pesquisa"
+
+msgid "Search"
+msgstr "Busca"
+
+msgid "Terms"
+msgstr "Termos"
+
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+msgid "Choose from popular search terms"
+msgstr "Escolha a partir de termos populares"
+
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Há %(counter)s resultado\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Há %(counter)s resultados\n"
-"        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Existe %(counter)s correspondência"
+msgstr[1] "Existem %(counter)s correspondências"
+msgstr[2] "Existem %(counter)s correspondências"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -171,18 +158,18 @@ msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum resultado promovido foi criado. Porque não <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+"Nenhum resultado promovido foi criado. Porque não <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
 
 msgid "Search promoted results"
 msgstr "Pesquisar resultados promovidos"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Sugestões dos editores para '{0}' criados."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Sugestões dos editores para '%(query)s' criados."
 
 msgid "Edit"
 msgstr "Editar"
@@ -190,9 +177,9 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não poderiam ser criadas devido a erros"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Sugestões do editor para '{0}' atualizado."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Sugestões do editor para '%(query)s' atualizado."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "As recomendações não puderam ser salvas devido a erros"

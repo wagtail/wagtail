@@ -5,10 +5,12 @@
 # Translators:
 # Eva Mikesova <eva.mikesova@tul.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2023
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Marek Turnovec <aesculap@gmail.com>, 2016,2020
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2018
@@ -19,10 +21,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,11 +39,13 @@ msgstr "Publikovat"
 msgid "Submit for moderation"
 msgstr "Odeslat ke schválení"
 
-msgid "Resubmit to {}"
-msgstr "Potvrdit {}"
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Potvrdit %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Potvrdit {}"
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Potvrdit %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Obnovit zpracování"
@@ -51,18 +55,6 @@ msgstr "Stornovat zpracování"
 
 msgid "Unpublish"
 msgstr "Zrušit publikaci"
-
-msgid "Delete"
-msgstr "Smazat"
-
-msgid "Lock"
-msgstr "Uzamknout"
-
-msgid "Apply editor lock"
-msgstr "Uzamknout pro úpravy"
-
-msgid "Unlock"
-msgstr "Odemknout"
 
 msgid "Save Draft"
 msgstr "Uložit Koncept"
@@ -85,27 +77,6 @@ msgstr "Nemáte oprávnění k přístupu do redakčního systému"
 
 msgid "None"
 msgstr "Nic"
-
-msgid "Scheduled publishing"
-msgstr "Naplánovaná publikace"
-
-msgid "Privacy"
-msgstr "Viditelnost"
-
-msgid "For search engines"
-msgstr "Pro vyhledávače"
-
-msgid "For site menus"
-msgstr "Pro menu webu"
-
-msgid "Content"
-msgstr "Obsah"
-
-msgid "Promote"
-msgstr "Propagovat"
-
-msgid "Settings"
-msgstr "Nastavení"
 
 msgid "Date from"
 msgstr "Datum od"
@@ -138,14 +109,30 @@ msgid "Enter password"
 msgstr "Zadejte heslo"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Zadejte své %s"
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Zadejte své %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Search term"
+msgstr "Hledaný výraz"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "All collections"
+msgstr "Všechny kolekce"
+
+msgid "Collection"
+msgstr "Kolekce"
 
 msgid "Parent"
 msgstr "Nadřazená stránka"
@@ -163,17 +150,32 @@ msgstr "Prosím, zvolte jiného předka"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
-msgid "Collection"
-msgstr "Kolekce"
-
 msgid "Add"
 msgstr "Přidat"
+
+msgid "Add collections"
+msgstr "Přidat kolekce"
 
 msgid "Edit"
 msgstr "Upravit"
 
+msgid "Edit collections"
+msgstr "Upravit kolekce"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Delete collections"
+msgstr "Smazat kolekce"
+
 msgid "You cannot edit another user's comment."
 msgstr "Nemůžete změnit komentář jiného uživatele."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
 
 msgid "New title"
 msgstr "Nový název"
@@ -239,27 +241,21 @@ msgstr "Nemáte oprávnění kopírovat do stránky \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
 msgstr ""
-"Tento název pro URL je již použit v kontextu s rodičovskou stránkou \"%s\""
+"Tento název pro URL je již použit v kontextu s rodičovskou stránkou "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstránek"
 
-msgid "This slug is already in use"
-msgstr "Název pro URL musí být unikátní"
+msgid "Select a new parent for this page."
+msgstr "Zvolte novou nadřazenou stránku pro tuto stránku."
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
-
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Search term"
-msgstr "Hledaný výraz"
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tag(y) %(value_too_long)s mají více než %(max_tag_length)d znaků"
 
 msgid "Visibility"
 msgstr "Viditelnost"
@@ -273,9 +269,9 @@ msgstr "Zvolte prosím alespoň jednu skupinu."
 msgid "All types"
 msgstr "Všechny typy"
 
-#, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Tato stránka již má přiřazeno zpracování '{0}'."
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Tato stránka již má přiřazeno zpracování '%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Nelze přiřadit tento postup ke stejné stránce vícekrát."
@@ -286,140 +282,65 @@ msgstr "Pojmenujte tento postup"
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
 
-msgid "Page"
-msgstr "Stránka"
+msgid "Task"
+msgstr "Úkol"
 
-msgid "Pages"
-msgstr "Stránky"
+msgid "1 page selected"
+msgstr "1 stránka vybrána"
 
-msgid "Loading…"
-msgstr "Načítání..."
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s stránek vybráno"
 
-msgid "No results"
-msgstr "Žádné výsledky"
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Všechny %(objects)s stránky na této obrazovce vybrány"
 
-msgid "Server Error"
-msgstr "Chyba serveru"
+msgid "1 document selected"
+msgstr "1 dokument vybrán"
 
-msgid "See all"
-msgstr "Zobrazit vše"
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s dokumentů vybráno"
 
-msgid "Close explorer"
-msgstr "Zavřít explorer"
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Všechny %(objects)s dokumenty na této obrazovce vybrány"
 
-msgid "Alt text"
-msgstr "Alternativní text"
+msgid "1 image selected"
+msgstr "1 obrázek vybrán"
 
-msgid "Decorative image"
-msgstr "Dekorační obrázek"
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s obrázků vybráno"
 
-msgid "Write here…"
-msgstr "Pište zde..."
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Všechny %(objects)s obrázky na této obrazovce vybrány"
 
-msgid "Horizontal line"
-msgstr "Horizontální linie"
+msgid "1 user selected"
+msgstr "1 uživatel vybrán"
 
-msgid "Line break"
-msgstr "Nový řádek"
+msgid "For search engines"
+msgstr "Pro vyhledávače"
 
-msgid "Undo"
-msgstr "Vrátit zpět"
+msgid "For site menus"
+msgstr "Pro menu webu"
 
-msgid "Redo"
-msgstr "Opakovat"
+msgid "Content"
+msgstr "Obsah"
 
-msgid "Reload the page"
-msgstr "Znovu načíst stránku"
+msgid "Promote"
+msgstr "Propagovat"
 
-msgid "Reload saved content"
-msgstr "Znovu načíst uložený obsah"
+msgid "Settings"
+msgstr "Nastavení"
 
-msgid "Show latest content"
-msgstr "Zobrazit aktuální obsah"
+msgid "Title"
+msgstr "Název"
 
-msgid "Show error"
-msgstr "Zobrazit chyby"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
-
-msgid "Broken link"
-msgstr "Nefunkční odkaz"
-
-msgid "Missing document"
-msgstr "Chybějící dokument"
-
-msgid "Close"
-msgstr "Zavřít"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Editovat '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Ukázat podstránky '{title}'"
-
-msgid "Page explorer"
-msgstr "Explorer"
-
-msgid "Save"
-msgstr "Uložit"
-
-msgid "Saving..."
-msgstr "Ukládám ..."
-
-msgid "Cancel"
-msgstr "Storno"
-
-msgid "Deleting..."
-msgstr "Rušení ..."
-
-msgid "Add a comment"
-msgstr "Přidej komentář"
-
-msgid "Show comments"
-msgstr "Ukaž komentáře"
-
-msgid "Reply"
-msgstr "Odpovědět"
-
-msgid "Resolve"
-msgstr "Odsouhlasit"
-
-msgid "Retry"
-msgstr "Zkusit znova"
-
-msgid "Delete error"
-msgstr "Chyba při rušení"
-
-msgid "Are you sure?"
-msgstr "Jste si jist(a)?"
-
-msgid "Save error"
-msgstr "Chyba při ukládání"
-
-msgid "This will be saved when the page is saved"
-msgstr "Bude uloženo, jakmile uložíte stránku"
-
-msgid "Focus comment"
-msgstr "Zvýraznit komentář"
-
-msgid "Unfocus comment"
-msgstr "Nezvýrazňovat komentář"
-
-msgid "Comment"
-msgstr "Komentář"
-
-msgid "More actions"
-msgstr "Další akce"
-
-msgid "Dashboard"
-msgstr "Dashboard"
-
-msgid "Edit your account"
-msgstr "Upravte svůj účet"
+msgid "Page title"
+msgstr "Název stránky"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
@@ -436,17 +357,11 @@ msgstr "Přejít do redakčního systému"
 msgid "Account"
 msgstr "Účet"
 
+msgid "More actions"
+msgstr "Další akce"
+
 msgid "Save account details"
 msgstr "Uložit detaily účtu"
-
-msgid "Change password"
-msgstr "Změnit heslo"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
-"administrátora."
 
 msgid "Reset password"
 msgstr "Obnovit heslo"
@@ -493,14 +408,20 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
-msgid "Upload a profile picture:"
-msgstr "Nahrát profilový obrázek:"
-
 msgid "Reset to default"
 msgstr "Zpět na původní hodnoty"
 
+msgid "Upload a profile picture:"
+msgstr "Nahrát profilový obrázek:"
+
 msgid "Go back"
 msgstr "Zpět"
+
+msgid "Bulk actions"
+msgstr "Hromadné akce"
+
+msgid "Select row"
+msgstr "Vybrat řádek"
 
 msgid "Select all"
 msgstr "Vybrat vše"
@@ -520,28 +441,6 @@ msgstr "Odkaz na telefon"
 msgid "Anchor link"
 msgstr "Odkaz na kotvu"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Nalezen %(counter)s výsledek"
-msgstr[1] ""
-"\n"
-"Nalezeny %(counter)s výsledky"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-msgstr[3] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-
 msgid "Add an anchor link"
 msgstr "Vložit odkaz na kotvu"
 
@@ -554,37 +453,8 @@ msgstr "Zvolit"
 msgid "Choose a page"
 msgstr "Zvolit stránku"
 
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Pouze typ \"%(type)s\" stránky může být vybrán pro toto "
-"pole. Výsledky hledání nebudou obsahovat stránky jiných typů.\n"
-"                "
-msgstr[1] ""
-"\n"
-"               Pouze následující typy stránek mohou být vybrány pro toto "
-"pole: %(type)s. Výsledky hledání nebudou obsahovat stránky jiných typů.\n"
-"            "
-msgstr[2] ""
-"\n"
-"                Pouze následující typy stránek mohou být vybrány pro toto "
-"pole: %(type)s. Výsledky hledání nebudou obsahovat stránky jiných typů.\n"
-"            "
-msgstr[3] ""
-"\n"
-"                Pouze následující typy stránek mohou být vybrány pro toto "
-"pole: %(type)s. Výsledky hledání nebudou obsahovat stránky jiných typů.\n"
-"            "
+msgid "Use external link"
+msgstr "Použít externí odkaz"
 
 msgid "Add an email link"
 msgstr "Vložit e-mailový odkaz"
@@ -598,6 +468,13 @@ msgstr "Vložit externí odkaz"
 msgid "Add a phone link"
 msgstr "Vložit telefonní odkaz"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prozkoumat podstránky '%(title)s'"
+
+msgid "Explore"
+msgstr "Prozkoumat"
+
 msgid "Collection privacy"
 msgstr "Viditelnost kolekce"
 
@@ -607,9 +484,15 @@ msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavení viditelnosti můžete změnit zde:"
 
+msgid "Save"
+msgstr "Uložit"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kolekci."
+
+msgid "Privacy"
+msgstr "Viditelnost"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Veřejná"
@@ -632,33 +515,55 @@ msgstr "Jméno"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a href="
-"\"%(add_collection_url)s\">zde</a>."
-
-#, python-format
-msgid "Add %(label)s"
-msgstr "Přidat %(label)s"
-
-msgid "Move up"
-msgstr "Posunout nahoru"
-
-msgid "Move down"
-msgstr "Posunout dolů"
-
-msgid "Add comment"
-msgstr "Přidat komentář"
-
-msgid "Comment notifications"
-msgstr "Notifikace o komentářích"
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a "
+"href=\"%(add_collection_url)s\">zde</a>."
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Zrušit publikaci %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ano, zrušit publikaci"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nerušit publikaci"
+
+msgid "Cancel"
+msgstr "Storno"
+
+msgid "No log entries found."
+msgstr "Nenalezeny žádné záznamy v logu."
+
 msgid "Update"
 msgstr "Uložit"
+
+msgid "Preview not available"
+msgstr "Náhled není dostupný"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnání %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnání"
+
+msgid "Fields"
+msgstr "Pole"
+
+msgid "Changes"
+msgstr "Změny"
+
+msgid "There are no differences between these two versions"
+msgstr "Obě verze jsou shodné"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -672,24 +577,23 @@ msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
 
-msgid "Title"
-msgstr "Název"
-
 msgid "Locked at"
 msgstr "Uzamčeno: "
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
 msgid "Draft"
 msgstr "Koncept"
 
 msgid "Live"
 msgstr "Publikováno"
-
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čekající na schválení"
@@ -724,44 +628,6 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Přehled obsahu"
 
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"            <span>%(total)s</span> Stránka <span class=\"visuallyhidden"
-"\">vytvořená v %(site_name)s</span>\n"
-"        "
-msgstr[1] ""
-"\n"
-"            <span>%(total)s</span> Stránky <span class=\"visuallyhidden"
-"\">vytvořené v %(site_name)s</span>\n"
-"        "
-msgstr[2] ""
-"\n"
-"            <span>%(total)s</span> Stránek <span class=\"visuallyhidden"
-"\">vytvořených v %(site_name)s</span>\n"
-"        "
-msgstr[3] ""
-"\n"
-"            <span>%(total)s</span> Stránek <span class=\"visuallyhidden"
-"\">vytvořených v %(site_name)s</span>\n"
-"        "
-
-msgid "Your pages in a workflow"
-msgstr "Stránky zařazené do postupu"
-
-msgid "Task"
-msgstr "Úkol"
-
 msgid "Task started"
 msgstr "Úkol spuštěn"
 
@@ -771,21 +637,32 @@ msgstr "Změny, o které bylo požádáno v"
 msgid "Awaiting"
 msgstr "Čeká se"
 
+msgid "Close"
+msgstr "Zavřít"
+
 msgid "Awaiting your review"
 msgstr "Očekává se vaše revize"
 
 msgid "Tasks"
 msgstr "Úkoly"
 
+msgid "Compare with live version"
+msgstr "Porovnat s publikovánou verzí"
+
+msgid "Compare with previous version"
+msgstr "Porovnat s předchozí verzí"
+
 msgid "Sign in"
 msgstr "Přihlásit se"
 
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
-
 msgid "Sign in to Wagtail"
 msgstr "Přihlášení do redakčního systému"
+
+msgid "Forgotten password?"
+msgstr "Zapomenuté heslo?"
+
+msgid "Remember me"
+msgstr "Zapamatovat si mě"
 
 msgid "Signing in…"
 msgstr "Přihlašování..."
@@ -861,13 +738,6 @@ msgid ""
 "\"%(task)s\"."
 msgstr ""
 "Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\"."
-
-#, python-format
-msgid ""
-"The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
-msgstr ""
-"Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -951,39 +821,14 @@ msgid ""
 msgstr ""
 "Stránka \"%(title)s\" byla uložena k posouzení pro postup \"%(workflow)s\"."
 
-#, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr "Stránka \"%(title)s\" byla uložena k postupu \"%(workflow)s\" "
-
 msgid "Page privacy"
 msgstr "Viditelnost"
 
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
-
-msgid "Visit the live page"
-msgstr "Navštívit publikovanou stránku"
-
-msgid "This page is live but only available to certain users"
-msgstr "Stránka je zveřejněna, ale jen pro určité uživatele"
-
-msgid "restricted"
-msgstr "omezeno"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Nastavení viditelnosti stránky. Aktuální stav: Veřejná"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Nastavení viditelnosti stránky. Aktuální stav: Privátní"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Soukromí stránky. Aktuální stav: Veřejná"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Viditelnosti stránky. Aktuální stav: Privátní"
+msgid "Save the page before leaving"
+msgstr "Uložit stránku před jejím opuštěním"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Máte <span>neuložené změny</span>"
@@ -993,9 +838,6 @@ msgstr "You have <span>neuložené komentáře</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Máte <span>neuložené změny</span> a <span>komentáře</span>"
-
-msgid "Save the page before leaving"
-msgstr "Uložit stránku před jejím opuštěním"
 
 msgid "Publishing…"
 msgstr "Publikování..."
@@ -1026,14 +868,23 @@ msgstr "Zvolit typ stránky, který chcete vytvořit."
 msgid "Pages using %(page_type)s"
 msgstr "Stránky typu %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Ne, nemazat"
-
 msgid "Move"
 msgstr "Přesunout"
 
-msgid "No, don't unpublish"
-msgstr "Ne, nerušit publikaci"
+msgid "Yes, move these pages"
+msgstr "Ano, přesunout tyto stránky"
+
+msgid "No, don't move"
+msgstr "Ne, nepřesouvat"
+
+msgid "Yes, publish"
+msgstr "Ano, publikovat"
+
+msgid "No, don't publish"
+msgstr "Ne, nepublikovat"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Opravdu chcete zrušit publikaci těchto stránek?"
 
 #, python-format
 msgid "Convert alias %(title)s"
@@ -1058,29 +909,6 @@ msgstr "Smazat %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Opravdu chcete smazat tuto stránku?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"Tímto dojde též ke smazání jedné podstránky."
-msgstr[1] ""
-"\n"
-"Tímto dojde též ke smazání %(descendant_count)s podstránek."
-msgstr[2] ""
-"\n"
-"Tímto dojde též ke smazání %(descendant_count)s podstránek."
-msgstr[3] ""
-"\n"
-"Tímto dojde též ke smazání %(descendant_count)s podstránek."
-
 msgid "Yes, delete it"
 msgstr "Ano, smazat"
 
@@ -1103,7 +931,7 @@ msgstr "Přesunout %(title)s"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
-msgstr "Opravdu chcete přesunout tuto stránku pod \"%(title)s\"?"
+msgstr "Opravdu chcete přesunout tuto stránku pod '%(title)s'?"
 
 #, python-format
 msgid ""
@@ -1111,86 +939,22 @@ msgid ""
 "'%(title)s'?"
 msgstr ""
 "Opravdu chcete přesunout tuto stránku a všechny její podstránky pod "
-"\"%(title)s\"?"
+"'%(title)s'?"
 
 msgid "Yes, move this page"
 msgstr "Ano, přesunout stránku"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Zrušit publikaci %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Opravdu chcete zrušit publikaci této stránky?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"Tato stránka má jednu podstránku. Zrušit i její publikaci"
-msgstr[1] ""
-"\n"
-"Tato stránka má %(live_descendant_count)s podstránky. Zrušit i jejich "
-"publkaci"
-msgstr[2] ""
-"\n"
-"Tato stránka má %(live_descendant_count)s podstránek. Zrušit i jejich "
-"publkaci"
-msgstr[3] ""
-"\n"
-"Tato stránka má %(live_descendant_count)s podstránek. Zrušit i jejich "
-"publikaci"
-
-msgid "Yes, unpublish it"
-msgstr "Ano, zrušit publikaci"
-
 msgid "Publish page"
 msgstr "Publikovat stránku"
-
-#, python-format
-msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            Tato stránka byla označena k potřebě změn v <strong>%(task)s</"
-"strong> v <strong>%(workflow)s</strong>.\n"
-"        "
-
-#, python-format
-msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            Tato stránka je momentálně v <strong>%(task)s</strong> v <strong>"
-"%(workflow)s</strong>.\n"
-"        "
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Zveřejnění této stránky přeruší aktuální postup."
 
 msgid "Would you still like to publish this page?"
 msgstr "Opravdu chcete zveřejnit tuto stránku?"
-
-#, python-format
-msgid "Pages using %(page_class_verbose_name)s"
-msgstr "Stránky, které používají %(page_class_verbose_name)s"
-
-msgid "Pages using"
-msgstr "Stránky typu"
 
 #, python-format
 msgid "Copy %(title)s"
@@ -1206,25 +970,12 @@ msgstr "Kopírovat tuto stránku"
 msgid "New %(page_type)s"
 msgstr "Nový %(page_type)s"
 
-msgid "New"
-msgstr "Nový"
-
-msgid "Actions"
-msgstr "Akce"
-
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Upravit %(page_type)s: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "Upravuje se %(page_type)s"
-
-msgid "History"
-msgstr "Historie"
 
 msgid "This page is an alias of another page."
 msgstr "Tato stránka je aliasem od jiné stránky."
@@ -1245,6 +996,9 @@ msgstr "Uživatel"
 msgid "Date / Time"
 msgstr "Datum / Čas"
 
+msgid "Comment"
+msgstr "Komentář"
+
 msgid "Live version"
 msgstr "Publikovaná verze"
 
@@ -1252,133 +1006,25 @@ msgid "Current draft"
 msgstr "Aktuální koncept"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
-
-msgid "No log entries found."
-msgstr "Nenalezeny žádné záznamy v logu."
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Obsah pod %(title)s"
 
-msgid "Drag"
-msgstr "Přetáhnout myší"
-
-msgid "Updated"
-msgstr "Uloženo"
-
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"Výchozí úroveň je místo kde můžete pro svoji Wagtail instalaci přidat nové "
-"weby. Stránky vytvořené zde nebudou dostupné pomocí žádného URL, dokud je "
-"nepřiřadíte k webu."
-
 msgid "Configure a site now."
 msgstr "Nyní zkonfigurujte web"
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"                            Pokud chcete pouze přidat stránky do "
-"existujícího webu, vytvořte je jako podstránky domovské stránky.\n"
-"                        "
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Zde vytvořené stránky nebudou dostupné pomocí "
-"žádného URL. Pro přidání stránek do existujícího webu, vytvořte je jako "
-"podstránky domovské stránky.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"                        V tomto umístění nejsou nastaveny žádné weby. "
-"Stránky vytvořené zde nebudou dostupné pomocí žádného URL dokud nebude k "
-"tomuto umístění přiřazen web.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Pro toto umístění neexistuje žádný web. Stránky "
-"vytvořené zde nebudou dostupné pomocí žádného URL\n"
-"                    "
-
-msgid "No pages have been created at this location."
-msgstr "V tomto umístění nebyly zatím vytvořeny žádné stránky."
-
-#, python-format
-msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "<a href=\"%(add_page_url)s\">Založit</a> novou stránku."
 
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
 
 #, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Prozkoumat podstránky '%(title)s'"
-
-msgid "Explore"
-msgstr "Prozkoumat"
-
-#, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "Zobrazit podstránky \"%(title)s\""
+msgstr "Zobrazit podstránky '%(title)s'"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Přidat podstránku pod \"%(title)s\""
+msgstr "Přidat podstránku pod '%(title)s'"
 
-msgid "Sites menu"
-msgstr "Seznam webů"
-
-msgid "Pagination"
-msgstr "Stránkování"
-
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"Strana %(page_number)s / %(num_pages)s."
-
-msgid "Previous"
-msgstr "Předchozí"
-
-msgid "Next"
-msgstr "Následující"
-
-msgid "This page is protected from public view"
-msgstr "Tato stránka není veřejně viditelná"
+msgid "Drag"
+msgstr "Přetáhnout myší"
 
 msgid "Disable ordering of child pages"
 msgstr "Vypnout řazení podstránek"
@@ -1389,39 +1035,29 @@ msgstr "Třídění"
 msgid "Enable ordering of child pages"
 msgstr "Zapnout řazení podstránek"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
+msgid "Sites menu"
+msgstr "Seznam webů"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
+msgid "Pagination"
+msgstr "Stránkování"
 
-msgid "Preview error"
-msgstr "Chyba náhledu"
+msgid "Previous"
+msgstr "Předchozí"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"Není možné zobrazit náhled této stránky protože zbývají nějaké chyby.\n"
-"Zavřete tuto kartu, opravte chyby ve stránce a znovu použijte náhled."
+msgid "Next"
+msgstr "Následující"
 
-msgid "Current status:"
-msgstr "Aktuální stav:"
+msgid "This page is protected from public view"
+msgstr "Tato stránka není veřejně viditelná"
 
-msgid "Set page privacy"
-msgstr "Nastavit soukromí stránky"
+msgid "Confirm"
+msgstr "Potvrdit"
+
+msgid "Add child page"
+msgstr "Přidat podstránku"
 
 msgid "Review this version"
 msgstr "Revidovat tuto verzi"
-
-msgid "Compare with previous version"
-msgstr "Porovnat s předchozí verzí"
 
 msgid "Compare with current version"
 msgstr "Porovnat s aktuální verzí"
@@ -1429,72 +1065,110 @@ msgstr "Porovnat s aktuální verzí"
 msgid "Cancel scheduled publish"
 msgstr "Zrušit naplánované publikování"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnání %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnání"
-
-msgid "Page history"
-msgstr "Historie stránky"
-
-msgid "Fields"
-msgstr "Pole"
-
-msgid "Changes"
-msgstr "Změny"
+msgid "Page types"
+msgstr "Typy stránky"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Přesunuto dolů o 1 pozici."
-msgstr[1] ""
-"\n"
-"Přesunuto dolů o %(counter)s pozice."
-msgstr[2] ""
-"\n"
-"Přesunuto dolů o %(counter)s pozic."
-msgstr[3] ""
-"\n"
-"Přesunuto dolů o %(counter)s pozic."
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Bohužel, žádná stránka nevyhovuje <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Zadejte hledaný výraz"
+
+msgid "No pages use"
+msgstr "Žádné stránky typu"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Přesunuto nahoru o 1 pozici."
-msgstr[1] ""
-"\n"
-"Přesunuto nahoru o %(counter)s pozice."
-msgstr[2] ""
-"\n"
-"Přesunuto nahoru o %(counter)s pozic."
-msgstr[3] ""
-"\n"
-"Přesunuto nahoru o %(counter)s pozic."
+msgid "Add %(label)s"
+msgstr "Přidat %(label)s"
 
-msgid "There are no differences between these two versions"
-msgstr "Obě verze jsou shodné"
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Last published"
+msgstr "Naposledy publikováno"
+
+msgid "No pages found."
+msgstr "Nebyla nalezena žádná stránka."
+
+msgid "No pages match this report's criteria."
+msgstr "Žádná stránka neodpovídá parametrům výkazu."
+
+msgid "Updated"
+msgstr "Uloženo"
+
+msgid "Locking status"
+msgstr "Stav uzamčení"
+
+msgid "Locked"
+msgstr "Uzamčeno"
+
+msgid "No locked pages found."
+msgstr "Nebyly nalezeny žádné uzamčené stránky"
+
+msgid "Edit this item"
+msgstr "Upravit tuto položku"
+
+msgid "By Task"
+msgstr "Úlohou"
+
+msgid "Workflow"
+msgstr "Zpracování"
+
+msgid "Requested by"
+msgstr "Požadováno (kým)"
+
+msgid "Started at"
+msgstr "Spuštěno v"
+
+msgid "Incomplete task"
+msgstr "Neúplná úloha"
+
+msgid "By Workflow"
+msgstr "Podle postupu"
+
+msgid "Completed at"
+msgstr "Dokončeno v"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Drobečková navigace"
+
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Apply filters"
+msgstr "Použít filtry"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Root"
+msgstr "Počátek"
+
+msgid "Current page status:"
+msgstr "Aktuální stav stránky:"
+
+msgid "Visit the live page"
+msgstr "Navštívit publikovanou stránku"
+
+msgid "Toggle section"
+msgstr "Přepnout výběr"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1512,43 +1186,43 @@ msgstr "Ano, nezveřejňovat"
 msgid "No, don't unschedule"
 msgstr "Ne, ponechat ke zveřejnění"
 
+msgid "Other searches"
+msgstr "Další hledání"
+
+msgid "Side panels"
+msgstr "Postranní panely"
+
+msgid "Toggle side panel"
+msgstr "Přepnout postranní panel"
+
+msgid "Comment notifications"
+msgstr "Notifikace o komentářích"
+
+msgid "Unlocked"
+msgstr "Odemčeno"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
+
+msgid "Usage"
+msgstr "Použití"
+
 #, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"Nalezena jedna shoda"
-msgstr[1] ""
-"\n"
-"Celkem vyhovujících stran: %(counter)s"
-msgstr[2] ""
-"\n"
-"Celkem vyhovujících stran: %(counter)s"
-msgstr[3] ""
-"\n"
-"Celkem vyhovujících stran: %(counter)s"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s -krát"
+msgstr[1] "Použito %(usage_count)s -krát"
+msgstr[2] "Použito %(usage_count)s -krát"
+msgstr[3] "Použito %(usage_count)s -krát"
 
-msgid "Page types"
-msgstr "Typy stránky"
+msgid "View history"
+msgstr "Zobrazit historii"
 
-#, python-format
-msgid "Sorry, no pages match <em>%(query_string)s</em>"
-msgstr "Bohužel, žádná stránka nevyhovuje <em>%(query_string)s</em>"
-
-msgid "Enter a search term above"
-msgstr "Zadejte hledaný výraz"
-
-msgid "No pages use"
-msgstr "Žádné stránky typu"
-
-msgid "Workflow progress"
-msgstr "Průběh postupu"
+msgid "First published"
+msgstr "Poprvé publikováno"
 
 msgid "Edit / Review"
 msgstr "Editovat / Revidovat"
@@ -1564,40 +1238,11 @@ msgstr "Požadováno (kým) <b>%(modified_by)s</b>"
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Zahájeno v <b>%(started_at)s</b>"
 
-#, python-format
-msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
-msgstr "Stav <span class=\"status-tag primary\"> %(status)s</span>"
-
 msgid "Timeline"
 msgstr "Časová osa"
 
 msgid "Initial Revision"
 msgstr "První revize"
-
-msgid "Page edited"
-msgstr "Stránka editována"
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s (kdo) <b>%(who)s</b> "
-"v <b>%(at)s</b>\n"
-"                                        "
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s v <b>%(at)s</b>\n"
-"                                        "
 
 msgid "with comment:"
 msgstr "s komentářem:"
@@ -1609,182 +1254,17 @@ msgid "Workflow completed"
 msgstr "Postup byl dokončen"
 
 #, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"                                        %(action)s (kdo) <b>%(who)s</b>\n"
-"                                    "
-
-#, python-format
 msgid "Workflow history for %(title)s"
 msgstr "Historie postupu pro %(title)s"
 
 msgid "Workflow history for"
 msgstr "Historie postupu pro"
 
-msgid "Edit page"
-msgstr "Upravit stránku"
-
-msgid "Requested by"
-msgstr "Požadováno (kým)"
-
-msgid "Started at"
-msgstr "Spuštěno v"
-
 msgid "Approved task"
 msgstr "Schválená úloha"
 
-msgid "Incomplete task"
-msgstr "Neúplná úloha"
-
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tato stránka zatím nebyla uložena k posouzení"
-
-msgid "No pages found."
-msgstr "Nebyla nalezena žádná stránka."
-
-msgid "No pages match this report's criteria."
-msgstr "Žádná stránka neodpovídá parametrům výkazu."
-
-msgid "Download XLSX"
-msgstr "Stáhnout XLSX"
-
-msgid "Download CSV"
-msgstr "Stáhnout CSV"
-
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Apply filters"
-msgstr "Použít filtry"
-
-msgid "Locking status"
-msgstr "Stav uzamčení"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"Uzamčeno <b>Vámi</b>:  <b>%(locking_date)s</b>\n"
-"                            "
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"Uzamčeno uživatelem <b>%(locked_by)s</b>: <b>%(locking_date)s</b>\n"
-"                            "
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Uzamčeno: <b>%(locking_date)s</b>\n"
-"                        "
-
-msgid "Locked"
-msgstr "Uzamčeno"
-
-msgid "No locked pages found."
-msgstr "Nebyly nalezeny žádné uzamčené stránky"
-
-msgid "Edit this item"
-msgstr "Upravit tuto položku"
-
-msgid "By Task"
-msgstr "Úlohou"
-
-msgid "Workflow"
-msgstr "Zpracování"
-
-msgid "No pages have been submitted for moderation yet"
-msgstr "K posouzení zatím nebyly předloženy žádné stránky."
-
-msgid "By Workflow"
-msgstr "Podle postupu"
-
-msgid "Completed at"
-msgstr "Dokončeno v"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
-
-msgid "Breadcrumb"
-msgstr "Drobečková navigace"
-
-msgid "Root"
-msgstr "Počátek"
-
-msgid "Home"
-msgstr "Domů"
-
-msgid "All collections"
-msgstr "Všechny kolekce"
-
-msgid "Account settings"
-msgstr "Nastavení účtu"
-
-msgid "Log out"
-msgstr "Odhlásit"
-
-msgid "Current page status:"
-msgstr "Aktuální stav stránky:"
-
-msgid "Other searches"
-msgstr "Další hledání"
-
-msgid "Changes requested"
-msgstr "Jsou požadovány změny"
-
-msgid "since"
-msgstr "od"
-
-msgid "Published"
-msgstr "Publikováno"
-
-msgid "Draft saved"
-msgstr "Koncept uložen"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Používáte <strong>zastaralý</strong> prohlížeč, který není podporovaný tímto "
-"software.  <a href=\"https://browsehappy.com/\">Aktualizujte prosím svůj "
-"prohlížeč</a>."
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtail potřebuje používat JavaScript, jenže ten je zakázán.<br /"
-">\n"
-"            Zde jsou <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">pokyny, jak povolíte JavaScript ve "
-"vašem prohlížeči</a>.\n"
-"        "
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
@@ -1794,6 +1274,9 @@ msgstr "Přidat podstránku"
 
 msgid "Show in Explorer"
 msgstr "Zobrazit v exploreru"
+
+msgid "No"
+msgstr "Ne"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Opravdu chcete zakázat tento postup?"
@@ -1816,12 +1299,14 @@ msgstr "Vytvořit"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Postupy se uplatní i pro podstránky. Vyberete-li nyní nadřazenou stránku, i "
-"její podřízené stránky použijí tento postup. Zobrazit <a href="
-"\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento postup."
+"její podřízené stránky použijí tento postup. Zobrazit <a "
+"href=\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento "
+"postup."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Tento postup není povolen. Nelze ho proto přiřazovat ke stránkám."
@@ -1832,8 +1317,19 @@ msgstr "Použito na následujících aktivních postupech."
 msgid "Not used"
 msgstr "Nepoužito"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s navíc"
+msgstr[1] "+%(counter)s navíc"
+msgstr[2] "+%(counter)s navíc"
+msgstr[3] "+%(counter)s navíc"
+
 msgid "Assigned pages"
 msgstr "Přiřazené stránky"
+
+msgid "Page"
+msgstr "Stránka"
 
 msgid "Assign to another page"
 msgstr "Přiřadit k jiné stránce"
@@ -1848,40 +1344,8 @@ msgid "Used by"
 msgstr "Použito (kým)"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            1 stránka\n"
-"                                        "
-msgstr[1] ""
-"\n"
-"                                        %(counter)s stránky"
-msgstr[2] ""
-"\n"
-"                                           %(counter)s stránek"
-msgstr[3] ""
-"\n"
-"                                            %(counter)s stránek\n"
-"                                        "
-
-#, python-format
 msgid "Step %(step_number)s"
 msgstr "Krok %(step_number)s"
-
-#, python-format
-msgid "+%(counter)s more"
-msgid_plural "+%(counter)s more"
-msgstr[0] "+%(counter)s navíc"
-msgstr[1] "+%(counter)s navíc"
-msgstr[2] "+%(counter)s navíc"
-msgstr[3] "+%(counter)s navíc"
 
 #, python-format
 msgid ""
@@ -1901,37 +1365,14 @@ msgstr "Určete, jaký typ úlohy chcete vytvořit."
 msgid "Choose a task"
 msgstr "Vybrat úlohu"
 
+msgid "New"
+msgstr "Nový"
+
 msgid "Existing"
 msgstr "Existující"
 
 msgid "Choose a different task type"
 msgstr "Zvolte jiný typ úlohy"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Existuje %(counter)s shoda\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Existují %(counter)s shody\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Existuje %(counter)s shod\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Existuje %(counter)s shod\n"
-"        "
 
 msgid "Task type"
 msgstr "Typ úlohy"
@@ -1945,17 +1386,6 @@ msgstr "Bohužel, žádná úloha neodpovídá \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Nevytvořil(a) jste žádné úlohy."
-
-msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"                Můžete <a class=\"create-one-now\" href=\"#\">nějakou "
-"vytvořit nyní</a>\n"
-"            "
 
 msgid "Hide disabled tasks"
 msgstr "Skrýt zakázané úlohy"
@@ -1984,14 +1414,6 @@ msgstr "Stránky, které používají postup '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Stránky, které používají postup"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Uloženo do <em>%(workflow_name)s</em> v %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "uživatelem %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Uloženo"
 
@@ -2002,15 +1424,34 @@ msgstr "Není spuštěno"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Změny, požadované (kým) %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Jsou požadovány změny"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Schváleno (kým) %(approved_by)s"
 
+msgid "Published"
+msgstr "Publikováno"
+
 msgid "See full history"
 msgstr "Zobraz celou historii"
 
-msgid "Compare with live version"
-msgstr "Porovnat s publikovánou verzí"
+msgid "More"
+msgstr "Více"
+
+msgid "0 minutes"
+msgstr "0 minut"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
+msgid "Log out"
+msgstr "Odhlásit"
+
+msgid "Comments"
+msgstr "Komentáře"
 
 #, python-format
 msgid ""
@@ -2025,27 +1466,6 @@ msgid ""
 "descending order."
 msgstr ""
 "Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
-
-msgid "More"
-msgstr "Více"
-
-msgid "0 minutes"
-msgstr "0 minut"
-
-msgid "Just now"
-msgstr "Právě teď"
-
-msgid "live"
-msgstr "zveřejněno"
-
-msgid "draft"
-msgstr "návrh"
-
-msgid "live + draft"
-msgstr "zveřejněno + návrh"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Profile"
 msgstr "Profil"
@@ -2080,13 +1500,13 @@ msgstr "Přidat kolekci"
 msgid "Add collection"
 msgstr "Přidat kolekci"
 
-#, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Kolekce '{0}' byla vytvořena."
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kolekce '%(object)s' byla vytvořena."
 
-#, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Kolekce '{0}' byla uložena."
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kolekce '%(object)s' byla uložena."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Kolekci nelze uložit, zkontrolujte správné vyplnění polí."
@@ -2094,23 +1514,71 @@ msgstr "Kolekci nelze uložit, zkontrolujte správné vyplnění polí."
 msgid "Delete collection"
 msgstr "Smazat kolekci"
 
-#, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Kolekce '{0}' byla smazána."
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kolekce '%(object)s' byla smazána."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Opravdu chcete smazat tuto kolekci?"
 
+msgid "Home"
+msgstr "Domů"
+
+msgid "Workflow progress"
+msgstr "Průběh postupu"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' aktualizováno."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' vytvořeno."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editovat '%(title)s'"
+
+msgid "Inspect"
+msgstr "Prozkoumat"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Zrušit '%(title)s'"
+
 msgid "Editing"
 msgstr "Úprava"
 
-#, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
+msgid "Inspecting"
+msgstr "Prohlíží se.."
 
-#, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Stránka '{0}' byla zkopírována."
+msgid "Earliest"
+msgstr "Nejstarší"
+
+msgid "Latest"
+msgstr "Nejnovější"
+
+msgid "Usage of"
+msgstr "Použití"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Publish selected pages"
+msgstr "Publikovat vybrané stránky"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Stránka '%(page_title)s' a %(subpages_count)s podstránek bylo zkopírováno."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Stránka '%(page_title)s' byla zkopírována."
 
 msgid "View draft"
 msgstr "Zobrazit koncept"
@@ -2118,93 +1586,83 @@ msgstr "Zobrazit koncept"
 msgid "View live"
 msgstr "Zobrazit publikovanou verzi"
 
-#, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Stránka '{0}' byla vytvořena."
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Stránka '%(page_title)s' byla vytvořena."
 
-#, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Stránka '{0}' byla vytvořena a naplánována pro publikování."
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Stránka '%(page_title)s' byla vytvořena a naplánována pro publikování."
 
-#, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Stránka '{0}' byla vytvořena a publikována."
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Stránka '%(page_title)s' byla vytvořena a publikována."
 
-#, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stránka '{0}' byla vytvořena a odeslána ke schválení."
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Stránka '%(page_title)s' byla vytvořena a odeslána ke schválení."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Stránku nelze vytvořit, zkontrolujte správné vyplnění polí"
 
-#, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Stránka '{0}' byla smazána."
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Stránka '%(page_title)s' byla smazána."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stránka nyní čeká na schválení"
 
-#, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Stránka '{0}' byla nahrazena verzí (od) {1}."
-
-#, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Stránka '{0}' byla aktualizována."
-
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Stránku '{}' jste uzamknul</b>:<b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Stránku '{}' jste uzamknul</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Stránka '{}' byla uzamčena</b> uživatelem <b>{}</b>: <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Stránka '{}' je uzamčena</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Tato stránka nyní čeká na posouzení."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Tato stránka čeká <b>'{}'</b> v postupu <b>'{}'</b> ."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
-
-#, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Postup na stránce '{0}' byl stornován."
-
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Verze {0} stránky '{1}' byla naplánována ke zveřejnění."
-
-#, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
 msgstr ""
-"Stránka '{0}' je zveřejněna a tato verze byla ke zveřejnění naplánována."
+"Stránka '%(page_title)s' byla nahrazena verzí (od) "
+"%(previous_revision_datetime)s."
 
-#, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Stránka '{0}' byla naplánována pro publikování."
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Stránka '%(page_title)s' byla aktualizována."
 
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "Verze {0} stránky '{1}' byla zveřejněna."
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Postup na stránce '%(page_title)s' byl stornován."
 
-#, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Stránka '{0}' byla zveřejněna."
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"Verze %(previous_revision_datetime)s stránky '%(page_title)s' byla "
+"naplánována ke zveřejnění."
 
-#, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Stránka '{0}' byla uložena ke schválení."
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Stránka '%(page_title)s' je zveřejněna a tato verze byla ke zveřejnění "
+"naplánována."
 
-#, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "Postup na stránce '{0}' byl obnoven."
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Stránka '%(page_title)s' byla naplánována pro publikování."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "Verze %(datetime)s stránky '%(page_title)s' byla zveřejněna."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Stránka '%(page_title)s' byla zveřejněna."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Stránka '%(page_title)s' byla uložena ke schválení."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Postup na stránce '%(page_title)s' byl obnoven."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Stránku nelze uložit, protože je uzamčena"
@@ -2212,39 +1670,42 @@ msgstr "Stránku nelze uložit, protože je uzamčena"
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
-#, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Stránka '{0}' je nyní odemknuta."
+msgid "Page history"
+msgstr "Historie stránky"
 
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Stránka '{0}' nyní nečeká na schválení."
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Stránka '%(page_title)s' je nyní odemknuta."
 
-#, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stránka '{0}' byla publikována."
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stránka '%(page_title)s' nyní nečeká na schválení."
+
+#, python-format
+msgid "Page '%(page_title)s' published."
+msgstr "Stránka '%(page_title)s' byla publikována."
 
 msgid "Failed to send approval notifications"
 msgstr "Selhalo odeslání souhlasných notifikací"
 
-#, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Publikace stránky '{0}' byla zamítnuta."
+#, python-format
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Publikace stránky '%(page_title)s' byla zamítnuta."
 
 msgid "Failed to send rejection notifications"
 msgstr "Selhalo odeslání zamítavých notifikací"
 
-#, python-brace-format
+#, python-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
 msgstr ""
-"Slug (identifikátor) '{0}' je už použit v nadřazené stránce. Použijte "
-"unikátní identifikátor a zkuste to znova"
+"Slug (identifikátor) '%(page_slug)s' je už použit v nadřazené stránce. "
+"Použijte unikátní identifikátor a zkuste to znova"
 
-#, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Stránka '{0}' byla přesunuta."
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Stránka '%(page_title)s' byla přesunuta."
 
 #, python-format
 msgid ""
@@ -2253,27 +1714,20 @@ msgid ""
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
 
-msgid "Earliest"
-msgstr "Nejstarší"
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Stránce '%(page_title)s' byla zrušena publikace."
 
-msgid "Latest"
-msgstr "Nejnovější"
+msgid "Pages using"
+msgstr "Stránky typu"
 
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "verze {0} \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Verze {0} dokumentu \"{1}\" není naplánována."
-
-#, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Stránce '{0}' byla zrušena publikace."
-
-#, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Stránka '{0}' nyní neočekává posouzení v rámci úlohy '{1}'."
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Stránka '%(page_title)s' nyní neočekává posouzení v rámci úlohy "
+"'%(task_name)s'."
 
 msgid "Site history"
 msgstr "Historie webu"
@@ -2299,15 +1753,6 @@ msgstr "Očekává se moje kontrola"
 msgid "Workflows"
 msgstr "Postupy"
 
-msgid "Page ID"
-msgstr "ID stránky"
-
-msgid "Page Type"
-msgstr "Typ stránky"
-
-msgid "Page Title"
-msgstr "Titulek stránky"
-
 msgid "Workflow tasks"
 msgstr "Úlohy v rámci postupu"
 
@@ -2320,16 +1765,16 @@ msgstr "Přidat postup"
 msgid "New workflow"
 msgstr "Nový postup"
 
-#, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "Postup '{0}' byl vytvořen."
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Postup '%(object)s' byl vytvořen."
 
 msgid "Editing workflow"
 msgstr "Edituje se postup"
 
-#, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "Postup '{0}' byl aktualizován."
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Postup '%(object)s' byl aktualizován."
 
 msgid "Disable"
 msgstr "Zakázat"
@@ -2340,51 +1785,31 @@ msgstr "Povolit"
 msgid "Disable workflow"
 msgstr "Zakázat postup"
 
-#, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "Postup '{0}' byl zakázán."
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Postup '%(object)s' byl zakázán."
 
 #, python-format
-msgid ""
-"This workflow is in progress on %(states_in_progress)d page. Disabling this "
-"workflow will cancel moderation on this page."
-msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"Tento postup se aplikuje %(states_in_progress)d stránce. Zakázání tohoto "
-"postupu zastaví posouzení této stránky."
-msgstr[1] ""
-"Tento postup se aplikuje na %(states_in_progress)d stránkách. Zakázání "
-"tohoto postupu zastaví posouzení těchto stránek."
-msgstr[2] ""
-"Tento postup se aplikuje na %(states_in_progress)d stránkách. Zakázání "
-"tohoto postupu zastaví posouzení těchto stránek."
-msgstr[3] ""
-"Tento postup se aplikuje na %(states_in_progress)d stránkách. Zakázání "
-"tohoto postupu zastaví posouzení těchto stránek."
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Postup '%(workflow_name)s' byl povolen."
 
-#, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "Postup '{0}' byl povolen."
-
-#, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "Postup byl odstraněn ze stránky '{0}'."
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Postup byl odstraněn ze stránky '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Nová úloha v rámci postupu"
 
-#, python-brace-format
-msgid "Task '{0}' created."
-msgstr "Úloha '{0}' byla vytvořena."
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Úloha '%(object)s' byla vytvořena."
 
 msgid "Editing workflow task"
 msgstr "Edituje se úloha postupu"
 
-#, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "Úloha '{0}' byla aktualizována."
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Úloha '%(object)s' byla aktualizována."
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2393,17 +1818,16 @@ msgstr "Edituje se %(task_type)s"
 msgid "Disable task"
 msgstr "Zakázat úlohu"
 
-#, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "Úloha '{0}' byla zakázána."
-
-#, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "Úloha '{0}' byla povolena."
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Úloha '%(object)s' byla zakázána."
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editovat '%(title)s'"
+msgid "Task '%(task_name)s' enabled."
+msgstr "Úloha '%(task_name)s' byla povolena."
+
+msgid "Pages"
+msgstr "Stránky"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -2412,17 +1836,6 @@ msgstr "Prohlédnout koncept stránky '%(title)s'"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Zobrazit publikovanou verzi '%(title)s'"
-
-msgid "Add child page"
-msgstr "Přidat podstránku"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Přidat podstránku k '%(title)s' "
-
-#, python-format
-msgid "View more options for '%(title)s'"
-msgstr "Zobrazit další možnosti pro '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"
@@ -2478,17 +1891,14 @@ msgstr "Přeškrtnuté"
 msgid "Code"
 msgstr "Kód"
 
-msgid "Locked Pages"
-msgstr "Uzamčené stránky"
-
 msgid "Reports"
 msgstr "Výkazy"
 
+msgid "Help"
+msgstr "Nápověda"
+
 msgid "Yes"
 msgstr "Ano"
-
-msgid "No"
-msgstr "Ne"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"
@@ -2501,6 +1911,9 @@ msgstr "Zrušit výběr"
 
 msgid "Choose another page"
 msgstr "Zvolit jinou stránku"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Tagy mohou být tvořeny pouze jedním slovem, mezery nejsou povoleny."
 
 msgid "Choose another task"
 msgstr "Zvolte jinou úlohu"

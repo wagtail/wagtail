@@ -11,16 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2021\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail sites"
 msgstr "Wagtail sites"
@@ -49,13 +50,13 @@ msgstr "Padrão"
 msgid "Add site"
 msgstr "Adicionar site"
 
-#, python-brace-format
-msgid "Site '{0}' created."
-msgstr "Site '{0}' criado."
+#, python-format
+msgid "Site '%(object)s' created."
+msgstr "Site '%(object)s' criado."
 
-#, python-brace-format
-msgid "Site '{0}' updated."
-msgstr "Site '{0}' atualizado."
+#, python-format
+msgid "Site '%(object)s' updated."
+msgstr "Site '%(object)s' atualizado."
 
 msgid "The site could not be saved due to errors."
 msgstr "O site não pôde ser salvo devido a erros."
@@ -63,9 +64,9 @@ msgstr "O site não pôde ser salvo devido a erros."
 msgid "Delete site"
 msgstr "Remover site"
 
-#, python-brace-format
-msgid "Site '{0}' deleted."
-msgstr "Site '{0}' removido."
+#, python-format
+msgid "Site '%(object)s' deleted."
+msgstr "Site '%(object)s' excluido."
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Tem certeza de que deseja excluir este site?"

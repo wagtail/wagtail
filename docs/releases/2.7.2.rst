@@ -2,6 +2,8 @@
 Wagtail 2.7.2 release notes
 ===========================
 
+*April 14, 2020*
+
 CVE-2020-11001: Possible XSS attack via page revision comparison view
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

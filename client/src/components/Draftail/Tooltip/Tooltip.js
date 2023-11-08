@@ -11,25 +11,19 @@ const getTooltipStyles = (target, direction) => {
   switch (direction) {
     case TOP:
       return {
-        'top': top + target.height,
-        // Remove once we drop support for Safari 13.
-        'left': left + target.width / 2,
-        'inset-inline-start': left + target.width / 2,
+        top: top + target.height,
+        insetInlineStart: left + target.width / 2,
       };
     case LEFT:
       return {
-        'top': top + target.height / 2,
-        // Remove once we drop support for Safari 13.
-        'left': left + target.width,
-        'inset-inline-start': left + target.width,
+        top: top + target.height / 2,
+        insetInlineStart: left + target.width,
       };
     case TOP_LEFT:
     default:
       return {
-        'top': top + target.height,
-        // Remove once we drop support for Safari 13.
-        'left': left,
-        'inset-inline-start': left,
+        top: top + target.height,
+        insetInlineStart: left,
       };
   }
 };

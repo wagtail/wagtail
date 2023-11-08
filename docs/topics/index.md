@@ -9,7 +9,7 @@ pages
 writing_templates
 images
 search/index
-snippets
+snippets/index
 streamfield
 permissions
 ```

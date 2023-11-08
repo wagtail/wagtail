@@ -5,14 +5,15 @@
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2020
 # Philip Crisp, 2022
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Delweddau Wagtail"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -40,24 +38,29 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Fformatau a gefnogir: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Nid yw'n fformat delwedd a gefnogir. Fformatau a gefnogir: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Nid yw'n fformat delwedd a gefnogir. Fformatau a gefnogir: "
+"%(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Ddim yn ddelwedd ddilys %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Mae'r ffeil hon yn rhu fawr (%(file_size)s). Maint ffeil fwyaf "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Mae'r ffeil hon yn rhu fawr (%%s). Maint ffeil fwyaf %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Mae gormod o bicseli yn y ffeil hon (%(num_pixels)s). Uchafswm picsel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Mae gormod o bicseli yn y ffeil hon (%%s). Uchafswm picsel %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Mae'r ffeil hon yn rhy fawr. Maint ffeil mwyaf %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Mae'r ffeil hon yn rhy fawr. Maint ffeil mwyaf %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Lled llawn"
@@ -159,14 +162,6 @@ msgstr "delwedd"
 msgid "images"
 msgstr "delweddau"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Ychwanegu tagiau i 1 llun"
-msgstr[1] "Ychwanegu tagiau i %(counter)s lluniau"
-msgstr[2] "Ychwanegu tagiau i %(counter)s lluniau"
-msgstr[3] "Ychwanegu tagiau i %(counter)s lluniau"
-
 msgid "Add tags to images"
 msgstr "Ychwanegu tagiau i lluniau"
 
@@ -189,14 +184,6 @@ msgstr "Ia, ychwanegu"
 
 msgid "No, don't add"
 msgstr "Na, paid a ychwanegu"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "Ychwanegwch 1 llun i gasgliad newydd"
-msgstr[1] "Ychwanegu %(counter)s llun i gasgliad newydd"
-msgstr[2] "Ychwanegu %(counter)s llun i gasgliad newydd"
-msgstr[3] "Ychwanegu %(counter)s llun i gasgliad newydd"
 
 msgid "Add images to collection"
 msgstr "Ychwanegu lluniau i'r casgliad"
@@ -264,43 +251,11 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
-msgid "Choose an image"
-msgstr "Dewis delwedd"
-
-msgid "Search"
-msgstr "Chwilio"
-
-msgid "Upload"
-msgstr "Uwchlwytho"
-
 msgid "Popular tags"
 msgstr "Tagiau poblogaidd"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Mae 'na %(counter)s cyfateb\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Mae 'na %(counter)s cyfatebion\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Mae 'na %(counter)s cyfatebion\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Mae 'na %(counter)s cyfatebion\n"
-"        "
+msgid "New"
+msgstr "Newydd"
 
 msgid "Latest images"
 msgstr "Lluniau diweddaraf"
@@ -310,41 +265,6 @@ msgstr "Dewisiwch fformat"
 
 msgid "Insert image"
 msgstr "Mewnosod llun"
-
-msgid "Uploading…"
-msgstr "Wrthi'n uwchlwytho…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Llun <span class=\"visuallyhidden\">wedi'i "
-"creu yn %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Lluniau <span class=\"visuallyhidden\">wedi'i "
-"creu yn %(site_name)s</span>\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Lluniau <span class=\"visuallyhidden\">wedi'i "
-"creu yn %(site_name)s</span>\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Lluniau <span class=\"visuallyhidden\">wedi'i "
-"creu yn %(site_name)s</span>\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Newid ffeil llun:"
@@ -358,40 +278,15 @@ msgstr "Ychwanegu llun"
 msgid "Save"
 msgstr "Cadw"
 
-msgid "Delete image"
-msgstr "Dileu delwedd"
-
-msgid ""
-"\n"
-"                    Are you sure you want to delete this image?\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Are you sure you want to delete these images?\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Ydych chi'n siŵr eich bod am ddileu'r llun yma?\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Ydych chi'n siŵr eich bod am ddileu'r lluniau hon?\n"
-"                "
-msgstr[2] ""
-"\n"
-"                    Ydych chi'n siŵr eich bod am ddileu'r lluniau hon?\n"
-"                "
-msgstr[3] ""
-"\n"
-"                    Ydych chi'n siŵr eich bod am ddileu'r lluniau hon?\n"
-"                "
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Golygu llun %(title)s"
 
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Delete image"
+msgstr "Dileu delwedd"
 
 msgid "URL Generator"
 msgstr "Cynhyrchydd URL"
@@ -433,9 +328,6 @@ msgstr "Delweddau"
 msgid "Popular Tags:"
 msgstr "Tagiau poblogaidd:"
 
-msgid "Clear choice"
-msgstr "Dewis clir"
-
 msgid "Select all images in listing"
 msgstr "Dewiswch yr holl lluniau yn y rhestr"
 
@@ -452,19 +344,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a href="
-"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
+"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a "
+"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a href="
-"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
+"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a "
+"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 msgid "Generating URL"
 msgstr "Cynhyrchu URL"
@@ -481,28 +373,6 @@ msgid ""
 msgstr ""
 "Sylwch y bydd lluniau a gynhyrchir yn fwy na'r sgrin yn ymddangos yn llai "
 "pan gânt eu rhagolwg yma, felly maen nhw'n ffitio'r sgrin."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Defnydd %(title)s"
-
-msgid "Usage of"
-msgstr "Defnydd o"
-
-msgid "Title"
-msgstr "Teitl"
-
-msgid "Parent"
-msgstr "Rhiant"
-
-msgid "Type"
-msgstr "Math"
-
-msgid "Status"
-msgstr "Statws"
-
-msgid "Edit this page"
-msgstr "Golygu tudalen hon"
 
 msgid "Add multiple images"
 msgstr "Ychwanegu lluniau lluosog"
@@ -595,12 +465,24 @@ msgstr[1] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[2] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[3] "%(num_parent_objects)d lluniau wedi'i dileu"
 
+msgid "Upload"
+msgstr "Uwchlwytho"
+
+msgid "Uploading…"
+msgstr "Wrthi'n uwchlwytho…"
+
+msgid "Choose an image"
+msgstr "Dewis delwedd"
+
+msgid "Edit this image"
+msgstr "Golygu'r llun hon"
+
 msgid "Search images"
 msgstr "Chwilio delweddau"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Llun '{0}' wedi'i diweddaru."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Llun '%(image_title)s' wedi'i diweddaru."
 
 msgid "Edit again"
 msgstr "Golygu eto"
@@ -615,13 +497,13 @@ msgstr ""
 "Nid oedd modd dod o hyd i'r ffeil delwedd ffynhonnell. Newidiwch y "
 "ffynhonnell neu dilëwch y ddelwedd."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Llun '{0}' wedi'i dileu."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Llun '%(image_title)s' wedi'i dileu."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Llun '{0}' wedi'i ychwanegu."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Llun '%(image_title)s' wedi'i ychwanegu."
 
 msgid "The image could not be created due to errors."
 msgstr "Ni fu modd creu'r llun oherwydd gwallau."
@@ -639,6 +521,3 @@ msgstr[3] "%(count)s lluniau"
 
 msgid "Change image"
 msgstr "Newid llun"
-
-msgid "Edit this image"
-msgstr "Golygu'r llun hon"

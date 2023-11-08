@@ -153,7 +153,16 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         )
 
 
+class DatabaseAutocompleteQueryCompiler(DatabaseSearchQueryCompiler):
+    # The fallback backend doesn't handle word boundaries, so standard searches are
+    # essentially equivalent to autocomplete queries anyhow. However, to provide a
+    # consistent API with other backends, we provide both endpoints.
+    pass
+
+
 class DatabaseSearchResults(BaseSearchResults):
+    iterator_chunk_size = 2000
+
     def get_queryset(self):
         queryset = self.query_compiler.queryset
 
@@ -180,7 +189,7 @@ class DatabaseSearchResults(BaseSearchResults):
                 **{self._score_field: Value(None, output_field=models.FloatField())}
             )
 
-        return queryset.iterator()
+        return queryset.iterator(self.iterator_chunk_size)
 
     def _do_count(self):
         return self.get_queryset().count()
@@ -214,6 +223,7 @@ class DatabaseSearchResults(BaseSearchResults):
 
 class DatabaseSearchBackend(BaseSearchBackend):
     query_compiler_class = DatabaseSearchQueryCompiler
+    autocomplete_query_compiler_class = DatabaseSearchQueryCompiler
     results_class = DatabaseSearchResults
 
     def reset_index(self):

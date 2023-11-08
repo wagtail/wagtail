@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% comment %}
 Navigation controls for the page listing in 'explore' mode
@@ -8,16 +8,14 @@ Navigation controls for the page listing in 'explore' mode
     {% if page.is_navigable %}
         <a
             href="{% url 'wagtailadmin_explore' page.id %}"
-            class="icon icon-arrow-right text-replace"
             title="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
             aria-label="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
-        ></a>
+        >{% icon name="arrow-right" classname="default" %}</a>
     {% elif page_perms.can_add_subpage %}
         <a
             href="{% url 'wagtailadmin_pages:add_subpage' page.id %}"
-            class="icon icon-plus-inverse text-replace"
             title="{% blocktrans trimmed with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
             aria-label="{% blocktrans trimmed with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
-        ></a>
+        >{% icon name="plus-inverse" classname="default" %}</a>
     {% endif %}
 </td>

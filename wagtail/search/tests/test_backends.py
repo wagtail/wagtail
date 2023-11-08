@@ -1,4 +1,3 @@
-# coding: utf-8
 import unittest
 from collections import OrderedDict
 from datetime import date
@@ -97,6 +96,13 @@ class BackendTests(WagtailTestUtils):
     def test_search_none(self):
         results = self.backend.search(MATCH_NONE, models.Book)
         self.assertFalse(list(results))
+
+    def test_search_does_not_return_results_from_wrong_model(self):
+        # https://github.com/wagtail/wagtail/issues/10188 - if a term matches some other
+        # model to the one being searched, this match should not leak into the results
+        # (e.g. returning the object with the same ID)
+        results = self.backend.search("thrones", models.Author)
+        self.assertSetEqual(set(results), set())
 
     def test_ranking(self):
         # Note: also tests the "or" operator
@@ -220,6 +226,11 @@ class BackendTests(WagtailTestUtils):
             [r.title for r in results], ["Learning Python", "Two Scoops of Django 1.11"]
         )
 
+    def test_search_all_unindexed(self):
+        # There should be no index entries for UnindexedBook
+        results = self.backend.search(MATCH_ALL, models.UnindexedBook)
+        self.assertEqual(len(results), 0)
+
     # AUTOCOMPLETE TESTS
 
     def test_autocomplete(self):
@@ -235,8 +246,10 @@ class BackendTests(WagtailTestUtils):
         )
 
     def test_autocomplete_uses_autocompletefield(self):
-        # Autocomplete should only require an AutocompleteField, not a SearchField with
-        # partial_match=True
+        # Autocomplete should only require an AutocompleteField, not a SearchField
+        # TODO: given that partial_match=True has no effect as of Wagtail 5, also test that
+        # AutocompleteField is actually being respected, and it's not just relying on the
+        # presence of a SearchField (with or without partial_match)
         results = self.backend.autocomplete("Georg", models.Author)
         self.assertUnsortedListEqual(
             [r.name for r in results],
@@ -490,6 +503,37 @@ class BackendTests(WagtailTestUtils):
                     MATCH_ALL, models.Author.objects.filter(name__startswith="Issac")
                 )
             )
+
+    def test_search_with_date_filter(self):
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__gt=date(2000, 6, 1))
+        )
+        self.assertEqual(len(results), 4)
+
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__year__gte=2000)
+        )
+        self.assertEqual(len(results), 5)
+
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__year__gt=2000)
+        )
+        self.assertEqual(len(results), 4)
+
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__year__lte=1954)
+        )
+        self.assertEqual(len(results), 4)
+
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__year__lt=1954)
+        )
+        self.assertEqual(len(results), 2)
+
+        results = self.backend.search(
+            MATCH_ALL, models.Book.objects.filter(publication_date__year=1954)
+        )
+        self.assertEqual(len(results), 2)
 
     # ORDER BY RELEVANCE
 
@@ -905,6 +949,13 @@ class BackendTests(WagtailTestUtils):
             Phrase("programming rust"), models.Book.objects.all()
         )
         self.assertSetEqual({r.title for r in results}, {"Programming Rust"})
+
+    def test_update_index_no_verbosity(self):
+        stdout = StringIO()
+        management.call_command(
+            "update_index", verbosity=0, backend_name=self.backend_name, stdout=stdout
+        )
+        self.assertFalse(stdout.getvalue())
 
 
 @override_settings(

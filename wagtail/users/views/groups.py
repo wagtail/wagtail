@@ -4,10 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
-from wagtail.admin.views import generic, mixins
+from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.users.views.users import index
+from wagtail.users.views.users import Index
 
 _permission_panel_classes = None
 
@@ -52,15 +52,13 @@ class PermissionPanelFormsMixin:
         return super().get_context_data(**kwargs)
 
 
-class IndexView(mixins.SearchableListMixin, generic.IndexView):
+class IndexView(generic.IndexView):
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")
     search_fields = ["name"]
     context_object_name = "groups"
     paginate_by = 20
-    ordering = ["name"]
-    default_ordering = "name"
 
     columns = [
         TitleColumn(
@@ -71,17 +69,13 @@ class IndexView(mixins.SearchableListMixin, generic.IndexView):
         ),
     ]
 
-    def get_template_names(self):
-        if self.request.headers.get("x-requested-with") == "XMLHttpRequest":
-            return ["wagtailusers/groups/results.html"]
-        else:
-            return ["wagtailusers/groups/index.html"]
-
 
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
-    success_message = _("Group '{0}' created.")
-    template_name = "wagtailusers/groups/create.html"
+    success_message = _("Group '%(object)s' created.")
+
+    def get_page_subtitle(self):
+        return ""
 
     def post(self, request, *args, **kwargs):
         """
@@ -116,11 +110,10 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
 
 
 class EditView(PermissionPanelFormsMixin, generic.EditView):
-    success_message = _("Group '{0}' updated.")
+    success_message = _("Group '%(object)s' updated.")
     error_message = _("The group could not be saved due to errors.")
     delete_item_label = _("Delete group")
     context_object_name = "group"
-    template_name = "wagtailusers/groups/edit.html"
 
     def post(self, request, *args, **kwargs):
         """
@@ -154,24 +147,41 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
 
 
 class DeleteView(generic.DeleteView):
-    success_message = _("Group '{0}' deleted.")
+    success_message = _("Group '%(object)s' deleted.")
     page_title = _("Delete group")
     confirmation_message = _("Are you sure you want to delete this group?")
-    template_name = "wagtailusers/groups/confirm_delete.html"
 
 
 class GroupViewSet(ModelViewSet):
     icon = "group"
     model = Group
+    ordering = ["name"]
+    add_to_reference_index = False
+    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
 
+    template_prefix = "wagtailusers/groups/"
+
     @property
     def users_view(self):
-        return index
+        return Index.as_view()
+
+    @property
+    def users_results_view(self):
+        return Index.as_view(results_only=True)
+
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "history_url_name": None,
+                "usage_url_name": None,
+                **kwargs,
+            }
+        )
 
     def get_form_class(self, for_update=False):
         return GroupForm
@@ -179,4 +189,7 @@ class GroupViewSet(ModelViewSet):
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             re_path(r"(\d+)/users/$", self.users_view, name="users"),
+            re_path(
+                r"(\d+)/users/results/$", self.users_results_view, name="users_results"
+            ),
         ]

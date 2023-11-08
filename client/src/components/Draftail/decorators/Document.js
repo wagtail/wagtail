@@ -4,7 +4,7 @@ import React from 'react';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
-import TooltipEntity from '../decorators/TooltipEntity';
+import TooltipEntity from './TooltipEntity';
 
 const documentIcon = <Icon name="doc-full" />;
 const missingDocumentIcon = <Icon name="warning" />;

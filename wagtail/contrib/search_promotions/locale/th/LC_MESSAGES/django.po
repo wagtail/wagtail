@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,8 +23,21 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr "ค้าหาWagtail โปรโมชั่น"
 
+msgid "Search term(s)/phrase"
+msgstr "ค้นหาวาระ(s)/จากคำพูดหรือถ้อยคำ"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"เข้าค้นหากลุ่มคำที่เข้าพวกกัน "
+"การเข้าพวกกันนี้จำเป็นที่จะต้องหาให้พบถึงจะสามารถแสดงผลของการหาได้,ไม่สามารถรับสัญลักษณ์แทนได้"
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "กรุณาเจาะจงอย่างน้อยข้อที่แนะนำสำหรับการค้นหานี้"
+
+msgid "Query Daily Hits"
+msgstr "คำถามประจำวันที่นิยมถามบ่อย"
 
 msgid "page"
 msgstr "หน้า"
@@ -40,34 +53,6 @@ msgstr "ค้าหาโปรโมชั่นเพิ่ม"
 
 msgid "Add search pick"
 msgstr "เพิ่มคำที่เราจะค้นหา"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-" <p>ผลการค้นหาโปรโมทเป็นวิธีที่สามารถแนะนำหน้าที่เฉพาะเจาะจงได้ที่ปกติหน้าที่เจาะจงอาจจะไม่แสดงผลในการค้นหา "
-"อย่างเช่น การแนะนำหน้าการบริจาคให้ผู้ใช้คนอื่นที่กำลังหาคำที่พบได้น้อย \"<em>กำลังให้</em>\".</"
-"p>\n"
-" "
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-" <p>\"การค้นหาคำ(กลุ่มคำ)\" ช่องด้านล่างต้องกรอกให้เต็มและถูกต้อง ที่คุณอยากจะแนะนำผลนี้, "
-"<em>รวมไปถึง</em> คำที่สะกดผิด/ความผิดพลาดของผู้ใช้ เพื่อที่จะช่วย,"
-"คุณสามารถค้นหาคำที่นิยมกับผู้ใช้ในเว็บไซด์นี้.</p>\n"
-" "
 
 msgid "Save"
 msgstr "เซฟ,บันทึก"
@@ -99,17 +84,11 @@ msgstr "เลื่อนขึ้น,ขยับขึ้น"
 msgid "Move down"
 msgstr "เลื่อนลง,ขยับลง"
 
-msgid "Promoted search result"
-msgstr "ผลการค้นหาที่โปรโมท"
-
-msgid "Add recommended page"
-msgstr "เพิ่มหน้าที่ได้แนะนำแล้ว"
+msgid "Promoted search results"
+msgstr "ผลการค้นหาที่โปรโมทแล้ว"
 
 msgid "Search Terms"
 msgstr "คำที่ต้องการค้นหา"
-
-msgid "Promoted search results"
-msgstr "ผลการค้นหาที่โปรโมทแล้ว"
 
 msgid "Add new promoted result"
 msgstr "เพิ่มผลการโปรโมทอันใหม่"
@@ -126,22 +105,26 @@ msgstr "ดู(ของอาทิตย์ที่แล้ว)"
 msgid "Edit this promotion"
 msgstr "แก้ไขโปรโมชั่นนี้"
 
+msgid "External link"
+msgstr "ลิงค์ภายนอก"
+
 msgid "None"
 msgstr "ไม่มี,ไม่"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
+msgid "Popular search terms"
+msgstr "วาระที่ค้นหามากที่สุด"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Terms"
+msgstr "วาระ"
+
+msgid "No results found"
+msgstr "ไม่พบผล"
+
+msgid "Choose from popular search terms"
+msgstr "เลือกจากวาระที่ค้นหามากที่สุด"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -149,18 +132,18 @@ msgstr "ขออภัย,ไม่มีผลโปรโมทที่ต�
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a href=\"%(wagtailsearchpromotions_add_url)s"
-"\">เพิ่มสักหนึ่งอัน</a>?"
+"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">เพิ่มสักหนึ่งอัน</a>?"
 
 msgid "Search promoted results"
 msgstr "หาผลที่โปรโมท"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'{0}'ถูกสร้างขึ้นแล้ว"
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'%(query)s'ถูกสร้างขึ้นแล้ว"
 
 msgid "Edit"
 msgstr "แก้ไข"
@@ -168,9 +151,9 @@ msgstr "แก้ไข"
 msgid "Recommendations have not been created due to errors"
 msgstr "คำแนะนำไม่สามารถถูกสร้างขึ้นได้ในขณะที่มีข้อผิดพลาด"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'{0}'ถูกอัพเดทแล้ว"
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'%(query)s'ถูกอัพเดทแล้ว"
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "คำแนะนำไม่สามารถถูกเซฟในขณะที่มีข้อผิดพลาด"

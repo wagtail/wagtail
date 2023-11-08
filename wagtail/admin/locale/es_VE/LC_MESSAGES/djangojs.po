@@ -1,0 +1,16 @@
+#
+# Translators:
+# Rodrigo Yanez, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Rodrigo Yanez, 2023\n"
+"Language-Team: Spanish (Venezuela) (https://app.transifex.com/torchbox/"
+"teams/8009/es_VE/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es_VE\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Save"
+msgstr "Guardar"

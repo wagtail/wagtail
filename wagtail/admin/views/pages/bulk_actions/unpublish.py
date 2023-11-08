@@ -23,7 +23,7 @@ class UnpublishBulkAction(PageBulkAction):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["has_live_descendants"] = any(
-            map(lambda x: x["live_descendant_count"] > 0, context["items"])
+            item["live_descendant_count"] > 0 for item in context["items"]
         )
         return context
 
@@ -52,7 +52,11 @@ class UnpublishBulkAction(PageBulkAction):
 
             if include_descendants:
                 for live_descendant_page in (
-                    page.get_descendants().live().defer_streamfields().specific()
+                    page.get_descendants()
+                    .live()
+                    .defer_streamfields()
+                    .specific()
+                    .iterator()
                 ):
                     if user is None or permission_checker(live_descendant_page):
                         live_descendant_page.unpublish()

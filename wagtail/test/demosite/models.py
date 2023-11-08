@@ -9,6 +9,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
+from wagtail.contrib.forms.models import AbstractForm, AbstractFormField
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
@@ -180,7 +181,7 @@ class HomePageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 HomePage.content_panels = Page.content_panels + [
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("carousel_items", label="Carousel items"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -230,10 +231,10 @@ class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 StandardPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
-    InlinePanel("carousel_items", label="Carousel items"),
-    FieldPanel("body", classname="full"),
-    InlinePanel("related_links", label="Related links"),
+    FieldPanel("intro"),
+    InlinePanel("carousel_items", heading="Carousel items", label="Carousel item"),
+    FieldPanel("body"),
+    InlinePanel("related_links", heading="Related links", label="Related link"),
 ]
 
 
@@ -274,7 +275,7 @@ class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 StandardIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -345,7 +346,7 @@ class BlogEntryPageTag(TaggedItemBase):
 
 BlogEntryPage.content_panels = Page.content_panels + [
     FieldPanel("date"),
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("carousel_items", label="Carousel items"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -407,7 +408,7 @@ class BlogIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 BlogIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -521,7 +522,7 @@ EventPage.content_panels = Page.content_panels + [
     FieldPanel("cost"),
     FieldPanel("signup_link"),
     InlinePanel("carousel_items", label="Carousel items"),
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("speakers", label="Speakers"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -569,7 +570,7 @@ class EventIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 EventIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -627,8 +628,8 @@ class PersonPageRelatedLink(Orderable, AbstractRelatedLink):
 PersonPage.content_panels = Page.content_panels + [
     FieldPanel("first_name"),
     FieldPanel("last_name"),
-    FieldPanel("intro", classname="full"),
-    FieldPanel("biography", classname="full"),
+    FieldPanel("intro"),
+    FieldPanel("biography"),
     FieldPanel("image"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
     InlinePanel("related_links", label="Related links"),
@@ -668,7 +669,7 @@ class ContactPage(Page, ContactFieldsMixin):
 
 
 ContactPage.content_panels = Page.content_panels + [
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
 ]
 
@@ -677,3 +678,18 @@ ContactPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     FieldPanel("feed_image"),
 ]
+
+
+class FormField(AbstractFormField):
+    page = ParentalKey("FormPage", related_name="form_fields", on_delete=models.CASCADE)
+
+
+class FormPage(AbstractForm):
+
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
+    )
+    api_fields = [APIField("form_fields")]
+    content_panels = AbstractForm.content_panels + [
+        InlinePanel("form_fields", label="Form fields")
+    ]

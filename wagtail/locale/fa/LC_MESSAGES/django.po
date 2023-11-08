@@ -3,6 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -10,16 +12,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
 
 msgid "Move up"
 msgstr "حرکت به بالا"
@@ -45,6 +55,75 @@ msgstr "رمزعبور"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
 
+msgid "Locked"
+msgstr "قفل شده"
+
+msgid "Unlocked"
+msgstr "گشوده"
+
+msgid "live"
+msgstr "زنده"
+
+msgid "has unpublished changes"
+msgstr "حاوی تغییر منتشرنشده"
+
+msgid "first published at"
+msgstr "انتشار نخست در"
+
+msgid "last published at"
+msgstr "انتشار قبلی در"
+
+msgid "go live date/time"
+msgstr "تاریخ/ساعت تبدیل به زنده"
+
+msgid "expiry date/time"
+msgstr "تاریخ/ساعت انقضا"
+
+msgid "expired"
+msgstr "انقضا یافته"
+
+msgid "scheduled"
+msgstr "برنامه‌ریزی شده"
+
+msgid "draft"
+msgstr "پیشنویس"
+
+msgid "live + draft"
+msgstr "زنده + پیشنویس"
+
+msgid "Default"
+msgstr "پیشفرض"
+
+msgid "locked"
+msgstr "قفل شده"
+
+msgid "Add/edit pages you own"
+msgstr "افزودن/ویرایش صفحه های خودتان"
+
+msgid "Bulk delete"
+msgstr "حذف فله‌ای"
+
+msgid "Delete pages with children"
+msgstr "حذف صفحه ها با زیرصفحه ها"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit any page"
+msgstr "ویرایش صفحه"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Publish"
+msgstr "انتشار"
+
+msgid "Publish any page"
+msgstr "انتشار هر صفحه ای"
+
+msgid "Unlock"
+msgstr "حذف قفل"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -63,12 +142,6 @@ msgstr ""
 msgid "content type"
 msgstr "نوع محتوا"
 
-msgid "live"
-msgstr "زنده"
-
-msgid "has unpublished changes"
-msgstr "حاوی تغییر منتشرنشده"
-
 msgid "URL path"
 msgstr "مسیر نشانی"
 
@@ -84,41 +157,8 @@ msgstr ""
 "این که آیا یک لینک به این صفحه در منوهای ساخته شده بصورت خودکار نمایش داده "
 "می‌شود یا نه"
 
-msgid "go live date/time"
-msgstr "تاریخ/ساعت تبدیل به زنده"
-
-msgid "expiry date/time"
-msgstr "تاریخ/ساعت انقضا"
-
-msgid "expired"
-msgstr "انقضا یافته"
-
-msgid "locked"
-msgstr "قفل شده"
-
-msgid "first published at"
-msgstr "انتشار نخست در"
-
-msgid "last published at"
-msgstr "انتشار قبلی در"
-
 msgid "latest revision created at"
 msgstr "آخرین بازبینی ایجاد شده در"
-
-msgid "This slug is already in use"
-msgstr "این اسلاگ در حال استفاده است"
-
-msgid "scheduled"
-msgstr "برنامه‌ریزی شده"
-
-msgid "draft"
-msgstr "پیشنویس"
-
-msgid "live + draft"
-msgstr "زنده + پیشنویس"
-
-msgid "Default"
-msgstr "پیشفرض"
 
 msgid "page"
 msgstr "صفحه"
@@ -141,41 +181,11 @@ msgstr "محتوای JSON"
 msgid "approved go live at"
 msgstr "تایید انتقال به حالت زنده در"
 
-msgid "page revision"
-msgstr "بازبینی صفحه"
-
-msgid "page revisions"
-msgstr "بازبینی‌های صفحه"
-
-msgid "Add/edit pages you own"
-msgstr "افزودن/ویرایش صفحه های خودتان"
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "Edit any page"
-msgstr "ویرایش صفحه"
-
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Publish any page"
-msgstr "انتشار هر صفحه ای"
-
-msgid "Bulk delete"
-msgstr "حذف فله‌ای"
-
-msgid "Delete pages with children"
-msgstr "حذف صفحه ها با زیرصفحه ها"
-
-msgid "Lock"
-msgstr "قفل"
-
-msgid "Unlock"
-msgstr "حذف قفل"
-
 msgid "group"
 msgstr "گروه"
+
+msgid "permission"
+msgstr "مجوز"
 
 msgid "permission type"
 msgstr "نوع مجوز"
@@ -204,6 +214,12 @@ msgstr "تایید"
 msgid "Not started"
 msgstr "شروع نشده"
 
+msgid "comments"
+msgstr "نظر ها"
+
+msgid "comment reply"
+msgstr "ثبت پاسخ"
+
 msgid "collection"
 msgstr "مجموعه"
 
@@ -215,9 +231,6 @@ msgstr "محدودیت‌های دیدن مجموعه"
 
 msgid "collections"
 msgstr "مجموعه ها"
-
-msgid "permission"
-msgstr "مجوز"
 
 msgid "group collection permission"
 msgstr "مجوز مجموعه گروه"
@@ -316,15 +329,6 @@ msgstr "برای دسترسی به این صفحه نیاز به رمزعبور 
 msgid "Continue"
 msgstr "ادامه"
 
-msgid "English"
-msgstr "انگلیسی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "German"
-msgstr "آلمانی"
-
 msgid "Create"
 msgstr "ساختن"
 
@@ -334,12 +338,6 @@ msgstr "تصحیح شده"
 msgid "Unpublish"
 msgstr "لغو انتشار"
 
-msgid "Locked"
-msgstr "قفل شده"
-
-msgid "Unlocked"
-msgstr "گشوده"
-
 msgid "Reject"
 msgstr "رد"
 
@@ -348,3 +346,18 @@ msgstr "کپی"
 
 msgid "Move"
 msgstr "انتقال"
+
+msgid "Remove view restrictions"
+msgstr "برداشتن محدودیت های نمایش"
+
+msgid "Add comment"
+msgstr "افزودن نظر"
+
+msgid "Edit comment"
+msgstr "ویرایش نظر"
+
+msgid "Delete comment"
+msgstr "حذف نظر"
+
+msgid "Replied to a comment"
+msgstr "به یک نظر پاسخ داده"

@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["es2015", "dom"],
+    "lib": ["ES2021", "DOM", "DOM.iterable"],
+    "moduleResolution": "node",
     "noImplicitAny": false, // TODO: Enable once all existing code is typed
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "esModuleInterop": true,
-    "allowJs": true,
-    "downlevelIteration": true
+    "strictPropertyInitialization": true,
+    "target": "ES2021" // Since lowest browser support is for Safari 14
   },
   "files": [
     "client/src/index.ts",

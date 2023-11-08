@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,18 +129,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Tidak ada pengalihan yang dibuat. Mengapa tidak <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">menambahnya</a>?"
+"Tidak ada pengalihan yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">menambahnya</a>?"
 
 msgid "Search redirects"
 msgstr "Pengalihan pencarian"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Pengalihan '{0}' diperbarui."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Pengalihan '%(redirect_title)s' diperbarui."
 
 msgid "Edit"
 msgstr "Ubah"
@@ -148,13 +148,13 @@ msgstr "Ubah"
 msgid "The redirect could not be saved due to errors."
 msgstr "Pengalihan tidak dapat disimpan karena suatu kesalahan."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Pengalihan '{0}' dihapus."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Pengalihan '%(redirect_title)s' dihapus."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Pengalihan '{0}' ditambah."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Pengalihan '%(redirect_title)s' ditambah."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Pengalihan tidak dapat dibuat karena suatu kesalahan."

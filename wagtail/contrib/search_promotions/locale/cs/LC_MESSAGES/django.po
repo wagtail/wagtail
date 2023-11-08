@@ -4,16 +4,17 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,8 +26,22 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr "Wagtail upřednostněné hledání"
 
+msgid "Search term(s)/phrase"
+msgstr "Hledat výraz(y)/fráze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Zadejte řetězec tak, aby odpovídal hledanému výrazu. Je vyžadována přesná "
+"shoda pro zobrazení Vašich propagovaných výsledků, zástupné znaky nejsou "
+"povoleny."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Definujte prosím alespoň jedno doporučení pro hledaný výraz."
+
+msgid "Query Daily Hits"
+msgstr "Denní vyhledávané výrazy"
 
 msgid "page"
 msgstr "stránka"
@@ -42,34 +57,6 @@ msgstr "Přidat upřednostněné hledání"
 
 msgid "Add search pick"
 msgstr "Přidat volbu hledání"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Upřednostněné výsledky hledání jsou způsob doporučení specifických "
-"stránek, které by normálně nebyly ve výsledcích vyhledávání na prvních "
-"místech. Např. doporučení Vaší sponzorské stránky uživateli, který hledá s "
-"méně běžným výrazem \"<em>dávání</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Pole \"Hledat výraz(y)/fráze\" musí obsahovat kompletní a přesný hledaný "
-"výraz, pro který si přejete zobrazit upřednostněné výsledky, <em>včetně</em> "
-"uživatelských překlepů a chyb. Pro ulehčení práce si můžete vybrat z "
-"populárních hledaných výrazů na vašem webu.</p>"
 
 msgid "Save"
 msgstr "Uložit"
@@ -102,17 +89,11 @@ msgstr "Posunout nahoru"
 msgid "Move down"
 msgstr "Posunout dolů"
 
-msgid "Promoted search result"
-msgstr "Upřednostněný výsledek hledání"
-
-msgid "Add recommended page"
-msgstr " Přidat doporučenou stránku"
+msgid "Promoted search results"
+msgstr "Upřednostněné výsledky hledání"
 
 msgid "Search Terms"
 msgstr "Hledat výrazy"
-
-msgid "Promoted search results"
-msgstr "Upřednostněné výsledky hledání"
 
 msgid "Add new promoted result"
 msgstr "Přidat nový upřednostněný výsledek"
@@ -141,30 +122,26 @@ msgstr "Seřazeno podle pohledů (od nejvyšších)"
 msgid "Edit this promotion"
 msgstr "Upravit toto upřednostnění"
 
+msgid "External link"
+msgstr "Externí odkaz"
+
 msgid "None"
 msgstr "Nic"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Nalezen %(counter)s výsledek"
-msgstr[1] ""
-"\n"
-"Nalezeny %(counter)s výsledky"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-msgstr[3] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
+msgid "Popular search terms"
+msgstr "Oblíbené hledané výrazy"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "No results found"
+msgstr "Nebyly nalezeny žádné výsledky"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrat z nejčastěji hledaných výrazů"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -174,8 +151,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 "Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
 "můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
@@ -183,9 +160,9 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Upřednostněné výsledky hledání"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Editorův výběr pro '{0}' byl vytvořen."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Editorův výběr pro '%(query)s' byl vytvořen."
 
 msgid "Edit"
 msgstr "Upravit"
@@ -193,9 +170,9 @@ msgstr "Upravit"
 msgid "Recommendations have not been created due to errors"
 msgstr "Doporučení nelze vytvořit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Editorův výběr pro '{0}' byl upraven."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Editorův výběr pro '%(query)s' byl upraven."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Doporučení nelze uložit, zkontrolujte správné vyplnění polí."

@@ -1,0 +1,62 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block header_content %}
+    {# Accessible page title #}
+    <h1 class="w-sr-only">
+        {{ title }}
+    </h1>
+    {# breadcrumbs #}
+    {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-2.5' %}
+    {# Actions divider #}
+    <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
+
+    {% page_permissions parent_page as parent_page_perms %}
+    {% if parent_page_perms.can_add_subpage %}
+        <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="button button-small bicolor button--icon button-secondary w-ml-3">{% icon name="plus" wrapped=1 %}{% trans "Add child page" %}</a>
+    {% endif %}
+
+    {# Page actions dropdown #}
+    {% page_header_buttons parent_page user=request.user view_name="index" %}
+{% endblock %}
+{% block actions %}
+    {% if not parent_page.is_root %}
+        {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+        {# Page history #}
+        {% if parent_page.get_latest_revision %}
+            {% url 'wagtailadmin_pages:history' parent_page.id as history_url %}
+            {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
+        {% endif %}
+
+        {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
+    {% endif %}
+{% endblock %}
+
+{% block search_form %}
+    <div class="w-pl-5 w-pb-7.5">
+        <div class="w-pl-0 sm:w-pl-slim-header w-ml-2.5">
+            <form
+                class="search-form"
+                action="{{ index_url }}"
+                method="get"
+                novalidate
+                role="search"
+                data-controller="w-swap"
+                data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                data-w-swap-src-value="{{ results_url }}"
+                data-w-swap-target-value="#listing-results"
+            >
+                {% for field in search_form %}
+                    {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                {% endfor %}
+                {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
+                <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block side_panels %}
+    {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
+{% endblock side_panels %}

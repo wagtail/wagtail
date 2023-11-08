@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2022
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,20 +38,20 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Format yang didukung: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Format gambar tidak didukung. Format yang didukung: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Format gambar tidak didukung. Format yang didukung: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Gambar %s tidak valid."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Berkas terlalu besar (%(file_size)s). Ukuran berkas maksimum "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Berkas terlalu besar (%%). Ukuran berkas maksimum %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Berkas terlalu besar. Ukuran berkas maksimum %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Berkas terlalu besar. Ukuran berkas maksimum %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Lebar penuh"
@@ -146,30 +148,11 @@ msgstr[0] "Digunakan %(usage_count)s kali"
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-msgid "Choose an image"
-msgstr "Pilih sebuah gambar"
-
-msgid "Search"
-msgstr "Cari"
-
-msgid "Upload"
-msgstr "Unggah"
-
 msgid "Popular tags"
 msgstr "Tag Populer"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Ada %(counter)s yang sesuai"
+msgid "New"
+msgstr "Baru"
 
 msgid "Latest images"
 msgstr "Gambar terbaru"
@@ -179,9 +162,6 @@ msgstr "Pilih format"
 
 msgid "Insert image"
 msgstr "Masukkan gambar"
-
-msgid "Uploading…"
-msgstr "Mengunggah..."
 
 msgid "Change image file:"
 msgstr "Ubah berkas gambar:"
@@ -195,15 +175,15 @@ msgstr "Tambah gambar"
 msgid "Save"
 msgstr "Simpan"
 
-msgid "Delete image"
-msgstr "Hapus gambar"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Mengubah gambar %(title)s"
 
 msgid "Editing"
 msgstr "Mengubah"
+
+msgid "Delete image"
+msgstr "Hapus gambar"
 
 msgid "URL Generator"
 msgstr "Generator URL"
@@ -229,9 +209,6 @@ msgstr "Penggunaan"
 msgid "Images"
 msgstr "Gambar"
 
-msgid "Clear choice"
-msgstr "Kosongkan pilihan"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -239,19 +216,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Anda sama sekali belum mengunggah gambar dalam koleksi ini. Mengapa tidak <a "
 "href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Anda sama sekali belum mengunggah gambar. Mengapa tidak <a href="
-"\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
+"Anda sama sekali belum mengunggah gambar. Mengapa tidak <a "
+"href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
 
 msgid "Generating URL"
 msgstr "Menghasilkan URL"
@@ -268,28 +245,6 @@ msgid ""
 msgstr ""
 "Perhatikan bahwa hasil gambar yang lebih besar dari layar akan tampak lebih "
 "kecil ketika ditinjau disini, sehingga sesuai dengan layar."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Penggunaan dari %(title)s"
-
-msgid "Usage of"
-msgstr "Penggunaan dari"
-
-msgid "Title"
-msgstr "Judul"
-
-msgid "Parent"
-msgstr "Induk"
-
-msgid "Type"
-msgstr "Tipe"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Ubah halaman ini"
 
 msgid "Add multiple images"
 msgstr "Tambah beberapa gambar"
@@ -333,12 +288,24 @@ msgstr "Tambahkan izin gambar"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Upload"
+msgstr "Unggah"
+
+msgid "Uploading…"
+msgstr "Mengunggah..."
+
+msgid "Choose an image"
+msgstr "Pilih sebuah gambar"
+
+msgid "Edit this image"
+msgstr "Ubah gambar ini"
+
 msgid "Search images"
 msgstr "Cari gambar"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Gambar '{0}' telah diperbarui."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Gambar '%(image_title)s' telah diperbarui."
 
 msgid "Edit again"
 msgstr "Ubah kembali"
@@ -353,13 +320,13 @@ msgstr ""
 "Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
 "hapus gambar."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Gambar '{0}' dihapus."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Gambar '%(image_title)s' dihapus."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Gambar '{0}' ditambahkan."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Gambar '%(image_title)s' ditambahkan."
 
 msgid "The image could not be created due to errors."
 msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
@@ -374,6 +341,3 @@ msgstr[0] "%(count)s gambar"
 
 msgid "Change image"
 msgstr "Ubah gambar"
-
-msgid "Edit this image"
-msgstr "Ubah gambar ini"

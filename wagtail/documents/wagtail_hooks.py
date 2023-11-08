@@ -2,9 +2,8 @@ from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse
 from django.utils.html import format_html
-from django.utils.translation import gettext
+from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
@@ -30,6 +29,7 @@ from wagtail.documents.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
+from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
 from wagtail.wagtail_hooks import require_wagtail_login
 
@@ -72,7 +72,7 @@ def editor_js():
             window.chooserUrls.documentChooser = '{0}';
         </script>
         """,
-        reverse("wagtaildocs:chooser"),
+        reverse("wagtaildocs_chooser:choose"),
     )
 
 
@@ -86,7 +86,7 @@ def register_document_feature(features):
         draftail_features.EntityFeature(
             {
                 "type": "DOCUMENT",
-                "icon": "doc-full",
+                "icon": "doc-full-inverse",
                 "description": gettext("Document"),
             },
             js=["wagtaildocs/js/document-chooser-modal.js"],
@@ -111,7 +111,9 @@ class DocumentsSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_docs": get_document_model().objects.count(),
+            "total_docs": permission_policy.instances_user_has_any_permission_for(
+                self.request.user, {"add", "change", "delete", "choose"}
+            ).count(),
             "site_name": site_name,
         }
 
@@ -212,3 +214,8 @@ register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)
+
+
+@hooks.register("register_admin_viewset")
+def register_document_chooser_viewset():
+    return chooser_viewset

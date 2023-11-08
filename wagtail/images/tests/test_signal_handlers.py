@@ -1,9 +1,11 @@
 from django.db import transaction
-from django.test import TransactionTestCase, override_settings
+from django.test import TestCase, TransactionTestCase, override_settings
 
 from wagtail.images import get_image_model, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Collection
+
+from .utils import Image
 
 
 class TestFilesDeletedForDefaultModels(TransactionTestCase):
@@ -71,12 +73,23 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         )
 
         #: Sadly signal receivers only get connected when starting django.
-        #: We will re-attach them here to mimic the django startup behavior
+        #: We will re-attach them here to mimic the django startup behaviour
         #: and get the signals connected to our custom model..
         signal_handlers.register_signal_handlers()
 
     def test_image_model(self):
         cls = get_image_model()
-        self.assertEqual(
-            "%s.%s" % (cls._meta.app_label, cls.__name__), "tests.CustomImage"
-        )
+        self.assertEqual(f"{cls._meta.app_label}.{cls.__name__}", "tests.CustomImage")
+
+
+@override_settings(WAGTAILIMAGES_FEATURE_DETECTION_ENABLED=True)
+class TestRawForPreSaveImageFeatureDetection(TestCase):
+    fixtures = ["test.json"]
+
+    # just to test the file is from a fixture doesn't actually exists.
+    # raw check in pre_save_image_feature_detection skips on the provided condition of this test
+    # hence avoiding an error
+
+    def test_image_does_not_exist(self):
+        bad_image = Image.objects.get(pk=1)
+        self.assertFalse(bad_image.file.storage.exists(bad_image.file.name))

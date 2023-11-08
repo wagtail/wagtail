@@ -5,27 +5,30 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Fabio Santos <f4bio.sa@gmail.com>, 2023
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2018
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Iuri L. Machado, 2021-2022\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail redirects"
 msgstr "Redirecionamentos do Wagtail"
@@ -109,6 +112,9 @@ msgstr "temporário"
 msgid "redirect"
 msgstr "redirecionamento"
 
+msgid "redirects"
+msgstr "redirecionamentos"
+
 msgid "Add redirect"
 msgstr "Adicionar Redirecionamentos"
 
@@ -122,22 +128,16 @@ msgid "Import redirects"
 msgstr "Importar redirecionamentos"
 
 msgid ""
-"\n"
-"                <p>Select a file where redirects are separated into rows and "
-"contains the columns representing <code>from</code> and <code>to</code> "
-"(they can be named anything).</p>\n"
-"                <p>After submitting you will be taken to a confirmation view "
-"where you can customize your redirects before import.</p>\n"
-"            "
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
-"\n"
-"                <p>Selecione um arquivo onde os redirecionamentos estão "
-"separados por linha e as colunas contem a representação <code>de</code> e "
-"<code>para</code> (podem ter um nome qualquer).</p>\n"
-"                <p>Após submeter você será levado para uma página onde irá "
-"customizar e confirmar os redirecionamentos obtidos pelo arquivo antes de "
-"serem importados.</p>\n"
-"            "
+"<p>Selecione um arquivo onde os redirecionamentos são separados em linhas e "
+"contém as colunas que representam <code>a partir de</code> e <code>para</"
+"code>(podem ser nomeados qualquer coisa). </p> <p>Após o envio, você será "
+"levado a uma visualização de confirmação onde poderá personalizar seus "
+"redirecionamentos antes da importação.</p>"
 
 msgid "Import"
 msgstr "Importar"
@@ -212,22 +212,11 @@ msgid "No redirects found."
 msgstr "Nenhum redirecionamento foi encontrado."
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Há %(counter)s resultado\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Há %(counter)s resultados\n"
-"        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrados %(counter)s resultados"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -236,18 +225,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Não há redirecionamentos criados. Por que não foi <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
+"Não há redirecionamentos criados. Por que não foi <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
 
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Redirecionar '{0}' atualizado."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Redirecionar '%(redirect_title)s' atualizado."
 
 msgid "Edit"
 msgstr "Editar"
@@ -255,23 +244,24 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "O redirecionamento não pôde ser salvo devido a erros."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Redirecionar '{0}' excluída."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Redirecionamento %(redirect_title)s excluído."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Redirecionar '{0}' adicionada."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Redirecionamento %(redirect_title)s adicionado."
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pode ser criado devido a erros."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "O formato do arquivo com extensão \"{}\" não é suportado"
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "O formato do arquivo com extensão \"%(extension)s\" não é suportado"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "O arquivo importado têm uma codificação errada: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "O arquivo importado têm uma codificação errada: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
@@ -282,6 +272,7 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Foi importado %(total)dredirecionamento"
 msgstr[1] "Foram importados %(total)d redirecionamentos"
+msgstr[2] "Foram importados %(total)d redirecionamentos"
 
 msgid "Export Redirects"
 msgstr "Exportar Redirecionamentos"

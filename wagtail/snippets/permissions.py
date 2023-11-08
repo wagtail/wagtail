@@ -4,7 +4,7 @@ from wagtail.snippets.models import get_snippet_models
 
 
 def get_permission_name(action, model):
-    return "%s.%s" % (
+    return "{}.{}".format(
         model._meta.app_label,
         get_permission_codename(action, model._meta),
     )

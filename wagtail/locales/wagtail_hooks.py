@@ -24,7 +24,11 @@ class LocalesMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_locales_menu_item():
     return LocalesMenuItem(
-        _("Locales"), reverse("wagtaillocales:index"), icon_name="site", order=603
+        _("Locales"),
+        reverse("wagtaillocales:index"),
+        name="locales",
+        icon_name="site",
+        order=603,
     )
 
 

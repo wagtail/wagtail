@@ -348,6 +348,40 @@ class TestTableBlock(TestCase):
         self.assertHTMLEqual(result, expected)
         self.assertNotIn("None", result)
 
+    def test_merge_cells_render(self):
+        """
+        Test that merged table cells are rendered.
+        """
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["one", None, "two"],
+                ["three", "four", "five"],
+                ["six", "seven", None],
+            ],
+            "cell": [
+                {"row": 0, "col": 1, "hidden": True},
+                {"row": 2, "col": 2, "hidden": True},
+            ],
+            "mergeCells": [
+                {"row": 0, "col": 0, "rowspan": 1, "colspan": 2},
+                {"row": 1, "col": 2, "rowspan": 2, "colspan": 1},
+            ],
+        }
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td rowspan="1" colspan="2">one</td><td>two</td></tr>
+                    <tr><td>three</td><td>four</td><td rowspan="2" colspan="1">five</td></tr>
+                    <tr><td>six</td><td>seven</td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
+
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
@@ -474,7 +508,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 "label": "Test tableblock",
                 "required": True,
                 "icon": "table",
-                "classname": "field char_field widget-table_input fieldname-test_tableblock",
+                "classname": "w-field w-field--char_field w-field--table_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -491,7 +525,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
 
 # TODO(telepath) replace this with a functional test
-class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
+class TestTableBlockPageEdit(WagtailTestUtils, TestCase):
     def setUp(self):
         self.value = {
             "first_row_is_table_header": True,
@@ -524,7 +558,7 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         # check page + field renders
         self.assertContains(
             response,
-            '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">',
+            '<div data-contentpath="table" class="w-field w-field--char_field w-field--table_input">',
         )
         # check data
         self.assertContains(response, "Battlestar")

@@ -4,6 +4,7 @@ from functools import partial
 
 from django.apps import apps
 from django.db import connections
+from django.http import QueryDict
 
 from wagtail.search.index import RelatedFields, SearchField
 
@@ -16,7 +17,7 @@ def balanced_reduce(operator, seq, initializer=NOT_SET):
     """
     Has the same result as Python's reduce function, but performs the calculations in a different order.
 
-    This is important when the operator is constructing data structures such as search query clases.
+    This is important when the operator is constructing data structures such as search query classes.
     This method will make the resulting data structures flatter, so operations that need to traverse
     them don't end up crashing with recursion errors.
 
@@ -71,8 +72,7 @@ MAX_QUERY_STRING_LENGTH = 255
 
 def normalise_query_string(query_string):
     # Truncate query string
-    if len(query_string) > MAX_QUERY_STRING_LENGTH:
-        query_string = query_string[:MAX_QUERY_STRING_LENGTH]
+    query_string = query_string[:MAX_QUERY_STRING_LENGTH]
     # Convert query_string to lowercase
     query_string = query_string.lower()
 
@@ -83,12 +83,18 @@ def normalise_query_string(query_string):
 
 
 def separate_filters_from_query(query_string):
-    filters_regexp = r'(\w+):(\w+|".+")'
+    filters_regexp = r'(\w+):(\w+|"[^"]+"|\'[^\']+\')'
 
-    filters = {}
+    filters = QueryDict(mutable=True)
     for match_object in re.finditer(filters_regexp, query_string):
         key, value = match_object.groups()
-        filters[key] = value.strip('"')
+        filters.update(
+            {
+                key: value.strip('"')
+                if value.strip('"') is not value
+                else value.strip("'")
+            }
+        )
 
     query_string = re.sub(filters_regexp, "", query_string).strip()
 
@@ -113,7 +119,12 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
 
     is_phrase = False
     tokens = []
-    for part in query_string.split('"'):
+    if '"' in query_string:
+        parts = query_string.split('"')
+    else:
+        parts = query_string.split("'")
+
+    for part in parts:
         part = part.strip()
 
         if part:
@@ -190,8 +201,7 @@ def get_search_fields(search_fields):
         if isinstance(search_field, SearchField):
             yield search_field
         elif isinstance(search_field, RelatedFields):
-            for sub_field in get_search_fields(search_field.fields):
-                yield sub_field
+            yield from get_search_fields(search_field.fields)
 
 
 def get_postgresql_connections():

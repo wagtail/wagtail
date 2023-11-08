@@ -2,20 +2,19 @@ from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Site
 
 
 class SiteSwitchForm(forms.Form):
-    site = forms.ChoiceField(choices=[])
-
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                versioned_static("wagtailsettings/js/site-switcher.js"),
-            ]
-        )
+    site = forms.ChoiceField(
+        choices=[],
+        widget=forms.Select(
+            attrs={
+                "data-controller": "w-action",
+                "data-action": "change->w-action#redirect",
+            }
+        ),
+    )
 
     def __init__(self, current_site, model, **kwargs):
         initial_data = {"site": self.get_change_url(current_site, model)}

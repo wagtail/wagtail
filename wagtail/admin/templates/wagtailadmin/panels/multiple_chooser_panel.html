@@ -1,0 +1,26 @@
+{% extends "wagtailadmin/panels/inline_panel.html" %}
+{% load i18n l10n wagtailadmin_tags %}
+
+{% block add_button %}
+    <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-OPEN_MODAL">
+        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+    </button>
+{% endblock %}
+
+{% block js_init %}
+    {% with script_id="id_"|add:self.formset.prefix|add:"-CHOOSER_WIDGET" %}
+        {{ chooser_widget_definition|json_script:script_id }}
+    {% endwith %}
+
+    <script>
+        (function() {
+            var panel = new MultipleChooserPanel({
+                formsetPrefix: "id_{{ self.formset.prefix }}",
+                emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
+                canOrder: {% if can_order %}true{% else %}false{% endif %},
+                maxForms: {{ self.formset.max_num|unlocalize }},
+                chooserFieldName: "{{ chooser_field_name }}",
+            });
+        })();
+    </script>
+{% endblock %}

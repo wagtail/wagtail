@@ -4,7 +4,7 @@
 {% block titletag %}{% blocktrans trimmed with title=subtitle %}Page history for {{ subtitle }}{% endblocktrans %}{% endblock %}
 
 {% block actions %}
-    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor icon icon-edit">{% trans "Edit this page" %}</a>
+    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor button--icon">{% icon name="edit" wrapped=1 %}{% trans "Edit this page" %}</a>
 {% endblock %}
 
 {% block results %}
@@ -36,9 +36,9 @@
                             {% endif %}
                             {% if entry.revision %}
                                 {% if entry.action == 'wagtail.publish' %}
-                                    {% if entry.revision_id == page.live_revision_id %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+                                    {% if entry.revision_id == page.live_revision_id %}{% trans 'Live version' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
                                 {% elif entry.content_changed %}
-                                    {% if entry.revision == page_latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
+                                    {% if entry.revision == page_latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
                                     {% include "wagtailadmin/pages/revisions/_actions.html" with revision=entry.revision %}
                                 {% endif %}
                             {% endif %}
@@ -46,9 +46,7 @@
                         <td>
                             {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}
                         </td>
-                        <td class="updated">
-                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
-                        </td>
+                        <td class="updated">{% human_readable_date entry.timestamp %}</td>
                     </tr>
                 {% endfor %}
             </tbody>

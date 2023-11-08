@@ -25,7 +25,7 @@ describe('actions', () => {
     });
 
     it('open', () => {
-      const stub = Object.assign({}, stubState);
+      const stub = { ...stubState };
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
       store.dispatch(actions.openPageExplorer(5));
@@ -41,7 +41,7 @@ describe('actions', () => {
     });
 
     it('open at root', () => {
-      const stub = Object.assign({}, stubState);
+      const stub = { ...stubState };
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
       store.dispatch(actions.openPageExplorer(1));
@@ -73,7 +73,7 @@ describe('actions', () => {
     });
 
     it('triggers getChildren', () => {
-      const stub = Object.assign({}, stubState);
+      const stub = { ...stubState };
       stub.nodes[5].isFetching = false;
       const store = mockStore(stub);
       store.dispatch(actions.gotoPage(5, 1));

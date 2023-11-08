@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
+import tippy from 'tippy.js';
 
 import {
   BaseSequenceBlock,
@@ -8,15 +10,20 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
+import { hasOwn } from '../../../utils/hasOwn';
+import { range } from '../../../utils/range';
+import ComboBox, {
+  comboBoxLabel,
+  comboBoxNoResults,
+  comboBoxTriggerLabel,
+} from '../../ComboBox/ComboBox';
+import { hideTooltipOnEsc } from '../../../includes/initTooltips';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 /* global $ */
-
-export class StreamBlockValidationError {
-  constructor(nonBlockErrors, blockErrors) {
-    this.nonBlockErrors = nonBlockErrors;
-    this.blockErrors = blockErrors;
-  }
-}
 
 class StreamChild extends BaseSequenceChild {
   /*
@@ -28,6 +35,13 @@ class StreamChild extends BaseSequenceChild {
       type: this.type,
       value: this.block.getState(),
       id: this.id,
+    };
+  }
+
+  getDuplicatedState() {
+    return {
+      ...super.getDuplicatedState(),
+      type: this.type,
     };
   }
 
@@ -60,154 +74,126 @@ class StreamBlockMenu extends BaseInsertionControl {
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.groupedChildBlockDefs = opts.groupedChildBlockDefs;
-    const animate = opts.animate;
 
     const dom = $(`
       <div>
-        <button data-streamblock-menu-open type="button" title="${h(
-          opts.strings.ADD,
-        )}"
-            class="c-sf-add-button c-sf-add-button--visible">
-          <i aria-hidden="true">+</i>
+        <button type="button" title="${comboBoxTriggerLabel}" class="c-sf-add-button">
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
-        <div data-streamblock-menu-outer>
-          <div data-streamblock-menu-inner class="c-sf-add-panel"></div>
-        </div>
       </div>
     `);
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
+    this.addButton = dom.find('button');
 
-    this.addButton = dom.find('[data-streamblock-menu-open]');
-    this.addButton.click(() => {
-      this.toggle();
-    });
+    const blockItems = this.blockItems;
+    if (blockItems.length === 1 && blockItems[0].items.length === 1) {
+      // Only one child type can be added, bypass the combobox
+      this.addButton.click(() => {
+        if (this.onRequestInsert) {
+          this.onRequestInsert(this.index, blockItems[0].items[0]);
+        }
+      });
+      return;
+    }
 
-    this.outerContainer = dom.find('[data-streamblock-menu-outer]');
-    this.innerContainer = dom.find('[data-streamblock-menu-inner]');
-    this.hasRenderedMenu = false;
-    this.isOpen = false;
+    this.combobox = document.createElement('div');
     this.canAddBlock = true;
     this.disabledBlockTypes = new Set();
-    this.close({ animate: false });
-    if (animate) {
-      dom.hide().slideDown();
-    }
+
+    this.tooltip = tippy(this.addButton.get(0), {
+      content: this.combobox,
+      trigger: 'click',
+      interactive: true,
+      theme: 'dropdown',
+      arrow: false,
+      placement: 'bottom',
+      plugins: [hideTooltipOnEsc],
+      onShow: this.renderMenu.bind(this),
+      onHidden: () => {
+        ReactDOM.render(null, this.combobox);
+      },
+    });
+  }
+
+  get blockItems() {
+    return this.groupedChildBlockDefs.map(([group, blockDefs]) => {
+      const groupItems = blockDefs
+        // Allow adding all blockDefs even when disabled, so validation only impedes when saving.
+        // Keeping the previous filtering here for future reference.
+        // .filter((blockDef) => !this.disabledBlockTypes.has(blockDef.name))
+        .map((blockDef) => ({
+          type: blockDef.name,
+          label: blockDef.meta.label,
+          icon: blockDef.meta.icon,
+        }));
+
+      return {
+        label: group || '',
+        type: group || '',
+        items: groupItems,
+      };
+    });
   }
 
   renderMenu() {
-    if (this.hasRenderedMenu) return;
-    this.hasRenderedMenu = true;
+    const blockItems = this.blockItems;
+    ReactDOM.render(
+      <ComboBox
+        label={comboBoxLabel}
+        placeholder={comboBoxLabel}
+        items={blockItems}
+        getItemLabel={(type, item) => item.label}
+        getItemDescription={(item) => item.label}
+        getSearchFields={(item) => [item.label, item.type]}
+        noResultsText={comboBoxNoResults}
+        onSelect={this.onSelectBlock.bind(this)}
+      />,
+      this.combobox,
+    );
+  }
 
-    this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
-      if (group) {
-        const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(
-          group,
-        );
-        this.innerContainer.append(heading);
-      }
-      const grid = $('<div class="c-sf-add-panel__grid"></div>');
-      this.innerContainer.append(grid);
-      blockDefs.forEach((blockDef) => {
-        const button = $(`
-          <button type="button" class="c-sf-button action-add-block-${h(
-            blockDef.name,
-          )}">
-            <svg class="icon icon-${h(
-              blockDef.meta.icon,
-            )} c-sf-button__icon" aria-hidden="true">
-              <use href="#icon-${h(blockDef.meta.icon)}"></use>
-            </svg>
-            ${h(blockDef.meta.label)}
-          </button>
-        `);
-        grid.append(button);
-        button.click(() => {
-          if (this.onRequestInsert) {
-            this.onRequestInsert(this.index, { type: blockDef.name });
-          }
-          this.close({ animate: true });
-        });
-      });
-    });
-
-    // Disable buttons for any disabled block types
-    this.disabledBlockTypes.forEach((blockType) => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
-        'disabled',
-        'true',
-      );
-    });
+  onSelectBlock(change) {
+    if (this.onRequestInsert) {
+      this.onRequestInsert(this.index, { type: change.selectedItem.type });
+    }
+    this.close();
   }
 
   setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
     this.canAddBlock = canAddBlock;
     this.disabledBlockTypes = disabledBlockTypes;
-
     // Disable/enable menu open button
     if (this.canAddBlock) {
       this.addButton.removeAttr('disabled');
     } else {
       this.addButton.attr('disabled', 'true');
     }
-
-    // Close menu if its open and we no longer can add blocks
-    if (!canAddBlock && this.isOpen) {
-      this.close({ animate: true });
-    }
-
-    // Disable/enable individual block type buttons
-    $('button', this.innerContainer).removeAttr('disabled');
-    disabledBlockTypes.forEach((blockType) => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
-        'disabled',
-        'true',
-      );
-    });
   }
 
-  toggle() {
-    if (this.isOpen) {
-      this.close({ animate: true });
-    } else {
-      this.open({ animate: true });
-    }
-  }
-  open(opts) {
+  open() {
     if (!this.canAddBlock) {
       return;
     }
-
-    this.renderMenu();
-    if (opts && opts.animate) {
-      this.outerContainer.slideDown();
-    } else {
-      this.outerContainer.show();
-    }
-    this.addButton.addClass('c-sf-add-button--close');
-    this.outerContainer.attr('aria-hidden', 'false');
-    this.isOpen = true;
+    this.addButton.attr('aria-expanded', 'true');
+    this.tooltip.show();
   }
-  close(opts) {
-    if (opts && opts.animate) {
-      this.outerContainer.slideUp();
-    } else {
-      this.outerContainer.hide();
-    }
-    this.addButton.removeClass('c-sf-add-button--close');
-    this.outerContainer.attr('aria-hidden', 'true');
-    this.isOpen = false;
+
+  close() {
+    this.addButton.attr('aria-expanded', 'false');
+    this.tooltip.hide();
   }
 }
 
 export class StreamBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+      <div class="${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(
           prefix,
         )}-count" data-streamfield-stream-count value="0">
@@ -219,17 +205,19 @@ export class StreamBlock extends BaseSequenceBlock {
     if (this.blockDef.meta.helpText) {
       // help text is left unescaped as per Django conventions
       $(`
-        <span>
+        <div class="c-sf-help">
           <div class="help">
-            ${this.blockDef.meta.helpIcon}
             ${this.blockDef.meta.helpText}
           </div>
-        </span>
+        </div>
       `).insertBefore(dom);
     }
 
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
+
+    // Cache for child block counting (not guaranteed to be fully populated)
+    this.childBlockCounts = new Map();
 
     // Insertion control objects - there are one more of these than there are children.
     // The control at index n will insert a block at index n
@@ -257,6 +245,36 @@ export class StreamBlock extends BaseSequenceBlock {
     }
   }
 
+  getBlockGroups() {
+    return this.blockDef.groupedChildBlockDefs;
+  }
+
+  getBlockCount(type) {
+    // Get the block count for a particular type, or if none is provided, the total block count
+    if (!type) {
+      return this.children.length;
+    }
+    if (!this.childBlockCounts.has(type)) {
+      this._updateBlockCount(type);
+    }
+    return this.childBlockCounts.get(type) || 0;
+  }
+
+  getBlockMax(type) {
+    // Get the maximum number of blocks allowable for a particular type, or if none is provided, the total maximum
+    if (!type) {
+      return this.blockDef.meta.maxNum;
+    }
+    return this.blockDef.meta.blockCounts[type]?.max_num;
+  }
+
+  _updateBlockCount(type) {
+    const currentBlockCount = this.children.filter(
+      (child) => child.type === type,
+    ).length;
+    this.childBlockCounts.set(type, currentBlockCount);
+  }
+
   /*
    * Called whenever a block is added or removed
    *
@@ -265,6 +283,7 @@ export class StreamBlock extends BaseSequenceBlock {
   blockCountChanged() {
     super.blockCountChanged();
     this.canAddBlock = true;
+    this.childBlockCounts.clear();
 
     if (
       typeof this.blockDef.meta.maxNum === 'number' &&
@@ -273,44 +292,28 @@ export class StreamBlock extends BaseSequenceBlock {
       this.canAddBlock = false;
     }
 
-    // If we can add blocks, check if there are any block types that have count limits
+    // Check if there are any block types that have count limits
     this.disabledBlockTypes = new Set();
-    if (this.canAddBlock) {
-      for (const blockType in this.blockDef.meta.blockCounts) {
-        if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
-          const counts = this.blockDef.meta.blockCounts[blockType];
+    for (const blockType in this.blockDef.meta.blockCounts) {
+      if (hasOwn(this.blockDef.meta.blockCounts, blockType)) {
+        const maxNum = this.getBlockMax(blockType);
 
-          if (typeof counts.max_num === 'number') {
-            const currentBlockCount = this.children.filter(
-              (child) => child.type === blockType,
-            ).length;
+        if (typeof maxNum === 'number') {
+          const currentBlockCount = this.getBlockCount(blockType);
 
-            if (currentBlockCount >= counts.max_num) {
-              this.disabledBlockTypes.add(blockType);
-            }
+          if (currentBlockCount >= maxNum) {
+            this.disabledBlockTypes.add(blockType);
           }
         }
       }
     }
 
-    for (let i = 0; i < this.children.length; i++) {
-      const canDuplicate =
-        this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
-
-      if (canDuplicate) {
-        this.children[i].enableDuplication();
-        this.children[i].enableSplit();
-      } else {
-        this.children[i].disableDuplication();
-        this.children[i].disableSplit();
-      }
-    }
-    for (let i = 0; i < this.inserters.length; i++) {
+    range(0, this.inserters.length).forEach((i) => {
       this.inserters[i].setNewBlockRestrictions(
         this.canAddBlock,
         this.disabledBlockTypes,
       );
-    }
+    });
   }
 
   _createChild(
@@ -358,12 +361,13 @@ export class StreamBlock extends BaseSequenceBlock {
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    const childState = child.getState();
+    const childState = child.getDuplicatedState();
     const animate = opts && opts.animate;
-    childState.id = null;
-    this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
+    this.insert(childState, index + 1, {
+      animate,
+      focus: true,
+      collapsed: child.collapsed,
+    });
   }
 
   splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
@@ -373,7 +377,7 @@ export class StreamBlock extends BaseSequenceBlock {
     const newChild = this.insert(
       { type: initialState.type, id: uuidv4(), value: valueAfter },
       index + 1,
-      { animate, collapsed: child.collapsed },
+      { animate, focus: true, collapsed: child.collapsed },
     );
     child.setState({
       type: initialState.type,
@@ -396,46 +400,29 @@ export class StreamBlock extends BaseSequenceBlock {
         }
       });
     }
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
   }
 
   setState(values) {
     super.setState(values);
-    if (values.length === 0) {
-      /* for an empty list, begin with the menu open */
-      this.inserters[0].open({ animate: false });
-    }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
-    }
-    const error = errorList[0];
+  setError(error) {
+    if (!error) return;
 
-    // Non block errors
+    // Non block errors (messages applying to the block as a whole)
     const container = this.container[0];
-    container
-      .querySelectorAll(':scope > .help-block.help-critical')
-      .forEach((element) => element.remove());
+    removeErrorMessages(container);
 
-    if (error.nonBlockErrors.length > 0) {
-      // Add a help block for each error raised
-      error.nonBlockErrors.forEach((nonBlockError) => {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('help-block');
-        errorElement.classList.add('help-critical');
-        errorElement.innerHTML = h(nonBlockError.messages[0]);
-        container.insertBefore(errorElement, container.childNodes[0]);
-      });
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
     }
 
-    // Block errors
-
-    for (const blockIndex in error.blockErrors) {
-      if (error.blockErrors.hasOwnProperty(blockIndex)) {
-        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+    if (error.blockErrors) {
+      // Block errors (to be propagated to child blocks)
+      for (const blockIndex in error.blockErrors) {
+        if (hasOwn(error.blockErrors, blockIndex)) {
+          this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*
 import base64
 import collections
+import copy
 import json
 import unittest
 from decimal import Decimal
@@ -8,24 +8,27 @@ from decimal import Decimal
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.safestring import SafeData, mark_safe
-from django.utils.translation import gettext_lazy as __
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
+from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.field_block import FieldBlockAdapter
-from wagtail.blocks.list_block import ListBlockAdapter
+from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
-from wagtail.blocks.stream_block import StreamBlockAdapter
-from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.blocks.stream_block import StreamBlockAdapter, StreamBlockValidationError
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -75,7 +78,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "helpText": "Some helpful text",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field char_field widget-text_input fieldname-test_block",
+                "classname": "w-field w-field--char_field w-field--text_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -121,6 +124,12 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         content = block.get_searchable_content("Hello world!")
 
         self.assertEqual(content, ["Hello world!"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.CharBlock(search_index=False)
+        content = block.get_searchable_content("Hello world!")
+
+        self.assertEqual(content, [])
 
     def test_charfield_with_validator(self):
         def validate_is_foo(value):
@@ -175,7 +184,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field choice_field widget-select fieldname-test_choiceblock",
+                "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -411,6 +420,18 @@ class TestDecimalBlock(TestCase):
         block_val = block.value_from_form(Decimal("1.63"))
         self.assertEqual(type(block_val), Decimal)
 
+    def test_type_to_python(self):
+        block = blocks.DecimalBlock()
+        block_val = block.to_python(
+            "1.63"
+        )  # decimals get saved as string in JSON field
+        self.assertEqual(type(block_val), Decimal)
+
+    def test_type_to_python_decimal_none_value(self):
+        block = blocks.DecimalBlock()
+        block_val = block.to_python(None)
+        self.assertIsNone(block_val)
+
     def test_render(self):
         block = blocks.DecimalBlock()
         test_val = Decimal(1.63)
@@ -445,6 +466,16 @@ class TestDecimalBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("3.0")
+
+    def test_round_trip_to_db_preserves_type(self):
+        block = blocks.DecimalBlock()
+        original_value = Decimal(1.63)
+        db_value = json.dumps(
+            block.get_prep_value(original_value), cls=DjangoJSONEncoder
+        )
+        restored_value = block.to_python(json.loads(db_value))
+        self.assertEqual(type(restored_value), Decimal)
+        self.assertEqual(original_value, restored_value)
 
 
 class TestRegexBlock(TestCase):
@@ -558,8 +589,8 @@ class TestRichTextBlock(TestCase):
         self.assertEqual(
             js_args[2],
             {
-                "classname": "field char_field widget-custom_rich_text_area fieldname-test_richtextblock",
-                "icon": "doc-full",
+                "classname": "w-field w-field--char_field w-field--custom_rich_text_area",
+                "icon": "pilcrow",
                 "label": "Test richtextblock",
                 "required": True,
                 "showAddCommentButton": True,
@@ -582,8 +613,8 @@ class TestRichTextBlock(TestCase):
             {
                 "label": "Test richtextblock",
                 "required": True,
-                "icon": "doc-full",
-                "classname": "field char_field widget-draftail_rich_text_area fieldname-test_richtextblock",
+                "icon": "pilcrow",
+                "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -611,6 +642,20 @@ class TestRichTextBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(RichText("<p>bar</p>"))
 
+    def test_validate_max_length(self):
+        block = blocks.RichTextBlock(max_length=20)
+
+        block.clean(RichText("<p>short</p>"))
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText("<p>this exceeds the 20 character limit</p>"))
+
+        block.clean(
+            RichText(
+                '<p><a href="http://really-long-domain-name.example.com">also</a> short</p>'
+            )
+        )
+
     def test_get_searchable_content(self):
         block = blocks.RichTextBlock()
         value = RichText(
@@ -626,11 +671,29 @@ class TestRichTextBlock(TestCase):
             ],
         )
 
+    def test_search_index_get_searchable_content(self):
+        block = blocks.RichTextBlock(search_index=False)
+        value = RichText(
+            '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
+            "<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>"
+        )
+        result = block.get_searchable_content(value)
+        self.assertEqual(
+            result,
+            [],
+        )
+
     def test_get_searchable_content_whitespace(self):
         block = blocks.RichTextBlock()
         value = RichText("<p>mashed</p><p>po<i>ta</i>toes</p>")
         result = block.get_searchable_content(value)
         self.assertEqual(result, ["mashed potatoes"])
+
+    def test_extract_references(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<a linktype="page" id="1">Link to an internal page</a>')
+
+        self.assertEqual(list(block.extract_references(value)), [(Page, "1", "", "")])
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -657,7 +720,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field choice_field widget-select fieldname-test_choiceblock",
+                "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -883,6 +946,16 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
 
+    def test_search_index_searchable_content(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
+
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():
             return [
@@ -926,8 +999,8 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(
             choices=[
-                ("choice-1", __("Choice 1")),
-                ("choice-2", __("Choice 2")),
+                ("choice-1", _("Choice 1")),
+                ("choice-2", _("Choice 2")),
             ]
         )
         result = block.get_searchable_content("choice-1")
@@ -940,17 +1013,17 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.ChoiceBlock(
             choices=[
                 (
-                    __("Section 1"),
+                    _("Section 1"),
                     [
-                        ("1-1", __("Block 1")),
-                        ("1-2", __("Block 2")),
+                        ("1-1", _("Block 1")),
+                        ("1-2", _("Block 2")),
                     ],
                 ),
                 (
-                    __("Section 2"),
+                    _("Section 2"),
                     [
-                        ("2-1", __("Block 1")),
-                        ("2-2", __("Block 2")),
+                        ("2-1", _("Block 1")),
+                        ("2-2", _("Block 2")),
                     ],
                 ),
             ]
@@ -1036,7 +1109,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field multiple_choice_field widget-select_multiple fieldname-test_choiceblock",
+                "classname": "w-field w-field--multiple_choice_field w-field--select_multiple",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1260,6 +1333,16 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
 
+    def test_search_index_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
+
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():
             return [
@@ -1303,8 +1386,8 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
-                ("choice-1", __("Choice 1")),
-                ("choice-2", __("Choice 2")),
+                ("choice-1", _("Choice 1")),
+                ("choice-2", _("Choice 2")),
             ]
         )
         result = block.get_searchable_content("choice-1")
@@ -1317,17 +1400,17 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.MultipleChoiceBlock(
             choices=[
                 (
-                    __("Section 1"),
+                    _("Section 1"),
                     [
-                        ("1-1", __("Block 1")),
-                        ("1-2", __("Block 2")),
+                        ("1-1", _("Block 1")),
+                        ("1-2", _("Block 2")),
                     ],
                 ),
                 (
-                    __("Section 2"),
+                    _("Section 2"),
                     [
-                        ("2-1", __("Block 1")),
-                        ("2-2", __("Block 2")),
+                        ("2-1", _("Block 1")),
+                        ("2-2", _("Block 2")),
                     ],
                 ),
             ]
@@ -1447,7 +1530,7 @@ class TestRawHTMLBlock(unittest.TestCase):
                 "label": "Test rawhtmlblock",
                 "required": True,
                 "icon": "code",
-                "classname": "field char_field widget-textarea fieldname-test_rawhtmlblock",
+                "classname": "w-field w-field--char_field w-field--textarea",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -2060,6 +2143,29 @@ class TestStructBlock(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(value)
 
+    def test_non_block_validation_error(self):
+        class LinkBlock(blocks.StructBlock):
+            page = blocks.PageChooserBlock(required=False)
+            url = blocks.URLBlock(required=False)
+
+            def clean(self, value):
+                result = super().clean(value)
+                if not (result["page"] or result["url"]):
+                    raise StructBlockValidationError(
+                        non_block_errors=ErrorList(
+                            ["Either page or URL must be specified"]
+                        )
+                    )
+                return result
+
+        block = LinkBlock()
+        bad_data = {"page": None, "url": ""}
+        with self.assertRaises(ValidationError):
+            block.clean(bad_data)
+
+        good_data = {"page": None, "url": "https://wagtail.org/"}
+        self.assertEqual(block.clean(good_data), good_data)
+
     def test_bound_blocks_are_available_on_template(self):
         """
         Test that we are able to use value.bound_blocks within templates
@@ -2113,6 +2219,19 @@ class TestStructBlock(SimpleTestCase):
         value = block.to_python({"title": "Bonjour", "body": "monde <i>italique</i>"})
         result = value.render_as_block(context={"language": "fr"})
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
+
+    def test_copy_structvalue(self):
+        block = SectionBlock()
+        value = block.to_python({"title": "Hello", "body": "world"})
+        copied = copy.copy(value)
+
+        # Ensure we have a new object
+        self.assertIsNot(value, copied)
+
+        # Check copy operation
+        self.assertIsInstance(copied, blocks.StructValue)
+        self.assertIs(value.block, copied.block)
+        self.assertEqual(value, copied)
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
@@ -2680,10 +2799,9 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_val)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                "block_errors": [None],
-                "non_block_errors": ["The minimum number of items is 2"],
+                "messages": ["The minimum number of items is 2"],
             },
         )
 
@@ -2698,10 +2816,9 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(block_val)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                "block_errors": [None, None, None],
-                "non_block_errors": ["The maximum number of items is 2"],
+                "messages": ["The maximum number of items is 2"],
             },
         )
 
@@ -2849,6 +2966,36 @@ class TestListBlockWithFixtures(TestCase):
                 [Page.objects.get(id=4), Page.objects.get(id=5)],
                 [],
                 [Page.objects.get(id=2)],
+            ],
+        )
+
+    def test_extract_references(self):
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+        christmas_page = Page.objects.get(slug="christmas")
+        saint_patrick_page = Page.objects.get(slug="saint-patrick")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    block.to_python(
+                        [
+                            {
+                                "id": "block1",
+                                "type": "item",
+                                "value": christmas_page.id,
+                            },
+                            {
+                                "id": "block2",
+                                "type": "item",
+                                "value": saint_patrick_page.id,
+                            },
+                        ]
+                    )
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "item", "block1"),
+                (Page, str(saint_patrick_page.id), "item", "block2"),
             ],
         )
 
@@ -3277,10 +3424,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
+            catcher.exception.as_json_data(),
             {
-                0: ["This field is required."],
-                3: ["Enter a valid URL."],
+                "blockErrors": {
+                    0: {"messages": ["This field is required."]},
+                    3: {"messages": ["Enter a valid URL."]},
+                }
             },
         )
 
@@ -3296,7 +3445,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The minimum number of items is 1"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The minimum number of items is 1"]},
         )
 
         # a value with >= 1 blocks should pass validation
@@ -3323,7 +3473,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params, {"__all__": ["The maximum number of items is 1"]}
+            catcher.exception.as_json_data(),
+            {"messages": ["The maximum number of items is 1"]},
         )
 
         # a value with 1 block should pass validation
@@ -3348,8 +3499,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Char: The minimum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Char: The minimum number of items is 1"]},
         )
 
         # a value with 1 char block should pass validation
@@ -3383,8 +3534,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError) as catcher:
             block.clean(value)
         self.assertEqual(
-            catcher.exception.params,
-            {"__all__": ["Char: The maximum number of items is 1"]},
+            catcher.exception.as_json_data(),
+            {"messages": ["Char: The maximum number of items is 1"]},
         )
 
         # a value with 1 char block should pass validation
@@ -3951,6 +4102,73 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+    def test_block_names(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.TextBlock()
+            date = blocks.DateBlock()
+
+        block = ArticleBlock()
+        value = block.to_python(
+            [
+                {
+                    "type": "heading",
+                    "value": "My title",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My first paragraph",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My second paragraph",
+                },
+            ]
+        )
+        blocks_by_name = value.blocks_by_name()
+        assert isinstance(blocks_by_name, blocks.StreamValue.BlockNameLookup)
+
+        # unpack results to a dict of {block name: list of block values} for easier comparison
+        result = {
+            block_name: [block.value for block in blocks]
+            for block_name, blocks in blocks_by_name.items()
+        }
+        self.assertEqual(
+            result,
+            {
+                "heading": ["My title"],
+                "paragraph": ["My first paragraph", "My second paragraph"],
+                "date": [],
+            },
+        )
+
+        paragraph_blocks = value.blocks_by_name(block_name="paragraph")
+        # We can also access by indexing on the stream
+        self.assertEqual(paragraph_blocks, value.blocks_by_name()["paragraph"])
+
+        self.assertEqual(len(paragraph_blocks), 2)
+        for block in paragraph_blocks:
+            self.assertEqual(block.block_type, "paragraph")
+
+        self.assertEqual(value.blocks_by_name(block_name="date"), [])
+        self.assertEqual(value.blocks_by_name(block_name="invalid_type"), [])
+
+        first_heading_block = value.first_block_by_name(block_name="heading")
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(value.first_block_by_name(block_name="date"), None)
+        self.assertIs(value.first_block_by_name(block_name="invalid_type"), None)
+
+        # first_block_by_name with no argument returns a dict-like lookup of first blocks per name
+        first_blocks_by_name = value.first_block_by_name()
+        first_heading_block = first_blocks_by_name["heading"]
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(first_blocks_by_name["date"], None)
+        self.assertIs(first_blocks_by_name["invalid_type"], None)
+
     def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
 
@@ -4027,6 +4245,27 @@ class TestStructBlockWithFixtures(TestCase):
             ],
         )
 
+    def test_extract_references(self):
+        block = blocks.StructBlock(
+            [
+                ("page", blocks.PageChooserBlock(required=False)),
+                ("link_text", blocks.CharBlock(default="missing title")),
+            ]
+        )
+
+        christmas_page = Page.objects.get(slug="christmas")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    {"page": christmas_page, "link_text": "Christmas"}
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "page", "page"),
+            ],
+        )
+
 
 class TestStreamBlockWithFixtures(TestCase):
     fixtures = ["test.json"]
@@ -4097,6 +4336,47 @@ class TestStreamBlockWithFixtures(TestCase):
             ],
         )
 
+    def test_extract_references(self):
+        block = blocks.StreamBlock(
+            [
+                ("page", blocks.PageChooserBlock()),
+                ("heading", blocks.CharBlock()),
+            ]
+        )
+
+        christmas_page = Page.objects.get(slug="christmas")
+        saint_patrick_page = Page.objects.get(slug="saint-patrick")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    block.to_python(
+                        [
+                            {
+                                "id": "block1",
+                                "type": "heading",
+                                "value": "Some events that you might like",
+                            },
+                            {
+                                "id": "block2",
+                                "type": "page",
+                                "value": christmas_page.id,
+                            },
+                            {
+                                "id": "block3",
+                                "type": "page",
+                                "value": saint_patrick_page.id,
+                            },
+                        ]
+                    )
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "page", "block2"),
+                (Page, str(saint_patrick_page.id), "page", "block3"),
+            ],
+        )
+
 
 class TestPageChooserBlock(TestCase):
     fixtures = ["test.json"]
@@ -4138,9 +4418,9 @@ class TestPageChooserBlock(TestCase):
             {
                 "label": "Test pagechooserblock",
                 "required": True,
-                "icon": "redirect",
+                "icon": "doc-empty-inverse",
                 "helpText": "pick a page, any page",
-                "classname": "field model_choice_field widget-admin_page_chooser fieldname-test_pagechooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4303,6 +4583,18 @@ class TestPageChooserBlock(TestCase):
 
         self.assertSequenceEqual(pages, expected_pages)
 
+    def test_extract_references(self):
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug="christmas")
+
+        self.assertListEqual(
+            list(block.extract_references(christmas_page)),
+            [(Page, str(christmas_page.id), "", "")],
+        )
+
+        # None should not yield any references
+        self.assertListEqual(list(block.extract_references(None)), [])
+
 
 class TestStaticBlock(unittest.TestCase):
     def test_adapt_with_constructor(self):
@@ -4446,7 +4738,7 @@ class TestDateBlock(TestCase):
                 "label": "Test dateblock",
                 "required": True,
                 "icon": "date",
-                "classname": "field date_field widget-admin_date_input fieldname-test_dateblock",
+                "classname": "w-field w-field--date_field w-field--admin_date_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4479,7 +4771,7 @@ class TestTimeBlock(TestCase):
                 "label": "Test timeblock",
                 "required": True,
                 "icon": "time",
-                "classname": "field time_field widget-admin_time_input fieldname-test_timeblock",
+                "classname": "w-field w-field--time_field w-field--admin_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4512,7 +4804,7 @@ class TestDateTimeBlock(TestCase):
                 "label": "Test datetimeblock",
                 "required": True,
                 "icon": "date",
-                "classname": "field date_time_field widget-admin_date_time_input fieldname-test_datetimeblock",
+                "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4931,19 +5223,351 @@ class TestIncludeBlockTag(TestCase):
         self.assertIn("<body>some <em>evil</em> HTML</body>", result)
 
 
-class BlockUsingGetTemplateMethod(blocks.Block):
-
-    my_new_template = "my_super_awesome_dynamic_template.html"
-
-    def get_template(self):
-        return self.my_new_template
-
-
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_template_is_overridden_by_get_template(self):
+    def test_get_template_old_signature(self):
+        class BlockUsingGetTemplateMethod(blocks.Block):
+            my_new_template = "tests/blocks/heading_block.html"
+
+            def get_template(self, context=None):
+                return self.my_new_template
 
         block = BlockUsingGetTemplateMethod(
             template="tests/blocks/this_shouldnt_be_used.html"
         )
-        template = block.get_template()
-        self.assertEqual(template, block.my_new_template)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
+        ):
+            html = block.render("Hello World")
+        self.assertEqual(html, "<h1>Hello World</h1>")
+
+    def test_block_render_passes_the_value_argument_to_get_template(self):
+        """verifies Block.render() passes the value to get_template"""
+
+        class BlockChoosingTemplateBasedOnValue(blocks.Block):
+            def get_template(self, value=None, context=None):
+                if value == "HEADING":
+                    return "tests/blocks/heading_block.html"
+
+                return None  # using render_basic
+
+        block = BlockChoosingTemplateBasedOnValue()
+
+        html = block.render("Hello World")
+        self.assertEqual(html, "Hello World")
+
+        html = block.render("HEADING")
+        self.assertEqual(html, "<h1>HEADING</h1>")
+
+
+class TestValidationErrorAsJsonData(TestCase):
+    def test_plain_validation_error(self):
+        error = ValidationError("everything is broken")
+        self.assertEqual(
+            get_error_json_data(error), {"messages": ["everything is broken"]}
+        )
+
+    def test_validation_error_with_multiple_messages(self):
+        error = ValidationError(
+            [
+                ValidationError("everything is broken"),
+                ValidationError("even more broken than before"),
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {"messages": ["everything is broken", "even more broken than before"]},
+        )
+
+    def test_structblock_validation_error(self):
+        error = StructBlockValidationError(
+            block_errors={
+                "name": ErrorList(
+                    [
+                        ValidationError("This field is required."),
+                    ]
+                )
+            },
+            non_block_errors=ErrorList(
+                [ValidationError("Either email or telephone number must be specified.")]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    "name": {"messages": ["This field is required."]},
+                },
+                "messages": [
+                    "Either email or telephone number must be specified.",
+                ],
+            },
+        )
+
+    def test_structblock_validation_error_with_no_block_errors(self):
+        error = StructBlockValidationError(
+            non_block_errors=[
+                ValidationError("Either email or telephone number must be specified.")
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "Either email or telephone number must be specified.",
+                ],
+            },
+        )
+
+    def test_structblock_validation_error_with_no_non_block_errors(self):
+        error = StructBlockValidationError(
+            block_errors={
+                "name": ValidationError("This field is required."),
+            },
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    "name": {"messages": ["This field is required."]},
+                },
+            },
+        )
+
+    def test_streamblock_validation_error(self):
+        error = StreamBlockValidationError(
+            block_errors={
+                2: ErrorList(
+                    [
+                        StructBlockValidationError(
+                            non_block_errors=ErrorList(
+                                [
+                                    ValidationError(
+                                        "Either email or telephone number must be specified."
+                                    )
+                                ]
+                            )
+                        )
+                    ]
+                ),
+                4: ErrorList([ValidationError("This field is required.")]),
+                6: ErrorList(
+                    [
+                        StructBlockValidationError(
+                            block_errors={
+                                "name": ErrorList(
+                                    [ValidationError("This field is required.")]
+                                ),
+                            }
+                        )
+                    ]
+                ),
+            },
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    2: {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    4: {"messages": ["This field is required."]},
+                    6: {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                },
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_streamblock_validation_error_with_no_block_errors(self):
+        error = StreamBlockValidationError(
+            non_block_errors=[
+                ValidationError("The minimum number of items is 2"),
+            ],
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "The minimum number of items is 2",
+                ],
+            },
+        )
+
+    def test_streamblock_validation_error_with_no_non_block_errors(self):
+        error = StreamBlockValidationError(
+            block_errors={
+                4: [ValidationError("This field is required.")],
+                6: ValidationError("This field is required."),
+            },
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    4: {"messages": ["This field is required."]},
+                    6: {"messages": ["This field is required."]},
+                }
+            },
+        )
+
+    def test_listblock_validation_error_constructed_with_list(self):
+        # test the pre-Wagtail-5.0 constructor format for ListBlockValidationError:
+        # block_errors passed as a list with None for 'no error', and
+        # a single-item ErrorList for validation errors
+        error = ListBlockValidationError(
+            block_errors=[
+                None,
+                ErrorList(
+                    [
+                        StructBlockValidationError(
+                            non_block_errors=ErrorList(
+                                [
+                                    ValidationError(
+                                        "Either email or telephone number must be specified."
+                                    )
+                                ]
+                            )
+                        )
+                    ]
+                ),
+                ErrorList(
+                    [
+                        StructBlockValidationError(
+                            block_errors={
+                                "name": ErrorList(
+                                    [ValidationError("This field is required.")]
+                                ),
+                            }
+                        )
+                    ]
+                ),
+            ],
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    1: {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    2: {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                },
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_listblock_validation_error_constructed_with_dict(self):
+        # test the Wagtail >=5.0 constructor format for ListBlockValidationError:
+        # block_errors passed as a dict keyed by block index, where values can be
+        # ValidationErrors and plain single-item lists as well as single-item ErrorLists
+        error = ListBlockValidationError(
+            block_errors={
+                1: [
+                    StructBlockValidationError(
+                        non_block_errors=ErrorList(
+                            [
+                                ValidationError(
+                                    "Either email or telephone number must be specified."
+                                )
+                            ]
+                        )
+                    )
+                ],
+                2: StructBlockValidationError(
+                    block_errors={
+                        "name": ErrorList([ValidationError("This field is required.")]),
+                    }
+                ),
+            },
+            non_block_errors=ErrorList(
+                [
+                    ValidationError("The minimum number of items is 2"),
+                    ValidationError("The maximum number of items is 5"),
+                ]
+            ),
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    1: {
+                        "messages": [
+                            "Either email or telephone number must be specified."
+                        ]
+                    },
+                    2: {
+                        "blockErrors": {
+                            "name": {
+                                "messages": ["This field is required."],
+                            }
+                        }
+                    },
+                },
+                "messages": [
+                    "The minimum number of items is 2",
+                    "The maximum number of items is 5",
+                ],
+            },
+        )
+
+    def test_listblock_validation_error_with_no_non_block_errors(self):
+        error = ListBlockValidationError(
+            block_errors={2: ValidationError("This field is required.")},
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "blockErrors": {
+                    2: {"messages": ["This field is required."]},
+                },
+            },
+        )
+
+    def test_listblock_validation_error_with_no_block_errors(self):
+        error = ListBlockValidationError(
+            non_block_errors=[
+                ValidationError("The minimum number of items is 2"),
+            ]
+        )
+        self.assertEqual(
+            get_error_json_data(error),
+            {
+                "messages": [
+                    "The minimum number of items is 2",
+                ],
+            },
+        )

@@ -9,12 +9,21 @@
             {% if field.is_hidden %}
                 {{ field }}
             {% else %}
-                {% include "wagtailadmin/shared/field_as_li.html" %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
             {% endif %}
         {% endfor %}
         <li>
-            <button type="submit" class="button button-longrunning">{% icon name="spinner" %}{% trans 'Update' %}</button>
-            <a href="{{ delete_action }}" class="delete button button-secondary no">{% trans "Delete" %}</a>
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+            >
+                {% icon name="spinner" %}{% trans 'Update' %}
+            </button>
+            <a href="{{ delete_action }}" class="delete button no">{% trans "Delete" %}</a>
         </li>
     </ul>
 </form>

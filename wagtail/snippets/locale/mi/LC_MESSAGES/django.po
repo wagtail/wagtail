@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,55 +19,45 @@ msgstr ""
 "Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Submit for moderation"
+msgstr "Tukungia hei whakaōrite"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Tukungia anō ki %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Tukungia ki %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Tīmata ano te mahi pūheke"
+
+msgid "Cancel workflow "
+msgstr "Whakakore te mahi pūheke"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
 msgid "Delete"
 msgstr "Muku"
 
 msgid "Save"
 msgstr "Puritia"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s me perehi"
+
 msgid "Wagtail snippets"
 msgstr "Pitopito kōrero-a-Wagtail"
 
-msgid "Choose"
-msgstr "Kōhiti"
-
-msgid "Search"
-msgstr "Haha"
-
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s e whakarite"
-msgstr[1] ""
-"\n"
-"%(counter)s e whakarite"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Aroha mai, karekau hē pitopito kōrero e whakataurite ki \"<em>"
-"%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Ehara koe i hangaia he %(snippet_type_name)s pitopito kōrero. He aha ai <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noopener noreferrer\"> hangaia tētahi i naea nei </a>? "
-
-msgid "Saving…"
-msgstr "pupuru ana..."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' kua muku."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -96,6 +86,9 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
+msgid "Saving…"
+msgstr "pupuru ana..."
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Hou %(snippet_type_name)s"
@@ -107,123 +100,56 @@ msgid "Actions"
 msgstr "Hohenga"
 
 #, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr ""
-"Whakarerekē%(snippet_type_name)s\n"
-"E Whakarerekē a John I ōna tuhinga mo tōna pukapuka – John is editing the "
-"writing for his book\n"
-"%(instance)s Kei te Whakarerekē a Hine ī nga tuhinga mō te nūpepa – Hine is "
-"editing the writing for the newspaper"
-
-msgid "Editing"
-msgstr "Whakarerekē"
-
-msgid "Usage"
-msgstr "Whakamahi"
-
-msgid "Snippets"
-msgstr "Pitopito kōrero"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Kōwhiri ngā %(snippet_type_name_plural)s katoa"
-
-msgid "Title"
-msgstr "Taitara"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Kōwhiri %(snippet)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a href="
-"\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
-
-#, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pitopito kōrero %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Pitopito kōrero <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Tāpiri %(snippet_type_name)s"
 
 #, python-format
-msgid "Usage of %(title)s"
-msgstr "Te whakamahi ō %(title)s"
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a "
+"href=\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
 
-msgid "Usage of"
-msgstr "Te whakamahi ō "
-
-msgid "Parent"
-msgstr "Mātua"
-
-msgid "Type"
-msgstr "Momo"
-
-msgid "Status"
-msgstr "Tūnga"
-
-msgid "Edit this page"
-msgstr "Whakarerekē i tēnei whārangi"
-
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Haha %(snippet_type_name)s"
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' kua hangaia."
+msgid "Preview"
+msgstr "Titiro"
 
 msgid "Edit"
 msgstr "Whakarerekē"
 
+msgid "Choose"
+msgstr "Kōhiti"
+
+msgid "Snippets"
+msgstr "Pitopito kōrero"
+
+msgid "Name"
+msgstr "Ingoa"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Ehara tēnei pitopito kōrero e taea ki te hangaia, he raruraru "
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' kua whakahou."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pitopito kōrero nei, he raruraru "
 
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' kua muku."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d%(snippet_type)s mukuhia"
-msgstr[1] "%(count)d %(snippet_type)s kua mukuhia."
-
 msgid "Date"
 msgstr "Rā"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Whakarerekē '%(title)s'"
+msgid "Home"
+msgstr "Kainga"
 
 #, python-format
-msgid "Delete '%(title)s'"
-msgstr "Muku '%(title)s'"
+msgid "Choose %(object)s"
+msgstr "Kōhiti %(object)s"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Kōhiti %s"
+msgid "Choose another %(object)s"
+msgstr "Kōhiti anō %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Kōhiti anō %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Whakarerekē i tēnei %s"
+msgid "Edit this %(object)s"
+msgstr "Whakarerekē i tēnei %(object)s"

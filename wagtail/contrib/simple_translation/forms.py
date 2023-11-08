@@ -14,13 +14,27 @@ class CheckboxSelectMultipleWithDisabledOptions(forms.CheckboxSelectMultiple):
         option = super().create_option(*args, **kwargs)
         if option["value"] in self.disabled_values:
             option["attrs"]["disabled"] = True
+        else:
+            # Only set target/action if not disabled to ignore change on disabled items
+            option["attrs"]["data-action"] = "w-bulk#toggle"
+            option["attrs"]["data-w-bulk-target"] = "item"
         return option
 
 
 class SubmitTranslationForm(forms.Form):
     # Note: We don't actually use select_all in Python, it is just the
     # easiest way to add the widget to the form. It's controlled in JS.
-    select_all = forms.BooleanField(label=gettext_lazy("Select all"), required=False)
+    select_all = forms.BooleanField(
+        label=gettext_lazy("Select all"),
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                "data-action": "w-bulk#toggleAll",
+                "data-w-bulk-target": "all",
+            },
+        ),
+    )
+
     locales = forms.ModelMultipleChoiceField(
         label=gettext_lazy("Locales"),
         queryset=Locale.objects.none(),
@@ -42,10 +56,10 @@ class SubmitTranslationForm(forms.Form):
             if descendant_count > 0:
                 hide_include_subtree = False
                 self.fields["include_subtree"].label = ngettext(
-                    "Include subtree ({} page)",
-                    "Include subtree ({} pages)",
+                    "Include subtree (%(descendant_count)s page)",
+                    "Include subtree (%(descendant_count)s pages)",
                     descendant_count,
-                ).format(descendant_count)
+                ) % {"descendant_count": descendant_count}
 
         if hide_include_subtree:
             self.fields["include_subtree"].widget = forms.HiddenInput()
@@ -94,7 +108,7 @@ class SubmitTranslationForm(forms.Form):
                     len(disabled_locales),
                 )
                 help_text += "<br>"
-                help_text += '<a href="{}">'.format(url)
+                help_text += f'<a href="{url}">'
                 help_text += ngettext(
                     "Translate the parent page.",
                     "Translate the parent pages.",

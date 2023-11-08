@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,53 +20,71 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
+msgid "Publish"
+msgstr "פרסם"
+
+msgid "Submit for moderation"
+msgstr "שלח לעריכה"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "הרשמה מחודשת ל %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "הרשמה ל %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "אתחול תזרים העבודה"
+
+msgid "Cancel workflow "
+msgstr "ביטול תזרים עבודה"
+
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
 msgid "Delete"
 msgstr "מחק"
 
 msgid "Save"
 msgstr "שמור"
 
-msgid "Choose"
-msgstr "בחרו"
+msgid "Locked"
+msgstr "נעול"
 
-msgid "Search"
-msgstr "חיפוש"
-
-msgid "Saving…"
-msgstr "שומר..."
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ופרסום"
 
 msgid "Yes, delete"
 msgstr "כן, מחק"
 
+msgid "Publishing…"
+msgstr "מפרסם..."
+
+msgid "Saving…"
+msgstr "שומר..."
+
+msgid "Save draft"
+msgstr "שמור טיוטה"
+
 msgid "New"
 msgstr "חדש"
 
-msgid "Editing"
-msgstr "עריכה"
+msgid "Preview"
+msgstr "תצוגה מקדימה "
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "Choose"
+msgstr "בחרו"
 
 msgid "Snippets"
 msgstr "קטעים"
 
-msgid "Title"
-msgstr "כותרת "
-
-msgid "Usage of"
-msgstr "שימוש ב:"
-
-msgid "Parent"
-msgstr "הורה"
-
-msgid "Type"
-msgstr "סוג"
-
-msgid "Status"
-msgstr "סטטוס"
-
-msgid "Edit this page"
-msgstr "ערוך עמוד זה"
-
-msgid "Edit"
-msgstr "ערוך"
+msgid "Name"
+msgstr "שם"
 
 msgid "The snippet could not be created due to errors."
 msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
@@ -77,14 +95,17 @@ msgstr "לא ניתן לשמור את הקטע עקב שגיאה"
 msgid "Date"
 msgstr "תאריך"
 
-#, python-format
-msgid "Choose %s"
-msgstr "בחר %s"
+msgid "Home"
+msgstr "לעמוד הבית "
 
 #, python-format
-msgid "Choose another %s"
-msgstr "בחר %s נוסף"
+msgid "Choose %(object)s"
+msgstr "בחר %(object)s"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "ערוך את %s זה"
+msgid "Choose another %(object)s"
+msgstr "בחר %(object)s נוסף"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "ערוך את %(object)s זה"

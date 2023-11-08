@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import time
 import tracemalloc
 
@@ -27,19 +25,19 @@ class Benchmark:
                 )
             )
 
-        print(
+        print(  # noqa: T201
             "time min:",
             min(timings),
             "max:",
             max(timings),
             "avg:",
             sum(timings) / len(timings),
-        )  # NOQA
-        print(
+        )
+        print(  # noqa: T201
             "memory min:",
             min(memory_usage),
             "max:",
             max(memory_usage),
             "avg:",
             sum(memory_usage) / len(memory_usage),
-        )  # NOQA
+        )

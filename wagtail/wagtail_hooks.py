@@ -12,6 +12,7 @@ from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
+from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
 
 def require_wagtail_login(next):
@@ -126,6 +127,8 @@ def register_core_log_actions(actions):
     )
     actions.register_action("wagtail.lock", _("Lock"), _("Locked"))
     actions.register_action("wagtail.unlock", _("Unlock"), _("Unlocked"))
+
+    # Legacy moderation actions
     actions.register_action("wagtail.moderation.approve", _("Approve"), _("Approved"))
     actions.register_action("wagtail.moderation.reject", _("Reject"), _("Rejected"))
 
@@ -152,7 +155,11 @@ def register_core_log_actions(actions):
                     "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
                 ) % {
                     "revision_id": log_entry.data["revision"]["id"],
-                    "created_at": log_entry.data["revision"]["created"],
+                    "created_at": render_timestamp(
+                        parse_datetime_localized(
+                            log_entry.data["revision"]["created"],
+                        )
+                    ),
                 }
             except KeyError:
                 return _("Reverted to previous revision")
@@ -245,12 +252,24 @@ def register_core_log_actions(actions):
                         "Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s."
                     ) % {
                         "revision_id": log_entry.data["revision"]["id"],
-                        "created_at": log_entry.data["revision"]["created"],
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "created_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["created"],
+                            )
+                        ),
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        ),
                     }
                 else:
                     return _("Page scheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        ),
                     }
             except KeyError:
                 return _("Page scheduled for publishing")
@@ -266,12 +285,28 @@ def register_core_log_actions(actions):
                         "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s."
                     ) % {
                         "revision_id": log_entry.data["revision"]["id"],
-                        "created_at": log_entry.data["revision"]["created"],
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "created_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["created"],
+                            )
+                        ),
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
                 else:
                     return _("Page unscheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
             except KeyError:
                 return _("Page unscheduled from publishing")
@@ -306,7 +341,9 @@ def register_core_log_actions(actions):
 
         def format_message(self, log_entry):
             try:
-                return _("Removed the '%(restriction)s' view restriction") % {
+                return _(
+                    "Removed the '%(restriction)s' view restriction. The page is public."
+                ) % {
                     "restriction": log_entry.data["restriction"]["title"],
                 }
             except KeyError:
@@ -496,7 +533,7 @@ def register_workflow_log_actions(actions):
 
         def format_message(self, log_entry):
             try:
-                return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                return _("Resubmitted '%(task)s'. Workflow resumed") % {
                     "task": log_entry.data["workflow"]["task"]["title"],
                 }
             except (KeyError, TypeError):

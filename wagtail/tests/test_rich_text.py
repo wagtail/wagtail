@@ -1,14 +1,17 @@
 from unittest.mock import patch
 
+from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
+from wagtail.fields import RichTextField
 from wagtail.models import Locale, Page
-from wagtail.rich_text import RichText, expand_db_html
+from wagtail.rich_text import RichText, RichTextMaxLengthValidator, expand_db_html
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
-from wagtail.test.testapp.models import EventPage
+from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.utils.form_data import rich_text
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -128,6 +131,14 @@ class TestRichTextValue(TestCase):
         value = RichText("<p>wagtail</p>")
         self.assertTrue(value)
 
+    def test_compare_value(self):
+        value1 = RichText("<p>wagtail</p>")
+        value2 = RichText("<p>wagtail</p>")
+        value3 = RichText("<p>django</p>")
+        self.assertNotEqual(value1, value3)
+        self.assertNotEqual(value1, 12345)
+        self.assertEqual(value1, value2)
+
 
 class TestFeatureRegistry(TestCase):
     def test_register_rich_text_features_hook(self):
@@ -231,7 +242,7 @@ class TestRichTextField(TestCase):
     def test_get_searchable_content(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_page.body = '<p><b>Merry Christmas from <a href="https://wagtail.org/">Wagtail!</a></b> &amp; co.</p>'
-        christmas_page.save_revision(submitted_for_moderation=False)
+        christmas_page.save_revision()
 
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)
@@ -241,9 +252,68 @@ class TestRichTextField(TestCase):
     def test_get_searchable_content_whitespace(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_page.body = "<p>buttery<br />mashed</p><p>po<i>ta</i>toes</p>"
-        christmas_page.save_revision(submitted_for_moderation=False)
+        christmas_page.save_revision()
 
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)
         result = body_field.get_searchable_content(value)
         self.assertEqual(result, ["buttery mashed potatoes"])
+
+    def test_max_length_validation(self):
+        EventIndexForm = modelform_factory(model=EventIndex, fields=["intro"])
+
+        form = EventIndexForm(
+            {"intro": rich_text("<p><i>less</i> than 50 characters</p>")}
+        )
+        self.assertTrue(form.is_valid())
+
+        form = EventIndexForm(
+            {
+                "intro": rich_text(
+                    "<p>a piece of text that is considerably longer than the limit of fifty characters of text</p>"
+                )
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+        form = EventIndexForm(
+            {
+                "intro": rich_text(
+                    '<p><a href="http://a-domain-name-that-would-put-us-over-the-limit-if-we-were-counting-it.example.com/">less</a> than 50 characters</p>'
+                )
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_extract_references(self):
+        self.assertEqual(
+            list(
+                RichTextField().extract_references(
+                    '<a linktype="page" id="1">Link to an internal page</a>'
+                )
+            ),
+            [(Page, "1", "", "")],
+        )
+
+
+class TestRichTextMaxLengthValidator(TestCase):
+    def test_count_characters(self):
+        """Keep those tests up-to-date with MaxLength tests client-side."""
+        validator = RichTextMaxLengthValidator(50)
+        self.assertEqual(validator.clean("<p>Plain text</p>"), 10)
+        # HTML entities should be un-escaped.
+        self.assertEqual(validator.clean("<p>There&#x27;s quote</p>"), 13)
+        # BR should be ignored.
+        self.assertEqual(validator.clean("<p>Line<br/>break</p>"), 9)
+        # Content over multiple blocks should be treated as a single line of text with no joiner.
+        self.assertEqual(validator.clean("<p>Multi</p><p>blocks</p>"), 11)
+        # Empty blocks should be ignored.
+        self.assertEqual(validator.clean("<p>Empty</p><p></p><p>blocks</p>"), 11)
+        # HR should be ignored.
+        self.assertEqual(validator.clean("<p>With</p><hr/><p>HR</p>"), 6)
+        # Embed blocks should be ignored.
+        self.assertEqual(validator.clean("<p>With</p><embed/><p>embed</p>"), 9)
+        # Counts symbols with multiple code units (heart unicode + variation selector).
+        self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
+        # Counts symbols with zero-width joiners.
+        self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)

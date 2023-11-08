@@ -1,6 +1,8 @@
-=========================
-Wagtail 1.8 release notes
-=========================
+===============================
+Wagtail 1.8 (LTS) release notes
+===============================
+
+*December 15, 2016*
 
 .. contents::
     :local:
@@ -27,8 +29,6 @@ Restrictions on bulk-deletion of pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, any user with edit permission over a page and its descendants was able to delete them all as a single action, which led to the risk of accidental deletions. To guard against this, the permission rules have been revised so that a user with basic permissions can only delete pages that have no children; in order to delete a whole subtree, they must individually delete each child page first. A new "bulk delete" permission type has been added which allows a user to delete pages with children, as before; superusers receive this permission implicitly, and so there is no change of behaviour for them.
-
-See: :ref:`permissions`
 
 This feature was developed by Matt Westcott.
 
@@ -57,7 +57,7 @@ Other features
 * Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
 * Added ``get_landing_page_template`` getter method to ``AbstractForm`` (Gagaro)
 * Added ``Page.get_admin_display_title`` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
-* Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages. See :ref:`modeladmin_get_extra_attrs_for_row` (Andy Babic)
+* Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages. (Andy Babic)
 * Added ``first_common_ancestor`` method to ``PageQuerySet`` (Tim Heap)
 * Page chooser now opens at the deepest ancestor page that covers all the pages of the required page type (Tim Heap)
 * ``PageChooserBlock`` now accepts a ``target_model`` option to specify the required page type (Tim Heap)

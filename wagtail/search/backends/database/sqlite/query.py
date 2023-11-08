@@ -71,16 +71,12 @@ class Lexeme(LexemeCombinable, Value):
         super().__init__(value, output_field=output_field)
 
     def as_sql(self, compiler, connection):
-        param = "%s" % self.value.replace("'", "''").replace("\\", "\\\\")
+        param = self.value.replace("'", "''").replace("\\", "\\\\")
 
-        template = '"%s"'
-
-        label = ""
         if self.prefix:
-            label += "*"
-
-        if label:
-            param = "{}{}".format(param, label)
+            template = '"%s"*'
+        else:
+            template = '"%s"'
 
         return template, [param]
 
@@ -102,7 +98,7 @@ class CombinedLexeme(LexemeCombinable):
         rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = "{} {} {}".format(lsql, self.connector, rsql)
+        combined_sql = f"{lsql} {self.connector} {rsql}"
         combined_value = combined_sql % tuple(value_params)
         return "%s", [combined_value]
 
@@ -189,13 +185,16 @@ class MatchExpression(Expression):
         compiled_query = compiler.compile(self.query)  # Compile the query to a string
         formatted_query = compiled_query[0] % tuple(
             compiled_query[1]
-        )  # Subsitute the params in the query
+        )  # Substitute the params in the query
         params = [
             "{{{column}}} : ({query})".format(
                 column=joined_columns, query=formatted_query
             )
         ]  # Build the full MATCH search query. It will be a parameter to the template, so no SQL injections are possible here.
         return (self.template, params)
+
+    def __repr__(self):
+        return f"<MatchExpression: {self.columns!r} = {self.query!r}>"
 
 
 class AndNot(SearchQuery):
@@ -210,7 +209,7 @@ class AndNot(SearchQuery):
         self.subquery_b = subquery_b
 
     def __repr__(self):
-        return "<{} AndNot {}>".format(repr(self.subquery_a), repr(self.subquery_b))
+        return f"<{repr(self.subquery_a)} AndNot {repr(self.subquery_b)}>"
 
 
 def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:

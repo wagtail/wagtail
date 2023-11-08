@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,26 +33,29 @@ msgstr "Tilføj"
 msgid "This field is required."
 msgstr "Dette felt er påkrævet."
 
-msgid "title"
-msgstr "Titel"
+msgid "Locked"
+msgstr "Låst"
 
-msgid "This slug is already in use"
-msgstr "Dette slug er allerede i brug"
-
-msgid "created at"
-msgstr "oprettet"
+msgid "Unlocked"
+msgstr "Ulåst"
 
 msgid "Edit"
 msgstr "Rediger"
 
-msgid "Publish"
-msgstr "Udgiv"
-
 msgid "Lock"
 msgstr "Lås"
 
+msgid "Publish"
+msgstr "Udgiv"
+
 msgid "Unlock"
 msgstr "Lås op"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "created at"
+msgstr "oprettet"
 
 msgid "Approve"
 msgstr "Godkend"
@@ -63,26 +66,11 @@ msgstr "standardindstilling"
 msgid "Public"
 msgstr "Offentlig"
 
-msgid "English"
-msgstr "Engelsk"
-
-msgid "French"
-msgstr "Fransk"
-
-msgid "German"
-msgstr "Tysk"
-
 msgid "Edited"
 msgstr "Redigeret"
 
 msgid "Unpublish"
 msgstr "Afpublicer"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Reject"
 msgstr "Afvis"

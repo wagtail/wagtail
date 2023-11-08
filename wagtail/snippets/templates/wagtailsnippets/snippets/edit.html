@@ -1,22 +1,25 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ object }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}{% if locked_for_user %}content-locked{% endif %}{% endblock %}
 {% block content %}
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 locale=locale translations=translations latest_log_entry=latest_log_entry model_opts=model_opts instance=instance only %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
+
+    {% include "wagtailadmin/shared/header.html" with title=object icon=header_icon merged=1 only %}
 
     <div class="row row-flush">
 
-        {% usage_count_enabled as uc_enabled %}
         <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
-            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
                 {% csrf_token %}
-                {{ edit_handler.render_form_content }}
+                <div class="nice-padding">
+                    {{ panel.render_form_content }}
+                </div>
                 <footer class="footer">
                     <nav aria-label="{% trans 'Actions' %}">
                         <ul>
                             <li class="actions actions--primary footer__container">
-                                <div class="dropdown dropup dropdown-button match-width">
+                                <div class="dropdown dropup dropdown-button match-width {% if view.view_name == 'revisions_revert' %}warning{% endif %}">
                                     {{ action_menu.render_html }}
                                 </div>
                             </li>
@@ -25,25 +28,11 @@
                 </footer>
             </form>
         </div>
-
-        {% if uc_enabled %}
-            <div class="col2 ">
-                <dl>
-                    <dt>{% trans "Usage" %}</dt>
-                    <dd>
-                        <a href="{{ instance.usage_url }}">{% blocktrans trimmed count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                    </dd>
-                </dl>
-            </div>
-        {% endif %}
     </div>
-
-
 {% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ media.css }}
 {% endblock %}
 {% block extra_js %}
@@ -58,16 +47,9 @@
             window.wagtailConfig = window.wagtailConfig || {};
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
-
-        $(function() {
-            $('[data-wagtail-tooltip]').tooltip({
-                animation: false,
-                title: function() {
-                    return $(this).attr('data-wagtail-tooltip');
-                },
-                trigger: 'hover',
-                placement: 'bottom',
-            });
-        })
     </script>
+
+    {% if workflow_enabled %}
+        {% include "wagtailadmin/shared/_workflow_init.html" %}
+    {% endif %}
 {% endblock %}

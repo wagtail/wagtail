@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.sidebar import (
+    ActionMenuItem,
     LinkMenuItem,
     MainMenuModule,
     PageExplorerMenuItem,
@@ -13,6 +14,7 @@ from wagtail.admin.ui.sidebar import (
 )
 from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAdaptLinkMenuItem(TestCase):
@@ -25,12 +27,12 @@ class TestAdaptLinkMenuItem(TestCase):
                 "_type": "wagtail.sidebar.LinkMenuItem",
                 "_args": [
                     {
-                        "classnames": "",
+                        "classname": "",
                         "icon_name": "",
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
-                        "attrs": None,
+                        "attrs": {},
                     }
                 ],
             },
@@ -43,7 +45,7 @@ class TestAdaptLinkMenuItem(TestCase):
                 "Link",
                 "/link/",
                 icon_name="link-icon",
-                classnames="some classes",
+                classname="some classes",
                 attrs={"data-is-custom": "true"},
             )
         )
@@ -54,12 +56,39 @@ class TestAdaptLinkMenuItem(TestCase):
                 "_type": "wagtail.sidebar.LinkMenuItem",
                 "_args": [
                     {
-                        "classnames": "some classes",
+                        "classname": "some classes",
                         "icon_name": "link-icon",
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
                         "attrs": {"data-is-custom": "true"},
+                    }
+                ],
+            },
+        )
+
+    def test_adapt_with_deprecated_classnames(self):
+
+        with self.assertWarnsRegex(
+            RemovedInWagtail70Warning,
+            "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
+        ):
+            packed = JSContext().pack(
+                LinkMenuItem("link", "Link", "/link/", classnames="legacy-classes")
+            )
+
+        self.assertEqual(
+            packed,
+            {
+                "_type": "wagtail.sidebar.LinkMenuItem",
+                "_args": [
+                    {
+                        "classname": "legacy-classes",  # mapped to new name but raises warning
+                        "icon_name": "",
+                        "label": "Link",
+                        "name": "link",
+                        "url": "/link/",
+                        "attrs": {},
                     }
                 ],
             },
@@ -88,8 +117,9 @@ class TestAdaptSubMenuItem(TestCase):
                         "name": "sub-menu",
                         "label": "Sub menu",
                         "icon_name": "",
-                        "classnames": "",
+                        "classname": "",
                         "footer_text": "Footer text",
+                        "attrs": {},
                     },
                     [
                         {
@@ -99,9 +129,9 @@ class TestAdaptSubMenuItem(TestCase):
                                     "name": "link",
                                     "label": "Link",
                                     "icon_name": "link-icon",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/link/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -130,8 +160,9 @@ class TestAdaptSubMenuItem(TestCase):
                         "name": "sub-menu",
                         "label": "Sub menu",
                         "icon_name": "",
-                        "classnames": "",
+                        "classname": "",
                         "footer_text": "",
+                        "attrs": {},
                     },
                     [
                         {
@@ -141,9 +172,9 @@ class TestAdaptSubMenuItem(TestCase):
                                     "name": "link",
                                     "label": "Link",
                                     "icon_name": "link-icon",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/link/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -163,8 +194,8 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                 "_type": "wagtail.sidebar.PageExplorerMenuItem",
                 "_args": [
                     {
-                        "attrs": None,
-                        "classnames": "",
+                        "attrs": {},
+                        "classname": "",
                         "icon_name": "",
                         "label": "Pages",
                         "name": "pages",
@@ -185,7 +216,7 @@ class TestAdaptSearchModule(TestCase):
         )
 
 
-class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
+class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
     def test_adapt(self):
         main_menu = [
             LinkMenuItem("pages", "Pages", "/pages/"),
@@ -194,7 +225,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
             LinkMenuItem(
                 "account", "Account", reverse("wagtailadmin_account"), icon_name="user"
             ),
-            LinkMenuItem(
+            ActionMenuItem(
                 "logout", "Logout", reverse("wagtailadmin_logout"), icon_name="logout"
             ),
         ]
@@ -215,9 +246,9 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "name": "pages",
                                     "label": "Pages",
                                     "icon_name": "",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": "/pages/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -230,22 +261,23 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "name": "account",
                                     "label": "Account",
                                     "icon_name": "user",
-                                    "classnames": "",
+                                    "classname": "",
                                     "url": reverse("wagtailadmin_account"),
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         },
                         {
-                            "_type": "wagtail.sidebar.LinkMenuItem",
+                            "_type": "wagtail.sidebar.ActionMenuItem",
                             "_args": [
                                 {
                                     "name": "logout",
                                     "label": "Logout",
                                     "icon_name": "logout",
-                                    "classnames": "",
-                                    "url": reverse("wagtailadmin_logout"),
-                                    "attrs": None,
+                                    "classname": "",
+                                    "action": reverse("wagtailadmin_logout"),
+                                    "method": "POST",
+                                    "attrs": {},
                                 }
                             ],
                         },

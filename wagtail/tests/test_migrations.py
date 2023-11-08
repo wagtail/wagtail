@@ -30,7 +30,8 @@ class TestForMigrations(TestCase):
 
         if conflicts:
             name_str = "; ".join(
-                "%s in %s" % (", ".join(names), app) for app, names in conflicts.items()
+                "{} in {}".format(", ".join(names), app)
+                for app, names in conflicts.items()
             )
             self.fail("Conflicting migrations detected (%s)." % name_str)
 
@@ -48,17 +49,15 @@ class TestForMigrations(TestCase):
 
         if changes:
             migrations = "\n".join(
-                (
-                    "  {migration}\n{changes}".format(
-                        migration=migration,
-                        changes="\n".join(
-                            "    {0}".format(operation.describe())
-                            for operation in migration.operations
-                        ),
-                    )
-                    for (_, migrations) in changes.items()
-                    for migration in migrations
+                "  {migration}\n{changes}".format(
+                    migration=migration,
+                    changes="\n".join(
+                        f"    {operation.describe()}"
+                        for operation in migration.operations
+                    ),
                 )
+                for (_, migrations) in changes.items()
+                for migration in migrations
             )
 
             self.fail("Model changes with no migrations detected:\n%s" % migrations)

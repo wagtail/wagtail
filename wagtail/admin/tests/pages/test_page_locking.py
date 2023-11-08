@@ -2,13 +2,14 @@ from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import escape
 
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestLocking(TestCase, WagtailTestUtils):
+class TestLocking(WagtailTestUtils, TestCase):
     def setUp(self):
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -153,11 +154,8 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.child_page.save()
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertContains(response, "Your locked pages")
-        # check that LockUnlockAction is present and passes a valid csrf token
-        self.assertRegex(
-            response.content.decode("utf-8"),
-            r"LockUnlockAction\(\'\w+\'\, \'\/admin\/'\)",
-        )
+        # check that Unlock button is present
+        self.assertContains(response, "Unlock")
 
     def test_unlock_post(self):
         # Lock the page
@@ -227,11 +225,23 @@ class TestLocking(TestCase, WagtailTestUtils):
         response = self.client.post(
             reverse("wagtailadmin_pages:unlock", args=(self.child_page.id,)),
             {"next": reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))},
+            follow=True,
         )
 
         # Check response
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+        )
+
+        # Should show unlocked message
+        self.assertContains(
+            response, escape("Page 'Hello world! (simple page)' is now unlocked.")
+        )
+
+        # Message shouldn't be wrapped in a tuple
+        self.assertNotContains(
+            response,
+            escape(("Page 'Hello world! (simple page)' is now unlocked.",)),
         )
 
         # Check that the page is unlocked

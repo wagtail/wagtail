@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -9,9 +10,10 @@ from freezegun import freeze_time
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.timestamps import render_timestamp
 
 
-class TestAuditLogAdmin(TestCase, WagtailTestUtils):
+class TestAuditLogAdmin(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
@@ -42,7 +44,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         )
         self.editor.groups.add(sub_editors)
 
-        for permission_type in ["add", "edit", "publish"]:
+        for permission_type in ["add", "change", "publish"]:
             GroupPagePermission.objects.create(
                 group=sub_editors, page=self.hello_page, permission_type=permission_type
             )
@@ -105,8 +107,8 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         )
 
         self.assertContains(
-            response, "system", 2
-        )  # create without a user + remove restriction
+            response, "system", 3
+        )  # create without a user + remove restriction + 1 from unrelated admin color theme
         self.assertContains(
             response, "the_editor", 9
         )  # 7 entries by editor + 1 in sidebar menu + 1 in filter
@@ -197,7 +199,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         history_url = reverse("wagtailadmin_pages:history", args=[self.hello_page.id])
         self.assertContains(response, history_url)
 
-    def test_create_and_publish_does_not_log_revision_save(self):
+    def test_create_and_publish_logs_revision_save(self):
         self.login(user=self.administrator)
         post_data = {
             "title": "New page!",
@@ -221,11 +223,11 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
 
         self.assertListEqual(
             list(
-                PageLogEntry.objects.filter(page=page_id).values_list(
-                    "action", flat=True
-                )
+                PageLogEntry.objects.filter(page=page_id)
+                .values_list("action", flat=True)
+                .order_by("action")
             ),
-            ["wagtail.publish", "wagtail.create"],
+            ["wagtail.create", "wagtail.edit", "wagtail.publish"],
         )
 
     def test_revert_and_publish_logs_reversion_and_publish(self):
@@ -246,10 +248,83 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
-        entries = PageLogEntry.objects.filter(page=self.hello_page).values_list(
-            "action", flat=True
+        entries = (
+            PageLogEntry.objects.filter(page=self.hello_page)
+            .values_list("action", flat=True)
+            .order_by("action")
         )
         self.assertListEqual(
             list(entries),
-            ["wagtail.publish", "wagtail.rename", "wagtail.revert", "wagtail.create"],
+            ["wagtail.create", "wagtail.publish", "wagtail.rename", "wagtail.revert"],
+        )
+
+    def test_page_history_after_unscheduled_publication(self):
+        # schedule for publishing
+        go_live_at = timezone.now() + timedelta(minutes=30)
+        if settings.USE_TZ:
+            go_live_at = timezone.localtime(go_live_at)
+        self.hello_page.go_live_at = go_live_at
+        revision = self.hello_page.save_revision(log_action=True)
+        revision.publish()
+
+        self.login(user=self.editor)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:revisions_unschedule",
+                args=(self.hello_page.id, revision.id),
+            )
+        )
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+        )
+        self.assertRedirects(
+            response,
+            history_url,
+        )
+
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f"Page unscheduled for publishing at {render_timestamp(go_live_at)}",
+        )
+
+    def test_page_history_after_unscheduled_revision(self):
+        # Prepare clean live page with revisions
+        test_page = SimplePage(title="About", slug="about", content="hello")
+        self.hello_page.add_child(instance=test_page)
+        revision = test_page.save_revision(log_action=True)
+        revision.publish()
+        test_page.refresh_from_db()
+
+        # Schedule a new version for publishing
+        go_live_at = timezone.now() + timedelta(minutes=30)
+        if settings.USE_TZ:
+            go_live_at = timezone.localtime(go_live_at)
+        test_page.go_live_at = go_live_at
+        revision = test_page.save_revision(log_action=True)
+        revision.publish()
+
+        self.login(user=self.editor)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:revisions_unschedule",
+                args=(test_page.id, revision.id),
+            )
+        )
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": test_page.id}
+        )
+        self.assertRedirects(
+            response,
+            history_url,
+        )
+
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f"Revision {revision.id} from {render_timestamp(revision.created_at)} unscheduled from publishing at {render_timestamp(go_live_at)}.",
         )

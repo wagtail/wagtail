@@ -2,9 +2,11 @@ let nextCommentId = 1;
 let nextReplyId = 1;
 
 export function getNextCommentId() {
-  return nextCommentId++;
+  nextCommentId += 1;
+  return nextCommentId;
 }
 
 export function getNextReplyId() {
-  return nextReplyId++;
+  nextReplyId += 1;
+  return nextReplyId;
 }

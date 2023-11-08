@@ -32,8 +32,9 @@ class EmbedRewriter:
     returns the HTML fragment.
     """
 
-    def __init__(self, embed_rules):
+    def __init__(self, embed_rules, reference_extractors=None):
         self.embed_rules = embed_rules
+        self.reference_extractors = reference_extractors or {}
 
     def replace_tag(self, match):
         attrs = extract_attrs(match.group(1))
@@ -47,6 +48,17 @@ class EmbedRewriter:
     def __call__(self, html):
         return FIND_EMBED_TAG.sub(self.replace_tag, html)
 
+    def extract_references(self, html):
+        for match in FIND_EMBED_TAG.findall(html):
+            attrs = extract_attrs(match)
+            if (
+                "embedtype" not in attrs
+                or attrs["embedtype"] not in self.reference_extractors
+            ):
+                continue
+
+            yield from self.reference_extractors[attrs["embedtype"]](attrs)
+
 
 class LinkRewriter:
     """
@@ -55,8 +67,9 @@ class LinkRewriter:
     returns the HTML fragment for the opening tag (only).
     """
 
-    def __init__(self, link_rules):
+    def __init__(self, link_rules, reference_extractors=None):
         self.link_rules = link_rules
+        self.reference_extractors = reference_extractors or {}
 
     def replace_tag(self, match):
         attrs = extract_attrs(match.group(1))
@@ -95,6 +108,19 @@ class LinkRewriter:
     def __call__(self, html):
         return FIND_A_TAG.sub(self.replace_tag, html)
 
+    def extract_references(self, html):
+        for match in FIND_A_TAG.findall(html):
+            attrs = extract_attrs(match)
+            if (
+                "linktype" not in attrs
+                or attrs["linktype"] not in self.reference_extractors
+            ):
+                continue
+
+            yield from self.reference_extractors[attrs["linktype"]](attrs)
+
+        return []
+
 
 class MultiRuleRewriter:
     """Rewrites HTML by applying a sequence of rewriter functions"""
@@ -106,3 +132,7 @@ class MultiRuleRewriter:
         for rewrite in self.rewriters:
             html = rewrite(html)
         return html
+
+    def extract_references(self, html):
+        for rewriter in self.rewriters:
+            yield from rewriter.extract_references(html)

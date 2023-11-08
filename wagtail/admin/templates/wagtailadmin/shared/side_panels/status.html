@@ -1,0 +1,23 @@
+{% load wagtailadmin_tags i18n %}
+
+<div class="w-divide-y w-divide-border-furniture w-py-6 w-pl-2 lg:w-pl-8">
+    {% for template in status_templates %}
+        {% include template %}
+    {% endfor %}
+
+    {# Object type / First Published information #}
+    <div class="w-pt-5 w-space-y-1">
+        <div class="w-label-3">
+            <strong>{{ model_name }}</strong>
+
+            {% if model_description %}
+                ({{ model_description }})
+            {% endif %}
+        </div>
+        {% if object.first_published_at %}
+            <div class="w-help-text">
+                {% trans 'First published' %} {% human_readable_date object.first_published_at placement="bottom" %}
+            </div>
+        {% endif %}
+    </div>
+</div>

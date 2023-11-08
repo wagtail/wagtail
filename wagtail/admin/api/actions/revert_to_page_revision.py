@@ -38,5 +38,5 @@ class RevertToPageRevisionAPIAction(APIAction):
         except RevertToPageRevisionError as e:
             raise BadRequestError(e.args[0])
 
-        serializer = self.view.get_serializer(new_revision.as_page_object())
+        serializer = self.view.get_serializer(new_revision.as_object())
         return Response(serializer.data, status=status.HTTP_200_OK)

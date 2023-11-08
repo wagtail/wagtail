@@ -192,7 +192,7 @@ class Migration(migrations.Migration):
             )
         )
 
-        # We also need to create a joint index on 'title' and 'body', to be able to query both at the same time. If we don't have this, some queries may return wrong results. For example, if we match 'A AND (NOT B)' against 'A, B', it returns false, but if we do (match 'A AND (NOT B)' against 'A') or (match 'A AND (NOT B)' against 'B'), the first one would return True, and the whole expression would be True (wrong result). That's the same as saying that testing subsets does not neccessarily produce the same result as testing the whole set.
+        # We also need to create a joint index on 'title' and 'body', to be able to query both at the same time. If we don't have this, some queries may return wrong results. For example, if we match 'A AND (NOT B)' against 'A, B', it returns false, but if we do (match 'A AND (NOT B)' against 'A') or (match 'A AND (NOT B)' against 'B'), the first one would return True, and the whole expression would be True (wrong result). That's the same as saying that testing subsets does not necessarily produce the same result as testing the whole set.
         operations.append(
             migrations.RunSQL(
                 sql="""

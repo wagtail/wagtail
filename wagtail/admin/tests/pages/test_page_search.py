@@ -1,22 +1,31 @@
+from io import StringIO
+
 from django.contrib.auth.models import Permission
-from django.test import TestCase
+from django.core import management
+from django.test import TransactionTestCase
 from django.urls import reverse
 
-from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.models import Page
-from wagtail.search.index import SearchField
 from wagtail.test.testapp.models import SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 
-class TestPageSearch(TestCase, WagtailTestUtils):
+class TestPageSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def setUp(self):
+        super().setUp()
+        management.call_command(
+            "update_index",
+            backend_name="default",
+            stdout=StringIO(),
+            chunk_size=50,
+        )
         self.user = self.login()
 
-    def get(self, params=None, **extra):
-        return self.client.get(
-            reverse("wagtailadmin_pages:search"), params or {}, **extra
-        )
+    def get(self, params=None, url_name="wagtailadmin_pages:search", **extra):
+        return self.client.get(reverse(url_name), params or {}, **extra)
 
     def test_view(self):
         response = self.get()
@@ -36,8 +45,8 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Create a page
         root_page.add_child(
             instance=SimplePage(
-                title="Hi there!",
-                slug="hello-world",
+                title="Greetings!",
+                slug="hello",
                 content="good morning",
                 live=True,
                 has_unpublished_changes=False,
@@ -47,40 +56,35 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         # Confirm the slug is not being searched
         response = self.get({"q": "hello"})
         self.assertNotContains(response, "There is one matching page")
-        search_fields = Page.search_fields
 
-        # Add slug to the search_fields
-        Page.search_fields = Page.search_fields + [
-            SearchField("slug", partial_match=True)
-        ]
-
-        # Confirm the slug is being searched
-        response = self.get({"q": "hello"})
+        # Confirm the title is being searched
+        response = self.get({"q": "greetings"})
         self.assertContains(response, "There is one matching page")
 
-        # Reset the search fields
-        Page.search_fields = search_fields
-
     def test_ajax(self):
-        response = self.get({"q": "Hello"}, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        response = self.get(
+            {"q": "Hello"}, url_name="wagtailadmin_pages:search_results"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateNotUsed(response, "wagtailadmin/pages/search.html")
         self.assertTemplateUsed(response, "wagtailadmin/pages/search_results.html")
         self.assertEqual(response.context["query_string"], "Hello")
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"q": "Hello", "p": page})
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
+        # page numbers in range should be accepted
+        response = self.get({"q": "Hello", "p": 1})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
+        # page numbers out of range should return 404
+        response = self.get({"q": "Hello", "p": 9999})
+        self.assertEqual(response.status_code, 404)
 
     def test_root_can_appear_in_search_results(self):
-        response = self.get({"q": "roo"})
+        response = self.get({"q": "root"})
         self.assertEqual(response.status_code, 200)
         # 'pages' list in the response should contain root
         results = response.context["pages"]
-        self.assertTrue(any([r.slug == "root" for r in results]))
+        self.assertTrue(any(r.slug == "root" for r in results))
 
     def test_search_uses_admin_display_title_from_specific_class(self):
         # SingleEventPage has a custom get_admin_display_title method; explorer should

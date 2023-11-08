@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
-"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,17 +91,17 @@ msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
 msgid "Search redirects"
 msgstr "Meklēt novirzījumus"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Novirzījums '{0}' atjaunots."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Novirzījums '%(redirect_title)s' atjaunots."
 
 msgid "Edit"
 msgstr "Labot"
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Novirzījums '{0}' dzēsts."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Novirzījums '%(redirect_title)s' dzēsts."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Novirzījums '{0}' pievienots."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Novirzījums '%(redirect_title)s' pievienots."

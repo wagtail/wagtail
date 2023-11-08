@@ -1,0 +1,7 @@
+{% extends "wagtailadmin/generic/base.html" %}
+
+{% block main_content %}
+    {% for obj in test_object %}
+        <p>{{ obj.content }}</p>
+    {% endfor %}
+{% endblock %}

@@ -8,7 +8,6 @@
 
     {{ form.media.js }}
 
-    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         $(function() {
             $('#id_file').on(
@@ -36,9 +35,6 @@
                     $titleField.val(data.title);
                 }
             );
-            $('#id_tags').tagit({
-                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
-            });
         });
     </script>
 {% endblock %}
@@ -61,11 +57,22 @@
                     {% if field.is_hidden %}
                         {{ field }}
                     {% else %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" with field=field %}
+                        </li>
                     {% endif %}
                 {% endfor %}
                 <li>
-                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading…' %}">{% icon name="spinner" %}<em>{% trans 'Upload' %}</em></button>
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{% trans 'Uploading…' %}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Upload' %}</em>
+                    </button>
                 </li>
             </ul>
         </form>

@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse
@@ -10,21 +12,27 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .permissions import user_can_edit_setting_type
 
 
 class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon="cog", classnames="", **kwargs):
-
-        # Special-case FontAwesome icons to avoid the breaking changes for those customizations.
+    def __init__(self, model, icon="cog", classname="", classnames="", **kwargs):
+        if classnames:
+            warn(
+                "The `classnames` kwarg for SettingMenuItem is deprecated - use `classname` instead.",
+                category=RemovedInWagtail70Warning,
+            )
+        classname = classname or classnames
+        # Special-case FontAwesome icons to avoid the breaking changes for those customisations.
         if icon.startswith("fa-"):
             icon_name = ""
             icon_classes = "icon icon-" + icon
-            if classnames:
-                classnames += " " + icon_classes
+            if classname:
+                classname += " " + icon_classes
             else:
-                classnames = icon_classes
+                classname = icon_classes
         else:
             icon_name = icon
 
@@ -35,7 +43,7 @@ class SettingMenuItem(MenuItem):
                 "wagtailsettings:edit",
                 args=[model._meta.app_label, model._meta.model_name],
             ),
-            classnames=classnames,
+            classname=classname,
             icon_name=icon_name,
             **kwargs,
         )
@@ -44,7 +52,7 @@ class SettingMenuItem(MenuItem):
         return user_can_edit_setting_type(request.user, self.model)
 
 
-class SettingsAdminURLFinder(ModelAdminURLFinder):
+class SiteSettingAdminURLFinder(ModelAdminURLFinder):
     def construct_edit_url(self, instance):
         return reverse(
             "wagtailsettings:edit",
@@ -56,8 +64,22 @@ class SettingsAdminURLFinder(ModelAdminURLFinder):
         )
 
 
+class GenericSettingAdminURLFinder(ModelAdminURLFinder):
+    def construct_edit_url(self, instance):
+        return reverse(
+            "wagtailsettings:edit",
+            args=[
+                self.model._meta.app_label,
+                self.model._meta.model_name,
+                instance.id,
+            ],
+        )
+
+
 class Registry(list):
     def register(self, model, **kwargs):
+        from .models import BaseGenericSetting, BaseSiteSetting
+
         """
         Register a model as a setting, adding it to the wagtail admin menu
         """
@@ -76,16 +98,27 @@ class Registry(list):
         def permissions_hook():
             return Permission.objects.filter(
                 content_type__app_label=model._meta.app_label,
-                codename="change_{}".format(model._meta.model_name),
+                codename=f"change_{model._meta.model_name}",
             )
 
         # Register an admin URL finder
         permission_policy = ModelPermissionPolicy(model)
-        finder_class = type(
-            "_SettingsAdminURLFinder",
-            (SettingsAdminURLFinder,),
-            {"model": model, "permission_policy": permission_policy},
-        )
+
+        if issubclass(model, BaseSiteSetting):
+            finder_class = type(
+                "_SiteSettingAdminURLFinder",
+                (SiteSettingAdminURLFinder,),
+                {"model": model, "permission_policy": permission_policy},
+            )
+        elif issubclass(model, BaseGenericSetting):
+            finder_class = type(
+                "_GenericSettingAdminURLFinder",
+                (GenericSettingAdminURLFinder,),
+                {"model": model, "permission_policy": permission_policy},
+            )
+        else:
+            raise NotImplementedError
+
         register_admin_url_finder(model, finder_class)
 
         return model
@@ -109,9 +142,10 @@ class Registry(list):
             Model = apps.get_model(app_label, model_name)
         except LookupError:
             return None
-        if Model not in registry:
-            return None
-        return Model
+        else:
+            if Model not in registry:
+                return None
+            return Model
 
 
 registry = Registry()

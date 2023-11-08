@@ -16,7 +16,7 @@
                     <li>
                         <div class="row row-flush">
                             <div class="col6">
-                                <a href="{% url 'wagtailadmin_workflows:add_task' app_label model_name %}" class="icon icon-plus-inverse icon-larger">{{ verbose_name }}</a>
+                                <a href="{% url 'wagtailadmin_workflows:add_task' app_label model_name %}">{% icon name="plus-inverse" classname="middle w-mr-1" %}{{ verbose_name }}</a>
                             </div>
                             <div class="col6">
                                 {{ description }}

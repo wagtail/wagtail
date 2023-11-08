@@ -1,30 +1,18 @@
-.tab-content {
-  .page-locked & {
-    cursor: not-allowed;
-    user-select: none;
-
-    > * {
-      pointer-events: none;
-    }
-  }
-}
-
 .w-tabs {
   &__wrapper {
-    @apply w-mb-10 w-overflow-x-auto w-scrollbar-thin;
+    @apply w-mb-8 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;
   }
 
   &__list {
-    @include nice-padding();
-    @apply w-flex w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
+    @apply w-flex w-pr-0 w-my-[3px] w-space-x-6 w-border-b w-border-border-furniture w-w-fit;
   }
 
   &__tab {
     @apply w-label-3
     w-box-border
     w-inline-flex
-    w-text-grey-400
-    hover:w-text-primary
+    w-text-text-meta
+    hover:w-text-text-label
     w-whitespace-nowrap
     w-py-4
     w-font-medium
@@ -32,40 +20,47 @@
     after:w-block
     after:w-w-0
     after:w-h-[2px]
-    after:w-bg-primary
+    after:w-bg-icon-primary
     after:w-absolute
     after:w-left-0
     after:-w-bottom-px
     after:w-transition-all
-    motion-reduce:after:w-transition-none
-    hover:after:w-w-full;
+    after:forced-colors:w-h-1
+    after:forced-colors:w-bg-LinkText
+    hover:after:w-w-full
+    hover:after:forced-colors:w-w-full
+    motion-reduce:after:w-transition-none;
 
     &[aria-selected='true'] {
-      @apply after:w-w-full w-text-primary;
+      @apply after:w-w-full w-text-text-label after:forced-colors:w-w-full;
     }
   }
 
   &__errors {
     @apply w-hidden
-    w-box-border
-    w-w-4
-    w-h-4
-    w-text-[0.75rem]
-    w-flex
-    w-justify-center
-    w-items-center
+    w-absolute
+    -w-mr-3
+    w-py-0.5
+    w-px-[0.325rem]
+    w-top-1
+    -w-right-1
+    w-text-[0.5625rem]
     w-font-bold
     w-bg-critical-200
     w-text-white
     w-border
-    w-border-white
-    w-rounded-full
-    w-absolute
-    w-top-[0.4375rem]
-    -w-right-[0.9375rem];
+    w-border-surface-page
+    w-rounded-[1rem];
+  }
 
-    &--active {
-      @apply w-flex;
+  &__list,
+  .tab-content {
+    @apply w-px-5 sm:w-px-10 md:w-px-20;
+
+    // If tab contents are nested inside of a nice-padding block then don't apply the admin padding
+    .nice-padding & {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
     }
   }
 

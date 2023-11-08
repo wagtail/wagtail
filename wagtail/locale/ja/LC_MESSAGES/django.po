@@ -8,6 +8,7 @@
 # shuhei hirota, 2019
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# shuhei hirota, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -15,10 +16,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Goto Hayato <habita.gh@gmail.com>, 2021\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,12 +34,12 @@ msgid "Add Comment"
 msgstr "コメントを追加"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "項目の最小数は%dです。"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "項目の最小数は%(min_num)dです。"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "項目の最大数は%dです。"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "項目の最大数は%(max_num)dです。"
 
 msgid "Move up"
 msgstr "上に移動"
@@ -70,6 +71,81 @@ msgstr "入力されたパスワードは正しくありませんでした。再
 msgid "Comment"
 msgstr "コメント"
 
+msgid "Locked"
+msgstr "ロックあり"
+
+msgid "Unlocked"
+msgstr "ロックなし"
+
+msgid "live"
+msgstr "公開"
+
+msgid "has unpublished changes"
+msgstr "変更が適用されていません"
+
+msgid "first published at"
+msgstr "最初の公開日時"
+
+msgid "last published at"
+msgstr "最終の公開日時"
+
+msgid "go live date/time"
+msgstr "公開予定日時"
+
+msgid "expiry date/time"
+msgstr "有効期限"
+
+msgid "expired"
+msgstr "失効"
+
+msgid "scheduled"
+msgstr "予定日"
+
+msgid "draft"
+msgstr "下書き"
+
+msgid "live + scheduled"
+msgstr "公開 + 予定日"
+
+msgid "live + draft"
+msgstr "公開 + 下書き"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "locked"
+msgstr "ロックされています"
+
+msgid "locked at"
+msgstr "ロック日時"
+
+msgid "Add/edit pages you own"
+msgstr "自分のページを追加/編集"
+
+msgid "Bulk delete"
+msgstr "一括削除"
+
+msgid "Delete pages with children"
+msgstr "子要素と共にページを削除します。"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit any page"
+msgstr "ページを編集"
+
+msgid "Lock"
+msgstr "ロックあり"
+
+msgid "Publish"
+msgstr "公開"
+
+msgid "Publish any page"
+msgstr "ページを公開"
+
+msgid "Unlock"
+msgstr "ロックを解除"
+
 msgid "title"
 msgstr "タイトル"
 
@@ -86,12 +162,6 @@ msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slu
 
 msgid "content type"
 msgstr "コンテンツの種類"
-
-msgid "live"
-msgstr "公開"
-
-msgid "has unpublished changes"
-msgstr "変更が適用されていません"
 
 msgid "URL path"
 msgstr "URLパス"
@@ -117,47 +187,8 @@ msgid ""
 "results."
 msgstr "検索エンジンの検索結果でヘッドラインの下に表示される説明テキスト。"
 
-msgid "go live date/time"
-msgstr "公開予定日時"
-
-msgid "expiry date/time"
-msgstr "有効期限"
-
-msgid "expired"
-msgstr "失効"
-
-msgid "locked"
-msgstr "ロックされています"
-
-msgid "locked at"
-msgstr "ロック日時"
-
-msgid "first published at"
-msgstr "最初の公開日時"
-
-msgid "last published at"
-msgstr "最終の公開日時"
-
 msgid "latest revision created at"
 msgstr "最終更新日時"
-
-msgid "This slug is already in use"
-msgstr "このスラッグはすでに使われています"
-
-msgid "scheduled"
-msgstr "予定日"
-
-msgid "draft"
-msgstr "下書き"
-
-msgid "live + scheduled"
-msgstr "公開 + 予定日"
-
-msgid "live + draft"
-msgstr "公開 + 下書き"
-
-msgid "Default"
-msgstr "デフォルト"
 
 msgid "page"
 msgstr "ページ"
@@ -180,41 +211,11 @@ msgstr "JSONコンテンツ"
 msgid "approved go live at"
 msgstr "承認済み・公開予定："
 
-msgid "page revision"
-msgstr "ページの修正"
-
-msgid "page revisions"
-msgstr "ページの修正"
-
-msgid "Add/edit pages you own"
-msgstr "自分のページを追加/編集"
-
-msgid "Edit"
-msgstr "編集"
-
-msgid "Edit any page"
-msgstr "ページを編集"
-
-msgid "Publish"
-msgstr "公開"
-
-msgid "Publish any page"
-msgstr "ページを公開"
-
-msgid "Bulk delete"
-msgstr "一括削除"
-
-msgid "Delete pages with children"
-msgstr "子要素と共にページを削除します。"
-
-msgid "Lock"
-msgstr "ロックあり"
-
-msgid "Unlock"
-msgstr "ロックを解除"
-
 msgid "group"
 msgstr "グループ"
+
+msgid "permission"
+msgstr "権限"
 
 msgid "permission type"
 msgstr "権限"
@@ -339,9 +340,6 @@ msgstr "コレクションページ閲覧の権限"
 msgid "collections"
 msgstr "コレクション"
 
-msgid "permission"
-msgstr "権限"
-
 msgid "group collection permission"
 msgstr "グループコレクションの権限"
 
@@ -442,15 +440,6 @@ msgstr "このページへアクセスするためにはパスワードが必要
 msgid "Continue"
 msgstr "続ける"
 
-msgid "English"
-msgstr "英語"
-
-msgid "French"
-msgstr "フランス語"
-
-msgid "German"
-msgstr "ドイツ語"
-
 msgid "Create"
 msgstr "作成"
 
@@ -462,12 +451,6 @@ msgstr "編集"
 
 msgid "Unpublish"
 msgstr "非公開"
-
-msgid "Locked"
-msgstr "ロックあり"
-
-msgid "Unlocked"
-msgstr "ロックなし"
 
 msgid "Reject"
 msgstr "拒否"

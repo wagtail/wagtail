@@ -14,7 +14,6 @@ exports[`Menu should render with the minimum required props 1`] = `
     className="sidebar-footer sidebar-footer--visible"
   >
     <ForwardRef(TippyWrapper)
-      content="Edit your account"
       disabled={true}
       placement="right"
     >
@@ -23,9 +22,10 @@ exports[`Menu should render with the minimum required props 1`] = `
         aria-haspopup="menu"
         aria-label="Edit your account"
         className="
+            w-px-5
             sidebar-footer__account
-            w-bg-primary
-            w-text-white
+            w-bg-surface-menus
+            w-text-text-label-menus-default
             w-flex
             w-items-center
             w-relative
@@ -33,10 +33,9 @@ exports[`Menu should render with the minimum required props 1`] = `
             w-appearance-none
             w-border-0
             w-overflow-hidden
-            w-px-5
             w-py-3
-            hover:w-bg-primary-200
-            focus:w-bg-primary-200
+            hover:w-bg-surface-menu-item-active
+            focus:w-bg-surface-menu-item-active
             w-transition"
         onClick={[Function]}
         title="Edit your account"
@@ -47,6 +46,8 @@ exports[`Menu should render with the minimum required props 1`] = `
         >
           <img
             alt=""
+            decoding="async"
+            loading="lazy"
             src="https://gravatar/profile"
           />
         </div>
@@ -57,7 +58,7 @@ exports[`Menu should render with the minimum required props 1`] = `
             className="sidebar-footer__account-label w-label-3"
           />
           <Icon
-            className="w-w-4 w-h-4 w-text-white"
+            className="w-w-4 w-h-4 w-text-text-label-menus-default"
             name="arrow-up"
           />
         </div>

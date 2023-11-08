@@ -1,0 +1,224 @@
+#
+# Translators:
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2022
+# Loic Teixeira, 2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2023\n"
+"Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
+"hu/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s új elem ebben a menüben)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 új elem ebben a menüben)"
+
+msgid "(New)"
+msgstr "(Új)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s hiba"
+msgstr[1] "%(num)s hiba"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixel"
+
+msgid "Add a comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Alt text"
+msgstr "Alt szöveg"
+
+msgid "Are you sure?"
+msgstr "Biztos benne?"
+
+msgid "Blocks"
+msgstr "Blokkok"
+
+msgid "Broken link"
+msgstr "Törött link"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Character count:"
+msgstr "Karakterszám:"
+
+msgid "Close"
+msgstr "Bezár"
+
+msgid "Collapse all"
+msgstr "Összes becsukása"
+
+msgid "Comment"
+msgstr "Megjegyzés"
+
+msgid "Dashboard"
+msgstr "Műszerfal"
+
+msgid "Decorative image"
+msgstr "Dekoratív kép"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete error"
+msgstr "Hiba a törlés közben"
+
+msgid "Deleting"
+msgstr "Törlés"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' szerkesztése"
+
+msgid "Edit your account"
+msgstr "Fiók szerkesztése"
+
+msgid "Enter your comments..."
+msgstr "Írja be a megjegyzést..."
+
+msgid "Enter your reply..."
+msgstr "Kérjük adja meg válaszát..."
+
+msgid "Error while sending preview data."
+msgstr "Hiba történt az előnézet közben."
+
+msgid "Expand all"
+msgstr "Összes kinyitása"
+
+msgid "Focus comment"
+msgstr "Megjegyzés fókuszba állítása"
+
+msgid "Horizontal line"
+msgstr "Vízszintes vonal"
+
+msgid "Insert a block"
+msgstr "Blokk beszúrása"
+
+msgid "Line break"
+msgstr "Sortörés"
+
+msgid "Loading…"
+msgstr "Betöltés..."
+
+msgid "Main menu"
+msgstr "Főmenü"
+
+msgid "Missing document"
+msgstr "Hiányzó dokumentum"
+
+msgid "More actions"
+msgstr "További akciók"
+
+msgid "No results"
+msgstr "Nincs találat"
+
+msgid "Page"
+msgstr "Oldal"
+
+msgid "Page explorer"
+msgstr "Intéző"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Pin toolbar"
+msgstr "Eszköztár kitűzése"
+
+msgid "Reload saved content"
+msgstr "Mentett tartalom újratöltése"
+
+msgid "Reload the page"
+msgstr "Oldal újratöltése"
+
+msgid "Reply"
+msgstr "Válasz"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
+
+msgid "Resolve"
+msgstr "Megoldás"
+
+msgid "Retry"
+msgstr "Újra"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Save error"
+msgstr "Hiba a mentés közben"
+
+msgid "Save the page to add this comment"
+msgstr "Mentse el az oldalt a megjegyzés hozzáadásához"
+
+msgid "Save the page to save this comment"
+msgstr "Mentse el az oldalt a megjegyzés rögzítéséhez"
+
+msgid "Save the page to save this reply"
+msgstr "Mentse el az oldalt a válasz rögzítéséhez"
+
+msgid "Saving..."
+msgstr "Mentés..."
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search options…"
+msgstr "Lehetőségek keresése..."
+
+msgid "See all"
+msgstr "Összes megjelenítése"
+
+msgid "Server Error"
+msgstr "Szerverhiba"
+
+msgid "Show error"
+msgstr "Hiba megtekintése"
+
+msgid "Show latest content"
+msgstr "Legfrissebb tartalom megtekintése"
+
+msgid "Split block"
+msgstr "Blokk megosztása"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
+"verzióra."
+
+msgid "This field is required."
+msgstr "Ennek a mezőnek a megadása kötelező."
+
+msgid "Toggle side panel"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Toggle sidebar"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Unfocus comment"
+msgstr "Megjegyzés kivétele a fókuszból"
+
+msgid "Unpin toolbar"
+msgstr "Eszköztár elrejtése"
+
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s' gyerekoldalainak megtekintése"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Írjon valamit, vagy nyomja meg a \"/\" gombot egy blokk beszúrásához"

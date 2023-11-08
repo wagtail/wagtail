@@ -8,25 +8,39 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Пошукавае прасоўванне Wagtail"
 
+msgid "Search term(s)/phrase"
+msgstr "Крытэр пошуку (фраза)"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Каб адпавядаць - увядзіце поўны радок пошуку. Патрабуецца дакладнае "
+"супадзенне для вашых Вынікаў Прасоўвання, якія будуць адлюстроўвацца. Не "
+"дапускаюцца групавыя сімвалы."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Калі ласка, сфармулюйце не менш за адну рэкамендацыю па пошукаваму запыту."
+
+msgid "Query Daily Hits"
+msgstr "Запыт штодзенных хітоў"
 
 msgid "page"
 msgstr "старонка"
@@ -42,35 +56,6 @@ msgstr "Дадаць пошукавае прасоўванне"
 
 msgid "Add search pick"
 msgstr "Дадаць пошуковую падборку"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Прапагандуюцца пошукавыя запыты азначаюць рэкамендацыю канкрэтных "
-"старонак, якія, магчыма, не трапяць у пошукавую выдачу, але могуць быць "
-"карысныя. Напрыклад, рэкамендацыя старонкі ахвяраванняў карыстачу, які шукае "
-"нешта з запытам \"<em>даю</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>\"Пошукавы запыт (ы) / фраза\" у поле ніжэй павінны ўтрымліваць поўны і "
-"дакладны пошукавы запыт, для якога вы хочаце рэкамендаваць нешта, <em>у тым "
-"ліку</em> любыя памылкі і памылкі друку, якія можа дапусціць карыстальнік. "
-"Для дапамогі, вы можаце выбраць з найбольш папулярных пошукавых запытаў, "
-"якія здзяйснялі карыстальнікі вашага сайта.</p>"
 
 msgid "Save"
 msgstr "Захаваць"
@@ -104,17 +89,11 @@ msgstr "Перамясціць уверх"
 msgid "Move down"
 msgstr "Перамясціць уніз"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Высокі вынік пошуку"
-
-msgid "Add recommended page"
-msgstr "Дадаць рэкамендуемую старонку"
 
 msgid "Search Terms"
 msgstr "Умовы пошуку"
-
-msgid "Promoted search results"
-msgstr "Высокі вынік пошуку"
 
 msgid "Add new promoted result"
 msgstr "Дадаць новы высокі вынік пошуку"
@@ -131,30 +110,34 @@ msgstr "Прагляды (за тыдзень)"
 msgid "Edit this promotion"
 msgstr "Змяніць гэтую рэкламу"
 
+msgid "External link"
+msgstr "Знешняя спасылка"
+
 msgid "None"
 msgstr "Нікодны"
 
+msgid "Popular search terms"
+msgstr "Папулярныя пошукавыя запыты"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Тэрміны"
+
+msgid "No results found"
+msgstr "Нічога не знойдзена"
+
+msgid "Choose from popular search terms"
+msgstr "Выбраць з папулярных пошукавых запытаў"
+
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Выбачайце, няма прасонутага выніка, супадальных з %(counter)s"
-msgstr[1] ""
-"\n"
-"Выбачайце, няма прасоўваных вынікаў, супадальных з %(counter)s"
-msgstr[2] ""
-"\n"
-"Выбачайце, няма прасоўваных вынікаў, супадальных з %(counter)s"
-msgstr[3] ""
-"\n"
-"Выбачайце, няма прасоўваных вынікаў, супадальных з %(counter)s"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Ёсць %(counter)s супадзенне"
+msgstr[1] "Ёсць %(counter)s супадзенняў"
+msgstr[2] "Ёсць %(counter)s супадзенняў"
+msgstr[3] "Ёсць %(counter)s супадзенняў"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -162,18 +145,18 @@ msgstr "На жаль, няма вынікаў рэкламы \"<em>%(query_stri
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 
 msgid "Search promoted results"
 msgstr "Пошук рэкламных вынікаў"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Зроблена падборка для '{0}'."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Зроблена падборка для '%(query)s'."
 
 msgid "Edit"
 msgstr "Рэдактаваць"
@@ -181,9 +164,9 @@ msgstr "Рэдактаваць"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рэкамендацыі не былі створаны з-за памылкі"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Падборка для «{0}» абнаўляецца."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Падборка для «%(query)s» абнаўляецца."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Рэкамендацыі не былі захаваныя з-за памылкі"

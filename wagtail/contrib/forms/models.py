@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import FieldPanel
+from wagtail.api import APIField
 from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Orderable, Page
 
@@ -59,7 +60,7 @@ class AbstractFormSubmission(models.Model):
         }
 
     def __str__(self):
-        return self.form_data
+        return f"{self.form_data}"
 
     class Meta:
         abstract = True
@@ -121,6 +122,26 @@ class AbstractFormField(Orderable):
         FieldPanel("default_value", classname="formbuilder-default"),
     ]
 
+    api_fields = [
+        APIField("clean_name"),
+        APIField("label"),
+        APIField("field_type"),
+        APIField("help_text"),
+        APIField("required"),
+        APIField("choices"),
+        APIField("default_value"),
+    ]
+
+    def get_field_clean_name(self):
+        """
+        Prepare an ascii safe lower_snake_case variant of the field name to use as the field key.
+        This key is used to reference the field responses in the JSON store and as the field name in forms.
+        Called for new field creation, validation of duplicate labels and form previews.
+        When called, does not have access to the Page, nor its own id as the record is not yet created.
+        """
+
+        return get_field_clean_name(self.label)
+
     def save(self, *args, **kwargs):
         """
         When new fields are created, generate a template safe ascii name to use as the
@@ -132,7 +153,7 @@ class AbstractFormField(Orderable):
 
         is_new = self.pk is None
         if is_new:
-            clean_name = get_field_clean_name(self.label)
+            clean_name = self.get_field_clean_name()
             self.clean_name = clean_name
 
         super().save(*args, **kwargs)
@@ -142,10 +163,8 @@ class AbstractFormField(Orderable):
         ordering = ["sort_order"]
 
 
-class AbstractForm(Page):
-    """
-    A Form Page. Pages implementing a form should inherit from it
-    """
+class FormMixin:
+    """A mixin that adds form builder functionality to the page."""
 
     base_form_class = WagtailAdminFormPageForm
 
@@ -158,9 +177,6 @@ class AbstractForm(Page):
         if not hasattr(self, "landing_page_template"):
             name, ext = os.path.splitext(self.template)
             self.landing_page_template = name + "_landing" + ext
-
-    class Meta:
-        abstract = True
 
     def get_form_fields(self):
         """
@@ -199,7 +215,7 @@ class AbstractForm(Page):
 
         return form_class(*args, **form_params)
 
-    def get_landing_page_template(self, request, *args, **kwargs):
+    def get_landing_page_template(self, *args, **kwargs):
         return self.landing_page_template
 
     def get_submission_class(self):
@@ -279,11 +295,14 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode_name):
         if mode_name == "landing":
-            request.is_preview = True
-            request.preview_mode = mode_name
             return self.render_landing_page(request)
         else:
             return super().serve_preview(request, mode_name)
+
+    def get_preview_context(self, request, mode_name):
+        context = super().get_preview_context(request, mode_name)
+        context["form"] = self.get_form(page=self, user=request.user)
+        return context
 
 
 def validate_to_address(value):
@@ -291,17 +310,23 @@ def validate_to_address(value):
         validate_email(address.strip())
 
 
-class AbstractEmailForm(AbstractForm):
-    """
-    A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
-    """
+class AbstractForm(FormMixin, Page):
+    """A Form Page. Pages implementing a form should inherit from it."""
+
+    class Meta:
+        abstract = True
+
+
+class EmailFormMixin(models.Model):
+    """A mixin that adds email sending functionality to the form."""
 
     to_address = models.CharField(
         verbose_name=_("to address"),
         max_length=255,
         blank=True,
         help_text=_(
-            "Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma."
+            "Optional - form submissions will be emailed to these addresses. "
+            "Separate multiple addresses by comma."
         ),
         validators=[validate_to_address],
     )
@@ -338,15 +363,24 @@ class AbstractEmailForm(AbstractForm):
             if isinstance(value, list):
                 value = ", ".join(value)
 
-            # Format dates and datetimes with SHORT_DATE(TIME)_FORMAT
+            # Format dates and datetime(s) with SHORT_DATE(TIME)_FORMAT
             if isinstance(value, datetime.datetime):
                 value = date_format(value, settings.SHORT_DATETIME_FORMAT)
             elif isinstance(value, datetime.date):
                 value = date_format(value, settings.SHORT_DATE_FORMAT)
 
-            content.append("{}: {}".format(field.label, value))
+            content.append(f"{field.label}: {value}")
 
         return "\n".join(content)
+
+    class Meta:
+        abstract = True
+
+
+class AbstractEmailForm(EmailFormMixin, FormMixin, Page):
+    """
+    A Form Page that sends email. Inherit from it if your form sends an email.
+    """
 
     class Meta:
         abstract = True

@@ -1,3 +1,5 @@
+(images_title_generation_on_upload)=
+
 # Title generation on upload
 
 When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
@@ -26,7 +28,7 @@ You can prevent the default behaviour by calling `event.preventDefault()`. For t
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 
-See MDN for more information about [custom JavasScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
+See MDN for more information about [custom JavaScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
 
 ## Code Examples
 
@@ -57,7 +59,7 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
+Use the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
 
 ```python
 # wagtail_hooks.py

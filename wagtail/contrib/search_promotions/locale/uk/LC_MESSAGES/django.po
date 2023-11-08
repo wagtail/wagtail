@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
-"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,9 +28,22 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr "Пошукова промоція Wagtail "
 
+msgid "Search term(s)/phrase"
+msgstr "Критерій(ї) пошуку/фраза"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Будь ласка, задайте хоча б одну рекомендацію для цього пошукового терміну."
+
+msgid "Query Daily Hits"
+msgstr "Щоденні Пошукові Хіти"
 
 msgid "page"
 msgstr "сторінка"
@@ -45,37 +59,6 @@ msgstr "Додати просування у пошуку"
 
 msgid "Add search pick"
 msgstr "Додати пошукову вибірку"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"                 <p>Промотовані пошукові запити означають рекомендацію "
-"конкретних сторінок, які, можливо, не потрапляють у пошукову видачу, але "
-"можуть бути корисними. Наприклад, рекомендація сторінки пожертвування "
-"користувачу, який шукає щось з запитом \"<em>даю</em>\".</p>\n"
-" "
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"                 <p>Поле \"Пошуковий термін(и)\" повинне містити повний і "
-"точний пошуковий запит, для якого ви хочете щось рекомендувати, "
-"<em>включаючи</em> будь-які помилки та опечатки, які можуть допустити "
-"користувачі. Для допомоги, ви можете вибрати з найпопулярніших пошукових "
-"запитів, які скористалися користувачі вашого сайту.</p>\n"
-"  "
 
 msgid "Save"
 msgstr "Зберегти"
@@ -109,17 +92,11 @@ msgstr "Перемістити нагору"
 msgid "Move down"
 msgstr "Перемістити вниз"
 
-msgid "Promoted search result"
-msgstr "Промотований результат пошуку"
-
-msgid "Add recommended page"
-msgstr "Додати рекомендовану сторінку"
+msgid "Promoted search results"
+msgstr "Промотовані результати пошуку"
 
 msgid "Search Terms"
 msgstr "Пошукові терміни"
-
-msgid "Promoted search results"
-msgstr "Промотовані результати пошуку"
 
 msgid "Add new promoted result"
 msgstr "Додати новий промотований результат"
@@ -148,34 +125,26 @@ msgstr "Впорядкувати за переглядами (спочатку �
 msgid "Edit this promotion"
 msgstr "Редагувати цю промоцію"
 
+msgid "External link"
+msgstr "Зовнішнє посилання"
+
 msgid "None"
 msgstr "Нічого"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Знайдено %(counter)s збіг\n"
-" "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
+msgid "Popular search terms"
+msgstr "Популярні критерії пошуку"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Критерії"
+
+msgid "No results found"
+msgstr "Результати не знайдені"
+
+msgid "Choose from popular search terms"
+msgstr "Оберіть з популярних критеріїв пошуку"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -184,18 +153,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Жодного промотованого результату не створено. Чому б не <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
+"Жодного промотованого результату не створено. Чому б не <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
 
 msgid "Search promoted results"
 msgstr "Пошукові промотовані результати"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Вибір редактора для '{0}' створений."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Вибір редактора для '%(query)s' створений."
 
 msgid "Edit"
 msgstr "Редагувати"
@@ -203,9 +172,9 @@ msgstr "Редагувати"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендації не були створені через помилки"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Вибір редактора для '{0}' оновлений."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Вибір редактора для '%(query)s' оновлений."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Рекомендації не були збережені через помилки"

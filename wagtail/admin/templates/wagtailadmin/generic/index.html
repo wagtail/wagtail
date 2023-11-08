@@ -1,33 +1,22 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/listing.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+{% block main_header %}
+    {% fragment as extra_actions %}
+        {% if view.list_export %}
+            {% include view.export_buttons_template_name %}
+        {% endif %}
+    {% endfragment %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label action_icon=header_action_icon extra_actions=extra_actions icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
+{% endblock %}
 
-{% block content %}
-    {% if can_add %}
-        {% url view.add_url_name as add_link %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_link action_text=view.add_item_label icon=header_icon only %}
-    {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
-    {% endif %}
-
-    {% block listing %}
-        <div class="nice-padding">
-            {% component table %}
-
-            {% if is_paginated %}
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
-            {% endif %}
+{% block listing %}
+    <div class="nice-padding{% if filters %} filterable{% endif %}">
+        <div id="listing-results">
+            {% include view.results_template_name|default:"wagtailadmin/generic/listing_results.html" %}
         </div>
-    {% endblock %}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {{ media.js }}
-{% endblock %}
-
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
+        {% if filters %}
+            {% include "wagtailadmin/shared/filters.html" %}
+        {% endif %}
+    </div>
 {% endblock %}

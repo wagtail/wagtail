@@ -7,14 +7,16 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Younes Oumakhou, 2022\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,6 +67,15 @@ msgstr "مستند"
 msgid "documents"
 msgstr "وثائق"
 
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "هل أنت متأكد من حذف هذه الوثيقة؟"
+msgstr[1] "هل أنت متأكد من حذف هذه الوثيقة؟"
+msgstr[2] "هل أنت متأكد من حذف هاتين الوثيقتين؟"
+msgstr[3] "هل أنت متأكد من حذف هذه الوثائق؟"
+msgstr[4] "هل أنت متأكد من حذف هذه الوثائق؟"
+msgstr[5] "هل أنت متأكد من حذف هذه الوثائق؟"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -81,41 +92,14 @@ msgstr "نعم احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
-msgid "Choose a document"
-msgstr "احتر وثيقة"
-
-msgid "Search"
-msgstr "بحث"
-
-msgid "Upload"
-msgstr "انقل إلى الحاسوب"
-
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "لم تحمِّل أي مستندات في هذه المجموعة."
 
 msgid "You haven't uploaded any documents."
 msgstr "لم تحمِّل أي مستندات."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"لماذا لا <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">تحمل واحد الآن</a>؟"
-
-msgid "Uploading…"
-msgstr "يتم الرفع…"
 
 msgid "Change document:"
 msgstr "غير الوثيقة"
@@ -126,12 +110,11 @@ msgstr "!ضف وثيقة"
 msgid "Add document"
 msgstr "ّضف وثيقة"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "حذف %(title)s"
+msgid "Uploading…"
+msgstr "يتم الرفع…"
 
-msgid "Delete document"
-msgstr "احذف وثيقة"
+msgid "Upload"
+msgstr "انقل إلى الحاسوب"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -142,6 +125,9 @@ msgstr "تحرير"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Delete document"
+msgstr "احذف وثيقة"
 
 msgid "Filesize"
 msgstr "حجم الملف"
@@ -161,44 +147,38 @@ msgstr "عنوان"
 msgid "File"
 msgstr "ملف"
 
+msgid "Created"
+msgstr "تم إنشاؤه"
+
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "هنالك %(counter)sتَطابق"
+msgstr[1] "هنالك %(counter)sتَطابق"
+msgstr[2] "هنالك %(counter)sتَطابق"
+msgstr[3] "هنالك %(counter)sتَطابق"
+msgstr[4] "هنالك %(counter)sتَطابق"
+msgstr[5] "هنالك %(counter)sتَطابق"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
-"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
-"\">تحمل واحد الآن</a>؟"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "استعمال %(title)s"
-
-msgid "Usage of"
-msgstr "استعمال"
-
-msgid "Parent"
-msgstr "الاساس"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "Status"
-msgstr "الحالة"
-
-msgid "Edit this page"
-msgstr "حرر هذه الصفحة"
+"لم تحمِّل أي مستندات. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"
@@ -238,31 +218,37 @@ msgstr "إضافة إذن وثيقة"
 msgid "Delete"
 msgstr "احذف"
 
-msgid "Server Error"
-msgstr "خطا بالخادم"
+msgid "Choose a document"
+msgstr "احتر وثيقة"
+
+msgid "Choose another document"
+msgstr "اختر وثيقة أخقى"
+
+msgid "Edit this document"
+msgstr "تحرير هذه الوثيقة"
 
 msgid "Search documents"
 msgstr "ابحث وثائق"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "اضيف '{0}' مستند"
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "اضيف '%(document_title)s' مستند"
 
 msgid "The document could not be saved due to errors."
 msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "تحديث '{0}'  مستند"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "تحديث '%(document_title)s'  مستند"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "حذف '{0}' مستند"
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "حذف '%(document_title)s' مستند"
 
 msgid "Document"
 msgstr "مستند"
@@ -276,9 +262,3 @@ msgstr[2] "%(count)s مستندات"
 msgstr[3] "%(count)s مستندات"
 msgstr[4] "%(count)s مستندات"
 msgstr[5] "%(count)s مستندات"
-
-msgid "Choose another document"
-msgstr "اختر وثيقة أخقى"
-
-msgid "Edit this document"
-msgstr "تحرير هذه الوثيقة"

@@ -4,25 +4,12 @@
 {% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
-    <header class="merged no-border nice-padding no-v-padding">
-        <h1 class="visuallyhidden">Explorer</h1>
-
-        {% explorer_breadcrumb parent_page %}
-    </header>
-
-    <form id="page-reorder-form">
-        {% csrf_token %}
-
-        {% page_permissions parent_page as parent_page_perms %}
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 sortable_by_type=1 full_width=1 show_ordering_column=show_ordering_column show_bulk_actions=show_bulk_actions parent_page=parent_page orderable=parent_page_perms.can_reorder_children show_locale_labels=show_locale_labels %}
-
-        {% if do_paginate %}
-            {% url 'wagtailadmin_explore' parent_page.id as pagination_base_url %}
-            {% paginate pages base_url=pagination_base_url %}
-        {% endif %}
-        {% trans "Select all pages in listing" as select_all_text %}
-        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}
-    </form>
+    {% page_permissions parent_page as parent_page_perms %}
+    {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
+    <div id="listing-results">
+        {% include 'wagtailadmin/pages/index_results.html' %}
+    </div>
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=_("Select all pages in listing") app_label='wagtailcore' model_name='page' objects=page_obj %}
 {% endblock %}
 
 {% block extra_js %}
@@ -45,6 +32,10 @@
     <script type="text/javascript">
         {% if ordering == 'ord' %}
             $(function() {
+                var currentlySelected;
+                var currentPosition;
+                var movedPageId;
+                var moveNTimesDirection = 0;
                 var reorderCount = 0;
                 var orderform = $('#page-reorder-form');
 
@@ -84,11 +75,78 @@
 
                         // Post
                         $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
-                            addMessage('success', '"' + $(movedElement).data('page-title') + '" has been moved successfully.')
+                            const text = `"${$(movedElement).data('page-title')}" has been moved successfully.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text,  type: 'success' } });
+                            document.dispatchEvent(event);
                         })
                     }
                 });
                 $('.listing tbody').disableSelection();
+                $("[data-order-handle]").on("keydown", function(e) {
+                    let keyCodes = {
+                        enter: 13,
+                        upArrow: 38,
+                        downArrow: 40,
+                        escape: 27
+                    }
+
+                    if (currentlySelected) {
+                        // We want to prevent default key actions (like scrolling) when we have an object selected
+                        e.preventDefault();
+                    }
+
+                    var children = $('.listing tbody').children();
+
+                    let moveElement = function() {
+                        var index = currentPosition + moveNTimesDirection;
+                        if (index < 0) {
+                            index = 0
+                        } else if (index > children.length - 1) {
+                            index = children.length - 1
+                        }
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', currentlySelected.id.substring(5));
+                        url += `?position=${(index)}`;
+                        let CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
+                        $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
+                            const text = `"${$(currentlySelected).data('page-title')}" has been moved successfully from ${currentPosition + 1} to ${index + 1}.`;
+                            const event = new CustomEvent('w-messages:add', { detail: { clear: true, text, type: 'success' } });
+                            document.dispatchEvent(event);
+                        }).done(function() {
+                            currentlySelected = undefined;
+                        })
+                        if (moveNTimesDirection > 0) {
+                            $(currentlySelected).insertAfter($(children[index]));
+                        } else {
+                            $(currentlySelected).insertBefore($(children[index]));
+                        }
+                    }
+
+                    if(!currentlySelected && e.which == keyCodes.enter) {
+                        moveNTimesDirection = 0;
+                        currentlySelected = $(this).parents('tr')[0]
+                        children.toArray().forEach(function(item, index) {
+                            if (item === currentlySelected) {
+                                currentPosition = index;
+                            }
+                        })
+                    }
+                    if (currentlySelected && e.which == keyCodes.enter) {
+                        if (moveNTimesDirection != 0) {
+                            moveElement();
+                        }
+                    }
+
+                    if (currentlySelected && e.which == keyCodes.upArrow && children.first()[0] !== currentlySelected) {
+                        moveNTimesDirection--;
+                    };
+                    if (currentlySelected && e.which == keyCodes.downArrow && children.last()[0] !== currentlySelected) {
+                        moveNTimesDirection++;
+                    };
+                    if (currentlySelected && e.which == keyCodes.escape) {
+                        currentlySelected = undefined;
+                    }
+
+                })
             })
         {% endif %}
     </script>

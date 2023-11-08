@@ -24,7 +24,11 @@ class SitesMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_sites_menu_item():
     return SitesMenuItem(
-        _("Sites"), reverse("wagtailsites:index"), icon_name="site", order=602
+        _("Sites"),
+        reverse("wagtailsites:index"),
+        name="sites",
+        icon_name="site",
+        order=602,
     )
 
 

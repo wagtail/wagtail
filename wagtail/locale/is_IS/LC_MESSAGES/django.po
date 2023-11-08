@@ -3,22 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
-# saevarom <saevar@saevar.is>, 2019-2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023
+# saevarom <saevar@saevar.is>, 2019-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2019-2021\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"Last-Translator: saevarom <saevar@saevar.is>, 2019-2023\n"
+"Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
@@ -27,12 +30,12 @@ msgid "Add Comment"
 msgstr "Bæta við athugasemd"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Fjöldi eininga má minnst vera %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Fjöldi eininga má minnst vera %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Fjöldi eininga má mest vera %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Fjöldi eininga má mest vera %(max_num)d"
 
 msgid "Move up"
 msgstr "Færa upp"
@@ -59,6 +62,18 @@ msgstr "Þessi blokk hefur enga valmöguleika."
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
+
+msgid "Unknown content type"
+msgstr "Óþekkt efnistegund"
+
 msgid "Password"
 msgstr "Lylkilorð"
 
@@ -67,6 +82,183 @@ msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aft
 
 msgid "Comment"
 msgstr "Athugasemd"
+
+msgid "Locked"
+msgstr "Læst"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Ekki er hægt að framkvæma breytingar á meðan %(model_name)s er læst"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' var læst</b> af <b>þér</b> þann <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' er læst</b> af <b>þér</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' var læst</b> af <b>{user}</b> þann <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' er læst</b>."
+
+msgid "Locked by you"
+msgstr "Læst af þér"
+
+msgid "Locked by another user"
+msgstr "Læst af öðrum notanda"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Aðeins þú getur framkvæmt breytingar á meðan %(model_name)s er læst"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Aðeins %(user)s getur framkvæmt breytingar á meðan %(model_name)s er læst"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "%(model_name)s bíður yfirferðar."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Snifsið {model_name} bíður eftir <b>'{task_name}'</b> í vinnuflæðinu "
+"<b>'{workflow_name}'</b> ."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr ""
+"Aðeins þeir sem geta farið yfir þetta skref geta breytt  %(model_name)s."
+
+msgid "Unlocked"
+msgstr "Aflæst"
+
+msgid "Locked by workflow"
+msgstr "Læst af vinnuflæði"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Aðilar í yfirferð geta breytt þessu %(model_name)s - læstu því til að varna "
+"því að aðrir getið framkvæmt breytingar."
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Aðeins aðilar í yfirferð geta breytt og samþykkt %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' er læst og hefur verið stillt á að fara í loftið "
+"{datetime}"
+
+msgid "Locked by schedule"
+msgstr "Læst af tímastillingu"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Er læst og fer í loftið á stilltum tíma"
+
+msgid "latest revision"
+msgstr "nýjasta útgáfa"
+
+msgid "live"
+msgstr "Í birtingu"
+
+msgid "has unpublished changes"
+msgstr "er með óvistaðar breytingar."
+
+msgid "first published at"
+msgstr "fyrst sett í loftið"
+
+msgid "last published at"
+msgstr "síðast gefið út"
+
+msgid "live revision"
+msgstr "útgáfa í birtingu"
+
+msgid "go live date/time"
+msgstr "setja í loftið dags/tíma"
+
+msgid "expiry date/time"
+msgstr "taka úr loftinu dags/tíma"
+
+msgid "expired"
+msgstr "tekin úr loftinu"
+
+msgid "scheduled"
+msgstr "tímasett"
+
+msgid "draft"
+msgstr "uppkast"
+
+msgid "live + scheduled"
+msgstr "í loftinu + tímasett"
+
+msgid "live + draft"
+msgstr "í birtingu + uppkast"
+
+msgid "Default"
+msgstr "Sjálfgefið"
+
+msgid "locked"
+msgstr "læst"
+
+msgid "locked at"
+msgstr "læst á"
+
+msgid "locked by"
+msgstr "læst af"
+
+msgid "in moderation"
+msgstr "bíður samþykktar"
+
+msgid "live + in moderation"
+msgstr "í birtingu + bíður samþykktar"
+
+msgid "Add/edit pages you own"
+msgstr "Bæta við/breyta síðum sem þú átt"
+
+msgid "Bulk delete"
+msgstr "Magneyða"
+
+msgid "Delete pages with children"
+msgstr "Eyða síðum og undirsíðum"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit any page"
+msgstr "Breyta einhverri síðu"
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Læsa/aflæsa síðum sem þú hefur læst"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
+
+msgid "Publish any page"
+msgstr "Setja einhverja síðu í birtingu"
+
+msgid "Unlock"
+msgstr "Aflæsa"
+
+msgid "Unlock any page"
+msgstr "Aflæsa einhverri síðu"
 
 msgid "title"
 msgstr "titill"
@@ -86,12 +278,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "efnistegund"
-
-msgid "live"
-msgstr "Í birtingu"
-
-msgid "has unpublished changes"
-msgstr "er með óvistaðar breytingar."
 
 msgid "URL path"
 msgstr "Slóð"
@@ -122,65 +308,25 @@ msgid ""
 "results."
 msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 
-msgid "go live date/time"
-msgstr "setja í loftið dags/tíma"
-
-msgid "expiry date/time"
-msgstr "taka úr loftinu dags/tíma"
-
-msgid "expired"
-msgstr "tekin úr loftinu"
-
-msgid "locked"
-msgstr "læst"
-
-msgid "locked at"
-msgstr "læst á"
-
-msgid "locked by"
-msgstr "læst af"
-
-msgid "first published at"
-msgstr "fyrst sett í loftið"
-
-msgid "last published at"
-msgstr "síðast gefið út"
-
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
 
-msgid "live revision"
-msgstr "útgáfa í birtingu"
-
-msgid "This slug is already in use"
-msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
-
-msgid "scheduled"
-msgstr "tímasett"
-
-msgid "in moderation"
-msgstr "bíður samþykktar"
-
-msgid "draft"
-msgstr "uppkast"
-
-msgid "live + scheduled"
-msgstr "í loftinu + tímasett"
-
-msgid "live + in moderation"
-msgstr "í birtingu + bíður samþykktar"
-
-msgid "live + draft"
-msgstr "í birtingu + uppkast"
-
-msgid "Default"
-msgstr "Sjálfgefið"
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Vefslóðarhlutinn '%(page_slug)s' er þegar í notkun undir yfirsíðunni "
+"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "síða"
 
 msgid "pages"
 msgstr "íður"
+
+msgid "object id"
+msgstr "object id"
 
 msgid "submitted for moderation"
 msgstr "send inn til samþykktar"
@@ -197,47 +343,17 @@ msgstr "efni JSON"
 msgid "approved go live at"
 msgstr "samþykkta að fara í loftið"
 
-msgid "page revision"
+msgid "revision"
 msgstr "útgáfa"
 
-msgid "page revisions"
+msgid "revisions"
 msgstr "útgáfur"
-
-msgid "Add/edit pages you own"
-msgstr "Bæta við/breyta síðum sem þú átt"
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "Edit any page"
-msgstr "Breyta einhverri síðu"
-
-msgid "Publish"
-msgstr "Setja í birtingu"
-
-msgid "Publish any page"
-msgstr "Setja einhverja síðu í birtingu"
-
-msgid "Bulk delete"
-msgstr "Magneyða"
-
-msgid "Delete pages with children"
-msgstr "Eyða síðum og undirsíðum"
-
-msgid "Lock"
-msgstr "Læsa"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Læsa/aflæsa síðum sem þú hefur læst"
-
-msgid "Unlock"
-msgstr "Aflæsa"
-
-msgid "Unlock any page"
-msgstr "Aflæsa einhverri síðu"
 
 msgid "group"
 msgstr "hópur"
+
+msgid "permission"
+msgstr "heimild"
 
 msgid "permission type"
 msgstr "tegund heimildar"
@@ -292,11 +408,11 @@ msgid "tasks"
 msgstr "skref"
 
 msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
 msgstr ""
-"Hægt er að bæta virkum vinnuflæðum á síður. Það að óvirkja vinnuflæði "
-"fjarlægir það ekki úr áður viðhengdum síðum."
+"Hægt er að bæta virkum vinnuflæðum á síður/snifsi. Það að óvirkja vinnuflæði "
+"fjarlægir það ekki af áður viðhengdum síðum/snifsum."
 
 msgid "workflows"
 msgstr "vinnuflæði"
@@ -305,11 +421,11 @@ msgid "groups"
 msgstr "hópur"
 
 msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
 msgstr ""
-"Síður á þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af þessum "
-"notendum"
+"Síður/snifsi í þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af "
+"þessum notendum"
 
 msgid "Request changes"
 msgstr "Biðja um breytingu"
@@ -351,14 +467,16 @@ msgid "current task state"
 msgstr "núverandi staða skrefs"
 
 msgid ""
-"There may only be one in progress or needs changes workflow state per page."
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
 msgstr ""
 "Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
-"vera á hverri síðu."
+"vera á hverri síðu/snifsi."
 
-#, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Vinnuflæði '{0}' á síðu '{1}': {2}"
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Vinnuflæði '%(workflow_name)s' á %(model_name)s '%(title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Ekki byrjað"
@@ -387,9 +505,9 @@ msgstr "endaði"
 msgid "finished by"
 msgstr "endar"
 
-#, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Skref '{0}' á síðu útgáfu '{1}': {2}"
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Skref '%(task_name)s' í útgáfu '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Staða skrefs"
@@ -427,12 +545,9 @@ msgstr "atburðaskráning"
 msgid "log entries"
 msgstr "atburðaskráningar"
 
-msgid "The log action '{}' has not been registered."
-msgstr "Aðgerð í atburðaskrá '{}' hefur ekki verið skráð."
-
 #, python-format
-msgid "user %(id)s (deleted)"
-msgstr "notandi %(id)s (eytt)"
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Aðgerð í atburðaskrá '%(action_name)s' hefur ekki verið skráð."
 
 msgid "system"
 msgstr "kerfi"
@@ -459,14 +574,35 @@ msgstr "skoðunartakmarkanir safns"
 msgid "collections"
 msgstr "söfn"
 
-msgid "permission"
-msgstr "heimild"
-
 msgid "group collection permission"
 msgstr "safnheimild hóps"
 
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "%(model_name)s verður líka eytt"
+
+msgid "prevents deletion"
+msgstr "varnar eyðingu"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "verður stillt á sjálfgefið gildi%(model_name)s"
+
+msgid "will do nothing"
+msgstr "gerir ekkert"
+
+msgid "may prevent deletion"
+msgstr "gæti varnað eyðingu"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "verður stillt á %(model_name)s sem ákveðið er af kerfinu"
+
+msgid "will unset the reference"
+msgstr "mun fjarlægja vísunina"
 
 msgid "hostname"
 msgstr "slóð"
@@ -562,15 +698,6 @@ msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
 msgid "Continue"
 msgstr "Áfram"
 
-msgid "English"
-msgstr "Enska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "German"
-msgstr "Þýska"
-
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
@@ -609,12 +736,6 @@ msgstr "Taka tímasett uppkast úr loftinu"
 
 msgid "Unpublished scheduled draft"
 msgstr "Tók tímasett uppkast úr loftinu"
-
-msgid "Locked"
-msgstr "Læst"
-
-msgid "Unlocked"
-msgstr "Aflæst"
 
 msgid "Reject"
 msgstr "Hafna"
@@ -760,8 +881,8 @@ msgid "Remove view restrictions"
 msgstr "Fjarlægja skoðunartakmarkanir"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Fjarlægði skoðunartakmörkunina '%(restriction)s'"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "Fjarlægði '%(restriction)s' skoðunartakmörkunina. Síðan er í birtingu."
 
 msgid "Removed view restriction"
 msgstr "Fjarlægði skoðunartakmarkanir"
@@ -874,8 +995,8 @@ msgid "Workflow: resume task"
 msgstr "Vinnuflæði: halda áfram með skref"
 
 #, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Endursendi skref '%(task)s'. Vinnuflæði endurvakið'"
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Endursendi '%(task)s'. Vinnuflæði endurvakið"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Vinnuflæðiskref endursent. Vinnuflæði endurvakið"

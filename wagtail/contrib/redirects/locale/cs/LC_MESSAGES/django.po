@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
@@ -11,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,23 +104,6 @@ msgstr "Přesměrování"
 msgid "Import redirects"
 msgstr "Načíst přesměrování"
 
-msgid ""
-"\n"
-"                <p>Select a file where redirects are separated into rows and "
-"contains the columns representing <code>from</code> and <code>to</code> "
-"(they can be named anything).</p>\n"
-"                <p>After submitting you will be taken to a confirmation view "
-"where you can customize your redirects before import.</p>\n"
-"            "
-msgstr ""
-"\n"
-"                <p>Vyberete soubor, který na jednotlivých řádcích popisuje "
-"přiřazení, se sloupci, které znamenají <code>od</code> a <code>do</code> "
-"(libovolně pojmenované).</p>\n"
-"                <p>Po potvrzení budete před samotným importem v dalším "
-"nastavení moci přiřazení upřesnit.</p>\n"
-"            "
-
 msgid "Import"
 msgstr "Import"
 
@@ -193,28 +177,6 @@ msgid "No redirects found."
 msgstr "Nenalezena žádná přesměrování."
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Nalezen %(counter)s výsledek"
-msgstr[1] ""
-"\n"
-"Nalezeny %(counter)s výsledky"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-msgstr[3] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-
-#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 " Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádná "
@@ -222,18 +184,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
+"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
 
 msgid "Search redirects"
 msgstr "Hledat přesměrování"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Přesměrování '{0}' bylo upraveno."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Přesměrování '%(redirect_title)s' bylo upraveno."
 
 msgid "Edit"
 msgstr "Upravit"
@@ -241,23 +203,24 @@ msgstr "Upravit"
 msgid "The redirect could not be saved due to errors."
 msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Přesměrování '{0}' bylo smazáno."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Přesměrování '%(redirect_title)s' bylo smazáno."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Přesměrování '{0}' bylo přidáno."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Přesměrování nelze vytvořit, zkontrolujte správné vyplnění polí."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "Formát souboru \"{}\" není podporován"
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Formát souboru \"%(extension)s\" není podporován"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "Importovaný soubor má nesprávné kódování: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Importovaný soubor má nesprávné kódování: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

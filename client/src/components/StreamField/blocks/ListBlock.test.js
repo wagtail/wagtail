@@ -1,9 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
-import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
-
 import $ from 'jquery';
+import * as uuid from 'uuid';
+import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
+import { ListBlockDefinition } from './ListBlock';
+import { StreamBlockDefinition } from './StreamBlock';
+
+// Mock uuid for consistent snapshot results
+jest.mock('uuid');
+const uuidSpy = jest.spyOn(uuid, 'v4');
+uuidSpy.mockReturnValue('fake-uuid-v4-value');
+
 window.$ = $;
 
 window.comments = {
@@ -46,12 +51,6 @@ class DummyWidgetDefinition {
       },
       idForLabel: id,
     };
-  }
-}
-
-class ValidationError {
-  constructor(messages) {
-    this.messages = messages;
   }
 }
 
@@ -105,7 +104,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           required: true,
           icon: 'pilcrow',
           classname:
-            'field char_field widget-admin_auto_height_text_input fieldname-',
+            'w-field w-field--char_field w-field--admin_auto_height_text_input',
         },
       ),
       null,
@@ -114,7 +113,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         icon: 'placeholder',
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
-        helpIcon: '<div class="icon-help">?</div>',
+        helpIcon: '<svg></svg>',
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
@@ -271,6 +270,14 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
+  test('duplicated blocks have unique ids', () => {
+    boundBlock.duplicateBlock(0);
+
+    expect(boundBlock.children[1]).not.toHaveSameBlockIdAs(
+      boundBlock.children[0],
+    );
+  });
+
   test('blocks can be split', () => {
     boundBlock.splitBlock(0, 'first', 'value');
 
@@ -291,22 +298,16 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
   });
 
   test('setError passes error messages to children', () => {
-    boundBlock.setError([
-      new ListBlockValidationError(
-        [null, [new ValidationError(['Not as good as the first one'])]],
-        [],
-      ),
-    ]);
+    boundBlock.setError({
+      blockErrors: { 1: { messages: ['Not as good as the first one'] } },
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
   test('setError renders non-block errors', () => {
-    boundBlock.setError([
-      new ListBlockValidationError(
-        [null, null],
-        [new ValidationError(['At least three blocks are required'])],
-      ),
-    ]);
+    boundBlock.setError({
+      messages: ['At least three blocks are required'],
+    });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
@@ -323,7 +324,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
         required: true,
         icon: 'pilcrow',
         classname:
-          'field char_field widget-admin_auto_height_text_input fieldname-',
+          'w-field w-field--char_field w-field--admin_auto_height_text_input',
       },
     ),
     null,
@@ -332,7 +333,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       icon: 'placeholder',
       classname: null,
       helpText: 'use <strong>a few</strong> of these',
-      helpIcon: '<div class="icon-help">?</div>',
+      helpIcon: '<svg></svg>',
       maxNum: 3,
       strings: {
         MOVE_UP: 'Move up',
@@ -362,13 +363,13 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   };
 
   const assertCannotAddBlock = () => {
-    // Test duplicate button
+    // Test duplicate button is always enabled
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
         .querySelector('button[title="Duplicate"]')
         .getAttribute('disabled'),
-    ).toEqual('disabled');
+    ).toBe(null);
 
     // Test menu
     expect(
@@ -399,6 +400,21 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     assertCannotAddBlock();
   });
 
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax()).toEqual(3);
+    expect(addSibling.getBlockCount()).toEqual(3);
+    addSibling.fn();
+    expect(boundBlock.children.length).toEqual(4);
+  });
+
   test('insert disables new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
@@ -427,54 +443,181 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
 
     assertCanAddBlock();
   });
+});
 
-  test('initialising at maxNum disables split', () => {
+describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Define test blocks - ListBlock[StreamBlock[FieldBlock]]
+    const blockDef = new ListBlockDefinition(
+      'list',
+      new StreamBlockDefinition(
+        '',
+        [
+          [
+            '',
+            [
+              new FieldBlockDefinition(
+                'test_block_a',
+                new DummyWidgetDefinition('Block A Widget'),
+                {
+                  label: 'Test Block A',
+                  required: false,
+                  icon: 'pilcrow',
+                  classname:
+                    'w-field w-field--char_field w-field--admin_auto_height_text_input',
+                },
+              ),
+            ],
+          ],
+        ],
+        {},
+        {
+          label: '',
+          required: true,
+          icon: 'placeholder',
+          classname: null,
+          helpText: 'use <strong>plenty</strong> of these',
+          helpIcon: '<svg></svg>',
+          maxNum: null,
+          minNum: null,
+          blockCounts: {},
+          strings: {
+            MOVE_UP: 'Move up',
+            MOVE_DOWN: 'Move down',
+            DELETE: 'Delete',
+            DUPLICATE: 'Duplicate',
+            ADD: 'Add',
+          },
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<svg></svg>',
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
-      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: 'stream-block-1',
+        value: [
+          {
+            type: 'test_block_a',
+            value: 'hello',
+            id: 'inner-block-1',
+          },
+        ],
+      },
     ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
   });
 
-  test('insert disables split', () => {
+  test('ids in nested stream blocks are not duplicated', () => {
+    // Duplicate the outermost stream block list item
+    boundBlock.duplicateBlock(0);
+
+    const duplicatedStreamBlock = boundBlock.children[1].block;
+    const originalStreamBlock = boundBlock.children[0].block;
+
+    // Test the ids on the duplicated stream child of the stream-block-in-list-block
+    expect(duplicatedStreamBlock.children[0]).not.toHaveSameBlockIdAs(
+      originalStreamBlock.children[0],
+    );
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create test blocks - StreamBlock[ListBlock[FieldBlock]]
+    const listBlockDef = new ListBlockDefinition(
+      'list',
+      new ParanoidFieldBlockDefinition(
+        '',
+        new DummyWidgetDefinition('The widget'),
+        {
+          label: '',
+          required: true,
+          icon: 'pilcrow',
+          classname:
+            'w-field w-field--char_field w-field--admin_auto_height_text_input',
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<svg></svg>',
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [['', [listBlockDef]]],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<svg></svg>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        type: 'list',
+        id: 'list-1',
+        value: [{ id: 'list-item-1', value: 'foobar' }],
+      },
     ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
-
-    boundBlock.insert('Third value', 2);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
   });
 
-  test('delete enables split', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
-      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
-    ]);
+  test('ids of list blocks in a stream block are not duplicated', () => {
+    boundBlock.duplicateBlock(0);
+    const originalStreamChild = boundBlock.children[0];
+    const duplicatedStreamChild = boundBlock.children[1];
 
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
+    expect(duplicatedStreamChild).not.toHaveSameBlockIdAs(originalStreamChild);
 
-    boundBlock.deleteBlock(2);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
+    expect(duplicatedStreamChild.block.children[0]).not.toHaveSameBlockIdAs(
+      originalStreamChild.block.children[0],
+    );
   });
 });

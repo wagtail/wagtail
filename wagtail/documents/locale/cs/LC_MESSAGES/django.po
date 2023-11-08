@@ -4,20 +4,23 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Krystof Pilnacek <krystof.pilnacek@rossum.ai>, 2020
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2020
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
+# Mořeplavec <stanislav.vasko@gmail.com>, 2017
 # Mořeplavec <stanislav.vasko@gmail.com>, 2017
 # Vláďa Macek <macek@sandbox.cz>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,64 +88,14 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nemazat"
 
-msgid "Choose a document"
-msgstr "Zvolit dokument"
-
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Upload"
-msgstr "Nahrát"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Nalezen %(counter)s výsledek"
-msgstr[1] ""
-"\n"
-"Nalezeny %(counter)s výsledky"
-msgstr[2] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-msgstr[3] ""
-"\n"
-"Nalezeno %(counter)s výsledků"
-
 msgid "Latest documents"
 msgstr "Poslední dokumenty"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné dokumenty"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Zatím jste do kolekce nenahráli žádné dokumenty."
 
 msgid "You haven't uploaded any documents."
 msgstr "Zatím jste nenahráli žádné dokumenty."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Nový můžete přidat <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">zde</a>."
-
-msgid "Uploading…"
-msgstr "Nahrávám…"
 
 msgid "Change document:"
 msgstr "Změnit dokument:"
@@ -153,12 +106,11 @@ msgstr "Přidat dokument"
 msgid "Add document"
 msgstr "Přidat dokument"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "Smazat %(title)s"
+msgid "Uploading…"
+msgstr "Nahrávám…"
 
-msgid "Delete document"
-msgstr "Smazat dokument"
+msgid "Upload"
+msgstr "Nahrát"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -169,6 +121,9 @@ msgstr "Úprava"
 
 msgid "Save"
 msgstr "Uložit"
+
+msgid "Delete document"
+msgstr "Smazat dokument"
 
 msgid "Filesize"
 msgstr "Velikost souboru"
@@ -192,75 +147,25 @@ msgid "Created"
 msgstr "Vytvořeno"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné dokumenty"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "V kolekci nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
 "href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a href="
-"\"%(wagtaildocs_add_document_url)s\">zde</a>."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Použití %(title)s"
-
-msgid "Usage of"
-msgstr "Použití"
-
-msgid "Parent"
-msgstr "Nadřazená stránka"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Edit this page"
-msgstr "Upravit stránku"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Dokument <span class=\"visuallyhidden"
-"\">vytvořený v %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Dokumenty <span class=\"visuallyhidden"
-"\">vytvořené v%(site_name)s</span>\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Dokumentů <span class=\"visuallyhidden"
-"\">vytvořených v%(site_name)s</span>\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Dokumentů <span class=\"visuallyhidden"
-"\">vytvořených v %(site_name)s</span>\n"
-"    "
+"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
+"href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"
@@ -301,25 +206,34 @@ msgstr "Oprávnění dokumentu"
 msgid "Add a document permission"
 msgstr "Přidat oprávnění dokumentu"
 
+msgid "Tags"
+msgstr "Tagy"
+
 msgid "Delete"
 msgstr "Smazat"
 
-msgid "Server Error"
-msgstr "Chyba serveru"
+msgid "Choose a document"
+msgstr "Zvolit dokument"
+
+msgid "Choose another document"
+msgstr "Zvolit jiný dokument"
+
+msgid "Edit this document"
+msgstr "Upravit tento dokument"
 
 msgid "Search documents"
 msgstr "Hledat v dokumentech"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokument '{0}' byl přidán."
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' byl přidán."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nelze uložit, zkontrolujte správné vyplnění polí."
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokument '{0}' byl upraven"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokument '%(document_title)s' byl upraven"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -327,9 +241,9 @@ msgstr ""
 "Zdrojový soubor dokumentu není možné nalézt. Prosím změňte zdroj nebo "
 "dokument smažte."
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokument '{0}' byl smazán."
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' byl smazán."
 
 msgid "Document"
 msgstr "Dokument"
@@ -341,9 +255,3 @@ msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenty"
 msgstr[2] "%(count)s dokumentů"
 msgstr[3] "%(count)s dokumentů"
-
-msgid "Choose another document"
-msgstr "Zvolit jiný dokument"
-
-msgid "Edit this document"
-msgstr "Upravit dokument"

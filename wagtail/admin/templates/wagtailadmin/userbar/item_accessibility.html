@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+    <button type="button" id="accessibility-trigger" role="menuitem">
+        <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count></span>
+        {% trans 'Accessibility' %}
+    </button>
+    {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
+    {% trans 'Warnings' as dialog_title %}
+    {% fragment as issues_found %}
+        {% trans 'Issues found' %}
+        <span class="w-a11y-result__count" data-a11y-result-count></span>
+    {% endfragment %}
+    {% fragment as dialog_classname %}w-dialog--userbar {% admin_theme_classname %}{% endfragment %}
+    {% dialog id="accessibility-results" theme="floating" classname=dialog_classname title=dialog_title subtitle=issues_found a11y_count="a11y_count" %}
+        {# Contents of the dialog created in JS based on these templates. #}
+        <template id="w-a11y-result-row-template">
+            <div class="w-a11y-result__row" data-a11y-result-row>
+                <h3 class="w-a11y-result__header">
+                    <span class="w-a11y-result__name" data-a11y-result-name></span>
+                    <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-a11y-result__subtotal_count" data-a11y-result-count></span>
+                </h3>
+                <div class="w-a11y-result__container" data-a11y-result-container></div>
+            </div>
+        </template>
+        <template id="w-a11y-result-selector-template">
+            <button class="w-a11y-result__selector" data-a11y-result-selector type="button">
+                {% icon name="crosshairs" classname="w-a11y-result__icon" %}
+                <span data-a11y-result-selector-text></span>
+            </button>
+        </template>
+        <template id="w-a11y-result-outline-template">
+            <div class="w-a11y-result__outline" data-a11y-result-outline></div>
+        </template>
+    {% enddialog %}
+{% endblock %}

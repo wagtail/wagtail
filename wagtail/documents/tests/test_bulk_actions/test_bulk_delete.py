@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.documents import get_document_model
@@ -9,7 +8,7 @@ from wagtail.test.utils import WagtailTestUtils
 Document = get_document_model()
 
 
-class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
+class TestDocumentBulkDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -49,9 +48,7 @@ class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
         )
 
         for document in self.documents:
-            self.assertInHTML(
-                "<li>{document_title}</li>".format(document_title=document.title), html
-            )
+            self.assertInHTML(f"<li>{document.title}</li>", html)
 
         response = self.client.post(self.url)
         # User should be redirected back to the index
@@ -79,7 +76,6 @@ class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
         for document in self.documents:
             self.assertFalse(Document.objects.filter(id=document.id).exists())
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)

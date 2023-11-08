@@ -5,15 +5,18 @@
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Soft Exim, 2022\n"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,20 +40,23 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Дэмжигдсэн форматууд: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Дэмжигдээгүй зургийн формат байна. Дэмжигдсэн форматууд: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Дэмжигдээгүй зургийн формат байна. Дэмжигдсэн форматууд: "
+"%(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "%s алдаатай зураг байна."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэт том хэмжээтэй байна (%(file_size)s). Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Энэ файл хэт том хэмжээтэй байна (%%). Боломжтой дээд хэмжээ нь %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 msgid "Full width"
 msgstr "Бүтэн өргөн"
@@ -72,6 +78,18 @@ msgstr "Шүүлтүүр"
 
 msgid "Original size"
 msgstr "Оригнал хэмжээ"
+
+msgid "Resize to width"
+msgstr "Өргөнийг өөрчлөх"
+
+msgid "Resize to height"
+msgstr "Өндрийг өөрчлөх"
+
+msgid "Resize to min"
+msgstr "Хамгийн багыг өөрчлөх"
+
+msgid "Resize to max"
+msgstr "Хамгийн ихийг өөрчлөх"
 
 msgid "Width"
 msgstr "Өргөн"
@@ -133,34 +151,14 @@ msgstr[1] "Used %(usage_count)s times"
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
-msgid "Choose an image"
-msgstr "Зургаа сонгоно уу"
-
-msgid "Search"
-msgstr "Хайх"
-
-msgid "Upload"
-msgstr "Хуулах"
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
 
 msgid "Popular tags"
 msgstr "Түгээмэл шошгууд"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            %(counter)s илэрц олдлоо\n"
-"        "
-msgstr[1] ""
-"\n"
-"%(counter)s зураг олдлоо"
+msgid "New"
+msgstr "Шинэ"
 
 msgid "Latest images"
 msgstr "Сүүлийн зургууд"
@@ -170,9 +168,6 @@ msgstr "Форматаа сонгоно уу"
 
 msgid "Insert image"
 msgstr "Зураг оруулах"
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
 
 msgid "Change image file:"
 msgstr "Зургийн файл солих:"
@@ -186,15 +181,15 @@ msgstr "Зураг нэмэх"
 msgid "Save"
 msgstr "Хадгалах"
 
-msgid "Delete image"
-msgstr "Зургийг устгах"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s зургийг засч байна"
 
 msgid "Editing"
 msgstr "Засч байна"
+
+msgid "Delete image"
+msgstr "Зургийг устгах"
 
 msgid "URL Generator"
 msgstr "URL Үүсгэгч"
@@ -231,9 +226,6 @@ msgstr "Хэрэглээ"
 msgid "Images"
 msgstr "Зургууд"
 
-msgid "Clear choice"
-msgstr "Сонголтыг цэвэрлэх"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -247,28 +239,6 @@ msgstr "URL хаяг"
 
 msgid "Preview"
 msgstr "Урдчилж харах"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s-ын хэрэглээ"
-
-msgid "Usage of"
-msgstr "Хэрэглээ"
-
-msgid "Title"
-msgstr "Гарчиг"
-
-msgid "Parent"
-msgstr "Эцэг"
-
-msgid "Type"
-msgstr "Төрөл"
-
-msgid "Status"
-msgstr "Төлөв"
-
-msgid "Edit this page"
-msgstr "Энэ хуудсыг засах"
 
 msgid "Add multiple images"
 msgstr "Олон зураг нэмэх"
@@ -300,15 +270,33 @@ msgstr "Зургийн хандалтын эрх"
 msgid "Add an image permission"
 msgstr "Зургийн хандах эрх нэмэх"
 
+msgid "Tags"
+msgstr "Шошго"
+
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Upload"
+msgstr "Хуулах"
+
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
+msgid "Choose an image"
+msgstr "Зургаа сонгоно уу"
+
+msgid "Choose another image"
+msgstr "Өөр зураг сонгох"
+
+msgid "Edit this image"
+msgstr "Энэ зургийг засах"
 
 msgid "Search images"
 msgstr "Зураг хайх"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "'{0}' зураг засагдлаа."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "'%(image_title)s' зураг засагдлаа."
 
 msgid "Edit again"
 msgstr "Дахин засах"
@@ -321,13 +309,13 @@ msgid ""
 "the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "'{0}' зураг устлаа."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "'%(image_title)s' зураг устлаа."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "'{0}' зураг нэмэгдлээ."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "'%(image_title)s' зураг нэмэгдлээ."
 
 msgid "The image could not be created due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
@@ -337,6 +325,3 @@ msgstr "Зураг"
 
 msgid "Change image"
 msgstr "Зураг солих"
-
-msgid "Edit this image"
-msgstr "Энэ зургийг засах"

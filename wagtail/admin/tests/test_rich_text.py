@@ -1,6 +1,5 @@
 import unittest
 
-from bs4 import BeautifulSoup
 from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
@@ -84,7 +83,7 @@ class TestGetRichTextEditorWidget(TestCase):
         self.assertIsInstance(get_rich_text_editor_widget("custom"), CustomRichTextArea)
 
 
-class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+class TestDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTestCase):
     def setUp(self):
         super().setUp()
         # Find root page
@@ -156,7 +155,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         },
     }
 )
-class TestDraftailFeatureMedia(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+class TestDraftailFeatureMedia(WagtailTestUtils, BaseRichTextEditHandlerTestCase):
     """
     Features that define additional js/css imports (blockquote, in this case) should
     have those loaded on the page
@@ -199,7 +198,7 @@ class TestDraftailFeatureMedia(BaseRichTextEditHandlerTestCase, WagtailTestUtils
         "default": {"WIDGET": "wagtail.test.testapp.rich_text.LegacyRichTextArea"},
     }
 )
-class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+class TestOverriddenDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTestCase):
     def setUp(self):
         super().setUp()
 
@@ -248,7 +247,7 @@ class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTest
         "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
     }
 )
-class TestCustomDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+class TestCustomDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTestCase):
     def setUp(self):
         super().setUp()
 
@@ -318,7 +317,7 @@ class TestRichTextValue(TestCase):
         },
     }
 )
-class TestDraftailWithFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+class TestDraftailWithFeatureOptions(WagtailTestUtils, BaseRichTextEditHandlerTestCase):
     def setUp(self):
         super().setUp()
 
@@ -354,7 +353,7 @@ class TestDraftailWithFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTes
 
 
 class TestDraftailWithAdditionalFeatures(
-    BaseRichTextEditHandlerTestCase, WagtailTestUtils
+    WagtailTestUtils, BaseRichTextEditHandlerTestCase
 ):
     def setUp(self):
         super().setUp()
@@ -431,11 +430,11 @@ class TestDraftailWithAdditionalFeatures(
         self.assertNotContains(response, '"type": "ITALIC"')
 
 
-class TestPageLinkHandler(TestCase):
+class TestPageLinkHandler(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup('<a data-id="test-id">foo</a>', "html5lib")
+        soup = self.get_soup('<a data-id="test-id">foo</a>')
         tag = soup.a
         result = PageLinkHandler.get_db_attributes(tag)
         self.assertEqual(result, {"id": "test-id"})

@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,12 +25,12 @@ msgid "Wagtail core"
 msgstr "Wagtail-kjernen"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "De må være minst %d elementer"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "De må være minst %(min_num)d elementer"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "De må være maks %d elementer"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "De må være maks %(max_num)d elementer"
 
 msgid "Move up"
 msgstr "Flytt opp"
@@ -60,6 +60,90 @@ msgstr "Passord"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Passordet du har skrevet inn er feil. Prøv igjen."
 
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "live"
+msgstr "publisert"
+
+msgid "has unpublished changes"
+msgstr "har upubliserte endringer"
+
+msgid "first published at"
+msgstr "først publisert"
+
+msgid "last published at"
+msgstr "Sist publisert"
+
+msgid "go live date/time"
+msgstr "publiseringsdato"
+
+msgid "expiry date/time"
+msgstr "avpubliseringsdato"
+
+msgid "expired"
+msgstr "avpublisert"
+
+msgid "scheduled"
+msgstr "planlagt"
+
+msgid "draft"
+msgstr "kladd"
+
+msgid "live + scheduled"
+msgstr "publisert + planlagt"
+
+msgid "live + draft"
+msgstr "publisert + kladd"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "locked at"
+msgstr "låst den"
+
+msgid "locked by"
+msgstr "låst av"
+
+msgid "Add/edit pages you own"
+msgstr "Legg til/rediger sider du eier"
+
+msgid "Bulk delete"
+msgstr "Massesletting"
+
+msgid "Delete pages with children"
+msgstr "Slett sider med undersider"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit any page"
+msgstr "Rediger enhver side"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås opp sider som du har låst"
+
+msgid "Publish"
+msgstr "Publiser"
+
+msgid "Publish any page"
+msgstr "Publiser enhver side"
+
+msgid "Unlock"
+msgstr "Lås opp"
+
+msgid "Unlock any page"
+msgstr "Lås opp hvilken som helst side"
+
 msgid "title"
 msgstr "tittel"
 
@@ -79,12 +163,6 @@ msgstr ""
 msgid "content type"
 msgstr "innholdstype"
 
-msgid "live"
-msgstr "publisert"
-
-msgid "has unpublished changes"
-msgstr "har upubliserte endringer"
-
 msgid "URL path"
 msgstr "URL-sti"
 
@@ -99,50 +177,8 @@ msgid ""
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
 
-msgid "go live date/time"
-msgstr "publiseringsdato"
-
-msgid "expiry date/time"
-msgstr "avpubliseringsdato"
-
-msgid "expired"
-msgstr "avpublisert"
-
-msgid "locked"
-msgstr "låst"
-
-msgid "locked at"
-msgstr "låst den"
-
-msgid "locked by"
-msgstr "låst av"
-
-msgid "first published at"
-msgstr "først publisert"
-
-msgid "last published at"
-msgstr "Sist publisert"
-
 msgid "latest revision created at"
 msgstr "siste utgave opprettet"
-
-msgid "This slug is already in use"
-msgstr "Denne permalenken er allerede i bruk"
-
-msgid "scheduled"
-msgstr "planlagt"
-
-msgid "draft"
-msgstr "kladd"
-
-msgid "live + scheduled"
-msgstr "publisert + planlagt"
-
-msgid "live + draft"
-msgstr "publisert + kladd"
-
-msgid "Default"
-msgstr "Standard"
 
 msgid "page"
 msgstr "side"
@@ -165,47 +201,11 @@ msgstr "JSON for innhold"
 msgid "approved go live at"
 msgstr "godkjent for publisering"
 
-msgid "page revision"
-msgstr "sideutgave"
-
-msgid "page revisions"
-msgstr "sideutgaver"
-
-msgid "Add/edit pages you own"
-msgstr "Legg til/rediger sider du eier"
-
-msgid "Edit"
-msgstr "Rediger"
-
-msgid "Edit any page"
-msgstr "Rediger enhver side"
-
-msgid "Publish"
-msgstr "Publiser"
-
-msgid "Publish any page"
-msgstr "Publiser enhver side"
-
-msgid "Bulk delete"
-msgstr "Massesletting"
-
-msgid "Delete pages with children"
-msgstr "Slett sider med undersider"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Lås/lås opp sider som du har låst"
-
-msgid "Unlock"
-msgstr "Lås opp"
-
-msgid "Unlock any page"
-msgstr "Lås opp hvilken som helst side"
-
 msgid "group"
 msgstr "gruppe"
+
+msgid "permission"
+msgstr "tillatelse"
 
 msgid "permission type"
 msgstr "tillatelsestype"
@@ -242,9 +242,6 @@ msgstr "visningsbegrensninger for samling"
 
 msgid "collections"
 msgstr "samlinger"
-
-msgid "permission"
-msgstr "tillatelse"
 
 msgid "group collection permission"
 msgstr "gruppetillatelse for samling"
@@ -343,15 +340,6 @@ msgstr "Du må oppgi et passord for å se denne siden."
 msgid "Continue"
 msgstr "Fortsett"
 
-msgid "English"
-msgstr "engelsk"
-
-msgid "French"
-msgstr "fransk"
-
-msgid "German"
-msgstr "tysk"
-
 msgid "Created"
 msgstr "Opprettet"
 
@@ -360,12 +348,6 @@ msgstr "Redigert"
 
 msgid "Unpublish"
 msgstr "Avpublisér"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Reject"
 msgstr "Avslå"

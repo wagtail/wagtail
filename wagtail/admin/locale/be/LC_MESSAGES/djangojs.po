@@ -1,0 +1,104 @@
+#
+# Translators:
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
+# Loic Teixeira, 2022
+# Andrei Satsevich, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Andrei Satsevich, 2023\n"
+"Language-Team: Belarusian (https://app.transifex.com/torchbox/teams/8009/"
+"be/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Alt text"
+msgstr "Тэкст падказкі"
+
+msgid "Broken link"
+msgstr "Спасылка зламалася"
+
+msgid "Cancel"
+msgstr "Адмена"
+
+msgid "Close"
+msgstr "Зачыніць"
+
+msgid "Comment"
+msgstr "Каментар"
+
+msgid "Dashboard"
+msgstr "Панэль кіравання"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit '%(title)s'"
+msgstr "Змяніць «%(title)s»"
+
+msgid "Edit your account"
+msgstr "Рэдагаваць ваш рахунак"
+
+msgid "Horizontal line"
+msgstr "Гарызантальная лінія"
+
+msgid "Line break"
+msgstr "Канец радка"
+
+msgid "Loading…"
+msgstr "Загрузка..."
+
+msgid "Missing document"
+msgstr "Дакумент адсутнічае"
+
+msgid "No results"
+msgstr "Няма вынікаў"
+
+msgid "Page"
+msgstr "Старонка"
+
+msgid "Page explorer"
+msgstr "Агляд старонак"
+
+msgid "Pages"
+msgstr "Старонкі"
+
+msgid "Reload saved content"
+msgstr " Обнавиць захаваны змест"
+
+msgid "Reload the page"
+msgstr "Абнавіць старонку"
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "See all"
+msgstr "Усё паглядзець"
+
+msgid "Server Error"
+msgstr "Памылка Сервера"
+
+msgid "Show error"
+msgstr "Паказаць памылку"
+
+msgid "Show latest content"
+msgstr "Паказаць апошні змест"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Рэдактар ​​зламаўся. Змест быў скінут да апошняй захаванай версіі."
+
+msgid "This field is required."
+msgstr "Патрабуецца запоўніць гэтае поле."
+
+msgid "View child pages of '%(title)s'"
+msgstr "Прагляд даччынай старонкі «%(title)s»"

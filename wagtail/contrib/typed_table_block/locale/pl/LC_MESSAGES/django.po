@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Dominik Lech, 2022
+# Kacper Podpora <podpora@kacper.link>, 2023
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Kacper Podpora <podpora@kacper.link>, 2023\n"
+"Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Add column"
+msgstr "Dodaj kolumnę"
+
+msgid "Add row"
+msgstr "Dodaj wiersz"
+
+msgid "Column heading"
+msgstr "Nagłówek kolumny"
+
+msgid "Insert column"
+msgstr "Wstaw kolumnę"
+
+msgid "Delete column"
+msgstr "Usuń kolumnę"
+
+msgid "Insert row"
+msgstr "Wstaw wiersz"
+
+msgid "Delete row"
+msgstr "Usuń wiersz"

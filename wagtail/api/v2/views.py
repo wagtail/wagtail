@@ -238,7 +238,7 @@ class BaseAPIViewSet(GenericViewSet):
             for field in cls.detail_only_fields:
                 try:
                     all_fields.remove(field)
-                except KeyError:
+                except ValueError:
                     pass
 
         # Get list of configured fields
@@ -432,6 +432,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
             "descendant_of",
             "translation_of",
             "locale",
+            "site",
         ]
     )
     body_fields = BaseAPIViewSet.body_fields + [
@@ -494,6 +495,9 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
+
+        request = self.request
+
         # Get all live pages
         queryset = Page.objects.all().live()
 
@@ -508,8 +512,29 @@ class PagesAPIViewSet(BaseAPIViewSet):
         for restricted_page in restricted_pages:
             queryset = queryset.not_descendant_of(restricted_page, inclusive=True)
 
-        # Filter by site
-        site = Site.find_for_request(self.request)
+        # Check if we have a specific site to look for
+        if "site" in request.GET:
+            # Optionally allow querying by port
+            if ":" in request.GET["site"]:
+                (hostname, port) = request.GET["site"].split(":", 1)
+                query = {
+                    "hostname": hostname,
+                    "port": port,
+                }
+            else:
+                query = {
+                    "hostname": request.GET["site"],
+                }
+            try:
+                site = Site.objects.get(**query)
+            except Site.MultipleObjectsReturned:
+                raise BadRequestError(
+                    "Your query returned multiple sites. Try adding a port number to your site filter."
+                )
+        else:
+            # Otherwise, find the site from the request
+            site = Site.find_for_request(self.request)
+
         if site:
             base_queryset = queryset
             queryset = base_queryset.descendant_of(site.root_page, inclusive=True)
@@ -530,20 +555,24 @@ class PagesAPIViewSet(BaseAPIViewSet):
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(
-                request.GET.get("type", "wagtailcore.Page")
-            )
+            models_type = request.GET.get("type", None)
+            models = models_type and page_models_from_string(models_type) or []
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
         if not models:
-            return self.get_base_queryset()
+            if self.model == Page:
+                return self.get_base_queryset()
+            else:
+                return self.model.objects.filter(
+                    pk__in=self.get_base_queryset().values_list("pk", flat=True)
+                )
 
         elif len(models) == 1:
             # If a single page type has been specified, swap out the Page-based queryset for one based on
             # the specific page model so that we can filter on any custom APIFields defined on that model
             return models[0].objects.filter(
-                id__in=self.get_base_queryset().values_list("id", flat=True)
+                pk__in=self.get_base_queryset().values_list("pk", flat=True)
             )
 
         else:  # len(models) > 1

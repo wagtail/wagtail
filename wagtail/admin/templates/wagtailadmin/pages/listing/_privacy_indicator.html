@@ -8,5 +8,10 @@
 
 {% test_page_is_public page as is_public %}
 {% if not is_public %}
-    <span class="indicator privacy-indicator icon icon-no-view" title="{% trans "This page is protected from public view" %}"></span>
+    <span
+        class="indicator privacy-indicator"
+        title="{% trans "This page is protected from public view" %}"
+    >
+        {% icon name="no-view" classname="initial" %}
+    </span>
 {% endif %}

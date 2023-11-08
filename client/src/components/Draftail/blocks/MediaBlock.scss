@@ -8,9 +8,6 @@
   &__icon-wrapper {
     position: absolute;
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     background: $draftail-editor-chrome;
     color: $draftail-editor-chrome-text;
@@ -34,7 +31,7 @@
     min-width: 256px;
     min-height: 50px;
     object-fit: contain;
-    background-color: $color-grey-1;
+    background-color: theme('colors.text-context');
   }
 
   &__img {
@@ -43,5 +40,17 @@
     width: 256px;
     height: auto;
     pointer-events: none;
+  }
+
+  &__fallback {
+    position: absolute;
+    top: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: theme('colors.surface-page');
   }
 }

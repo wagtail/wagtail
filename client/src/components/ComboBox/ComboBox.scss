@@ -1,0 +1,145 @@
+// Ensure consistent spacing across the whole component.
+// With the scrolling and show/hide of the field, correct spacing is critical.
+$spacing: theme('spacing.[2.5]');
+$spacing-sm: theme('spacing.5');
+
+.w-combobox {
+  width: min(400px, 80vw);
+  @include dark-theme() {
+    background-color: theme('colors.surface-tooltip');
+  }
+  background: theme('colors.surface-page');
+  color: theme('colors.text-context');
+  border-radius: theme('borderRadius.DEFAULT');
+  font-size: theme('fontSize.18');
+  box-shadow: theme('boxShadow.md');
+  outline: 10px solid transparent;
+}
+
+.w-combobox__field {
+  padding: $spacing;
+  padding-bottom: 0;
+
+  @include media-breakpoint-up(sm) {
+    padding: $spacing-sm;
+    padding-bottom: 0;
+  }
+}
+
+.w-combobox [role='combobox'] {
+  margin-bottom: $spacing-sm;
+
+  &[disabled] {
+    display: none;
+  }
+}
+
+.w-combobox__menu {
+  max-height: min(480px, 70vh);
+  overflow-y: auto;
+}
+
+.w-combobox__optgroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+  gap: theme('spacing.[0.5]');
+  padding: $spacing;
+  padding-top: 0;
+
+  @include media-breakpoint-up(sm) {
+    width: 400px;
+    padding: $spacing-sm;
+    padding-top: 0;
+  }
+}
+
+.w-combobox__optgroup-label {
+  @apply w-label-3;
+  grid-column: 1 / span 2;
+  margin-bottom: $spacing;
+  font-size: 1rem;
+  font-weight: 700;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: $spacing-sm;
+  }
+
+  @media (forced-colors: active) {
+    color: GrayText;
+  }
+}
+
+.w-combobox__option {
+  display: grid;
+  grid-template-columns: theme('spacing.8') 1fr;
+  align-items: center;
+  padding: theme('spacing.1');
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: theme('lineHeight.tight');
+  border-radius: theme('borderRadius.sm');
+
+  &[aria-selected='true'] {
+    border-color: currentColor;
+    background: transparent;
+    cursor: pointer;
+
+    @media (forced-colors: active) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}
+
+.w-combobox__option--col1 {
+  grid-column: 1 / span 1;
+}
+
+.w-combobox__option--col2 {
+  grid-column: 2 / span 1;
+}
+
+.w-combobox__option-icon {
+  color: theme('colors.icon-secondary');
+  height: theme('spacing.4');
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+  }
+
+  // Give more width to icons with wide visuals.
+  .icon-h1,
+  .icon-h2,
+  .icon-h3,
+  .icon-h4,
+  .icon-h5,
+  .icon-h6 {
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+  }
+
+  // Explicitly override the selected color for SVG support.
+  [aria-selected='true'] & {
+    @media (forced-colors: active) {
+      color: inherit;
+    }
+  }
+}
+
+.w-combobox__option-text {
+  // Force to CanvasText even when highlighted, because the extra div
+  // makes WHCM add a mandatory Canvas background below the text.
+  @media (forced-colors: active) {
+    color: CanvasText;
+  }
+}
+
+.w-combobox__status {
+  padding: $spacing-sm;
+
+  @media (forced-colors: active) {
+    color: GrayText;
+  }
+}

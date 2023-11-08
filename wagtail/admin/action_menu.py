@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.models import UserPagePermissionsProxy
 
 
 class ActionMenuItem(Component):
@@ -29,7 +28,7 @@ class ActionMenuItem(Component):
     def get_user_page_permissions_tester(self, context):
         if "user_page_permissions_tester" in context:
             return context["user_page_permissions_tester"]
-        return context["user_page_permissions"].for_page(context["page"])
+        return context["page"].permissions_for_user(context["request"].user)
 
     def is_shown(self, context):
         """
@@ -41,14 +40,12 @@ class ActionMenuItem(Component):
             'view' = 'create', 'edit' or 'revisions_revert'
             'page' (if view = 'edit' or 'revisions_revert') = the page being edited
             'parent_page' (if view = 'create') = the parent page of the page being created
-            'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
+            'lock' = a Lock object if the page is locked, otherwise None
+            'locked_for_user' = True if the lock prevents the current user from editing the page
             may also contain:
             'user_page_permissions_tester' = a PagePermissionTester for the current user and page
         """
-        return (
-            context["view"] == "create"
-            or not self.get_user_page_permissions_tester(context).page_locked()
-        )
+        return context["view"] == "create" or not context["locked_for_user"]
 
     def get_context_data(self, parent_context):
         """Defines context for the template, overridable to use more data"""
@@ -80,13 +77,13 @@ class PublishMenuItem(ActionMenuItem):
     def is_shown(self, context):
         if context["view"] == "create":
             return (
-                context["user_page_permissions"]
-                .for_page(context["parent_page"])
+                context["parent_page"]
+                .permissions_for_user(context["request"].user)
                 .can_publish_subpage()
             )
         else:  # view == 'edit' or 'revisions_revert'
             perms_tester = self.get_user_page_permissions_tester(context)
-            return not perms_tester.page_locked() and perms_tester.can_publish()
+            return not context["locked_for_user"] and perms_tester.can_publish()
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
@@ -100,7 +97,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     icon_name = "resubmit"
 
     def is_shown(self, context):
-        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
         if context["view"] == "create":
@@ -110,7 +107,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
                 perms_tester.can_submit_for_moderation()
-                and not perms_tester.page_locked()
+                and not context["locked_for_user"]
             )
         # context == revisions_revert
         return False
@@ -123,13 +120,15 @@ class SubmitForModerationMenuItem(ActionMenuItem):
             workflow_state
             and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES
         ):
-            context["label"] = _("Resubmit to {}").format(
-                workflow_state.current_task_state.task.name
-            )
+            context["label"] = _("Resubmit to %(task_name)s") % {
+                "task_name": workflow_state.current_task_state.task.name
+            }
         elif page:
             workflow = page.get_workflow()
             if workflow:
-                context["label"] = _("Submit to {}").format(workflow.name)
+                context["label"] = _("Submit to %(workflow_name)s") % {
+                    "workflow_name": workflow.name
+                }
         return context
 
 
@@ -154,8 +153,7 @@ class WorkflowMenuItem(ActionMenuItem):
 
     def is_shown(self, context):
         if context["view"] == "edit":
-            perms_tester = self.get_user_page_permissions_tester(context)
-            return not perms_tester.page_locked()
+            return not context["locked_for_user"]
 
 
 class RestartWorkflowMenuItem(ActionMenuItem):
@@ -165,14 +163,14 @@ class RestartWorkflowMenuItem(ActionMenuItem):
     icon_name = "login"
 
     def is_shown(self, context):
-        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
         elif context["view"] == "edit":
             workflow_state = context["page"].current_workflow_state
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
                 perms_tester.can_submit_for_moderation()
-                and not perms_tester.page_locked()
+                and not context["locked_for_user"]
                 and workflow_state
                 and workflow_state.user_can_cancel(context["request"].user)
             )
@@ -197,31 +195,16 @@ class CancelWorkflowMenuItem(ActionMenuItem):
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
-    icon_name = "download-alt"
+    icon_name = "download"
     classname = "action-secondary"
 
     def is_shown(self, context):
         if context["view"] == "edit":
             perms_tester = self.get_user_page_permissions_tester(context)
-            return not perms_tester.page_locked() and perms_tester.can_unpublish()
+            return not context["locked_for_user"] and perms_tester.can_unpublish()
 
     def get_url(self, context):
         return reverse("wagtailadmin_pages:unpublish", args=(context["page"].id,))
-
-
-class DeleteMenuItem(ActionMenuItem):
-    name = "action-delete"
-    label = _("Delete")
-    icon_name = "bin"
-    classname = "action-secondary"
-
-    def is_shown(self, context):
-        if context["view"] == "edit":
-            perms_tester = self.get_user_page_permissions_tester(context)
-            return not perms_tester.page_locked() and perms_tester.can_delete()
-
-    def get_url(self, context):
-        return reverse("wagtailadmin_pages:delete", args=(context["page"].id,))
 
 
 class SaveDraftMenuItem(ActionMenuItem):
@@ -241,10 +224,7 @@ class PageLockedMenuItem(ActionMenuItem):
     template_name = "wagtailadmin/pages/action_menu/page_locked.html"
 
     def is_shown(self, context):
-        return (
-            "page" in context
-            and self.get_user_page_permissions_tester(context).page_locked()
-        )
+        return "page" in context and context["locked_for_user"]
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
@@ -265,7 +245,6 @@ def _get_base_page_action_menu_items():
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
             SaveDraftMenuItem(order=0),
-            DeleteMenuItem(order=10),
             UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
             CancelWorkflowMenuItem(order=40),
@@ -289,12 +268,10 @@ class PageActionMenu:
         self.context = kwargs
         self.context["request"] = request
         page = self.context.get("page")
-        user_page_permissions = UserPagePermissionsProxy(self.request.user)
-        self.context["user_page_permissions"] = user_page_permissions
         if page:
-            self.context[
-                "user_page_permissions_tester"
-            ] = user_page_permissions.for_page(page)
+            self.context["user_page_permissions_tester"] = page.permissions_for_user(
+                self.request.user
+            )
 
         self.menu_items = []
 

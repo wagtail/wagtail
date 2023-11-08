@@ -6,8 +6,9 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -15,10 +16,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,9 +29,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtailin kuvat"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -45,25 +43,36 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Tuetut muodot: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Kuvan muoto ei ole tuettu. Tuetut muodot: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Kuvan muoto ei ole tuettu. Tuetut muodot: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Epäkelpo %s-kuva."
-
-#, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Tiedosto on liian suuri (%%s). Tiedoston koko voi olla enintään %s."
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
 msgstr ""
-"Tässä tiedostossa on liian monta kuvapistettä (%% s). Enimmäismäärä on %s, "
+"Ei kelvollinen .%(extension)s-kuva. Tiedostopääte ei vastaa tiedostomuotoa "
+"(%(image_format)s)"
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Tiedosto on liian suuri. Tiedoston koko voi olla enintään %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tiedosto on liian suuri (%(file_size)s). Tiedoston koko voi olla enintään "
+"%(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Tässä tiedostossa on liian monta kuvapistettä (%(num_pixels)s). "
+"Enimmäismäärä on %(max_pixels_count)s, "
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tiedosto on liian suuri. Tiedoston koko voi olla enintään %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Täysi leveys"
@@ -157,7 +166,7 @@ msgid "uploaded by user"
 msgstr "lähettänyt käyttäjä"
 
 msgid "tags"
-msgstr "asiasanat"
+msgstr "tunnisteet"
 
 msgid "image"
 msgstr "kuva"
@@ -166,7 +175,7 @@ msgid "images"
 msgstr "kuvaa"
 
 #, python-format
-msgid "Add tags to 1 image "
+msgid "Add tags to 1 image"
 msgid_plural "Add tags to %(counter)s images"
 msgstr[0] "Lisää tunnisteet 1 kuvaan"
 msgstr[1] "Lisää tunnisteet %(counter)s kuvaan"
@@ -191,7 +200,7 @@ msgid "No, don't add"
 msgstr "Ei, älä lisää"
 
 #, python-format
-msgid "Add 1 image to new collection "
+msgid "Add 1 image to new collection"
 msgid_plural "Add %(counter)s images to new collection"
 msgstr[0] "Lisää 1 kuva uuteen kokoelmaan"
 msgstr[1] "Lisää %(counter)s kuvaa uuteen kokoelmaan"
@@ -242,36 +251,48 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-msgid "Choose an image"
-msgstr "Valitse kuva"
-
-msgid "Search"
-msgstr "Haku"
-
-msgid "Upload"
-msgstr "Lähetä"
-
 msgid "Popular tags"
-msgstr "Suositut asiasanat"
+msgstr "Suositut tunnisteet"
 
-#, python-format
 msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan kaksoiskappale "
+"olemassa olevasta kuvasta. Saatat mahdollisesti haluta poistaa uuden kuvan, "
+"jos kaksoiskappale ei ollut tarkoituksellinen."
+
+msgid "Existing"
+msgstr "Olemassa oleva"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Use new image"
+msgstr "Käytä uutta kuvaa"
+
+msgid "Use existing and delete new"
+msgstr "Käytä olemassa olevaa ja poista uusi"
 
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Valitse %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Et ole lähettänyt kuvia tähän kokoelmaan."
+
+msgid "You haven't uploaded any images."
+msgstr "Et ole lähettänyt kuvia."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>lähettäisit kuvan nyt</a>?"
 
 msgid "Choose a format"
 msgstr "Valitse muoto"
@@ -279,26 +300,17 @@ msgstr "Valitse muoto"
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-msgid "Uploading…"
-msgstr "Lähetetään…"
-
 #, python-format
 msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
 "<span>%(total)s</span> kuva <span class=\"visuallyhidden\">luotu sivustolle "
 "%(site_name)s</span>"
 msgstr[1] ""
-"\n"
 "<span>%(total)s</span> kuvaa <span class=\"visuallyhidden\">luotu sivustolle "
 "%(site_name)s</span>"
 
@@ -314,8 +326,11 @@ msgstr "Lisää kuva"
 msgid "Save"
 msgstr "Tallenna"
 
-msgid "Delete image"
-msgstr "Poista kuva"
+msgid "Keep new image"
+msgstr "Säilytä uusi kuva"
+
+msgid "Delete new image"
+msgstr "Poista uusi kuva"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -323,6 +338,12 @@ msgstr "Muokataan kuvaa %(title)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Delete image"
+msgstr "Poista kuva"
+
+msgid "Image focal point"
+msgstr "Kuvan kiintopiste"
 
 msgid "URL Generator"
 msgstr "URL-generaattori"
@@ -361,14 +382,26 @@ msgstr "Käyttö"
 msgid "Images"
 msgstr "Kuvat"
 
+msgid "Sort by"
+msgstr "Järjestys"
+
+msgid "Entries per page"
+msgstr "Kohteita per sivu"
+
 msgid "Popular Tags:"
 msgstr "Suositut tunnisteet:"
 
-msgid "Clear choice"
-msgstr "Poista valinta"
+msgid "Clear"
+msgstr "Tyhjennä"
 
 msgid "Select all images in listing"
 msgstr "Valitse listauksen kaikki kuvat"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 msgid "Select image"
 msgstr "Valitse kuva"
@@ -383,19 +416,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Generating URL"
 msgstr "Generoidaan osoitetta"
@@ -412,28 +445,6 @@ msgid ""
 msgstr ""
 "Huomioithan että generoidut kuvat, jotka ovat näyttöä suurempia, näyttävät "
 "pienemmiltä esikatselussa jotta ne mahtuisivat näytölle."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Kohteen %(title)s käyttö"
-
-msgid "Usage of"
-msgstr "Käyttö"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "Parent"
-msgstr "Isäntä"
-
-msgid "Type"
-msgstr "Tyyppi"
-
-msgid "Status"
-msgstr "Tila"
-
-msgid "Edit this page"
-msgstr "Muokkaa tätä sivua"
 
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"
@@ -458,11 +469,24 @@ msgstr ""
 "Siirto onnistui. Päivitä kuva osuvammalla otsikolla, jos tarpeellista. Voit "
 "myös poistaa kuvan kokonaan, jos siirto ei ollut tarpeellinen."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan tämän olemassa olevan "
+"kuvan kaksoiskappale. Saatat mahdollisesti haluta poistaa uuden kuvan, jos "
+"kaksoiskappale ei ollut tarkoituksellinen."
+
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
 
 msgid "Server Error"
 msgstr "Palvelinvirhe"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 msgid "Image updated."
 msgstr "Kuva päivitetty."
@@ -472,6 +496,9 @@ msgstr "Kuvan oikeudet"
 
 msgid "Add an image permission"
 msgstr "Lisää kuvaoikeus"
+
+msgid "Tags"
+msgstr "Tunnisteet"
 
 msgid "Tag"
 msgstr "Tunniste"
@@ -509,12 +536,45 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d kuva on poistettu"
 msgstr[1] "%(num_parent_objects)d kuvaa on poistettu"
 
+msgid "Upload"
+msgstr "Lähetä"
+
+msgid "Uploading…"
+msgstr "Lähetetään…"
+
+msgid "Choose an image"
+msgstr "Valitse kuva"
+
+msgid "Choose another image"
+msgstr "Valitse toinen kuva"
+
+msgid "Edit this image"
+msgstr "Muokkaa tätä kuvaa"
+
+msgid "Newest"
+msgstr "Uusin"
+
+msgid "Oldest"
+msgstr "Vanhin"
+
+msgid "Title: (A -> Z)"
+msgstr "Nimi: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Nimi: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Tiedostokoko: (pienimmästä suurimpaan)"
+
+msgid "File size: (high to low)"
+msgstr "Tiedostokoko: (suurimmasta pienimpään)"
+
 msgid "Search images"
 msgstr "Hae kuvia"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Kuva '{0}' päivitetty."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Kuva '%(image_title)s' päivitetty."
 
 msgid "Edit again"
 msgstr "Muokkaa uudestaan"
@@ -529,13 +589,13 @@ msgstr ""
 "Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
 "tai poista kuva."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Kuva '{0}' poistettu."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Kuva '%(image_title)s' poistettu."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Kuva '{0}' lisätty."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Kuva '%(image_title)s' lisätty."
 
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
@@ -551,6 +611,3 @@ msgstr[1] "%(count)s kuvaa"
 
 msgid "Change image"
 msgstr "Vaihda kuva"
-
-msgid "Edit this image"
-msgstr "Muokkaa tätä kuvaa"

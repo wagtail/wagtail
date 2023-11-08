@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Wagtail documentation build configuration file, created by
 # sphinx-quickstart on Tue Jan 14 17:38:55 2014.
@@ -56,6 +55,7 @@ os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
+    "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
 ]
@@ -84,7 +84,7 @@ copyright = f"{datetime.now().year}, Torchbox and contributors"
 # built documents.
 
 # The short X.Y version.
-version = "{}.{}".format(VERSION[0], VERSION[1])
+version = f"{VERSION[0]}.{VERSION[1]}"
 # The full version, including alpha/beta/rc tags.
 release = __version__
 
@@ -141,7 +141,7 @@ intersphinx_mapping = {
 
 # -- Options for HTML output ----------------------------------------------
 
-# Theme options are theme-specific and customize the look and feel of a theme
+# Theme options are theme-specific and customise the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 # html_theme_options = {}
@@ -170,7 +170,7 @@ html_static_path = ["_static"]
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
-html_extra_path = ["robots.txt"]
+html_extra_path = ["public"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -213,7 +213,7 @@ html_use_index = False
 # base URL from which the finished HTML is served.
 # html_use_opensearch = ''
 
-# This is the file name suffix for HTML files (e.g. ".xhtml").
+# This is the file name suffix for HTML files (for example ".xhtml").
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.

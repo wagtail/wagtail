@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,56 +70,14 @@ msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Choose a document"
-msgstr "เลือกเอกสาร"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Upload"
-msgstr "อัพโหลด"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
-
 msgid "Latest documents"
 msgstr "เอกสารอันล่าสุด"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารของชุดนี้"
 
 msgid "You haven't uploaded any documents."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย"
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-" ทำไมถึงไม่ <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">อัพโหลดสักอันตอนนี้</a>?\n"
-" "
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด..."
 
 msgid "Change document:"
 msgstr "เปลี่ยนแปลงเอกสาร"
@@ -130,12 +88,11 @@ msgstr "เพิ่มเติมเอกสาร"
 msgid "Add document"
 msgstr "เพิ่มเติมเอกสาร"
 
-#, python-format
-msgid "Delete %(title)s"
-msgstr "ลบ %(title)s"
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด..."
 
-msgid "Delete document"
-msgstr "ลบทิ้งเอกสาร"
+msgid "Upload"
+msgstr "อัพโหลด"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -146,6 +103,9 @@ msgstr "กำลังแก้ไข"
 
 msgid "Save"
 msgstr "เซฟ,เก็บรักษา"
+
+msgid "Delete document"
+msgstr "ลบทิ้งเอกสาร"
 
 msgid "Filesize"
 msgstr "ขนาดของไฟล์,ขนาดของแฟ้ม"
@@ -166,43 +126,24 @@ msgid "File"
 msgstr "ไฟล์,แฟ้ม"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดเอกสารอันไหนเลยในชุดนี้ ทำไม่คุณไม่ <a href="
-"\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดเอกสารอันไหนเลยในชุดนี้ ทำไม่คุณไม่ <a "
+"href=\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย ทำไมคุณไม่ <a href="
-"\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "การใช้ของ %(title)s"
-
-msgid "Usage of"
-msgstr "การใช้ของ"
-
-msgid "Parent"
-msgstr "หน้าแรก,หน้าหลัก"
-
-msgid "Type"
-msgstr "แบบ,รูปแบบ"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Edit this page"
-msgstr "แก้ไขหน้านี้"
+"คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย ทำไมคุณไม่ <a "
+"href=\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
 
 msgid "Add multiple documents"
 msgstr "เพิ่มเติมเอกสารแบบไม่จำกัด"
@@ -242,30 +183,36 @@ msgstr "เพิ่มเติมการให้อนุญาตเอก
 msgid "Delete"
 msgstr "ลบ"
 
-msgid "Server Error"
-msgstr "เซฟเวอร์เกิดข้อผิดพลาด"
+msgid "Choose a document"
+msgstr "เลือกเอกสาร"
+
+msgid "Choose another document"
+msgstr "เลือกเอกสารอันอื่น"
+
+msgid "Edit this document"
+msgstr "แก้ไขเอกสารนี้"
 
 msgid "Search documents"
 msgstr "ค้นหาเอกสาร"
 
-#, python-brace-format
-msgid "Document '{0}' added."
-msgstr "เอกสาร'{0} 'เพิ่มเติมเรียบร้อยแล้ว"
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "เอกสาร'%(document_title)s 'เพิ่มเติมเรียบร้อยแล้ว"
 
 msgid "The document could not be saved due to errors."
 msgstr "เอกสารไม่สามารถถูกเซฟได้ในระหว่างที่เกิดข้อผิดพลาด"
 
-#, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "เอกสาร '{0}'อัพเดทเรียบร้อยแล้ว"
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "เอกสาร '%(document_title)s'อัพเดทเรียบร้อยแล้ว"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "ไม่พบไฟล์นี้ กรุณาเปลี่ยนต้นฉบับหรือลบเอกสารทิ้ง"
 
-#, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "เอกสาร '{0}' ถูกลบเรียบร้อยแล้ว"
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "เอกสาร '%(document_title)s' ถูกลบเรียบร้อยแล้ว"
 
 msgid "Document"
 msgstr "เอกสาร"
@@ -274,9 +221,3 @@ msgstr "เอกสาร"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s เอกสาร"
-
-msgid "Choose another document"
-msgstr "เลือกเอกสารอันอื่น"
-
-msgid "Edit this document"
-msgstr "แก้ไขเอกสารนี้"

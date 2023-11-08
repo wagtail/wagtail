@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,16 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Alapok"
@@ -29,12 +32,12 @@ msgid "Add Comment"
 msgstr "Megjegyzés hozzáadása"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Az elemek minimális száma %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Az elemek minimális száma %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Az elemek maximális száma %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Az elemek maximális száma %(max_num)d"
 
 msgid "Move up"
 msgstr "Mozgatás fel"
@@ -61,6 +64,18 @@ msgstr "Ehhez az elemhez nincsenek beállítások."
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend gyorstár"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
+
+msgid "Unknown content type"
+msgstr "Ismeretlen tartalomtípus"
+
 msgid "Password"
 msgstr "Jelszó"
 
@@ -69,6 +84,192 @@ msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
 
 msgid "Comment"
 msgstr "Megjegyzés"
+
+msgid "Locked"
+msgstr "Zárolt"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Senki nem végezhet változtatásokat, amíg a(z) %(model_name)s zárolva van."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"A(z) <b>'{title}' zárolva van</b>, zárolta: <b>én</b>, időpont: <b>{datetime}"
+"</b>. "
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>A(z) '{title}' zárolva van</b>, zároló: <b>én</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr ""
+"A(z) <b>'{title}' zárolva van</b>, zárolta: <b>{user}</b>, időpont: "
+"<b>{datetime}</b>. "
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' zárolva van</b>."
+
+msgid "Locked by you"
+msgstr "Zároló: én"
+
+msgid "Locked by another user"
+msgstr "Zároló: másik felhasználó"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Csak ez a felhasználó hajthat végre változtatásokat, amíg a(z) "
+"%(model_name)s zárolva van"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Csak %(user)s hajthat végre változtatásokat amíg a(z) %(model_name)s zárolva "
+"van"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Ez a(z) %(model_name)s jelenleg moderálásra vár."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Ez a(z) {model_name} jelenleg a(z) <b>'{workflow_name}'</b> munkafolyamatban "
+"vár erre: <b>'{task_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Csak az ellenőrzők szerkeszthetik a(z) %(model_name)s tartalmat."
+
+msgid "Unlocked"
+msgstr "Megnyitott"
+
+msgid "Locked by workflow"
+msgstr "Zároló: munkafolyamat"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Az ellenőrzők szerkeszthetik ezt a(z) %(model_name)s tartalmat - zárolja, ha "
+"nem szeretné, hogy mások is szerkesszék."
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr ""
+"Csak az ellenőrzők szerkeszthetik és hagyhatják jóvá a(z) %(model_name)s "
+"tartalmat"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"A(z) '{title}' {model_name} le van zárva, és {datetime} időpontban jelenik "
+"meg"
+
+msgid "Locked by schedule"
+msgstr "Zároló: időzített publikálás funkció"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Jelenleg zárolva van, és a megadott időpontban lesz látható"
+
+msgid "latest revision"
+msgstr "utolsó verzió"
+
+msgid "live"
+msgstr "közzétett oldal"
+
+msgid "has unpublished changes"
+msgstr "nem közzétett tartalommal rendelkezik"
+
+msgid "first published at"
+msgstr "első közzététel időpontja"
+
+msgid "last published at"
+msgstr "utolsó közzététel időpontja"
+
+msgid "live revision"
+msgstr "közzétett verzió"
+
+msgid "go live date/time"
+msgstr "közzététel ideje"
+
+msgid "expiry date/time"
+msgstr "lejárat dátuma/ideje"
+
+msgid "expired"
+msgstr "lejárt"
+
+msgid "scheduled"
+msgstr "időzítve"
+
+msgid "draft"
+msgstr "vázlat"
+
+msgid "live + scheduled"
+msgstr "közzétéve + időzítve"
+
+msgid "live + draft"
+msgstr "közzétéve + vázlat"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "locked"
+msgstr "zárolt"
+
+msgid "locked at"
+msgstr "zárolva ekkor: "
+
+msgid "locked by"
+msgstr "zároló: "
+
+msgid "in moderation"
+msgstr "jóváhagyás alatt"
+
+msgid "live + in moderation"
+msgstr "közzétéve + moderálás alatt"
+
+msgid "Add/edit pages you own"
+msgstr "Saját oldalaim létrehozása/szerkesztése"
+
+msgid "Bulk delete"
+msgstr "Kötegelt törlés"
+
+msgid "Delete pages with children"
+msgstr "Oldalak törlése a gyermek oldalakkal együtt"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Edit any page"
+msgstr "Bármelyik oldal szerkesztése"
+
+msgid "Lock"
+msgstr "Zárolás"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Saját zárolt oldalaim feloldása"
+
+msgid "Publish"
+msgstr "Közzététel"
+
+msgid "Publish any page"
+msgstr "Bármelyik oldal közzététele"
+
+msgid "Unlock"
+msgstr "Felold"
+
+msgid "Unlock any page"
+msgstr "Bármely oldal feloldása"
 
 msgid "title"
 msgstr "cím"
@@ -88,12 +289,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "tartalomtípus"
-
-msgid "live"
-msgstr "közzétett oldal"
-
-msgid "has unpublished changes"
-msgstr "nem közzétett tartalommal rendelkezik"
 
 msgid "URL path"
 msgstr "URL cím"
@@ -124,65 +319,25 @@ msgid ""
 "results."
 msgstr "Az oldal kerés oldalakon megjelenített leírása."
 
-msgid "go live date/time"
-msgstr "közzététel ideje"
-
-msgid "expiry date/time"
-msgstr "lejárat dátuma/ideje"
-
-msgid "expired"
-msgstr "lejárt"
-
-msgid "locked"
-msgstr "zárolt"
-
-msgid "locked at"
-msgstr "zárolva ekkor: "
-
-msgid "locked by"
-msgstr "zároló: "
-
-msgid "first published at"
-msgstr "első közzététel időpontja"
-
-msgid "last published at"
-msgstr "utolsó közzététel időpontja"
-
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
 
-msgid "live revision"
-msgstr "közzétett verzió"
-
-msgid "This slug is already in use"
-msgstr "Ez a rövidítés már használatban van"
-
-msgid "scheduled"
-msgstr "időzítve"
-
-msgid "in moderation"
-msgstr "jóváhagyás alatt"
-
-msgid "draft"
-msgstr "vázlat"
-
-msgid "live + scheduled"
-msgstr "közzétéve + időzítve"
-
-msgid "live + in moderation"
-msgstr "közzétéve + moderálás alatt"
-
-msgid "live + draft"
-msgstr "közzétéve + vázlat"
-
-msgid "Default"
-msgstr "Alapértelmezett"
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"A(z) '%(page_slug)s' rövidítés már használatban van a szülőoldal alatt itt: "
+"'%(parent_url_path)s'"
 
 msgid "page"
 msgstr "oldal"
 
 msgid "pages"
 msgstr "oldalak"
+
+msgid "object id"
+msgstr "azonosító"
 
 msgid "submitted for moderation"
 msgstr "moderálásra beküld"
@@ -199,47 +354,17 @@ msgstr "JSON tartalom"
 msgid "approved go live at"
 msgstr "jóváhagyott közzététel időpontja"
 
-msgid "page revision"
-msgstr "oldal verzió"
+msgid "revision"
+msgstr "verzió"
 
-msgid "page revisions"
-msgstr "oldal verziók"
-
-msgid "Add/edit pages you own"
-msgstr "Saját oldalaim létrehozása/szerkesztése"
-
-msgid "Edit"
-msgstr "Szerkesztés"
-
-msgid "Edit any page"
-msgstr "Bármelyik oldal szerkesztése"
-
-msgid "Publish"
-msgstr "Közzététel"
-
-msgid "Publish any page"
-msgstr "Bármelyik oldal közzététele"
-
-msgid "Bulk delete"
-msgstr "Kötegelt törlés"
-
-msgid "Delete pages with children"
-msgstr "Oldalak törlése a gyermek oldalakkal együtt"
-
-msgid "Lock"
-msgstr "Zárolás"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Saját zárolt oldalaim feloldása"
-
-msgid "Unlock"
-msgstr "Felold"
-
-msgid "Unlock any page"
-msgstr "Bármely oldal feloldása"
+msgid "revisions"
+msgstr "verziók"
 
 msgid "group"
 msgstr "csoport"
+
+msgid "permission"
+msgstr "hozzáférés"
 
 msgid "permission type"
 msgstr "hozzáférés típusa"
@@ -294,11 +419,11 @@ msgid "tasks"
 msgstr "feladatok"
 
 msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
 msgstr ""
-"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz. A "
-"munkafolyamat inaktiválása nem fogja azt törölni a meglévő oldalakból."
+"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz és elemekhez. "
+"A munkafolyamat inaktiválása nem fogja azt törölni a meglévő tartalmakból."
 
 msgid "workflows"
 msgstr "munkafolyamatok"
@@ -307,11 +432,11 @@ msgid "groups"
 msgstr "csoportok"
 
 msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
 msgstr ""
-"Az adott lépésnél tartó oldalakat ezek a felhasználók fogják moderálni vagy "
-"jóváhagyni"
+"Az adott lépésnél tartó oldalakat/elemeket ezek a felhasználók fogják "
+"moderálni vagy jóváhagyni"
 
 msgid "Request changes"
 msgstr "Változtatások kérése"
@@ -353,14 +478,17 @@ msgid "current task state"
 msgstr "jelenlegi feladat állapot"
 
 msgid ""
-"There may only be one in progress or needs changes workflow state per page."
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
 msgstr ""
-"Egy oldal esetén csak egyetlen folyamatban vagy változtatás szükséges "
+"Egy oldal/elem esetén csak egyetlen folyamatban vagy változtatás szükséges "
 "munkafolyamat állapot lehet"
 
-#, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "'{0}' munkafolyamat a(z) '{1}' oldalon: {2}"
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"'%(workflow_name)s' munkafolyamat a(z) '%(title)s' %(model_name)s esetén: "
+"%(status)s"
 
 msgid "Not started"
 msgstr "Nincs elindítva"
@@ -389,9 +517,9 @@ msgstr "befejezve: "
 msgid "finished by"
 msgstr "befejező: "
 
-#, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "'{0}' feladat a(z) '{1}' oldal verzión: {2}"
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "'%(task_name)s' feladat a(z) '%(revision_info)s' verzión: %(status)s"
 
 msgid "Task state"
 msgstr "Feladat állapot"
@@ -429,12 +557,9 @@ msgstr "napló bejegyzés"
 msgid "log entries"
 msgstr "napló bejegyzések"
 
-msgid "The log action '{}' has not been registered."
-msgstr "A '{}' napló akció nincs regisztrálva."
-
 #, python-format
-msgid "user %(id)s (deleted)"
-msgstr "%(id)s felhasználó (törölt)"
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "A '%(action_name)s' napló akció nincs regisztrálva."
 
 msgid "system"
 msgstr "rendszer"
@@ -461,14 +586,35 @@ msgstr "gyűjtemény elérési korlátozások"
 msgid "collections"
 msgstr "gyűjtemények"
 
-msgid "permission"
-msgstr "hozzáférés"
-
 msgid "group collection permission"
 msgstr "csoportos gyűjtemény engedély"
 
 msgid "group collection permissions"
 msgstr "csoportos gyűjtemény engedélyek"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "a(z) %(model_name)s is törölve lesz"
+
+msgid "prevents deletion"
+msgstr "akadályozza a törlést"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "az alapértelmezett %(model_name)s tartalomra lesz állítva"
+
+msgid "will do nothing"
+msgstr "nem tesz semmit"
+
+msgid "may prevent deletion"
+msgstr "megakadályozhatja a törlést"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "rendszer által meghatározott %(model_name)s tartalomra lesz állítva "
+
+msgid "will unset the reference"
+msgstr "törli a hivatkozást"
 
 msgid "hostname"
 msgstr "hosztnév"
@@ -564,15 +710,6 @@ msgstr "Ezen oldal megtekintéséhez jelszó szükséges."
 msgid "Continue"
 msgstr "Folytatás"
 
-msgid "English"
-msgstr "Angol"
-
-msgid "French"
-msgstr "Francia"
-
-msgid "German"
-msgstr "Német"
-
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
@@ -611,12 +748,6 @@ msgstr "Időzített verzió visszavonása"
 
 msgid "Unpublished scheduled draft"
 msgstr "Visszavont időzített verzió"
-
-msgid "Locked"
-msgstr "Lezárt"
-
-msgid "Unlocked"
-msgstr "Megnyitott"
 
 msgid "Reject"
 msgstr "Visszautasít"
@@ -764,8 +895,8 @@ msgid "Remove view restrictions"
 msgstr "Elérési korlátozás eltávolítása"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "A(z) '%(restriction)s' elérési korlátozás el lett távolítva"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "'%(restriction)s' elérési korlátozás eltávolítva. Az oldal nyilvános."
 
 msgid "Removed view restriction"
 msgstr "Elérési korlátozás eltávolítva"
@@ -879,8 +1010,8 @@ msgid "Workflow: resume task"
 msgstr "Munkafolyamat: lépés folytatása"
 
 #, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "'%(task)s' lépés újrakezdve. Munkafolyamat folytatódik"
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "'%(task)s' újra beköltve. Munkafolyamat újraindult"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Munkafolyamat lépés újrakezdve. A munkafolyamat folytatódik"

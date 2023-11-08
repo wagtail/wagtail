@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import EmbedBlock from '../blocks/EmbedBlock';
+import EmbedBlock from './EmbedBlock';
+import { noop } from '../../../utils/noop';
 
 describe('EmbedBlock', () => {
   it('renders', () => {
@@ -37,7 +38,7 @@ describe('EmbedBlock', () => {
             entity: {
               getData: () => ({}),
             },
-            onChange: () => {},
+            onChange: noop,
           }}
         />,
       ),

@@ -1,14 +1,15 @@
+import datetime
 import json
 import urllib
 
 from django.contrib.auth.models import Group, Permission
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import reverse
 from django.utils.encoding import force_str
-from django.utils.html import escapejs
+from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
 
@@ -16,19 +17,39 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
-from wagtail.models import Collection, GroupCollectionPermission, get_root_collection_id
-from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.models import (
+    Collection,
+    GroupCollectionPermission,
+    Page,
+    get_root_collection_id,
+)
+from wagtail.test.testapp.models import (
+    CustomImage,
+    CustomImageWithAuthor,
+    EventPage,
+    VariousOnDeleteModel,
+)
+from wagtail.test.utils import WagtailTestUtils, override_settings
 
-from .utils import Image, get_test_image_file
+from .utils import Image, get_test_image_file, get_test_image_file_svg
 
 # Get the chars that Django considers safe to leave unescaped in a URL
-urlquote_safechars = RFC3986_SUBDELIMS + str("/~:@")
+urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
 
 
-class TestImageIndexView(TestCase, WagtailTestUtils):
+class TestImageIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
+        self.kitten_image = Image.objects.create(
+            title="a cute kitten",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2020, 1, 1),
+        )
+        self.puppy_image = Image.objects.create(
+            title="a cute puppy",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2022, 2, 2),
+        )
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailimages:index"), params)
@@ -38,23 +59,42 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/index.html")
         self.assertContains(response, "Add an image")
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+        # all results should be returned
+        self.assertContains(response, "a cute kitten")
+        self.assertContains(response, "a cute puppy")
 
-    def test_search(self):
-        response = self.get({"q": "Hello"})
+    def test_empty_q(self):
+        response = self.get({"q": ""})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["query_string"], "")
+        self.assertContains(response, "Add an image")
+        # The search box should not raise an error
+        self.assertNotContains(response, "This field is required.")
+        # all results should be returned
+        self.assertContains(response, "a cute kitten")
+        self.assertContains(response, "a cute puppy")
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
+
+    def test_per_page(self):
+        response = self.get({"entries_per_page": 60})
+        self.assertContains(
+            response, '<option value="60" selected="selected">60</option>', html=True
+        )
 
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
-        for i in range(1, 50):
+        for i in range(1, 66):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -77,11 +117,74 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             or ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
         )
 
-    def test_ordering(self):
-        orderings = ["title", "-created_at"]
+    def test_order_by_title(self):
+        response = self.get({"ordering": "title"})
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context["images"].object_list[0], self.kitten_image)
+        self.assertEqual(context["images"].object_list[1], self.puppy_image)
+
+    def test_valid_orderings(self):
+        orderings = [
+            "title",
+            "-title",
+            "created_at",
+            "-created_at",
+            "file_size",
+            "-file_size",
+        ]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
             self.assertEqual(response.status_code, 200)
+
+            context = response.context
+            self.assertEqual(context["current_ordering"], ordering)
+
+    def test_default_ordering_used_if_invalid_ordering_provided(self):
+        response = self.get({"ordering": "bogus"})
+        self.assertEqual(response.status_code, 200)
+
+        context = response.context
+        default_ordering = "-created_at"
+        self.assertEqual(context["current_ordering"], default_ordering)
+        self.assertEqual(context["images"].object_list[0], self.puppy_image)
+        self.assertEqual(context["images"].object_list[1], self.kitten_image)
+
+    def test_default_entries_per_page(self):
+        for i in range(1, 33):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        # The default number of images shown is 30
+        self.assertEqual(len(object_list), 30)
+
+        response = self.get({"entries_per_page": 10})
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        self.assertEqual(len(object_list), 10)
+
+    def test_default_entries_per_page_uses_default(self):
+        for i in range(1, 33):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        default_num_entries_per_page = 30
+        invalid_num_entries_values = [66, "a"]
+        for value in invalid_num_entries_values:
+            response = self.get({"entries_per_page": value})
+            self.assertEqual(response.status_code, 200)
+
+            object_list = response.context["images"].object_list
+            self.assertEqual(len(object_list), default_num_entries_per_page)
 
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()
@@ -118,7 +221,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         edit_url = reverse("wagtailimages:edit", args=(image.id,))
         next_url = urllib.parse.quote(response._request.get_full_path())
-        self.assertContains(response, "%s?next=%s" % (edit_url, next_url))
+        self.assertContains(response, f"{edit_url}?next={next_url}")
 
     def test_tags(self):
         image_two_tags = Image.objects.create(
@@ -159,7 +262,8 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # no filtering
         response = self.get()
-        self.assertEqual(response.context["images"].paginator.count, 3)
+        # three images created above plus the two untagged ones created in setUp()
+        self.assertEqual(response.context["images"].paginator.count, 5)
 
         # filter all images with tag 'one'
         response = self.get({"tag": "one"})
@@ -170,7 +274,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["images"].paginator.count, 1)
 
     def test_tag_filtering_preserves_other_params(self):
-        for i in range(1, 100):
+        for i in range(1, 130):
             image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -186,15 +290,150 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # prev link should exist and include tag
         self.assertTrue(
-            "?p=2&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
+            "?p=1&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
         )
         # next link should exist and include tag
         self.assertTrue(
             "?p=3&amp;tag=even" in response_body or "?tag=even&amp;p=3" in response_body
         )
 
+    def test_search_form_rendered(self):
+        response = self.get()
+        html = response.content.decode()
+        search_url = reverse("wagtailimages:index")
 
-class TestImageListingResultsView(TestCase, WagtailTestUtils):
+        # Search form in the header should be rendered.
+        self.assertTagInHTML(
+            f"""<form action="{search_url}" method="get" role="search">""",
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    )
+    def test_num_queries(self):
+        # Warm up cache so that result is the same when running this test in isolation
+        # as when running it within the full test suite.
+        self.get()
+
+        # Initial number of queries.
+        with self.assertNumQueries(12):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(32):
+            # The renditions needed don't exist yet. We have 20 = 5 * 4 additional queries.
+            self.get()
+
+        with self.assertNumQueries(12):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
+
+
+class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        self.login()
+        self.kitten_image = Image.objects.create(
+            title="a cute kitten",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2020, 1, 1),
+        )
+        self.puppy_image = Image.objects.create(
+            title="a cute puppy",
+            file=get_test_image_file(size=(1, 1)),
+            created_at=datetime.datetime(2022, 2, 2),
+        )
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailimages:index"), params)
+
+    def test_search(self):
+        response = self.get({"q": "kitten"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "kitten")
+        self.assertContains(response, "a cute kitten")
+        self.assertNotContains(response, "a cute puppy")
+
+    def test_search_partial_match(self):
+        response = self.get({"q": "kit"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "kit")
+        self.assertContains(response, "a cute kitten")
+        self.assertNotContains(response, "a cute puppy")
+
+    def test_collection_query_search(self):
+        root_collection = Collection.get_first_root_node()
+        child_collection = [
+            root_collection.add_child(name="Baker Collection"),
+            root_collection.add_child(name="Other Collection"),
+        ]
+        title_list = ["Baker", "Other"]
+        answer_list = []
+        for i in range(10):
+            self.image = Image.objects.create(
+                title=f"{title_list[i%2]} {i}",
+                file=get_test_image_file(size=(1, 1)),
+                collection=child_collection[i % 2],
+            )
+            if i % 2 == 0:
+                answer_list.append(self.image)
+        response = self.get({"q": "Baker", "collection_id": child_collection[0].id})
+        status_code = response.status_code
+        query_string = response.context["query_string"]
+        response_list = response.context["images"].object_list
+        response_body = response.content.decode("utf-8")
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(query_string, "Baker")
+        self.assertCountEqual(answer_list, response_list)
+        for i in range(0, 10, 2):
+            self.assertIn("Baker %i" % i, response_body)
+
+        # should append the correct params to the add images button
+        url = reverse("wagtailimages:add_multiple")
+        self.assertContains(
+            response,
+            f'<a href="{url}?q=Baker&amp;collection_id={child_collection[0].pk}"',
+        )
+
+    def test_tag_filtering_with_search_term(self):
+        Image.objects.create(
+            title="Test image with no tags",
+            file=get_test_image_file(),
+        )
+
+        image_one_tag = Image.objects.create(
+            title="Test image with one tag",
+            file=get_test_image_file(),
+        )
+        image_one_tag.tags.add("one")
+
+        image_two_tags = Image.objects.create(
+            title="Test image with two tags",
+            file=get_test_image_file(),
+        )
+        image_two_tags.tags.add("one", "two")
+
+        # The tag gets ignored, if a valid search term is present, so this will find all
+        # images, as all of them contain "test" in their titles.
+        response = self.get({"tag": "one", "q": "test"})
+        self.assertEqual(response.context["images"].paginator.count, 3)
+
+
+class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
     def setUp(self):
         self.login()
 
@@ -216,7 +455,7 @@ class TestImageListingResultsView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageAddView(TestCase, WagtailTestUtils):
+class TestImageAddView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -233,7 +472,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # as standard, only the root collection exists and so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
@@ -249,7 +491,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/add.html")
 
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Evil plans")
 
     def test_get_with_collection_nesting(self):
@@ -283,6 +528,87 @@ class TestImageAddView(TestCase, WagtailTestUtils):
                 "file": SimpleUploadedFile(
                     "test.png", get_test_image_file().file.getvalue()
                 ),
+            }
+        )
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+        # Test that size was populated correctly
+        image = images.first()
+        self.assertEqual(image.width, 640)
+        self.assertEqual(image.height, 480)
+
+        # Test that the file_size/hash fields were set
+        self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
+
+        # Test that it was placed in the root collection
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(image.collection, root_collection)
+
+    def test_add_svg_denied(self):
+        """
+        SVGs should be disallowed by default
+        """
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": SimpleUploadedFile(
+                    "test.svg",
+                    get_test_image_file_svg().file.getvalue(),
+                    content_type="text/html",
+                ),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response,
+            "form",
+            "file",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
+        )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["svg"])
+    def test_add_svg(self):
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": SimpleUploadedFile(
+                    "test.svg",
+                    get_test_image_file_svg().file.getvalue(),
+                    content_type="text/html",
+                ),
+            }
+        )
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
+
+    def test_add_temporary_uploaded_file(self):
+        """
+        Test that uploading large files (spooled to the filesystem) work as expected
+        """
+        test_image_file = get_test_image_file()
+        uploaded_file = TemporaryUploadedFile(
+            "test.png", "image/png", test_image_file.size, "utf-8"
+        )
+        uploaded_file.write(test_image_file.file.getvalue())
+        uploaded_file.seek(0)
+
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": uploaded_file,
             }
         )
 
@@ -413,6 +739,19 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         image = images.first()
         self.assertEqual(image.collection, evil_plans_collection)
 
+    def test_add_with_selected_collection(self):
+
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name="Travel pics")
+
+        response = self.client.get(
+            reverse("wagtailimages:add_multiple") + f"?collection_id={collection.pk}"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # collection chooser should have selected collection passed with parameter
+        self.assertContains(response, f'option value="{collection.pk}" selected')
+
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_unique_together_validation_error(self):
         root_collection = Collection.get_first_root_node()
@@ -445,7 +784,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
+class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         add_image_permission = Permission.objects.get(
             content_type__app_label="wagtailimages", codename="add_image"
@@ -485,7 +824,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_with_collection_nesting(self):
         self.evil_plans_collection.add_child(name="Eviler plans")
@@ -493,7 +835,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
         response = self.get()
         self.assertEqual(response.status_code, 200)
         # Unlike the above test, the user should have access to multiple Collections.
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
@@ -519,7 +864,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
         )
 
 
-class TestImageEditView(TestCase, WagtailTestUtils):
+class TestImageEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -588,7 +933,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
             response, f'<input type="hidden" value="{expected_next_url}" name="next">'
         )
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -795,6 +1139,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file), old_rendition_data)
 
+        with self.assertRaises(type(old_rendition).DoesNotExist):
+            old_rendition.refresh_from_db()
+
     def test_reupload_different_name(self):
         """
         Checks that reuploading the image file with a different file name
@@ -831,6 +1178,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         new_rendition = self.image.get_rendition("fill-5x5")
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file), old_rendition_data)
+
+        with self.assertRaises(type(old_rendition).DoesNotExist):
+            old_rendition.refresh_from_db()
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_focal_point_editor(self):
@@ -877,7 +1227,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
-class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
+class TestImageEditViewWithCustomImageModel(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -906,7 +1256,7 @@ class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
         self.assertContains(response, "wagtailadmin/js/draftail.js")
 
 
-class TestImageDeleteView(TestCase, WagtailTestUtils):
+class TestImageDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -916,34 +1266,40 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
             file=get_test_image_file(),
         )
 
+        self.delete_url = reverse("wagtailimages:delete", args=(self.image.id,))
+
     def get(self, params={}):
-        return self.client.get(
-            reverse("wagtailimages:delete", args=(self.image.id,)), params
-        )
+        return self.client.get(self.delete_url, params)
 
-    def post(self, post_data={}):
-        return self.client.post(
-            reverse("wagtailimages:delete", args=(self.image.id,)), post_data
-        )
+    def post(self, post_data={}, **kwargs):
+        return self.client.post(self.delete_url, post_data, **kwargs)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=False)
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
-        self.assertNotIn("Used ", str(response.content))
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertNotContains(
+            response,
+            "One or more references to this image prevent it from being deleted.",
+        )
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, "No, don't delete")
+        self.assertContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(response, "This image is referenced 0 times")
         expected_url = "/admin/images/usage/%d/" % self.image.id
         self.assertContains(response, expected_url)
 
     def test_delete(self):
-        response = self.post()
+        response = self.post(follow=True)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailimages:index"))
@@ -951,6 +1307,12 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
         self.assertEqual(images.count(), 0)
+
+        # Message should be shown
+        self.assertEqual(
+            [m.message.strip() for m in response.context["messages"]],
+            [escape("Image 'Test image' deleted.")],
+        )
 
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -964,19 +1326,170 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         response = self.post()
         self.assertEqual(response.status_code, 302)
 
+    def test_delete_get_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/shared/usage_summary.html")
+        self.assertContains(
+            response,
+            reverse("wagtailimages:image_usage", args=(self.image.id,))
+            + "?describe_on_delete=1",
+        )
+        self.assertContains(
+            response,
+            "One or more references to this image prevent it from being deleted.",
+        )
+        self.assertNotContains(response, "Are you sure you want to delete this image?")
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, "No, don't delete")
+        self.assertNotContains(
+            response,
+            f'<form action="{self.delete_url}" method="POST">',
+        )
 
-class TestImageChooserView(TestCase, WagtailTestUtils):
+    def test_delete_post_with_protected_reference(self):
+        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        response = self.post()
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertTrue(Image.objects.filter(id=self.image.id).exists())
+
+
+class TestUsage(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_usage_page(self):
+        home_page = Page.objects.get(id=2)
+        home_page.add_child(
+            instance=EventPage(
+                title="Christmas",
+                slug="christmas",
+                feed_image=self.image,
+                date_from=datetime.date.today(),
+                audience="private",
+                location="Test",
+                cost="Test",
+            )
+        ).save_revision().publish()
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        self.assertContains(response, "Christmas")
+        self.assertContains(response, '<table class="listing">')
+        self.assertContains(response, "<td>Event page</td>", html=True)
+
+    def test_usage_page_no_usage(self):
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        # There's no usage so there should be no listing table
+        self.assertNotContains(response, '<table class="listing">')
+
+    def test_usage_no_tags(self):
+        # tags should not count towards an image's references
+        self.image.tags.add("illustration")
+        self.image.save()
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        # There's no usage so there should be no listing table
+        self.assertNotContains(response, '<table class="listing">')
+
+    def test_usage_page_with_only_change_permission(self):
+        home_page = Page.objects.get(id=2)
+        home_page.add_child(
+            instance=EventPage(
+                title="Christmas",
+                slug="christmas",
+                feed_image=self.image,
+                date_from=datetime.date.today(),
+                audience="private",
+                location="Test",
+                cost="Test",
+            )
+        ).save_revision().publish()
+
+        # Create a user with change_image permission but not add_image
+        user = self.create_user(
+            username="changeonly", email="changeonly@example.com", password="password"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.changers_group = Group.objects.create(name="Image changers")
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group,
+            collection=Collection.get_first_root_node(),
+            permission=change_permission,
+        )
+        user.groups.add(self.changers_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="changeonly", password="password")
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        # User has no permission over the page linked to, so should not see its details
+        self.assertNotContains(response, "Christmas")
+        self.assertContains(response, "(Private page)")
+        self.assertContains(response, "<td>Event page</td>", html=True)
+
+    def test_usage_page_without_change_permission(self):
+        # Create a user with add_image permission but not change_image
+        user = self.create_user(
+            username="addonly", email="addonly@example.com", password="password"
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="add_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.adders_group = Group.objects.create(name="Image adders")
+        GroupCollectionPermission.objects.create(
+            group=self.adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=add_permission,
+        )
+        user.groups.add(self.adders_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="addonly", password="password")
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+
+        self.assertEqual(response.status_code, 302)
+
+
+class TestImageChooserView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailimages:chooser"), params)
+        return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         # draftail should NOT be a standard JS include on this page
@@ -1040,7 +1553,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Confirm that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
-        self.assertNotContains(response, "Collection:")
+        self.assertNotContains(response, "Collection")
 
         # We now let the Baker choose from the Office collection.
         GroupCollectionPermission.objects.create(
@@ -1062,14 +1575,14 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
-        self.assertContains(response, "Collection:")
+        self.assertContains(response, "Collection")
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_with_custom_image_model(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         # custom form fields should be present
@@ -1083,13 +1596,15 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
     def test_search(self):
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["search_query"], "Hello")
 
     def test_pagination(self):
-        pages = ["0", "1", "-1", "9999", "Not a page"]
-        for page in pages:
-            response = self.get({"p": page})
-            self.assertEqual(response.status_code, 200)
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
     def test_filter_by_tag(self):
         for i in range(0, 10):
@@ -1127,8 +1642,42 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_image_chooser_queryset", filter_images):
             response = self.get()
-        self.assertEqual(len(response.context["images"]), 1)
-        self.assertEqual(response.context["images"][0], image)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], image)
+
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    )
+    def test_num_queries(self):
+        # Initial number of queries.
+        with self.assertNumQueries(8):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(30):
+            # The renditions needed don't exist yet. We have 21 = 5 * 4 + 2 additional queries.
+            self.get()
+
+        with self.assertNumQueries(10):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
+
+
+class TestImageChooserViewSearch(WagtailTestUtils, TransactionTestCase):
+    fixtures = ["test_empty.json"]
+
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_construct_queryset_hook_search(self):
         image = Image.objects.create(
@@ -1148,11 +1697,11 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_image_chooser_queryset", filter_images):
             response = self.get({"q": "Test"})
-        self.assertEqual(len(response.context["images"]), 1)
-        self.assertEqual(response.context["images"][0], image)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], image)
 
 
-class TestImageChooserChosenView(TestCase, WagtailTestUtils):
+class TestImageChooserChosenView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1164,7 +1713,7 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailimages:image_chosen", args=(self.image.id,)), params
+            reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
         )
 
     def test_simple(self):
@@ -1172,10 +1721,61 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "image_chosen")
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(response_json["result"]["title"], "Test image")
+
+    def test_with_multiple_flag(self):
+        # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
+        response = self.get(params={"multiple": 1})
+        self.assertEqual(response.status_code, 200)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 1)
+        self.assertEqual(response_json["result"][0]["title"], "Test image")
 
 
-class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
+class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image1 = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.image2 = Image.objects.create(
+            title="Another test image",
+            file=get_test_image_file(),
+        )
+
+        self.image3 = Image.objects.create(
+            title="Unchosen test image",
+            file=get_test_image_file(),
+        )
+
+    def get(self, params={}):
+        return self.client.get(
+            "%s?id=%d&id=%d"
+            % (
+                reverse("wagtailimages_chooser:chosen_multiple"),
+                self.image1.pk,
+                self.image2.pk,
+            )
+        )
+
+    def test_get(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(len(response_json["result"]), 2)
+        titles = {item["title"] for item in response_json["result"]}
+        self.assertEqual(titles, {"Test image", "Another test image"})
+
+
+class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1187,13 +1787,13 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailimages:chooser_select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             params,
         )
 
     def post(self, post_data={}):
         return self.client.post(
-            reverse("wagtailimages:chooser_select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             post_data,
         )
 
@@ -1232,10 +1832,10 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertEqual(response["Content-Type"], "application/json")
 
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "image_chosen")
+        self.assertEqual(response_json["step"], "chosen")
         result = response_json["result"]
 
-        self.assertEqual(result["id"], self.image.id)
+        self.assertEqual(result["id"], str(self.image.id))
         self.assertEqual(result["title"], "Test image")
         self.assertEqual(result["format"], "left")
         self.assertEqual(result["alt"], 'Arthur "two sheds" Jackson')
@@ -1270,23 +1870,25 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageChooserUploadView(TestCase, WagtailTestUtils):
+class TestImageChooserUploadView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailimages:chooser_upload"), params)
+        return self.client.get(reverse("wagtailimages_chooser:create"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "reshow_upload_form")
+        self.assertEqual(response_json["step"], "reshow_creation_form")
 
     def test_upload(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1313,7 +1915,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_upload_no_file_selected(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
             },
@@ -1321,7 +1923,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertFormError(response, "form", "file", "This field is required.")
@@ -1329,7 +1933,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_upload_duplicate(self):
         def post_image(title="Test image"):
             return self.client.post(
-                reverse("wagtailimages:chooser_upload"),
+                reverse("wagtailimages_chooser:create"),
                 {
                     "image-chooser-upload-title": title,
                     "image-chooser-upload-file": SimpleUploadedFile(
@@ -1356,7 +1960,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["existing_image"], existing_image)
 
         choose_new_image_action = reverse(
-            "wagtailimages:image_chosen", args=(new_image.id,)
+            "wagtailimages_chooser:chosen", args=(new_image.id,)
         )
         self.assertEqual(
             response.context["confirm_duplicate_upload_action"], choose_new_image_action
@@ -1368,7 +1972,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             + urlencode(
                 {
                     "next": reverse(
-                        "wagtailimages:image_chosen", args=(existing_image.id,)
+                        "wagtailimages_chooser:chosen", args=(existing_image.id,)
                     )
                 }
             )
@@ -1385,7 +1989,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_upload_duplicate_select_format(self):
         def post_image(title="Test image"):
             return self.client.post(
-                reverse("wagtailimages:chooser_upload") + "?select_format=true",
+                reverse("wagtailimages_chooser:create") + "?select_format=true",
                 {
                     "image-chooser-upload-title": title,
                     "image-chooser-upload-file": SimpleUploadedFile(
@@ -1406,8 +2010,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         new_image = Image.objects.get(title="Test duplicate image")
         existing_image = Image.objects.get(title="Test image")
 
-        choose_new_image_action = reverse(
-            "wagtailimages:chooser_select_format", args=(new_image.id,)
+        choose_new_image_action = (
+            reverse("wagtailimages_chooser:select_format", args=(new_image.id,))
+            + "?select_format=true"
         )
         self.assertEqual(
             response.context["confirm_duplicate_upload_action"], choose_new_image_action
@@ -1419,8 +2024,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             + urlencode(
                 {
                     "next": reverse(
-                        "wagtailimages:chooser_select_format", args=(existing_image.id,)
+                        "wagtailimages_chooser:select_format", args=(existing_image.id,)
                     )
+                    + "?select_format=true"
                 }
             )
         )
@@ -1434,7 +2040,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["step"], "duplicate_found")
 
     def test_select_format_flag_after_upload_form_error(self):
-        submit_url = reverse("wagtailimages:chooser_upload") + "?select_format=true"
+        submit_url = reverse("wagtailimages_chooser:create") + "?select_format=true"
         response = self.client.post(
             submit_url,
             {
@@ -1446,7 +2052,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         self.assertFormError(
             response,
             "form",
@@ -1463,7 +2071,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         """
         Check the error message is accruate for a valid imate bug invalid file extension.
         """
-        submit_url = reverse("wagtailimages:chooser_upload") + "?select_format=true"
+        submit_url = reverse("wagtailimages_chooser:create") + "?select_format=true"
         response = self.client.post(
             submit_url,
             {
@@ -1475,12 +2083,14 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         self.assertFormError(
             response,
             "form",
             "file",
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter
@@ -1493,7 +2103,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     )
     def test_upload_with_external_storage(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1520,7 +2130,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1532,7 +2142,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertContains(
@@ -1540,7 +2152,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
 
-class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
+class TestImageChooserUploadViewWithLimitedPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         add_image_permission = Permission.objects.get(
             content_type__app_label="wagtailimages", codename="add_image"
@@ -1568,26 +2180,34 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
         self.login(username="moriarty", password="password")
 
     def test_get(self):
-        response = self.client.get(reverse("wagtailimages:chooser_upload"))
+        response = self.client.get(reverse("wagtailimages_chooser:create"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_chooser(self):
-        response = self.client.get(reverse("wagtailimages:chooser"))
+        response = self.client.get(reverse("wagtailimages_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_add(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1611,7 +2231,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
         )
 
 
-class TestMultipleImageUploader(TestCase, WagtailTestUtils):
+class TestMultipleImageUploader(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
@@ -1826,6 +2446,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
 
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["jpg", "gif"])
     def test_add_post_bad_extension(self):
         """
         The add view must check that the uploaded file extension is a valid
@@ -1839,6 +2460,14 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             },
         )
 
+        post_with_invalid_extension = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "files[]": SimpleUploadedFile(
+                    "test.png", get_test_image_file().file.getvalue()
+                ),
+            },
+        )
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
@@ -1852,7 +2481,25 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertFalse(response_json["success"])
         self.assertEqual(
             response_json["error_message"],
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: JPG, GIF.",
+        )
+
+        # Check post_with_invalid_extension
+        self.assertEqual(post_with_invalid_extension.status_code, 200)
+        self.assertEqual(
+            post_with_invalid_extension["Content-Type"], "application/json"
+        )
+
+        # Check JSON
+        response_json = json.loads(post_with_invalid_extension.content.decode())
+        self.assertNotIn("image_id", response_json)
+        self.assertNotIn("form", response_json)
+        self.assertIn("success", response_json)
+        self.assertIn("error_message", response_json)
+        self.assertFalse(response_json["success"])
+        self.assertEqual(
+            response_json["error_message"],
+            "Not a supported image format. Supported formats: JPG, GIF.",
         )
 
     def test_add_post_duplicate(self):
@@ -2071,7 +2718,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
-class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
+class TestMultipleImageUploaderWithCustomImageModel(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     with a custom image model
@@ -2352,7 +2999,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImageWithAuthor")
-class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUtils):
+class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     with a custom image model
@@ -2587,7 +3234,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertTrue(response_json["success"])
 
 
-class TestURLGeneratorView(TestCase, WagtailTestUtils):
+class TestURLGeneratorView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -2634,7 +3281,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestGenerateURLView(TestCase, WagtailTestUtils):
+class TestGenerateURLView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -2763,7 +3410,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         )
 
 
-class TestPreviewView(TestCase, WagtailTestUtils):
+class TestPreviewView(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -2805,7 +3452,7 @@ class TestPreviewView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 400)
 
 
-class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
+class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image to edit
         self.image = Image.objects.create(
@@ -2874,7 +3521,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
 
-class TestImageAddMultipleView(TestCase, WagtailTestUtils):
+class TestImageAddMultipleView(WagtailTestUtils, TestCase):
     def test_as_superuser(self):
         self.login()
         response = self.client.get(reverse("wagtailimages:add_multiple"))

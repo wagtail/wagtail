@@ -1,23 +1,29 @@
 import re
+import warnings
 from io import StringIO
 
 from django.core import management
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
-from wagtail.images import get_image_model
-
+from ..management.commands.wagtail_update_image_renditions import progress_bar
 from .utils import Image, get_test_image_file
+
+# note .utils.Image already does get_image_model()
+Rendition = Image.get_rendition_model()
 
 
 class TestUpdateImageRenditions(TestCase):
-    def setUp(self):
-        self.image = Image.objects.create(
+    REAESC = re.compile(r"\x1b[^m]*m")
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(filename="test_image.png", colour="white"),
         )
 
-        self.rendition = Image.get_rendition_model().objects.create(
-            image=self.image,
+        cls.rendition = Rendition.objects.create(
+            image=cls.image,
             filter_spec="original",
             width=1000,
             height=1000,
@@ -27,13 +33,13 @@ class TestUpdateImageRenditions(TestCase):
         )
 
     def delete_renditions(self):
-        renditions = get_image_model().get_rendition_model().objects.all()
+        renditions = Rendition.objects.all()
         for rendition in renditions:
             try:
                 rendition_image = rendition.image
                 rendition.delete()
-            except Exception:
-                print(f"Could not delete rendition for {rendition_image}")
+            except Exception:  # noqa: BLE001
+                warnings.warn(f"Could not delete rendition for {rendition_image}")
 
     def run_command(self, **options):
         output = StringIO()
@@ -44,46 +50,91 @@ class TestUpdateImageRenditions(TestCase):
 
         return output
 
+    def test_progress_bar(self):
+        total_rendition = 10
+        out = StringIO()
+        for current in range(1, total_rendition + 1):
+            progress_bar_output = progress_bar(current, total_rendition)[0]
+            out.write(progress_bar_output)
+        out.seek(0)
+        expected_output = "".join(
+            [
+                "Progress: [---->                                             ] 10%",
+                "Progress: [--------->                                        ] 20%",
+                "Progress: [-------------->                                   ] 30%",
+                "Progress: [------------------->                              ] 40%",
+                "Progress: [------------------------>                         ] 50%",
+                "Progress: [----------------------------->                    ] 60%",
+                "Progress: [---------------------------------->               ] 70%",
+                "Progress: [--------------------------------------->          ] 80%",
+                "Progress: [-------------------------------------------->     ] 90%",
+                "Progress: [------------------------------------------------->] 100%",
+            ]
+        )
+        self.assertIn(expected_output, out.getvalue())
+
     def test_exits_early_for_no_renditions(self):
         self.delete_renditions()
         # checking when command is called without any arguments
         output = self.run_command()
-        self.assertEqual(output.read(), "No image renditions found.\n")
+        output_string = self.REAESC.sub("", output.read())
+        self.assertEqual(output_string, "No image renditions found.\n")
 
         # checking when command is called with '--purge-only'
         output = self.run_command(purge_only=True)
-        self.assertEqual(output.read(), "No image renditions found.\n")
+        output_string = self.REAESC.sub("", output.read())
+        self.assertEqual(output_string, "No image renditions found.\n")
 
     def test_image_renditions(self):
-        renditions = get_image_model().get_rendition_model().objects.all()
+        renditions = Rendition.objects.all()
         total_renditions = len(renditions)
         output = self.run_command()
-        reaesc = re.compile(r"\x1b[^m]*m")
-        output_string = reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         # checking if the number of renditions regenerated equal total_renditions
         self.assertEqual(
             output_string,
-            f"Successfully regenerated {total_renditions} image rendition(s)\n",
+            f"Regenerating {total_renditions} rendition(s)\n"
+            f"Progress: [------------------------------------------------->] 100%\n"
+            f"Successfully processed {total_renditions} rendition(s)\n",
         )
 
         # checking if the number of renditions now equal total_renditions
-        renditions_now = get_image_model().get_rendition_model().objects.all()
+        renditions_now = Rendition.objects.all()
         total_renditions_now = len(renditions_now)
         self.assertEqual(total_renditions_now, total_renditions)
 
     def test_image_renditions_with_purge_only(self):
-        renditions = get_image_model().get_rendition_model().objects.all()
+        renditions = Rendition.objects.all()
         total_renditions = len(renditions)
         output = self.run_command(purge_only=True)
-        reaesc = re.compile(r"\x1b[^m]*m")
-        output_string = reaesc.sub("", output.read())
+        output_string = self.REAESC.sub("", output.read())
         # checking if the number of renditions purged equal total_renditions
         self.assertEqual(
             output_string,
-            f"Successfully purged {total_renditions} image rendition(s)\n",
+            f"Purging {total_renditions} rendition(s)\n"
+            f"Progress: [------------------------------------------------->] 100%\n"
+            f"Successfully processed {total_renditions} rendition(s)\n",
         )
 
         # checking if the number of renditions now equal 0
-        renditions_now = get_image_model().get_rendition_model().objects.all()
+        renditions_now = Rendition.objects.all()
         total_renditions_now = len(renditions_now)
         self.assertEqual(total_renditions_now, 0)
+
+    @override_settings(
+        CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    )
+    def test_image_renditions_with_cache(self):
+        total_renditions = Rendition.objects.count()
+        output = self.run_command()
+        output_string = self.REAESC.sub("", output.read())
+        self.assertIn(
+            f"Successfully processed {total_renditions} rendition(s)\n", output_string
+        )
+
+        # Run the command again with a warmed cache
+        output = self.run_command()
+        output_string = self.REAESC.sub("", output.read())
+        self.assertIn(
+            f"Successfully processed {total_renditions} rendition(s)\n", output_string
+        )

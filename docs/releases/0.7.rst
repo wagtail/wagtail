@@ -2,6 +2,8 @@
 Wagtail 0.7 release notes
 =========================
 
+*October 9, 2014*
+
 .. contents::
     :local:
     :depth: 1
@@ -13,7 +15,7 @@ What's new
 New interface for choosing image focal point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../_static/images/focal-point-adjustment.jpg
+.. figure:: ../_static/images/releasenotes_0_7_focal-point-adjustment.jpg
     :width: 332px
     :height: 353px
 
@@ -23,7 +25,7 @@ When editing images, users can now specify a 'focal point' region that cropped v
 Groups and Sites administration interfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../_static/images/editor-management.png
+.. figure:: ../_static/images/releasenotes_0_7_editor-management.png
     :width: 696px
 
 The main navigation menu has been reorganised, placing site configuration options in a 'Settings' submenu. This includes two new items, which were previously only available through the Django admin backend: 'Groups', for setting up user groups with a specific set of permissions, and 'Sites', for managing the list of sites served by this Wagtail instance.
@@ -32,7 +34,7 @@ The main navigation menu has been reorganised, placing site configuration option
 Page locking
 ~~~~~~~~~~~~
 
-.. figure:: ../_static/images/page-locking.png
+.. figure:: ../_static/images/releasenotes_0_7_page-locking.png
     :width: 696px
 
 Moderators and administrators now have the ability to lock a page, preventing further edits from being made to that page until it is unlocked again.

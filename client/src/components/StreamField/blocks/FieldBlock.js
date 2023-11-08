@@ -1,7 +1,7 @@
 /* global $ */
-import { escapeHtml as h } from '../../../utils/text';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
@@ -16,12 +16,16 @@ export class FieldBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
+    // See field.html for the reference implementation of this markup.
     const dom = $(`
-      <div class="${h(this.blockDef.meta.classname)}">
-        <div class="field-content">
-          <div class="input">
+      <div class="w-field__wrapper" data-field-wrapper>
+        <div class="${h(this.blockDef.meta.classname)}" data-field>
+          <div class="w-field__errors" id="${prefix}-errors" data-field-errors>
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="${prefix}-helptext" data-field-help></div>
+          <div class="w-field__input" data-field-input>
             <div data-streamfield-widget></div>
-            <span></span>
           </div>
         </div>
       </div>
@@ -29,10 +33,13 @@ export class FieldBlock {
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
+    this.field = this.element.querySelector('[data-field]');
 
     this.parentCapabilities = parentCapabilities || new Map();
 
     this.prefix = prefix;
+
+    const options = { attributes: this.getAttributes() };
 
     try {
       this.widget = this.blockDef.widget.render(
@@ -41,17 +48,16 @@ export class FieldBlock {
         prefix,
         initialState,
         this.parentCapabilities,
+        options,
       );
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
-      this.setError([
-        {
-          messages: [
-            'This widget failed to render, please check the console for details',
-          ],
-        },
-      ]);
+      this.setError({
+        messages: [
+          'This widget failed to render, please check the console for details',
+        ],
+      });
       return;
     }
 
@@ -61,14 +67,10 @@ export class FieldBlock {
       const helpElement = document.createElement('p');
       helpElement.classList.add('help');
       helpElement.innerHTML = this.blockDef.meta.helpText; // unescaped, as per Django conventions
-      this.element.querySelector('.field-content').appendChild(helpElement);
+      this.field.querySelector('[data-field-help]').appendChild(helpElement);
     }
 
     if (window.comments && this.blockDef.meta.showAddCommentButton) {
-      const fieldCommentControlElement = document.createElement('div');
-      fieldCommentControlElement.classList.add('field-comment-control');
-      this.element.appendChild(fieldCommentControlElement);
-
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
       addCommentButtonElement.setAttribute(
@@ -76,19 +78,22 @@ export class FieldBlock {
         blockDef.meta.strings.ADD_COMMENT,
       );
       addCommentButtonElement.setAttribute('data-comment-add', '');
-      addCommentButtonElement.classList.add('button');
-      addCommentButtonElement.classList.add('button-secondary');
-      addCommentButtonElement.classList.add('button-small');
-      addCommentButtonElement.classList.add('u-hidden');
+      addCommentButtonElement.classList.add(
+        'w-field__comment-button',
+        'w-field__comment-button--add',
+      );
 
       ReactDOM.render(
         <>
-          <Icon name="comment-add" className="icon-default" />
-          <Icon name="comment-add-reversed" className="icon-reversed" />
+          <Icon name="comment-add" />
+          <Icon name="comment-add-reversed" />
         </>,
         addCommentButtonElement,
       );
-      fieldCommentControlElement.appendChild(addCommentButtonElement);
+      this.field.classList.add('w-field--commentable');
+      this.field
+        .querySelector('[data-field-input]')
+        .appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
     }
 
@@ -110,23 +115,47 @@ export class FieldBlock {
     }
   }
 
-  setError(errorList) {
-    this.element
-      .querySelectorAll(':scope > .field-content > .error-message')
+  setError(error) {
+    const errorContainer = this.field.querySelector('[data-field-errors]');
+
+    errorContainer
+      .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
 
-    if (errorList) {
-      this.element.classList.add('error');
+    if (error) {
+      this.field.classList.add('w-field--error');
+      errorContainer.querySelector('.icon').removeAttribute('hidden');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList
-        .map((error) => `<span>${h(error.messages[0])}</span>`)
-        .join('');
-      this.element.querySelector('.field-content').appendChild(errorElement);
+      error.messages.forEach((message) => {
+        const messageItem = document.createElement('span');
+        messageItem.textContent = message;
+        errorElement.appendChild(messageItem);
+      });
+      errorContainer.appendChild(errorElement);
     } else {
-      this.element.classList.remove('error');
+      this.field.classList.remove('w-field--error');
+      errorContainer.querySelector('.icon').setAttribute('hidden', 'true');
     }
+  }
+
+  getAttributes() {
+    const prefix = this.prefix;
+    const attributes = {};
+
+    // If the block has help text, we should associate this with the input rendered by the widget.
+    // To accomplish this, we must tell the widget to render an aria-describedby attribute referring
+    // to the help text id in its HTML.
+    if (this.blockDef.meta.helpText) {
+      attributes['aria-describedby'] = `${prefix}-helptext`;
+    }
+    // If the block is required, we must tell the widget to render a required attribute in its HTML.
+    if (this.blockDef.meta.required) {
+      attributes.required = '';
+    }
+
+    return attributes;
   }
 
   getState() {

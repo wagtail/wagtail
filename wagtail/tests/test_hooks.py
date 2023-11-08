@@ -8,7 +8,7 @@ def test_hook():
     pass
 
 
-class TestLoginView(TestCase, WagtailTestUtils):
+class TestLoginView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     @classmethod

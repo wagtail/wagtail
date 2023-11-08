@@ -82,12 +82,12 @@ export interface CommentProps {
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
-  renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
+  renderReplies({ hideNewReply = false } = {}): React.ReactFragment | null {
     const { comment, isFocused, store, user } = this.props;
 
     if (!comment.remoteId) {
       // Hide replies UI if the comment itself isn't saved yet
-      return <></>;
+      return null;
     }
 
     const onChangeNewReply = (value: string) => {
@@ -154,13 +154,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
     // Hide new reply if a reply is being edited as well
     const newReplyHidden = hideNewReply || replyBeingEdited;
 
-    let replyForm = <></>;
+    let replyForm;
     if (!newReplyHidden && (isFocused || comment.newReply)) {
       replyForm = (
         <form onSubmit={sendReply}>
           <TextArea
             className="comment__reply-input"
-            placeholder="Enter your reply..."
+            placeholder={gettext('Enter your reply...')}
             value={comment.newReply}
             onChange={onChangeNewReply}
           />
@@ -186,7 +186,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       // If there is no form, or replies, don't add any elements to the dom
       // This is in case there is a warning after the comment, some special styling
       // is added if that element is that last child so we can't have any hidden elements here.
-      return <></>;
+      return null;
     }
 
     return (
@@ -235,7 +235,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
-            placeholder="Enter your comments..."
+            placeholder={gettext('Enter your comments...')}
             additionalAttributes={{
               'aria-describedby': descriptionId,
             }}
@@ -411,14 +411,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
           {gettext('Are you sure?')}
           <button
             type="button"
-            className="comment__button"
+            className="comment__button button button-small"
             onClick={onClickCancel}
           >
             {gettext('Cancel')}
           </button>
           <button
             type="button"
-            className="comment__button comment__button--primary"
+            className="comment__button button button-small no"
             onClick={onClickDelete}
           >
             {gettext('Delete')}

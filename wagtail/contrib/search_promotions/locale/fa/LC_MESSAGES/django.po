@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,8 +22,19 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Search term(s)/phrase"
+msgstr "عبارت(ها)/عناوین جستجو"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr "کل عبارت مورد نظر را وارد کنید. "
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr "لطفا دست کم یک پیشنهاد برای این عبارت جستجو تعیین کنید."
+
+msgid "Query Daily Hits"
+msgstr "تعداد جستجوی روزانه"
 
 msgid "page"
 msgstr "صفحه"
@@ -37,34 +50,6 @@ msgstr "افزودن ترویج جستجو"
 
 msgid "Add search pick"
 msgstr "افزودن جستجوی برگزیده"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>نتایج جستجوی ترویج یافت به این معنی هستند که صفحه های خاصی که ممکن است در "
-"نتایج جستجو به صورت ارگانیک بالا نیایند، پیشنهاد شوند. برای مثال پیشنهاد "
-"صفحه خیریه شما به یک بازدیدکننده که با عبارت نا متعارفی مانند <em>پول دادن</"
-"em> جستجویی انجام داده است."
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"</p>فیلد «عبارت(های) جستجو» در پایین باید حاوی عبارت کامل مورد جستجو باشد تا "
-"در نتایج بیاید، این <em>شامل</em> هرگونه خطا در تایپ نیز می‌شود. برای کمک به "
-"جستجو از میان عبارات جستجویی که توسط کاربران سایت شما پرتکرار شده اند نیز "
-"می‌توانید استفاده کنید.</p>"
 
 msgid "Save"
 msgstr "ذخیره"
@@ -96,17 +81,11 @@ msgstr "حرکت به بالا"
 msgid "Move down"
 msgstr "حرکت به پایین"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "نتایج جستجوی ترویج شده"
-
-msgid "Add recommended page"
-msgstr "افزودن صفحه توصیه شده"
 
 msgid "Search Terms"
 msgstr "عبارات جستجو"
-
-msgid "Promoted search results"
-msgstr "نتایج جستجوی ترویج شده"
 
 msgid "Add new promoted result"
 msgstr "افزودن نتیجه ترویج شده جدید"
@@ -123,8 +102,32 @@ msgstr "بازدیدها (هفته پیش)"
 msgid "Edit this promotion"
 msgstr "ویرایش این ترویج"
 
+msgid "External link"
+msgstr "لینک بیرونی"
+
 msgid "None"
 msgstr "خالی"
+
+msgid "Popular search terms"
+msgstr "عناوین منتخب جستجو‌شده"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Terms"
+msgstr "عنوان"
+
+msgid "No results found"
+msgstr "هیچ موردی پیدا نشد"
+
+msgid "Choose from popular search terms"
+msgstr "از عناوین منتخب جستجو شده انتخاب کنید"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s مورد همخوانی دارد"
+msgstr[1] "%(counter)s مورد همخوانی دارد"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -132,18 +135,18 @@ msgstr "متاسفانه نتایج ترویجی شامل «<em>%(query_string)s
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
+"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
 
 msgid "Search promoted results"
 msgstr "جستجوی نتایج ترویج شده"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "منتخب ویراستار برای '{0}' ایجاد شد."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "منتخب ویراستار برای '%(query)s' ایجاد شد."
 
 msgid "Edit"
 msgstr "ویرایش"
@@ -151,9 +154,9 @@ msgstr "ویرایش"
 msgid "Recommendations have not been created due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "انتخاب ویراستار برای '{0}' آپدیت شد."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "انتخاب ویراستار برای '%(query)s' آپدیت شد."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ذخیره نشدند"

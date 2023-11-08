@@ -2,6 +2,7 @@ import warnings
 from collections import OrderedDict
 
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
+from django.db.models import Case, When
 from django.db.models.aggregates import Avg, Count
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.expressions import F
@@ -106,7 +107,7 @@ class ObjectIndexer:
                     isinstance(current_field, SearchField)
                     and current_field.field_name == "title"
                 ):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 
@@ -122,7 +123,7 @@ class ObjectIndexer:
                     isinstance(current_field, SearchField)
                     and not current_field.field_name == "title"
                 ):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 
@@ -135,7 +136,7 @@ class ObjectIndexer:
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
                 if isinstance(current_field, AutocompleteField):
-                    texts.append((value))
+                    texts.append(value)
 
         return " ".join(texts)
 
@@ -285,6 +286,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
+    FTS_TABLE_FIELDS = ["title", "body"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -450,8 +452,34 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 
         search_query = self.build_search_query(query)
         match_expression = MatchExpression(
-            search_query, columns=["title", "body"], output_field=BooleanField()
+            search_query, columns=self.FTS_TABLE_FIELDS, output_field=BooleanField()
         )  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
+
+        # In Django 4.0 the above match expression would produce this SQL WHERE clause:
+        #
+        # WHERE ... MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE)
+        #
+        # In Django 4.1, this behavior was changed:
+        #
+        # https://code.djangoproject.com/ticket/32691
+        # https://github.com/django/django/commit/407fe95cb116599adeb4b9ed01df5673aa5cb1db
+        #
+        # so that instead this SQL WHERE clause is generated, explicitly filtering
+        # against "= True":
+        #
+        # WHERE ... MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE) = True
+        #
+        # This no longer works properly because MATCH returns a floating point score
+        # as a measurement of the match quality, not a boolean value:
+        #
+        # https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html
+        #
+        # In order for filtering on "= True" to work, we change the match expression
+        # SQL to be:
+        #
+        # WHERE ... CASE WHEN MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE) THEN True ELSE False END = True
+        match_expression = Case(When(match_expression, then=True), default=False)
+
         score_expression = MatchExpression(
             search_query, columns=["title"], output_field=FloatField()
         ) * F("title_norm") + MatchExpression(
@@ -503,6 +531,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 class MySQLAutocompleteQueryCompiler(MySQLSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
     TARGET_SEARCH_FIELD_TYPE = AutocompleteField
+    FTS_TABLE_FIELDS = ["autocomplete"]
 
     def get_config(self, backend):
         return backend.autocomplete_config
@@ -607,6 +636,7 @@ class MySQLSearchAtomicRebuilder(MySQLSearchRebuilder):
 class MySQLSearchBackend(BaseSearchBackend):
     query_compiler_class = MySQLSearchQueryCompiler
     autocomplete_query_compiler_class = MySQLAutocompleteQueryCompiler
+
     results_class = MySQLSearchResults
     rebuilder_class = MySQLSearchRebuilder
     atomic_rebuilder_class = MySQLSearchAtomicRebuilder
@@ -614,7 +644,10 @@ class MySQLSearchBackend(BaseSearchBackend):
     def __init__(self, params):
         super().__init__(params)
         self.index_name = params.get("INDEX", "default")
-        self.config = params.get("SEARCH_CONFIG")
+
+        # MySQL backend currently has no config options
+        self.config = None
+        self.autocomplete_config = None
 
         if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class

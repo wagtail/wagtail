@@ -15,10 +15,10 @@ export class StaticBlock {
     placeholder.replaceWith(element);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setState(_state) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setError(_errorList) {}
 
   getState() {
@@ -29,7 +29,6 @@ export class StaticBlock {
     return null;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   focus() {}
 }
 

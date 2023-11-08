@@ -1,23 +1,34 @@
 {% load i18n wagtailadmin_tags %}
-<li id="inline_child_{{ form.prefix }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
-    <ul class="controls">
-        <li><button type="button" class="button button--icon text-replace inline-child-move-up" id="{{ form.prefix }}-move-up">{% icon name="order-up" %}{% trans "Move up" %}</button></li>
-        <li><button type="button" class="button button--icon text-replace inline-child-move-down" id="{{ form.prefix }}-move-down">{% icon name="order-down" %}{% trans "Move down" %}</button></li>
-        <li><button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button></li>
-    </ul>
 
-    <fieldset>
-        <legend>{% trans "Promoted search result" %}</legend>
-        <ul class="fields">
-            <li class="model_choice_field">
-                {% include "wagtailadmin/shared/field.html" with field=form.page only %}
-            </li>
-            <li class="char_field">
-                {% include "wagtailadmin/shared/field.html" with field=form.description only %}
-            </li>
-        </ul>
-    </fieldset>
+{% fragment as id %}inline_child_{{ form.prefix }}{% endfragment %}
+{% fragment as panel_id %}{{ id }}-panel{% endfragment %}
+<div id="{{ id }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+
+    {% fragment as header_controls %}
+        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-up>{% icon name="arrow-up" %}{% trans "Move up" %}</button>
+        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-down>{% icon name="arrow-down" %}{% trans "Move down" %}</button>
+        <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button>
+    {% endfragment %}
+
+    {% trans "Recommended search result" as heading %}
+    {% panel id=panel_id heading=heading heading_size="label" header_controls=header_controls %}
+        {% if form.non_field_errors %}
+            <ul>
+                {% for error in form.non_field_errors %}
+                    <li class="error-message">
+                        <span>{{ error|escape }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% include "wagtailadmin/shared/field.html" with field=form.page only %}
+        {% include "wagtailadmin/shared/field.html" with field=form.external_link_url only %}
+        {% include "wagtailadmin/shared/field.html" with field=form.external_link_text only %}
+        {% include "wagtailadmin/shared/field.html" with field=form.description only %}
+    {% endpanel %}
+
     {{ form.id }}
     {{ form.ORDER }}
     {{ form.DELETE }}
-</li>
+</div>

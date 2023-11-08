@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from functools import cached_property
 
 from django.conf import settings
 from django.contrib import messages
@@ -21,6 +22,7 @@ from wagtail.admin.forms.account import (
     LocalePreferencesForm,
     NameEmailForm,
     NotificationPreferencesForm,
+    ThemePreferencesForm,
 )
 from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
 from wagtail.admin.localization import (
@@ -28,7 +30,6 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.log_actions import log
-from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -39,6 +40,14 @@ def get_user_login_form():
         return get_custom_form(form_setting)
     else:
         return LoginForm
+
+
+def get_password_reset_form():
+    form_setting = "WAGTAILADMIN_USER_PASSWORD_RESET_FORM"
+    if hasattr(settings, form_setting):
+        return get_custom_form(form_setting)
+    else:
+        return PasswordResetForm
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -130,9 +139,14 @@ class BaseSettingsPanel:
 
 class NameEmailSettingsPanel(BaseSettingsPanel):
     name = "name_email"
-    title = gettext_lazy("Name and Email")
     order = 100
     form_class = NameEmailForm
+
+    @cached_property
+    def title(self):
+        if email_management_enabled():
+            return _("Name and Email")
+        return _("Name")
 
 
 class AvatarSettingsPanel(BaseSettingsPanel):
@@ -153,13 +167,8 @@ class NotificationsSettingsPanel(BaseSettingsPanel):
     form_object = "profile"
 
     def is_active(self):
-        # Hide the panel if the user can't edit or publish pages
-        user_perms = UserPagePermissionsProxy(self.request.user)
-        if not user_perms.can_edit_pages() and not user_perms.can_publish_pages():
-            return False
-
         # Hide the panel if there are no notification preferences
-        return self.get_form().fields
+        return bool(self.get_form().fields)
 
 
 class LocaleSettingsPanel(BaseSettingsPanel):
@@ -174,6 +183,14 @@ class LocaleSettingsPanel(BaseSettingsPanel):
             len(get_available_admin_languages()) > 1
             or len(get_available_admin_time_zones()) > 1
         )
+
+
+class ThemeSettingsPanel(BaseSettingsPanel):
+    name = "theme"
+    title = gettext_lazy("Theme preferences")
+    order = 450
+    form_class = ThemePreferencesForm
+    form_object = "profile"
 
 
 class ChangePasswordPanel(BaseSettingsPanel):
@@ -192,7 +209,6 @@ class ChangePasswordPanel(BaseSettingsPanel):
         if self.request.method == "POST":
             bind_form = any(
                 [
-                    self.request.POST.get(self.name + "-old_password"),
                     self.request.POST.get(self.name + "-new_password1"),
                     self.request.POST.get(self.name + "-new_password2"),
                 ]
@@ -220,6 +236,7 @@ def account(request):
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
         LocaleSettingsPanel(request, user, profile),
+        ThemeSettingsPanel(request, user, profile),
         ChangePasswordPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks("register_account_settings_panel"):
@@ -305,8 +322,10 @@ class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetV
     template_name = "wagtailadmin/account/password_reset/form.html"
     email_template_name = "wagtailadmin/account/password_reset/email.txt"
     subject_template_name = "wagtailadmin/account/password_reset/email_subject.txt"
-    form_class = PasswordResetForm
     success_url = reverse_lazy("wagtailadmin_password_reset_done")
+
+    def get_form_class(self):
+        return get_password_reset_form()
 
 
 class PasswordResetDoneView(

@@ -11,17 +11,17 @@ Pagination for page listings. Used by the `{% paginate %}` template tag.
     <ul>
         <li class="prev">
             {% if page.has_previous %}
-                <a data-page="{{ page.previous_page_number }}" href="{{ base_url }}{% pagination_querystring page.previous_page_number page_key=page_key %}" class="{{ classnames }}">
-                    {% icon name="arrow-left" class_name="default" %}
+                <a data-page="{{ page.previous_page_number }}" href="{{ base_url }}{% pagination_querystring page.previous_page_number page_key=page_key %}" class="{{ classname }}">
+                    {% icon name="arrow-left" classname="default" %}
                     {% trans "Previous" %}
                 </a>
             {% endif %}
         </li>
         <li class="next">
             {% if page.has_next %}
-                <a data-page="{{ page.next_page_number }}" href="{{ base_url }}{% pagination_querystring page.next_page_number page_key=page_key %}" class="{{ classnames }}">
+                <a data-page="{{ page.next_page_number }}" href="{{ base_url }}{% pagination_querystring page.next_page_number page_key=page_key %}" class="{{ classname }}">
                     {% trans "Next" %}
-                    {% icon name="arrow-right" class_name="default" %}
+                    {% icon name="arrow-right" classname="default" %}
                 </a>
             {% endif %}
         </li>

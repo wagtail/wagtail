@@ -10,7 +10,7 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 @override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
-class TestIssue613(TestCase, WagtailTestUtils):
+class TestIssue613(WagtailTestUtils, TestCase):
     def get_elasticsearch_backend(self):
         from django.conf import settings
 

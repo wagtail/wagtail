@@ -5,7 +5,10 @@ import { Icon } from 'draftail';
 import Tooltip from '../Tooltip/Tooltip';
 import Portal from '../../Portal/Portal';
 
-const shortenLabel = (label) => {
+/**
+ * Shortens the given label if it goes beyond a predetermined limit.
+ */
+export const shortenLabel = (label) => {
   let shortened = label;
   if (shortened.length > 25) {
     shortened = `${shortened.slice(0, 20)}…`;
@@ -113,12 +116,15 @@ class TooltipEntity extends Component {
                 </a>
               ) : null}
 
-              <button className="button Tooltip__button" onClick={this.onEdit}>
+              <button
+                className="button button-small Tooltip__button"
+                onClick={this.onEdit}
+              >
                 Edit
               </button>
 
               <button
-                className="button button-secondary no Tooltip__button"
+                className="button button-small button-secondary no Tooltip__button"
                 onClick={this.onRemove}
               >
                 Remove

@@ -1,108 +1,31 @@
-// =============================================================================
-// Listing view smaller dropdowns
-// =============================================================================
-
-// .c-dropdown {
-// }
-.c-dropdown__button {
-  display: inline-block;
-  box-sizing: border-box;
-  padding-inline-start: 0.5rem;
-  padding-inline-end: 0.25rem;
-  // Make this the same as the other buttons
-  line-height: 1.85;
-  border: solid 1px transparent;
-  border-radius: 2px;
-  font-size: 0.95em;
-  cursor: pointer;
-  -webkit-font-smoothing: subpixel-antialiased;
-  user-select: none;
+.w-dropdown__toggle {
+  @apply w-px-2 w-text-text-label w-bg-transparent;
 }
 
-.c-dropdown--large .c-dropdown__button {
-  line-height: 2.9em;
-  padding-inline-start: 0.5rem;
-  padding-inline-end: 0.5rem;
-
-  .icon-site {
-    padding-inline-end: 0.2rem;
-  }
+.w-dropdown__toggle--icon {
+  @apply w-w-8 w-h-8;
 }
 
-.c-dropdown__icon {
-  padding-inline-start: 0.4rem;
-  padding-inline-end: 0.4rem;
+.w-dropdown__toggle-icon {
+  @apply w-w-4 w-h-4 w-align-text-bottom w-transition motion-reduce:w-transition-none;
 }
 
-.c-dropdown__toggle {
-  display: inline-block;
+.w-dropdown__content {
+  @apply w-flex w-flex-col w-justify-start w-py-2;
 }
 
-.c-dropdown__togle--icon {
-  &:before {
-    display: none; // TODO: remove when iconfont styles are removed
-  }
+.w-dropdown__content :where(a, button) {
+  @apply w-bg-transparent w-inline-flex w-items-center w-text-left w-font-bold w-text-text-label-menus-default w-py-3 w-px-6 w-no-underline w-transition w-outline-offset-inside w-w-full;
 
   .icon {
-    @include svg-icon(1em, middle);
+    @apply w-w-4 w-h-4 w-mr-3 w-transition w-opacity-50 w-shrink-0;
   }
-
-  .icon-arrow-up {
-    display: none;
-  }
-}
-
-.is-open .c-dropdown__togle--icon {
-  .icon-arrow-up {
-    display: inline-block;
-  }
-
-  .icon-arrow-down {
-    display: none;
-  }
-}
-
-.c-dropdown__menu.c-dropdown__menu {
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  min-width: 8rem;
-  position: absolute;
-  z-index: 1000;
-  animation: dropdownIn 0.1s ease-out backwards;
-  list-style: none;
-  // Override any right alignment that might've been set by a parent element
-  // (such as the snippets header)
-  text-align: start;
-}
-
-.c-dropdown__item {
-  margin-bottom: 0.375rem;
-  font-size: 0.8rem;
 
   &:hover {
-    .c-dropdown__indicator {
-      opacity: 0.6;
+    @apply w-text-text-label-menus-active w-bg-surface-menu-item-active;
+
+    .icon {
+      @apply w-opacity-100;
     }
-  }
-}
-
-.c-dropdown__item:last-child {
-  margin-bottom: 0;
-}
-
-.c-dropdown__divider {
-  border-color: #555;
-  border-style: dotted;
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-@keyframes dropdownIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }

@@ -1,6 +1,8 @@
-==========================
-Wagtail 2.15 release notes
-==========================
+================================
+Wagtail 2.15 (LTS) release notes
+================================
+
+*November 4, 2021*
 
 .. contents::
     :local:
@@ -58,14 +60,14 @@ Individual fixes were implemented by a large number of first-time and seasoned c
 
  * Comments icon now matches link colour (Dmitrii Faiazov, LB (Ben Johnston))
  * Sidebar logo is now visible in high contrast mode (Dmitrii Faiazov, LB (Ben Johnston))
- * Icons in links and buttons now use the appropriate “active control” color (Dmitrii Faiazov, LB (Ben Johnston))
+ * Icons in links and buttons now use the appropriate “active control” colour (Dmitrii Faiazov, LB (Ben Johnston))
  * Comments dropdown now has a border (Shariq Jamil, LB (Ben Johnston))
  * Make StreamField block chooser menu buttons appear as buttons (Dmitrii Faiazov, LB (Ben Johnston))
  * Add a separator to identify the search forms (Dmitrii Faiazov, LB (Ben Johnston))
  * Update tab styles so the active tab can be identified (Dmitrii Faiazov, LB (Ben Johnston))
  * Make hamburger menu a button for tab and high contrast accessibility (Amy Chan, Dan Braghis)
  * Tag fields now have the correct background (Desai Akshata, LB (Ben Johnston))
- * Added sidebar vertical seperation with main content (Onkar Apte, LB (Ben Johnston))
+ * Added sidebar vertical separation with main content (Onkar Apte, LB (Ben Johnston))
  * Added vertical separation between field panels (Chakita Muttaraju, LB (Ben Johnston))
  * Switch widgets on/off states are now visually distinguishable (Sakshi Uppoor, Thibaud Colas)
  * Checkbox widgets on/off states are now visually distinguishable (Thibaud Colas, Jacob Topp-Mugglestone, LB (Ben Johnston))
@@ -75,7 +77,7 @@ Particular thanks to LB, who reviewed almost all of those contributions, and Kyl
 Other features
 ~~~~~~~~~~~~~~
 
- * Add the ability for the page chooser to convert external urls that match a page to internal links, see :ref:`WAGTAILADMIN_EXTERNAL_LINK_CONVERSION` (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
+ * Add the ability for the page chooser to convert external urls that match a page to internal links, see :ref:`wagtailadmin_external_link_conversion` (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Introduced :doc:`template components </extending/template_components>`, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
@@ -159,7 +161,7 @@ The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have be
 
 Both of these backends have now been replaced by ``wagtail.search.backends.database``. This new
 backend supports all of the features of the PostgreSQL backend, and also supports other databases.
-It will be made the default backend in Wagtail 2.17. To enable the new backend, edit (or add) the
+It will be made the default backend in Wagtail 3.0. To enable the new backend, edit (or add) the
 ``WAGTAILSEARCH_BACKENDS`` setting as follows:
 
 .. code-block:: python
@@ -272,7 +274,7 @@ Removed support for Internet Explorer (IE11)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If this affects you or your organisation, consider which alternative browsers you may be able to use.
-Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://learn.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
 
 
 ``search()`` method partial match future deprecation
@@ -314,4 +316,3 @@ If your site relies on hooks like ``before_publish_page`` or ``before_copy_page`
 checks, or add additional functionality, those hooks will not be called on the
 corresponding bulk action views. If you want to add this to the bulk action views as well,
 use the new bulk action hooks: :ref:`before_bulk_action` and :ref:`after_bulk_action`.
-

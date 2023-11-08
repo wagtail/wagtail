@@ -7,7 +7,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSetPrivacyView(TestCase, WagtailTestUtils):
+class TestSetPrivacyView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -197,6 +197,18 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             PageViewRestriction.objects.filter(page=self.private_page).exists()
         )
 
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.private_page.id}
+        )
+        history_response = self.client.get(history_url)
+
+        # Check that the expected log message is present
+        expected_log_message = "Removed the &#x27;Private, accessible with the following password&#x27; view restriction. The page is public."
+        self.assertContains(
+            history_response,
+            expected_log_message,
+        )
+
     def test_get_private_groups(self):
         """
         This tests that the restriction type and group fields as set correctly when a user opens the set_privacy view on a public page
@@ -302,7 +314,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         )
 
 
-class TestPrivacyIndicators(TestCase, WagtailTestUtils):
+class TestPrivacyIndicators(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -348,9 +360,10 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator public">')
-        self.assertNotContains(response, '<div class="privacy-indicator private">')
+        self.assertContains(
+            response, '<div class="w-hidden" data-privacy-sidebar-private>'
+        )
+        self.assertContains(response, '<div class="" data-privacy-sidebar-public>')
 
     def test_explorer_private(self):
         """
@@ -363,10 +376,16 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
+        soup = self.get_soup(response.content)
+
+        # Check the private privacy indicator is visible
+        private_indicator = soup.select_one("[data-privacy-sidebar-private]")
+        # There should not be any classes applied
+        self.assertEqual(private_indicator["class"], [])
+
+        # Privacy indicator should be hidden
+        public_indicator = soup.select_one("[data-privacy-sidebar-public].w-hidden")
+        self.assertIsNotNone(public_indicator)
 
     def test_explorer_private_child(self):
         """
@@ -379,10 +398,11 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
+        # Check the privacy indicator is private
+        self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
+        self.assertContains(
+            response, '<div class="w-hidden" data-privacy-sidebar-public>'
+        )
 
     def test_explorer_list_homepage(self):
         """
@@ -398,7 +418,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private page)
         self.assertContains(
             response,
-            '<span class="indicator privacy-indicator icon icon-no-view"',
+            'class="indicator privacy-indicator"',
             count=1,
         )
 
@@ -417,7 +437,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private child page)
         self.assertContains(
             response,
-            '<span class="indicator privacy-indicator icon icon-no-view"',
+            'class="indicator privacy-indicator"',
             count=1,
         )
 
@@ -433,11 +453,10 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/privacy_switch_panel.html"
+        self.assertContains(
+            response, '<div class="w-hidden" data-privacy-sidebar-private>'
         )
-        self.assertContains(response, '<div class="privacy-indicator public">')
-        self.assertNotContains(response, '<div class="privacy-indicator private">')
+        self.assertContains(response, '<div class="" data-privacy-sidebar-public>')
 
     def test_edit_private(self):
         """
@@ -450,12 +469,11 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/privacy_switch_panel.html"
+        # Check the privacy indicator is private
+        self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
+        self.assertContains(
+            response, '<div class="w-hidden" data-privacy-sidebar-public>'
         )
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
 
     def test_edit_private_child(self):
         """
@@ -468,9 +486,8 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Check the response
         self.assertEqual(response.status_code, 200)
 
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/privacy_switch_panel.html"
+        # Check the privacy indicator is private
+        self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
+        self.assertContains(
+            response, '<div class="w-hidden" data-privacy-sidebar-public>'
         )
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')

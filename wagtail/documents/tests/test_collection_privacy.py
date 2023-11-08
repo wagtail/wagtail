@@ -13,7 +13,7 @@ except ImportError:
     from urllib import quote
 
 
-class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
+class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -91,7 +91,7 @@ class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
         self.assertRedirects(response, doc_url)
 
         # now requests to the documents url should pass authentication
-        response = self.client.get(doc_url)
+        self.client.get(doc_url)
 
         self.client.logout()
 
@@ -108,12 +108,12 @@ class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
 
     def test_group_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.group_collection)
-        self.assertRedirects(response, "/_util/login/?next={}".format(url))
+        self.assertRedirects(response, f"/_util/login/?next={url}")
 
     def test_group_restriction_with_unpermitted_user(self):
         self.login(username="eventmoderator", password="password")
         response, url = self.get_document(self.group_collection)
-        self.assertRedirects(response, "/_util/login/?next={}".format(url))
+        self.assertRedirects(response, f"/_util/login/?next={url}")
 
     def test_group_restriction_with_permitted_user(self):
         self.login(username="eventeditor", password="password")
@@ -127,7 +127,7 @@ class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
 
     def test_login_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.login_collection)
-        self.assertRedirects(response, "/_util/login/?next={}".format(url))
+        self.assertRedirects(response, f"/_util/login/?next={url}")
 
     def test_login_restriction_with_logged_in_user(self):
         self.login(username="eventmoderator", password="password")

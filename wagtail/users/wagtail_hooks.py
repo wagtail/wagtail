@@ -14,6 +14,7 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
+from wagtail.admin.utils import get_user_display_name
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
@@ -55,11 +56,11 @@ def register_viewset():
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
 # 'auth.delete_user') for user management actions, but this may vary according to
 # the AUTH_USER_MODEL setting
-add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-change_user_perm = "{0}.change_{1}".format(
+add_user_perm = f"{AUTH_USER_APP_LABEL}.add_{AUTH_USER_MODEL_NAME.lower()}"
+change_user_perm = "{}.change_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
-delete_user_perm = "{0}.delete_{1}".format(
+delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
 
@@ -76,7 +77,11 @@ class UsersMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_users_menu_item():
     return UsersMenuItem(
-        _("Users"), reverse("wagtailusers_users:index"), icon_name="user", order=600
+        _("Users"),
+        reverse("wagtailusers_users:index"),
+        name="users",
+        icon_name="user",
+        order=600,
     )
 
 
@@ -92,7 +97,11 @@ class GroupsMenuItem(MenuItem):
 @hooks.register("register_settings_menu_item")
 def register_groups_menu_item():
     return GroupsMenuItem(
-        _("Groups"), reverse("wagtailusers_groups:index"), icon_name="group", order=601
+        _("Groups"),
+        reverse("wagtailusers_groups:index"),
+        name="groups",
+        icon_name="group",
+        order=601,
     )
 
 
@@ -139,15 +148,22 @@ def user_listing_buttons(context, user):
     yield UserListingButton(
         _("Edit"),
         reverse("wagtailusers_users:edit", args=[user.pk]),
-        attrs={"title": _("Edit this user")},
+        classname="button-secondary",
+        attrs={
+            "aria-label": _("Edit user '%(name)s'")
+            % {"name": get_user_display_name(user)}
+        },
         priority=10,
     )
     if user_can_delete_user(context.request.user, user):
         yield UserListingButton(
             _("Delete"),
             reverse("wagtailusers_users:delete", args=[user.pk]),
-            classes={"no"},
-            attrs={"title": _("Delete this user")},
+            classname="no",
+            attrs={
+                "aria-label": _("Delete user '%(name)s'")
+                % {"name": get_user_display_name(user)}
+            },
             priority=20,
         )
 

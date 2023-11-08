@@ -1,10 +1,16 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block main_content %}
     {% block before_form %}{% endblock %}
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
+
+        {% block non_field_errors %}
+            {% for error in form.non_field_errors %}
+                {% help_block status="critical" %}{{ error }}{% endhelp_block %}
+            {% endfor %}
+        {% endblock %}
 
         {% block hidden_fields %}
             {% for field in form.hidden_fields %}{{ field }}{% endfor %}
@@ -13,7 +19,9 @@
         <ul class="fields">
             {% block visible_fields %}
                 {% for field in form.visible_fields %}
-                    {% include "wagtailadmin/shared/field_as_li.html" %}
+                    <li>
+                        {% include "wagtailadmin/shared/field.html" %}
+                    </li>
                 {% endfor %}
             {% endblock %}
 

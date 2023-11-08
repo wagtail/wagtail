@@ -3,17 +3,18 @@
 exports[`EmbedBlock no data 1`] = `
 <MediaBlock
   alt=""
-  block={Object {}}
+  block={{}}
   blockProps={
-    Object {
-      "editorState": Object {},
-      "entity": Object {
+    {
+      "editorState": {},
+      "entity": {
         "getData": [Function],
       },
-      "entityType": Object {},
+      "entityType": {},
       "onChange": [Function],
     }
   }
+  fallbackText=""
   src={null}
 >
   <button
@@ -33,17 +34,18 @@ exports[`EmbedBlock no data 1`] = `
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
   alt=""
-  block={Object {}}
+  block={{}}
   blockProps={
-    Object {
-      "editorState": Object {},
-      "entity": Object {
+    {
+      "editorState": {},
+      "entity": {
         "getData": [Function],
       },
-      "entityType": Object {},
+      "entityType": {},
       "onChange": [Function],
     }
   }
+  fallbackText=""
   src="http://www.example.com/example.png"
 >
   <a

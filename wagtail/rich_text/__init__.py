@@ -1,6 +1,8 @@
 import re
+from functools import lru_cache
 from html import unescape
 
+from django.core.validators import MaxLengthValidator
 from django.db.models import Model
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -16,36 +18,48 @@ features = FeatureRegistry()
 # from wagtail.rich_text.rewriters along with the embed handlers / link handlers registered
 # with the feature registry
 
-FRONTEND_REWRITER = None
+
+@lru_cache(maxsize=None)
+def get_rewriter():
+    embed_rules = features.get_embed_types()
+    link_rules = features.get_link_types()
+    return MultiRuleRewriter(
+        [
+            LinkRewriter(
+                {
+                    linktype: handler.expand_db_attributes
+                    for linktype, handler in link_rules.items()
+                },
+                {
+                    linktype: handler.extract_references
+                    for linktype, handler in link_rules.items()
+                },
+            ),
+            EmbedRewriter(
+                {
+                    embedtype: handler.expand_db_attributes
+                    for embedtype, handler in embed_rules.items()
+                },
+                {
+                    linktype: handler.extract_references
+                    for linktype, handler in embed_rules.items()
+                },
+            ),
+        ]
+    )
 
 
 def expand_db_html(html):
     """
     Expand database-representation HTML into proper HTML usable on front-end templates
     """
-    global FRONTEND_REWRITER
+    rewriter = get_rewriter()
+    return rewriter(html)
 
-    if FRONTEND_REWRITER is None:
-        embed_rules = features.get_embed_types()
-        link_rules = features.get_link_types()
-        FRONTEND_REWRITER = MultiRuleRewriter(
-            [
-                LinkRewriter(
-                    {
-                        linktype: handler.expand_db_attributes
-                        for linktype, handler in link_rules.items()
-                    }
-                ),
-                EmbedRewriter(
-                    {
-                        embedtype: handler.expand_db_attributes
-                        for embedtype, handler in embed_rules.items()
-                    }
-                ),
-            ]
-        )
 
-    return FRONTEND_REWRITER(html)
+def extract_references_from_rich_text(html):
+    rewriter = get_rewriter()
+    yield from rewriter.extract_references(html)
 
 
 def get_text_for_indexing(richtext):
@@ -85,6 +99,11 @@ class RichText:
     def __bool__(self):
         return bool(self.source)
 
+    def __eq__(self, other):
+        if isinstance(other, RichText):
+            return self.source == other.source
+        return False
+
 
 class EntityHandler:
     """
@@ -119,6 +138,15 @@ class EntityHandler:
         """
         raise NotImplementedError
 
+    @classmethod
+    def extract_references(cls, attrs):
+        """
+        Yields a sequence of (content_type_id, object_id, model_path, content_path) tuples for the
+        database objects referenced by this entity, as per
+        wagtail.models.ReferenceIndex._extract_references_from_object
+        """
+        return []
+
 
 class LinkHandler(EntityHandler):
     pass
@@ -126,3 +154,13 @@ class LinkHandler(EntityHandler):
 
 class EmbedHandler(EntityHandler):
     pass
+
+
+class RichTextMaxLengthValidator(MaxLengthValidator):
+    """
+    A variant of MaxLengthValidator that only counts text (not HTML tags) towards the limit
+    Un-escapes entities for consistency with client-side character count.
+    """
+
+    def clean(self, x):
+        return len(unescape(strip_tags(x)))

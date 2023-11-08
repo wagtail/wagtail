@@ -13,7 +13,7 @@ from .fields import ConvertedValue, ConvertedValueField
 @unittest.skipUnless(
     settings.AUTH_USER_MODEL == "customuser.CustomUser", "Only applicable to CustomUser"
 )
-class TestConvertedValueField(TestCase, WagtailTestUtils):
+class TestConvertedValueField(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -42,3 +42,6 @@ class TestConvertedValueField(TestCase, WagtailTestUtils):
 
     def test_custom_user_primary_key_is_converted_value_field(self):
         self.assertIsInstance(self.pk_field, ConvertedValueField)
+
+    def test_get_prep_value_returns_integer_for_db_query(self):
+        self.assertIsInstance(self.pk_field.get_prep_value(1234), int)

@@ -6,14 +6,16 @@ from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
+class TestWorkflowHistoryDetail(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()
         self.login(self.user)
 
-        self.christmas_event = Page.objects.get(url_path="/home/events/christmas/")
+        self.christmas_event = Page.objects.get(
+            url_path="/home/events/christmas/"
+        ).specific
         self.christmas_event.save_revision()
 
         workflow = self.christmas_event.get_workflow()
@@ -74,6 +76,10 @@ class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
                 "wagtailadmin_pages:workflow_history", args=[self.christmas_event.id]
             ),
         )
+
+        self.assertContains(response, '<div class="w-tabs" data-tabs>')
+
+        self.assertContains(response, '<div class="tab-content">')
 
     def test_get_detail_with_bad_permissions(self):
         # Remove privileges from user

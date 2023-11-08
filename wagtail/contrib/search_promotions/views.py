@@ -1,6 +1,7 @@
-from django.core.paginator import Paginator
+from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Sum, functions
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -10,10 +11,11 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
-from wagtail.contrib.search_promotions import forms
+from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.contrib.search_promotions import forms, models
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.log_actions import log
-from wagtail.search import forms as search_forms
-from wagtail.search.models import Query
+from wagtail.search.utils import normalise_query_string
 
 
 @any_permission_required(
@@ -48,7 +50,10 @@ def index(request):
 
     # Paginate
     paginator = Paginator(queries, per_page=20)
-    queries = paginator.get_page(request.GET.get("p"))
+    try:
+        queries = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return TemplateResponse(
@@ -124,7 +129,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
 def add(request):
     if request.method == "POST":
         # Get query
-        query_form = search_forms.QueryForm(request.POST)
+        query_form = forms.QueryForm(request.POST)
         if query_form.is_valid():
             query = Query.get(query_form["query_string"].value())
 
@@ -137,7 +142,7 @@ def add(request):
                     log(search_pick, "wagtail.create")
                 messages.success(
                     request,
-                    _("Editor's picks for '{0}' created.").format(query),
+                    _("Editor's picks for '%(query)s' created.") % {"query": query},
                     buttons=[
                         messages.button(
                             reverse("wagtailsearchpromotions:edit", args=(query.id,)),
@@ -164,7 +169,7 @@ def add(request):
         else:
             searchpicks_formset = forms.SearchPromotionsFormSet()
     else:
-        query_form = search_forms.QueryForm()
+        query_form = forms.QueryForm()
         searchpicks_formset = forms.SearchPromotionsFormSet()
 
     return TemplateResponse(
@@ -184,7 +189,7 @@ def edit(request, query_id):
 
     if request.method == "POST":
         # Get query
-        query_form = search_forms.QueryForm(request.POST)
+        query_form = forms.QueryForm(request.POST)
         # and the recommendations
         searchpicks_formset = forms.SearchPromotionsFormSet(
             request.POST, instance=query
@@ -197,7 +202,7 @@ def edit(request, query_id):
             if save_searchpicks(query, new_query, searchpicks_formset):
                 messages.success(
                     request,
-                    _("Editor's picks for '{0}' updated.").format(new_query),
+                    _("Editor's picks for '%(query)s' updated.") % {"query": new_query},
                     buttons=[
                         messages.button(
                             reverse("wagtailsearchpromotions:edit", args=(query.id,)),
@@ -222,9 +227,7 @@ def edit(request, query_id):
                     # specific errors will be displayed within form fields
 
     else:
-        query_form = search_forms.QueryForm(
-            initial={"query_string": query.query_string}
-        )
+        query_form = forms.QueryForm(initial={"query_string": query.query_string})
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
     return TemplateResponse(
@@ -259,3 +262,50 @@ def delete(request, query_id):
             "query": query,
         },
     )
+
+
+def chooser(request, get_results=False):
+    # Get most popular queries
+    queries = models.Query.get_most_popular()
+
+    # If searching, filter results by query string
+    if "q" in request.GET:
+        searchform = SearchForm(request.GET)
+        if searchform.is_valid():
+            query_string = searchform.cleaned_data["q"]
+            queries = queries.filter(
+                query_string__icontains=normalise_query_string(query_string)
+            )
+    else:
+        searchform = SearchForm()
+
+    paginator = Paginator(queries, per_page=10)
+    try:
+        queries = paginator.page(request.GET.get("p", 1))
+    except InvalidPage:
+        raise Http404
+
+    # Render
+    if get_results:
+        return TemplateResponse(
+            request,
+            "wagtailsearchpromotions/queries/chooser/results.html",
+            {
+                "queries": queries,
+            },
+        )
+    else:
+        return render_modal_workflow(
+            request,
+            "wagtailsearchpromotions/queries/chooser/chooser.html",
+            None,
+            {
+                "queries": queries,
+                "searchform": searchform,
+            },
+            json_data={"step": "chooser"},
+        )
+
+
+def chooserresults(request):
+    return chooser(request, get_results=True)

@@ -2,7 +2,11 @@ import json
 
 from django.urls import reverse
 
-from wagtail.api.v2.tests.test_images import TestImageDetail, TestImageListing
+from wagtail.api.v2.tests.test_images import (
+    TestImageDetail,
+    TestImageListing,
+    TestImageListingSearch,
+)
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 
@@ -173,6 +177,16 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
                 {"type", "detail_url", "tags", "download_url"},
             )
             self.assertIsInstance(image["meta"]["tags"], list)
+
+
+class TestAdminImageListingSearch(AdminAPITestCase, TestImageListingSearch):
+    fixtures = ["demosite.json"]
+
+    def get_response(self, **params):
+        return self.client.get(reverse("wagtailadmin_api:images:listing"), params)
+
+    def get_image_id_list(self, content):
+        return [image["id"] for image in content["items"]]
 
 
 class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):

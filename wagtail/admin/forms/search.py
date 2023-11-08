@@ -7,6 +7,13 @@ class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         placeholder = kwargs.pop("placeholder", _("Search"))
         super().__init__(*args, **kwargs)
-        self.fields["q"].widget.attrs = {"placeholder": placeholder}
+        self.fields["q"].widget.attrs = {
+            "placeholder": placeholder,
+            "data-w-swap-target": "input",
+        }
 
-    q = forms.CharField(label=gettext_lazy("Search term"), widget=forms.TextInput())
+    q = forms.CharField(
+        label=gettext_lazy("Search term"),
+        widget=forms.TextInput(),
+        required=False,
+    )

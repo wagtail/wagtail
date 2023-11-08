@@ -24,7 +24,7 @@ class PublishBulkAction(PageBulkAction):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["has_draft_descendants"] = any(
-            map(lambda x: x["draft_descendant_count"], context["items"])
+            item["draft_descendant_count"] for item in context["items"]
         )
         return context
 
@@ -48,7 +48,11 @@ class PublishBulkAction(PageBulkAction):
 
             if include_descendants:
                 for draft_descendant_page in (
-                    page.get_descendants().not_live().defer_streamfields().specific()
+                    page.get_descendants()
+                    .not_live()
+                    .defer_streamfields()
+                    .specific()
+                    .iterator()
                 ):
                     if (
                         user is None

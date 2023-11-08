@@ -7,60 +7,55 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.models import Page
 from wagtail.signals import post_page_move, pre_page_move
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import BusinessSubIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageMove(TestCase, WagtailTestUtils):
+class TestPageMove(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # Find root page
-        self.root_page = Page.objects.get(id=2)
+        cls.root_page = Page.objects.get(id=2)
 
         # Create three sections
-        self.section_a = SimplePage(
-            title="Section A", slug="section-a", content="hello"
-        )
-        self.root_page.add_child(instance=self.section_a)
+        cls.section_a = SimplePage(title="Section A", slug="section-a", content="hello")
+        cls.root_page.add_child(instance=cls.section_a)
 
-        self.section_b = SimplePage(
-            title="Section B", slug="section-b", content="hello"
-        )
-        self.root_page.add_child(instance=self.section_b)
+        cls.section_b = SimplePage(title="Section B", slug="section-b", content="hello")
+        cls.root_page.add_child(instance=cls.section_b)
 
-        self.section_c = SimplePage(
-            title="Section C", slug="section-c", content="hello"
-        )
-        self.root_page.add_child(instance=self.section_c)
+        cls.section_c = SimplePage(title="Section C", slug="section-c", content="hello")
+        cls.root_page.add_child(instance=cls.section_c)
 
         # Add test page A into section A
-        self.test_page_a = SimplePage(
+        cls.test_page_a = SimplePage(
             title="Hello world!", slug="hello-world", content="hello"
         )
-        self.section_a.add_child(instance=self.test_page_a)
+        cls.section_a.add_child(instance=cls.test_page_a)
 
         # Add test page B into section C
-        self.test_page_b = SimplePage(
+        cls.test_page_b = SimplePage(
             title="Hello world!", slug="hello-world", content="hello"
         )
-        self.section_c.add_child(instance=self.test_page_b)
+        cls.section_c.add_child(instance=cls.test_page_b)
 
         # Add unpublished page to the root with a child page
-        self.unpublished_page = SimplePage(
+        cls.unpublished_page = SimplePage(
             title="Unpublished", slug="unpublished", content="hello"
         )
         sub_page = SimplePage(title="Sub Page", slug="sub-page", content="child")
-        self.root_page.add_child(instance=self.unpublished_page)
-        self.unpublished_page.add_child(instance=sub_page)
+        cls.root_page.add_child(instance=cls.unpublished_page)
+        cls.unpublished_page.add_child(instance=sub_page)
 
         # unpublish pages last (used to validate the edit only permission)
-        self.unpublished_page.unpublish()
+        cls.unpublished_page.unpublish()
         sub_page.unpublish()
 
+    def setUp(self):
         # Login
         self.user = self.login()
 
@@ -69,25 +64,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:move", args=(self.test_page_a.id,))
         )
         self.assertEqual(response.status_code, 200)
-
-    def test_page_move_default_destination(self):
-        response = self.client.get(
-            reverse("wagtailadmin_pages:move", args=(self.test_page_b.id,))
-        )
-        self.assertEqual(response.status_code, 200)
-        # The default destination is the parent of the page being moved
-        self.assertEqual(response.context["viewed_page"].specific, self.section_c)
-
-        cca = get_explorable_root_page(self.user)
-        destinations = self.section_c.get_ancestors().descendant_of(cca)
-        self.assertTrue(destinations.exists())
-
-        for destination_page in destinations:
-            move_url = reverse(
-                "wagtailadmin_pages:move_choose_destination",
-                args=(self.test_page_b.id, destination_page.id),
-            )
-            self.assertContains(response, move_url)
+        self.assertContains(response, self.section_a.title)
 
     def test_page_move_bad_permissions(self):
         # Remove privileges from user
@@ -147,7 +124,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(len(messages), 1)
         self.assertEqual(messages[0].level, message_constants.ERROR)
         # Slug should be in error message.
-        self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
+        self.assertIn(self.test_page_b.slug, messages[0].message)
 
     def test_move_triggers_signals(self):
         # Connect a mock signal handler to pre_page_move and post_page_move signals
@@ -170,30 +147,32 @@ class TestPageMove(TestCase, WagtailTestUtils):
             pre_page_move.disconnect(pre_moved_handler)
             post_page_move.disconnect(post_moved_handler)
 
+        # parent_page_before returns the non-specific page type, and that's OK
+        nonspecific_section_a = Page.objects.get(pk=self.section_a.pk)
+
         # Check that the pre_page_move signal was fired
         self.assertEqual(pre_moved_handler.call_count, 1)
-        self.assertTrue(
-            pre_moved_handler.called_with(
-                sender=self.test_page_a.specific_class,
-                instance=self.test_page_a,
-                parent_page_before=self.section_a,
-                parent_page_after=self.section_b,
-                url_path_before="/home/section-a/hello-world/",
-                url_path_after="/home/section-b/hello-world/",
-            )
+        pre_moved_handler.assert_called_with(
+            signal=mock.ANY,
+            sender=self.test_page_a.specific_class,
+            instance=self.test_page_a,
+            parent_page_before=nonspecific_section_a,
+            parent_page_after=self.section_b,
+            url_path_before="/home/section-a/hello-world/",
+            url_path_after="/home/section-b/hello-world/",
         )
 
         # Check that the post_page_move signal was fired
         self.assertEqual(post_moved_handler.call_count, 1)
-        self.assertTrue(
-            post_moved_handler.called_with(
-                sender=self.test_page_a.specific_class,
-                instance=self.test_page_a,
-                parent_page_before=self.section_a,
-                parent_page_after=self.section_b,
-                url_path_before="/home/section-a/hello-world/",
-                url_path_after="/home/section-b/hello-world/",
-            )
+        post_moved_handler.assert_called_with(
+            signal=mock.ANY,
+            sender=self.test_page_a.specific_class,
+            # during the move operation, we reloaded the page as a non-specific instance
+            instance=Page.objects.get(pk=self.test_page_a.pk),
+            parent_page_before=nonspecific_section_a,
+            parent_page_after=self.section_b,
+            url_path_before="/home/section-a/hello-world/",
+            url_path_after="/home/section-b/hello-world/",
         )
 
     def test_before_move_page_hook(self):
@@ -261,3 +240,25 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(
             Page.objects.get(id=self.test_page_a.id).get_parent().id, self.section_b.id
         )
+
+    def test_page_move_after_parent_page_types_changes_to_different_parent_model(self):
+        # Test for issue #10348
+        # While BusinesSubIndex cannot be created under a SimplePage, we can
+        # still create it under a SimplePage invoking django-treebeard's add_child
+        # which works great for our purposes.
+        self.assertFalse(BusinessSubIndex.can_exist_under(self.section_a))
+        page = self.section_a.add_child(
+            instance=BusinessSubIndex(
+                title="Business Sub Index",
+                slug="business-sub-index",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
+        response = self.client.get(reverse("wagtailadmin_pages:move", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context["move_form"]
+        self.assertEqual(form.fields["new_parent_page"].initial.pk, self.section_a.pk)
+        self.assertNotContains(response, self.section_a.title)

@@ -1,6 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-{% trans "Add an anchor link" as anchor_str %}
-{% include "wagtailadmin/shared/header.html" with title=anchor_str %}
+{% include "wagtailadmin/shared/header.html" with title=_("Add an anchor link") %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='anchor' %}
@@ -9,9 +8,11 @@
         {% csrf_token %}
         <ul class="fields">
             {% for field in form %}
-                {% include "wagtailadmin/shared/field_as_li.html" %}
+                <li>
+                    {% include "wagtailadmin/shared/field.html" %}
+                </li>
             {% endfor %}
-            <li><input type="submit" value="{% trans 'Insert anchor' %}"  class="button" /></li>
+            <li><input type="submit" value="{% trans 'Insert anchor' %}" class="button" /></li>
         </ul>
     </form>
 </div>

@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/generic/base.html" %}
+
+{% block content %}
+    <div class="nice-padding">
+        <p>Are you sure you want to delete this object?</p>
+        <form action="{% url 'testapp_generic_delete' test_object.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes, delete" class="button serious" />
+        </form>
+    </div>
+{% endblock %}

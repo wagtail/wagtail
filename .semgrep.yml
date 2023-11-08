@@ -1,0 +1,79 @@
+rules:
+  - id: translation-no-new-style-formatting
+    patterns:
+      - pattern: $FUNC("$STRING_ID", ...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
+      - metavariable-regex:
+          metavariable: $STRING_ID
+          regex: ".*({(\\d*|[\\w_]*)}).*"
+    message: |
+      Do not use str.format style formatting for translations.
+      Use printf style formatting with named placeholders instead.
+      For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
+      instead of `_("Hello {name}").format(name="Wagtail")`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
+    languages: [python, javascript, typescript]
+    severity: ERROR
+  - id: translation-no-f-strings
+    patterns:
+      - pattern: $FUNC(f"...", ...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
+    message: >
+      Do not use formatted string literals for translations.
+      Use printf style formatting with named placeholders instead.
+      For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
+      instead of `_(f"Hello {name}")`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
+    languages: [python]
+    severity: ERROR
+  - id: translation-no-anonymous-arguments
+    patterns:
+      - pattern: $FUNC("$STRING_ID", ...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
+      - metavariable-regex:
+          metavariable: $STRING_ID
+          regex: ".*%\\w.*"
+    message: >
+      Do not use anonymous placeholders for translations.
+      Use printf style formatting with named placeholders instead.
+      For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
+      instead of `_("Hello %s") % "Wagtail"`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
+    languages: [python, javascript, typescript]
+    severity: ERROR
+  - id: translation-no-format-within-gettext-python
+    patterns:
+      - pattern: $FUNC("..." % ..., ...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
+    message: >
+      Do not format string before translations
+      or the interpolated value will be part of the key.
+      Instead, interpolate after the call to gettext.
+      For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
+      instead of `_("Hello %(name)s" % {"name": "Wagtail"} )`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
+    languages: [python]
+    severity: ERROR
+  - id: translation-no-format-within-gettext-javascript
+    patterns:
+      - pattern: $FUNC("...".replace(...), ...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
+    message: >
+      Do not format string before translations
+      or the interpolated value will be part of the key.
+      Instead, interpolate after the call to gettext.
+      For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
+      instead of `_("Hello %(name)s" % {"name": "Wagtail"} )`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
+    languages: [javascript, typescript]
+    severity: ERROR

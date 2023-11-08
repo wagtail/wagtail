@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
-from . import checks, get_image_model  # NOQA
+from . import checks, get_image_model  # NOQA: F401
 from .signal_handlers import register_signal_handlers
 
 
@@ -11,6 +11,7 @@ class WagtailImagesAppConfig(AppConfig):
     label = "wagtailimages"
     verbose_name = _("Wagtail images")
     default_auto_field = "django.db.models.AutoField"
+    default_attrs = {}
 
     def ready(self):
         register_signal_handlers()
@@ -34,3 +35,13 @@ class WagtailImagesAppConfig(AppConfig):
         register_comparison_class(
             ForeignKey, to=Image, comparison_class=ImageFieldComparison
         )
+
+        from wagtail.admin.ui.fields import register_display_class
+
+        from .components import ImageDisplay
+
+        register_display_class(ForeignKey, to=Image, display_class=ImageDisplay)
+
+        from wagtail.models.reference_index import ReferenceIndex
+
+        ReferenceIndex.register_model(Image)

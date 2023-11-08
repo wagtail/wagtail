@@ -7,6 +7,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents.models import Document
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class CollectionInstanceTestUtils:
@@ -42,7 +43,9 @@ class CollectionInstanceTestUtils:
         self.marketing_user.groups.add(self.marketing_group)
 
 
-class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
+class TestCollectionsIndexViewAsSuperuser(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     def setUp(self):
         self.login()
 
@@ -67,6 +70,7 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_ordering(self):
         root_collection = Collection.get_first_root_node()
@@ -101,7 +105,7 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestCollectionsIndexView(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         self.login(self.marketing_user, password="password")
@@ -169,7 +173,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertNotContains(response, "Add a collection")
 
     def test_marketing_user_with_add_permission_on_root(self):
-        # Grant the marketing group permission to add to root colection
+        # Grant the marketing group permission to add to root collection
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.root_collection,
@@ -186,7 +190,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertContains(response, "Add a collection")
 
 
-class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -201,6 +205,7 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.root_collection.name)
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         response = self.post(
@@ -221,7 +226,7 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestAddCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         self.login(self.marketing_user, password="password")
@@ -288,7 +293,7 @@ class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils)
         )
 
 
-class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -319,6 +324,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Delete collection")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -361,7 +367,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         )
 
 
-class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         # Grant the marketing group permission to edit their collection
@@ -466,10 +472,24 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         )
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
+        # Grant the marketing group permission to another collection so there is a valid destination
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.finance_collection,
+            permission=self.add_permission,
+        )
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
         self.assertNotContains(response, "Delete collection")
+
+    def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission(
+        self,
+    ):
+        # Remove the "add" permission so the user only has "change" permission
+        self.users_add_permission.delete()
+        # Do the same test as above
+        self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to()
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(
         self,
@@ -503,6 +523,14 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
             self.root_collection,
         )
 
+    def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission_post(
+        self,
+    ):
+        # Remove the "add" permission so the user only has "change" permission
+        self.users_add_permission.delete()
+        # Do the same test as above
+        self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post()
+
     def test_page_shows_delete_link_only_if_delete_permitted(self):
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
@@ -517,7 +545,9 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.assertContains(response, "Delete collection")
 
 
-class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
+class TestDeleteCollectionAsSuperuser(
+    AdminTemplateTestUtils, WagtailTestUtils, TestCase
+):
     def setUp(self):
         self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -545,6 +575,7 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -578,6 +609,12 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
+        # Check the message content
+        self.assertEqual(
+            response.context["message"],
+            "Collection 'Holiday snaps' deleted.",
+        )
+
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
             Collection.objects.get(id=self.collection.id)
@@ -610,7 +647,7 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertTrue(Collection.objects.get(id=self.root_collection.id))
 
 
-class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
+class TestDeleteCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         super().setUp()
         # Grant the marketing group permission to delete

@@ -3,38 +3,32 @@
 {% block titletag %}{% trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
-{% endblock %}
-
 {% block furniture %}
-    <main class="content-wrapper">
+    <main class="content-wrapper" id="main">
+        <h1>{% trans "Reset your password" %}</h1>
+
         {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+        {% block above_form %}{% endblock %}
 
         <form method="post" novalidate>
             {% csrf_token %}
-            <h1>{% trans "Reset your password" %}</h1>
 
-            <ul class="fields">
-                <li>
-                    <div class="field">
-                        {{ form.email.label_tag }}
-                        {{ form.email }}
-                        <div class="messages">
-                            <ul>
-                                {% for error in form.email.errors %}
-                                    <li class="error">{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="submit">
+            {% field field=form.email %}{% endfield %}
+
+            {% block extra_fields %}
+                {% for field_name, field in form.extra_fields %}
+                    {% field field=field %}{% endfield %}
+                {% endfor %}
+            {% endblock extra_fields %}
+
+            <footer class="form-actions">
+                {% block submit_buttons %}
                     <button type="submit" class="button">{% trans 'Reset password' %}</button>
-                </li>
-            </ul>
+                {% endblock %}
+            </footer>
         </form>
+
+        {% block below_form %}{% endblock %}
     </main>
 {% endblock %}

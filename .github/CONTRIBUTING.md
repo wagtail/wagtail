@@ -25,7 +25,7 @@ We welcome code reviews from everyone. There's always a list of pull requests ta
 
 ## Translations
 
-Please submit any new or improved translations through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+Please submit any new or improved translations through [Transifex](https://explore.transifex.com/torchbox/wagtail/).
 
 ## Accessibility testing
 

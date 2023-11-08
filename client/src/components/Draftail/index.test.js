@@ -41,18 +41,61 @@ describe('Draftail', () => {
       document.body.innerHTML = '<input id="test" value="null" />';
       const field = document.querySelector('#test');
 
-      draftail.registerPlugin({
-        type: 'IMAGE',
-        source: () => {},
-        block: () => {},
-      });
+      draftail.registerPlugin(
+        {
+          type: 'IMAGE',
+          source: () => {},
+          block: () => null,
+        },
+        'entityTypes',
+      );
+
+      draftail.registerPlugin(
+        {
+          type: 'sentences',
+          meta: () => null,
+        },
+        'controls',
+      );
+
+      draftail.registerPlugin(
+        {
+          type: 'punctuation',
+          strategy: () => {},
+          component: () => null,
+        },
+        'decorators',
+      );
+
+      draftail.registerPlugin(
+        {
+          type: 'anchorify',
+          handlePastedText: () => 'not-handled',
+        },
+        'plugins',
+      );
 
       draftail.initEditor('#test', {
         entityTypes: [{ type: 'IMAGE' }],
+        controls: [{ type: 'sentences' }],
+        decorators: [{ type: 'punctuation' }],
+        plugins: [{ type: 'anchorify' }],
         enableHorizontalRule: true,
       });
 
       expect(field.draftailEditor.props).toMatchSnapshot();
+      // Make sure we don’t initialise a character count on fields that have the default unlimited max length.
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe(null);
+    });
+
+    it('maxLength', () => {
+      document.body.innerHTML =
+        '<input id="test" value="null" maxlength="50" />';
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
     });
 
     describe('selector conflicts', () => {
@@ -141,14 +184,30 @@ describe('Draftail', () => {
 
   describe('#registerPlugin', () => {
     it('works', () => {
+      const plugin = { type: 'TEST' };
+      expect(draftail.registerPlugin(plugin, 'entityTypes')).toMatchObject({
+        TEST: plugin,
+      });
+      expect(draftail.registerPlugin(plugin, 'controls')).toMatchObject({
+        TEST: plugin,
+      });
+      expect(draftail.registerPlugin(plugin, 'decorators')).toMatchObject({
+        TEST: plugin,
+      });
+      expect(draftail.registerPlugin(plugin, 'plugins')).toMatchObject({
+        TEST: plugin,
+      });
+    });
+
+    it('supports legacy entityTypes registration', () => {
       const plugin = {
-        type: 'TEST',
+        type: 'TEST_ENTITY',
         source: null,
         decorator: null,
       };
 
       expect(draftail.registerPlugin(plugin)).toMatchObject({
-        TEST: plugin,
+        TEST_ENTITY: plugin,
       });
     });
   });
@@ -162,5 +221,4 @@ describe('Draftail', () => {
     expect(draftail.ModalWorkflowSource).toBeDefined());
   it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
   it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
-  it('#getSplitControl', () => expect(draftail.getSplitControl).toBeDefined());
 });

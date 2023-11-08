@@ -1,5 +1,5 @@
 from django import forms
-from telepath import Adapter, AdapterRegistry, JSContextBase  # noqa
+from telepath import Adapter, AdapterRegistry, JSContextBase
 
 from wagtail.admin.staticfiles import versioned_static
 

@@ -9,7 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 Document = get_document_model()
 
 
-class TestBulkAddDocumentsToCollection(TestCase, WagtailTestUtils):
+class TestBulkAddDocumentsToCollection(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.root_collection = Collection.get_first_root_node()
@@ -51,11 +51,9 @@ class TestBulkAddDocumentsToCollection(TestCase, WagtailTestUtils):
         )
 
         for document in self.documents:
-            self.assertInHTML(
-                "<li>{document_title}</li>".format(document_title=document.title), html
-            )
+            self.assertInHTML(f"<li>{document.title}</li>", html)
 
-        response = self.client.post(self.url, self.post_data)
+        self.client.post(self.url, self.post_data)
 
         # Documents should not be moved to new collection
         for document in self.documents:

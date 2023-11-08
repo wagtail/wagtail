@@ -5,7 +5,7 @@ describe('Listing', () => {
 
   it('has the right heading', async () => {
     expect(await page.title()).toContain(
-      'Wagtail - Exploring Welcome to your new Wagtail site!',
+      'Exploring Welcome to your new Wagtail site! - Wagtail',
     );
   });
 

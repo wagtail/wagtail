@@ -2,36 +2,17 @@ import types
 from functools import wraps
 
 import l18n
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.timezone import activate as activate_tz
+from django.utils.timezone import override as override_tz
 from django.utils.translation import gettext as _
 from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
-from wagtail.models import GroupPagePermission
-
-
-def users_with_page_permission(page, permission_type, include_superusers=True):
-    # Get user model
-    User = get_user_model()
-
-    # Find GroupPagePermission records of the given type that apply to this page or an ancestor
-    ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(
-        permission_type=permission_type, page__in=ancestors_and_self
-    )
-    q = Q(groups__page_permissions__in=perm)
-
-    # Include superusers
-    if include_superusers:
-        q |= Q(is_superuser=True)
-
-    return User.objects.filter(is_active=True).filter(q).distinct()
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 
 def permission_denied(request):
@@ -126,23 +107,9 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    # Can't do nothin' if you're not active.
-    if not user.is_active:
-        return False
-
-    # Superusers can do anything.
-    if user.is_superuser:
-        return True
-
-    # At least one of the users groups has a GroupPagePermission.
-    # The user can probably do something.
-    if GroupPagePermission.objects.filter(group__in=user.groups.all()).exists():
-        return True
-
-    # Specific permissions for a page type do not mean anything.
-
-    # No luck! This user can not do anything with pages.
-    return False
+    return PagePermissionPolicy().user_has_any_permission(
+        user, {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
+    )
 
 
 def reject_request(request):
@@ -175,34 +142,36 @@ def require_admin_access(view_func):
                     )
                     l18n.set_language(preferred_language)
                     time_zone = user.wagtail_userprofile.get_current_time_zone()
-                    activate_tz(time_zone)
-                with LogContext(user=user):
+                else:
+                    time_zone = settings.TIME_ZONE
+                with override_tz(time_zone), LogContext(user=user):
                     if preferred_language:
                         with override(preferred_language):
                             response = view_func(request, *args, **kwargs)
-
-                        if hasattr(response, "render"):
-                            # If the response has a render() method, Django treats it
-                            # like a TemplateResponse, so we should do the same
-                            # In this case, we need to guarantee that when the TemplateResponse
-                            # is rendered, it is done within the override context manager
-                            # or the user preferred_language will not be used
-                            # (this could be replaced with simply rendering the TemplateResponse
-                            # for simplicity but this does remove some of its middleware modification
-                            # potential)
-                            render = response.render
-
-                            def overridden_render(response):
-                                with override(preferred_language):
-                                    return render()
-
-                            response.render = types.MethodType(
-                                overridden_render, response
-                            )
-                            # decorate the response render method with the override context manager
-                        return response
                     else:
-                        return view_func(request, *args, **kwargs)
+                        response = view_func(request, *args, **kwargs)
+
+                    if hasattr(response, "render"):
+                        # If the response has a render() method, Django treats it
+                        # like a TemplateResponse, so we should do the same
+                        # In this case, we need to guarantee that when the TemplateResponse
+                        # is rendered, it is done within the override context manager
+                        # or the user preferred_language/timezone will not be used
+                        # (this could be replaced with simply rendering the TemplateResponse
+                        # for simplicity but this does remove some of its middleware modification
+                        # potential)
+                        render = response.render
+
+                        def overridden_render(response):
+                            with override_tz(time_zone):
+                                if preferred_language:
+                                    with override(preferred_language):
+                                        return render()
+                                return render()
+
+                        response.render = types.MethodType(overridden_render, response)
+                        # decorate the response render method with the override context manager
+                    return response
 
             except PermissionDenied:
                 if request.headers.get("x-requested-with") == "XMLHttpRequest":

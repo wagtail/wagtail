@@ -3,28 +3,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dominik Lech, 2022
+# Dominik Lech, 2022
+# Łukasz Bołdys (Lukasz Boldys), 2014,2021
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018,2020-2021
+# Miłosz Miśkiewicz, 2018,2020-2021,2023
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2021\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Miłosz Miśkiewicz, 2018,2020-2021,2023\n"
+"Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Przekierowania Wagtail"
@@ -82,8 +85,21 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "przekieruj na stronę"
 
+msgid "target page route"
+msgstr "ścieżka strony docelowej"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcjonalnie zdefiniuj ścieżkę na stronie docelowej do przekierowania. "
+"Pozostaw puste aby przekierować do domyślnej ścieżki."
+
 msgid "redirect to any URL"
 msgstr "przekieruj na dowolny adres URL"
+
+msgid "automatically created"
+msgstr "automatycznie utworzone"
 
 msgid "created at"
 msgstr "utworzono dnia"
@@ -93,6 +109,9 @@ msgstr "tymczasowy"
 
 msgid "redirect"
 msgstr "przekierowanie"
+
+msgid "redirects"
+msgstr "przekierowania"
 
 msgid "Add redirect"
 msgstr "Dodaj przekierowanie"
@@ -107,21 +126,15 @@ msgid "Import redirects"
 msgstr "Import przekierowań"
 
 msgid ""
-"\n"
-"                <p>Select a file where redirects are separated into rows and "
-"contains the columns representing <code>from</code> and <code>to</code> "
-"(they can be named anything).</p>\n"
-"                <p>After submitting you will be taken to a confirmation view "
-"where you can customize your redirects before import.</p>\n"
-"            "
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
 msgstr ""
-"\n"
-"                <p>Wybierz plik, w którym przekierowania są podzielone na "
-"wiersze i zawierają kolumny reprezentujące <code>z</code> i <code>do</code> "
-"(mogą się nazywać dowolnie).</p>\n"
-"                <p>Po wysłaniu zostaniesz przekierowany na widok "
-"potwierdzenia gdzie możesz zmodyfikować przekierowania przez importem.</p>\n"
-"            "
+"<p>Wybierz plik gdzie przekierowania są podzielone w wiersze i zawierają "
+"kolumny reprezentujące <code>z</code> oraz <code>na</code> (nazwy mogą być "
+"dowolne).</p> <p>Po wysłaniu zostaniesz poproszony o potwierdzenie i "
+"będziesz mógł zmienić przekierowania przed importem.</p>"
 
 msgid "Import"
 msgstr "Import"
@@ -196,51 +209,33 @@ msgid "No redirects found."
 msgstr "Nie znaleziono przekierowań."
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Znaleziono %(counter)s dopasowanie\n"
-"        "
-msgstr[1] ""
-"\n"
-"Znaleziono %(counter)s dopasowań\n"
-"        "
-msgstr[2] ""
-"\n"
-"Znaleziono %(counter)s dopasowań\n"
-"        "
-msgstr[3] ""
-"\n"
-"Znaleziono %(counter)s dopasowań\n"
-"        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Jest %(counter)s dopasowanie"
+msgstr[1] "Jest %(counter)s dopasowań"
+msgstr[2] "Jest %(counter)s dopasowań"
+msgstr[3] "Jest %(counter)s dopasowań"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</em>"
-"\""
+"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nie zostały stworzone żadne przekierowania. Czemu nie <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
+"Nie zostały stworzone żadne przekierowania. Czemu nie <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
 
 msgid "Search redirects"
 msgstr "Szukaj przekierowań"
 
-#, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Uaktualniono przekierowanie '{0}'."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Uaktualniono przekierowanie '%(redirect_title)s'."
 
 msgid "Edit"
 msgstr "Edytuj"
@@ -248,23 +243,24 @@ msgstr "Edytuj"
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Usunięto przekierowanie '{0}'."
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Usunięto przekierowanie '%(redirect_title)s'."
 
-#, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Przekierowanie '{0}' dodane."
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Przekierowanie '%(redirect_title)s' dodane."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "Format pliku typu \"{}\" nie jest wspierany"
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Format pliku typu \"%(extension)s\" nie jest wspierany"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "Zaimportowany plik ma złe kodowanie: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Zaimportowany plik ma złe kodowanie: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

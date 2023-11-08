@@ -1,8 +1,10 @@
-from datetime import datetime, timedelta
+import datetime
+import json
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
@@ -16,11 +18,12 @@ from wagtail.models import (
     Workflow,
     WorkflowTask,
 )
-from wagtail.test.testapp.models import SimplePage
+from wagtail.models.audit_log import ModelLogEntry
+from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestAuditLogManager(TestCase, WagtailTestUtils):
+class TestAuditLogManager(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.create_superuser(
             username="administrator",
@@ -85,6 +88,15 @@ class TestAuditLog(TestCase):
         self.assertEqual(log_entry.content_type, page.content_type)
         self.assertEqual(log_entry.label, page.get_admin_display_title())
 
+    def test_alias_create_from_published_page_doesnt_log_publish_action(self):
+        self.home_page.live = True
+        self.home_page.save()
+        alias = self.home_page.create_alias(update_slug="the-alias")
+        self.assertTrue(alias.live)
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.publish").count(), 0
+        )
+
     def test_page_edit(self):
         # Directly saving a revision should not yield a log entry
         self.home_page.save_revision()
@@ -105,6 +117,14 @@ class TestAuditLog(TestCase):
         revision = self.home_page.save_revision()
         revision.publish()
         self.assertEqual(PageLogEntry.objects.count(), 1)
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.publish").count(), 1
+        )
+
+    def test_page_publish_doesnt_log_for_aliases(self):
+        self.home_page.create_alias(update_slug="the-alias")
+        revision = self.home_page.save_revision()
+        revision.publish()
         self.assertEqual(
             PageLogEntry.objects.filter(action="wagtail.publish").count(), 1
         )
@@ -144,6 +164,13 @@ class TestAuditLog(TestCase):
             PageLogEntry.objects.filter(action="wagtail.unpublish").count(), 1
         )
 
+    def test_page_unpublish_doesnt_log_for_aliases(self):
+        self.home_page.create_alias(update_slug="the-alias")
+        self.home_page.unpublish()
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.unpublish").count(), 1
+        )
+
     def test_revision_revert(self):
         revision1 = self.home_page.save_revision()
         self.home_page.save_revision()
@@ -154,9 +181,12 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_schedule_publish(self):
-        go_live_at = datetime.now() + timedelta(days=1)
+        go_live_at = datetime.datetime.now() + datetime.timedelta(days=1)
         if settings.USE_TZ:
             go_live_at = timezone.make_aware(go_live_at)
+            expected_go_live_at = timezone.localtime(go_live_at, datetime.timezone.utc)
+        else:
+            expected_go_live_at = go_live_at
         self.home_page.go_live_at = go_live_at
 
         # with no live revision
@@ -168,7 +198,8 @@ class TestAuditLog(TestCase):
         self.assertEqual(log_entries[0].data["revision"]["id"], revision.id)
         self.assertEqual(
             log_entries[0].data["revision"]["go_live_at"],
-            go_live_at.strftime("%d %b %Y %H:%M"),
+            # skip double quotes
+            json.dumps(expected_go_live_at, cls=DjangoJSONEncoder)[1:-1],
         )
 
     def test_revision_schedule_revert(self):
@@ -177,10 +208,12 @@ class TestAuditLog(TestCase):
 
         if settings.USE_TZ:
             self.home_page.go_live_at = timezone.make_aware(
-                datetime.now() + timedelta(days=1)
+                datetime.datetime.now() + datetime.timedelta(days=1)
             )
         else:
-            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
+            self.home_page.go_live_at = datetime.datetime.now() + datetime.timedelta(
+                days=1
+            )
 
         schedule_revision = self.home_page.save_revision(
             log_action=True, previous_revision=revision2
@@ -196,21 +229,29 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_cancel_schedule(self):
+        go_live_at = datetime.datetime.now() + datetime.timedelta(days=1)
         if settings.USE_TZ:
-            self.home_page.go_live_at = timezone.make_aware(
-                datetime.now() + timedelta(days=1)
-            )
+            go_live_at = timezone.make_aware(go_live_at)
+            expected_go_live_at = timezone.localtime(go_live_at, datetime.timezone.utc)
         else:
-            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
+            expected_go_live_at = go_live_at
+        self.home_page.go_live_at = go_live_at
         revision = self.home_page.save_revision()
         revision.publish()
 
         revision.approved_go_live_at = None
         revision.save(update_fields=["approved_go_live_at"])
 
+        log_entries = PageLogEntry.objects.filter(action="wagtail.schedule.cancel")
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries[0].data["revision"]["id"], revision.id)
         self.assertEqual(
-            PageLogEntry.objects.filter(action="wagtail.schedule.cancel").count(), 1
+            log_entries[0].data["revision"]["go_live_at"],
+            # skip double quotes
+            json.dumps(expected_go_live_at, cls=DjangoJSONEncoder)[1:-1],
         )
+        # The home_page was live already and we've only cancelled the publication of the above revision.
+        self.assertTrue(log_entries[0].data["revision"]["has_live_version"])
 
     def test_page_lock_unlock(self):
         self.home_page.save(log_action="wagtail.lock")
@@ -345,8 +386,74 @@ class TestAuditLog(TestCase):
                 )
                 workflow_state.refresh_from_db()
 
-                entry = PageLogEntry.objects.filter(
-                    action="wagtail.workflow.{}".format(action)
+                entry = PageLogEntry.objects.filter(action=f"wagtail.workflow.{action}")
+                self.assertEqual(entry.count(), 1)
+                self.assertEqual(
+                    entry[0].data,
+                    {
+                        "workflow": {
+                            "id": workflow.id,
+                            "title": workflow.name,
+                            "status": task_state.status,
+                            "task_state_id": task_state.id,
+                            "task": {
+                                "id": task_state.task.id,
+                                "title": task_state.task.name,
+                            },
+                            "next": {
+                                "id": workflow_state.current_task_state.task.id,
+                                "title": workflow_state.current_task_state.task.name,
+                            },
+                        },
+                        "comment": "This is my comment",
+                    },
+                )
+                self.assertEqual(entry[0].comment, "This is my comment")
+
+    def test_snippet_workflow_actions(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        task_2 = Task.objects.create(name="test_task_2")
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+
+        snippet = FullFeaturedSnippet.objects.create(text="Initial", live=False)
+        snippet.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(snippet, user)
+
+        workflow_entry = ModelLogEntry.objects.filter(action="wagtail.workflow.start")
+        self.assertEqual(workflow_entry.count(), 1)
+        self.assertEqual(
+            workflow_entry[0].data,
+            {
+                "workflow": {
+                    "id": workflow.id,
+                    "title": workflow.name,
+                    "status": workflow_state.status,
+                    "task_state_id": workflow_state.current_task_state_id,
+                    "next": {
+                        "id": workflow_state.current_task_state.task.id,
+                        "title": workflow_state.current_task_state.task.name,
+                    },
+                }
+            },
+        )
+
+        # Approve
+        for action in ["approve", "reject"]:
+            with self.subTest(action):
+                task_state = workflow_state.current_task_state
+                task_state.task.on_action(
+                    task_state,
+                    user=None,
+                    action_name=action,
+                    comment="This is my comment",
+                )
+                workflow_state.refresh_from_db()
+
+                entry = ModelLogEntry.objects.filter(
+                    action=f"wagtail.workflow.{action}"
                 )
                 self.assertEqual(entry.count(), 1)
                 self.assertEqual(
@@ -390,6 +497,28 @@ class TestAuditLog(TestCase):
             PageLogEntry.objects.get(action="wagtail.publish").user, publisher
         )
 
+    def test_snippet_workflow_completions_logs_publishing_user(self):
+        workflow = Workflow.objects.create(name="test_workflow")
+        task_1 = Task.objects.create(name="test_task_1")
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        self.assertFalse(
+            ModelLogEntry.objects.filter(action="wagtail.publish").exists()
+        )
+
+        snippet = FullFeaturedSnippet.objects.create(text="Initial", live=False)
+        snippet.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(snippet, user)
+
+        publisher = get_user_model().objects.last()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name="approve")
+
+        self.assertEqual(
+            ModelLogEntry.objects.get(action="wagtail.publish").user, publisher
+        )
+
     def test_page_privacy(self):
         restriction = PageViewRestriction.objects.create(page=self.home_page)
         self.assertEqual(
@@ -410,7 +539,7 @@ def test_hook(actions):
     return actions.register_action("test.custom_action", "Custom action", "Tested!")
 
 
-class TestAuditLogHooks(TestCase, WagtailTestUtils):
+class TestAuditLogHooks(WagtailTestUtils, TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 

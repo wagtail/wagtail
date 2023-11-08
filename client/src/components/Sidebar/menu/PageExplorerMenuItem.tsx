@@ -1,9 +1,10 @@
 import * as React from 'react';
 
+import { Provider } from 'react-redux';
+import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
-import { Provider } from 'react-redux';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import {
   openPageExplorer,
@@ -11,7 +12,6 @@ import {
 } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import Tippy from '@tippyjs/react';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>
@@ -27,6 +27,17 @@ export const PageExplorerMenuItem: React.FunctionComponent<
     store.current = initPageExplorerStore();
   }
 
+  const onCloseExplorer = () => {
+    // When a submenu is closed, we have to wait for the close animation
+    // to finish before making it invisible
+    setTimeout(() => {
+      setIsVisible(false);
+      if (store.current) {
+        store.current.dispatch(closePageExplorer());
+      }
+    }, SIDEBAR_TRANSITION_DURATION);
+  };
+
   React.useEffect(() => {
     if (isOpen) {
       // isOpen is set at the moment the user clicks the menu item
@@ -36,14 +47,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         store.current.dispatch(openPageExplorer(item.startPageId));
       }
     } else if (!isOpen && isVisible) {
-      // When a submenu is closed, we have to wait for the close animation
-      // to finish before making it invisible
-      setTimeout(() => {
-        setIsVisible(false);
-        if (store.current) {
-          store.current.dispatch(closePageExplorer());
-        }
-      }, SIDEBAR_TRANSITION_DURATION);
+      onCloseExplorer();
     }
   }, [isOpen]);
 
@@ -77,7 +81,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         <button
           onClick={onClick}
           className="sidebar-menu-item__link"
-          aria-haspopup="menu"
+          aria-haspopup="dialog"
           aria-expanded={isOpen ? 'true' : 'false'}
           type="button"
         >
@@ -95,7 +99,11 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         >
           {store.current && (
             <Provider store={store.current}>
-              <PageExplorer isVisible={isVisible} navigate={navigate} />
+              <PageExplorer
+                isVisible={isVisible}
+                navigate={navigate}
+                onClose={onCloseExplorer}
+              />
             </Provider>
           )}
         </SidebarPanel>
@@ -108,10 +116,17 @@ export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
   startPageId: number;
 
   constructor(
-    { name, label, url, icon_name: iconName = null, classnames = undefined },
+    {
+      name,
+      label,
+      url,
+      attrs,
+      icon_name: iconName = null,
+      classname = undefined,
+    },
     startPageId: number,
   ) {
-    super({ name, label, url, icon_name: iconName, classnames });
+    super({ name, label, url, attrs, icon_name: iconName, classname });
     this.startPageId = startPageId;
   }
 

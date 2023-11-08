@@ -96,7 +96,7 @@ def _page_urls_for_sites(
 
         # use a `HttpRequest` to influence the return value
         request = get_dummy_request(site=site)
-        # resuse cached site root paths if available
+        # reuse cached site root paths if available
         if hasattr(cache_target, "_wagtail_cached_site_root_paths"):
             request._wagtail_cached_site_root_paths = (
                 cache_target._wagtail_cached_site_root_paths
@@ -157,7 +157,9 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
     # change, so we can use in-memory manipulation of `url_path` to figure out what
     # the old URLS were
 
-    for descendant in page.get_descendants().live().specific(defer=True).iterator():
+    for descendant in (
+        page.get_descendants().live().defer_streamfields().specific().iterator()
+    ):
         new_urls = _page_urls_for_sites(descendant, sites, cache_target=page)
 
         # Restore old 'url_path' value on in-memory instance

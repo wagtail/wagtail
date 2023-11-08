@@ -4,15 +4,16 @@
 #
 # Translators:
 # Erlend <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail pildid"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -39,24 +37,27 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Toetatud vormingud: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Pole toetatud pildivorming. Toetatud vormingud: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Pole toetatud pildivorming. Toetatud vormingud: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "%s pole kehtiv pilt."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"See fail on liiga suur (%(file_size)s). Maksimaalne failisuurus "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "See fail on liiga suur (%%s). Maksimaalne failisuurus %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Selles failis on liiga palju piksleid (%(num_pixels)s). Maksimaalne piksel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Selles failis on liiga palju piksleid (%%s). Maksimaalne piksel %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "See fail on liiga suur. Maksimaalne failisuurus %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "See fail on liiga suur. Maksimaalne failisuurus %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Täislaius"
@@ -157,33 +158,14 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Choose an image"
-msgstr "Valige pilt"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Upload"
-msgstr "Laadi üles"
-
 msgid "Popular tags"
 msgstr "Populaarsed sildid"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"On olemas%(counter)s vaste"
-msgstr[1] ""
-"\n"
-"On olemas %(counter)s vastet"
+msgid "Existing"
+msgstr "Olemasolev"
+
+msgid "New"
+msgstr "Uus"
 
 msgid "Latest images"
 msgstr "Uusimad pildid"
@@ -193,29 +175,6 @@ msgstr "Valige vorming"
 
 msgid "Insert image"
 msgstr "Sisesta pilt"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pilti <span class=\"visuallyhidden\">loodud "
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Pilti <span class=\"visuallyhidden\">loodud "
-"%(site_name)s</span> "
 
 msgid "Change image file:"
 msgstr "Pildifaili muutmine:"
@@ -229,15 +188,15 @@ msgstr "Lisa pilt"
 msgid "Save"
 msgstr "Salvesta"
 
-msgid "Delete image"
-msgstr "Kustuta pilt"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s redigeerimine"
 
 msgid "Editing"
 msgstr "Redigeerimine"
+
+msgid "Delete image"
+msgstr "Kustuta pilt"
 
 msgid "URL Generator"
 msgstr "URL-i generaator"
@@ -279,9 +238,6 @@ msgstr "Kujutised"
 msgid "Popular Tags:"
 msgstr "Populaarsed sildid:"
 
-msgid "Clear choice"
-msgstr "Selge valik"
-
 msgid "pixels"
 msgstr "pikslit"
 
@@ -291,19 +247,19 @@ msgstr "Vabandust, ükski pilt ei vasta \"<em>%(query_string)s</em>\" päringule
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a href="
-"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole ühtegi pilti üles laadinud. Miks mitte <a href="
-"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+"Te pole ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 msgid "Generating URL"
 msgstr "URL-i loomine"
@@ -320,28 +276,6 @@ msgid ""
 msgstr ""
 "Pange tähele, et ekraanist suuremana loodud pildid tunduvad siin eelvaates "
 "väiksemad, nii et need sobivad ekraanile."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "%(title)s kasutamine"
-
-msgid "Usage of"
-msgstr "Kasutamine"
-
-msgid "Title"
-msgstr "Pealkiri"
-
-msgid "Parent"
-msgstr "Vanem"
-
-msgid "Type"
-msgstr "Tüüp"
-
-msgid "Status"
-msgstr "Staatus"
-
-msgid "Edit this page"
-msgstr "Muutke seda lehte"
 
 msgid "Add multiple images"
 msgstr "Lisage mitu pilti"
@@ -385,12 +319,24 @@ msgstr "Lisage pildiluba"
 msgid "Delete"
 msgstr "Kustuta"
 
+msgid "Upload"
+msgstr "Laadi üles"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
+msgid "Choose an image"
+msgstr "Valige pilt"
+
+msgid "Edit this image"
+msgstr "Muutke seda pilti"
+
 msgid "Search images"
 msgstr "Piltide otsimine"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Pilt „{0}” on värskendatud."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Pilt „%(image_title)s” on värskendatud."
 
 msgid "Edit again"
 msgstr "Muuda uuesti"
@@ -403,13 +349,13 @@ msgid ""
 "the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Pilt '{0}' on kustutatud."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Pilt '%(image_title)s' on kustutatud."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Pilt '{0}' on lisatud."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Pilt '%(image_title)s' on lisatud."
 
 msgid "The image could not be created due to errors."
 msgstr "Pilti ei saanud vigade tõttu luua."
@@ -425,6 +371,3 @@ msgstr[1] "%(count)s pilti"
 
 msgid "Change image"
 msgstr "Muuda pilti"
-
-msgid "Edit this image"
-msgstr "Muutke seda pilti"

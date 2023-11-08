@@ -1,5 +1,6 @@
 from django import forms
 from django.test import TestCase, override_settings
+from taggit import models as taggit_models
 
 from wagtail.admin import widgets
 from wagtail.admin.widgets import AdminDateTimeInput
@@ -11,6 +12,7 @@ from wagtail.documents.forms import (
     get_document_multi_form,
 )
 from wagtail.test.testapp.media_forms import AlternateDocumentForm, OverriddenWidget
+from wagtail.test.testapp.models import CustomRestaurantDocument, RestaurantTag
 
 
 class TestDocumentFormOverride(TestCase):
@@ -26,7 +28,14 @@ class TestDocumentFormOverride(TestCase):
         form_cls = get_document_form(models.Document)
         form = form_cls()
         self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
+        self.assertEqual(form.fields["tags"].widget.tag_model, taggit_models.Tag)
         self.assertIsInstance(form.fields["file"].widget, forms.FileInput)
+
+    def test_tags_widget_with_custom_tag_model(self):
+        form_cls = get_document_form(CustomRestaurantDocument)
+        form = form_cls()
+        self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
+        self.assertEqual(form.fields["tags"].widget.tag_model, RestaurantTag)
 
     @override_settings(
         WAGTAILDOCS_DOCUMENT_FORM_BASE="wagtail.test.testapp.media_forms.AlternateDocumentForm"

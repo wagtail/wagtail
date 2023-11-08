@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageReorder(TestCase, WagtailTestUtils):
+class TestPageReorder(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def __init__(self, methodName: str = ...) -> None:

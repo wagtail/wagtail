@@ -1,16 +1,11 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from wagtail.admin.navigation import (
-    get_explorable_root_page,
-    get_pages_with_direct_explore_permission,
-)
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestExplorablePages(TestCase, WagtailTestUtils):
+class TestExplorablePages(WagtailTestUtils, TestCase):
     """
     Test the way that the explorer nav menu behaves for users with different permissions.
 
@@ -49,25 +44,32 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
     def test_admins_see_all_pages(self):
         User = get_user_model()
         user = User.objects.get(email="superman@example.com")
-        self.assertEqual(get_explorable_root_page(user).id, 1)
+
+        self.assertEqual(PagePermissionPolicy().explorable_root_instance(user).id, 1)
 
     def test_nav_root_for_nonadmin_is_closest_common_ancestor(self):
         User = get_user_model()
         user = User.objects.get(email="jane@example.com")
-        self.assertEqual(get_explorable_root_page(user).id, 2)
+
+        self.assertEqual(PagePermissionPolicy().explorable_root_instance(user).id, 2)
 
     def test_nonadmin_sees_leaf_page_at_root_level(self):
         User = get_user_model()
         user = User.objects.get(email="bob@example.com")
-        self.assertEqual(get_explorable_root_page(user).id, 6)
+
+        self.assertEqual(PagePermissionPolicy().explorable_root_instance(user).id, 6)
 
     def test_nonadmin_sees_pages_below_closest_common_ancestor(self):
         User = get_user_model()
         user = User.objects.get(email="josh@example.com")
         # Josh has permissions for /example-home/content/page-1 and /example-home/other-content,
         # of which the closest common ancestor is /example-home.
-        self.assertEqual(get_explorable_root_page(user).id, 4)
-        for page in get_pages_with_direct_explore_permission(user):
+
+        self.assertEqual(PagePermissionPolicy().explorable_root_instance(user).id, 4)
+
+        for page in PagePermissionPolicy().instances_with_direct_explore_permission(
+            user
+        ):
             self.assertIn(page.id, [6, 8])
 
     def test_nonadmin_sees_only_explorable_pages(self):
@@ -77,11 +79,16 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
         # permission on)
         User = get_user_model()
         user = User.objects.get(email="sam@example.com")
-        self.assertEqual(get_explorable_root_page(user).id, 1)
-        for page in get_pages_with_direct_explore_permission(user):
+
+        self.assertEqual(PagePermissionPolicy().explorable_root_instance(user).id, 1)
+
+        for page in PagePermissionPolicy().instances_with_direct_explore_permission(
+            user
+        ):
             self.assertIn(page.id, [2, 6])
 
     def test_nonadmin_with_no_page_perms_cannot_explore(self):
         User = get_user_model()
         user = User.objects.get(email="mary@example.com")
-        self.assertIsNone(get_explorable_root_page(user))
+
+        self.assertIsNone(PagePermissionPolicy().explorable_root_instance(user))

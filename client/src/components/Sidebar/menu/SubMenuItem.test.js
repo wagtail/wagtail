@@ -8,7 +8,7 @@ describe('SubMenuItem', () => {
   it('should render with the minimum required props', () => {
     const wrapper = shallow(
       <SubMenuItem
-        item={{ classNames: '', menuItems: [] }}
+        item={{ classNames: '', menuItems: [], attrs: {} }}
         items={[]}
         state={state}
         path=".reports"
@@ -24,7 +24,7 @@ describe('SubMenuItem', () => {
     const wrapper = shallow(
       <SubMenuItem
         dispatch={dispatch}
-        item={{ classNames: '', menuItems: [] }}
+        item={{ classNames: '', menuItems: [], attrs: {} }}
         items={[]}
         state={state}
         path=".reports"

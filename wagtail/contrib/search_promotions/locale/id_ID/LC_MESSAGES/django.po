@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,9 +22,23 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr "Wagtail promosi pencarian"
 
+msgid "Search term(s)/phrase"
+msgstr "Kata kunci()/frase pencarian"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Masukkan string pencarian lengkap yang akan dicocokkan. Pencocokan yang sama "
+"persis dibutuhan untuk menampilkan Promoted Results anda, wildcard TIDAK "
+"diizinkan."
+
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 "Mohon tentukan setidaknya satu rekomendasi untuk instilah pencarian ini."
+
+msgid "Query Daily Hits"
+msgstr "Query Hits Harian"
 
 msgid "page"
 msgstr "halaman"
@@ -40,34 +54,6 @@ msgstr "Tambah promosi pencarian"
 
 msgid "Add search pick"
 msgstr "Tambah pilihan pencarian"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Hasil pencarian terpromosi merupakan suatu sarana untuk merekomendasikan "
-"halaman tertentu yang mungkin tidak muncul di hasil pencarian secara "
-"organik. Sebagai contoh, rekomendasi halaman donasi Anda untuk pengguna yang "
-"mencari dengan kata kunci \"<em>memberi</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Isian \"Kata kunci()/frase pencarian\" dibawah harus mengandung kata "
-"kunci yang  penuh dan tepat, <em>termasuk</em> kesalahan ejaan/pengguna, "
-"untuk kata kunci yang akan diberikan hasil rekomendasi. Anda bisa memilih "
-"kata kunci yang populer di pengguna situs Anda untuk membantu.</p>"
 
 msgid "Save"
 msgstr "Simpan"
@@ -101,17 +87,11 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Hasil pencarian terpromosi"
-
-msgid "Add recommended page"
-msgstr "Tambah halaman yang direkomendasi"
 
 msgid "Search Terms"
 msgstr "Kata kunci pencarian"
-
-msgid "Promoted search results"
-msgstr "Hasil pencarian terpromosi"
 
 msgid "Add new promoted result"
 msgstr "Tambah hasil terpromosi baru"
@@ -128,8 +108,26 @@ msgstr "Tampilan (seminggu lalu)"
 msgid "Edit this promotion"
 msgstr "Ubah promosi ini"
 
+msgid "External link"
+msgstr "Tautan luar"
+
 msgid "None"
 msgstr "Tidak ada"
+
+msgid "Popular search terms"
+msgstr "Kata kunci pencarian populer"
+
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Terms"
+msgstr "Kata kunci"
+
+msgid "No results found"
+msgstr "Tidak ada hasil"
+
+msgid "Choose from popular search terms"
+msgstr "Pilih dari kata kunci pencarian populer"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -139,18 +137,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Tidak ada hasil terpromosi yang dibuat. Mengapa tidak <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">menambahnya</a>?"
+"Tidak ada hasil terpromosi yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">menambahnya</a>?"
 
 msgid "Search promoted results"
 msgstr "Pencarian hasil terpromosi"
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Pilihan editor untuk '{0}' telah dibuat."
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
 
 msgid "Edit"
 msgstr "Ubah"
@@ -158,9 +156,9 @@ msgstr "Ubah"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."
 
-#, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Pilihan editor untuk '{0}' telah diperbarui."
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Pilihan editor untuk '%(query)s' telah diperbarui."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Rekomendasi tidak dapat disimpan karena suatu kesalahan."

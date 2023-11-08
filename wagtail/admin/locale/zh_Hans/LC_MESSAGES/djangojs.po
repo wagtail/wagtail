@@ -1,0 +1,195 @@
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2022
+# 汇民 王 <whuim@qq.com>, 2022
+# First Last <abc+github@mynook.info>, 2022
+# 祝沙军 <zhushajun@gmail.com>, 2022
+# Vincent Zhao <zhaopu2008@gmail.com>, 2022
+# Ed <724195301@qq.com>, 2022
+# Favo Yang <favoyang@gmail.com>, 2022
+# Yin Guanhao <sopium@mysterious.site>, 2022
+# Loic Teixeira, 2022
+# Ford Guo <agile.guo@gmail.com>, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/torchbox/"
+"teams/8009/zh_CN/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add a comment"
+msgstr "添加一个评论"
+
+msgid "Alt text"
+msgstr "替代文本"
+
+msgid "Are you sure?"
+msgstr "你确定吗？"
+
+msgid "Broken link"
+msgstr "无效链接"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Character count:"
+msgstr "字符数:"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Collapse all"
+msgstr "全部收起"
+
+msgid "Comment"
+msgstr "评论"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Decorative image"
+msgstr "装饰性图片"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete error"
+msgstr "删除错误"
+
+msgid "Deleting"
+msgstr "删除中"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit '%(title)s'"
+msgstr "编辑 '%(title)s'"
+
+msgid "Edit your account"
+msgstr "编辑账户"
+
+msgid "Enter your comments..."
+msgstr "输入你的注释"
+
+msgid "Enter your reply..."
+msgstr "输入你的答复"
+
+msgid "Expand all"
+msgstr "全部展开"
+
+msgid "Focus comment"
+msgstr "聚焦评论"
+
+msgid "Horizontal line"
+msgstr "横线"
+
+msgid "Line break"
+msgstr "换行"
+
+msgid "Loading…"
+msgstr "正在载入..."
+
+msgid "Main menu"
+msgstr "主菜单"
+
+msgid "Missing document"
+msgstr "缺失文档"
+
+msgid "More actions"
+msgstr "更多动作"
+
+msgid "No results"
+msgstr "没有结果"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Page explorer"
+msgstr "页面管理"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Pin toolbar"
+msgstr "固定工具栏"
+
+msgid "Reload saved content"
+msgstr "重新加载已保存内容"
+
+msgid "Reload the page"
+msgstr "刷新页面"
+
+msgid "Reply"
+msgstr "回复"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "向系统管理员报告错误并提供以下信息："
+
+msgid "Resolve"
+msgstr "解决"
+
+msgid "Retry"
+msgstr "重试"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save error"
+msgstr "保存错误"
+
+msgid "Save the page to add this comment"
+msgstr "保存页面来添加此条评论。"
+
+msgid "Save the page to save this comment"
+msgstr "保存页面来保存此条评论。"
+
+msgid "Save the page to save this reply"
+msgstr "保存页面来保存此条回复。"
+
+msgid "Saving..."
+msgstr "正在保存……"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search options…"
+msgstr "搜索项…"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Show error"
+msgstr "显示错误"
+
+msgid "Show latest content"
+msgstr "显示最新内容"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "编辑器崩溃了😭，内容被重新设置为最后保存的版本。"
+
+msgid "This field is required."
+msgstr "这个字段是必需的。"
+
+msgid "Toggle side panel"
+msgstr "边栏面板开关"
+
+msgid "Toggle sidebar"
+msgstr "切换侧边栏"
+
+msgid "Unfocus comment"
+msgstr "取消聚焦评论"
+
+msgid "Unpin toolbar"
+msgstr "取消固定工具栏"
+
+msgid "View child pages of '%(title)s'"
+msgstr "查看 '%(title)s' 的子页面"

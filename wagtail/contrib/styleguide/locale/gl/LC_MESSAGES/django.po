@@ -5,14 +5,16 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2016\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,17 +22,20 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail style guide"
+msgstr "Libro de estilo de Wagtail"
+
 msgid "Styleguide"
 msgstr "Guía de estilo"
+
+msgid "Minimap"
+msgstr "Minimapa"
 
 msgid "Save"
 msgstr "Gardar"
 
 msgid "Delete image"
 msgstr "Eliminar imaxe"
-
-msgid "Home"
-msgstr "Principal"
 
 msgid "Search something"
 msgstr "Procurar algo"

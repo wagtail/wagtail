@@ -2,6 +2,8 @@
 Wagtail 2.5 release notes
 =========================
 
+*April 24, 2019*
+
 .. contents::
     :local:
     :depth: 1
@@ -143,7 +145,7 @@ Wagtail now has built-in support for new rich text formats, disabled by default:
 * ``strikethrough``, using the ``STRIKETHROUGH`` Draft.js inline style, saved as a ``<s>`` tag.
 * ``code``, using the ``CODE`` Draft.js inline style, saved as a ``<code>`` tag.
 
-Projects already using those exact Draft.js type and HTML tag combinations can safely replace their feature definitions with the new built-ins. Projects that use the same feature identifier can keep their existing feature definitions as overrides. Finally, if the Draft.js types / HTML tags are used but with a different combination, do not enable the new feature definitions to avoid conflicts in storage or editor behavior.
+Projects already using those exact Draft.js type and HTML tag combinations can safely replace their feature definitions with the new built-ins. Projects that use the same feature identifier can keep their existing feature definitions as overrides. Finally, if the Draft.js types / HTML tags are used but with a different combination, do not enable the new feature definitions to avoid conflicts in storage or editor behaviour.
 
 
 ``register_link_type`` and ``register_embed_type`` methods for rich text tag rewriting have changed

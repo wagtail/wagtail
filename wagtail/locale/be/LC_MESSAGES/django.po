@@ -3,40 +3,50 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Andrei Satsevich, 2023\n"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Мінімальная колькасць элементаў %d"
+msgid "Add Comment"
+msgstr "Дадаць каментар"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максімальную колькасць элементаў %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальная колькасць элементаў %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максімальную колькасць элементаў %(max_num)d"
 
 msgid "Move up"
 msgstr "Падвінуць наверх"
 
 msgid "Move down"
 msgstr "Падвінусь уніз"
+
+msgid "Duplicate"
+msgstr "Дублікат"
 
 msgid "Delete"
 msgstr "Выдаліць"
@@ -60,6 +70,93 @@ msgstr "Пароль"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Уведзены вамі пароль няправільны. Паспрабуйце яшчэ раз."
 
+msgid "Comment"
+msgstr "Каментар"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+msgid "live"
+msgstr "апублікавана"
+
+msgid "has unpublished changes"
+msgstr "мае неапублікаваныя змены"
+
+msgid "first published at"
+msgstr "ўпершыню апублікавана"
+
+msgid "last published at"
+msgstr "апошні раз друкавалася"
+
+msgid "go live date/time"
+msgstr "дата / час публікацыі"
+
+msgid "expiry date/time"
+msgstr "дата / час заканчэння"
+
+msgid "expired"
+msgstr "скончыўся"
+
+msgid "scheduled"
+msgstr "запланаванае"
+
+msgid "draft"
+msgstr "чарнавік"
+
+msgid "live + scheduled"
+msgstr "размешчана + запланаваная"
+
+msgid "live + draft"
+msgstr "апублікавана + чарнавік"
+
+msgid "Default"
+msgstr "Па змаўчанні"
+
+msgid "locked"
+msgstr "заблакавана"
+
+msgid "locked at"
+msgstr "заблякаваны ў"
+
+msgid "locked by"
+msgstr "заблякаваны"
+
+msgid "Add/edit pages you own"
+msgstr "Дадаць / рэдагаваць свае старонкі"
+
+msgid "Bulk delete"
+msgstr "Масавае выдаленне"
+
+msgid "Delete pages with children"
+msgstr "Выдаліць разам з даччынымі старонкамі"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit any page"
+msgstr "Рэдагаваць любую старонку"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Вашы заблякаваныя / разблакаваныя старонкі"
+
+msgid "Publish"
+msgstr "Апублікаваць"
+
+msgid "Publish any page"
+msgstr "Апублікаваць любую старонку"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
+msgid "Unlock any page"
+msgstr "Разблакаваць любую старонку"
+
 msgid "title"
 msgstr "загаловак"
 
@@ -79,12 +176,6 @@ msgstr ""
 msgid "content type"
 msgstr "тып змесціва"
 
-msgid "live"
-msgstr "апублікавана"
-
-msgid "has unpublished changes"
-msgstr "мае неапублікаваныя змены"
-
 msgid "URL path"
 msgstr "шлях URL"
 
@@ -100,50 +191,8 @@ msgstr ""
 "Ці павінна спасылка на гэтую старонку адлюстроўвацца ў аўтаматычна "
 "генераваных меню"
 
-msgid "go live date/time"
-msgstr "дата / час публікацыі"
-
-msgid "expiry date/time"
-msgstr "дата / час заканчэння"
-
-msgid "expired"
-msgstr "скончыўся"
-
-msgid "locked"
-msgstr "заблакавана"
-
-msgid "locked at"
-msgstr "заблякаваны ў"
-
-msgid "locked by"
-msgstr "заблякаваны"
-
-msgid "first published at"
-msgstr "ўпершыню апублікавана"
-
-msgid "last published at"
-msgstr "апошні раз друкавалася"
-
 msgid "latest revision created at"
 msgstr "апошняя версія створана"
-
-msgid "This slug is already in use"
-msgstr "Гэты моцна складаны ўжо выкарыстоўваецца"
-
-msgid "scheduled"
-msgstr "запланаванае"
-
-msgid "draft"
-msgstr "чарнавік"
-
-msgid "live + scheduled"
-msgstr "размешчана + запланаваная"
-
-msgid "live + draft"
-msgstr "апублікавана + чарнавік"
-
-msgid "Default"
-msgstr "Па змаўчанні"
 
 msgid "page"
 msgstr "старонка"
@@ -166,47 +215,11 @@ msgstr "сожержимое JSON"
 msgid "approved go live at"
 msgstr "пацверджана да публікацыі"
 
-msgid "page revision"
-msgstr "версія старонкі"
-
-msgid "page revisions"
-msgstr "версіі старонкі"
-
-msgid "Add/edit pages you own"
-msgstr "Дадаць / рэдагаваць свае старонкі"
-
-msgid "Edit"
-msgstr "Рэдагаваць"
-
-msgid "Edit any page"
-msgstr "Рэдагаваць любую старонку"
-
-msgid "Publish"
-msgstr "Апублікаваць"
-
-msgid "Publish any page"
-msgstr "Апублікаваць любую старонку"
-
-msgid "Bulk delete"
-msgstr "Масавае выдаленне"
-
-msgid "Delete pages with children"
-msgstr "Выдаліць разам з даччынымі старонкамі"
-
-msgid "Lock"
-msgstr "Заблакаваць"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "Вашы заблякаваныя / разблакаваныя старонкі"
-
-msgid "Unlock"
-msgstr "Разблакаваць"
-
-msgid "Unlock any page"
-msgstr "Разблакаваць любую старонку"
-
 msgid "group"
 msgstr "група"
+
+msgid "permission"
+msgstr "права доступу"
 
 msgid "permission type"
 msgstr "тып правоў"
@@ -232,6 +245,9 @@ msgstr "групы"
 msgid "Approve"
 msgstr "Пацвярдзіць"
 
+msgid "comment"
+msgstr "каментар"
+
 msgid "collection"
 msgstr "калекцыя"
 
@@ -243,9 +259,6 @@ msgstr "абмежаванні на прагляд калекцыі"
 
 msgid "collections"
 msgstr "калекцыі"
-
-msgid "permission"
-msgstr "права доступу"
 
 msgid "group collection permission"
 msgstr "права доступу да калекцыі ў гурта"
@@ -349,15 +362,6 @@ msgstr "Вам патрэбен пароль для доступу да гэта
 msgid "Continue"
 msgstr "Працягнуць"
 
-msgid "English"
-msgstr "Англійская"
-
-msgid "French"
-msgstr "Французская"
-
-msgid "German"
-msgstr "Нямецкая"
-
 msgid "Created"
 msgstr "Створаны"
 
@@ -366,12 +370,6 @@ msgstr "Зменена"
 
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"
-
-msgid "Locked"
-msgstr "Заблакавана"
-
-msgid "Unlocked"
-msgstr "Разблакавана"
 
 msgid "Reject"
 msgstr "Адхіліць"

@@ -1,34 +1,59 @@
 @use 'sass:math';
 @use 'sass:color';
 
-header {
-  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
-
-  a {
-    @apply w-text-primary w-underline;
-  }
+.w-header {
+  @apply w-text-text-label;
+  margin-bottom: theme('spacing.8');
 
   h1,
   h2 {
-    @apply w-text-primary;
+    @apply w-text-text-label;
     margin: 0;
   }
 
   h1 {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
+    @apply w-h1;
+    position: relative;
+  }
 
-    &.icon:before {
-      width: 1em;
-      display: none;
-      margin-inline-end: 0.4em;
-      font-size: 1.5em;
+  .w-header__glyph {
+    position: absolute;
+    inset-inline-start: calc(0 - theme('spacing.11'));
+    vertical-align: text-top;
+
+    &.icon {
+      top: 0.125em;
+      max-width: 1em;
+      max-height: 1em;
     }
 
-    span {
-      margin-inline-start: 0.3125rem;
+    &.avatar {
+      margin-inline-start: calc(0 - theme('spacing.2'));
     }
+  }
+
+  .w-header__subtitle {
+    margin-inline-start: theme('spacing[1.5]');
+    font-weight: theme('fontWeight.normal');
+  }
+
+  .w-header__description {
+    font-size: theme('fontSize.18');
+    font-weight: theme('fontWeight.normal');
+  }
+
+  // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
+  // Use w-header--with-padding for headers that don't contain .row elements.
+  &.w-header--with-padding,
+  > .row {
+    padding-top: theme('spacing.2');
+    padding-bottom: theme('spacing.[2.5]');
+    padding-inline-start: 110px;
+    padding-inline-end: theme('spacing.5');
+  }
+
+  &.w-header--merged .w-breadcrumbs {
+    padding-inline-start: $mobile-nav-indent;
   }
 
   .col {
@@ -41,110 +66,31 @@ header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
-    .hasform &:first-child {
-      padding-bottom: 0.5em;
-      float: none;
-    }
   }
 
   .right {
+    display: flex;
+    gap: theme('spacing[2.5]');
     text-align: end;
     float: right;
   }
 
-  .search-form .icon {
-    @include svg-icon(1.3rem);
-    color: color.adjust($color-white, $lightness: -20%);
-    position: absolute;
-    top: 0.3em;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0.5em;
-    inset-inline-start: 0.5em;
-  }
-
   // For case where content below header should merge with it
-  &.merged {
+  &.w-header--merged {
     margin-bottom: 0;
+    padding-bottom: theme('spacing.1');
   }
 
-  &.header-with-breadcrumb {
-    padding-top: 0;
-
-    .breadcrumb {
-      margin-bottom: 1rem;
-      padding-inline-start: math.div(
-        $desktop-nice-padding,
-        2
-      ); // rather than padding-inline-start: revert;
-    }
-  }
-
-  &.no-border {
+  &.w-header--no-border {
     border: 0;
-
-    @include media-breakpoint-down(xs) {
-      // To all hamburger menu to be visible
-      padding-inline-start: 1.6em;
-      padding-inline-end: 1.6em;
-      padding-top: 11px;
-
-      .nice-padding {
-        margin-inline-start: -$desktop-nice-padding;
-      }
-    }
   }
 
-  &.merged.no-border {
+  &.w-header--merged.w-header--no-border {
     padding-bottom: 0;
-  }
-
-  &.no-v-padding {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .button {
-    background-color: $color-teal-darker;
-
-    &:hover {
-      background-color: $color-teal-dark;
-    }
-  }
-
-  label {
-    @include visuallyhidden();
-  }
-
-  input[type='text'],
-  select {
-    border-width: 0;
-
-    &:focus {
-      background-color: $color-white;
-    }
   }
 
   .error-message {
     color: inherit;
-  }
-
-  .fields {
-    margin-top: -0.5em;
-
-    li {
-      padding-bottom: 0;
-    }
-
-    .field {
-      padding: 0;
-    }
-  }
-
-  .field-content {
-    width: auto;
-    padding: 0;
   }
 
   .last-updated {
@@ -162,20 +108,29 @@ header {
     }
 
     a {
-      font-weight: bold;
+      font-weight: theme('fontWeight.bold');
     }
   }
 }
 
-// Media for Windows High Contrast
-@media (forced-colors: $media-forced-colours) {
-  header .field-content {
-    border: 0.1em solid $system-color-link-text;
-  }
-}
-
 @include media-breakpoint-up(sm) {
-  header {
+  .w-header {
+    .row {
+      padding-inline-start: $desktop-nice-padding;
+      padding-inline-end: $desktop-nice-padding;
+      padding-top: theme('spacing.10');
+    }
+
+    &.w-header--merged .w-breadcrumbs {
+      padding-inline-start: 0;
+    }
+
+    .w-header__glyph {
+      &.avatar {
+        margin-inline-start: calc(0 - theme('spacing.9'));
+      }
+    }
+
     .left {
       float: left;
       margin-inline-end: 0;
@@ -195,10 +150,6 @@ header {
       }
     }
 
-    h1.icon:before {
-      display: inline-block;
-    }
-
     .col3 {
       @include column(3);
     }
@@ -214,16 +165,5 @@ header {
     .col9 {
       @include column(9);
     }
-  }
-}
-
-.header-title {
-  @include media-breakpoint-down(xs) {
-    padding-inline-start: $mobile-nav-indent;
-  }
-
-  &-icon {
-    @include svg-icon();
-    margin-inline-end: 0.5em;
   }
 }

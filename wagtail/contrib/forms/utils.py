@@ -2,15 +2,16 @@ from django.contrib.contenttypes.models import ContentType
 
 from wagtail import hooks
 from wagtail.coreutils import safe_snake_case
-from wagtail.models import UserPagePermissionsProxy, get_page_models
+from wagtail.models import get_page_models
+from wagtail.permission_policies.pages import PagePermissionPolicy
 
 _FORM_CONTENT_TYPES = None
 
 
 def get_field_clean_name(label):
     """
-    Converts a user entered field label to a template and JSON safe ascii value to be used
-    as the internal key (clean name) for the field.
+    Converts a user entered field label to a string that is safe to use for both a
+    HTML attribute (field's name) and a JSON key used internally to store the responses.
     """
     return safe_snake_case(label)
 
@@ -18,10 +19,10 @@ def get_field_clean_name(label):
 def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
-        from wagtail.contrib.forms.models import AbstractForm
+        from wagtail.contrib.forms.models import FormMixin
 
         form_models = [
-            model for model in get_page_models() if issubclass(model, AbstractForm)
+            model for model in get_page_models() if issubclass(model, FormMixin)
         ]
 
         _FORM_CONTENT_TYPES = list(
@@ -34,7 +35,9 @@ def get_forms_for_user(user):
     """
     Return a queryset of form pages that this user is allowed to access the submissions for
     """
-    editable_forms = UserPagePermissionsProxy(user).editable_pages()
+    editable_forms = PagePermissionPolicy().instances_user_has_permission_for(
+        user, "change"
+    )
     editable_forms = editable_forms.filter(content_type__in=get_form_types())
 
     # Apply hooks

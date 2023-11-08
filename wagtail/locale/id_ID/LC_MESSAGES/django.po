@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,12 +25,12 @@ msgid "Wagtail core"
 msgstr "Wagtail inti"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Jumlah isi minimum adalah %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Jumlah isi minimum adalah %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Jumlah isi maksimum adalah %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Jumlah isi maksimum adalah %(max_num)d"
 
 msgid "Move up"
 msgstr "Geser ke atas"
@@ -59,6 +59,87 @@ msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "Locked"
+msgstr "Terkunci"
+
+msgid "Unlocked"
+msgstr "Kunci terbuka"
+
+msgid "live"
+msgstr "aktif"
+
+msgid "has unpublished changes"
+msgstr "memiliki perubahan yang belum dipublikasi"
+
+msgid "first published at"
+msgstr "pertama kali dipublikasi"
+
+msgid "last published at"
+msgstr "terakhir kali dipublikasi"
+
+msgid "go live date/time"
+msgstr "tanggal/jam aktif"
+
+msgid "expiry date/time"
+msgstr "tanggal/jam kadaluarsa"
+
+msgid "expired"
+msgstr "kadaluarsa"
+
+msgid "scheduled"
+msgstr "terjadwalkan"
+
+msgid "draft"
+msgstr "konsep"
+
+msgid "live + scheduled"
+msgstr "akitf + terjadwal"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
+
+msgid "Default"
+msgstr "Utama"
+
+msgid "locked"
+msgstr "terkunci"
+
+msgid "locked at"
+msgstr "Terkunci pada"
+
+msgid "locked by"
+msgstr "Dikunci oleh"
+
+msgid "in moderation"
+msgstr "dalam moderasi"
+
+msgid "Add/edit pages you own"
+msgstr "Tambah/ubah halaman anda sendiri"
+
+msgid "Bulk delete"
+msgstr "Hapus dalam jumlah besar"
+
+msgid "Delete pages with children"
+msgstr "Hapus halaman dan turunannya"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Edit any page"
+msgstr "Ubah halaman apapun"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Publish"
+msgstr "Publikasi"
+
+msgid "Publish any page"
+msgstr "Publikasi halaman manapun"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
 msgid "title"
 msgstr "judul"
 
@@ -78,12 +159,6 @@ msgstr ""
 msgid "content type"
 msgstr "tipe konten"
 
-msgid "live"
-msgstr "aktif"
-
-msgid "has unpublished changes"
-msgstr "memiliki perubahan yang belum dipublikasi"
-
 msgid "URL path"
 msgstr "jalur URL"
 
@@ -99,53 +174,8 @@ msgstr ""
 "Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
 "otomatis"
 
-msgid "go live date/time"
-msgstr "tanggal/jam aktif"
-
-msgid "expiry date/time"
-msgstr "tanggal/jam kadaluarsa"
-
-msgid "expired"
-msgstr "kadaluarsa"
-
-msgid "locked"
-msgstr "terkunci"
-
-msgid "locked at"
-msgstr "Terkunci pada"
-
-msgid "locked by"
-msgstr "Dikunci oleh"
-
-msgid "first published at"
-msgstr "pertama kali dipublikasi"
-
-msgid "last published at"
-msgstr "terakhir kali dipublikasi"
-
 msgid "latest revision created at"
 msgstr "revisi terakhir dibuat pada"
-
-msgid "This slug is already in use"
-msgstr "Slug ini telah dipakai"
-
-msgid "scheduled"
-msgstr "terjadwalkan"
-
-msgid "in moderation"
-msgstr "dalam moderasi"
-
-msgid "draft"
-msgstr "konsep"
-
-msgid "live + scheduled"
-msgstr "akitf + terjadwal"
-
-msgid "live + draft"
-msgstr "aktif + konsep"
-
-msgid "Default"
-msgstr "Utama"
 
 msgid "page"
 msgstr "halaman"
@@ -168,41 +198,11 @@ msgstr "JSON konten"
 msgid "approved go live at"
 msgstr "disetujui untuk tampil aktif pada"
 
-msgid "page revision"
-msgstr "revisi halaman"
-
-msgid "page revisions"
-msgstr "daftar revisi halaman"
-
-msgid "Add/edit pages you own"
-msgstr "Tambah/ubah halaman anda sendiri"
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Edit any page"
-msgstr "Ubah halaman apapun"
-
-msgid "Publish"
-msgstr "Publikasi"
-
-msgid "Publish any page"
-msgstr "Publikasi halaman manapun"
-
-msgid "Bulk delete"
-msgstr "Hapus dalam jumlah besar"
-
-msgid "Delete pages with children"
-msgstr "Hapus halaman dan turunannya"
-
-msgid "Lock"
-msgstr "Kunci"
-
-msgid "Unlock"
-msgstr "Buka kunci"
-
 msgid "group"
 msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
 
 msgid "permission type"
 msgstr "jenis izin"
@@ -239,9 +239,6 @@ msgstr "semua batasan penampilan koleksi"
 
 msgid "collections"
 msgstr "koleksi-koleksi"
-
-msgid "permission"
-msgstr "izin"
 
 msgid "group collection permission"
 msgstr "izin grup koleksi"
@@ -341,26 +338,11 @@ msgstr "Anda perlu kata sandi untuk mengakses halaman ini."
 msgid "Continue"
 msgstr "Lanjut"
 
-msgid "English"
-msgstr "Inggris"
-
-msgid "French"
-msgstr "Perancis"
-
-msgid "German"
-msgstr "Jerman"
-
 msgid "Edited"
 msgstr "Telah diubah"
 
 msgid "Unpublish"
 msgstr "Batal Publikasi"
-
-msgid "Locked"
-msgstr "Terkunci"
-
-msgid "Unlocked"
-msgstr "Kunci terbuka"
 
 msgid "Reject"
 msgstr "Tolak"

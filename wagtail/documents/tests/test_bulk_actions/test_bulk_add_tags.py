@@ -12,7 +12,7 @@ def get_tag_list(document):
     return [tag.name for tag in document.tags.all()]
 
 
-class TestBulkAddTags(TestCase, WagtailTestUtils):
+class TestBulkAddTags(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.new_tags = ["first", "second"]
@@ -52,11 +52,9 @@ class TestBulkAddTags(TestCase, WagtailTestUtils):
         )
 
         for document in self.documents:
-            self.assertInHTML(
-                "<li>{document_title}</li>".format(document_title=document.title), html
-            )
+            self.assertInHTML(f"<li>{document.title}</li>", html)
 
-        response = self.client.post(self.url, self.post_data)
+        self.client.post(self.url, self.post_data)
 
         # New tags should not be added to the documents
         for document in self.documents:

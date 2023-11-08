@@ -1,0 +1,41 @@
+.w-minimap__collapse-all {
+  display: none;
+  // Keep the icon at a stable position and reduce the amount of shifting of the button.
+  min-width: 110px;
+  text-align: end;
+  align-items: center;
+  justify-content: space-between;
+  border-color: theme('colors.border-button-small-outline-default');
+  z-index: calc($minimap-z-index + 1);
+
+  &.button-secondary {
+    // Important for overlap with "Comment notifications" switch.
+    background-color: theme('colors.surface-page');
+  }
+
+  @include media-breakpoint-up(sm) {
+    display: inline-flex;
+  }
+
+  &--inside {
+    display: inline-flex;
+  }
+
+  .icon {
+    width: theme('spacing[2.5]');
+    height: theme('spacing[2.5]');
+    margin-inline-end: theme('spacing[2.5]');
+  }
+
+  &--floating {
+    position: absolute;
+    top: $minimap-top-offset;
+    inset-inline-end: 0;
+    margin-top: theme('spacing.3');
+    margin-inline-end: theme('spacing.3');
+
+    .side-panel-open & {
+      inset-inline-end: var(--side-panel-width, 0);
+    }
+  }
+}

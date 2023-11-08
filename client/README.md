@@ -11,7 +11,7 @@ npm install wagtail
 ```javascript
 import { Explorer } from 'wagtail';
 // [...]
-<Explorer />
+<Explorer />;
 ```
 
 ## Development
@@ -23,8 +23,8 @@ npm run start
 
 You will also need:
 
-- [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) – React developer tools integrated into Chrome.
-- [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) – Redux developer tools integrated into Chrome.
+-   [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) – React developer tools integrated into Chrome.
+-   [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) – Redux developer tools integrated into Chrome.
 
 ## Releases
 

@@ -28,9 +28,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('custom_form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -77,9 +77,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -93,7 +93,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
@@ -136,9 +136,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -160,7 +160,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
@@ -209,9 +209,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -235,7 +235,7 @@ class FormPage(AbstractEmailForm):
         return CustomFormSubmission
 
     def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
+        return self.get_submission_class().objects.create(
             form_data=form.cleaned_data,
             page=self, user=form.user
         )
@@ -302,9 +302,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -444,9 +444,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -570,9 +570,9 @@ class FormPage(AbstractEmailForm):
         return super().render_landing_page(request, form_submission, *args, **kwargs)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname='full'),
+        FieldPanel('intro'),
         InlinePanel('form_fields'),
-        FieldPanel('thank_you_text', classname='full'),
+        FieldPanel('thank_you_text'),
         FieldPanel('thank_you_page'),
         MultiFieldPanel([
             FieldRowPanel([
@@ -630,7 +630,7 @@ class FormPage(AbstractEmailForm):
 First, make the new field type available in the page editor by changing your `FormField` model.
 
 -   Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
--   Each choice must contain a unique key and a human readable name of the field, e.g. `('slug', 'URL Slug')`
+-   Each choice must contain a unique key and a human readable name of the field, for example `('slug', 'URL Slug')`
 -   Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
 -   You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
@@ -638,7 +638,7 @@ Then, create and use a new form builder class.
 
 -   Define a new form builder class that extends the `FormBuilder` class.
 -   Add a method that will return a created Django form field for the new field type.
--   Its name must be in the format: `create_<field_type_key>_field`, e.g. `create_slug_field`
+-   Its name must be in the format: `create_<field_type_key>_field`, for example `create_slug_field`
 -   Override the `form_builder` attribute in your form page model to use your new form builder class.
 
 Example:
@@ -760,4 +760,64 @@ class FormPage(AbstractEmailForm):
         subject = f"{self.subject} - {submitted_date_str}"
 
         send_mail(subject, self.render_email(form), addresses, self.from_address,)
+```
+
+## Custom `clean_name` generation
+
+-   Each time a new `FormField` is added a `clean_name` also gets generated based on the user entered `label`.
+-   `AbstractFormField` has a method `get_field_clean_name` to convert the label into a HTML valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
+-   The resolved `clean_name` is also used as the form field name in rendered HTML forms.
+-   Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
+-   This method gets called on creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
+-   This method gets called for form previews and also validation of duplicate labels.
+
+```python
+    import uuid
+
+    from django.db import models
+    from modelcluster.fields import ParentalKey
+
+    # ... other field and edit_handler imports
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+
+
+    class FormField(AbstractFormField):
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+
+        def get_field_clean_name(self):
+            clean_name = super().get_field_clean_name()
+            id = str(uuid.uuid4())[:8] # short uuid
+            return f"{id}_{clean_name}"
+
+
+    class FormPage(AbstractEmailForm):
+        # ... page definitions
+```
+
+(form_builder_mixins)=
+
+## Using `FormMixin` or `EmailFormMixin` to use with other `Page` subclasses
+
+If you need to add form behaviour while extending an additional class, you can use the base mixins instead of the abstract modals.
+
+```python
+from wagtail.models import Page
+from wagtail.contrib.forms.models import EmailFormMixin, FormMixin
+
+
+class BasePage(Page):
+    """
+    A shared base page used throughout the project.
+    """
+
+    # ...
+
+class FormPage(FormMixin, BasePage):
+    intro = RichTextField(blank=True)
+    # ...
+
+class EmailFormPage(EmailFormMixin, FormMixin, BasePage):
+    intro = RichTextField(blank=True)
+    # ...
+
 ```

@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 window.$ = $;
 
 import '../../admin/telepath/telepath';
@@ -65,6 +66,8 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   let testStrings;
   let testValue;
   let handsontableConstructorMock;
+  let renderMock;
+  let updateSettingsMock;
 
   // Call this to render the table block with the current settings
   const render = () => {
@@ -81,10 +84,24 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
   beforeEach(() => {
     handsontableConstructorMock = jest.fn();
-    window.Handsontable = (...args) => {
-      handsontableConstructorMock(...args);
-    };
-    window.Handsontable.prototype.render = jest.fn();
+    renderMock = jest.fn();
+    updateSettingsMock = jest.fn();
+
+    class HandsontableMock {
+      constructor(...args) {
+        handsontableConstructorMock(...args);
+      }
+
+      render() {
+        renderMock();
+      }
+
+      updateSettings(opts) {
+        updateSettingsMock(opts);
+      }
+    }
+
+    window.Handsontable = HandsontableMock;
 
     // Reset options, strings, and value for each test
     testOptions = JSON.parse(JSON.stringify(TEST_OPTIONS));
@@ -128,10 +145,12 @@ describe('telepath: wagtail.widgets.TableInput', () => {
     expect(handsontableConstructorMock.mock.calls[0][1].stretchH).toBe('all');
   });
 
-  test('Handsontable.render is called', () => {
-    render();
-    expect(window.Handsontable.prototype.render.mock.calls.length).toBe(1);
-    expect(window.Handsontable.prototype.render.mock.calls[0].length).toBe(0);
+  test('Handsontable.render is called on window.load', () => {
+    window.dispatchEvent(new Event('load'));
+    // Note: checking that render() was called, rather that it was called once
+    // dispatchEvent seems to trigger the 'load' event twice.
+    expect(renderMock).toHaveBeenCalled();
+    expect(renderMock.mock.calls[0].length).toBe(0);
   });
 
   test('translation', () => {

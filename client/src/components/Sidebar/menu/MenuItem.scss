@@ -1,28 +1,30 @@
-// stylelint-disable declaration-no-important
 .sidebar-menu-item {
   $root: &;
   @include transition(border-color $menu-transition-duration ease);
   position: relative;
 
   &__link {
-    @apply w-text-14;
+    @apply w-text-14 w-leading-none w-transition;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease
     );
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
-    box-sizing: border-box;
     white-space: nowrap;
     border-inline-start: 3px solid transparent;
+    border-inline-end: 3px solid transparent;
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
     text-align: start;
-    color: $color-menu-text;
-    padding: 11px 20px;
+    color: theme('colors.text-label-menus-default');
+    padding: 13px 15px 13px 20px;
     font-weight: 400;
+    overflow: visible;
 
     // Note, font-weights lower than normal,
     // and font-size smaller than 1em (80% ~= 12.8px),
@@ -30,14 +32,18 @@
     // making the text semi-transparent
     &:hover,
     &:focus {
-      color: $color-white;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      color: theme('colors.text-label-menus-active');
+      text-shadow: -1px -1px 0 theme('colors.black-35');
     }
 
     &:before {
+      width: 1rem;
+      height: 1rem;
       font-size: 1rem;
-      vertical-align: -15%;
-      margin-inline-end: 0.5em;
+      display: flex;
+      align-items: center;
+      // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+      margin: 0.046875rem 0;
     }
 
     // only really used for spinners and settings menu
@@ -45,57 +51,75 @@
       font-size: 1.5em;
       margin: 0;
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0.5em;
       inset-inline-end: 0.5em;
       top: 0.5em;
-      margin-top: 0;
-    }
-
-    // Disable icon margin, this is instead applied to the left of the .menuitem-label
-    // This is because SVG icons and legacy icons apply this margin differently,
-    // we could remove this override when we remove legacy icons
-    .icon {
-      margin-inline-end: 0 !important;
     }
   }
 
   &--in-sub-menu {
-    @apply hover:w-bg-primary;
-
-    #{$root}__link {
+    #{$root}__link,
+    .menuitem-label {
+      @apply w-leading-tight;
       // Links inside a submenu should have normal wrapping
       white-space: normal;
+      align-items: flex-start;
     }
   }
 
   &--active {
-    @apply w-bg-primary-200;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    @apply w-bg-surface-menu-item-active;
+    text-shadow: -1px -1px 0 theme('colors.black-35');
 
     > a {
-      border-inline-start-color: $color-salmon;
-      color: $color-white;
+      color: theme('colors.text-label-menus-active');
     }
   }
+
+  .w-dismissible-badge--count {
+    @apply w-absolute w-top-1 w-left-7;
+    text-shadow: none;
+  }
+}
+
+.menuitem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
-  margin-inline-start: 0.5em;
+  margin-inline-start: 0.875rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .sidebar--slim {
   .sidebar-menu-item {
     .menuitem-label {
-      opacity: 0;
+      @apply w-sr-only;
+    }
+  }
+
+  .sidebar-menu-item__link {
+    margin-inline-start: auto;
+    display: inline-flex;
+
+    .sidebar-sub-menu-trigger-icon {
+      margin-inline-start: 0;
     }
   }
 
   .sidebar-menu-item--in-sub-menu {
     .menuitem-label {
-      opacity: 1;
+      @apply w-not-sr-only;
+      margin-inline-start: 1rem;
+    }
+
+    .sidebar-menu-item__link {
+      justify-content: flex-start;
     }
   }
 }

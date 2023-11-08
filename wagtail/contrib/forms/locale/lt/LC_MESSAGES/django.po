@@ -4,14 +4,16 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017-2018\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Naglis Jonaitis, 2022\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,10 +23,6 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
-#, python-format
-msgid "%s submissions"
-msgstr "%s pateikimas"
-
 msgid "Date from"
 msgstr "Data nuo"
 
@@ -32,8 +30,11 @@ msgid "Date to"
 msgstr "Data iki"
 
 #, python-format
-msgid "There is another field with the label %s, please change one of them."
-msgstr "Yra kitas laukas su etikete %s, prašome pakeisti vieną iš jų."
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr ""
+"Yra kitas laukas su etikete %(label_name)s, prašome pakeisti vieną iš jų."
 
 msgid "Single line text"
 msgstr "Vienos linijos tekstas"
@@ -98,26 +99,17 @@ msgstr "būtinas"
 msgid "choices"
 msgstr "pasirinkimai"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Kableliais atskirtas pasirinkimų sąrašas. Tinka tik žymimiesiems langeliams, "
-"vieno pasirinkimo langeliams ir išsiskleidžiantiems sąrašams."
-
 msgid "default value"
 msgstr "numatytoji reikšmė"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Numatytoji reikšmė. Kableliais atskirtos reikšmės palaikomos žymimiesiems "
-"langeliams."
 
 msgid "help text"
 msgstr "pagalbinis tekstas"
 
 msgid "Submission date"
 msgstr "Pateikimo data"
+
+msgid "Form"
+msgstr "Forma"
 
 msgid "to address"
 msgstr "adresui"
@@ -136,68 +128,24 @@ msgid "subject"
 msgstr "tema"
 
 #, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s pateikimas"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Ištrinti formos duomenis %(title)s"
 
 msgid "Delete form data"
 msgstr "Ištrinti formos duomenis"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Ar tikrai norite ištrinti šį formos pateikimą?"
-msgstr[1] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-msgstr[2] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-msgstr[3] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-
 msgid "Delete"
 msgstr "Ištrinti"
-
-msgid "Total submissions"
-msgstr "Viso pateikimų"
-
-msgid "Latest submission"
-msgstr "Paskutinis pateikimas"
 
 msgid "Forms"
 msgstr "Formos"
 
 msgid "Pages"
 msgstr "Puslapiai"
-
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "%(form_title)s pateikimai"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Formos duomenys <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtras"
-
-msgid "Download XLSX"
-msgstr "Parsiųsti XLSX"
-
-msgid "Download CSV"
-msgstr "Parsisiųsti CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
 
 msgid "Title"
 msgstr "Pavadinimas"
@@ -208,8 +156,28 @@ msgstr "Kilmė"
 msgid "Delete selected submissions"
 msgstr "Ištrinti pasirinktus pateikimus"
 
+msgid "Total submissions"
+msgstr "Viso pateikimų"
+
+msgid "Latest submission"
+msgstr "Paskutinis pateikimas"
+
 msgid "No form pages have been created."
 msgstr "Jokie formų puslapiai nebuvo sukurti."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s pateikimai"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
+
+msgid "Filter"
+msgstr "Filtras"
+
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
 
 #, python-format
 msgid "One submission has been deleted."

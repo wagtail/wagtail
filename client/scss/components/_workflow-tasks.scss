@@ -6,12 +6,11 @@
 
   &__task {
     display: inline-block;
-    background-color: #f8ffff;
-    border: 2px solid #7ebebe;
+    background-color: theme('colors.surface-page');
+    border: 2px solid theme('colors.border-button-outline-default');
     border-radius: 5px;
-    color: #007d7e;
-    box-sizing: border-box;
-    width: $task-width;
+    color: theme('colors.text-link-default');
+    min-width: $task-width;
     height: $task-height;
     margin: 7px;
     padding-inline-start: 9px;
@@ -19,12 +18,12 @@
   }
 
   &__step {
-    font-size: 10px;
-    margin-top: 3px;
+    font-size: 0.625rem;
+    margin-top: 0.1875rem;
   }
 
   &__name {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     margin: 0;
 

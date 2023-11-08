@@ -1,6 +1,8 @@
 import collections
+import itertools
 import json
 import re
+import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -15,7 +17,9 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 __all__ = [
     "BaseBlock",
@@ -36,7 +40,7 @@ class BaseBlock(type):
     def __new__(mcs, name, bases, attrs):
         meta_class = attrs.pop("Meta", None)
 
-        cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
+        cls = super().__new__(mcs, name, bases, attrs)
 
         # Get all the Meta classes from all the bases
         meta_class_bases = [meta_class] + [
@@ -69,7 +73,7 @@ class Block(metaclass=BaseBlock):
     def __new__(cls, *args, **kwargs):
         # adapted from django.utils.deconstruct.deconstructible; capture the arguments
         # so that we can return them in the 'deconstruct' method
-        obj = super(Block, cls).__new__(cls)
+        obj = super().__new__(cls)
         obj._constructor_args = (args, kwargs)
         return obj
 
@@ -206,10 +210,13 @@ class Block(metaclass=BaseBlock):
         )
         return context
 
-    def get_template(self, context=None):
+    def get_template(self, value=None, context=None):
         """
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
+
+        value contains the current value of the block, allowing overriden methods to
+        select the proper template based on the actual block value.
         """
         return getattr(self.meta, "template", None)
 
@@ -219,7 +226,16 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        template = self.get_template(context=context)
+        args = {"context": context}
+        if accepts_kwarg(self.get_template, "value"):
+            args["value"] = value
+        else:
+            warnings.warn(
+                f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
+                RemovedInWagtail70Warning,
+            )
+
+        template = self.get_template(**args)
         if not template:
             return self.render_basic(value, context=context)
 
@@ -248,6 +264,21 @@ class Block(metaclass=BaseBlock):
         Returns a list of strings containing text content within this block to be used in a search engine.
         """
         return []
+
+    def extract_references(self, value):
+        return []
+
+    def get_block_by_content_path(self, value, path_elements):
+        """
+        Given a list of elements from a content path, retrieve the block at that path
+        as a BoundBlock object, or None if the path does not correspond to a valid block.
+        """
+        # In the base case, where a block has no concept of children, the only valid path is
+        # the empty one (which refers to the current block).
+        if path_elements:
+            return None
+        else:
+            return self.bind(value)
 
     def check(self, **kwargs):
         """
@@ -353,7 +384,7 @@ class Block(metaclass=BaseBlock):
         try:
             path = module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = "%s.%s" % (module_name, name)
+            path = f"{module_name}.{name}"
 
         return (
             path,
@@ -446,7 +477,7 @@ class BoundBlock:
         return self.block.render(self.value)
 
     def __repr__(self):
-        return "<block %s: %r>" % (
+        return "<block {}: {!r}>".format(
             self.block.name or type(self.block).__name__,
             self.value,
         )
@@ -470,9 +501,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         current_blocks.sort(key=lambda x: x[1].creation_counter)
         attrs["declared_blocks"] = collections.OrderedDict(current_blocks)
 
-        new_class = super(DeclarativeSubBlocksMetaclass, mcs).__new__(
-            mcs, name, bases, attrs
-        )
+        new_class = super().__new__(mcs, name, bases, attrs)
 
         # Walk through the MRO, collecting all inherited sub-blocks, to make
         # the combined `base_blocks`.
@@ -531,13 +560,15 @@ class BlockWidget(forms.Widget):
         value_json = json.dumps(self.block_def.get_form_state(value))
 
         if errors:
-            errors_json = json.dumps(self.js_context.pack(errors.as_data()))
+            # errors is expected to be an ErrorList consisting of a single validation error
+            error = errors.as_data()[0]
+            error_json = json.dumps(get_error_json_data(error))
         else:
-            errors_json = "[]"
+            error_json = "null"
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-errors="{errors_json}"></div>
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
                 <script>
                     initBlockWidget('{id}');
                 </script>
@@ -545,7 +576,7 @@ class BlockWidget(forms.Widget):
             id=name,
             block_json=self.block_json,
             value_json=value_json,
-            errors_json=errors_json,
+            error_json=error_json,
         )
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -598,11 +629,39 @@ class BlockField(forms.Field):
         )
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=None)
 def get_help_icon():
     return render_to_string(
-        "wagtailadmin/shared/icon.html", {"name": "help", "class_name": "default"}
+        "wagtailadmin/shared/icon.html", {"name": "help", "classname": "default"}
     )
+
+
+def get_error_json_data(error):
+    """
+    Translate a ValidationError instance raised against a block (which may potentially be a
+    ValidationError subclass specialised for a particular block type) into a JSON-serialisable dict
+    consisting of one or both of:
+    messages: a list of error message strings to be displayed against the block
+    blockErrors: a structure specific to the block type, containing further error objects in this
+        format to be displayed against this block's children
+    """
+    if hasattr(error, "as_json_data"):
+        return error.as_json_data()
+    else:
+        return {"messages": error.messages}
+
+
+def get_error_list_json_data(error_list):
+    """
+    Flatten an ErrorList instance containing any number of ValidationErrors
+    (which may themselves contain multiple messages) into a list of error message strings.
+    This does not consider any other properties of ValidationError other than `message`,
+    so should not be used where ValidationError subclasses with nested block errors may be
+    present.
+    (In terms of StreamBlockValidationError et al: it's valid for use on non_block_errors
+    but not block_errors)
+    """
+    return list(itertools.chain(*(err.messages for err in error_list.as_data())))
 
 
 DECONSTRUCT_ALIASES = {

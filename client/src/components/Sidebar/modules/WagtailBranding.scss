@@ -1,4 +1,5 @@
 // stylelint-disable declaration-no-important
+$logo-size: 110px;
 
 // Wagging animation
 @keyframes tail-wag {
@@ -16,27 +17,27 @@
   position: relative;
   display: block;
   align-items: center;
-  color: #aaa;
   -webkit-font-smoothing: auto;
-  margin: 4em auto 1.8em;
+  margin: theme('spacing.slim-header') auto theme('spacing.11');
   text-align: center;
-  width: 100px;
-  height: 100px;
-  transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
-    width $menu-transition-duration ease, height $menu-transition-duration ease,
+  width: $logo-size;
+  height: $logo-size;
+  transition:
+    transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
+    width $menu-transition-duration ease,
+    height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
-  box-sizing: border-box;
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
-    margin: 1.8em auto 2.5em;
+    margin-top: 0.5rem;
   }
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
     @include show-focus-outline-inside();
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 110px;
   }
 
   // Remove background on 404 page
@@ -49,7 +50,6 @@
     &:hover {
       transition: transform 1.2s ease;
 
-      // stylelint-disable max-nesting-depth
       [data-part='tail'] {
         animation: tail-wag 0.1s alternate;
         animation-iteration-count: infinite;
@@ -68,10 +68,10 @@
 
   // Bird wrapper
   &__icon-wrapper {
-    @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
+    @apply w-bg-white-15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
-    width: 100px;
-    height: 100px;
+    width: $logo-size;
+    height: $logo-size;
     border-radius: 50%;
 
     .sidebar--slim & {
@@ -90,7 +90,6 @@
 .sidebar-custom-branding {
   display: block;
   align-items: center;
-  color: #aaa;
   -webkit-font-smoothing: auto;
   position: relative;
   margin: 2em auto;
@@ -99,7 +98,7 @@
   transition: padding $menu-transition-duration ease;
 
   &:hover {
-    color: $color-white;
+    color: theme('colors.text-label-menus-active');
   }
 
   @at-root .sidebar--slim #{&} {

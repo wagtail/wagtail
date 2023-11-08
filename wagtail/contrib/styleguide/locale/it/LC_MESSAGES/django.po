@@ -5,20 +5,22 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-07-18 15:24+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: giammi <gian-maria.daffre@giammi.org>, 2018\n"
-"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail style guide"
 msgstr "Guida di stile Wagtail"
@@ -31,9 +33,6 @@ msgstr "Salva"
 
 msgid "Delete image"
 msgstr "Elimina immagine"
-
-msgid "Home"
-msgstr "Home"
 
 msgid "Search something"
 msgstr "Cerca qualcosa"

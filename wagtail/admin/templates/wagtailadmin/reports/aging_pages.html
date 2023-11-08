@@ -31,19 +31,13 @@
                             {% i18n_enabled as show_locale_labels %}
                             {% if show_locale_labels %}
                                 {% locale_label_from_id page.locale_id as locale_label %}
-                                <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                {% status locale_label classname="w-status--label" %}
                             {% endif %}
                         </td>
                         <td class="status" valign="top">
                             {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                         </td>
-                        <td class="updated" valign="top">
-                            <div class="human-readable-date" title="{{ page.last_published_at|date:'DATETIME_FORMAT' }}">
-                                {% blocktrans trimmed with time_period=page.last_published_at|timesince %}
-                                    {{ time_period }} ago
-                                {% endblocktrans %}
-                            </div>
-                        </td>
+                        <td class="updated" valign="top">{% human_readable_date page.last_published_at %}</td>
                         <td valign="top">
                             {% include "wagtailadmin/shared/user_avatar.html" with user=page.last_published_by username=page.last_published_by_user %}
                         </td>

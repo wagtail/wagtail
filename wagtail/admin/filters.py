@@ -1,14 +1,10 @@
 import django_filters
+from django import forms
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.admin.widgets import (
-    AdminDateInput,
-    BooleanButtonSelect,
-    ButtonSelect,
-    FilteredSelect,
-)
+from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_type_label
 
 
@@ -96,7 +92,7 @@ class WagtailFilterSet(django_filters.FilterSet):
         filter_class, params = super().filter_for_lookup(field, lookup_type)
 
         if filter_class == django_filters.ChoiceFilter:
-            params.setdefault("widget", ButtonSelect)
+            params.setdefault("widget", forms.RadioSelect)
             params.setdefault("empty_label", _("All"))
 
         elif filter_class in [django_filters.DateFilter, django_filters.DateTimeFilter]:
@@ -106,7 +102,7 @@ class WagtailFilterSet(django_filters.FilterSet):
             params.setdefault("widget", DateRangePickerWidget)
 
         elif filter_class == django_filters.BooleanFilter:
-            params.setdefault("widget", BooleanButtonSelect)
+            params.setdefault("widget", BooleanRadioSelect)
 
         return filter_class, params
 

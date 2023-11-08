@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use 'sass:math';
+
+$select-size: $text-input-height;
+$chevron-width: 0.375rem;
+$chevron-height: 0.375rem;
+$chevron-top-offset: math.div($select-size - $chevron-height, 2);
+$chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
+
+@mixin select-arrow() {
+  background-image: linear-gradient(
+      45deg,
+      transparent 50%,
+      theme('colors.text-label') 33%,
+      theme('colors.text-label') 66%,
+      transparent 66%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 50%,
+      theme('colors.text-label') 33%,
+      theme('colors.text-label') 66%,
+      transparent 66%
+    );
+  background-position:
+    calc(100% - $chevron-top-offset - $chevron-width) $chevron-top-offset,
+    calc(100% - $chevron-inline-end-offset) $chevron-top-offset;
+  background-size:
+    $chevron-width $chevron-width,
+    $chevron-width $chevron-width;
+  background-repeat: no-repeat;
+}
+
+select {
+  @include input-base();
+  @include select-arrow();
+  @apply w-body-text-large;
+  // Firefox workaround – Set a large line height (but smaller than min height) so the field’s text has enough top padding.
+  line-height: 2.2;
+  min-height: $select-size;
+  padding: 0 theme('spacing.5');
+  padding-inline-end: $select-size;
+  // Prevent the element from overflowing the container.
+  max-width: 100%;
+
+  @media (forced-colors: active) {
+    appearance: auto;
+  }
+}
+
+select[multiple] {
+  background-image: none;
+  min-height: theme('spacing.40');
+  padding: 0;
+
+  option {
+    padding: 0 theme('spacing.5');
+  }
+}

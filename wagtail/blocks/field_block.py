@@ -1,8 +1,9 @@
 import datetime
+from decimal import Decimal
 
 from django import forms
+from django.db.models import Model
 from django.db.models.fields import BLANK_CHOICE_DASH
-from django.forms.fields import CallableChoiceIterator
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -12,10 +13,21 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
-from wagtail.rich_text import RichText, get_text_for_indexing
+from wagtail.rich_text import (
+    RichText,
+    RichTextMaxLengthValidator,
+    extract_references_from_rich_text,
+    get_text_for_indexing,
+)
 from wagtail.telepath import Adapter, register
 
 from .base import Block
+
+try:
+    from django.utils.choices import CallableChoiceIterator
+except ImportError:
+    # DJANGO_VERSION < 5.0
+    from django.forms.fields import CallableChoiceIterator
 
 
 class FieldBlock(Block):
@@ -81,10 +93,9 @@ class FieldBlockAdapter(Adapter):
 
     def js_args(self, block):
         classname = [
-            "field",
-            camelcase_to_underscore(block.field.__class__.__name__),
-            "widget-" + camelcase_to_underscore(block.field.widget.__class__.__name__),
-            "fieldname-" + block.name,
+            "w-field",
+            f"w-field--{camelcase_to_underscore(block.field.__class__.__name__)}",
+            f"w-field--{camelcase_to_underscore(block.field.widget.__class__.__name__)}",
         ]
 
         form_classname = getattr(block.meta, "form_classname", "")
@@ -135,10 +146,12 @@ class CharBlock(FieldBlock):
         max_length=None,
         min_length=None,
         validators=(),
+        search_index=True,
         **kwargs,
     ):
         # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively
         # (via 'label' and 'default')
+        self.search_index = search_index
         self.field = forms.CharField(
             required=required,
             help_text=help_text,
@@ -149,7 +162,7 @@ class CharBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)]
+        return [force_str(value)] if self.search_index else []
 
 
 class TextBlock(FieldBlock):
@@ -160,6 +173,7 @@ class TextBlock(FieldBlock):
         rows=1,
         max_length=None,
         min_length=None,
+        search_index=True,
         validators=(),
         **kwargs,
     ):
@@ -171,6 +185,7 @@ class TextBlock(FieldBlock):
             "validators": validators,
         }
         self.rows = rows
+        self.search_index = search_index
         super().__init__(**kwargs)
 
     @cached_property
@@ -182,7 +197,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)]
+        return [force_str(value)] if self.search_index else []
 
     class Meta:
         icon = "pilcrow"
@@ -218,7 +233,7 @@ class FloatBlock(FieldBlock):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        icon = "plus-inverse"
+        icon = "decimal"
 
 
 class DecimalBlock(FieldBlock):
@@ -245,8 +260,14 @@ class DecimalBlock(FieldBlock):
         )
         super().__init__(*args, **kwargs)
 
+    def to_python(self, value):
+        if value is None:
+            return value
+        else:
+            return Decimal(value)
+
     class Meta:
-        icon = "plus-inverse"
+        icon = "decimal"
 
 
 class RegexBlock(FieldBlock):
@@ -274,7 +295,7 @@ class RegexBlock(FieldBlock):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        icon = "code"
+        icon = "regex"
 
 
 class URLBlock(FieldBlock):
@@ -297,7 +318,7 @@ class URLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     class Meta:
-        icon = "site"
+        icon = "link-external"
 
 
 class BooleanBlock(FieldBlock):
@@ -453,7 +474,7 @@ class IntegerBlock(FieldBlock):
         super().__init__(**kwargs)
 
     class Meta:
-        icon = "plus-inverse"
+        icon = "placeholder"
 
 
 class BaseChoiceBlock(FieldBlock):
@@ -465,6 +486,7 @@ class BaseChoiceBlock(FieldBlock):
         default=None,
         required=True,
         help_text=None,
+        search_index=True,
         widget=None,
         validators=(),
         **kwargs,
@@ -472,6 +494,7 @@ class BaseChoiceBlock(FieldBlock):
 
         self._required = required
         self._default = default
+        self.search_index = search_index
 
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
@@ -538,7 +561,7 @@ class BaseChoiceBlock(FieldBlock):
             for v1, v2 in local_choices:
                 if isinstance(v2, (list, tuple)):
                     # this is a named group, and v2 is the value list
-                    has_blank_choice = any([value in ("", None) for value, label in v2])
+                    has_blank_choice = any(value in ("", None) for value, label in v2)
                     if has_blank_choice:
                         break
                 else:
@@ -582,6 +605,8 @@ class ChoiceBlock(BaseChoiceBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
+        if not self.search_index:
+            return []
         text_value = force_str(value)
         for k, v in self.field.choices:
             if isinstance(v, (list, tuple)):
@@ -616,6 +641,8 @@ class MultipleChoiceBlock(BaseChoiceBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
+        if not self.search_index:
+            return []
         content = []
         text_value = force_str(value)
         for k, v in self.field.choices:
@@ -638,9 +665,15 @@ class RichTextBlock(FieldBlock):
         help_text=None,
         editor="default",
         features=None,
+        max_length=None,
         validators=(),
+        search_index=True,
         **kwargs,
     ):
+        if max_length is not None:
+            validators = list(validators) + [
+                RichTextMaxLengthValidator(max_length),
+            ]
         self.field_options = {
             "required": required,
             "help_text": help_text,
@@ -648,6 +681,7 @@ class RichTextBlock(FieldBlock):
         }
         self.editor = editor
         self.features = features
+        self.search_index = search_index
         super().__init__(**kwargs)
 
     def get_default(self):
@@ -685,12 +719,18 @@ class RichTextBlock(FieldBlock):
         return RichText(value)
 
     def get_searchable_content(self, value):
-        # Strip HTML tags to prevent search backend from indexing them
+        if not self.search_index:
+            return []
         source = force_str(value.source)
+        # Strip HTML tags to prevent search backend from indexing them
         return [get_text_for_indexing(source)]
 
+    def extract_references(self, value):
+        # Extracts any references to images/pages/embeds
+        yield from extract_references_from_rich_text(force_str(value.source))
+
     class Meta:
-        icon = "doc-full"
+        icon = "pilcrow"
 
 
 class RawHTMLBlock(FieldBlock):
@@ -745,9 +785,13 @@ class ChooserBlock(FieldBlock):
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
 
     @cached_property
+    def model_class(self):
+        return resolve_model_string(self.target_model)
+
+    @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all(),
+            queryset=self.model_class.objects.all(),
             widget=self.widget,
             required=self._required,
             validators=self._validators,
@@ -760,8 +804,8 @@ class ChooserBlock(FieldBlock):
             return value
         else:
             try:
-                return self.target_model.objects.get(pk=value)
-            except self.target_model.DoesNotExist:
+                return self.model_class.objects.get(pk=value)
+            except self.model_class.DoesNotExist:
                 return None
 
     def bulk_to_python(self, values):
@@ -769,7 +813,7 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        objects = self.target_model.objects.in_bulk(values)
+        objects = self.model_class.objects.in_bulk(values)
         return [
             objects.get(id) for id in values
         ]  # Keeps the ordering the same as in values.
@@ -783,13 +827,16 @@ class ChooserBlock(FieldBlock):
 
     def value_from_form(self, value):
         # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
-        if value is None or isinstance(value, self.target_model):
+        if value is None or isinstance(value, self.model_class):
             return value
         else:
             try:
-                return self.target_model.objects.get(pk=value)
-            except self.target_model.DoesNotExist:
+                return self.model_class.objects.get(pk=value)
+            except self.model_class.DoesNotExist:
                 return None
+
+    def get_form_state(self, value):
+        return self.widget.get_value_data(value)
 
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
@@ -799,9 +846,13 @@ class ChooserBlock(FieldBlock):
         # type) so we convert our instance back to an ID here. It means we have a wasted round-trip to
         # the database when ModelChoiceField.clean promptly does its own lookup, but there's no easy way
         # around that...
-        if isinstance(value, self.target_model):
+        if isinstance(value, self.model_class):
             value = value.pk
         return super().clean(value)
+
+    def extract_references(self, value):
+        if value is not None and issubclass(self.model_class, Model):
+            yield self.model_class, str(value.pk), "", ""
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the
@@ -887,7 +938,7 @@ class PageChooserBlock(ChooserBlock):
 
             for target_model in self.target_models:
                 opts = target_model._meta
-                target_models.append("{}.{}".format(opts.app_label, opts.object_name))
+                target_models.append(f"{opts.app_label}.{opts.object_name}")
 
             kwargs.pop("target_model", None)
             kwargs["page_type"] = target_models
@@ -895,7 +946,7 @@ class PageChooserBlock(ChooserBlock):
         return name, args, kwargs
 
     class Meta:
-        icon = "redirect"
+        icon = "doc-empty-inverse"
 
 
 # Ensure that the blocks defined here get deconstructed as wagtailcore.blocks.FooBlock

@@ -1,13 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {
-  ImageModalWorkflowSource,
-  EmbedModalWorkflowSource,
-  LinkModalWorkflowSource,
-  DocumentModalWorkflowSource,
-} from './ModalWorkflowSource';
-import * as DraftUtils from '../DraftUtils';
 import { DraftUtils as DraftailUtils } from 'draftail';
 import {
   EditorState,
@@ -16,6 +9,13 @@ import {
   RichUtils,
   Modifier,
 } from 'draft-js';
+import {
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource,
+} from './ModalWorkflowSource';
+import * as DraftUtils from '../DraftUtils';
 
 global.ModalWorkflow = () => {};
 
@@ -49,7 +49,7 @@ describe('ModalWorkflowSource', () => {
       expect(imageSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
-        responses: { imageChosen: imageSource.onChosen },
+        responses: { chosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -62,7 +62,7 @@ describe('ModalWorkflowSource', () => {
           format: 'left',
           alt_text: 'alt',
         },
-        responses: { imageChosen: imageSource.onChosen },
+        responses: { chosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -90,7 +90,7 @@ describe('ModalWorkflowSource', () => {
       expect(documentSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/documents/chooser/',
         urlParams: {},
-        responses: { documentChosen: documentSource.onChosen },
+        responses: { chosen: documentSource.onChosen },
         onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -156,7 +156,7 @@ describe('ModalWorkflowSource', () => {
           title: 'Test',
           alt: 'Test',
           class: 'richtext-image right',
-          edit_link: '/admin/images/53/',
+          edit_url: '/admin/images/53/',
           format: 'right',
           preview: {
             url: '/media/images/test.width-500.jpg',
@@ -183,7 +183,7 @@ describe('ModalWorkflowSource', () => {
     it('DOCUMENT', () => {
       expect(
         documentSource.filterEntityData({
-          edit_link: '/admin/documents/edit/1/',
+          edit_url: '/admin/documents/edit/1/',
           filename: 'test.pdf',
           id: 1,
           title: 'Test',
@@ -425,7 +425,7 @@ describe('ModalWorkflowSource', () => {
             block: () => {},
           }}
           entity={entity}
-          entityKey={'first'}
+          entityKey="first"
           onComplete={onComplete}
           onClose={() => {}}
         />,

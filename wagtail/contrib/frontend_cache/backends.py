@@ -105,7 +105,7 @@ class CloudflareBackend(BaseBackend):
     def _purge_urls(self, urls):
         try:
             purge_url = (
-                "https://api.cloudflare.com/client/v4/zones/{0}/purge_cache".format(
+                "https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(
                     self.cloudflare_zoneid
                 )
             )
@@ -113,7 +113,7 @@ class CloudflareBackend(BaseBackend):
             headers = {"Content-Type": "application/json"}
 
             if self.cloudflare_token:
-                headers["Authorization"] = "Bearer {}".format(self.cloudflare_token)
+                headers["Authorization"] = f"Bearer {self.cloudflare_token}"
             else:
                 headers["X-Auth-Email"] = self.cloudflare_email
                 headers["X-Auth-Key"] = self.cloudflare_api_key
@@ -293,7 +293,7 @@ class AzureBaseBackend(BaseBackend):
 
     def _get_client_kwargs(self):
         return {
-            "credentials": self._get_credentials(),
+            "credential": self._get_credentials(),
             "subscription_id": self._get_subscription_id(),
         }
 
@@ -342,6 +342,7 @@ class AzureBaseBackend(BaseBackend):
 
 class AzureFrontDoorBackend(AzureBaseBackend):
     def __init__(self, params):
+
         super().__init__(params)
         try:
             self._front_door_name = params.pop("FRONT_DOOR_NAME")
@@ -359,6 +360,7 @@ class AzureFrontDoorBackend(AzureBaseBackend):
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
         kwargs.setdefault("base_url", self._front_door_service_url)
+
         return kwargs
 
     def _make_purge_call(self, client, paths):
@@ -370,6 +372,7 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
 class AzureCdnBackend(AzureBaseBackend):
     def __init__(self, params):
+
         super().__init__(params)
         try:
             self._cdn_profile_name = params.pop("CDN_PROFILE_NAME")
@@ -388,6 +391,7 @@ class AzureCdnBackend(AzureBaseBackend):
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
         kwargs.setdefault("base_url", self._cdn_service_url)
+
         return kwargs
 
     def _make_purge_call(self, client, paths):

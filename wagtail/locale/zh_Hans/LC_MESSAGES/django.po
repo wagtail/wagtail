@@ -6,29 +6,34 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
 # Favo Yang <favoyang@gmail.com>, 2021
 # First Last <abc+github@mynook.info>, 2019
-# Ford Guo <agile.guo@gmail.com>, 2020
+# Ford Guo <agile.guo@gmail.com>, 2020,2023
 # Fred Zeng <979738295@qq.com>, 2016
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2021
+# 祝沙军 <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail 核心组件"
@@ -37,12 +42,12 @@ msgid "Add Comment"
 msgstr "添加评论"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "条目的最小数是%d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "条目的最小数是%(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "条目的最大数是%d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "条目的最大数是%(max_num)d"
 
 msgid "Move up"
 msgstr "上移"
@@ -69,6 +74,12 @@ msgstr "这个区块没有选项"
 msgid "This field is required."
 msgstr "这个字段是必需的。"
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail 前端缓存"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail 路由页面"
+
 msgid "Password"
 msgstr "密码"
 
@@ -77,6 +88,102 @@ msgstr "密码错误，请重新输入"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Locked"
+msgstr "已锁定"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "latest revision"
+msgstr "最新版本"
+
+msgid "live"
+msgstr "在用"
+
+msgid "has unpublished changes"
+msgstr "有未发布的修改"
+
+msgid "first published at"
+msgstr "第一次发布于"
+
+msgid "last published at"
+msgstr "最后发布于"
+
+msgid "live revision"
+msgstr "发布版本"
+
+msgid "go live date/time"
+msgstr "上线日期/时间"
+
+msgid "expiry date/time"
+msgstr "过期日期/时间"
+
+msgid "expired"
+msgstr "已过期"
+
+msgid "scheduled"
+msgstr "已计划"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + scheduled"
+msgstr "在用 + 已计划"
+
+msgid "live + draft"
+msgstr "发布+草稿"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "locked"
+msgstr "已锁定"
+
+msgid "locked at"
+msgstr "锁定于"
+
+msgid "locked by"
+msgstr "锁定人"
+
+msgid "in moderation"
+msgstr "审核中"
+
+msgid "live + in moderation"
+msgstr "发布+审核中"
+
+msgid "Add/edit pages you own"
+msgstr "添加/编辑所属的页面"
+
+msgid "Bulk delete"
+msgstr "批量删除"
+
+msgid "Delete pages with children"
+msgstr "删除页面及其子页面"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit any page"
+msgstr "编辑任意页面"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "锁定/解锁你已锁定的页面"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Publish any page"
+msgstr "发布任意页面"
+
+msgid "Unlock"
+msgstr "解锁"
+
+msgid "Unlock any page"
+msgstr "解锁任意页面"
 
 msgid "title"
 msgstr "标题"
@@ -94,12 +201,6 @@ msgstr "用于URL的页面名称，如http://domain.com/work/[my-work]/"
 
 msgid "content type"
 msgstr "内容类型"
-
-msgid "live"
-msgstr "在用"
-
-msgid "has unpublished changes"
-msgstr "有未发布的修改"
 
 msgid "URL path"
 msgstr "URL路径"
@@ -130,65 +231,17 @@ msgid ""
 "results."
 msgstr "显示在搜索引擎结果中，位于标题之下的描述性文字。"
 
-msgid "go live date/time"
-msgstr "上线日期/时间"
-
-msgid "expiry date/time"
-msgstr "过期日期/时间"
-
-msgid "expired"
-msgstr "已过期"
-
-msgid "locked"
-msgstr "已锁定"
-
-msgid "locked at"
-msgstr "锁定于"
-
-msgid "locked by"
-msgstr "锁定人"
-
-msgid "first published at"
-msgstr "第一次发布于"
-
-msgid "last published at"
-msgstr "最后发布于"
-
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
-
-msgid "live revision"
-msgstr "发布版本"
-
-msgid "This slug is already in use"
-msgstr "此缩略名已被使用"
-
-msgid "scheduled"
-msgstr "已计划"
-
-msgid "in moderation"
-msgstr "审核中"
-
-msgid "draft"
-msgstr "草稿"
-
-msgid "live + scheduled"
-msgstr "在用 + 已计划"
-
-msgid "live + in moderation"
-msgstr "发布+审核中"
-
-msgid "live + draft"
-msgstr "发布+草稿"
-
-msgid "Default"
-msgstr "默认"
 
 msgid "page"
 msgstr "页面"
 
 msgid "pages"
 msgstr "页面"
+
+msgid "object id"
+msgstr "对象ID"
 
 msgid "submitted for moderation"
 msgstr "已提交审核"
@@ -205,47 +258,17 @@ msgstr "内容JSON"
 msgid "approved go live at"
 msgstr "批准上线时间"
 
-msgid "page revision"
-msgstr "页版本"
+msgid "revision"
+msgstr "修订版本"
 
-msgid "page revisions"
-msgstr "页版本"
-
-msgid "Add/edit pages you own"
-msgstr "添加/编辑所属的页面"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Edit any page"
-msgstr "编辑任意页面"
-
-msgid "Publish"
-msgstr "发布"
-
-msgid "Publish any page"
-msgstr "发布任意页面"
-
-msgid "Bulk delete"
-msgstr "批量删除"
-
-msgid "Delete pages with children"
-msgstr "删除页面及其子页面"
-
-msgid "Lock"
-msgstr "锁定"
-
-msgid "Lock/unlock pages you've locked"
-msgstr "锁定/解锁你已锁定的页面"
-
-msgid "Unlock"
-msgstr "解锁"
-
-msgid "Unlock any page"
-msgstr "解锁任意页面"
+msgid "revisions"
+msgstr "修订版本"
 
 msgid "group"
 msgstr "组"
+
+msgid "permission"
+msgstr "权限"
 
 msgid "permission type"
 msgstr "权限类型"
@@ -297,21 +320,11 @@ msgstr "有效任务可以添加到工作流中。停用任务不会将其从现
 msgid "tasks"
 msgstr "任务"
 
-msgid ""
-"Active workflows can be added to pages. Deactivating a workflow does not "
-"remove it from existing pages."
-msgstr "有效工作流可以添加到页面。停用工作流不会将其从现有页面中删除。"
-
 msgid "workflows"
 msgstr "工作流"
 
 msgid "groups"
 msgstr "组"
-
-msgid ""
-"Pages at this step in a workflow will be moderated or approved by these "
-"groups of users"
-msgstr "工作流中此步骤中的页面将由这些用户组审阅或批准"
 
 msgid "Request changes"
 msgstr "请求修改"
@@ -352,14 +365,6 @@ msgstr "请求人"
 msgid "current task state"
 msgstr "当前任务状态"
 
-msgid ""
-"There may only be one in progress or needs changes workflow state per page."
-msgstr "每个页面只能有一个进行中或需要修改的工作流状态。"
-
-#, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "工作流‘{0}’在页面‘{1}’： {2}"
-
 msgid "Not started"
 msgstr "未启动"
 
@@ -386,10 +391,6 @@ msgstr "完成于"
 
 msgid "finished by"
 msgstr "完成人"
-
-#, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "任务'{0}'在页面修订版本 '{1}': {2}"
 
 msgid "Task state"
 msgstr "任务状态"
@@ -427,12 +428,9 @@ msgstr "日志条目"
 msgid "log entries"
 msgstr "日志条目"
 
-msgid "The log action '{}' has not been registered."
-msgstr "日志动作“{}”未被注册"
-
 #, python-format
-msgid "user %(id)s (deleted)"
-msgstr "用户 %(id)s(已删除)"
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "日志动作“%(action_name)s”未被注册"
 
 msgid "system"
 msgstr "系统"
@@ -458,9 +456,6 @@ msgstr "集合查看限制"
 
 msgid "collections"
 msgstr "集合"
-
-msgid "permission"
-msgstr "权限"
 
 msgid "group collection permission"
 msgstr "群组集合权限"
@@ -557,15 +552,6 @@ msgstr "你需要访问该页面的密码。"
 msgid "Continue"
 msgstr "继续"
 
-msgid "English"
-msgstr "英语"
-
-msgid "French"
-msgstr "法语"
-
-msgid "German"
-msgstr "德语"
-
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
@@ -603,12 +589,6 @@ msgstr "取消发布已计划的草稿"
 
 msgid "Unpublished scheduled draft"
 msgstr "已取消发布已计划的草稿"
-
-msgid "Locked"
-msgstr "已锁定"
-
-msgid "Unlocked"
-msgstr "已解锁"
 
 msgid "Reject"
 msgstr "拒绝"
@@ -751,10 +731,6 @@ msgstr "已更新查看限制"
 msgid "Remove view restrictions"
 msgstr "移除查看限制"
 
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "已移除“%(restriction)s”查看限制"
-
 msgid "Removed view restriction"
 msgstr "已移除查看限制"
 
@@ -864,10 +840,6 @@ msgstr "工作流任务已拒绝，工作流完成"
 
 msgid "Workflow: resume task"
 msgstr "工作流：恢复任务"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交“%(task)s”，工作流已恢复"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "工作流任务已重新提交，工作流已恢复"

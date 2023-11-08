@@ -1,19 +1,21 @@
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
+from wagtail.documents import get_document_model
 from wagtail.documents.rich_text import (
     DocumentLinkHandler as FrontendDocumentLinkHandler,
 )
 from wagtail.documents.rich_text.editor_html import (
     DocumentLinkHandler as EditorHtmlDocumentLinkHandler,
 )
+from wagtail.fields import RichTextField
+from wagtail.test.utils import WagtailTestUtils
 
 
-class TestEditorHtmlDocumentLinkHandler(TestCase):
+class TestEditorHtmlDocumentLinkHandler(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get_db_attributes(self):
-        soup = BeautifulSoup('<a data-id="test-id">foo</a>', "html5lib")
+        soup = self.get_soup('<a data-id="test-id">foo</a>')
         tag = soup.a
         result = EditorHtmlDocumentLinkHandler.get_db_attributes(tag)
         self.assertEqual(result, {"id": "test-id"})
@@ -48,3 +50,13 @@ class TestFrontendDocumentLinkHandler(TestCase):
     def test_expand_db_attributes_with_missing_id(self):
         result = FrontendDocumentLinkHandler.expand_db_attributes({})
         self.assertEqual(result, "<a>")
+
+    def test_extract_references(self):
+        self.assertEqual(
+            list(
+                RichTextField().extract_references(
+                    '<a linktype="document" id="1">Link to a document</a>'
+                )
+            ),
+            [(get_document_model(), "1", "", "")],
+        )

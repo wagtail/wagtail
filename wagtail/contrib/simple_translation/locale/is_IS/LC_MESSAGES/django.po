@@ -4,17 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021
+# Loic Teixeira, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021\n"
-"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,10 +35,11 @@ msgstr "Þýðingar"
 msgid "All child pages will be created."
 msgstr "Allar undirsíður verða búnar til"
 
-msgid "Include subtree ({} page)"
-msgid_plural "Include subtree ({} pages)"
-msgstr[0] "Innifela undirsíður ({} pages)"
-msgstr[1] "Ásamt undirsíðum ({} síður)"
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Innifela undirsíður (%(descendant_count)s síðu)"
+msgstr[1] "Innifela undirsíður (%(descendant_count)s síður)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -56,23 +58,28 @@ msgstr "Senda"
 msgid "Translate"
 msgstr "Þýða"
 
-msgid "{} locales"
-msgstr "{} þýðingar"
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s þýðingar"
 
 msgid "Translate page"
 msgstr "Þýða síðu"
 
-#, python-brace-format
-msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "Tókst að búa til síðuna '{page_title}' í {locales}"
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Tókst að búa til síðuna '%(page_title)s' í %(locales)s"
 
-#, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Þýða {model_name}"
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "Þýða %(model_name)s"
 
-#, python-brace-format
-msgid "Successfully created {locales} for {model_name} '{object}'"
-msgstr "Tókst að búa til {locales} fyrir {model_name} '{object}'"
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Tókst að búa til %(locales)s fyrir %(model_name)s '%(object)s'"
+
+msgid "Translate this page"
+msgstr "Þýða þessa síðu"
 
 #, python-format
 msgid "Translate '%(title)s'"

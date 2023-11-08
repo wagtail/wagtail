@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail-bilder"
-
-msgid "GIF, JPEG, PNG, WEBP"
-msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -40,24 +37,27 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Støttede formater: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Ikke et støttet bildeformat. Støttede formater: %s."
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Ikke et støttet bildeformat. Støttede formater: %(supported_formats)s."
 
 #, python-format
-msgid "Not a valid %s image."
-msgstr "Ikke et gyldig %s-bilde."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Denne fila er for stor (%(file_size)s). Maksimal filstørrelse er "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Denne fila er for stor (%%s). Maksimal filstørrelse er %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Denne fila har for mange piksler (%(num_pixels)s). Maks antall piksler er "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Denne fila har for mange piksler (%%s). Maks antall piksler er %s."
-
-#, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Denne fila er for stor. Maksimal filstørrelse er %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Denne fila er for stor. Maksimal filstørrelse er %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Fullbredde"
@@ -158,35 +158,11 @@ msgstr "Ja, slett"
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
-msgid "Choose an image"
-msgstr "Velg et bilde"
-
-msgid "Search"
-msgstr "Søk"
-
-msgid "Upload"
-msgstr "Last opp"
-
 msgid "Popular tags"
 msgstr "Populære stikkord"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Det er %(counter)s treff\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Det er %(counter)s treff\n"
-"        "
+msgid "New"
+msgstr "Ny"
 
 msgid "Latest images"
 msgstr "Siste bilder"
@@ -196,31 +172,6 @@ msgstr "Velg et format"
 
 msgid "Insert image"
 msgstr "Sett inn bilde"
-
-msgid "Uploading…"
-msgstr "Laster opp…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Bilde <span class=\"visuallyhidden"
-"\">opprettet i %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Bilder <span class=\"visuallyhidden"
-"\">opprettet i %(site_name)s</span>\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Endre bildefil:"
@@ -234,15 +185,15 @@ msgstr "Legg til bilde"
 msgid "Save"
 msgstr "Lagre"
 
-msgid "Delete image"
-msgstr "Slett bilde"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Endrer bilde %(title)s"
 
 msgid "Editing"
 msgstr "Endrer"
+
+msgid "Delete image"
+msgstr "Slett bilde"
 
 msgid "URL Generator"
 msgstr "URL-generator"
@@ -283,9 +234,6 @@ msgstr "Bilder"
 msgid "Popular Tags:"
 msgstr "Populære stikkord:"
 
-msgid "Clear choice"
-msgstr "Nullstill valg"
-
 msgid "pixels"
 msgstr "piksler"
 
@@ -295,19 +243,19 @@ msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 msgid "Generating URL"
 msgstr "Genererer URL"
@@ -324,28 +272,6 @@ msgid ""
 msgstr ""
 "Merk at bilder som genereres større enn skjermen vil fremstå mindre når de "
 "forhåndsvises her, så de har plass på skjermen."
-
-#, python-format
-msgid "Usage of %(title)s"
-msgstr "Bruk av %(title)s"
-
-msgid "Usage of"
-msgstr "Bruk av"
-
-msgid "Title"
-msgstr "Tittel"
-
-msgid "Parent"
-msgstr "Forelder"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Rediger denne siden"
 
 msgid "Add multiple images"
 msgstr "Legg til flere bilder"
@@ -386,15 +312,33 @@ msgstr "Bildetillatelser"
 msgid "Add an image permission"
 msgstr "Legg til bildetillatelse"
 
+msgid "Tags"
+msgstr "Tags"
+
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Upload"
+msgstr "Last opp"
+
+msgid "Uploading…"
+msgstr "Laster opp…"
+
+msgid "Choose an image"
+msgstr "Velg et bilde"
+
+msgid "Choose another image"
+msgstr "Velg et annet bilde"
+
+msgid "Edit this image"
+msgstr "Rediger dette bildet"
 
 msgid "Search images"
 msgstr "Søk i bilder"
 
-#, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Bildet \"{0}\" er oppdatert."
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Bildet \"%(image_title)s\" er oppdatert."
 
 msgid "Edit again"
 msgstr "Endre igjen"
@@ -407,13 +351,13 @@ msgid ""
 "the image."
 msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
 
-#, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Bildet \"{0}\" er slettet."
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Bildet \"%(image_title)s\" er slettet."
 
-#, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Bildet \"{0}\" er lagt til."
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Bildet \"%(image_title)s\" er lagt til."
 
 msgid "The image could not be created due to errors."
 msgstr "Bildet kunne ikke opprettes grunnet feil."
@@ -429,6 +373,3 @@ msgstr[1] "%(count)s bilder"
 
 msgid "Change image"
 msgstr "Velg et annet bilde"
-
-msgid "Edit this image"
-msgstr "Rediger dette bildet"

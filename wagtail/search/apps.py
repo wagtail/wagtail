@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.signal_handlers import register_signal_handlers
 
-from . import checks  # NOQA
+from . import checks  # NOQA: F401
 
 
 class WagtailSearchAppConfig(AppConfig):

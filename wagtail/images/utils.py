@@ -3,6 +3,7 @@ import hashlib
 import hmac
 
 from django.conf import settings
+from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_str
 
 
@@ -87,14 +88,16 @@ def generate_signature(image_id, filter_spec, key=None):
 
     # Based on libthumbor hmac generation
     # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
-    url = "{}/{}/".format(image_id, filter_spec)
+    url = f"{image_id}/{filter_spec}/"
     return force_str(
         base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest())
     )
 
 
 def verify_signature(signature, image_id, filter_spec, key=None):
-    return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
+    return constant_time_compare(
+        signature, generate_signature(image_id, filter_spec, key=key)
+    )
 
 
 def find_image_duplicates(image, user, permission_policy):
@@ -106,3 +109,26 @@ def find_image_duplicates(image, user, permission_policy):
 
     instances = permission_policy.instances_user_has_permission_for(user, "choose")
     return instances.exclude(pk=image.pk).filter(file_hash=image.file_hash)
+
+
+def to_svg_safe_spec(filter_specs):
+    """
+    Remove any directives that would require an SVG to be rasterised
+    """
+    if isinstance(filter_specs, str):
+        filter_specs = filter_specs.split("|")
+    svg_preserving_specs = [
+        "max",
+        "min",
+        "width",
+        "height",
+        "scale",
+        "fill",
+        "original",
+    ]
+    safe_specs = [
+        x
+        for x in filter_specs
+        if any(x.startswith(prefix) for prefix in svg_preserving_specs)
+    ]
+    return "|".join(safe_specs)

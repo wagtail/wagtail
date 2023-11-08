@@ -8,7 +8,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPagesSummary(TestCase, WagtailTestUtils):
+class TestPagesSummary(WagtailTestUtils, TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,7 +19,7 @@ class TestPagesSummary(TestCase, WagtailTestUtils):
 
         cls.test_page_group = Group.objects.create(name="Test page")
         GroupPagePermission.objects.create(
-            group=cls.test_page_group, page=cls.test_page, permission_type="edit"
+            group=cls.test_page_group, page=cls.test_page, permission_type="change"
         )
 
     @classmethod
@@ -57,9 +57,7 @@ class TestPagesSummary(TestCase, WagtailTestUtils):
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 
     def test_summary_includes_page_count_without_wagtail_root(self):
-        self.assertSummaryContains(
-            "<span>{}</span> Pages".format(Page.objects.count() - 1)
-        )
+        self.assertSummaryContains(f"<span>{Page.objects.count() - 1}</span> Pages")
 
     def test_summary_shows_zero_pages_if_none_exist_except_wagtail_root(self):
         Page.objects.exclude(pk=self.wagtail_root.pk).delete()

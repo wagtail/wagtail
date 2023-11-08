@@ -8,18 +8,20 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
-from wagtail.search import index as search_index
+from wagtail.search.backends import get_search_backend
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -63,7 +65,9 @@ class BaseListingView(TemplateView):
             self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
             if self.form.is_valid():
                 query_string = self.form.cleaned_data["q"]
-                documents = documents.search(query_string)
+                if query_string:
+                    search_backend = get_search_backend()
+                    documents = search_backend.autocomplete(query_string, documents)
         else:
             self.form = SearchForm(placeholder=_("Search documents"))
 
@@ -133,21 +137,12 @@ def add(request):
             request.POST, request.FILES, instance=doc, user=request.user
         )
         if form.is_valid():
-            doc.file_size = doc.file.size
-
-            # Set new document file hash
-            doc.file.seek(0)
-            doc._set_file_hash(doc.file.read())
-            doc.file.seek(0)
-
             form.save()
-
-            # Reindex the document to make sure all tags are indexed
-            search_index.insert_or_update_object(doc)
 
             messages.success(
                 request,
-                _("Document '{0}' added.").format(doc.title),
+                _("Document '%(document_title)s' added.")
+                % {"document_title": doc.title},
                 buttons=[
                     messages.button(
                         reverse("wagtaildocs:edit", args=(doc.id,)), _("Edit")
@@ -184,31 +179,11 @@ def edit(request, document_id):
     next_url = get_valid_next_url_from_request(request)
 
     if request.method == "POST":
-        original_file = doc.file
         form = DocumentForm(
             request.POST, request.FILES, instance=doc, user=request.user
         )
         if form.is_valid():
-            if "file" in form.changed_data:
-                doc = form.save(commit=False)
-                doc.file_size = doc.file.size
-
-                # Set new document file hash
-                doc.file.seek(0)
-                doc._set_file_hash(doc.file.read())
-                doc.file.seek(0)
-                doc.save()
-                form.save_m2m()
-
-                # If providing a new document file, delete the old one.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
-            else:
-                doc = form.save()
-
-            # Reindex the document to make sure all tags are indexed
-            search_index.insert_or_update_object(doc)
+            doc = form.save()
 
             edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
             redirect_url = "wagtaildocs:index"
@@ -218,7 +193,8 @@ def edit(request, document_id):
 
             messages.success(
                 request,
-                _("Document '{0}' updated").format(doc.title),
+                _("Document '%(document_title)s' updated")
+                % {"document_title": doc.title},
                 buttons=[messages.button(edit_url, _("Edit"))],
             )
             return redirect(redirect_url)
@@ -263,42 +239,49 @@ def edit(request, document_id):
     )
 
 
-@permission_checker.require("delete")
-def delete(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
+class DeleteView(generic.DeleteView):
+    model = get_document_model()
+    pk_url_kwarg = "document_id"
+    permission_policy = permission_policy
+    permission_required = "delete"
+    header_icon = "doc-full-inverse"
+    usage_url_name = "wagtaildocs:document_usage"
+    delete_url_name = "wagtaildocs:delete"
+    index_url_name = "wagtaildocs:index"
+    page_title = gettext_lazy("Delete document")
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", doc
-    ):
-        raise PermissionDenied
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, permission, self.object
+        )
 
-    next_url = get_valid_next_url_from_request(request)
+    @property
+    def confirmation_message(self):
+        # This message will only appear in the singular, but we specify a plural
+        # so it can share the translation string with confirm_bulk_delete.html
+        return ngettext(
+            "Are you sure you want to delete this document?",
+            "Are you sure you want to delete these documents?",
+            1,
+        )
 
-    if request.method == "POST":
-        doc.delete()
-        messages.success(request, _("Document '{0}' deleted.").format(doc.title))
-        return redirect(next_url) if next_url else redirect("wagtaildocs:index")
-
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/confirm_delete.html",
-        {
-            "document": doc,
-            "next": next_url,
-        },
-    )
+    def get_success_message(self):
+        return _("Document '%(document_title)s' deleted.") % {
+            "document_title": self.object.title
+        }
 
 
-def usage(request, document_id):
-    Document = get_document_model()
-    doc = get_object_or_404(Document, id=document_id)
+class UsageView(generic.UsageView):
+    model = get_document_model()
+    pk_url_kwarg = "document_id"
+    permission_policy = permission_policy
+    permission_required = "change"
+    header_icon = "doc-full-inverse"
 
-    paginator = Paginator(doc.get_usage(), per_page=20)
-    used_by = paginator.get_page(request.GET.get("p"))
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, permission, self.object
+        )
 
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/usage.html",
-        {"document": doc, "used_by": used_by},
-    )
+    def get_page_subtitle(self):
+        return self.object.title

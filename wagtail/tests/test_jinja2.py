@@ -1,10 +1,10 @@
-from django.http import HttpRequest
 from django.template import engines
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.utils.safestring import mark_safe
 
 from wagtail import __version__, blocks
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Site
 from wagtail.test.testapp.blocks import SectionBlock
 
@@ -20,10 +20,7 @@ class TestCoreGlobalsAndFilters(TestCase):
         # Add a request to the template, to simulate a RequestContext
         if request_context:
             site = Site.objects.get(is_default_site=True)
-            request = HttpRequest()
-            request.META["HTTP_HOST"] = site.hostname
-            request.META["SERVER_PORT"] = site.port
-            context["request"] = request
+            context["request"] = get_dummy_request(site=site)
 
         template = self.engine.from_string(string)
         return template.render(context)
@@ -38,6 +35,12 @@ class TestCoreGlobalsAndFilters(TestCase):
     def test_pageurl(self):
         page = Page.objects.get(pk=2)
         self.assertEqual(self.render("{{ pageurl(page) }}", {"page": page}), page.url)
+
+    def test_fullpageurl(self):
+        page = Page.objects.get(pk=2)
+        self.assertEqual(
+            self.render("{{ fullpageurl(page) }}", {"page": page}), page.full_url
+        )
 
     def test_slugurl(self):
         page = Page.objects.get(pk=2)

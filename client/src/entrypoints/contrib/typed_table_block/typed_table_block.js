@@ -1,6 +1,12 @@
+/* eslint-disable no-restricted-syntax */
 /* global $ */
 
 import { escapeHtml as h } from '../../../utils/text';
+import { range } from '../../../utils/range';
+import {
+  addErrorMessages,
+  removeErrorMessages,
+} from '../../../includes/streamFieldErrors';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -82,6 +88,7 @@ export class TypedTableBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+    this.container = dom;
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
 
@@ -105,12 +112,11 @@ export class TypedTableBlock {
     if (this.blockDef.meta.helpText) {
       // help text is left unescaped as per Django conventions
       dom.append(`
-        <span>
+        <div class="c-sf-help">
           <div class="help">
-            ${this.blockDef.meta.helpIcon}
             ${this.blockDef.meta.helpText}
           </div>
-        </span>
+        </div>
       `);
     }
 
@@ -153,10 +159,12 @@ export class TypedTableBlock {
     this.addColumnMenu.show();
     this.addColumnCallback = callback;
   }
+
   hideAddColumnMenu() {
     this.addColumnMenu.hide();
     this.addColumnMenuBaseElement = null;
   }
+
   toggleAddColumnMenu(baseElement, callback) {
     if (this.addColumnMenuBaseElement === baseElement) {
       this.hideAddColumnMenu();
@@ -164,6 +172,7 @@ export class TypedTableBlock {
       this.showAddColumnMenu(baseElement, callback);
     }
   }
+
   clear() {
     // reset to initial empty state with no rows or columns
     this.columns = [];
@@ -192,18 +201,19 @@ export class TypedTableBlock {
     this.tbody.replaceChildren();
     this.addRowButton.hide();
   }
+
   insertColumn(index, blockDef, opts) {
     const column = {
       blockDef,
       position: index,
       id: this.columnCountIncludingDeleted,
     };
-    this.columnCountIncludingDeleted++;
+    this.columnCountIncludingDeleted += 1;
     // increase positions of columns after this one
-    for (let i = index; i < this.columns.length; i++) {
-      this.columns[i].position++;
+    range(index, this.columns.length).forEach((i) => {
+      this.columns[i].position += 1;
       this.columns[i].positionInput.value = this.columns[i].position;
-    }
+    });
     this.columns.splice(index, 0, column);
     this.columnCountInput.value = this.columnCountIncludingDeleted;
 
@@ -248,6 +258,7 @@ export class TypedTableBlock {
     });
 
     column.headingInput = document.createElement('input');
+    column.headingInput.type = 'text';
     column.headingInput.name =
       this.prefix + '-column-' + column.id + '-heading';
     column.headingInput.className = 'column-heading';
@@ -317,10 +328,10 @@ export class TypedTableBlock {
     this.columns.splice(index, 1);
 
     // reduce position values of remaining columns after this one
-    for (let i = index; i < this.columns.length; i++) {
-      this.columns[i].position--;
+    range(index, this.columns.length).forEach((i) => {
+      this.columns[i].position -= 1;
       this.columns[i].positionInput.value = this.columns[i].position;
-    }
+    });
 
     // if no columns remain, revert to initial empty state with no rows
     if (this.columns.length === 0) {
@@ -342,7 +353,7 @@ export class TypedTableBlock {
       this.tbody.appendChild(rowElement);
     }
     this.rows.splice(index, 0, row);
-    this.rowCountIncludingDeleted++;
+    this.rowCountIncludingDeleted += 1;
     this.rowCountInput.value = this.rowCountIncludingDeleted;
 
     // add a leading cell to contain the 'insert row' button
@@ -403,10 +414,10 @@ export class TypedTableBlock {
     this.deletedFieldsContainer.appendChild(row.deletedInput);
 
     // increment positions of subsequent rows
-    for (let i = index + 1; i < this.rows.length; i++) {
-      this.rows[i].position++;
+    range(index + 1, this.rows.length).forEach((i) => {
+      this.rows[i].position += 1;
       this.rows[i].positionInput.value = this.rows[i].position;
-    }
+    });
 
     return row;
   }
@@ -419,10 +430,10 @@ export class TypedTableBlock {
     this.rows.splice(index, 1);
 
     // reduce position values of remaining rows after this one
-    for (let i = index; i < this.rows.length; i++) {
-      this.rows[i].position--;
+    range(index, this.rows.length).forEach((i) => {
+      this.rows[i].position -= 1;
       this.rows[i].positionInput.value = this.rows[i].position;
-    }
+    });
   }
 
   initCell(cell, column, row, initialState) {
@@ -446,15 +457,21 @@ export class TypedTableBlock {
     }
   }
 
-  setError(errorList) {
-    if (errorList.length !== 1) {
-      return;
+  setError(error) {
+    if (!error) return;
+
+    // Non block errors
+    const container = this.container[0];
+    removeErrorMessages(container);
+
+    if (error.messages) {
+      addErrorMessages(container, error.messages);
     }
-    const error = errorList[0];
-    if (error.cellErrors) {
-      for (const [rowIndex, rowErrors] of Object.entries(error.cellErrors)) {
+
+    if (error.blockErrors) {
+      for (const [rowIndex, rowErrors] of Object.entries(error.blockErrors)) {
         for (const [colIndex, cellError] of Object.entries(rowErrors)) {
-          this.rows[rowIndex].blocks[colIndex].setError([cellError]);
+          this.rows[rowIndex].blocks[colIndex].setError(cellError);
         }
       }
     }
@@ -462,10 +479,7 @@ export class TypedTableBlock {
 
   getState() {
     const state = {
-      columns: this.columns.map((column) => ({
-        type: column.blockDef.name,
-        heading: column.headingInput.value,
-      })),
+      columns: this.getColumnStates(),
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getState()),
       })),
@@ -473,17 +487,34 @@ export class TypedTableBlock {
     return state;
   }
 
+  getDuplicatedState() {
+    return {
+      columns: this.getColumnStates(),
+      rows: this.rows.map((row) => ({
+        values: row.blocks.map((block) =>
+          block.getDuplicatedState === undefined
+            ? block.getState()
+            : block.getDuplicatedState(),
+        ),
+      })),
+    };
+  }
+
   getValue() {
     const value = {
-      columns: this.columns.map((column) => ({
-        type: column.blockDef.name,
-        heading: column.headingInput.value,
-      })),
+      columns: this.getColumnStates(),
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getValue()),
       })),
     };
     return value;
+  }
+
+  getColumnStates() {
+    return this.columns.map((column) => ({
+      type: column.blockDef.name,
+      heading: column.headingInput.value,
+    }));
   }
 
   getTextLabel(opts) {
@@ -547,14 +578,4 @@ export class TypedTableBlockDefinition {
 window.telepath.register(
   'wagtail.contrib.typed_table_block.blocks.TypedTableBlock',
   TypedTableBlockDefinition,
-);
-
-export class TypedTableBlockValidationError {
-  constructor(cellErrors) {
-    this.cellErrors = cellErrors;
-  }
-}
-window.telepath.register(
-  'wagtail.contrib.typed_table_block.TypedTableBlockValidationError',
-  TypedTableBlockValidationError,
 );

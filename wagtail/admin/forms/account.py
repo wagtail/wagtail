@@ -13,7 +13,7 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.admin.widgets import SwitchInput
-from wagtail.models import UserPagePermissionsProxy
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.models import UserProfile
 
 User = get_user_model()
@@ -22,10 +22,11 @@ User = get_user_model()
 class NotificationPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        user_perms = UserPagePermissionsProxy(self.instance.user)
-        if not user_perms.can_publish_pages():
+
+        permission_policy = PagePermissionPolicy()
+        if not permission_policy.user_has_permission(self.instance.user, "publish"):
             del self.fields["submitted_notifications"]
-        if not user_perms.can_edit_pages():
+        if not permission_policy.user_has_permission(self.instance.user, "change"):
             del self.fields["approved_notifications"]
             del self.fields["rejected_notifications"]
             del self.fields["updated_comments_notifications"]
@@ -51,7 +52,10 @@ def _get_language_choices():
         (lang_code, get_language_info(lang_code)["name_local"])
         for lang_code, lang_name in get_available_admin_languages()
     ]
-    return sorted(BLANK_CHOICE_DASH + language_choices, key=lambda l: l[1].lower())
+    return sorted(
+        BLANK_CHOICE_DASH + language_choices,
+        key=lambda language_choice: language_choice[1].lower(),
+    )
 
 
 def _get_time_zone_choices():
@@ -121,7 +125,7 @@ class AvatarPreferencesForm(forms.ModelForm):
             # will clear the now-updated field on self.instance too
             try:
                 self._original_avatar.storage.delete(self._original_avatar.name)
-            except IOError:
+            except OSError:
                 # failure to delete the old avatar shouldn't prevent us from continuing
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
@@ -131,3 +135,9 @@ class AvatarPreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ["avatar"]
+
+
+class ThemePreferencesForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["theme"]

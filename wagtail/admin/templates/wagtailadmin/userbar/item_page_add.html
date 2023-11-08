@@ -3,7 +3,7 @@
 
 {% block item_content %}
     <a href="{% url 'wagtailadmin_pages:add_subpage' self.page.id %}" target="_parent" role="menuitem">
-        {% icon name="plus" class_name="wagtail-action-icon" %}
+        {% icon name="plus" classname="w-action-icon" %}
         {% trans 'Add a child page' %}
     </a>
 {% endblock %}

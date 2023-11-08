@@ -12,7 +12,7 @@ from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestPageUnpublish(TestCase, WagtailTestUtils):
+class TestPageUnpublish(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -80,26 +80,29 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         mock_handler = mock.MagicMock()
         page_unpublished.connect(mock_handler)
 
-        # Post to the unpublish page
-        response = self.client.post(
-            reverse("wagtailadmin_pages:unpublish", args=(self.page.id,))
-        )
+        try:
+            # Post to the unpublish page
+            response = self.client.post(
+                reverse("wagtailadmin_pages:unpublish", args=(self.page.id,))
+            )
 
-        # Should be redirected to explorer page
-        self.assertRedirects(
-            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
-        )
+            # Should be redirected to explorer page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
 
-        # Check that the page was unpublished
-        self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
+            # Check that the page was unpublished
+            self.assertFalse(SimplePage.objects.get(id=self.page.id).live)
 
-        # Check that the page_unpublished signal was fired
-        self.assertEqual(mock_handler.call_count, 1)
-        mock_call = mock_handler.mock_calls[0][2]
+            # Check that the page_unpublished signal was fired
+            self.assertEqual(mock_handler.call_count, 1)
+            mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], self.page.specific_class)
-        self.assertEqual(mock_call["instance"], self.page)
-        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+            self.assertEqual(mock_call["sender"], self.page.specific_class)
+            self.assertEqual(mock_call["instance"], self.page)
+            self.assertIsInstance(mock_call["instance"], self.page.specific_class)
+        finally:
+            page_unpublished.disconnect(mock_handler)
 
     def test_after_unpublish_page(self):
         def hook_func(request, page):
@@ -155,11 +158,11 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         # Check the form does not contain the checkbox field include_descendants
         self.assertNotContains(
             response,
-            '<input id="id_include_descendants" name="include_descendants" type="checkbox">',
+            'name="include_descendants"',
         )
 
 
-class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
+class TestPageUnpublishIncludingDescendants(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         # Find root page
@@ -212,7 +215,7 @@ class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         # Check the form contains the checkbox field include_descendants
         self.assertContains(
             response,
-            '<input id="id_include_descendants" name="include_descendants" type="checkbox">',
+            'name="include_descendants"',
         )
 
     def test_unpublish_include_children_view_post(self):

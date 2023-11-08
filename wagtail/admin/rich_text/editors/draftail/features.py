@@ -74,3 +74,21 @@ class InlineStyleFeature(ListFeature):
     """A feature which is listed in the inlineStyles list of the options"""
 
     option_name = "inlineStyles"
+
+
+class DecoratorFeature(ListFeature):
+    """A feature which is listed in the decorators list of the options"""
+
+    option_name = "decorators"
+
+
+class ControlFeature(ListFeature):
+    """A feature which is listed in the controls list of the options"""
+
+    option_name = "controls"
+
+
+class PluginFeature(ListFeature):
+    """A feature which is listed in the plugins list of the options"""
+
+    option_name = "plugins"

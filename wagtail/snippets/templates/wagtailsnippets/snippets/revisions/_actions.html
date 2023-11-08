@@ -1,0 +1,36 @@
+{% load i18n wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if revision_enabled and instance.revision %}
+        {% with revision=instance.revision latest_revision=object.get_latest_revision previous_revision=instance.revision.get_previous %}
+            <div class="w-flex w-items-center w-gap-2">
+                {{ value }}
+                {% if draftstate_enabled %}
+                    {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}{% trans 'Live version' as status_label %}{% status status_label classname="w-status--primary" %}
+                    {% elif instance.content_changed and revision == latest_revision %}{% trans 'Current draft' as status_label %}{% status status_label classname="w-status--primary" %}{% endif %}
+                {% endif %}
+            </div>
+            <ul class="actions">
+                {% if preview_enabled and object.is_previewable %}
+                    <li><a href="{% url view.revisions_view_url_name object.pk|admin_urlquote revision.pk %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
+                {% endif %}
+                {% if revision == latest_revision %}
+                    <li><a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                {% else %}
+                    <li><a href="{% url view.revisions_revert_url_name object.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Review this version' %}</a></li>
+                {% endif %}
+                {% if previous_revision %}
+                    <li><a href="{% url view.revisions_compare_url_name object.pk previous_revision.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a></li>
+                {% endif %}
+                {% if revision != latest_revision %}
+                    <li><a href="{% url view.revisions_compare_url_name object.pk revision.pk 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current version' %}</a></li>
+                {% endif %}
+                {% if can_publish and revision.approved_go_live_at %}
+                    <li><a href="{% url view.revisions_unschedule_url_name object.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
+                {% endif %}
+            </ul>
+        {% endwith %}
+    {% else %}
+        {{ value }}
+    {% endif %}
+</td>

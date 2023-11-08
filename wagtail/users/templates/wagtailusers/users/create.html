@@ -1,15 +1,19 @@
-{% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags %}
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailadmin_tags wagtailimages_tags %}
 {% load i18n %}
-{% block titletag %}{% trans "Add user" %}{% endblock %}
+
+{% block main_header %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title icon=header_icon merged=1 only %}
+{% endblock %}
+
 {% block content %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
 
-    {% trans "Add user" as add_user_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 icon="user" %}
-
-    <div class="w-tabs" data-tabs data-tabs-animate>
+    <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list nice-padding">
+            <div role="tablist" class="w-tabs__list">
                 {% trans "Account" as account_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
                 {% trans "Roles" as roles_text %}
@@ -18,7 +22,7 @@
         </div>
 
         <form action="{% url 'wagtailusers_users:add' %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-            <div class="tab-content nice-padding">
+            <div class="tab-content">
                 {% csrf_token %}
                 <section
                     id="tab-account"
@@ -30,21 +34,38 @@
                     <ul class="fields">
                         {% block fields %}
                             {% if form.separate_username_field %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=form.username_field %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.username_field %}
+                                </li>
                             {% endif %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.email %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.first_name %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.last_name %}
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.email %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.first_name %}
+                            </li>
+                            <li>
+                                {% include "wagtailadmin/shared/field.html" with field=form.last_name %}
+                            </li>
                             {% block extra_fields %}{% endblock extra_fields %}
                             {% if form.password1 %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.password1 %}
+                                </li>
                             {% endif %}
                             {% if form.password2 %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
+                                <li>
+                                    {% include "wagtailadmin/shared/field.html" with field=form.password2 %}
+                                </li>
                             {% endif %}
                         {% endblock fields %}
 
-                        <li><a href="#tab-roles" role="tab" class="button lowpriority icon icon-arrow-right-after">{% trans "Roles" %}</a></li>
+                        <li>
+                            <a href="#tab-roles" data-tab-trigger class="button">
+                                {% trans "Roles" %}
+                                {% icon name="arrow-right" classname="default" %}
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <section
@@ -55,8 +76,12 @@
                     aria-labelledby="tab-label-roles"
                 >
                     <ul class="fields">
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" with field=form.is_superuser %}
+                        </li>
+                        <li>
+                            {% include "wagtailadmin/shared/field.html" with field=form.groups %}
+                        </li>
                         <li><button class="button">{% trans "Add user" %}</button></li>
                     </ul>
                 </section>
@@ -65,13 +90,7 @@
     </div>
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ form.media.css }}
-{% endblock %}
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
 {% endblock %}

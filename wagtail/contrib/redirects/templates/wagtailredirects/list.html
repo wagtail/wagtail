@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <table class="listing">
     <col width="35%"/>
     <col width="30%"/>
@@ -36,7 +36,7 @@
                         {{ redirect.link }}
                     {% endif %}
                 </td>
-                <td class="type"><div class="status-tag {% if redirect.is_permanent %}primary{% endif %}">{{ redirect.get_is_permanent_display }}</div></td>
+                <td class="type">{% status redirect.get_is_permanent_display classname=primary|yesno:"w-status--primary," %}</td>
             </tr>
         {% endfor %}
     </tbody>

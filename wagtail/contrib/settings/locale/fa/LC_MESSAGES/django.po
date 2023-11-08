@@ -9,14 +9,16 @@
 # Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>, 2020
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
+# Salar Yazdani, 2023
+# Vessal Daneshvar, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>, 2020\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"Last-Translator: Vessal Daneshvar, 2023\n"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,14 +30,18 @@ msgid "default"
 msgstr "پیشفرض"
 
 #, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "در حال ویرایش %(setting_type_name)s - %(instance)s"
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s برای %(site)s"
 
-msgid "Editing"
-msgstr "در حال ویرایش"
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "%(instance)s در حال ویرایش می باشد."
 
 msgid "Site"
 msgstr "سایت"
+
+msgid "Editing"
+msgstr "ویرایش"
 
 msgid "Saving…"
 msgstr "در حال ذخیره کردن…"
@@ -47,7 +53,7 @@ msgid "Settings"
 msgstr "تنظیمات"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "چون سایتی تعریف نشده است، این تنظیمات قابل باز شدن نمی باشد."
+msgstr "چون سایتی تعریف نشده است، این تنظیمات قابل باز شدن نمی‌باشد."
 
 #, python-format
 msgid "%(setting_type)s updated."
