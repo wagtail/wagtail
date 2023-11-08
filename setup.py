@@ -92,7 +92,9 @@ setup(
         "Source": "https://github.com/wagtail/wagtail",
         "Tracker": "https://github.com/wagtail/wagtail/issues",
     },
-    packages=find_packages(),
+    packages=find_packages(
+        exclude=["*tests", "*tests*", "tests*", "*tests.*", "tests"],
+    ),
     include_package_data=True,
     license="BSD",
     long_description="Wagtail is an open source content management \
