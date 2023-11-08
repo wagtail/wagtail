@@ -765,6 +765,7 @@
 * Sam Dudley
 * Varun Kumar
 * Andrey Nehaychik
+* Meli Imelda
 
 ## Translators
 
