@@ -180,7 +180,6 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
         group = Group.objects.create(name="test group")
         self.user.is_superuser = False
         self.user.save()
-        page = Page.objects.first()
         self.user.groups.add(group)
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -203,7 +202,7 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
                 content_type__app_label="wagtailadmin", codename="access_admin"
             )
         )
-        group_page_permission = GroupPagePermission.objects.create(
+        GroupPagePermission.objects.create(
             group=group,
             page=Page.objects.first(),
             permission_type="change",

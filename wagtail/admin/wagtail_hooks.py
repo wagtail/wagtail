@@ -868,7 +868,7 @@ class SiteHistoryReportMenuItem(MenuItem):
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
         return getattr(
-            settings, "WAGTAIL_WORKFLOW_ENABLED", True
+            settings, "WAGTAIL_AGING_PAGES_ENABLED", True
         ) and PagePermissionPolicy().user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
