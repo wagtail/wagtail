@@ -764,6 +764,7 @@
 * Cameron Lamb
 * Sam Dudley
 * Varun Kumar
+* Andrey Nehaychik
 
 ## Translators
 
