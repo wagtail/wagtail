@@ -23,6 +23,7 @@ Changelog
  * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
  * Maintenance: Split up functions in Elasticsearch backend for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
+ * Maintenance: Relax draftjs_exporter dependency to allow using version 5.x (Sylvain Fankhauser)
 
 
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
