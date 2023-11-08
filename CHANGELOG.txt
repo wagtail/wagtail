@@ -16,6 +16,7 @@ Changelog
  * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
+ * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
