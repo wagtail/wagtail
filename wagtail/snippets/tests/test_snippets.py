@@ -61,6 +61,7 @@ from wagtail.test.testapp.models import (
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
+    FullFeaturedSnippet,
     MultiPreviewModesModel,
     RevisableChildModel,
     RevisableModel,
@@ -4117,10 +4118,10 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 12, 34, 0)),
             object_id="1",
         )
-        self.revisable_snippet = RevisableModel.objects.create(text="Foo")
+        self.revisable_snippet = FullFeaturedSnippet.objects.create(text="Foo")
         self.initial_revision = self.revisable_snippet.save_revision(user=self.user)
         ModelLogEntry.objects.create(
-            content_type=ContentType.objects.get_for_model(RevisableModel),
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             label="Foo",
             action="wagtail.create",
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 20, 22, 0)),
@@ -4226,6 +4227,8 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_with_i18n_enabled(self):
         response = self.get(self.non_revisable_snippet)
+        self.assertEqual(response.status_code, 200)
+        response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
 
 
