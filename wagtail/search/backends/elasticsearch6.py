@@ -16,6 +16,13 @@ class Field:
         self.field_name = field_name
         self.boost = boost
 
+    @property
+    def field_name_with_boost(self):
+        if self.boost == 1:
+            return self.field_name
+        else:
+            return f"{self.field_name}^{self.boost}"
+
 
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
     all_field_name = "_all_text"
@@ -98,17 +105,6 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
             for boost in unique_boosts
         ]
 
-    def get_boosted_fields(self, fields):
-        boosted_fields = []
-        if not isinstance(fields, list):
-            fields = [fields]
-        for field in fields:
-            if field.boost != 1:
-                boosted_fields.append(f"{field.field_name}^{field.boost}")
-            else:
-                boosted_fields.append(field.field_name)
-        return boosted_fields
-
     def _compile_fuzzy_query(self, query, fields):
         if len(fields) == 1:
             return {
@@ -122,18 +118,20 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         return {
             "multi_match": {
                 "query": query.query_string,
-                "fields": self.get_boosted_fields(fields),
+                "fields": [field.field_name_with_boost for field in fields],
                 "fuzziness": "AUTO",
             }
         }
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
         return super()._compile_plaintext_query(
-            query, self.get_boosted_fields(fields), boost
+            query, [field.field_name_with_boost for field in fields], boost
         )
 
     def _compile_phrase_query(self, query, fields):
-        return super()._compile_phrase_query(query, self.get_boosted_fields(fields))
+        return super()._compile_phrase_query(
+            query, [field.field_name_with_boost for field in fields]
+        )
 
     def get_inner_query(self):
         if self.remapped_fields:
