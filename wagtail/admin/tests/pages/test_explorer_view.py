@@ -457,7 +457,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Results that are not immediate children of the current page should show their parent
         self.assertContains(
             response,
-            '<a href="/admin/pages/2/" class="icon icon-arrow-right">Welcome to your new Wagtail site!</a>',
+            '<a href="/admin/pages/2/"><svg class="icon icon-arrow-right default" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>Welcome to your new Wagtail site!</a>',
             html=True,
         )
 
