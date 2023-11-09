@@ -470,6 +470,8 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         models = get_indexed_models()
         unique_boosts = set()
         for model in models:
+            if not issubclass(model, self.queryset.model):
+                continue
             for field in model.get_searchable_search_fields():
                 if field.boost:
                     unique_boosts.add(float(field.boost))
