@@ -6,12 +6,6 @@
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {% block non_field_errors %}
-            {% for error in form.non_field_errors %}
-                {% help_block status="critical" %}{{ error }}{% endhelp_block %}
-            {% endfor %}
-        {% endblock %}
-
         {% if panel %}
             {{ panel.render_form_content }}
         {% else %}
