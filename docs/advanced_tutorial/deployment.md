@@ -457,7 +457,7 @@ Ensure you replace _username_, _mail@example.com_, and _password_ with a usernam
 
 For more information on how to set up your Django project on Fly.io, read [Django on Fly.io](https://fly.io/docs/django/).
 
-All this while, you have been adding content to your site in the local environment. Now that your site is live on a server, you must add content to the live site. To add content to your live site, go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser and follow the steps in the following sub-sections of the tutorial:
+All this while, you've been adding content to your site in the local environment. Now that your site is live on a server, you must add content to the live site. To add content to your live site, go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser and follow the steps in the following sub-sections of the tutorial:
 
 - [Add content to your homepage](add_content_to_your_homepage)
 - [Add your social media links](add_your_social_media_links)
