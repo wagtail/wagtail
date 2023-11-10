@@ -449,6 +449,11 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
+
+        self.cached_fields = {}
+        self.cached_boosts = []
+        self.searchable_fields = None
+
         self.remapped_fields = self._remap_fields(self.fields)
 
     def _remap_fields(self, fields):
@@ -456,14 +461,20 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
         remapped_fields = []
         if fields:
-            searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
-            for field_name in fields:
-                if field_name in searchable_fields:
-                    field_name = self.mapping.get_field_column_name(
-                        searchable_fields[field_name]
-                    )
+            if self.searchable_fields is None:
+                self.searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
 
-                remapped_fields.append(Field(field_name))
+            for field_name in fields:
+                if field_name in self.searchable_fields and field_name not in self.cached_fields:
+                    new_field_name = self.mapping.get_field_column_name(
+                        self.searchable_fields[field_name]
+                    )
+                    self.cached_fields[field_name] = Field(new_field_name)
+
+                remapped_fields.append(self.cached_fields.get(field_name, Field(field_name)))
+
+        elif self.cached_boosts:
+            remapped_fields.extend(self.cached_boosts)
         else:
             remapped_fields.append(Field(self.mapping.all_field_name))
 
@@ -480,6 +491,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 for boost in unique_boosts
             ]
         )
+
+        # uncomment this when #11216 merged
+        # self.cached_boosts = remapped_fields
 
         return remapped_fields
 
