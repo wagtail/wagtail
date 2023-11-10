@@ -124,14 +124,43 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
         }
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
-        return super()._compile_plaintext_query(
-            query, [field.field_name_with_boost for field in fields], boost
-        )
+        match_query = {"query": query.query_string}
+
+        if query.operator != "or":
+            match_query["operator"] = query.operator
+
+        if len(fields) == 1:
+            if boost != 1.0 or fields[0].boost != 1.0:
+                match_query["boost"] = boost * fields[0].boost
+            return {"match": {fields[0].field_name: match_query}}
+        else:
+            if boost != 1.0:
+                match_query["boost"] = boost
+            match_query["fields"] = [field.field_name_with_boost for field in fields]
+
+            return {"multi_match": match_query}
 
     def _compile_phrase_query(self, query, fields):
-        return super()._compile_phrase_query(
-            query, [field.field_name_with_boost for field in fields]
-        )
+        if len(fields) == 1:
+            if fields[0].boost != 1.0:
+                return {
+                    "match_phrase": {
+                        fields[0].field_name: {
+                            "query": query.query_string,
+                            "boost": fields[0].boost,
+                        }
+                    }
+                }
+            else:
+                return {"match_phrase": {fields[0].field_name: query.query_string}}
+        else:
+            return {
+                "multi_match": {
+                    "query": query.query_string,
+                    "fields": [field.field_name_with_boost for field in fields],
+                    "type": "phrase",
+                }
+            }
 
     def get_inner_query(self):
         if self.remapped_fields:
