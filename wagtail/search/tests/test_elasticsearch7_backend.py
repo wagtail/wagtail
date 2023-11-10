@@ -296,13 +296,10 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
-                        ],
-                        "query": "Hello",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                        },
                     },
                 },
             }
@@ -320,14 +317,11 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
-                        ],
-                        "query": "Hello",
-                        "operator": "and",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                            "operator": "and",
+                        }
                     },
                 },
             }
@@ -349,8 +343,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "title",
                             "content",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     }
@@ -377,8 +369,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "title",
                             "content",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -757,8 +747,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "fields": [
                     "title",
                     "content",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
                 ],
                 "type": "phrase",
             }
@@ -773,14 +761,10 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
-                ],
-                "query": "Hello world",
-                "type": "phrase",
+            "match_phrase": {
+                "title": {
+                    "query": "Hello world",
+                },
             },
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -816,14 +800,11 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
-                ],
-                "query": "Hello world",
-                "fuzziness": "AUTO",
+             "match": {
+                "title": {
+                    "query": "Hello world",
+                    "fuzziness": "AUTO",
+                },
             }
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -841,8 +822,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "fields": [
                     "title",
                     "body",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",

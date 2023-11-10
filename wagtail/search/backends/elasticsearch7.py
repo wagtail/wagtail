@@ -456,9 +456,17 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
     def _remap_fields(self, fields):
         """Convert field names into index column names and add boosts."""
+        remapped_fields = self._remap_field_values(fields)
 
-        remapped_fields = []
+        if remapped_fields is not None:
+            return remapped_fields
+
+        return self._map_all_fields()
+
+    def _remap_field_values(self, fields):
+        """Map the values in `fields` to their indexed value."""
         if fields:
+            remapped_fields = []
             if self.searchable_fields is None:
                 self.searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
 
@@ -471,26 +479,32 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
                 remapped_fields.append(self.cached_fields.get(field_name, Field(field_name)))
 
-        elif self.cached_boosts:
-            remapped_fields.extend(self.cached_boosts)
-        else:
-            remapped_fields.append(Field(self.mapping.all_field_name))
+            return remapped_fields
 
-            models = get_indexed_models()
-            unique_boosts = set()
-            for model in models:
-                for field in model.get_searchable_search_fields():
-                    if field.boost:
-                        unique_boosts.add(float(field.boost))
+        return None
 
-            remapped_fields.extend(
-                [
-                    Field(self.mapping.get_boost_field_name(boost), boost)
-                    for boost in unique_boosts
-                ]
-            )
+    def _map_all_fields(self):
+        """Use _all_fields and boosts when fields are not specified."""
+        if self.cached_boosts:
+            return self.cached_boosts
 
-            self.cached_boosts = remapped_fields
+        remapped_fields = [Field(self.mapping.all_field_name)]
+
+        models = get_indexed_models()
+        unique_boosts = set()
+        for model in models:
+            for field in model.get_searchable_search_fields():
+                if field.boost:
+                    unique_boosts.add(float(field.boost))
+
+        remapped_fields.extend(
+            [
+                Field(self.mapping.get_boost_field_name(boost), boost)
+                for boost in unique_boosts
+            ]
+        )
+
+        self.cached_boosts = remapped_fields
 
         return remapped_fields
 
@@ -615,7 +629,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         if len(fields) == 1:
             return {
                 "match": {
-                    fields[0]: {
+                    fields[0].field_name: {
                         "query": query.query_string,
                         "fuzziness": "AUTO",
                     }
