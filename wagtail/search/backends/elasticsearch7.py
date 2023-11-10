@@ -476,22 +476,21 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         else:
             remapped_fields.append(Field(self.mapping.all_field_name))
 
-        models = get_indexed_models()
-        unique_boosts = set()
-        for model in models:
-            for field in model.get_searchable_search_fields():
-                if field.boost:
-                    unique_boosts.add(float(field.boost))
+            models = get_indexed_models()
+            unique_boosts = set()
+            for model in models:
+                for field in model.get_searchable_search_fields():
+                    if field.boost:
+                        unique_boosts.add(float(field.boost))
 
-        remapped_fields.extend(
-            [
-                Field(self.mapping.get_boost_field_name(boost), boost)
-                for boost in unique_boosts
-            ]
-        )
+            remapped_fields.extend(
+                [
+                    Field(self.mapping.get_boost_field_name(boost), boost)
+                    for boost in unique_boosts
+                ]
+            )
 
-        # uncomment this when #11216 merged
-        # self.cached_boosts = remapped_fields
+            self.cached_boosts = remapped_fields
 
         return remapped_fields
 
