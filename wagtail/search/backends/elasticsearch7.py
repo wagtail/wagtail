@@ -454,8 +454,6 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         self.cached_boosts = []
         self.searchable_fields = None
 
-        self.remapped_fields = self._remap_fields(self.fields)
-
     def _remap_fields(self, fields):
         """Convert field names into index column names and add boosts."""
 
@@ -698,14 +696,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             )
 
     def get_inner_query(self):
-        if self.remapped_fields:
-            fields = self.remapped_fields
-        else:
-            fields = [self.mapping.all_field_name]
-
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
-            return {"bool": {"mustNot": {"match_all": {}}}}
+        fields = self._remap_fields(self.fields)
 
         # Handle MatchAll and PlainText separately as they were supported
         # before "search query classes" was implemented and we'd like to
