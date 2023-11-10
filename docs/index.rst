@@ -39,6 +39,7 @@ Index
    :titlesonly:
 
    getting_started/index
+   advanced_tutorial/index
    topics/index
    advanced_topics/index
    extending/index
