@@ -587,12 +587,13 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         if query.operator != "or":
             match_query["operator"] = query.operator
 
-        if boost != 1.0:
-            match_query["boost"] = boost
-
         if len(fields) == 1:
-            return {"match": {fields[0].field_name_with_boost: match_query}}
+            if boost != 1.0 or fields[0].boost != 1.0:
+                match_query["boost"] = boost * fields[0].boost
+            return {"match": {fields[0].field_name: match_query}}
         else:
+            if boost != 1.0:
+                match_query["boost"] = boost
             match_query["fields"] = [field.field_name_with_boost for field in fields]
 
             return {"multi_match": match_query}
@@ -617,9 +618,17 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
     def _compile_phrase_query(self, query, fields):
         if len(fields) == 1:
-            return {
-                "match_phrase": {fields[0].field_name_with_boost: query.query_string}
-            }
+            if fields[0].boost != 1.0:
+                return {
+                    "match_phrase": {
+                        fields[0].field_name: {
+                            "query": query.query_string,
+                            "boost": fields[0].boost,
+                        }
+                    }
+                }
+            else:
+                return {"match_phrase": {fields[0].field_name: query.query_string}}
         else:
             return {
                 "multi_match": {
