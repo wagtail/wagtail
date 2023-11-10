@@ -278,12 +278,11 @@ class TestElasticsearch6SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title^2.0",
-                            "_all_text_boost_2_0^2.0",
-                        ],
-                        "query": "Hello",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                            "boost": 2.0,
+                        },
                     },
                 },
             }
@@ -301,13 +300,12 @@ class TestElasticsearch6SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title^2.0",
-                            "_all_text_boost_2_0^2.0",
-                        ],
-                        "query": "Hello",
-                        "operator": "and",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                            "boost": 2.0,
+                            "operator": "and",
+                        },
                     },
                 },
             }
@@ -329,7 +327,6 @@ class TestElasticsearch6SearchQuery(TestCase):
                         "fields": [
                             "title^2.0",
                             "content",
-                            "_all_text_boost_2_0^2.0",
                         ],
                         "query": "Hello",
                     },
@@ -356,7 +353,6 @@ class TestElasticsearch6SearchQuery(TestCase):
                         "fields": [
                             "title^2.0",
                             "content",
-                            "_all_text_boost_2_0^2.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -723,7 +719,6 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "fields": [
                     "title^2.0",
                     "content",
-                    "_all_text_boost_2_0^2.0",
                 ],
                 "query": "Hello world",
                 "type": "phrase",
@@ -739,13 +734,11 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title^2.0",
-                    "_all_text_boost_2_0^2.0",
-                ],
-                "query": "Hello world",
-                "type": "phrase",
+            "match_phrase": {
+                "title": {
+                    "query": "Hello world",
+                    "boost": 2.0,
+                },
             },
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -780,13 +773,12 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title^2.0",
-                    "_all_text_boost_2_0^2.0",
-                ],
-                "query": "Hello world",
-                "fuzziness": "AUTO",
+            "match": {
+                "title": {
+                    "query": "Hello world",
+                    "fuzziness": "AUTO",
+                    "boost": 2.0,
+                },
             },
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -804,7 +796,6 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "fields": [
                     "title^2.0",
                     "body",
-                    "_all_text_boost_2_0^2.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
