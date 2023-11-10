@@ -327,7 +327,7 @@ class TestElasticsearch7SearchQuery(TestCase):
     def test_multiple_fields(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=["title", "content"]
+            models.Book.objects.all(), "Hello", fields=["title", "summary"]
         )
 
         # Check it
@@ -338,7 +338,7 @@ class TestElasticsearch7SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "title^2.0",
-                            "content",
+                            "summary",
                         ],
                         "query": "Hello",
                     }
@@ -352,7 +352,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         query = self.query_compiler_class(
             models.Book.objects.all(),
             "Hello",
-            fields=["title", "content"],
+            fields=["title", "summary"],
             operator="and",
         )
 
@@ -364,7 +364,7 @@ class TestElasticsearch7SearchQuery(TestCase):
                     "multi_match": {
                         "fields": [
                             "title^2.0",
-                            "content",
+                            "summary",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -722,7 +722,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         query_compiler = self.query_compiler_class(
             models.Book.objects.all(),
             Phrase("Hello world"),
-            fields=["title", "content"],
+            fields=["title", "summary"],
         )
 
         # Check it
@@ -731,7 +731,7 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "query": "Hello world",
                 "fields": [
                     "title^2.0",
-                    "content",
+                    "summary",
                 ],
                 "type": "phrase",
             }
@@ -800,14 +800,14 @@ class TestElasticsearch7SearchQuery(TestCase):
         query_compiler = self.query_compiler_class(
             models.Book.objects.all(),
             Fuzzy("Hello world"),
-            fields=["title", "body"],
+            fields=["title", "summary"],
         )
 
         expected_result = {
             "multi_match": {
                 "fields": [
                     "title^2.0",
-                    "body",
+                    "summary",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -1081,6 +1081,7 @@ class TestElasticsearch7Mapping(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
+                "summary": {"copy_to": "_all_text", "type": "text"},
                 "number_of_pages_filter": {"type": "integer"},
                 "tags": {
                     "type": "nested",
@@ -1126,6 +1127,7 @@ class TestElasticsearch7Mapping(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
+            "summary": "",
             "number_of_pages_filter": 423,
             "tags": [],
             "tags_filter": [],
@@ -1229,6 +1231,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
                 "number_of_pages_filter": {"type": "integer"},
+                "summary": {"copy_to": "_all_text", "type": "text"},
                 "tags": {
                     "type": "nested",
                     "properties": {
@@ -1297,6 +1300,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
             "number_of_pages_filter": 423,
+            "summary": "",
             "tags": [],
             "tags_filter": [],
         }
