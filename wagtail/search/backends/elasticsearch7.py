@@ -465,12 +465,14 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         if fields:
             searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
             for field_name in fields:
-                if field_name in searchable_fields:
-                    field_name = self.mapping.get_field_column_name(
-                        searchable_fields[field_name]
-                    )
-
-                remapped_fields.append(Field(field_name))
+                field = searchable_fields.get(field_name)
+                if field:
+                    field_name = self.mapping.get_field_column_name(field)
+                    remapped_fields.append(Field(field_name, field.boost or 1))
+                else:
+                    # FIXME: is it actually valid for a field specified in `fields`
+                    # to not be in searchable_fields?
+                    remapped_fields.append(Field(field_name))
         else:
             remapped_fields.append(Field(self.mapping.all_field_name))
 
