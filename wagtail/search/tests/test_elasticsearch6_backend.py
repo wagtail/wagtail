@@ -280,7 +280,7 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
+                            "title^2.0",
                             "_all_text_boost_2_0^2.0",
                         ],
                         "query": "Hello",
@@ -303,7 +303,7 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
+                            "title^2.0",
                             "_all_text_boost_2_0^2.0",
                         ],
                         "query": "Hello",
@@ -327,7 +327,7 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
+                            "title^2.0",
                             "content",
                             "_all_text_boost_2_0^2.0",
                         ],
@@ -354,7 +354,7 @@ class TestElasticsearch6SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
+                            "title^2.0",
                             "content",
                             "_all_text_boost_2_0^2.0",
                         ],
@@ -721,7 +721,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {
             "multi_match": {
                 "fields": [
-                    "title",
+                    "title^2.0",
                     "content",
                     "_all_text_boost_2_0^2.0",
                 ],
@@ -741,7 +741,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {
             "multi_match": {
                 "fields": [
-                    "title",
+                    "title^2.0",
                     "_all_text_boost_2_0^2.0",
                 ],
                 "query": "Hello world",
@@ -782,7 +782,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {
             "multi_match": {
                 "fields": [
-                    "title",
+                    "title^2.0",
                     "_all_text_boost_2_0^2.0",
                 ],
                 "query": "Hello world",
@@ -802,7 +802,7 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {
             "multi_match": {
                 "fields": [
-                    "title",
+                    "title^2.0",
                     "body",
                     "_all_text_boost_2_0^2.0",
                 ],
