@@ -763,6 +763,10 @@
 * Marcel Kornblum
 * Cameron Lamb
 * Sam Dudley
+* Varun Kumar
+* Andrey Nehaychik
+* Meli Imelda
+* Kehinde Bobade
 
 ## Translators
 

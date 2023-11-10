@@ -853,7 +853,11 @@ class LockedPagesMenuItem(MenuItem):
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True)
+        return getattr(
+            settings, "WAGTAIL_WORKFLOW_ENABLED", True
+        ) and PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
 
 
 class SiteHistoryReportMenuItem(MenuItem):
@@ -863,7 +867,11 @@ class SiteHistoryReportMenuItem(MenuItem):
 
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True)
+        return getattr(
+            settings, "WAGTAIL_AGING_PAGES_ENABLED", True
+        ) and PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
 
 
 @hooks.register("register_reports_menu_item")
@@ -971,14 +979,11 @@ def register_help_menu():
 @hooks.register("register_icons")
 def register_icons(icons):
     for icon in [
-        "angle-double-left.svg",
-        "angle-double-right.svg",
         "arrow-down.svg",
         "arrow-right-full.svg",
         "arrow-left.svg",
         "arrow-right.svg",
         "arrow-up.svg",
-        "arrows-up-down.svg",
         "bars.svg",
         "bin.svg",
         "bold.svg",
@@ -986,7 +991,6 @@ def register_icons(icons):
         "calendar.svg",
         "calendar-alt.svg",
         "calendar-check.svg",
-        "chain-broken.svg",
         "check.svg",
         "circle-check.svg",
         "circle-plus.svg",
@@ -1011,12 +1015,10 @@ def register_icons(icons):
         "doc-empty.svg",
         "doc-full-inverse.svg",
         "doc-full.svg",  # aka file-text-alt
-        "dots-vertical.svg",
         "dots-horizontal.svg",
         "download.svg",
         "draft.svg",
         "edit.svg",
-        "ellipsis-v.svg",
         "expand-right.svg",
         "error.svg",
         "folder-inverse.svg",
@@ -1036,7 +1038,6 @@ def register_icons(icons):
         "help.svg",
         "history.svg",
         "home.svg",
-        "horizontalrule.svg",
         "image.svg",  # aka picture
         "info-circle.svg",
         "italic.svg",
@@ -1068,8 +1069,6 @@ def register_icons(icons):
         "radio-full.svg",
         "redirect.svg",
         "regex.svg",
-        "repeat.svg",
-        "reset.svg",
         "resubmit.svg",
         "rotate.svg",
         "search.svg",
@@ -1089,11 +1088,9 @@ def register_icons(icons):
         "tick-inverse.svg",
         "time.svg",
         "title.svg",
-        "undo.svg",
         "upload.svg",
         "user.svg",
         "view.svg",
-        "wagtail-inverse.svg",
         "wagtail.svg",
         "warning.svg",
     ]:

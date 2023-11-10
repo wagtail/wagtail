@@ -35,6 +35,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.testapp.views import (
     JSONModelViewSetGroup,
     MiscellaneousViewSetGroup,
+    SearchTestModelViewSet,
     ToyViewSetGroup,
     animated_advert_chooser_viewset,
 )
@@ -242,7 +243,11 @@ def add_broken_links_summary_item(request, items):
 
 @hooks.register("register_admin_viewset")
 def register_viewsets():
-    return [MiscellaneousViewSetGroup(), JSONModelViewSetGroup()]
+    return [
+        MiscellaneousViewSetGroup(),
+        JSONModelViewSetGroup(),
+        SearchTestModelViewSet(name="searchtest"),
+    ]
 
 
 @hooks.register("register_admin_viewset")

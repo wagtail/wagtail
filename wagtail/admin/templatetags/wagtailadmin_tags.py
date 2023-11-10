@@ -57,10 +57,7 @@ from wagtail.models import (
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import (
-    RemovedInWagtail60Warning,
-    RemovedInWagtail70Warning,
-)
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -444,8 +441,8 @@ def paginate(context, page, base_url="", page_key="p", classname=""):
 
 
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
-def page_listing_buttons(context, page, user):
-    next_url = context["request"].path
+def page_listing_buttons(context, page, user, next_url=None):
+    next_url = next_url or context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
@@ -697,47 +694,6 @@ def icon(name=None, classname=None, title=None, wrapped=False):
     """
     if not name:
         raise ValueError("You must supply an icon name")
-
-    deprecated_icons = [
-        "angle-double-left",
-        "angle-double-right",
-        "arrow-down-big",
-        "arrow-up-big",
-        "arrows-up-down",
-        "chain-broken",
-        "dots-vertical",
-        "ellipsis-v",
-        "horizontalrule",
-        "repeat",
-        "reset",
-        "undo",
-        "wagtail-inverse",
-    ]
-
-    if name in deprecated_icons:
-        warn(
-            (f"Icon `{name}` is deprecated and will be removed in a future release."),
-            category=RemovedInWagtail60Warning,
-        )
-
-    renamed_icons = {
-        "chevron-down": "arrow-down",
-        "download-alt": "download",
-        "duplicate": "copy",
-        "tick": "check",
-        "uni52": "folder-inverse",
-    }
-
-    if name in renamed_icons:
-        old_name = name
-        name = renamed_icons[name]
-        warn(
-            (
-                f"Icon `{old_name}` has been renamed to `{name}`, please adopt the new usage instead. "
-                f'Replace `{{% icon name="{old_name}" ... %}}` with `{{% icon name="{name}" ... %}}`'
-            ),
-            category=RemovedInWagtail60Warning,
-        )
 
     return {
         "name": name,

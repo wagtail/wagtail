@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from django.conf import settings
 from django.core import checks
+from django.db import models
 from django.test import TestCase, override_settings
 
 from wagtail.models import Locale
@@ -188,7 +189,36 @@ class TestLocalized(TestCase):
 
 
 class TestSystemChecks(TestCase):
-    def test_raises_error_if_unique_together_constraint_missing(self):
+    def test_unique_together_raises_no_error(self):
+        # The default unique_together should not raise an error
+        errors = TestModel.check()
+        self.assertEqual(len(errors), 0)
+
+    def test_unique_constraint_raises_no_error(self):
+        # Allow replacing unique_together with UniqueConstraint
+        # https://github.com/wagtail/wagtail/issues/11098
+        previous_unique_together = TestModel._meta.unique_together
+        try:
+            TestModel._meta.unique_together = []
+            TestModel._meta.constraints = [
+                models.UniqueConstraint(
+                    fields=["translation_key", "locale"],
+                    name="unique_translation_key_locale_%(app_label)s_%(class)s",
+                )
+            ]
+            errors = TestModel.check()
+
+        finally:
+            TestModel._meta.unique_together = previous_unique_together
+            TestModel._meta.constraints = []
+
+        self.assertEqual(len(errors), 0)
+
+    def test_raises_error_if_both_unique_constraint_and_unique_together_are_missing(
+        self,
+    ):
+        # The model has unique_together and not UniqueConstraint, remove
+        # unique_together to trigger the error
         previous_unique_together = TestModel._meta.unique_together
         try:
             TestModel._meta.unique_together = []
@@ -199,3 +229,42 @@ class TestSystemChecks(TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIsInstance(errors[0], checks.Error)
         self.assertEqual(errors[0].id, "wagtailcore.E003")
+        self.assertEqual(
+            errors[0].msg,
+            "i18n.TestModel is missing a UniqueConstraint for the fields: "
+            "('translation_key', 'locale').",
+        )
+        self.assertEqual(
+            errors[0].hint,
+            "Add models.UniqueConstraint(fields=('translation_key', 'locale'), "
+            "name='unique_translation_key_locale_i18n_testmodel') to "
+            "TestModel.Meta.constraints.",
+        )
+
+    def test_error_with_both_unique_constraint_and_unique_together(self):
+        # The model already has unique_together, add a UniqueConstraint
+        # to trigger the error
+        try:
+            TestModel._meta.constraints = [
+                models.UniqueConstraint(
+                    fields=["translation_key", "locale"],
+                    name="unique_translation_key_locale_%(app_label)s_%(class)s",
+                )
+            ]
+            errors = TestModel.check()
+
+        finally:
+            TestModel._meta.constraints = []
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], checks.Error)
+        self.assertEqual(errors[0].id, "wagtailcore.E003")
+        self.assertEqual(
+            errors[0].msg,
+            "i18n.TestModel should not have both UniqueConstraint and unique_together for: "
+            "('translation_key', 'locale').",
+        )
+        self.assertEqual(
+            errors[0].hint,
+            "Remove unique_together in favor of UniqueConstraint.",
+        )

@@ -7,6 +7,8 @@ Changelog
  * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Remember previous location on returning from page add/edit actions (Robert Rollins)
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
+ * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
+ * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -14,6 +16,8 @@ Changelog
  * Fix: Preserve whitespace in rendered comments (Elhussein Almasri)
  * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
+ * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
@@ -23,6 +27,11 @@ Changelog
  * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
  * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
  * Maintenance: Split up functions in Elasticsearch backend for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
+ * Maintenance: Relax draftjs_exporter dependency to allow using version 5.x (Sylvain Fankhauser)
+ * Maintenance: Refine styling of listings, account settings panels and the block chooser (Meli Imelda)
+ * Maintenance: Remove icon font support (Matt Westcott)
+ * Maintenance: Remove deprecated SVG icons (Matt Westcott)
+ * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
 
 
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -31,6 +40,9 @@ Changelog
  * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
  * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
+ * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
+ * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 

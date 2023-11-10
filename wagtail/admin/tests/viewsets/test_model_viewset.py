@@ -17,6 +17,7 @@ from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
     JSONStreamModel,
+    SearchTestModel,
     VariousOnDeleteModel,
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
@@ -450,6 +451,44 @@ class TestSearchIndexResultsView(TestSearchIndexView):
     def assertInputRendered(self, response, search_q):
         # index_results view doesn't render the search input
         pass
+
+
+class TestSearchFields(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        objects = [
+            SearchTestModel(title="Hello World", body="This one is classic"),
+            SearchTestModel(title="Hello Anime", body="We love anime (opinions vary)"),
+            SearchTestModel(title="Food", body="I like food, do you?"),
+        ]
+        SearchTestModel.objects.bulk_create(objects)
+
+    def setUp(self):
+        self.login()
+
+    def get(self, q):
+        return self.client.get(reverse("searchtest:index"), {"q": q})
+
+    def test_single_result_with_body(self):
+        response = self.get("IkE")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello World")
+        self.assertNotContains(response, "Hello Anime")
+        self.assertContains(response, "Food")
+
+    def test_multiple_results_with_title(self):
+        response = self.get("ELlo")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello World")
+        self.assertContains(response, "Hello Anime")
+        self.assertNotContains(response, "Food")
+
+    def test_no_results(self):
+        response = self.get("Abra Kadabra")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello World")
+        self.assertNotContains(response, "Hello Anime")
+        self.assertNotContains(response, "Food")
 
 
 class TestListExport(WagtailTestUtils, TestCase):
