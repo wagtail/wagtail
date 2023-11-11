@@ -1,5 +1,6 @@
 import datetime
 from io import BytesIO
+from unittest import mock
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
@@ -12,6 +13,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
+from wagtail.admin.views.reports.audit_logging import LogEntriesView
 from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
 from wagtail.test.testapp.models import Advert
 from wagtail.test.utils import WagtailTestUtils
@@ -444,6 +446,24 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertContains(response, "Unknown content type")
+
+    def test_decorated_queryset(self):
+        # Ensure that decorate_paginated_queryset is only called with the queryset for the current
+        # page, instead of all objects over all pages.
+        with mock.patch.object(
+            LogEntriesView,
+            "decorate_paginated_queryset",
+            side_effect=LogEntriesView.decorate_paginated_queryset,
+            autospec=True,
+        ) as decorate_paginated_queryset, mock.patch.object(
+            LogEntriesView, "paginate_by", return_value=1
+        ):
+            response = self.get()
+            decorate_paginated_queryset.assert_called_once()
+            queryset = decorate_paginated_queryset.call_args.args[1]
+            self.assertEqual(queryset.count(), 1)
+
+        self.assertEqual(response.status_code, 200)
 
 
 @override_settings(
