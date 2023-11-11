@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 #
 # Base classes
 #
@@ -27,34 +29,44 @@ class PlainText(SearchQuery):
     DEFAULT_OPERATOR = "and"
 
     def __init__(
-        self, query_string: str, operator: str = DEFAULT_OPERATOR, boost: float = 1
+        self,
+        query_string: str,
+        operator: str = DEFAULT_OPERATOR,
+        fields: Optional[List[str]] = None,
+        boost: float = 1,
     ):
         self.query_string = query_string
         self.operator = operator.lower()
         if self.operator not in self.OPERATORS:
             raise ValueError("`operator` must be either 'or' or 'and'.")
+        self.fields = fields
         self.boost = boost
 
     def __repr__(self):
-        return "<PlainText {} operator={} boost={}>".format(
-            repr(self.query_string), repr(self.operator), repr(self.boost)
+        return "<PlainText {} operator={} fields={} boost={}>".format(
+            repr(self.query_string),
+            repr(self.operator),
+            repr(self.fields),
+            repr(self.boost),
         )
 
 
 class Phrase(SearchQuery):
-    def __init__(self, query_string: str):
+    def __init__(self, query_string: str, fields: Optional[List[str]] = None):
         self.query_string = query_string
+        self.fields = fields
 
     def __repr__(self):
-        return f"<Phrase {repr(self.query_string)}>"
+        return f"<Phrase {repr(self.query_string)} fields={repr(self.fields)}>"
 
 
 class Fuzzy(SearchQuery):
-    def __init__(self, query_string: str):
+    def __init__(self, query_string: str, fields: Optional[List[str]] = None):
         self.query_string = query_string
+        self.fields = fields
 
     def __repr__(self):
-        return f"<Fuzzy {repr(self.query_string)}>"
+        return f"<Fuzzy {repr(self.query_string)} fields={repr(self.fields)}>"
 
 
 class MatchAll(SearchQuery):
