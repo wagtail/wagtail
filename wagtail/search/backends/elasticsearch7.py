@@ -16,6 +16,7 @@ from wagtail.search.backends.base import (
     BaseSearchQueryCompiler,
     BaseSearchResults,
     FilterFieldError,
+    SearchFieldError,
     get_model_root,
 )
 from wagtail.search.index import (
@@ -473,18 +474,25 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 self._searchable_field_map()
 
             for field_name in fields:
-                if (
-                    field_name in self.searchable_fields
-                    and field_name not in self.cached_fields
-                ):
+                if field_name not in self.searchable_fields:
+                    raise SearchFieldError(
+                        'Cannot search with field "'
+                        + field_name
+                        + "\". Please add index.SearchField('"
+                        + field_name
+                        + "') to "
+                        + self.queryset.model.__name__
+                        + ".search_fields.",
+                        field_name=field_name,
+                    )
+
+                if field_name not in self.cached_fields:
                     new_field_name = self.mapping.get_field_column_name(
                         self.searchable_fields[field_name]
                     )
                     self.cached_fields[field_name] = Field(new_field_name)
 
-                remapped_fields.append(
-                    self.cached_fields.get(field_name, Field(field_name))
-                )
+                remapped_fields.append(self.cached_fields[field_name])
 
             return remapped_fields
 
