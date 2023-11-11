@@ -466,8 +466,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
     def _remap_field_values(self, fields):
         """Map the values in `fields` to their indexed value."""
-        if fields:
+        if fields is not None:
             remapped_fields = []
+
             if self.searchable_fields is None:
                 self._searchable_field_map()
 
