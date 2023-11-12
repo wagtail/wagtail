@@ -1,4 +1,5 @@
 ```{currentmodule} wagtail.snippets.views.snippets
+
 ```
 
 (wagtailsnippets_custom_admin_views)=
