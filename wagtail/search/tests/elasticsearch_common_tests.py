@@ -221,7 +221,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             "Game of Thrones", fields=["title"]
         )
         results = self.backend.search(query, models.Novel)
-        self.assertEqual(len(results), 0)
+        self.assertEqual(len(results), 1)
 
     def test_search_on_individual_field_arg(self):
         # The following query shouldn't search the Novel.setting field so none
