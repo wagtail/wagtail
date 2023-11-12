@@ -160,7 +160,7 @@ class Create(CreateView):
     header_icon = "redirect"
     page_title = gettext_lazy("Add redirect")
     success_message = gettext_lazy("Redirect '%(object)s' created.")
-    error_message = "The redirect could not be created due to errors."
+    error_message = gettext_lazy("The redirect could not be created due to errors.")
 
 
 @permission_checker.require_any("add")
