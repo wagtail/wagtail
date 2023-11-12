@@ -7,7 +7,7 @@
 {% block content %}
     {% trans "Redirects" as redirects_str %}
     {% url 'wagtailredirects:index' as search_results_url %}
-    {% if user_can_add %}
+    {% if can_add %}
         {% url "wagtailredirects:add" as add_link %}
         {% trans "Add redirect" as add_str %}
         {% url "wagtailredirects:start_import" as import_link %}

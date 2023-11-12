@@ -19,7 +19,7 @@
 
             <li>
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
-                {% if user_can_delete %}
+                {% if can_delete %}
                     <a href="{% url 'wagtailredirects:delete' redirect.id %}" class="button no">{% trans "Delete redirect" %}</a>
                 {% endif %}
             </li>

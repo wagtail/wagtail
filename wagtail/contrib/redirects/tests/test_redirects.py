@@ -581,7 +581,7 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailredirects/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -618,8 +618,8 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        last_index = len(response.context["redirects"]) - 1
-        self.assertEqual(response.context["redirects"][last_index].old_path, "/aaargh")
+        first_index = 0
+        self.assertEqual(response.context["redirects"][first_index].old_path, "/aaargh")
 
 
 class TestRedirectsAddView(WagtailTestUtils, TestCase):
@@ -799,7 +799,7 @@ class TestRedirectsEditView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailredirects/edit.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/edit.html")
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/redirects/%d/" % self.redirect.id
@@ -907,7 +907,7 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailredirects/confirm_delete.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)

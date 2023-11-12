@@ -43,7 +43,6 @@ class Index(IndexView):
     Lists all redirects for management within the admin.
     """
 
-    template_name = "wagtailredirects/index.html"
     results_template_name = "wagtailredirects/results.html"
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(Redirect)
@@ -95,8 +94,7 @@ class Index(IndexView):
         )
 
         context_data["ordering"] = self.default_ordering
-        context_data["redirects"] = self.redirects
-
+        context_data["redirects"] = self.get_queryset()
         return context_data
 
 
@@ -109,7 +107,6 @@ class Edit(EditView):
     permission_policy = ModelPermissionPolicy(Redirect)
     form_class = RedirectForm
     header_icon = "redirects"
-    template_name = "wagtailredirects/edit.html"
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
     delete_url_name = "wagtailredirects:delete"
@@ -134,7 +131,6 @@ class Delete(DeleteView):
 
     permission_policy = ModelPermissionPolicy(Redirect)
     model = Redirect
-    template_name = "wagtailredirects/confirm_delete.html"
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
     delete_url_name = "wagtailredirects:delete"
