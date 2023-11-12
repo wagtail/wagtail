@@ -33,7 +33,6 @@ from wagtail.contrib.redirects.utils import (
     write_to_file_storage,
 )
 from wagtail.log_actions import log
-from wagtail.permission_policies import ModelPermissionPolicy
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -45,7 +44,7 @@ class Index(IndexView):
 
     results_template_name = "wagtailredirects/results.html"
     any_permission_required = ["add", "change", "delete"]
-    permission_policy = ModelPermissionPolicy(Redirect)
+    permission_policy = permission_policy
     model = Redirect
     header_icon = "redirects"
     add_item_label = _("Add redirect")
@@ -104,7 +103,7 @@ class Edit(EditView):
     """
 
     model = Redirect
-    permission_policy = ModelPermissionPolicy(Redirect)
+    permission_policy = permission_policy
     form_class = RedirectForm
     header_icon = "redirects"
     index_url_name = "wagtailredirects:index"
@@ -129,7 +128,7 @@ class Delete(DeleteView):
     Provide the ability to delete a redirect within the admin
     """
 
-    permission_policy = ModelPermissionPolicy(Redirect)
+    permission_policy = permission_policy
     model = Redirect
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
@@ -149,7 +148,7 @@ class Create(CreateView):
     Provide the ability to create a redirect within the admin
     """
 
-    permission_policy = ModelPermissionPolicy(Redirect)
+    permission_policy = permission_policy
     permission_required = "add"
     model = Redirect
     form_class = RedirectForm
