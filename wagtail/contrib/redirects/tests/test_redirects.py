@@ -581,7 +581,7 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailredirects/index.html")
 
     def test_search(self):
         response = self.get({"q": "Hello"})

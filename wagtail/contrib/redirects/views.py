@@ -42,6 +42,7 @@ class Index(IndexView):
     Lists all redirects for management within the admin.
     """
 
+    template_name = "wagtailredirects/index.html"
     results_template_name = "wagtailredirects/results.html"
     any_permission_required = ["add", "change", "delete"]
     permission_policy = permission_policy
