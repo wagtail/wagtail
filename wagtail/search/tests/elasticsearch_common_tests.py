@@ -3,7 +3,14 @@ from io import StringIO
 
 from django.core import management
 
-from wagtail.search.query import MATCH_ALL
+from wagtail.search.backends.base import FieldError
+from wagtail.search.query import (
+    MATCH_ALL,
+    Boost,
+    Fuzzy,
+    Phrase,
+    PlainText,
+)
 from wagtail.search.tests.test_backends import BackendTests
 from wagtail.test.search import models
 
@@ -206,3 +213,140 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         in_jan = models.Book.objects.filter(publication_date__month=1)
         with self.assertRaises(FilterError):
             self.backend.search(MATCH_ALL, in_jan)
+
+    # QUERY FIELD PARAMETER TESTS
+
+    def test_search_one_field_arg_empty(self):
+        query = PlainText("Westeros", fields=[]) & Phrase(
+            "Game of Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+        self.assertEqual(len(results), 0)
+
+    def test_search_on_individual_field_arg(self):
+        # The following query shouldn't search the Novel.setting field so none
+        # of the Novels set in "Westeros" should be returned
+        results = self.backend.search(
+            PlainText("Westeros Hobbit", fields=["title"], operator="or"), models.Book
+        )
+
+        self.assertUnsortedListEqual([r.title for r in results], ["The Hobbit"])
+
+    def test_search_on_unknown_field_arg(self):
+        with self.assertRaises(FieldError):
+            list(
+                self.backend.search(
+                    PlainText("Westeros Hobbit", fields=["unknown"], operator="or"),
+                    models.Book,
+                )
+            )
+
+    def test_search_on_non_searchable_field_arg(self):
+        with self.assertRaises(FieldError):
+            list(
+                self.backend.search(
+                    PlainText(
+                        "Westeros Hobbit",
+                        fields=["number_of_pages"],
+                        operator="or",
+                    ),
+                    models.Book,
+                )
+            )
+
+    def test_search_on_multiple_field_arg(self):
+        results = self.backend.search(
+            PlainText("Westeros Thrones", fields=["title", "setting"], operator="or"),
+            models.Novel,
+        )
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["A Clash of Kings", "A Game of Thrones", "A Storm of Swords"],
+        )
+
+    def test_search_on_multiple_queries_with_and_fields(self):
+        query = PlainText("Westeros", fields=["setting", "title"]) & Phrase(
+            "Game of Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    def test_search_on_multiple_queries_with_or_fields(self):
+        query = PlainText("Westeros", fields=["setting"]) | Phrase(
+            "The Hobbit", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Clash of Kings",
+                "A Game of Thrones",
+                "A Storm of Swords",
+                "The Hobbit",
+            ],
+        )
+
+    def test_search_on_multiple_queries_with_not_fields(self):
+        query = PlainText("Westeros", fields=["setting", "title"]) & ~PlainText(
+            "Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Clash of Kings",
+                "A Storm of Swords",
+            ],
+        )
+
+    def test_search_fuzzy_with_field_arg(self):
+        query = Fuzzy("Westerop", fields=["setting"]) & PlainText(
+            "Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    def test_search_field_arg_override(self):
+        # the `fields` param in the query takes precidence over the value given to `search`
+        query = PlainText("Westeros", fields=["setting"], operator="and") & PlainText(
+            "Thrones"
+        )
+        results = self.backend.search(query, models.Novel, fields=["title"])
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    def test_boost_with_fields(self):
+        results = self.backend.search(
+            PlainText("JavaScript Definitive", fields=["title"])
+            | Boost(PlainText("Learning Python", fields=["title"]), 2.0),
+            models.Book.objects.all(),
+        )
+
+        # Both python and JavaScript should be returned with Python at the top
+        self.assertEqual(
+            [r.title for r in results],
+            [
+                "Learning Python",
+                "JavaScript: The Definitive Guide",
+            ],
+        )
+
+        results = self.backend.search(
+            PlainText("JavaScript Definitive", fields=["title"])
+            | Boost(PlainText("Learning Python", fields=["title"]), 0.5),
+            models.Book.objects.all(),
+        )
+
+        # Now they should be swapped
+        self.assertEqual(
+            [r.title for r in results],
+            [
+                "JavaScript: The Definitive Guide",
+                "Learning Python",
+            ],
+        )
