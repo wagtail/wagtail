@@ -276,17 +276,6 @@ class BackendTests(WagtailTestUtils):
             ],
         )
 
-    def test_autocomplete_with_fields_arg_in_query(self):
-        results = self.backend.autocomplete(
-            PlainText("Georg", fields=["name"]), models.Author
-        )
-        self.assertUnsortedListEqual(
-            [r.name for r in results],
-            [
-                "George R.R. Martin",
-            ],
-        )
-
     def test_autocomplete_not_affected_by_stemming(self):
         # If SEARCH_CONFIG is set, stemming will be enabled.
         # But we want to disable this for autocomplete as stemmed words don't always match on prefixes

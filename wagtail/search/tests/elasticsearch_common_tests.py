@@ -350,3 +350,14 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
                 "Learning Python",
             ],
         )
+
+    def test_autocomplete_with_fields_arg_in_query(self):
+        results = self.backend.autocomplete(
+            PlainText("Georg", fields=["name"]), models.Author
+        )
+        self.assertUnsortedListEqual(
+            [r.name for r in results],
+            [
+                "George R.R. Martin",
+            ],
+        )
