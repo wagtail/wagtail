@@ -25,6 +25,7 @@ from wagtail.search.query import (
     MATCH_NONE,
     And,
     Boost,
+    Fuzzy,
     Not,
     Or,
     Phrase,
@@ -32,6 +33,11 @@ from wagtail.search.query import (
 )
 from wagtail.test.search import models
 from wagtail.test.utils import WagtailTestUtils
+
+try:
+    from elasticsearch import VERSION as ELASTICSEARCH_VERSION
+except ImportError:
+    ELASTICSEARCH_VERSION = (0, 0, 0)
 
 
 class BackendTests(WagtailTestUtils):
@@ -162,6 +168,11 @@ class BackendTests(WagtailTestUtils):
 
         self.assertIsInstance(results[0], models.Book)
 
+    def test_search_child_class_field_from_parent_with_field(self):
+        # When `field` is specified, searching a child class is no longer possible
+        with self.assertRaises(FieldError):
+            list(self.backend.search("Westeros", models.Book, fields=["setting"]))
+
     def test_search_on_individual_field(self):
         # The following query shouldn't search the Novel.setting field so none
         # of the Novels set in "Westeros" should be returned
@@ -231,6 +242,158 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(MATCH_ALL, models.UnindexedBook)
         self.assertEqual(len(results), 0)
 
+    def test_search_no_fields(self):
+        results = self.backend.search("Hobbit", models.Book, fields=[])
+        self.assertEqual(len(results), 0)
+
+    # QUERY FIELD PARAMETER TESTS
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_one_field_arg_empty(self):
+        query = PlainText("Westeros", fields=[]) & Phrase(
+            "Game of Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+        self.assertEqual(len(results), 0)
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_individual_field_arg(self):
+        # The following query shouldn't search the Novel.setting field so none
+        # of the Novels set in "Westeros" should be returned
+        results = self.backend.search(
+            PlainText("Westeros Hobbit", fields=["title"], operator="or"), models.Book
+        )
+
+        self.assertUnsortedListEqual([r.title for r in results], ["The Hobbit"])
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_unknown_field_arg(self):
+        with self.assertRaises(FieldError):
+            list(
+                self.backend.search(
+                    PlainText("Westeros Hobbit", fields=["unknown"], operator="or"),
+                    models.Book,
+                )
+            )
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_non_searchable_field_arg(self):
+        with self.assertRaises(FieldError):
+            list(
+                self.backend.search(
+                    PlainText(
+                        "Westeros Hobbit",
+                        fields=["number_of_pages"],
+                        operator="or",
+                    ),
+                    models.Book,
+                )
+            )
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_multiple_field_arg(self):
+        results = self.backend.search(
+            PlainText("Westeros Thrones", fields=["title", "setting"], operator="or"),
+            models.Novel,
+        )
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["A Clash of Kings", "A Game of Thrones", "A Storm of Swords"],
+        )
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_multiple_queries_with_and_fields(self):
+        query = PlainText("Westeros", fields=["setting", "title"]) & Phrase(
+            "Game of Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_multiple_queries_with_or_fields(self):
+        query = PlainText("Westeros", fields=["setting"]) | Phrase(
+            "The Hobbit", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Clash of Kings",
+                "A Game of Thrones",
+                "A Storm of Swords",
+                "The Hobbit",
+            ],
+        )
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_on_multiple_queries_with_not_fields(self):
+        query = PlainText("Westeros", fields=["setting", "title"]) & ~PlainText(
+            "Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Clash of Kings",
+                "A Storm of Swords",
+            ],
+        )
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_fuzzy_with_field_arg(self):
+        query = Fuzzy("Westerop", fields=["setting"]) & PlainText(
+            "Thrones", fields=["title"]
+        )
+        results = self.backend.search(query, models.Novel)
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_search_field_arg_override(self):
+        # the `fields` param in the query takes precidence over the value given to `search`
+        query = PlainText("Westeros", fields=["setting"], operator="and") & PlainText(
+            "Thrones"
+        )
+        results = self.backend.search(query, models.Novel, fields=["title"])
+
+        self.assertUnsortedListEqual([r.title for r in results], ["A Game of Thrones"])
+
+    @unittest.skipIf(ELASTICSEARCH_VERSION[0] < 7, "Only applicable to ElasticSearch")
+    def test_boost_with_fields(self):
+        results = self.backend.search(
+            PlainText("JavaScript Definitive", fields=["title"])
+            | Boost(PlainText("Learning Python", fields=["title"]), 2.0),
+            models.Book.objects.all(),
+        )
+
+        # Both python and JavaScript should be returned with Python at the top
+        self.assertEqual(
+            [r.title for r in results],
+            [
+                "Learning Python",
+                "JavaScript: The Definitive Guide",
+            ],
+        )
+
+        results = self.backend.search(
+            PlainText("JavaScript Definitive", fields=["title"])
+            | Boost(PlainText("Learning Python", fields=["title"]), 0.5),
+            models.Book.objects.all(),
+        )
+
+        # Now they should be swapped
+        self.assertEqual(
+            [r.title for r in results],
+            [
+                "JavaScript: The Definitive Guide",
+                "Learning Python",
+            ],
+        )
+
     # AUTOCOMPLETE TESTS
 
     def test_autocomplete(self):
@@ -260,6 +423,17 @@ class BackendTests(WagtailTestUtils):
 
     def test_autocomplete_with_fields_arg(self):
         results = self.backend.autocomplete("Georg", models.Author, fields=["name"])
+        self.assertUnsortedListEqual(
+            [r.name for r in results],
+            [
+                "George R.R. Martin",
+            ],
+        )
+
+    def test_autocomplete_with_fields_arg_in_query(self):
+        results = self.backend.autocomplete(
+            PlainText("Georg", fields=["name"]), models.Author
+        )
         self.assertUnsortedListEqual(
             [r.name for r in results],
             [
