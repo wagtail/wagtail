@@ -1,4 +1,5 @@
 ```{module} wagtail.admin.viewsets
+
 ```
 
 (viewsets_reference)=
