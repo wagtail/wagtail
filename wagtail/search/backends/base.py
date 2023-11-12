@@ -238,7 +238,13 @@ class BaseSearchQueryCompiler:
 
     def check(self):
         # Check search fields
-        if self.fields:
+        if self.fields is not None:
+            if not self.fields:
+                raise ValueError(
+                    '"fields" cannot be an empty list.'
+                    + 'Set "fields=None" to search all fields.'
+                )
+
             allowed_fields = {
                 field.field_name
                 for field in self.queryset.model.get_searchable_search_fields()

@@ -220,8 +220,8 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         query = PlainText("Westeros", fields=[]) & Phrase(
             "Game of Thrones", fields=["title"]
         )
-        results = self.backend.search(query, models.Novel)
-        self.assertEqual(len(results), 1)
+        with self.assertRaises(ValueError):
+            list(self.backend.search(query, models.Novel))
 
     def test_search_on_individual_field_arg(self):
         # The following query shouldn't search the Novel.setting field so none

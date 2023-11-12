@@ -460,7 +460,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         """Convert field names into index column names and add boosts."""
         remapped_fields = self._remap_field_values(fields)
 
-        if remapped_fields:
+        if remapped_fields is not None:
             return remapped_fields
 
         return self._map_all_fields()
@@ -468,6 +468,13 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
     def _remap_field_values(self, fields):
         """Map the values in `fields` to their indexed value."""
         if fields is not None:
+
+            if not fields:
+                raise ValueError(
+                    '"fields" cannot be an empty list.'
+                    + 'Set "fields=None" to search all fields.'
+                )
+
             remapped_fields = []
 
             if self.searchable_fields is None:
@@ -629,7 +636,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
     def get_fields(self, query):
         """Check a query's `fields` value before using `self.fields`."""
         fields = self._remap_field_values(query.fields)
-        if not fields:
+        if fields is None:
             fields = self._remap_fields(self.fields)
         return fields
 

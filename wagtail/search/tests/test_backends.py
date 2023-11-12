@@ -237,9 +237,8 @@ class BackendTests(WagtailTestUtils):
         self.assertEqual(len(results), 0)
 
     def test_search_no_fields(self):
-        # search all fields when fields is an empty list
-        results = self.backend.search("Hobbit", models.Book, fields=[])
-        self.assertEqual(len(results), 1)
+        with self.assertRaises(ValueError):
+            list(self.backend.search("Hobbit", models.Book, fields=[]))
 
     # AUTOCOMPLETE TESTS
 
