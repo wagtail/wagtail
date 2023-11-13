@@ -920,6 +920,32 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
+    def test_locale_selector_with_existing_locale(self):
+        response = self.client.get(
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+
+        self.assertContains(response, "Switch locales")
+
+        switch_to_english_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=en"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_english_url}" lang="en">',
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
@@ -928,10 +954,28 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertNotContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
 
         self.assertNotContains(response, "Switch locales")
+
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
 
 
 class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
