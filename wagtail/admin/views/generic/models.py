@@ -398,7 +398,7 @@ class IndexView(
         return [
             {
                 "locale": locale,
-                "url": index_url + "?locale=" + locale.language_code,
+                "url": self._set_locale_query_param(index_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
@@ -571,7 +571,7 @@ class CreateView(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "add_url_name attribute or a get_add_url method"
             )
-        return reverse(self.add_url_name)
+        return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_edit_url(self):
         if not self.edit_url_name:
@@ -587,7 +587,7 @@ class CreateView(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "index_url_name attribute or a get_success_url method"
             )
-        return reverse(self.index_url_name)
+        return self._set_locale_query_param(reverse(self.index_url_name))
 
     def get_success_message(self, instance):
         if self.success_message is None:
@@ -609,10 +609,11 @@ class CreateView(
         return context
 
     def get_translations(self):
+        add_url = self.get_add_url()
         return [
             {
                 "locale": locale,
-                "url": self.get_add_url() + "?locale=" + locale.language_code,
+                "url": self._set_locale_query_param(add_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]

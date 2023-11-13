@@ -18,7 +18,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
-from wagtail.admin.utils import get_latest_str
+from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -134,6 +134,11 @@ class LocaleMixin:
         context["locale"] = self.locale
         context["translations"] = self.translations
         return context
+
+    def _set_locale_query_param(self, url, locale=None):
+        if not (locale := locale or self.locale):
+            return url
+        return set_query_params(url, {"locale": locale.language_code})
 
 
 class PanelMixin:
