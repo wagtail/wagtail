@@ -876,45 +876,61 @@ class TestCustomTemplates(BaseSnippetViewSetTests):
             "with app label and model name": (
                 "add",
                 [],
-                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/create.html",
+                [
+                    "wagtailsnippets/snippets/tests/fullfeaturedsnippet/create.html",
+                ],
             ),
             "with app label": (
                 "edit",
                 [pk],
-                "wagtailsnippets/snippets/tests/edit.html",
+                [
+                    "wagtailsnippets/snippets/tests/edit.html",
+                ],
             ),
             "without app label and model name": (
                 "delete",
                 [pk],
-                "wagtailsnippets/snippets/delete.html",
+                [
+                    "wagtailsnippets/snippets/delete.html",
+                ],
             ),
             "override a view that uses a generic template": (
                 "unpublish",
                 [pk],
-                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/unpublish.html",
+                [
+                    "wagtailsnippets/snippets/tests/fullfeaturedsnippet/unpublish.html",
+                ],
             ),
-            "override with index_template_name": (
+            "override with index_template_name and index results template with namespaced template": (
                 "list",
                 [],
-                "tests/fullfeaturedsnippet_index.html",
+                [
+                    "tests/fullfeaturedsnippet_index.html",
+                    "wagtailsnippets/snippets/tests/fullfeaturedsnippet/index_results.html",
+                ],
             ),
             "override index results template with namespaced template": (
                 # This is technically the same as the first case, but this ensures that
                 # the index results view can be overridden separately from the index view
                 "list_results",
                 [],
-                "wagtailsnippets/snippets/tests/fullfeaturedsnippet/index_results.html",
+                [
+                    "wagtailsnippets/snippets/tests/fullfeaturedsnippet/index_results.html"
+                ],
             ),
             "override with get_history_template": (
                 "history",
                 [pk],
-                "tests/snippet_history.html",
+                [
+                    "tests/snippet_history.html",
+                ],
             ),
         }
-        for case, (view_name, args, template_name) in cases.items():
+        for case, (view_name, args, template_names) in cases.items():
             with self.subTest(case=case):
                 response = self.client.get(self.get_url(view_name, args=args))
-                self.assertTemplateUsed(response, template_name)
+                for template_name in template_names:
+                    self.assertTemplateUsed(response, template_name)
                 self.assertContains(response, "<p>An added paragraph</p>", html=True)
 
 
