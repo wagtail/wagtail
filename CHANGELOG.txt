@@ -25,6 +25,7 @@ Changelog
  * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
  * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
  * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
+ * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
