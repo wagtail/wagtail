@@ -24,7 +24,7 @@
     {% include 'wagtailadmin/shared/header.html' with title=model_opts.verbose_name_plural|capfirst icon=header_icon search_url=search_url base_actions=base_action_locale action_url=action_url_add_snippet action_icon="plus" action_text=action_text_snippet extra_actions=extra_actions search_results_url=index_results_url %}
     <div class="nice-padding{% if filters %} filterable{% endif %}">
         <div id="listing-results" class="snippets">
-            {% include "wagtailsnippets/snippets/index_results.html" %}
+            {% include view.results_template_name|default:"wagtailsnippets/snippets/index_results.html" %}
         </div>
         {% if filters %}
             {% include "wagtailadmin/shared/filters.html" %}
