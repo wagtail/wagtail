@@ -265,6 +265,23 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
             ["A Clash of Kings", "A Game of Thrones", "A Storm of Swords"],
         )
 
+    def test_search_on_multiple_field_arg_with_and(self):
+        results = self.backend.search(
+            PlainText("Westeros Thrones", fields=["title", "setting"], operator="and"),
+            models.Novel,
+        )
+        self.assertEqual(len(results), 0)
+
+    def test_search_on_one_field_arg_with_and(self):
+        results = self.backend.search(
+            PlainText("Westeros Thrones", fields=["setting"], operator="or"),
+            models.Novel,
+        )
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["A Clash of Kings", "A Game of Thrones", "A Storm of Swords"],
+        )
+
     def test_search_on_multiple_queries_with_and_fields(self):
         query = PlainText("Westeros", fields=["setting", "title"]) & Phrase(
             "Game of Thrones", fields=["title"]
@@ -286,6 +303,92 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
                 "A Game of Thrones",
                 "A Storm of Swords",
                 "The Hobbit",
+            ],
+        )
+
+    def test_search_not_with_fields(self):
+        query = ~PlainText("Westeros")
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "The Fellowship of the Ring",
+                "The Two Towers",
+                "The Return of the King",
+                "The Hobbit",
+                "Foundation",
+            ],
+        )
+
+    def test_search_not_with_multiple_or_terms_and_fields(self):
+        query = ~PlainText("Westeros Thrones", operator="or")
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "The Fellowship of the Ring",
+                "The Two Towers",
+                "The Return of the King",
+                "The Hobbit",
+                "Foundation",
+            ],
+        )
+
+    def test_search_not_with_multiple_and_terms_and_fields(self):
+        query = ~PlainText("Westeros Thrones", operator="and")
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Game of Thrones",
+                "A Clash of Kings",
+                "A Storm of Swords",
+                "The Fellowship of the Ring",
+                "The Two Towers",
+                "The Return of the King",
+                "The Hobbit",
+                "Foundation",
+            ],
+        )
+
+    def test_search_multiple_terms_same_fields_and(self):
+        # searches "setting" and "title" separately, so no results
+        # this tests the "dis_max" logic
+        query = PlainText("Westeros") & PlainText("Thrones")
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertEqual(len(results), 0)
+
+    def test_search_multiple_terms_same_fields_not(self):
+        # searches "setting" and "title" separately
+        # this tests the extra "not" logic
+        query = ~(PlainText("Westeros") & PlainText("Thrones"))
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertEqual(len(results), 8)
+
+    def test_search_multiple_terms_same_fields_or(self):
+        query = PlainText("Westeros") | PlainText("Hobbit")
+        results = self.backend.search(query, models.Novel, fields=["setting", "title"])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Game of Thrones",
+                "A Clash of Kings",
+                "A Storm of Swords",
+                "The Hobbit",
+            ],
+        )
+
+    def test_search_on_compound_queries_with_not(self):
+        query = PlainText("Westeros", fields=["setting", "title"]) & (
+            ~Phrase("Thrones") | Fuzzy("Clasp", fields=["title"])
+        )
+        results = self.backend.search(query, models.Novel, fields=["title"])
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "A Clash of Kings",
+                "A Storm of Swords",
             ],
         )
 
