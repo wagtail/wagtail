@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,9 +53,6 @@ msgstr "新的%(snippet_type_name)s"
 msgid "New"
 msgstr "新建"
 
-msgid "Snippets"
-msgstr "片段"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s片段"
@@ -81,6 +78,9 @@ msgstr "编辑"
 msgid "Choose"
 msgstr "选择"
 
+msgid "Snippets"
+msgstr "片段"
+
 msgid "Name"
 msgstr "名字"
 
@@ -92,3 +92,6 @@ msgstr "多个错误导致这个片段无法保存"
 
 msgid "Date"
 msgstr "日期"
+
+msgid "Home"
+msgstr "主页"

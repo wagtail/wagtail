@@ -12,9 +12,11 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic.base import TemplateView
 
 from wagtail import hooks
 from wagtail.admin.forms.account import (
@@ -29,6 +31,7 @@ from wagtail.admin.localization import (
     get_available_admin_languages,
     get_available_admin_time_zones,
 )
+from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.log_actions import log
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
@@ -225,43 +228,76 @@ class ChangePasswordPanel(BaseSettingsPanel):
 # Views
 
 
-@sensitive_post_parameters()
-def account(request):
-    # Fetch the user and profile objects once and pass into each panel
-    # We need to use the same instances for all forms so they don't overwrite each other
-    user = request.user
-    profile = UserProfile.get_for_user(user)
+@method_decorator(sensitive_post_parameters(), name="post")
+class AccountView(WagtailAdminTemplateMixin, TemplateView):
+    template_name = "wagtailadmin/account/account.html"
+    page_title = gettext_lazy("Account")
+    header_icon = "user"
 
-    # Panels
-    panels = [
-        NameEmailSettingsPanel(request, user, profile),
-        AvatarSettingsPanel(request, user, profile),
-        NotificationsSettingsPanel(request, user, profile),
-        LocaleSettingsPanel(request, user, profile),
-        ThemeSettingsPanel(request, user, profile),
-        ChangePasswordPanel(request, user, profile),
-    ]
-    for fn in hooks.get_hooks("register_account_settings_panel"):
-        panel = fn(request, user, profile)
-        if panel and panel.is_active():
-            panels.append(panel)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        panels = self.get_panels()
+        context["panels_by_tab"] = self.get_panels_by_tab(panels)
+        context["menu_items"] = self.get_menu_items()
+        context["media"] = self.get_media(panels)
+        context["user"] = self.request.user
+        return context
 
-    panels = [panel for panel in panels if panel.is_active()]
+    def get_panels(self):
+        request = self.request
+        user = self.request.user
+        profile = UserProfile.get_for_user(user)
+        # Panels
+        panels = [
+            NameEmailSettingsPanel(request, user, profile),
+            AvatarSettingsPanel(request, user, profile),
+            NotificationsSettingsPanel(request, user, profile),
+            LocaleSettingsPanel(request, user, profile),
+            ThemeSettingsPanel(request, user, profile),
+            ChangePasswordPanel(request, user, profile),
+        ]
+        for fn in hooks.get_hooks("register_account_settings_panel"):
+            panel = fn(request, user, profile)
+            if panel and panel.is_active():
+                panels.append(panel)
 
-    # Get tabs and order them
-    tabs = list({panel.tab for panel in panels})
-    tabs.sort(key=lambda tab: tab.order)
+        panels = [panel for panel in panels if panel.is_active()]
+        return panels
 
-    # Get dict of tabs to ordered panels
-    panels_by_tab = OrderedDict([(tab, []) for tab in tabs])
-    for panel in panels:
-        panels_by_tab[panel.tab].append(panel)
-    for tab, tab_panels in panels_by_tab.items():
-        tab_panels.sort(key=lambda panel: panel.order)
+    def get_panels_by_tab(self, panels):
+        # Get tabs and order them
+        tabs = list({panel.tab for panel in panels})
+        tabs.sort(key=lambda tab: tab.order)
 
-    panel_forms = [panel.get_form() for panel in panels]
+        # Get dict of tabs to ordered panels
+        panels_by_tab = OrderedDict([(tab, []) for tab in tabs])
+        for panel in panels:
+            panels_by_tab[panel.tab].append(panel)
+        for tab, tab_panels in panels_by_tab.items():
+            tab_panels.sort(key=lambda panel: panel.order)
+        return panels_by_tab
 
-    if request.method == "POST":
+    def get_menu_items(self):
+        # Menu items
+        menu_items = []
+        for fn in hooks.get_hooks("register_account_menu_item"):
+            item = fn(self.request)
+            if item:
+                menu_items.append(item)
+        return menu_items
+
+    def get_media(self, panels):
+        panel_forms = [panel.get_form() for panel in panels]
+
+        media = Media()
+        for form in panel_forms:
+            media += form.media
+        return media
+
+    def post(self, request):
+        panel_forms = [panel.get_form() for panel in self.get_panels()]
+        user = self.request.user
+        profile = UserProfile.get_for_user(user)
 
         if all(form.is_valid() or not form.is_bound for form in panel_forms):
             with transaction.atomic():
@@ -284,26 +320,7 @@ def account(request):
 
             return redirect("wagtailadmin_account")
 
-    media = Media()
-    for form in panel_forms:
-        media += form.media
-
-    # Menu items
-    menu_items = []
-    for fn in hooks.get_hooks("register_account_menu_item"):
-        item = fn(request)
-        if item:
-            menu_items.append(item)
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/account/account.html",
-        {
-            "panels_by_tab": panels_by_tab,
-            "menu_items": menu_items,
-            "media": media,
-        },
-    )
+        return TemplateResponse(request, self.template_name, self.get_context_data())
 
 
 class PasswordResetEnabledViewMixin:

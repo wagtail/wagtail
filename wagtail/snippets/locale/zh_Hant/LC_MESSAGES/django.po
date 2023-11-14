@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -114,18 +114,6 @@ msgstr "新增"
 msgid "Actions"
 msgstr "動作"
 
-msgid "Snippets"
-msgstr "片段"
-
-msgid "History"
-msgstr "歷史"
-
-msgid "Usage"
-msgstr "使用情況"
-
-msgid "No log entries found."
-msgstr "沒有發現任何記錄"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "片段 %(snippet_type_name_plural)s"
@@ -174,6 +162,9 @@ msgstr "取消預定的發佈"
 msgid "Choose"
 msgstr "選擇"
 
+msgid "Snippets"
+msgstr "片段"
+
 msgid "Name"
 msgstr "名稱"
 
@@ -186,22 +177,11 @@ msgstr "無法保存片段，出現錯誤。"
 msgid "Action"
 msgstr "操作"
 
-msgid "User"
-msgstr "使用者"
-
 msgid "Date"
 msgstr "日期"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "編輯 '%(title)s'"
-
-msgid "Inspect"
-msgstr "檢查"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "刪除 '%(title)s'"
+msgid "Home"
+msgstr "首頁"
 
 #, python-format
 msgid "Choose %(object)s"

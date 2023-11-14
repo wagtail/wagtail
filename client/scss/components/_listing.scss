@@ -96,14 +96,10 @@ ul.listing {
     border-bottom: 1px dashed theme('colors.border-field-default');
 
     tr {
-      border-top: 1px dashed theme('colors.border-field-default');
+      border-top: 1px dashed theme('colors.border-furniture');
 
       &:first-child {
-        border-top: 1px dashed theme('colors.border-field-default');
-      }
-
-      &:hover {
-        background-color: theme('colors.white-10');
+        border-top: 1px dashed theme('colors.border-furniture');
       }
     }
 

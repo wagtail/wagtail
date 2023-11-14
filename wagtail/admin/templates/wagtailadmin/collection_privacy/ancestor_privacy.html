@@ -1,6 +1,5 @@
 {% load i18n %}
-{% trans "Collection privacy" as title_str %}
-{% include "wagtailadmin/shared/header.html" with title=title_str icon="no-view" %}
+{% include "wagtailadmin/shared/header.html" with title=_("Collection privacy") icon="no-view" %}
 
 <div class="nice-padding">
     <p>{% trans "This collection has been made private by a parent collection." %}</p>

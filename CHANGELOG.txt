@@ -1,17 +1,56 @@
 Changelog
 =========
 
-5.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
+ * Remember previous location on returning from page add/edit actions (Robert Rollins)
+ * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
+ * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
+ * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
+ * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
+ * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Preserve whitespace in rendered comments (Elhussein Almasri)
+ * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
+ * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
+ * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
+ * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
+ * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
+ * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
+ * Maintenance: Migrate the contrib styleguide index view to a class-based view (Chiemezuo Akujobi)
+ * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
+ * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
+ * Maintenance: Split up functions in Elasticsearch backend for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
+ * Maintenance: Relax draftjs_exporter dependency to allow using version 5.x (Sylvain Fankhauser)
+ * Maintenance: Refine styling of listings, account settings panels and the block chooser (Meli Imelda)
+ * Maintenance: Remove icon font support (Matt Westcott)
+ * Maintenance: Remove deprecated SVG icons (Matt Westcott)
+ * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
+ * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
 
 
-5.2 LTS (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
+ * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
+ * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
+ * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
+ * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
+ * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
+
+
+5.2 LTS (01.11.2023)
+~~~~~~~~~~~~~~~~~~~~
 
  * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
@@ -28,7 +67,7 @@ Changelog
  * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
  * Add compare buttons to workflow dashboard panel (Matt Westcott)
  * Add the ability to use filters and to export listings in generic `IndexView` (Sage Abdullah)
- * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah)
+ * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah, Cynthia Kiser)
  * Add default header titles to generic `IndexView` and `CreateView` (Sage Abdullah)
  * Allow overriding `IndexView.export_headings` via `ModelViewSet` (Christer Jensen, Sage Abdullah)
  * Support specifying a `get_object_list` method on `ChooserViewSet` (Matt Westcott)
@@ -89,6 +128,7 @@ Changelog
  * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
  * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
  * Fix: Ensure that all password fields consistently allow leading & trailing whitespace (Neeraj P Yetheendran)
+ * Docs: Expand documentation on using `ViewSet` and `ModelViewSet` (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)

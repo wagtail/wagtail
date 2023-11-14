@@ -20,7 +20,7 @@
 # Matthias Martin, 2019
 # Matthias Martin, 2019
 # Matti Borchers, 2022
-# Matti Borchers, 2022
+# mattibo, 2022
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Florian Vogt <flori@vorlif.org>, 2015,2017,2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -931,8 +931,9 @@ msgid "Remove view restrictions"
 msgstr "Ansichtsrestriktionen entfernen"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Ansichtsrestriktion „%(restriction)s“ entfernt"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"Ansichtsrestriktion „%(restriction)s“ entfernt. Die Seite ist öffentlich."
 
 msgid "Removed view restriction"
 msgstr "Ansichtsrestriktion entfernt"

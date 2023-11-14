@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -88,9 +88,6 @@ msgstr "Perkelti žemyn"
 msgid "Promoted search results"
 msgstr "Reklamuojami paieškos rezultatai"
 
-msgid "Add recommended page"
-msgstr "Pridėti rekomenduojamą puslapį"
-
 msgid "Search Terms"
 msgstr "Paieškos terminai"
 
@@ -109,8 +106,26 @@ msgstr "Peržiūros (paskutinę savaitę)"
 msgid "Edit this promotion"
 msgstr "Redaguoti šią reklamą"
 
+msgid "External link"
+msgstr "Išorinė nuoroda"
+
 msgid "None"
 msgstr "Joks"
+
+msgid "Popular search terms"
+msgstr "Populiarūs paieškos terminai"
+
+msgid "Search"
+msgstr "Ieškoti"
+
+msgid "Terms"
+msgstr "Terminai"
+
+msgid "No results found"
+msgstr "Nerasta jokių rezultatų"
+
+msgid "Choose from popular search terms"
+msgstr "Pasirinkite iš populiarių paieškos terminų"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

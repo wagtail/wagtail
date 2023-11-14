@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -82,6 +82,10 @@ msgstr "Įkelti profilio nuotrauką"
 
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -478,6 +482,9 @@ msgstr "Užrakinimo data"
 msgid "Edit this page"
 msgstr "Redaguoti šį puslapį"
 
+msgid "Actions"
+msgstr "Veiksmai"
+
 msgid "Unlock"
 msgstr "Atrakinti"
 
@@ -558,15 +565,17 @@ msgstr "Užduotys"
 msgid "Task submitted by"
 msgstr "Užduotį pateikė"
 
+msgid "Compare with live version"
+msgstr "Palyginti su veikiančia versija"
+
+msgid "Compare with previous version"
+msgstr "Palyginti su ankstesne versija"
+
 msgid "Sign in"
 msgstr "Prisijungti"
 
 msgid "Sign in to Wagtail"
 msgstr "Prisijungti prie Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą."
 
 msgid "Forgotten password?"
 msgstr "Pamiršote slaptažodį?"
@@ -753,9 +762,6 @@ msgstr "Kopijuoti šį puslapį"
 msgid "New %(page_type)s"
 msgstr "Naujas %(page_type)s"
 
-msgid "Actions"
-msgstr "Veiksmai"
-
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
@@ -830,14 +836,11 @@ msgstr "Šis puslapis apsaugotas nuo viešo matymo"
 msgid "Confirm"
 msgstr "Patvirtinti"
 
-msgid "History"
-msgstr "Istorija"
+msgid "Add child page"
+msgstr "Pridėti vidinį puslapį"
 
 msgid "Review this version"
 msgstr "Peržiūrėti šią versiją"
-
-msgid "Compare with previous version"
-msgstr "Palyginti su ankstesne versija"
 
 msgid "Compare with current version"
 msgstr "Palyginti su dabartine versija"
@@ -907,9 +910,6 @@ msgstr "Puslapis %(page_num)s iš %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Naršymo kelias"
 
-msgid "Root"
-msgstr "Šakninis"
-
 msgid "Download XLSX"
 msgstr "Parsiųsti XLSX"
 
@@ -924,6 +924,12 @@ msgstr "Filtras"
 
 msgid "Apply filters"
 msgstr "Taikyti filtrus"
+
+msgid "History"
+msgstr "Istorija"
+
+msgid "Root"
+msgstr "Šakninis"
 
 msgid "Current page status:"
 msgstr "Dabartinė puslapio būsena:"
@@ -950,9 +956,6 @@ msgstr "Kitos paieškos"
 msgid "Comment notifications"
 msgstr "Komentarų pranešimai"
 
-msgid "Page Locale: "
-msgstr "Puslapio lokalė:"
-
 msgid "Unlocked"
 msgstr "Atrakinta"
 
@@ -972,9 +975,6 @@ msgstr[0] "Panaudota %(usage_count)s kartą"
 msgstr[1] "Panaudota %(usage_count)s kartus"
 msgstr[2] "Panaudota %(usage_count)s kartų"
 msgstr[3] "Panaudota %(usage_count)s kartų"
-
-msgid "Page status: "
-msgstr "Puslapio būsena:"
 
 msgid "View history"
 msgstr "Peržiūrėti istoriją"
@@ -1017,9 +1017,6 @@ msgstr "Publikuotas"
 
 msgid "See full history"
 msgstr "Peržiūrėti pilną istoriją"
-
-msgid "Compare with live version"
-msgstr "Palyginti su veikiančia versija"
 
 msgid "More"
 msgstr "Daugiau"
@@ -1094,6 +1091,9 @@ msgstr "Kolekcija '%(object)s' ištrinta."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ar tikrai norite ištrinti šią kolekciją?"
 
+msgid "Home"
+msgstr "Namai"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' atnaujintas."
@@ -1101,6 +1101,17 @@ msgstr "%(model_name)s '%(object)s' atnaujintas."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' sukurtas."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redaguoti '%(title)s'"
+
+msgid "Inspect"
+msgstr "Tikrinti"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Ištrinti '%(title)s'"
 
 msgid "Editing"
 msgstr "Redaguojama"
@@ -1258,15 +1269,8 @@ msgid "Pages"
 msgstr "Puslapiai"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Redaguoti '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Peržiūrėti '%(title)s' juodraštį"
-
-msgid "Add child page"
-msgstr "Pridėti vidinį puslapį"
 
 #, python-format
 msgid "Move page '%(title)s'"

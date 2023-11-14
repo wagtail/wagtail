@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -730,10 +730,6 @@ msgstr "已更新查看限制"
 
 msgid "Remove view restrictions"
 msgstr "移除查看限制"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "已移除“%(restriction)s”查看限制"
 
 msgid "Removed view restriction"
 msgstr "已移除查看限制"

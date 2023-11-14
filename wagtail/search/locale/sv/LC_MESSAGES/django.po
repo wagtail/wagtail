@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -33,21 +33,3 @@ msgstr "Indexpost"
 
 msgid "index entries"
 msgstr "Indexposter"
-
-msgid "Popular search terms"
-msgstr "Populära söktermer"
-
-msgid "Search"
-msgstr "Sök"
-
-msgid "Terms"
-msgstr "Termer"
-
-msgid "Views (past week)"
-msgstr "Visningar (tidigare vecka)"
-
-msgid "No results found"
-msgstr "Inga resultat funna"
-
-msgid "Choose from popular search terms"
-msgstr "Välj från populära söktermer"

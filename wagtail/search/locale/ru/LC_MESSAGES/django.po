@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Никита Викторович <hnknta@gmail.com>, 2014\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -41,21 +41,3 @@ msgstr "индексная запись"
 
 msgid "index entries"
 msgstr "индексные записи"
-
-msgid "Popular search terms"
-msgstr "Популярные поисковые запросы"
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Terms"
-msgstr "Критерии"
-
-msgid "Views (past week)"
-msgstr "Просмотров (прошлая неделя)"
-
-msgid "No results found"
-msgstr "Ничего не найдено"
-
-msgid "Choose from popular search terms"
-msgstr "Выбрать из популярных поисковых запросов"

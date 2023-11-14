@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -162,39 +162,6 @@ msgstr "Acțiuni"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Editare %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Comută breadcrumb"
-
-msgid "Breadcrumb"
-msgstr "Traseu navigare"
-
-msgid "Snippets"
-msgstr "Fragmente"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nou: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Editare %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Istorie"
-
-msgid "Usage"
-msgstr "Utilizare"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Istoria fragmentului %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Editează acest fragment"
-
-msgid "No log entries found."
-msgstr "Nu s-au găsit intrări de jurnal."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmente %(snippet_type_name_plural)s"
@@ -254,11 +221,18 @@ msgstr "Anulează publicarea programată"
 msgid "Choose"
 msgstr "Alege"
 
+msgid "Snippets"
+msgstr "Fragmente"
+
 msgid "Name"
 msgstr "Nume"
 
 msgid "Instances"
 msgstr "Instanțe"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Mai multe opțiuni pentru '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
@@ -269,14 +243,8 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 msgid "Action"
 msgstr "Acțiune"
 
-msgid "User"
-msgstr "Utilizator"
-
 msgid "Date"
 msgstr "Dată"
-
-msgid "Snippet history"
-msgstr "Istorie fragmente"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -286,20 +254,8 @@ msgstr "Editează acest %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Istoria %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editează '%(title)s'"
-
-msgid "Inspect"
-msgstr "Examinează"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Examinează '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Șterge '%(title)s'"
+msgid "Home"
+msgstr "Acasă"
 
 #, python-format
 msgid "Choose %(object)s"

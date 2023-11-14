@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,21 +35,3 @@ msgstr "index vermelding"
 
 msgid "index entries"
 msgstr "index vermeldingen"
-
-msgid "Popular search terms"
-msgstr "Populaire zoektermen"
-
-msgid "Search"
-msgstr "Zoek"
-
-msgid "Terms"
-msgstr "Termen"
-
-msgid "Views (past week)"
-msgstr "Weergaves (afgelopen week)"
-
-msgid "No results found"
-msgstr "Geen resultaten gevonden"
-
-msgid "Choose from popular search terms"
-msgstr "Kies uit populaire zoektermen"

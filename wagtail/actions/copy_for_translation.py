@@ -80,7 +80,9 @@ class CopyPageForTranslationAction:
     def walk(self, current_page):
         for child_page in current_page.get_children():
             self._copy_for_translation(
-                child_page,
+                child_page
+                if child_page.live
+                else child_page.get_latest_revision_as_object(),
                 self.locale,
                 self.copy_parents,
                 self.alias,
@@ -151,7 +153,11 @@ class CopyPageForTranslationAction:
         self.check(skip_permission_checks=skip_permission_checks)
 
         translated_page = self._copy_for_translation(
-            self.page, self.locale, self.copy_parents, self.alias, self.exclude_fields
+            self.page if self.page.live else self.page.get_latest_revision_as_object(),
+            self.locale,
+            self.copy_parents,
+            self.alias,
+            self.exclude_fields,
         )
 
         if self.include_subtree:

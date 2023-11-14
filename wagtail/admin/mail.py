@@ -9,7 +9,6 @@ from django.utils.translation import override
 
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import GroupApprovalTask, Page, TaskState, WorkflowState
-from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.models import UserProfile
 
 logger = logging.getLogger("wagtail.admin")
@@ -66,28 +65,6 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         mail.attach_alternative(html_message, "text/html")
 
     return mail.send()
-
-
-def send_moderation_notification(revision, notification, excluded_user=None):
-    # Get list of recipients
-    if notification == "submitted":
-        # Get list of publishers
-        include_superusers = getattr(
-            settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
-        )
-        recipient_users = PagePermissionPolicy().users_with_permission_for_instance(
-            "publish", revision.content_object, include_superusers
-        )
-    elif notification in ["rejected", "approved"]:
-        # Get submitter
-        recipient_users = [revision.user] if revision.user else []
-    else:
-        return False
-
-    if excluded_user:
-        recipient_users = [user for user in recipient_users if user != excluded_user]
-
-    return send_notification(recipient_users, notification, {"revision": revision})
 
 
 def send_notification(recipient_users, notification, extra_context):

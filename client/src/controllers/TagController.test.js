@@ -17,58 +17,14 @@ describe('TagController', () => {
 
   element = null;
 
+  beforeAll(() => {
+    application = Application.start();
+    application.register('w-tag', TagController);
+  });
+
   beforeEach(() => {
     element = null;
     jest.clearAllMocks();
-  });
-
-  it('should create a global initTagField to call jQuery tagit if the element is found', async () => {
-    expect(window.initTagField).toBeUndefined();
-    expect(tagitMock).not.toHaveBeenCalled();
-
-    application = Application.start();
-    application.register('w-tag', TagController);
-
-    document.body.innerHTML = `
-    <main>
-      <input id="tag-input" type="text" value="abc" />
-    </main>`;
-
-    window.initTagField('tag-input', '/path/to/autocomplete/', {
-      someOther: 'option',
-    });
-
-    await new Promise(requestAnimationFrame);
-
-    // check the jQuery instance is the correct element
-    expect(element).toContain(document.getElementById('tag-input'));
-
-    // check the tagit util was called correctly with supplied params
-    expect(tagitMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        autocomplete: { source: '/path/to/autocomplete/' },
-        someOther: 'option',
-      }),
-    );
-
-    // check the supplied preprocessTag function
-    const [{ preprocessTag }] = tagitMock.mock.calls[0];
-
-    expect(preprocessTag).toBeInstanceOf(Function);
-
-    expect(preprocessTag()).toEqual();
-    expect(preprocessTag('"flat white"')).toEqual(`"flat white"`);
-    expect(preprocessTag("'long black'")).toEqual(`"'long black'"`);
-  });
-
-  it('should not call jQuery tagit if the element is not found', async () => {
-    expect(tagitMock).not.toHaveBeenCalled();
-
-    window.initTagField('not-present');
-
-    await new Promise(requestAnimationFrame);
-
-    expect(tagitMock).not.toHaveBeenCalled();
   });
 
   it('should attach the jQuery tagit to the controlled element', async () => {

@@ -453,8 +453,6 @@ Pages already include this mixin, so there is no need to add it.
 
 ### Database fields
 
-The `locale` and `translation_key` fields have a unique key constraint to prevent the object being translated into a language more than once.
-
 ```{eval-rst}
 .. class:: TranslatableMixin
 
@@ -470,6 +468,18 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 
         A UUID that is randomly generated whenever a new model instance is created.
         This is shared with all translations of that instance so can be used for querying translations.
+```
+
+The `translation_key` and `locale` fields have a unique key constraint to prevent the object being translated into a language more than once.
+
+```{note}
+This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
+
+If your model defines a [`Meta` class](django:ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
+```
+
+```{versionchanged} 6.0
+The system check for `translation_key` and `locale` unique key constraint now allows a `UniqueConstraint` in `Meta.constraints` instead of `unique_together` in `Meta`.
 ```
 
 ### Methods and properties
@@ -712,17 +722,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
         The primary key of the object this revision belongs to.
 
-    .. attribute:: submitted_for_moderation
-
-        (boolean)
-
-        ``True`` if this revision is in moderation.
-
-        .. versionchanged:: 5.2
-
-            This field is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
-
-
     .. attribute:: created_at
 
         (date/time)
@@ -768,20 +767,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
         .. code-block:: python
 
             Revision.page_revisions.all()
-
-    .. attribute:: submitted_revisions
-
-        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
-
-        Example:
-
-        .. code-block:: python
-
-            Revision.submitted_revisions.all()
-
-        .. versionchanged:: 5.2
-
-            This manager is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
 ```
 
 ### Methods and properties
@@ -793,22 +778,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. automethod:: as_object
 
         This method retrieves this revision as an instance of its object's specific class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
-
-    .. automethod:: approve_moderation
-
-        Calling this on a revision that's in moderation will mark it as approved and publish it.
-
-        .. versionchanged:: 5.2
-
-            This method is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
-
-    .. automethod:: reject_moderation
-
-        Calling this on a revision that's in moderation will mark it as rejected.
-
-        .. versionchanged:: 5.2
-
-            This method is only used for the legacy moderation system. It has been deprecated and will be removed in a future release.
 
     .. automethod:: is_latest_revision
 
@@ -837,10 +806,6 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: page
 
         (foreign key to :class:`~wagtail.models.Page`)
-
-    .. attribute:: permission_type
-
-        (choice list)
 ```
 
 ## `PageViewRestriction`

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -115,9 +115,6 @@ msgstr "Ja, slett"
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
-msgid "Delete group"
-msgstr "Slett gruppe"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -129,11 +126,11 @@ msgstr "Er du sikker på at du vil slette denne gruppen?"
 msgid "Add group"
 msgstr "Legg til gruppe"
 
-msgid "Editing"
-msgstr "Endrer"
-
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Delete group"
+msgstr "Slett gruppe"
 
 msgid "Object permissions"
 msgstr "Objekttillatelser"
@@ -180,14 +177,8 @@ msgstr ""
 "Det er ingen grupper konfigurert. Hvorfor ikke <a "
 "href=\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
 
-msgid "Delete user"
-msgstr "Slett bruker"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Er du sikker på at du vil slette denne brukeren?"
-
-msgid "Add user"
-msgstr "Legg til bruker"
 
 msgid "Account"
 msgstr "Konto"
@@ -195,11 +186,11 @@ msgstr "Konto"
 msgid "Roles"
 msgstr "Roller"
 
-msgid "Users"
-msgstr "Brukere"
+msgid "Add user"
+msgstr "Legg til bruker"
 
-msgid "Add a user"
-msgstr "Legg til en bruker"
+msgid "Delete user"
+msgstr "Slett bruker"
 
 msgid "Username"
 msgstr "Brukernavn"
@@ -247,6 +238,12 @@ msgstr "Gruppa kunne ikke lagres grunnet feil."
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppa \"%(object)s\" er slettet."
 
+msgid "Add a user"
+msgstr "Legg til en bruker"
+
+msgid "Users"
+msgstr "Brukere"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Brukeren «%(object)s» er oppdatert."
@@ -255,18 +252,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Brukeren kunne ikke lagres grunnet feil."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Redigerer %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Brukeren \"%(object)s\" er slettet."
 
 msgid "Edit"
 msgstr "Endre"
-
-msgid "Edit this user"
-msgstr "Rediger denne brukeren"
-
-msgid "Delete this user"
-msgstr "Slett denne brukeren"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -25,21 +25,3 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Denné dotazy vyhľadávania"
-
-msgid "Popular search terms"
-msgstr "Najviac hľadané výrazy"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Terms"
-msgstr "Výrazy"
-
-msgid "Views (past week)"
-msgstr "Zobrazení (posledný týždeň)"
-
-msgid "No results found"
-msgstr "Žiadne výsledky hľadania"
-
-msgid "Choose from popular search terms"
-msgstr "Vybrať z načastejšie hľadaných"

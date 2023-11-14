@@ -32,10 +32,6 @@ describe('SwapController', () => {
     application.stop();
     document.body.innerHTML = '<main></main>';
     jest.clearAllMocks();
-
-    if (window.headerSearch) {
-      delete window.headerSearch;
-    }
   });
 
   describe('when results element & src URL value is not available', () => {
@@ -109,40 +105,6 @@ describe('SwapController', () => {
         'Error connecting controller',
         expect.objectContaining({ identifier: 'w-swap' }),
       );
-    });
-  });
-
-  describe('fallback on window.headerSearch values if not in HTML (RemovedInWagtail60)', () => {
-    it('should set the src & target value from the window.headerSearch if not present', async () => {
-      window.headerSearch = {
-        termInput: '#search',
-        url: 'path/to/page/search',
-        targetOutput: '#page-results',
-      };
-
-      document.body.innerHTML = `
-      <form id="form"><input id="search" type="text" name="q" /></form>
-      <div id="page-results"></div>
-      `;
-
-      SwapController.afterLoad('w-swap', application);
-
-      // trigger next browser render cycle
-      await Promise.resolve();
-
-      // should not error
-      expect(handleError).not.toHaveBeenCalled();
-
-      expect({ ...document.getElementById('form').dataset }).toEqual({
-        action: 'change->w-swap#searchLazy input->w-swap#searchLazy',
-        controller: 'w-swap',
-        wSwapSrcValue: 'path/to/page/search', // set from window.headerSearch
-        wSwapTargetValue: '#page-results', // set from window.headerSearch
-      });
-
-      expect({ ...document.getElementById('search').dataset }).toEqual({
-        wSwapTarget: 'input',
-      });
     });
   });
 

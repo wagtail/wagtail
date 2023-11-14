@@ -38,8 +38,7 @@
                             <td class="title">
                                 <div class="title-wrapper">
                                     <a href="{% url view.edit_url_name workflow.pk %}">{{ workflow }}</a>
-                                    {% trans "Disabled" as status_label %}
-                                    {% if not workflow.active %}{% status status_label %}{% endif %}
+                                    {% if not workflow.active %}{% status _("Disabled") %}{% endif %}
                                 </div>
                             </td>
                             <td class="title">

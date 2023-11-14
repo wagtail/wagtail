@@ -2,8 +2,7 @@
 {% load i18n %}
 {% block titletag %}{% blocktrans trimmed with title=object_display_title %}Unschedule Revision {{ revision.id }} for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% trans "Unschedule" as unschedule_str %}
-    {% include "wagtailadmin/shared/header.html" with title=unschedule_str subtitle=subtitle icon=header_icon %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Unschedule") subtitle=subtitle icon=header_icon %}
 
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to unschedule this revision?" %}</p>

@@ -9,7 +9,7 @@ from django.utils.http import urlencode
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.coreutils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class Button(Component):
@@ -187,7 +187,7 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
             if page_perms is not None:
                 warn(
                     "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
-                    category=RemovedInWagtail60Warning,
+                    category=RemovedInWagtail70Warning,
                     stacklevel=2,
                 )
                 self.user = page_perms.user
@@ -219,7 +219,7 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
                 warn(
                     f"`{self.hook_name}` hook functions should accept a `user` argument instead of `page_perms` -"
                     f" {hook.__module__}.{hook.__name__} needs to be updated",
-                    category=RemovedInWagtail60Warning,
+                    category=RemovedInWagtail70Warning,
                 )
                 page_perms = self.page.permissions_for_user(self.user)
                 buttons.extend(hook(self.page, page_perms, self.next_url))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -26,21 +26,3 @@ msgstr "Пошук Wagtail"
 
 msgid "Query Daily Hits"
 msgstr "Запыт штодзенных хітоў"
-
-msgid "Popular search terms"
-msgstr "Папулярныя пошукавыя запыты"
-
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Terms"
-msgstr "Тэрміны"
-
-msgid "Views (past week)"
-msgstr "Прагляды (мінулы тыдзень)"
-
-msgid "No results found"
-msgstr "Нічога не знойдзена"
-
-msgid "Choose from popular search terms"
-msgstr "Выбраць з папулярных пошукавых запытаў"

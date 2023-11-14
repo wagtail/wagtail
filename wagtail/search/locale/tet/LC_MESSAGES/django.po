@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -24,21 +24,3 @@ msgstr "Buka Wagtail"
 
 msgid "Query Daily Hits"
 msgstr " Pergunta tula liman loro-loron"
-
-msgid "Popular search terms"
-msgstr "Buka  termus populár "
-
-msgid "Search"
-msgstr "Buka"
-
-msgid "Terms"
-msgstr "Termus"
-
-msgid "Views (past week)"
-msgstr " Haree(Semana kotuk)"
-
-msgid "No results found"
-msgstr "Resultadu lahetan"
-
-msgid "Choose from popular search terms"
-msgstr "Hili husi buka termus populár  "

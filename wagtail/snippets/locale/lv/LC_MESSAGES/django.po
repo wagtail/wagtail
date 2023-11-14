@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -85,15 +85,11 @@ msgstr "Izvēlēties"
 msgid "Name"
 msgstr "Nosaukums"
 
-msgid "User"
-msgstr "Lietotājs"
-
 msgid "Date"
 msgstr "Datums"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Rediģēt '%(title)s'"
+msgid "Home"
+msgstr "Sākumlapa"
 
 #, python-format
 msgid "Choose %(object)s"

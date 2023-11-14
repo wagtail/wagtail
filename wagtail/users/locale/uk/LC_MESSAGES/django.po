@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -178,9 +178,6 @@ msgstr "Так, змінити стан"
 msgid "No, don't change state"
 msgstr "Ні, не змінювати стан"
 
-msgid "Delete group"
-msgstr "Видалити групу"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -194,14 +191,14 @@ msgstr "Ви впевнені, що хочете видалити цю груп�
 msgid "Add group"
 msgstr "Додати групу"
 
-msgid "Editing"
-msgstr "Редагування"
-
 msgid "View users in this group"
 msgstr "Переглянути користувачів у цій групі"
 
 msgid "Save"
 msgstr "Зберегти"
+
+msgid "Delete group"
+msgstr "Видалити групу"
 
 msgid "Object permissions"
 msgstr "Дозволи для об'єктів"
@@ -251,14 +248,8 @@ msgstr ""
 "Немає налаштованих груп. Чому б не <a "
 "href=\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
 
-msgid "Delete user"
-msgstr "Видалити користувача"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ви впевнені, що хочете видалити цього користувача?"
-
-msgid "Add user"
-msgstr "Додати користувача"
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -266,11 +257,11 @@ msgstr "Аккаунт"
 msgid "Roles"
 msgstr "Ролі"
 
-msgid "Users"
-msgstr "Користувачі"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Додати користувача"
+
+msgid "Delete user"
+msgstr "Видалити користувача"
 
 msgid "Select all users in listing"
 msgstr "Обрати всіх користувачів у списку"
@@ -382,6 +373,12 @@ msgstr "Група не може бути збережена через поми
 msgid "Group '%(object)s' deleted."
 msgstr "Групу '%(object)s' видалено."
 
+msgid "Add a user"
+msgstr "Додати користувача"
+
+msgid "Users"
+msgstr "Користувачі"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Користувач '%(object)s' оновлений."
@@ -390,18 +387,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Користувач не може бути створений через помилки."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Редагування %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Користувача '%(object)s' видалено."
 
 msgid "Edit"
 msgstr "Редагувати"
-
-msgid "Edit this user"
-msgstr "Редагувати цього користувача"
-
-msgid "Delete this user"
-msgstr "Видалити цього користувача"

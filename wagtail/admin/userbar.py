@@ -1,9 +1,5 @@
-import warnings
-
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class BaseItem:
@@ -245,40 +241,3 @@ class EditPageItem(BaseItem):
             return ""
 
         return super().render(request)
-
-
-class ModeratePageItem(BaseItem):
-    def __init__(self, revision):
-        self.revision = revision
-
-    def render(self, request):
-        if not self.revision.id:
-            return ""
-
-        if not self.revision.submitted_for_moderation:
-            return ""
-
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        if not self.revision.content_object.permissions_for_user(
-            request.user
-        ).can_publish():
-            return ""
-
-        warnings.warn(
-            f"{self.__class__.__name__} is deprecated. "
-            "If you explicitly use this in your code, remove it from your "
-            "construct_wagtail_userbar hook.",
-            RemovedInWagtail60Warning,
-        )
-
-        return super().render(request)
-
-
-class ApproveModerationEditPageItem(ModeratePageItem):
-    template = "wagtailadmin/userbar/item_page_approve.html"
-
-
-class RejectModerationEditPageItem(ModeratePageItem):
-    template = "wagtailadmin/userbar/item_page_reject.html"

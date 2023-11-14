@@ -26,7 +26,7 @@ install_requires = [
     "django-treebeard>=4.5.1,<5.0",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=23.3,<24",
-    "draftjs_exporter>=2.1.5,<3.0",
+    "draftjs_exporter>=2.1.5,<6.0",
     "Pillow>=9.1.0,<11.0.0",
     "beautifulsoup4>=4.8,<4.13",
     "html5lib>=0.999,<2",
@@ -48,7 +48,7 @@ testing_extras = [
     "freezegun>=0.3.8",
     "azure-mgmt-cdn>=12.0,<13.0",
     "azure-mgmt-frontdoor>=1.0,<1.1",
-    "django-pattern-library>=0.7,<0.8",
+    "django-pattern-library>=0.7",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "black==22.3.0",
@@ -59,7 +59,7 @@ testing_extras = [
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting
-    "djhtml==1.5.2",
+    "djhtml==3.0.6",
     # For validating string formats in .po translation files
     "polib>=1.1,<2.0",
     # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)

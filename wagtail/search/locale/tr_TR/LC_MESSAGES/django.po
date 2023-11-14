@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -28,21 +28,3 @@ msgstr "Wagtail arama"
 
 msgid "Query Daily Hits"
 msgstr "Sorgu Günlük Tıklanması"
-
-msgid "Popular search terms"
-msgstr "Yaygın arama terimleri"
-
-msgid "Search"
-msgstr "Ara"
-
-msgid "Terms"
-msgstr "Terimler"
-
-msgid "Views (past week)"
-msgstr "Görüntüleme (geçen hafta)"
-
-msgid "No results found"
-msgstr "Sonuç bulunamadı"
-
-msgid "Choose from popular search terms"
-msgstr "Yaygın arama terimlerinden seçin"

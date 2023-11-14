@@ -52,16 +52,16 @@
             )
                 .then(result => {
                 // Display pagination if more than 1 page returned
-                let nbPages = result["nbPages"]
-                if (nbPages > 1) {
-                    document.querySelector("#pagination").hidden = false;
-                    displayPagination(page, nbPages)
-                }
+                    let nbPages = result["nbPages"]
+                    if (nbPages > 1) {
+                        document.querySelector("#pagination").hidden = false;
+                        displayPagination(page, nbPages)
+                    }
 
                 // Display hits
-                let hits = result["hits"]
-                addResultsList(hits, query, searchResultsContainer)
-            })
+                    let hits = result["hits"]
+                    addResultsList(hits, query, searchResultsContainer)
+                })
                 .catch((error) => console.log(error))
         }
 

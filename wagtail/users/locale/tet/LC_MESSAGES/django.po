@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -116,9 +116,6 @@ msgstr "Sim, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
-msgid "Delete group"
-msgstr "Hamoos grupu"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -131,11 +128,11 @@ msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
 msgid "Add group"
 msgstr "Hatama grupu"
 
-msgid "Editing"
-msgstr "Hadia"
-
 msgid "Save"
 msgstr "Rai"
+
+msgid "Delete group"
+msgstr "Hamoos grupu"
 
 msgid "Object permissions"
 msgstr "Permisaun sira ba Objetu"
@@ -179,14 +176,8 @@ msgstr ""
 "Laiha grupu sira maka konfigura. Tamba sa labele<a "
 "href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
 
-msgid "Delete user"
-msgstr "Hamoos usuariu"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos usuariu nee?"
-
-msgid "Add user"
-msgstr "Hatama usuariu"
 
 msgid "Account"
 msgstr "Konta"
@@ -194,11 +185,11 @@ msgstr "Konta"
 msgid "Roles"
 msgstr "Knar"
 
-msgid "Users"
-msgstr "Usuariu sira"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Hatama usuariu"
+
+msgid "Delete user"
+msgstr "Hamoos usuariu"
 
 msgid "Username"
 msgstr "Naran Usuariu"
@@ -246,6 +237,12 @@ msgstr "Grupu labele rai tamba erru."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupu '%(object)s' hamoos ona."
 
+msgid "Add a user"
+msgstr "Hatama usuariu"
+
+msgid "Users"
+msgstr "Usuariu sira"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Usuariu '%(object)s' troka ona"
@@ -254,18 +251,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Hadia hela %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Usuariu '%(object)s' hamoos ona."
 
 msgid "Edit"
 msgstr "Hadia"
-
-msgid "Edit this user"
-msgstr "Hadia user nee"
-
-msgid "Delete this user"
-msgstr "Hamoos usuariu nee"

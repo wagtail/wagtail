@@ -27,6 +27,7 @@ class PageTitleColumn(BaseColumn):
         context["parent_page"] = getattr(instance, "annotated_parent_page", None)
         context["show_locale_labels"] = parent_context.get("show_locale_labels")
         context["perms"] = parent_context.get("perms")
+        context["actions_next_url"] = parent_context.get("actions_next_url")
         return context
 
 
@@ -90,6 +91,7 @@ class PageTable(Table):
         use_row_ordering_attributes=False,
         parent_page=None,
         show_locale_labels=False,
+        actions_next_url=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -114,6 +116,7 @@ class PageTable(Table):
                 )
 
         self.show_locale_labels = show_locale_labels
+        self.actions_next_url = actions_next_url
 
     def get_ascending_title_text(self, column):
         return self.ascending_title_text_format % {
@@ -149,5 +152,8 @@ class PageTable(Table):
         context["is_searching"] = parent_context.get("is_searching")
         context["is_searching_whole_tree"] = parent_context.get(
             "is_searching_whole_tree"
+        )
+        context["actions_next_url"] = (
+            self.actions_next_url or parent_context.get("request").path
         )
         return context

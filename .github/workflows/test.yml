@@ -28,9 +28,7 @@ concurrency:
 # - django 4.2, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.0.x, python 3.10, postgres (allow failures)
 # - django main, python 3.10, postgres:latest, parallel (allow failures)
-# - elasticsearch 5, django 3.2, python 3.8, sqlite
-# - elasticsearch 6, django 3.2, python 3.8, postgres:latest
-# - elasticsearch 7, django 4.1, python 3.8, postgres:latest
+# - elasticsearch 7, django 3.2, python 3.8, postgres:latest
 # - opensearch 2, django 4.1, python 3.9, sqlite
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
@@ -198,54 +196,6 @@ jobs:
           name: coverage-data
           path: .coverage.*
 
-  # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
-  # but https://github.com/getong/elasticsearch-action does
-  test-sqlite-elasticsearch5:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - python: '3.8'
-            django: 'Django>=3.2,<3.3'
-    steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: getong/elasticsearch-action@v1.2
-        with:
-          elasticsearch version: 5.6.9
-          host port: 9200
-          container port: 9200
-          host node port: 9300
-          node port: 9300
-          discovery type: 'single-node'
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=5,<6"
-          pip install certifi
-      - name: Test
-        run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
-        env:
-          DATABASE_ENGINE: django.db.backends.sqlite3
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-data
-          path: .coverage.*
-
   test-sqlite-elasticsearch8:
     runs-on: ubuntu-latest
     strategy:
@@ -294,64 +244,6 @@ jobs:
           name: coverage-data
           path: .coverage.*
 
-  # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
-  # but https://github.com/elastic/elastic-github-actions does
-  test-postgres-elasticsearch6:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - python: '3.8'
-            django: 'Django>=3.2,<3.3'
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - name: Configure sysctl limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - uses: elastic/elastic-github-actions/elasticsearch@master
-        with:
-          stack-version: 6.8.13
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install "psycopg2>=2.6"
-          pip install -e '.[testing]' --config-settings editable_mode=strict
-          pip install "${{ matrix.django }}"
-          pip install "elasticsearch>=6,<7"
-          pip install certifi
-      - name: Test
-        run: |
-          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
-        env:
-          DATABASE_ENGINE: django.db.backends.postgresql
-          DATABASE_HOST: localhost
-          DATABASE_USER: postgres
-          DATABASE_PASSWORD: postgres
-          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-data
-          path: .coverage.*
-
   test-postgres-elasticsearch7:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
@@ -359,7 +251,7 @@ jobs:
       matrix:
         include:
           - python: '3.8'
-            django: 'Django>=4.1,<4.2'
+            django: 'Django>=3.2,<3.3'
             experimental: false
 
     services:
@@ -460,9 +352,7 @@ jobs:
       - test-sqlite
       - test-postgres
       - test-mysql
-      - test-sqlite-elasticsearch5
       - test-sqlite-elasticsearch8
-      - test-postgres-elasticsearch6
       - test-postgres-elasticsearch7
       - test-sqlite-opensearch2
     runs-on: ubuntu-latest

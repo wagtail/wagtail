@@ -188,23 +188,50 @@ class TranslatableMixin(models.Model):
     @classmethod
     def check(cls, **kwargs):
         errors = super().check(**kwargs)
-        is_translation_model = cls.get_translation_model() is cls
-
-        # Raise error if subclass has removed the unique_together constraint
-        # No need to check this on multi-table-inheritance children though as it only needs to be applied to
+        # No need to check on multi-table-inheritance children as it only needs to be applied to
         # the table that has the translation_key/locale fields
-        if (
-            is_translation_model
-            and ("translation_key", "locale") not in cls._meta.unique_together
-        ):
+        is_translation_model = cls.get_translation_model() is cls
+        if not is_translation_model:
+            return errors
+
+        unique_constraint_fields = ("translation_key", "locale")
+
+        has_unique_constraint = any(
+            isinstance(constraint, models.UniqueConstraint)
+            and set(constraint.fields) == set(unique_constraint_fields)
+            for constraint in cls._meta.constraints
+        )
+
+        has_unique_together = unique_constraint_fields in cls._meta.unique_together
+
+        # Raise error if subclass has removed constraints
+        if not (has_unique_constraint or has_unique_together):
             errors.append(
                 checks.Error(
-                    "{}.{} is missing a unique_together constraint for the translation key and locale fields".format(
-                        cls._meta.app_label, cls.__name__
+                    "%s is missing a UniqueConstraint for the fields: %s."
+                    % (cls._meta.label, unique_constraint_fields),
+                    hint=(
+                        "Add models.UniqueConstraint(fields=%s, "
+                        "name='unique_translation_key_locale_%s_%s') to %s.Meta.constraints."
+                        % (
+                            unique_constraint_fields,
+                            cls._meta.app_label,
+                            cls._meta.model_name,
+                            cls.__name__,
+                        )
                     ),
-                    hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(
-                        cls.__name__
-                    ),
+                    obj=cls,
+                    id="wagtailcore.E003",
+                )
+            )
+
+        # Raise error if subclass has both UniqueConstraint and unique_together
+        if has_unique_constraint and has_unique_together:
+            errors.append(
+                checks.Error(
+                    "%s should not have both UniqueConstraint and unique_together for: %s."
+                    % (cls._meta.label, unique_constraint_fields),
+                    hint="Remove unique_together in favor of UniqueConstraint.",
                     obj=cls,
                     id="wagtailcore.E003",
                 )
