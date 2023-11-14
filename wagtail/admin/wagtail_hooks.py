@@ -1014,7 +1014,7 @@ def register_icons(icons):
         "doc-empty-inverse.svg",
         "doc-empty.svg",
         "doc-full-inverse.svg",
-        "doc-full.svg",  # aka file-text-alt
+        "doc-full.svg",
         "dots-horizontal.svg",
         "download.svg",
         "draft.svg",
@@ -1038,7 +1038,7 @@ def register_icons(icons):
         "help.svg",
         "history.svg",
         "home.svg",
-        "image.svg",  # aka picture
+        "image.svg",
         "info-circle.svg",
         "italic.svg",
         "key.svg",
@@ -1062,7 +1062,7 @@ def register_icons(icons):
         "password.svg",
         "pick.svg",
         "pilcrow.svg",
-        "placeholder.svg",  # aka marquee
+        "placeholder.svg",
         "plus-inverse.svg",
         "plus.svg",
         "radio-empty.svg",
