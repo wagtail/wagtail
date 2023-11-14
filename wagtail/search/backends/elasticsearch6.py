@@ -86,10 +86,23 @@ class Elasticsearch6Index(Elasticsearch5Index):
 class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
     mapping_class = Elasticsearch6Mapping
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        remapped_fields = self.remapped_fields or [self.mapping.all_field_name]
-        remapped_fields = [Field(field) for field in remapped_fields]
+    def _remap_fields(self, fields):
+        # Convert field names into index column names
+        if fields:
+            remapped_fields = []
+            searchable_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_searchable_search_fields()
+            }
+            for field_name in fields:
+                if field_name in searchable_fields:
+                    field_name = self.mapping.get_field_column_name(
+                        searchable_fields[field_name]
+                    )
+
+                remapped_fields.append(Field(field_name))
+        else:
+            remapped_fields = [Field(self.mapping.all_field_name)]
 
         models = get_indexed_models()
         unique_boosts = set()
@@ -100,10 +113,14 @@ class Elasticsearch6SearchQueryCompiler(Elasticsearch5SearchQueryCompiler):
                 if field.boost:
                     unique_boosts.add(float(field.boost))
 
-        self.remapped_fields = remapped_fields + [
-            Field(self.mapping.get_boost_field_name(boost), boost)
-            for boost in unique_boosts
-        ]
+        remapped_fields.extend(
+            [
+                Field(self.mapping.get_boost_field_name(boost), boost)
+                for boost in unique_boosts
+            ]
+        )
+
+        return remapped_fields
 
     def _compile_fuzzy_query(self, query, fields):
         if len(fields) == 1:
