@@ -1,5 +1,6 @@
 import datetime
 from io import BytesIO
+from unittest import mock
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
@@ -12,6 +13,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
+from wagtail.admin.views.reports.audit_logging import LogEntriesView
 from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
 from wagtail.test.testapp.models import Advert
 from wagtail.test.utils import WagtailTestUtils
@@ -445,6 +447,24 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertContains(response, "Unknown content type")
 
+    def test_decorated_queryset(self):
+        # Ensure that decorate_paginated_queryset is only called with the queryset for the current
+        # page, instead of all objects over all pages.
+        with mock.patch.object(
+            LogEntriesView,
+            "decorate_paginated_queryset",
+            side_effect=LogEntriesView.decorate_paginated_queryset,
+            autospec=True,
+        ) as decorate_paginated_queryset, mock.patch.object(
+            LogEntriesView, "paginate_by", return_value=1
+        ):
+            response = self.get()
+            decorate_paginated_queryset.assert_called_once()
+            queryset = decorate_paginated_queryset.call_args.args[1]
+            self.assertEqual(queryset.count(), 1)
+
+        self.assertEqual(response.status_code, 200)
+
 
 @override_settings(
     USE_L10N=True,
@@ -515,8 +535,7 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
         self.user.save()
 
         response = self.get()
-        self.assertContains(response, "No pages found.")
-        self.assertNotContains(response, self.home.title)
+        self.assertEqual(response.status_code, 302)
 
     def test_csv_export(self):
         self.publish_home_page()
@@ -589,6 +608,54 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertContains(response, expected_deleted_string)
+
+
+class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_no_permission(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No GroupPagePermission created
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="add",
+        )
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
 
 
 class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):

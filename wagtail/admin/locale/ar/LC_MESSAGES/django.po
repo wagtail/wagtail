@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -107,6 +107,11 @@ msgstr "تحميل صورة ملف شخصي"
 
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"لم تتطابق %(username_field)s و كلمة المرور مع كلمة المرور. حاول مرة اخرى."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -498,6 +503,9 @@ msgstr "صفحاتُك المقفلة"
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
 
+msgid "Actions"
+msgstr "النشاطات"
+
 msgid "Unlock"
 msgstr "إزالة القفل"
 
@@ -543,16 +551,14 @@ msgstr "ملحص الموقع"
 msgid "Close"
 msgstr "اغلاق"
 
+msgid "Compare with live version"
+msgstr "مقارنة مع النسخة الحية"
+
 msgid "Sign in"
 msgstr "تسجيل الدخول"
 
 msgid "Sign in to Wagtail"
 msgstr "تسجيل الدخول لـ Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"لم تتطابق %(username_field)s و كلمة المرور مع كلمة المرور. حاول مرة اخرى."
 
 msgid "Signing in…"
 msgstr "يتم تسجيل الدخول..."
@@ -727,9 +733,6 @@ msgstr "انسخ هذه الصفحة"
 msgid "New %(page_type)s"
 msgstr "جديد %(page_type)s"
 
-msgid "Actions"
-msgstr "النشاطات"
-
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 
@@ -794,6 +797,9 @@ msgstr "قادم"
 msgid "This page is protected from public view"
 msgstr "هذه الصفحة محمية من النظر العمومي"
 
+msgid "Add child page"
+msgstr "أضف صفحة لطفل "
+
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
 
@@ -835,9 +841,6 @@ msgstr "تحرير هذا العنصر"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحة %(page_num)s من %(total_pages)s"
 
-msgid "Root"
-msgstr "الجذر"
-
 msgid "Download XLSX"
 msgstr "حمل XLSX"
 
@@ -846,6 +849,9 @@ msgstr "تنزيل ملف CSV"
 
 msgid "Filter"
 msgstr "فلتر"
+
+msgid "Root"
+msgstr "الجذر"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -906,9 +912,6 @@ msgstr "جديد"
 msgid "Published"
 msgstr "تم نشره"
 
-msgid "Compare with live version"
-msgstr "مقارنة مع النسخة الحية"
-
 msgid "More"
 msgstr "المزيد"
 
@@ -955,6 +958,9 @@ msgstr "المجموعة '%(object)s' محذوفة."
 msgid "Are you sure you want to delete this collection?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
 
+msgid "Home"
+msgstr "الرئيسة"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "تم تحديث '%(object)s' '%(model_name)s'."
@@ -962,6 +968,13 @@ msgstr "تم تحديث '%(object)s' '%(model_name)s'."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "عَدِّلْ '%(title)s'"
+
+msgid "Inspect"
+msgstr "فحص"
 
 msgid "Editing"
 msgstr "جاري التعديل"
@@ -1093,23 +1106,12 @@ msgid "Pages"
 msgstr "صفحات"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "عَدِّلْ '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "معاينة النسخة المسودة من '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "معاينة النسخة المباشرة من '%(title)s'"
-
-msgid "Add child page"
-msgstr "أضف صفحة لطفل "
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "أضف صفحة فرعية إلى '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

@@ -14,7 +14,7 @@ from wagtail.admin.ui.sidebar import (
 )
 from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAdaptLinkMenuItem(TestCase):
@@ -70,7 +70,7 @@ class TestAdaptLinkMenuItem(TestCase):
     def test_adapt_with_deprecated_classnames(self):
 
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",
         ):
             packed = JSContext().pack(

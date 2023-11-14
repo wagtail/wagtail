@@ -5,7 +5,6 @@ from wagtail.models import GroupPagePermission, Page, get_default_page_content_t
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):
@@ -520,16 +519,3 @@ class TestPagePermissionPolicy(PermissionPolicyTestCase):
             ),
             [self.superuser],
         )
-
-    def test_get_revisions_for_moderation(self):
-        # RemovedInWagtail60Warning
-        # Remove this test when the deprecation period for the legacy
-        # moderation system ends.
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "The PagePermissionPolicy.revisions_for_moderation() method is deprecated.",
-        ):
-            revisions = self.policy.revisions_for_moderation(self.superuser)
-
-        revision = self.reports_page.save_revision(submitted_for_moderation=True)
-        self.assertCountEqual(revisions, [revision])

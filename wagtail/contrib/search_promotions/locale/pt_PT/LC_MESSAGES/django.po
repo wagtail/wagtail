@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -96,9 +96,6 @@ msgstr "Descer"
 msgid "Promoted search results"
 msgstr "Resultados de pesquisa promovidos"
 
-msgid "Add recommended page"
-msgstr "Adicionar uma página recomendada"
-
 msgid "Search Terms"
 msgstr "Pesquisar Termos"
 
@@ -129,8 +126,26 @@ msgstr "Ordenar por número de visitas (por ordem decrescente)"
 msgid "Edit this promotion"
 msgstr "Alterar esta promoção"
 
+msgid "External link"
+msgstr "Link externo"
+
 msgid "None"
 msgstr "Nenhuma"
+
+msgid "Popular search terms"
+msgstr "Termos de pesquisa populares"
+
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Terms"
+msgstr "Termos"
+
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+msgid "Choose from popular search terms"
+msgstr "Escolha entre os termos de pesquisa mais populares"
 
 #, python-format
 msgid "There is %(counter)s match"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -94,9 +94,6 @@ msgstr "Κάτω"
 msgid "Promoted search results"
 msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
 
-msgid "Add recommended page"
-msgstr "Προσθήκη προτεινόμενης σελίδας"
-
 msgid "Search Terms"
 msgstr "Όροι αναζήτησης"
 
@@ -115,8 +112,26 @@ msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
 msgid "Edit this promotion"
 msgstr "Επεξεργασία αυτής της προώθησης"
 
+msgid "External link"
+msgstr "Εξωτερική σύνδεση"
+
 msgid "None"
 msgstr "Καμία"
+
+msgid "Popular search terms"
+msgstr "Δημοφιλείς όροι αναζήτησης"
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "Terms"
+msgstr "Όροι"
+
+msgid "No results found"
+msgstr "Δε βρέθηκαν αποτελέσματα"
+
+msgid "Choose from popular search terms"
+msgstr "Επιλέξτε από δημοφιλείς όρους αναζήτησης"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

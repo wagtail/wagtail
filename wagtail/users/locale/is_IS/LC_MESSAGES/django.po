@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2023
-# saevarom <saevar@saevar.is>, 2017-2022
+# saevarom <saevar@saevar.is>, 2017-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2020-2023\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2017-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -199,9 +198,6 @@ msgstr "Já, breyta stöðu"
 msgid "No, don't change state"
 msgstr "Nei, ekki breyta stöðu"
 
-msgid "Delete group"
-msgstr "Eyða hóp"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -227,14 +223,14 @@ msgstr "Ertu viss um að þú viljir eyða þessum hóp"
 msgid "Add group"
 msgstr "Bæta við hóp"
 
-msgid "Editing"
-msgstr "Breyti"
-
 msgid "View users in this group"
 msgstr "Skoða notendur í þessari grúppu"
 
 msgid "Save"
 msgstr "Vista"
+
+msgid "Delete group"
+msgstr "Eyða hóp"
 
 msgid "Object permissions"
 msgstr "Hluta heimildir"
@@ -284,14 +280,8 @@ msgstr ""
 "Engir hópar eru til. Hví ekki að <a "
 "href=\"%(wagtailusers_create_group_url)s\">bæta við hóp</a>?"
 
-msgid "Delete user"
-msgstr "Eyða notanda"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ertu viss um að þú viljir eyða þessum notanda?"
-
-msgid "Add user"
-msgstr "Bæta við notanda"
 
 msgid "Account"
 msgstr "Reikningur"
@@ -299,11 +289,11 @@ msgstr "Reikningur"
 msgid "Roles"
 msgstr "Hlutverk"
 
-msgid "Users"
-msgstr "Notendur"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Bæta við notanda"
+
+msgid "Delete user"
+msgstr "Eyða notanda"
 
 msgid "Select all users in listing"
 msgstr "Velja alla notendur"
@@ -378,6 +368,9 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d notanda hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d notendum hefur verið eytt"
 
+msgid "Mark as active"
+msgstr "Virkja"
+
 msgid "Change the active state for selected users"
 msgstr "Breyta stöðu valinna notenda"
 
@@ -417,6 +410,12 @@ msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófa
 msgid "Group '%(object)s' deleted."
 msgstr "Hópi '%(object)s' eytt."
 
+msgid "Add a user"
+msgstr "Bæta við notanda"
+
+msgid "Users"
+msgstr "Notendur"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Notandi '%(object)s' búinn til."
@@ -430,18 +429,16 @@ msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Breyti %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Notanda '%(object)s' eytt."
 
 msgid "Edit"
 msgstr "Breyta"
 
-msgid "Edit this user"
-msgstr "Breyta þessum notanda"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Breyta notanda '%(name)s'"
 
-msgid "Delete this user"
-msgstr "Eyða þessum notanda"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Eyða notanda '%(name)s'"

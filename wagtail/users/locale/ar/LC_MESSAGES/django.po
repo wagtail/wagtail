@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -118,9 +118,6 @@ msgstr "نعم, احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
-msgid "Delete group"
-msgstr "احذف المجموعة"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -132,11 +129,11 @@ msgstr "هل تريد فعلا حذف هذه الجماعة؟"
 msgid "Add group"
 msgstr "أضف جماعة"
 
-msgid "Editing"
-msgstr "تحرير"
-
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Delete group"
+msgstr "احذف المجموعة"
 
 msgid "Object permissions"
 msgstr "أذونات الكائن"
@@ -183,14 +180,8 @@ msgstr ""
 "لا توجد مجموعات تم تكوينها. لماذا لا <a "
 "href=\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
 
-msgid "Delete user"
-msgstr "إحذف المستخدم"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "هل أنت متأكد من حذف هذا المستخدم؟ "
-
-msgid "Add user"
-msgstr "أضف مستخدم"
 
 msgid "Account"
 msgstr "حساب"
@@ -198,11 +189,11 @@ msgstr "حساب"
 msgid "Roles"
 msgstr "الأدوار"
 
-msgid "Users"
-msgstr "مستخدمين"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "أضف مستخدم"
+
+msgid "Delete user"
+msgstr "إحذف المستخدم"
 
 msgid "Username"
 msgstr "إسم المستخدم"
@@ -260,6 +251,12 @@ msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
 msgid "Group '%(object)s' deleted."
 msgstr "تم حذف المجموعة '%(object)s'."
 
+msgid "Add a user"
+msgstr "أضف مستخدم"
+
+msgid "Users"
+msgstr "مستخدمين"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "تم تحديث المستخدم '%(object)s'."
@@ -268,18 +265,8 @@ msgid "The user could not be saved due to errors."
 msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "جاري التعديل %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "تم حذف المستخدم '%(object)s'."
 
 msgid "Edit"
 msgstr "تحرير"
-
-msgid "Edit this user"
-msgstr "تحرير هذا المستخدم"
-
-msgid "Delete this user"
-msgstr "إحذف هذا المستخدم"

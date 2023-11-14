@@ -9,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.db import models, transaction
+from django.db.models import Q
 from django.db.models.functions import Cast
 from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
@@ -227,7 +228,10 @@ class IndexView(
 
         self.filters, queryset = self.filter_queryset(queryset)
 
-        if self.locale:
+        # Ensure the queryset is of the same model as self.model before filtering,
+        # which may not be the case for views like HistoryView where the queryset
+        # is of a LogEntry model for self.model.
+        if self.locale and queryset.model == self.model:
             queryset = queryset.filter(locale=self.locale)
 
         has_updated_at_column = any(
@@ -295,12 +299,10 @@ class IndexView(
                 return search_backend.search(
                     self.search_query, queryset, fields=self.search_fields
                 )
-
-        filters = {
-            field + "__icontains": self.search_query
-            for field in self.search_fields or []
-        }
-        return queryset.filter(**filters)
+        query = Q()
+        for field in self.search_fields or []:
+            query |= Q(**{field + "__icontains": self.search_query})
+        return queryset.filter(query)
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         if not issubclass(column_class, ButtonsColumnMixin):
@@ -375,7 +377,7 @@ class IndexView(
 
     def get_add_url(self):
         if self.add_url_name:
-            return reverse(self.add_url_name)
+            return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_page_title(self):
         if not self.page_title and self.model:
@@ -396,7 +398,7 @@ class IndexView(
         return [
             {
                 "locale": locale,
-                "url": index_url + "?locale=" + locale.language_code,
+                "url": self._set_locale_query_param(index_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
@@ -569,7 +571,7 @@ class CreateView(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "add_url_name attribute or a get_add_url method"
             )
-        return reverse(self.add_url_name)
+        return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_edit_url(self):
         if not self.edit_url_name:
@@ -585,7 +587,7 @@ class CreateView(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "index_url_name attribute or a get_success_url method"
             )
-        return reverse(self.index_url_name)
+        return self._set_locale_query_param(reverse(self.index_url_name))
 
     def get_success_message(self, instance):
         if self.success_message is None:
@@ -607,10 +609,11 @@ class CreateView(
         return context
 
     def get_translations(self):
+        add_url = self.get_add_url()
         return [
             {
                 "locale": locale,
-                "url": self.get_add_url() + "?locale=" + locale.language_code,
+                "url": self._set_locale_query_param(add_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]

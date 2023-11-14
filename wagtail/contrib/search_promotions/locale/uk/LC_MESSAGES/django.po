@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -95,9 +95,6 @@ msgstr "Перемістити вниз"
 msgid "Promoted search results"
 msgstr "Промотовані результати пошуку"
 
-msgid "Add recommended page"
-msgstr "Додати рекомендовану сторінку"
-
 msgid "Search Terms"
 msgstr "Пошукові терміни"
 
@@ -128,8 +125,26 @@ msgstr "Впорядкувати за переглядами (спочатку �
 msgid "Edit this promotion"
 msgstr "Редагувати цю промоцію"
 
+msgid "External link"
+msgstr "Зовнішнє посилання"
+
 msgid "None"
 msgstr "Нічого"
+
+msgid "Popular search terms"
+msgstr "Популярні критерії пошуку"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Критерії"
+
+msgid "No results found"
+msgstr "Результати не знайдені"
+
+msgid "Choose from popular search terms"
+msgstr "Оберіть з популярних критеріїв пошуку"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

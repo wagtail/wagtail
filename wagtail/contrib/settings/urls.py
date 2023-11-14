@@ -9,5 +9,9 @@ urlpatterns = [
         views.redirect_to_relevant_instance,
         name="edit",
     ),
-    path("<slug:app_name>/<slug:model_name>/<int:pk>/", views.edit, name="edit"),
+    path(
+        "<slug:app_name>/<slug:model_name>/<int:pk>/",
+        views.EditView.as_view(),
+        name="edit",
+    ),
 ]

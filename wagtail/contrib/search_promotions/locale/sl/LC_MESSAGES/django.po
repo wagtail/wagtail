@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,14 +88,8 @@ msgstr "Premakni gor"
 msgid "Move down"
 msgstr "Premakni navzdol"
 
-msgid "Recommended page"
-msgstr "Priporočena stran"
-
 msgid "Promoted search results"
 msgstr "Promovirani rezultati iskanja"
-
-msgid "Add recommended page"
-msgstr "Dodaj priporočeno stran"
 
 msgid "Search Terms"
 msgstr "Iskalni nizi"
@@ -127,8 +121,26 @@ msgstr "Razvrsti po ogledih (največji najprej)"
 msgid "Edit this promotion"
 msgstr "Uredi promoviran rezultat"
 
+msgid "External link"
+msgstr "Zunanja povezava"
+
 msgid "None"
 msgstr "/"
+
+msgid "Popular search terms"
+msgstr "Priljubljeni iskalni nizi"
+
+msgid "Search"
+msgstr "Iskanje"
+
+msgid "Terms"
+msgstr "Nizi"
+
+msgid "No results found"
+msgstr "Ni zadetkov"
+
+msgid "Choose from popular search terms"
+msgstr "Izberite med priljubljenimi iskalnimi nizi"
 
 #, python-format
 msgid "There is %(counter)s match"

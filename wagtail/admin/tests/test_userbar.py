@@ -11,7 +11,6 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -51,27 +50,6 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             content = template.render(context)
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
-
-    def test_userbar_tag_revision(self):
-        self.homepage.save_revision(user=self.user, submitted_for_moderation=True)
-        revision = self.homepage.get_latest_revision()
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        context = Context(
-            {
-                PAGE_TEMPLATE_VAR: self.homepage,
-                "request": self.dummy_request(self.user, revision_id=revision.id),
-            }
-        )
-        with self.assertNumQueries(7), self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
-            "ModerationEditPageItem is deprecated\. "
-            "If you explicitly use this in your code, "
-            "remove it from your construct_wagtail_userbar hook\.",
-        ):
-            content = template.render(context)
-
-        self.assertIn("<!-- Wagtail user bar embed code -->", content)
-        self.assertIn("Approve", content)
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
@@ -439,70 +417,3 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         link = soup.find("a", attrs={"href": expected_url})
         self.assertIsNone(link)
-
-
-class TestUserbarModeration(WagtailTestUtils, TestCase):
-    # RemovedInWagtail60Warning
-    # Remove this test class when the deprecation period for the legacy
-    # moderation system ends.
-    # The userbar is yet to support workflows:
-    # https://github.com/wagtail/wagtail/issues/9106
-
-    def setUp(self):
-        self.user = self.login()
-        self.request = get_dummy_request(site=Site.objects.first())
-        self.request.user = self.user
-        self.homepage = Page.objects.get(id=2)
-        # Use a specific page model to use our template that has {% wagtailuserbar %}
-        self.page = SimplePage(title="Martabak", content="Lezat", live=True)
-        self.homepage.add_child(instance=self.page)
-        self.page.save_revision(submitted_for_moderation=True)
-        self.revision = self.page.get_latest_revision()
-        self.request.revision_id = self.revision.id
-
-    def test_userbar_moderation(self):
-        response = self.page.serve(self.request)
-        with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
-            "ModerationEditPageItem is deprecated\. "
-            "If you explicitly use this in your code, "
-            "remove it from your construct_wagtail_userbar hook\.",
-        ):
-            response.render()
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<template id="wagtail-userbar-template">')
-
-        expected_approve_html = """
-            <form action="/admin/pages/moderation/{}/approve/" target="_parent" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="w-action">
-                    <input type="submit" value="Approve" class="button" />
-                </div>
-            </form>
-        """.format(
-            self.revision.id
-        )
-        self.assertTagInHTML(expected_approve_html, response.content.decode())
-
-        expected_reject_html = """
-            <form action="/admin/pages/moderation/{}/reject/" target="_parent" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="w-action">
-                    <input type="submit" value="Reject" class="button" />
-                </div>
-            </form>
-        """.format(
-            self.revision.id
-        )
-        self.assertTagInHTML(expected_reject_html, response.content.decode())
-
-    def test_userbar_moderation_anonymous_user_cannot_see(self):
-        self.request.user = AnonymousUser()
-
-        response = self.page.serve(self.request)
-        response.render()
-
-        # Check that the user received a forbidden message
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, '<template id="wagtail-userbar-template">')

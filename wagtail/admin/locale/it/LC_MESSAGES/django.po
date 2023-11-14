@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -109,6 +109,12 @@ msgstr "Carica un'immagine del profilo"
 
 msgid "Enter password"
 msgstr "Inserisci password"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Il tuo %(username_field)s e password non corrispondono. Per favore prova "
+"nuovamente."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -618,6 +624,9 @@ msgstr "No, non annullare la pubblicazione"
 msgid "Cancel"
 msgstr "Annulla"
 
+msgid "No log entries found."
+msgstr "Nessun log trovato."
+
 msgid "Update"
 msgstr "Aggiorna"
 
@@ -666,6 +675,9 @@ msgstr "Bloccata alle"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
+
+msgid "Actions"
+msgstr "Azioni"
 
 msgid "Unlock"
 msgstr "Sblocca"
@@ -754,17 +766,17 @@ msgstr "Attività"
 msgid "Task submitted by"
 msgstr "Attività inviata da"
 
+msgid "Compare with live version"
+msgstr "Compara con la versione live"
+
+msgid "Compare with previous version"
+msgstr "Compara con  versione precedente"
+
 msgid "Sign in"
 msgstr "Accedi"
 
 msgid "Sign in to Wagtail"
 msgstr "Accedi in Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"Il tuo %(username_field)s e password non corrispondono. Per favore prova "
-"nuovamente."
 
 msgid "Forgotten password?"
 msgstr "Password dimenticata?"
@@ -945,6 +957,9 @@ msgstr "Privacy della pagina"
 msgid "This page has been made private by a parent page."
 msgstr "Questa pagina è stata resa privata dalla pagina padre."
 
+msgid "Save the page before leaving"
+msgstr "Salva la pagina prima di uscire"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "Hai <span>modifiche non salvate</span>"
 
@@ -953,9 +968,6 @@ msgstr "Hai <span>commenti non salvati</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr "Hai <span>modifiche non salvate</span> e <span>commenti</span>"
-
-msgid "Save the page before leaving"
-msgstr "Salva la pagina prima di uscire"
 
 msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
@@ -1227,9 +1239,6 @@ msgstr "Copia questa pagina"
 msgid "New %(page_type)s"
 msgstr "Nuovo %(page_type)s"
 
-msgid "Actions"
-msgstr "Azioni"
-
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -1268,12 +1277,12 @@ msgstr "Live version"
 msgid "Current draft"
 msgstr "La bozza corrente"
 
-msgid "No log entries found."
-msgstr "Nessun log trovato."
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Esplorando %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Seleziona tutte le pagine nella lista"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1300,9 +1309,6 @@ msgid ""
 msgstr ""
 "Le pagine create qui non saranno accessibili. Per aggiungere pagine a un "
 "sito esistente, creale come pagine figlio della homepage."
-
-msgid "Select all pages in listing"
-msgstr "Seleziona tutte le pagine nella lista"
 
 msgid "This page is locked to further editing"
 msgstr "Questa pagina è bloccata per ulteriori modifiche"
@@ -1349,14 +1355,11 @@ msgstr "Questa pagina è protetta dalla vista pubblica"
 msgid "Confirm"
 msgstr "Conferma"
 
-msgid "History"
-msgstr "Storico"
+msgid "Add child page"
+msgstr "Aggiungi pagina figlio"
 
 msgid "Review this version"
 msgstr "Revisiona questa versione"
-
-msgid "Compare with previous version"
-msgstr "Compara con  versione precedente"
 
 msgid "Compare with current version"
 msgstr "Compara con la versione attuale"
@@ -1458,9 +1461,6 @@ msgstr "Attiva / disattiva breadcrumbs"
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
-msgid "Root"
-msgstr "Radice"
-
 msgid "Download XLSX"
 msgstr "Scarica XLSX"
 
@@ -1476,9 +1476,15 @@ msgstr "Filtro"
 msgid "Apply filters"
 msgstr "Applica filtri"
 
+msgid "History"
+msgstr "Storico"
+
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "Modifica %(page_type)s %(title)s"
+
+msgid "Root"
+msgstr "Radice"
 
 msgid "Current page status:"
 msgstr "Stato attuale della pagina:"
@@ -1554,9 +1560,6 @@ msgstr[0] "Usato %(usage_count)s volta"
 msgstr[1] "Usato %(usage_count)s volte"
 msgstr[2] "Usato %(usage_count)s volte"
 
-msgid "Page status: "
-msgstr "Stato pagina:"
-
 msgid "In Moderation"
 msgstr "In moderazione"
 
@@ -1568,9 +1571,6 @@ msgstr "Mostra storico"
 
 msgid "Preview mode"
 msgstr "Modalità anteprima"
-
-msgid "First published "
-msgstr "Prima pubblicazione"
 
 msgid "Edit / Review"
 msgstr "Modifica / Revisiona"
@@ -1809,9 +1809,6 @@ msgstr "Pubblicata"
 msgid "See full history"
 msgstr "Vedi storico completo"
 
-msgid "Compare with live version"
-msgstr "Compara con la versione live"
-
 msgid "More"
 msgstr "Altro"
 
@@ -1918,6 +1915,9 @@ msgstr "Raccolta '%(object)s' eliminata."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sei sicuro di voler eliminare questa raccolta?"
 
+msgid "Home"
+msgstr "Home"
+
 msgid "Workflow progress"
 msgstr "Andamento flusso di lavoro"
 
@@ -1928,6 +1928,17 @@ msgstr "%(model_name)s '%(object)s' aggiornato."
 #, python-format
 msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' creato."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Modifica '%(title)s'"
+
+msgid "Inspect"
+msgstr "Controlla"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Elimina '%(title)s'"
 
 msgid "Editing"
 msgstr "Modifica"
@@ -2352,23 +2363,12 @@ msgid "Pages"
 msgstr "Pagine"
 
 #, python-format
-msgid "Edit '%(title)s'"
-msgstr "Modifica '%(title)s'"
-
-#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Mostra anteprima di '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Mostra versione attuale di '%(title)s'"
-
-msgid "Add child page"
-msgstr "Aggiungi pagina figlio"
-
-#, python-format
-msgid "Add a child page to '%(title)s' "
-msgstr "Aggiungi una sotto-pagina a '%(title)s' "
 
 #, python-format
 msgid "Move page '%(title)s'"

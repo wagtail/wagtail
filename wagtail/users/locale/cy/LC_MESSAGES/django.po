@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,9 +170,6 @@ msgstr "Ia, newid cyflwr"
 msgid "No, don't change state"
 msgstr "Na, paid a newid cyflwr"
 
-msgid "Delete group"
-msgstr "Dileu grwp"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -186,14 +183,14 @@ msgstr "Ydych chi'n siŵr eich bod am ddileu'r grŵp hwn?"
 msgid "Add group"
 msgstr "Ychwanegu grwp"
 
-msgid "Editing"
-msgstr "Golygu"
-
 msgid "View users in this group"
 msgstr "Gweld defnyddwyr yn y grŵp hwn"
 
 msgid "Save"
 msgstr "Cadw"
+
+msgid "Delete group"
+msgstr "Dileu grwp"
 
 msgid "Object permissions"
 msgstr "Caniatadau gwrthrych"
@@ -243,14 +240,8 @@ msgstr ""
 "Nid oes unrhyw grwpiau wedi'u ffurfweddu. Pam ddim <a "
 "href=\"%(wagtailusers_create_group_url)s\">ychwanegu un</a>?"
 
-msgid "Delete user"
-msgstr "Dileu defnyddiwr"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ydych chi'n siŵr eich bod am ddileu'r defnyddiwr hwn?"
-
-msgid "Add user"
-msgstr "Ychwanegu defnyddiwr"
 
 msgid "Account"
 msgstr "Cyfrif"
@@ -258,11 +249,11 @@ msgstr "Cyfrif"
 msgid "Roles"
 msgstr "Rolau"
 
-msgid "Users"
-msgstr "Defnyddwyr"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Ychwanegu defnyddiwr"
+
+msgid "Delete user"
+msgstr "Dileu defnyddiwr"
 
 msgid "Select all users in listing"
 msgstr "Dewiswch yr holl ddefnyddwyr wrth restru"
@@ -376,6 +367,12 @@ msgstr "Nid oedd modd cadw'r grwp oherwydd gwallau."
 msgid "Group '%(object)s' deleted."
 msgstr "Grwp '%(object)s' wedi'i dileu."
 
+msgid "Add a user"
+msgstr "Ychwanegu defnyddiwr"
+
+msgid "Users"
+msgstr "Defnyddwyr"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Defnyddiwr '%(object)s' wedi'i diweddaru."
@@ -384,18 +381,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Nid oedd modd cadw'r defnyddiwr oherwydd gwallau."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Golygu %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Defnyddiwr '%(object)s' wedi'i dileu."
 
 msgid "Edit"
 msgstr "Golygu"
-
-msgid "Edit this user"
-msgstr "Golygu'r defnyddiwr hon"
-
-msgid "Delete this user"
-msgstr "Dileu'r defnyddiwr hon"

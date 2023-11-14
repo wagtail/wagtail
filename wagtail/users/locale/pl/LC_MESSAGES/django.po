@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -218,9 +218,6 @@ msgstr "Tak, zmień stan"
 msgid "No, don't change state"
 msgstr "Nie, nie zmieniaj statusu"
 
-msgid "Delete group"
-msgstr "Usuń grupę"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -252,14 +249,14 @@ msgstr "Czy na pewno chcesz usunąć tą grupę?"
 msgid "Add group"
 msgstr "Dodaj grupę"
 
-msgid "Editing"
-msgstr "Edytowanie"
-
 msgid "View users in this group"
 msgstr "Pokaż użytkowników w tej grupie"
 
 msgid "Save"
 msgstr "Zapisz"
+
+msgid "Delete group"
+msgstr "Usuń grupę"
 
 msgid "Object permissions"
 msgstr "Uprawnienia obiektu"
@@ -309,14 +306,8 @@ msgstr ""
 "Brak skonfigurowanych grup. Czemu nie <a "
 "href=\"%(wagtailusers_create_group_url)s\">dodasz kilku</a>?"
 
-msgid "Delete user"
-msgstr "Usuń użytkownika"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Czy na pewno chcesz usunąć tego użytkownika?"
-
-msgid "Add user"
-msgstr "Dodaj użytkownika"
 
 msgid "Account"
 msgstr "Konto"
@@ -324,11 +315,11 @@ msgstr "Konto"
 msgid "Roles"
 msgstr "Role"
 
-msgid "Users"
-msgstr "Użytkownicy"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Dodaj użytkownika"
+
+msgid "Delete user"
+msgstr "Usuń użytkownika"
 
 msgid "Select all users in listing"
 msgstr "Wybierz wszystkich użytkowników z listy"
@@ -409,6 +400,9 @@ msgstr[1] "%(num_parent_objects)d użytkowników zostało usuniętych"
 msgstr[2] "%(num_parent_objects)d użytkowników zostało usuniętych"
 msgstr[3] "%(num_parent_objects)d użytkowników zostało usuniętych"
 
+msgid "Mark as active"
+msgstr "Zaznacz jako aktywny"
+
 msgid "Change the active state for selected users"
 msgstr "Zmień status aktywności dla wybranych użytkowników"
 
@@ -455,6 +449,12 @@ msgstr "Grupa nie mogła zostać zapisana z powodu błędów."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' została usunięta."
 
+msgid "Add a user"
+msgstr "Dodaj użytkownika"
+
+msgid "Users"
+msgstr "Użytkownicy"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Użytkownik '%(object)s' utworzony."
@@ -467,18 +467,16 @@ msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Edytowanie %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Użytkownik '%(object)s' usunięty."
 
 msgid "Edit"
 msgstr "Edytuj"
 
-msgid "Edit this user"
-msgstr "Edytuj tego użytkownika"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Edytuj użytkownika '%(name)s'"
 
-msgid "Delete this user"
-msgstr "Usuń tego użytkownika"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Usuń użytkownika '%(name)s'"

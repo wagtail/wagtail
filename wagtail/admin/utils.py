@@ -1,3 +1,5 @@
+from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
+
 from django.conf import settings
 from django.utils.http import url_has_allowed_host_and_scheme
 
@@ -52,3 +54,19 @@ def get_user_display_name(user):
         # we were passed None or something else that isn't a valid user object; return
         # empty string to replicate the behaviour of {{ user.get_full_name|default:user.get_username }}
         return ""
+
+
+def set_query_params(url: str, params: dict):
+    """
+    Given a URL and a dictionary of query parameters,
+    returns a new URL with those query parameters added or updated.
+
+    If the value of a query parameter is None, that parameter will be removed from the URL.
+    """
+
+    scheme, netloc, path, query, fragment = urlsplit(url)
+    querydict = parse_qs(query)
+    querydict.update(params)
+    querydict = {key: value for key, value in querydict.items() if value is not None}
+    query = urlencode(querydict, doseq=True)
+    return urlunsplit((scheme, netloc, path, query, fragment))

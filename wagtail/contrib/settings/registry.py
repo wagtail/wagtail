@@ -12,7 +12,7 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .permissions import user_can_edit_setting_type
 
@@ -22,19 +22,9 @@ class SettingMenuItem(MenuItem):
         if classnames:
             warn(
                 "The `classnames` kwarg for SettingMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
         classname = classname or classnames
-        # Special-case FontAwesome icons to avoid the breaking changes for those customisations.
-        if icon.startswith("fa-"):
-            icon_name = ""
-            icon_classes = "icon icon-" + icon
-            if classname:
-                classname += " " + icon_classes
-            else:
-                classname = icon_classes
-        else:
-            icon_name = icon
 
         self.model = model
         super().__init__(
@@ -44,7 +34,7 @@ class SettingMenuItem(MenuItem):
                 args=[model._meta.app_label, model._meta.model_name],
             ),
             classname=classname,
-            icon_name=icon_name,
+            icon_name=icon,
             **kwargs,
         )
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -92,9 +92,6 @@ msgstr "Posunúť nižšie"
 msgid "Promoted search results"
 msgstr "Propagované výsledky vyhladávania"
 
-msgid "Add recommended page"
-msgstr "Pridať odporúčanú stránku"
-
 msgid "Search Terms"
 msgstr "Výrazy vyhladávania"
 
@@ -113,8 +110,26 @@ msgstr "Zobrazení (posledný týždeň)"
 msgid "Edit this promotion"
 msgstr "Upraviť propagáciu"
 
+msgid "External link"
+msgstr "Externý odkaz"
+
 msgid "None"
 msgstr "Žiadne"
+
+msgid "Popular search terms"
+msgstr "Najviac hľadané výrazy"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "No results found"
+msgstr "Žiadne výsledky hľadania"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrať z načastejšie hľadaných"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

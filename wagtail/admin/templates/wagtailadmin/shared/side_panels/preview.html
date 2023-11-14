@@ -54,7 +54,11 @@
         </div>
 
         <div class="preview-panel__wrapper">
-            <iframe loading="lazy" title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner"></iframe>
+            <iframe loading="lazy" title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">
+                <div>
+                     {# Add placeholder element to support styling content when iframe has loaded #}
+                </div>
+            </iframe>
         </div>
     </div>
 </div>

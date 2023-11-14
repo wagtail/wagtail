@@ -7,4 +7,3 @@ global-exclude *.stories.js
 global-exclude *.stories.tsx
 recursive-exclude wagtail/ *.md
 global-exclude .gitignore
-global-exclude wagtail-icomoon.json

@@ -9,7 +9,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -435,11 +435,7 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
     def test_unfiltered_no_results(self):
         response = self.get()
-        add_url = self.get_url("add")
-        self.assertContains(
-            response,
-            f'No full-featured snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "No full-featured snippets have been created.")
         self.assertContains(
             response,
             '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
@@ -1493,3 +1489,27 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
             {"url": "", "label": "Inspect"},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
+
+
+class TestCustomMethods(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    def test_index_view_get_add_url_is_respected(self):
+        response = self.client.get(self.get_url("list"))
+        add_url = self.get_url("add") + "?customised=param"
+        soup = self.get_soup(response.content)
+        # Should contain the customised add URL in two places:
+        # The main action button, and the "Why not add one?" suggestion
+        links = soup.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 2)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_index_view_get_add_url_is_respected_with_i18n(self):
+        Locale.objects.create(language_code="fr")
+        response = self.client.get(self.get_url("list") + "?locale=fr")
+        add_url = self.get_url("add") + "?locale=fr&customised=param"
+        soup = self.get_soup(response.content)
+        # Should contain the customised add URL in two places:
+        # The main action button, and the "Why not add one?" suggestion
+        links = soup.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 2)

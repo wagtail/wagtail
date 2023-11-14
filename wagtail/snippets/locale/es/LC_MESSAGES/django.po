@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Enrique Sánchez-Reboto García, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -164,39 +164,6 @@ msgstr "Acciones"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Editando %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Alternar migas de pan"
-
-msgid "Breadcrumb"
-msgstr "Breadcrumb"
-
-msgid "Snippets"
-msgstr "Fragmentos"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nuevo: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Editando %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historial"
-
-msgid "Usage"
-msgstr "Uso"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Historial del fragmento para %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Editar este fragmento"
-
-msgid "No log entries found."
-msgstr "No se encontraron entradas de registro."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmentos %(snippet_type_name_plural)s"
@@ -255,6 +222,9 @@ msgstr "Cancelar publicación programada"
 msgid "Choose"
 msgstr "Seleccionar"
 
+msgid "Snippets"
+msgstr "Fragmentos"
+
 msgid "Name"
 msgstr "Nombre"
 
@@ -270,14 +240,8 @@ msgstr "El fragmento no puedo ser guardado debido a errores."
 msgid "Action"
 msgstr "Acción"
 
-msgid "User"
-msgstr "Usuario"
-
 msgid "Date"
 msgstr "Fecha"
-
-msgid "Snippet history"
-msgstr "Historial de fragmento"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -287,16 +251,8 @@ msgstr "Editar este %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Historial de %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspeccionar"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Eliminar '%(title)s'"
+msgid "Home"
+msgstr "Inicio"
 
 #, python-format
 msgid "Choose %(object)s"

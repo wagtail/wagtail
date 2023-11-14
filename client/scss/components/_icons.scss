@@ -1,12 +1,5 @@
 @use 'sass:string';
 
-@font-face {
-  font-family: $font-wagtail-icons;
-  src: url('../fonts/wagtail.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 // Set SVG icons to use the current text color in the location they appear as
 // their default fill color. Can be overridden for a specific icon by either
 // the color or fill properties.
@@ -22,11 +15,6 @@
   color: theme('colors.surface-page');
 }
 
-.icon:before,
-.icon:after {
-  @include icon(); // from _mixins.scss
-}
-
 .icon:after {
   text-align: end;
 }
@@ -35,13 +23,7 @@
 // Icon factory methods
 // =============================================================================
 
-// RemovedInWagtail60Warning
-// Font icons unused in Wagtail core, kept for backwards compatibility with third-party customisations.
-@each $icon, $content in $icons {
-  .icon-#{$icon}:before {
-    content: string.quote(#{$content});
-  }
-}
+$icons-after: ('arrow-down', 'arrow-right', 'arrow-up');
 
 @each $icon in $icons-after {
   .icon-#{$icon}-after::after {
@@ -61,21 +43,6 @@
   // Credit: Icon made by Freepik from Flaticon.com
 }
 
-.icon-view:before,
-.icon-no-view:before {
-  // icon-font
-  vertical-align: -3.5px;
-  font-size: 1.1rem;
-}
-
-.icon-spinner:after,
-.icon-spinner:before {
-  // iconfont
-  width: 1em;
-  animation: spin-wag 0.5s infinite linear;
-  display: inline-block;
-}
-
 // For SVG icons, add spinner styles onto the use element,
 // so an icon can be turned into a spinner by changing the href only.
 // This allows us to switch any icon to a spinner with much less boilerplate.
@@ -84,29 +51,8 @@ use[href='#icon-spinner'] {
   transform-origin: center;
 }
 
-.icon-horizontalrule:before {
-  font-family: $font-sans;
-}
-
 .icon-larger:before {
   font-size: 1.5em;
-}
-
-.icon.text-replace {
-  // iconfont
-  font-size: 0;
-  line-height: 0;
-  overflow: hidden;
-
-  &:before {
-    margin-inline-end: 0;
-    font-size: 1rem;
-    display: inline-block;
-    width: 100%;
-    line-height: 1.2em;
-    text-align: center;
-    vertical-align: middle;
-  }
 }
 
 .text-replace {

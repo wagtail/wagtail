@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -61,17 +61,6 @@ msgid "Add search pick"
 msgstr "Aggiungi ricerca consigliata"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
-msgstr ""
-"<p>I risultati di ricerca in evidenza sono un mezzo per pubblicizzare pagine "
-"specifiche che potrebbero non salire in modo organico nei risultati dei "
-"motori di ricerca. Ad esempio, puoi pubblicizzare la tua pagina donazione a "
-"un utente che fa una ricerca con il termine comune \"<em>dare</em>\".</p>"
-
-msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
 "any misspellings/user error. To help, you can choose from search terms that "
@@ -115,14 +104,8 @@ msgstr "Sposta su"
 msgid "Move down"
 msgstr "Sposta giù"
 
-msgid "Recommended page"
-msgstr "Pagina raccomandata"
-
 msgid "Promoted search results"
 msgstr "Risultati di ricerca in evidenza"
-
-msgid "Add recommended page"
-msgstr "Aggiungi pagina raccomandata"
 
 msgid "Search Terms"
 msgstr "Termini di ricerca"
@@ -154,8 +137,26 @@ msgstr "Ordina per visualizzazioni (le più alte prima)"
 msgid "Edit this promotion"
 msgstr "Modifica questa promozione"
 
+msgid "External link"
+msgstr "Collegamento esterno"
+
 msgid "None"
 msgstr "Nessuno"
+
+msgid "Popular search terms"
+msgstr "Termini di ricerca popolari"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Terms"
+msgstr "Termini"
+
+msgid "No results found"
+msgstr "Nessun risultato"
+
+msgid "Choose from popular search terms"
+msgstr "Scegli tra i termini di ricerca più popolari"
 
 #, python-format
 msgid "There is %(counter)s match"

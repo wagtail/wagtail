@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -212,9 +212,6 @@ msgstr "Da, spremeni stanje"
 msgid "No, don't change state"
 msgstr "Ne, ne spreminjaj stanja"
 
-msgid "Delete group"
-msgstr "Izbriši skupino"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -242,14 +239,14 @@ msgstr "Ali ste prepričani, da želite izbrisati skupino?"
 msgid "Add group"
 msgstr "Dodaj skupino"
 
-msgid "Editing"
-msgstr "Urejanje"
-
 msgid "View users in this group"
 msgstr "Ogled uporabnikov v tej skupini"
 
 msgid "Save"
 msgstr "Shrani"
+
+msgid "Delete group"
+msgstr "Izbriši skupino"
 
 msgid "Object permissions"
 msgstr "Dovoljenja objekta"
@@ -299,14 +296,8 @@ msgstr ""
 "Dodana ni še nobena skupina. Zakaj je ne bi <a "
 "href=\"%(wagtailusers_create_group_url)s\">dodali</a>?"
 
-msgid "Delete user"
-msgstr "Izbriši uporabnika"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Ali ste prepričani, da želite izbrisati tega uporabnika?"
-
-msgid "Add user"
-msgstr "Dodaj uporabnika"
 
 msgid "Account"
 msgstr "Račun"
@@ -314,11 +305,11 @@ msgstr "Račun"
 msgid "Roles"
 msgstr "Vloge"
 
-msgid "Users"
-msgstr "Uporabniki"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Dodaj uporabnika"
+
+msgid "Delete user"
+msgstr "Izbriši uporabnika"
 
 msgid "Select all users in listing"
 msgstr "Izberite vse uporabnike na seznamu"
@@ -433,6 +424,12 @@ msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' izbrisana."
 
+msgid "Add a user"
+msgstr "Dodaj uporabnika"
+
+msgid "Users"
+msgstr "Uporabniki"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Uporabnik '%(object)s' ustvarjen."
@@ -445,18 +442,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Urejanje %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Uporabnik '%(object)s' izbrisan."
 
 msgid "Edit"
 msgstr "Uredi"
-
-msgid "Edit this user"
-msgstr "Uredi tega uporabnika"
-
-msgid "Delete this user"
-msgstr "Izbriši tega uporabnika"

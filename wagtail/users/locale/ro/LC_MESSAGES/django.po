@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -207,9 +207,6 @@ msgstr "Da, schimbă stare"
 msgid "No, don't change state"
 msgstr "Nu, nu schimba stare"
 
-msgid "Delete group"
-msgstr "Șterge grup"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -234,14 +231,14 @@ msgstr "Sigur doriți să ștergeți acest grup?"
 msgid "Add group"
 msgstr "Adaugă grup"
 
-msgid "Editing"
-msgstr "Editare"
-
 msgid "View users in this group"
 msgstr "Vezi utilizatorii în acest grup"
 
 msgid "Save"
 msgstr "Salvează"
+
+msgid "Delete group"
+msgstr "Șterge grup"
 
 msgid "Object permissions"
 msgstr "Permisiuni obiecte"
@@ -291,14 +288,8 @@ msgstr ""
 "Nu există nici un grup configurat. De ce să nu <a "
 "href=\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
 
-msgid "Delete user"
-msgstr "Șterge utilizator"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Sigur doriți să ștergeți acest utilizator?"
-
-msgid "Add user"
-msgstr "Adaugă utilizator"
 
 msgid "Account"
 msgstr "Cont"
@@ -306,11 +297,11 @@ msgstr "Cont"
 msgid "Roles"
 msgstr "Roluri"
 
-msgid "Users"
-msgstr "Utilizatori"
+msgid "Add user"
+msgstr "Adaugă utilizator"
 
-msgid "Add a user"
-msgstr "Adaugă un utilizator"
+msgid "Delete user"
+msgstr "Șterge utilizator"
 
 msgid "Select all users in listing"
 msgstr "Selectează toți utilizatorii din listă"
@@ -389,6 +380,9 @@ msgstr[0] "%(num_parent_objects)d utilizator a fost șters"
 msgstr[1] "%(num_parent_objects)d utilizatori au fost șterși"
 msgstr[2] "%(num_parent_objects)d utilizatori au fost șterși"
 
+msgid "Mark as active"
+msgstr "Marchează ca activ"
+
 msgid "Change the active state for selected users"
 msgstr "Schimbă starea activă pentru utilizatorii selectați"
 
@@ -430,6 +424,12 @@ msgstr "Grupul nu a fost salvat din cauza erorilor."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupul '%(object)s' a fost șters."
 
+msgid "Add a user"
+msgstr "Adaugă un utilizator"
+
+msgid "Users"
+msgstr "Utilizatori"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Utilizatorul '%(object)s' a fost creat."
@@ -442,18 +442,16 @@ msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Editare %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilizatorul '%(object)s' a fost șters."
 
 msgid "Edit"
 msgstr "Editează"
 
-msgid "Edit this user"
-msgstr "Editează acest utlizator"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Editează utilizatorul '%(name)s'"
 
-msgid "Delete this user"
-msgstr "Șterge acest utlizator"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Șterge utilizatorul '%(name)s'"

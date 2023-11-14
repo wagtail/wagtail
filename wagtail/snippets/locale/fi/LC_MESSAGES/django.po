@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Timo Tuominen, 2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -149,35 +149,6 @@ msgstr "Toimet"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Muokataan %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Murupolut päälle/pois"
-
-msgid "Breadcrumb"
-msgstr "Linkkipolku"
-
-msgid "Snippets"
-msgstr "Pätkät"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Uusi: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Muokataan %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historia"
-
-msgid "Usage"
-msgstr "Käyttö"
-
-msgid "Edit this snippet"
-msgstr "Muokkaa tätä pätkää"
-
-msgid "No log entries found."
-msgstr "Lokimerkintöjä ei löytynyt."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pätkät %(snippet_type_name_plural)s"
@@ -230,6 +201,9 @@ msgstr "Peruuta ajastettu julkaisu"
 msgid "Choose"
 msgstr "Valitse"
 
+msgid "Snippets"
+msgstr "Pätkät"
+
 msgid "Name"
 msgstr "Nimi"
 
@@ -242,29 +216,15 @@ msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
 msgid "Action"
 msgstr "Toiminto"
 
-msgid "User"
-msgstr "Käyttäjä"
-
 msgid "Date"
 msgstr "Pvm"
-
-msgid "Snippet history"
-msgstr "Pätkän historia"
 
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr "Muokkaa tätä %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Muokkaa sivua '%(title)s'"
-
-msgid "Inspect"
-msgstr "Tarkastele"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Poista '%(title)s'"
+msgid "Home"
+msgstr "Koti"
 
 #, python-format
 msgid "Choose %(object)s"

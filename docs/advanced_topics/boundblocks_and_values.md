@@ -24,7 +24,7 @@ class BlogPage(Page):
         # ...
         ('heading', HeadingBlock()),
         # ...
-    ], use_json_field=True)
+    ])
 ```
 
 ```html+django

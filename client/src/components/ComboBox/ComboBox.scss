@@ -74,14 +74,15 @@ $spacing-sm: theme('spacing.5');
   display: grid;
   grid-template-columns: theme('spacing.8') 1fr;
   align-items: center;
-  padding: theme('spacing.1');
+  padding: theme('spacing.2');
   border: 1px solid transparent;
   font-size: 0.875rem;
   line-height: theme('lineHeight.tight');
   border-radius: theme('borderRadius.sm');
 
   &[aria-selected='true'] {
-    border-color: currentColor;
+    border-color: theme('colors.border-button-outline-default');
+    color: theme('colors.text-link-default');
     background: transparent;
     cursor: pointer;
 
@@ -122,6 +123,8 @@ $spacing-sm: theme('spacing.5');
 
   // Explicitly override the selected color for SVG support.
   [aria-selected='true'] & {
+    color: theme('colors.text-link-default');
+
     @media (forced-colors: active) {
       color: inherit;
     }
@@ -137,7 +140,8 @@ $spacing-sm: theme('spacing.5');
 }
 
 .w-combobox__status {
-  padding: $spacing-sm;
+  padding: theme('spacing.5');
+  padding-top: 0;
 
   @media (forced-colors: active) {
     color: GrayText;

@@ -7,7 +7,6 @@ from django.urls import reverse
 from wagtail.models import Workflow, WorkflowContentType, WorkflowState
 from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 # This module serves to gather snippets-equivalent of workflows-related tests
 # that are found throughout page-specific test modules, e.g. test_create_page.py,
@@ -67,17 +66,6 @@ class TestCreateView(BaseWorkflowsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')
 
-    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
-    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
-        # Note: remove this when all legacy moderation code has been removed
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-        ):
-            response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'name="action-submit"')
-
     def test_post_submit_for_moderation(self):
         response = self.post({"text": "Newly created", "action-submit": "Submit"})
         object = self.model.objects.get(text="Newly created")
@@ -129,17 +117,6 @@ class TestEditView(BaseWorkflowsTestCase):
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_get_workflow_buttons_not_shown_when_workflow_disabled(self):
         response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'name="action-submit"')
-
-    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
-    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
-        # Note: remove this when all legacy moderation code has been removed
-        with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
-            "WAGTAIL_MODERATION_ENABLED is deprecated. Use WAGTAIL_WORKFLOW_ENABLED instead.",
-        ):
-            response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')
 

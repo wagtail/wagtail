@@ -185,8 +185,6 @@ class CopyPageAction:
             for revision in page.revisions.all():
                 use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
-                # RemovedInWagtail60Warning
-                revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
                 revision.object_id = page_copy.id
 

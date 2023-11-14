@@ -19,7 +19,7 @@
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # Matti Borchers, 2022
-# Matti Borchers, 2022
+# mattibo, 2022
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Florian Vogt <flori@vorlif.org>, 2023\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"

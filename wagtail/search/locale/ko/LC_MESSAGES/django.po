@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,21 +34,3 @@ msgstr "색인 등록"
 
 msgid "index entries"
 msgstr "색인 등록들"
-
-msgid "Popular search terms"
-msgstr "인기있는 검색어"
-
-msgid "Search"
-msgstr "검색"
-
-msgid "Terms"
-msgstr "단어"
-
-msgid "Views (past week)"
-msgstr "조회수 (지난 주)"
-
-msgid "No results found"
-msgstr "검색 결과가 없습니다"
-
-msgid "Choose from popular search terms"
-msgstr "인기있는 검색어로부터 선택"

@@ -1,11 +1,9 @@
 jest.mock('../..');
 
-document.addEventListener = jest.fn();
-
-require('./core');
-
 describe('core', () => {
-  const [event] = document.addEventListener.mock.calls[0];
+  beforeAll(() => {
+    require('./core'); // dynamic require to test side effects
+  });
 
   it('exposes the Stimulus application instance for reuse', () => {
     expect(Object.keys(window.wagtail.app)).toEqual(
@@ -24,9 +22,5 @@ describe('core', () => {
     expect(Object.keys(window.StimulusModule)).toEqual(
       expect.arrayContaining(['Application', 'Controller']),
     );
-  });
-
-  it('DOMContentLoaded', () => {
-    expect(event).toBe('DOMContentLoaded');
   });
 });

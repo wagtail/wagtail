@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2022-2023\n"
@@ -155,39 +155,6 @@ msgstr "Aðgerðir"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Breyti %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Kveikja á brauðmolaslóð"
-
-msgid "Breadcrumb"
-msgstr "Brauðmolar"
-
-msgid "Snippets"
-msgstr "Snifsi"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nýtt: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Breyti %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Saga"
-
-msgid "Usage"
-msgstr "Notkun"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Saga snifsis fyrir %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Breyta þessu snifsi"
-
-msgid "No log entries found."
-msgstr "Engar atburðaskráningar fundust."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snifsi %(snippet_type_name_plural)s"
@@ -245,11 +212,18 @@ msgstr "Hætta við tímasetta birtingu"
 msgid "Choose"
 msgstr "Velja"
 
+msgid "Snippets"
+msgstr "Snifsi"
+
 msgid "Name"
 msgstr "Nafn"
 
 msgid "Instances"
 msgstr "Færslur"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
@@ -260,14 +234,8 @@ msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófa
 msgid "Action"
 msgstr "Aðgerð"
 
-msgid "User"
-msgstr "Notandi"
-
 msgid "Date"
 msgstr "Dagsetning"
-
-msgid "Snippet history"
-msgstr "Saga snifsis"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -277,16 +245,8 @@ msgstr "Breyta þessu %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s saga"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Breyta '%(title)s'"
-
-msgid "Inspect"
-msgstr "Skoða"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Eyða '%(title)s'"
+msgid "Home"
+msgstr "Heim"
 
 #, python-format
 msgid "Choose %(object)s"

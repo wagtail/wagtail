@@ -17,11 +17,12 @@ from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
     JSONStreamModel,
+    SearchTestModel,
     VariousOnDeleteModel,
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -452,6 +453,44 @@ class TestSearchIndexResultsView(TestSearchIndexView):
         pass
 
 
+class TestSearchFields(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        objects = [
+            SearchTestModel(title="Hello World", body="This one is classic"),
+            SearchTestModel(title="Hello Anime", body="We love anime (opinions vary)"),
+            SearchTestModel(title="Food", body="I like food, do you?"),
+        ]
+        SearchTestModel.objects.bulk_create(objects)
+
+    def setUp(self):
+        self.login()
+
+    def get(self, q):
+        return self.client.get(reverse("searchtest:index"), {"q": q})
+
+    def test_single_result_with_body(self):
+        response = self.get("IkE")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello World")
+        self.assertNotContains(response, "Hello Anime")
+        self.assertContains(response, "Food")
+
+    def test_multiple_results_with_title(self):
+        response = self.get("ELlo")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello World")
+        self.assertContains(response, "Hello Anime")
+        self.assertNotContains(response, "Food")
+
+    def test_no_results(self):
+        response = self.get("Abra Kadabra")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello World")
+        self.assertNotContains(response, "Hello Anime")
+        self.assertNotContains(response, "Food")
+
+
 class TestListExport(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
@@ -788,7 +827,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
 
 class TestLegacyPatterns(WagtailTestUtils, TestCase):
-    # RemovedInWagtail60Warning: legacy integer pk-based URLs will be removed
+    # RemovedInWagtail70Warning: legacy integer pk-based URLs will be removed
 
     def setUp(self):
         self.user = self.login()
@@ -803,7 +842,7 @@ class TestLegacyPatterns(WagtailTestUtils, TestCase):
         edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
         legacy_edit_url = "/admin/streammodel/1/"
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
         ):
             response = self.client.get(legacy_edit_url)
@@ -814,7 +853,7 @@ class TestLegacyPatterns(WagtailTestUtils, TestCase):
         delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
         legacy_delete_url = "/admin/streammodel/1/delete/"
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
         ):
             response = self.client.get(legacy_delete_url)

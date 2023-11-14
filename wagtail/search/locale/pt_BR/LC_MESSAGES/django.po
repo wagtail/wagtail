@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2021\n"
@@ -37,21 +37,3 @@ msgstr "índice de entrada"
 
 msgid "index entries"
 msgstr "índice de entradas"
-
-msgid "Popular search terms"
-msgstr "Termos populares de pesquisa"
-
-msgid "Search"
-msgstr "Procurar"
-
-msgid "Terms"
-msgstr "Termos"
-
-msgid "Views (past week)"
-msgstr "Visualizações (última semana)"
-
-msgid "No results found"
-msgstr "Nenhum resultado encontrado"
-
-msgid "Choose from popular search terms"
-msgstr "Escolha a partir de termos populares"

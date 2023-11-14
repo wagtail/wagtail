@@ -61,6 +61,7 @@ from wagtail.test.testapp.models import (
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
+    FullFeaturedSnippet,
     MultiPreviewModesModel,
     RevisableChildModel,
     RevisableModel,
@@ -71,7 +72,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -286,7 +287,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             "construct_snippet_listing_buttons",
             register_snippet_listing_button_item,
         ), self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "construct_snippet_listing_buttons hook no longer accepts a context argument",
         ):
             response = self.get()
@@ -919,6 +920,32 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
+    def test_locale_selector_with_existing_locale(self):
+        response = self.client.get(
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+
+        self.assertContains(response, "Switch locales")
+
+        switch_to_english_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=en"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_english_url}" lang="en">',
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
@@ -927,10 +954,28 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertNotContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
 
         self.assertNotContains(response, "Switch locales")
+
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
 
 
 class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
@@ -4117,10 +4162,10 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 12, 34, 0)),
             object_id="1",
         )
-        self.revisable_snippet = RevisableModel.objects.create(text="Foo")
+        self.revisable_snippet = FullFeaturedSnippet.objects.create(text="Foo")
         self.initial_revision = self.revisable_snippet.save_revision(user=self.user)
         ModelLogEntry.objects.create(
-            content_type=ContentType.objects.get_for_model(RevisableModel),
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             label="Foo",
             action="wagtail.create",
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 20, 22, 0)),
@@ -4226,6 +4271,8 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_with_i18n_enabled(self):
         response = self.get(self.non_revisable_snippet)
+        self.assertEqual(response.status_code, 200)
+        response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
 
 
@@ -5374,7 +5421,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_edit(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
         ):
             response = self.client.get(
@@ -5388,7 +5435,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_delete(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
         ):
             response = self.client.get(
@@ -5402,7 +5449,7 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_redirect_to_usage(self):
         with self.assertWarnsRegex(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`/<pk>/usage/` usage view URL pattern has been deprecated in favour of /usage/<pk>/.",
         ):
             response = self.client.get(
