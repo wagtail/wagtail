@@ -115,7 +115,7 @@ See [](multiple_formats) for full documentation.
 
 ### Images in multiple sizes
 
-The `srcset_image` tag works like `image`, but allows specifying multiple sizes to generate a `srcset` attribute and leverage  [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+The `srcset_image` tag works like `image`, but allows specifying multiple sizes to generate a `srcset` attribute and leverage [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
 For example:
 

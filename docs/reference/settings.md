@@ -373,6 +373,8 @@ WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
 
 This setting lets you provide your own document model for use in Wagtail, which should extend the built-in `AbstractDocument` class.
 
+(wagtaildocs_document_form_base)=
+
 ### `WAGTAILDOCS_DOCUMENT_FORM_BASE`
 
 ```python

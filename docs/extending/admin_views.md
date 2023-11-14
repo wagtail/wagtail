@@ -273,7 +273,7 @@ def register_viewset():
     return CalendarViewSet()
 ```
 
-Compared to the previous example with the two separate hooks, this will result in a single menu item "Calendar" that takes you to the  `/admin/calendar/` URL. The second URL will not have its own menu item, but it will still be accessible at `/admin/calendar/month/`. This is useful for grouping related views together, that may not necessarily need their own menu items.
+Compared to the previous example with the two separate hooks, this will result in a single menu item "Calendar" that takes you to the `/admin/calendar/` URL. The second URL will not have its own menu item, but it will still be accessible at `/admin/calendar/month/`. This is useful for grouping related views together, that may not necessarily need their own menu items.
 
 For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSet` documentation.
 

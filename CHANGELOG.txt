@@ -19,6 +19,7 @@ Changelog
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
  * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
+ * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
@@ -32,6 +33,7 @@ Changelog
  * Maintenance: Remove icon font support (Matt Westcott)
  * Maintenance: Remove deprecated SVG icons (Matt Westcott)
  * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
+ * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
 
 
 5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -43,6 +45,7 @@ Changelog
  * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
  * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
  * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
+ * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 

@@ -377,6 +377,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             self.focal_point_height = None
 
     def get_suggested_focal_point(self):
+        if self.is_svg():
+            # We can't run feature detection on SVGs, and don't provide a
+            # pathway from SVG -> raster formats, so don't try it.
+            return None
+
         with self.get_willow_image() as willow:
             faces = willow.detect_faces()
 
