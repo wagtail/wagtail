@@ -68,5 +68,5 @@ def set_query_params(url: str, params: dict):
     querydict = parse_qs(query)
     querydict.update(params)
     querydict = {key: value for key, value in querydict.items() if value is not None}
-    query = urlencode(querydict)
+    query = urlencode(querydict, doseq=True)
     return urlunsplit((scheme, netloc, path, query, fragment))
