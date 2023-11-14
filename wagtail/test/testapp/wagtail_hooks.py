@@ -18,6 +18,7 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
+from wagtail.admin.utils import set_query_params
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
@@ -300,6 +301,12 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
     # Ensure that the menu item is placed last
     menu_order = 999999
     inspect_view_enabled = True
+
+    class IndexView(SnippetViewSet.index_view_class):
+        def get_add_url(self):
+            return set_query_params(super().get_add_url(), {"customised": "param"})
+
+    index_view_class = IndexView
 
     # TODO: When specific search fields are supported in SQLite FTS (see #10217),
     # specify search_fields or get_search_fields here

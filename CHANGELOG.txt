@@ -9,6 +9,7 @@ Changelog
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
  * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
  * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
+ * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -18,7 +19,9 @@ Changelog
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
  * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
+ * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
+ * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
@@ -44,6 +47,9 @@ Changelog
  * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
  * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
  * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
+ * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
+ * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
+ * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 

@@ -1,4 +1,5 @@
 ```{currentmodule} wagtail.admin.viewsets.model
+
 ```
 
 (generic_views)=

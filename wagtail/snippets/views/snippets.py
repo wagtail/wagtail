@@ -39,7 +39,6 @@ from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
 from wagtail.models import (
     DraftStateMixin,
-    Locale,
     LockableMixin,
     PreviewableMixin,
     RevisionMixin,
@@ -244,23 +243,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
-
-    def get_add_url(self):
-        url = reverse(self.add_url_name)
-        if self.locale:
-            url += "?locale=" + self.locale.language_code
-        return url
-
-    def get_success_url(self):
-        if self.draftstate_enabled and self.action != "publish":
-            return super().get_success_url()
-
-        # Make sure the redirect to the listing view uses the correct locale
-        urlquery = ""
-        if self.locale and self.object.locale is not Locale.get_default():
-            urlquery = "?locale=" + self.object.locale.language_code
-
-        return reverse(self.index_url_name) + urlquery
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)

@@ -38,6 +38,13 @@ class Field:
         self.field_name = field_name
         self.boost = boost
 
+    @property
+    def field_name_with_boost(self):
+        if self.boost == 1:
+            return self.field_name
+        else:
+            return f"{self.field_name}^{self.boost}"
+
 
 class Elasticsearch7Mapping:
     all_field_name = "_all_text"
@@ -458,41 +465,30 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
         if fields:
             searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
             for field_name in fields:
-                if field_name in searchable_fields:
-                    field_name = self.mapping.get_field_column_name(
-                        searchable_fields[field_name]
-                    )
-
-                remapped_fields.append(Field(field_name))
+                field = searchable_fields.get(field_name)
+                if field:
+                    field_name = self.mapping.get_field_column_name(field)
+                    remapped_fields.append(Field(field_name, field.boost or 1))
         else:
             remapped_fields.append(Field(self.mapping.all_field_name))
 
-        models = get_indexed_models()
-        unique_boosts = set()
-        for model in models:
-            for field in model.get_searchable_search_fields():
-                if field.boost:
-                    unique_boosts.add(float(field.boost))
+            models = get_indexed_models()
+            unique_boosts = set()
+            for model in models:
+                if not issubclass(model, self.queryset.model):
+                    continue
+                for field in model.get_searchable_search_fields():
+                    if field.boost:
+                        unique_boosts.add(float(field.boost))
 
-        remapped_fields.extend(
-            [
-                Field(self.mapping.get_boost_field_name(boost), boost)
-                for boost in unique_boosts
-            ]
-        )
+            remapped_fields.extend(
+                [
+                    Field(self.mapping.get_boost_field_name(boost), boost)
+                    for boost in unique_boosts
+                ]
+            )
 
         return remapped_fields
-
-    def get_boosted_fields(self, fields):
-        boosted_fields = []
-        if not isinstance(fields, list):
-            fields = [fields]
-        for field in fields:
-            if field.boost != 1:
-                boosted_fields.append(f"{field.field_name}^{field.boost}")
-            else:
-                boosted_fields.append(field.field_name)
-        return boosted_fields
 
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
@@ -584,49 +580,53 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             return filter_out
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
-        fields = self.get_boosted_fields(fields)
         match_query = {"query": query.query_string}
 
         if query.operator != "or":
             match_query["operator"] = query.operator
 
-        if boost != 1.0:
-            match_query["boost"] = boost
-
         if len(fields) == 1:
-            return {"match": {fields[0]: match_query}}
+            if boost != 1.0 or fields[0].boost != 1.0:
+                match_query["boost"] = boost * fields[0].boost
+            return {"match": {fields[0].field_name: match_query}}
         else:
-            match_query["fields"] = fields
+            if boost != 1.0:
+                match_query["boost"] = boost
+            match_query["fields"] = [field.field_name_with_boost for field in fields]
 
             return {"multi_match": match_query}
 
     def _compile_fuzzy_query(self, query, fields):
-        if len(fields) == 1:
-            return {
-                "match": {
-                    fields[0]: {
-                        "query": query.query_string,
-                        "fuzziness": "AUTO",
-                    }
-                }
-            }
-        return {
-            "multi_match": {
-                "query": query.query_string,
-                "fields": self.get_boosted_fields(fields),
-                "fuzziness": "AUTO",
-            }
+        match_query = {
+            "query": query.query_string,
+            "fuzziness": "AUTO",
         }
+        if len(fields) == 1:
+            if fields[0].boost != 1.0:
+                match_query["boost"] = fields[0].boost
+            return {"match": {fields[0].field_name: match_query}}
+        else:
+            match_query["fields"] = [field.field_name_with_boost for field in fields]
+            return {"multi_match": match_query}
 
     def _compile_phrase_query(self, query, fields):
-        fields = self.get_boosted_fields(fields)
         if len(fields) == 1:
-            return {"match_phrase": {fields[0]: query.query_string}}
+            if fields[0].boost != 1.0:
+                return {
+                    "match_phrase": {
+                        fields[0].field_name: {
+                            "query": query.query_string,
+                            "boost": fields[0].boost,
+                        }
+                    }
+                }
+            else:
+                return {"match_phrase": {fields[0].field_name: query.query_string}}
         else:
             return {
                 "multi_match": {
                     "query": query.query_string,
-                    "fields": fields,
+                    "fields": [field.field_name_with_boost for field in fields],
                     "type": "phrase",
                 }
             }

@@ -12,7 +12,7 @@ You can customise the resolved value of this title using a JavaScript [event lis
 
 The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
 
-## DOM Event
+## DOM event
 
 The event name to listen for is `'wagtail:images-upload'`. It will be dispatched on the image upload `form`. The event's `detail` attribute will contain:
 
@@ -30,7 +30,7 @@ The event will 'bubble' up so that you can simply add a global `document` listen
 
 See MDN for more information about [custom JavaScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
 
-## Code Examples
+## Code examples
 
 ### Removing any url unsafe characters from the title
 
