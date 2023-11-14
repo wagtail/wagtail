@@ -315,25 +315,28 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
+        self.remapped_fields = self._remap_fields(self.fields)
 
+    def _remap_fields(self, fields):
         # Convert field names into index column names
-        if self.fields:
-            fields = []
+        if fields:
+            remapped_fields = []
             searchable_fields = {
                 f.field_name: f
                 for f in self.queryset.model.get_searchable_search_fields()
             }
-            for field_name in self.fields:
+            for field_name in fields:
                 if field_name in searchable_fields:
                     field_name = self.mapping.get_field_column_name(
                         searchable_fields[field_name]
                     )
 
-                fields.append(field_name)
+                remapped_fields.append(field_name)
 
-            self.remapped_fields = fields
         else:
-            self.remapped_fields = None
+            remapped_fields = None
+
+        return remapped_fields
 
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
