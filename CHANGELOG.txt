@@ -19,6 +19,7 @@ Changelog
  * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
  * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
+ * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
