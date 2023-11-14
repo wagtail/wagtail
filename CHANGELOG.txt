@@ -11,6 +11,7 @@ Changelog
  * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
  * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
  * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
+ * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
