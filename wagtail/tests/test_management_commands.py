@@ -24,6 +24,7 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     EventPage,
     FullFeaturedSnippet,
+    PurgeRevisionsProtectedTestModel,
     SecretPage,
     SimplePage,
 )
@@ -167,7 +168,6 @@ class TestMovePagesCommand(TestCase):
 
 
 class TestSetUrlPathsCommand(TestCase):
-
     fixtures = ["test.json"]
 
     def run_command(self):
@@ -305,7 +305,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
 
         page.title = "Goodbye world!"
-        page.save_revision(submitted_for_moderation=False)
+        page.save_revision()
 
         management.call_command("publish_scheduled_pages")
 
@@ -401,38 +401,6 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertFalse(p.expired)
-
-    def test_expired_pages_are_dropped_from_mod_queue(self):
-        # RemovedInWagtail60Warning
-        # Remove this test when the deprecation period for the legacy
-        # moderation system ends.
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-            live=False,
-            expire_at=timezone.now() - timedelta(days=1),
-        )
-        self.root_page.add_child(instance=page)
-
-        page.save_revision(submitted_for_moderation=True)
-
-        p = Page.objects.get(slug="hello-world")
-        self.assertFalse(p.live)
-        self.assertTrue(
-            Revision.page_revisions.filter(
-                object_id=p.id, submitted_for_moderation=True
-            ).exists()
-        )
-
-        management.call_command("publish_scheduled_pages")
-
-        p = Page.objects.get(slug="hello-world")
-        self.assertFalse(
-            Revision.page_revisions.filter(
-                object_id=p.id, submitted_for_moderation=True
-            ).exists()
-        )
 
 
 class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
@@ -540,7 +508,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.save_revision(approved_go_live_at=go_live_at)
 
         self.snippet.text = "Goodbye world!"
-        self.snippet.save_revision(submitted_for_moderation=False)
+        self.snippet.save_revision()
 
         management.call_command("publish_scheduled")
 
@@ -660,19 +628,6 @@ class TestPurgeRevisionsCommandForPages(TestCase):
         self.assertRevisionExists(revision_2)
 
     def test_revisions_in_moderation_or_workflow_not_purged(self):
-        # RemovedInWagtail60Warning
-        # Remove the lines until the first assertion when the deprecation period#
-        # for the legacy moderation system ends.
-        revision = self.object.save_revision(submitted_for_moderation=True)
-
-        # Save a new revision to ensure that the moderated revision
-        # is not the latest one
-        self.object.save_revision()
-
-        self.run_command()
-
-        self.assertRevisionExists(revision)
-
         workflow = Workflow.objects.create(name="test_workflow")
         task_1 = Task.objects.create(name="test_task_1")
         user = get_user_model().objects.first()
@@ -727,6 +682,18 @@ class TestPurgeRevisionsCommandForPages(TestCase):
 
         # revision is now older than 30 days, so should be deleted
         self.assertRevisionNotExists(old_revision)
+
+    def test_purge_revisions_protected_error(self):
+        revision_old = self.object.save_revision()
+        PurgeRevisionsProtectedTestModel.objects.create(revision=revision_old)
+        revision_purged = self.object.save_revision()
+        self.object.save_revision()
+
+        self.run_command()
+        # revision should not be deleted, as it is protected
+        self.assertRevisionExists(revision_old)
+        # Any other revisions are deleted
+        self.assertRevisionNotExists(revision_purged)
 
 
 class TestPurgeRevisionsCommandForSnippets(TestPurgeRevisionsCommandForPages):

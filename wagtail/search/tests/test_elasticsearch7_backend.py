@@ -67,7 +67,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -125,7 +124,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -153,7 +151,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -190,7 +187,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -242,7 +238,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -276,7 +271,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -296,13 +290,11 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
-                        ],
-                        "query": "Hello",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                            "boost": 2.0,
+                        },
                     },
                 },
             }
@@ -320,14 +312,12 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": {"match": {"content_type": "searchtests.Book"}},
                 "must": {
-                    "multi_match": {
-                        "fields": [
-                            "title",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
-                        ],
-                        "query": "Hello",
-                        "operator": "and",
+                    "match": {
+                        "title": {
+                            "query": "Hello",
+                            "boost": 2.0,
+                            "operator": "and",
+                        }
                     },
                 },
             }
@@ -337,7 +327,7 @@ class TestElasticsearch7SearchQuery(TestCase):
     def test_multiple_fields(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=["title", "content"]
+            models.Book.objects.all(), "Hello", fields=["title", "summary"]
         )
 
         # Check it
@@ -347,10 +337,8 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
-                            "content",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
+                            "title^2.0",
+                            "summary",
                         ],
                         "query": "Hello",
                     }
@@ -364,7 +352,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         query = self.query_compiler_class(
             models.Book.objects.all(),
             "Hello",
-            fields=["title", "content"],
+            fields=["title", "summary"],
             operator="and",
         )
 
@@ -375,10 +363,8 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "must": {
                     "multi_match": {
                         "fields": [
-                            "title",
-                            "content",
-                            "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
+                            "title^2.0",
+                            "summary",
                         ],
                         "query": "Hello",
                         "operator": "and",
@@ -406,7 +392,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -433,7 +418,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -460,7 +444,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -487,7 +470,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -514,7 +496,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -546,7 +527,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -576,7 +556,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -606,7 +585,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -636,7 +614,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -674,7 +651,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     },
@@ -734,7 +710,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "fields": [
                     "_all_text",
                     "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "type": "phrase",
@@ -747,7 +722,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         query_compiler = self.query_compiler_class(
             models.Book.objects.all(),
             Phrase("Hello world"),
-            fields=["title", "content"],
+            fields=["title", "summary"],
         )
 
         # Check it
@@ -755,10 +730,8 @@ class TestElasticsearch7SearchQuery(TestCase):
             "multi_match": {
                 "query": "Hello world",
                 "fields": [
-                    "title",
-                    "content",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
+                    "title^2.0",
+                    "summary",
                 ],
                 "type": "phrase",
             }
@@ -773,14 +746,11 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
-                ],
-                "query": "Hello world",
-                "type": "phrase",
+            "match_phrase": {
+                "title": {
+                    "query": "Hello world",
+                    "boost": 2.0,
+                },
             },
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -798,7 +768,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                 "fields": [
                     "_all_text",
                     "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -816,14 +785,12 @@ class TestElasticsearch7SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            "multi_match": {
-                "fields": [
-                    "title",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
-                ],
-                "query": "Hello world",
-                "fuzziness": "AUTO",
+            "match": {
+                "title": {
+                    "query": "Hello world",
+                    "fuzziness": "AUTO",
+                    "boost": 2.0,
+                },
             }
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
@@ -833,16 +800,14 @@ class TestElasticsearch7SearchQuery(TestCase):
         query_compiler = self.query_compiler_class(
             models.Book.objects.all(),
             Fuzzy("Hello world"),
-            fields=["title", "body"],
+            fields=["title", "summary"],
         )
 
         expected_result = {
             "multi_match": {
                 "fields": [
-                    "title",
-                    "body",
-                    "_all_text_boost_2_0^2.0",
-                    "_all_text_boost_10_0^10.0",
+                    "title^2.0",
+                    "summary",
                 ],
                 "query": "Hello world",
                 "fuzziness": "AUTO",
@@ -868,7 +833,6 @@ class TestElasticsearch7SearchQuery(TestCase):
                         "fields": [
                             "_all_text",
                             "_all_text_boost_2_0^2.0",
-                            "_all_text_boost_10_0^10.0",
                         ],
                         "query": "Hello",
                     }
@@ -1117,6 +1081,7 @@ class TestElasticsearch7Mapping(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
+                "summary": {"copy_to": "_all_text", "type": "text"},
                 "number_of_pages_filter": {"type": "integer"},
                 "tags": {
                     "type": "nested",
@@ -1162,6 +1127,7 @@ class TestElasticsearch7Mapping(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
+            "summary": "",
             "number_of_pages_filter": 423,
             "tags": [],
             "tags_filter": [],
@@ -1265,6 +1231,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
                 "number_of_pages_filter": {"type": "integer"},
+                "summary": {"copy_to": "_all_text", "type": "text"},
                 "tags": {
                     "type": "nested",
                     "properties": {
@@ -1333,6 +1300,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
             "number_of_pages_filter": 423,
+            "summary": "",
             "tags": [],
             "tags_filter": [],
         }
@@ -1341,7 +1309,7 @@ class TestElasticsearch7MappingInheritance(TestCase):
 
 
 @unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
-@mock.patch("wagtail.search.backends.elasticsearch5.Elasticsearch")
+@mock.patch("wagtail.search.backends.elasticsearch7.Elasticsearch")
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):
         Elasticsearch7SearchBackend(params={})

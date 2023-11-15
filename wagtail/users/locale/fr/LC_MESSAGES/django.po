@@ -17,13 +17,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Loic Teixeira, 2018,2020-2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -220,9 +221,6 @@ msgstr "Oui, changer le statut"
 msgid "No, don't change state"
 msgstr "Non, ne pas changer le statut"
 
-msgid "Delete group"
-msgstr "Supprimer le groupe"
-
 #, python-format
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
@@ -251,14 +249,14 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce groupe ?"
 msgid "Add group"
 msgstr "Ajouter un groupe"
 
-msgid "Editing"
-msgstr "Modification"
-
 msgid "View users in this group"
 msgstr "Voir les utilisateurs dans ce groupe"
 
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Delete group"
+msgstr "Supprimer le groupe"
 
 msgid "Object permissions"
 msgstr "Permissions d'objets"
@@ -308,14 +306,8 @@ msgstr ""
 "Il n'y a pas de groupe configuré. Pourquoi ne pas <a "
 "href=\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
-msgid "Delete user"
-msgstr "Supprimer l'utilisateur"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
-
-msgid "Add user"
-msgstr "Ajouter l'utilisateur"
 
 msgid "Account"
 msgstr "Compte"
@@ -323,11 +315,11 @@ msgstr "Compte"
 msgid "Roles"
 msgstr "Rôles"
 
-msgid "Users"
-msgstr "Utilisateurs"
+msgid "Add user"
+msgstr "Ajouter l'utilisateur"
 
-msgid "Add a user"
-msgstr "Ajouter un utilisateur"
+msgid "Delete user"
+msgstr "Supprimer l'utilisateur"
 
 msgid "Select all users in listing"
 msgstr "Sélectionner tous les utilisateurs dans la liste"
@@ -408,6 +400,9 @@ msgstr[0] "%(num_parent_objects)d utilisateur a été supprimé"
 msgstr[1] "%(num_parent_objects)d utilisateurs ont été supprimés"
 msgstr[2] "%(num_parent_objects)d utilisateurs ont été supprimés"
 
+msgid "Mark as active"
+msgstr "Marquer comme actif(ve)"
+
 msgid "Change the active state for selected users"
 msgstr "Modifier le statut actif pour les utilisateurs sélectionnés"
 
@@ -449,6 +444,12 @@ msgstr "Le groupe ne peut être enregistré du fait d'erreurs."
 msgid "Group '%(object)s' deleted."
 msgstr "Groupe « %(object)s » supprimé."
 
+msgid "Add a user"
+msgstr "Ajouter un utilisateur"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
 #, python-format
 msgid "User '%(object)s' created."
 msgstr "Utilisateur « %(object)s » créé."
@@ -461,18 +462,16 @@ msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Modification de %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilisateur « %(object)s » supprimé."
 
 msgid "Edit"
 msgstr "Modifier"
 
-msgid "Edit this user"
-msgstr "Modifier cet utilisateur"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Modifier l'utilisateur « %(name)s »"
 
-msgid "Delete this user"
-msgstr "Supprimer cet utilisateur"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Supprimer l'utilisateur « %(name)s »"

@@ -16,14 +16,15 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -919,8 +920,9 @@ msgid "Remove view restrictions"
 msgstr "Supprimer les règles de confidentialité"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "La règle de confidentialité « %(restriction)s » a été supprimée"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"La restriction de vue '%(restriction)s' a été retirée. La page est publique."
 
 msgid "Removed view restriction"
 msgstr "Règle de confidentialité supprimée"

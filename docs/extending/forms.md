@@ -54,13 +54,13 @@ class WagtailVideosAppConfig(AppConfig):
         register_form_field_override(ForeignKey, to=Video, override={'widget': VideoChooser})
 ```
 
-Wagtail's edit views for pages, snippets and ModelAdmin use `WagtailAdminModelForm` as standard, so this change will take effect across the Wagtail admin; a foreign key to `Video` on a page model will automatically use the `VideoChooser` widget, with no need to specify this explicitly.
+Wagtail's edit views for pages and snippets use `WagtailAdminModelForm` as standard, so this change will take effect across the Wagtail admin; a foreign key to `Video` on a page model will automatically use the `VideoChooser` widget, with no need to specify this explicitly.
 
 (forms_panels_overview)=
 
 ## Panels
 
-Panels (also known as edit handlers until Wagtail 3.0) are Wagtail's mechanism for specifying the content and layout of a model form without having to write a template. They are used for the editing interface for pages and snippets, as well as the [ModelAdmin](/reference/contrib/modeladmin/index) and [site settings](/reference/contrib/settings) contrib modules.
+Panels (also known as edit handlers until Wagtail 3.0) are Wagtail's mechanism for specifying the content and layout of a model form without having to write a template. They are used for the editing interface for pages and snippets, as well as the [site settings](/reference/contrib/settings) contrib module.
 
 See [](/reference/pages/panels) for the set of panel types provided by Wagtail. All panels inherit from the base class `wagtail.admin.panels.Panel`. A single panel object (usually `ObjectList` or `TabbedInterface`) exists at the top level and is the only one directly accessed by the view code; panels containing child panels inherit from the base class `wagtail.admin.panels.PanelGroup` and take care of recursively calling methods on their child panels where appropriate.
 

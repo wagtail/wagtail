@@ -1,6 +1,5 @@
 import inspect
 import logging
-from warnings import warn
 
 from django.apps import apps
 from django.core import checks
@@ -10,7 +9,6 @@ from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, Relat
 from modelcluster.fields import ParentalManyToManyField
 
 from wagtail.search.backends import get_search_backends_with_name
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 
 logger = logging.getLogger("wagtail.search.index")
 
@@ -295,14 +293,8 @@ class BaseField:
 
 
 class SearchField(BaseField):
-    def __init__(self, field_name, boost=None, partial_match=False, **kwargs):
+    def __init__(self, field_name, boost=None, **kwargs):
         super().__init__(field_name, **kwargs)
-        if partial_match:
-            warn(
-                "The partial_match option on SearchField has no effect and will be removed. "
-                "Use AutocompleteField instead",
-                category=RemovedInWagtail60Warning,
-            )
         self.boost = boost
 
 

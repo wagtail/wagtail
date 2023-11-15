@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,24 +127,6 @@ msgstr "새로운"
 msgid "Actions"
 msgstr "액션"
 
-msgid "Toggle breadcrumbs"
-msgstr "부분 전환"
-
-msgid "Breadcrumb"
-msgstr "브레드크럼"
-
-msgid "Snippets"
-msgstr "스니펫"
-
-msgid "History"
-msgstr "자취"
-
-msgid "Usage"
-msgstr "사용"
-
-msgid "No log entries found."
-msgstr "기록 입장이 확인되지 않음"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s 스니펫"
@@ -193,6 +175,9 @@ msgstr "예약 게시 취소"
 msgid "Choose"
 msgstr "선택"
 
+msgid "Snippets"
+msgstr "스니펫"
+
 msgid "Name"
 msgstr "이름"
 
@@ -205,25 +190,11 @@ msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
 msgid "Action"
 msgstr "행동"
 
-msgid "User"
-msgstr "사용자"
-
 msgid "Date"
 msgstr "날짜"
 
-msgid "Snippet history"
-msgstr "정보 자취"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "'%(title)s' 수정"
-
-msgid "Inspect"
-msgstr "검사"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "'%(title)s' 삭제"
+msgid "Home"
+msgstr "홈"
 
 #, python-format
 msgid "Choose %(object)s"

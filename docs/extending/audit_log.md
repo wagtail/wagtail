@@ -67,8 +67,6 @@ When adding logging, you need to log the action or actions that happen to the ob
 | `wagtail.unpublish.scheduled`     | Page unpublished via `publish_scheduled` management command                      |
 | `wagtail.lock`                    | Page was locked                                                                  |
 | `wagtail.unlock`                  | Page was unlocked                                                                |
-| `wagtail.moderation.approve`      | The revision was approved for moderation                                         |
-| `wagtail.moderation.reject`       | The revision was rejected                                                        |
 | `wagtail.rename`                  | A page was renamed                                                               |
 | `wagtail.revert`                  | The page was reverted to a previous draft                                        |
 | `wagtail.copy`                    | The page was copied to a new location                                            |

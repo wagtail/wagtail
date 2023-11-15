@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -100,6 +100,11 @@ msgstr "Unggah gambar profil"
 
 msgid "Enter password"
 msgstr "Masukkan kata sandi"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"%(username_field)s dan kata sandi anda tidak cocok. Silakan coba kembali."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -460,16 +465,14 @@ msgstr "Tutup"
 msgid "Awaiting your review"
 msgstr "Menunggu tinjauan anda"
 
+msgid "Compare with live version"
+msgstr "Bandingkan dengan versi aktif"
+
 msgid "Sign in"
 msgstr "Masuk"
 
 msgid "Sign in to Wagtail"
 msgstr "Masuk ke Wagtail"
-
-#, python-format
-msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)s dan kata sandi anda tidak cocok. Silakan coba kembali."
 
 msgid "Signing in…"
 msgstr "Melakukan Sign In..."
@@ -665,6 +668,9 @@ msgstr "Berikutnya"
 msgid "This page is protected from public view"
 msgstr "Halaman ini tidak tampak oleh publik"
 
+msgid "Add child page"
+msgstr "Tambahkan halaman turunan"
+
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
 
@@ -709,14 +715,14 @@ msgstr "Diselesaikan pada"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Halaman %(page_num)s dari %(total_pages)s."
 
-msgid "Root"
-msgstr "Dasar"
-
 msgid "Download CSV"
 msgstr "Unduh CSV"
 
 msgid "Filter"
 msgstr "Saring"
+
+msgid "Root"
+msgstr "Dasar"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -767,9 +773,6 @@ msgstr "Halaman"
 msgid "New"
 msgstr "Baru"
 
-msgid "Compare with live version"
-msgstr "Bandingkan dengan versi aktif"
-
 msgid "More"
 msgstr "Lainnya"
 
@@ -815,6 +818,16 @@ msgstr "Koleksi '%(object)s' telah dihapus."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Apakah anda yakin akan menghapus koleksi ini?"
+
+msgid "Home"
+msgstr "Beranda"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Ubah '%(title)s'"
+
+msgid "Inspect"
+msgstr "Periksa"
 
 msgid "Editing"
 msgstr "Mengubah"
@@ -943,13 +956,6 @@ msgstr "Menunggu ulasan saya"
 
 msgid "Pages"
 msgstr "Halaman"
-
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Ubah '%(title)s'"
-
-msgid "Add child page"
-msgstr "Tambahkan halaman turunan"
 
 msgid "Bulleted list"
 msgstr "Daftar Bullet"

@@ -59,7 +59,6 @@ class Migration(migrations.Migration):
             name="body",
             field=wagtail.fields.StreamField(
                 [("rich_text", wagtail.blocks.RichTextBlock())],
-                use_json_field=True,
             ),
         ),
     ]
@@ -200,7 +199,6 @@ class Migration(migrations.Migration):
             name="body",
             field=wagtail.fields.StreamField(
                 [("rich_text", wagtail.blocks.RichTextBlock())],
-                use_json_field=True,
             ),
         ),
     ]

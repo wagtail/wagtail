@@ -22,27 +22,40 @@ from wagtail.models import PageLogEntry
 from .base import ReportView
 
 
-def get_users_for_filter():
+def get_users_for_filter(user):
     user_ids = set()
     for log_model in log_action_registry.get_log_entry_models():
-        user_ids.update(log_model.objects.all().get_user_ids())
+        user_ids.update(log_model.objects.viewable_by_user(user).get_user_ids())
 
     User = get_user_model()
     return User.objects.filter(pk__in=user_ids).order_by(User.USERNAME_FIELD)
 
 
-def get_content_types_for_filter():
+def get_content_types_for_filter(user):
     content_type_ids = set()
     for log_model in log_action_registry.get_log_entry_models():
-        content_type_ids.update(log_model.objects.all().get_content_type_ids())
+        content_type_ids.update(
+            log_model.objects.viewable_by_user(user).get_content_type_ids()
+        )
 
     return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
+
+
+def get_actions_for_filter(user):
+    # Only return those actions used by log entries visible to the user.
+    actions = set()
+    for log_model in log_action_registry.get_log_entry_models():
+        actions.update(log_model.objects.viewable_by_user(user).get_actions())
+
+    return [
+        action for action in log_action_registry.get_choices() if action[0] in actions
+    ]
 
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=_("Action"),
-        choices=log_action_registry.get_choices,
+        # choices are set dynamically in __init__()
     )
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_("Hide commenting actions"),
@@ -56,12 +69,12 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     user = django_filters.ModelChoiceFilter(
         label=_("User"),
         field_name="user",
-        queryset=lambda request: get_users_for_filter(),
+        queryset=lambda request: get_users_for_filter(request.user),
     )
     object_type = ContentTypeFilter(
         label=_("Type"),
         method="filter_object_type",
-        queryset=lambda request: get_content_types_for_filter(),
+        queryset=lambda request: get_content_types_for_filter(request.user),
     )
 
     def filter_hide_commenting_actions(self, queryset, name, value):
@@ -82,6 +95,12 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
             "timestamp",
             "hide_commenting_actions",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters["action"].extra["choices"] = get_actions_for_filter(
+            self.request.user
+        )
 
 
 class LogEntriesView(ReportView):

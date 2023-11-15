@@ -58,6 +58,4 @@
     {% if is_paginated %}
         {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
     {% endif %}
-    {% trans "Select all pages in listing" as select_all_text %}
-    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}
 </form>

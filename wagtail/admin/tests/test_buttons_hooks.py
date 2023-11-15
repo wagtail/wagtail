@@ -10,7 +10,7 @@ from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestButtonsHooks(WagtailTestUtils, TestCase):
@@ -38,7 +38,7 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
             "register_page_listing_buttons", page_listing_buttons_old_signature
         ):
             with self.assertWarnsMessage(
-                RemovedInWagtail60Warning,
+                RemovedInWagtail70Warning,
                 "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
             ):
                 response = self.client.get(
@@ -90,7 +90,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         with hooks.register_temporarily(
             "register_page_listing_more_buttons", page_listing_more_buttons
         ), self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`register_page_listing_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
         ):
             response = self.client.get(
@@ -139,7 +139,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         page = self.root_page
 
         with self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
         ):
             button = wagtailadmin_widgets.ButtonWithDropdownFromHook(
@@ -179,7 +179,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             "register_page_listing_one_more_more_buttons",
             page_custom_listing_more_buttons,
         ), self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`register_page_listing_one_more_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
         ):
             response = self.client.get(
@@ -330,7 +330,7 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         with hooks.register_temporarily(
             "register_page_header_buttons", custom_page_header_buttons
         ), self.assertWarnsMessage(
-            RemovedInWagtail60Warning,
+            RemovedInWagtail70Warning,
             "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms`",
         ):
             response = self.client.get(

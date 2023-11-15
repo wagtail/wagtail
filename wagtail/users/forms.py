@@ -89,12 +89,14 @@ class UserForm(UsernameForm):
         required=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         help_text=_("Leave blank if not changing."),
+        strip=False,
     )
     password2 = forms.CharField(
         label=_("Password confirmation"),
         required=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         help_text=_("Enter the same password as above, for verification."),
+        strip=False,
     )
 
     is_superuser = forms.BooleanField(
@@ -406,8 +408,6 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
                     group=self.instance,
                     page=page,
                     permission=permission,
-                    # RemovedInWagtail60Warning: the 'permission_type' field is removed
-                    permission_type=permission.codename[:-5],
                 )
                 for (page, permission) in permissions_to_add
             ]

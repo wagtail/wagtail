@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -93,12 +93,6 @@ msgstr "جدید"
 msgid "Actions"
 msgstr "اعمال"
 
-msgid "Breadcrumb"
-msgstr "خرده نان"
-
-msgid "Snippets"
-msgstr "قطعه‌ها"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "قطعه های %(snippet_type_name_plural)s"
@@ -148,6 +142,9 @@ msgstr "لغو انتشار زمانبندی شده"
 msgid "Choose"
 msgstr "انتخاب"
 
+msgid "Snippets"
+msgstr "قطعه‌ها"
+
 msgid "Name"
 msgstr "نام"
 
@@ -160,12 +157,8 @@ msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
 msgid "Date"
 msgstr "تاریخ"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "ویرایش %(title)s"
-
-msgid "Inspect"
-msgstr "بازرسی"
+msgid "Home"
+msgstr "خانه"
 
 #, python-format
 msgid "Choose %(object)s"

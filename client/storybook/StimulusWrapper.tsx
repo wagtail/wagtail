@@ -32,8 +32,8 @@ export class StimulusWrapper extends React.Component<{
 
   componentDidMount() {
     const { debug = false, definitions = [] } = this.props;
-    const element = this.ref.current || document.documentElement;
-    this.application = initStimulus({ debug, definitions, element });
+    const root = this.ref.current || document.documentElement;
+    this.application = initStimulus({ debug, definitions, root });
   }
 
   componentDidUpdate({ debug: prevDebug }) {

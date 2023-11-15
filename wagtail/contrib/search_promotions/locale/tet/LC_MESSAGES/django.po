@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -86,9 +86,6 @@ msgstr "Muda ba karik"
 msgid "Promoted search results"
 msgstr "Promove rezultadu peskiza"
 
-msgid "Add recommended page"
-msgstr "Aumenta pájina rekomenda"
-
 msgid "Search Terms"
 msgstr "Termu peskiza"
 
@@ -107,8 +104,26 @@ msgstr "Hatudu (semana kotuk)"
 msgid "Edit this promotion"
 msgstr "Hadia promosaun ida ne'e"
 
+msgid "External link"
+msgstr "Ligasaun externa"
+
 msgid "None"
 msgstr "La iha"
+
+msgid "Popular search terms"
+msgstr "Buka  termus populár "
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "Terms"
+msgstr "Termus"
+
+msgid "No results found"
+msgstr "Resultadu lahetan"
+
+msgid "Choose from popular search terms"
+msgstr "Hili husi buka termus populár  "
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

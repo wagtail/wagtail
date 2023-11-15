@@ -13,7 +13,6 @@ import functools
 import logging
 import posixpath
 import uuid
-import warnings
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -32,7 +31,7 @@ from django.core.exceptions import (
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import DatabaseError, models, transaction
+from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
@@ -44,7 +43,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property, classproperty
+from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -93,7 +92,6 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -369,7 +367,6 @@ class RevisionMixin(models.Model):
     def save_revision(
         self,
         user=None,
-        submitted_for_moderation=False,  # RemovedInWagtail60Warning
         approved_go_live_at=None,
         changed=True,
         log_action=False,
@@ -380,7 +377,6 @@ class RevisionMixin(models.Model):
         Creates and saves a revision.
 
         :param user: The user performing the action.
-        :param submitted_for_moderation: **Deprecated** – Indicates whether the object was submitted for moderation.
         :param approved_go_live_at: The date and time the revision is approved to go live.
         :param changed: Indicates whether there were any content changes.
         :param log_action: Flag for logging the action. Pass ``True`` to also create a log entry. Can be passed an action string.
@@ -396,7 +392,6 @@ class RevisionMixin(models.Model):
         revision = Revision.objects.create(
             content_object=self,
             base_content_type=self.get_base_content_type(),
-            submitted_for_moderation=submitted_for_moderation,
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
@@ -1631,7 +1626,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def save_revision(
         self,
         user=None,
-        submitted_for_moderation=False,
         approved_go_live_at=None,
         changed=True,
         log_action=False,
@@ -1663,7 +1657,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         revision = Revision.objects.create(
             content_object=self,
             base_content_type=self.get_base_content_type(),
-            submitted_for_moderation=submitted_for_moderation,
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
@@ -1723,14 +1716,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     revision=revision,
                     content_changed=changed,
                 )
-
-        if submitted_for_moderation:
-            logger.info(
-                'Page submitted for moderation: "%s" id=%d revision_id=%d',
-                self.title,
-                self.id,
-                revision.id,
-            )
 
         return revision
 
@@ -2698,12 +2683,6 @@ class RevisionQuerySet(models.QuerySet):
     def not_page_revisions(self):
         return self.exclude(self.page_revisions_q())
 
-    def submitted(self):
-        # RemovedInWagtail60Warning
-        # Remove this when the deprecation period for the legacy
-        # moderation system ends.
-        return self.filter(submitted_for_moderation=True)
-
     def for_instance(self, instance):
         return self.filter(
             content_type=ContentType.objects.get_for_model(
@@ -2720,14 +2699,6 @@ class PageRevisionsManager(RevisionsManager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).page_revisions()
 
-    def submitted(self):
-        return self.get_queryset().submitted()
-
-
-class SubmittedRevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db).submitted()
-
 
 class Revision(models.Model):
     content_type = models.ForeignKey(
@@ -2739,10 +2710,6 @@ class Revision(models.Model):
     object_id = models.CharField(
         max_length=255,
         verbose_name=_("object id"),
-    )
-    # RemovedInWagtail60Warning
-    submitted_for_moderation = models.BooleanField(
-        verbose_name=_("submitted for moderation"), default=False, db_index=True
     )
     created_at = models.DateTimeField(db_index=True, verbose_name=_("created at"))
     user = models.ForeignKey(
@@ -2763,7 +2730,6 @@ class Revision(models.Model):
 
     objects = RevisionsManager()
     page_revisions = PageRevisionsManager()
-    _submitted_revisions = SubmittedRevisionsManager()
 
     content_object = GenericForeignKey(
         "content_type", "object_id", for_concrete_model=False
@@ -2774,14 +2740,6 @@ class Revision(models.Model):
     @cached_property
     def base_content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
-
-    @classproperty
-    def submitted_revisions(self):
-        warnings.warn(
-            "SubmittedRevisionsManager is deprecated and will be removed in a future release.",
-            RemovedInWagtail60Warning,
-        )
-        return self._submitted_revisions
 
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
@@ -2797,12 +2755,6 @@ class Revision(models.Model):
             self.base_content_type_id = self.content_type_id
 
         super().save(*args, **kwargs)
-        if self.submitted_for_moderation:
-            # ensure that all other revisions of this object have the 'submitted for moderation' flag unset
-            Revision.objects.filter(
-                base_content_type_id=self.base_content_type_id,
-                object_id=self.object_id,
-            ).exclude(id=self.id).update(submitted_for_moderation=False)
 
         if (
             self.approved_go_live_at is None
@@ -2831,49 +2783,6 @@ class Revision(models.Model):
 
     def as_object(self):
         return self.content_object.with_content_json(self.content)
-
-    def approve_moderation(self, user=None):
-        warnings.warn(
-            "Revision.approve_moderation() is deprecated and will be removed in a future release.",
-            RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        if self.submitted_for_moderation:
-            logger.info(
-                'Page moderation approved: "%s" id=%d revision_id=%d',
-                self.content_object.title,
-                self.content_object.id,
-                self.id,
-            )
-            log(
-                instance=self.as_object(),
-                action="wagtail.moderation.approve",
-                user=user,
-                revision=self,
-            )
-            self.publish()
-
-    def reject_moderation(self, user=None):
-        warnings.warn(
-            "Revision.reject_moderation() is deprecated and will be removed in a future release.",
-            RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        if self.submitted_for_moderation:
-            logger.info(
-                'Page moderation rejected: "%s" id=%d revision_id=%d',
-                self.content_object.title,
-                self.content_object.id,
-                self.id,
-            )
-            log(
-                instance=self.as_object(),
-                action="wagtail.moderation.reject",
-                user=user,
-                revision=self,
-            )
-            self.submitted_for_moderation = False
-            self.save(update_fields=["submitted_for_moderation"])
 
     def is_latest_revision(self):
         if self.id is None:
@@ -2958,45 +2867,13 @@ class GroupPagePermissionManager(models.Manager):
         # Simplify creation of GroupPagePermission objects by allowing one
         # of permission or permission_type to be passed in.
         permission = kwargs.get("permission")
-        permission_type = kwargs.get("permission_type")
+        permission_type = kwargs.pop("permission_type", None)
         if not permission and permission_type:
-            # Not raising a warning here as we will still support this even after
-            # the permission_type field is removed.
             kwargs["permission"] = Permission.objects.get(
                 content_type=get_default_page_content_type(),
                 codename=f"{permission_type}_page",
             )
-        if permission and not permission_type:
-            kwargs["permission_type"] = permission.codename[:-5]
         return super().create(**kwargs)
-
-    def _migrate_permission_type(self):
-        # RemovedInWagtail60Warning: remove this method
-        # This follows the same logic as the
-        # 0086_populate_grouppagepermission_permission migration, but is run as
-        # part of a system check to ensure any objects that are created after
-        # that migration is run are also updated.
-        return (
-            self.filter(
-                models.Q(permission__isnull=True) | models.Q(permission_type="edit")
-            )
-            .annotate(
-                normalised_permission_type=models.Case(
-                    models.When(permission_type="edit", then=models.Value("change")),
-                    default=models.F("permission_type"),
-                )
-            )
-            .update(
-                permission=Permission.objects.filter(
-                    content_type=get_default_page_content_type(),
-                    codename=Concat(
-                        models.OuterRef("normalised_permission_type"),
-                        models.Value("_page"),
-                    ),
-                ).values_list("pk", flat=True)[:1],
-                permission_type=models.F("normalised_permission_type"),
-            )
-        )
 
 
 class GroupPagePermission(models.Model):
@@ -3015,66 +2892,20 @@ class GroupPagePermission(models.Model):
     permission = models.ForeignKey(
         Permission,
         verbose_name=_("permission"),
-        null=True,
-        blank=True,
         on_delete=models.CASCADE,
-    )
-    permission_type = models.CharField(
-        verbose_name=_("permission type"),
-        null=True,
-        blank=True,
-        max_length=20,
-        choices=PAGE_PERMISSION_TYPE_CHOICES,
     )
 
     objects = GroupPagePermissionManager()
 
     class Meta:
         constraints = [
-            models.CheckConstraint(
-                check=(
-                    models.Q(permission__isnull=False)
-                    | models.Q(permission_type__isnull=False)
-                ),
-                name="permission_or_permission_type_not_null",
-            ),
             models.UniqueConstraint(
                 fields=("group", "page", "permission"),
                 name="unique_permission",
             ),
-            models.UniqueConstraint(
-                fields=("group", "page", "permission_type"),
-                name="unique_permission_type",
-            ),
         ]
         verbose_name = _("group page permission")
         verbose_name_plural = _("group page permissions")
-
-    @classmethod
-    def check(cls, **kwargs):
-        messages = super().check(**kwargs)
-        try:
-            outdated_objs = cls.objects._migrate_permission_type()
-        except DatabaseError:
-            # Migration hasn't been run yet
-            outdated_objs = 0
-
-        if outdated_objs:
-            # RemovedInWagtail60Warning
-            messages.append(
-                checks.Warning(
-                    f"Found and fixed {outdated_objs} GroupPagePermission object(s) with a null value in `permission` field and/or an outdated 'edit' value in `permission_type` field.",
-                    hint=(
-                        "Replace the `permission_type` field in your GroupPagePermission fixtures with a natural key for the `permission` field. "
-                        "If you create GroupPagePermission objects through other means, make sure to set the `permission` field instead of the `permission_type` field. "
-                        "Any 'edit' value for the `permission_type` field must be replaced with a ForeignKey to the `wagtailcore.change_page` permission. "
-                        "The `permission_type` field will be removed in Wagtail 6.0."
-                    ),
-                    obj=cls,
-                    id="wagtailcore.W002",
-                )
-            )
-        return messages
 
     def __str__(self):
         return "Group %d ('%s') has permission '%s' on page %d ('%s')" % (
@@ -3084,135 +2915,6 @@ class GroupPagePermission(models.Model):
             self.page.id,
             self.page,
         )
-
-    def save(self, **kwargs):
-        # Automatically fill an empty permission or permission_type.
-        # This will be removed in Wagtail 6.0.
-        if not self.permission and self.permission_type:
-            warnings.warn(
-                "GroupPagePermission.permission_type is deprecated. Use the "
-                "GroupPagePermission.permission foreign key to the Permission model instead.",
-                category=RemovedInWagtail60Warning,
-                stacklevel=2,
-            )
-            self.permission = Permission.objects.get(
-                content_type=get_default_page_content_type(),
-                codename=f"{self.permission_type}_page",
-            )
-        if self.permission and not self.permission_type:
-            # No need to raise a warning here as we will remove the permission_type
-            # field in Wagtail 6.0
-            self.permission_type = self.permission.codename[:-5]
-        return super().save(**kwargs)
-
-
-class UserPagePermissionsProxy:
-    """Helper object that encapsulates all the page permission rules that this user has
-    across the page hierarchy."""
-
-    def __init__(self, user):
-        from wagtail.permission_policies.pages import PagePermissionPolicy
-
-        self.user = user
-        self.permission_policy = PagePermissionPolicy()
-
-    @cached_property
-    def permissions(self):
-        return self.permission_policy.get_cached_permissions_for_user(self.user)
-
-    def revisions_for_moderation(self):
-        """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
-        warnings.warn(
-            "UserPagePermissionsProxy.revisions_for_moderation() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy.revisions_for_moderation(user) instead.",
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.permission_policy.revisions_for_moderation(self.user)
-
-    def for_page(self, page):
-        """Return a PagePermissionTester object that can be used to query whether this user has
-        permission to perform specific tasks on the given page"""
-        warnings.warn(
-            "UserPagePermissionsProxy.for_page() is deprecated. "
-            "Use page.permissions_for_user(user) instead.",
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return page.permissions_for_user(self.user)
-
-    def explorable_pages(self):
-        """Return a queryset of pages that the user has access to view in the
-        explorer (e.g. add/edit/publish permission). Includes all pages with
-        specific group permissions and also the ancestors of those pages (in
-        order to enable navigation in the explorer)"""
-        warnings.warn(
-            "UserPagePermissionsProxy.explorable_pages() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            "explorable_instances(user) instead.",
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.permission_policy.explorable_instances(self.user)
-
-    def editable_pages(self):
-        """Return a queryset of the pages that this user has permission to edit"""
-        warnings.warn(
-            "UserPagePermissionsProxy.editable_pages() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "change") instead.',
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.permission_policy.instances_user_has_permission_for(
-            self.user, "change"
-        )
-
-    def can_edit_pages(self):
-        """Return True if the user has permission to edit any pages"""
-        warnings.warn(
-            "UserPagePermissionsProxy.can_edit_pages() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "change") instead.',
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.editable_pages().exists()
-
-    def publishable_pages(self):
-        """Return a queryset of the pages that this user has permission to publish"""
-        warnings.warn(
-            "UserPagePermissionsProxy.publishable_pages() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'instances_user_has_permission_for(user, "publish") instead.',
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.permission_policy.instances_user_has_permission_for(
-            self.user, "publish"
-        )
-
-    def can_publish_pages(self):
-        """Return True if the user has permission to publish any pages"""
-        warnings.warn(
-            "UserPagePermissionsProxy.can_publish_pages() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "publish") instead.',
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.publishable_pages().exists()
-
-    def can_remove_locks(self):
-        """Returns True if the user has permission to unlock pages they have not locked"""
-        warnings.warn(
-            "UserPagePermissionsProxy.can_remove_locks() is deprecated. "
-            "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-            'user_has_permission(user, "unlock") instead.',
-            category=RemovedInWagtail60Warning,
-            stacklevel=2,
-        )
-        return self.permission_policy.user_has_permission(self.user, "unlock")
 
 
 class PagePermissionTester:
@@ -3727,14 +3429,6 @@ class Task(SpecificMixin, models.Model):
         Returns True if the object should be locked to a given user's edits.
         This can be used to prevent editing by non-reviewers.
         """
-        if hasattr(self, "page_locked_for_user"):
-            warnings.warn(
-                "Tasks should use .locked_for_user() instead of "
-                ".page_locked_for_user().",
-                category=RemovedInWagtail60Warning,
-                stacklevel=2,
-            )
-            return self.page_locked_for_user(obj, user)
         return False
 
     def user_can_lock(self, obj, user):

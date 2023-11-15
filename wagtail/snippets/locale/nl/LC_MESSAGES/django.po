@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -160,39 +160,6 @@ msgstr "Acties"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Wijzigen: %(snippet_type_name)s - %(object)s "
 
-msgid "Toggle breadcrumbs"
-msgstr "Toon/verberg kruimelpad"
-
-msgid "Breadcrumb"
-msgstr "Broodkruimel"
-
-msgid "Snippets"
-msgstr "Snippets"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nieuw: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Wijzigen: %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Geschiedenis"
-
-msgid "Usage"
-msgstr "Gebruik"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Snippet geschiedenis voor %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Bewerk snippet"
-
-msgid "No log entries found."
-msgstr "Geen logboekvermeldingen gevonden."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
@@ -249,11 +216,18 @@ msgstr "Annuleer geplande publicatie"
 msgid "Choose"
 msgstr "Kies"
 
+msgid "Snippets"
+msgstr "Snippets"
+
 msgid "Name"
 msgstr "Naam"
 
 msgid "Instances"
 msgstr "Instanties"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Meer opties voor '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
@@ -264,14 +238,8 @@ msgstr "De snippet kon niet worden opgeslagen door fouten."
 msgid "Action"
 msgstr "Actie"
 
-msgid "User"
-msgstr "Gebruiker"
-
 msgid "Date"
 msgstr "Datum"
-
-msgid "Snippet history"
-msgstr "Snippet geschiedenis"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -281,20 +249,8 @@ msgstr "Bewerk %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s geschiedenis"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Wijzig '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspecteer"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecteer '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Verwijder '%(title)s'"
+msgid "Home"
+msgstr "Home"
 
 #, python-format
 msgid "Choose %(object)s"

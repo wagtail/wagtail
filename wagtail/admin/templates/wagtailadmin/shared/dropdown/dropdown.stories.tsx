@@ -44,8 +44,8 @@ Base.args = {
   toggle_aria_label: 'Actions',
   children: `
   <a href="">Link</a>
-  <a href=""><svg class="icon icon-arrows-up-down" aria-hidden="true"><use href="#icon-arrows-up-down"></use></svg>Link with icon</a>
+  <a href=""><svg class="icon icon-order" aria-hidden="true"><use href="#icon-order"></use></svg>Link with icon</a>
   <button type="button">Button</button>
-  <button type="button"><svg class="icon icon-arrows-up-down" aria-hidden="true"><use href="#icon-arrows-up-down"></use></svg>Button with icon</button>
+  <button type="button"><svg class="icon icon-order" aria-hidden="true"><use href="#icon-order"></use></svg>Button with icon</button>
 `,
 };

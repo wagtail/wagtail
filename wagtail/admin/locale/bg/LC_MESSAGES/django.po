@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -287,6 +287,9 @@ msgstr "Предишно"
 msgid "Next"
 msgstr "Следващо"
 
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
+
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
 
@@ -311,6 +314,9 @@ msgstr "Излез"
 
 msgid "Password"
 msgstr "Парола"
+
+msgid "Home"
+msgstr "Начало"
 
 msgid "Editing"
 msgstr "Редактиране"
@@ -360,9 +366,6 @@ msgstr "Страница '%(page_title)s' отменена от публикув
 
 msgid "Pages using"
 msgstr "Страници използващи"
-
-msgid "Add child page"
-msgstr "Добави дъщерна страница"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

@@ -96,14 +96,10 @@ ul.listing {
     border-bottom: 1px dashed theme('colors.border-field-default');
 
     tr {
-      border-top: 1px dashed theme('colors.border-field-default');
+      border-top: 1px dashed theme('colors.border-furniture');
 
       &:first-child {
-        border-top: 1px dashed theme('colors.border-field-default');
-      }
-
-      &:hover {
-        background-color: theme('colors.white-10');
+        border-top: 1px dashed theme('colors.border-furniture');
       }
     }
 
@@ -423,7 +419,7 @@ table.listing {
       font-weight: theme('fontWeight.extrabold');
 
       @include media-breakpoint-up(md) {
-        font-size: theme('fontSize.30');
+        font-size: theme('fontSize.22');
       }
     }
   }

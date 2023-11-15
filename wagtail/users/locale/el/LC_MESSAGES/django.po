@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,9 +108,6 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
-msgid "Delete group"
-msgstr "Διαγραφή ομάδας"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -124,11 +121,11 @@ msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετ�
 msgid "Add group"
 msgstr "Προσθήκη ομαδας"
 
-msgid "Editing"
-msgstr "Διόρθωση"
-
 msgid "Save"
 msgstr "Αποθήκευση"
+
+msgid "Delete group"
+msgstr "Διαγραφή ομάδας"
 
 msgid "Object permissions"
 msgstr " Δικαιώματα αντικειμένου"
@@ -171,14 +168,8 @@ msgstr ""
 "There are no groups configured. Why not <a "
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 
-msgid "Delete user"
-msgstr "Διαγραφή χρήστη."
-
 msgid "Are you sure you want to delete this user?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον χρήστη;"
-
-msgid "Add user"
-msgstr "Προσθήκη χρήστη"
 
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -186,11 +177,11 @@ msgstr "Λογαριασμός"
 msgid "Roles"
 msgstr "Ρόλοι"
 
-msgid "Users"
-msgstr "Χρήστες"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Προσθήκη χρήστη"
+
+msgid "Delete user"
+msgstr "Διαγραφή χρήστη."
 
 msgid "Username"
 msgstr "Όνομα χρήστη"
@@ -235,6 +226,12 @@ msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχεί
 msgid "Group '%(object)s' deleted."
 msgstr "Η ομαδα '%(object)s' διαγράφηκε."
 
+msgid "Add a user"
+msgstr "Προσθήκη χρήστη"
+
+msgid "Users"
+msgstr "Χρήστες"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Τα στοιχεία του χρήστη '%(object)s' ενημερώθηκαν."
@@ -243,18 +240,8 @@ msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Επεξεργάζεται %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Ο χρήστης '%(object)s' διαγράφηκε."
 
 msgid "Edit"
 msgstr "Επεξεργασία"
-
-msgid "Edit this user"
-msgstr "Επεξεργασία αυτού του χρήστη"
-
-msgid "Delete this user"
-msgstr "Διαγραφή αυτού του χρήστη"

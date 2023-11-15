@@ -1,25 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
-import type { Application } from '@hotwired/stimulus';
 
 import { debounce } from '../utils/debounce';
-import { domReady } from '../utils/domReady';
-
-declare global {
-  interface Window {
-    headerSearch?: { targetOutput: string; url: string };
-  }
-}
-
-/**
- * Support legacy window global approach until header search
- * can fully adopt data-attributes.
- * @deprecated RemovedInWagtail60
- */
-const getGlobalHeaderSearchOptions = (): {
-  targetOutput?: string;
-  termInput?: string;
-  url?: string;
-} => window.headerSearch || {};
 
 /**
  * Allow for an element to trigger an async query that will
@@ -90,46 +71,6 @@ export class SwapController extends Controller<
   searchLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to submit the serialised form and then replace the DOM */
   submitLazy?: { (...args: any[]): void; cancel(): void };
-
-  /**
-   * Ensure we have backwards compatibility with setting window.headerSearch
-   * and allowing for elements without a controller attached to be set up.
-   *
-   * @deprecated RemovedInWagtail60
-   */
-  static afterLoad(identifier: string, application: Application) {
-    const { actionAttribute, controllerAttribute } = application.schema;
-
-    domReady().then(() => {
-      const { termInput, targetOutput, url } = getGlobalHeaderSearchOptions();
-
-      const input = termInput
-        ? (document.querySelector(termInput) as HTMLInputElement)
-        : null;
-
-      const form = input?.form;
-
-      if (!form) return;
-
-      if (!input.hasAttribute(`data-${identifier}-target`)) {
-        input.setAttribute(`data-${identifier}-target`, 'input');
-      }
-
-      Object.entries({
-        [controllerAttribute]: identifier,
-        [actionAttribute]: [
-          `change->${identifier}#searchLazy`,
-          `input->${identifier}#searchLazy`,
-        ].join(' '),
-        [`data-${identifier}-src-value`]: url,
-        [`data-${identifier}-target-value`]: targetOutput,
-      }).forEach(([key, value]) => {
-        if (!form.hasAttribute(key)) {
-          form.setAttribute(key, value as string);
-        }
-      });
-    });
-  }
 
   connect() {
     const formContainer = this.hasInputTarget

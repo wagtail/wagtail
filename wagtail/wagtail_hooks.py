@@ -127,6 +127,8 @@ def register_core_log_actions(actions):
     )
     actions.register_action("wagtail.lock", _("Lock"), _("Locked"))
     actions.register_action("wagtail.unlock", _("Unlock"), _("Unlocked"))
+
+    # Legacy moderation actions
     actions.register_action("wagtail.moderation.approve", _("Approve"), _("Approved"))
     actions.register_action("wagtail.moderation.reject", _("Reject"), _("Rejected"))
 

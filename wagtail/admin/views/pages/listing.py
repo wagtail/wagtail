@@ -232,6 +232,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
         kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
+        kwargs["actions_next_url"] = self.get_index_url()
 
         if self.show_ordering_column:
             kwargs["attrs"] = {

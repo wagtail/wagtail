@@ -12,6 +12,7 @@
 * Matthew Westcott (Torchbox)
 * Meagen Voss (Torchbox)
 * Naomi Morduch Toubman
+* Sævar Öfjörð Magnússon (Overcast)
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
 * Stefan Hammer (wunderweiss)
@@ -751,6 +752,21 @@
 * Susheel Thapa
 * Hazh. M. Adam
 * Chris Lawton
+* Meghana Reddy
+* Chinedu Ihedioha
+* scott-8
+* phijma-leukeleu
+* CheesyPhoenix
+* Vedant Pandey
+* Ian Price
+* Elhussein Almasri
+* Marcel Kornblum
+* Cameron Lamb
+* Sam Dudley
+* Varun Kumar
+* Andrey Nehaychik
+* Meli Imelda
+* Kehinde Bobade
 
 ## Translators
 
@@ -768,7 +784,7 @@
 * Chinese (Simplified): Ed, Yin Guanhao, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Monty Ng, Terry Peng, Aosp T, Listeng Teng, Feng Wang, whuim, Favo Yang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, Chih Wang, Brian Xu, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
-* Czech: Ales Dvorak, Jan Feřtek, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
+* Czech: Ales Dvorak, Jan Feřtek, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Tomáš Podivínský, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Benjamin Bach, Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
 * English (India): Neeraj PY, Apoorv Saini
@@ -793,7 +809,7 @@
 * Maori: Awatea Randall
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu, Soft Exim, visual
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
-* Persian: Mohsen Hassani, Mostafa Heidarian, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Amir Mahmoodi, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Salar Yazdani, Py Zenberg
+* Persian: Vessal Daneshvar, Mohsen Hassani, Mostafa Heidarian, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Amir Mahmoodi, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Salar Yazdani, Py Zenberg
 * Polish: X Bello, Łukasz Bołdys, Krzysztof Jeziorny, Konrad Lalik, Dominik Lech, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Piotr Moskal, Kacper Podpora, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Hernandison Da Silva Bispo, Vitor Hugo da Silva Lima, Gustavo Simões, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, João Luiz Lorencetti, A M, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Fabio Santos, Ed Wurch
 * Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Diogo Gomes, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva

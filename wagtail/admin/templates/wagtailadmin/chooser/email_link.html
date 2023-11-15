@@ -1,6 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-{% trans "Add an email link" as email_str %}
-{% include "wagtailadmin/shared/header.html" with title=email_str %}
+{% include "wagtailadmin/shared/header.html" with title=_("Add an email link") %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='email' %}

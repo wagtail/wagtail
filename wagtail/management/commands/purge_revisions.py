@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
+from django.db.models.deletion import ProtectedError
 from django.utils import timezone
 
 from wagtail.models import Revision, WorkflowState
@@ -31,12 +32,20 @@ class Command(BaseCommand):
         pages = options.get("pages")
         non_pages = options.get("non_pages")
 
-        revisions_deleted = purge_revisions(days=days, pages=pages, non_pages=non_pages)
+        revisions_deleted, protected_error_count = purge_revisions(
+            days=days, pages=pages, non_pages=non_pages
+        )
 
         if revisions_deleted:
             self.stdout.write(
                 self.style.SUCCESS(
                     "Successfully deleted %s revisions" % revisions_deleted
+                )
+            )
+            self.stdout.write(
+                self.style.SUCCESS(
+                    "Ignored %s revisions because one or more protected relations exist that prevent deletion."
+                    % protected_error_count
                 )
             )
         else:
@@ -52,11 +61,7 @@ def purge_revisions(days=None, pages=True, non_pages=True):
     elif non_pages:
         objects = Revision.objects.not_page_revisions()
 
-    # exclude revisions which have been submitted for moderation in the old system
-    # RemovedInWagtail60Warning
-    # Remove this when the deprecation period for the legacy
-    # moderation system ends.
-    purgeable_revisions = objects.exclude(submitted_for_moderation=True).exclude(
+    purgeable_revisions = objects.exclude(
         # and exclude revisions with an approved_go_live_at date
         approved_go_live_at__isnull=False
     )
@@ -74,11 +79,15 @@ def purge_revisions(days=None, pages=True, non_pages=True):
         purgeable_revisions = purgeable_revisions.filter(created_at__lt=purgeable_until)
 
     deleted_revisions_count = 0
+    protected_error_count = 0
 
     for revision in purgeable_revisions.iterator():
         # don't delete the latest revision
         if not revision.is_latest_revision():
-            revision.delete()
-            deleted_revisions_count += 1
+            try:
+                revision.delete()
+                deleted_revisions_count += 1
+            except ProtectedError:
+                protected_error_count += 1
 
-    return deleted_revisions_count
+    return deleted_revisions_count, protected_error_count

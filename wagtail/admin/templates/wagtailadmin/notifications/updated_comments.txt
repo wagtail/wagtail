@@ -27,8 +27,8 @@
 
 {% trans "New replies:" %}{% for thread in replied_comments %}
 
-  {% trans 'New replies to:' %} "{{ thread.comment.text }}"{% for reply in thread.replies %}
-   - "{{ reply.text }}"{% endfor %}{% endfor %}{% endif %}
+  {% trans 'New replies to:' %} "{{ thread.comment.text|safe }}"{% for reply in thread.replies %}
+   - "{{ reply.text|safe }}"{% endfor %}{% endfor %}{% endif %}
 
 {% trans "You can edit the page here:" %} {{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}
 {% endblock %}

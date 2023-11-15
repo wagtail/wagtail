@@ -1,3 +1,5 @@
+(docs_title_generation_on_upload)=
+
 # Title generation on upload
 
 When uploading a file (document), Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
@@ -10,7 +12,7 @@ You can customise the resolved value of this title using a JavaScript [event lis
 
 The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js). However, any JavaScript that adds an event listener will work.
 
-## DOM Event
+## DOM event
 
 The event name to listen to is `'wagtail:documents-upload'`. It will be dispatched on the document upload `form`. The event's `detail` attribute will contain:
 
@@ -28,7 +30,7 @@ The event will 'bubble' up so that you can simply add a global `document` listen
 
 See MDN for more information about [custom JavaScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
 
-## Code Examples
+## Code examples
 
 ### Adding the file extension to the start of the title
 

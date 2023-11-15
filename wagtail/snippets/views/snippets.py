@@ -39,7 +39,6 @@ from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
 from wagtail.models import (
     DraftStateMixin,
-    Locale,
     LockableMixin,
     PreviewableMixin,
     RevisionMixin,
@@ -51,7 +50,7 @@ from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 # == Helper functions ==
@@ -79,6 +78,7 @@ class ModelIndexView(generic.IndexView):
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
+    _show_breadcrumbs = True
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -198,7 +198,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             except TypeError:
                 warn(
                     "construct_snippet_listing_buttons hook no longer accepts a context argument",
-                    RemovedInWagtail60Warning,
+                    RemovedInWagtail70Warning,
                     stacklevel=2,
                 )
                 hook(more_buttons, instance, self.request.user, {})
@@ -243,23 +243,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
-
-    def get_add_url(self):
-        url = reverse(self.add_url_name)
-        if self.locale:
-            url += "?locale=" + self.locale.language_code
-        return url
-
-    def get_success_url(self):
-        if self.draftstate_enabled and self.action != "publish":
-            return super().get_success_url()
-
-        # Make sure the redirect to the listing view uses the correct locale
-        urlquery = ""
-        if self.locale and self.object.locale is not Locale.get_default():
-            urlquery = "?locale=" + self.object.locale.language_code
-
-        return reverse(self.index_url_name) + urlquery
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -576,13 +559,13 @@ class SnippetViewSet(ModelViewSet):
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_namespace``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_namespace`.
     admin_url_namespace = None
 
     #: The base URL path to use for the admin views.
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_prefix``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_prefix`.
     base_url_path = None
 
     #: The URL namespace to use for the chooser admin views.
@@ -893,7 +876,7 @@ class SnippetViewSet(ModelViewSet):
                     "deprecated in favour of /usage/<pk>/."
                 )
                 % (self.__class__.__name__),
-                category=RemovedInWagtail60Warning,
+                category=RemovedInWagtail70Warning,
             )
             return redirect(self.get_url_name("usage"), pk, permanent=True)
 
@@ -1258,13 +1241,13 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
-        # RemovedInWagtail60Warning: Remove legacy URL patterns
+        # RemovedInWagtail70Warning: Remove legacy URL patterns
         return urlpatterns + self._legacy_urlpatterns
 
     @cached_property
     def _legacy_urlpatterns(self):
         return [
-            # RemovedInWagtail60Warning: Remove legacy URL patterns
+            # RemovedInWagtail70Warning: Remove legacy URL patterns
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),

@@ -9,7 +9,6 @@ Elements that use icons are:
 -   [Register Admin Menu Item](register_admin_menu_item)
 -   [Client-side React components](extending_client_side_react)
 -   [Rich text editor toolbar buttons](extending_the_draftail_editor)
--   [ModelAdmin menu](modeladmin_menu_icon)
 -   [Snippets](wagtailsnippets_icon)
 -   [StreamField blocks](custom_streamfield_blocks)
 

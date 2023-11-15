@@ -1,9 +1,62 @@
 Changelog
 =========
 
-5.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
+ * Remember previous location on returning from page add/edit actions (Robert Rollins)
+ * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
+ * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
+ * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
+ * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
+ * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
+ * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
+ * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
+ * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Preserve whitespace in rendered comments (Elhussein Almasri)
+ * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
+ * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
+ * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
+ * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
+ * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
+ * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
+ * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
+ * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
+ * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
+ * Maintenance: Migrate the contrib styleguide index view to a class-based view (Chiemezuo Akujobi)
+ * Maintenance: Update djhtml to 3.0.6 (Matt Westcott)
+ * Maintenance: Migrate the contrib settings edit view to a class-based view (Chiemezuo Akujobi, Sage Abdullah)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
+ * Maintenance: Split up functions in Elasticsearch backend for easier extensibility (Marcel Kornblum, Cameron Lamb, Sam Dudley)
+ * Maintenance: Relax draftjs_exporter dependency to allow using version 5.x (Sylvain Fankhauser)
+ * Maintenance: Refine styling of listings, account settings panels and the block chooser (Meli Imelda)
+ * Maintenance: Remove icon font support (Matt Westcott)
+ * Maintenance: Remove deprecated SVG icons (Matt Westcott)
+ * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
+ * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
+
+
+5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
+ * Fix: Remove search logging from project template so that new projects without the search promotions module will not error (Matt Westcott)
+ * Fix: Ensure text only email notifications for updated comments do not escape HTML characters (Rohit Sharma)
+ * Fix: Use logical OR operator to combine search fields for Django ORM in generic IndexView (Varun Kumar)
+ * Fix: Ensure that explorer_results views fill in the correct next_url parameter on action URLs (Matt Westcott)
+ * Fix: Fix crash when accessing the history view for a translatable snippet (Sage Abdullah)
+ * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
+ * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
+ * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
+ * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
+
+
+5.2 LTS (01.11.2023)
+~~~~~~~~~~~~~~~~~~~~
+
+ * Redesigned page listing view (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Support OpenSearch as an alternative to Elasticsearch (Matt Westcott)
  * Add support for Python 3.12 (Matt Westcott)
  * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
@@ -18,7 +71,7 @@ Changelog
  * Remove `wagtail.unpublish` log action on aliases when source page is unpublished (Dan Braghis)
  * Add compare buttons to workflow dashboard panel (Matt Westcott)
  * Add the ability to use filters and to export listings in generic `IndexView` (Sage Abdullah)
- * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah)
+ * Move `list_filter`, `filterset_class`, `search_fields`, `search_backend_name`, `list_export`, `export_filename`, `list_per_page`, and `ordering` from `SnippetViewSet` to `ModelViewSet` (Sage Abdullah, Cynthia Kiser)
  * Add default header titles to generic `IndexView` and `CreateView` (Sage Abdullah)
  * Allow overriding `IndexView.export_headings` via `ModelViewSet` (Christer Jensen, Sage Abdullah)
  * Support specifying a `get_object_list` method on `ChooserViewSet` (Matt Westcott)
@@ -28,7 +81,7 @@ Changelog
  * Show the full first published at date within a tooltip on the Page status sidebar on the relative date (Rohit Sharma)
  * Extract generic breadcrumbs functionality from page breadcrumbs (Sage Abdullah)
  * Add support for `placement` in the `human_readable_date` tooltip template tag (Rohit Sharma)
- * Add breadcrumbs to generic model views (Sage Abdullah)
+ * Add breadcrumbs support to custom `ModelViewSet` views (Sage Abdullah)
  * Support passing extra context variables via the `{% component %}` tag (Matt Westcott)
  * Allow subclasses of `PagesAPIViewSet` override default Page model via the `model` attribute (Neeraj Yetheendran, Herbert Poul)
  * Allow `ModelViewSet` to be used with models that have non-integer primary keys (Sage Abdullah)
@@ -45,7 +98,15 @@ Changelog
  * Add a new `picture` template tag for Django Templates and Jinja (Thibaud Colas)
  * Add a new `srcset_image` template tag for Django Templates and Jinja (Thibaud Colas)
  * Support `Filter` instances as input for `AbstractImage.get_renditions()` (Thibaud Colas)
- * Improve error messages for image template tags
+ * Improve error messages for image template tags (Thibaud Colas)
+ * Do not render minimap if there are no panel anchors (Sage Abdullah)
+ * Use dropdown buttons on listings in dashboard panels (Sage Abdullah)
+ * Implement breadcrumbs design refinements (Thibaud Colas)
+ * Support extending Wagtail client-side with Stimulus (LB (Ben) Johnston)
+ * Update all `FieldPanel('title')` examples to use the recommended `TitleFieldPanel('title')` panel (Chinedu Ihedioha)
+ * The `purge_revisions` management command now respects revisions that have a `on_delete=PROTECT` foreign key relation and won't delete them (Neeraj P Yetheendran, Meghana Reddy, Sage Abdullah, Storm Heg)
+ * Add support for Shift + Click behaviour in form submissions and simple translations submissions (LB (Ben) Johnston)
+ * Improve filtering of audit logging based on the user's permissions (Stefan Hammer)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
  * Fix: When deleting collections, ensure the collection name is correctly shown in the success message (LB (Ben) Johnston)
@@ -69,6 +130,9 @@ Changelog
  * Fix: Avoid forgotten password link text conflicting with the supplied aria-label (Thibaud Colas)
  * Fix: Fix log message to record the correct restriction type when removing a page view restriction (Rohit Sharma, Hazh. M. Adam)
  * Fix: Avoid potential race condition with new Page subscriptions on the edit view (Alex Tomkins)
+ * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
+ * Fix: Ensure that all password fields consistently allow leading & trailing whitespace (Neeraj P Yetheendran)
+ * Docs: Expand documentation on using `ViewSet` and `ModelViewSet` (Sage Abdullah)
  * Docs: Document `WAGTAILADMIN_BASE_URL` on "Integrating Wagtail into a Django project" page (Shreshth Srivastava)
  * Docs: Replace incorrect screenshot for authors listing on tutorial (Shreshth Srivastava)
  * Docs: Add documentation for building non-model-based choosers using the _queryish_ library (Matt Westcott)
@@ -117,15 +181,18 @@ Changelog
  * Maintenance: Migrate select all on focus/click behavior to Stimulus, used on the image URL generator (Chiemezuo Akujobi)
  * Maintenance: Add support for a `reset` method to support Stimulus driven dynamic field resets via the `w-action` controller (Chiemezuo Akujobi)
  * Maintenance: Add support for a `notify` target on the Stimulus dialog for dispatching events internally (Chiemezuo Akujobi)
+ * Maintenance: Migrate publishing schedule dialog field resets to Stimulus (Chiemezuo Akujobi)
 
-5.1.3 (xx.xx.20xx) - IN DEVELOPMENT
+5.1.3 (19.10.2023)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
  * Fix: Fix `SnippetBulkAction` not respecting `models` definition (Sandro Rodrigues)
  * Fix: Correctly quote non-numeric primary keys on snippet inspect view (Sage Abdullah)
  * Fix: Prevent crash on snippet inspect view when displaying a null foreign key to an image (Sage Abdullah)
  * Fix: Populate the correct return value when creating a new snippet within the snippet chooser (claudobahn)
  * Fix: Reinstate missing filter by page type on page search (Matt Westcott)
+ * Fix: Use the correct action log when creating a redirect (Thibaud Colas)
 
 
 5.1.2 (25.09.2023)
@@ -265,6 +332,12 @@ Changelog
  * Maintenance: Deprecate `wagtail.contrib.modeladmin` (Sage Abdullah)
  * Maintenance: Upgrade documentation theme `sphinx_wagtail_theme` to v6.1.1 which includes multiple styling fixes and always visible code copy buttons (LB (Ben) Johnston)
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
+
+
+5.0.5 (19.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
 
 
 5.0.4 (04.10.2023)
@@ -660,6 +733,12 @@ Changelog
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
  * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
+
+
+4.1.9 (19.10.2023)
+~~~~~~~~~~~~~~~~~~
+
+* Fix: CVE-2023-45809: Disclosure of user names via admin bulk action views (Matt Westcott)
 
 
 4.1.8 (28.09.2023)

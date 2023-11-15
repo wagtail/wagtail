@@ -1,6 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-{% trans "Add an anchor link" as anchor_str %}
-{% include "wagtailadmin/shared/header.html" with title=anchor_str %}
+{% include "wagtailadmin/shared/header.html" with title=_("Add an anchor link") %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='anchor' %}

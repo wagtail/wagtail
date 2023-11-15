@@ -1,6 +1,3 @@
-from django.forms import Media
-
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.models import Page
 
@@ -20,12 +17,22 @@ class PublishingPanel(MultiFieldPanel):
                     "go_live_at",
                     widget=AdminDateTimeInput(
                         js_overlay_parent_selector=js_overlay_parent_selector,
+                        attrs={
+                            "data-controller": "w-action",
+                            "data-action": "w-dialog:hidden->w-action#reset",
+                            "data-w-dialog-target": "notify",
+                        },
                     ),
                 ),
                 FieldPanel(
                     "expire_at",
                     widget=AdminDateTimeInput(
                         js_overlay_parent_selector=js_overlay_parent_selector,
+                        attrs={
+                            "data-controller": "w-action",
+                            "data-action": "w-dialog:hidden->w-action#reset",
+                            "data-w-dialog-target": "notify",
+                        },
                     ),
                 ),
             ],
@@ -53,9 +60,3 @@ class PublishingPanel(MultiFieldPanel):
 
         def show_panel_furniture(self):
             return False
-
-        @property
-        def media(self):
-            return super().media + Media(
-                js=[versioned_static("wagtailadmin/js/schedule-publishing.js")],
-            )

@@ -115,6 +115,10 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 You may want to execute some JavaScript when `InlinePanel` items are ready, added or removed. The `w-formset:ready`, `w-formset:added` and `w-formset:removed` events allow this.
 
+```{versionadded} 5.2
+
+```
+
 For example, given a child model that provides a relationship between Blog and Person on `BlogPage`.
 
 ```python
@@ -377,7 +381,7 @@ class Book(models.Model):
     )
 
     panels = [
-        FieldPanel('title', widget=title_widget), # then add them as a variable
+        TitleFieldPanel('title', widget=title_widget), # then add them as a variable
         FieldPanel('release_date', widget=date_widget),
         FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
     ]

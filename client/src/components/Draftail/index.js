@@ -108,12 +108,11 @@ const registerPlugin = (type, optionName = 'entityTypes') => {
 };
 
 /**
- * Wraps a style/block/entity type’s icon with an icon font implementation,
- * so Draftail can use icon fonts in its toolbar.
+ * Wraps a style/block/entity type’s icon identifier with an icon component.
  */
 export const wrapWagtailIcon = (type) => {
-  const isIconFont = type.icon && typeof type.icon === 'string';
-  if (isIconFont) {
+  const isNamedIcon = type.icon && typeof type.icon === 'string';
+  if (isNamedIcon) {
     return Object.assign(type, {
       icon: <Icon name={type.icon} />,
     });

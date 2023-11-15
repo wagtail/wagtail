@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -77,20 +77,17 @@ msgstr "ဖျက်သိမ်းပါ"
 msgid "Yes, delete"
 msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
 
-msgid "Delete group"
-msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
-
 msgid "Are you sure you want to delete this group?"
 msgstr "ဤအဖွဲ့ကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
 
 msgid "Add group"
 msgstr "အဖွဲ့ထည့်ပါ"
 
-msgid "Editing"
-msgstr "ပြင်ဆင်နေသည်"
-
 msgid "Save"
 msgstr "သိမ်းဆည်းပါ"
+
+msgid "Delete group"
+msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
 
 msgid "Name"
 msgstr "အမည်"
@@ -104,17 +101,17 @@ msgstr "ပြောင်းလဲပါ"
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-msgid "Delete user"
-msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
-
 msgid "Are you sure you want to delete this user?"
 msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
+
+msgid "Account"
+msgstr "အကောင့်"
 
 msgid "Add user"
 msgstr "အသုံးပြုသူထည့်ပါ"
 
-msgid "Account"
-msgstr "အကောင့်"
+msgid "Delete user"
+msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
 
 msgid "Status"
 msgstr "အခြေအနေ"
@@ -160,9 +157,3 @@ msgstr "'%(object)s'အသုံးပြုသူကို ဖျက်သိ�
 
 msgid "Edit"
 msgstr "ပြင်ဆင်ပါ"
-
-msgid "Edit this user"
-msgstr "ဤအသုံးပြုသူကို ပြင်ဆင်ပါ"
-
-msgid "Delete this user"
-msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်းပါ"

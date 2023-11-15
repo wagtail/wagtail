@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -55,17 +55,6 @@ msgid "Add search pick"
 msgstr "Dodaj promovirani rezultat"
 
 msgid ""
-"<p>Promoted search results are a means of recommending specific pages that "
-"might not organically come high up in search results. E.g recommending your "
-"primary donation page to a user searching with the less common term "
-"\"<em>giving</em>\".</p>"
-msgstr ""
-"<p>Promovirani rezultati pretraživanja su način za preporuku određenih "
-"stranica koje se možda neće priordno pojaviti pri vrhu u rezultatima "
-"pretraživanja. Npr. preporuka glavne stranice za donacije korisniku koji "
-"pretražuje manje učestao pojam \"<em>davanje</em>\".</p>"
-
-msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
 "any misspellings/user error. To help, you can choose from search terms that "
@@ -107,14 +96,8 @@ msgstr "Pomakni gore"
 msgid "Move down"
 msgstr "Pomakni dolje"
 
-msgid "Recommended page"
-msgstr "Preporučena stranica"
-
 msgid "Promoted search results"
 msgstr "Promovirani rezultati pretraživanja"
-
-msgid "Add recommended page"
-msgstr "Dodaj preporučenu stranicu"
 
 msgid "Search Terms"
 msgstr "Pojmovi za pretraživanje"
@@ -146,8 +129,26 @@ msgstr "Sortiraj po pregledima (prvo najviše)"
 msgid "Edit this promotion"
 msgstr "Uredi ovu promociju"
 
+msgid "External link"
+msgstr "Vanjska poveznica"
+
 msgid "None"
 msgstr "Prazno"
+
+msgid "Popular search terms"
+msgstr "Popularni pojmovi za pretraživanje"
+
+msgid "Search"
+msgstr "Pretraži"
+
+msgid "Terms"
+msgstr "Pojmovi"
+
+msgid "No results found"
+msgstr "Nema pronađenih rezultata"
+
+msgid "Choose from popular search terms"
+msgstr "Odaberi među popularnim pojmovima"
 
 #, python-format
 msgid "There is %(counter)s match"

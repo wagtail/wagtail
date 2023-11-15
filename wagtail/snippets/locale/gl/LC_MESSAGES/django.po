@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,39 +155,6 @@ msgstr "Accións"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Editando %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Permutar migas de pan"
-
-msgid "Breadcrumb"
-msgstr "Miga de pan"
-
-msgid "Snippets"
-msgstr "Fragmentos"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Novo: %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Editando %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "Historial"
-
-msgid "Usage"
-msgstr "Uso"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Historial do fragmento para %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Editar este fragmento"
-
-msgid "No log entries found."
-msgstr "Non se atoparon entradas no rexistro."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmentos %(snippet_type_name_plural)s"
@@ -244,11 +211,18 @@ msgstr "Cancelar publicación adiada"
 msgid "Choose"
 msgstr "Seleccionar"
 
+msgid "Snippets"
+msgstr "Fragmentos"
+
 msgid "Name"
 msgstr "Nome"
 
 msgid "Instances"
 msgstr "Instancias"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Máis opcións para '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento non puido ser creado debido a errores."
@@ -259,14 +233,8 @@ msgstr "O fragmento non puido ser gardado debido a erros."
 msgid "Action"
 msgstr "Acción"
 
-msgid "User"
-msgstr "Usuario"
-
 msgid "Date"
 msgstr "Data"
-
-msgid "Snippet history"
-msgstr "Historial do fragmento"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -276,20 +244,8 @@ msgstr "Editar este %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Historial de %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
-
-msgid "Inspect"
-msgstr "Inspeccionar"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspeccionar '%(title)s'"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Eliminar '%(title)s'"
+msgid "Home"
+msgstr "Principal"
 
 #, python-format
 msgid "Choose %(object)s"

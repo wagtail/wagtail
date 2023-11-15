@@ -11,7 +11,6 @@ forms/index
 sitemaps
 frontendcache
 routablepage
-modeladmin/index
 searchpromotions
 simple_translation
 table_block
@@ -40,10 +39,6 @@ A module for automatically purging pages from a cache (Varnish, Squid, Cloudflar
 ## [](routablepage)
 
 Provides a way of embedding Django URLconfs into pages.
-
-## [](modeladmin/index)
-
-A module allowing for more customisable representation and management of custom models in Wagtail's admin area.
 
 ## [](searchpromotions)
 

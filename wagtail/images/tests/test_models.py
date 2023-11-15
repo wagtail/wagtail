@@ -28,7 +28,12 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils, override_settings
 
-from .utils import Image, get_test_image_file, get_test_image_filename
+from .utils import (
+    Image,
+    get_test_image_file,
+    get_test_image_file_svg,
+    get_test_image_filename,
+)
 
 
 class CustomStorage(Storage):
@@ -122,6 +127,18 @@ class TestImage(TestCase):
         self.assertEqual(
             self.image.get_file_hash(), "4dd0211870e130b7e1690d2ec53c499a54a48fef"
         )
+
+    def test_get_suggested_focal_point_svg(self):
+        """
+        Feature detection should not be run on SVGs.
+
+        https://github.com/wagtail/wagtail/issues/11172
+        """
+        image = Image.objects.create(
+            title="Test SVG",
+            file=get_test_image_file_svg(),
+        )
+        self.assertIsNone(image.get_suggested_focal_point())
 
 
 class TestImageQuerySet(TransactionTestCase):
