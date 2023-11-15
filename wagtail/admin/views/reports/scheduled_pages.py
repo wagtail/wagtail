@@ -69,6 +69,8 @@ class ScheduledPagesView(PageReportView):
     title = _("Pages scheduled for publishing")
     header_icon = "time"
     filterset_class = ScheduledPagesReportFilterSet
+    permission_policy = PagePermissionPolicy()
+    any_permission_required = ["add", "change", "publish"]
 
     def get_queryset(self):
         qs = get_scheduled_pages_for_user(self.request.user)
