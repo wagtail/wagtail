@@ -1129,7 +1129,6 @@ class TestElasticsearch7Mapping(TestCase):
             "publication_date_filter": datetime.date(1954, 7, 29),
             "summary": "",
             "number_of_pages_filter": 423,
-            "summary": "",
             "tags": [],
             "tags_filter": [],
         }
