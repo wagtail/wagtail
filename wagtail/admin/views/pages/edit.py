@@ -469,13 +469,16 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def workflow_action_is_valid(self):
         self.workflow_action = self.request.POST["workflow-action-name"]
-        available_actions = self.page.current_workflow_task.get_actions(
-            self.page, self.request.user
-        )
-        available_action_names = [
-            name for name, verbose_name, modal in available_actions
-        ]
-        return self.workflow_action in available_action_names
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            available_actions = self.page.current_workflow_task.get_actions(
+                self.page, self.request.user
+            )
+            available_action_names = [
+                name for name, verbose_name, modal in available_actions
+            ]
+            return self.workflow_action in available_action_names
+        return False
 
     def form_valid(self, form):
         self.is_reverting = bool(self.request.POST.get("revision"))
