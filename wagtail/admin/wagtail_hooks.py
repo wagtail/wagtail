@@ -876,7 +876,11 @@ class AgingPagesReportMenuItem(MenuItem):
 
 class ScheduledPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(settings, "WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED", True)
+        return getattr(
+            settings, "WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED", True
+        ) and PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
 
 
 @hooks.register("register_reports_menu_item")
