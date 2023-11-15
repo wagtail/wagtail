@@ -13,6 +13,7 @@ Changelog
  * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
  * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
  * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
+ * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
