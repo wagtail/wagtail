@@ -15,7 +15,11 @@ from .base import PageReportView
 
 def get_users_for_filter():
     User = get_user_model()
-    return User.objects.filter(locked_pages__isnull=False).order_by(User.USERNAME_FIELD)
+    return (
+        User.objects.filter(locked_pages__isnull=False)
+        .order_by(User.USERNAME_FIELD)
+        .distinct()
+    )
 
 
 class LockedPagesReportFilterSet(WagtailFilterSet):
