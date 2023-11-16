@@ -24,6 +24,56 @@ This is the base URL used by the Wagtail admin site. It is typically used for ge
 
 If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
 
+(wagtail_per_thread_site_caching)=
+
+### `WAGTAIL_PER_THREAD_SITE_CACHING`
+
+By default, Wagtail utilises in-memory per-thread caching to improve the efficiency of page URL generation and matching user requests to `Site` objects based on `hostname` and `port` values.
+
+While this approach works brilliantly for a typical running instance of Wagtail (a development, staging or production site), where signals are regularly emitted to clear caches, there are some scenarios where it isn't quite as helpful. For example, when using a long-running instance of Wagtail to run of one or more management commands (perhaps triggered by a cron job), or in a test suite where fixtures are used (because model signals are not emitted in the same way).
+
+Most cases can be remedied by manually calling `Site.clear_caches_for_thread()` or `Site.refresh_caches_for_thread()` before the problematic code is exectuted.
+
+For example, the `setUp()` method of a `TestCase` subclass works well:
+
+```python
+
+from django.test import TestCase
+from wagtail.models import Site
+
+
+class TestMultisiteSitemapGeneration(TestCase):
+
+    fixtures = ["multisite.json"]
+
+    def setUp(self)
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+```
+
+Or, you could call it early on in the `handle()` method of a custom management command:
+
+```python
+from django.core.management.base import BaseCommand
+from wagtail.models import Site
+
+
+class Command(BaseCommand):
+
+    def handle(self, *args, **options):
+        # Ensure this command run uses fresh Site and SiteRootPath values
+        Site.clear_caches_for_thread()
+
+        # Your custom command behaviour...
+        ...
+```
+
+If problems persist, you can also disable the caching mechanism completely by adding the following to your project's Django settings:
+
+```python
+WAGTAIL_PER_THREAD_SITE_CACHING = False
+```
+
 (append_slash)=
 
 ## Append Slash

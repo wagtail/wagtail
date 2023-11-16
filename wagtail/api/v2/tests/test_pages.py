@@ -38,6 +38,10 @@ class Test10411APIViewSet(PagesAPIViewSet):
 class TestPageListing(WagtailTestUtils, TestCase):
     fixtures = ["demosite.json"]
 
+    def setUp(self):
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def get_response(self, **params):
         return self.client.get(reverse("wagtailapi_v2:pages:listing"), params)
 
@@ -1107,6 +1111,10 @@ class TestPageListingSearch(WagtailTestUtils, TransactionTestCase):
 
     def setUp(self):
         super().setUp()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
         management.call_command(
             "update_index",
             backend_name="default",

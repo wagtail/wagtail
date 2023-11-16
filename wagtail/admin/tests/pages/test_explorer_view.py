@@ -7,7 +7,7 @@ from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.widgets import Button
-from wagtail.models import GroupPagePermission, Locale, Page, Workflow
+from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
@@ -45,6 +45,9 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Login
         self.user = self.login()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_explore(self):
         explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
@@ -913,15 +916,15 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_in_workflow_status(self):
         workflow = Workflow.objects.first()
         workflow.start(self.christmas, self.user)
         workflow.start(self.saint_patrick, self.user)
 
-        # Warm up cache
-        self.client.get(self.url)
-
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(39):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

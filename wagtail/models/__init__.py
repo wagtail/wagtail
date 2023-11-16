@@ -121,7 +121,12 @@ from .i18n import (  # noqa: F401
     get_translatable_models,
 )
 from .reference_index import ReferenceIndex  # noqa: F401
-from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
+from .sites import (  # noqa: F401
+    Site,
+    SiteManager,
+    SiteRootPath,
+    per_thread_site_caching_enabled,
+)
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 
@@ -1407,6 +1412,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if hasattr(self, "_is_site_root"):
             return self._is_site_root
 
+        if per_thread_site_caching_enabled():
+            for site in Site.objects.get_all():
+                if site.root_page.translation_key == self.translation_key:
+                    return True
+            return False
+
         return Site.objects.filter(
             root_page__translation_key=self.translation_key
         ).exists()
@@ -1473,7 +1484,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Note: New translations of existing site roots are considered site roots as well, so we must
         # always check if this page is a site root, even if it's new.
         if self.is_site_root():
-            Site.clear_site_root_paths_cache()
+            Site.clear_caches_for_thread()
 
         # Log
         if is_new:
@@ -2102,6 +2113,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return
 
         site_id, root_url, page_path = url_parts
+
+        if per_thread_site_caching_enabled():
+            for site in Site.objects.get_all():
+                if site.id == site_id:
+                    return site
+            raise Site.DoesNotExist
 
         return Site.objects.get(id=site_id)
 

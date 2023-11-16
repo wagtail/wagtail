@@ -106,7 +106,11 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(17):
+
+        # NOTE: This should make calls to url-related page methods more efficient
+        Site.refresh_caches_for_thread()
+
+        with self.assertNumQueries(8):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -121,10 +125,10 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap(request)
 
-        # pre-seed find_for_request cache, so that it's not counted towards the query count
-        Site.find_for_request(request)
+        # NOTE: This should make calls to url-related page methods more efficient
+        Site.refresh_caches_for_thread()
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(7):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -139,7 +143,11 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(19):
+
+        # NOTE: This should make calls to url-related page methods more efficient
+        Site.refresh_caches_for_thread()
+
+        with self.assertNumQueries(8):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -155,10 +163,10 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap(request)
 
-        # pre-seed find_for_request cache, so that it's not counted towards the query count
-        Site.find_for_request(request)
+        # NOTE: This should make calls to url-related page methods more efficient
+        Site.refresh_caches_for_thread()
 
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(7):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)

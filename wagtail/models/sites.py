@@ -1,8 +1,10 @@
 from collections import namedtuple
+from copy import deepcopy
+from typing import List, Union
 
+from asgiref.local import Local
 from django.apps import apps
 from django.conf import settings
-from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Case, IntegerField, Q, When
@@ -16,47 +18,100 @@ MATCH_DEFAULT = 2
 MATCH_HOSTNAME = 3
 
 
+_sites_cache = Local()
+_site_root_paths_cache = Local()
+
+
+SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
+
+
+class WeakRefList(list):
+    """
+    A subclass of list that supports weak referencing (to reliably allow for garbage
+    collection when using threadlocals for caching).
+    """
+
+    pass
+
+
+def per_thread_site_caching_enabled() -> bool:
+    return getattr(settings, "WAGTAIL_PER_THREAD_SITE_CACHING", True)
+
+
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
     Site = apps.get_model("wagtailcore.Site")
 
-    sites = list(
-        Site.objects.annotate(
-            match=Case(
-                # annotate the results by best choice descending
+    if isinstance(port, str):
+        port = int(port)
+
+    if per_thread_site_caching_enabled():
+        # NOTE: While we may spend a little more time evaluating irrelevant
+        # sites here, the benefits of work from a cached site list are
+        # definitely worthwhile
+        suitable_sites = []
+        for site in Site.objects.get_all():
+            match_rank = None
+            if site.hostname == hostname and site.port == port:
                 # put exact hostname+port match first
-                When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+                match_rank = MATCH_HOSTNAME_PORT
+            elif site.hostname == hostname and site.is_default_site:
                 # then put hostname+default (better than just hostname or just default)
-                When(
-                    hostname=hostname, is_default_site=True, then=MATCH_HOSTNAME_DEFAULT
-                ),
+                match_rank = MATCH_HOSTNAME_DEFAULT
+            elif site.is_default_site:
                 # then match default with different hostname. there is only ever
                 # one default, so order it above (possibly multiple) hostname
                 # matches so we can use sites[0] below to access it
-                When(is_default_site=True, then=MATCH_DEFAULT),
-                # because of the filter below, if it's not default then its a hostname match
-                default=MATCH_HOSTNAME,
-                output_field=IntegerField(),
-            )
-        )
-        .filter(Q(hostname=hostname) | Q(is_default_site=True))
-        .order_by("match")
-        .select_related("root_page")
-    )
+                match_rank = MATCH_DEFAULT
+            elif site.hostname == hostname:
+                match_rank = MATCH_HOSTNAME
 
-    if sites:
+            if match_rank is not None:
+                site.match = match_rank
+                suitable_sites.append(site)
+
+        suitable_sites.sort(key=lambda x: (x.match, x.hostname.lower()))
+    else:
+        # NOTE: Where we cannot use cached site data, a well-optimised query
+        # that retreives only the items we're interested in is preferable
+        suitable_sites = list(
+            Site.objects.annotate(
+                match=Case(
+                    # annotate the results by best choice descending
+                    # put exact hostname+port match first
+                    When(hostname=hostname, port=port, then=MATCH_HOSTNAME_PORT),
+                    # then put hostname+default (better than just hostname or just default)
+                    When(
+                        hostname=hostname,
+                        is_default_site=True,
+                        then=MATCH_HOSTNAME_DEFAULT,
+                    ),
+                    # then match default with different hostname. there is only ever
+                    # one default, so order it above (possibly multiple) hostname
+                    # matches so we can use sites[0] below to access it
+                    When(is_default_site=True, then=MATCH_DEFAULT),
+                    # because of the filter below, if it's not default then its a hostname match
+                    default=MATCH_HOSTNAME,
+                    output_field=IntegerField(),
+                )
+            )
+            .filter(Q(hostname=hostname) | Q(is_default_site=True))
+            .order_by("match")
+            .select_related("root_page")
+        )
+    if suitable_sites:
         # if there's a unique match or hostname (with port or default) match
-        if len(sites) == 1 or sites[0].match in (
+        if len(suitable_sites) == 1 or suitable_sites[0].match in (
             MATCH_HOSTNAME_PORT,
             MATCH_HOSTNAME_DEFAULT,
         ):
-            return sites[0]
+            return suitable_sites[0]
 
         # if there is a default match with a different hostname, see if
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
-        if sites[0].match == MATCH_DEFAULT:
-            return sites[len(sites) == 2]
+        if suitable_sites[0].match == MATCH_DEFAULT:
+            return suitable_sites[len(suitable_sites) == 2]
 
     raise Site.DoesNotExist()
 
@@ -68,12 +123,38 @@ class SiteManager(models.Manager):
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
+    def get_all(self) -> List["Site"]:
+        """
+        Returns a list of all `Site` objects, ordered for the generation of `SiteRootPath` lists.
 
-SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
+        Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the return
+        value will be cached for the current thread.
+        """
+        caching_enabled = per_thread_site_caching_enabled()
+        if caching_enabled:
+            cached = self._get_cached_list()
+            if cached is not None:
+                return cached
 
-SITE_ROOT_PATHS_CACHE_KEY = "wagtail_site_root_paths"
-# Increase the cache version whenever the structure SiteRootPath tuple changes
-SITE_ROOT_PATHS_CACHE_VERSION = 2
+        sites = WeakRefList(
+            self.get_queryset()
+            .select_related("root_page", "root_page__locale")
+            .order_by("-root_page__url_path", "-is_default_site", "hostname")
+        )
+
+        if caching_enabled:
+            # A copy is cached to prevent mutation and creation of
+            # strong references to cached values
+            _sites_cache.value = deepcopy(sites)
+
+        return sites
+
+    def _get_cached_list(self):
+        result = getattr(_sites_cache, "value", None)
+        if result is not None:
+            # A copy is returned to prevent mutation and creation of
+            # strong references to cached values
+            return deepcopy(result)
 
 
 class Site(models.Model):
@@ -149,7 +230,6 @@ class Site(models.Model):
 
         The site will be cached via request._wagtail_site
         """
-
         if request is None:
             return None
 
@@ -202,8 +282,8 @@ class Site(models.Model):
                     }
                 )
 
-    @staticmethod
-    def get_site_root_paths():
+    @classmethod
+    def get_site_root_paths(cls) -> List[SiteRootPath]:
         """
         Return a list of `SiteRootPath` instances, most specific path
         first - used to translate url_paths into actual URLs with hostnames
@@ -215,55 +295,80 @@ class Site(models.Model):
         - `root_path` - The internal URL path of the site's home page (for example '/home/')
         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - `language_code` - The language code of the site (for example 'en')
+
+        NOTE: Unless the `WAGTAIL_PER_THREAD_SITE_CACHING` setting has been set to `False`, the
+        return value will be cached for the current thread.
         """
-        result = cache.get(
-            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
-        )
+        caching_enabled = per_thread_site_caching_enabled()
+        if caching_enabled:
+            cached_result = cls._get_cached_site_root_paths()
+            if cached_result is not None:
+                return cached_result
 
-        if result is None:
-            result = []
-
-            for site in Site.objects.select_related(
-                "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
-                            SiteRootPath(
-                                site.id,
-                                root_page.url_path,
-                                site.root_url,
-                                root_page.locale.language_code,
-                            )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
-                    result.append(
+        result = WeakRefList()
+        for site in Site.objects.get_all():
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                result.extend(
+                    [
                         SiteRootPath(
                             site.id,
-                            site.root_page.url_path,
+                            root_page.url_path,
                             site.root_url,
-                            site.root_page.locale.language_code,
+                            root_page.locale.language_code,
                         )
+                        for root_page in site.root_page.get_translations(
+                            inclusive=True
+                        ).select_related("locale")
+                    ]
+                )
+            else:
+                result.append(
+                    SiteRootPath(
+                        site.id,
+                        site.root_page.url_path,
+                        site.root_url,
+                        site.root_page.locale.language_code,
                     )
+                )
 
-            cache.set(
-                SITE_ROOT_PATHS_CACHE_KEY,
-                result,
-                3600,
-                version=SITE_ROOT_PATHS_CACHE_VERSION,
-            )
-
-        else:
-            # Convert the cache result to a list of SiteRootPath tuples, as some
-            # cache backends (e.g. Redis) don't support named tuples.
-            result = [SiteRootPath(*result) for result in result]
+        if caching_enabled:
+            # A copy is cached to prevent mutation and creation of
+            # strong references to cached values
+            _site_root_paths_cache.value = deepcopy(result)
 
         return result
 
     @staticmethod
-    def clear_site_root_paths_cache():
-        cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+    def _get_cached_site_root_paths() -> Union[List[SiteRootPath], None]:
+        result = getattr(_site_root_paths_cache, "value", None)
+        if result is not None:
+            # A copy is returned to prevent mutation and creation of
+            # strong references to cached values
+            return deepcopy(result)
+
+    @staticmethod
+    def clear_caches_for_thread():
+        """
+        A convenience method for clearing the `Site` and `SiteRootPath`
+        threadlocal caches for the current thread.
+
+        NOTE: We never attempt to clear data for other threads or processes
+        because, if they are already in the process of responding to a request
+        with a copy of the data, it could do more harm than good to change that
+        data mid-request.
+        """
+        _sites_cache.value = None
+        _site_root_paths_cache.value = None
+
+    @staticmethod
+    def refresh_caches_for_thread():
+        """
+        A convenience method for clearing and repopulating the `Site` and
+        `SiteRootPath` threadlocal caches for the current thread.
+
+        Mostly used in tests to 'warm' the cache, so that the initial
+        queries associated with site data are not counted in query
+        count assertions.
+        """
+        Site.clear_caches_for_thread()
+        Site.get_site_root_paths()

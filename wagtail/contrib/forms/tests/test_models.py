@@ -12,7 +12,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_redirect,
     make_types_test_form_page,
 )
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
@@ -28,6 +28,9 @@ class TestFormSubmission(TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_get_form(self):
         response = self.client.get("/contact-us/")
@@ -209,6 +212,9 @@ class TestFormWithCustomSubmission(WagtailTestUtils, TestCase):
         self.form_page = make_form_page_with_custom_submission()
 
         self.user = self.login()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_get_form(self):
         response = self.client.get("/contact-us/")
@@ -436,6 +442,9 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
         # Create a form page
         self.form_page = make_form_page(to_address="to@email.com, another@email.com")
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_invalid_to_address(self):
         with self.assertRaises(ValidationError):
             make_form_page(to_address="not an email")
@@ -489,6 +498,9 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(
 
         self.user = self.login()
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_post_valid_form(self):
         response = self.client.post(
             "/contact-us/",
@@ -534,6 +546,9 @@ class TestFormWithRedirect(TestCase):
         self.form_page = make_form_page_with_redirect(
             to_address="to@email.com, another@email.com"
         )
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_post_valid_form(self):
         response = self.client.post(
@@ -592,6 +607,8 @@ class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
             field_type="ipaddress",
             required=True,
         )
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_get_form(self):
         response = self.client.get("/support-request/")
@@ -677,6 +694,9 @@ class TestCleanedDataEmails(TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_types_test_form_page()
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_empty_field_presence(self):
         self.client.post("/contact-us/", {})

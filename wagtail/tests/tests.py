@@ -1,5 +1,3 @@
-import json
-
 from django import template
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -15,24 +13,18 @@ from wagtail.coreutils import (
     make_wagtail_template_fragment_key,
     resolve_model_string,
 )
-from wagtail.models import Locale, Page, Site, SiteRootPath
-from wagtail.models.sites import (
-    SITE_ROOT_PATHS_CACHE_KEY,
-    SITE_ROOT_PATHS_CACHE_VERSION,
-)
+from wagtail.models import Page, Site
 from wagtail.templatetags.wagtail_cache import WagtailPageCacheNode
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
-from wagtail.test.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        # With the site data caches populated, url methods should require far fewer queries
         super().setUp()
-
-        # Clear caches
-        cache.clear()
+        Site.refresh_caches_for_thread()
 
     def test_pageurl_tag(self):
         response = self.client.get("/events/")
@@ -101,7 +93,7 @@ class TestPageUrlTags(TestCase):
         )
 
         # no 'request' object in context
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -109,22 +101,6 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(
             template.Context({"page": page, "request": get_dummy_request()})
         )
-        self.assertIn('<a href="/events/">Events</a>', result)
-
-    def test_pageurl_caches(self):
-        page = Page.objects.get(url_path="/home/events/")
-        tpl = template.Template(
-            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>"""
-        )
-
-        request = get_dummy_request()
-
-        with self.assertNumQueries(8):
-            result = tpl.render(template.Context({"page": page, "request": request}))
-        self.assertIn('<a href="/events/">Events</a>', result)
-
-        with self.assertNumQueries(0):
-            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
@@ -137,7 +113,7 @@ class TestPageUrlTags(TestCase):
         # 'request' object in context, but site is None
         request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -201,7 +177,7 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, "/events/")
 
         # 'request' object in context, but no 'site' attribute
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(1):
             result = slugurl(
                 template.Context({"request": get_dummy_request()}), "events"
             )
@@ -220,7 +196,7 @@ class TestPageUrlTags(TestCase):
             """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
         )
         page = Page.objects.get(url_path="/home/events/")
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(0):
             result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="http://localhost/events/">Events</a>', result)
 
@@ -276,212 +252,6 @@ class TestWagtailSiteTag(TestCase):
         result = tpl.render(template.Context({}))
         # should fail silently
         self.assertEqual("", result)
-
-
-class TestSiteRootPathsCache(TestCase):
-    fixtures = ["test.json"]
-
-    def get_cached_site_root_paths(self):
-        return cache.get(
-            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
-        )
-
-    def test_cache(self):
-        """
-        This tests that the cache is populated when building URLs
-        """
-        # Get homepage
-        homepage = Page.objects.get(url_path="/home/")
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Check that the cache has been set correctly
-        self.assertEqual(
-            self.get_cached_site_root_paths(),
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-    def test_cache_backend_uses_json_serialization(self):
-        """
-        This tests that, even if the cache backend uses JSON serialization,
-        get_site_root_paths() returns a list of SiteRootPath objects.
-        """
-        result = Site.get_site_root_paths()
-
-        self.assertEqual(
-            result,
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-        # Go through JSON (de)serialisation to check that the result is
-        # still a list of named tuples.
-        cache.set(
-            SITE_ROOT_PATHS_CACHE_KEY,
-            json.loads(json.dumps(result)),
-            version=SITE_ROOT_PATHS_CACHE_VERSION,
-        )
-
-        result = Site.get_site_root_paths()
-        self.assertIsInstance(result[0], SiteRootPath)
-
-    def test_cache_clears_when_site_saved(self):
-        """
-        This tests that the cache is cleared whenever a site is saved
-        """
-        # Get homepage
-        homepage = Page.objects.get(url_path="/home/")
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Check that the cache has been set
-        self.assertEqual(
-            self.get_cached_site_root_paths(),
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-        # Save the site
-        Site.objects.get(is_default_site=True).save()
-
-        # Check that the cache has been cleared
-        self.assertIsNone(self.get_cached_site_root_paths())
-
-    def test_cache_clears_when_site_deleted(self):
-        """
-        This tests that the cache is cleared whenever a site is deleted
-        """
-        # Get homepage
-        homepage = Page.objects.get(url_path="/home/")
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Check that the cache has been set
-        self.assertEqual(
-            self.get_cached_site_root_paths(),
-            [
-                SiteRootPath(
-                    site_id=1,
-                    root_path="/home/",
-                    root_url="http://localhost",
-                    language_code="en",
-                )
-            ],
-        )
-
-        # Delete the site
-        Site.objects.get(is_default_site=True).delete()
-
-        # Check that the cache has been cleared
-        self.assertIsNone(self.get_cached_site_root_paths())
-
-    def test_cache_clears_when_site_root_moves(self):
-        """
-        This tests for an issue where if a site root page was moved, all
-        the page urls in that site would change to None.
-
-        The issue was caused by the 'wagtail_site_root_paths' cache
-        variable not being cleared when a site root page was moved. Which
-        left all the child pages thinking that they are no longer in the
-        site and return None as their url.
-
-        Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/wagtail/wagtail/issues/7
-        """
-        # Get homepage, root page and site
-        root_page = Page.objects.get(id=1)
-        homepage = Page.objects.get(url_path="/home/")
-        default_site = Site.objects.get(is_default_site=True)
-
-        # Create a new homepage under current homepage
-        new_homepage = SimplePage(
-            title="New Homepage", slug="new-homepage", content="hello"
-        )
-        homepage.add_child(instance=new_homepage)
-
-        # Set new homepage as the site root page
-        default_site.root_page = new_homepage
-        default_site.save()
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Move new homepage to root
-        new_homepage.move(root_page, pos="last-child")
-
-        # Get fresh instance of new_homepage
-        new_homepage = Page.objects.get(id=new_homepage.id)
-
-        # Check url
-        self.assertEqual(new_homepage.url, "/")
-
-    def test_cache_clears_when_site_root_slug_changes(self):
-        """
-        This tests for an issue where if a site root pages slug was
-        changed, all the page urls in that site would change to None.
-
-        The issue was caused by the 'wagtail_site_root_paths' cache
-        variable not being cleared when a site root page was changed.
-        Which left all the child pages thinking that they are no longer in
-        the site and return None as their url.
-
-        Fix: d6cce69a397d08d5ee81a8cbc1977ab2c9db2682
-        Discussion: https://github.com/wagtail/wagtail/issues/157
-        """
-        # Get homepage
-        homepage = Page.objects.get(url_path="/home/")
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Change homepage title and slug
-        homepage.title = "New home"
-        homepage.slug = "new-home"
-        homepage.save()
-
-        # Get fresh instance of homepage
-        homepage = Page.objects.get(id=homepage.id)
-
-        # Check url
-        self.assertEqual(homepage.url, "/")
-
-    @override_settings(WAGTAIL_I18N_ENABLED=True)
-    def test_cache_clears_when_site_root_is_translated_as_alias(self):
-        # Get homepage
-        homepage = Page.objects.get(url_path="/home/")
-
-        # Warm up the cache by getting the url
-        _ = homepage.url
-
-        # Translate the homepage
-        translated_homepage = homepage.copy_for_translation(
-            Locale.objects.create(language_code="fr"), alias=True
-        )
-
-        # Check url
-        self.assertEqual(translated_homepage.url, "/")
 
 
 class TestResolveModelString(TestCase):

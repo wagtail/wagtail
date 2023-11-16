@@ -28,6 +28,9 @@ class TestRoutablePage(TestCase):
             )
         )
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_resolve_index_route_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage("/")
 
@@ -254,6 +257,9 @@ class TestRoutablePageTemplateTag(TestCase):
         self.request = self.rf.get(self.routable_page.url)
         self.context = {"request": self.request}
 
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
+
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page, "index_route")
         self.assertEqual(url, "/%s/" % self.routable_page.slug)
@@ -341,6 +347,9 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.context = {"request": self.request}
         self.request.META["HTTP_HOST"] = second_site.hostname
         self.request.META["SERVER_PORT"] = second_site.port
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page, "index_route")
@@ -431,6 +440,9 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
 
         self.request.META["HTTP_HOST"] = second_site.hostname
         self.request.META["SERVER_PORT"] = second_site.port
+
+        # Avoid sharing of cached Site and SiteRootPath values between tests
+        Site.clear_caches_for_thread()
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page, "index_route")

@@ -216,3 +216,73 @@ class TestGetSiteRootPaths(TestCase):
         # Followed by entries for others in 'host' alphabetical order
         self.assertEqual(result[1][0], self.abc_site.id)
         self.assertEqual(result[2][0], self.def_site.id)
+
+
+class TestSiteCache(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+        # Tests run in a shared thread, and loading of fixture data does not
+        # trigger clearing of threadlocal caches. So, we manually clear them
+        # here, so that cached site/root path values always reflect the data
+        # in the fixture
+        Site.clear_caches_for_thread()
+
+    def test_cache(self):
+        # The cache should be empty to start with
+        self.assertIsNone(Site.objects._get_cached_list())
+
+        # Requesting the list should result in a database query
+        with self.assertNumQueries(1):
+            value = Site.objects.get_all()
+
+        # Check return value matches expectations
+        self.assertEqual(
+            value,
+            list(
+                Site.objects.order_by(
+                    "-root_page__url_path", "-is_default_site", "hostname"
+                )
+            ),
+        )
+
+        # Requesting again should return the cached value
+        with self.assertNumQueries(0):
+            second_value = Site.objects.get_all()
+
+        # Return values should be equal, but should NOT be the same object
+        self.assertEqual(value, second_value)
+        self.assertIsNot(value, second_value)
+
+    def test_cache_clears_when_site_saved(self):
+        """
+        This tests that the cache is cleared whenever a site is saved
+        """
+        # Trigger cache population
+        Site.objects.get_all()
+
+        # Check cache was populated
+        self.assertIsNotNone(Site.objects._get_cached_list())
+
+        # Save a site
+        Site.objects.get(is_default_site=True).save()
+
+        # Check the cache was cleared
+        self.assertIsNone(Site.objects._get_cached_list())
+
+    def test_cache_clears_when_site_deleted(self):
+        """
+        This tests that the cache is cleared whenever a site is deleted
+        """
+        # Trigger cache population
+        Site.objects.get_all()
+
+        # Check cache was populated
+        self.assertIsNotNone(Site.objects._get_cached_list())
+
+        # Delete a site
+        Site.objects.get(is_default_site=True).delete()
+
+        # Check the cache was cleared
+        self.assertIsNone(Site.objects._get_cached_list())
