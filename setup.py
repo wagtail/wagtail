@@ -70,7 +70,7 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
-    "pyenchant>=3.1.1,<4",
+    "pyenchant>=3.1.1,<4"
     "sphinxcontrib-spelling>=5.4.0,<6",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",

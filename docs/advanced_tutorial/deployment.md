@@ -121,8 +121,8 @@ Now, use your `keyID` as the value of `AWS_S3_ACCESS_KEY_ID` and `applicationKey
 
 | Environment variable | Instruction |
 | -------- | ------- |
-| AWS_S3_ACCESS_KEY_ID | Use your keyID |
-| AWS_S3_SECRET_ACCESS_KEY | Use your applicationKey |
+| AWS_S3_ACCESS_KEY_ID | Use your **keyID** |
+| AWS_S3_SECRET_ACCESS_KEY | Use your **applicationKey** |
 
 At this stage, the content of your `.env.production` file looks like this:
 
@@ -457,6 +457,8 @@ Ensure you replace _username_, _mail@example.com_, and _password_ with a usernam
 
 For more information on how to set up your Django project on Fly.io, read [Django on Fly.io](https://fly.io/docs/django/).
 
+## Add content to your live site
+
 All this while, you've been adding content to your site in the local environment. Now that your site is live on a server, you must add content to the live site. To add content to your live site, go to ` https://yourname-wagtail-portfolio.fly.dev/admin/` in your browser and follow the steps in the following sub-sections of the tutorial:
 
 - [Add content to your homepage](add_content_to_your_homepage)
@@ -465,3 +467,13 @@ All this while, you've been adding content to your site in the local environment
 - [Add pages to your site menu](add_pages_to_your_site_menu)
 - [Add your contact information]()
 - [Add your resume](add_your_resume)
+
+```{note}
+If you encounter errors while trying to access your live site in your browser, check your application logs in your Fly.io Dashboard. To check your application logs, click **Dashboard > Apps > yourname-wagtail-portfolio > Monitoring**
+```
+
+## Where next
+
+-   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
+-   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
+-   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)

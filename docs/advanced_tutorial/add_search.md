@@ -60,15 +60,15 @@ Now, let's explain the customizations you made in the preceding template:
 
 1. You used `<p>You searched{% if search_query %} for “{{ search_query }}”{% endif %}, {{ search_results.paginator.count }} result{{ search_results.paginator.count|pluralize }} found.</p>` to display the search query, the number of results found. You also used it to display the plural form of "result" if more than one search result is found.
 
-2. You replaced the `<ul>` HTML element with the `<ol>` HTML element. The <ol> HTML element contains a loop iterating through each search result and displaying them as list items. Using `<ol>` makes gives you numbered search results.
+2. You replaced the `<ul>` HTML element with the `<ol>` HTML element. The `<ol>` HTML element contains a loop iterating through each search result and displaying them as list items. Using `<ol>` gives you numbered search results.
 
-3. You improved the pagination in the template. `{% if search_results.paginator.num_pages > 1 %}` checks if there is more than one page of search results. If there is more than one page of search results, it displays the current page number, the total number of pages, the number of results on the current page, and the total number of results.
-
-`{% if search_results.has_previous %} and {% if search_results.has_next %}` checks if there are previous and next pages of search results. If they exist, it displays "Previous" and "Next" links with appropriate URLs for pagination.
+3. You improved the pagination in the template. `{% if search_results.paginator.num_pages > 1 %}` checks if there is more than one page of search results. If there is more than one page of search results, it displays the current page number, the total number of pages, the number of results on the current page, and the total number of results. `{% if search_results.has_previous %} and {% if search_results.has_next %}` checks if there are previous and next pages of search results. If they exist, it displays "Previous" and "Next" links with appropriate URLs for pagination.
 
 Now, you want to display your search across your site. One way to do this is to add it to your header. Go to your `mysite/templates/includes/header.html` file and modify it as follows:
 
 ```html+django
+{% load wagtailcore_tags navigation_tags wagtailuserbar %}
+
 <header>
     <a href="#main" class="skip-link">Skip to content</a>
     {% get_site_root as site_root %}
