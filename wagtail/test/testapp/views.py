@@ -58,7 +58,6 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 
 class TestIndexView(IndexView):
-
     model = ModelWithStringTypePrimaryKey
     index_url_name = "testapp_generic_index"
     template_name = "tests/generic_view_templates/index.html"
@@ -73,7 +72,6 @@ class CustomModelEditForm(forms.ModelForm):
 
 
 class TestEditView(EditView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/edit.html"
@@ -87,7 +85,6 @@ class TestEditView(EditView):
 
 
 class TestDeleteView(DeleteView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/delete.html"

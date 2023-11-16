@@ -297,7 +297,6 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 def collection_member_permission_formset_factory(
     model, permission_types, template, default_prefix=None
 ):
-
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
         codename__in=[

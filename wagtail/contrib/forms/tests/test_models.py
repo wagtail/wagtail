@@ -567,7 +567,6 @@ class TestFormWithRedirect(TestCase):
 
 class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
     def setUp(self):
-
         home_page = Page.objects.get(url_path="/home/")
         form_page = home_page.add_child(
             instance=FormPageWithCustomFormBuilder(

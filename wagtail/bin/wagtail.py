@@ -221,7 +221,7 @@ class UpdateModulePaths(Command):
         checked_file_count = 0
         changed_file_count = 0
 
-        for (dirpath, dirnames, filenames) in os.walk(root_path):
+        for dirpath, dirnames, filenames in os.walk(root_path):
             dirpath_with_slash = os.path.abspath(dirpath) + os.sep
             if any(
                 dirpath_with_slash.startswith(ignored_dir)

@@ -491,9 +491,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         )
         if not negated:
             index_entries = index_entries.filter(match_expression)
-            if (
-                self.order_by_relevance
-            ):  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
+            if self.order_by_relevance:  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
                 index_entries = index_entries.order_by(score_expression.desc())
         else:
             index_entries = index_entries.exclude(match_expression)

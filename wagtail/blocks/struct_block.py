@@ -155,9 +155,7 @@ class BaseStructBlock(Block):
         )
 
     def clean(self, value):
-        result = (
-            []
-        )  # build up a list of (name, value) tuples to be passed to the StructValue constructor
+        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
@@ -180,7 +178,7 @@ class BaseStructBlock(Block):
                         child_block.to_python(value[name])
                         if name in value
                         else child_block.get_default()
-                    )
+                    ),
                     # NB the result of get_default is NOT passed through to_python, as it's expected
                     # to be in the block's native type already
                 )

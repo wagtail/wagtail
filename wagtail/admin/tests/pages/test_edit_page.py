@@ -1856,7 +1856,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
-            for (index, item) in enumerate(menu_items):
+            for index, item in enumerate(menu_items):
                 if item.name == "action-publish":
                     # move to top of list
                     menu_items.pop(index)

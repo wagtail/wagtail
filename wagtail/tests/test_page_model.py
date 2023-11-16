@@ -1385,7 +1385,6 @@ class TestCopyPage(TestCase):
         )
 
     def test_copy_page_with_process_child_object_supplied(self):
-
         # We'll provide this when copying and test that it gets called twice:
         # Once for the single speaker, and another for the single advert_placement
         modify_child = Mock()

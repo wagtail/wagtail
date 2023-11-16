@@ -38,7 +38,7 @@ class TestCamelCaseToUnderscore(TestCase):
             ("longValueWithVarious subStrings", "long_value_with_various sub_strings"),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(camelcase_to_underscore(original), expected_result)
 
 
@@ -59,7 +59,7 @@ class TestStringToAscii(TestCase):
             ("〔山脈〕", "[ShanMai]"),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(string_to_ascii(original), expected_result)
 
 
@@ -78,7 +78,7 @@ class TestCautiousSlugify(TestCase):
             ("Hello☃world", "helloworld"),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(slugify(original), expected_result)
             self.assertEqual(cautious_slugify(original), expected_result)
 
@@ -89,7 +89,7 @@ class TestCautiousSlugify(TestCase):
             ("〔山脈〕", "u5c71u8108"),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(cautious_slugify(original), expected_result)
 
 
@@ -118,7 +118,7 @@ class TestSafeSnakeCase(TestCase):
             ),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(safe_snake_case(original), expected_result)
 
     def test_strings_with__non_latin_chars(self):
@@ -127,7 +127,7 @@ class TestSafeSnakeCase(TestCase):
             ("Сп орт!", "u0421u043f_u043eu0440u0442"),
         ]
 
-        for (original, expected_result) in test_cases:
+        for original, expected_result in test_cases:
             self.assertEqual(safe_snake_case(original), expected_result)
 
 

@@ -740,7 +740,6 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         self.assertEqual(image.collection, evil_plans_collection)
 
     def test_add_with_selected_collection(self):
-
         root_collection = Collection.get_first_root_node()
         collection = root_collection.add_child(name="Travel pics")
 
