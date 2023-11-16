@@ -7,6 +7,7 @@
 # Diogo Gomes, 2021
 # Diogo Gomes, 2021
 # Diogo Silva <diogo_silva30@hotmail.com>, 2021
+# Felipe Lobato, 2023
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
@@ -20,8 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
-"<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,9 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
@@ -70,6 +73,15 @@ msgstr "Este bloco não tem opções."
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail mapa do site"
+
+msgid "Unknown content type"
+msgstr "Tipo de conteúdo não conhecido"
+
 msgid "Password"
 msgstr "Senha"
 
@@ -81,6 +93,11 @@ msgstr "Comentar"
 
 msgid "Locked"
 msgstr "Bloqueado"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Ninguém pode fazer mudanças enquanto o %(model_name)s estiver bloqueado"
 
 msgid "Unlocked"
 msgstr "Desbloqueada"

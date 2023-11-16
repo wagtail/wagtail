@@ -4,6 +4,7 @@
 #
 # Translators:
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Felipe Lobato, 2023
 # Hugo Cachitas, 2020
 # Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
@@ -20,8 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, "
-"2015-2016,2022-2023\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -299,6 +299,9 @@ msgstr "Selecionar todos os utilizadores da listagem"
 msgid "Username"
 msgstr "Utilizador"
 
+msgid "Access level"
+msgstr "Level de acesso"
+
 msgid "Status"
 msgstr "Estado"
 
@@ -366,6 +369,9 @@ msgstr[0] "%(num_parent_objects)d utilizador foi apagado"
 msgstr[1] "%(num_parent_objects)d utilizadores foram apagados"
 msgstr[2] "%(num_parent_objects)d utilizadores foram apagados"
 
+msgid "Mark as active"
+msgstr "Marcar como ativo"
+
 msgid "Change the active state for selected users"
 msgstr "Alterar o estado ativo dos utilizadores selecionados"
 
@@ -414,6 +420,10 @@ msgid "Users"
 msgstr "Utilizadores"
 
 #, python-format
+msgid "User '%(object)s' created."
+msgstr "Usuário '%(object)s' criado."
+
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utilizador '%(object)s' atualizado."
 
@@ -426,3 +436,11 @@ msgstr "Utilizador '%(object)s' apagado."
 
 msgid "Edit"
 msgstr "Alterar"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Editar usuário '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Deletar usuário '%(name)s'"

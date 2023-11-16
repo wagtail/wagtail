@@ -4,6 +4,7 @@
 #
 # Translators:
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Felipe Lobato, 2023
 # Jose Lourenco <jose@lourenco.ws>, 2015
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
@@ -16,8 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
-"<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,9 @@ msgstr "%(label)s e Publicar"
 
 msgid "Wagtail snippets"
 msgstr "Trechos Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Deletar os itens selecionados"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
