@@ -2,7 +2,6 @@ import datetime
 
 import django_filters
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 
@@ -11,11 +10,7 @@ from wagtail.models import Page
 from wagtail.permission_policies.pages import PagePermissionPolicy
 
 from .base import PageReportView
-
-
-def get_users_for_filter():
-    User = get_user_model()
-    return User.objects.filter(locked_pages__isnull=False).order_by(User.USERNAME_FIELD)
+from .utils import get_users_for_filter
 
 
 class LockedPagesReportFilterSet(WagtailFilterSet):

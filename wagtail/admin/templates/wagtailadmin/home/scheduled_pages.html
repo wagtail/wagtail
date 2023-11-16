@@ -1,0 +1,64 @@
+{% load i18n wagtailadmin_tags %}
+{% load wagtailcore_tags %}
+
+{% if pages_to_be_scheduled %}
+    {% trans "Your scheduled pages" as heading %}
+    {% panel id="scheduled-pages" heading=heading %}
+        <table class="listing">
+            <col />
+            <col width="30%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <tbody>
+                {% for page in pages_to_be_scheduled %}
+                    {% page_permissions page as page_perms %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <div class="title-wrapper">
+                                {% if page_perms.can_publish %}
+                                    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.specific_deferred.get_admin_display_title }}</a>
+                                {% elif page.is_previewable %}
+                                    <a href="{% url 'wagtailadmin_pages:preview_for_moderation' id %}" title="{% trans 'Preview this page' %}">{{ page.specific_deferred.get_admin_display_title }}</a>
+                                {% else %}
+                                    {{ page.specific_deferred.get_admin_display_title }}
+                                {% endif %}
+
+                                {% i18n_enabled as show_locale_labels %}
+                                {% if show_locale_labels and page.locale_id %}
+                                    {% locale_label_from_id page.locale_id as locale_label %}
+                                    {% status locale_label classname="w-status--label" %}
+                                {% endif %}
+                                {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                            </div>
+                        </td>
+                        <td class="type" valign="top">
+                            {{ page.content_type.model_class.get_verbose_name }}
+                        </td>
+                        <td class="type" valign="top">
+                            {% with user=page.latest_revision.user %}
+                                {% avatar user=user size="small" %}
+                                <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+                            {% endwith %}
+                        </td>
+                        <td class="type" valign="top">
+                            {% if page.latest_revision.approved_go_live_at %}
+                                {% trans "Goes live" %}
+                            {% elif page.expire_at %}
+                                {% trans "Expires" %}
+                            {% endif %}
+                        </td>
+                        <td class="type" valign="top">
+                            {% if page.latest_revision.approved_go_live_at %}
+                                {{ page.latest_revision.approved_go_live_at }}
+                            {% elif page.expire_at %}
+                                {{ page.expire_at }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpanel %}
+{% endif %}

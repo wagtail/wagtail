@@ -19,6 +19,7 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
+from wagtail.admin.views.reports.scheduled_pages import get_scheduled_pages_for_user
 from wagtail.models import (
     Page,
     Revision,
@@ -284,6 +285,25 @@ class RecentEditsPanel(Component):
         return context
 
 
+class ScheduledPagesPanel(Component):
+    name = "scheduled_pages"
+    template_name = "wagtailadmin/home/scheduled_pages.html"
+    order = 200
+
+    def get_context_data(self, parent_context):
+        request = parent_context["request"]
+        context = super().get_context_data(parent_context)
+
+        if not getattr(settings, "WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED", True):
+            return context
+
+        context["pages_to_be_scheduled"] = get_scheduled_pages_for_user(request.user)[
+            :5
+        ]
+        context["request"] = request
+        return context
+
+
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
     template_name = "wagtailadmin/home.html"
@@ -315,6 +335,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
             # Disabled until a release warrants the banner.
             # WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
+            ScheduledPagesPanel(),
             WorkflowObjectsToModeratePanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),

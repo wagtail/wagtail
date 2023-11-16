@@ -1,0 +1,30 @@
+{% extends "wagtailadmin/reports/listing/_list_page_report.html" %}
+
+{% load i18n wagtailadmin_tags %}
+
+{% block extra_columns %}
+    <th>{% trans 'Scheduled by' %}</th>
+    <th>{% trans 'Schedule' %}</th>
+{% endblock %}
+
+
+{% block extra_page_data %}
+    <td valign="top">
+        {% with user=page.get_latest_revision.user %}
+            {% avatar user=user size="small" %}
+            <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+        {% endwith %}
+    </td>
+    <td valign="top">
+        {% page_permissions page as perms %}
+        <p>
+            <b>
+                {% if page.scheduled_revision.approved_go_live_at %}
+                    {% trans "Goes live" %} {{ page.scheduled_revision.approved_go_live_at|date:"DATETIME_FORMAT" }}
+                {% elif page.expire_at %}
+                    {% trans "Expires" %} {{ page.expire_at|date:"DATETIME_FORMAT" }}
+                {% endif %}
+            </b>
+        </p>
+    </td>
+{% endblock %}

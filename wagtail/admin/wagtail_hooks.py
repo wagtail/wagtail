@@ -874,6 +874,15 @@ class AgingPagesReportMenuItem(MenuItem):
         )
 
 
+class ScheduledPagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return getattr(
+            settings, "WAGTAIL_SCHEDULED_PAGES_REPORT_ENABLED", True
+        ) and PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
+
+
 @hooks.register("register_reports_menu_item")
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
@@ -926,6 +935,16 @@ def register_aging_pages_report_menu_item():
         name="aging-pages",
         icon_name="time",
         order=1100,
+    )
+
+
+@hooks.register("register_reports_menu_item")
+def register_scheduled_pages_menu_item():
+    return ScheduledPagesMenuItem(
+        _("Scheduled pages"),
+        reverse("wagtailadmin_reports:scheduled_pages"),
+        icon_name="time",
+        order=700,
     )
 
 
