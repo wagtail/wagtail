@@ -44,18 +44,31 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
             response.content.decode(),
         )
 
-        self.page = Page.objects.first()
-        self.page.locked = True
-        self.page.locked_by = self.user
-        self.page.locked_at = timezone.now()
-        self.page.save()
+        parent_page = Page.objects.first()
+        parent_page.add_child(
+            instance=Page(
+                title="First locked page",
+                locked=True,
+                locked_by=self.user,
+                locked_at=timezone.now(),
+            )
+        )
+        parent_page.add_child(
+            instance=Page(
+                title="Second locked page",
+                locked=True,
+                locked_by=self.user,
+                locked_at=timezone.now(),
+            )
+        )
 
         # Now the listing should contain our locked page
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
         self.assertNotContains(response, "No locked pages found.")
-        self.assertContains(response, self.page.title)
+        self.assertContains(response, "First locked page")
+        self.assertContains(response, "Second locked page")
 
         self.assertInHTML(
             f"""
@@ -198,6 +211,12 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.unpublished_page.locked_at = timezone.now()
         self.unpublished_page.save()
 
+        self.christmas_page = Page.objects.get(url_path="/home/events/christmas/")
+        self.christmas_page.locked = True
+        self.christmas_page.locked_by = self.user
+        self.christmas_page.locked_at = timezone.now()
+        self.christmas_page.save()
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
 
@@ -206,16 +225,19 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Tentative Unpublished Event")
         self.assertContains(response, "My locked page")
+        self.assertContains(response, "Christmas")
 
         response = self.get(params={"live": "false"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Tentative Unpublished Event")
         self.assertNotContains(response, "My locked page")
+        self.assertNotContains(response, "Christmas")
 
     def test_filter_by_user(self):
         response = self.get(params={"locked_by": self.user.pk})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Tentative Unpublished Event")
+        self.assertContains(response, "Christmas")
         self.assertNotContains(response, "My locked page")
 
 
