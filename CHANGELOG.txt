@@ -15,6 +15,7 @@ Changelog
  * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
  * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
  * Fix: Prevent snippet permission post-migrate hook from failing on multiple database configurations (Joe Tsoi)
+ * Fix: Reinstate ability to filter on page type when searching on an empty query (Sage Abdullah)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
