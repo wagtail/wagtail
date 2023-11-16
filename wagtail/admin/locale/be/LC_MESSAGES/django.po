@@ -714,6 +714,9 @@ msgstr "Наступная"
 msgid "This page is protected from public view"
 msgstr "Гэтая старонка ахоўваецца публічнага прагляду"
 
+msgid "Confirm"
+msgstr "Пацвярджэнне "
+
 msgid "Add child page"
 msgstr "Дадаць даччыную старонку"
 

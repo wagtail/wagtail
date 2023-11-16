@@ -36,6 +36,9 @@ msgstr "Адмяніць публікацыю"
 msgid "Copy"
 msgstr "Скапіяваць"
 
+msgid "image"
+msgstr "маляванне"
+
 msgid "Continue"
 msgstr "Працягнуць"
 

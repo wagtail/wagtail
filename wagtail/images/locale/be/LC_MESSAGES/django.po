@@ -21,8 +21,14 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Wagtail images"
+msgstr "Малявання Wagtail "
+
 msgid "Collection"
 msgstr "Калекцыя"
+
+msgid "Format"
+msgstr "Фармат"
 
 msgid "Alt text"
 msgstr "Тэкст падказкі"
@@ -69,6 +75,15 @@ msgstr "Запампована карыстальнікам"
 msgid "tags"
 msgstr "Тэгі"
 
+msgid "image"
+msgstr "маляванне"
+
+msgid "images"
+msgstr "Малявання"
+
+msgid "Delete images"
+msgstr "Выдаліць малявання"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -89,6 +104,9 @@ msgstr "Новы"
 msgid "Choose a format"
 msgstr "Выбраць фармат"
 
+msgid "Add image"
+msgstr "Дабавіць маляванне"
+
 msgid "Save"
 msgstr "Захаваць"
 
@@ -106,6 +124,9 @@ msgstr "Файл не знойдзены"
 
 msgid "Usage"
 msgstr "Выкарыстоўванне"
+
+msgid "Images"
+msgstr "Малявання"
 
 #, python-format
 msgid "There is %(counter)s match"

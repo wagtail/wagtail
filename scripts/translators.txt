@@ -473,6 +473,7 @@ Daniel Carvalho <dnc331.gmail.com>
 Douglas Miranda <douglasmirandasilva.gmail.com>
 Ed Wurch <ewurch.gmail.com>
 Fabio Santos <f4bio.sa.gmail.com>
+Felipe Lobato
 Gilson Filho <me.gilsondev.in>
 Gladson <gladsonbrito.gmail.com>
 Guilherme Nabanete <neoheartz.gmail.com>
@@ -498,6 +499,7 @@ Diogo Gomes
 Diogo Ribeiro <pdcribeiro95.gmail.com>
 Diogo Silva <diogo_silva30.hotmail.com>
 Douglas Miranda <douglasmirandasilva.gmail.com>
+Felipe Lobato
 Gladson <gladsonbrito.gmail.com>
 Hugo Cachitas
 Jose Lourenco <jose.lourenco.ws>

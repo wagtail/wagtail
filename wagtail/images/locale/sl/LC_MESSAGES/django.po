@@ -47,6 +47,14 @@ msgstr ""
 
 #, python-format
 msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ni veljavno. %(extension)s slika. Končnica se ne ujema z obliko datoteke "
+"(%(image_format)s)"
+
+#, python-format
+msgid ""
 "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
 "Datoteka je prevelika (%(file_size)s). Največja dovoljena velikost je "
