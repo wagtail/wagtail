@@ -770,6 +770,7 @@
 * Joe Tsoi
 * Cassidy Pittman
 * Gunnar Scherf
+* Mariana Bedran Lesche
 
 ## Translators
 
