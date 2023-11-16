@@ -303,6 +303,6 @@ class TestBalancedReduce(SimpleTestCase):
             repr(
                 balanced_reduce(CombinedNode, ["A", "B", "C", "D", "E", "F", "G", "H"])
             ),
-            "(((A B) (C D)) ((E F) (G H)))"
+            "(((A B) (C D)) ((E F) (G H)))",
             # Note: functools.reduce will return '(((((((A B) C) D) E) F) G) H)'
         )

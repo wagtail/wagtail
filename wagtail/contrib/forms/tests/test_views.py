@@ -1602,7 +1602,6 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
-
         self.login(username="superuser", password="password")
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1759,7 +1758,6 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
 
 class TestPreview(WagtailTestUtils, TestCase):
-
     post_data = {
         "title": "Form page!",
         "content": "Some content",

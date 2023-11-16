@@ -21,7 +21,6 @@ logger = logging.getLogger(__file__)
 
 
 class ParentNodeFactory(ParameteredAttribute):
-
     EXTEND_CONTAINERS = True
     FORCE_SEQUENCE = False
     UNROLL_CONTEXT_BEFORE_EVALUATION = False
@@ -43,7 +42,6 @@ class ParentNodeFactory(ParameteredAttribute):
 
 
 class MP_NodeFactory(DjangoModelFactory):
-
     parent = ParentNodeFactory()
 
     @classmethod

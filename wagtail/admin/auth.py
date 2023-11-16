@@ -127,7 +127,6 @@ def reject_request(request):
 
 def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
-
         user = request.user
 
         if user.is_anonymous:

@@ -10,7 +10,6 @@ from .utils import Image, get_test_image_file
 
 
 class TestShortcuts(TestCase):
-
     fixtures = ["test.json"]
 
     def test_fallback_to_not_found(self):

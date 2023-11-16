@@ -253,9 +253,7 @@ def test_page_is_public(context, page):
             "request"
         ].all_page_view_restriction_paths = PageViewRestriction.objects.select_related(
             "page"
-        ).values_list(
-            "page__path", flat=True
-        )
+        ).values_list("page__path", flat=True)
 
     is_private = any(
         page.path.startswith(restricted_path)

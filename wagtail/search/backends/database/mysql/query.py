@@ -15,8 +15,7 @@ class LexemeCombinable(Expression):
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
             raise TypeError(
-                "Lexeme can only be combined with other Lexemes, "
-                "got {}.".format(type(other))
+                f"Lexeme can only be combined with other Lexemes, got {type(other)}."
             )
         if reversed:
             return CombinedLexeme(other, connector, self)
@@ -235,10 +234,13 @@ class MatchExpression(Expression):
     ) -> None:
         super().__init__(output_field=output_field)
         self.query = query
-        self.columns = columns or [
-            "title",
-            "body",
-        ]  # We need to provide a default list of columns if the user doesn't specify one. We have a joint index for for 'title' and 'body' (see wagtail.search.migrations.0006_customise_indexentry), so we'll pick that one.
+        self.columns = (
+            columns
+            or [
+                "title",
+                "body",
+            ]
+        )  # We need to provide a default list of columns if the user doesn't specify one. We have a joint index for for 'title' and 'body' (see wagtail.search.migrations.0006_customise_indexentry), so we'll pick that one.
 
     def as_sql(self, compiler, connection):
         compiled_query = compiler.compile(self.query)  # Compile the query to a string

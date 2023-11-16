@@ -6,7 +6,6 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestGenericIndexView(WagtailTestUtils, TestCase):
-
     fixtures = ["test.json"]
 
     def get(self, params={}):
@@ -26,7 +25,6 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
 
 
 class TestGenericEditView(WagtailTestUtils, TestCase):
-
     fixtures = ["test.json"]
 
     def get(self, object_pk, params={}):
@@ -63,7 +61,6 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
 
 
 class TestGenericDeleteView(WagtailTestUtils, TestCase):
-
     fixtures = ["test.json"]
 
     def get(self, object_pk, params={}):

@@ -892,7 +892,6 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         )
 
     def test_specific_query_with_annotations_performs_no_additional_queries(self):
-
         with self.assertNumQueries(5):
             pages = list(self.live_pages)
 

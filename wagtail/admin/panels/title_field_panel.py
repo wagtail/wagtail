@@ -46,7 +46,6 @@ class TitleFieldPanel(FieldPanel):
         }
 
     class BoundPanel(FieldPanel.BoundPanel):
-
         apply_actions = [
             "focus->w-sync#check",
             "blur->w-sync#apply",

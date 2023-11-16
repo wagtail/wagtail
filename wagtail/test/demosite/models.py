@@ -685,7 +685,6 @@ class FormField(AbstractFormField):
 
 
 class FormPage(AbstractForm):
-
     page_ptr = models.OneToOneField(
         Page, parent_link=True, related_name="+", on_delete=models.CASCADE
     )

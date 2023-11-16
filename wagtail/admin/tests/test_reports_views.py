@@ -107,7 +107,6 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_csv_export(self):
-
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
@@ -141,7 +140,6 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
             )
 
     def test_xlsx_export(self):
-
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user

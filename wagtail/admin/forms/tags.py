@@ -33,7 +33,6 @@ class TagField(TaggitTagField):
             self.widget.free_tagging = self.free_tagging
 
     def clean(self, value):
-
         value = super().clean(value)
 
         max_tag_length = self.tag_model.name.field.max_length

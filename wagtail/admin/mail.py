@@ -97,7 +97,6 @@ def send_notification(recipient_users, notification, extra_context):
     connection = get_connection()
 
     with OpenedConnection(connection) as open_connection:
-
         # Send emails
         sent_count = 0
         for recipient in email_recipients:
@@ -229,12 +228,10 @@ class EmailNotificationMixin:
         }
 
     def send_emails(self, template_set, context, recipients, **kwargs):
-
         connection = get_connection()
         sent_count = 0
         try:
             with OpenedConnection(connection) as open_connection:
-
                 # Send emails
                 for recipient in recipients:
                     # update context with this recipient

@@ -4936,7 +4936,6 @@ class TestSnippetChosen(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
 
     def test_choose_a_non_existing_page(self):
-
         response = self.get(999999)
         self.assertEqual(response.status_code, 404)
 
@@ -5651,7 +5650,6 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
         self.get_checks_result = get_checks_result
 
     def test_model_with_single_tabbed_panel_only(self):
-
         StandardSnippet.content_panels = [FieldPanel("text")]
 
         warning = checks.Warning(

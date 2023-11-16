@@ -4,7 +4,6 @@ from wagtail.models import Page
 
 
 class Command(BaseCommand):
-
     help = "Resets url_path fields on each page recursively"
 
     def set_subtree(self, root, parent=None):

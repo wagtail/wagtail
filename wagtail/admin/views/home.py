@@ -285,7 +285,6 @@ class RecentEditsPanel(Component):
 
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
-
     template_name = "wagtailadmin/home.html"
     page_title = gettext_lazy("Dashboard")
 

@@ -422,7 +422,6 @@ class MockCloudflareBackend(CloudflareBackend):
     }
 )
 class TestCachePurgingFunctions(TestCase):
-
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -496,7 +495,6 @@ class TestCloudflareCachePurgingFunctions(TestCase):
     }
 )
 class TestCachePurgingSignals(TestCase):
-
     fixtures = ["test.json"]
 
     def setUp(self):

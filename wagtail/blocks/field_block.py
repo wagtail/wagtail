@@ -491,7 +491,6 @@ class BaseChoiceBlock(FieldBlock):
         validators=(),
         **kwargs,
     ):
-
         self._required = required
         self._default = default
         self.search_index = search_index

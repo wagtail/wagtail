@@ -520,7 +520,6 @@ class SpecificIterable(BaseIterable):
 
         # Gather items in batches to reduce peak memory usage
         for values in self._get_chunks(values_qs):
-
             annotations_by_pk = defaultdict(list)
             if annotation_aliases:
                 # Extract annotation results keyed by pk so we can reapply to fetched items.
