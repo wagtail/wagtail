@@ -143,20 +143,19 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         if self.selected_content_type:
             pages = pages.filter(content_type=self.selected_content_type)
 
-        if self.q:
-            # Parse query and filter
-            pages, self.all_pages = page_filter_search(
-                self.q, pages, self.all_pages, self.ordering
-            )
+        # Parse query and filter
+        pages, self.all_pages = page_filter_search(
+            self.q, pages, self.all_pages, self.ordering
+        )
 
-            # Facets
-            if pages.supports_facet:
-                self.content_types = [
-                    (ContentType.objects.get(id=content_type_id), count)
-                    for content_type_id, count in self.all_pages.facet(
-                        "content_type_id"
-                    ).items()
-                ]
+        # Facets
+        if pages.supports_facet:
+            self.content_types = [
+                (ContentType.objects.get(id=content_type_id), count)
+                for content_type_id, count in self.all_pages.facet(
+                    "content_type_id"
+                ).items()
+            ]
 
         return pages
 

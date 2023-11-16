@@ -133,6 +133,9 @@ msgstr "Зберігання"
 msgid "Search"
 msgstr "Пошук"
 
+msgid "Search options…"
+msgstr "Шукати ..."
+
 msgid "See all"
 msgstr "Показати всі"
 

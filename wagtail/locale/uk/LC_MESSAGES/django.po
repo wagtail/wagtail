@@ -709,10 +709,10 @@ msgstr ""
 
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Сторінку заплановано для публікації о %(go_live_at)s"
+msgstr "Сторінку заплановано до публікації о %(go_live_at)s"
 
 msgid "Page scheduled for publishing"
-msgstr "Сторінку заплановано для публікації"
+msgstr "Сторінку заплановано до публікації"
 
 msgid "Unschedule publication"
 msgstr "Відмінити заплановану публікацію"

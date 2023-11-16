@@ -333,6 +333,14 @@ msgstr "Популярні теги:"
 msgid "Select all images in listing"
 msgstr "Обрати всі зображення у списку"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
 msgid "Select image"
 msgstr "Обрати зображення"
 

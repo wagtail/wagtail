@@ -395,6 +395,9 @@ msgstr[1] "%(num_parent_objects)d карыстальніка выдалілі"
 msgstr[2] "%(num_parent_objects)d карыстальнікаў выдалілі"
 msgstr[3] "%(num_parent_objects)d карыстальнікаў выдалілі"
 
+msgid "Mark as active"
+msgstr "Пазначыць як актыўны"
+
 msgid "Change the active state for selected users"
 msgstr "Змяніць актыўны стан для выбраных карыстальнікаў"
 
@@ -461,3 +464,11 @@ msgstr "Карыстальнік '%(object)s' выдалены."
 
 msgid "Edit"
 msgstr "Рэдактаванне"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Рэдагаваць карыстальніка '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Выдаліць карыстальніка '%(name)s'"
