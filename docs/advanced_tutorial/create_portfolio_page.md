@@ -283,7 +283,7 @@ class PortfolioStreamBlock(BaseStreamBlock):
 
 In the preceding code, `CardBlock` has three child blocks, `heading`, `text` and `image`. You are already familiar with the field block types used by the child pages.
 
-However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that allows you to have multiple sub-blocks of the same type.  You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
+However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that you can use for multiple sub-blocks of the same type.  You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
 
 Furthermore, `icon = "form"` and `icon = "folder-open-inverse"` define custom block icons to set your blocks apart in the admin interface. For more information about block icons, read the [documentation on block icons](block_icons).
 

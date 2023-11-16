@@ -49,7 +49,7 @@ In the preceding code, the `register_setting` decorator registers your `Navigati
 
 Now, migrate your database by running the commands `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You'll get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't install the [`wagtail.contrib.settings`](../reference/settings.md) module.
 
-The `wagtail.contrib.settings` module allows you to define models that hold common settings across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install `wagtail.contrib.settings`, go to your `mysite/settings/base.py` file and add `"wagtail.contrib.settings"` to the `INSTALLED_APPS` list.
+The `wagtail.contrib.settings` module defines models that hold common settings across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install `wagtail.contrib.settings`, go to your `mysite/settings/base.py` file and add `"wagtail.contrib.settings"` to the `INSTALLED_APPS` list.
 
 Also, you have to register the _settings_ context processor. Registering _settings_ context processor makes site-wide settings accessible in your templates. To register the _settings_ context processor, modify your `mysite/settings/base.py` file as follows:
 
@@ -202,15 +202,15 @@ In the preceding code, the `FooterText` class inherits from several `Mixins`, th
 
 Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixins` to your model. This is because snippets aren't Wagtail `Pages` in their own right. Wagtail `Pages` don't require `Mixins` because they already have them.
 
-`DraftStateMixin` is an abstract model that you can add to any non-page Django model to allow drafts or unpublished changes. The `DraftStateMixin` requires `RevisionMixin`.
+`DraftStateMixin` is an abstract model that you can add to any non-page Django model. You can use it for drafts or unpublished changes. The `DraftStateMixin` requires `RevisionMixin`.
 
-`RevisionMixin` is an abstract model that you can add to any non-page Django model to allow saving revisions of its instances. Every time you edit a page, Wagtail creates a new `Revision` and saves it in your database. You can use `Revision` to find the history of all the changes that you make. `Revision` also provides a place to keep new changes before they go live.
+`RevisionMixin` is an abstract model that you can add to any non-page Django model to save revisions of its instances. Every time you edit a page, Wagtail creates a new `Revision` and saves it in your database. You can use `Revision` to find the history of all the changes that you make. `Revision` also provides a place to keep new changes before they go live.
 
 `PreviewableMixin` is a `Mixin` class that you can add to any non-page Django model to preview any changes made.
 
 `TranslatableMixin` is an abstract model you can add to any non-page Django model to make it translatable.
 
-Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. The `PublishingPanel()` method allows you to schedule `revisions` in your `FooterText`.
+Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. You can use the `PublishingPanel()` method to schedule `revisions` in your `FooterText`.
 
 The `__str__` method defines a human-readable string representation of an instance of the `FooterText` class. It returns the string "Footer text".
 
@@ -259,7 +259,7 @@ def get_footer_text(context):
     }
 ```
 
-In the preceding code, you imported the `template` module, which allows you to create and render template tags and filters. Also, you imported the `FooterText` model from your `base/models.py` file.
+In the preceding code, you imported the `template` module. You can use it to create and render template tags and filters. Also, you imported the `FooterText` model from your `base/models.py` file.
 
 `register = template.Library()` creates an instance of the `Library` class from the template module. You can use this instance to register custom template tags and filters.
 
