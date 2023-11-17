@@ -1,7 +1,7 @@
 import django_filters
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.db.models import Count, OuterRef, Q, Subquery
 from django.utils.translation import gettext_lazy as _
 
@@ -9,6 +9,7 @@ from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
 from wagtail.models import ContentType, Page, Site, get_page_models
+from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.users.utils import get_deleted_user_display_name
 
 
@@ -97,11 +98,6 @@ class PageTypesUsageReportFilterSet(WagtailFilterSet):
             self.sites_filter_enabled = False
             del self.filters["site"]
 
-    # def filter_queryset(self, queryset):
-    #     queryset = super().filter_queryset(queryset)
-
-    #     return queryset
-
 
 class PageTypesUsageReportView(ReportView):
     template_name = "wagtailadmin/reports/page_types_usage.html"
@@ -170,3 +166,10 @@ class PageTypesUsageReportView(ReportView):
         queryset = queryset.order_by("-count", "app_label", "model")
 
         return queryset
+
+    def dispatch(self, request, *args, **kwargs):
+        if not PagePermissionPolicy().user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        ):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
