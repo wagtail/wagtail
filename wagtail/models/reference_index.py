@@ -2,7 +2,7 @@ import uuid
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.db import connection, models
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -336,9 +336,12 @@ class ReferenceIndex(models.Model):
                         # select the appropriate superclass if necessary, before converting back to a
                         # content type.
                         model = ContentType.objects.get_for_id(ct_value).model_class()
-                        yield cls._get_base_content_type(model).id, str(
-                            fk_value
-                        ), field.name, field.name
+                        yield (
+                            cls._get_base_content_type(model).id,
+                            str(fk_value),
+                            field.name,
+                            field.name,
+                        )
 
                     continue
 
@@ -347,9 +350,12 @@ class ReferenceIndex(models.Model):
 
                 value = field.value_from_object(object)
                 if value is not None:
-                    yield cls._get_base_content_type(field.related_model).id, str(
-                        value
-                    ), field.name, field.name
+                    yield (
+                        cls._get_base_content_type(field.related_model).id,
+                        str(value),
+                        field.name,
+                        field.name,
+                    )
 
             if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
@@ -456,6 +462,11 @@ class ReferenceIndex(models.Model):
         # Construct the set of reference records that have been found on the object but are not
         # already present in the database
         new_references = references - set(existing_references.keys())
+
+        bulk_create_kwargs = {}
+        if connection.features.supports_ignore_conflicts:
+            bulk_create_kwargs["ignore_conflicts"] = True
+
         # Create database records for those reference records
         cls.objects.bulk_create(
             [
@@ -470,14 +481,15 @@ class ReferenceIndex(models.Model):
                     content_path_hash=cls._get_content_path_hash(content_path),
                 )
                 for to_content_type_id, to_object_id, model_path, content_path in new_references
-            ]
+            ],
+            **bulk_create_kwargs,
         )
 
         # Delete removed references
         deleted_reference_ids = []
         # Look at the reference record and the supporting content_type / id for each existing
         # reference in the database
-        for (reference_data, (content_type_id, id)) in existing_references.items():
+        for reference_data, (content_type_id, id) in existing_references.items():
             if reference_data in references:
                 # Do not delete this reference, as it is still present in the new set
                 continue

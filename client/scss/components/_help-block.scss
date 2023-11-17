@@ -16,13 +16,13 @@
   }
 
   a {
-    color: theme('colors.secondary.DEFAULT');
+    color: theme('colors.secondary.400');
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
 
     &:hover {
-      color: theme('colors.secondary.400');
+      color: theme('colors.secondary.600');
       text-decoration: none;
     }
   }

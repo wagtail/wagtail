@@ -3,12 +3,20 @@
 
 {% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 
+{% block extra_css %}
+    <style>
+        .loading-mask {
+            max-height: clamp(25rem, 50vh, 50rem);
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     {% trans "Generating URL" as title_str %}
     {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
 
-    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
-        <form class="w-mb-10">
+    <div class="w-image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
+        <form class="w-image-url-generator__form w-mb-5">
             {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
             {% field_row max_content=True %}
                 {% include "wagtailadmin/shared/field.html" with field=form.width %}
@@ -17,19 +25,18 @@
             {% endfield_row %}
         </form>
 
-        {% trans "URL" as heading %}
-        {% panel id="url" icon="link" heading=heading %}
-            <textarea id="result-url" rows="1"></textarea>
-        {% endpanel %}
-
         {% trans "Preview" as heading %}
         {% panel id="preview" icon="view" heading=heading %}
-            <div>
-                <div class="loading-mask inline-block">
-                    <img class="preview" src="" alt="{% trans 'Preview' %}" />
+            <div class="w-image-url-generator__preview">
+                <div class="loading-mask w-block w-border-2 w-border-border-furniture w-overflow-scroll w-p-4 w-rounded-sm">
+                    <img class="preview w-max-w-none" src="" alt="{% trans 'Preview' %}" />
                 </div>
             </div>
-            <p id="note-size" class="help-block help-warning">{% icon name='warning' %}{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+        {% endpanel %}
+
+        {% trans "URL" as heading %}
+        {% panel id="url" icon="link" heading=heading %}
+            <textarea class="w-image-url-generator__url" id="result-url" aria-labelledby="url-heading" rows="1" data-controller="w-action" data-action="focus->w-action#select"></textarea>
         {% endpanel %}
     </div>
 {% endblock %}

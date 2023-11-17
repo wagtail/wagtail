@@ -31,6 +31,8 @@ Optionally, you may also want to add `rest_framework` to `INSTALLED_APPS`.
 This would make the API browsable when viewed from a web browser but is not
 required for basic JSON-formatted output.
 
+(api_v2_configure_endpoints)=
+
 ### Configure endpoints
 
 Next, it's time to configure which content will be exposed on the API. Each
@@ -56,7 +58,21 @@ class CustomPagesAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
     name = "pages"
 
-api_router.register_endpoint("pages", ProdPagesAPIViewSet)
+api_router.register_endpoint("pages", CustomPagesAPIViewSet)
+```
+
+Or changing the desired model to use for page results.
+
+```python
+from rest_framework.renderers import JSONRenderer
+
+# ...
+
+class PostPagesAPIViewSet(PagesAPIViewSet):
+    model = models.BlogPage
+
+
+api_router.register_endpoint("posts", PostPagesAPIViewSet)
 ```
 
 Additionally, there is a base endpoint class you can use for adding different

@@ -1,6 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-{% trans "Add an external link" as add_str %}
-{% include "wagtailadmin/shared/header.html" with title=add_str %}
+{% include "wagtailadmin/shared/header.html" with title=_("Add an external link") %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='external' %}

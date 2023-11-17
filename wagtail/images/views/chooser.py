@@ -277,7 +277,7 @@ class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin,
             {
                 "format": format.name,
                 "alt": alt_text,
-                "class": format.classnames,
+                "class": format.classname,
                 "html": format.image_to_editor_html(image, alt_text),
             }
         )

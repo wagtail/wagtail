@@ -1,5 +1,4 @@
 import types
-import warnings
 from functools import wraps
 
 import l18n
@@ -14,20 +13,6 @@ from django.utils.translation import override
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
-
-
-def users_with_page_permission(page, permission_type, include_superusers=True):
-    warnings.warn(
-        "users_with_page_permission() is deprecated. "
-        "Use wagtail.permission_policies.pages.PagePermissionPolicy."
-        "users_with_permission_for_instance() instead.",
-        category=RemovedInWagtail60Warning,
-        stacklevel=2,
-    )
-    return PagePermissionPolicy().users_with_permission_for_instance(
-        permission_type, page, include_superusers
-    )
 
 
 def permission_denied(request):
@@ -142,7 +127,6 @@ def reject_request(request):
 
 def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
-
         user = request.user
 
         if user.is_anonymous:

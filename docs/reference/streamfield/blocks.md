@@ -9,12 +9,11 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```{eval-rst}
-.. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
+.. class:: wagtail.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
    :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
-   :param use_json_field: Must be set to ``True``. This causes the field to use :class:`~django.db.models.JSONField` as its internal type, allowing the use of ``JSONField`` lookups and transforms.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
@@ -30,7 +29,12 @@ body = StreamField([
 ], block_counts={
     'heading': {'min_num': 1},
     'image': {'max_num': 5},
-}, use_json_field=True)
+})
+```
+
+```{versionchanged} 6.0
+
+The `use_json_field` argument is no longer required.
 ```
 
 ## Block options
@@ -47,6 +51,8 @@ All block definitions accept the following optional keyword arguments:
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
     -   The group used to categorise this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
+(field_block_types)=
 
 ## Field block types
 
@@ -66,6 +72,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
@@ -79,6 +86,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param rows: Number of rows to show on the textarea (defaults to 1).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -225,6 +233,7 @@ All block definitions accept the following optional keyword arguments:
     :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
     :param required: If true (the default), the field cannot be left blank.
     :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -267,6 +276,7 @@ All block definitions accept the following optional keyword arguments:
     :param choices: A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -311,6 +321,7 @@ All block definitions accept the following optional keyword arguments:
     :param choices: A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -409,7 +420,7 @@ All block definitions accept the following optional keyword arguments:
                ('photo', ImageChooserBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
-       ], use_json_field=True)
+       ])
 
 
     Alternatively, StructBlock can be subclassed to specify a reusable set of sub-blocks:
@@ -438,7 +449,7 @@ All block definitions accept the following optional keyword arguments:
            ('paragraph', blocks.RichTextBlock()),
            ('image', ImageChooserBlock()),
            ('person', PersonBlock()),
-       ], use_json_field=True)
+       ])
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -446,6 +457,7 @@ All block definitions accept the following optional keyword arguments:
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
      Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
 
@@ -460,7 +472,7 @@ All block definitions accept the following optional keyword arguments:
        body = StreamField([
            # ...
            ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
-       ], use_json_field=True)
+       ])
 
 
 
@@ -474,7 +486,7 @@ All block definitions accept the following optional keyword arguments:
                ('ingredient', blocks.CharBlock()),
                ('amount', blocks.CharBlock(required=False)),
            ]))),
-       ], use_json_field=True)
+       ])
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -482,6 +494,7 @@ All block definitions accept the following optional keyword arguments:
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
     :param min_num: Minimum number of sub-blocks that the list must have.
     :param max_num: Maximum number of sub-blocks that the list may have.
+    :param search_index: If false (default true) , the content of this block will not be indexed for searching.
     :param collapsed: When true, all sub-blocks are initially collapsed.
 
 
@@ -505,7 +518,7 @@ All block definitions accept the following optional keyword arguments:
                ],
                icon='cogs'
            )),
-       ], use_json_field=True)
+       ])
 
 
     As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
@@ -530,7 +543,6 @@ All block definitions accept the following optional keyword arguments:
         class HomePage(Page):
             carousel = StreamField(
                 CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
-                use_json_field=True
             )
 
     ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
@@ -538,6 +550,7 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
     :param min_num: Minimum number of sub-blocks that the stream must have.
     :param max_num: Maximum number of sub-blocks that the stream may have.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
     :param collapsed: When true, all sub-blocks are initially collapsed.
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
@@ -551,7 +564,7 @@ All block definitions accept the following optional keyword arguments:
                 ('hashtag', blocks.CharBlock()),
                 ('post_date', blocks.DateBlock()),
             ], form_classname='event-promotions')),
-        ], use_json_field=True)
+        ])
 
     .. code-block:: python
         :emphasize-lines: 6

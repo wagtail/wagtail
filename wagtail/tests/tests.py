@@ -520,7 +520,8 @@ class TestResolveModelString(TestCase):
         self.assertRaises(ValueError, resolve_model_string, "Page")
 
     def test_resolve_from_class_that_isnt_a_model(self):
-        self.assertRaises(ValueError, resolve_model_string, object)
+        model = resolve_model_string(object)
+        self.assertEqual(model, object)
 
     def test_resolve_from_bad_type(self):
         self.assertRaises(ValueError, resolve_model_string, resolve_model_string)

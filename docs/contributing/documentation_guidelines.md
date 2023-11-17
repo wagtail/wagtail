@@ -7,6 +7,12 @@ depth: 1
 ---
 ```
 
+(writing_style_guide)=
+
+## Writing style guide
+
+To ensure consistency in tone and language, follow the [Google developer documentation style guide](https://developers.google.com/style) when writing the Wagtail documentation.
+
 ## Formatting recommendations
 
 Wagtail’s documentation uses a mixture of [Markdown](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
@@ -19,6 +25,19 @@ It all starts here.
 Keep your sentences short, varied in length.
 
 Separate text with an empty line to create a new paragraph.
+
+### Latin phrases and abbreviations
+
+Try to avoid Latin phrases (such as `ergo` or `de facto`) and abbreviations (such as `i.e.` or `e.g.`), and use common English phrases instead. Alternatively, find a simpler way to communicate the concept or idea to the reader. The exception is `etc.` which can be used when space is limited.
+
+Examples:
+
+| Don't use this | Use this instead     |
+| -------------- | -------------------- |
+| e.g.           | for example, such as |
+| i.e.           | that is              |
+| viz.           | namely               |
+| ergo           | therefore            |
 
 ### Heading levels
 

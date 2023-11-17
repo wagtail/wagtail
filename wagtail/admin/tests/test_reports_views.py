@@ -1,5 +1,6 @@
 import datetime
 from io import BytesIO
+from unittest import mock
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
@@ -13,6 +14,7 @@ from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.admin.views.reports import page_types_usage
+from wagtail.admin.views.reports.audit_logging import LogEntriesView
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -22,6 +24,7 @@ from wagtail.models import (
     Site,
 )
 from wagtail.test.testapp.models import EventPage, EventPageSpeaker, SimplePage
+from wagtail.test.testapp.models import Advert
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -50,18 +53,31 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
             response.content.decode(),
         )
 
-        self.page = Page.objects.first()
-        self.page.locked = True
-        self.page.locked_by = self.user
-        self.page.locked_at = timezone.now()
-        self.page.save()
+        parent_page = Page.objects.first()
+        parent_page.add_child(
+            instance=Page(
+                title="First locked page",
+                locked=True,
+                locked_by=self.user,
+                locked_at=timezone.now(),
+            )
+        )
+        parent_page.add_child(
+            instance=Page(
+                title="Second locked page",
+                locked=True,
+                locked_by=self.user,
+                locked_at=timezone.now(),
+            )
+        )
 
         # Now the listing should contain our locked page
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
         self.assertNotContains(response, "No locked pages found.")
-        self.assertContains(response, self.page.title)
+        self.assertContains(response, "First locked page")
+        self.assertContains(response, "Second locked page")
 
         self.assertInHTML(
             f"""
@@ -115,7 +131,6 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_csv_export(self):
-
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
@@ -149,7 +164,6 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
             )
 
     def test_xlsx_export(self):
-
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
@@ -204,6 +218,12 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.unpublished_page.locked_at = timezone.now()
         self.unpublished_page.save()
 
+        self.christmas_page = Page.objects.get(url_path="/home/events/christmas/")
+        self.christmas_page.locked = True
+        self.christmas_page.locked_by = self.user
+        self.christmas_page.locked_at = timezone.now()
+        self.christmas_page.save()
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
 
@@ -212,16 +232,19 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Tentative Unpublished Event")
         self.assertContains(response, "My locked page")
+        self.assertContains(response, "Christmas")
 
         response = self.get(params={"live": "false"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Tentative Unpublished Event")
         self.assertNotContains(response, "My locked page")
+        self.assertNotContains(response, "Christmas")
 
     def test_filter_by_user(self):
         response = self.get(params={"locked_by": self.user.pk})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Tentative Unpublished Event")
+        self.assertContains(response, "Christmas")
         self.assertNotContains(response, "My locked page")
 
 
@@ -231,6 +254,21 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(url_path="/home/")
+        self.custom_model = Advert.objects.get(pk=1)
+
+        self.editor = self.create_user(
+            username="the_editor", email="the_editor@example.com", password="password"
+        )
+        editors = Group.objects.get(name="Editors")
+        editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page=self.home_page, permission_type="change"
+        )
+        editors.user_set.add(self.editor)
 
         self.create_log = PageLogEntry.objects.log_action(
             self.home_page, "wagtail.create"
@@ -276,11 +314,28 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
             },
         )
 
+        self.create_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.create",
+        )
+
+        self.edit_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.edit",
+        )
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:site_history"), params)
 
     def assert_log_entries(self, response, expected):
         actual = set(response.context["object_list"])
+        self.assertSetEqual(actual, set(expected))
+
+    def assert_filter_actions(self, response, expected):
+        actual = {
+            choice[0]
+            for choice in response.context["filters"].filters["action"].extra["choices"]
+        }
         self.assertSetEqual(actual, set(expected))
 
     def test_unfiltered(self):
@@ -296,6 +351,47 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.create_comment_log,
                 self.edit_comment_log,
                 self.create_reply_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
+                "wagtail.comments.create",
+                "wagtail.comments.edit",
+                "wagtail.comments.create_reply",
+            ],
+        )
+
+        # The editor should not see the Advert's log entries.
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
+                "wagtail.comments.create",
+                "wagtail.comments.edit",
+                "wagtail.comments.create_reply",
             ],
         )
 
@@ -308,10 +404,38 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"action": "wagtail.edit"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
             ],
         )
 
     def test_hide_commenting_actions(self):
+        response = self.get(params={"hide_commenting_actions": "on"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
         response = self.get(params={"hide_commenting_actions": "on"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(
@@ -351,6 +475,24 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertContains(response, "Unknown content type")
+
+    def test_decorated_queryset(self):
+        # Ensure that decorate_paginated_queryset is only called with the queryset for the current
+        # page, instead of all objects over all pages.
+        with mock.patch.object(
+            LogEntriesView,
+            "decorate_paginated_queryset",
+            side_effect=LogEntriesView.decorate_paginated_queryset,
+            autospec=True,
+        ) as decorate_paginated_queryset, mock.patch.object(
+            LogEntriesView, "paginate_by", return_value=1
+        ):
+            response = self.get()
+            decorate_paginated_queryset.assert_called_once()
+            queryset = decorate_paginated_queryset.call_args.args[1]
+            self.assertEqual(queryset.count(), 1)
+
+        self.assertEqual(response.status_code, 200)
 
 
 @override_settings(
@@ -422,8 +564,7 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
         self.user.save()
 
         response = self.get()
-        self.assertContains(response, "No pages found.")
-        self.assertNotContains(response, self.home.title)
+        self.assertEqual(response.status_code, 302)
 
     def test_csv_export(self):
         self.publish_home_page()
@@ -496,6 +637,54 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
 
         response = self.get()
         self.assertContains(response, expected_deleted_string)
+
+
+class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_no_permission(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No GroupPagePermission created
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="add",
+        )
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
 
 
 class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):

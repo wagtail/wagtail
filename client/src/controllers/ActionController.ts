@@ -34,9 +34,16 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *     <option value="/path/to/2">2</option>
  *   </select>
  * </form>
+ *
+ * @example - triggering selection of the text in a field
+ * <form>
+ *   <textarea name="url" data-controller="w-action" data-action="click->w-action#select">
+ *     This text will all be selected on focus.
+ *   </textarea>
+ * </form>
  */
 export class ActionController extends Controller<
-  HTMLButtonElement | HTMLInputElement
+  HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
 > {
   static values = {
     continue: { type: Boolean, default: false },
@@ -90,5 +97,40 @@ export class ActionController extends Controller<
     const url = event?.params?.url ?? event?.detail?.url ?? this.element.value;
     if (!url) return;
     window.location.assign(url);
+  }
+
+  /**
+   * Select all the text in an input or textarea element.
+   */
+  select() {
+    if (this.element instanceof HTMLButtonElement) return;
+    this.element?.select();
+  }
+
+  /**
+   * Reset the field to a supplied or the field's initial value (default).
+   * Only update if the value to change to is different from the current value.
+   */
+  reset(
+    event: CustomEvent<{ value?: string }> & { params?: { value?: string } },
+  ) {
+    const target = this.element;
+    const currentValue = target.value;
+
+    const { value: newValue = '' } = {
+      value: target instanceof HTMLInputElement ? target.defaultValue : '',
+      ...event?.params,
+      ...event?.detail,
+    };
+
+    if (currentValue === newValue) return;
+
+    target.value = newValue;
+    this.dispatch('change', {
+      bubbles: true,
+      cancelable: false,
+      prefix: '',
+      target,
+    });
   }
 }

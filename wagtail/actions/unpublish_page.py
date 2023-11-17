@@ -57,7 +57,6 @@ class UnpublishPageAction(UnpublishAction):
         super().execute(skip_permission_checks)
 
         if self.include_descendants:
-
             for live_descendant_page in (
                 self.object.get_descendants()
                 .live()

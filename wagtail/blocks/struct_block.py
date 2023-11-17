@@ -106,8 +106,9 @@ class PlaceholderBoundBlock(BoundBlock):
 
 
 class BaseStructBlock(Block):
-    def __init__(self, local_blocks=None, **kwargs):
+    def __init__(self, local_blocks=None, search_index=True, **kwargs):
         self._constructor_kwargs = kwargs
+        self.search_index = search_index
 
         super().__init__(**kwargs)
 
@@ -154,9 +155,7 @@ class BaseStructBlock(Block):
         )
 
     def clean(self, value):
-        result = (
-            []
-        )  # build up a list of (name, value) tuples to be passed to the StructValue constructor
+        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
@@ -179,7 +178,7 @@ class BaseStructBlock(Block):
                         child_block.to_python(value[name])
                         if name in value
                         else child_block.get_default()
-                    )
+                    ),
                     # NB the result of get_default is NOT passed through to_python, as it's expected
                     # to be in the block's native type already
                 )
@@ -253,6 +252,8 @@ class BaseStructBlock(Block):
         }
 
     def get_searchable_content(self, value):
+        if not self.search_index:
+            return []
         content = []
 
         for name, block in self.child_blocks.items():

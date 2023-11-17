@@ -44,8 +44,8 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
     # Search
     if all_pages is not None:
-        all_pages = all_pages.search(query, order_by_relevance=not ordering)
-    pages = pages.search(query, order_by_relevance=not ordering)
+        all_pages = all_pages.autocomplete(query, order_by_relevance=not ordering)
+    pages = pages.autocomplete(query, order_by_relevance=not ordering)
 
     return pages, all_pages
 
@@ -69,31 +69,28 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         BulkActionsColumn("bulk_actions", width="10px"),
         PageTitleColumn(
             "title",
+            classname="title",
             label=_("Title"),
             sort_key="title",
-            classname="align-top",
         ),
-        ParentPageColumn("parent", label=_("Parent"), classname="align-top"),
+        ParentPageColumn("parent", label=_("Parent")),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
             width="12%",
-            classname="align-top",
         ),
         Column(
             "type",
             label=_("Type"),
             accessor="page_type_display_name",
             width="12%",
-            classname="align-top",
         ),
         PageStatusColumn(
             "status",
             label=_("Status"),
             sort_key="live",
             width="12%",
-            classname="align-top",
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]
@@ -146,20 +143,19 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         if self.selected_content_type:
             pages = pages.filter(content_type=self.selected_content_type)
 
-        if self.q:
-            # Parse query and filter
-            pages, self.all_pages = page_filter_search(
-                self.q, pages, self.all_pages, self.ordering
-            )
+        # Parse query and filter
+        pages, self.all_pages = page_filter_search(
+            self.q, pages, self.all_pages, self.ordering
+        )
 
-            # Facets
-            if pages.supports_facet:
-                self.content_types = [
-                    (ContentType.objects.get(id=content_type_id), count)
-                    for content_type_id, count in self.all_pages.facet(
-                        "content_type_id"
-                    ).items()
-                ]
+        # Facets
+        if pages.supports_facet:
+            self.content_types = [
+                (ContentType.objects.get(id=content_type_id), count)
+                for content_type_id, count in self.all_pages.facet(
+                    "content_type_id"
+                ).items()
+            ]
 
         return pages
 

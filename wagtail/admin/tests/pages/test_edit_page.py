@@ -1856,7 +1856,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
-            for (index, item) in enumerate(menu_items):
+            for index, item in enumerate(menu_items):
                 if item.name == "action-publish":
                     # move to top of list
                     menu_items.pop(index)
@@ -1890,6 +1890,21 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # publish button should be present, but not in a <li>
         self.assertContains(response, publish_button, html=True)
         self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
+
+    def test_override_publish_action_menu_item_label(self):
+        def hook_func(menu_items, request, context):
+            for item in menu_items:
+                if item.name == "action-publish":
+                    item.label = "Foobar"
+                    break
+
+        with self.register_hook("construct_page_action_menu", hook_func):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
+            )
+
+        # publish button should have another label
+        self.assertContains(response, "Foobar")
 
     def test_edit_alias_page(self):
         alias_page = self.event_page.create_alias(update_slug="new-event-page")
@@ -2512,58 +2527,6 @@ class TestIssue3982(WagtailTestUtils, TestCase):
             )
         )
 
-    def _approve_page(self, parent):
-        self.client.post(
-            reverse("wagtailadmin_pages:add", args=("tests", "simplepage", parent.pk)),
-            {
-                "title": "Hello, world!",
-                "content": "Some content",
-                "slug": "hello-world",
-            },
-            follow=True,
-        )
-        page = SimplePage.objects.get()
-        self.assertFalse(page.live)
-        revision = Revision.page_revisions.get(object_id=page.id)
-        revision.submitted_for_moderation = True
-        revision.save()
-        response = self.client.post(
-            reverse("wagtailadmin_pages:approve_moderation", args=(revision.pk,)),
-            follow=True,
-        )
-        page = SimplePage.objects.get()
-        self.assertTrue(page.live)
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
-        return response, page
-
-    def test_approve_accessible(self):
-        """
-        Edit a page under the site root, check the flash message has a valid
-        "View live" button.
-        """
-        response, page = self._approve_page(Page.objects.get(pk=2))
-        self.assertIsNotNone(page.url)
-        self.assertTrue(
-            any(
-                "View live" in message.message and page.url in message.message
-                for message in response.context["messages"]
-            )
-        )
-
-    def test_approve_inaccessible(self):
-        """
-        Edit a page outside of the site root, check the flash message does
-        not have a "View live" button.
-        """
-        response, page = self._approve_page(Page.objects.get(pk=1))
-        self.assertIsNone(page.url)
-        self.assertFalse(
-            any(
-                "View live" in message.message
-                for message in response.context["messages"]
-            )
-        )
-
 
 class TestParentalM2M(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -3080,6 +3043,11 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
         self.assertContains(
             response,
             '<input type="checkbox" name="comment_notifications" id="id_comment_notifications">',
+        )
+        self.assertTrue(
+            PageSubscription.objects.filter(
+                page=self.child_page, user=self.user, comment_notifications=False
+            ).exists()
         )
 
     def test_commment_notifications_switched_on(self):

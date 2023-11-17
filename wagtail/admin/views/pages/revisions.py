@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -11,7 +13,12 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.side_panels import (
+    CommentsSidePanel,
+    PageStatusSidePanel,
+    PreviewSidePanel,
+)
 from wagtail.admin.views.generic.models import (
     RevisionsCompareView,
     RevisionsUnscheduleView,
@@ -34,8 +41,26 @@ def revisions_revert(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_object()
 
+    scheduled_page = page.get_scheduled_revision_as_object()
+
     content_type = ContentType.objects.get_for_model(page)
     page_class = content_type.model_class()
+
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        locale = page.locale
+        translations = [
+            {
+                "locale": translation.locale,
+                "url": reverse("wagtailadmin_pages:edit", args=[translation.id]),
+            }
+            for translation in page.get_translations()
+            .only("id", "locale", "depth")
+            .select_related("locale")
+            if translation.permissions_for_user(request.user).can_edit()
+        ]
+    else:
+        locale = None
+        translations = []
 
     edit_handler = page_class.get_edit_handler()
     form_class = edit_handler.get_form_class()
@@ -45,6 +70,7 @@ def revisions_revert(request, page_id, revision_id):
         instance=revision_page, request=request, form=form
     )
 
+    preview_url = reverse("wagtailadmin_pages:preview_on_edit", args=[page.id])
     lock = page.get_lock()
 
     action_menu = PageActionMenu(
@@ -54,13 +80,24 @@ def revisions_revert(request, page_id, revision_id):
         lock=lock,
         locked_for_user=lock is not None and lock.for_user(request.user),
     )
-    side_panels = PageSidePanels(
-        request,
-        page,
-        preview_enabled=True,
-        comments_enabled=form.show_comments_toggle,
-        show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
-    )
+    side_panels = [
+        PageStatusSidePanel(
+            revision_page,
+            request,
+            show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
+            live_object=page,
+            scheduled_object=scheduled_page,
+            locale=locale,
+            translations=translations,
+        ),
+    ]
+    if page.is_previewable():
+        side_panels.append(PreviewSidePanel(page, request, preview_url=preview_url))
+    if form.show_comments_toggle:
+        side_panels.append(CommentsSidePanel(page, request))
+    side_panels = MediaContainer(side_panels)
+
+    media = MediaContainer([edit_handler, form, action_menu, side_panels]).media
 
     user_avatar = render_to_string(
         "wagtailadmin/shared/user_avatar.html", {"user": revision.user}
@@ -92,10 +129,7 @@ def revisions_revert(request, page_id, revision_id):
             "action_menu": action_menu,
             "side_panels": side_panels,
             "form": form,  # Used in unit tests
-            "media": edit_handler.media
-            + form.media
-            + action_menu.media
-            + side_panels.media,
+            "media": media,
         },
     )
 

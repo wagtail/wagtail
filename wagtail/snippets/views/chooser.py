@@ -8,6 +8,7 @@ from wagtail.admin.views.generic.chooser import (
     ChooseViewMixin,
     ChosenMultipleView,
     ChosenView,
+    CreateView,
     CreationFormMixin,
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
@@ -62,11 +63,16 @@ class SnippetChosenMultipleView(ChosenMultipleView):
     response_data_title_key = "string"
 
 
+class SnippetCreateView(CreateView):
+    response_data_title_key = "string"
+
+
 class SnippetChooserViewSet(ChooserViewSet):
     choose_view_class = ChooseView
     choose_results_view_class = ChooseResultsView
     chosen_view_class = SnippetChosenView
     chosen_multiple_view_class = SnippetChosenMultipleView
+    create_view_class = SnippetCreateView
 
     @cached_property
     def widget_class(self):

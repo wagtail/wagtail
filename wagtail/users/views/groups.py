@@ -59,8 +59,6 @@ class IndexView(generic.IndexView):
     search_fields = ["name"]
     context_object_name = "groups"
     paginate_by = 20
-    ordering = ["name"]
-    default_ordering = "name"
 
     columns = [
         TitleColumn(
@@ -75,6 +73,9 @@ class IndexView(generic.IndexView):
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '%(object)s' created.")
+
+    def get_page_subtitle(self):
+        return ""
 
     def post(self, request, *args, **kwargs):
         """
@@ -154,7 +155,9 @@ class DeleteView(generic.DeleteView):
 class GroupViewSet(ModelViewSet):
     icon = "group"
     model = Group
+    ordering = ["name"]
     add_to_reference_index = False
+    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
@@ -170,6 +173,15 @@ class GroupViewSet(ModelViewSet):
     @property
     def users_results_view(self):
         return Index.as_view(results_only=True)
+
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "history_url_name": None,
+                "usage_url_name": None,
+                **kwargs,
+            }
+        )
 
     def get_form_class(self, for_update=False):
         return GroupForm

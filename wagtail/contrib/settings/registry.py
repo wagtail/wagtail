@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse
@@ -10,23 +12,19 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .permissions import user_can_edit_setting_type
 
 
 class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon="cog", classnames="", **kwargs):
-
-        # Special-case FontAwesome icons to avoid the breaking changes for those customisations.
-        if icon.startswith("fa-"):
-            icon_name = ""
-            icon_classes = "icon icon-" + icon
-            if classnames:
-                classnames += " " + icon_classes
-            else:
-                classnames = icon_classes
-        else:
-            icon_name = icon
+    def __init__(self, model, icon="cog", classname="", classnames="", **kwargs):
+        if classnames:
+            warn(
+                "The `classnames` kwarg for SettingMenuItem is deprecated - use `classname` instead.",
+                category=RemovedInWagtail70Warning,
+            )
+        classname = classname or classnames
 
         self.model = model
         super().__init__(
@@ -35,8 +33,8 @@ class SettingMenuItem(MenuItem):
                 "wagtailsettings:edit",
                 args=[model._meta.app_label, model._meta.model_name],
             ),
-            classnames=classnames,
-            icon_name=icon_name,
+            classname=classname,
+            icon_name=icon,
             **kwargs,
         )
 

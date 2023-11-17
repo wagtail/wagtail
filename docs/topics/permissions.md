@@ -4,6 +4,10 @@
 
 Wagtail adapts and extends [the Django permission system](https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization) to cater for the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
+```{note}
+Whilst Wagtail supports a number of user roles and permissions, the Wagtail Admin should still be restricted to trusted users.
+```
+
 ## Page permissions
 
 Permissions can be attached at any point in the page tree, and propagate down the tree. For example, if a site had the page tree:
@@ -67,6 +71,8 @@ Custom permissions starting with `add_`, `change_` or `delete_` are not currentl
 
 Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
 
-## `FieldPanel` permissions
+## `FieldPanel` and `PanelGroup` permissions
 
 Permissions can be used to restrict access to fields within the editor interface. See `permission` on [FieldPanel](field_panel).
+
+Permissions can be used to restrict groups of panels via the `permission` keyword argument on `PanelGroup` classes (`TabbedInterface`, `ObjectList`, `FieldRowPanel`, `MultiFieldPanel`). See how `PanelGroup` usage can be customised [](forms_panels_overview).

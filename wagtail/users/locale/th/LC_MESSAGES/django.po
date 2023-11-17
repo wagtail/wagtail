@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -110,9 +110,6 @@ msgstr "ลบ"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Delete group"
-msgstr "ลบกลุ่มทิ้ง"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -124,11 +121,11 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 msgid "Add group"
 msgstr "เพิ่มกลุ่ม"
 
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
 msgid "Save"
 msgstr "เซฟ,บันทึก"
+
+msgid "Delete group"
+msgstr "ลบกลุ่มทิ้ง"
 
 msgid "Object permissions"
 msgstr "สิ่งที่ถูกอนุญาต"
@@ -166,20 +163,14 @@ msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงก�
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a href=\"%(wagtailusers_create_group_url)s"
-"\">เพิ่มสักอัน</a>?"
-
-msgid "Delete user"
-msgstr "ลบทิ้งผู้ใช้นี้"
+"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a "
+"href=\"%(wagtailusers_create_group_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งผู้ใช้นี้?"
-
-msgid "Add user"
-msgstr "เพิ่มผู้ใช้"
 
 msgid "Account"
 msgstr "บัญชี"
@@ -187,11 +178,11 @@ msgstr "บัญชี"
 msgid "Roles"
 msgstr "บทบาท"
 
-msgid "Users"
-msgstr "หลายๆผู้ใช้"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "เพิ่มผู้ใช้"
+
+msgid "Delete user"
+msgstr "ลบทิ้งผู้ใช้นี้"
 
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
@@ -239,6 +230,12 @@ msgstr "กลุ่มนี้ไม่สามารถถูกเซฟไ
 msgid "Group '%(object)s' deleted."
 msgstr "กลุ่ม'%(object)s'ถูกลบทิ้งแล้ว"
 
+msgid "Add a user"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "Users"
+msgstr "หลายๆผู้ใช้"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "ผู้ใช้'%(object)s'ถูกอัพเดทแล้ว"
@@ -247,18 +244,8 @@ msgid "The user could not be saved due to errors."
 msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "กำลังแก้ไข %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "ผู้ใช้'%(object)s'ถูกลบทิ้งแล้ว"
 
 msgid "Edit"
 msgstr "แก้ไข"
-
-msgid "Edit this user"
-msgstr "แก้ไขผู้ใช้นี้"
-
-msgid "Delete this user"
-msgstr "ลบทิ้งผู้ใช้นี้"

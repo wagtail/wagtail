@@ -14,8 +14,7 @@ describe('chooserModal', () => {
           <input id="input" required type="text" />
         </div>
         <button id="button" type="submit" data-controller="w-progress" data-w-progress-loading-value="true">Update</button>
-      </form>
-      `;
+      </form>`;
 
       form = document.getElementById('form');
     });

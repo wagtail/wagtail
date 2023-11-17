@@ -1751,7 +1751,6 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         self.assertEqual(replies_formset.forms[0].for_user, self.commenting_user)
 
     def test_comment_form_validation(self):
-
         form = self.EventPageForm(
             {
                 "comments-TOTAL_FORMS": 2,
@@ -1872,7 +1871,6 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
             )
 
     def test_comment_reply_form_validation(self):
-
         form = self.EventPageForm(
             {
                 "comments-TOTAL_FORMS": 1,
@@ -1986,6 +1984,17 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
         self.assertTrue(form.show_schedule_publishing_toggle)
+
+        # Get the "expire_at" input field from the form
+        expire_at_input = form.fields["expire_at"].widget
+        data_controller = expire_at_input.attrs.get("data-controller", None)
+        data_action = expire_at_input.attrs.get("data-action", None)
+        data_w_dialog_target = expire_at_input.attrs.get("data-w-dialog-target", None)
+
+        # Check that suitable data attributes for resetting the fields on dialog close are added
+        self.assertEqual(data_controller, "w-action")
+        self.assertEqual(data_action, "w-dialog:hidden->w-action#reset")
+        self.assertEqual(data_w_dialog_target, "notify")
 
     def test_form(self):
         """
@@ -2367,7 +2376,6 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         self.assertEqual(attrs["data-w-sync-target-value"], "#id_cost, #id_location")
 
     def test_classname_override(self):
-
         html = self.get_edit_handler_html(
             ObjectList(
                 [TitleFieldPanel("title", classname="super-title"), FieldPanel("slug")]

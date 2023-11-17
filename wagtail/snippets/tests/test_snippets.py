@@ -25,6 +25,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
+from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
@@ -44,6 +45,7 @@ from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
+    NonAutocompleteSearchableSnippet,
     RegisterDecorator,
     RegisterFunction,
     SearchableSnippet,
@@ -59,6 +61,7 @@ from wagtail.test.testapp.models import (
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
+    FullFeaturedSnippet,
     MultiPreviewModesModel,
     RevisableChildModel,
     RevisableModel,
@@ -67,11 +70,13 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
-class TestSnippetIndexView(WagtailTestUtils, TestCase):
+class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -94,6 +99,10 @@ class TestSnippetIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Snippets"}],
+            response.content,
+        )
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
@@ -154,7 +163,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
 
-        def page_listing_buttons(snippet, user, next_url=None):
+        def snippet_listing_buttons(snippet, user, next_url=None):
             self.assertEqual(snippet, advert)
             self.assertEqual(user, self.user)
             self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
@@ -164,30 +173,127 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             )
 
         with hooks.register_temporarily(
-            "register_snippet_listing_buttons", page_listing_buttons
+            "register_snippet_listing_buttons", snippet_listing_buttons
         ):
             response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/listing_buttons.html"
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        top_level_custom_button = actions.select_one("li > a[href='/custom-url']")
+        self.assertIsNone(top_level_custom_button)
+        custom_button = actions.select_one(
+            "li [data-controller='w-dropdown'] a[href='/custom-url']"
+        )
+        self.assertIsNotNone(custom_button)
+        self.assertEqual(
+            custom_button.text.strip(),
+            "Another useless snippet listing button",
         )
 
-        self.assertContains(response, "Another useless snippet listing button")
+    def test_register_snippet_listing_buttons_hook_with_dropdown(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def snippet_listing_buttons(snippet, user, next_url=None):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
+            yield ButtonWithDropdown(
+                label="Moar pls!",
+                buttons=[SnippetListingButton("Alrighty", "/cheers", priority=10)],
+            )
+
+        with hooks.register_temporarily(
+            "register_snippet_listing_buttons", snippet_listing_buttons
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        nested_dropdown = actions.select_one(
+            "li [data-controller='w-dropdown'] [data-controller='w-dropdown']"
+        )
+        self.assertIsNone(nested_dropdown)
+        dropdown_buttons = actions.select("li > [data-controller='w-dropdown']")
+        # Default "More" button and the custom "Moar pls!" button
+        self.assertEqual(len(dropdown_buttons), 2)
+        custom_dropdown = None
+        for button in dropdown_buttons:
+            if "Moar pls!" in button.text.strip():
+                custom_dropdown = button
+        self.assertIsNotNone(custom_dropdown)
+        self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        # Should contain the custom button inside the custom dropdown
+        custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
+        self.assertIsNotNone(custom_button)
+        self.assertEqual(custom_button.text.strip(), "Alrighty")
 
     def test_construct_snippet_listing_buttons_hook(self):
         Advert.objects.create(text="My Lovely advert")
 
-        # testapp implements a construct_snippetlisting_buttons hook
-        # that add's an dummy button with the label 'Dummy Button' which points
-        # to '/dummy-button'
+        # testapp implements a construct_snippet_listing_buttons hook
+        # that adds a dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button' and is placed inside the default "More" dropdown button
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailsnippets/snippets/listing_buttons.html"
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        dropdowns = soup.select(
+            "tbody tr td ul.actions > li > [data-controller='w-dropdown']"
         )
-        self.assertContains(response, "Dummy Button")
-        self.assertContains(response, "/dummy-button")
+        self.assertEqual(len(dropdowns), 1)
+        more_dropdown = dropdowns[0]
+        dummy_button = more_dropdown.find("a", attrs={"href": "/dummy-button"})
+        self.assertIsNotNone(dummy_button)
+        self.assertEqual(dummy_button.text.strip(), "Dummy Button")
+
+    def test_construct_snippet_listing_buttons_hook_contains_default_buttons(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+        delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete", args=[quote(advert.pk)]
+        )
+
+        def hide_delete_button_for_lovely_advert(buttons, snippet, user):
+            # Edit, delete, dummy button
+            self.assertEqual(len(buttons), 3)
+            buttons[:] = [button for button in buttons if button.url != delete_url]
+            self.assertEqual(len(buttons), 2)
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            hide_delete_button_for_lovely_advert,
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+        self.assertNotContains(response, delete_url)
+
+    def test_construct_snippet_listing_buttons_hook_deprecated_context(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def register_snippet_listing_button_item(buttons, snippet, user, context):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(context, {})
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            register_snippet_listing_button_item,
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "construct_snippet_listing_buttons hook no longer accepts a context argument",
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
@@ -332,13 +438,13 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         # The Updated column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after">Updated</a></th>',
+            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after label">Updated</a></th>',
             html=True,
         )
         # Should not contain the Status column header
         self.assertNotContains(
             response,
-            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after">Status</a></th>',
+            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after label">Status</a></th>',
             html=True,
         )
 
@@ -354,13 +460,13 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
         # The Updated column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after">Updated</a></th>',
+            f'<th><a href="{sort_updated_url}" title="Sort by &#x27;Updated&#x27; in ascending order." class="icon icon-arrow-down-after label">Updated</a></th>',
             html=True,
         )
         # The Status column header should be a link with the correct query param
         self.assertContains(
             response,
-            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after">Status</a></th>',
+            f'<th><a href="{sort_live_url}" title="Sort by &#x27;Status&#x27; in ascending order." class="icon icon-arrow-down-after label">Status</a></th>',
             html=True,
         )
 
@@ -505,6 +611,45 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         items = list(response.context["page_obj"].object_list)
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+
+class TestSnippetListViewWithNonAutocompleteSearchableSnippet(
+    WagtailTestUtils, TransactionTestCase
+):
+    """
+    Test that searchable snippets with no AutocompleteFields defined can still be searched using
+    full words
+    """
+
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = NonAutocompleteSearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = NonAutocompleteSearchableSnippet.objects.create(text="World")
+        self.snippet_c = NonAutocompleteSearchableSnippet.objects.create(
+            text="Hello World"
+        )
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse(
+                "wagtailsnippets_snippetstests_nonautocompletesearchablesnippet:list"
+            ),
+            params,
+        )
+
+    def test_search_hello(self):
+        with self.assertWarnsRegex(
+            RuntimeWarning, "does not specify any AutocompleteFields"
+        ):
+            response = self.get({"q": "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context["page_obj"].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
 
 
@@ -775,6 +920,32 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
+    def test_locale_selector_with_existing_locale(self):
+        response = self.client.get(
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+
+        self.assertContains(response, "Switch locales")
+
+        switch_to_english_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=en"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{switch_to_english_url}" lang="en">',
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
@@ -783,10 +954,28 @@ class TestLocaleSelectorOnCreate(WagtailTestUtils, TestCase):
 
         self.assertNotContains(response, "Switch locales")
 
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
+
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
 
         self.assertNotContains(response, "Switch locales")
+
+        switch_to_french_url = (
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+            + "?locale=fr"
+        )
+        self.assertNotContains(
+            response,
+            f'<a href="{switch_to_french_url}" lang="fr">',
+        )
 
 
 class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
@@ -3973,10 +4162,10 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 12, 34, 0)),
             object_id="1",
         )
-        self.revisable_snippet = RevisableModel.objects.create(text="Foo")
+        self.revisable_snippet = FullFeaturedSnippet.objects.create(text="Foo")
         self.initial_revision = self.revisable_snippet.save_revision(user=self.user)
         ModelLogEntry.objects.create(
-            content_type=ContentType.objects.get_for_model(RevisableModel),
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             label="Foo",
             action="wagtail.create",
             timestamp=make_aware(datetime.datetime(2022, 5, 10, 20, 22, 0)),
@@ -3995,7 +4184,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         self.assertContains(response, '<td class="title">Created</td>', html=True)
         self.assertContains(
             response,
-            'data-tippy-content="Sept. 30, 2021, 10:01 a.m."',
+            'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
         )
 
     def test_filters(self):
@@ -4082,6 +4271,8 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_with_i18n_enabled(self):
         response = self.get(self.non_revisable_snippet)
+        self.assertEqual(response.status_code, 200)
+        response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
 
 
@@ -4732,6 +4923,45 @@ class TestSnippetChooseWithSearchableSnippet(WagtailTestUtils, TransactionTestCa
         self.assertIn(self.snippet_c, items)
 
 
+class TestSnippetChooseWithNonAutocompleteSearchableSnippet(
+    WagtailTestUtils, TransactionTestCase
+):
+    """
+    Test that searchable snippets with no AutocompleteFields defined can still be searched using
+    full words
+    """
+
+    def setUp(self):
+        self.login()
+
+        # Create some instances of the searchable snippet for testing
+        self.snippet_a = NonAutocompleteSearchableSnippet.objects.create(text="Hello")
+        self.snippet_b = NonAutocompleteSearchableSnippet.objects.create(text="World")
+        self.snippet_c = NonAutocompleteSearchableSnippet.objects.create(
+            text="Hello World"
+        )
+
+    def get(self, params=None):
+        return self.client.get(
+            reverse(
+                "wagtailsnippetchoosers_snippetstests_nonautocompletesearchablesnippet:choose"
+            ),
+            params or {},
+        )
+
+    def test_search_hello(self):
+        with self.assertWarnsRegex(
+            RuntimeWarning, "does not specify any AutocompleteFields"
+        ):
+            response = self.get({"q": "Hello"})
+
+        # Just snippets with "Hello" should be in items
+        items = list(response.context["results"].object_list)
+        self.assertIn(self.snippet_a, items)
+        self.assertNotIn(self.snippet_b, items)
+        self.assertIn(self.snippet_c, items)
+
+
 class TestSnippetChosen(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
@@ -4750,7 +4980,6 @@ class TestSnippetChosen(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
 
     def test_choose_a_non_existing_page(self):
-
         response = self.get(999999)
         self.assertEqual(response.status_code, 404)
 
@@ -5190,9 +5419,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_edit(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail70Warning,
+            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/",
@@ -5200,9 +5433,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_delete(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail70Warning,
+            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/",
@@ -5210,9 +5447,13 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_to_usage(self):
-        response = self.client.get(
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
-        )
+        with self.assertWarnsRegex(
+            RemovedInWagtail70Warning,
+            "`/<pk>/usage/` usage view URL pattern has been deprecated in favour of /usage/<pk>/.",
+        ):
+            response = self.client.get(
+                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
+            )
         self.assertRedirects(
             response,
             "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/",
@@ -5453,7 +5694,6 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
         self.get_checks_result = get_checks_result
 
     def test_model_with_single_tabbed_panel_only(self):
-
         StandardSnippet.content_panels = [FieldPanel("text")]
 
         warning = checks.Warning(

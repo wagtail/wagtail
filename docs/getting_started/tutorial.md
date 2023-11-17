@@ -31,7 +31,7 @@ If none of the preceding commands return a version number, or return a version l
 ### Create and activate a virtual environment
 
 This tutorial recommends using a virtual environment, which isolates installed dependencies from other projects.
-This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
+This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3. On Ubuntu, it may be necessary to run `sudo apt install python3-venv` to install it.
 
 **On Windows** (cmd.exe), run the following commands:
 
@@ -178,7 +178,7 @@ python manage.py migrate
 
 You must run the preceding commands each time you make changes to the model definition. Here is the expected output from the terminal:
 
-```txt
+```text
 Migrations for 'home':
   home/migrations/0003_homepage_body.py
     - Add field body to homepage
@@ -440,7 +440,7 @@ other page type.
 Publish each blog post when you are done editing.
 
 Congratulations! You now have the beginnings of a working blog. If you go to
-<http://localhost:8080/blog> in your browser, you can see all the posts that you created by following the preceding steps:
+<http://127.0.0.1:8000/blog> in your browser, you can see all the posts that you created by following the preceding steps:
 
 ![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
 
@@ -847,7 +847,7 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    authors = ParentalManyToManyField('blog.BlogCategory', blank=True)
+    authors = ParentalManyToManyField('blog.Author', blank=True)
 
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -924,7 +924,7 @@ Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
 a QuerySet from its `get_context()` method.
 
-Migrate this by running `python manage.py makemigrations` and then `python manage.py`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface.
+Migrate this by running `python manage.py makemigrations` and then `python manage.py migrate`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface.
 
 Access `/tags` and Django will tell you what you probably already knew.
 You need to create the template, `blog/templates/blog/blog_tag_index_page.html` and add the following content to it:
@@ -967,6 +967,7 @@ Thank you for reading and welcome to the Wagtail community!
 
 ## Where next
 
+-   Read [Tutorial](../advanced_tutorial/index.md) to transform your blog site into a fully deployable portfolio site.
 -   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
 -   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
 -   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)

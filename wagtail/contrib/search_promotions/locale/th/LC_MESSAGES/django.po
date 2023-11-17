@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -87,9 +87,6 @@ msgstr "เลื่อนลง,ขยับลง"
 msgid "Promoted search results"
 msgstr "ผลการค้นหาที่โปรโมทแล้ว"
 
-msgid "Add recommended page"
-msgstr "เพิ่มหน้าที่ได้แนะนำแล้ว"
-
 msgid "Search Terms"
 msgstr "คำที่ต้องการค้นหา"
 
@@ -108,8 +105,26 @@ msgstr "ดู(ของอาทิตย์ที่แล้ว)"
 msgid "Edit this promotion"
 msgstr "แก้ไขโปรโมชั่นนี้"
 
+msgid "External link"
+msgstr "ลิงค์ภายนอก"
+
 msgid "None"
 msgstr "ไม่มี,ไม่"
+
+msgid "Popular search terms"
+msgstr "วาระที่ค้นหามากที่สุด"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Terms"
+msgstr "วาระ"
+
+msgid "No results found"
+msgstr "ไม่พบผล"
+
+msgid "Choose from popular search terms"
+msgstr "เลือกจากวาระที่ค้นหามากที่สุด"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -117,11 +132,11 @@ msgstr "ขออภัย,ไม่มีผลโปรโมทที่ต�
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a href=\"%(wagtailsearchpromotions_add_url)s"
-"\">เพิ่มสักหนึ่งอัน</a>?"
+"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">เพิ่มสักหนึ่งอัน</a>?"
 
 msgid "Search promoted results"
 msgstr "หาผลที่โปรโมท"

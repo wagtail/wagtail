@@ -1,20 +1,22 @@
-import django_filters
+from warnings import warn
+
 from django.apps import apps
-from django.contrib.admin.utils import quote, unquote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import path, re_path, reverse
+from django.shortcuts import redirect
+from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.side_panels import PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -32,25 +34,23 @@ from wagtail.admin.views.generic.preview import (
     PreviewOnEdit,
     PreviewRevision,
 )
-from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.log_actions import registry as log_registry
+from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
 from wagtail.models import (
     DraftStateMixin,
-    Locale,
     LockableMixin,
     PreviewableMixin,
     RevisionMixin,
     WorkflowMixin,
 )
-from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
-from wagtail.snippets.side_panels import SnippetSidePanels
+from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 # == Helper functions ==
@@ -78,6 +78,7 @@ class ModelIndexView(generic.IndexView):
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
+    _show_breadcrumbs = True
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -98,6 +99,9 @@ class ModelIndexView(generic.IndexView):
         if not self.snippet_types:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
 
     def get_list_url(self, type):
         return reverse(type["model"].snippet_viewset.get_url_name("list"))
@@ -149,10 +153,6 @@ class ModelIndexView(generic.IndexView):
         ]
 
 
-class SnippetTitleColumn(TitleColumn):
-    cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
-
-
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
@@ -168,16 +168,53 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.queryset = self.queryset(self.request)
         return super().get_base_queryset()
 
-    def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
-        # Use SnippetTitleColumn class to use custom template
-        # so that buttons from snippet_listing_buttons hook can be rendered
-        return super()._get_title_column(field_name, column_class, **kwargs)
-
     def get_columns(self):
         return [
             BulkActionsCheckboxColumn("checkbox", accessor=lambda obj: obj),
             *super().get_columns(),
         ]
+
+    def get_list_buttons(self, instance):
+        more_buttons = self.get_list_more_buttons(instance)
+        next_url = self.request.path
+        list_buttons = []
+
+        for hook in hooks.get_hooks("register_snippet_listing_buttons"):
+            hook_buttons = hook(instance, self.request.user, next_url)
+            for button in hook_buttons:
+                if isinstance(button, BaseDropdownMenuButton):
+                    # If the button is a dropdown menu, add it to the top-level
+                    # because we do not support nested dropdowns
+                    list_buttons.append(button)
+                else:
+                    # Otherwise, add it to the default "More" dropdown
+                    more_buttons.append(button)
+
+        # Pass the more_buttons to the construct hooks, as that's what contains
+        # the default buttons and most buttons added via register_snippet_listing_buttons
+        for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
+            try:
+                hook(more_buttons, instance, self.request.user)
+            except TypeError:
+                warn(
+                    "construct_snippet_listing_buttons hook no longer accepts a context argument",
+                    RemovedInWagtail70Warning,
+                    stacklevel=2,
+                )
+                hook(more_buttons, instance, self.request.user, {})
+
+        list_buttons.append(
+            ButtonWithDropdown(
+                buttons=more_buttons,
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
+        )
+
+        return list_buttons
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -190,15 +227,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 ),
             }
         )
-
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": locale,
-                    "url": self.get_index_url() + "?locale=" + locale.language_code,
-                }
-                for locale in Locale.objects.all().exclude(id=self.locale.id)
-            ]
 
         return context
 
@@ -215,23 +243,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
-
-    def get_add_url(self):
-        url = reverse(self.add_url_name)
-        if self.locale:
-            url += "?locale=" + self.locale.language_code
-        return url
-
-    def get_success_url(self):
-        if self.draftstate_enabled and self.action != "publish":
-            return super().get_success_url()
-
-        # Make sure the redirect to the listing view uses the correct locale
-        urlquery = ""
-        if self.locale and self.object.locale is not Locale.get_default():
-            urlquery = "?locale=" + self.object.locale.language_code
-
-        return reverse(self.index_url_name) + urlquery
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -252,20 +263,33 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
             "for_user": self.request.user,
         }
 
+    def get_side_panels(self):
+        side_panels = [
+            SnippetStatusSidePanel(
+                self.form.instance,
+                self.request,
+                show_schedule_publishing_toggle=getattr(
+                    self.form, "show_schedule_publishing_toggle", False
+                ),
+                locale=self.locale,
+                translations=self.translations,
+            )
+        ]
+        if self.preview_enabled and self.form.instance.is_previewable():
+            side_panels.append(
+                PreviewSidePanel(
+                    self.form.instance, self.request, preview_url=self.get_preview_url()
+                )
+            )
+        return MediaContainer(side_panels)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
+        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
-            self.request,
-            self.model(),
-            self,
-            show_schedule_publishing_toggle=getattr(
-                form, "show_schedule_publishing_toggle", False
-            ),
-        )
-        media = context.get("media") + action_menu.media + side_panels.media
+        side_panels = self.get_side_panels()
+        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
 
         context.update(
             {
@@ -276,26 +300,13 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
             }
         )
 
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": locale,
-                    "url": reverse(self.add_url_name)
-                    + "?locale="
-                    + locale.language_code,
-                }
-                for locale in Locale.objects.all().exclude(id=self.locale.id)
-            ]
-
         return context
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
-    history_url_name = None
     preview_url_name = None
     revisions_compare_url_name = None
-    usage_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
@@ -305,12 +316,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
-
-    def get_history_url(self):
-        return reverse(self.history_url_name, args=[quote(self.object.pk)])
-
-    def get_usage_url(self):
-        return reverse(self.usage_url_name, args=[quote(self.object.pk)])
 
     def _get_action_menu(self):
         return SnippetActionMenu(
@@ -323,50 +328,47 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
+    def get_side_panels(self):
+        side_panels = [
+            SnippetStatusSidePanel(
+                self.object,
+                self.request,
+                show_schedule_publishing_toggle=getattr(
+                    self.form, "show_schedule_publishing_toggle", False
+                ),
+                live_object=self.live_object,
+                scheduled_object=self.live_object.get_scheduled_revision_as_object()
+                if self.draftstate_enabled
+                else None,
+                locale=self.locale,
+                translations=self.translations,
+                usage_url=self.get_usage_url(),
+                history_url=self.get_history_url(),
+                last_updated_info=self.get_last_updated_info(),
+            )
+        ]
+        if self.preview_enabled and self.object.is_previewable():
+            side_panels.append(
+                PreviewSidePanel(
+                    self.object, self.request, preview_url=self.get_preview_url()
+                )
+            )
+        return MediaContainer(side_panels)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(
-            self.request,
-            self.object,
-            self,
-            show_schedule_publishing_toggle=getattr(
-                form, "show_schedule_publishing_toggle", False
-            ),
-            live_object=self.live_object,
-            scheduled_object=self.live_object.get_scheduled_revision_as_object()
-            if self.draftstate_enabled
-            else None,
-        )
-        media = context.get("media") + action_menu.media + side_panels.media
+        media = context.get("media") + action_menu.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "side_panels": side_panels,
-                "history_url": self.get_history_url(),
-                "usage_url": self.get_usage_url(),
                 "revisions_compare_url_name": self.revisions_compare_url_name,
                 "media": media,
             }
         )
-
-        if self.locale:
-            context["translations"] = [
-                {
-                    "locale": translation.locale,
-                    "url": reverse(
-                        self.edit_url_name,
-                        args=[quote(translation.pk)],
-                    ),
-                }
-                for translation in self.object.get_translations().select_related(
-                    "locale"
-                )
-            ]
 
         return context
 
@@ -393,27 +395,6 @@ class DeleteView(generic.DeleteView):
 class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
-    permission_required = "change"
-    edit_url_name = None
-
-
-class SnippetHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(
-        label=_("Action"),
-        choices=log_registry.get_choices,
-    )
-    user = django_filters.ModelChoiceFilter(
-        label=_("User"),
-        field_name="user",
-        queryset=lambda request: ModelLogEntry.objects.all().get_users(),
-    )
-    timestamp = django_filters.DateFromToRangeFilter(
-        label=_("Date"), widget=DateRangePickerWidget
-    )
-
-    class Meta:
-        model = ModelLogEntry
-        fields = ["action", "user", "timestamp"]
 
 
 class ActionColumn(Column):
@@ -435,36 +416,12 @@ class ActionColumn(Column):
         return context
 
 
-class HistoryView(ReportView):
+class HistoryView(history.HistoryView):
     view_name = "history"
-    index_url_name = None
-    edit_url_name = None
     revisions_view_url_name = None
     revisions_revert_url_name = None
     revisions_compare_url_name = None
     revisions_unschedule_url_name = None
-    any_permission_required = ["add", "change", "delete"]
-    template_name = "wagtailsnippets/snippets/history.html"
-    title = gettext_lazy("Snippet history")
-    header_icon = "history"
-    is_searchable = False
-    paginate_by = 20
-    filterset_class = SnippetHistoryReportFilterSet
-    table_class = InlineActionsTable
-
-    def setup(self, request, *args, pk, **kwargs):
-        self.pk = pk
-        self.object = self.get_object()
-        super().setup(request, *args, **kwargs)
-
-    def get_object(self):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
-        if isinstance(object, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
-
-    def get_page_subtitle(self):
-        return str(self.object)
 
     def get_columns(self):
         return [
@@ -479,22 +436,9 @@ class HistoryView(ReportView):
             DateColumn("timestamp", label=_("Date")),
         ]
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        context = super().get_context_data(*args, object_list=object_list, **kwargs)
-        context["object"] = self.object
-        context["subtitle"] = self.get_page_subtitle()
-        context["model_opts"] = self.model._meta
-        return context
-
-    def get_queryset(self):
-        return log_registry.get_logs_for_instance(self.object).select_related(
-            "revision", "user", "user__wagtail_userprofile"
-        )
-
 
 class InspectView(generic.InspectView):
     view_name = "inspect"
-    any_permission_required = ["add", "change", "delete"]
 
 
 class PreviewOnCreateView(PreviewOnCreate):
@@ -612,35 +556,16 @@ class SnippetViewSet(ModelViewSet):
     #: The number of items to display in the chooser view. Defaults to 10.
     chooser_per_page = 10
 
-    #: Whether to enable the inspect view. Defaults to ``False``.
-    inspect_view_enabled = False
-
-    #: The model fields or attributes to display in the inspect view.
-    #:
-    #: If the field has a corresponding :meth:`~django.db.models.Model.get_FOO_display`
-    #: method on the model, the method's return value will be used instead.
-    #:
-    #: If you have ``wagtail.images`` installed, and the field's value is an instance of
-    #: ``wagtail.images.models.AbstractImage``, a thumbnail of that image will be rendered.
-    #:
-    #: If you have ``wagtail.documents`` installed, and the field's value is an instance of
-    #: ``wagtail.docs.models.AbstractDocument``, a link to that document will be rendered,
-    #: along with the document title, file extension and size.
-    inspect_view_fields = []
-
-    #: The fields to exclude from the inspect view.
-    inspect_view_fields_exclude = []
-
     #: The URL namespace to use for the admin views.
     #: If left unset, ``wagtailsnippets_{app_label}_{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_namespace``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_namespace`.
     admin_url_namespace = None
 
     #: The base URL path to use for the admin views.
     #: If left unset, ``snippets/{app_label}/{model_name}`` is used instead.
     #:
-    #: **Deprecated** - the preferred attribute to customise is ``url_prefix``.
+    #: **Deprecated** - the preferred attribute to customise is :attr:`~.ViewSet.url_prefix`.
     base_url_path = None
 
     #: The URL namespace to use for the chooser admin views.
@@ -779,19 +704,34 @@ class SnippetViewSet(ModelViewSet):
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "index_url_name": self.get_url_name("list"),
+                "index_results_url_name": self.get_url_name("list_results"),
+                "lock_url_name": self.get_url_name("lock"),
+                "unlock_url_name": self.get_url_name("unlock"),
+                "revisions_view_url_name": self.get_url_name("revisions_view"),
+                "revisions_revert_url_name": self.get_url_name("revisions_revert"),
+                "revisions_compare_url_name": self.get_url_name("revisions_compare"),
+                "revisions_unschedule_url_name": self.get_url_name(
+                    "revisions_unschedule"
+                ),
+                "unpublish_url_name": self.get_url_name("unpublish"),
+                "breadcrumbs_items": self.breadcrumbs_items,
+                **kwargs,
+            }
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(
             queryset=self.get_queryset,
-            index_url_name=self.get_url_name("list"),
-            index_results_url_name=self.get_url_name("list_results"),
-            delete_url_name=self.get_url_name("delete"),
             **kwargs,
         )
 
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
             panel=self._edit_handler,
-            index_url_name=self.get_url_name("list"),
             preview_url_name=self.get_url_name("preview_on_add"),
             **kwargs,
         )
@@ -799,14 +739,7 @@ class SnippetViewSet(ModelViewSet):
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
             panel=self._edit_handler,
-            index_url_name=self.get_url_name("list"),
-            history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
-            lock_url_name=self.get_url_name("lock"),
-            unlock_url_name=self.get_url_name("unlock"),
-            usage_url_name=self.get_url_name("usage"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
             confirm_workflow_cancellation_url_name=self.get_url_name(
                 "confirm_workflow_cancellation"
@@ -814,175 +747,107 @@ class SnippetViewSet(ModelViewSet):
             **kwargs,
         )
 
-    def get_delete_view_kwargs(self, **kwargs):
-        return super().get_delete_view_kwargs(
-            index_url_name=self.get_url_name("list"),
-            usage_url_name=self.get_url_name("usage"),
-            **kwargs,
-        )
-
-    @property
-    def usage_view(self):
-        return self.usage_view_class.as_view(
-            model=self.model,
-            template_name=self.get_templates(
-                "usage", fallback=self.usage_view_class.template_name
-            ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-        )
-
-    @property
-    def history_view(self):
-        return self.history_view_class.as_view(
-            model=self.model,
-            template_name=self.get_history_template(),
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            revisions_view_url_name=self.get_url_name("revisions_view"),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
-            revisions_compare_url_name=self.get_url_name("revisions_compare"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
-        )
-
-    @property
-    def inspect_view(self):
-        return self.inspect_view_class.as_view(
-            model=self.model,
-            template_name=self.get_inspect_template(),
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            delete_url_name=self.get_url_name("delete"),
-            fields=self.inspect_view_fields,
-            fields_exclude=self.inspect_view_fields_exclude,
-        )
-
     @property
     def revisions_view(self):
-        return self.revisions_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
-        )
+        return self.construct_view(self.revisions_view_class)
 
     @property
     def revisions_revert_view(self):
-        return self.revisions_revert_view_class.as_view(
+        return self.construct_view(
+            self.revisions_revert_view_class,
             **self.get_edit_view_kwargs(),
-            revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
     @property
     def revisions_compare_view(self):
-        return self.revisions_compare_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.revisions_compare_view_class,
             edit_handler=self._edit_handler,
             template_name=self.get_templates(
                 "revisions_compare",
                 fallback=self.revisions_compare_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
         )
 
     @property
     def revisions_unschedule_view(self):
-        return self.revisions_unschedule_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.revisions_unschedule_view_class,
             template_name=self.get_templates(
                 "revisions_unschedule",
                 fallback=self.revisions_unschedule_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            edit_url_name=self.get_url_name("edit"),
-            history_url_name=self.get_url_name("history"),
-            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
     def unpublish_view(self):
-        return self.unpublish_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.unpublish_view_class,
             template_name=self.get_templates(
                 "unpublish", fallback=self.unpublish_view_class.template_name
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name("list"),
-            edit_url_name=self.get_url_name("edit"),
-            unpublish_url_name=self.get_url_name("unpublish"),
-            usage_url_name=self.get_url_name("usage"),
         )
 
     @property
     def preview_on_add_view(self):
-        return self.preview_on_add_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.preview_on_add_view_class,
             form_class=self.get_form_class(),
         )
 
     @property
     def preview_on_edit_view(self):
-        return self.preview_on_edit_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.preview_on_edit_view_class,
             form_class=self.get_form_class(for_update=True),
         )
 
     @property
     def lock_view(self):
-        return self.lock_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
+        return self.construct_view(
+            self.lock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
 
     @property
     def unlock_view(self):
-        return self.unlock_view_class.as_view(
-            model=self.model,
-            permission_policy=self.permission_policy,
+        return self.construct_view(
+            self.unlock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
 
     @property
     def workflow_action_view(self):
-        return self.workflow_action_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_action_view_class,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("workflow_action"),
         )
 
     @property
     def collect_workflow_action_data_view(self):
-        return self.collect_workflow_action_data_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.collect_workflow_action_data_view_class,
             redirect_url_name=self.get_url_name("edit"),
             submit_url_name=self.get_url_name("collect_workflow_action_data"),
         )
 
     @property
     def confirm_workflow_cancellation_view(self):
-        return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
+        return self.construct_view(self.confirm_workflow_cancellation_view_class)
 
     @property
     def workflow_preview_view(self):
-        return self.workflow_preview_view_class.as_view(model=self.model)
+        return self.construct_view(self.workflow_preview_view_class)
 
     @property
     def workflow_history_view(self):
-        return self.workflow_history_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_history_view_class,
             template_name=self.get_templates(
                 "workflow_history/index",
                 fallback=self.workflow_history_view_class.template_name,
             ),
-            header_icon=self.icon,
-            permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
@@ -991,34 +856,28 @@ class SnippetViewSet(ModelViewSet):
 
     @property
     def workflow_history_detail_view(self):
-        return self.workflow_history_detail_view_class.as_view(
-            model=self.model,
+        return self.construct_view(
+            self.workflow_history_detail_view_class,
             template_name=self.get_templates(
                 "workflow_history/detail",
                 fallback=self.workflow_history_detail_view_class.template_name,
             ),
             object_icon=self.icon,
-            permission_policy=self.permission_policy,
+            header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
         )
 
     @property
-    def redirect_to_edit_view(self):
-        def redirect_to_edit(request, pk):
-            return redirect(self.get_url_name("edit"), pk, permanent=True)
-
-        return redirect_to_edit
-
-    @property
-    def redirect_to_delete_view(self):
-        def redirect_to_delete(request, pk):
-            return redirect(self.get_url_name("delete"), pk, permanent=True)
-
-        return redirect_to_delete
-
-    @property
     def redirect_to_usage_view(self):
         def redirect_to_usage(request, pk):
+            warn(
+                (
+                    "%s's `/<pk>/usage/` usage view URL pattern has been "
+                    "deprecated in favour of /usage/<pk>/."
+                )
+                % (self.__class__.__name__),
+                category=RemovedInWagtail70Warning,
+            )
             return redirect(self.get_url_name("usage"), pk, permanent=True)
 
         return redirect_to_usage
@@ -1103,6 +962,15 @@ class SnippetViewSet(ModelViewSet):
 
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
+
+    @cached_property
+    def breadcrumbs_items(self):
+        # Use reverse_lazy instead of reverse
+        # because this will be passed to the view classes at startup
+        return [
+            {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
+            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+        ]
 
     def get_queryset(self, request):
         """
@@ -1271,7 +1139,7 @@ class SnippetViewSet(ModelViewSet):
         )
 
     def get_urlpatterns(self):
-        urlpatterns = super().get_urlpatterns() + [
+        urlpatterns = [
             path("", self.index_view, name="list"),
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
@@ -1373,15 +1241,19 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
-        legacy_redirects = [
+        # RemovedInWagtail70Warning: Remove legacy URL patterns
+        return urlpatterns + self._legacy_urlpatterns
+
+    @cached_property
+    def _legacy_urlpatterns(self):
+        return [
+            # RemovedInWagtail70Warning: Remove legacy URL patterns
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit_view),
             path("<str:pk>/delete/", self.redirect_to_delete_view),
             path("<str:pk>/usage/", self.redirect_to_usage_view),
         ]
-
-        return urlpatterns + legacy_redirects
 
     def get_edit_handler(self):
         """

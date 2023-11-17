@@ -66,13 +66,6 @@ class TestCreateView(BaseWorkflowsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')
 
-    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
-    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
-        # Note: remove this when all legacy moderation code has been removed
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'name="action-submit"')
-
     def test_post_submit_for_moderation(self):
         response = self.post({"text": "Newly created", "action-submit": "Submit"})
         object = self.model.objects.get(text="Newly created")
@@ -123,13 +116,6 @@ class TestEditView(BaseWorkflowsTestCase):
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_get_workflow_buttons_not_shown_when_workflow_disabled(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'name="action-submit"')
-
-    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
-    def test_get_workflow_buttons_not_shown_when_moderation_disabled(self):
-        # Note: remove this when all legacy moderation code has been removed
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'name="action-submit"')

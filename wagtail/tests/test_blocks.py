@@ -28,6 +28,7 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -123,6 +124,12 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         content = block.get_searchable_content("Hello world!")
 
         self.assertEqual(content, ["Hello world!"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.CharBlock(search_index=False)
+        content = block.get_searchable_content("Hello world!")
+
+        self.assertEqual(content, [])
 
     def test_charfield_with_validator(self):
         def validate_is_foo(value):
@@ -664,6 +671,18 @@ class TestRichTextBlock(TestCase):
             ],
         )
 
+    def test_search_index_get_searchable_content(self):
+        block = blocks.RichTextBlock(search_index=False)
+        value = RichText(
+            '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
+            "<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>"
+        )
+        result = block.get_searchable_content(value)
+        self.assertEqual(
+            result,
+            [],
+        )
+
     def test_get_searchable_content_whitespace(self):
         block = blocks.RichTextBlock()
         value = RichText("<p>mashed</p><p>po<i>ta</i>toes</p>")
@@ -926,6 +945,16 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.ChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
 
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():
@@ -1303,6 +1332,16 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+
+    def test_search_index_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ("choice-1", "Choice 1"),
+                ("choice-2", "Choice 2"),
+            ],
+            search_index=False,
+        )
+        self.assertEqual(block.get_searchable_content("choice-1"), [])
 
     def test_searchable_content_with_callable_choices(self):
         def callable_choices():
@@ -5184,22 +5223,41 @@ class TestIncludeBlockTag(TestCase):
         self.assertIn("<body>some <em>evil</em> HTML</body>", result)
 
 
-class BlockUsingGetTemplateMethod(blocks.Block):
-
-    my_new_template = "my_super_awesome_dynamic_template.html"
-
-    def get_template(self):
-        return self.my_new_template
-
-
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_template_is_overridden_by_get_template(self):
+    def test_get_template_old_signature(self):
+        class BlockUsingGetTemplateMethod(blocks.Block):
+            my_new_template = "tests/blocks/heading_block.html"
+
+            def get_template(self, context=None):
+                return self.my_new_template
 
         block = BlockUsingGetTemplateMethod(
             template="tests/blocks/this_shouldnt_be_used.html"
         )
-        template = block.get_template()
-        self.assertEqual(template, block.my_new_template)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
+        ):
+            html = block.render("Hello World")
+        self.assertEqual(html, "<h1>Hello World</h1>")
+
+    def test_block_render_passes_the_value_argument_to_get_template(self):
+        """verifies Block.render() passes the value to get_template"""
+
+        class BlockChoosingTemplateBasedOnValue(blocks.Block):
+            def get_template(self, value=None, context=None):
+                if value == "HEADING":
+                    return "tests/blocks/heading_block.html"
+
+                return None  # using render_basic
+
+        block = BlockChoosingTemplateBasedOnValue()
+
+        html = block.render("Hello World")
+        self.assertEqual(html, "Hello World")
+
+        html = block.render("HEADING")
+        self.assertEqual(html, "<h1>HEADING</h1>")
 
 
 class TestValidationErrorAsJsonData(TestCase):

@@ -5,7 +5,7 @@ from django.core.checks import Warning, register
 from willow.image import Image
 
 
-@lru_cache
+@lru_cache(maxsize=None)
 def has_jpeg_support():
     wagtail_jpg = os.path.join(os.path.dirname(__file__), "check_files", "wagtail.jpg")
     succeeded = True
@@ -19,7 +19,7 @@ def has_jpeg_support():
     return succeeded
 
 
-@lru_cache
+@lru_cache(maxsize=None)
 def has_png_support():
     wagtail_png = os.path.join(os.path.dirname(__file__), "check_files", "wagtail.png")
     succeeded = True

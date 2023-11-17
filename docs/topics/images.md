@@ -29,6 +29,73 @@ In the above syntax example `[image]` is the Django object referring to the imag
 
 Note that a space separates `[image]` and `[resize-rule]`, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the `fill` rule is used, which may result in some pixels being cropped.
 
+(multiple_formats)=
+
+## Multiple formats
+
+To render an image in multiple formats, you can use the `picture` tag:
+
+```html+django
+{% picture page.photo format-{avif,webp,jpeg} width-400 %}
+```
+
+Compared to `image`, this will render a `<picture>` element with a fallback `<img>` within and one `<source>` element per extra format. The browser [picks the first format it supports](https://web.dev/learn/design/picture-element/#source), or defaults to the fallback `<img>` element. For example, the above will render HTML similar to:
+
+```html
+<picture>
+    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
+    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
+    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
+```
+
+In this case, if the browser supports the [AVIF](https://en.wikipedia.org/wiki/AVIF) format it will load the AVIF file. Otherwise, if the browser supports the [WebP](https://en.wikipedia.org/wiki/WebP) format, it will try to load the WebP file. If none of those formats are supported, the browser will load the JPEG image. The order of the provided formats isn’t configurable – Wagtail will always output source elements in the following order: AVIF, WebP, JPEG, PNG, GIF. This ensures the most optimized format is provided whenever possible.
+
+The `picture` tag can also be used with multiple image resize rules to generate responsive images.
+
+(responsive_images)=
+
+## Responsive images
+
+Wagtail provides `picture` and `srcset_image` template tags which can generate image elements with `srcset` attributes. This allows browsers to select the most appropriate image file to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+
+The syntax for `srcset_image` is the same as `image`, with two exceptions:
+
+```html+django
+{% srcset_image [image] [resize-rule-with-brace-expansion] sizes="[my source sizes]" %}
+```
+
+- The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
+- The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+
+Here is an example of `srcset_image` in action, generating an `srcset` attribute:
+
+```html+django
+{% srcset_image page.photo width-{400,800} sizes="(max-width: 600px) 400px, 80vw" %}
+```
+
+This outputs:
+
+```html
+<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
+```
+
+And here is an example with the `picture` tag:
+
+```html+django
+{% picture page.photo format-{avif,webp,jpeg} width-{400,800} sizes="80vw" %}
+```
+
+This outputs:
+
+```html
+<picture>
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
+    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
+```
+
 (available_resizing_methods)=
 
 ## Available resizing methods
@@ -177,7 +244,7 @@ You can also add default attributes to all images (a default class or data attri
 
 ### 2. Generating the image "as foo" to access individual properties
 
-Wagtail can assign the image data to another variable using Django's `as` syntax:
+Wagtail can assign the image data to another variable using Django's `as` syntax, to access the underlying image Rendition (`tmp_photo`):
 
 ```html+django
 {% image page.photo width-400 as tmp_photo %}
@@ -186,11 +253,36 @@ Wagtail can assign the image data to another variable using Django's `as` syntax
     height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 ```
 
+This is also possible with the `srcset_image` tag, to retrieve multiple size renditions:
+
+```html+django
+{% srcset_image page.photo width-{200,400} as tmp_photo %}
+
+<img
+    src="{{ tmp_photo.renditions.0.url }}"
+    width="{{ tmp_photo.renditions.0.width }}"
+    height="{{ tmp_photo.renditions.0.height }}"
+    alt="{{ tmp_photo.renditions.0.alt }}"
+    srcset="{{ tmp_photo.renditions.0.url }} 200w, {{ tmp_photo.renditions.1.url }} 400w"
+    sizes="100vw"
+    class="my-custom-class"
+/>
+```
+
+And with the picture tag, to retrieve multiple formats:
+
+```html+django
+{% picture page.photo format-{avif,jpeg} as tmp_photo %}
+
+{{ tmp_photo.formats.avif.0.url }}
+{{ tmp_photo.formats.jpeg.0.url }}
+```
+
 ```{note}
 The image property used for the `src` attribute is `image.url`, not `image.src`.
 ```
 
-This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, dimensions, and source URL. The following properties are available:
+Renditions contain the information specific to the way you've requested to format the image using the resize-rule, dimensions, and source URL. The following properties are available:
 
 ### `url`
 

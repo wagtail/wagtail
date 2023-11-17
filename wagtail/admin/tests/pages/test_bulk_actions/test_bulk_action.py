@@ -6,7 +6,6 @@ from wagtail.test.utils import WagtailTestUtils
 
 class TestBulkActionDispatcher(WagtailTestUtils, TestCase):
     def setUp(self):
-
         # Login
         self.user = self.login()
 

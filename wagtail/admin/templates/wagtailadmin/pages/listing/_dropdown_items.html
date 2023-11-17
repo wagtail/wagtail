@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags %}
+
+{% for button in buttons %}
+    <a href="{{ button.url }}" {{ button.base_attrs_string }}>
+        {% if button.icon_name %}
+            {% icon name=button.icon_name %}
+        {% endif %}
+        {{ button.label }}
+    </a>
+{% endfor %}

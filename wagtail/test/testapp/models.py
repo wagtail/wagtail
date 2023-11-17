@@ -1,6 +1,8 @@
 import datetime
 import hashlib
 import os
+import random
+import string
 import uuid
 
 from django import forms
@@ -1203,6 +1205,14 @@ class VariousOnDeleteModel(models.Model):
         related_name="+",
     )
 
+    cascading_toy = models.ForeignKey(
+        "tests.FeatureCompleteToy",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, null=True, blank=True
     )
@@ -1231,7 +1241,6 @@ class VariousOnDeleteModel(models.Model):
             ("image", ImageChooserBlock()),
             ("document", DocumentChooserBlock()),
         ],
-        use_json_field=True,
     )
     rich_text = RichTextField(blank=True)
 
@@ -1441,7 +1450,6 @@ class JSONStreamModel(models.Model):
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
         ],
-        use_json_field=True,
     )
 
 
@@ -1454,7 +1462,6 @@ class JSONMinMaxCountStreamModel(models.Model):
         ],
         min_num=2,
         max_num=5,
-        use_json_field=True,
     )
 
 
@@ -1470,7 +1477,6 @@ class JSONBlockCountsStreamModel(models.Model):
             "rich_text": {"max_num": 1},
             "image": {"min_num": 1, "max_num": 1},
         },
-        use_json_field=True,
     )
 
 
@@ -1520,7 +1526,6 @@ class StreamPage(Page):
                 ListBlock(CharBlock()),
             ),
         ],
-        use_json_field=True,
     )
 
     api_fields = ("body",)
@@ -1541,7 +1546,6 @@ class DefaultStreamPage(Page):
             ("image", ImageChooserBlock()),
         ],
         default="",
-        use_json_field=True,
     )
 
     content_panels = [
@@ -1779,7 +1783,6 @@ class DefaultRichBlockFieldPage(Page):
         [
             ("rich_text", RichTextBlock()),
         ],
-        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [FieldPanel("body")]
@@ -1799,7 +1802,6 @@ class CustomRichBlockFieldPage(Page):
         [
             ("rich_text", RichTextBlock(editor="custom")),
         ],
-        use_json_field=True,
     )
 
     content_panels = [
@@ -1845,7 +1847,6 @@ class InlineStreamPageSection(Orderable):
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
         ],
-        use_json_field=True,
     )
     panels = [FieldPanel("body")]
 
@@ -1858,7 +1859,7 @@ class InlineStreamPage(Page):
 
 
 class TableBlockStreamPage(Page):
-    table = StreamField([("table", TableBlock())], use_json_field=True)
+    table = StreamField([("table", TableBlock())])
 
     content_panels = [FieldPanel("table")]
 
@@ -1901,15 +1902,15 @@ class AlwaysShowInMenusPage(Page):
 
 # test for AddField migrations on StreamFields using various default values
 class AddedStreamFieldWithoutDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], use_json_field=True)
+    body = StreamField([("title", CharBlock())])
 
 
 class AddedStreamFieldWithEmptyStringDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default="", use_json_field=True)
+    body = StreamField([("title", CharBlock())], default="")
 
 
 class AddedStreamFieldWithEmptyListDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default=[], use_json_field=True)
+    body = StreamField([("title", CharBlock())], default=[])
 
 
 class SecretPage(Page):
@@ -2037,7 +2038,6 @@ class DeadlyStreamPage(Page):
         [
             ("title", DeadlyCharBlock()),
         ],
-        use_json_field=True,
     )
     content_panels = Page.content_panels + [
         FieldPanel("body"),
@@ -2139,8 +2139,19 @@ class GenericSnippetNoFieldIndexPage(GenericSnippetPage):
     snippet_content_type_nonindexed.wagtail_reference_index_ignore = True
 
 
+def random_quotable_pk():
+    quote_chrs = '":/_#?;@&=+$,"[]<>%\n\\'
+    components = (quote_chrs, string.ascii_letters, string.digits)
+    return "".join(random.choice(components[i % len(components)]) for i in range(10))
+
+
 # Models to be registered with a ModelViewSet
 class FeatureCompleteToy(index.Indexed, models.Model):
+    strid = models.CharField(
+        max_length=255,
+        primary_key=True,
+        default=random_quotable_pk,
+    )
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
 
@@ -2160,3 +2171,21 @@ class FeatureCompleteToy(index.Indexed, models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.release_date})"
+
+
+class PurgeRevisionsProtectedTestModel(models.Model):
+    revision = models.OneToOneField(
+        "wagtailcore.Revision", on_delete=models.PROTECT, related_name="+"
+    )
+
+
+class SearchTestModel(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("body"),
+    ]
+
+    def __str__(self):
+        return self.title

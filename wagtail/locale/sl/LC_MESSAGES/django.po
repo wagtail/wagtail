@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -93,6 +93,14 @@ msgstr "Komentar"
 msgid "Locked"
 msgstr "Zaklenjeno"
 
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nihče ne more spreminjati, ko je %(model_name)s zaklenjen"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaklenii</b> <b>vi</b> ob <b>{datetime}</b>."
+
 #, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
@@ -106,6 +114,10 @@ msgstr "Zaklenjeno s vaše strani"
 
 msgid "Locked by another user"
 msgstr "Zaklenil drug uporabnik"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Ko je %(model_name)s zaklenjen, lahko spreminja le %(user)s"
 
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
@@ -549,6 +561,12 @@ msgstr "bo nastavljen na privzet %(model_name)s"
 msgid "will do nothing"
 msgstr "ne bo naredil nič"
 
+msgid "may prevent deletion"
+msgstr "lahko prepreči izbris"
+
+msgid "will unset the reference"
+msgstr "bo razveljavilo referenco"
+
 msgid "hostname"
 msgstr "ime strežnika"
 
@@ -642,6 +660,14 @@ msgstr "Za dostop do te strani potrebujete geslo."
 
 msgid "Continue"
 msgstr "Nadaljuj"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s zbirka potomcev"
+msgstr[1] "%(count)s zbirki potomcev"
+msgstr[2] "%(count)s zbirk potomcev"
+msgstr[3] "%(count)s zbirk potomcev"
 
 msgid "Create"
 msgstr "Ustvari"
@@ -776,6 +802,10 @@ msgstr "Stran je načrtovana za objavo"
 msgid "Unschedule publication"
 msgstr "Prekliči objavo"
 
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Stran ni predvidena za objavo ob %(go_live_at)s"
+
 msgid "Page unscheduled from publishing"
 msgstr "Načrtovana objava strani odstranjena"
 
@@ -801,10 +831,6 @@ msgstr "Posodobljena omejitev pogleda"
 
 msgid "Remove view restrictions"
 msgstr "Odstranite omejitve pogleda"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Odstranjen '%(restriction)s'  omejen pogled"
 
 msgid "Removed view restriction"
 msgstr "Odstranjena omejitev ogleda"

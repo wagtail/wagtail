@@ -197,6 +197,18 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
             PageViewRestriction.objects.filter(page=self.private_page).exists()
         )
 
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.private_page.id}
+        )
+        history_response = self.client.get(history_url)
+
+        # Check that the expected log message is present
+        expected_log_message = "Removed the &#x27;Private, accessible with the following password&#x27; view restriction. The page is public."
+        self.assertContains(
+            history_response,
+            expected_log_message,
+        )
+
     def test_get_private_groups(self):
         """
         This tests that the restriction type and group fields as set correctly when a user opens the set_privacy view on a public page

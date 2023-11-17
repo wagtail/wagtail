@@ -9,7 +9,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import date
-from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils.timezone import now
 from openpyxl import load_workbook
@@ -41,6 +41,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestIncorrectRegistration(SimpleTestCase):
@@ -164,9 +165,10 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         self.request = get_dummy_request()
         self.request.user = self.user
         self.text = "Test full-featured snippet with icon text"
+        self.full_featured_snippet = FullFeaturedSnippet.objects.create(text=self.text)
         test_snippet = SnippetChooserModel.objects.create(
             advert=Advert.objects.create(text="foo"),
-            full_featured=FullFeaturedSnippet.objects.create(text=self.text),
+            full_featured=self.full_featured_snippet,
         )
 
         self.edit_handler = get_edit_handler(SnippetChooserModel)
@@ -225,6 +227,38 @@ class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
         for key in response.context.keys():
             if "icon" in key:
                 self.assertNotIn("snippet", response.context[key])
+
+        # chooser should include the creation form
+        response_json = response.json()
+        soup = self.get_soup(response_json["html"])
+        self.assertTrue(soup.select_one("form[data-chooser-modal-creation-form]"))
+
+    def test_chosen(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.get(
+            reverse(
+                chooser_viewset.get_url_name("chosen"),
+                args=[self.full_featured_snippet.pk],
+            )
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(
+            response_json["result"]["id"], str(self.full_featured_snippet.pk)
+        )
+        self.assertEqual(response_json["result"]["string"], self.text)
+
+    def test_create_from_chooser(self):
+        chooser_viewset = FullFeaturedSnippet.snippet_viewset.chooser_viewset
+        response = self.client.post(
+            reverse(chooser_viewset.get_url_name("create")),
+            {
+                "text": "New snippet",
+            },
+        )
+        response_json = response.json()
+        self.assertEqual(response_json["step"], "chosen")
+        self.assertEqual(response_json["result"]["string"], "New snippet")
 
 
 class TestAdminURLs(BaseSnippetViewSetTests):
@@ -401,11 +435,7 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
     def test_unfiltered_no_results(self):
         response = self.get()
-        add_url = self.get_url("add")
-        self.assertContains(
-            response,
-            f'No full-featured snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "No full-featured snippets have been created.")
         self.assertContains(
             response,
             '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
@@ -1344,6 +1374,7 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         )
         response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
 
+        self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
             f"<dt>Protected image</dt> <dd>{image.get_rendition('max-400x400').img_tag()}</dd>",
@@ -1354,3 +1385,131 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
         self.assertContains(response, "Test document")
         self.assertContains(response, "TXT")
         self.assertContains(response, f"{document.file.size}\xa0bytes")
+
+    def test_image_and_document_fields_none_values(self):
+        self.model = VariousOnDeleteModel
+        object = self.model.objects.create()
+        response = self.client.get(self.get_url("inspect", args=(quote(object.pk),)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "<dt>Protected image</dt> <dd>None</dd>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            "<dt>Protected document</dt> <dd>None</dd>",
+            html=True,
+        )
+
+
+class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
+        {"label": "Snippets", "url": "/admin/snippets/"},
+    ]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Hello World")
+
+    def test_index_view(self):
+        response = self.client.get(self.get_url("list"))
+        items = [{"url": "", "label": "Full-featured snippets"}]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_add_view(self):
+        response = self.client.get(self.get_url("add"))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"url": "", "label": "New: Full-featured snippet"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_edit_view(self):
+        response = self.client.get(self.get_url("edit", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {"url": "", "label": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_delete_view(self):
+        response = self.client.get(self.get_url("delete", args=(self.object.pk,)))
+        self.assertBreadcrumbsNotRendered(response.content)
+
+    def test_history_view(self):
+        response = self.client.get(self.get_url("history", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "History"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view(self):
+        response = self.client.get(self.get_url("usage", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Usage"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_inspect_view(self):
+        response = self.client.get(self.get_url("inspect", args=(self.object.pk,)))
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Inspect"},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+
+class TestCustomMethods(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    def test_index_view_get_add_url_is_respected(self):
+        response = self.client.get(self.get_url("list"))
+        add_url = self.get_url("add") + "?customised=param"
+        soup = self.get_soup(response.content)
+        # Should contain the customised add URL in two places:
+        # The main action button, and the "Why not add one?" suggestion
+        links = soup.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 2)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_index_view_get_add_url_is_respected_with_i18n(self):
+        Locale.objects.create(language_code="fr")
+        response = self.client.get(self.get_url("list") + "?locale=fr")
+        add_url = self.get_url("add") + "?locale=fr&customised=param"
+        soup = self.get_soup(response.content)
+        # Should contain the customised add URL in two places:
+        # The main action button, and the "Why not add one?" suggestion
+        links = soup.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 2)

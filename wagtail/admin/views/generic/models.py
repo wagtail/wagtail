@@ -1,3 +1,5 @@
+import warnings
+
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
@@ -7,6 +9,7 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.db import models, transaction
+from django.db.models import Q
 from django.db.models.functions import Cast
 from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
@@ -30,14 +33,21 @@ from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
-from wagtail.admin.ui.tables import Column, TitleColumn, UpdatedAtColumn
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.ui.side_panels import StatusSidePanel
+from wagtail.admin.ui.tables import (
+    ButtonsColumnMixin,
+    Column,
+    TitleColumn,
+    UpdatedAtColumn,
+)
+from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.admin.widgets.button import ButtonWithDropdown, ListingButton
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, ReferenceIndex
+from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -93,6 +103,8 @@ class IndexView(
     add_url_name = None
     add_item_label = gettext_lazy("Add")
     edit_url_name = None
+    inspect_url_name = None
+    delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
     search_fields = None
     search_backend_name = "default"
@@ -216,10 +228,18 @@ class IndexView(
 
         self.filters, queryset = self.filter_queryset(queryset)
 
-        if self.locale:
+        # Ensure the queryset is of the same model as self.model before filtering,
+        # which may not be the case for views like HistoryView where the queryset
+        # is of a LogEntry model for self.model.
+        if self.locale and queryset.model == self.model:
             queryset = queryset.filter(locale=self.locale)
 
-        queryset = self._annotate_queryset_updated_at(queryset)
+        has_updated_at_column = any(
+            getattr(column, "accessor", None) == "_updated_at"
+            for column in self.columns
+        )
+        if has_updated_at_column:
+            queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -236,9 +256,12 @@ class IndexView(
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by(
-                models.F("_updated_at").desc(nulls_last=True), "-pk"
-            )
+            if has_updated_at_column:
+                queryset = queryset.order_by(
+                    models.F("_updated_at").desc(nulls_last=True), "-pk"
+                )
+            else:
+                queryset = queryset.order_by("-pk")
 
         return queryset
 
@@ -261,17 +284,37 @@ class IndexView(
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
-            return search_backend.autocomplete(
-                self.search_query, queryset, fields=self.search_fields
-            )
-
-        filters = {
-            field + "__icontains": self.search_query
-            for field in self.search_fields or []
-        }
-        return queryset.filter(**filters)
+            if queryset.model.get_autocomplete_search_fields():
+                return search_backend.autocomplete(
+                    self.search_query, queryset, fields=self.search_fields
+                )
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{queryset.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the admin will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+                return search_backend.search(
+                    self.search_query, queryset, fields=self.search_fields
+                )
+        query = Q()
+        for field in self.search_fields or []:
+            query |= Q(**{field + "__icontains": self.search_query})
+        return queryset.filter(query)
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        if not issubclass(column_class, ButtonsColumnMixin):
+
+            def get_buttons(column, instance, *args, **kwargs):
+                return self.get_list_buttons(instance)
+
+            column_class = type(
+                column_class.__name__,
+                (ButtonsColumnMixin, column_class),
+                {"get_buttons": get_buttons},
+            )
         if not self.model:
             return column_class(
                 "name",
@@ -324,14 +367,106 @@ class IndexView(
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
+    def get_inspect_url(self, instance):
+        if self.inspect_url_name:
+            return reverse(self.inspect_url_name, args=(quote(instance.pk),))
+
+    def get_delete_url(self, instance):
+        if self.delete_url_name:
+            return reverse(self.delete_url_name, args=(quote(instance.pk),))
+
     def get_add_url(self):
         if self.add_url_name:
-            return reverse(self.add_url_name)
+            return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_page_title(self):
         if not self.page_title and self.model:
             return capfirst(self.model._meta.verbose_name_plural)
         return self.page_title
+
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        return self.breadcrumbs_items + [
+            {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
+        ]
+
+    def get_translations(self):
+        index_url = self.get_index_url()
+        if not index_url:
+            return []
+        return [
+            {
+                "locale": locale,
+                "url": self._set_locale_query_param(index_url, locale),
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
+    def get_list_more_buttons(self, instance):
+        buttons = []
+        edit_url = self.get_edit_url(instance)
+        can_edit = (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "change")
+        )
+        if edit_url and can_edit:
+            buttons.append(
+                ListingButton(
+                    _("Edit"),
+                    url=self.get_edit_url(instance),
+                    icon_name="edit",
+                    attrs={
+                        "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=10,
+                )
+            )
+        inspect_url = self.get_inspect_url(instance)
+        if inspect_url:
+            buttons.append(
+                ListingButton(
+                    _("Inspect"),
+                    url=inspect_url,
+                    icon_name="info-circle",
+                    attrs={
+                        "aria-label": _("Inspect '%(title)s'")
+                        % {"title": str(instance)}
+                    },
+                    priority=20,
+                )
+            )
+        delete_url = self.get_delete_url(instance)
+        can_delete = (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "delete")
+        )
+        if delete_url and can_delete:
+            buttons.append(
+                ListingButton(
+                    _("Delete"),
+                    url=delete_url,
+                    icon_name="bin",
+                    attrs={
+                        "aria-label": _("Delete '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=30,
+                )
+            )
+        return buttons
+
+    def get_list_buttons(self, instance):
+        buttons = self.get_list_more_buttons(instance)
+        return [
+            ButtonWithDropdown(
+                buttons=buttons,
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
+        ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
@@ -410,13 +545,33 @@ class CreateView(
             return capfirst(self.model._meta.verbose_name)
         return self.page_subtitle
 
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": _("New: %(model_name)s")
+                % {"model_name": capfirst(self.model._meta.verbose_name)},
+            }
+        )
+        return self.breadcrumbs_items + items
+
     def get_add_url(self):
         if not self.add_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "add_url_name attribute or a get_add_url method"
             )
-        return reverse(self.add_url_name)
+        return self._set_locale_query_param(reverse(self.add_url_name))
 
     def get_edit_url(self):
         if not self.edit_url_name:
@@ -432,7 +587,7 @@ class CreateView(
                 "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
                 "index_url_name attribute or a get_success_url method"
             )
-        return reverse(self.index_url_name)
+        return self._set_locale_query_param(reverse(self.index_url_name))
 
     def get_success_message(self, instance):
         if self.success_message is None:
@@ -452,6 +607,16 @@ class CreateView(
         context["action_url"] = self.get_add_url()
         context["submit_button_label"] = self.submit_button_label
         return context
+
+    def get_translations(self):
+        add_url = self.get_add_url()
+        return [
+            {
+                "locale": locale,
+                "url": self._set_locale_query_param(add_url, locale),
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
 
     def save_instance(self):
         """
@@ -507,6 +672,8 @@ class EditView(
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
+    history_url_name = None
+    usage_url_name = None
     page_title = gettext_lazy("Editing")
     context_object_name = None
     template_name = "wagtailadmin/generic/edit.html"
@@ -539,6 +706,41 @@ class EditView(
     def get_page_subtitle(self):
         return str(self.object)
 
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append({"url": "", "label": get_latest_str(self.object)})
+        return self.breadcrumbs_items + items
+
+    def get_side_panels(self):
+        side_panels = []
+        usage_url = self.get_usage_url()
+        history_url = self.get_history_url()
+        if usage_url or history_url:
+            side_panels.append(
+                StatusSidePanel(
+                    self.object,
+                    self.request,
+                    locale=self.locale,
+                    translations=self.translations,
+                    usage_url=usage_url,
+                    history_url=history_url,
+                    last_updated_info=self.get_last_updated_info(),
+                )
+            )
+        return MediaContainer(side_panels)
+
+    def get_last_updated_info(self):
+        return log_registry.get_logs_for_instance(self.object).first()
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -551,6 +753,14 @@ class EditView(
         if self.delete_url_name:
             return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
+    def get_history_url(self):
+        if self.history_url_name:
+            return reverse(self.history_url_name, args=(quote(self.object.pk),))
+
+    def get_usage_url(self):
+        if self.usage_url_name:
+            return reverse(self.usage_url_name, args=[quote(self.object.pk)])
+
     def get_success_url(self):
         if not self.index_url_name:
             raise ImproperlyConfigured(
@@ -558,6 +768,17 @@ class EditView(
                 "index_url_name attribute or a get_success_url method"
             )
         return reverse(self.index_url_name)
+
+    def get_translations(self):
+        if not self.edit_url_name:
+            return []
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse(self.edit_url_name, args=[quote(translation.pk)]),
+            }
+            for translation in self.object.get_translations().select_related("locale")
+        ]
 
     def save_instance(self):
         """
@@ -626,7 +847,13 @@ class EditView(
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.form = context.get("form")
+        side_panels = self.get_side_panels()
+        media = context.get("media") + side_panels.media
         context["action_url"] = self.get_edit_url()
+        context["history_url"] = self.get_history_url()
+        context["side_panels"] = side_panels
+        context["media"] = media
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
@@ -648,6 +875,7 @@ class DeleteView(
 ):
     model = None
     index_url_name = None
+    edit_url_name = None
     delete_url_name = None
     usage_url_name = None
     template_name = "wagtailadmin/generic/confirm_delete.html"
@@ -691,6 +919,9 @@ class DeleteView(
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        return []
 
     def get_delete_url(self):
         if not self.delete_url_name:
@@ -747,9 +978,11 @@ class DeleteView(
 
 
 class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
+    any_permission_required = ["add", "change", "delete"]
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
+    index_url_name = None
     edit_url_name = None
     delete_url_name = None
     fields = []
@@ -763,10 +996,25 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         self.object = self.get_object()
 
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        edit_url = self.get_edit_url()
+        if edit_url:
+            items.append({"url": edit_url, "label": get_latest_str(self.object)})
+        items.append({"url": "", "label": _("Inspect")})
+        return self.breadcrumbs_items + items
 
     def get_fields(self):
         fields = self.fields or [
@@ -833,7 +1081,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.edit_url_name, args=(quote(self.pk),))
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
         if not self.delete_url_name or (
@@ -843,7 +1091,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
             )
         ):
             return None
-        return reverse(self.delete_url_name, args=(quote(self.pk),))
+        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -871,7 +1119,7 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         self.object = self.get_object()
 
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_edit_handler(self):
         if self.edit_handler:
@@ -978,7 +1226,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     def get_object(self, queryset=None):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_usage(self):
         return ReferenceIndex.get_grouped_references_to(self.object)
@@ -1084,7 +1332,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
     def get_object(self, queryset=None):
         if not self.model or not issubclass(self.model, DraftStateMixin):
             raise Http404
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_revision(self):
         return get_object_or_404(self.object.revisions, id=self.revision_id)

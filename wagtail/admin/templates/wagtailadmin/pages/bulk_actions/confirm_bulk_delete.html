@@ -4,8 +4,7 @@
 {% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
 
 {% block header %}
-    {% trans "Delete" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=_("Delete") icon="doc-empty-inverse" %}
 {% endblock header %}
 
 {% block items_with_access %}

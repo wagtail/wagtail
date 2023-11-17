@@ -25,7 +25,7 @@ describe('TooltipController', () => {
   >
     CONTENT
   </button>
-</section`;
+</section>`;
 
     application = Application.start();
     application.register('w-tooltip', TooltipController);
@@ -132,5 +132,28 @@ describe('TooltipController', () => {
     await Promise.resolve();
 
     expect(tooltip.textContent).toEqual('NEW content!');
+  });
+
+  it('should support passing the offset value', async () => {
+    document.body.innerHTML = `
+    <section>
+      <button
+        id="button"
+        type="button"
+        data-controller="w-tooltip"
+        data-w-tooltip-offset-value="[10, 20]"
+      >
+        CONTENT
+      </button>
+    </section>`;
+
+    await Promise.resolve(requestAnimationFrame);
+
+    const tippy = application.getControllerForElementAndIdentifier(
+      document.getElementById('button'),
+      'w-tooltip',
+    ).tippy;
+
+    expect(tippy.props).toHaveProperty('offset', [10, 20]);
   });
 });

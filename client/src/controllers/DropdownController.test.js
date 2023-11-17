@@ -54,6 +54,9 @@ describe('DropdownController', () => {
 
   it('triggers custom event on activation', async () => {
     const toggle = document.querySelector('[data-w-dropdown-target="toggle"]');
+    const dropdownElement = document.querySelector(
+      '[data-controller="w-dropdown"]',
+    );
 
     const mock = new Promise((resolve) => {
       document.addEventListener('w-dropdown:shown', (event) => {
@@ -66,7 +69,10 @@ describe('DropdownController', () => {
     const event = await mock;
 
     expect(event).toEqual(
-      expect.objectContaining({ type: 'w-dropdown:shown', target: document }),
+      expect.objectContaining({
+        type: 'w-dropdown:shown',
+        target: dropdownElement,
+      }),
     );
   });
 
@@ -84,5 +90,25 @@ describe('DropdownController', () => {
     dropdownElement.dispatchEvent(new CustomEvent('custom:hide'));
 
     expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+  });
+
+  it('should support an offset value passed to tippy.js', async () => {
+    application?.stop();
+    document
+      .querySelector('div')
+      .setAttribute('data-w-dropdown-offset-value', '[12,24]');
+
+    application = Application.start();
+    application = Application.start();
+    application.register('w-dropdown', DropdownController);
+
+    await Promise.resolve();
+
+    const tippy = application.getControllerForElementAndIdentifier(
+      document.querySelector('div'),
+      'w-dropdown',
+    ).tippy;
+
+    expect(tippy.props).toHaveProperty('offset', [12, 24]);
   });
 });

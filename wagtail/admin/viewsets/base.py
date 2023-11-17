@@ -11,8 +11,10 @@ class ViewSet(WagtailMenuRegisterable):
 
     All properties of the viewset can be defined as class-level attributes, or passed as
     keyword arguments to the constructor (in which case they will override any class-level
-    attributes). Additionally, the `name` property can be passed as the first positional
+    attributes). Additionally, the :attr:`name` property can be passed as the first positional
     argument to the constructor.
+
+    For more information on how to use this class, see :ref:`using_base_viewset`.
     """
 
     #: A name for this viewset, used as the default URL prefix and namespace.
@@ -28,15 +30,58 @@ class ViewSet(WagtailMenuRegisterable):
         for key, value in kwargs.items():
             self.__dict__[key] = value
 
+    def get_common_view_kwargs(self, **kwargs):
+        """
+        Returns a dictionary of keyword arguments to be passed to all views within this viewset.
+        """
+        return kwargs
+
+    def construct_view(self, view_class, **kwargs):
+        """
+        Wrapper for view_class.as_view() which passes the kwargs returned from get_common_view_kwargs
+        in addition to any kwargs passed to this method. Items from get_common_view_kwargs will be
+        filtered to only include those that are valid for the given view_class.
+        """
+        filtered_kwargs = {
+            key: value
+            for key, value in self.get_common_view_kwargs().items()
+            if hasattr(view_class, key)
+        }
+        filtered_kwargs.update(kwargs)
+        return view_class.as_view(**filtered_kwargs)
+
+    def inject_view_methods(self, view_class, method_names):
+        """
+        Check for the presence of any of the named methods on this viewset. If any are found,
+        create a subclass of view_class that overrides those methods to call the implementation
+        on this viewset instead. Otherwise, return view_class unmodified.
+        """
+        viewset = self
+        overrides = {}
+        for method_name in method_names:
+            viewset_method = getattr(viewset, method_name, None)
+            if viewset_method:
+
+                def view_method(self, *args, **kwargs):
+                    return viewset_method(*args, **kwargs)
+
+                view_method.__name__ = method_name
+                overrides[method_name] = view_method
+
+        if overrides:
+            return type(view_class.__name__, (view_class,), overrides)
+        else:
+            return view_class
+
     @cached_property
     def url_prefix(self):
         """
         The preferred URL prefix for views within this viewset. When registered through
-        Wagtail's ``register_admin_viewset`` hook, this will be used as the URL path component
-        following ``/admin/``. Other URL registration mechanisms (e.g. editing urls.py manually)
+        Wagtail's :ref:`register_admin_viewset` hook, this will be used as the URL path component
+        following ``/admin/``. Other URL registration mechanisms (e.g. editing ``urls.py`` manually)
         may disregard this and use a prefix of their own choosing.
 
-        Defaults to the viewset's name.
+        Defaults to the viewset's ``name``.
         """
         if not self.name:
             raise ImproperlyConfigured(
@@ -51,7 +96,7 @@ class ViewSet(WagtailMenuRegisterable):
         application namespace for the viewset's URLs, and generally be the instance namespace
         too.
 
-        Defaults to the viewset's name.
+        Defaults to the viewset's ``name``.
         """
         if not self.name:
             raise ImproperlyConfigured(
@@ -88,8 +133,10 @@ class ViewSet(WagtailMenuRegisterable):
 
 class ViewSetGroup(WagtailMenuRegisterableGroup):
     """
-    A container for grouping together multiple ViewSet instances.
+    A container for grouping together multiple :class:`ViewSet` instances.
     Creates a menu item with a submenu for accessing the main URL for each instances.
+
+    For more information on how to use this class, see :ref:`using_base_viewsetgroup`.
     """
 
     def on_register(self):

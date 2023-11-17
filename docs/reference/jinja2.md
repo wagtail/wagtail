@@ -70,18 +70,87 @@ See [](slugurl_tag) for more information
 
 ### `image()`
 
-Resize an image, and print an `<img>` tag:
+Resize an image, and render an `<img>` tag:
 
 ```html+jinja
-{# Print an image tag #}
 {{ image(page.header_image, "fill-1024x200", class="header-image") }}
+```
 
-{# Resize an image #}
+Or resize an image and retrieve the resized image object (rendition) for more bespoke use:
+
+```html+jinja
 {% set background=image(page.background_image, "max-1024x1024") %}
-<div class="wrapper" style="background-image: url({{ background.url }});">
+<div class="wrapper" style="background-image: url({{ background.url }});"></div>
 ```
 
 See [](image_tag) for more information
+
+### `srcset_image()`
+
+Resize an image, and render an `<img>` tag including `srcset` with multiple sizes.
+Browsers will select the most appropriate image to load based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential unless you store the output of `srcset_image` for later use.
+
+```html+jinja
+{{ srcset_image(page.photo, "width-{400,800}", sizes="(max-width: 600px) 400px, 80vw") }}
+```
+
+This outputs:
+
+```html
+<img srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" sizes="(max-width: 600px) 400px, 80vw" width="400" height="300">
+```
+
+Or resize an image and retrieve the renditions for more bespoke use:
+
+```html+jinja
+{% set bg=srcset_image(page.background_image, "max-{512x512,1024x1024}") %}
+<div class="wrapper" style="background-image: image-set(url({{ bg.renditions[0].url }}) 1x, url({{ bg.renditions[1].url }}) 2x);"></div>
+```
+
+### `picture()`
+
+Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes, and a fallback `<img>` tag.
+Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image-formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+
+`picture` can render an image in multiple formats:
+
+```html+jinja
+{{ picture(page.photo, "format-{avif,webp,jpeg}|width-400") }}
+```
+
+This outputs:
+
+```html
+<picture>
+    <source srcset="/media/images/pied-wagtail.width-400.avif" type="image/avif">
+    <source srcset="/media/images/pied-wagtail.width-400.webp" type="image/webp">
+    <img src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
+```
+
+Or render multiple formats and multiple sizes like `srcset_image` does. The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential when the picture tag renders images in multiple sizes:
+
+```html+jinja
+{{ picture(page.header_image, "format-{avif,webp,jpeg}|width-{400,800}", sizes="80vw") }}
+```
+
+This outputs:
+
+```html
+<picture>
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.avif 400w, /media/images/pied-wagtail.width-800.avif 800w" type="image/avif">
+    <source sizes="80vw" srcset="/media/images/pied-wagtail.width-400.webp 400w, /media/images/pied-wagtail.width-800.webp 800w" type="image/webp">
+    <img sizes="80vw" srcset="/media/images/pied-wagtail.width-400.jpg 400w, /media/images/pied-wagtail.width-800.jpg 800w" src="/media/images/pied-wagtail.width-400.jpg" alt="A pied Wagtail" width="400" height="300">
+</picture>
+```
+
+Or resize an image and retrieve the renditions for more bespoke use:
+
+```html+jinja
+{% set bg=picture(page.background_image, "format-{avif,jpeg}|max-{512x512,1024x1024}") %}
+<div class="wrapper" style="background-image: image-set(url({{ bg.formats['avif'][0].url }}) 1x type('image/avif'), url({{ bg.formats['avif'][1].url }}) 2x type('image/avif'), url({{ bg.formats['jpeg'][0].url }}) 1x type('image/jpeg'), url({{ bg.formats['jpeg'][1].url }}) 2x type('image/jpeg'));"></div>
+```
 
 ### `|richtext`
 

@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ view.page_title }}{% endblock %}
@@ -9,8 +9,9 @@
 {% endblock %}
 
 {% block content %}
-
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon only %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
 
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}

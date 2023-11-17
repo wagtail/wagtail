@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -55,5 +55,18 @@ msgstr "%(label)s y publicar"
 msgid "Saving…"
 msgstr "Guardando..."
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
+
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Choose"
+msgstr "Seleccionar"
+
+msgid "Name"
+msgstr "Nombre"

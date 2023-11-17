@@ -77,26 +77,52 @@ function initTable(id, tableOptions) {
     });
   }
 
-  const getCellsClassnames = function () {
-    const meta = hot.getCellsMeta();
-    const cellsClassnames = [];
-    for (let i = 0; i < meta.length; i += 1) {
-      if (hasOwn(meta[i], 'className')) {
-        cellsClassnames.push({
-          row: meta[i].row,
-          col: meta[i].col,
-          className: meta[i].className,
+  const persist = function () {
+    const cell = [];
+    const mergeCells = [];
+    const cellsMeta = hot.getCellsMeta();
+
+    cellsMeta.forEach((meta) => {
+      let className;
+      let hidden;
+
+      if (hasOwn(meta, 'className')) {
+        className = meta.className;
+      }
+      if (hasOwn(meta, 'hidden')) {
+        // Cells are hidden if they have been merged
+        hidden = true;
+      }
+
+      // Undefined values won't be included in the output
+      if (className !== undefined || hidden) {
+        cell.push({
+          row: meta.row,
+          col: meta.col,
+          className: className,
+          hidden: hidden,
         });
       }
-    }
-    return cellsClassnames;
-  };
+    });
 
-  const persist = function () {
+    if (hot.getPlugin('mergeCells').isEnabled()) {
+      const collection = hot.getPlugin('mergeCells').mergedCellsCollection;
+
+      collection.mergedCells.forEach((merge) => {
+        mergeCells.push({
+          row: merge.row,
+          col: merge.col,
+          rowspan: merge.rowspan,
+          colspan: merge.colspan,
+        });
+      });
+    }
+
     hiddenStreamInput.val(
       JSON.stringify({
         data: hot.getData(),
-        cell: getCellsClassnames(),
+        cell: cell,
+        mergeCells: mergeCells,
         first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
         first_col_is_header: colHeaderCheckbox.prop('checked'),
         table_caption: tableCaption.val(),
@@ -105,7 +131,7 @@ function initTable(id, tableOptions) {
   };
 
   const cellEvent = function (change, source) {
-    if (source === 'loadData') {
+    if (!isInitialized || source === 'loadData' || source === 'MergeCells') {
       return; // don't save this change
     }
 
@@ -115,6 +141,20 @@ function initTable(id, tableOptions) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const metaEvent = function (row, column, key, value) {
     if (isInitialized && key === 'className') {
+      persist();
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const mergeEvent = function (cellRange, mergeParent, auto) {
+    if (isInitialized) {
+      persist();
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const unmergeEvent = function (cellRange, auto) {
+    if (isInitialized) {
       persist();
     }
   };
@@ -148,6 +188,8 @@ function initTable(id, tableOptions) {
     afterRemoveCol: structureEvent,
     afterRemoveRow: structureEvent,
     afterSetCellMeta: metaEvent,
+    afterMergeCells: mergeEvent,
+    afterUnmergeCells: unmergeEvent,
     afterInit: initEvent,
     // contextMenu set via init, from server defaults
   };
@@ -168,6 +210,13 @@ function initTable(id, tableOptions) {
   Object.keys(tableOptions).forEach((key) => {
     finalOptions[key] = tableOptions[key];
   });
+
+  if (hasOwn(finalOptions, 'mergeCells') && finalOptions.mergeCells === true) {
+    // If mergeCells is enabled and true then use the value from the database
+    if (dataForForm !== null && hasOwn(dataForForm, 'mergeCells')) {
+      finalOptions.mergeCells = dataForForm.mergeCells;
+    }
+  }
 
   hot = new Handsontable(document.getElementById(containerId), finalOptions);
   window.addEventListener('load', () => {

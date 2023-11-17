@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Апублікаваць"
@@ -111,15 +111,6 @@ msgstr "Новы"
 msgid "Actions"
 msgstr "Дзеянні"
 
-msgid "Breadcrumb"
-msgstr "Шлях па сайту"
-
-msgid "Snippets"
-msgstr "Фрагменты"
-
-msgid "Usage"
-msgstr "Выкарыстанне"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Фрагменты %(snippet_type_name_plural)s"
@@ -129,12 +120,20 @@ msgid "Add %(snippet_type_name)s"
 msgstr "Дадаць %(snippet_type_name)s"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Ёсць %(counter)s супадзенне"
+msgstr[1] "Ёсць %(counter)s супадзенняў"
+msgstr[2] "Ёсць %(counter)s супадзенняў"
+msgstr[3] "Ёсць %(counter)s супадзенняў"
+
+#, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"%(snippet_type_name_plural)s яшчэ не былі створаны. Давай <a href="
-"\"%(wagtailsnippets_create_url)s\">дададзім адзін</a>?"
+"%(snippet_type_name_plural)s яшчэ не былі створаны. Давай <a "
+"href=\"%(wagtailsnippets_create_url)s\">дададзім адзін</a>?"
 
 msgid "Live version"
 msgstr "Апублікаваная версія"
@@ -154,6 +153,9 @@ msgstr "Адмяніць запланаваную публікацыю"
 msgid "Choose"
 msgstr "Выбраць"
 
+msgid "Snippets"
+msgstr "Фрагменты"
+
 msgid "Name"
 msgstr "Імя"
 
@@ -166,9 +168,8 @@ msgstr "Фрагмент кода не можа быць захавана з-з�
 msgid "Date"
 msgstr "Дата"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Рэдагаваць '%(title)s'"
+msgid "Home"
+msgstr "Галоўная"
 
 #, python-format
 msgid "Choose %(object)s"

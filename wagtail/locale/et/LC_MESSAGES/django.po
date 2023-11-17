@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -635,10 +635,6 @@ msgstr "Uuendatud vaatamispiirang"
 
 msgid "Remove view restrictions"
 msgstr "Eemaldage vaate piirangud"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Eemaldas vaatamise piirangu '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "Vaatamispiirang on eemaldatud"

@@ -149,7 +149,7 @@ class StructBlockFactory(factory.Factory):
     def _construct_struct_value(cls, block_class, params):
         return blocks.StructValue(
             block_class(),
-            [(name, value) for name, value in params.items()],
+            list(params.items()),
         )
 
     @classmethod

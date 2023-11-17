@@ -68,7 +68,7 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 -   The `type` is the only mandatory piece of information.
 -   To display the control in the toolbar, combine `icon`, `label` and `description`.
--   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references for example `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
+-   `icon` is an icon name [registered in the Wagtail icon library](../../advanced_topics/icons) - for example, `'icon': 'user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references for example `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
 
 ### Creating new inline styles
 
@@ -83,6 +83,7 @@ Blocks are nearly as simple as inline styles:
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
+from wagtail import hooks
 
 @hooks.register('register_rich_text_features')
 def register_help_text_feature(features):
@@ -352,6 +353,7 @@ Here is an example with a simple sentence counter – first, registering the edi
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')
@@ -392,6 +394,23 @@ window.draftail.registerPlugin({
 }, 'controls');
 ```
 
+```{note}
+Remember to include this feature in any custom Draft configs set up in the `WAGTAILADMIN_RICH_TEXT_EDITORS` setting. So that this new 'sentences' feature is available.
+```
+
+For example:
+
+```python
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['bold', 'italic', 'link', 'sentences'],  # Add 'sentences' here
+        },
+    },
+}
+```
+
 ### Text decorators
 
 The [decorators API](https://www.draftail.org/docs/decorators) is how Draftail / Draft.js supports highlighting text with special formatting in the editor. It uses the [CompositeDecorator](https://draftjs.org/docs/advanced-topics-decorators/#compositedecorator) API, with each entry having a `strategy` function to determine what text to target, and a `component` function to render the decoration.
@@ -405,6 +424,7 @@ Here is an example with highlighting of problematic punctuation – first, regis
 
 ```python
 from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
+from wagtail import hooks
 
 
 @hooks.register('register_rich_text_features')

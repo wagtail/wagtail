@@ -2,7 +2,6 @@ import hashlib
 
 from django.conf import settings
 from django.contrib.staticfiles.storage import HashedFilesMixin
-from django.core.files.storage import get_storage_class
 from django.templatetags.static import static
 
 from wagtail import __version__
@@ -23,7 +22,17 @@ except AttributeError:
         use_version_strings = True
     else:
         # see if we're using a storage backend using hashed filenames
-        storage = get_storage_class(settings.STATICFILES_STORAGE)
+        try:
+            from django.conf import STATICFILES_STORAGE_ALIAS
+            from django.core.files.storage import storages
+
+            storage = storages[STATICFILES_STORAGE_ALIAS].__class__
+        except ImportError:
+            # DJANGO_VERSION < 4.2
+            from django.core.files.storage import get_storage_class
+
+            storage = get_storage_class(settings.STATICFILES_STORAGE)
+
         use_version_strings = not issubclass(storage, HashedFilesMixin)
 
 

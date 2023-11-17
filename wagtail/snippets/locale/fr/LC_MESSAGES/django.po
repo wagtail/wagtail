@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,13 +128,13 @@ msgstr "Désolé, aucun fragment ne correspond à « <em>%(search_query)s</em>�
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noreferrer\">en créer un maintenant</a> ?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">en créer un maintenant</a> ?"
 
 msgid "Publishing…"
 msgstr "Publication..."
@@ -168,39 +168,6 @@ msgstr "Actions"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Modification de %(snippet_type_name)s - %(object)s"
 
-msgid "Toggle breadcrumbs"
-msgstr "Afficher/masquer le fil d'Ariane"
-
-msgid "Breadcrumb"
-msgstr "Fil d'Ariane"
-
-msgid "Snippets"
-msgstr "Fragments"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nouvel(le) : %(model_name)s"
-
-#, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Modification de %(snippet_type)s « %(title)s »"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Usage"
-msgstr "Utilisation"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "Historique du fragment pour « %(subtitle)s »"
-
-msgid "Edit this snippet"
-msgstr "Modifier ce fragment"
-
-msgid "No log entries found."
-msgstr "Aucune entrée de journal trouvée."
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragments %(snippet_type_name_plural)s"
@@ -226,11 +193,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a href="
-"\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
+"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a "
+"href=\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
 
 msgid "Live version"
 msgstr "Version publiée"
@@ -259,11 +226,18 @@ msgstr "Annuler la publication programmée"
 msgid "Choose"
 msgstr "Choisir"
 
+msgid "Snippets"
+msgstr "Fragments"
+
 msgid "Name"
 msgstr "Nom"
 
 msgid "Instances"
 msgstr "Occurrences"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Plus d’options pour « %(title)s »"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Le fragment ne peut être créé du fait d'erreurs."
@@ -274,14 +248,8 @@ msgstr "Le fragment ne peut être enregistré du fait d'erreurs."
 msgid "Action"
 msgstr "Action"
 
-msgid "User"
-msgstr "Utilisateur"
-
 msgid "Date"
 msgstr "Date"
-
-msgid "Snippet history"
-msgstr "Historique du fragment"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -291,20 +259,8 @@ msgstr "Modifier ce/cette %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "Historique de %(model_name)s"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Modifier « %(title)s »"
-
-msgid "Inspect"
-msgstr "Inspecter"
-
-#, python-format
-msgid "Inspect '%(title)s'"
-msgstr "Inspecter « %(title)s »"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Supprimer « %(title)s »"
+msgid "Home"
+msgstr "Accueil"
 
 #, python-format
 msgid "Choose %(object)s"

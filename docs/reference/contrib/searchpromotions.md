@@ -41,14 +41,27 @@ To retrieve a list of promoted search results for a particular search query, you
 
 <ul>
     {% for search_promotion in search_promotions %}
-        <li>
-            <a href="{% pageurl search_promotion.page %}">
-                <h2>{{ search_promotion.page.title }}</h2>
-                <p>{{ search_promotion.description }}</p>
-            </a>
-        </li>
+        {% if search_promotion.page %}
+            <li>
+                <a href="{% pageurl search_promotion.page %}">
+                    <h2>{{ search_promotion.page.title }}</h2>
+                    <p>{{ search_promotion.description }}</p>
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ search_promotion.external_link_url }}">
+                    <h2>{{ search_promotion.external_link_text }}</h2>
+                    <p>{{ search_promotion.description }}</p>
+                </a>
+            </li>
+        {% endif %}
     {% endfor %}
 </ul>
+```
+
+```{versionadded} 5.2
+    Support for `external_link_url` and `external_link_text` were added.
 ```
 
 ### Managing stored search queries

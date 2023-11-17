@@ -13,10 +13,18 @@ from wagtail.log_actions import registry as log_action_registry
 from wagtail.models import Page, PageLogEntry
 
 
+def get_actions_for_filter():
+    # Only return those actions used by page log entries.
+    actions = set(PageLogEntry.objects.all().get_actions())
+    return [
+        action for action in log_action_registry.get_choices() if action[0] in actions
+    ]
+
+
 class PageHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=_("Action"),
-        choices=log_action_registry.get_choices,
+        # choices are set dynamically in __init__()
     )
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_("Hide commenting actions"),
@@ -40,6 +48,10 @@ class PageHistoryReportFilterSet(WagtailFilterSet):
     class Meta:
         model = PageLogEntry
         fields = ["action", "user", "timestamp", "hide_commenting_actions"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters["action"].extra["choices"] = get_actions_for_filter()
 
 
 class PageWorkflowHistoryViewMixin:

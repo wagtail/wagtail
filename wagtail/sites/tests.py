@@ -5,9 +5,10 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestSiteIndexView(WagtailTestUtils, TestCase):
+class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -19,9 +20,10 @@ class TestSiteIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
 
-class TestSiteCreateView(WagtailTestUtils, TestCase):
+class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -55,6 +57,7 @@ class TestSiteCreateView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsites/create.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_create(self):
         response = self.post(
@@ -155,10 +158,10 @@ class TestSiteCreateView(WagtailTestUtils, TestCase):
                 Site with this Hostname and Port already exists.
             </div>
         """
-        self.assertTagInHTML(expected_html, str(response.content))
+        self.assertTagInHTML(expected_html, response.content.decode())
 
 
-class TestSiteEditView(WagtailTestUtils, TestCase):
+class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(id=2)
@@ -194,9 +197,10 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsites/edit.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/sites/%d/" % self.localhost.id
+        expected_url = "/admin/sites/edit/%d/" % self.localhost.id
         self.assertEqual(url_finder.get_edit_url(self.localhost), expected_url)
 
     def test_nonexistant_redirect(self):
@@ -317,10 +321,10 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
                 Site with this Hostname and Port already exists.
             </div>
         """
-        self.assertTagInHTML(expected_html, str(response.content))
+        self.assertTagInHTML(expected_html, response.content.decode())
 
 
-class TestSiteDeleteView(WagtailTestUtils, TestCase):
+class TestSiteDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         self.home_page = Page.objects.get(id=2)
@@ -341,6 +345,7 @@ class TestSiteDeleteView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)

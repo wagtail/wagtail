@@ -18,7 +18,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
-from wagtail.admin.utils import get_latest_str
+from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -26,6 +26,7 @@ from wagtail.models import (
     DraftStateMixin,
     Locale,
     LockableMixin,
+    PreviewableMixin,
     RevisionMixin,
     TranslatableMixin,
     WorkflowMixin,
@@ -103,6 +104,7 @@ class LocaleMixin:
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.locale = self.get_locale()
+        self.translations = self.get_translations() if self.locale else []
 
     def get_locale(self):
         i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
@@ -120,13 +122,23 @@ class LocaleMixin:
             return get_object_or_404(Locale, language_code=selected_locale)
         return Locale.get_default()
 
+    def get_translations(self):
+        # Return a list of {"locale": Locale, "url": str} objects for available locales
+        return []
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if not self.locale:
             return context
 
         context["locale"] = self.locale
+        context["translations"] = self.translations
         return context
+
+    def _set_locale_query_param(self, url, locale=None):
+        if not (locale := locale or self.locale):
+            return url
+        return set_query_params(url, {"locale": locale.language_code})
 
 
 class PanelMixin:
@@ -220,6 +232,7 @@ class CreateEditViewOptionalFeaturesMixin:
         self.args = args
         self.kwargs = kwargs
 
+        self.preview_enabled = self.model and issubclass(self.model, PreviewableMixin)
         self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
         self.locking_enabled = (
@@ -365,6 +378,12 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locking_enabled or not self.unlock_url_name:
             return None
         return reverse(self.unlock_url_name, args=[quote(self.object.pk)])
+
+    def get_preview_url(self):
+        if not self.preview_enabled or not self.preview_url_name:
+            return None
+        args = [] if self.view_name == "create" else [quote(self.object.pk)]
+        return reverse(self.preview_url_name, args=args)
 
     def get_workflow_history_url(self):
         if not self.workflow_enabled or not self.workflow_history_url_name:
@@ -566,7 +585,7 @@ class CreateEditViewOptionalFeaturesMixin:
             self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
         return super().form_invalid(form)
 
-    def get_live_last_updated_info(self):
+    def get_last_updated_info(self):
         # Create view doesn't have last updated info
         if self.view_name == "create":
             return None
@@ -657,7 +676,6 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
-        context["live_last_updated_info"] = self.get_live_last_updated_info()
         context["workflow_history_url"] = self.get_workflow_history_url()
         context[
             "confirm_workflow_cancellation_url"

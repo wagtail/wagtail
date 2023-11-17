@@ -27,11 +27,9 @@
     {% endfor %}
 </div>
 
-<script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% escapescript %}
-        {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
-    {% endescapescript %}
-</script>
+<template id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
+    {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
+</template>
 
 {# Align with guiding line of the preceding child panel. #}
 <div class="w-mb-4 -w-ml-4">

@@ -136,4 +136,74 @@ describe('DialogController', () => {
       expect(hiddenListener).toHaveBeenCalled();
     });
   });
+
+  describe('dispatching events internally via notify targets', () => {
+    const eventHandler = jest.fn();
+
+    beforeEach(() => {
+      application?.stop();
+
+      document.body.innerHTML = `
+      <section>
+        <div
+          id="dialog-container"
+          aria-hidden="true"
+          data-controller="w-dialog"
+          data-action="w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show"
+        >
+          <div role="document">
+            <div id="dialog-body" data-w-dialog-target="body">
+              <h3>Content</h3>
+              <div data-w-dialog-target="notify" id="inner-content"></div>
+            </div>
+          </div>
+          <div data-w-dialog-target="notify" id="outer-content"></div>
+        </div>
+      </section>`;
+
+      const doc = document.getElementById('inner-content');
+      doc.addEventListener('w-dialog:shown', eventHandler);
+      doc.addEventListener('w-dialog:hidden', eventHandler);
+      doc.addEventListener('w-dialog:ready', eventHandler);
+
+      application = new Application();
+      application.register('w-dialog', DialogController);
+
+      application.start();
+    });
+
+    afterEach(() => {
+      document.body.innerHTML = '';
+      jest.clearAllMocks();
+    });
+
+    it('should dispatch events to notify targets', async () => {
+      const dialogContainer = document.getElementById('dialog-container');
+
+      dialogContainer.dispatchEvent(new CustomEvent('w-dialog:show'));
+
+      // twice, because of show and ready
+      expect(eventHandler).toHaveBeenCalledTimes(2);
+      // checking the first mock function called
+      expect(eventHandler.mock.calls[0][0]).toMatchObject({
+        type: 'w-dialog:ready',
+        bubbles: false,
+      });
+      // checking the second mock function called
+      expect(eventHandler.mock.calls[1][0]).toMatchObject({
+        type: 'w-dialog:shown',
+        bubbles: false,
+      });
+
+      dialogContainer.dispatchEvent(new CustomEvent('w-dialog:hide'));
+
+      // called once again, therefore 3 times
+      expect(eventHandler).toHaveBeenCalledTimes(3);
+      // checking the third mock function called
+      expect(eventHandler.mock.calls[2][0]).toMatchObject({
+        type: 'w-dialog:hidden',
+        bubbles: false,
+      });
+    });
+  });
 });

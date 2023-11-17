@@ -1,10 +1,16 @@
+```{currentmodule} wagtail.admin.viewsets.model
+
+```
+
+(generic_views)=
+
 # Generic views
 
-Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. Since these often involve several related views with shared properties (such as the model that we're working with, and its associated icon) Wagtail also implements the concept of a _viewset_, which allows a bundle of views to be defined collectively, and their URLs to be registered with the admin app as a single operation through the `register_admin_viewset` hook.
+Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. For convenience, these views are bundled in [viewsets](viewsets_reference).
 
 ## ModelViewSet
 
-The `wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
+The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
 
 ```python
 from django.db import models
@@ -28,6 +34,8 @@ class PersonViewSet(ModelViewSet):
     model = Person
     form_fields = ["first_name", "last_name"]
     icon = "user"
+    add_to_admin_menu = True
+    inspect_view_enabled = True
 
 
 person_viewset = PersonViewSet("person")  # defines /admin/person/ as the base URL
@@ -46,11 +54,83 @@ def register_viewset():
     return person_viewset
 ```
 
-Various additional attributes are available to customise the viewset - see [](../reference/viewsets).
+The viewset can be further customised by overriding other attributes and methods.
+
+### Icon
+
+You can define an {attr}`~.ViewSet.icon` attribute on the `ModelViewSet` to specify the icon that is used across the views in the viewset. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons).
+
+### URL prefix and namespace
+
+The {attr}`~.ViewSet.url_prefix` and {attr}`~.ViewSet.url_namespace` properties can be overridden to use a custom URL prefix and namespace for the views. If unset, they default to the model's `model_name`.
+
+(modelviewset_menu)=
+
+### Menu item
+
+By default, registering a `ModelViewSet` will not register a main menu item. To add a menu item, set {attr}`~.ViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the "Settings" menu, you can set {attr}`~.ViewSet.add_to_settings_menu` to `True`. Unless {attr}`~.ViewSet.menu_icon` is specified, the menu will use the same {attr}`~.ViewSet.icon` used for the views. The {attr}`~.ViewSet.menu_url` property can be overridden to customise the menu item's link, which defaults to the listing view for the model.
+
+Unless specified, the menu item will be labelled after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~.ViewSet.menu_label`, {attr}`~.ViewSet.menu_name`, and {attr}`~.ViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~.ViewSet.get_menu_item` method.
+
+You can group multiple `ModelViewSet`s' menu items inside a single top-level menu item using the {class}`~wagtail.admin.viewsets.model.ModelViewSetGroup` class. It is similar to `ViewSetGroup`, except it takes the {attr}`~django.db.models.Options.app_label` of the first viewset's model as the default {attr}`~.ViewSetGroup.menu_label`. Refer to [the examples for `ViewSetGroup`](using_base_viewsetgroup) for more details.
+
+(modelviewset_listing)=
+
+### Listing view
+
+The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
+
+You can add the ability to filter the listing view by defining a {attr}`~ModelViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
+
+If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~ModelViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
+
+You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+
+(modelviewset_inspect)=
+
+### Inspect view
+
+The inspect view is disabled by default, as it's not often useful for most models. However, if you need a view that enables users to view more detailed information about an instance without the option to edit it, you can enable the inspect view by setting {attr}`~ModelViewSet.inspect_view_enabled` on your `ModelViewSet` class.
+
+When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular instance.
+
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
+
+(modelviewset_templates)=
+
+### Templates
+
+If {attr}`~ModelViewSet.template_prefix` is set, Wagtail will look for the views' templates in the following directories within your project or app, before resorting to the defaults:
+
+1. `templates/{template_prefix}/{app_label}/{model_name}/`
+2. `templates/{template_prefix}/{app_label}/`
+3. `templates/{template_prefix}/`
+
+To override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, given `custom/campaign` as the `template_prefix` and a `Shirt` model in a `merch` app, you could add your custom template as `templates/custom/campaign/merch/shirt/index.html`.
+
+For some common views, Wagtail also allows you to override the template used by overriding the `{view_name}_template_name` property on the viewset. The following is a list of customisation points for the views:
+
+-   `IndexView`: `index.html` or {attr}`~ModelViewSet.index_template_name`
+    -   For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
+-   `CreateView`: `create.html` or {attr}`~ModelViewSet.create_template_name`
+-   `EditView`: `edit.html` or {attr}`~ModelViewSet.edit_template_name`
+-   `DeleteView`: `delete.html` or {attr}`~ModelViewSet.delete_template_name`
+-   `HistoryView`: `history.html` or {attr}`~ModelViewSet.history_template_name`
+-   `InspectView`: `inspect.html` or {attr}`~ModelViewSet.inspect_template_name`
+
+### Other customisations
+
+By default, the model registered with a `ModelViewSet` will also be registered to the [reference index](managing_the_reference_index). You can turn off this behavior by setting {attr}`~ModelViewSet.add_to_reference_index` to `False`.
+
+Various additional attributes are available to customise the viewset - see the {class}`ModelViewSet` documentation.
+
+```{versionadded} 5.2
+The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
+```
 
 ## ChooserViewSet
 
-The `wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
+The {class}`~wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
 
 ```python
 from wagtail.admin.viewsets.chooser import ChooserViewSet
@@ -102,173 +182,118 @@ PersonChooserBlock = person_chooser_viewset.get_block_class(
 )
 ```
 
-## Chooser viewsets for non-model datasources
+(chooser_viewsets_limiting_choices)=
 
-While the generic chooser views are primarily designed to use Django models as the data source, choosers based on other sources such as REST API endpoints can be implemented by overriding the individual methods that deal with data retrieval.
+### Limiting choices via linked fields
 
-Within `wagtail.admin.views.generic.chooser`:
+Chooser viewsets provide a mechanism for limiting the options displayed in the chooser according to another input field on the calling page. For example, suppose the person model has a country field - we can then set up a page model with a country dropdown and a person chooser, where an editor first selects a country from the dropdown and then opens the person chooser to be presented with a list of people from that country.
 
--   `BaseChooseView.get_object_list()` - returns a list of records to be displayed in the chooser. (In the default implementation, this is a Django QuerySet, and the records are model instances.)
--   `BaseChooseView.columns` - a list of `wagtail.admin.ui.tables.Column` objects specifying the fields of the record to display in the final table
--   `BaseChooseView.apply_object_list_ordering(objects)` - given a list of records as returned from `get_object_list`, returns the list with the desired ordering applied
--   `ChosenViewMixin.get_object(pk)` - returns the record identified by the given primary key
--   `ChosenResponseMixin.get_chosen_response_data(item)` - given a record, returns the dictionary of data that will be passed back to the chooser widget to populate it (consisting of items `id` and `title`, unless the chooser widget's JavaScript has been customised)
-
-Within `wagtail.admin.widgets`:
-
--   `BaseChooser.get_instance(value)` - given a value that may be a record, a primary key, or None, returns the corresponding record or None
--   `BaseChooser.get_value_data_from_instance(item)` - given a record, returns the dictionary of data that will populate the chooser widget (consisting of items `id` and `title`, unless the widget's JavaScript has been customised)
-
-For example, the following code will implement a chooser that runs against a JSON endpoint for the User model at `http://localhost:8000/api/users/`, set up with Django REST Framework using the default configuration and no pagination:
+To set this up, define a `url_filter_parameters` attribute on the ChooserViewSet. This specifies a list of URL parameters that will be recognised for filtering the results - whenever these are passed in the URL, a `filter` clause on the correspondingly-named field will be applied to the queryset. These parameters should also be listed in the `preserve_url_parameters` attribute, so that they are preserved in the URL when navigating through the chooser (such as when following pagination links). The following definition will allow the person chooser to be filtered by country:
 
 ```python
-from django.views.generic.base import View
-import requests
-
-from wagtail.admin.ui.tables import Column, TitleColumn
-from wagtail.admin.views.generic.chooser import (
-    BaseChooseView, ChooseViewMixin, ChooseResultsViewMixin, ChosenResponseMixin, ChosenViewMixin, CreationFormMixin
-)
-from wagtail.admin.viewsets.chooser import ChooserViewSet
-from wagtail.admin.widgets import BaseChooser
-
-
-class BaseUserChooseView(BaseChooseView):
-    @property
-    def columns(self):
-        return [
-            TitleColumn(
-                "title",
-                label="Title",
-                accessor='username',
-                id_accessor='id',
-                url_name=self.chosen_url_name,
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
-            Column(
-                "email", label="Email", accessor="email"
-            )
-        ]
-
-    def get_object_list(self):
-        r = requests.get("http://localhost:8000/api/users/")
-        r.raise_for_status()
-        results = r.json()
-        return results
-
-    def apply_object_list_ordering(self, objects):
-        return objects
-
-
-class UserChooseView(ChooseViewMixin, CreationFormMixin, BaseUserChooseView):
-    pass
-
-
-class UserChooseResultsView(ChooseResultsViewMixin, CreationFormMixin, BaseUserChooseView):
-    pass
-
-
-class UserChosenViewMixin(ChosenViewMixin):
-    def get_object(self, pk):
-        r = requests.get("http://localhost:8000/api/users/%d/" % int(pk))
-        r.raise_for_status()
-        return r.json()
-
-
-class UserChosenResponseMixin(ChosenResponseMixin):
-    def get_chosen_response_data(self, item):
-        return {
-            "id": item["id"],
-            "title": item["username"],
-        }
-
-
-class UserChosenView(UserChosenViewMixin, UserChosenResponseMixin, View):
-    pass
-
-
-class BaseUserChooserWidget(BaseChooser):
-    def get_instance(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, dict):
-            return value
-        else:
-            r = requests.get("http://localhost:8000/api/users/%d/" % int(value))
-            r.raise_for_status()
-            return r.json()
-
-    def get_value_data_from_instance(self, instance):
-        return {
-            "id": instance["id"],
-            "title": instance["username"],
-        }
-
-
-class UserChooserViewSet(ChooserViewSet):
-    icon = "user"
-    choose_one_text = "Choose a user"
-    choose_another_text = "Choose another user"
-    edit_item_text = "Edit this user"
-
-    choose_view_class = UserChooseView
-    choose_results_view_class = UserChooseResultsView
-    chosen_view_class = UserChosenView
-    base_widget_class = BaseUserChooserWidget
-
-
-user_chooser_viewset = UserChooserViewSet("user_chooser", url_prefix="user-chooser")
+class PersonChooserViewSet(ChooserViewSet):
+    model = "myapp.Person"
+    url_filter_parameters = ["country"]
+    preserve_url_parameters = ["multiple", "country"]
 ```
 
-If the data source implements its own pagination - meaning that the pagination mechanism built into the chooser should be bypassed - the `BaseChooseView.get_results_page(request)` method can be overridden instead of `get_object_list`. This should return an instance of `django.core.paginator.Page`. For example, if the API in the above example followed the conventions of the Wagtail API, implementing pagination with `offset` and `limit` URL parameters and returning a dict consisting of `meta` and `results`, the `BaseUserChooseView` implementation could be modified as follows:
+The chooser widget now needs to be configured to pass these URL parameters when opening the modal. This is done by passing a `linked_fields` dictionary to the widget's constructor, where the keys are the names of the URL parameters to be passed, and the values are CSS selectors for the corresponding input fields on the calling page. For example, suppose we have a page model with a country dropdown and a person chooser:
 
 ```python
-from django.core.paginator import Page, Paginator
+class BlogPage(Page):
+    country = models.ForeignKey(Country, null=True, blank=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
 
-class APIPaginator(Paginator):
-    """
-    Customisation of Django's Paginator class for use when we don't want it to handle
-    slicing on the result set, but still want it to generate the page numbering based
-    on a known result count.
-    """
-    def __init__(self, count, per_page, **kwargs):
-        self._count = int(count)
-        super().__init__([], per_page, **kwargs)
+    content_panels = Page.content_panels + [
+        FieldPanel('country'),
+        FieldPanel('person', widget=PersonChooserWidget(linked_fields={
+            # pass the country selected in the id_country input to the person chooser
+            # as a URL parameter `country`
+            'country': '#id_country',
+        })),
+    ]
+```
 
-    @property
-    def count(self):
-        return self._count
+A number of other lookup mechanisms are available:
 
-class BaseUserChooseView(BaseChooseView):
-    @property
-    def columns(self):
-        return [
-            TitleColumn(
-                "title",
-                label="Title",
-                accessor='username',
-                id_accessor='id',
-                url_name=self.chosen_url_name,
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
-            Column(
-                "email", label="Email", accessor="email"
-            )
-        ]
+```python
+PersonChooserWidget(linked_fields={
+    'country': {'selector': '#id_country'}  # equivalent to 'country': '#id_country'
+})
 
-    def get_results_page(self, request):
-        try:
-            page_number = int(request.GET.get('p', 1))
-        except ValueError:
-            page_number = 1
+# Look up by ID
+PersonChooserWidget(linked_fields={
+    'country': {'id': 'id_country'}
+})
 
-        r = requests.get("http://localhost:8000/api/users/", params={
-            'offset': (page_number - 1) * self.per_page,
-            'limit': self.per_page,
-        })
-        r.raise_for_status()
-        result = r.json()
-        paginator = APIPaginator(result['meta']['total_count'], self.per_page)
-        page = Page(result['items'], page_number, paginator)
-        return page
+# Regexp match, for use in StreamFields and InlinePanels where IDs are dynamic:
+# 1) Match the ID of the current widget's form element (the PersonChooserWidget)
+#      against the regexp '^id_blog_person_relationship-\d+-'
+# 2) Append 'country' to the matched substring
+# 3) Retrieve the input field with that ID
+PersonChooserWidget(linked_fields={
+    'country': {'match': r'^id_blog_person_relationship-\d+-', 'append': 'country'},
+})
+```
+
+(chooser_viewsets_non_model_data)=
+
+### Chooser viewsets for non-model datasources
+
+While the generic chooser views are primarily designed to use Django models as the data source, choosers based on other sources such as REST API endpoints can be implemented through the use of the [queryish](https://pypi.org/project/queryish/) library, which allows any data source to be wrapped in a Django QuerySet-like interface. This can then be passed to ChooserViewSet like a normal model. For example, the Pokemon example from the _queryish_ documentation could be made into a chooser as follows:
+
+```python
+# views.py
+
+import re
+from queryish.rest import APIModel
+from wagtail.admin.viewsets.chooser import ChooserViewSet
+
+
+class Pokemon(APIModel):
+    class Meta:
+        base_url = "https://pokeapi.co/api/v2/pokemon/"
+        detail_url = "https://pokeapi.co/api/v2/pokemon/%s/"
+        fields = ["id", "name"]
+        pagination_style = "offset-limit"
+        verbose_name_plural = "pokemon"
+
+    @classmethod
+    def from_query_data(cls, data):
+        return cls(
+            id=int(re.match(r'https://pokeapi.co/api/v2/pokemon/(\d+)/', data['url']).group(1)),
+            name=data['name'],
+        )
+
+    @classmethod
+    def from_individual_data(cls, data):
+        return cls(
+            id=data['id'],
+            name=data['name'],
+        )
+
+    def __str__(self):
+        return self.name
+
+
+class PokemonChooserViewSet(ChooserViewSet):
+    model = Pokemon
+
+    choose_one_text = "Choose a pokemon"
+    choose_another_text = "Choose another pokemon"
+
+
+pokemon_chooser_viewset = PokemonChooserViewSet("pokemon_chooser")
+
+
+# wagtail_hooks.py
+
+from wagtail import hooks
+
+from .views import pokemon_chooser_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_pokemon_chooser_viewset():
+    return pokemon_chooser_viewset
 ```

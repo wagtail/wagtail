@@ -92,25 +92,6 @@ class WhatsNewInWagtailVersionPanel(Component):
         return super().render_html(parent_context)
 
 
-class PagesForModerationPanel(Component):
-    name = "pages_for_moderation"
-    template_name = "wagtailadmin/home/pages_for_moderation.html"
-    order = 200
-
-    def get_context_data(self, parent_context):
-        request = parent_context["request"]
-        context = super().get_context_data(parent_context)
-        context["page_revisions_for_moderation"] = (
-            PagePermissionPolicy()
-            .revisions_for_moderation(request.user)
-            .select_related("user")
-            .order_by("-created_at")
-        )
-        context["request"] = request
-        context["csrf_token"] = parent_context["csrf_token"]
-        return context
-
-
 class UserObjectsInWorkflowModerationPanel(Component):
     name = "user_objects_in_workflow_moderation"
     template_name = "wagtailadmin/home/user_objects_in_workflow_moderation.html"
@@ -304,7 +285,6 @@ class RecentEditsPanel(Component):
 
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
-
     template_name = "wagtailadmin/home.html"
     page_title = gettext_lazy("Dashboard")
 
@@ -335,7 +315,6 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
             # WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
-            PagesForModerationPanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),
             LockedPagesPanel(),

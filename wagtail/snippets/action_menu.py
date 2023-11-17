@@ -84,7 +84,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     icon_name = "resubmit"
 
     def is_shown(self, context):
-        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
         if context.get("locked_for_user"):
@@ -165,7 +165,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
     icon_name = "login"
 
     def is_shown(self, context):
-        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
         if context["view"] != "edit":
             return False

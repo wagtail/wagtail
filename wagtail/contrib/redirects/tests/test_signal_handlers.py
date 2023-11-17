@@ -167,7 +167,6 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         )
 
     def test_no_redirects_created_when_pages_are_moved_to_a_different_site(self):
-
         # Add a new home page
         homepage_2 = Page(
             title="Second home",

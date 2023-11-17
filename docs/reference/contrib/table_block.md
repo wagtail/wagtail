@@ -85,6 +85,8 @@ default_table_options = {
 }
 ```
 
+(table_block_options)=
+
 ### Configuration Options
 
 Every key in the `table_options` dictionary maps to a [handsontable](https://handsontable.com/) option. These settings can be changed to alter the behaviour of tables in Wagtail. The following options are available:
@@ -101,6 +103,7 @@ Every key in the `table_options` dictionary maps to a [handsontable](https://han
 -   [language](https://handsontable.com/docs/6.2.2/Options.html#language) - The default language setting. By default TableBlock tries to get the language from `django.utils.translation.get_language`. If needed, this setting can be overridden here.
 -   [renderer](https://handsontable.com/docs/6.2.2/Options.html#renderer) - The default setting Handsontable uses to render the content of table cells.
 -   [autoColumnSize](https://handsontable.com/docs/6.2.2/Options.html#autoColumnSize) - Enables or disables the `autoColumnSize` plugin. The TableBlock default setting is `False`.
+-   [mergedCells](https://handsontable.com/docs/6.2.0/Options.html#mergeCells) - Can be set to `True` or `False`, determined if merging cells is allowed. Remember to add `'mergeCells'` to the `'contextMenu'` option also.
 
 A [complete list of handsontable options](https://handsontable.com/docs/6.2.2/Options.html) can be found on the Handsontable website.
 

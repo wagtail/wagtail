@@ -16,7 +16,7 @@ from wagtail.admin.localization import (
     get_available_admin_languages,
     get_available_admin_time_zones,
 )
-from wagtail.admin.views.account import account, profile_tab
+from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -273,6 +273,9 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
 
+        # Check if the default title exists
+        self.assertContains(response, "Name and Email")
+
     def test_change_name_post(self):
         response = self.post_form(
             {
@@ -332,6 +335,11 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.assertTemplateUsed(response, "wagtailadmin/account/account.html")
         self.assertNotContains(response, "id_name_email-email")
 
+        # Check if the default title does not exist
+        self.assertNotContains(response, "Name and Email")
+        # When WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False, Check if title is "Name"
+        self.assertContains(response, "Name")
+
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
         # Get account page
@@ -363,6 +371,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("newpassword"))
 
+    def test_change_password_whitespaced(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "  whitespaced_password  ",
+                "password-new_password2": "  whitespaced_password  ",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        # Check that the password was changed and whitespace was not stripped
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("  whitespaced_password  "))
+
     def test_change_password_post_password_mismatch(self):
         response = self.post_form(
             {
@@ -390,6 +414,22 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
             "The two password fields didn’t match.",
             password_form.errors["new_password2"],
         )
+
+        # Check that the password was not changed
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password("password"))
+
+    def test_ignore_change_password_if_only_old_password_supplied(self):
+        response = self.post_form(
+            {
+                "password-old_password": "password",
+                "password-new_password1": "",
+                "password-new_password2": "",
+            }
+        )
+
+        # Check that everything runs as usual (with a redirect), instead of a validation error
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
 
         # Check that the password was not changed
         self.user.refresh_from_db()
@@ -565,7 +605,7 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
     def test_sensitive_post_parameters(self):
         request = RequestFactory().post("wagtailadmin_account", data={})
         request.user = self.user
-        account(request)
+        AccountView.as_view()(request)
         self.assertTrue(hasattr(request, "sensitive_post_parameters"))
         self.assertEqual(request.sensitive_post_parameters, "__ALL__")
 

@@ -145,7 +145,6 @@ class CopyPageAction:
         )
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
-
             if self.process_child_object:
                 self.process_child_object(
                     specific_page, page_copy, child_relation, child_object
@@ -185,7 +184,6 @@ class CopyPageAction:
             for revision in page.revisions.all():
                 use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
-                revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
                 revision.object_id = page_copy.id
 

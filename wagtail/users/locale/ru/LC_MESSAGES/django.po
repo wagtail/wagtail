@@ -4,6 +4,8 @@
 #
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
+# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Andrey <talkerbox@live.com>, 2016
 # Andrey <talkerbox@live.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
@@ -28,18 +30,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Михаил Герасимов, 2019\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Пользователи Wagtail"
@@ -136,6 +138,18 @@ msgstr "Выберите текущий часовой пояс"
 msgid "profile picture"
 msgstr "изображение профиля"
 
+msgid "System default"
+msgstr "Системные настройки по умолчанию"
+
+msgid "Light"
+msgstr "Светлая"
+
+msgid "Dark"
+msgstr "Тёмная"
+
+msgid "admin theme"
+msgstr "цветовая тема администратора"
+
 msgid "user profile"
 msgstr "профиль пользователя"
 
@@ -220,8 +234,23 @@ msgstr "Да, изменить состояние"
 msgid "No, don't change state"
 msgstr "Нет, не менять состояние"
 
-msgid "Delete group"
-msgstr "Удалить группу"
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</strong> "
+"участиника."
+msgstr[1] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</"
+"strong>участников."
+msgstr[2] ""
+"Группа '%(group_name)s'содержит <strong>%(group_user_count)s</"
+"strong>участников."
+msgstr[3] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</strong> "
+"участников."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -236,14 +265,14 @@ msgstr "Вы уверены что хотите удалить эту групп
 msgid "Add group"
 msgstr "Добавить группу"
 
-msgid "Editing"
-msgstr "Редактирование"
-
 msgid "View users in this group"
 msgstr "Просмотр пользователей группы"
 
 msgid "Save"
 msgstr "Сохранить"
+
+msgid "Delete group"
+msgstr "Удалить группу"
 
 msgid "Object permissions"
 msgstr "Разрешения объекта"
@@ -287,20 +316,14 @@ msgstr "Извините, подходящих групп не найдено \"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Группы еще не созданы. Почему бы не <a href="
-"\"%(wagtailusers_create_group_url)s\">добавить</a>?"
-
-msgid "Delete user"
-msgstr "Удалить пользователя"
+"Группы еще не созданы. Почему бы не <a "
+"href=\"%(wagtailusers_create_group_url)s\">добавить</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Вы уверены, что хотите удалить этого пользователя?"
-
-msgid "Add user"
-msgstr "Добавить пользователя"
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -308,17 +331,20 @@ msgstr "Аккаунт"
 msgid "Roles"
 msgstr "Роли"
 
-msgid "Users"
-msgstr "Пользователи"
-
-msgid "Add a user"
+msgid "Add user"
 msgstr "Добавить пользователя"
+
+msgid "Delete user"
+msgstr "Удалить пользователя"
 
 msgid "Select all users in listing"
 msgstr "Выбрать всех пользователей в списке"
 
 msgid "Username"
 msgstr "Имя пользователя"
+
+msgid "Access level"
+msgstr "Уровень доступа"
 
 msgid "Status"
 msgstr "Статус"
@@ -346,24 +372,24 @@ msgstr[3] "Есть %(counter)s совпадений"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Извините, не найдены пользователи удовлетворяющие условию \"<em>"
-"%(query_string)s</em>\""
+"Извините, не найдены пользователи удовлетворяющие условию "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Группа %(group_name)s не содержит пользователей. Вы можете <a href="
-"\"%(wagtailusers_add_url)s\">добавить пользователей</a>."
+"Группа %(group_name)s не содержит пользователей. Вы можете <a "
+"href=\"%(wagtailusers_add_url)s\">добавить пользователей</a>."
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Пользователи не сконфигурированы. <a href=\"%(wagtailusers_add_url)s"
-"\">Добавить пользователя</a>."
+"Пользователи не сконфигурированы. <a "
+"href=\"%(wagtailusers_add_url)s\">Добавить пользователя</a>."
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -390,6 +416,9 @@ msgstr[0] "%(num_parent_objects)d пользователь был удален"
 msgstr[1] "%(num_parent_objects)d пользователей было удалено"
 msgstr[2] "%(num_parent_objects)d пользователей было удалено"
 msgstr[3] "%(num_parent_objects)d пользователей было удалено"
+
+msgid "Mark as active"
+msgstr "Отметить как активный"
 
 msgid "Change the active state for selected users"
 msgstr "Изменить активное состояние для выбранных пользователей"
@@ -434,6 +463,16 @@ msgstr "Группа не может быть сохранена из-за ош�
 msgid "Group '%(object)s' deleted."
 msgstr "Группа '%(object)s' удалена."
 
+msgid "Add a user"
+msgstr "Добавить пользователя"
+
+msgid "Users"
+msgstr "Пользователи"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Пользователь '%(object)s' создан."
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Пользователь '%(object)s' обновлен."
@@ -442,18 +481,16 @@ msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
 
 #, python-format
-msgid "Editing %(object)s"
-msgstr "Редактирование %(object)s"
-
-#, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Пользователь '%(object)s' удалён."
 
 msgid "Edit"
-msgstr "Править"
+msgstr "Редактировать"
 
-msgid "Edit this user"
-msgstr "Редактировать этого пользователя"
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Редактировать пользователя '%(name)s'"
 
-msgid "Delete this user"
-msgstr "Удалить этого пользователя"
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Удалить пользователя '%(name)s'"

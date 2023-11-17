@@ -14,14 +14,17 @@ from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
+    Advert,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
     ModelWithStringTypePrimaryKey,
+    SearchTestModel,
 )
 
 
@@ -55,7 +58,6 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 
 class TestIndexView(IndexView):
-
     model = ModelWithStringTypePrimaryKey
     index_url_name = "testapp_generic_index"
     template_name = "tests/generic_view_templates/index.html"
@@ -70,7 +72,6 @@ class CustomModelEditForm(forms.ModelForm):
 
 
 class TestEditView(EditView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/edit.html"
@@ -84,7 +85,6 @@ class TestEditView(EditView):
 
 
 class TestDeleteView(DeleteView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/delete.html"
@@ -174,7 +174,7 @@ class JSONMinMaxCountStreamModelViewSet(ModelViewSet):
     url_prefix = "minmaxcount-streammodel"
     model = JSONMinMaxCountStreamModel
     form_fields = ("body",)
-    icon = "reset"
+    icon = "rotate"
     menu_label = "JSON MinMaxCount StreamModel"
 
 
@@ -194,6 +194,12 @@ class JSONModelViewSetGroup(ModelViewSetGroup):
     )
 
 
+class SearchTestModelViewSet(ModelViewSet):
+    model = SearchTestModel
+    search_fields = ["title", "body"]
+    form_fields = ["title", "body"]
+
+
 class FeatureCompleteToyViewSet(ModelViewSet):
     model = FeatureCompleteToy
     url_namespace = "feature_complete_toy"
@@ -211,6 +217,8 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     list_per_page = 5
     ordering = ["name", "-release_date"]
     # search_fields derived from the model
+    inspect_view_enabled = True
+    inspect_view_fields = ["strid", "release_date"]
 
 
 class FCToyAlt1ViewSet(ModelViewSet):
@@ -219,6 +227,8 @@ class FCToyAlt1ViewSet(ModelViewSet):
     list_filter = {"name": ["icontains"]}
     form_fields = ["name"]
     menu_label = "FC Toys Alt 1"
+    inspect_view_enabled = True
+    inspect_view_fields_exclude = ["strid", "release_date"]
 
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(is_searchable=False, **kwargs)
@@ -248,3 +258,20 @@ class ToyViewSetGroup(ModelViewSetGroup):
             search_backend_name=None,
         ),
     )
+
+
+class AnimatedAdvertChooserViewSet(ChooserViewSet):
+    model = Advert
+    register_widget = False  # don't make this the registered widget for Advert
+    url_filter_parameters = ["url"]
+    preserve_url_parameters = ["multiple", "url"]
+
+    def get_object_list(self):
+        return Advert.objects.filter(tags__name="animated")
+
+
+animated_advert_chooser_viewset = AnimatedAdvertChooserViewSet(
+    "animated_advert_chooser"
+)
+
+AdvertChooserWidget = animated_advert_chooser_viewset.widget_class

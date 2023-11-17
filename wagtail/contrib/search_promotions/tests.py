@@ -1,3 +1,4 @@
+import json
 from datetime import date, datetime, timedelta
 from io import StringIO
 
@@ -31,9 +32,24 @@ class TestSearchPromotions(TestCase):
         self.assertEqual(Query.get("root page").editors_picks.count(), 1)
         self.assertEqual(Query.get("root page").editors_picks.first().page_id, 1)
 
-    def test_search_pick_ordering(self):
+    def test_search_pick_link_create(self):
         # Add 3 search picks in a different order to their sort_order values
         # They should be ordered by their sort order values and not their insertion order
+        SearchPromotion.objects.create(
+            query=Query.get("root page"),
+            external_link_url="https://wagtail.org",
+            sort_order=0,
+            description="First search promotion",
+        )
+
+        # Check
+        self.assertEqual(Query.get("root page").editors_picks.count(), 1)
+        self.assertEqual(
+            Query.get("root page").editors_picks.first().external_link_url,
+            "https://wagtail.org",
+        )
+
+    def test_search_pick_ordering(self):
         SearchPromotion.objects.create(
             query=Query.get("root page"),
             page_id=1,
@@ -48,7 +64,7 @@ class TestSearchPromotions(TestCase):
         )
         SearchPromotion.objects.create(
             query=Query.get("root page"),
-            page_id=1,
+            external_link_url="https://wagtail.org",
             sort_order=1,
             description="Middle search pick",
         )
@@ -62,6 +78,69 @@ class TestSearchPromotions(TestCase):
         self.assertEqual(
             Query.get("root page").editors_picks.last().description, "Last search pick"
         )
+
+    def test_get_most_popular(self):
+        popularQuery = Query.get("popular")
+        for i in range(5):
+            popularQuery.add_hit()
+        SearchPromotion.objects.create(
+            query=Query.get("popular"),
+            page_id=2,
+            sort_order=0,
+            description="Popular search pick",
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("uninteresting"),
+            page_id=1,
+            sort_order=2,
+            description="Uninteresting search pick",
+        )
+
+        # Check
+        self.assertEqual(Query.get_most_popular().count(), 1)
+        popular_picks = Query.get("popular").editors_picks.first()
+        self.assertEqual(
+            popular_picks.description,
+            "Popular search pick",
+        )
+        self.assertEqual(popular_picks.query.hits, 5)
+
+    def test_get_most_popular_since(self):
+        TODAY = date.today()
+        TWO_DAYS_AGO = TODAY - timedelta(days=2)
+        FIVE_DAYS_AGO = TODAY - timedelta(days=5)
+
+        popularQuery = Query.get("popular")
+        for i in range(5):
+            popularQuery.add_hit(date=FIVE_DAYS_AGO)
+
+        surpriseQuery = Query.get("surprise")
+        surpriseQuery.add_hit(date=TODAY)
+        surpriseQuery.add_hit(date=TWO_DAYS_AGO)
+        surpriseQuery.add_hit(date=FIVE_DAYS_AGO)
+        SearchPromotion.objects.create(
+            query=Query.get("popular"),
+            page_id=2,
+            sort_order=0,
+            description="Popular search pick",
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("surprise"),
+            page_id=2,
+            sort_order=2,
+            description="Surprising search pick",
+        )
+
+        # Check
+        most_popular_queries = Query.get_most_popular(date_since=TWO_DAYS_AGO)
+        self.assertEqual(most_popular_queries.count(), 1)
+        editors_picks = Query.get("surprise").editors_picks
+        surprise_picks = editors_picks.first()
+        self.assertEqual(
+            surprise_picks.description,
+            "Surprising search pick",
+        )
+        self.assertEqual(surprise_picks.query.hits, 3)
 
 
 class TestGetSearchPromotionsTemplateTag(TestCase):
@@ -106,6 +185,31 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
+        self.assertContains(
+            response,
+            'Sorry, no promoted results match "<em>Hello</em>"',
+        )
+
+    def test_search_with_results(self):
+        SearchPromotion.objects.create(
+            query=Query.get("search promotion query"),
+            page_id=1,
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("search promotion query"),
+            external_link_url="https://wagtail.org",
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:index"), {"q": "search promotion query"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "search promotion query")
+        self.assertContains(response, '<a href="/admin/pages/1/edit/" class="nolink">')
+        self.assertContains(
+            response,
+            '<a href="https://wagtail.org" class="nolink" target="_blank" rel="noreferrer">',
+        )
 
     def make_search_picks(self):
         for i in range(50):
@@ -260,6 +364,31 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
 
+    def test_post_with_external_link(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        self.assertTrue(
+            Query.get("test")
+            .editors_picks.filter(external_link_url="https://wagtail.org")
+            .exists()
+        )
+
     def test_post_without_recommendations(self):
         # Submit
         post_data = {
@@ -280,6 +409,75 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
             "Please specify at least one recommendation for this search term.",
         )
 
+    def test_post_with_page_and_external_link(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "Please only select a page OR enter an external link.",
+        )
+
+    def test_post_missing_recommendation(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "You must recommend a page OR an external link.",
+        )
+
+    def test_post_missing_external_text(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(
+            response,
+            "searchpicks_formset",
+            None,
+            None,
+            "You must enter an external link text if you enter an external link URL.",
+        )
+
 
 class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -288,10 +486,10 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         # Create an search pick to edit
         self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(
-            page_id=1, description="Root page"
+            page_id=1, sort_order=0, description="Root page"
         )
         self.search_pick_2 = self.query.editors_picks.create(
-            page_id=2, description="Homepage"
+            page_id=2, sort_order=1, description="Homepage"
         )
 
     def test_simple(self):
@@ -540,33 +738,118 @@ class TestGarbageCollectManagementCommand(TestCase):
         )
 
 
-class TestCopyDailyHitsFromWagtailSearchManagementCommand(TestCase):
-    def run_command(self, **options):
-        output = StringIO()
-        management.call_command(
-            "copy_daily_hits_from_wagtailsearch", stdout=output, **options
+class TestQueryChooserView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get("/admin/searchpicks/queries/chooser/", params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailsearchpromotions/queries/chooser/chooser.html"
         )
-        output.seek(0)
-        return output
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "chooser")
 
-    def test_copy(self):
-        # Create some daily hits in the wagtailsearch.{Query,QueryDailyHits} models
-        from wagtail.search.models import Query as WSQuery
+    def test_search(self):
+        response = self.get({"q": "Hello"})
+        self.assertEqual(response.status_code, 200)
 
-        query = WSQuery.get("test query")
-        query.add_hit(date(2021, 8, 24))
-        query.add_hit(date(2021, 8, 24))
-        query.add_hit(date(2021, 7, 1))
+    def test_pagination(self):
+        # page numbers in range should be accepted
+        response = self.get({"p": 1})
+        self.assertEqual(response.status_code, 200)
+        # page numbers out of range should return 404
+        response = self.get({"p": 9999})
+        self.assertEqual(response.status_code, 404)
 
-        # Check that nothing magically got inserted into the new query model
-        self.assertFalse(Query.objects.exists())
 
-        # Run the management command
-        self.run_command()
+class TestHitCounter(TestCase):
+    def test_no_hits(self):
+        self.assertEqual(Query.get("Hello").hits, 0)
 
-        # Check that the query now exists in the new model
-        new_query = Query.objects.get()
-        self.assertEqual(new_query.query_string, "test query")
+    def test_hit(self):
+        # Add a hit
+        Query.get("Hello").add_hit()
 
-        # Check daily hits
-        self.assertEqual(new_query.hits, 3)
+        # Test
+        self.assertEqual(Query.get("Hello").hits, 1)
+
+    def test_10_hits(self):
+        # Add 10 hits
+        for i in range(10):
+            Query.get("Hello").add_hit()
+
+        # Test
+        self.assertEqual(Query.get("Hello").hits, 10)
+
+
+class TestQueryStringNormalisation(TestCase):
+    def setUp(self):
+        self.query = Query.get("  Hello  World!  ")
+
+    def test_normalisation(self):
+        self.assertEqual(str(self.query), "hello world!")
+
+    def test_equivalent_queries(self):
+        queries = [
+            "  Hello World!",
+            "Hello World!  ",
+            "hello  world!",
+            "  Hello  world!  ",
+        ]
+
+        for query in queries:
+            self.assertEqual(self.query, Query.get(query))
+
+    def test_different_queries(self):
+        queries = [
+            "HelloWorld",
+            "HelloWorld!" "  Hello  World!  ",
+            "Hello",
+        ]
+
+        for query in queries:
+            self.assertNotEqual(self.query, Query.get(query))
+
+
+class TestQueryPopularity(TestCase):
+    def test_query_popularity(self):
+        # Add 3 hits to unpopular query
+        for i in range(3):
+            Query.get("unpopular query").add_hit()
+
+        # Add 10 hits to popular query
+        for i in range(10):
+            Query.get("popular query").add_hit()
+
+        # Get most popular queries
+        popular_queries = Query.get_most_popular()
+
+        # Check list
+        self.assertEqual(popular_queries.count(), 2)
+        self.assertEqual(popular_queries[0], Query.get("popular query"))
+        self.assertEqual(popular_queries[1], Query.get("unpopular query"))
+
+        # Add 5 hits to little popular query
+        for i in range(5):
+            Query.get("little popular query").add_hit()
+
+        # Check list again, little popular query should be in the middle
+        self.assertEqual(popular_queries.count(), 3)
+        self.assertEqual(popular_queries[0], Query.get("popular query"))
+        self.assertEqual(popular_queries[1], Query.get("little popular query"))
+        self.assertEqual(popular_queries[2], Query.get("unpopular query"))
+
+        # Unpopular query goes viral!
+        for i in range(20):
+            Query.get("unpopular query").add_hit()
+
+        # Unpopular query should be most popular now
+        self.assertEqual(popular_queries.count(), 3)
+        self.assertEqual(popular_queries[0], Query.get("unpopular query"))
+        self.assertEqual(popular_queries[1], Query.get("popular query"))
+        self.assertEqual(popular_queries[2], Query.get("little popular query"))

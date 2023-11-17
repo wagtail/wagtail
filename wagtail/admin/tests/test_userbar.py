@@ -8,8 +8,8 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.userbar import AccessibilityItem
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PAGE_TEMPLATE_VAR, Page
-from wagtail.test.testapp.models import BusinessChild, BusinessIndex
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -50,22 +50,6 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             content = template.render(context)
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
-
-    def test_userbar_tag_revision(self):
-        self.homepage.save_revision(user=self.user, submitted_for_moderation=True)
-        revision = self.homepage.get_latest_revision()
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        context = Context(
-            {
-                PAGE_TEMPLATE_VAR: self.homepage,
-                "request": self.dummy_request(self.user, revision_id=revision.id),
-            }
-        )
-        with self.assertNumQueries(7):
-            content = template.render(context)
-
-        self.assertIn("<!-- Wagtail user bar embed code -->", content)
-        self.assertIn("Approve", content)
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
@@ -359,38 +343,42 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             )
 
 
-class TestUserbarFrontend(WagtailTestUtils, TestCase):
+class TestUserbarInPageServe(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
-        self.homepage = Page.objects.get(id=2)
+        self.user = self.login()
+        self.request = get_dummy_request(site=Site.objects.first())
+        self.request.user = self.user
+        self.homepage = Page.objects.get(id=2).specific
+        # Use a specific page model to use our template that has {% wagtailuserbar %}
+        self.page = SimplePage(title="Rendang", content="Enak", live=True)
+        self.homepage.add_child(instance=self.page)
 
-    def test_userbar_frontend(self):
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_frontend", args=(self.homepage.id,))
-        )
+    def test_userbar_rendered(self):
+        response = self.page.serve(self.request)
+        response.render()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/userbar/base.html")
+        self.assertContains(response, '<template id="wagtail-userbar-template">')
 
-    def test_userbar_frontend_anonymous_user_cannot_see(self):
-        # Logout
-        self.client.logout()
+    def test_userbar_anonymous_user_cannot_see(self):
+        self.request.user = AnonymousUser()
+        response = self.page.serve(self.request)
+        response.render()
 
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_frontend", args=(self.homepage.id,))
-        )
-
-        # Check that the user received a forbidden message
-        self.assertEqual(response.status_code, 403)
+        # Check that the userbar is not rendered
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, '<template id="wagtail-userbar-template">')
 
 
 class TestUserbarAddLink(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
-        self.login()
+        self.user = self.login()
+        self.request = get_dummy_request(site=Site.objects.first())
+        self.request.user = self.user
         self.homepage = Page.objects.get(url_path="/home/")
-        self.event_index = Page.objects.get(url_path="/home/events/")
+        self.event_index = Page.objects.get(url_path="/home/events/").specific
 
         self.business_index = BusinessIndex(title="Business", live=True)
         self.homepage.add_child(instance=self.business_index)
@@ -399,9 +387,9 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         self.business_index.add_child(instance=self.business_child)
 
     def test_page_allowing_subpages(self):
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_frontend", args=(self.event_index.id,))
-        )
+        response = self.event_index.serve(self.request)
+        response.render()
+        self.assertEqual(response.status_code, 200)
 
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse(
@@ -415,69 +403,17 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
                 Add a child page
             </a>
             """
-        self.assertTagInHTML(needle, str(response.content))
+        self.assertTagInHTML(needle, response.content.decode())
 
     def test_page_disallowing_subpages(self):
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_frontend", args=(self.business_child.id,))
-        )
+        response = self.business_child.serve(self.request)
+        response.render()
+        self.assertEqual(response.status_code, 200)
 
         # page disallows subpages, so the 'add page' button shouldn't show
         expected_url = reverse(
             "wagtailadmin_pages:add_subpage", args=(self.business_index.id,)
         )
-        expected_link = (
-            '<a href="%s" target="_parent">Add a child page</a>' % expected_url
-        )
-        self.assertNotContains(response, expected_link)
-
-
-class TestUserbarModeration(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.login()
-        self.homepage = Page.objects.get(id=2)
-        self.homepage.save_revision(submitted_for_moderation=True)
-        self.revision = self.homepage.get_latest_revision()
-
-    def test_userbar_moderation(self):
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_moderation", args=(self.revision.id,))
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/userbar/base.html")
-
-        expected_approve_html = """
-            <form action="/admin/pages/moderation/{}/approve/" target="_parent" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="w-action">
-                    <input type="submit" value="Approve" class="button" />
-                </div>
-            </form>
-        """.format(
-            self.revision.id
-        )
-        self.assertTagInHTML(expected_approve_html, str(response.content))
-
-        expected_reject_html = """
-            <form action="/admin/pages/moderation/{}/reject/" target="_parent" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="w-action">
-                    <input type="submit" value="Reject" class="button" />
-                </div>
-            </form>
-        """.format(
-            self.revision.id
-        )
-        self.assertTagInHTML(expected_reject_html, str(response.content))
-
-    def test_userbar_moderation_anonymous_user_cannot_see(self):
-        # Logout
-        self.client.logout()
-
-        response = self.client.get(
-            reverse("wagtailadmin_userbar_moderation", args=(self.revision.id,))
-        )
-
-        # Check that the user received a forbidden message
-        self.assertEqual(response.status_code, 403)
+        soup = self.get_soup(response.content)
+        link = soup.find("a", attrs={"href": expected_url})
+        self.assertIsNone(link)

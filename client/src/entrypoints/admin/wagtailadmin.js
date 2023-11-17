@@ -1,7 +1,5 @@
-import { Icon, Portal } from '../..';
 import { initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
-import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
@@ -9,19 +7,12 @@ import {
 } from '../../includes/panels';
 import { initMinimap } from '../../components/Minimap';
 
-// Expose components as globals for third-party reuse.
-window.wagtail.components = {
-  Icon,
-  Portal,
-};
-
 /**
  * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initTabs();
-  initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
 });

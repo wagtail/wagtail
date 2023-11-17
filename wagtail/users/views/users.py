@@ -74,6 +74,8 @@ class Index(IndexView):
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(User)
     model = User
+    header_icon = "user"
+    add_item_label = _("Add a user")
     context_object_name = "users"
     index_url_name = "wagtailusers_users:index"
     add_url_name = "wagtailusers_users:add"
@@ -144,8 +146,10 @@ class Create(CreateView):
 
     permission_policy = ModelPermissionPolicy(User)
     permission_required = "add"
+    model = User
     form_class = get_user_creation_form()
     template_name = "wagtailusers/users/create.html"
+    header_icon = "user"
     add_url_name = "wagtailusers_users:add"
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
@@ -177,6 +181,7 @@ class Edit(EditView):
     model = User
     permission_policy = ModelPermissionPolicy(User)
     form_class = get_user_edit_form()
+    header_icon = "user"
     template_name = "wagtailusers/users/edit.html"
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
@@ -184,12 +189,6 @@ class Edit(EditView):
     success_message = gettext_lazy("User '%(object)s' updated.")
     context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
-
-    def get_page_title(self):
-        return _("Editing %(object)s") % {"object": self.object.get_username()}
-
-    def get_page_subtitle(self):
-        return ""
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -250,6 +249,7 @@ class Delete(DeleteView):
     model = User
     template_name = "wagtailusers/users/confirm_delete.html"
     delete_url_name = "wagtailusers_users:delete"
+    edit_url_name = "wagtailusers_users:edit"
     index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
     context_object_name = "user"

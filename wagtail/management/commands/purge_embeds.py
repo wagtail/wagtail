@@ -7,7 +7,6 @@ class Command(BaseCommand):
     help = "Deletes all of the Embed model objects"
 
     def handle(self, *args, **options):
-
         embeds = Embed.objects.all()
 
         deleted_embeds_count = embeds.delete()[0]

@@ -18,7 +18,6 @@ class AdminItem(BaseItem):
     template = "wagtailadmin/userbar/item_admin.html"
 
     def render(self, request):
-
         # Don't render if user doesn't have permission to access the admin area
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
@@ -241,33 +240,3 @@ class EditPageItem(BaseItem):
             return ""
 
         return super().render(request)
-
-
-class ModeratePageItem(BaseItem):
-    def __init__(self, revision):
-        self.revision = revision
-
-    def render(self, request):
-        if not self.revision.id:
-            return ""
-
-        if not self.revision.submitted_for_moderation:
-            return ""
-
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        if not self.revision.content_object.permissions_for_user(
-            request.user
-        ).can_publish():
-            return ""
-
-        return super().render(request)
-
-
-class ApproveModerationEditPageItem(ModeratePageItem):
-    template = "wagtailadmin/userbar/item_page_approve.html"
-
-
-class RejectModerationEditPageItem(ModeratePageItem):
-    template = "wagtailadmin/userbar/item_page_reject.html"

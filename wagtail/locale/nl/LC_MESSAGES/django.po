@@ -6,6 +6,7 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022
+# Maarten Kling <kling.maarten@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
 # Storm Heg <storm@stormbase.digital>, 2021-2023
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -894,8 +895,9 @@ msgid "Remove view restrictions"
 msgstr "Verwijder weergavebeperkingen"
 
 #, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"De weergavebeperking '%(restriction)s' is verwijderd. De pagina is publiek."
 
 msgid "Removed view restriction"
 msgstr "Verwijderde weergavebeperking"

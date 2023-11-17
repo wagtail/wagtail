@@ -42,10 +42,17 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "query",
+                    # Changed in Wagtail 6.0. This was previously a foreign key to
+                    # wagtailsearch.query, but that table doesn't exist any more (and we can't
+                    # force this migration to run before its deletion, because the searchpromotions
+                    # app can be installed at any time). Instead, we arbitrarily point it to
+                    # wagtailcore.page - this is fine, because any project that's running this
+                    # migration under Wagtail>=6.0 will subsequently run searchpromotions migration
+                    # 0005, which will change it to point to wagtailsearchpromotions.query.
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="editors_picks",
-                        to="wagtailsearch.query",
+                        to="wagtailcore.page",
                     ),
                 ),
             ],

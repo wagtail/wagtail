@@ -11,16 +11,20 @@
 # Loic Teixeira, 2022
 # LB (Ben Johnston) <mail@lb.ee>, 2023
 # A M, 2023
+# Felipe Lobato, 2023
 #
 msgid ""
 msgstr ""
-"Last-Translator: A M, 2023\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_BR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
+
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s novos itens nesse menu)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 novo item neste menu)"

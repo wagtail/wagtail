@@ -114,7 +114,7 @@ def format_permissions(permission_bound_field):
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def user_listing_buttons(context, user):
     button_hooks = hooks.get_hooks("register_user_listing_buttons")
     buttons = sorted(

@@ -22,6 +22,7 @@ from wagtail.admin.utils import (
 )
 from wagtail.models import (
     GroupApprovalTask,
+    GroupPagePermission,
     Page,
     PageViewRestriction,
     Task,
@@ -40,6 +41,7 @@ from wagtail.test.testapp.models import (
     SimpleTask,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -86,7 +88,7 @@ class TestWorkflowMenus(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '"url": "/admin/reports/workflow_tasks/"')
 
 
-class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
+class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -115,6 +117,7 @@ class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -162,7 +165,55 @@ class TestWorkflowsIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
+class TestWorkflowPermissions(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailadmin_reports:workflow"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_no_permission(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No GroupPagePermission created
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="change",
+        )
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+
+
+class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -202,6 +253,7 @@ class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         response = self.post(
@@ -372,7 +424,7 @@ class TestWorkflowsCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(link.workflow, workflow)
 
 
-class TestWorkflowsEditView(WagtailTestUtils, TestCase):
+class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -425,6 +477,7 @@ class TestWorkflowsEditView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
@@ -708,7 +761,7 @@ class TestRemoveWorkflow(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class TestTaskIndexView(WagtailTestUtils, TestCase):
+class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -737,6 +790,7 @@ class TestTaskIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # Initially there should be no tasks listed
         self.assertContains(response, "There are no enabled tasks")
@@ -785,7 +839,7 @@ class TestTaskIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestCreateTaskView(WagtailTestUtils, TestCase):
+class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -831,6 +885,7 @@ class TestCreateTaskView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create_task.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_get_with_non_task_model(self):
         response = self.get(
@@ -911,7 +966,7 @@ class TestSelectTaskTypeView(WagtailTestUtils, TestCase):
         )
 
 
-class TestEditTaskView(WagtailTestUtils, TestCase):
+class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
         self.login()
@@ -948,6 +1003,7 @@ class TestEditTaskView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit_task.html")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_post(self):
         self.assertEqual(self.task.groups.count(), 0)
@@ -2803,7 +2859,7 @@ class TestSnippetNotificationPreferencesHTML(TestSnippetNotificationPreferences)
     pass
 
 
-class TestDisableViews(BasePageWorkflowTests):
+class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
@@ -2851,6 +2907,7 @@ class TestDisableViews(BasePageWorkflowTests):
             response,
             "This workflow is in progress on 1 page/snippet. Disabling this workflow will cancel moderation on this page/snippet.",
         )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_get_disable_workflow_no_warning(self):
         """Test that deactivating a workflow does not show a warning if there are no in progress states"""
@@ -2866,6 +2923,7 @@ class TestDisableViews(BasePageWorkflowTests):
             response,
             "Disabling this workflow will cancel moderation on this page/snippet.",
         )
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_disable_task_view(self):
         """Test that a view is shown before disabling a task that shows a warning"""
@@ -2888,6 +2946,7 @@ class TestDisableViews(BasePageWorkflowTests):
             response,
             "This task is in progress on 1 page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
         )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         # create a new, unused, task and check there is no warning message
         unused_task = GroupApprovalTask.objects.create(name="unused_task_3")
@@ -2904,6 +2963,7 @@ class TestDisableViews(BasePageWorkflowTests):
             "Disabling this task will cause it to be skipped in the moderation workflow "
             "and not be listed for selection when editing a workflow.",
         )
+        self.assertBreadcrumbsNotRendered(response.content)
 
         unused_task.delete()  # clean up
 

@@ -159,7 +159,7 @@ It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` 
 
 ### Testing Elasticsearch
 
-You can test Wagtail against Elasticsearch by passing the argument `--elasticsearch5`, `--elasticsearch6`, `--elasticsearch7` or `--elasticsearch8` (corresponding to the version of Elasticsearch you want to test against):
+You can test Wagtail against Elasticsearch by passing the argument `--elasticsearch7` or `--elasticsearch8` (corresponding to the version of Elasticsearch you want to test against):
 
 ```sh
 python runtests.py --elasticsearch8

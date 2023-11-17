@@ -28,10 +28,8 @@
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
             <div role="tablist" class="w-tabs__list ">
-                {% trans "Tasks" as tasks_title %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="tasks" title=tasks_title %}
-                {% trans "Timeline" as timeline_title %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="timeline" title=timeline_title %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="tasks" title=_("Tasks") %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="timeline" title=_("Timeline") %}
             </div>
         </div>
         <div class="tab-content">

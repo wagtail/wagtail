@@ -9,7 +9,6 @@ const getOutputPath = (app, folder, filename) => {
     'contrib/table_block': 'table_block',
     'contrib/typed_table_block': 'typed_table_block',
     'contrib/styleguide': 'wagtailstyleguide',
-    'contrib/modeladmin': 'wagtailmodeladmin',
   };
 
   const appLabel = exceptions[app] || `wagtail${app}`;
@@ -48,7 +47,6 @@ module.exports = function exports(env, argv) {
       'page-editor',
       'preview-panel',
       'privacy-switch',
-      'schedule-publishing',
       'sidebar',
       'task-chooser-modal',
       'task-chooser',
@@ -176,18 +174,13 @@ module.exports = function exports(env, argv) {
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
-            from: 'wagtail/search/static_src/',
-            to: 'wagtail/search/static/',
+            from: 'wagtail/contrib/search_promotions/static_src/',
+            to: 'wagtail/contrib/search_promotions/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
             from: 'wagtail/users/static_src/',
             to: 'wagtail/users/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/contrib/modeladmin/static_src/',
-            to: 'wagtail/contrib/modeladmin/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
         ],
@@ -200,14 +193,6 @@ module.exports = function exports(env, argv) {
           test: /\.(js|ts)x?$/,
           loader: 'ts-loader',
           exclude: /node_modules/,
-        },
-        {
-          // Legacy support for font icon loading, to be removed.
-          test: /\.(woff)$/i,
-          generator: {
-            emit: false,
-            filename: 'wagtailadmin/fonts/[name][ext]',
-          },
         },
         {
           test: /\.(svg)$/i,

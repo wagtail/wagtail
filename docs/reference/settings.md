@@ -373,6 +373,8 @@ WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
 
 This setting lets you provide your own document model for use in Wagtail, which should extend the built-in `AbstractDocument` class.
 
+(wagtaildocs_document_form_base)=
+
 ### `WAGTAILDOCS_DOCUMENT_FORM_BASE`
 
 ```python
@@ -789,23 +791,13 @@ Enabling this option will allow editors to insert arbitrary HTML into the page, 
 
 ## Workflow
 
-(wagtail_moderation_enabled)=
-
-### `WAGTAIL_MODERATION_ENABLED`
-
-```python
-WAGTAIL_MODERATION_ENABLED = True
-```
-
-Changes whether the Submit for Moderation button is displayed in the action menu.
-
 ### `WAGTAIL_WORKFLOW_ENABLED`
 
 ```python
-WAGTAIL_WORKFLOW_ENABLED = False
+WAGTAIL_WORKFLOW_ENABLED = True
 ```
 
-Specifies whether moderation workflows are enabled (default: True). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
+Specifies whether moderation workflows are enabled (default: `True`). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
 
 ### `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT`
 

@@ -1,3 +1,5 @@
+(api_v2_usage)=
+
 # Wagtail API v2 Usage Guide
 
 The Wagtail API module exposes a public, read only, JSON-formatted API which
@@ -162,6 +164,8 @@ either a number (the new maximum value) or `None` (which disables maximum
 value check).
 ```
 
+(api_v2_usage_ordering)=
+
 ### Ordering
 
 The results can be ordered by any field by setting the `?order` parameter to
@@ -205,6 +209,30 @@ Content-Type: application/json
 ```{note}
 Ordering is case-sensitive so lowercase letters are always ordered after
 uppercase letters when in ascending order.
+```
+
+#### Multiple ordering
+
+Multiple fields cab be passed into the `?order` for consecutive ordering.
+
+```
+GET /api/v2/pages/?order=title,-slug
+
+HTTP 200 OK
+Content-Type: application/json
+
+{
+    "meta": {
+        "total_count": 50
+    },
+    "items": [
+        pages will be ordered by title and for all matching titles (a-z), then sorted by slug (z-a).
+    ]
+}
+```
+
+```{versionadded} 5.2
+
 ```
 
 #### Random ordering

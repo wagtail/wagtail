@@ -41,7 +41,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:311
+#: src/entrypoints/admin/telepath/widgets.js:334
 msgid "Blocks"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:200
+#: src/entrypoints/admin/preview-panel.js:209
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:202
+#: src/entrypoints/admin/telepath/widgets.js:225
 msgid "Split block"
 msgstr ""
 

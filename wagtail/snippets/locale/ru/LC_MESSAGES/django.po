@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
@@ -17,18 +18,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -129,13 +130,13 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 "Вы еще не создали ни одного %(snippet_type_name)sсниппета. Не желаете ли <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noopener noreferrer\">создать сейчас</a>?,"
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">создать сейчас</a>?,"
 
 msgid "Publishing…"
 msgstr "Публикуется..."
@@ -165,34 +166,9 @@ msgstr "Новый"
 msgid "Actions"
 msgstr "Действия"
 
-msgid "Toggle breadcrumbs"
-msgstr "Переключить хлебные крошки"
-
-msgid "Breadcrumb"
-msgstr "Навигационная цепочка"
-
-msgid "Snippets"
-msgstr "Фрагменты"
-
 #, python-format
-msgid "Editing %(snippet_type)s %(title)s"
-msgstr "Редактирование %(snippet_type)s %(title)s"
-
-msgid "History"
-msgstr "История"
-
-msgid "Usage"
-msgstr "Использование"
-
-#, python-format
-msgid "Snippet history for %(subtitle)s"
-msgstr "История фрагмента для %(subtitle)s"
-
-msgid "Edit this snippet"
-msgstr "Редактировать этот фрагмент"
-
-msgid "No log entries found."
-msgstr "Записи в журнале не найдены."
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Редактирование %(snippet_type_name)s - %(object)s"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -214,12 +190,18 @@ msgstr[2] "Есть %(counter)s совпадений"
 msgstr[3] "Есть %(counter)s совпадений"
 
 #, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
 msgstr ""
-"%(snippet_type_name_plural)s еще не были созданы. Почему бы не <a href="
-"\"%(wagtailsnippets_create_url)s\">добавить один</a>?"
+"К сожалению, ни один %(snippet_type_name_plural)s не соответствует вашему "
+"запросу"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"%(snippet_type_name_plural)s еще не были созданы. Почему бы не <a "
+"href=\"%(wagtailsnippets_create_url)s\">добавить один</a>?"
 
 msgid "Live version"
 msgstr "Опубликованная версия"
@@ -248,11 +230,18 @@ msgstr "Отменить запланированную публикацию"
 msgid "Choose"
 msgstr "Выбрать"
 
+msgid "Snippets"
+msgstr "Фрагменты"
+
 msgid "Name"
 msgstr "Имя"
 
 msgid "Instances"
 msgstr "Экземпляры"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Дополнительные опции для '%(title)s'"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
@@ -263,14 +252,8 @@ msgstr "Фрагмент не может быть сохранен из-за о�
 msgid "Action"
 msgstr "Действие"
 
-msgid "User"
-msgstr "Пользователь"
-
 msgid "Date"
 msgstr "Дата"
-
-msgid "Snippet history"
-msgstr "История фрагмента"
 
 #, python-format
 msgid "Edit this %(model_name)s"
@@ -280,16 +263,8 @@ msgstr "Редактировать %(model_name)s"
 msgid "%(model_name)s history"
 msgstr "%(model_name)s история"
 
-#, python-format
-msgid "Edit '%(title)s'"
-msgstr "Редактировать '%(title)s'"
-
-msgid "Inspect"
-msgstr "Просмотр"
-
-#, python-format
-msgid "Delete '%(title)s'"
-msgstr "Удалить '%(title)s'"
+msgid "Home"
+msgstr "Главная"
 
 #, python-format
 msgid "Choose %(object)s"

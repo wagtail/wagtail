@@ -7,13 +7,13 @@
 As standard, Wagtail organises panels for pages into two tabs: 'Content' and 'Promote'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an `edit_handler` attribute on the page or snippet model. For example:
 
 ```python
-from wagtail.admin.panels import TabbedInterface, ObjectList
+from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
 
 class BlogPage(Page):
     # field definitions omitted
 
     content_panels = [
-        FieldPanel('title', classname="title"),
+        TitleFieldPanel('title', classname="title"),
         FieldPanel('date'),
         FieldPanel('body'),
     ]
@@ -28,6 +28,31 @@ class BlogPage(Page):
         ObjectList(Page.promote_panels, heading='Promote'),
     ])
 ```
+
+Permissions can be set using `permission` on the `ObjectList` to restrict entire groups of panels to specific users.
+
+```python
+from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
+
+class FundingPage(Page):
+    # field definitions omitted
+
+    shared_panels = [
+        TitleFieldPanel('title', classname="title"),
+        FieldPanel('date'),
+        FieldPanel('body'),
+    ]
+    private_panels = [
+        FieldPanel('approval'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(shared_panels, heading='Details'),
+        ObjectList(private_panels, heading='Admin only', permission="superuser"),
+    ])
+```
+
+For more details on how to work with `Panel`s and `PanelGroup`, see [](forms_panels_overview).
 
 (rich_text)=
 
@@ -115,11 +140,11 @@ The unique key used to identify the format. To unregister this format, call `unr
 **`label`**\
 The label used in the chooser form when inserting the image into the `RichTextField`.
 
-**`classnames`**\
+**`classname`**\
 The string to assign to the `class` attribute of the generated `<img>` tag.
 
 ```{note}
-Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a `classnames` value of `left` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
+Any class names you provide must have CSS rules matching them written separately, as part of the front end CSS code. Specifying a `classname` value of `left` will only ensure that class is output in the generated markup, it won't cause the image to align itself left.
 ```
 
 **`filter_spec`**
@@ -154,7 +179,7 @@ or to add custom validation logic for your models:
 from django import forms
 from django.db import models
 import geocoder  # not in Wagtail, for example only - https://geocoder.readthedocs.io/
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import TitleFieldPanel, FieldPanel
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.models import Page
 
@@ -194,7 +219,7 @@ class EventPage(Page):
     location = models.CharField(max_length=255)
 
     content_panels = [
-        FieldPanel('title'),
+        TitleFieldPanel('title'),
         FieldPanel('start_date'),
         FieldPanel('end_date'),
         FieldPanel('address'),

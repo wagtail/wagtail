@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,24 +59,24 @@ msgstr ""
 msgid "Site '%(object)s' created."
 msgstr ""
 
-#: views.py:39
+#: views.py:38
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr ""
 
-#: views.py:40
+#: views.py:39
 msgid "The site could not be saved due to errors."
 msgstr ""
 
-#: views.py:41 views.py:48
+#: views.py:40 views.py:46
 msgid "Delete site"
 msgstr ""
 
-#: views.py:47
+#: views.py:45
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr ""
 
-#: views.py:49
+#: views.py:47
 msgid "Are you sure you want to delete this site?"
 msgstr ""

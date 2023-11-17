@@ -1,3 +1,5 @@
+(images_title_generation_on_upload)=
+
 # Title generation on upload
 
 When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
@@ -10,7 +12,7 @@ You can customise the resolved value of this title using a JavaScript [event lis
 
 The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
 
-## DOM Event
+## DOM event
 
 The event name to listen for is `'wagtail:images-upload'`. It will be dispatched on the image upload `form`. The event's `detail` attribute will contain:
 
@@ -26,9 +28,9 @@ You can prevent the default behaviour by calling `event.preventDefault()`. For t
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 
-See MDN for more information about [custom JavasScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
+See MDN for more information about [custom JavaScript events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events).
 
-## Code Examples
+## Code examples
 
 ### Removing any url unsafe characters from the title
 

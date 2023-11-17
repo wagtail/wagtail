@@ -116,7 +116,7 @@ class BaseListingView(TemplateView):
         if self.current_tag:
             try:
                 images = images.filter(tags__name=self.current_tag)
-            except (AttributeError):
+            except AttributeError:
                 self.current_tag = None
 
         entries_per_page = self.get_num_entries_per_page()

@@ -90,7 +90,7 @@ This is an area of active improvement for Wagtail, with [ongoing discussions](ht
 
 -   Always use the `trimmed` attribute on `blocktranslate` tags to prevent unnecessary whitespace from being added to the translation strings.
 
-## SVG icons
+## Icons
 
 We use inline SVG elements for Wagtail’s icons, for performance and so icons can be styled with CSS. View [](icons) for information on how icons are set up for Wagtail users.
 

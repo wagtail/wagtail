@@ -77,7 +77,6 @@ def serve(request, document_id, document_filename):
         return redirect(direct_url)
 
     if local_path:
-
         # Use wagtail.utils.sendfile to serve the file;
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
@@ -93,7 +92,6 @@ def serve(request, document_id, document_filename):
         return sendfile(request, local_path, **sendfile_opts)
 
     else:
-
         # We are using a storage backend which does not expose filesystem paths
         # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
         # redirecting to the file url directly.

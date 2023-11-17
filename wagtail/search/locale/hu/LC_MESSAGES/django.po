@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: B N <biczoxd@gmail.com>, 2018\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,21 +32,3 @@ msgstr "index bejegyzés"
 
 msgid "index entries"
 msgstr "index bejegyzések"
-
-msgid "Popular search terms"
-msgstr "Népszerű keresések"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Terms"
-msgstr "Kifejezések"
-
-msgid "Views (past week)"
-msgstr "Megtekintések (elmúlt hétben)"
-
-msgid "No results found"
-msgstr "Nincs találat."
-
-msgid "Choose from popular search terms"
-msgstr "Válassz a népszerű keresések közül"
