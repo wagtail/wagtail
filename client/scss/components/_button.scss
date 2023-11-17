@@ -102,13 +102,7 @@
       height: 100%;
       box-sizing: content-box;
       text-align: center;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-top-left-radius: inherit;
       border-start-start-radius: inherit;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-bottom-left-radius: inherit;
       border-end-start-radius: inherit;
     }
 

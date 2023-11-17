@@ -96,13 +96,7 @@ $draftail-editor-font-family: $font-sans;
 
 .Draftail-Toolbar {
   border-width: 0;
-  // Remove once we drop support for Safari 14.
-  // stylelint-disable-next-line property-disallowed-list
-  border-bottom-left-radius: 0;
   border-end-start-radius: 0;
-  // Remove once we drop support for Safari 14.
-  // stylelint-disable-next-line property-disallowed-list
-  border-bottom-right-radius: 0;
   border-end-end-radius: 0;
   background-color: $draftail-editor-background;
   color: $draftail-placeholder-text;
