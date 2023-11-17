@@ -11,6 +11,7 @@ import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
 import { DropdownController } from './DropdownController';
 import { InitController } from './InitController';
+import { OrderableController } from './OrderableController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
 import { SkipLinkController } from './SkipLinkController';
@@ -40,6 +41,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: InitController, identifier: 'w-init' },
+  { controllerConstructor: OrderableController, identifier: 'w-orderable' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
