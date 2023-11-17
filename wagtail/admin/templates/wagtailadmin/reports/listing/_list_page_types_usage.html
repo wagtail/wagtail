@@ -26,7 +26,7 @@
                     {% trans 'Last edit' %}
                 </th>
                 <th class="last-edited-by">
-                    {% trans 'Last edited by' %}
+                    {% trans 'Last edited page owner' %}
                 </th>
                 {% block extra_columns %}
                 {% endblock extra_columns %}
@@ -74,8 +74,8 @@
                         {% endif %}
                     </td>
                     <td class="last-edited-by" valign="top">
-                        {% if page_type.last_edited_by_user %}
-                            {% include "wagtailadmin/shared/user_avatar.html" with user=page_type.last_edited_by username=page_type.last_edited_by_user %}
+                        {% if page_type.last_edited_page_owner %}
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=page_type.last_edited_page_owner_id username=page_type.last_edited_page_owner %}
                         {% else %}
                             -
                         {% endif %}

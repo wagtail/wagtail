@@ -626,7 +626,6 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
 
     def test_queryset_last_edited_by(self):
         """Tests that the queryset correctly returns the last edited by user."""
-        # Create some product pages:
         # Create some users:
         user_a = self.create_superuser(
             username="user_a", first_name="John", last_name="Doe"
@@ -634,20 +633,25 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         user_b = self.create_superuser(
             username="user_b", first_name="Jane", last_name="Doe"
         )
+        # Create pages with owners:
+        simple_page_a = SimplePage(title="Simple page A", content="hello", owner=user_a)
+        simple_page_b = SimplePage(title="Simple page B", content="hello", owner=user_b)
+        Page.get_first_root_node().add_child(instance=simple_page_a)
+        Page.get_first_root_node().add_child(instance=simple_page_b)
         # Edit the first product page with user_a
-        revision = self.simple_page_a.save_revision(user=user_a)
+        revision = simple_page_a.save_revision(user=user_a)
         revision.publish(user=user_a)
         # Re-edit the first product page with user_b
-        revision = self.simple_page_a.save_revision(user=user_b)
+        revision = simple_page_a.save_revision(user=user_b)
         revision.publish(user=user_b)
         # Get the queryset:
         queryset = self.view.decorate_paginated_queryset(self.view.get_queryset())
         # Assert that the first product page is the last edited page
         self.simple_page_a.refresh_from_db()
-        self.assertEqual(queryset[0].last_edited_page.specific, self.simple_page_a)
-        # Assert that the first product page was last edited by user b
-        self.assertEqual(queryset[0].last_edited_by, user_b.pk)
-        self.assertEqual(queryset[0].last_edited_by_user, user_b.get_username())
+        self.assertEqual(queryset[0].last_edited_page.specific, simple_page_a)
+        # Assert that the first product page is owned by user_a (who created it)
+        self.assertEqual(queryset[0].last_edited_page_owner_id, user_a.pk)
+        self.assertEqual(queryset[0].last_edited_page_owner, user_a.get_username())
 
 
 @override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)
@@ -752,11 +756,11 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
 
         self.assertEqual(
             page_row.count, 3
-        )  # Root + Homepage (create in migration) + My Page
+        )  # Root + Homepage (created in migration) + My Page
         self.assertEqual(simple_page_row.count, 1)
 
         # Filter by the simple_page_site
-        response = self.get({"site": simple_page_site.pk})
+        response = self.get({"site": simple_page_site.root_page.path})
         page_types = {
             content_type.id: content_type
             for content_type in response.context["object_list"]
