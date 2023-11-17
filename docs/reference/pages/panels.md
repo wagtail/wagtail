@@ -53,6 +53,8 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 ```
 
+(multiFieldPanel)=
+
 ### MultiFieldPanel
 
 ```{eval-rst}

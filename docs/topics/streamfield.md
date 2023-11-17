@@ -168,6 +168,8 @@ body = StreamField([
 ])
 ```
 
+(block_icons)=
+
 ### Block icons
 
 In the menu that content authors use to add new blocks to a StreamField, each block type has an associated icon. For StructBlock and other structural block types, a placeholder icon is used, since the purpose of these blocks is specific to your project. To set a custom icon, pass the option `icon` as either a keyword argument to `StructBlock`, or an attribute on a `Meta` class:
