@@ -218,13 +218,6 @@ Wagtail is meant to be used on a wide variety of devices and browsers. Supported
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
-IE 11 support has been officially dropped in 2.15 as it is gradually falling out of use. Features already known not to work include:
-
--   Rich text copy-paste in the rich text editor.
--   Sticky toolbar in the rich text editor.
--   Focus outline styles in the main menu & explorer menu.
--   Keyboard access to the actions in page listing tables.
-
 **Unsupported browsers / devices include:**
 
 | Browser       | Device/OS | Version(s) |
