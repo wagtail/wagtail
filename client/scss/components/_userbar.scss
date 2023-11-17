@@ -82,13 +82,6 @@ $positions: (
   text-decoration: none;
   position: relative;
 
-  .w-icon:before {
-    transition: color 0.2s ease;
-    font-size: 2rem;
-    width: auto;
-    margin: 0;
-  }
-
   .w-userbar-axe-count {
     display: flex;
     justify-content: center;
@@ -212,17 +205,6 @@ $positions: (
 
     .w-a11y-result__count {
       margin-inline-end: theme('spacing.2');
-    }
-  }
-
-  .w-icon {
-    position: relative;
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      inset-inline-start: 14px;
     }
   }
 

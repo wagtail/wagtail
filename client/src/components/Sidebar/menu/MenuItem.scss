@@ -35,25 +35,6 @@
       color: theme('colors.text-label-menus-active');
       text-shadow: -1px -1px 0 theme('colors.black-35');
     }
-
-    &:before {
-      width: 1rem;
-      height: 1rem;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
-      margin: 0.046875rem 0;
-    }
-
-    // only really used for spinners and settings menu
-    &:after {
-      font-size: 1.5em;
-      margin: 0;
-      position: absolute;
-      inset-inline-end: 0.5em;
-      top: 0.5em;
-    }
   }
 
   &--in-sub-menu {
