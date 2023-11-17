@@ -36,6 +36,7 @@ Changelog
  * Maintenance: Remove deprecated SVG icons (Matt Westcott)
  * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
+ * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
 
 
 5.2.1 (16.11.2023)
