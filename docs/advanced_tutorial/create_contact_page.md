@@ -113,6 +113,8 @@ Now, you’ve added all the necessary lines of code and templates that you need 
 
 Now, migrate your database by running `python manage.py makemigrations` and then `python manage.py migrate`.
 
+(add_your_contact_information)=
+
 ## Add your contact information
 
 To add contact information to your portfolio site, follow these steps:
