@@ -287,17 +287,9 @@
 
     @include media-breakpoint-up(sm) {
       &.icon {
-        &:before {
-          line-height: 2.1em;
-        }
-
         &.button-small {
           width: 1.75em;
           height: 1.75em;
-
-          &:before {
-            line-height: 1.7em;
-          }
         }
       }
     }
@@ -314,17 +306,8 @@
     &.bicolor {
       padding-inline-start: 3.5em;
 
-      &:before {
-        width: 2em;
-        font-size: theme('fontSize.16');
-      }
-
       &.button-small {
         padding-inline-start: 3em;
-
-        &:before {
-          width: 1.75em;
-        }
       }
     }
   }

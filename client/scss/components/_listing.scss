@@ -543,6 +543,7 @@ table.listing {
           text-align: center;
           height: 180px;
 
+          // Vertically center the image.
           &:before {
             content: '';
             display: inline-block;

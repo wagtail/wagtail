@@ -88,12 +88,6 @@
 
       &.icon {
         padding-inline-end: 5em;
-
-        // stylelint-disable-next-line max-nesting-depth
-        &:before,
-        &:after {
-          inset-inline-end: 1em;
-        }
       }
 
       &.shortcut {
@@ -161,16 +155,6 @@
     inset-inline-end: 0;
     padding: 0 0.5em;
     text-align: center;
-
-    &:before,
-    &:after {
-      margin: 0;
-    }
-
-    &:before {
-      width: 1em;
-      font-size: 1.2rem;
-    }
 
     &:hover {
       background-color: theme('colors.surface-button-hover');

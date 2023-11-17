@@ -82,10 +82,6 @@
     mask-image: url('#{$images-root}icons/cross.svg');
     mask-repeat: no-repeat;
   }
-
-  .ui-icon-close:hover:before {
-    color: theme('colors.critical.200');
-  }
 }
 
 @media (forced-colors: active) {
