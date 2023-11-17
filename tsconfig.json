@@ -5,14 +5,14 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["ES2021", "DOM", "DOM.iterable"],
+    "lib": ["ES2022", "DOM", "DOM.iterable"],
     "moduleResolution": "node",
     "noImplicitAny": false, // TODO: Enable once all existing code is typed
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "target": "ES2021" // Since lowest browser support is for Safari 14
+    "target": "ES2022"
   },
   "files": [
     "client/src/index.ts",

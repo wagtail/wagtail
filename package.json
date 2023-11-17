@@ -14,7 +14,8 @@
     "last 1 Firefox version",
     "last 2 iOS versions",
     "last 3 Safari versions",
-    "not safari 13",
+    "iOS 16",
+    "Safari 15",
     "not ie 11"
   ],
   "jest": {
