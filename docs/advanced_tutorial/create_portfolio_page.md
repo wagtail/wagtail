@@ -394,4 +394,4 @@ To add your resume to your portfolio site, follow these steps:
 
 3. Publish your `Portfolio Page`.
 
-Congratulations🎉! You now understand how to create complex flexible layouts with Wagtail StreamField. In the next tutorial, you'll learn how to add search functionality to your site.
+Congratulations! 🎉 You now understand how to create complex flexible layouts with Wagtail StreamField. In the next section of this tutorial, you'll learn how to add search functionality to your site.

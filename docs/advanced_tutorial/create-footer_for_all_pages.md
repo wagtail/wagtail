@@ -18,7 +18,7 @@ You can structure your project in several ways aside from using a base app. For 
 
 ## Create navigation settings
 
-Now, go to your `base/models.py` and add the following lines of code:
+Now, go to your `base/models.py` file and add the following lines of code:
 
 ```python
 from django.db import models
