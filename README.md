@@ -50,6 +50,14 @@ Wagtail works with [Python 3](https://www.python.org/downloads/), on any platfor
 
 To get started with using Wagtail, run the following in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
 
+# steps for creating virtual environment
+
+```sh
+python -m venv file-name
+cd file-name
+Scripts/activate
+``` 
+
 ![Installing Wagtail](.github/install-animation.gif)
 
 ```sh
