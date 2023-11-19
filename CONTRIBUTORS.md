@@ -769,6 +769,7 @@
 * Kehinde Bobade
 * Joe Tsoi
 * Cassidy Pittman
+* Gunnar Scherf
 
 ## Translators
 
