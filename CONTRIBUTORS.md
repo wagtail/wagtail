@@ -757,6 +757,7 @@
 * Varun Kumar
 * Joe Tsoi
 * Cassidy Pittman
+* Gunnar Scherf
 
 ## Translators
 
