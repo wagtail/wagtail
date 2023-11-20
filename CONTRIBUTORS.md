@@ -768,6 +768,7 @@
 * Meli Imelda
 * Kehinde Bobade
 * Joe Tsoi
+* Cassidy Pittman
 
 ## Translators
 
