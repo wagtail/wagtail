@@ -40,6 +40,10 @@ Changelog
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
 
+5.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
 
 5.2.1 (16.11.2023)
 ~~~~~~~~~~~~~~~~~~
