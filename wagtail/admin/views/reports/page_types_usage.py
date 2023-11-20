@@ -47,7 +47,7 @@ def _annotate_last_edit_info(queryset, language_code, site_root_path):
     queryset = queryset.annotate(
         count=Count("pages", filter=Q(**page_count_filter_kwargs)),
         last_edited_page_id=Subquery(latest_edited_page.values("pk")[:1]),
-        last_edited_page_owner_id=Subquery(latest_edited_page.values("owner__pk")[:1]),
+        last_edited_page_owner_id=Subquery(latest_edited_page.values("owner_id")[:1]),
     )
 
     return queryset
