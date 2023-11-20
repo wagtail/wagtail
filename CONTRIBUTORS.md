@@ -756,6 +756,7 @@
 * Ian Price
 * Varun Kumar
 * Joe Tsoi
+* Cassidy Pittman
 
 ## Translators
 
