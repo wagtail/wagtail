@@ -81,7 +81,7 @@ export class ActionMenuItemDefinition implements MenuItemDefinition {
     name,
     label,
     action,
-    attrs,
+    attrs = {},
     icon_name: iconName = null,
     classname = undefined,
     method = 'POST',

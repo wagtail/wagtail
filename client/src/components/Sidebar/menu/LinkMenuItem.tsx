@@ -96,7 +96,7 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
     name,
     label,
     url,
-    attrs,
+    attrs = {},
     icon_name: iconName = null,
     classname = undefined,
   }) {
