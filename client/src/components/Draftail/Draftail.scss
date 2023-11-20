@@ -115,6 +115,17 @@ $draftail-editor-font-family: $font-sans;
       top: theme('spacing.slim-header');
     }
   }
+
+  .Draftail-ToolbarButton--active {
+    @include light-theme() {
+      background-color: theme('colors.surface-header');
+      border-color: theme('colors.border-furniture');
+
+      @media (forced-colors: active) {
+        background: Highlight;
+      }
+    }
+  }
 }
 
 .Draftail-MetaToolbar {

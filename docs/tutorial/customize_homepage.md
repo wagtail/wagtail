@@ -1,5 +1,11 @@
 # Customize your home page
 
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
+Heads’up! Make sure you have completed [Your first Wagtail site](../getting_started/tutorial.md) before going through this extended tutorial.
+
 When building your portfolio website, the first step is to set up and personalize your homepage. The homepage is your chance to make an excellent first impression and convey the core message of your portfolio. So your homepage should include the following features:
 
 1. **Introduction:** A concise introduction captures visitors' attention.
@@ -71,7 +77,7 @@ class HomePage(Page):
 
 You might already be familiar with the different parts of your `HomePage` model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`. The `wagtailcore.Page` is the base class for all other page types in Wagtail. This means all Wagtail pages inherit from `wagtailcore.Page`. For instance, your `class HomePage(page)` inherits from `wagtailcore.Page`.
 
-Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their data entries. Read the [Django documentation](https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey.on_delete) for more values for the `on-delete` attribute.
+Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their data entries. Read the [Django documentation on the `on_delete` attribute](django.db.models.ForeignKey.on_delete) for more details.
 
 The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you create a connection between models that doesn't create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage's `image`.
 

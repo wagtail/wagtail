@@ -10,6 +10,7 @@ Changelog
  * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
  * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
  * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
+ * Allow `Page.permissions_for_user()` to be overridden by specific page types (Sébastien Corbin)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -20,6 +21,7 @@ Changelog
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
  * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
  * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
+ * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
@@ -39,6 +41,10 @@ Changelog
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
 
+5.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
 
 5.2.1 (16.11.2023)
 ~~~~~~~~~~~~~~~~~~
