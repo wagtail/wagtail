@@ -1,5 +1,11 @@
 # Customize your home page
 
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
+Heads’up! Make sure you have completed [Your first Wagtail site](../getting_started/tutorial.md) before going through this extended tutorial.
+
 When building your portfolio website, the first step is to set up and personalize your homepage. The homepage is your chance to make an excellent first impression and convey the core message of your portfolio. So your homepage should include the following features:
 
 1. **Introduction:** A concise introduction captures visitors' attention.

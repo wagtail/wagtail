@@ -1,5 +1,9 @@
 # Tutorial
 
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
 ```{toctree}
 ---
 maxdepth: 2
@@ -14,15 +18,14 @@ add_search
 deployment
 ```
 
+Congratulations on completing [Your first Wagtail site](../getting_started/tutorial.md) tutorial! Now that you've completed the beginner tutorial and built a blog site from scratch, you should have a solid understanding of the basic building blocks of a Wagtail website. We hope you enjoyed learning all about Wagtail.
 
+Now that you can build a blog site with Wagtail, why stop there? We created this extended tutorial to help you grow your Wagtail knowledge.
 
-Congratulations on completing [Your first Wagtail site](../getting_started/tutorial.md) tutorial! Now that you've completed the tutorial and built a blog site from scratch, you should have a solid understanding of the basic building blocks of a Wagtail website. We hope you enjoyed learning all about Wagtail.
-
-Now that you can build a blog site with Wagtail, why stop there? We created this tutorial to help you grow your Wagtail knowledge. 
-
-In this tutorial, you'll transform your blog site into a fully deployable portfolio site. So, you must complete the [Your First Wagtail Site](../getting_started/tutorial.md) tutorial before you begin this Tutorial.
+In this tutorial, you'll transform your blog site into a fully deployable portfolio site. You must first complete the [Your First Wagtail Site](../getting_started/tutorial.md) tutorial before you begin this extended tutorial.
 
 You'll learn the following in this tutorial:
+
 - How to add pagination to your Wagtail website
 - How to use Wagtail StreamField
 - How to use Wagtail documents
@@ -32,3 +35,7 @@ You'll learn the following in this tutorial:
 - How to deploy a Wagtail website
 
 Now, let's dive in.
+
+## Warning: brand new documentation, feedback welcome
+
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
