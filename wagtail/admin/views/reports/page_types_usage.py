@@ -23,7 +23,10 @@ def _get_locale_choices():
 
 def _get_site_choices():
     """Tuples of (site root page path, site display name) for all sites in project."""
-    choices = [(site.root_page.path, str(site)) for site in Site.objects.all()]
+    choices = [
+        (site.root_page.path, str(site))
+        for site in Site.objects.all().select_related("root_page")
+    ]
     return choices
 
 
