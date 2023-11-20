@@ -218,6 +218,13 @@ function renderSidebarStory(
     document.documentElement.setAttribute('dir', 'ltr');
   }
 
+  React.useEffect(
+    () => () => {
+      document.documentElement.removeAttribute('dir');
+    },
+    [],
+  );
+
   return (
     <div className="wrapper">
       <Sidebar
