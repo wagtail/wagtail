@@ -204,7 +204,8 @@ class EmailNotificationMixin:
         return {
             recipient
             for recipient in self.get_recipient_users(instance, **kwargs)
-            if recipient.is_active
+            if recipient
+            and recipient.is_active
             and recipient.email
             and getattr(
                 UserProfile.get_for_user(recipient),
@@ -286,7 +287,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
     def __init__(self):
         super().__init__((WorkflowState,))
 
-    def get_context(self, workflow_state, **kwargs):
+    def get_context(self, workflow_state: WorkflowState, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
         context["workflow"] = workflow_state.workflow
         context["object"] = workflow_state.content_object
@@ -301,11 +302,11 @@ class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     notification = "approved"
 
-    def get_recipient_users(self, workflow_state, **kwargs):
+    def get_recipient_users(self, workflow_state: WorkflowState, **kwargs):
         triggering_user = kwargs.get("user", None)
         recipients = set()
         requested_by = workflow_state.requested_by
-        if requested_by != triggering_user:
+        if requested_by is not None and requested_by != triggering_user:
             recipients = {requested_by}
 
         return recipients
@@ -316,11 +317,11 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     notification = "rejected"
 
-    def get_recipient_users(self, workflow_state, **kwargs):
+    def get_recipient_users(self, workflow_state: WorkflowState, **kwargs):
         triggering_user = kwargs.get("user", None)
         recipients = set()
         requested_by = workflow_state.requested_by
-        if requested_by != triggering_user:
+        if requested_by is not None and requested_by != triggering_user:
             recipients = {requested_by}
 
         return recipients
@@ -339,7 +340,7 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     notification = "submitted"
 
-    def get_recipient_users(self, workflow_state, **kwargs):
+    def get_recipient_users(self, workflow_state: WorkflowState, **kwargs):
         triggering_user = kwargs.get("user", None)
         recipients = get_user_model().objects.none()
         include_superusers = getattr(
@@ -380,7 +381,7 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
             context["page"] = context["object"].specific
         return context
 
-    def get_recipient_users(self, task_state, **kwargs):
+    def get_recipient_users(self, task_state: TaskState, **kwargs):
         triggering_user = kwargs.get("user", None)
 
         group_members = get_user_model().objects.filter(
