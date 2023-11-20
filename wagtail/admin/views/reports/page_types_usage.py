@@ -2,7 +2,7 @@ import django_filters
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.db.models import Count, OuterRef, Q, Subquery
+from django.db.models import Count, F, OuterRef, Q, Subquery
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import WagtailFilterSet
@@ -39,7 +39,7 @@ def _annotate_last_edit_info(queryset, language_code, site_root_path):
 
     latest_edited_page = Page.objects.filter(
         content_type=OuterRef("pk"), **latest_edited_page_filter_kwargs
-    ).order_by("-latest_revision_created_at", "title", "-pk")
+    ).order_by(F("latest_revision_created_at").desc(nulls_last=True), "title", "-pk")
 
     queryset = queryset.annotate(
         count=Count("pages", filter=Q(**page_count_filter_kwargs)),

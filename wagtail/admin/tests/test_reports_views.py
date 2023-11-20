@@ -861,6 +861,8 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         simple_page = SimplePage(title="Simple Page", content="hello")
         Page.get_first_root_node().add_child(instance=page)
         Page.get_first_root_node().add_child(instance=simple_page)
+        page.save_revision().publish()
+        simple_page.save_revision().publish()
         # Translate pages to French
         page.copy_for_translation(self.fr_locale)
         simple_page.copy_for_translation(self.fr_locale)
