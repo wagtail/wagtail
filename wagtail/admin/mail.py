@@ -329,7 +329,7 @@ class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     def get_recipient_users(self, workflow_state, **kwargs):
         triggering_user = kwargs.get("user", None)
-        recipients = {}
+        recipients = set()
         requested_by = workflow_state.requested_by
         if requested_by != triggering_user:
             recipients = {requested_by}
@@ -344,7 +344,7 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     def get_recipient_users(self, workflow_state, **kwargs):
         triggering_user = kwargs.get("user", None)
-        recipients = {}
+        recipients = set()
         requested_by = workflow_state.requested_by
         if requested_by != triggering_user:
             recipients = {requested_by}
