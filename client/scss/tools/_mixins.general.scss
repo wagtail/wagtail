@@ -112,3 +112,18 @@
     }
   }
 }
+
+/**
+ * Apply styles for the light theme only.
+ */
+ @mixin light-theme() {
+  .w-theme-light & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .w-theme-system & {
+      @content;
+    }
+  }
+}
