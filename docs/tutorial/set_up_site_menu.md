@@ -1,5 +1,9 @@
 # Set up site menu for linking to the homepage and other pages
 
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
 This section of the tutorial will teach you how to create a site menu to link to your homepage and other pages as you add them. The site menu will appear across all pages of your portfolio website, just like your footer.
 
 Start by creating a template tag in your `base/templatetags/navigation_tags.py` file:

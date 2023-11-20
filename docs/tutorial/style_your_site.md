@@ -1,5 +1,9 @@
 # Style and improve user experience
 
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
 In this tutorial, you'll add a basic site theme to your portfolio site and improve its user experience. 
 
 ## Add styles
@@ -132,7 +136,7 @@ In the preceding template, you made the following modifications:
 
 Also, you should dynamically get your HomePage's title to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve users' experience for keyboard and screen reader users. 
 
-To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` as follows:
+To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` file as follows:
 
 ```html+django
 {# Load wagtailuserbar: #}
@@ -183,7 +187,7 @@ After adding the styles, go to your `mysite/templates/base.html` file and add a 
 </main>
 ```
 
-Finally, go to your `mysite/templates/includes/header.html` and modify it as follows:
+Finally, go to your `mysite/templates/includes/header.html` file and modify it as follows:
 
 ```
 {% load wagtailcore_tags navigation_tags wagtailuserbar %}

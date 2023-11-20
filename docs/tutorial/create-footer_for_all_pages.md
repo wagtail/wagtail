@@ -1,4 +1,9 @@
 # Create a footer for all pages
+
+```{warning}
+We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
+```
+
 The next step is to create a footer for all pages of your portfolio site. You can display social media links and other information in your footer.
 
 ## Add a base app
@@ -13,7 +18,7 @@ You can structure your project in several ways aside from using a base app. For 
 
 ## Create navigation settings
 
-Now, go to your `base/models.py` and add the following lines of code:
+Now, go to your `base/models.py` file and add the following lines of code:
 
 ```python
 from django.db import models

@@ -14,6 +14,7 @@ If you'd like to get a quick feel for Wagtail, try spinning up a `temporary deve
   * :doc:`getting_started/index`
   * :doc:`getting_started/tutorial`
   * :doc:`getting_started/demo_site`
+  * :doc:`tutorial/index`
 
 * **Using Wagtail**
 
@@ -39,7 +40,7 @@ Index
    :titlesonly:
 
    getting_started/index
-   advanced_tutorial/index
+   tutorial/index
    topics/index
    advanced_topics/index
    extending/index
