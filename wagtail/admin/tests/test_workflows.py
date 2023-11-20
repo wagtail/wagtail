@@ -15,6 +15,11 @@ from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.mail import (
+    BaseWorkflowStateEmailNotifier,
+    WorkflowStateApprovalEmailNotifier,
+    WorkflowStateRejectionEmailNotifier,
+)
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_latest_str,
@@ -3648,3 +3653,117 @@ class TestDashboardWithPages(BasePageWorkflowTests):
 
 class TestDashboardWithSnippets(TestDashboardWithPages, BaseSnippetWorkflowTests):
     pass
+
+
+class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
+    def setUp(self):
+        super().setUp()
+        # Ensure a revision exists
+        self.object.save_revision()
+
+    def test_workflowstate_email_notifier_get_recipient_users__without_triggering_user(
+        self
+    ):
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
+
+        for notifier in [
+            WorkflowStateApprovalEmailNotifier(),
+            WorkflowStateRejectionEmailNotifier(),
+        ]:
+            with self.subTest(f"Testing with {notifier}"):
+                self.assertSetEqual(
+                    notifier.get_recipient_users(workflow_state), {self.submitter}
+                )
+
+    def test_workflowstate_email_notifier_get_recipient_users__with_trigerring_user(
+        self
+    ):
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state = self.object.current_workflow_state
+
+        for notifier in [
+            WorkflowStateApprovalEmailNotifier(),
+            WorkflowStateRejectionEmailNotifier(),
+        ]:
+            with self.subTest(f"Testing with {notifier}"):
+                self.assertSetEqual(
+                    notifier.get_recipient_users(workflow_state, user=self.moderator),
+                    {self.submitter},
+                )
+
+    def test_workflowstate_email_notifier_get_recipient_users__without_requested_by(
+        self
+    ):
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state: WorkflowState = self.object.current_workflow_state
+        workflow_state.requested_by = None
+        workflow_state.save(update_fields=["requested_by"])
+
+        for notifier in [
+            WorkflowStateApprovalEmailNotifier(),
+            WorkflowStateRejectionEmailNotifier(),
+        ]:
+            with self.subTest(f"Testing with {notifier}"):
+                self.assertSetEqual(notifier.get_recipient_users(workflow_state), set())
+                self.assertSetEqual(
+                    notifier.get_recipient_users(workflow_state, user=self.moderator),
+                    set(),
+                )
+
+    def test_workflowstate_email_notifier_get_recipient_users__with_same_requested_by_and_triggering_user(
+        self
+    ):
+        self.workflow.start(self.object, user=self.submitter)
+        workflow_state: WorkflowState = self.object.current_workflow_state
+        workflow_state.requested_by = None
+        workflow_state.save(update_fields=["requested_by"])
+
+        for notifier in [
+            WorkflowStateApprovalEmailNotifier(),
+            WorkflowStateRejectionEmailNotifier(),
+        ]:
+            with self.subTest(f"Testing with {notifier}"):
+                self.assertSetEqual(notifier.get_recipient_users(workflow_state), set())
+                self.assertSetEqual(
+                    notifier.get_recipient_users(workflow_state, user=self.submitter),
+                    set(),
+                )
+
+    @mock.patch("wagtail.admin.mail.BaseWorkflowStateEmailNotifier.get_recipient_users")
+    def test_base_workflowstate_email_notifier_get_valid_recipients(
+        self, mock_get_recipient_users
+    ):
+        notifier = BaseWorkflowStateEmailNotifier()
+
+        # check with an empty set
+        mock_get_recipient_users.return_value = set()
+        self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
+
+        # check None values are filtered out
+        mock_get_recipient_users.return_value = {None}
+        self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
+
+        # check with a valid user
+        mock_get_recipient_users.return_value = {self.submitter}
+        notifications = ["approved", "rejected", "submitted"]
+        for notification in notifications:
+            with self.subTest(f"Testing with {notification}_notifications"):
+                notifier.notification = notification
+                self.assertSetEqual(
+                    notifier.get_valid_recipients(self.object), {self.submitter}
+                )
+
+        # remove notifications and re-test
+        userprofile = UserProfile.get_for_user(self.submitter)
+        updated_fields = []
+        for notification in notifications:
+            attribute = f"{notification}_notifications"
+            setattr(userprofile, attribute, False)
+            updated_fields.append(attribute)
+        userprofile.save(update_fields=updated_fields)
+
+        for notification in notifications:
+            with self.subTest(f"Testing with {notification}_notifications"):
+                notifier.notification = notification
+                self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
