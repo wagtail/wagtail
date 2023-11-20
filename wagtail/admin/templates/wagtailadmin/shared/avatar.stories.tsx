@@ -6,6 +6,7 @@ import template from './avatar.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Avatar',
   parameters: {
     docs,
   },

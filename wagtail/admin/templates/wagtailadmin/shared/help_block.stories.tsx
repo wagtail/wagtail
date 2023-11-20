@@ -6,6 +6,7 @@ import template from './help_block.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Help Block',
   parameters: { docs },
   argTypes: { ...argTypes },
 };

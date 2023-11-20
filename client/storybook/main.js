@@ -2,11 +2,6 @@ module.exports = {
   stories: [
     '../../client/**/*.stories.mdx',
     '../../client/**/*.stories.@(js|tsx)',
-    {
-      directory: '../../wagtail/admin/templates/wagtailadmin/shared/',
-      titlePrefix: 'Shared',
-      files: '**/*.stories.*',
-    },
     '../../wagtail/**/*.stories.*',
   ],
 

@@ -6,6 +6,7 @@ import template from './status_tag.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Status Tag',
   parameters: { docs },
   argTypes: {
     ...argTypes,
