@@ -14,11 +14,7 @@ from wagtail.users.utils import get_deleted_user_display_name
 
 
 def _get_locale_choices():
-    choices = [  # noqa: C416
-        (language_code, display_name)
-        for language_code, display_name in get_content_languages().items()
-    ]
-    return choices
+    return list(get_content_languages().items())
 
 
 def _get_site_choices():
