@@ -135,8 +135,9 @@ class PageTypesUsageReportView(ReportView):
 
     def add_last_edited_page_to_page_type(self, pages_mapping, page_type):
         if page_type.last_edited_page_id:
-            last_edited_page = pages_mapping.get(page_type.last_edited_page_id, None)
-            page_type.last_edited_page = last_edited_page
+            page_type.last_edited_page = pages_mapping.get(
+                page_type.last_edited_page_id
+            )
 
     def decorate_paginated_queryset(self, page_types):
         page_ids = set(page_types.values_list("last_edited_page_id", flat=True))
