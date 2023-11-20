@@ -120,6 +120,10 @@ $draftail-editor-font-family: $font-sans;
     @include light-theme() {
       background-color: theme('colors.surface-header');
       border-color: theme('colors.border-furniture');
+
+      @media (forced-colors: active) {
+        background: Highlight;
+      }
     }
   }
 }

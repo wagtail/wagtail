@@ -116,7 +116,7 @@
 /**
  * Apply styles for the light theme only.
  */
- @mixin light-theme() {
+@mixin light-theme() {
   .w-theme-light & {
     @content;
   }
