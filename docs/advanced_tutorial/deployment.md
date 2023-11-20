@@ -469,7 +469,7 @@ All this while, you've been adding content to your site in the local environment
 - [Add your social media links](add_your_social_media_links)
 - [Add footer text](add_footer_text)
 - [Add pages to your site menu](add_pages_to_your_site_menu)
-- [Add your contact information]()
+- [Add your contact information](add_your_contact_information)
 - [Add your resume](add_your_resume)
 
 ```{note}
