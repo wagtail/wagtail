@@ -97,8 +97,8 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
     label,
     url,
     attrs = {},
-    icon_name: iconName = null,
-    classname = undefined,
+    icon_name: iconName = null as string | null,
+    classname = undefined as string | undefined,
   }) {
     this.name = name;
     this.label = label;

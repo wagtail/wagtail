@@ -8,6 +8,7 @@ import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
 import { range } from '../../utils/range';
+import { MenuItemDefinition } from './menu/MenuItem';
 
 export default {
   title: 'Sidebar/Sidebar',
@@ -27,7 +28,7 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
           label: 'Pages',
           url: '/admin/pages',
           icon_name: 'folder-open-inverse',
-          classnames: '',
+          classname: '',
         },
         1,
       ),
@@ -36,35 +37,35 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
         label: 'Images',
         url: '/admin/images/',
         icon_name: 'image',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'documents',
         label: 'Documents',
         url: '/admin/documents/',
         icon_name: 'doc-full-inverse',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'snippets',
         label: 'Snippets',
         url: '/admin/snippets/',
         icon_name: 'snippet',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'forms',
         label: 'Forms',
         url: '/admin/forms/',
         icon_name: 'form',
-        classnames: '',
+        classname: '',
       }),
       new SubMenuItemDefinition(
         {
           name: 'reports',
           label: 'Reports',
           icon_name: 'site',
-          classnames: '',
+          classname: '',
         },
         [
           new LinkMenuItemDefinition({
@@ -72,28 +73,28 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
             label: 'Locked pages',
             url: '/admin/reports/locked/',
             icon_name: 'lock',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflows',
             label: 'Workflows',
             url: '/admin/reports/workflow/',
             icon_name: 'tasks',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflow-tasks',
             label: 'Workflow tasks',
             url: '/admin/reports/workflow_tasks/',
             icon_name: 'thumbtack',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'site-history',
             label: 'Site history',
             url: '/admin/reports/site-history/',
             icon_name: 'history',
-            classnames: '',
+            classname: '',
           }),
         ],
       ),
@@ -102,7 +103,7 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
           name: 'settings',
           label: 'Settings',
           icon_name: 'cogs',
-          classnames: '',
+          classname: '',
           footer_text: 'Wagtail Version',
         },
         [
@@ -111,49 +112,49 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
             label: 'Workflows',
             url: '/admin/workflows/list/',
             icon_name: 'tasks',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflow-tasks',
             label: 'Workflow tasks',
             url: '/admin/workflows/tasks/index/',
             icon_name: 'thumbtack',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'users',
             label: 'Users',
             url: '/admin/users/',
             icon_name: 'user',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'groups',
             label: 'Groups',
             url: '/admin/groups/',
             icon_name: 'group',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'sites',
             label: 'Sites',
             url: '/admin/sites/',
             icon_name: 'site',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'collections',
             label: 'Collections',
             url: '/admin/collections/',
             icon_name: 'folder-open-1',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'redirects',
             label: 'Redirects',
             url: '/admin/redirects/',
             icon_name: 'redirect',
-            classnames: '',
+            classname: '',
           }),
         ],
       ),
@@ -164,14 +165,14 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
         label: 'Account',
         url: '/admin/account/',
         icon_name: 'user',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'logout',
         label: 'Log out',
         url: '/admin/logout/',
         icon_name: 'logout',
-        classnames: '',
+        classname: '',
       }),
     ],
     {
@@ -256,7 +257,7 @@ export function withNestedSubmenu() {
         name: 'nested-menu',
         label: 'Nested menu',
         icon_name: 'cogs',
-        classnames: '',
+        classname: '',
       },
       [
         new LinkMenuItemDefinition({
@@ -264,14 +265,14 @@ export function withNestedSubmenu() {
           label: 'Item',
           url: '/admin/item/',
           icon_name: 'user',
-          classnames: '',
+          classname: '',
         }),
         new SubMenuItemDefinition(
           {
             name: 'nested-menu',
             label: 'Nested menu',
             icon_name: 'folder-open-1',
-            classnames: '',
+            classname: '',
           },
           [
             new LinkMenuItemDefinition({
@@ -279,14 +280,14 @@ export function withNestedSubmenu() {
               label: 'Item',
               url: '/admin/item/item/',
               icon_name: 'user',
-              classnames: '',
+              classname: '',
             }),
             new SubMenuItemDefinition(
               {
                 name: 'deeply-nested-menu',
                 label: 'Deeply nested menu',
                 icon_name: 'side',
-                classnames: '',
+                classname: '',
               },
               [
                 new LinkMenuItemDefinition({
@@ -294,7 +295,7 @@ export function withNestedSubmenu() {
                   label: 'Item',
                   url: '/admin/item/item/item/',
                   icon_name: 'user',
-                  classnames: '',
+                  classname: '',
                 }),
               ],
             ),
@@ -303,7 +304,7 @@ export function withNestedSubmenu() {
                 name: 'another-deeply-nested-menu',
                 label: 'Another deeply nested menu',
                 icon_name: 'user',
-                classnames: '',
+                classname: '',
               },
               [
                 new LinkMenuItemDefinition({
@@ -311,7 +312,7 @@ export function withNestedSubmenu() {
                   label: 'Item',
                   url: '/admin/item/item/item2/',
                   icon_name: 'user',
-                  classnames: '',
+                  classname: '',
                 }),
               ],
             ),
@@ -327,7 +328,7 @@ export function withNestedSubmenu() {
 export function withLargeSubmenu() {
   const menuModule = bogStandardMenuModule();
 
-  const menuItems = [];
+  const menuItems: MenuItemDefinition[] = [];
   range(0, 100).forEach((i) => {
     menuItems.push(
       new LinkMenuItemDefinition({
@@ -335,7 +336,7 @@ export function withLargeSubmenu() {
         label: `Item ${i}`,
         url: `/admin/item-${i}/`,
         icon_name: 'snippet',
-        classnames: '',
+        classname: '',
       }),
     );
   });
@@ -346,7 +347,7 @@ export function withLargeSubmenu() {
         name: 'large-menu',
         label: 'Large menu',
         icon_name: 'cogs',
-        classnames: '',
+        classname: '',
         footer_text: 'Footer text',
       },
       menuItems,
@@ -363,48 +364,50 @@ export function withoutSearch() {
 function arabicMenuModule(): MainMenuModuleDefinition {
   return new MainMenuModuleDefinition(
     [
-      new PageExplorerMenuItemDefinition({
-        name: 'explorer',
-        label: 'صفحات',
-        url: '/admin/pages',
-        start_page_id: 1,
-        icon_name: 'folder-open-inverse',
-        classnames: '',
-      }),
+      new PageExplorerMenuItemDefinition(
+        {
+          name: 'explorer',
+          label: 'صفحات',
+          url: '/admin/pages',
+          icon_name: 'folder-open-inverse',
+          classname: '',
+        },
+        1,
+      ),
       new LinkMenuItemDefinition({
         name: 'images',
         label: 'صور',
         url: '/admin/images/',
         icon_name: 'image',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'documents',
         label: 'وثائق',
         url: '/admin/documents/',
         icon_name: 'doc-full-inverse',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'snippets',
         label: 'قصاصات',
         url: '/admin/snippets/',
         icon_name: 'snippet',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'forms',
         label: 'نماذج',
         url: '/admin/forms/',
         icon_name: 'form',
-        classnames: '',
+        classname: '',
       }),
       new SubMenuItemDefinition(
         {
           name: 'reports',
           label: 'التقارير',
           icon_name: 'site',
-          classnames: '',
+          classname: '',
         },
         [
           new LinkMenuItemDefinition({
@@ -412,28 +415,28 @@ function arabicMenuModule(): MainMenuModuleDefinition {
             label: 'Locked pages',
             url: '/admin/reports/locked/',
             icon_name: 'lock',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflows',
             label: 'Workflows',
             url: '/admin/reports/workflow/',
             icon_name: 'tasks',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflow-tasks',
             label: 'Workflow tasks',
             url: '/admin/reports/workflow_tasks/',
             icon_name: 'thumbtack',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'site-history',
             label: 'Site history',
             url: '/admin/reports/site-history/',
             icon_name: 'history',
-            classnames: '',
+            classname: '',
           }),
         ],
       ),
@@ -442,7 +445,7 @@ function arabicMenuModule(): MainMenuModuleDefinition {
           name: 'settings',
           label: 'إعدادات',
           icon_name: 'cogs',
-          classnames: '',
+          classname: '',
         },
         [
           new LinkMenuItemDefinition({
@@ -450,49 +453,49 @@ function arabicMenuModule(): MainMenuModuleDefinition {
             label: 'Workflows',
             url: '/admin/workflows/list/',
             icon_name: 'tasks',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'workflow-tasks',
             label: 'Workflow tasks',
             url: '/admin/workflows/tasks/index/',
             icon_name: 'thumbtack',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'users',
             label: 'مستخدمين',
             url: '/admin/users/',
             icon_name: 'user',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'groups',
             label: 'مجموعات',
             url: '/admin/groups/',
             icon_name: 'group',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'sites',
             label: 'مواقع',
             url: '/admin/sites/',
             icon_name: 'site',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'collections',
             label: 'مجموعات',
             url: '/admin/collections/',
             icon_name: 'folder-open-1',
-            classnames: '',
+            classname: '',
           }),
           new LinkMenuItemDefinition({
             name: 'redirects',
             label: 'اعادة التوجيهات',
             url: '/admin/redirects/',
             icon_name: 'redirect',
-            classnames: '',
+            classname: '',
           }),
         ],
       ),
@@ -503,14 +506,14 @@ function arabicMenuModule(): MainMenuModuleDefinition {
         label: 'حساب',
         url: '/admin/account/',
         icon_name: 'user',
-        classnames: '',
+        classname: '',
       }),
       new LinkMenuItemDefinition({
         name: 'logout',
         label: 'تسجيل الخروج',
         url: '/admin/logout/',
         icon_name: 'logout',
-        classnames: '',
+        classname: '',
       }),
     ],
     {
