@@ -9,7 +9,6 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -24,10 +23,9 @@ from wagtail.admin.utils import get_valid_next_url_from_request, set_query_param
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
-from wagtail.documents.permissions import permission_policy
 from wagtail.models import ReferenceIndex
+from wagtail.permissions import policies_registry
 
-permission_checker = PermissionPolicyChecker(permission_policy)
 Document = get_document_model()
 
 
@@ -51,7 +49,9 @@ class DocumentTable(Table):
 
 
 class DocumentsFilterSet(BaseMediaFilterSet):
-    permission_policy = permission_policy
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(Document)
 
     class Meta:
         model = Document
@@ -59,7 +59,6 @@ class DocumentsFilterSet(BaseMediaFilterSet):
 
 
 class IndexView(generic.IndexView):
-    permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
     page_title = gettext_lazy("Documents")
@@ -78,6 +77,10 @@ class IndexView(generic.IndexView):
     model = get_document_model()
     add_item_label = gettext_lazy("Add a document")
     show_other_searches = True
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
@@ -140,9 +143,9 @@ class IndexView(generic.IndexView):
 
     @cached_property
     def collections(self):
-        collections = permission_policy.collections_user_has_any_permission_for(
-            self.request.user, ["add", "change"]
-        )
+        collections = policies_registry.get_by_type(
+            self.model
+        ).collections_user_has_any_permission_for(self.request.user, ["add", "change"])
         if len(collections) < 2:
             collections = None
         return collections
@@ -195,7 +198,6 @@ class IndexView(generic.IndexView):
 
 
 class CreateView(generic.CreateView):
-    permission_policy = permission_policy
     index_url_name = "wagtaildocs:index"
     add_url_name = "wagtaildocs:add"
     edit_url_name = "wagtaildocs:edit"
@@ -208,6 +210,10 @@ class CreateView(generic.CreateView):
         # Use a property instead of setting this as a class attribute so it is
         # accessed at request-time, thus can be tested with override_settings
         return get_document_model()
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_form_class(self):
         return get_document_form(self.model)
@@ -227,7 +233,6 @@ class CreateView(generic.CreateView):
 
 
 class EditView(generic.EditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "document_id"
     error_message = gettext_lazy("The document could not be saved due to errors.")
     template_name = "wagtaildocs/documents/edit.html"
@@ -240,6 +245,10 @@ class EditView(generic.EditView):
     @cached_property
     def model(self):
         return get_document_model()
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_form_class(self):
         return get_document_form(self.model)
@@ -300,13 +309,16 @@ class EditView(generic.EditView):
 class DeleteView(generic.DeleteView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "delete"
     header_icon = "doc-full-inverse"
     usage_url_name = "wagtaildocs:document_usage"
     delete_url_name = "wagtaildocs:delete"
     index_url_name = "wagtaildocs:index"
     page_title = gettext_lazy("Delete document")
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
@@ -332,11 +344,14 @@ class DeleteView(generic.DeleteView):
 class UsageView(generic.UsageView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "change"
     header_icon = "doc-full-inverse"
     index_url_name = "wagtaildocs:index"
     edit_url_name = "wagtaildocs:edit"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
