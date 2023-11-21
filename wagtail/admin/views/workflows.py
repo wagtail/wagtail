@@ -19,7 +19,6 @@ from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import (
     MultipleContentTypeFilter,
     WagtailFilterSet,
@@ -46,15 +45,9 @@ from wagtail.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.permissions import (
-    page_permission_policy,
-    task_permission_policy,
-    workflow_permission_policy,
-)
+from wagtail.permissions import policies_registry
 from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
-
-task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
 
 class WorkflowTitleColumn(TitleColumn):
@@ -112,7 +105,6 @@ class WorkflowFilterSet(BaseWorkflowFilterSet):
 
 
 class Index(IndexView):
-    permission_policy = workflow_permission_policy
     model = Workflow
     context_object_name = "workflows"
     template_name = "wagtailadmin/workflows/index.html"
@@ -145,6 +137,10 @@ class Index(IndexView):
     filterset_class = WorkflowFilterSet
     paginate_by = 20
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def show_disabled(self):
         return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
@@ -165,7 +161,6 @@ class Index(IndexView):
 
 
 class Create(CreateView):
-    permission_policy = workflow_permission_policy
     model = Workflow
     page_title = _("New workflow")
     template_name = "wagtailadmin/workflows/create.html"
@@ -175,6 +170,10 @@ class Create(CreateView):
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
     edit_handler = None
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -257,7 +256,6 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    permission_policy = workflow_permission_policy
     model = Workflow
     page_title = _("Editing workflow")
     template_name = "wagtailadmin/workflows/edit.html"
@@ -273,6 +271,10 @@ class Edit(EditView):
     header_more_buttons = []
     edit_handler = None
     MAX_PAGES = 5
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -384,7 +386,6 @@ class Edit(EditView):
 
 
 class Disable(DeleteView):
-    permission_policy = workflow_permission_policy
     model = Workflow
     page_title = _("Disable workflow")
     template_name = "wagtailadmin/workflows/confirm_disable.html"
@@ -394,6 +395,10 @@ class Disable(DeleteView):
     delete_url_name = "wagtailadmin_workflows:disable"
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     @property
     def get_edit_url(self):
@@ -419,7 +424,6 @@ class Disable(DeleteView):
 
 
 class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
-    permission_policy = workflow_permission_policy
     any_permission_required = {"add", "change", "delete", "view"}
     pk_url_kwarg = "pk"
     index_url_name = "wagtailadmin_workflows:usage"
@@ -429,13 +433,17 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     page_title = _("Usage")
     filterset_class = GenericPageFilterSet
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(Workflow)
+
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        # We set workflow_permission_policy as the main permission policy for this view
+        # We set Workflow's permission_policy as the main permission policy for this view
         # for consistency with the other workflow views. However, since we are listing
         # page objects in this view, we want to ensure the user has a page permission.
-        if not page_permission_policy.user_has_any_permission(
+        if not policies_registry.get_by_type(Page).user_has_any_permission(
             request.user,
             {"add", "change", "publish", "bulk_delete", "lock", "unlock"},
         ):
@@ -471,9 +479,11 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
         return get_object_or_404(Workflow, id=self.kwargs.get(self.pk_url_kwarg))
 
     def get_base_queryset(self):
-        editable_pages = page_permission_policy.instances_user_has_permission_for(
-            self.request.user, "change"
-        ).filter(depth__gt=1)
+        editable_pages = (
+            policies_registry.get_by_type(Page)
+            .instances_user_has_permission_for(self.request.user, "change")
+            .filter(depth__gt=1)
+        )
         pages = self.object.all_pages() & editable_pages
         pages = self.annotate_queryset(pages)
         return pages
@@ -485,7 +495,9 @@ def enable_workflow(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
     # Check permissions
-    if not workflow_permission_policy.user_has_permission(request.user, "add"):
+    if not policies_registry.get_by_type(Workflow).user_has_permission(
+        request.user, "add"
+    ):
         raise PermissionDenied
 
     # Set workflow to active if inactive
@@ -515,7 +527,9 @@ def remove_workflow(request, page_pk, workflow_pk=None):
     page = get_object_or_404(Page, id=page_pk)
 
     # Check permissions
-    if not workflow_permission_policy.user_has_permission(request.user, "change"):
+    if not policies_registry.get_by_type(Workflow).user_has_permission(
+        request.user, "change"
+    ):
         raise PermissionDenied
 
     if hasattr(page, "workflowpage"):
@@ -568,7 +582,6 @@ class TaskFilterSet(BaseWorkflowFilterSet):
 
 
 class TaskIndex(IndexView):
-    permission_policy = task_permission_policy
     model = Task
     context_object_name = "tasks"
     template_name = "wagtailadmin/workflows/task_index.html"
@@ -597,6 +610,10 @@ class TaskIndex(IndexView):
     filterset_class = TaskFilterSet
     paginate_by = 50
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def show_disabled(self):
         return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
@@ -623,7 +640,7 @@ class TaskIndex(IndexView):
 
 
 def select_task_type(request):
-    if not task_permission_policy.user_has_permission(request.user, "add"):
+    if not policies_registry.get_by_type(Task).user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     task_types = [
@@ -656,7 +673,6 @@ def select_task_type(request):
 
 
 class CreateTask(CreateView):
-    permission_policy = task_permission_policy
     page_title = _("New workflow task")
     template_name = "wagtailadmin/workflows/create_task.html"
     success_message = _("Task '%(object)s' created.")
@@ -682,6 +698,10 @@ class CreateTask(CreateView):
             raise Http404
 
         return model
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_form_class(self):
         return get_task_form_class(self.model)
@@ -712,7 +732,6 @@ class CreateTask(CreateView):
 
 
 class EditTask(EditView):
-    permission_policy = task_permission_policy
     template_name = "wagtailadmin/workflows/edit_task.html"
     success_message = _("Task '%(object)s' updated.")
     add_url_name = "wagtailadmin_workflows:select_task_type"
@@ -728,6 +747,10 @@ class EditTask(EditView):
     @cached_property
     def model(self):
         return type(self.get_object())
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     @cached_property
     def page_title(self):
@@ -776,7 +799,6 @@ class EditTask(EditView):
 
 
 class DisableTask(DeleteView):
-    permission_policy = task_permission_policy
     model = Task
     page_title = _("Disable task")
     template_name = "wagtailadmin/workflows/confirm_disable_task.html"
@@ -786,6 +808,10 @@ class DisableTask(DeleteView):
     delete_url_name = "wagtailadmin_workflows:disable_task"
     index_url_name = "wagtailadmin_workflows:task_index"
     header_icon = "thumbtack"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -816,7 +842,7 @@ def enable_task(request, pk):
     task = get_object_or_404(Task, id=pk)
 
     # Check permissions
-    if not task_permission_policy.user_has_permission(request.user, "add"):
+    if not policies_registry.get_by_type(Task).user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive
@@ -859,7 +885,7 @@ class BaseTaskChooserView(TemplateView):
     def dispatch(self, request):
         self.task_models = get_task_types()
         self.can_create = (
-            task_permission_policy.user_has_permission(request.user, "add")
+            policies_registry.get_by_type(Task).user_has_permission(request.user, "add")
             and len(self.task_models) != 0
         )
         return super().dispatch(request)

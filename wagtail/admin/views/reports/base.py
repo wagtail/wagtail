@@ -1,8 +1,10 @@
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.permissions import page_permission_policy
+from wagtail.models import Page
+from wagtail.permissions import policies_registry
 
 
 class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView):
@@ -50,4 +52,8 @@ class PageReportView(ReportView):
         "content_type.model_class._meta.verbose_name.title",
     ]
     context_object_name = "pages"
-    permission_policy = page_permission_policy
+    model = Page
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)

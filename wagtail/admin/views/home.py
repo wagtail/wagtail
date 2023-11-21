@@ -8,6 +8,7 @@ from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
@@ -26,7 +27,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry
 
 User = get_user_model()
 
@@ -236,6 +237,7 @@ class LockedPagesPanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
+        permissions_policy = policies_registry.get_by_type(Page)
         context.update(
             {
                 "locked_pages": Page.objects.filter(
@@ -244,7 +246,7 @@ class LockedPagesPanel(Component):
                 )
                 .order_by("-locked_at", "-latest_revision_created_at", "-pk")
                 .specific(defer=True),
-                "can_remove_locks": page_permission_policy.user_has_permission(
+                "can_remove_locks": permissions_policy.user_has_permission(
                     request.user, "unlock"
                 ),
                 "request": request,
@@ -295,7 +297,10 @@ class RecentEditsPanel(Component):
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/home.html"
     page_title = _("Dashboard")
-    permission_policy = page_permission_policy
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(Page)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
