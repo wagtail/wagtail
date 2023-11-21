@@ -1092,11 +1092,11 @@ class PanelNode(BlockInclusionNode):
 register.tag("panel", PanelNode.handle)
 
 
-class FieldNode(BlockInclusionNode):
+class RawFormattedFieldNode(BlockInclusionNode):
     template = "wagtailadmin/shared/field.html"
 
 
-register.tag("field", FieldNode.handle)
+register.tag("rawformattedfield", RawFormattedFieldNode.handle)
 
 
 class FieldRowNode(BlockInclusionNode):

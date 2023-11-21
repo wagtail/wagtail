@@ -5,7 +5,7 @@
 
     1. `field` when using the template as an `include` anywhere in the CMS.
     2. `rendered_field` and `show_label=False` are only used inside forms with edit handlers / panels (`FieldPanel`).
-    3. `children` allows fully custom rendering of the Django widget, or usage with arbitrary HTML, as a `{% field %}<select>[…]</select>{% endfield %}` template tag.
+    3. `children` allows fully custom rendering of the Django widget, or usage with arbitrary HTML, as a `{% rawformattedfield %}<select>[…]</select>{% endrawformattedfield %}` template tag.
 
     A unified template for all three use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
 

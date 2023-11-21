@@ -13,8 +13,8 @@
         </button>
 
         {% for field in filters.form %}
-            {% field field=field %}
-            {% endfield %}
+            {% rawformattedfield field=field %}
+            {% endrawformattedfield %}
         {% endfor %}
     </form>
 </div>
