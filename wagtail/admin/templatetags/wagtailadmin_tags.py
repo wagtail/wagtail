@@ -1105,8 +1105,49 @@ register.tag("rawformattedfield", RawFormattedFieldNode.handle)
 
 
 @register.inclusion_tag("wagtailadmin/shared/field.html")
-def formattedfield(field):
-    return {"field": field}
+def formattedfield(
+    field=None,
+    rendered_field=None,
+    classname="",
+    show_label=True,
+    id_for_label=None,
+    sr_only_label=False,
+    icon=None,
+    help_text=None,
+    help_text_id=None,
+    show_add_comment_button=False,
+    label_text=None,
+    error_message_id=None,
+):
+    """
+    Renders a form field in standard Wagtail admin layout.
+    - `field` - The Django form field to render.
+    - `rendered_field` - The rendered HTML of the field, to be used in preference to `field`.
+    - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
+    - `show_label` - Hide the label if it is rendered outside of the field.
+    - `id_for_label` - Manually set this this if the field’s HTML isn’t rendered by Django (for example hard-coded in HTML).
+    - `sr_only_label` - Make the label invisible for all but screen reader users. Use this if the field is displayed without a label.
+    - `icon` - Some fields have an icon, though this is generally a legacy pattern.
+    - `help_text` - Manually set this if the field’s HTML is hard-coded.
+    - `help_text_id` - The help text’s id, necessary so it can be attached to the field with `aria-describedby`.
+    - `show_add_comment_button` - Display a comment control within Wagtail forms.
+    - `label_text` - Manually set this if the field’s HTML is hard-coded.
+    - `error_message_id` - ID of the error message container element.
+    """
+    return {
+        "field": field,
+        "rendered_field": rendered_field,
+        "classname": classname,
+        "show_label": show_label,
+        "id_for_label": id_for_label,
+        "sr_only_label": sr_only_label,
+        "icon": icon,
+        "help_text": help_text,
+        "help_text_id": help_text_id,
+        "show_add_comment_button": show_add_comment_button,
+        "label_text": label_text,
+        "error_message_id": error_message_id,
+    }
 
 
 class FieldRowNode(BlockInclusionNode):
