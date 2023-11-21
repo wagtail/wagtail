@@ -11,6 +11,7 @@ Changelog
  * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
  * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
  * Allow `Page.permissions_for_user()` to be overridden by specific page types (Sébastien Corbin)
+ * Improve visual alignment of explore icon in Page listings for longer content (Krzysztof Jeziorny)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
