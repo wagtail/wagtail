@@ -31,8 +31,5 @@ class WagtailDocsAppConfig(AppConfig):
         from wagtail.permissions import register_permission_policy
 
         from . import get_permission_policy
-        from .models import AbstractDocument
 
-        # Register the default permission policy with the abstract model to ease
-        # testing when a custom model is applied via @override_settings.
-        register_permission_policy(AbstractDocument, get_permission_policy())
+        register_permission_policy(Document, get_permission_policy())
