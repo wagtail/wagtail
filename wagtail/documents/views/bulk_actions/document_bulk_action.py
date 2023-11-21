@@ -1,13 +1,16 @@
+from django.utils.functional import cached_property
+
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.documents import get_document_model
-from wagtail.documents.permissions import (
-    permission_policy as documents_permission_policy,
-)
+from wagtail.permissions import policies_registry
 
 
 class DocumentBulkAction(BulkAction):
-    permission_policy = documents_permission_policy
     models = [get_document_model()]
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_all_objects_in_listing_query(self, parent_id):
         listing_objects = self.permission_policy.instances_user_has_permission_for(
