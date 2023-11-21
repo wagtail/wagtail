@@ -1,10 +1,10 @@
 from django.conf import settings
 
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 
 
 def get_site_for_user(user):
-    root_page = PagePermissionPolicy().explorable_root_instance(user)
+    root_page = page_permission_policy.explorable_root_instance(user)
     if root_page:
         root_site = root_page.get_site()
     else:

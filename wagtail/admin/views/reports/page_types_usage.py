@@ -8,7 +8,7 @@ from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.coreutils import get_content_languages
 from wagtail.models import ContentType, Page, Site, get_page_models
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 
 
 def _get_locale_choices():
@@ -145,7 +145,7 @@ class PageTypesUsageReportView(ReportView):
         return queryset
 
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().user_has_any_permission(
+        if not page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
         ):
             raise PermissionDenied

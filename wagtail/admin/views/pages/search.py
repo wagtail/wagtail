@@ -20,7 +20,7 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -51,7 +51,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
 
 class BaseSearchView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = PagePermissionPolicy()
+    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",

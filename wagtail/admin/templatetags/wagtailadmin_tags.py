@@ -54,7 +54,7 @@ from wagtail.models import (
     Page,
     PageViewRestriction,
 )
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -87,7 +87,7 @@ def page_breadcrumbs(
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = PagePermissionPolicy().explorable_root_instance(user)
+    cca = page_permission_policy.explorable_root_instance(user)
     if not cca:
         return {"items": Page.objects.none()}
 
