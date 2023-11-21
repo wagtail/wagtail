@@ -2,8 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 
 from wagtail import hooks
 from wagtail.coreutils import safe_snake_case
-from wagtail.models import get_page_models
-from wagtail.permissions import page_permission_policy
+from wagtail.models import Page, get_page_models
+from wagtail.permissions import policies_registry as policies
 
 _FORM_CONTENT_TYPES = None
 
@@ -35,7 +35,7 @@ def get_forms_for_user(user):
     """
     Return a queryset of form pages that this user is allowed to access the submissions for
     """
-    editable_forms = page_permission_policy.instances_user_has_permission_for(
+    editable_forms = policies.get_by_type(Page).instances_user_has_permission_for(
         user, "change"
     )
     editable_forms = editable_forms.filter(content_type__in=get_form_types())

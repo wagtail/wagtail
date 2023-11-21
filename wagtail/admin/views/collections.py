@@ -1,5 +1,6 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
@@ -7,11 +8,10 @@ from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.models import Collection
-from wagtail.permissions import collection_permission_policy
+from wagtail.permissions import policies_registry as policies
 
 
 class Index(IndexView):
-    permission_policy = collection_permission_policy
     model = Collection
     context_object_name = "collections"
     template_name = "wagtailadmin/collections/index.html"
@@ -21,6 +21,10 @@ class Index(IndexView):
     add_item_label = gettext_lazy("Add a collection")
     header_icon = "folder-open-1"
 
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Collection)
+
     def get_queryset(self):
         return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["add", "change", "delete"]
@@ -28,7 +32,6 @@ class Index(IndexView):
 
 
 class Create(CreateView):
-    permission_policy = collection_permission_policy
     model = Collection
     form_class = CollectionForm
     page_title = gettext_lazy("Add collection")
@@ -37,6 +40,10 @@ class Create(CreateView):
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     header_icon = "folder-open-1"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Collection)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -55,7 +62,6 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    permission_policy = collection_permission_policy
     model = Collection
     form_class = CollectionForm
     template_name = "wagtailadmin/collections/edit.html"
@@ -67,6 +73,10 @@ class Edit(EditView):
     delete_url_name = "wagtailadmin_collections:delete"
     context_object_name = "collection"
     header_icon = "folder-open-1"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Collection)
 
     def _user_may_move_collection(self, user, instance):
         """
@@ -135,7 +145,6 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
-    permission_policy = collection_permission_policy
     model = Collection
     success_message = gettext_lazy("Collection '%(object)s' deleted.")
     index_url_name = "wagtailadmin_collections:index"
@@ -146,6 +155,10 @@ class Delete(DeleteView):
         "Are you sure you want to delete this collection?"
     )
     header_icon = "folder-open-1"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Collection)
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_permission_for(

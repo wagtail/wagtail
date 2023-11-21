@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry as policies
 
 from .base import PageReportView
 
@@ -51,7 +51,7 @@ class LockedPagesView(PageReportView):
     def get_queryset(self):
         pages = (
             (
-                page_permission_policy.instances_user_has_permission_for(
+                policies.get_by_type(Page).instances_user_has_permission_for(
                     self.request.user, "change"
                 )
                 | Page.objects.filter(locked_by=self.request.user)
@@ -67,6 +67,6 @@ class LockedPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_permission(request.user, "unlock"):
+        if not policies.get_by_type(Page).user_has_permission(request.user, "unlock"):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

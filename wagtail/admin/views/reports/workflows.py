@@ -17,13 +17,14 @@ from wagtail.admin.filters import (
 from wagtail.admin.utils import get_latest_str
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
+    Page,
     Task,
     TaskState,
     Workflow,
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry as policies
 from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
@@ -37,7 +38,7 @@ def get_requested_by_queryset(request):
 
 
 def get_editable_page_ids_query(request):
-    pages = page_permission_policy.instances_user_has_permission_for(
+    pages = policies.get_by_type(Page).instances_user_has_permission_for(
         request.user, "change"
     )
     # Need to cast the page ids to string because Postgres doesn't support
@@ -193,7 +194,7 @@ class WorkflowView(ReportView):
         )
 
     def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_any_permission(
+        if not policies.get_by_type(Page).user_has_any_permission(
             request.user, ["add", "change", "publish"]
         ):
             raise PermissionDenied

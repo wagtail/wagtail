@@ -12,7 +12,8 @@ from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
-from wagtail.permissions import page_permission_policy
+from wagtail.models import Page
+from wagtail.permissions import policies_registry as policies
 
 
 def permission_denied(request):
@@ -107,7 +108,7 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    return page_permission_policy.user_has_any_permission(
+    return policies.get_by_type(Page).user_has_any_permission(
         user, {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
     )
 

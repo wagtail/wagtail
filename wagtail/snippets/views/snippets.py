@@ -44,7 +44,7 @@ from wagtail.models import (
     RevisionMixin,
     WorkflowMixin,
 )
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type

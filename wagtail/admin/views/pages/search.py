@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.search import SearchForm
@@ -20,7 +21,7 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry as policies
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -51,7 +52,6 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
 
 class BaseSearchView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -94,6 +94,10 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Page)
 
     def get(self, request):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)

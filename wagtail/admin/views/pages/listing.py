@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
@@ -23,11 +24,10 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
+from wagtail.permissions import policies_registry as policies
 
 
 class BaseIndexView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -71,6 +71,10 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         ),
         NavigateToChildrenColumn("navigate", width="10%"),
     ]
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Page)
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
