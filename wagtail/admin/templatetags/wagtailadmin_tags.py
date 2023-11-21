@@ -1126,6 +1126,7 @@ def formattedfield(
     - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
     - `show_label` - Hide the label if it is rendered outside of the field.
     - `id_for_label` - Manually set this this if the field’s HTML isn’t rendered by Django (for example hard-coded in HTML).
+        We add an id to the label so we can use it as a descriptor for the "Add comment" button.
     - `sr_only_label` - Make the label invisible for all but screen reader users. Use this if the field is displayed without a label.
     - `icon` - Some fields have an icon, though this is generally a legacy pattern.
     - `help_text` - Manually set this if the field’s HTML is hard-coded.
@@ -1134,6 +1135,20 @@ def formattedfield(
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
     """
+
+    label_for = id_for_label or (field and field.id_for_label) or ""
+    label_id = f"{label_for}-label" if label_for else ""
+    label_text = label_text or (field and field.label) or ""
+    required = field and field.field.required
+    contentpath = field.name if field else ""
+    if help_text_id:
+        pass
+    elif field and field.help_text and field.id_for_label:
+        help_text_id = f"{field.id_for_label}-helptext"
+    else:
+        help_text_id = ""
+    help_text = help_text or (field and field.help_text) or ""
+
     # for classname and show_label, need to explicitly handle None values rather than relying on the argument defaults,
     # as this is how they'll come through from wagtailadmin/shared/field.html if those variables were undefined
     return {
@@ -1149,6 +1164,10 @@ def formattedfield(
         "show_add_comment_button": show_add_comment_button,
         "label_text": label_text,
         "error_message_id": error_message_id,
+        "label_for": label_for,
+        "label_id": label_id,
+        "required": required,
+        "contentpath": contentpath,
     }
 
 
