@@ -1104,7 +1104,7 @@ class RawFormattedFieldNode(BlockInclusionNode):
 register.tag("rawformattedfield", RawFormattedFieldNode.handle)
 
 
-@register.inclusion_tag("wagtailadmin/shared/field.html")
+@register.inclusion_tag("wagtailadmin/shared/formatted_field.html")
 def formattedfield(
     field=None,
     rendered_field=None,
@@ -1134,11 +1134,13 @@ def formattedfield(
     - `label_text` - Manually set this if the field’s HTML is hard-coded.
     - `error_message_id` - ID of the error message container element.
     """
+    # for classname and show_label, need to explicitly handle None values rather than relying on the argument defaults,
+    # as this is how they'll come through from wagtailadmin/shared/field.html if those variables were undefined
     return {
         "field": field,
         "rendered_field": rendered_field,
-        "classname": classname,
-        "show_label": show_label,
+        "classname": classname or "",
+        "show_label": True if show_label is None else show_label,
         "id_for_label": id_for_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
