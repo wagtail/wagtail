@@ -982,7 +982,8 @@ class BlockInclusionNode(template.Node):
             Proceed with caution.
         {% endmy_tag %}
 
-    Within `my_tag`’s template, the template fragment will be accessible as the {{ children }} context variable.
+    Within `my_tag`’s template, the template fragment will be accessible as the {{ children }} context variable
+    (or other variable as specified by `content_var`).
 
     The output can also be stored as a variable in the parent context:
 
@@ -993,6 +994,9 @@ class BlockInclusionNode(template.Node):
     Inspired by slippers’ Component Node.
     See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L47.
     """
+
+    # Context variable into which the tag's rendered content will be placed
+    content_var = "children"
 
     def __init__(self, nodelist, template, extra_context, target_var=None):
         self.nodelist = nodelist
@@ -1014,7 +1018,7 @@ class BlockInclusionNode(template.Node):
 
         t = context.template.engine.get_template(self.template)
         # Add the `children` variable in the rendered template’s context.
-        context_data = self.get_context_data({**values, "children": children})
+        context_data = self.get_context_data({**values, self.content_var: children})
         output = t.render(Context(context_data, autoescape=context.autoescape))
 
         if self.target_var:
@@ -1093,6 +1097,7 @@ register.tag("panel", PanelNode.handle)
 
 
 class RawFormattedFieldNode(BlockInclusionNode):
+    content_var = "rendered_field"
     template = "wagtailadmin/shared/field.html"
 
 

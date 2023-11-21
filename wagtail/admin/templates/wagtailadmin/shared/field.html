@@ -1,13 +1,13 @@
 {% load wagtailadmin_tags i18n %}
 {% comment "text/markdown" %}
 
-    The field template is very flexible to cater for a wide range of use cases. It has three main attributes that support different use cases:
+    The field template is very flexible to cater for a wide range of use cases. It has two main attributes that support different use cases:
 
-    1. `field` when using the template as an `include` anywhere in the CMS.
-    2. `rendered_field` and `show_label=False` are only used inside forms with edit handlers / panels (`FieldPanel`).
-    3. `children` allows fully custom rendering of the Django widget, or usage with arbitrary HTML, as a `{% rawformattedfield %}<select>[…]</select>{% endrawformattedfield %}` template tag.
+    1. `field` to render a Django form field. This may be done through the `{% formattedfield my_field %}` template tag, or a direct `include` of this template.
+    2. `rendered_field` to render arbitrary HTML. This may be done through the tag pair `{% rawformattedfield %}<select>[…]</select>{% endrawformattedfield %}`,
+         or a direct `include` of this template.
 
-    A unified template for all three use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
+    A unified template for both use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
 
 
     - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
@@ -69,8 +69,6 @@
                     {{ rendered_field }}
                 {% elif field %}
                     {{ field|render_with_errors }}
-                {% elif children %}
-                    {{ children }}
                 {% endif %}
             {% endblock %}
 
