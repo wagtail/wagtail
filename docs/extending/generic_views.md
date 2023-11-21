@@ -35,6 +35,7 @@ class PersonViewSet(ModelViewSet):
     form_fields = ["first_name", "last_name"]
     icon = "user"
     add_to_admin_menu = True
+    copy_view_enabled = False
     inspect_view_enabled = True
 
 
@@ -93,6 +94,14 @@ You can add the ability to export the listing view to a spreadsheet by setting t
 You can define a `panels` or `edit_handler` attribute on the `ModelViewSet` or your Django model to use Wagtail's panels mechanism. For more details, see [](forms_panels_overview).
 
 If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.get_edit_handler` method is not overridden, the form will be rendered as a plain Django form. You can customise the form by setting the {attr}`~ModelViewSet.form_fields` attribute to specify the fields to be shown on the form. Alternatively, you can set the {attr}`~ModelViewSet.exclude_form_fields` attribute to specify the fields to be excluded from the form. If panels are not used, you must define `form_fields` or `exclude_form_fields`, unless {meth}`~ModelViewSet.get_form_class` is overridden.
+
+(modelviewset_copy)=
+
+### Copy view
+
+The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
+
+The view's form will be generated in the same way as create or edit forms. To use a custom form, override the `copy_view_class` and modify the `form_class` property on that class.
 
 (modelviewset_inspect)=
 
