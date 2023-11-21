@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{% trans "Confirm import" %}{% endblock %}
 {% block content %}
@@ -16,9 +16,7 @@
 
         <ul class="fields">
             {% for field in form.visible_fields %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endfor %}
 
             <li>

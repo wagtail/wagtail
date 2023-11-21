@@ -9,9 +9,7 @@
             {% csrf_token %}
             <ul class="fields">
                 {% for field in form %}
-                    <li>
-                        {% include "wagtailadmin/shared/field.html" with field=field %}
-                    </li>
+                    <li>{% formattedfield field %}</li>
                 {% endfor %}
                 <li>
                     <button

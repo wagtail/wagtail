@@ -55,7 +55,7 @@
                 </button>
                 {% for field in select_date_form %}
                     <li>
-                        {% include "wagtailadmin/shared/field.html" with field=field %}
+                        {% formattedfield field %}
                     </li>
                 {% endfor %}
             </form>

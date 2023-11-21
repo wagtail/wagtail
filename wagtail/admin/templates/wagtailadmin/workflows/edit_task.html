@@ -17,9 +17,7 @@
         <ul class="fields nice-padding">
             {% for field in form %}
                 {% if not field.is_hidden %}
-                    <li>
-                        {% include "wagtailadmin/shared/field.html" %}
-                    </li>
+                    <li>{% formattedfield field %}</li>
                 {% else %}
                     {{ field }}
                 {% endif %}

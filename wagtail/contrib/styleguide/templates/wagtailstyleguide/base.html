@@ -469,9 +469,7 @@
                     {% if field.name == 'file' %}
                         {% include "wagtailimages/images/_file_field.html" %}
                     {% else %}
-                        <li>
-                            {% include "wagtailadmin/shared/field.html" %}
-                        </li>
+                        <li>{% formattedfield field %}</li>
                     {% endif %}
                 {% endfor %}
                 <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button no">{% trans "Delete image" %}</a></li>

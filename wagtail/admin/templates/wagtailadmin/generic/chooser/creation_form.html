@@ -13,9 +13,7 @@
 
         <ul class="fields">
             {% for field in creation_form.visible_fields %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" with field=field %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endfor %}
             <li>
                 {% if create_action_clicked_label %}
