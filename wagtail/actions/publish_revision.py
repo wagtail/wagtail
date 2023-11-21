@@ -8,7 +8,6 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from wagtail.log_actions import log
-from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.signals import published
 from wagtail.utils.timestamps import ensure_utc
 
@@ -49,9 +48,11 @@ class PublishRevisionAction:
         log_action: bool = True,
         previous_revision: Revision | None = None,
     ):
+        from wagtail.permissions import policies_registry
+
         self.revision = revision
         self.object = self.revision.as_object()
-        self.permission_policy = ModelPermissionPolicy(type(self.object))
+        self.permission_policy = policies_registry.get(self.object)
         self.user = user
         self.changed = changed
         self.log_action = log_action

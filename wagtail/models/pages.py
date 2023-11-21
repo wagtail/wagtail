@@ -2322,10 +2322,10 @@ class GroupPagePermission(models.Model):
 
 class PagePermissionTester:
     def __init__(self, user, page):
-        from wagtail.permissions import page_permission_policy
+        from wagtail.permissions import policies_registry
 
         self.user = user
-        self.permission_policy = page_permission_policy
+        self.permission_policy = policies_registry.get(page)
         self.page = page
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
@@ -2739,11 +2739,12 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
-        from wagtail.permissions import page_permission_policy
+        from wagtail.permissions import policies_registry
 
         Page = swapper.load_model("wagtailcore", "Page")
 
-        explorable_instances = page_permission_policy.explorable_instances(user)
+        permission_policy = policies_registry.get_by_type(Page)
+        explorable_instances = permission_policy.explorable_instances(user)
         q = Q(page__in=explorable_instances.values_list("pk", flat=True))
 
         root_page_permissions = Page.get_first_root_node().permissions_for_user(user)

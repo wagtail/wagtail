@@ -1,10 +1,12 @@
 from enum import Enum
 
+import swapper
 from django.http import HttpRequest
 
 from wagtail.api.v2.querysets import get_public_pages_queryset
-from wagtail.models import Page
 from wagtail.permissions import policies_registry
+
+Page = swapper.load_model("wagtailcore", "Page")
 
 
 class AccessTier(str, Enum):

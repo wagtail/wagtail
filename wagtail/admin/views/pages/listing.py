@@ -38,7 +38,6 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views import generic
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.models import PageLogEntry, Site, get_page_content_types
-from wagtail.permissions import page_permission_policy
 
 Page = swapper.load_model("wagtailcore", "Page")
 
@@ -271,7 +270,6 @@ class PageListingMixin:
 
 
 class IndexView(PageListingMixin, generic.IndexView):
-    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -306,7 +304,7 @@ class IndexView(PageListingMixin, generic.IndexView):
             settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
         ):
             pages = pages.filter(
-                pk__in=page_permission_policy.explorable_instances(
+                pk__in=self.permission_policy.explorable_instances(
                     self.request.user
                 ).values_list("pk", flat=True)
             )
@@ -429,7 +427,7 @@ class ExplorableIndexView(IndexView):
             settings, "WAGTAILADMIN_PAGE_SEARCH_FILTER_BY_PERMISSIONS", True
         ):
             pages = pages.filter(
-                pk__in=page_permission_policy.explorable_instances(
+                pk__in=self.permission_policy.explorable_instances(
                     self.request.user
                 ).values_list("pk", flat=True)
             )
