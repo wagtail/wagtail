@@ -2,7 +2,7 @@
 
 <form action="{% url 'wagtailadmin_pages:set_privacy' page.id %}" method="POST" novalidate>
     {% csrf_token %}
-    {% include "wagtailadmin/shared/field.html" with field=form.restriction_type show_label=False %}
+    {% formattedfield field=form.restriction_type show_label=False %}
     {% formattedfield form.password %}
     <div id="groups-fields">
         {% formattedfield form.groups %}

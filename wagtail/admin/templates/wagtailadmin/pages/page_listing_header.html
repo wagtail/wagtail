@@ -39,7 +39,7 @@
                 data-w-swap-target-value="#listing-results"
             >
                 {% for field in search_form %}
-                    {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                    {% formattedfield field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
                 {% endfor %}
                 {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
                 <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
