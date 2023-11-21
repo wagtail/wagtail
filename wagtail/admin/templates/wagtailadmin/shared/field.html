@@ -7,6 +7,9 @@
     2. `rendered_field` to render arbitrary HTML. This may be done through the tag pair `{% rawformattedfield %}<select>[…]</select>{% endrawformattedfield %}`,
          or a direct `include` of this template.
 
+    If both `field` and `rendered_field` are passed, `rendered_field` will be used as the actual form rendering, but metadata
+    for the surrounding elements (such as help text and ID) will be picked up from `field`.
+
     A unified template for both use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
 
 
