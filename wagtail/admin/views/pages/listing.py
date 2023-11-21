@@ -22,11 +22,12 @@ from wagtail.admin.ui.tables.pages import (
 )
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.permission_policies.pages import Page, PagePermissionPolicy
+from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 
 
 class BaseIndexView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = PagePermissionPolicy()
+    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
