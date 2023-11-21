@@ -31,3 +31,15 @@ def get_document_model():
             "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed"
             % model_string
         )
+
+
+def get_permission_policy():
+    from wagtail.permission_policies.collections import (
+        CollectionOwnershipPermissionPolicy,
+    )
+
+    return CollectionOwnershipPermissionPolicy(
+        get_document_model_string(),
+        auth_model="wagtaildocs.Document",
+        owner_field_name="uploaded_by_user",
+    )

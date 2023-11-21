@@ -1,8 +1,7 @@
-from wagtail.documents import get_document_model_string
-from wagtail.permission_policies.collections import CollectionOwnershipPermissionPolicy
+from wagtail.documents import get_document_model
+from wagtail.permissions import policies_registry as policies
 
-permission_policy = CollectionOwnershipPermissionPolicy(
-    get_document_model_string(),
-    auth_model="wagtaildocs.Document",
-    owner_field_name="uploaded_by_user",
-)
+# This is deprecated, but kept for backwards compatibility
+# The policy should be retrieved using `policies.get_by_type(get_document_model())`
+# TODO: Add deprecation warning
+permission_policy = policies.get_by_type(get_document_model())

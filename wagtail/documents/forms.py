@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.forms.models import modelform_factory
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.collections import (
@@ -9,11 +10,10 @@ from wagtail.admin.forms.collections import (
     collection_member_permission_formset_factory,
 )
 from wagtail.admin.widgets import AdminTagWidget
+from wagtail.documents import get_document_model
 from wagtail.documents.models import Document
-from wagtail.documents.permissions import (
-    permission_policy as documents_permission_policy,
-)
 from wagtail.models import Collection
+from wagtail.permissions import policies_registry as policies
 from wagtail.search import index as search_index
 
 
@@ -32,11 +32,13 @@ def formfield_for_dbfield(db_field, **kwargs):
 
 
 class BaseDocumentForm(BaseCollectionMemberForm):
-    permission_policy = documents_permission_policy
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_document_model())
 
     def save(self, commit=True):
         if "file" in self.changed_data:

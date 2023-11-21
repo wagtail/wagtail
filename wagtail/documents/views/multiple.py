@@ -1,5 +1,7 @@
 import os.path
 
+from django.utils.functional import cached_property
+
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
     CreateFromUploadView as BaseCreateFromUploadView,
@@ -9,15 +11,14 @@ from wagtail.admin.views.generic.multiple_upload import (
 )
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
+from wagtail.permissions import policies_registry as policies
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
 from ..models import UploadedDocument
-from ..permissions import permission_policy
 
 
 class AddView(BaseAddView):
-    permission_policy = permission_policy
     template_name = "wagtaildocs/multiple/add.html"
     upload_model = UploadedDocument
 
@@ -32,6 +33,10 @@ class AddView(BaseAddView):
     edit_upload_form_prefix = "uploaded-document"
     context_upload_name = "uploaded_document"
     context_upload_id_name = "uploaded_document_id"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(self.model)
 
     def get_model(self):
         return get_document_model()
@@ -63,13 +68,16 @@ class AddView(BaseAddView):
 
 
 class EditView(BaseEditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "doc_id"
     edit_object_form_prefix = "doc"
     context_object_name = "doc"
     context_object_id_name = "doc_id"
     edit_object_url_name = "wagtaildocs:edit_multiple"
     delete_object_url_name = "wagtaildocs:delete_multiple"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(self.model)
 
     def get_model(self):
         return get_document_model()
@@ -79,9 +87,12 @@ class EditView(BaseEditView):
 
 
 class DeleteView(BaseDeleteView):
-    permission_policy = permission_policy
     pk_url_kwarg = "doc_id"
     context_object_id_name = "doc_id"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(self.model)
 
     def get_model(self):
         return get_document_model()
