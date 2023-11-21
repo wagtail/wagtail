@@ -8,7 +8,6 @@ from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import Page, PageLogEntry, get_page_content_types
-from wagtail.permissions import page_permission_policy
 from wagtail.users.utils import get_deleted_user_display_name
 
 from .base import PageReportView
@@ -99,7 +98,7 @@ class AgingPagesView(PageReportView):
             page=OuterRef("pk"), action__exact="wagtail.publish"
         )
         self.queryset = (
-            page_permission_policy.instances_user_has_permission_for(
+            self.permission_policy.instances_user_has_permission_for(
                 self.request.user, "publish"
             )
             .exclude(last_published_at__isnull=True)

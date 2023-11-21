@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Any
 
 from django.core.exceptions import PermissionDenied
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy, ngettext_lazy
 
 from wagtail.admin import messages
@@ -9,7 +10,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.coreutils import get_content_languages
 from wagtail.models import Locale
-from wagtail.permissions import locale_permission_policy
+from wagtail.permissions import policies_registry
 
 from .forms import LocaleForm
 from .utils import get_locale_usage
@@ -127,7 +128,6 @@ class DeleteView(generic.DeleteView):
 class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
-    permission_policy = locale_permission_policy
     add_to_reference_index = False
 
     index_view_class = IndexView
@@ -140,6 +140,10 @@ class LocaleViewSet(ModelViewSet):
     copy_view_enabled = False
 
     template_prefix = "wagtaillocales/"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(Locale)
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
