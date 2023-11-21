@@ -10,7 +10,6 @@ from wagtail.admin.views.pages.utils import (
 )
 from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
-from wagtail.permissions import page_permission_policy
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):
@@ -69,7 +68,6 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     filterset_class = PageHistoryFilterSet
     model = Page
     pk_url_kwarg = "page_id"
-    permission_policy = page_permission_policy
     history_url_name = "wagtailadmin_pages:history"
     history_results_url_name = "wagtailadmin_pages:history_results"
     edit_url_name = "wagtailadmin_pages:edit"
