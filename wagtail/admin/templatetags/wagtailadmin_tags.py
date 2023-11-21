@@ -1099,6 +1099,11 @@ class RawFormattedFieldNode(BlockInclusionNode):
 register.tag("rawformattedfield", RawFormattedFieldNode.handle)
 
 
+@register.inclusion_tag("wagtailadmin/shared/field.html")
+def formattedfield(field):
+    return {"field": field}
+
+
 class FieldRowNode(BlockInclusionNode):
     template = "wagtailadmin/shared/forms/field_row.html"
 

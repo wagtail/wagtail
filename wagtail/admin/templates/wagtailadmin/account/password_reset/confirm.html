@@ -17,8 +17,8 @@
             <form method="post" novalidate>
                 {% csrf_token %}
 
-                {% rawformattedfield field=form.new_password1 %}{% endrawformattedfield %}
-                {% rawformattedfield field=form.new_password2 %}{% endrawformattedfield %}
+                {% formattedfield form.new_password1 %}
+                {% formattedfield form.new_password2 %}
 
                 <footer class="form-actions">
                     <button type="submit" class="button">{% trans 'Reset password' %}</button>
