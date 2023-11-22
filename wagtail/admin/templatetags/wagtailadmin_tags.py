@@ -1137,53 +1137,51 @@ def formattedfield(
     """
 
     label_for = id_for_label or (field and field.id_for_label) or ""
-    label_id = f"{label_for}-label" if label_for else ""
-    label_text = label_text or (field and field.label) or ""
-    required = field and field.field.required
-    contentpath = field.name if field else ""
+
+    context = {
+        "classname": classname,
+        "show_label": show_label,
+        "sr_only_label": sr_only_label,
+        "icon": icon,
+        "show_add_comment_button": show_add_comment_button,
+        "error_message_id": error_message_id,
+        "label_for": label_for,
+        "label_id": f"{label_for}-label" if label_for else "",
+        "label_text": label_text or (field and field.label) or "",
+        "required": field and field.field.required,
+        "contentpath": field.name if field else "",
+        "help_text": help_text or (field and field.help_text) or "",
+    }
+
     if help_text_id:
-        pass
+        context["help_text_id"] = help_text_id
     elif field and field.help_text and field.id_for_label:
-        help_text_id = f"{field.id_for_label}-helptext"
+        context["help_text_id"] = f"{field.id_for_label}-helptext"
     else:
-        help_text_id = ""
-    help_text = help_text or (field and field.help_text) or ""
+        context["help_text_id"] = ""
 
     if field:
-        rendered_field = rendered_field or render_with_errors(field)
-        field_classname = (
-            f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
-        )
+        context["rendered_field"] = rendered_field or render_with_errors(field)
+        context[
+            "field_classname"
+        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+
         errors = field.errors
         has_errors = bool(errors)
         if has_errors and hasattr(field.field.widget, "render_with_errors"):
             # field handles its own error rendering, so don't output them here
             # (but still keep has_errors=True to keep the error styling)
             errors = []
-    else:
-        field_classname = ""
-        has_errors = False
-        errors = []
 
-    return {
-        "rendered_field": rendered_field,
-        "classname": classname,
-        "show_label": show_label,
-        "sr_only_label": sr_only_label,
-        "icon": icon,
-        "help_text": help_text,
-        "help_text_id": help_text_id,
-        "show_add_comment_button": show_add_comment_button,
-        "label_text": label_text,
-        "error_message_id": error_message_id,
-        "label_for": label_for,
-        "label_id": label_id,
-        "required": required,
-        "contentpath": contentpath,
-        "field_classname": field_classname,
-        "has_errors": has_errors,
-        "errors": errors,
-    }
+        context["has_errors"] = has_errors
+        context["errors"] = errors
+    else:
+        context["rendered_field"] = rendered_field
+        context["field_classname"] = ""
+        context["has_errors"] = False
+        context["errors"] = []
+
+    return context
 
 
 @register.inclusion_tag("wagtailadmin/shared/formatted_field.html", takes_context=True)
