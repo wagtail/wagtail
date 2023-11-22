@@ -25,7 +25,6 @@ from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
     ImproperlyConfigured,
-    ObjectDoesNotExist,
     PermissionDenied,
     ValidationError,
 )
@@ -93,7 +92,6 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.users.utils import get_deleted_user_display_name
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -1594,18 +1592,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return ""
         else:
             return self.specific_class.get_verbose_name()
-
-    @property
-    def owner_display_name(self):
-        """
-        A human-readable version of this page's owner
-        """
-        try:
-            return self.owner.get_username()
-        except ObjectDoesNotExist:
-            if self.owner_id:
-                return get_deleted_user_display_name(self.owner_id)
-            return ""
 
     def route(self, request, path_components):
         if path_components:
