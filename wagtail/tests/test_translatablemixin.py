@@ -74,8 +74,8 @@ class TestTranslatableQuerySet(TestCase):
         Test when all instances are translated and all instances are in the queryset.
 
         Localization in this situation could be achieved by returning all instances of
-        the model in the active locale.
-
+        the model in the active locale. All instances in the localized queryset are of
+        the active locale.
         """
         queryset_en = self.example_model.objects.filter(locale=self.locale_en)
         self.assertQuerysetEqual(
@@ -103,8 +103,8 @@ class TestTranslatableQuerySet(TestCase):
 
         Localization in this situation could be achieved by returning all instances of
         the model in the active locale and filtering for the translation keys in the
-        original queryset.
-
+        original queryset. All instances in the localized queryset are of the active
+        locale.
         """
         queryset_en = self.example_model.objects.filter(
             pk__in=[self.instance_AZ_en.id, self.instance_BX_en.id],
@@ -124,6 +124,44 @@ class TestTranslatableQuerySet(TestCase):
         self.assertQuerysetEqual(
             queryset_localized,
             [self.instance_AZ_fr, self.instance_BX_fr],
+            ordered=False,
+        )
+
+    def test_subset_translated_all_in_queryset(self):
+        """
+        Test when a subset of instances is translated but all instances are in the
+        queryset.
+
+        This situation will need real localization where some instances in the localized
+        queryset are of the active locale and some are not.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                untranslated_instance,
+            ],
             ordered=False,
         )
 

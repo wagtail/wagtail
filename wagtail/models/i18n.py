@@ -177,11 +177,33 @@ class Locale(models.Model):
 class TranslatableQuerySet(models.QuerySet):
     @property
     def localized(self):
+        # Get all instances that are available in the active locale. We can find these
+        # by getting all model instances that have a translation key from the original
+        # queryset and that are available in the active locale.
         active_locale = Locale.get_active()
+        original_translation_keys = self.values_list("translation_key", flat=True)
+        translated_instances = self.model.objects.filter(
+            locale_id=pk(active_locale),
+            translation_key__in=original_translation_keys,
+        )
 
-        active_locale_instances = self.model.objects.filter(locale_id=pk(active_locale))
+        # Get all instances that are not available in the active locale. We can find
+        # these by excluding the translation keys for which translations exist from the
+        # original queryset.
+        translated_translation_keys = translated_instances.values_list(
+            "translation_key", flat=True
+        )
+        untranslated_instances = self.exclude(
+            translation_key__in=translated_translation_keys,
+        )
 
-        return active_locale_instances.filter(translation_key__in=self.values_list("translation_key", flat=True))
+        # Combine the two querysets to get the localized queryset.
+        localized_queryset = self.model.objects.filter(
+            models.Q(pk__in=translated_instances)
+            | models.Q(pk__in=untranslated_instances)
+        )
+
+        return localized_queryset
 
 
 class TranslatableMixin(models.Model):
