@@ -165,6 +165,97 @@ class TestTranslatableQuerySet(TestCase):
             ordered=False,
         )
 
+    def test_subset_translated_subset_in_queryset_same_subsets(self):
+        """
+        Test when a subset of instances is translated and the same subset is in the
+        queryset.
+
+        This means that all translated instances are in the queryset. There is an
+        untranslated instance, but it is not in the queryset.
+
+        Localization in this situation could be achieved by returning all instances of
+        the model in the active locale. All instances in the localized queryset are of
+        the active locale.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = (
+            self.example_model.objects
+            .filter(locale=self.locale_en)
+            .exclude(pk=untranslated_instance.id)
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+            ],
+            ordered=False,
+        )
+        # Just being double explicit here.
+        self.assertNotIn(untranslated_instance, queryset_localized)
+
+    def test_subset_translated_subset_in_queryset_different_subsets(self):
+        """
+        Test when a subset of instances is translated and a different subset is in the
+        queryset.
+
+        This means that not all translated instances are in the queryset. Additionally,
+        there is an untranslated instance and it is in the queryset.
+
+        This situation will need real localization where some instances in the localized
+        queryset are of the active locale and some are not.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(
+            pk__in=[
+                self.instance_AZ_en.id,
+                self.instance_BX_en.id,
+                untranslated_instance.id,
+            ],
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
