@@ -30,13 +30,29 @@ class TestTranslatableQuerySet(TestCase):
         cls.locale_en = Locale.objects.get(language_code="en")
         cls.locale_fr = Locale.objects.create(language_code="fr")
 
-    def create_fr_instance(self, instance, *args, **kwargs):
-        if "title" not in kwargs:
-            kwargs["title"] = f"{instance.title} FR"
-        return make_test_instance(
-            locale=self.locale_fr,
+        # Create example instances with different titles for the locales simulating a
+        # translation. Additionally, the titles differ between the locales so that
+        # ordering by `title` leads to a different sort order between the locales.
+        # Furthermore, the instances are created in an order so that their IDs should
+        # not match the alphabetical ordering in either locale.
+        cls.instance_BX_en = make_test_instance(locale=cls.locale_en, title="B")
+        cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
+
+    @classmethod
+    def create_en_instance(cls, **kwargs):
+        return make_test_instance(model=TestModel, locale=cls.locale_en, **kwargs)
+
+    @classmethod
+    def create_fr_translation(cls, instance, **kwargs):
+        """
+        Create a French translation for the given instance.
+
+        This is achieved by creating a new instance with the same translation key as the
+        given instance.
+        """
+        return instance.__class__.objects.create(
+            locale=cls.locale_fr,
             translation_key=instance.translation_key,
-            *args,
             **kwargs,
         )
 
@@ -47,31 +63,25 @@ class TestTranslatableQuerySet(TestCase):
         This can be achieved by returning all instances of the model in the active locale.
 
         """
-        instance_1_en = make_test_instance(locale=self.locale_en, title="Test 1")
-        instance_1_fr = self.create_fr_instance(instance_1_en)
         # page_2_en = localization_factories.LocalizationExamplePageFactory()
         # page_2_de = self.create_de_page(page_2_en)
         # page_3_en = localization_factories.LocalizationExamplePageFactory()
         # page_3_de = self.create_de_page(page_3_en)
-        queryset_en = TestModel.objects.filter(
-            locale=self.locale_en
-        )
+        queryset_en = TestModel.objects.filter(locale=self.locale_en)
         self.assertQuerysetEqual(
             queryset_en,
-            [instance_1_en],
+            [self.instance_BX_en],
         )
 
         localized_instances = []
         with translation.override("fr"):
-            active_locale = Locale.get_active()
-            self.assertEqual(active_locale, self.locale_fr)
             with self.assertNumQueries(2):
                 queryset_localized = queryset_en.localized
+                # We need to iterate only to trigger the queries.
                 for instance in queryset_localized:
-                    # We need to iterate only to trigger the queries.
                     localized_instances.append(instance)
 
-        self.assertListEqual(localized_instances, [instance_1_fr])
+        self.assertListEqual(localized_instances, [self.instance_BX_fr])
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
