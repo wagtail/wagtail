@@ -114,7 +114,7 @@ class PageTypesUsageReportView(ReportView):
         for item in page_types:
             item.last_edited_page = (
                 pages_mapping[item.last_edited_page_id]
-                if item.last_updated_page_id
+                if item.last_edited_page_id
                 else None
             )
 
