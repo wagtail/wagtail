@@ -203,7 +203,11 @@ class TranslatableQuerySet(models.QuerySet):
             | models.Q(pk__in=untranslated_instances)
         )
 
-        return localized_queryset
+        # Apply the same `order_by` as in the original queryset. This does not mean that
+        # the order is retained. This just means that the same fields are being
+        # considered during ordering. The difference in the resulting order is caused by
+        # the translated values being considered.
+        return localized_queryset.order_by(*self.query.order_by)
 
 
 class TranslatableMixin(models.Model):
