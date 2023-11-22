@@ -11,19 +11,6 @@
     for the surrounding elements (such as help text and ID) will be picked up from `field`.
 
     A unified template for both use cases is messy, but it guarantees we are keeping form field styles the same everywhere.
-
-
-    - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
-    - `show_label` - Hide the label if it is rendered outside of the field.
-    - `id_for_label` - Manually set this this if the field’s HTML isn’t rendered by Django (for example hard-coded in HTML).
-    - `sr_only_label` - Make the label invisible for all but screen reader users. Use this if the field is displayed without a label.
-    - `icon` - Some fields have an icon, though this is generally a legacy pattern.
-    - `help_text` - Manually set this if the field’s HTML is hard-coded.
-    - `help_text_id` - The help text’s id, necessary so it can be attached to the field with `aria-describedby`.
-    - `show_add_comment_button` - Display a comment control within Wagtail forms.
-    - `label_text` - Manually set this if the field’s HTML is hard-coded.
-    - `error_message_id` - ID of the error message container element.
-
 {% endcomment %}
 
 <div class="w-field__wrapper {{ classname }}" data-field-wrapper>
@@ -38,15 +25,14 @@
 
     {# It’s possible to customise the fields’ layout based on widget type. #}
     {# Customising fields based on the field type is only supported for backwards compatibility. #}
-    <div class="w-field{% if field %} w-field--{{ field|fieldtype }} w-field--{{ field|widgettype }}{% endif %}{% if field.errors %} w-field--error{% endif %}{% if show_add_comment_button %} w-field--commentable{% endif %}" data-field{% if contentpath %} data-contentpath="{{ contentpath }}"{% endif %}>
+    <div class="w-field {{ field_classname }}{% if has_errors %} w-field--error{% endif %}{% if show_add_comment_button %} w-field--commentable{% endif %}" data-field{% if contentpath %} data-contentpath="{{ contentpath }}"{% endif %}>
 
         {# Always associate a wrapping div with the field, so JS error rendering knows where to put error messages. #}
         <div class="w-field__errors" data-field-errors {% if error_message_id %}id="{{ error_message_id }}"{% endif %}>
-            {# Avoid rendering errors here if the widget itself is taking responsibility for its error rendering. #}
-            {% if field and field|has_unrendered_errors %}
+            {% if errors %}
                 {% icon name="warning" classname="w-field__errors-icon" %}
                 <p class="error-message">
-                    {% for error in field.errors %}{{ error|escape }} {% endfor %}
+                    {% for error in errors %}{{ error|escape }} {% endfor %}
                 </p>
             {% endif %}
         </div>
@@ -63,13 +49,7 @@
                 {% icon name=icon classname="w-field__icon" %}
             {% endif %}
 
-            {% block form_field %}
-                {% if rendered_field %}
-                    {{ rendered_field }}
-                {% elif field %}
-                    {{ field|render_with_errors }}
-                {% endif %}
-            {% endblock %}
+            {{ rendered_field }}
 
             {% if show_add_comment_button %}
                 <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_id %}aria-describedby="{{ label_id }}"{% endif %}>

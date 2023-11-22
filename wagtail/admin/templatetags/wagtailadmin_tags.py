@@ -1149,14 +1149,28 @@ def formattedfield(
         help_text_id = ""
     help_text = help_text or (field and field.help_text) or ""
 
+    if field:
+        rendered_field = rendered_field or render_with_errors(field)
+        field_classname = (
+            f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        )
+        errors = field.errors
+        has_errors = bool(errors)
+        if has_errors and hasattr(field.field.widget, "render_with_errors"):
+            # field handles its own error rendering, so don't output them here
+            # (but still keep has_errors=True to keep the error styling)
+            errors = []
+    else:
+        field_classname = ""
+        has_errors = False
+        errors = []
+
     # for classname and show_label, need to explicitly handle None values rather than relying on the argument defaults,
     # as this is how they'll come through from wagtailadmin/shared/field.html if those variables were undefined
     return {
-        "field": field,
         "rendered_field": rendered_field,
         "classname": classname or "",
         "show_label": True if show_label is None else show_label,
-        "id_for_label": id_for_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
         "help_text": help_text,
@@ -1168,6 +1182,9 @@ def formattedfield(
         "label_id": label_id,
         "required": required,
         "contentpath": contentpath,
+        "field_classname": field_classname,
+        "has_errors": has_errors,
+        "errors": errors,
     }
 
 
