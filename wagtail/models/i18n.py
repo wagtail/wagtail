@@ -178,7 +178,10 @@ class TranslatableQuerySet(models.QuerySet):
     @property
     def localized(self):
         active_locale = Locale.get_active()
-        return self.model.objects.filter(locale_id=pk(active_locale))
+
+        active_locale_instances = self.model.objects.filter(locale_id=pk(active_locale))
+
+        return active_locale_instances.filter(translation_key__in=self.values_list("translation_key", flat=True))
 
 
 class TranslatableMixin(models.Model):
