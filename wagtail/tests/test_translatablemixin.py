@@ -7,6 +7,7 @@ from django.test import TestCase, override_settings
 from django.utils import translation
 
 from wagtail.models import Locale
+from wagtail.models.i18n import TranslatableQuerySet
 from wagtail.test.i18n.models import (
     ClusterableTestModel,
     ClusterableTestModelChild,
@@ -27,6 +28,8 @@ def make_test_instance(model=None, **kwargs):
 class TestTranslatableQuerySet(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.example_model = TestModel
+
         cls.locale_en = Locale.objects.get(language_code="en")
         cls.locale_fr = Locale.objects.create(language_code="fr")
 
@@ -35,12 +38,18 @@ class TestTranslatableQuerySet(TestCase):
         # ordering by `title` leads to a different sort order between the locales.
         # Furthermore, the instances are created in an order so that their IDs should
         # not match the alphabetical ordering in either locale.
+        cls.instance_CY_en = make_test_instance(locale=cls.locale_en, title="C")
+        cls.instance_CY_fr = cls.create_fr_translation(cls.instance_CY_en, title="Y")
+
+        cls.instance_AZ_en = make_test_instance(locale=cls.locale_en, title="A")
+        cls.instance_AZ_fr = cls.create_fr_translation(cls.instance_AZ_en, title="Z")
+
         cls.instance_BX_en = make_test_instance(locale=cls.locale_en, title="B")
         cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
 
     @classmethod
     def create_en_instance(cls, **kwargs):
-        return make_test_instance(model=TestModel, locale=cls.locale_en, **kwargs)
+        return make_test_instance(model=cls.example_model, locale=cls.locale_en, **kwargs)
 
     @classmethod
     def create_fr_translation(cls, instance, **kwargs):
@@ -56,6 +65,10 @@ class TestTranslatableQuerySet(TestCase):
             **kwargs,
         )
 
+    def test_example_model_queryset_class(self):
+        """Test that the example model uses the expected queryset class."""
+        self.assertIsInstance(self.example_model.objects.all(), TranslatableQuerySet)
+
     def test_all_instances_in_queryset_and_translated(self):
         """
         Test when all instances of a model are in the queryset and have translations.
@@ -63,25 +76,24 @@ class TestTranslatableQuerySet(TestCase):
         This can be achieved by returning all instances of the model in the active locale.
 
         """
-        # page_2_en = localization_factories.LocalizationExamplePageFactory()
-        # page_2_de = self.create_de_page(page_2_en)
-        # page_3_en = localization_factories.LocalizationExamplePageFactory()
-        # page_3_de = self.create_de_page(page_3_en)
-        queryset_en = TestModel.objects.filter(locale=self.locale_en)
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
         self.assertQuerysetEqual(
             queryset_en,
-            [self.instance_BX_en],
+            [self.instance_AZ_en, self.instance_BX_en, self.instance_CY_en],
+            ordered=False,
         )
 
-        localized_instances = []
         with translation.override("fr"):
             with self.assertNumQueries(2):
                 queryset_localized = queryset_en.localized
-                # We need to iterate only to trigger the queries.
-                for instance in queryset_localized:
-                    localized_instances.append(instance)
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
 
-        self.assertListEqual(localized_instances, [self.instance_BX_fr])
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [self.instance_AZ_fr, self.instance_BX_fr, self.instance_CY_fr],
+            ordered=False,
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
