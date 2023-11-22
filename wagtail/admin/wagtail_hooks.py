@@ -876,9 +876,7 @@ class AgingPagesReportMenuItem(MenuItem):
 
 class PageTypesReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return getattr(
-            settings, "WAGTAIL_PAGE_TYPES_USAGE_REPORT_ENABLED", True
-        ) and PagePermissionPolicy().user_has_any_permission(
+        return PagePermissionPolicy().user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
 
