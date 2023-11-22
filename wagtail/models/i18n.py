@@ -174,6 +174,13 @@ class Locale(models.Model):
             return self.is_default
 
 
+class TranslatableQuerySet(models.QuerySet):
+    @property
+    def localized(self):
+        active_locale = Locale.get_active()
+        return self.model.objects.filter(locale_id=pk(active_locale))
+
+
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     locale = models.ForeignKey(
@@ -184,6 +191,8 @@ class TranslatableMixin(models.Model):
         verbose_name=_("locale"),
     )
     locale.wagtail_reference_index_ignore = True
+
+    objects = TranslatableQuerySet.as_manager()
 
     class Meta:
         abstract = True

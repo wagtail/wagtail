@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core import checks
 from django.db import models
 from django.test import TestCase, override_settings
+from django.utils import translation
 
 from wagtail.models import Locale
 from wagtail.test.i18n.models import (
@@ -20,6 +21,57 @@ def make_test_instance(model=None, **kwargs):
         model = TestModel
 
     return model.objects.create(**kwargs)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableQuerySet(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.locale_en = Locale.objects.get(language_code="en")
+        cls.locale_fr = Locale.objects.create(language_code="fr")
+
+    def create_fr_instance(self, instance, *args, **kwargs):
+        if "title" not in kwargs:
+            kwargs["title"] = f"{instance.title} FR"
+        return make_test_instance(
+            locale=self.locale_fr,
+            translation_key=instance.translation_key,
+            *args,
+            **kwargs,
+        )
+
+    def test_all_instances_in_queryset_and_translated(self):
+        """
+        Test when all instances of a model are in the queryset and have translations.
+
+        This can be achieved by returning all instances of the model in the active locale.
+
+        """
+        instance_1_en = make_test_instance(locale=self.locale_en, title="Test 1")
+        instance_1_fr = self.create_fr_instance(instance_1_en)
+        # page_2_en = localization_factories.LocalizationExamplePageFactory()
+        # page_2_de = self.create_de_page(page_2_en)
+        # page_3_en = localization_factories.LocalizationExamplePageFactory()
+        # page_3_de = self.create_de_page(page_3_en)
+        queryset_en = TestModel.objects.filter(
+            locale=self.locale_en
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [instance_1_en],
+        )
+
+        localized_instances = []
+        with translation.override("fr"):
+            active_locale = Locale.get_active()
+            self.assertEqual(active_locale, self.locale_fr)
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized
+                for instance in queryset_localized:
+                    # We need to iterate only to trigger the queries.
+                    localized_instances.append(instance)
+
+        self.assertListEqual(localized_instances, [instance_1_fr])
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
