@@ -1165,12 +1165,10 @@ def formattedfield(
         has_errors = False
         errors = []
 
-    # for classname and show_label, need to explicitly handle None values rather than relying on the argument defaults,
-    # as this is how they'll come through from wagtailadmin/shared/field.html if those variables were undefined
     return {
         "rendered_field": rendered_field,
-        "classname": classname or "",
-        "show_label": True if show_label is None else show_label,
+        "classname": classname,
+        "show_label": show_label,
         "sr_only_label": sr_only_label,
         "icon": icon,
         "help_text": help_text,
@@ -1186,6 +1184,32 @@ def formattedfield(
         "has_errors": has_errors,
         "errors": errors,
     }
+
+
+@register.inclusion_tag("wagtailadmin/shared/formatted_field.html", takes_context=True)
+def formattedfieldfromcontext(context):
+    """
+    Variant of formattedfield that takes its arguments from the template context. Used by the
+    wagtailadmin/shared/field.html template.
+    """
+    kwargs = {}
+    for arg in (
+        "field",
+        "rendered_field",
+        "classname",
+        "show_label",
+        "id_for_label",
+        "sr_only_label",
+        "icon",
+        "help_text",
+        "help_text_id",
+        "show_add_comment_button",
+        "label_text",
+        "error_message_id",
+    ):
+        if arg in context:
+            kwargs[arg] = context[arg]
+    return formattedfield(**kwargs)
 
 
 class FieldRowNode(BlockInclusionNode):
