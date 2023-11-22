@@ -107,7 +107,7 @@ class PageTypesUsageReportView(ReportView):
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
     def decorate_paginated_queryset(self, page_types):
-        pages_mapping = Page.objects.select_related("owner").in_bulk(
+        pages_mapping = Page.objects.in_bulk(
             obj.last_edited_page_id for obj in page_types if obj.last_edited_page_id
         )
 

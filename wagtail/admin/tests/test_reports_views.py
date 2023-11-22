@@ -841,8 +841,6 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         # Assert that the first simple page is the last edited page
         self.simple_page_a.refresh_from_db()
         self.assertEqual(queryset[0].last_edited_page.specific, self.simple_page_a)
-        # Assert that the first simple page is owned by user_a (who created it)
-        self.assertEqual(queryset[0].last_edited_page.owner, self.user_a)
 
 
 @override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)

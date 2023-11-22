@@ -5,7 +5,6 @@
     <col width="12%" />
     <col width="10%" />
     <col width="20%" />
-    <col width="10%" />
     <col />
     <thead>
         {% block post_parent_page_headers %}
@@ -24,9 +23,6 @@
                 </th>
                 <th class="last-edited-at">
                     {% trans 'Last edit' %}
-                </th>
-                <th class="last-edited-by">
-                    {% trans 'Last edited page owner' %}
                 </th>
                 {% block extra_columns %}
                 {% endblock extra_columns %}
@@ -69,13 +65,6 @@
                     <td class="last-edited-at" valign="top">
                         {% if page_type.last_edited_page.latest_revision_created_at %}
                             {% human_readable_date page_type.last_edited_page.latest_revision_created_at %}
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                    <td class="last-edited-by" valign="top">
-                        {% if page_type.last_edited_page.owner %}
-                            {% include "wagtailadmin/shared/user_avatar.html" with user=page_type.last_edited_page.owner_id username=page_type.last_edited_page.owner_display_name %}
                         {% else %}
                             -
                         {% endif %}
