@@ -35,6 +35,7 @@ from taggit.managers import TaggableManager
 
 from wagtail import hooks
 from wagtail.coreutils import string_to_ascii
+from wagtail.images import get_image_model
 from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
@@ -48,6 +49,7 @@ from wagtail.images.image_operations import (
 from wagtail.images.rect import Rect
 from wagtail.images.utils import to_svg_safe_spec
 from wagtail.models import CollectionMember, ReferenceIndex
+from wagtail.permissions import policies_registry
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 from wagtail.utils.file import hash_filelike
@@ -915,8 +917,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return getattr(self, "description", None) or self.title
 
     def is_editable_by_user(self, user):
-        from wagtail.images.permissions import permission_policy
-
+        permission_policy = policies_registry.get_by_type(get_image_model())
         return permission_policy.user_has_permission_for_instance(user, "change", self)
 
     class Meta:

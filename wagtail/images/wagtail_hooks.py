@@ -1,4 +1,5 @@
 from django.urls import include, path, reverse, reverse_lazy
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -15,7 +16,6 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.views import ImagesAdminAPIViewSet
 from wagtail.images.forms import GroupImagePermissionFormSet
-from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
 from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
 from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
@@ -25,6 +25,7 @@ from wagtail.images.views.bulk_actions import (
     DeleteBulkAction,
 )
 from wagtail.images.views.chooser import viewset as chooser_viewset
+from wagtail.permissions import policies_registry
 
 
 @hooks.register("register_admin_urls")
@@ -41,7 +42,7 @@ def construct_admin_api(router):
 
 class ImagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return permission_policy.user_has_any_permission(
+        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -130,14 +131,16 @@ class ImagesSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_images": permission_policy.instances_user_has_any_permission_for(
+            "total_images": policies_registry.get_by_type(get_image_model())
+            .instances_user_has_any_permission_for(
                 self.request.user, {"add", "change", "delete", "choose"}
-            ).count(),
+            )
+            .count(),
             "site_name": site_name,
         }
 
     def is_shown(self):
-        return permission_policy.user_has_any_permission(
+        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
             self.request.user, ["add", "change", "delete"]
         )
 
@@ -149,7 +152,7 @@ def add_images_summary_item(request, items):
 
 class ImagesSearchArea(SearchArea):
     def is_shown(self, request):
-        return permission_policy.user_has_any_permission(
+        return policies_registry.get_by_type(get_image_model()).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -185,7 +188,10 @@ def describe_collection_docs(collection):
 
 class ImageAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtailimages:edit"
-    permission_policy = permission_policy
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_image_model())
 
 
 register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
