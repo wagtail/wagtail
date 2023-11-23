@@ -1,4 +1,12 @@
-from wagtail.contrib.redirects.models import Redirect
-from wagtail.permission_policies import ModelPermissionPolicy
+import warnings
 
-permission_policy = ModelPermissionPolicy(Redirect)
+from wagtail.contrib.redirects.models import Redirect
+from wagtail.permissions import policies_registry
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
+
+warnings.warn(
+    "wagtail.contrib.redirects.permissions.permission_policy is deprecated. "
+    "Use wagtail.permissions.policies_registry.get_by_type(Redirect) instead.",
+    RemovedInWagtail90Warning,
+)
+permission_policy = policies_registry.get_by_type(Redirect)
