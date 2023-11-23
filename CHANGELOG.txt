@@ -49,6 +49,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
+ * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
 
 5.2.1 (16.11.2023)
 ~~~~~~~~~~~~~~~~~~
