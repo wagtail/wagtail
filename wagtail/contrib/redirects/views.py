@@ -25,7 +25,6 @@ from wagtail.contrib.redirects.forms import (
     RedirectForm,
 )
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
     get_format_cls_by_extension,
@@ -35,8 +34,19 @@ from wagtail.contrib.redirects.utils import (
 )
 from wagtail.log_actions import log
 from wagtail.models import Site
+from wagtail.permissions import policies_registry
 
-permission_checker = PermissionPolicyChecker(permission_policy)
+
+class RedirectPermissionPolicyChecker(PermissionPolicyChecker):
+    def __init__(self):
+        pass
+
+    @cached_property
+    def policy(self):
+        return policies_registry.get_by_type(Redirect)
+
+
+permission_checker = RedirectPermissionPolicyChecker()
 
 
 class RedirectTargetColumn(Column):
@@ -62,7 +72,6 @@ class RedirectTargetColumn(Column):
 class IndexView(generic.IndexView):
     template_name = "wagtailredirects/index.html"
     results_template_name = "wagtailredirects/index_results.html"
-    permission_policy = permission_policy
     model = Redirect
     header_icon = "redirect"
     add_item_label = gettext_lazy("Add redirect")
@@ -117,6 +126,10 @@ class IndexView(generic.IndexView):
         "get_is_permanent_display": _("Type"),
     }
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def get_base_queryset(self):
         return super().get_base_queryset().select_related("redirect_page", "site")
 
@@ -137,7 +150,6 @@ class IndexView(generic.IndexView):
 class EditView(generic.EditView):
     model = Redirect
     form_class = RedirectForm
-    permission_policy = permission_policy
     template_name = "wagtailredirects/edit.html"
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
@@ -145,6 +157,10 @@ class EditView(generic.EditView):
     pk_url_kwarg = "redirect_id"
     error_message = gettext_lazy("The redirect could not be saved due to errors.")
     header_icon = "redirect"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_success_message(self):
         return _("Redirect '%(redirect_title)s' updated.") % {
@@ -169,11 +185,14 @@ class EditView(generic.EditView):
 class DeleteView(generic.DeleteView):
     model = Redirect
     pk_url_kwarg = "redirect_id"
-    permission_policy = permission_policy
     template_name = "wagtailredirects/confirm_delete.html"
     index_url_name = "wagtailredirects:index"
     delete_url_name = "wagtailredirects:delete"
     header_icon = "redirect"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def delete_action(self):
         super().delete_action()
@@ -188,13 +207,16 @@ class DeleteView(generic.DeleteView):
 class CreateView(generic.CreateView):
     model = Redirect
     form_class = RedirectForm
-    permission_policy = permission_policy
     template_name = "wagtailredirects/add.html"
     add_url_name = "wagtailredirects:add"
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
     error_message = gettext_lazy("The redirect could not be created due to errors.")
     header_icon = "redirect"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_success_message(self, instance):
         return _("Redirect '%(redirect_title)s' added.") % {
