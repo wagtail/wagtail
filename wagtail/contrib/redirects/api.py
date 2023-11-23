@@ -17,7 +17,7 @@ from wagtail.api.v3.permissions import require_any_permission
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.middleware import get_redirect
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.redirects.permissions import permission_policy
+from wagtail.permissions import policies_registry
 
 router = Router(tags=["redirects"])
 
@@ -55,6 +55,7 @@ class RedirectInputSchema(Schema):
 @paginate(WagtailLimitOffsetPagination)
 @require_any_permission(Redirect)
 def list_redirects(request: HttpRequest):
+    permission_policy = policies_registry.get_by_type(Redirect)
     return permission_policy.instances_user_has_any_permission_for(
         request.user,
         ("add", "change", "delete", "view"),
@@ -70,6 +71,7 @@ def list_redirects(request: HttpRequest):
 )
 @require_any_permission(Redirect)
 def get_redirect_detail(request: HttpRequest, redirect_id: int):
+    permission_policy = policies_registry.get_by_type(Redirect)
     return get_object_or_404(
         permission_policy.instances_user_has_any_permission_for(
             request.user,
