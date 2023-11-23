@@ -25,7 +25,6 @@ from wagtail.contrib.redirects.forms import (
     RedirectForm,
 )
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
     get_format_cls_by_extension,
@@ -35,8 +34,21 @@ from wagtail.contrib.redirects.utils import (
 )
 from wagtail.log_actions import log
 from wagtail.models import Site
+from wagtail.permissions import policies_registry
 
-permission_checker = PermissionPolicyChecker(permission_policy)
+
+class RedirectPermissionPolicyChecker(PermissionPolicyChecker):
+    def __init__(self):
+        # Provide policy via a cached property so we can retrieve it from the
+        # registry at runtime, rather than at import time.
+        pass
+
+    @cached_property
+    def policy(self):
+        return policies_registry.get_by_type(Redirect)
+
+
+permission_checker = RedirectPermissionPolicyChecker()
 
 
 class RedirectTargetColumn(Column):
@@ -62,7 +74,6 @@ class RedirectTargetColumn(Column):
 class IndexView(generic.IndexView):
     template_name = "wagtailredirects/index.html"
     results_template_name = "wagtailredirects/index_results.html"
-    permission_policy = permission_policy
     model = Redirect
     header_icon = "redirect"
     add_item_label = gettext_lazy("Add redirect")
@@ -137,7 +148,6 @@ class IndexView(generic.IndexView):
 class EditView(generic.EditView):
     model = Redirect
     form_class = RedirectForm
-    permission_policy = permission_policy
     template_name = "wagtailredirects/edit.html"
     index_url_name = "wagtailredirects:index"
     edit_url_name = "wagtailredirects:edit"
@@ -169,7 +179,6 @@ class EditView(generic.EditView):
 class DeleteView(generic.DeleteView):
     model = Redirect
     pk_url_kwarg = "redirect_id"
-    permission_policy = permission_policy
     template_name = "wagtailredirects/confirm_delete.html"
     index_url_name = "wagtailredirects:index"
     delete_url_name = "wagtailredirects:delete"
@@ -188,7 +197,6 @@ class DeleteView(generic.DeleteView):
 class CreateView(generic.CreateView):
     model = Redirect
     form_class = RedirectForm
-    permission_policy = permission_policy
     template_name = "wagtailredirects/add.html"
     add_url_name = "wagtailredirects:add"
     index_url_name = "wagtailredirects:index"
