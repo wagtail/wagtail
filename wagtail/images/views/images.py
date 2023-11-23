@@ -19,7 +19,6 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
     BaseColumn,
@@ -35,11 +34,9 @@ from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
-from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.models import ReferenceIndex, Site
-
-permission_checker = PermissionPolicyChecker(permission_policy)
+from wagtail.permissions import policies_registry
 
 Image = get_image_model()
 
@@ -47,7 +44,9 @@ USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
 class ImagesFilterSet(BaseMediaFilterSet):
-    permission_policy = permission_policy
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(Image)
 
     class Meta:
         model = Image
@@ -67,7 +66,6 @@ class IndexView(generic.IndexView):
     }
     default_ordering = "-created_at"
     context_object_name = "images"
-    permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     model = Image
     filterset_class = ImagesFilterSet
@@ -81,6 +79,10 @@ class IndexView(generic.IndexView):
     edit_url_name = "wagtailimages:edit"
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
@@ -97,7 +99,7 @@ class IndexView(generic.IndexView):
     def get_base_queryset(self):
         # Get images (filtered by user permission)
         images = (
-            permission_policy.instances_user_has_any_permission_for(
+            self.permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
             .select_related("collection")
@@ -237,7 +239,6 @@ class TitleColumnWithFilename(TitleColumn):
 
 
 class EditView(generic.EditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     error_message = gettext_lazy("The image could not be saved due to errors.")
     template_name = "wagtailimages/images/edit.html"
@@ -252,6 +253,10 @@ class EditView(generic.EditView):
     def model(self):
         return get_image_model()
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def get_form_class(self):
         return get_image_form(self.model)
 
@@ -262,7 +267,7 @@ class EditView(generic.EditView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        if not permission_policy.user_has_permission_for_instance(
+        if not self.permission_policy.user_has_permission_for_instance(
             self.request.user, "change", obj
         ):
             raise PermissionDenied
@@ -332,6 +337,10 @@ class URLGeneratorView(generic.InspectView):
         "The filter options you have selected are not valid."
     )
 
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
+
     def get_page_subtitle(self):
         return self.object.title
 
@@ -351,7 +360,7 @@ class URLGeneratorView(generic.InspectView):
 
         self.object = get_object_or_404(self.model, id=image_id)
 
-        if not permission_policy.user_has_permission_for_instance(
+        if not self.permission_policy.user_has_permission_for_instance(
             request.user, "change", self.object
         ):
             if self.output_only:
@@ -434,9 +443,10 @@ class URLGeneratorView(generic.InspectView):
 
 
 def preview(request, image_id, filter_spec):
-    image = get_object_or_404(get_image_model(), id=image_id)
+    model = get_image_model()
+    image = get_object_or_404(model, id=image_id)
 
-    if not permission_policy.user_has_permission_for_instance(
+    if not policies_registry.get_by_type(model).user_has_permission_for_instance(
         request.user, "change", image
     ):
         raise PermissionDenied
@@ -468,7 +478,6 @@ def preview(request, image_id, filter_spec):
 class DeleteView(generic.DeleteView):
     model = get_image_model()
     pk_url_kwarg = "image_id"
-    permission_policy = permission_policy
     permission_required = "delete"
     header_icon = "image"
     template_name = "wagtailimages/images/confirm_delete.html"
@@ -476,6 +485,10 @@ class DeleteView(generic.DeleteView):
     delete_url_name = "wagtailimages:delete"
     index_url_name = "wagtailimages:index"
     page_title = gettext_lazy("Delete image")
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
@@ -499,7 +512,6 @@ class DeleteView(generic.DeleteView):
 
 
 class CreateView(generic.CreateView):
-    permission_policy = permission_policy
     index_url_name = "wagtailimages:index"
     add_url_name = "wagtailimages:add"
     edit_url_name = "wagtailimages:edit"
@@ -510,6 +522,10 @@ class CreateView(generic.CreateView):
     @cached_property
     def model(self):
         return get_image_model()
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def get_form_class(self):
         return get_image_form(self.model)
@@ -530,7 +546,6 @@ class UsageView(generic.UsageView):
     model = get_image_model()
     paginate_by = USAGE_PAGE_SIZE
     pk_url_kwarg = "image_id"
-    permission_policy = permission_policy
     permission_required = "change"
     header_icon = "image"
     index_url_name = "wagtailimages:index"
@@ -538,6 +553,10 @@ class UsageView(generic.UsageView):
 
     def get_base_object_queryset(self):
         return super().get_base_object_queryset().select_related("uploaded_by_user")
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
