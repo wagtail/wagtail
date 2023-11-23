@@ -2,18 +2,19 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.images import get_image_model
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
+from wagtail.permissions import policies_registry as policies
 
 
 class CollectionForm(forms.Form):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
+        permission_policy = policies.get_by_type(get_image_model())
         self.fields["collection"] = forms.ModelChoiceField(
             label=_("Collection"),
-            queryset=ImageBulkAction.permission_policy.collections_user_has_permission_for(
-                user, "add"
-            ),
+            queryset=permission_policy.collections_user_has_permission_for(user, "add"),
         )
 
 

@@ -32,3 +32,15 @@ def get_image_model():
             "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
             % model_string
         )
+
+
+def get_permission_policy():
+    from wagtail.permission_policies.collections import (
+        CollectionOwnershipPermissionPolicy,
+    )
+
+    return CollectionOwnershipPermissionPolicy(
+        get_image_model(),
+        auth_model="wagtailimages.Image",
+        owner_field_name="uploaded_by_user",
+    )

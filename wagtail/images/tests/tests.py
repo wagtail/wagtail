@@ -16,8 +16,8 @@ from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import Format, get_image_format, register_image_format
 from wagtail.images.forms import get_image_form
 from wagtail.images.models import Image as WagtailImage
-from wagtail.images.permissions import update_permission_policy
 from wagtail.images.rect import Rect, Vector
+from wagtail.images.tests import update_permission_policy
 from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath

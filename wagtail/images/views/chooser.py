@@ -7,7 +7,6 @@ from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.views.generic.chooser import (
@@ -25,10 +24,8 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
-from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import find_image_duplicates
-
-permission_checker = PermissionPolicyChecker(permission_policy)
+from wagtail.permissions import policies_registry as policies
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
@@ -50,7 +47,10 @@ class ImageCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
-    permission_policy = permission_policy
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def get_creation_form_class(self):
         return get_image_form(self.model)
@@ -78,9 +78,8 @@ class BaseImageChooseView(BaseChooseView):
 
     def get_object_list(self):
         return (
-            permission_policy.instances_user_has_any_permission_for(
-                self.request.user, ["choose"]
-            )
+            policies.get_by_type(get_image_model())
+            .instances_user_has_any_permission_for(self.request.user, ["choose"])
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
@@ -187,7 +186,7 @@ class ImageUploadViewMixin(SelectFormatResponseMixin, CreateViewMixin):
             duplicates = find_image_duplicates(
                 image=image,
                 user=request.user,
-                permission_policy=permission_policy,
+                permission_policy=self.permission_policy,
             )
             existing_image = duplicates.first()
             if existing_image:
@@ -304,7 +303,6 @@ class ImageChooserViewSet(ChooserViewSet):
     chosen_multiple_view_class = ImageChosenMultipleView
     create_view_class = ImageUploadView
     select_format_view_class = ImageSelectFormatView
-    permission_policy = permission_policy
     register_widget = False
     preserve_url_parameters = ChooserViewSet.preserve_url_parameters + ["select_format"]
 
@@ -314,6 +312,10 @@ class ImageChooserViewSet(ChooserViewSet):
     create_action_clicked_label = _("Uploading…")
     choose_another_text = _("Choose another image")
     edit_item_text = _("Edit this image")
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     @property
     def select_format_view(self):

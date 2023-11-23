@@ -8,34 +8,32 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
-from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.models import Collection, Site
+from wagtail.permissions import policies_registry as policies
 from wagtail.search.backends import get_search_backend
-
-permission_checker = PermissionPolicyChecker(permission_policy)
 
 INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
-class BaseListingView(TemplateView):
+class BaseListingView(PermissionCheckedMixin, TemplateView):
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
@@ -46,10 +44,11 @@ class BaseListingView(TemplateView):
         "-file_size": _("File size: (high to low)"),
     }
     default_ordering = "-created_at"
+    any_permission_required = ["add", "change", "delete"]
 
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def get_num_entries_per_page(self):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
@@ -81,7 +80,7 @@ class BaseListingView(TemplateView):
 
         # Get images (filtered by user permission and ordered by `ordering`)
         images = (
-            permission_policy.instances_user_has_any_permission_for(
+            self.permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
             .order_by(ordering)
@@ -150,10 +149,14 @@ class BaseListingView(TemplateView):
 class IndexView(BaseListingView):
     template_name = "wagtailimages/images/index.html"
 
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        collections = permission_policy.collections_user_has_any_permission_for(
+        collections = self.permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
@@ -168,7 +171,7 @@ class IndexView(BaseListingView):
                 "current_tag": self.current_tag,
                 "collections": collections,
                 "current_collection": self.current_collection,
-                "user_can_add": permission_policy.user_has_permission(
+                "user_can_add": self.permission_policy.user_has_permission(
                     self.request.user, "add"
                 ),
                 "app_label": Image._meta.app_label,
@@ -182,10 +185,10 @@ class ListingResultsView(BaseListingView):
     template_name = "wagtailimages/images/results.html"
 
 
-@permission_checker.require("change")
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
+    permission_policy = policies.get_by_type(Image)
 
     image = get_object_or_404(Image, id=image_id)
 
@@ -264,6 +267,7 @@ def edit(request, image_id):
 
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
+    permission_policy = policies.get_by_type(get_image_model())
 
     if not permission_policy.user_has_permission_for_instance(
         request.user, "change", image
@@ -296,6 +300,7 @@ def generate_url(request, image_id, filter_spec):
     except Image.DoesNotExist:
         return JsonResponse({"error": "Cannot find image."}, status=404)
 
+    permission_policy = policies.get_by_type(get_image_model())
     # Check if this user has edit permission on this image
     if not permission_policy.user_has_permission_for_instance(
         request.user, "change", image
@@ -346,7 +351,6 @@ def preview(request, image_id, filter_spec):
 class DeleteView(generic.DeleteView):
     model = get_image_model()
     pk_url_kwarg = "image_id"
-    permission_policy = permission_policy
     permission_required = "delete"
     header_icon = "image"
     template_name = "wagtailimages/images/confirm_delete.html"
@@ -354,6 +358,10 @@ class DeleteView(generic.DeleteView):
     delete_url_name = "wagtailimages:delete"
     index_url_name = "wagtailimages:index"
     page_title = gettext_lazy("Delete image")
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
@@ -376,10 +384,13 @@ class DeleteView(generic.DeleteView):
         }
 
 
-@permission_checker.require("add")
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
+    permission_policy = policies.get_by_type(ImageModel)
+
+    if not permission_policy.user_has_permission(request.user, "add"):
+        raise PermissionDenied
 
     if request.method == "POST":
         image = ImageModel(uploaded_by_user=request.user)
@@ -415,9 +426,12 @@ class UsageView(generic.UsageView):
     model = get_image_model()
     paginate_by = USAGE_PAGE_SIZE
     pk_url_kwarg = "image_id"
-    permission_policy = permission_policy
     permission_required = "change"
     header_icon = "image"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
