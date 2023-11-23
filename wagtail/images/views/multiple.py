@@ -2,6 +2,7 @@ import os.path
 
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy
 
@@ -17,16 +18,15 @@ from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDelete
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.forms import get_image_form, get_image_multi_form
-from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
 from wagtail.images.utils import (
     find_image_duplicates,
     get_accept_attributes,
     get_allowed_image_extensions,
 )
+from wagtail.permissions import policies_registry
 
 
 class AddView(WagtailAdminTemplateMixin, BaseAddView):
-    permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
     header_icon = "image"
     page_title = gettext_lazy("Add images")
@@ -52,6 +52,10 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
             },
             {"url": "", "label": self.get_page_title()},
         ]
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
@@ -121,13 +125,16 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
 
 
 class EditView(BaseEditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     edit_object_form_prefix = "image"
     context_object_name = "image"
     context_object_id_name = "image_id"
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
@@ -137,9 +144,12 @@ class EditView(BaseEditView):
 
 
 class DeleteView(BaseDeleteView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     context_object_id_name = "image_id"
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()

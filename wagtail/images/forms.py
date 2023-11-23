@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.conf import settings
 from django.forms.models import modelform_factory
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
@@ -13,11 +14,12 @@ from wagtail.admin.forms.collections import (
 )
 from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
+from wagtail.images import get_image_model
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
-from wagtail.images.permissions import permission_policy as images_permission_policy
 from wagtail.models import Collection
+from wagtail.permissions import policies_registry
 from wagtail.search import index as search_index
 
 
@@ -39,8 +41,6 @@ def formfield_for_dbfield(db_field, **kwargs):
 
 
 class BaseImageForm(BaseCollectionMemberForm):
-    permission_policy = images_permission_policy
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
@@ -50,6 +50,10 @@ class BaseImageForm(BaseCollectionMemberForm):
             self.fields["file"].widget.attrs["data-w-sync-target-value"] = (
                 f"#{self['title'].id_for_label}"
             )
+
+    @cached_property
+    def permission_policy(self):
+        return policies_registry.get_by_type(get_image_model())
 
     def save(self, commit=True):
         if "file" in self.changed_data:
