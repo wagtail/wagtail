@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.locale import LANG_INFO
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import F
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -986,6 +987,8 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
 
 
 class TestPageTypesUsageReportViewPermissions(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
     def setUp(self):
         self.user = self.login()
 
@@ -1031,3 +1034,52 @@ class TestPageTypesUsageReportViewPermissions(WagtailTestUtils, TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
+
+    def test_get_with_page_specific_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        latest_edited_event_page = EventPage.objects.order_by(
+            F("latest_revision_created_at").desc(nulls_last=True), "title", "-pk"
+        ).first()
+        latest_edited_simple_page = SimplePage.objects.order_by(
+            F("latest_revision_created_at").desc(nulls_last=True), "title", "-pk"
+        ).first()
+        GroupPagePermission.objects.create(
+            group=group,
+            page=latest_edited_event_page,
+            permission_type="change",
+        )
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        # For pages that the user can edit, it should show the page title and link to edit the page:
+        edit_event_page_url = reverse(
+            "wagtailadmin_pages:edit", args=(latest_edited_event_page.id,)
+        )
+        self.assertContains(
+            response,
+            f"<a href={edit_event_page_url}>{latest_edited_event_page.get_admin_display_title()}</a>",
+            html=True,
+        )
+        # For pages that the user cannot edit, it should only show the page title
+        self.assertContains(
+            response,
+            f"<p>{latest_edited_simple_page.get_admin_display_title()}</p>",
+            html=True,
+        )
+        edit_simple_page_url = reverse(
+            "wagtailadmin_pages:edit", args=(latest_edited_simple_page.id,)
+        )
+        self.assertNotContains(
+            response,
+            f"<a href={edit_simple_page_url}>{latest_edited_simple_page.get_admin_display_title()}</a>",
+            html=True,
+        )
