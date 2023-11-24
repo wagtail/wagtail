@@ -119,3 +119,19 @@ class ContentTypeModelChoiceField(django_filters.fields.ModelChoiceField):
 
 class ContentTypeFilter(django_filters.ModelChoiceFilter):
     field_class = ContentTypeModelChoiceField
+
+
+class ContentTypeModelMultipleChoiceField(
+    django_filters.fields.ModelMultipleChoiceField
+):
+    """
+    Custom ModelMultipleChoiceField for ContentType, to show the model verbose name as the label rather
+    than the default 'wagtailcore | page' representation of a ContentType
+    """
+
+    def label_from_instance(self, obj):
+        return get_content_type_label(obj)
+
+
+class MultipleContentTypeFilter(django_filters.ModelMultipleChoiceFilter):
+    field_class = ContentTypeModelMultipleChoiceField

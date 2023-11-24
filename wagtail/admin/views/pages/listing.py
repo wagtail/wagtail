@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -6,6 +7,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
@@ -21,8 +23,24 @@ from wagtail.admin.ui.tables.pages import (
     PageTitleColumn,
 )
 from wagtail.admin.views.generic.models import IndexView as GenericIndexView
-from wagtail.models import Page
+from wagtail.models import Page, get_page_models
 from wagtail.permissions import page_permission_policy
+
+
+def get_content_types_for_filter():
+    models = [model.__name__.lower() for model in get_page_models()]
+    return ContentType.objects.filter(model__in=models).order_by("model")
+
+
+class PageFilterSet(WagtailFilterSet):
+    content_type = MultipleContentTypeFilter(
+        label=_("Page type"),
+        queryset=lambda request: get_content_types_for_filter(),
+    )
+
+    class Meta:
+        model = Page
+        fields = ["content_type"]
 
 
 class BaseIndexView(GenericIndexView):
@@ -40,6 +58,7 @@ class BaseIndexView(GenericIndexView):
     paginate_by = 50
     table_class = PageTable
     table_classname = "listing full-width"
+    filterset_class = PageFilterSet
 
     columns = [
         BulkActionsColumn("bulk_actions", width="10px"),
@@ -163,6 +182,8 @@ class BaseIndexView(GenericIndexView):
         pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
+
+        filters, pages = self.filter_queryset(pages)
 
         self.ordering = self.get_ordering()
 
