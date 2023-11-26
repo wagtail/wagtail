@@ -771,6 +771,7 @@
 * Cassidy Pittman
 * Gunnar Scherf
 * Mariana Bedran Lesche
+* Bhuvnesh Sharma
 
 ## Translators
 
