@@ -21,6 +21,9 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
     settings, "WAGTAIL_FRONTEND_LOGIN_TEMPLATE", "wagtailcore/login.html"
 )
 
+WAGTAIL_BACKEND_ADMIN_URL = getattr(
+    settings, "WAGTAIL_BACKEND_ADMIN_URL", "admin/"
+)
 
 urlpatterns = [
     path(
