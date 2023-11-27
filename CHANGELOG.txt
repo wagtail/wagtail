@@ -7,6 +7,8 @@ Changelog
  * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
  * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
  * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
+ * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
+
 
 5.2.1 (16.11.2023)
 ~~~~~~~~~~~~~~~~~~
