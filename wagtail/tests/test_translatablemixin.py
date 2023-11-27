@@ -25,9 +25,11 @@ def make_test_instance(model=None, **kwargs):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestTranslatableQuerySetLocalized(TestCase):
+class TestTranslatableQuerySetMixinLocalized(TestCase):
     """
-    Test class for tests of the `localized` method of the `TranslatableQuerySet`.
+    Test class for tests of the `localized` method of the `TranslatableQuerySetMixin`.
+
+    These test rely on the `TestModel` inheriting from the `TranslatableMixin`.
 
     The `localized` method on the `TranslatableQuerySet` is the equivalent of the
     `localize` property on the `TranslatableMixin` but for a queryset instead of a
