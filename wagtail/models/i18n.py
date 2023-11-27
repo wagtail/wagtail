@@ -175,7 +175,7 @@ class Locale(models.Model):
 
 
 class TranslatableQuerySet(models.QuerySet):
-    def localized(self):
+    def localized(self, keep_order: bool = False):
         # Get all instances that are available in the active locale. We can find these
         # by getting all model instances that have a translation key from the original
         # queryset and that are available in the active locale.
@@ -202,11 +202,24 @@ class TranslatableQuerySet(models.QuerySet):
             | models.Q(pk__in=untranslated_instances)
         )
 
-        # Apply the same `order_by` as in the original queryset. This does not mean that
-        # the order of the items is retained. Rather, the same fields are used for
-        # ordering. However, the ordering is likely to be different because the
-        # translated values are used.
-        return localized_queryset.order_by(*self.query.order_by)
+        if not keep_order:
+            # Apply the same `order_by` as in the original queryset. This does not mean that
+            # the order of the items is retained. Rather, the same fields are used for
+            # ordering. However, the ordering is likely to be different because the
+            # translated values are used.
+            return localized_queryset.order_by(*self.query.order_by)
+        else:
+            # Keep the same order as in the original queryset. To do so, we annotate the
+            # localized queryset with the original order of the translation keys, and
+            # then order by that annotation.
+            ordering_when_clauses = [
+                models.When(translation_key=tk, then=models.Value(index))
+                for index, tk in enumerate(original_translation_keys)
+            ]
+            localized_annotated_queryset = localized_queryset.annotate(
+                original_order=models.Case(*ordering_when_clauses)
+            )
+            return localized_annotated_queryset.order_by("original_order")
 
 
 class TranslatableMixin(models.Model):
