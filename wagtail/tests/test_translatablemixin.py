@@ -353,6 +353,41 @@ class TestTranslatableQuerySet(TestCase):
             ordered=True,
         )
 
+    def test_override_kept_order(self):
+        """
+        Test overriding the kept the order of the original queryset by explicitly
+        ordering the localized queryset.
+
+        Mostly a sanity check.
+        """
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .order_by("title")
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(keep_order=True).order_by("id")
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            # These are ordered by the French IDs not the English titles.
+            [
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+            ],
+            ordered=True,
+        )
+
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
     def setUp(self):
