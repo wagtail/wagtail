@@ -86,7 +86,7 @@ class TestTranslatableQuerySet(TestCase):
 
         with translation.override("fr"):
             with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
+                queryset_localized = queryset_en.localized()
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
@@ -117,7 +117,7 @@ class TestTranslatableQuerySet(TestCase):
 
         with translation.override("fr"):
             with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
+                queryset_localized = queryset_en.localized()
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
@@ -150,7 +150,7 @@ class TestTranslatableQuerySet(TestCase):
 
         with translation.override("fr"):
             with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
+                queryset_localized = queryset_en.localized()
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
@@ -195,7 +195,7 @@ class TestTranslatableQuerySet(TestCase):
 
         with translation.override("fr"):
             with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
+                queryset_localized = queryset_en.localized()
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
@@ -242,7 +242,7 @@ class TestTranslatableQuerySet(TestCase):
 
         with translation.override("fr"):
             with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
+                queryset_localized = queryset_en.localized()
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
@@ -280,7 +280,7 @@ class TestTranslatableQuerySet(TestCase):
         )
 
         with translation.override("fr"):
-            queryset_localized = queryset_en.localized
+            queryset_localized = queryset_en.localized()
 
         self.assertQuerysetEqual(
             queryset_localized,
@@ -310,7 +310,7 @@ class TestTranslatableQuerySet(TestCase):
         )
 
         with translation.override("fr"):
-            queryset_localized = queryset_en.localized.order_by("title")
+            queryset_localized = queryset_en.localized().order_by("title")
 
         self.assertQuerysetEqual(
             queryset_localized,
