@@ -40,26 +40,7 @@ class TestTranslatableQuerySetLocalized(TestCase):
     locale, the translated version is used, otherwise the original object is used.
     """
 
-    @classmethod
-    def setUpTestData(cls):
-        cls.example_model = TestModel
-
-        cls.locale_en = Locale.objects.get(language_code="en")
-        cls.locale_fr = Locale.objects.create(language_code="fr")
-
-        # Create example instances with different titles for the locales simulating a
-        # translation. Additionally, the titles differ between the locales so that
-        # ordering by `title` leads to a different sort order between the locales.
-        # Furthermore, the instances are created in an order so that their IDs should
-        # not match the alphabetical ordering in either locale.
-        cls.instance_CY_en = make_test_instance(locale=cls.locale_en, title="C")
-        cls.instance_CY_fr = cls.create_fr_translation(cls.instance_CY_en, title="Y")
-
-        cls.instance_AZ_en = make_test_instance(locale=cls.locale_en, title="A")
-        cls.instance_AZ_fr = cls.create_fr_translation(cls.instance_AZ_en, title="Z")
-
-        cls.instance_BX_en = make_test_instance(locale=cls.locale_en, title="B")
-        cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
+    example_model = TestModel
 
     @classmethod
     def create_en_instance(cls, **kwargs):
@@ -78,6 +59,25 @@ class TestTranslatableQuerySetLocalized(TestCase):
             translation_key=instance.translation_key,
             **kwargs,
         )
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.locale_en = Locale.objects.get(language_code="en")
+        cls.locale_fr = Locale.objects.create(language_code="fr")
+
+        # Create example instances with different titles for the locales simulating a
+        # translation. Additionally, the titles differ between the locales so that
+        # ordering by `title` leads to a different sort order between the locales.
+        # Furthermore, the instances are created in an order so that their IDs should
+        # not match the alphabetical ordering in either locale.
+        cls.instance_CY_en = cls.create_en_instance(title="C")
+        cls.instance_CY_fr = cls.create_fr_translation(cls.instance_CY_en, title="Y")
+
+        cls.instance_AZ_en = cls.create_en_instance(title="A")
+        cls.instance_AZ_fr = cls.create_fr_translation(cls.instance_AZ_en, title="Z")
+
+        cls.instance_BX_en = cls.create_en_instance(title="B")
+        cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
 
     def test_example_model_queryset_class(self):
         """Test that the example model uses the expected queryset class."""
