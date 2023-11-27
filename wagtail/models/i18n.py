@@ -175,7 +175,6 @@ class Locale(models.Model):
 
 
 class TranslatableQuerySet(models.QuerySet):
-    @property
     def localized(self):
         # Get all instances that are available in the active locale. We can find these
         # by getting all model instances that have a translation key from the original
