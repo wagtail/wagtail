@@ -3613,7 +3613,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
         self.object.save_revision()
 
     def test_workflowstate_email_notifier_get_recipient_users__without_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -3628,7 +3628,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_trigerring_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -3644,7 +3644,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__without_requested_by(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
@@ -3663,7 +3663,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_same_requested_by_and_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
