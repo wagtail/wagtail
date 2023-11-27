@@ -174,7 +174,28 @@ class Locale(models.Model):
             return self.is_default
 
 
-class TranslatableQuerySet(models.QuerySet):
+class TranslatableQuerySetMixin:
+    """
+    QuerySet mixin for translatable models.
+
+    This mixin provides methods for query sets of translatable models. If your
+    translatable model inherits from `TranslatableMixin` and defines a custom
+    query set manager that inherits from `models.QuerySet`, make sure to also inherit
+    from this queryset mixin to retain the features of this mixin.
+
+    ```
+    class MyTranslatableModelQuerySet(TranslatableQuerySetMixin, models.QuerySet):
+        pass
+
+    class MyTranslatableModel(TranslatableMixin):
+        objects = MyTranslatableModelQuerySet.as_manager()
+    ```
+
+    If your translatable model does not define a custom query set manager `objects`, you
+    won't need this mixin. The `TranslatableMixin` already provides a default query set
+    manager that inherits from `TranslatableQuerySetMixin`.
+    """
+
     def localized(self, keep_order: bool = False):
         """
         Localize this queryset of translatable objects.
@@ -235,6 +256,21 @@ class TranslatableQuerySet(models.QuerySet):
                 original_order=models.Case(*ordering_when_clauses)
             )
             return localized_annotated_queryset.order_by("original_order")
+
+
+class TranslatableQuerySet(TranslatableQuerySetMixin, models.QuerySet):
+    """
+    Default QuerySet class for translatable models.
+
+    This class inherits from `TranslatableQuerySetMixin` and `models.QuerySet`. It is
+    meant only as the default query set class for translatable models that do not define
+    a custom query set manager.
+
+    If your translatable model defines a custom query set manager that inherits from
+    `models.QuerySet`, make sure to also inherit from `TranslatableQuerySetMixin` to
+    retain its features.
+    """
+    pass
 
 
 class TranslatableMixin(models.Model):
