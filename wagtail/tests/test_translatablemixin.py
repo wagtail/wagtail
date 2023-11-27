@@ -280,14 +280,41 @@ class TestTranslatableQuerySet(TestCase):
         )
 
         with translation.override("fr"):
-            with self.assertNumQueries(2):
-                queryset_localized = queryset_en.localized
-                # Call `repr` to evaluate the queryset.
-                repr(queryset_localized)
+            queryset_localized = queryset_en.localized
 
         self.assertQuerysetEqual(
             queryset_localized,
             # These are ordered by the French titles.
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+
+    def test_explicitly_set_different_order_on_localized_queryset(self):
+        """Test explicitly setting a different order on the localized queryset."""
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .order_by("id")
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_CY_en,
+                self.instance_AZ_en,
+                self.instance_BX_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized.order_by("title")
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            # These are ordered by the French titles not their French IDs.
             [
                 self.instance_BX_fr,
                 self.instance_CY_fr,
