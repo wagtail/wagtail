@@ -24,7 +24,12 @@ from wagtail.models import (
     PageLogEntry,
     Site,
 )
-from wagtail.test.testapp.models import Advert, EventPage, EventPageSpeaker, SimplePage
+from wagtail.test.testapp.models import (
+    Advert,
+    EventPage,
+    EventPageSpeaker,
+    SimplePage,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -738,6 +743,10 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
+    @staticmethod
+    def display_name(content_type):
+        return f"{content_type.app_label}.{content_type.model}"
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -747,16 +756,24 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
         """Asserts that the correct models are included in the queryset."""
         response = self.get()
         # Assert that the response contains page models:
-        self.assertContains(
-            response, ContentType.objects.get_for_model(Page).name.title()
-        )
-        self.assertContains(
-            response, ContentType.objects.get_for_model(EventPage).name.title()
-        )
+        event_page_content_type = ContentType.objects.get_for_model(EventPage)
+        event_page_content_type_full_name = self.display_name(event_page_content_type)
+        self.assertContains(response, event_page_content_type_full_name)
+        simple_page_content_type = ContentType.objects.get_for_model(SimplePage)
+        simple_page_content_type_full_name = self.display_name(simple_page_content_type)
+        self.assertContains(response, simple_page_content_type_full_name)
         # But it should not contain non-page models:
-        self.assertNotContains(
-            response, ContentType.objects.get_for_model(EventPageSpeaker).name.title()
+        event_page_speaker_content_type = ContentType.objects.get_for_model(
+            EventPageSpeaker
         )
+        event_page_speaker_content_type_full_name = self.display_name(
+            event_page_speaker_content_type
+        )
+        self.assertNotContains(response, event_page_speaker_content_type_full_name)
+        # And it should not contain the base Page model itself:
+        page_content_type = ContentType.objects.get_for_model(Page)
+        page_content_type_full_name = self.display_name(page_content_type)
+        self.assertNotContains(response, page_content_type_full_name)
 
 
 class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
@@ -768,25 +785,26 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         )
         self.root = Page.objects.first()
         self.home = Page.objects.get(slug="home")
-        self.user_a = self.create_superuser(
-            username="user_a", first_name="John", last_name="Doe"
-        )
-        self.user_b = self.create_superuser(
-            username="user_b", first_name="Jane", last_name="Doe"
-        )
-        self.simple_page_a = SimplePage(
-            title="Simple page A", content="hello", owner=self.user_a
-        )
-        self.simple_page_b = SimplePage(
-            title="Simple page B", content="hello", owner=self.user_b
-        )
+
+        self.simple_page_a = SimplePage(title="Simple page A", content="hello")
+        self.simple_page_b = SimplePage(title="Simple page B", content="hello")
         self.simple_page_c = SimplePage(title="Simple page C", content="hello")
+
         Page.get_first_root_node().add_child(instance=self.simple_page_a)
         Page.get_first_root_node().add_child(instance=self.simple_page_b)
         Page.get_first_root_node().add_child(instance=self.simple_page_c)
-        self.simple_page_a.save_revision().publish(user=self.user_a)
-        self.simple_page_b.save_revision().publish(user=self.user_b)
+        self.simple_page_a.save_revision().publish()
+        self.simple_page_b.save_revision().publish()
         self.simple_page_c.save_revision().publish()
+
+        self.event_page = EventPage(
+            title="Event Page",
+            audience="public",
+            location="foo",
+            cost="bar",
+            date_from=datetime.date.today(),
+        )
+        Page.get_first_root_node().add_child(instance=self.event_page)
 
     def test_queryset_ordering(self):
         """Asserts that the queryset is ordered by page model count."""
@@ -797,14 +815,14 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         # Get the positions of the content types in the list
         simple_page_content_type = ContentType.objects.get_for_model(SimplePage)
         simple_page_position = queryset_list_pks.index(simple_page_content_type.pk)
-        page_content_type = ContentType.objects.get_for_model(Page)
-        page_position = queryset_list_pks.index(page_content_type.pk)
-        # Assert that the SimplePage comes before Page, since it has more entries
-        self.assertTrue(simple_page_position < page_position)
+        event_page_content_type = ContentType.objects.get_for_model(EventPage)
+        event_page_position = queryset_list_pks.index(event_page_content_type.pk)
+        # Assert that the SimplePage comes before EventPage, since it has more entries
+        self.assertTrue(simple_page_position < event_page_position)
         # There should be 3 SimplePages
         self.assertEqual(queryset.get(id=simple_page_content_type.pk).count, 3)
-        # There should be 2 Pages (Homepage and Root)
-        self.assertEqual(queryset.get(id=page_content_type.pk).count, 2)
+        # There should be 1 EventPage
+        self.assertEqual(queryset.get(id=event_page_content_type.pk).count, 1)
 
     def test_queryset_last_edited_page(self):
         """Tests that the queryset correctly returns the last edited page."""
@@ -826,23 +844,6 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
         self.simple_page_a.refresh_from_db()
         self.assertEqual(queryset[0].last_edited_page.specific, self.simple_page_a)
 
-    def test_queryset_last_edited_page_owner(self):
-        """Tests that the queryset correctly returns the last edited page owner."""
-        # Edit the first simple page with user_a
-        revision = self.simple_page_a.save_revision(user=self.user_a)
-        revision.publish(user=self.user_a)
-        # Re-edit the first simple page with user_b
-        revision = self.simple_page_a.save_revision(user=self.user_b)
-        revision.publish(user=self.user_b)
-        self.simple_page_a.refresh_from_db()
-        self.simple_page_b.refresh_from_db()
-        self.simple_page_c.refresh_from_db()
-        # Get the queryset:
-        queryset = self.view.decorate_paginated_queryset(self.view.get_queryset())
-        # Assert that the first simple page is the last edited page
-        self.simple_page_a.refresh_from_db()
-        self.assertEqual(queryset[0].last_edited_page.specific, self.simple_page_a)
-
 
 @override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)
 class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
@@ -856,14 +857,20 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
 
     def test_locale_filtering(self):
         # Create pages in default locale
-        page = Page(title="My Page")
+        event_page = EventPage(
+            title="Event Page",
+            audience="public",
+            location="foo",
+            cost="bar",
+            date_from=datetime.date.today(),
+        )
         simple_page = SimplePage(title="Simple Page", content="hello")
-        Page.get_first_root_node().add_child(instance=page)
+        Page.get_first_root_node().add_child(instance=event_page)
         Page.get_first_root_node().add_child(instance=simple_page)
-        page.save_revision().publish()
+        event_page.save_revision().publish()
         simple_page.save_revision().publish()
         # Translate pages to French
-        page.copy_for_translation(self.fr_locale)
+        event_page.copy_for_translation(self.fr_locale)
         simple_page.copy_for_translation(self.fr_locale)
 
         # Edit the simple page in English to make sure that it's the latest
@@ -877,15 +884,15 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
             for content_type in response.context["object_list"]
         }
 
-        page_row = page_types.get(ContentType.objects.get_for_model(Page).pk)
+        event_page_row = page_types.get(ContentType.objects.get_for_model(EventPage).pk)
         simple_page_row = page_types.get(
             ContentType.objects.get_for_model(SimplePage).pk
         )
 
-        self.assertEqual(page_row.count, 4)
+        self.assertEqual(event_page_row.count, 2)
         self.assertEqual(simple_page_row.count, 2)
         # The last edited page should be the French version
-        self.assertEqual(page_row.last_edited_page.locale, self.fr_locale)
+        self.assertEqual(event_page_row.last_edited_page.locale, self.fr_locale)
         # The last edited SimplePage should be the English version
         self.assertEqual(simple_page_row.last_edited_page.locale, self.default_locale)
 
@@ -896,16 +903,16 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
             for content_type in response.context["object_list"]
         }
 
-        page_row = page_types.get(ContentType.objects.get_for_model(Page).pk)
+        event_page_row = page_types.get(ContentType.objects.get_for_model(EventPage).pk)
         simple_page_row = page_types.get(
             ContentType.objects.get_for_model(SimplePage).pk
         )
 
         # There should be 1 of each page (only the French locale ones)
-        self.assertEqual(page_row.count, 1)
+        self.assertEqual(event_page_row.count, 1)
         self.assertEqual(simple_page_row.count, 1)
         # The last edited page should be the French version (even though page was later edited in English)
-        self.assertEqual(page_row.last_edited_page.locale, self.fr_locale)
+        self.assertEqual(event_page_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(simple_page_row.last_edited_page.locale, self.fr_locale)
 
     def test_site_filtering_with_single_site(self):
@@ -924,9 +931,15 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
     def test_site_filtering_with_multiple_sites(self):
         root_page = Page.get_first_root_node()
         # Create pages in default locale
-        page = Page(title="My Page")
+        event_page = EventPage(
+            title="Event Page",
+            audience="public",
+            location="foo",
+            cost="bar",
+            date_from=datetime.date.today(),
+        )
         simple_page = SimplePage(title="Simple Page", content="hello")
-        root_page.add_child(instance=page)
+        root_page.add_child(instance=event_page)
         root_page.add_child(instance=simple_page)
 
         # Create a new site and add the pages to it
@@ -941,14 +954,12 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
             for content_type in response.context["object_list"]
         }
 
-        page_row = page_types.get(ContentType.objects.get_for_model(Page).pk)
+        event_page_row = page_types.get(ContentType.objects.get_for_model(EventPage).pk)
         simple_page_row = page_types.get(
             ContentType.objects.get_for_model(SimplePage).pk
         )
 
-        self.assertEqual(
-            page_row.count, 3
-        )  # Root + Homepage (created in migration) + My Page
+        self.assertEqual(event_page_row.count, 1)
         self.assertEqual(simple_page_row.count, 1)
 
         # Filter by the simple_page_site
@@ -965,7 +976,7 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         # There should be 1 SimplePage
         self.assertEqual(simple_page_row.count, 1)
         # There shouldn't be a regular Page
-        self.assertFalse(ContentType.objects.get_for_model(Page).pk in page_types)
+        self.assertFalse(ContentType.objects.get_for_model(EventPage).pk in page_types)
 
     @override_settings(
         WAGTAIL_CONTENT_LANGUAGES=[

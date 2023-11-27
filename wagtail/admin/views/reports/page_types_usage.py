@@ -121,7 +121,10 @@ class PageTypesUsageReportView(ReportView):
         return page_types
 
     def get_queryset(self):
-        queryset = ContentType.objects.filter(model__in=self.page_models)
+        page_model = Page.__name__.lower()
+        queryset = ContentType.objects.filter(model__in=self.page_models).exclude(
+            model=page_model
+        )
         self.queryset = queryset
 
         self.filters, queryset = self.filter_queryset(queryset)
