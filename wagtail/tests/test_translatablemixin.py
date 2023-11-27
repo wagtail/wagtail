@@ -257,6 +257,14 @@ class TestTranslatableQuerySet(TestCase):
         )
 
     def test_original_queryset_ordered_by_title(self):
+        """
+        Test the effect of localization on the order of a queryset that is ordered by
+        title.
+
+        By default, the same ordering is applied. This does not mean that the order of
+        the items is retained. Rather, the same fields are used for ordering. However,
+        the ordering is likely to be different because the translated values are used.
+        """
         queryset_en = (
             self.example_model.objects.filter(locale=self.locale_en)
             .order_by("title")
