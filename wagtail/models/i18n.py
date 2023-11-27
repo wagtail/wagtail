@@ -176,6 +176,21 @@ class Locale(models.Model):
 
 class TranslatableQuerySet(models.QuerySet):
     def localized(self, keep_order: bool = False):
+        """
+        Localize this queryset of translatable objects.
+
+        "Localize" means to check, for every instance in the queryset, if there is a
+        translation into the active locale. If a translation exists, use the translated
+        instance, otherwise use the instance itself. The result is a queryset of the
+        same length as the original queryset.
+
+        By default, the same ordering definition as in the original queryset is applied.
+        This means that the translated values are being considered during ordering,
+        which can lead to a different order than the original queryset. If you want to
+        preserve the same order as the original queryset, you need to pass
+        `keep_order=True`.
+
+        """
         # Get all instances that are available in the active locale. We can find these
         # by getting all model instances that have a translation key from the original
         # queryset and that are available in the active locale.
