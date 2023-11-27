@@ -123,13 +123,14 @@ class PageTypesUsageReportView(ReportView):
     def get_queryset(self):
         queryset = ContentType.objects.filter(model__in=self.page_models)
 
-        has_pages = Page.objects.filter(depth__gt=1).exists()
-        is_page_creatable = Page.is_creatable
-        if not has_pages and not is_page_creatable:
-            # If there are no `wagtailcore.Page` pages and it is not creatable, we don't need to
+        page_content_type = ContentType.objects.get_for_model(Page)
+        has_pages = Page.objects.filter(
+            depth__gt=1, content_type=page_content_type
+        ).exists()
+        if not has_pages:
+            # If there are no `wagtailcore.Page` pages, we don't need to
             # show it in the report
-            page_model = Page.__name__.lower()
-            queryset = queryset.exclude(model=page_model)
+            queryset = queryset.exclude(id=page_content_type.id)
 
         self.queryset = queryset
 

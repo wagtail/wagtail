@@ -771,13 +771,13 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, event_page_speaker_content_type_full_name)
 
-    def test_displays_wagtailcore_page_if_creatable_and_has_instances(self):
-        """Asserts that the wagtailcore.Page model is included in the queryset if it is creatable and has instances."""
+    def test_displays_wagtailcore_page_if_has_instances(self):
+        """Asserts that the wagtailcore.Page model is included in the queryset if it has instances."""
         page_content_type = ContentType.objects.get_for_model(Page)
         page_content_type_full_name = self.display_name(page_content_type)
 
         # Start with no pages:
-        Page.objects.filter(depth__gt=1).delete()
+        Page.objects.filter(depth__gt=1, content_type=page_content_type).delete()
 
         # There aren't any Page instances and it is not creatable, it shouldn't be included in the report
         response = self.get()
@@ -787,21 +787,9 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
         page = Page(title="Page")
         Page.get_first_root_node().add_child(instance=page)
 
-        # Even though there is a page, `Page.is_creatable` is `False`: it should be included in the report
+        # There is a Page now, so report should include the `Page` ContentType
         response = self.get()
         self.assertContains(response, page_content_type_full_name)
-
-        # Set `Page.is_creatable` to `True`: it should be included in the queryset
-        with mock.patch.object(Page, "is_creatable", return_value=True):
-            response = self.get()
-            # Assert that the response contains page models:
-            self.assertContains(response, page_content_type_full_name)
-
-            # Delete all `Page` instances
-            Page.objects.filter(depth__gt=1).delete()
-            # Even though there aren't any pages, `Page.is_creatable` is `True`: it should be included in the report
-            response = self.get()
-            self.assertContains(response, page_content_type_full_name)
 
 
 class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
