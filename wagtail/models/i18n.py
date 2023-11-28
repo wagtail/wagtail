@@ -247,9 +247,9 @@ class TranslatableQuerySetMixin:
         )
 
         if not keep_order:
-            # Apply the same `order_by` as in the original queryset. This does not mean that
-            # the order of the items is retained. Rather, the same fields are used for
-            # ordering. However, the ordering is likely to be different because the
+            # Apply the same `order_by` as in the original queryset. This does not mean
+            # that the order of the items is retained. Rather, the same fields are used
+            # for ordering. However, the ordering is likely to be different because the
             # translated values are used.
             return localized_queryset.order_by(*self.query.order_by)
         else:
