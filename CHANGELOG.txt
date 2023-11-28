@@ -14,6 +14,7 @@ Changelog
  * Improve visual alignment of explore icon in Page listings for longer content (Krzysztof Jeziorny)
  * Add `extra_actions` blocks to Snippets and generic index templates (Bhuvnesh Sharma)
  * Added page types usage report (Jhonatan Lopes)
+ * Add support for defining `panels` / `edit_handler` on `ModelViewSet` (Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
