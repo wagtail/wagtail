@@ -196,7 +196,11 @@ class TranslatableQuerySetMixin:
     manager that inherits from `TranslatableQuerySetMixin`.
     """
 
-    def localized(self: models.QuerySet, keep_order: bool = False):
+    def localized(
+        self: models.QuerySet,
+        keep_order: bool = False,
+        include_draft_translations: bool = False,
+    ):
         """
         Localize this queryset of translatable objects.
 
@@ -213,7 +217,8 @@ class TranslatableQuerySetMixin:
 
         If a model inherits from `DraftStateMixin`, draft translations are not
         considered as translated instances. If a translation is in draft, the original
-        instance is used instead.
+        instance is used instead. To override this behavior and include draft
+        translations, pass `include_draft_translations=True`.
 
         Note: If localization is disabled via the `WAGTAIL_I18N_ENABLED` setting, this
         method returns the original queryset unchanged.
@@ -236,9 +241,10 @@ class TranslatableQuerySetMixin:
 
         # Don't consider draft translations. If a translation is in draft, we want to
         # use the original instance instead. To do so, we exclude draft translations.
-        # This only applies if the model has a `live` field.
+        # This only applies if the model has a `live` field. We allow bypassing this
+        # behavior by passing `include_draft_translations=True`.
         from wagtail.models import DraftStateMixin
-        if issubclass(self.model, DraftStateMixin):
+        if issubclass(self.model, DraftStateMixin) and not include_draft_translations:
             translated_instances = translated_instances.exclude(live=False)
 
         # Get all instances that are not available in the active locale. We can find

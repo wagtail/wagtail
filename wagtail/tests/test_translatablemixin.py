@@ -465,6 +465,44 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
             ordered=False,
         )
 
+    def test_include_draft_translations(self):
+        """
+        Test when the translation is a draft and `include_draft_translations=True` is
+        passed.
+
+        If a model can have a draft state, then a translation of an instance can exist
+        but be in draft state. By default, translations that are "draft" are not used
+        when localizing a queryset. In that case, the original instance is used instead.
+        However, this behavior can be overridden by setting the
+        `include_draft_translations` argument to `True`.
+
+        This test is using the `TestDraftModel` model instead of the `TestModel` model.
+        This is because the `TestDraftModel` model inherits from the `DraftStateMixin`
+        and can be in a draft state.
+        """
+        queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_with_live_trans_en,
+                self.instance_with_draft_trans_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_draft_translations=True)
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                self.instance_with_live_trans_fr,
+                # This is included although it is draft.
+                self.instance_with_draft_trans_fr,
+            ],
+            ordered=False,
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_localized_queryset_with_i18n_disabled(self):
         """Test method when i18n is disabled."""
