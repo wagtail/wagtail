@@ -16,6 +16,7 @@ from wagtail.test.i18n.models import (
     TestDraftModel,
     TestModel,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
 def make_test_instance(model=None, **kwargs):
@@ -26,7 +27,7 @@ def make_test_instance(model=None, **kwargs):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestTranslatableQuerySetMixinLocalized(TestCase):
+class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
     """
     Test class for tests of the `localized` method of the `TranslatableQuerySetMixin`.
 
