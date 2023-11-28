@@ -202,7 +202,7 @@ class TranslatableQuerySetMixin:
         include_draft_translations: bool = False,
     ):
         """
-        Localize this queryset of translatable objects.
+        Return a localized version of this queryset.
 
         Localize means to check, for every instance in the queryset, if there is a
         translation into the active locale. If a translation exists, use the translated
