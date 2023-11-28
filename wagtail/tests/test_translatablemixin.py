@@ -13,6 +13,7 @@ from wagtail.test.i18n.models import (
     ClusterableTestModelChild,
     ClusterableTestModelTranslatableChild,
     InheritedTestModel,
+    TestDraftModel,
     TestModel,
 )
 
@@ -45,8 +46,9 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
     example_model = TestModel
 
     @classmethod
-    def create_en_instance(cls, **kwargs):
-        return make_test_instance(model=cls.example_model, locale=cls.locale_en, **kwargs)
+    def create_en_instance(cls, model=None, **kwargs):
+        model = model or cls.example_model
+        return make_test_instance(model=model, locale=cls.locale_en, **kwargs)
 
     @classmethod
     def create_fr_translation(cls, instance, **kwargs):
@@ -402,6 +404,61 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
                 self.instance_BX_fr,
             ],
             ordered=True,
+        )
+
+    def test_translation_is_draft(self):
+        """
+        Test when the translation is a draft.
+
+        If a model can have a draft state, then a translation of an instance can exist
+        but be in draft state. This case is tested here.
+
+        This test is using the `TestDraftModel` model instead of the `TestModel` model.
+        This is because the `TestDraftModel` model inherits from the `DraftStateMixin`
+        and can be in a draft state.
+        """
+        instance_with_live_trans_en = self.create_en_instance(
+            model=TestDraftModel,
+            title="Instance with live translation",
+            live=True,
+        )
+        instance_with_live_trans_fr = self.create_fr_translation(
+            instance_with_live_trans_en,
+            title="Live translation",
+            live=True,
+        )
+        instance_with_draft_trans_en = self.create_en_instance(
+            model=TestDraftModel,
+            title="Instance with draft translation",
+            live=True,
+        )
+        instance_with_draft_trans_fr = self.create_fr_translation(
+            instance_with_draft_trans_en,
+            title="Draft translation",
+            live=False,  # This makes the translation a draft.
+        )
+        queryset_en = TestDraftModel.objects.filter(locale=self.locale_en)
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                instance_with_live_trans_en,
+                instance_with_draft_trans_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                instance_with_live_trans_fr,
+                # This is still the English instance because the French translation is
+                # a draft.
+                instance_with_draft_trans_en,
+            ],
+            ordered=False,
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
