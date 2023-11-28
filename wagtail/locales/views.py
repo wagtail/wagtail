@@ -1,3 +1,4 @@
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
@@ -5,7 +6,7 @@ from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.models import Locale
-from wagtail.permissions import locale_permission_policy
+from wagtail.permissions import policies_registry as policies
 
 from .forms import LocaleForm
 from .utils import get_locale_usage
@@ -96,7 +97,6 @@ class DeleteView(generic.DeleteView):
 class LocaleViewSet(ModelViewSet):
     icon = "site"
     model = Locale
-    permission_policy = locale_permission_policy
     add_to_reference_index = False
     _show_breadcrumbs = False
 
@@ -106,6 +106,10 @@ class LocaleViewSet(ModelViewSet):
     delete_view_class = DeleteView
 
     template_prefix = "wagtaillocales/"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Locale)
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(

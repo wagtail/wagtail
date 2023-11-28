@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.permissions import site_permission_policy
+from wagtail.models import Site
+from wagtail.permissions import policies_registry as policies
 
 from .views import LocaleViewSet
 
@@ -16,7 +17,7 @@ def register_viewset():
 
 class LocalesMenuItem(MenuItem):
     def is_shown(self, request):
-        return site_permission_policy.user_has_any_permission(
+        return policies.get_by_type(Site).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 

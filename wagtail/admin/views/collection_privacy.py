@@ -4,12 +4,12 @@ from django.shortcuts import get_object_or_404
 from wagtail.admin.forms.collections import CollectionViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.models import Collection, CollectionViewRestriction
-from wagtail.permissions import collection_permission_policy
+from wagtail.permissions import policies_registry as policies
 
 
 def set_privacy(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
-    if not collection_permission_policy.user_has_permission(request.user, "change"):
+    if not policies.get_by_type(Collection).user_has_permission(request.user, "change"):
         raise PermissionDenied
 
     # fetch restriction records in depth order so that ancestors appear first

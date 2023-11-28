@@ -14,7 +14,7 @@ from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
-from wagtail.permissions import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .base import ViewSet, ViewSetGroup

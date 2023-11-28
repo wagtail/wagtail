@@ -2,7 +2,9 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.documents import get_document_model
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
+from wagtail.permissions import policies_registry as policies
 
 
 class CollectionForm(forms.Form):
@@ -11,9 +13,9 @@ class CollectionForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["collection"] = forms.ModelChoiceField(
             label=_("Collection"),
-            queryset=DocumentBulkAction.permission_policy.collections_user_has_permission_for(
-                user, "add"
-            ),
+            queryset=policies.get_by_type(
+                get_document_model()
+            ).collections_user_has_permission_for(user, "add"),
         )
 
 

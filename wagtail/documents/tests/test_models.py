@@ -4,6 +4,7 @@ from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase
+from django.test.signals import setting_changed
 from django.test.utils import override_settings
 
 from wagtail.documents import (
@@ -12,10 +13,12 @@ from wagtail.documents import (
     models,
     signal_handlers,
 )
+from wagtail.documents.tests import update_permission_policy
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.decorators import disconnect_signal_receiver
 
 
 class TestDocumentQuerySet(TransactionTestCase):
@@ -293,12 +296,18 @@ class TestGetDocumentModel(WagtailTestUtils, TestCase):
         del settings.WAGTAILDOCS_DOCUMENT_MODEL
         self.assertEqual(get_document_model_string(), "wagtaildocs.Document")
 
+    @disconnect_signal_receiver(
+        signal=setting_changed, receiver=update_permission_policy
+    )
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.UnknownModel")
     def test_unknown_get_document_model(self):
         """Test get_document_model with an unknown model"""
         with self.assertRaises(ImproperlyConfigured):
             get_document_model()
 
+    @disconnect_signal_receiver(
+        signal=setting_changed, receiver=update_permission_policy
+    )
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="invalid-string")
     def test_invalid_get_document_model(self):
         """Test get_document_model with an invalid model string"""

@@ -2,6 +2,7 @@ import os.path
 
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
@@ -16,12 +17,11 @@ from wagtail.images import get_image_model
 from wagtail.images.fields import get_allowed_image_extensions
 from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.models import UploadedImage
-from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
 from wagtail.images.utils import find_image_duplicates
+from wagtail.permissions import policies_registry as policies
 
 
 class AddView(BaseAddView):
-    permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
     upload_model = UploadedImage
 
@@ -36,6 +36,10 @@ class AddView(BaseAddView):
     edit_upload_form_prefix = "uploaded-image"
     context_upload_name = "uploaded_image"
     context_upload_id_name = "uploaded_image_id"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
@@ -104,13 +108,16 @@ class AddView(BaseAddView):
 
 
 class EditView(BaseEditView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     edit_object_form_prefix = "image"
     context_object_name = "image"
     context_object_id_name = "image_id"
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()
@@ -120,9 +127,12 @@ class EditView(BaseEditView):
 
 
 class DeleteView(BaseDeleteView):
-    permission_policy = permission_policy
     pk_url_kwarg = "image_id"
     context_object_id_name = "image_id"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_image_model())
 
     def get_model(self):
         return get_image_model()

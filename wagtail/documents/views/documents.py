@@ -5,37 +5,36 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
-from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
+from wagtail.permissions import policies_registry as policies
 from wagtail.search.backends import get_search_backend
 
-permission_checker = PermissionPolicyChecker(permission_policy)
 
+class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
+    any_permission_required = ["add", "change", "delete"]
 
-class BaseListingView(TemplateView):
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(get_document_model())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         # Get documents (filtered by user permission)
-        documents = permission_policy.instances_user_has_any_permission_for(
+        documents = self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
         )
 
@@ -97,14 +96,14 @@ class IndexView(BaseListingView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        Document = get_document_model()
+        permission_policy = policies.get_by_type(Document)
 
         collections = permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
             collections = None
-
-        Document = get_document_model()
 
         context.update(
             {
@@ -126,10 +125,13 @@ class ListingResultsView(BaseListingView):
     template_name = "wagtaildocs/documents/results.html"
 
 
-@permission_checker.require("add")
 def add(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
+    permission_policy = policies.get_by_type(Document)
+
+    if not permission_policy.user_has_permission(request.user, "add"):
+        raise PermissionDenied
 
     if request.method == "POST":
         doc = Document(uploaded_by_user=request.user)
@@ -164,10 +166,10 @@ def add(request):
     )
 
 
-@permission_checker.require("change")
 def edit(request, document_id):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
+    permission_policy = policies.get_by_type(Document)
 
     doc = get_object_or_404(Document, id=document_id)
 
@@ -242,13 +244,16 @@ def edit(request, document_id):
 class DeleteView(generic.DeleteView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "delete"
     header_icon = "doc-full-inverse"
     usage_url_name = "wagtaildocs:document_usage"
     delete_url_name = "wagtaildocs:delete"
     index_url_name = "wagtaildocs:index"
     page_title = gettext_lazy("Delete document")
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
@@ -274,9 +279,12 @@ class DeleteView(generic.DeleteView):
 class UsageView(generic.UsageView):
     model = get_document_model()
     pk_url_kwarg = "document_id"
-    permission_policy = permission_policy
     permission_required = "change"
     header_icon = "doc-full-inverse"
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(self.model)
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(

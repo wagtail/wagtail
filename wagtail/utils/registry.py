@@ -1,10 +1,14 @@
+from typing import Generic, TypeVar
+
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 
 from wagtail.coreutils import resolve_model_string
 
+T = TypeVar("T")
 
-class ObjectTypeRegistry:
+
+class ObjectTypeRegistry(Generic[T]):
     """
     Implements a lookup table for mapping objects to values according to the object type.
     The most specific type according to the object's inheritance chain is selected.
@@ -12,19 +16,19 @@ class ObjectTypeRegistry:
 
     def __init__(self):
         # values in this dict will be returned if the field type exactly matches an item here
-        self.values_by_exact_class = {}
+        self.values_by_exact_class: dict[type, T] = {}
 
         # values in this dict will be returned if any class in the field's inheritance chain
         # matches, preferring more specific subclasses
-        self.values_by_class = {}
+        self.values_by_class: dict[type, T] = {}
 
-    def register(self, cls, value=None, exact_class=False):
+    def register(self, cls: type, value=None, exact_class=False):
         if exact_class:
             self.values_by_exact_class[cls] = value
         else:
             self.values_by_class[cls] = value
 
-    def get_by_type(self, cls):
+    def get_by_type(self, cls: type):
         try:
             return self.values_by_exact_class[cls]
         except KeyError:
@@ -34,7 +38,7 @@ class ObjectTypeRegistry:
                 except KeyError:
                     pass
 
-    def get(self, obj):
+    def get(self, obj) -> T:
         value = self.get_by_type(obj.__class__)
 
         if callable(value) and not isinstance(value, type):

@@ -9,7 +9,7 @@ from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import Page, PageLogEntry, get_page_models
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import policies_registry as policies
 from wagtail.users.utils import get_deleted_user_display_name
 
 from .base import PageReportView
@@ -99,7 +99,7 @@ class AgingPagesView(PageReportView):
             page=OuterRef("pk"), action__exact="wagtail.publish"
         )
         self.queryset = (
-            PagePermissionPolicy()
+            policies.get_by_type(Page)
             .instances_user_has_permission_for(self.request.user, "publish")
             .exclude(last_published_at__isnull=True)
             .prefetch_workflow_states()
@@ -114,7 +114,7 @@ class AgingPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().user_has_any_permission(
+        if not policies.get_by_type(Page).user_has_any_permission(
             request.user, ["add", "change", "publish"]
         ):
             raise PermissionDenied

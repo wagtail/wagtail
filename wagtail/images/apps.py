@@ -45,3 +45,9 @@ class WagtailImagesAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Image)
+
+        from wagtail.permissions import register_permission_policy
+
+        from . import get_permission_policy
+
+        register_permission_policy(Image, get_permission_policy())

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
@@ -18,7 +19,6 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.documents import admin_urls, get_document_model
 from wagtail.documents.api.admin.views import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
-from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import (
     ContentstateDocumentLinkConversionRule,
@@ -31,7 +31,10 @@ from wagtail.documents.views.bulk_actions import (
 )
 from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
+from wagtail.permissions import policies_registry as policies
 from wagtail.wagtail_hooks import require_wagtail_login
+
+Document = get_document_model()
 
 
 @hooks.register("register_admin_urls")
@@ -48,7 +51,7 @@ def construct_admin_api(router):
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
-        return permission_policy.user_has_any_permission(
+        return policies.get_by_type(Document).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -111,14 +114,16 @@ class DocumentsSummaryItem(SummaryItem):
         site_name = get_site_for_user(self.request.user)["site_name"]
 
         return {
-            "total_docs": permission_policy.instances_user_has_any_permission_for(
+            "total_docs": policies.get_by_type(Document)
+            .instances_user_has_any_permission_for(
                 self.request.user, {"add", "change", "delete", "choose"}
-            ).count(),
+            )
+            .count(),
             "site_name": site_name,
         }
 
     def is_shown(self):
-        return permission_policy.user_has_any_permission(
+        return policies.get_by_type(Document).user_has_any_permission(
             self.request.user, ["add", "change", "delete"]
         )
 
@@ -130,7 +135,7 @@ def add_documents_summary_item(request, items):
 
 class DocsSearchArea(SearchArea):
     def is_shown(self, request):
-        return permission_policy.user_has_any_permission(
+        return policies.get_by_type(Document).user_has_any_permission(
             request.user, ["add", "change", "delete"]
         )
 
@@ -206,7 +211,10 @@ def check_view_restrictions(document, request):
 
 class DocumentAdminURLFinder(ModelAdminURLFinder):
     edit_url_name = "wagtaildocs:edit"
-    permission_policy = permission_policy
+
+    @cached_property
+    def permission_policy(self):
+        return policies.get_by_type(Document)
 
 
 register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
