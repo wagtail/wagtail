@@ -122,7 +122,11 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en)
         self.assertQuerysetEqual(
             queryset_en,
-            [self.instance_AZ_en, self.instance_BX_en, self.instance_CY_en],
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
             ordered=False,
         )
 
@@ -134,7 +138,11 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
 
         self.assertQuerysetEqual(
             queryset_localized,
-            [self.instance_AZ_fr, self.instance_BX_fr, self.instance_CY_fr],
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+            ],
             ordered=False,
         )
 
@@ -149,11 +157,14 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
         locale.
         """
         queryset_en = self.example_model.objects.filter(
-            pk__in=[self.instance_AZ_en.id, self.instance_BX_en.id],
+            pk__in=[self.instance_AZ_en.id, self.instance_BX_en.id]
         )
         self.assertQuerysetEqual(
             queryset_en,
-            [self.instance_AZ_en, self.instance_BX_en],
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+            ],
             ordered=False,
         )
 
@@ -165,7 +176,10 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
 
         self.assertQuerysetEqual(
             queryset_localized,
-            [self.instance_AZ_fr, self.instance_BX_fr],
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+            ],
             ordered=False,
         )
 
