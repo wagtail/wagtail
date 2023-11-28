@@ -196,7 +196,7 @@ class TranslatableQuerySetMixin:
     manager that inherits from `TranslatableQuerySetMixin`.
     """
 
-    def localized(self, keep_order: bool = False):
+    def localized(self: models.QuerySet, keep_order: bool = False):
         """
         Localize this queryset of translatable objects.
 
