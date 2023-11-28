@@ -404,6 +404,26 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
             ordered=True,
         )
 
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_localized_queryset_with_i18n_disabled(self):
+        """Test method when i18n is disabled."""
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerysetEqual(queryset_localized, queryset_en)
+
+
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
     def setUp(self):
