@@ -2,7 +2,13 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.models import RevisionMixin, DraftStateMixin, Orderable, Page, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Orderable,
+    Page,
+    RevisionMixin,
+    TranslatableMixin,
+)
 
 
 class TestPage(Page):
