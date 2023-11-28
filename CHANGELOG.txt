@@ -34,6 +34,7 @@ Changelog
  * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
  * Fix: Do not show multiple error messages when editing a Site to use existing hostname and port (Rohit Sharma)
  * Fix: Avoid error when exporting Aging Pages report where a page has an empty `last_published_by_user` (Chiemezuo Akujobi)
+ * Fix: Ensure Page querysets support using `alias` and `specific` (Tomasz Knapik)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)

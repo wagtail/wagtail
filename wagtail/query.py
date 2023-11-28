@@ -515,7 +515,7 @@ class SpecificIterable(BaseIterable):
         in the same order, with any annotations intact.
         """
         qs = self.queryset
-        annotation_aliases = qs.query.annotations.keys()
+        annotation_aliases = qs.query.annotation_select
         values_qs = qs.values("pk", "content_type", *annotation_aliases)
 
         # Gather items in batches to reduce peak memory usage
