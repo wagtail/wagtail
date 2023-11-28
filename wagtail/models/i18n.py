@@ -211,7 +211,15 @@ class TranslatableQuerySetMixin:
         preserve the same order as the original queryset, you need to pass
         `keep_order=True`.
 
+        Note: If localization is disabled via the `WAGTAIL_I18N_ENABLED` setting, this
+        method returns the original queryset unchanged.
+
         """
+        # Skip localization if i18n is not enabled. This behavior is consistent with
+        # the behavior of the `localized` property on `TranslatableMixin`.
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            return self
+
         # Get all instances that are available in the active locale. We can find these
         # by getting all model instances that have a translation key from the original
         # queryset and that are available in the active locale.
