@@ -211,6 +211,10 @@ class TranslatableQuerySetMixin:
         preserve the same order as the original queryset, you need to pass
         `keep_order=True`.
 
+        If a model inherits from `DraftStateMixin`, draft translations are not
+        considered as translated instances. If a translation is in draft, the original
+        instance is used instead.
+
         Note: If localization is disabled via the `WAGTAIL_I18N_ENABLED` setting, this
         method returns the original queryset unchanged.
 
@@ -229,6 +233,13 @@ class TranslatableQuerySetMixin:
             locale_id=pk(active_locale),
             translation_key__in=original_translation_keys,
         )
+
+        # Don't consider draft translations. If a translation is in draft, we want to
+        # use the original instance instead. To do so, we exclude draft translations.
+        # This only applies if the model has a `live` field.
+        from wagtail.models import DraftStateMixin
+        if issubclass(self.model, DraftStateMixin):
+            translated_instances = translated_instances.exclude(live=False)
 
         # Get all instances that are not available in the active locale. We can find
         # these by excluding the translation keys for which translations exist from the
