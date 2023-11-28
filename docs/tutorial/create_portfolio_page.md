@@ -364,7 +364,7 @@ To add your resume to your portfolio site, follow these steps:
     i. Use the following as your Heading 3:  
 
     ```
-    Wagtail developer at TopBox, United Kingdom
+    Wagtail developer at Birdwatchers Inc, United Kingdom
     ```  
 
     j. Type the following after your Heading 3:
