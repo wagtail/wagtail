@@ -44,6 +44,7 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
     """
 
     example_model = TestModel
+    draft_example_model = TestDraftModel
 
     @classmethod
     def create_en_instance(cls, model=None, **kwargs):
@@ -82,6 +83,29 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
 
         cls.instance_BX_en = cls.create_en_instance(title="B")
         cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
+
+        # Create example instances with different draft and live states. This is to test
+        # that the draft/live state of the translation is taken into account correctly.
+        cls.instance_with_live_trans_en = cls.create_en_instance(
+            model=cls.draft_example_model,
+            title="Instance with live translation",
+            live=True,
+        )
+        cls.instance_with_live_trans_fr = cls.create_fr_translation(
+            cls.instance_with_live_trans_en,
+            title="Live translation",
+            live=True,
+        )
+        cls.instance_with_draft_trans_en = cls.create_en_instance(
+            model=cls.draft_example_model,
+            title="Instance with draft translation",
+            live=True,
+        )
+        cls.instance_with_draft_trans_fr = cls.create_fr_translation(
+            cls.instance_with_draft_trans_en,
+            title="Draft translation",
+            live=False,  # This makes the translation a draft.
+        )
 
     def test_example_model_queryset_class(self):
         """Test that the example model uses the expected queryset class."""
@@ -417,32 +441,12 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
         This is because the `TestDraftModel` model inherits from the `DraftStateMixin`
         and can be in a draft state.
         """
-        instance_with_live_trans_en = self.create_en_instance(
-            model=TestDraftModel,
-            title="Instance with live translation",
-            live=True,
-        )
-        instance_with_live_trans_fr = self.create_fr_translation(
-            instance_with_live_trans_en,
-            title="Live translation",
-            live=True,
-        )
-        instance_with_draft_trans_en = self.create_en_instance(
-            model=TestDraftModel,
-            title="Instance with draft translation",
-            live=True,
-        )
-        instance_with_draft_trans_fr = self.create_fr_translation(
-            instance_with_draft_trans_en,
-            title="Draft translation",
-            live=False,  # This makes the translation a draft.
-        )
-        queryset_en = TestDraftModel.objects.filter(locale=self.locale_en)
+        queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
         self.assertQuerysetEqual(
             queryset_en,
             [
-                instance_with_live_trans_en,
-                instance_with_draft_trans_en,
+                self.instance_with_live_trans_en,
+                self.instance_with_draft_trans_en,
             ],
             ordered=False,
         )
@@ -453,10 +457,10 @@ class TestTranslatableQuerySetMixinLocalized(TestCase):
         self.assertQuerysetEqual(
             queryset_localized,
             [
-                instance_with_live_trans_fr,
+                self.instance_with_live_trans_fr,
                 # This is still the English instance because the French translation is
                 # a draft.
-                instance_with_draft_trans_en,
+                self.instance_with_draft_trans_en,
             ],
             ordered=False,
         )
