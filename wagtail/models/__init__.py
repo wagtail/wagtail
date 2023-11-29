@@ -64,6 +64,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.admin.utils import TabbedEditHandlerGeneratorMixin
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
@@ -1079,6 +1080,7 @@ class AbstractPage(
     RevisionMixin,
     TranslatableMixin,
     SpecificMixin,
+    TabbedEditHandlerGeneratorMixin,
     MP_Node,
 ):
     """
@@ -1089,6 +1091,16 @@ class AbstractPage(
     """
 
     objects = PageManager()
+
+    # The form class used as the base form for the model's edit handler
+    base_form_class = "wagtail.admin.forms.WagtailAdminPageForm"
+
+    # The tabs to include in the model's editing interface.
+    edit_handler_tabs = [
+        ("content", _("Content")),
+        ("promote", _("Promote")),
+        ("settings", _("Settings")),
+    ]
 
     class Meta:
         abstract = True
