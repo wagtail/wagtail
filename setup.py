@@ -36,6 +36,7 @@ install_requires = [
     "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
     "telepath>=0.1.1,<1",
+    "laces>=0.1,<0.2",
 ]
 
 # Testing dependencies
