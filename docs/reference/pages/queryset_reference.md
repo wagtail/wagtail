@@ -303,4 +303,15 @@ menu_items = homepage.get_children().live().in_menu()
         `allow_subtypes` is set on the parent, limiting the results to a small number of
         page types. Or, where the `type()` or `not_type()` filters have been applied to
         restrict the queryset to a small number of specific types.
+
+    .. automethod:: localized
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the localized version for all pages in a queryset. 
+            homepage.related_pages.all().localized()
+
+        See also: :py:attr:`Page.localized <wagtail.models.Page.localized>`
 ```
