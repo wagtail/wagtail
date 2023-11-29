@@ -235,10 +235,8 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         the active locale.
         """
         untranslated_instance = self.create_en_instance(title="Untranslated")
-        queryset_en = (
-            self.example_model.objects
-            .filter(locale=self.locale_en)
-            .exclude(pk=untranslated_instance.id)
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).exclude(
+            pk=untranslated_instance.id
         )
         self.assertQuerysetEqual(
             queryset_en,
@@ -322,9 +320,8 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         the items is retained. Rather, the same fields are used for ordering. However,
         the ordering is likely to be different because the translated values are used.
         """
-        queryset_en = (
-            self.example_model.objects.filter(locale=self.locale_en)
-            .order_by("title")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
         )
         self.assertQuerysetEqual(
             queryset_en,
@@ -352,9 +349,8 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
     def test_explicitly_set_different_order_on_localized_queryset(self):
         """Test explicitly setting a different order on the localized queryset."""
-        queryset_en = (
-            self.example_model.objects.filter(locale=self.locale_en)
-            .order_by("id")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "id"
         )
         self.assertQuerysetEqual(
             queryset_en,
@@ -382,9 +378,8 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
     def test_keep_order_of_original_queryset_via_argument(self):
         """Test keeping the order of the original queryset via an argument."""
-        queryset_en = (
-            self.example_model.objects.filter(locale=self.locale_en)
-            .order_by("title")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
         )
         self.assertQuerysetEqual(
             queryset_en,
@@ -417,9 +412,8 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
         Mostly a sanity check.
         """
-        queryset_en = (
-            self.example_model.objects.filter(locale=self.locale_en)
-            .order_by("title")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
         )
         self.assertQuerysetEqual(
             queryset_en,
