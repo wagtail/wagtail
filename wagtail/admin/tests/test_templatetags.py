@@ -7,7 +7,6 @@ from django.template import Context, Template, TemplateSyntaxError
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
-from django.utils.html import format_html
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
@@ -20,7 +19,6 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
     timesince_simple,
 )
 from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
-from wagtail.admin.ui.components import Component
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
