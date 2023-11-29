@@ -61,6 +61,7 @@ Changelog
  * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
  * Maintenance: Removed support for Django < 4.2 (Dan Braghis)
  * Maintenance: Refactor page explorer index template to extend generic index template (Sage Abdullah)
+ * Maintenance: Replace template components implementation with standalone `laces` library (Tibor Leupold)
 
 
 5.2.2 (06.12.2023)
