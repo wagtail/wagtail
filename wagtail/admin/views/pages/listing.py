@@ -321,6 +321,18 @@ class IndexView(BaseIndexView):
         )
         return context
 
+    def get_ordering(self):
+        """
+        Use the parent Page's `get_admin_default_ordering` method.
+        """
+        if self.query_string:
+            # default to ordering by relevance
+            return None
+        elif not self.request.GET.get("ordering"):
+            return self.parent_page.get_admin_default_ordering()
+
+        return super().get_ordering()
+
 
 class IndexResultsView(BaseIndexView):
     template_name = "wagtailadmin/pages/index_results.html"

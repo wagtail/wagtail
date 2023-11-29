@@ -218,6 +218,36 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: copy_for_translation
 
+    .. method:: get_admin_default_ordering
+
+       Returns the default sort order for child pages to be sorted in viewing the admin pages index and not seeing search results.
+
+       The following sort orders are available:
+
+       - ``'content_type'``
+       - ``'-content_type'``
+       - ``'latest_revision_created_at'``
+       - ``'-latest_revision_created_at'``
+       - ``'live'``
+       - ``'-live'``
+       - ``'ord'``
+       - ``'title'``
+       - ``'-title'``
+
+       For example to make a page sort by title for all the child pages only if there are < 20 pages.
+
+       .. code-block:: python
+
+           class BreadsIndexPage(Page):
+               def get_admin_default_ordering(self):
+                   if Page.objects.child_of(self).count() < 20:
+                       return 'title'
+                   return self.admin_default_ordering
+
+    .. attribute:: admin_default_ordering
+
+        An attribute version for the method ``get_admin_default_ordering()``, defaults to ``'-latest_revision_created_at'``.
+
     .. autoattribute:: localized
 
     .. autoattribute:: localized_draft

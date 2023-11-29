@@ -1245,6 +1245,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
     max_count_per_parent = None
 
+    # Set the default order for child pages to be shown in the Page index listing
+    admin_default_ordering = "-latest_revision_created_at"
+
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
     default_exclude_fields_in_copy = [
@@ -1361,6 +1364,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
         return super().get_default_locale()
+
+    def get_admin_default_ordering(self):
+        """
+        Determine the default ordering for child pages in the admin index listing.
+        Returns a string (e.g. 'latest_revision_created_at, title, ord' or 'live').
+        """
+        return self.admin_default_ordering
 
     def full_clean(self, *args, **kwargs):
         # Apply fixups that need to happen before per-field validation occurs
