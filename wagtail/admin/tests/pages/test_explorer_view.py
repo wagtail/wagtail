@@ -8,7 +8,12 @@ from django.utils.http import urlencode
 from wagtail import hooks
 from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Workflow
-from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
+from wagtail.test.testapp.models import (
+    CustomPermissionPage,
+    SimplePage,
+    SingleEventPage,
+    StandardIndex,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -542,6 +547,18 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
         self.assertContains(response, "Search within 'New page (simple page)'")
+
+    def test_explore_custom_permissions(self):
+        page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
+        self.root_page.add_child(instance=page)
+        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+        # Respecting PagePermissionTester.can_view_revisions(),
+        # should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(page.id,)),
+        )
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
