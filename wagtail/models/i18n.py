@@ -245,6 +245,7 @@ class TranslatableQuerySetMixin:
         # This only applies if the model has a `live` field. We allow bypassing this
         # behavior by passing `include_draft_translations=True`.
         from wagtail.models import DraftStateMixin
+
         if issubclass(self.model, DraftStateMixin) and not include_draft_translations:
             translated_instances = translated_instances.exclude(live=False)
 
@@ -297,6 +298,7 @@ class TranslatableQuerySet(TranslatableQuerySetMixin, models.QuerySet):
     `:py:class:`TranslatableQuerySetMixin <wagtail.models.i18n.TranslatableQuerySetMixin>`
     to retain its features.
     """
+
     pass
 
 
