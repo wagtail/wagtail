@@ -180,7 +180,7 @@ class TranslatableQuerySetMixin:
 
     This mixin provides methods for query sets of translatable models. If your
     translatable model inherits from
-    :py:class:`TranslatableMixin <wagtail.models.i18n.TranslatableMixin>` and defines a
+    :py:class:`TranslatableMixin <wagtail.models.TranslatableMixin>` and defines a
     custom manager that inherits from ``models.QuerySet``, be sure to also inherit
     from this queryset mixin to retain the features of this mixin.
 
