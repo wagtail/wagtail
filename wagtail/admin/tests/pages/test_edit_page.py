@@ -171,6 +171,15 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
         )
 
+        # test that the link to the history view is shown,
+        # one in the header dropdown button, one beside the side panel toggles,
+        # one in the status side panel
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(self.event_page.id,)),
+            count=3,
+        )
+
         # test that AdminURLFinder returns the edit view for the page
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
