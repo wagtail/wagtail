@@ -935,7 +935,6 @@ def resolve_url(url):
         return ""
 
 
-
 class FragmentNode(template.Node):
     def __init__(self, nodelist, target_var):
         self.nodelist = nodelist
