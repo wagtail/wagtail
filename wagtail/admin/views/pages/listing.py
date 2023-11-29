@@ -229,7 +229,8 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
 
     def get_history_url(self):
-        if not self.parent_page.is_root():
+        permissions = self.parent_page.permissions_for_user(self.request.user)
+        if permissions.can_view_revisions():
             return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
 
     def get_table_kwargs(self):
