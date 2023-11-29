@@ -243,6 +243,11 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
             }
         return kwargs
 
+    def get_page_title(self):
+        return _("Exploring %(title)s") % {
+            "title": self.parent_page.get_admin_display_title()
+        }
+
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
         if self.show_ordering_column:
