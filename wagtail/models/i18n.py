@@ -179,8 +179,9 @@ class TranslatableQuerySetMixin:
     QuerySet mixin for translatable models.
 
     This mixin provides methods for query sets of translatable models. If your
-    translatable model inherits from ``TranslatableMixin`` and defines a custom
-    queryset manager that inherits from ``models.QuerySet``, be sure to also inherit
+    translatable model inherits from
+    :py:class:`TranslatableMixin <wagtail.models.i18n.TranslatableMixin>` and defines a
+    custom manager that inherits from ``models.QuerySet``, be sure to also inherit
     from this queryset mixin to retain the features of this mixin.
 
     .. code-block:: python
@@ -191,9 +192,9 @@ class TranslatableQuerySetMixin:
         class MyTranslatableModel(TranslatableMixin):
             objects = MyTranslatableModelQuerySet.as_manager()
 
-    If your translatable model does not define a custom queryset manager ``objects``,
-    you won't need this mixin. The ``TranslatableMixin`` already provides a default
-    queryset manager that inherits from ``TranslatableQuerySetMixin``.
+    If your translatable model does not define a custom manager ``objects``, you won't
+    need this mixin. The ``TranslatableMixin`` already provides a manager that inherits
+    from this mixin.
     """
 
     def localized(
@@ -215,10 +216,10 @@ class TranslatableQuerySetMixin:
         preserve the same order as the original queryset, you need to pass
         ``keep_order=True``.
 
-        If a model inherits from ``DraftStateMixin``, draft translations are not
-        considered as translated instances. If a translation is in draft, the original
-        instance is used instead. To override this behavior and include draft
-        translations, pass ``include_draft_translations=True``.
+        If a model inherits from :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
+        draft translations are not considered as translated instances. If a translation
+        is in draft, the original instance is used instead. To override this behavior
+        and include draft translations, pass ``include_draft_translations=True``.
 
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
@@ -287,13 +288,14 @@ class TranslatableQuerySet(TranslatableQuerySetMixin, models.QuerySet):
     """
     Default QuerySet class for translatable models.
 
-    This class inherits from ``TranslatableQuerySetMixin`` and ``models.QuerySet``. It
-    is meant only as the default query set class for translatable models that do not
-    define a custom query set manager.
+    This class inherits from ``TranslatableQuerySetMixin`` and ``models.QuerySet``.
+    It is meant only as the default queryset class for translatable models that do not
+    define a custom manager.
 
-    If your translatable model defines a custom query set manager that inherits from
-    ``models.QuerySet``, make sure to also inherit from ``TranslatableQuerySetMixin`` to
-    retain its features.
+    If your translatable model defines a custom manager that inherits from
+    ``models.QuerySet``, make sure to also inherit from
+    `:py:class:`TranslatableQuerySetMixin <wagtail.models.i18n.TranslatableQuerySetMixin>`
+    to retain its features.
     """
     pass
 
