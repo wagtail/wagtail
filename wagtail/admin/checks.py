@@ -1,6 +1,7 @@
 import os
 
 from django.core.checks import Error, Tags, Warning, register
+from django.utils.module_loading import import_string
 
 
 @register("staticfiles")
@@ -41,14 +42,17 @@ def base_form_class_check(app_configs, **kwargs):
     errors = []
 
     for cls in get_page_models():
-        if not issubclass(cls.base_form_class, WagtailAdminPageForm):
+        base_form_class = cls.base_form_class
+        if isinstance(base_form_class, str):
+            base_form_class = import_string(base_form_class)
+        if not issubclass(base_form_class, WagtailAdminPageForm):
             errors.append(
                 Error(
                     "{}.base_form_class does not extend WagtailAdminPageForm".format(
                         cls.__name__
                     ),
                     hint="Ensure that {}.{} extends WagtailAdminPageForm".format(
-                        cls.base_form_class.__module__, cls.base_form_class.__name__
+                        base_form_class.__module__, base_form_class.__name__
                     ),
                     obj=cls,
                     id="wagtailadmin.E001",
