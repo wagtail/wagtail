@@ -18,6 +18,7 @@ Changelog
  * Use a single instance of `PagePermissionPolicy` in `wagtail.permissions` module (Sage Abdullah)
  * Add max tag length validation for multiple uploads (documents/images) (Temidayo Azeez)
  * Ensure expanded side panel does not overlap form content for most viewports (Chiemezuo Akujobi)
+ * Add ability to modify the default ordering for the page explorer view (Shlomo Markowitz)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)

@@ -773,6 +773,7 @@
 * Mariana Bedran Lesche
 * Bhuvnesh Sharma
 * Ben Morse
+* Shlomo Markowitz
 
 ## Translators
 
