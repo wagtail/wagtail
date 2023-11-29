@@ -68,6 +68,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         self.assertContains(response, "1-3 of 3")
 
+        # Should contain a link to the history view
+        # one in the header dropdown button, one beside the side panel toggles,
+        # one in the status side panel
+        # (root_page is a site root, not the Root page, so it should be shown)
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(self.root_page.id,)),
+            count=3,
+        )
+
     def test_explore_results(self):
         explore_results_url = reverse(
             "wagtailadmin_explore_results", args=(self.root_page.id,)
@@ -99,6 +109,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
         self.assertIn(self.root_page, response.context["pages"])
+        # Should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(1,)),
+        )
 
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
