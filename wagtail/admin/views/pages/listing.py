@@ -228,6 +228,10 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
     def get_results_url(self):
         return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
 
+    def get_history_url(self):
+        if not self.parent_page.is_root():
+            return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
+
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
@@ -278,6 +282,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
                 "results_url": self.get_results_url(),
+                "history_url": self.get_history_url(),
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
                 "is_searching_whole_tree": self.is_searching_whole_tree,
@@ -302,6 +307,10 @@ class IndexView(BaseIndexView):
     template_name = "wagtailadmin/pages/index.html"
 
     def get_side_panels(self):
+        # Don't show side panels on the root page
+        if self.parent_page.is_root():
+            return MediaContainer()
+
         side_panels = [
             PageStatusSidePanel(
                 self.parent_page.get_latest_revision_as_object(),
