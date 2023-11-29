@@ -360,7 +360,7 @@ Much like `{% cache %}`, you can use [`make_template_fragment_key`](django.core.
 
 {% wagtailpagecache 500 "hero" %}
     <!-- hero -->
-{% endwagtailcache %}
+{% endwagtailpagecache %}
 ```
 
 This is identical to:
