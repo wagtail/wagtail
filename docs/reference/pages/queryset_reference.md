@@ -282,4 +282,15 @@ menu_items = homepage.get_children().live().in_menu()
             homepage.get_children().defer_streamfields().specific()
 
     .. automethod:: first_common_ancestor
+
+    .. automethod:: localized
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the localized version for all pages in a queryset. 
+            homepage.related_pages.all().localized()
+
+        See also: :py:attr:`Page.localized <wagtail.models.Page.localized>`
 ```
