@@ -237,9 +237,13 @@ class PageStatusSidePanel(StatusSidePanel):
         super().__init__(*args, **kwargs)
         if self.object.pk:
             self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
-            self.history_url = reverse(
-                "wagtailadmin_pages:history", args=(self.object.pk,)
-            )
+
+            permissions = self.object.permissions_for_user(self.request.user)
+            if permissions.can_view_revisions():
+                self.history_url = reverse(
+                    "wagtailadmin_pages:history",
+                    args=(self.object.pk,),
+                )
 
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
