@@ -2193,7 +2193,8 @@ class SearchTestModel(models.Model):
 
 
 class CustomPermissionTester(PagePermissionTester):
-    pass
+    def can_view_revisions(self):
+        return False
 
 
 class CustomPermissionPage(Page):

@@ -31,6 +31,7 @@ from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
+    CustomPermissionPage,
     EventCategory,
     EventPage,
     EventPageCarouselItem,
@@ -197,6 +198,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertContains(response, "Referenced 1 time")
         self.assertContains(
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
+        )
+
+    def test_edit_custom_permissions(self):
+        page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
+        self.root_page.add_child(instance=page)
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+        # Respecting PagePermissionTester.can_view_revisions(),
+        # should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
