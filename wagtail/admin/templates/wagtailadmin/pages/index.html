@@ -2,9 +2,12 @@
 {% load wagtailadmin_tags i18n %}
 {% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
-{% block content %}
+{% block header %}
     {% page_permissions parent_page as parent_page_perms %}
     {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
+{% endblock %}
+
+{% block listing %}
     <div id="listing-results">
         {% include 'wagtailadmin/pages/index_results.html' %}
     </div>
