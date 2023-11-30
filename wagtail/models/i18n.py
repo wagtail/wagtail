@@ -224,6 +224,12 @@ class TranslatableQuerySetMixin:
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
 
+        Note: Because this method uses a complex query to retrieve the items in the
+        localized queryset, effects of methods like `annotate`, `select_related` and
+        `prefetch_related` are not retained. If you want to use them on the resulting
+        queryset, you should apply them after `.localized()`. However, you can use
+        `annotate` on the original queryset and use its value for filtering. Just be
+        aware that the annotate column will not be available on the returned queryset.
         """
         # Skip localization if i18n is not enabled. This behavior is consistent with
         # the behavior of the `localized` property on `TranslatableMixin`.
