@@ -201,6 +201,7 @@ class TranslatableQuerySetMixin:
         self: models.QuerySet,
         preserve_order: bool = False,
         include_draft_translations: bool = False,
+        include_only_translations: bool = False,
     ):
         """
         Return a localized version of this queryset.
@@ -220,6 +221,11 @@ class TranslatableQuerySetMixin:
         draft translations are not considered as translated instances. If a translation
         is in draft, the original instance is used instead. To override this behavior
         and include draft translations, pass ``include_draft_translations=True``.
+
+        By default, the localized queryset can contain untranslated instances from the
+        original queryset if no translation for the instance is available. If this is
+        not desired, pass ``include_only_translations=True`` to only include instances
+        that are translated into the active locale.
 
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
@@ -255,21 +261,30 @@ class TranslatableQuerySetMixin:
         if issubclass(self.model, DraftStateMixin) and not include_draft_translations:
             translated_instances = translated_instances.exclude(live=False)
 
-        # Get all instances that are not available in the active locale. We can find
-        # these by excluding the translation keys for which translations exist from the
-        # original queryset.
-        translated_translation_keys = translated_instances.values_list(
-            "translation_key", flat=True
-        )
-        untranslated_instances = self.exclude(
-            translation_key__in=translated_translation_keys,
-        )
+        if include_only_translations:
+            # If we only want to include translations, we can use the translated
+            # instances as the localized queryset.
+            localized_queryset = translated_instances
+        else:
+            # Otherwise, we need to combine the translated instances with the
+            # untranslated instance.
 
-        # Combine the two querysets to get the localized queryset.
-        localized_queryset = self.model.objects.filter(
-            models.Q(pk__in=translated_instances)
-            | models.Q(pk__in=untranslated_instances)
-        )
+            # Get all instances that are not available in the active locale, these are
+            # the untranslated instances. We can find these by excluding the translation
+            # keys for which translations exist from the original queryset.
+            translated_translation_keys = translated_instances.values_list(
+                "translation_key", flat=True
+            )
+            untranslated_instances = self.exclude(
+                translation_key__in=translated_translation_keys,
+            )
+
+            # Combine the translated and untranslated querysets to get the localized
+            # queryset.
+            localized_queryset = self.model.objects.filter(
+                models.Q(pk__in=translated_instances)
+                | models.Q(pk__in=untranslated_instances)
+            )
 
         if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean
