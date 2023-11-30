@@ -103,6 +103,9 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             [{"url": "", "label": "Snippets"}],
             response.content,
         )
+        # Now that it uses the generic template,
+        # it should not contain the locale selector
+        self.assertNotContains(response, "data-locale-selector")
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")

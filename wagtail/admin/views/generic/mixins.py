@@ -107,11 +107,11 @@ class LocaleMixin:
         self.translations = self.get_translations() if self.locale else []
 
     def get_locale(self):
-        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if hasattr(self, "model") and self.model:
-            i18n_enabled = i18n_enabled and issubclass(self.model, TranslatableMixin)
+        if not getattr(self, "model", None):
+            return None
 
-        if not i18n_enabled:
+        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        if not i18n_enabled or not issubclass(self.model, TranslatableMixin):
             return None
 
         if hasattr(self, "object") and self.object:
