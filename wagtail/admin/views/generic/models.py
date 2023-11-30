@@ -15,6 +15,7 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -101,7 +102,6 @@ class IndexView(
     results_template_name = "wagtailadmin/generic/index_results.html"
     index_results_url_name = None
     add_url_name = None
-    add_item_label = gettext_lazy("Add")
     edit_url_name = None
     inspect_url_name = None
     delete_url_name = None
@@ -467,6 +467,14 @@ class IndexView(
                 },
             )
         ]
+
+    @cached_property
+    def add_item_label(self):
+        if self.model:
+            return capfirst(
+                _("Add %(model_name)s") % {"model_name": self.model._meta.verbose_name}
+            )
+        return _("Add")
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
