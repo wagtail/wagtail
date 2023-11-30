@@ -5,13 +5,14 @@
 {% block bodyclass %}editor-view {% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
 
 {% block content %}
+    {% get_comments_enabled as comments_enabled %}
     {% page_permissions page as page_perms %}
 
     {% include 'wagtailadmin/shared/headers/page_edit_header.html' with title=header_title %}
 
     {% block form %}
 
-        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form{% if comments_enabled %} data-controller="w-init" data-w-init-event-value="w-comments:init"{% endif %}>
             {% csrf_token %}
 
             <input type="hidden" name="next" value="{{ next }}">
@@ -81,12 +82,6 @@
                     commentApp: window.comments.commentApp
                 }
             );
-
-            {% get_comments_enabled as comments_enabled %}
-            {% if comments_enabled %}
-                // Initialise comments UI
-                window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
-            {% endif %}
         });
     </script>
 

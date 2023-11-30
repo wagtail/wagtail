@@ -3215,6 +3215,31 @@ class TestCommenting(WagtailTestUtils, TestCase):
             [to for email in mail.outbox for to in email.to],
         )
 
+    def test_commments_enabled_by_default(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "data-edit-form")
+        self.assertContains(
+            response,
+            'data-edit-form data-controller="w-init" data-w-init-event-value="w-comments:init"',
+        )
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_commments_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "data-edit-form")
+        self.assertNotContains(
+            response,
+            'data-controller="w-init" data-w-init-event-value="w-comments:init"',
+        )
+
     def test_new_comment(self):
         post_data = {
             "title": "I've been edited!",
