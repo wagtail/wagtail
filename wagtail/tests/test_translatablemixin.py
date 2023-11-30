@@ -376,7 +376,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ordered=True,
         )
 
-    def test_keep_order_of_original_queryset_via_argument(self):
+    def test_preserve_order_of_original_queryset_via_argument(self):
         """Test keeping the order of the original queryset via an argument."""
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
             "title"
@@ -405,9 +405,9 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ordered=True,
         )
 
-    def test_override_kept_order(self):
+    def test_override_preserved_order(self):
         """
-        Test overriding the kept the order of the original queryset by explicitly
+        Test overriding the preserved order of the original queryset by explicitly
         ordering the localized queryset.
 
         Mostly a sanity check.
