@@ -531,6 +531,31 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
         self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
 
+    def test_query_count_without_resolving_original_queryset_first(self):
+        """
+        Test query count without resolving the original queryset first.
+
+        The other tests explicitly check the contents of the original queryset. This
+        will resolve that queryset. This test checks the query count without resolving
+        the original queryset first.
+
+        """
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+
+                queryset_localized = queryset_en.localized()
+
+                self.assertQuerysetEqual(
+                    queryset_localized,
+                    [
+                        self.instance_AZ_fr,
+                        self.instance_BX_fr,
+                        self.instance_CY_fr,
+                    ],
+                    ordered=False,
+                )
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
