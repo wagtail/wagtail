@@ -199,7 +199,7 @@ class TranslatableQuerySetMixin:
 
     def localized(
         self: models.QuerySet,
-        keep_order: bool = False,
+        preserve_order: bool = False,
         include_draft_translations: bool = False,
     ):
         """
@@ -213,7 +213,7 @@ class TranslatableQuerySetMixin:
         This means that the translated values are being considered during ordering,
         which can lead to a different order than the original queryset. If you want to
         preserve the same order as the original queryset, you need to pass
-        ``keep_order=True``.
+        ``preserve_order=True``.
 
         If a model inherits from
         :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
@@ -265,7 +265,7 @@ class TranslatableQuerySetMixin:
             | models.Q(pk__in=untranslated_instances)
         )
 
-        if not keep_order:
+        if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean
             # that the order of the items is retained. Rather, the same fields are used
             # for ordering. However, the ordering is likely to be different because the
