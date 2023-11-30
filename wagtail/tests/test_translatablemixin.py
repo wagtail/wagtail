@@ -392,7 +392,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         )
 
         with translation.override("fr"):
-            queryset_localized = queryset_en.localized(keep_order=True)
+            queryset_localized = queryset_en.localized(preserve_order=True)
 
         self.assertQuerysetEqual(
             queryset_localized,
@@ -426,7 +426,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         )
 
         with translation.override("fr"):
-            queryset_localized = queryset_en.localized(keep_order=True).order_by("id")
+            queryset_localized = queryset_en.localized(preserve_order=True).order_by("id")
 
         self.assertQuerysetEqual(
             queryset_localized,
