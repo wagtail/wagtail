@@ -426,7 +426,9 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         )
 
         with translation.override("fr"):
-            queryset_localized = queryset_en.localized(preserve_order=True).order_by("id")
+            queryset_localized = queryset_en.localized(preserve_order=True).order_by(
+                "id"
+            )
 
         self.assertQuerysetEqual(
             queryset_localized,
