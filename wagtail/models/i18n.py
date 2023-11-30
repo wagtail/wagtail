@@ -205,10 +205,8 @@ class TranslatableQuerySetMixin:
         """
         Return a localized version of this queryset.
 
-        Localize means to check, for every instance in the queryset, if there is a
-        translation into the active locale. If a translation exists, use the translated
-        instance, otherwise use the instance itself. The result is a queryset of the
-        same length as the original queryset.
+        A localized queryset is one where objects are replaced with versions translated into the active locale.
+        Where a translation isn't available for an object, the original is returned instead.
 
         By default, the same ordering definition as in the original queryset is applied.
         This means that the translated values are being considered during ordering,
