@@ -154,10 +154,6 @@ class ModelIndexView(generic.IndexView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
-    index_results_url_name = None
-    delete_url_name = None
-    any_permission_required = ["add", "change", "delete"]
-    page_kwarg = "p"
     table_class = InlineActionsTable
 
     def get_base_queryset(self):
@@ -214,20 +210,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         )
 
         return list_buttons
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "can_add_snippet": self.permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
-            }
-        )
-
-        return context
 
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
