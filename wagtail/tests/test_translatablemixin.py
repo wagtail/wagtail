@@ -512,6 +512,36 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ordered=False,
         )
 
+    def test_include_only_translations(self):
+        """Test method with argument `include_draft_translations=True`."""
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(
+            pk__in=[
+                self.instance_AZ_en.id,
+                untranslated_instance.id,
+            ],
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_only_translations=True)
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            # The untranslated instance is not included.
+            [
+                self.instance_AZ_fr,
+            ],
+            ordered=False,
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_localized_queryset_with_i18n_disabled(self):
         """Test method when i18n is disabled."""
