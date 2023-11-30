@@ -5,7 +5,6 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -26,16 +25,15 @@ from wagtail.search.backends import get_search_backend
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-class BaseListingView(TemplateView):
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
+class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
+    permission_policy = permission_policy
+    any_permission_required = ["add", "change", "delete"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         # Get documents (filtered by user permission)
-        documents = permission_policy.instances_user_has_any_permission_for(
+        documents = self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
         )
 
