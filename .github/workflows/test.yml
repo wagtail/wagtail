@@ -21,17 +21,17 @@ concurrency:
 
 # Current configuration:
 # - django 3.2, python 3.8, postgres:12, parallel
-# - django 3.2, python 3.9, mysql:8.0
-# - django 4.1, python 3.10, sqlite
-# - django 4.2, python 3.11, mysql:8.1, parallel
-# - django 4.1, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 4.2, python 3.9, mysql:8.0
+# - django 5.0, python 3.10, sqlite
+# - django 5.0, python 3.11, mysql:8.1, parallel
+# - django 5.0, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 4.2, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.0.x, python 3.10, postgres (allow failures)
 # - django main, python 3.10, postgres:latest, parallel (allow failures)
 # - elasticsearch 5, django 3.2, python 3.8, sqlite
 # - elasticsearch 6, django 3.2, python 3.8, postgres:latest
-# - elasticsearch 7, django 4.1, python 3.8, postgres:latest
-# - opensearch 2, django 4.1, python 3.9, sqlite
+# - elasticsearch 7, django 5.0, python 3.10, postgres:latest
+# - opensearch 2, django 5.0, python 3.11, sqlite
 # - elasticsearch 8, django 4.2, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -50,7 +50,7 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=4.1,<4.2'
+            django: 'Django>=4.1,<5.0'
 
     steps:
       - uses: actions/checkout@v3
@@ -86,7 +86,7 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.11'
-            django: 'Django>=4.1,<4.2'
+            django: 'Django>=5.0,<5.1'
             experimental: false
             emailuser: emailuser
             parallel: '--parallel'
@@ -155,10 +155,10 @@ jobs:
       matrix:
         include:
           - python: '3.9'
-            django: 'Django>=3.2,<3.3'
+            django: 'Django>=4.2,<4.3'
             experimental: false
           - python: '3.11'
-            django: 'Django>=4.2,<4.3'
+            django: 'Django>=5.0,<5.1'
             experimental: false
             parallel: '--parallel'
             mysql: 'mysql:8.1'
@@ -358,8 +358,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.8'
-            django: 'Django>=4.1,<4.2'
+          - python: '3.10'
+            django: 'Django>=5.0,<5.1'
             experimental: false
 
     services:
@@ -416,8 +416,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
-            django: 'Django>=4.1,<4.2'
+          - python: '3.11'
+            django: 'Django>=5.0,<5.1'
             experimental: false
 
     steps:
