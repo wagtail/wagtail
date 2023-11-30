@@ -1874,3 +1874,46 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
 
         self.assertEqual(subscription.user, self.user)
         self.assertFalse(subscription.comment_notifications)
+
+
+class TestCommenting(WagtailTestUtils, TestCase):
+    """
+    Tests the commenting related logic of the create page view.
+    """
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_commments_enabled_by_default(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["tests", "simplepage", self.root_page.id],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            'data-edit-form data-controller="w-init" data-w-init-event-value="w-comments:init"',
+        )
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_commments_disabled(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["tests", "simplepage", self.root_page.id],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "data-edit-form")
+        self.assertNotContains(
+            response,
+            'data-controller="w-init" data-w-init-event-value="w-comments:init"',
+        )

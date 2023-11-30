@@ -338,6 +338,17 @@ window.comments = (() => {
     updateCommentCount();
   }
 
+  /** Add support for initializing comments via event dispatching. */
+  document.addEventListener(
+    'w-comments:init',
+    ({ target }) => {
+      setTimeout(() => {
+        initCommentsInterface(target);
+      });
+    },
+    { once: true },
+  );
+
   return {
     commentApp,
     getContentPath,
