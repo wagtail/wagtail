@@ -4,6 +4,7 @@ Changelog
 6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 5.0
  * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Remember previous location on returning from page add/edit actions (Robert Rollins)
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
@@ -58,6 +59,7 @@ Changelog
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
  * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
+ * Maintenance: Removed support for Django < 4.2 (Dan Braghis)
 
 5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
