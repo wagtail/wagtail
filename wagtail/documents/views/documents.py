@@ -1,14 +1,13 @@
 import os
 
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -25,18 +24,14 @@ from wagtail.search.backends import get_search_backend
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
+class BaseListingView(generic.PermissionCheckedMixin, ListView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
+    context_object_name = "documents"
+    page_kwarg = "p"
+    paginate_by = 20
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # Get documents (filtered by user permission)
-        documents = self.permission_policy.instances_user_has_any_permission_for(
-            self.request.user, ["change", "delete"]
-        )
-
+    def get_ordering(self):
         # Ordering
         if "ordering" in self.request.GET and self.request.GET["ordering"] in [
             "title",
@@ -45,7 +40,15 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
             ordering = self.request.GET["ordering"]
         else:
             ordering = "-created_at"
-        documents = documents.order_by(ordering)
+        return ordering
+
+    def get_queryset(self):
+        # Get documents (filtered by user permission)
+        documents = self.permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["change", "delete"]
+        )
+        self.ordering = self.get_ordering()
+        documents = documents.order_by(self.ordering)
 
         # Filter by collection
         self.current_collection = None
@@ -58,20 +61,23 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
                 pass
 
         # Search
-        query_string = None
+        self.query_string = None
         if "q" in self.request.GET:
             self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
             if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-                if query_string:
+                self.query_string = self.form.cleaned_data["q"]
+                if self.query_string:
                     search_backend = get_search_backend()
-                    documents = search_backend.autocomplete(query_string, documents)
+                    documents = search_backend.autocomplete(
+                        self.query_string, documents
+                    )
         else:
             self.form = SearchForm(placeholder=_("Search documents"))
 
-        # Pagination
-        paginator = Paginator(documents, per_page=20)
-        documents = paginator.get_page(self.request.GET.get("p"))
+        return documents
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         next_url = reverse("wagtaildocs:index")
         request_query_string = self.request.META.get("QUERY_STRING")
@@ -80,10 +86,9 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
 
         context.update(
             {
-                "ordering": ordering,
-                "documents": documents,
-                "query_string": query_string,
-                "is_searching": bool(query_string),
+                "ordering": self.ordering,
+                "query_string": self.query_string,
+                "is_searching": bool(self.query_string),
                 "next": next_url,
             }
         )

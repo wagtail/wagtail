@@ -57,7 +57,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["documents"].number, 2)
+        self.assertEqual(response.context["page_obj"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_docs()
@@ -69,7 +69,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
 
         # Check that we got page one
-        self.assertEqual(response.context["documents"].number, 1)
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -82,7 +82,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
 
         # Check that we got the last page
         self.assertEqual(
-            response.context["documents"].number,
+            response.context["page_obj"].number,
             response.context["documents"].paginator.num_pages,
         )
 
