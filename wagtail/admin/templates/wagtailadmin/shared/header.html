@@ -70,10 +70,12 @@
             {% endif %}
         </div>
         <div class="{% block right_column_classname %}right{% endblock %}">
+            {% if base_actions %}
+                {{ base_actions }}
+            {% endif %}
             {% block right_column %}
                 {% if action_url %}
                     <div class="actionbutton">
-                        {{ base_actions }}
                         {% with action_icon|default:'plus' as action_icon_name %}
                             <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text|capfirst }}</a>
                         {% endwith %}
