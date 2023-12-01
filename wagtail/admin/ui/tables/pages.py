@@ -43,24 +43,14 @@ class PageStatusColumn(BaseColumn):
 
 
 class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, obj_type="page")
+
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
         parent_page = parent_context.get("parent_page")
         if parent_page:
             context["parent"] = parent_page.id
-        return context
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context.update(
-            {
-                "obj_type": "page",
-                "aria_labelledby_prefix": "page_",
-                "aria_labelledby": str(instance.pk),
-                "aria_labelledby_suffix": "_title",
-                "checkbox_aria_label": gettext("Select page"),
-            }
-        )
         return context
 
 
