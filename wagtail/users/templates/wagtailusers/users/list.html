@@ -33,7 +33,7 @@
     <tbody>
         {% for user in users %}
             <tr>
-                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" instance=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
                 <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
                     <div class="title-wrapper">
                         {% avatar user=user size="small" %}

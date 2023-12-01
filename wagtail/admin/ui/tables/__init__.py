@@ -322,11 +322,6 @@ class BulkActionsCheckboxColumn(BaseColumn):
     header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
     cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
 
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context["obj"] = instance
-        return context
-
 
 class ReferencesColumn(Column):
     cell_template_name = "wagtailadmin/tables/references_cell.html"
