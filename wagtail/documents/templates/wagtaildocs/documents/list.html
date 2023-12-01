@@ -35,11 +35,11 @@
         </tr>
     </thead>
     <tbody>
-        {% trans "Select document" as checkbox_aria_label %}
         {% for doc in documents %}
             <tr>
-                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="document" instance=doc aria_labelledby_prefix="document_" aria_labelledby=doc.pk|unlocalize aria_labelledby_suffix="_title" %}
-                <td id="document_{{ doc.pk|unlocalize }}_title" class="title">
+                {% fragment as title_id %}document_{{ doc.pk|unlocalize }}_title{% endfragment %}
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="document" instance=doc aria_describedby=title_id only %}
+                <td id="{{ title_id }}" class="title">
                     <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ doc.title }}</a></div>
                 </td>
                 <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>

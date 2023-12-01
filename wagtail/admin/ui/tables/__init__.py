@@ -319,8 +319,33 @@ class UserColumn(Column):
 
 
 class BulkActionsCheckboxColumn(BaseColumn):
+    """
+    A checkbox column for the bulk actions feature.
+
+    When using this column, there should be another column (e.g. a TitleColumn)
+    that has an element with the id "{obj_type}_{instance.pk}_title" that contains
+    the title of the object (and nothing else) for screen reader purposes.
+    """
+
     header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
     cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
+
+    def __init__(self, *args, obj_type, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.obj_type = obj_type
+
+    def get_aria_describedby(self, instance):
+        return f"{self.obj_type}_{instance.pk}_title"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context.update(
+            {
+                "obj_type": self.obj_type,
+                "aria_describedby": self.get_aria_describedby(instance),
+            }
+        )
+        return context
 
 
 class ReferencesColumn(Column):

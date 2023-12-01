@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n l10n wagtailadmin_tags %}
 
 {# The title field for a page in the page listing, when in 'explore' mode #}
 
@@ -9,14 +9,26 @@
         {% endif %}
     {% endif %}
 
-    {% if page_perms.can_edit %}
-        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
+    {% comment %}
+        Instead of adding the "page_{pk}_title" id to the td element
+        in _page_title_cell.html, add it to an element that only contains the
+        page title (and not other things e.g. the buttons or other indicators),
+        so that other elements can refer to title for screen reader purposes
+        without also reading out the buttons and indicators.
+    {% endcomment %}
+    {% fragment as page_title %}
+        <span id="page_{{ page.pk|unlocalize }}_title">
             {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
             {{ page.get_admin_display_title }}
+        </span>
+    {% endfragment %}
+
+    {% if page_perms.can_edit %}
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
+            {{ page_title }}
         </a>
     {% else %}
-        {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
-        {{ page.get_admin_display_title }}
+        {{ page_title }}
     {% endif %}
 
     {% if show_locale_labels %}
