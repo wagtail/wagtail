@@ -136,6 +136,8 @@ Various additional attributes are available to customise the viewset - see the {
 The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
 ```
 
+(chooserviewset)=
+
 ## ChooserViewSet
 
 The {class}`~wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
