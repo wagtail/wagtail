@@ -181,6 +181,7 @@ class TitleColumn(Column):
         name,
         url_name=None,
         get_url=None,
+        get_title_id=None,
         label_prefix=None,
         get_label_id=None,
         link_classname=None,
@@ -191,6 +192,7 @@ class TitleColumn(Column):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
+        self._get_title_id_func = get_title_id
         self.label_prefix = label_prefix
         self._get_label_id_func = get_label_id
         self.link_attrs = link_attrs or {}
@@ -205,6 +207,7 @@ class TitleColumn(Column):
         )
         if self.link_classname is not None:
             context["link_attrs"]["class"] = self.link_classname
+        context["title_id"] = self.get_title_id(instance, parent_context)
         context["label_id"] = self.get_label_id(instance, parent_context)
         return context
 
@@ -217,6 +220,10 @@ class TitleColumn(Column):
         elif self.url_name:
             id = multigetattr(instance, self.id_accessor)
             return reverse(self.url_name, args=(quote(id),))
+
+    def get_title_id(self, instance, parent_context):
+        if self._get_title_id_func:
+            return self._get_title_id_func(instance)
 
     def get_label_id(self, instance, parent_context):
         if self._get_label_id_func:
