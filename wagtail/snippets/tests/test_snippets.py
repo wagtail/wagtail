@@ -316,7 +316,13 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         # Should use the latest draft title in the listing
         self.assertContains(
             response,
-            f'<a href="{edit_url}">Draft-enabled Bar, In Draft</a>',
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    Draft-enabled Bar, In Draft
+                </span>
+            </a>
+            """,
             html=True,
         )
 

@@ -1,6 +1,7 @@
 from warnings import warn
 
 from django.apps import apps
+from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
@@ -168,6 +169,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet"),
             *super().get_columns(),
         ]
+
+    def _get_title_column(self, *args, **kwargs):
+        return super()._get_title_column(
+            *args,
+            **kwargs,
+            get_title_id=lambda instance: f"snippet_{quote(instance.pk)}_title",
+        )
 
     def get_list_buttons(self, instance):
         more_buttons = self.get_list_more_buttons(instance)
