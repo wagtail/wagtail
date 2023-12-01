@@ -219,10 +219,20 @@ class TranslatableQuerySetMixin:
 
         If a model inherits from
         :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
-        draft translations are not considered as translated instances. If a translation
-        is in draft, the original instance is used instead. To override this behavior
-        and include draft translations, pass ``include_draft_translations=True``. The
-        resulting queryset will be the same length as the original.
+        then a translation of an instance in the original queryset could exist, but
+        be in a draft state (i.e. ``live=False``). By default, draft translations are
+        not considered when compiling the translated instances and the original instance
+        is used in the localized queryset. To override this behavior and allow draft
+        translations in the localized queryset, pass
+        ``include_draft_translations=True``. Regardless of this option, the resulting
+        localized queryset will be the same length as the original.
+
+        Note: The draft state of an original instance is not considered. I.e., if the
+        original instance is in draft, its translation is also in draft and
+        ``include_draft_translations=False`` is used, then the original instance will
+        be used in the localized queryset (regardless of its draft state). To exclude
+        original draft instances from the localized queryset, filter the original
+        queryset to only include live instances.
 
         By default, the localized queryset can contain untranslated instances from the
         original queryset if no translation for the instance is available. If this is
