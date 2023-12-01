@@ -165,7 +165,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     def get_columns(self):
         return [
-            BulkActionsCheckboxColumn("checkbox", accessor=lambda obj: obj),
+            BulkActionsCheckboxColumn("checkbox"),
             *super().get_columns(),
         ]
 
