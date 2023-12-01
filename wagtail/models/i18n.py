@@ -249,9 +249,9 @@ class TranslatableQuerySetMixin:
         method returns the original queryset unchanged.
 
         Note: Because this method uses a complex query to retrieve the items in the
-        localized queryset, effects of methods like `annotate`, `select_related` and
-        `prefetch_related` are not retained. If you want to use them on the resulting
-        queryset, you should apply them after `.localized()`. However, you can use
+        localized queryset, effects of methods like ``annotate``, ``select_related`` and
+        ``prefetch_related`` are not retained. If you want to use them on the resulting
+        queryset, you should apply them after ``.localized()``. However, you can use
         `annotate` on the original queryset and use its value for filtering. Just be
         aware that the annotate column will not be available on the returned queryset.
         """
