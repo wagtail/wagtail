@@ -165,7 +165,10 @@ Events will be dispatched and can trigger custom JavaScript logic such as settin
 
 ````{class} MultipleChooserPanel(relation_name, chooser_field_name=None, panels=None, label='', min_num=None, max_num=None, **kwargs)
 
-This is a variant of `InlinePanel` that improves the editing experience when the main feature of the child panel is a chooser for a `ForeignKey` relation (usually to an image, document, snippet or another page). Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
+This panel is a variant of `InlinePanel` that can be used when the inline model includes a `ForeignKey` relation to a model that implements Wagtail's chooser interface.
+Wagtail images, documents, snippets, and pages all implement this interface, and other models may do so by [registering a custom ChooserViewSet](chooserviewset).
+
+Rather than the "Add" button inserting a new form to be filled in individually, it immediately opens up the chooser interface for that related object, in a mode that allows multiple items to be selected. The user is then returned to the main edit form with the appropriate number of child panels added and pre-filled.
 
 `MultipleChooserPanel` accepts an additional required argument `chooser_field_name`, specifying the name of the `ForeignKey` relation that the chooser is linked to.
 
