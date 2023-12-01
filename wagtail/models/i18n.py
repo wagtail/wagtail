@@ -211,6 +211,10 @@ class TranslatableQuerySetMixin:
         original is retained instead. The resulting queryset will be of the same length
         as the original.
 
+        This method is the queryset equivalent of the
+        :py:attr:`.localized <wagtail.models.TranslatableMixin.localized>` property
+        on the :py:class:`TranslatableMixin <wagtail.models.TranslatableMixin>`.
+
         By default, the same ordering definition as in the original queryset is applied.
         This means that the translated values are being considered during ordering,
         which can lead to a different order than the original queryset. If you want to
