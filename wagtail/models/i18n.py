@@ -208,7 +208,8 @@ class TranslatableQuerySetMixin:
 
         A localized queryset is one where objects are replaced with versions translated
         into the active locale. Where a translation isn't available for an object, the
-        original is retained instead.
+        original is retained instead. The resulting queryset will be of the same length
+        as the original.
 
         By default, the same ordering definition as in the original queryset is applied.
         This means that the translated values are being considered during ordering,
@@ -220,12 +221,15 @@ class TranslatableQuerySetMixin:
         :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
         draft translations are not considered as translated instances. If a translation
         is in draft, the original instance is used instead. To override this behavior
-        and include draft translations, pass ``include_draft_translations=True``.
+        and include draft translations, pass ``include_draft_translations=True``. The
+        resulting queryset will be the same length as the original.
 
         By default, the localized queryset can contain untranslated instances from the
         original queryset if no translation for the instance is available. If this is
         not desired, pass ``include_only_translations=True`` to only include instances
-        that are translated into the active locale.
+        that are translated into the active locale. In case not all instances are
+        translated and ``include_draft_translations=True`` is passed, the resulting
+        queryset will be shorter than the original.
 
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
