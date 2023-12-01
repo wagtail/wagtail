@@ -335,7 +335,7 @@ class BulkActionsCheckboxColumn(BaseColumn):
         self.obj_type = obj_type
 
     def get_aria_describedby(self, instance):
-        return f"{self.obj_type}_{instance.pk}_title"
+        return f"{self.obj_type}_{quote(instance.pk)}_title"
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)

@@ -37,7 +37,7 @@
     <tbody>
         {% for doc in documents %}
             <tr>
-                {% fragment as title_id %}document_{{ doc.pk|unlocalize }}_title{% endfragment %}
+                {% fragment as title_id %}document_{{ doc.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="document" instance=doc aria_describedby=title_id only %}
                 <td id="{{ title_id }}" class="title">
                     <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ doc.title }}</a></div>

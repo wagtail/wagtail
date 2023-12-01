@@ -17,7 +17,7 @@
         without also reading out the buttons and indicators.
     {% endcomment %}
     {% fragment as page_title %}
-        <span id="page_{{ page.pk|unlocalize }}_title">
+        <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title">
             {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
             {{ page.get_admin_display_title }}
         </span>

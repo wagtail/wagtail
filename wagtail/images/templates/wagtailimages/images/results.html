@@ -16,7 +16,7 @@
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
-                {% fragment as title_id %}image_{{ image.pk|unlocalize }}_title{% endfragment %}
+                {% fragment as title_id %}image_{{ image.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" instance=image aria_describedby=title_id only %}
                 <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
                     <figure>

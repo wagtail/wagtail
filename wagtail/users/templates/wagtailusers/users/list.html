@@ -33,7 +33,7 @@
     <tbody>
         {% for user in users %}
             <tr>
-                {% fragment as title_id %}user_{{ user.pk|unlocalize }}_title{% endfragment %}
+                {% fragment as title_id %}user_{{ user.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" instance=user aria_describedby=title_id only %}
                 <td class="title" valign="top">
                     <div class="title-wrapper">
