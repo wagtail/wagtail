@@ -12,7 +12,6 @@ from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -134,7 +133,6 @@ class IndexView(BaseListingView):
 
         context.update(
             {
-                "popular_tags": popular_tags_for_model(get_document_model()),
                 "collections": self.collections,
                 "current_collection": self.current_collection,
             }
