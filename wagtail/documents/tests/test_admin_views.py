@@ -1,6 +1,5 @@
 import json
 from unittest import mock
-from urllib.parse import quote
 
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -85,8 +84,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.get()
-        self.assertNotContains(response, "<th>Collection</th>")
-        self.assertNotContains(response, "<td>Root</td>")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
 
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
@@ -96,8 +95,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.get()
-        self.assertContains(response, "<th>Collection</th>")
-        self.assertContains(response, "<td>Root</td>")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
         self.assertEqual(
             [collection.name for collection in response.context["collections"]],
             ["Root", "Evil plans", "Good plans"],
@@ -137,8 +136,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
-        next_url = quote(response._request.get_full_path())
-        self.assertContains(response, f"{edit_url}?next={next_url}")
+        params = urlencode({"next": response._request.get_full_path()})
+        self.assertContains(response, f"{edit_url}?{params}")
 
     def test_search_form_rendered(self):
         response = self.get()
@@ -219,12 +218,10 @@ class TestDocumentListingResultsView(WagtailTestUtils, TransactionTestCase):
         doc = models.Document.objects.create(title="A boring report")
 
         response = self.get({"q": "boring"})
+        params = urlencode({"next": "/admin/documents/?q=boring"})
         self.assertEqual(response.status_code, 200)
         # 'next' param on edit page link should point back to the documents index, not the results view
-        self.assertContains(
-            response,
-            "/admin/documents/edit/%d/?next=/admin/documents/%%3Fq%%3Dboring" % doc.id,
-        )
+        self.assertContains(response, f"/admin/documents/edit/{doc.pk}/?{params}")
 
 
 class TestDocumentAddView(WagtailTestUtils, TestCase):
@@ -1643,8 +1640,8 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertNotContains(response, "<th>Collection</th>")
-        self.assertNotContains(response, "<td>Root</td>")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
 
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
@@ -1653,8 +1650,8 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertContains(response, "<th>Collection</th>")
-        self.assertContains(response, "<td>Root</td>")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
 
 
 class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):

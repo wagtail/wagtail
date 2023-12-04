@@ -1,18 +1,27 @@
 import os
 
+from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import ListView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    DownloadColumn,
+    Table,
+    TitleColumn,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
@@ -24,23 +33,34 @@ from wagtail.search.backends import get_search_backend
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-class BaseListingView(generic.PermissionCheckedMixin, ListView):
+class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, obj_type="document", **kwargs)
+
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        parent = parent_context.get("current_collection")
+        if parent:
+            context["parent"] = parent.id
+        return context
+
+
+class DocumentTable(Table):
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["current_collection"] = parent_context.get("current_collection")
+        return context
+
+
+class BaseListingView(generic.PermissionCheckedMixin, generic.BaseListingView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
     page_kwarg = "p"
     paginate_by = 20
-
-    def get_ordering(self):
-        # Ordering
-        if "ordering" in self.request.GET and self.request.GET["ordering"] in [
-            "title",
-            "-created_at",
-        ]:
-            ordering = self.request.GET["ordering"]
-        else:
-            ordering = "-created_at"
-        return ordering
+    index_url_name = "wagtaildocs:index"
+    default_ordering = "title"
+    table_class = DocumentTable
 
     def get_queryset(self):
         # Get documents (filtered by user permission)
@@ -76,20 +96,38 @@ class BaseListingView(generic.PermissionCheckedMixin, ListView):
 
         return documents
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    @cached_property
+    def columns(self):
+        return [
+            BulkActionsColumn("bulk_actions"),
+            TitleColumn(
+                "title",
+                label=_("Title"),
+                sort_key="title",
+                get_url=self.get_edit_url,
+                get_title_id=lambda doc: f"document_{quote(doc.pk)}_title",
+            ),
+            DownloadColumn("filename", label=_("File")),
+            Column("collection", label=_("Collection"), accessor="collection.name"),
+            DateColumn("created_at", label=_("Created"), sort_key="created_at"),
+        ]
 
-        next_url = reverse("wagtaildocs:index")
+    def get_edit_url(self, instance):
+        edit_url = reverse("wagtaildocs:edit", args=(quote(instance.pk),))
+        next_url = reverse(self.index_url_name)
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
 
+        return f"{edit_url}?{urlencode({'next': next_url})}"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
         context.update(
             {
-                "ordering": self.ordering,
                 "query_string": self.query_string,
                 "is_searching": bool(self.query_string),
-                "next": next_url,
             }
         )
         return context
@@ -98,14 +136,24 @@ class BaseListingView(generic.PermissionCheckedMixin, ListView):
 class IndexView(BaseListingView):
     template_name = "wagtaildocs/documents/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    @cached_property
+    def columns(self):
+        columns = super().columns
+        if not self.collections:
+            columns.pop(3)
+        return columns
 
+    @cached_property
+    def collections(self):
         collections = permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
             collections = None
+        return collections
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         Document = get_document_model()
 
@@ -116,7 +164,7 @@ class IndexView(BaseListingView):
                 "user_can_add": permission_policy.user_has_permission(
                     self.request.user, "add"
                 ),
-                "collections": collections,
+                "collections": self.collections,
                 "current_collection": self.current_collection,
                 "app_label": Document._meta.app_label,
                 "model_name": Document._meta.model_name,
