@@ -82,20 +82,20 @@ def set_query_params(url: str, params: dict):
 
 
 class TabbedEditHandlerGeneratorMixin:
-    # A class (or import path to a class) that `create_edit_handler()` should
-    # use to create the edit handler for the model.
+    # The class (or import path to one) that `get_edit_handler_class()` should
+    # return by default.
     edit_handler_class: Union[str, Type] = "wagtail.admin.panels.TabbedInterface"
 
-    # A class (or import path for a class) that `create_edit_handler_tab()` should
-    # use to create tabs for the model's edit handler.
+    # The class (or import path to one) that `get_edit_handler_tab_class()` should
+    # return by default.
     edit_handler_tab_class: Union[str, Type] = "wagtail.admin.panels.ObjectList"
 
-    # A Form class (or import path for a Form class) that `create_edit_handler()`
-    # should pass as the `base_form` to the edit handler it creates.
+    # A Form class (or import path to one) that `create_edit_handler()` should provide
+    # as `base_form_class` when creating the edit interface instance.
     base_form_class: Union[str, "Form"] = "wagtail.admin.forms.WagtailAdminModelForm"
 
-    # An iterable of (`name`, `heading`) tuples for each tab to be
-    # included in the edit handler for this model.
+    # An iterable of (`name`, `heading`) tuples for each tab to be included in the
+    # edit interface for this model (when panels can be found).
     edit_handler_tabs: Iterable[Tuple[str, Any]] = []
 
     @staticmethod
@@ -107,48 +107,45 @@ class TabbedEditHandlerGeneratorMixin:
     @classmethod
     def get_edit_handler_class(cls) -> Type["TabbedInterface"]:
         """
-        Return the class that `create_edit_handler()` should use to
-        generate an edit handler for the model. By default the
-        `edit_handler_class` class attribute value is used.
+        Return the class that `create_edit_handler()` should use to create the edit interface for
+        this model. By default, the `edit_handler_class` class attribute value is used.
         """
         return cls._import_if_string(cls.edit_handler_class)
 
     @classmethod
     def get_edit_handler_tab_class(cls, tab_name: str = None) -> Type["ObjectList"]:
         """
-        Returns the class that `create_edit_handler_tab()` should use to
-        create tab instances. The name of the tab currently being created is
-        provided as `tab_name` to allow subclasses to customise the class
-        for specific tabs only. By default the value of the
-        `edit_handler_tab_class` class attribute is used for all tabs.
+        Returns the class that `create_edit_handler_tab()` should use to create tabs for the edit
+        handler for this model. The name of the tab currently being created is provided as
+        `tab_name` to allow subclasses to return a different value for specific tabs. By default,
+        the `edit_handler_tab_class` class attribute value is used for all tabs.
         """
         return cls._import_if_string(cls.edit_handler_tab_class)
 
     @classmethod
     def get_base_form_class(cls) -> Type["Form"]:
         """
-        Returns the form class that `create_edit_handler()` should pass as the base form
-        to the edit handler it creates. By default, the value of the `base_form_class`
-        class attribute is used.
+        Returns the form class that `create_edit_handler` should provide as `base_form_class` when
+        creating the edit interface instance. By default, the `base_form_class` class attribute value
+        is used.
         """
         return cls._import_if_string(cls.base_form_class)
 
     @classmethod
     def get_edit_handler_tabs(cls) -> Iterable[Tuple[str, Any]]:
         """
-        Returns an iterable of tuples containing the `name` and `heading`
-        of each of the tabs to be potentially included in the edit handler
-        created by `create_edit_handler()`. By default, the value of the
-        `edit_handler_tabs` class attribute is used.
+        Returns an iterable of tuples containing the `name` and `heading` values for each
+        tab that `create_edit_hander_tabs()` should consider returning. By default, the
+        `edit_handler_tabs` class attribute value is used.
         """
         return cls.edit_handler_tabs
 
     @cached_classmethod
     def get_edit_handler(cls) -> "TabbedInterface":
         """
-        Returns a `TabbedInterface` instance that can be used
-        for adding/editing instances of this model, bound to
-        this model class.
+        Returns a `TabbedInterface` instance that can be used for adding/editing instances of this
+        model (bound to this class). By default, one is created by the `create_edit_handler()`
+        class method.
         """
         if hasattr(cls, "edit_handler") and cls.edit_handler is not None:
             obj = cls.edit_handler
@@ -160,8 +157,8 @@ class TabbedEditHandlerGeneratorMixin:
     @classmethod
     def create_edit_handler(cls) -> "TabbedInterface":
         """
-        Returns a `TabbedInterface` instance built using a number of
-        dedicated methods and attribute values from this class:
+        Creates and returns a `TabbedInterface` instance, using a number of dedicated methods and
+        attribute values from this class.
 
         The return value type is determined by `get_edit_handler_class()`.
 
@@ -186,11 +183,9 @@ class TabbedEditHandlerGeneratorMixin:
 
         Individual tabs are created by `create_edit_handler_tab()`.
 
-        NOTE: Tabs for which no panels can be found (or the list is empty)
-        are excluded from the return value. Tabs can also be explicitly
-        hidden for model classes by adding a `hide_{tab_name}_tab`
-        class attribute with a value of `True`, which is sometimes
-        preferential to overriding attributes and methods.
+        NOTE: Tabs for which no panels can be found (or where the list is empty) are not returned
+        by default. Tabs can also be explicitly hidden for model classes by adding a
+        `hide_{tab_name}_tab` class attribute with a value of `True`.
         """
         for name, heading in cls.get_edit_handler_tabs():
             # Allow subclasses to hide tabs without explicitly overridding
@@ -206,25 +201,23 @@ class TabbedEditHandlerGeneratorMixin:
         cls, name: str, heading: str
     ) -> Union["ObjectList", None]:
         """
-        Returns an `ObjectList` instance for this model class for the
-        supplied `name` and heading `values`.
+        Returns an `ObjectList` instance matching the provided `name` and `heading` values, and
+        a list of panels defined elsewhere on the model.
 
-        The return type of the object is determined by `get_edit_handler_tab_class()`
-        (usually the value of the model's `edit_handler_tab_class` attribute).
+        The return type of the object is determined by `get_edit_handler_tab_class()` (usually the
+        value of the model's `edit_handler_tab_class` attribute).
 
-        To determine the panels that appear in the tab, the `name` value is used
-        to search for one of the following (in order of preference):
+        To determine the panels that appear in the tab, the `name` value is used to find one of the
+        following (in order of preference):
 
         1. A classmethod called `get_{name}_panels()`.
         2. A class attribute called `{name}_panels`.
 
-        If neither of these attributes are found, or returns a falsey
-        value, a value of `None` will be returned, and the relevant tab will not be
-        added to the edit handler.
+        If neither of these attributes are found (or if one returns a falsey value), a value of
+        `None` is returned, indicating that the tab should not be included in the edit interface.
 
-        To hide a tab without explicitly overriding the relevant method or
-        attribute, you can add a `hide_{name}_tab` attribute to the class
-        with a value of `True`.
+        To hide a tab without explicitly overriding the relevant panel list method or attribute,
+        you can add a `hide_{name}_tab` attribute to the class with a value of `True`.
         """
         _class = cls.get_edit_handler_tab_class(name)
 
