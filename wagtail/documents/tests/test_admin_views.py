@@ -222,6 +222,21 @@ class TestDocumentListingResultsView(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         # 'next' param on edit page link should point back to the documents index, not the results view
         self.assertContains(response, f"/admin/documents/edit/{doc.pk}/?{params}")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
+
+    def test_search_with_collection(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+        doc = models.Document.objects.create(title="A boring report")
+
+        response = self.get({"q": "boring"})
+        params = urlencode({"next": "/admin/documents/?q=boring"})
+        self.assertEqual(response.status_code, 200)
+        # 'next' param on edit page link should point back to the documents index, not the results view
+        self.assertContains(response, f"/admin/documents/edit/{doc.pk}/?{params}")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
 
 
 class TestDocumentAddView(WagtailTestUtils, TestCase):

@@ -81,7 +81,7 @@ class BaseListingView(generic.IndexView):
 
     @cached_property
     def columns(self):
-        return [
+        columns = [
             BulkActionsColumn("bulk_actions"),
             TitleColumn(
                 "title",
@@ -91,9 +91,23 @@ class BaseListingView(generic.IndexView):
                 get_title_id=lambda doc: f"document_{quote(doc.pk)}_title",
             ),
             DownloadColumn("filename", label=_("File")),
-            Column("collection", label=_("Collection"), accessor="collection.name"),
             DateColumn("created_at", label=_("Created"), sort_key="created_at"),
         ]
+        if self.collections:
+            columns.insert(
+                3,
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+            )
+        return columns
+
+    @cached_property
+    def collections(self):
+        collections = permission_policy.collections_user_has_any_permission_for(
+            self.request.user, ["add", "change"]
+        )
+        if len(collections) < 2:
+            collections = None
+        return collections
 
     def get_next_url(self):
         next_url = self.get_index_url()
@@ -108,26 +122,6 @@ class BaseListingView(generic.IndexView):
             {"next": self.get_next_url()},
         )
 
-
-class IndexView(BaseListingView):
-    template_name = "wagtaildocs/documents/index.html"
-
-    @cached_property
-    def columns(self):
-        columns = super().columns
-        if not self.collections:
-            columns.pop(3)
-        return columns
-
-    @cached_property
-    def collections(self):
-        collections = permission_policy.collections_user_has_any_permission_for(
-            self.request.user, ["add", "change"]
-        )
-        if len(collections) < 2:
-            collections = None
-        return collections
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -138,6 +132,10 @@ class IndexView(BaseListingView):
             }
         )
         return context
+
+
+class IndexView(BaseListingView):
+    template_name = "wagtaildocs/documents/index.html"
 
 
 class ListingResultsView(BaseListingView):
