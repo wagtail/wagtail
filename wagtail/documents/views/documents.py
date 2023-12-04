@@ -12,7 +12,6 @@ from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -22,13 +21,12 @@ from wagtail.admin.ui.tables import (
     Table,
     TitleColumn,
 )
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
-from wagtail.search.backends import get_search_backend
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -52,49 +50,35 @@ class DocumentTable(Table):
         return context
 
 
-class BaseListingView(generic.PermissionCheckedMixin, generic.BaseListingView):
+class BaseListingView(generic.IndexView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
     page_kwarg = "p"
     paginate_by = 20
     index_url_name = "wagtaildocs:index"
+    edit_url_name = "wagtaildocs:edit"
     default_ordering = "title"
     table_class = DocumentTable
+    model = get_document_model()
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         # Get documents (filtered by user permission)
-        documents = self.permission_policy.instances_user_has_any_permission_for(
+        return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
         )
-        self.ordering = self.get_ordering()
-        documents = documents.order_by(self.ordering)
 
-        # Filter by collection
+    def filter_queryset(self, queryset):
         self.current_collection = None
         collection_id = self.request.GET.get("collection_id")
         if collection_id:
             try:
                 self.current_collection = Collection.objects.get(id=collection_id)
-                documents = documents.filter(collection=self.current_collection)
+                queryset = queryset.filter(collection=self.current_collection)
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        # Search
-        self.query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
-            if self.form.is_valid():
-                self.query_string = self.form.cleaned_data["q"]
-                if self.query_string:
-                    search_backend = get_search_backend()
-                    documents = search_backend.autocomplete(
-                        self.query_string, documents
-                    )
-        else:
-            self.form = SearchForm(placeholder=_("Search documents"))
-
-        return documents
+        return self.filters, queryset
 
     @cached_property
     def columns(self):
@@ -112,25 +96,18 @@ class BaseListingView(generic.PermissionCheckedMixin, generic.BaseListingView):
             DateColumn("created_at", label=_("Created"), sort_key="created_at"),
         ]
 
-    def get_edit_url(self, instance):
-        edit_url = reverse("wagtaildocs:edit", args=(quote(instance.pk),))
-        next_url = reverse(self.index_url_name)
+    def get_next_url(self):
+        next_url = self.get_index_url()
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
+        return next_url
 
-        return f"{edit_url}?{urlencode({'next': next_url})}"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "query_string": self.query_string,
-                "is_searching": bool(self.query_string),
-            }
+    def get_edit_url(self, instance):
+        return set_query_params(
+            super().get_edit_url(instance),
+            {"next": self.get_next_url()},
         )
-        return context
 
 
 class IndexView(BaseListingView):
@@ -159,7 +136,6 @@ class IndexView(BaseListingView):
 
         context.update(
             {
-                "search_form": self.form,
                 "popular_tags": popular_tags_for_model(get_document_model()),
                 "user_can_add": permission_policy.user_has_permission(
                     self.request.user, "add"
