@@ -758,6 +758,7 @@
 * Joe Tsoi
 * Cassidy Pittman
 * Gunnar Scherf
+* Ben Morse
 
 ## Translators
 
