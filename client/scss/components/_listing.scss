@@ -63,7 +63,7 @@ ul.listing {
       border: 0;
     }
 
-    th a.label {
+    th a.label:not(.teal) {
       text-decoration: none;
       color: inherit;
       position: relative;
