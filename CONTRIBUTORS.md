@@ -772,6 +772,7 @@
 * Gunnar Scherf
 * Mariana Bedran Lesche
 * Bhuvnesh Sharma
+* Ben Morse
 
 ## Translators
 
