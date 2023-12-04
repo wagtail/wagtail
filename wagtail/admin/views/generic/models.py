@@ -118,7 +118,6 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.columns = self.get_columns()
         self.filterset_class = self.get_filterset_class()
         self.setup_search()
 
@@ -342,11 +341,8 @@ class IndexView(
             **kwargs,
         )
 
-    def get_columns(self):
-        # Use columns set at the class level, if available
-        if self.columns is not None:
-            return self.columns
-
+    @cached_property
+    def columns(self):
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):
