@@ -192,7 +192,7 @@ class TranslatableQuerySetMixin:
         class MyTranslatableModel(TranslatableMixin):
             objects = MyTranslatableModelQuerySet.as_manager()
 
-    If your translatable model does not define a custom manager ``objects``, you won't
+    If your translatable model does not define a custom manager or queryset, you won't
     need this mixin. The ``TranslatableMixin`` already provides a manager that inherits
     from this mixin.
     """
@@ -265,7 +265,7 @@ class TranslatableQuerySetMixin:
         # queryset and that are available in the active locale.
         active_locale = Locale.get_active()
         original_translation_keys = self.values_list("translation_key", flat=True)
-        translated_instances = self.model.objects.filter(
+        translated_instances = self.model._default_manager.filter(
             locale_id=pk(active_locale),
             translation_key__in=original_translation_keys,
         )
@@ -299,7 +299,7 @@ class TranslatableQuerySetMixin:
 
             # Combine the translated and untranslated querysets to get the localized
             # queryset.
-            localized_queryset = self.model.objects.filter(
+            localized_queryset = self.model._default_manager.filter(
                 models.Q(pk__in=translated_instances)
                 | models.Q(pk__in=untranslated_instances)
             )
