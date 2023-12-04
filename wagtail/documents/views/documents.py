@@ -132,18 +132,11 @@ class IndexView(BaseListingView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        Document = get_document_model()
-
         context.update(
             {
                 "popular_tags": popular_tags_for_model(get_document_model()),
-                "user_can_add": permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
                 "collections": self.collections,
                 "current_collection": self.current_collection,
-                "app_label": Document._meta.app_label,
-                "model_name": Document._meta.model_name,
             }
         )
         return context
