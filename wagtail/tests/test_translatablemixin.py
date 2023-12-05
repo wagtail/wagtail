@@ -400,7 +400,9 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = (
             self.example_model.objects.filter(locale=self.locale_en)
             .alias(
-                smitle_alias=models.functions.Concat(models.Value("SHM"), models.F("title"))
+                smitle_alias=models.functions.Concat(
+                    models.Value("SHM"), models.F("title")
+                )
             )
             .order_by("smitle_alias")
         )
