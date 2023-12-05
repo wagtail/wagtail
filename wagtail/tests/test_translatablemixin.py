@@ -681,11 +681,29 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
 
     def test_empty_queryset_preserve_order_true(self):
-        """Test localization of an empty queryset."""
+        """Test localization of an empty queryset with preserved order."""
         queryset_en = self.example_model.objects.none()
 
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(preserve_order=True)
+
+        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_empty_queryset_include_draft_translations_true(self):
+        """Test localization of an empty queryset with draft translations."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_draft_translations=True)
+
+        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_empty_queryset_include_only_translations_true(self):
+        """Test localization of an empty queryset with only translations."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_only_translations=True)
 
         self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
 
