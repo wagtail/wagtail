@@ -6,6 +6,7 @@ from freezegun import freeze_time
 
 from wagtail.models import Page, Revision, get_default_page_content_type
 from wagtail.test.testapp.models import (
+    FullFeaturedSnippet,
     RevisableGrandChildModel,
     RevisableModel,
     SimplePage,
@@ -168,3 +169,25 @@ class TestRevisableModel(TestCase):
         # The id is used as a tie breaker
         self.assertEqual(first.created_at, second.created_at)
         self.assertLess(first.id, second.id)
+
+    def test_revision_cascade_on_object_delete(self):
+        page = self.create_page()
+        full_featured_snippet = FullFeaturedSnippet.objects.create(text="foo")
+        cases = [
+            # Tuple of (instance, cascades)
+            # For models that define a GenericRelation to Revision, the revision
+            # should be deleted when the instance is deleted.
+            (page, True),
+            (full_featured_snippet, True),
+            (self.instance, False),  # No GenericRelation to Revision
+        ]
+        for instance, cascades in cases:
+            with self.subTest(instance=instance):
+                revision = instance.save_revision()
+                query = {
+                    "base_content_type": instance.get_base_content_type(),
+                    "object_id": str(instance.pk),
+                }
+                self.assertEqual(Revision.objects.filter(**query).first(), revision)
+                instance.delete()
+                self.assertIs(Revision.objects.filter(**query).exists(), not cascades)
