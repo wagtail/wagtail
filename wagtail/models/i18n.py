@@ -248,12 +248,10 @@ class TranslatableQuerySetMixin:
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
 
-        Note: Because this method uses a complex query to retrieve the items in the
-        localized queryset, effects of methods like ``annotate``, ``select_related`` and
+        Note: Because this method returns a new queryset that is not a subset of the
+        original queryset effects of methods like ``select_related`` and
         ``prefetch_related`` are not retained. If you want to use them on the resulting
-        queryset, you should apply them after ``.localized()``. However, you can use
-        `annotate` on the original queryset and use its value for filtering. Just be
-        aware that the annotate column will not be available on the returned queryset.
+        queryset, you should apply them after ``.localized()``.
         """
         # Skip localization if i18n is not enabled. This behavior is consistent with
         # the behavior of the `localized` property on `TranslatableMixin`.
@@ -303,6 +301,11 @@ class TranslatableQuerySetMixin:
                 models.Q(pk__in=translated_instances)
                 | models.Q(pk__in=untranslated_instances)
             )
+
+        # Add annotations from the original queryset to the localized one. This allows
+        # the ordering and other operations to be applied to the localized queryset as
+        # it would have been to the original queryset.
+        localized_queryset = localized_queryset.annotate(**self.query.annotations)
 
         if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean

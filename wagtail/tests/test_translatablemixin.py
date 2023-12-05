@@ -361,7 +361,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             )
             .order_by("shmitle")
         )
-        self.assertEqual(queryset_en[0].shmitel, "SHMA")
+        self.assertEqual(queryset_en[0].shmitle, "SHMA")
         self.assertQuerysetEqual(
             queryset_en,
             [
@@ -385,7 +385,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ],
             ordered=True,
         )
-        self.assertEqual(queryset_localized[0].shmitel, "SHMX")
+        self.assertEqual(queryset_localized[0].shmitle, "SHMX")
 
     def test_explicitly_set_different_order_on_localized_queryset(self):
         """Test explicitly setting a different order on the localized queryset."""
