@@ -671,6 +671,15 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                     ordered=False,
                 )
 
+    def test_empty_queryset(self):
+        """Test localization of an empty queryset."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableMixin(TestCase):
