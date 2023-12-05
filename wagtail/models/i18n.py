@@ -311,22 +311,32 @@ class TranslatableQuerySetMixin:
         )
 
         if not preserve_order:
-            # Apply the same `order_by` as in the original queryset. This does not mean
-            # that the order of the items is retained. Rather, the same fields are used
-            # for ordering. However, the ordering is likely to be different because the
-            # translated values are used.
+            # If we don't need to preserve the original order, we apply the same
+            # `order_by` as in the original queryset. This does not mean that the order
+            # of the items is retained. Rather, the same fields are used for ordering.
+            # However, the ordering is likely to be different because the translated
+            # values are used.
             return localized_queryset.order_by(*self.query.order_by)
         else:
-            # Keep the same order as in the original queryset. To do so, we annotate the
-            # localized queryset with the original order of the translation keys, and
-            # then order by that annotation.
+            # However, if we want to keep the same order as in the original queryset we
+            # need to transfer the order from the original to the localized queryset.
+            # To do so, we annotate the localized queryset with the original order of
+            # the translation keys, and then order by that annotation.
             ordering_when_clauses = [
                 models.When(translation_key=tk, then=models.Value(index))
                 for index, tk in enumerate(original_translation_keys)
             ]
+
+            # If the original queryset is empty, there won't be any ordering clauses. In
+            # that case we just return the localized queryset as is.
+            if not ordering_when_clauses:
+                return localized_queryset
+
+            # Otherwise, we annotate the localized queryset with the original order.
             localized_annotated_queryset = localized_queryset.annotate(
                 original_order=models.Case(*ordering_when_clauses)
             )
+            # And order by the original order.
             return localized_annotated_queryset.order_by("original_order")
 
     def _copy_annotations_and_aliases_to_queryset(
