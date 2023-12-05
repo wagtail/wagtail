@@ -305,7 +305,17 @@ class TranslatableQuerySetMixin:
         # Add annotations from the original queryset to the localized one. This allows
         # the ordering and other operations to be applied to the localized queryset as
         # it would have been to the original queryset.
-        localized_queryset = localized_queryset.annotate(**self.query.annotations)
+        # It appears that `annotations` also includes the `alias` definitions. But, it will turn them into proper annotations.
+        annotations = {}
+        aliases = {}
+        for k, v in self.query.annotations.items():
+            if k in self.query.annotation_select_mask:
+                annotations[k] = v
+            else:
+                aliases[k] = v
+        breakpoint()
+        localized_queryset = localized_queryset.alias(**aliases)
+        localized_queryset = localized_queryset.annotate(**annotations)
 
         if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean
