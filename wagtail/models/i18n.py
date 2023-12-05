@@ -302,19 +302,13 @@ class TranslatableQuerySetMixin:
                 | models.Q(pk__in=untranslated_instances)
             )
 
-        # Add annotations from the original queryset to the localized one. This allows
-        # the ordering and other operations to be applied to the localized queryset as
-        # it would have been to the original queryset.
-        # It appears that `annotations` also includes the `alias` definitions. But, it will turn them into proper annotations.
-        annotations = {}
-        aliases = {}
-        for k, v in self.query.annotations.items():
-            if k in self.query.annotation_select:
-                annotations[k] = v
-            else:
-                aliases[k] = v
-        localized_queryset = localized_queryset.annotate(**annotations)
-        localized_queryset = localized_queryset.alias(**aliases)
+        # Add annotations and aliases from the original queryset to the localized one.
+        # This allows the ordering and other operations (like ordering) that need
+        # annotations or aliases to be applied to the localized queryset as it would
+        # have been to the original queryset.
+        localized_queryset = self._copy_annotations_and_aliases_to_queryset(
+            queryset=localized_queryset,
+        )
 
         if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean
@@ -334,6 +328,38 @@ class TranslatableQuerySetMixin:
                 original_order=models.Case(*ordering_when_clauses)
             )
             return localized_annotated_queryset.order_by("original_order")
+
+    def _copy_annotations_and_aliases_to_queryset(
+        self,
+        queryset: models.QuerySet,
+    ) -> models.QuerySet:
+        """
+        Copy all annotations and aliases from this queryset to another.
+
+        Both, annotations and alias definitions are stored in `self.query.annotations`.
+        The difference between an alias and an annotation is that annotations are
+        added to the returned objects, they are part of the `SELECT` clause. Aliases,
+        on the other hand, are not added to the returned objects, they are only used
+        in other query operations. We can find the difference between the two by
+        checking if the key from `self.query.annotations` is also in
+        `self.query.annotation_select`, which defines which of the annotations should be
+        part of the `SELECT`.
+
+        See also:
+        * https://docs.djangoproject.com/en/4.2/ref/models/querysets#django.db.models.query.QuerySet.alias  # noqa: E501
+        * https://github.com/django/django/blob/0ee2b8c326d47387bacb713a3ab369fa9a7a22ee/django/db/models/sql/query.py#L2492-L2510  # noqa: E501
+
+        """
+        annotations = {}
+        aliases = {}
+        for k, v in self.query.annotations.items():
+            if k in self.query.annotation_select:
+                annotations[k] = v
+            else:
+                aliases[k] = v
+        queryset = queryset.annotate(**annotations)
+        queryset = queryset.alias(**aliases)
+        return queryset
 
 
 class TranslatableQuerySet(TranslatableQuerySetMixin, models.QuerySet):
