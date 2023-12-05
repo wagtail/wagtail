@@ -1124,6 +1124,22 @@ class FullFeaturedSnippet(
 
     some_attribute = "some value"
 
+    workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
+
+    revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
+
     search_fields = [
         index.SearchField("text"),
         index.AutocompleteField("text"),

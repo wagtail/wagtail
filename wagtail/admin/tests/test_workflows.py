@@ -3650,9 +3650,33 @@ class TestDashboardWithPages(BasePageWorkflowTests):
             "Compare with previous version",
         )
 
+    def test_dashboard_after_deleting_object_in_moderation(self):
+        # WorkflowState's content_object may point to a nonexistent object
+        # https://github.com/wagtail/wagtail/issues/11300
+        self.login(self.submitter)
+        self.post("submit")
+        self.object.delete()
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Your pages and snippets in a workflow")
+
+        self.login(self.moderator)
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Awaiting your review")
+
 
 class TestDashboardWithSnippets(TestDashboardWithPages, BaseSnippetWorkflowTests):
     pass
+
+
+class TestDashboardWithNonLockableSnippets(TestDashboardWithSnippets):
+    # This model does not use LockableMixin, and it also does not have a
+    # GenericRelation to WorkflowState and Revision, but it should not break
+    # the dashboard.
+    # See https://github.com/wagtail/wagtail/issues/11300 for more details.
+    model = ModeratedModel
 
 
 class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
