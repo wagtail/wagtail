@@ -377,7 +377,6 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
         self.assertQuerysetEqual(
             queryset_localized,
-            # These are ordered by the French titles.
             [
                 self.instance_BX_fr,
                 self.instance_CY_fr,
@@ -386,6 +385,50 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ordered=True,
         )
         self.assertEqual(queryset_localized[0].shmitle, "SHMX")
+
+    def test_original_queryset_ordered_by_alias(self):
+        """
+        Test localization of a queryset that is ordered by an alias.
+
+        When the same ordering definition is applied, we need to make sure that the
+        alias is available on the localized queryset.
+
+        `alias` is basically the same as `annotate` but it does not add any fields to
+        the instances. Its values can only be used in other operations, i.e. `order_by`.
+        See also: https://docs.djangoproject.com/en/4.2/ref/models/querysets#django.db.models.query.QuerySet.alias  # noqa: E501
+        """
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .alias(
+                smitle_alias=models.functions.Concat(models.Value("SHM"), models.F("title"))
+            )
+            .order_by("smitle_alias")
+        )
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+        # Aliases are not added to the instances.
+        self.assertFalse(hasattr(queryset_en[0], "smitle_alias"))
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+        self.assertFalse(hasattr(queryset_localized[0], "smitle_alias"))
 
     def test_explicitly_set_different_order_on_localized_queryset(self):
         """Test explicitly setting a different order on the localized queryset."""
