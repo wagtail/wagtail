@@ -347,6 +347,46 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             ordered=True,
         )
 
+    def test_original_queryset_ordered_by_annotation(self):
+        """
+        Test localization of a queryset that is ordered by an annotation.
+
+        When the same ordering definition is applied, we need to make sure that the
+        annotation is available on the localized queryset.
+        """
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .annotate(
+                shmitle=models.functions.Concat(models.Value("SHM"), models.F("title"))
+            )
+            .order_by("shmitle")
+        )
+        self.assertEqual(queryset_en[0].shmitel, "SHMA")
+        self.assertQuerysetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerysetEqual(
+            queryset_localized,
+            # These are ordered by the French titles.
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+        self.assertEqual(queryset_localized[0].shmitel, "SHMX")
+
     def test_explicitly_set_different_order_on_localized_queryset(self):
         """Test explicitly setting a different order on the localized queryset."""
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
