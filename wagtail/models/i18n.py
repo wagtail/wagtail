@@ -309,13 +309,12 @@ class TranslatableQuerySetMixin:
         annotations = {}
         aliases = {}
         for k, v in self.query.annotations.items():
-            if k in self.query.annotation_select_mask:
+            if k in self.query.annotation_select:
                 annotations[k] = v
             else:
                 aliases[k] = v
-        breakpoint()
-        localized_queryset = localized_queryset.alias(**aliases)
         localized_queryset = localized_queryset.annotate(**annotations)
+        localized_queryset = localized_queryset.alias(**aliases)
 
         if not preserve_order:
             # Apply the same `order_by` as in the original queryset. This does not mean
