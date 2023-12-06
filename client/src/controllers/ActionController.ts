@@ -114,14 +114,6 @@ export class ActionController extends Controller<
   }
 
   /**
-   * Select all the text in an input or textarea element.
-   */
-  select() {
-    if (this.element instanceof HTMLButtonElement) return;
-    this.element?.select();
-  }
-
-  /**
    * Reset the field to a supplied or the field's initial value (default).
    * Only update if the value to change to is different from the current value.
    */
@@ -146,5 +138,20 @@ export class ActionController extends Controller<
       prefix: '',
       target,
     });
+  }
+
+  /**
+   * Select all the text in an input or textarea element.
+   */
+  select() {
+    const element = this.element;
+
+    if (
+      element &&
+      (element instanceof HTMLInputElement ||
+        element instanceof HTMLTextAreaElement)
+    ) {
+      element.select();
+    }
   }
 }
