@@ -209,11 +209,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
+"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
 
 msgid "Search promoted results"
 msgstr "Caută rezultate promovate"

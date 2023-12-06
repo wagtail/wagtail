@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018-2019
 msgid ""
 msgstr ""
@@ -10,8 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, "
-"2016,2018-2019\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "standard"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s for %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Endrer %(instance)s"
 
 msgid "Site"
 msgstr "Nettsted"

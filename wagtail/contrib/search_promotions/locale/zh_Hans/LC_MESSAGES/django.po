@@ -155,8 +155,8 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的推广结果"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 "还没有创建过推广结果。为何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
 "创建一个</a>？"

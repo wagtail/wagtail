@@ -20,3 +20,6 @@ msgstr ""
 
 msgid "Editing"
 msgstr "संपादन"
+
+msgid "Save"
+msgstr "Save"

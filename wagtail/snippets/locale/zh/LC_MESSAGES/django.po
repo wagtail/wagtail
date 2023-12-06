@@ -63,11 +63,11 @@ msgstr "添加%(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"没有任何%(snippet_type_name_plural)s片段。为什么不<a "
-"href=\"%(wagtailsnippets_create_url)s\">创建一个</a>?"
+"没有任何%(snippet_type_name_plural)s片段。为什么不<a href="
+"\"%(wagtailsnippets_create_url)s\">创建一个</a>?"
 
 msgid "Preview"
 msgstr "预览"

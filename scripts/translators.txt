@@ -8,6 +8,7 @@ Ahmad Kiswani <kiswani.ahmad.gmail.com>
 Ahmed Miske Sidi Med <boutien321.gmail.com>
 Amr Awad <amro.khir.gmail.com>
 Bashar Al-Abdulhadi
+Fouad AAGOUR
 HossamElDin Mohamed <garo5070.gmail.com>
 Khaled Arnaout <khaledarnaout.live.com>
 Loic Teixeira
@@ -15,6 +16,7 @@ Mahmoud Marayef
 Matt Westcott <matthew.torchbox.com>
 Mohamed Mayla <mohamed.mayla.gmail.com>
 Mohammed Abdul gadir <weekmo.aol.com>
+Oumayma el bez
 ROGER MICHAEL ASHLEY ALLEN <rogermaallen.gmail.com>
 Waseem Kntar
 Younes Oumakhou
@@ -309,6 +311,7 @@ yossi lalum <lyosefh.gmail.com>
 
 Hindi - hi
 -----
+Anshika Vashistha
 Apoorv Saini
 
 Hungarian - hu
@@ -427,6 +430,7 @@ Matt Westcott <matthew.torchbox.com>
 Norwegian Bokmål - nb
 -----
 Eirik Krogstad <eirikkr.gmail.com>
+Jonathan D
 Loic Teixeira
 Ole Kristian Losvik <ole.losol.no>
 Robin Skahjem-Eriksen <robinds.student.matnat.uio.no>
@@ -486,7 +490,7 @@ LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Luiz Boaretto <lboaretto.gmail.com>
 Marcio Mazza <marciomazza.gmail.com>
-Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica.protonmail.com>
+Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec.gmail.com>
 Thiago Cangussu <cangussu.thg.gmail.com>
 Thiago Cangussu <cng.thg.gmail.com>
 Vitor Hugo da Silva Lima <silvalimavitorhugo.gmail.com>

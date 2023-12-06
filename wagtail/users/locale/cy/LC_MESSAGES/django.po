@@ -234,11 +234,11 @@ msgstr "Mae'n ddrwg gennym, nid oes unrhyw grwpiau yn cyfateb \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nid oes unrhyw grwpiau wedi'u ffurfweddu. Pam ddim <a "
-"href=\"%(wagtailusers_create_group_url)s\">ychwanegu un</a>?"
+"Nid oes unrhyw grwpiau wedi'u ffurfweddu. Pam ddim <a href="
+"\"%(wagtailusers_create_group_url)s\">ychwanegu un</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ydych chi'n siŵr eich bod am ddileu'r defnyddiwr hwn?"
@@ -279,24 +279,24 @@ msgstr "Anactif"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Mae'n ddrwg gennym, nid oes unrhyw ddefnyddwyr yn cyfateb "
-"\"<em>%(query_string)s</em>\""
+"Mae'n ddrwg gennym, nid oes unrhyw ddefnyddwyr yn cyfateb \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Nid oes gan y grŵp  %(group_name)s unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam "
 "ddim <a href=\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Nid oes unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam ddim <a "
-"href=\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
+"Nid oes unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam ddim <a href="
+"\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
 
 msgid "Assign role to selected users"
 msgstr "Neilltuo rôl i ddefnyddwyr dethol"

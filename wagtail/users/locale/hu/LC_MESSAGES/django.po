@@ -279,11 +279,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nincs csoport hozzáadva. Miért nem <a "
-"href=\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
+"Nincs csoport hozzáadva. Miért nem <a href="
+"\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Biztosan törli ezt a felhasználót?"
@@ -338,19 +338,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a "
-"href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a href="
+"\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Nincs felhasználó létrehozva. Miért nem <a "
-"href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+"Nincs felhasználó létrehozva. Miért nem <a href=\"%(wagtailusers_add_url)s"
+"\">ad hozzá egyet</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

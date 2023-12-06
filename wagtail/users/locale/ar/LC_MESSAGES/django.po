@@ -174,11 +174,11 @@ msgstr "عذرًا ، لا توجد مجموعات تطابق \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"لا توجد مجموعات تم تكوينها. لماذا لا <a "
-"href=\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
+"لا توجد مجموعات تم تكوينها. لماذا لا <a href="
+"\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "هل أنت متأكد من حذف هذا المستخدم؟ "

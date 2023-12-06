@@ -4,6 +4,7 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail-brukere"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Påkrevd. Kun bokstaver, tall og @/./+/-/_ tillatt."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Denne verdien kan kun inneholde bokstaver, tall og tegnene @/./+/-/_."
@@ -85,6 +89,16 @@ msgstr "avvisningsvarsel"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Motta varsel når din sideredigering blir avvist"
 
+msgid "updated comments notifications"
+msgstr "oppdaterte kommentarvarsler"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Motta varsler når kommentarer er opprettet, løst eller slettet på en side du "
+"har abonnert på for å motta kommentarvarsler"
+
 msgid "preferred language"
 msgstr "foretrukket språk"
 
@@ -100,20 +114,101 @@ msgstr "Velg din nåværende tidssone"
 msgid "profile picture"
 msgstr "profilbilde"
 
+msgid "System default"
+msgstr "Systemstandard"
+
+msgid "Light"
+msgstr "Lys"
+
+msgid "Dark"
+msgstr "Mørk"
+
+msgid "admin theme"
+msgstr "admin-tema"
+
 msgid "user profile"
 msgstr "brukerprofil"
 
 msgid "user profiles"
 msgstr "brukerprofiler"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Tildel rolle til 1 bruker"
+msgstr[1] "Tildel rolle til %(counter)s brukere"
+
+msgid "Assign role"
+msgstr "Tildel rolle"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Er du sikker på at du vil tildele denne rollen til disse brukerne?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Du har ikke tillatelse til å redigere denne brukeren"
+msgstr[1] "Du har ikke tillatelse til å redigere disse brukerne"
+
+msgid "Yes, assign"
+msgstr "Ja, tildel"
+
+msgid "No, don't assign"
+msgstr "Nei, ikke tildel"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Slett 1 bruker"
+msgstr[1] "Slett %(counter)s brukere"
+
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Er du sikker på at du vil slette disse brukerne?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Du har ikke tillatelse til å slette denne brukeren"
+msgstr[1] "Du har ikke tillatelse til å slette disse brukerne"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Endre aktiv tilstand for 1 bruker"
+msgstr[1] "Endre aktiv tilstand for %(counter)s brukere"
+
+msgid "Set active state"
+msgstr "Sett aktiv tilstand"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Er du sikker på at du vil endre den aktive tilstanden for disse brukerne?"
+
+msgid "You cannot change your own active status"
+msgstr "Du kan ikke endre din egen aktive status"
+
+msgid "Yes, change state"
+msgstr "Ja, endre tilstand"
+
+msgid "No, don't change state"
+msgstr "Nei, ikke endre tilstand"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> medlem."
+msgstr[1] ""
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> medlemmer."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -125,6 +220,9 @@ msgstr "Er du sikker på at du vil slette denne gruppen?"
 
 msgid "Add group"
 msgstr "Legg til gruppe"
+
+msgid "View users in this group"
+msgstr "Se brukerne i denne gruppen"
 
 msgid "Save"
 msgstr "Lagre"
@@ -153,6 +251,9 @@ msgstr "Lås"
 msgid "Unlock"
 msgstr "Lås opp"
 
+msgid "Custom permissions"
+msgstr "Egendefinerte tillatelser"
+
 msgid "Other permissions"
 msgstr "Andre tillatelser"
 
@@ -171,11 +272,11 @@ msgstr "Beklager, ingen grupper samsvarer med \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Det er ingen grupper konfigurert. Hvorfor ikke <a "
-"href=\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
+"Det er ingen grupper konfigurert. Hvorfor ikke <a href="
+"\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Er du sikker på at du vil slette denne brukeren?"
@@ -192,8 +293,14 @@ msgstr "Legg til bruker"
 msgid "Delete user"
 msgstr "Slett bruker"
 
+msgid "Select all users in listing"
+msgstr "Velg alle brukere i listen"
+
 msgid "Username"
 msgstr "Brukernavn"
+
+msgid "Access level"
+msgstr "Tilgangsnivå"
 
 msgid "Status"
 msgstr "Status"
@@ -211,8 +318,70 @@ msgid "Inactive"
 msgstr "Inaktiv"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen brukere samsvarer med <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Gruppen %(group_name)s har ingen konfigurerte brukere. Hvorfor ikke <a href="
+"\"%(wagtailusers_add_url)s\">legge til noen</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Det er ingen konfigurerte brukere. Hvorfor ikke <a href="
+"\"%(wagtailusers_add_url)s\">legge till noen</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "Bruker %(id)s (slettet)"
+
+msgid "Assign role to selected users"
+msgstr "Tildel rolle til valgte brukere"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d bruker har blitt tildelt som %(role)s"
+msgstr[1] "%(num_parent_objects)d brukere har blitt tildelt som %(role)s"
+
+msgid "Delete selected users"
+msgstr "Slett valgte brukere"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d bruker har blitt slettet"
+msgstr[1] "%(num_parent_objects)d brukere har blitt slettet"
+
+msgid "Mark as active"
+msgstr "Marker som aktiv"
+
+msgid "Change the active state for selected users"
+msgstr "Endre den aktive tilstanden for valgte brukere"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d bruker har blitt markert som aktiv"
+msgstr[1] "%(num_parent_objects)d brukere har blitt markert som aktive"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d bruker har blitt markert som inaktiv"
+msgstr[1] "%(num_parent_objects)d brukere har blitt markert som inaktive"
 
 msgid "Groups"
 msgstr "Grupper"
@@ -245,6 +414,10 @@ msgid "Users"
 msgstr "Brukere"
 
 #, python-format
+msgid "User '%(object)s' created."
+msgstr "Bruker '%(object)s' opprettet."
+
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Brukeren «%(object)s» er oppdatert."
 
@@ -257,3 +430,11 @@ msgstr "Brukeren \"%(object)s\" er slettet."
 
 msgid "Edit"
 msgstr "Endre"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Rediger bruker '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Slett bruker '%(name)s'"

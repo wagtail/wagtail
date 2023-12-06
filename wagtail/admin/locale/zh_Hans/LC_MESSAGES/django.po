@@ -592,8 +592,8 @@ msgstr "名字"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
@@ -1591,9 +1591,8 @@ msgstr "创建"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "工作流也应用于子页面。如果在此处选择父页面，则其子页面也将使用此工作流。请参"
 "见您的工作流应用的<a href=\"%(workflow_pages_url)s\">页面列表</a>。"

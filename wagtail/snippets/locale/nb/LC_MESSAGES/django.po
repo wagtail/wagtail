@@ -4,6 +4,7 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,20 @@ msgstr "Publiser"
 msgid "Submit for moderation"
 msgstr "Send til godkjenning"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Send inn på nytt til %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Send inn til %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Start arbeidsflyt på nytt"
+
+msgid "Cancel workflow "
+msgstr "Avbryt arbeidsflyt"
+
 msgid "Unpublish"
 msgstr "Avpublisér"
 
@@ -38,12 +53,25 @@ msgstr "Lagre"
 msgid "Locked"
 msgstr "Låst"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s og Publiser"
+
 msgid "Wagtail snippets"
 msgstr "Wagtail-snutter"
+
+msgid "Delete selected snippets"
+msgstr "Slett valgte snutter"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s «%(object)s» slettet."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s slettet."
+msgstr[1] "%(count)d %(model_name)s slettet."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -66,20 +94,48 @@ msgstr "Er du sikker på at du vil slette denne %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Er du sikker på at du vil slette %(count)s%(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Du har ikke tillatelse til å slette denne %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Du har ikke tillatelse til å slette disse %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Beklager, ingen snutter matcher \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Du har ikke opprettet %(snippet_type_name)s snutter. Hvorfor ikke <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">opprette en nå?</a>?"
+
 msgid "Publishing…"
 msgstr "Publiserer..."
+
+msgid "Publish this version"
+msgstr "Publiser denne versjonen"
 
 msgid "Saving…"
 msgstr "Lagrer…"
 
 msgid "Replace current draft"
 msgstr "Erstatt nåværende kladd"
+
+msgid "Replace current revision"
+msgstr "Erstatt nåværende revisjon"
 
 msgid "Save draft"
 msgstr "Lagre kladd"
@@ -95,6 +151,10 @@ msgid "Actions"
 msgstr "Handlinger"
 
 #, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Redigerer %(snippet_type_name)s - %(object)s"
+
+#, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snutter %(snippet_type_name_plural)s"
 
@@ -102,13 +162,26 @@ msgstr "Snutter %(snippet_type_name_plural)s"
 msgid "Add %(snippet_type_name)s"
 msgstr "Legg til %(snippet_type_name)s"
 
+msgid "Select all snippets in listing"
+msgstr "Velg alle snutter i listen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Beklager, ingen %(snippet_type_name_plural)s matcher din forespørsel"
+
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Ingen %(snippet_type_name_plural)s har blitt opprettet. Hvorfor ikke <a "
-"href=\"%(wagtailsnippets_create_url)s\">legge til en</a>?"
+"Ingen %(snippet_type_name_plural)s har blitt opprettet. Hvorfor ikke <a href="
+"\"%(wagtailsnippets_create_url)s\">legge til en</a>?"
 
 msgid "Live version"
 msgstr "Publisert versjon"
@@ -122,6 +195,15 @@ msgstr "Forhåndsvis"
 msgid "Edit"
 msgstr "Rediger"
 
+msgid "Review this version"
+msgstr "Gjennomgå denne versjonen"
+
+msgid "Compare with previous version"
+msgstr "Sammenlign med forrige versjon"
+
+msgid "Compare with current version"
+msgstr "Sammenlign med nåværende versjon"
+
 msgid "Cancel scheduled publish"
 msgstr "Avbryt planlagt publisering"
 
@@ -134,14 +216,32 @@ msgstr "Snutter"
 msgid "Name"
 msgstr "Navn"
 
+msgid "Instances"
+msgstr "Forekomster"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Flere alternativer for '%(title)s'"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
 
+msgid "Action"
+msgstr "Handling"
+
 msgid "Date"
 msgstr "Dato"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Rediger denne %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s historikk"
 
 msgid "Home"
 msgstr "Hjem"

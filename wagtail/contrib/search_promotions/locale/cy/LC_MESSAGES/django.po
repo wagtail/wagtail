@@ -147,11 +147,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
+"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
 
 msgid "Search promoted results"
 msgstr "Chwilio canlyniadau a hyrwyddir"

@@ -130,16 +130,16 @@ msgstr "Pasirinkite iš populiarių paieškos terminų"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Atsiprašome, jokie reklamuojami rezultatai neatitiko "
-"<em>\"%(query_string)s\"</em>"
+"Atsiprašome, jokie reklamuojami rezultatai neatitiko <em>\"%(query_string)s"
+"\"</em>"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nebuvo sukurti jokie reklamuojami rezultatai. Kodėl gi <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">nesukūrus vieno</a>?"
+"Nebuvo sukurti jokie reklamuojami rezultatai. Kodėl gi <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">nesukūrus vieno</a>?"
 
 msgid "Search promoted results"
 msgstr "Ieškoti reklamuojamų rezultatų"

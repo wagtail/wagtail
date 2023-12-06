@@ -175,11 +175,11 @@ msgstr "Vabandust, ükski rühm ei vasta \"%(query)s\\"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Konfigureeritud gruppe pole. Miks mitte <a "
-"href=\"%(wagtailusers_create_group_url)s\">lisada üks</a>?"
+"Konfigureeritud gruppe pole. Miks mitte <a href="
+"\"%(wagtailusers_create_group_url)s\">lisada üks</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Kas soovite kindlasti selle kasutaja kustutada?"
@@ -220,19 +220,19 @@ msgstr "Vabandust, ükski kasutaja ei vasta  \"<em>%(query_string)s</em>\\"
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Grupil %(group_name)s pole ühtegi kasutajat konfigureeritud. Miks mitte <a "
 "href=\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Konfigureeritud pole ühtegi kasutajat. Miks mitte <a "
-"href=\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
+"Konfigureeritud pole ühtegi kasutajat. Miks mitte <a href="
+"\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
 
 msgid "Groups"
 msgstr "Grupid"

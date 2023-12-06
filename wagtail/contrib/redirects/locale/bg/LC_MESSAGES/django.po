@@ -77,11 +77,11 @@ msgstr "Редактирайте това пренасочване"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Няма създадени пренасочвания. Защо не <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">добавите един сега</a>?"
+"Няма създадени пренасочвания. Защо не <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">добавите един сега</a>?"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

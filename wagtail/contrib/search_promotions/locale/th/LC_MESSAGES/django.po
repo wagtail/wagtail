@@ -132,11 +132,11 @@ msgstr "ขออภัย,ไม่มีผลโปรโมทที่ต�
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">เพิ่มสักหนึ่งอัน</a>?"
+"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a href=\"%(wagtailsearchpromotions_add_url)s"
+"\">เพิ่มสักหนึ่งอัน</a>?"
 
 msgid "Search promoted results"
 msgstr "หาผลที่โปรโมท"

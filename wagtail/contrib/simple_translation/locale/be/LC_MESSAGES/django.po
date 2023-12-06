@@ -20,12 +20,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Locales"
 msgstr "Лакалізацыі "
 
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "Лакаль адключана, паколькі бацькоўская старонка не перакладзеная."
+msgstr[1] ""
+"Некаторыя лакалі адключаны, паколькі некаторыя бацькоўскія старонкі не "
+"перакладзены."
+msgstr[2] ""
+"Некаторыя лакалі адключаны, паколькі некаторыя бацькоўскія старонкі не "
+"перакладзены."
+msgstr[3] ""
+"Некаторыя лакалі адключаны, паколькі некаторыя бацькоўскія старонкі не "
+"перакладзены."
+
 msgid "Translate"
 msgstr "Перавесці"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s лакалізацыі"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Старонка '%(page_title)s ' была паспяхова створана ў %(locales)s"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Паспяхова створаны %(locales)s для %(model_name)s '%(object)s'"

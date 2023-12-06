@@ -163,11 +163,11 @@ msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงก�
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a "
-"href=\"%(wagtailusers_create_group_url)s\">เพิ่มสักอัน</a>?"
+"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a href=\"%(wagtailusers_create_group_url)s"
+"\">เพิ่มสักอัน</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งผู้ใช้นี้?"

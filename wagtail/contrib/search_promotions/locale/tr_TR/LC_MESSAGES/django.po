@@ -138,11 +138,11 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen sonuç yok"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
+"Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
 
 msgid "Search promoted results"
 msgstr "Arama tanıtım sonuçları"

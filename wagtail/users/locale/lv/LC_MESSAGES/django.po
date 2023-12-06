@@ -104,11 +104,11 @@ msgstr "Pievienot atļauju lapai"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nav izveidotas grupas. <a "
-"href=\"%(wagtailusers_create_group_url)s\">Pievienot jaunu grupu?</a>"
+"Nav izveidotas grupas. <a href=\"%(wagtailusers_create_group_url)s"
+"\">Pievienot jaunu grupu?</a>"
 
 msgid "Account"
 msgstr "Konts"

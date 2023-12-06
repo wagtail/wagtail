@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Anshika Vashistha, 2023
 # Apoorv Saini, 2023
 msgid ""
 msgstr ""
@@ -10,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Apoorv Saini, 2023\n"
+"Last-Translator: Anshika Vashistha, 2023\n"
 "Language-Team: Hindi (http://app.transifex.com/torchbox/wagtail/language/"
 "hi/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +23,35 @@ msgstr ""
 msgid "default"
 msgstr "मूलचर"
 
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s for %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Editing %(instance)s"
+
+msgid "Site"
+msgstr "Site"
+
 msgid "Editing"
 msgstr "संपादन"
 
+msgid "Saving…"
+msgstr "Saving…"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Settings"
+msgstr "Settings"
+
 msgid "This setting could not be opened because there is no site defined."
-msgstr "यह सेटिंग खोली नहीं जा सकती क्योंकि कोई साइट परिभाषित नहीं है।"
+msgstr "यह सेटिंग खोली नहीं जा सकती क्योंकि  कोई साइट परिभाषित नहीं है।"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s updated."
 
 msgid "The setting could not be saved due to errors."
 msgstr "यह सेटिंग त्रुटियों के कारण सहेजी नहीं जा सकी।"

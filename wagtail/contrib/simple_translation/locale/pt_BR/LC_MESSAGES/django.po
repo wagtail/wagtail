@@ -5,7 +5,7 @@
 #
 # Translators:
 # Ed Wurch <ewurch@gmail.com>, 2021
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2021
 # Iuri L. Machado, 2022
 # Loic Teixeira, 2022
 #

@@ -210,5 +210,8 @@ msgstr "Inspiserer"
 msgid "Inspecting %(object)s"
 msgstr "Inspiserer %(object)s"
 
+msgid "Action"
+msgstr "Handling"
+
 msgid "Date"
 msgstr "Dato"

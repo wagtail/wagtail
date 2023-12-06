@@ -151,8 +151,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 "Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
 "můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
