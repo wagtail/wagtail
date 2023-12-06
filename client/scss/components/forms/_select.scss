@@ -9,22 +9,34 @@ $chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
 
 @mixin select-arrow() {
   background-image: linear-gradient(
-      45deg,
-      transparent 50%,
-      theme('colors.text-label') 33%,
-      theme('colors.text-label') 66%,
-      transparent 66%
-    ),
-    linear-gradient(
-      -45deg,
-      transparent 50%,
-      theme('colors.text-label') 33%,
-      theme('colors.text-label') 66%,
-      transparent 66%
-    );
+    45deg,
+    transparent 50%,
+    theme('colors.text-label') 33%,
+    theme('colors.text-label') 66%,
+    transparent 66%
+  ),
+  linear-gradient(
+    -45deg,
+    transparent 50%,
+    theme('colors.text-label') 33%,
+    theme('colors.text-label') 66%,
+    transparent 66%
+  );
+
+  // Original background-position for LTR
+  [dir="ltr"] {
   background-position:
     calc(100% - $chevron-top-offset - $chevron-width) $chevron-top-offset,
     calc(100% - $chevron-inline-end-offset) $chevron-top-offset;
+  }
+
+  // RTL background-position adjustment
+  [dir="rtl"] {
+    background-position:
+      calc(0% + $chevron-inline-end-offset) $chevron-top-offset,
+      calc(0% + $chevron-top-offset + $chevron-width) $chevron-top-offset;
+  }
+
   background-size:
     $chevron-width $chevron-width,
     $chevron-width $chevron-width;
