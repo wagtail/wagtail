@@ -32,7 +32,7 @@ One thing to keep in mind is that "scratching your own itch" can be a great moti
 
 Before you start contributing to Wagtail, it's important to understand what it is and how it works. Wagtail is a content management system (CMS) used for building websites. Unlike other CMSs, it requires some development time to build up the models and supporting code to use as a CMS. Additionally, Wagtail is built on top of another framework called Django, which is a Python web framework. This might be confusing at first, but it provides a powerful way to create custom systems for developers to build with.
 
-To get started, we recommend reading the [the Zen of Wagtail](../getting_started/the_zen_of_wagtail), which provides a good introduction to the project. You might also want to read the [Django overview](django:intro/overview) to understand what Django provides. To get a sense of how Wagtail fits into the CMS landscape, you can search online for articles that compare WordPress to Wagtail or list the top open source CMSs. Finally, reading some of the [Wagtail Guide](https://guide.wagtail.org/) will give you a better understanding of how the CMS works for everyday users.
+To get started, we recommend reading the [the Zen of Wagtail](../getting_started/the_zen_of_wagtail), which provides a good introduction to the project. You might also want to read the [Django overview](inv:django#intro/overview) to understand what Django provides. To get a sense of how Wagtail fits into the CMS landscape, you can search online for articles that compare WordPress to Wagtail or list the top open source CMSs. Finally, reading some of the [Wagtail Guide](https://guide.wagtail.org/) will give you a better understanding of how the CMS works for everyday users.
 
 ```{note}
 Below is a checklist. There are many like these you can copy for yourself as you progress through this guide.
@@ -319,7 +319,7 @@ It is best to avoid fixing more than one issue in a single pull request, unless 
 
 Unless you are updating the documentation or only making visual style changes, your Pull Request should contain tests.
 
-If you are new to writing tests in Django, start by reading the [Django documentation on testing](django:topics/testing/overview). Re-read the [Wagtail documentation notes on testing](testing) and have a look at [existing tests](https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Awagtail%2Fwagtail+path%3A**%2Ftests%2F**).
+If you are new to writing tests in Django, start by reading the [Django documentation on testing](inv:django#topics/testing/overview). Re-read the [Wagtail documentation notes on testing](testing) and have a look at [existing tests](https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Awagtail%2Fwagtail+path%3A**%2Ftests%2F**).
 
 Note that the JavaScript testing is not as robust as the Python testing, if possible at least attempt to add some basic JS tests to new behaviour.
 

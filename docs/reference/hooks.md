@@ -6,7 +6,7 @@ On loading, Wagtail will search for any app with the file `wagtail_hooks.py` and
 
 ```{note}
 Hooks are typically used to customise the view-level behaviour of the Wagtail admin and front-end.
-For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use [Django's signal mechanism](django:topics/signals) (see also: [Wagtail signals](signals)), as these are not dependent on a user taking a particular path through the admin interface.
+For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use [Django's signal mechanism](inv:django#topics/signals) (see also: [Wagtail signals](signals)), as these are not dependent on a user taking a particular path through the admin interface.
 ```
 
 Registering functions with a Wagtail hook is done through the `@hooks.register` decorator:
@@ -270,7 +270,7 @@ def register_frank_menu_item():
 
 ### `register_admin_urls`
 
-Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see [url dispatcher](django:topics/http/urls).
+Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see [url dispatcher](inv:django#topics/http/urls).
 
 ```python
 from django.http import HttpResponse

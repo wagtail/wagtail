@@ -135,7 +135,7 @@ Entities aren’t simply formatting buttons in the toolbar. They usually need to
 -   Custom UIs in rich text can be brittle. Be ready to spend time **testing in multiple browsers**.
 
 The good news is that having such a low-level API will enable third-party Wagtail plugins to innovate on rich text features, proposing new kinds of experiences.
-But in the meantime, consider implementing your UI through [StreamField](../topics/streamfield.rst) instead, which has a battle-tested API meant for Django developers.
+But in the meantime, consider implementing your UI through [StreamField](../topics/streamfield) instead, which has a battle-tested API meant for Django developers.
 
 Here are the main requirements to create a new entity feature:
 
@@ -194,7 +194,7 @@ def register_stock_feature(features):
     })
 ```
 
-The `js` and `css` keyword arguments on `EntityFeature` can be used to specify additional JS and CSS files to load when this feature is active. Both are optional. Their values are added to a `Media` object, more documentation on these objects is available in the [Django Form Assets documentation](django:topics/forms/media).
+The `js` and `css` keyword arguments on `EntityFeature` can be used to specify additional JS and CSS files to load when this feature is active. Both are optional. Their values are added to a `Media` object, more documentation on these objects is available in the [Django Form Assets documentation](inv:django#topics/forms/media).
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create two handlers:
 

@@ -6,7 +6,7 @@
 
 ## Searching QuerySets
 
-Wagtail search is built on Django's [QuerySet API](django:ref/models/querysets). You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
+Wagtail search is built on Django's [QuerySet API](inv:django#ref/models/querysets). You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
 
 ### Searching Pages
 
@@ -261,7 +261,7 @@ support writing phrase queries by wrapping the phrase with double-quotes. In add
 add filters into the query using the colon syntax (`hello world published:yes`).
 
 These two features can be implemented using the `parse_query_string` utility function. This function takes a query string that a user
-typed and returns a query object and a [QueryDict](django:django.http.QueryDict) of filters:
+typed and returns a query object and a [QueryDict](inv:django#django.http.QueryDict) of filters:
 
 For example:
 

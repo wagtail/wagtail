@@ -135,4 +135,4 @@ Manually updating a page might not result in a change to its cache key, unless t
 
 ## Django
 
-Wagtail is built on Django. Many of the [performance tips](django:topics/performance) set out by Django are also applicable to Wagtail.
+Wagtail is built on Django. Many of the [performance tips](inv:django#topics/performance) set out by Django are also applicable to Wagtail.

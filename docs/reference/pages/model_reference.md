@@ -505,7 +505,7 @@ The `translation_key` and `locale` fields have a unique key constraint to preven
 ```{note}
 This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
 
-If your model defines a [`Meta` class](django:ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
+If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
 ```
 
 ```{versionchanged} 6.0

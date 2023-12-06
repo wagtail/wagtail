@@ -4,7 +4,7 @@
 
 Once you've built your Wagtail site, it's time to release it upon the rest of the internet.
 
-Wagtail is built on Django, and so the vast majority of the deployment steps and considerations for deploying Django are also true for Wagtail. We recommend reading Django's ["How to deploy Django"](django:howto/deployment/index) documentation.
+Wagtail is built on Django, and so the vast majority of the deployment steps and considerations for deploying Django are also true for Wagtail. We recommend reading Django's ["How to deploy Django"](inv:django#howto/deployment/index) documentation.
 
 ## Infrastructure Requirements
 
@@ -14,12 +14,12 @@ When designing infrastructure for hosting a Wagtail site, there are a few basic 
 
 > Django, being a web framework, needs a web server in order to operate. Since most web servers don’t natively speak Python, we need an interface to make that communication happen.
 
-Wagtail can be deployed using either [WSGI](django:howto/deployment/wsgi/index) or [ASGI](django:howto/deployment/asgi/index), however Wagtail doesn't natively implement any async views or middleware, so we recommend WSGI.
+Wagtail can be deployed using either [WSGI](inv:django#howto/deployment/wsgi/index) or [ASGI](inv:django#howto/deployment/asgi/index), however Wagtail doesn't natively implement any async views or middleware, so we recommend WSGI.
 
 ### Static files
 
 As with all Django projects, static files are only served by the Django application server during development, when running through the `manage.py runserver` command. In production, these need to be handled separately at the web server level.
-See [Django's documentation on deploying static files](django:howto/static-files/deployment).
+See [Django's documentation on deploying static files](inv:django#howto/static-files/deployment).
 
 The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues.
 We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.storage.ManifestStaticFilesStorage) in the `STATICFILES_STORAGE` setting - this ensures that different versions of files are assigned distinct URLs.
@@ -28,7 +28,7 @@ We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.st
 
 ### User Uploaded Files
 
-Wagtail follows [Django's conventions for managing uploaded files](django:topics/files).
+Wagtail follows [Django's conventions for managing uploaded files](inv:django#topics/files).
 So by default, Wagtail uses Django's built-in `FileSystemStorage` class which stores files on your site's server, in the directory specified by the `MEDIA_ROOT` setting.
 Alternatively, Wagtail can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3;
 this is done through the [DEFAULT_FILE_STORAGE](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE)
@@ -60,7 +60,7 @@ The django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage`
 
 ### Cache
 
-Wagtail is designed to make huge advantage of Django's [cache framework](django:topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
+Wagtail is designed to make huge advantage of Django's [cache framework](inv:django#topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
 
 Wagtail supports any of Django's cache backend, however we recommend against using one tied to the specific process or environment Django is running (eg `FileBasedCache` or `LocMemCache`).
 
@@ -70,7 +70,7 @@ Wagtail, and by extension Django, can be deployed in many different ways on many
 
 ### Use Django's deployment checklist
 
-Django has a [deployment checklist](django:howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
+Django has a [deployment checklist](inv:django#howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
 
 ### Performance optimisation
 

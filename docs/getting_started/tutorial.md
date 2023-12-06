@@ -225,7 +225,7 @@ Also, you must load `wagtailcore_tags` at the top of the template and provide ad
 
 ### Wagtail template tags
 
-In addition to Django's [template tags and filters](django:ref/templates/builtins),
+In addition to Django's [template tags and filters](inv:django#ref/templates/builtins),
 Wagtail provides a number of its own [template tags & filters](template_tags_and_filters),
 which you can load by including `{% load wagtailcore_tags %}` at the top of
 your template file.

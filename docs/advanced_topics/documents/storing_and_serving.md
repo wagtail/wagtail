@@ -2,7 +2,7 @@
 
 # Storing and serving
 
-Wagtail follows [Django’s conventions for managing uploaded files](django:topics/files). For configuration of `FileSystemStorage` and more information on handling user uploaded files, see [](user_uploaded_files).
+Wagtail follows [Django’s conventions for managing uploaded files](inv:django#topics/files). For configuration of `FileSystemStorage` and more information on handling user uploaded files, see [](user_uploaded_files).
 
 ## File storage location
 

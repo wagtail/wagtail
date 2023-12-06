@@ -118,7 +118,7 @@ django-admin makemigrations --settings=wagtail.test.settings
 ### Testing against PostgreSQL
 
 ```{note}
-In order to run these tests, you must install the required modules for PostgreSQL as described in Django's [Databases documentation](django:ref/databases).
+In order to run these tests, you must install the required modules for PostgreSQL as described in Django's [Databases documentation](inv:django#ref/databases).
 ```
 
 By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
@@ -133,7 +133,7 @@ If you need to use a different user, password, host, or port, use the `PGUSER`, 
 ### Testing against a different database
 
 ```{note}
-In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](django:ref/databases) or the 3rd-party database backend's documentation.
+In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](inv:django#ref/databases) or the 3rd-party database backend's documentation.
 ```
 
 If you need to test against a different database, set the `DATABASE_ENGINE`
@@ -282,7 +282,7 @@ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
 npm run storybook
 ```
 
-The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
+The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for inv:django# `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
 
 ## Compiling the documentation
 

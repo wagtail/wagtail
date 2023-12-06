@@ -3,10 +3,10 @@
 # Writing templates
 
 Wagtail uses Django's templating language. For developers new to Django, start with Django's own template documentation:
-[](django:topics/templates)
+[](inv:django#topics/templates)
 
 Python programmers new to Django/Wagtail may prefer more technical documentation:
-[](django:ref/templates/api)
+[](inv:django#ref/templates/api)
 
 You should be familiar with Django templating basics before continuing with this documentation.
 
@@ -29,7 +29,7 @@ name_of_project/
         models.py
 ```
 
-For more information, see the Django documentation for the [application directories template loader](django:ref/templates/api).
+For more information, see the Django documentation for the [application directories template loader](inv:django#ref/templates/api).
 
 ### Page content
 
@@ -72,7 +72,7 @@ Read more about the image manipulation syntax here: [](image_tag).
 
 ## Template tags & filters
 
-In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be `load`-ed [just like any other](django:howto/custom-template-tags).
+In addition to Django's standard tags and filters, Wagtail provides some of its own, which can be `load`-ed [just like any other](inv:django#howto/custom-template-tags).
 
 ## Images (tag)
 
