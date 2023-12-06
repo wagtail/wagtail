@@ -22,7 +22,9 @@ $chevron-inline-end-offset: math.div($select-size - $chevron-width, 2);
     theme('colors.text-label') 66%,
     transparent 66%
   );
-
+  
+  :root,
+  :host,
   // Original background-position for LTR
   [dir="ltr"] {
   background-position:
