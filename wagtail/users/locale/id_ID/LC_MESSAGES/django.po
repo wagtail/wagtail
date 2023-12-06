@@ -168,11 +168,11 @@ msgstr "Maaf, tidak ada grup yang sesuai dengan \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Tidak ada grup yang terkonfigurasi. Mengapa <a "
-"href=\"%(wagtailusers_create_group_url)s\">tidak menambahnya</a>?"
+"Tidak ada grup yang terkonfigurasi. Mengapa <a href="
+"\"%(wagtailusers_create_group_url)s\">tidak menambahnya</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Apakah anda yakin untuk menghapus pengguna ini?"

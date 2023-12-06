@@ -226,11 +226,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
+"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
 
 msgid "Search redirects"
 msgstr "Rechercher une règle de redirection"

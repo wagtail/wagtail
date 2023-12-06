@@ -356,19 +356,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem nessa coleção. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem nessa coleção. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 msgid "Generating URL"
 msgstr "Gerando URL"

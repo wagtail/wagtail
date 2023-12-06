@@ -170,11 +170,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ümbersuunamisi pole loodud. Miks mitte <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
+"Ümbersuunamisi pole loodud. Miks mitte <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
 
 msgid "Search redirects"
 msgstr "Otsingu ümbersuunamised"

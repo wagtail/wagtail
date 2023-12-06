@@ -121,11 +121,11 @@ msgstr " %(snippet_type_name)sнэмэх"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Үгүй %(snippet_type_name_plural)s үүссэн байна. Яагаад <a "
-"href=\"%(wagtailsnippets_create_url)s\">нэмж</a> болохгүй гэж?"
+"Үгүй %(snippet_type_name_plural)s үүссэн байна. Яагаад <a href="
+"\"%(wagtailsnippets_create_url)s\">нэмж</a> болохгүй гэж?"
 
 msgid "Live version"
 msgstr "Нийтлэгдсэн хувилбар"

@@ -129,11 +129,11 @@ msgstr[0] "共有 %(counter)s 項符合"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"沒有 %(snippet_type_name_plural)s 被創建。 為何不 <a "
-"href=\"%(wagtailsnippets_create_url)s\">添加一個</a> ？"
+"沒有 %(snippet_type_name_plural)s 被創建。 為何不 <a href="
+"\"%(wagtailsnippets_create_url)s\">添加一個</a> ？"
 
 msgid "Live version"
 msgstr "線上版本"

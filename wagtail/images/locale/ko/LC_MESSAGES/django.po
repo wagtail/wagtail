@@ -259,16 +259,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a "
-"href=\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a href="
+"\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">"
 "업로드</a> 해 보는 건 어떠세요?"

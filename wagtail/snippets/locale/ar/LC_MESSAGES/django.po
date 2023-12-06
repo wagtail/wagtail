@@ -140,11 +140,11 @@ msgstr[5] "هنالك %(counter)sتَطابق"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a "
-"href=\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
+"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
+"\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
 
 msgid "Live version"
 msgstr "نسخة حية"

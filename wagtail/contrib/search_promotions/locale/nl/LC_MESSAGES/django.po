@@ -207,16 +207,16 @@ msgstr[1] "Er zijn %(counter)s resultaten"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm "
-"\"<em>%(query_string)s</em>\""
+"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
 
 msgid "Search promoted results"
 msgstr "Zoek gepromote resultaten"

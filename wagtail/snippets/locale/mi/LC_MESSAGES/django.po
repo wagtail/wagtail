@@ -109,11 +109,11 @@ msgstr "Tāpiri %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a "
-"href=\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
+"Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a href="
+"\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
 
 msgid "Preview"
 msgstr "Titiro"

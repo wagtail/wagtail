@@ -130,6 +130,12 @@ msgid "Choose from popular search terms"
 msgstr "Velg blant populære søkeord"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
+
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Beklager, ingen forfremmede resultater samsvarer med \"<em>%(query_string)s</"
@@ -137,11 +143,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
+"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
 
 msgid "Search promoted results"
 msgstr "Søk i forfremmede resultater"

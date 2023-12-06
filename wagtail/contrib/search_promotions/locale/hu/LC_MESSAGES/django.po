@@ -206,11 +206,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nincs kiemelt keresés hozzáadva. Miért nem <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">ad hozzá egyet</a>?"
+"Nincs kiemelt keresés hozzáadva. Miért nem <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ad hozzá egyet</a>?"
 
 msgid "Search promoted results"
 msgstr "Kiemelt találatok keresése"

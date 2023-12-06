@@ -115,13 +115,13 @@ msgstr "Því miður eru engin snifsi sem passa við \"<em>%(search_query)s</em>
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
 "Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">búa til eitt núna</a>?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">búa til eitt núna</a>?"
 
 msgid "Publishing…"
 msgstr "Set í birtingu..."
@@ -179,8 +179,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 "Engin %(snippet_type_name_plural)s hafa verið búin til. Af hverju ekki <a "
 "href=\"%(wagtailsnippets_create_url)s\">búa eitt til núna</a>?"

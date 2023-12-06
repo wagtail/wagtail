@@ -131,11 +131,11 @@ msgstr "Přidat %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Žádné %(snippet_type_name_plural)s zatím nebyly vytvořeny. Pojďme <a "
-"href=\"%(wagtailsnippets_create_url)s\">nějaký vytořit</a>?"
+"Žádné %(snippet_type_name_plural)s zatím nebyly vytvořeny. Pojďme <a href="
+"\"%(wagtailsnippets_create_url)s\">nějaký vytořit</a>?"
 
 msgid "Live version"
 msgstr "Publikovaná verze"

@@ -156,11 +156,11 @@ msgstr "Prepáčte, žiadne skupiny nevyhovujú hľadanému výrazu \"%(query)s\
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a "
-"href=\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
+"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a href="
+"\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Naozaj chcete zmazať tohto používateľa?"
@@ -195,8 +195,8 @@ msgstr "Neaktívne"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu "
-"\"<em>%(query_string)s</em>\""
+"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Skupiny"

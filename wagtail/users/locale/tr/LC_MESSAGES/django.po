@@ -176,11 +176,11 @@ msgstr "Üzgünüm, \"%(query)s\" ile eşleşen bir grup bulunamadı"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Herhangi bir grup ayarlanmadı. Neden <a "
-"href=\"%(wagtailusers_create_group_url)s\">bir kaç tane ayarlamıyorsunuz</a>?"
+"Herhangi bir grup ayarlanmadı. Neden <a href="
+"\"%(wagtailusers_create_group_url)s\">bir kaç tane ayarlamıyorsunuz</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Bu kullanıcıyı silmek istediğinizden emin misiniz?"

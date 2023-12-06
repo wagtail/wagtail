@@ -274,11 +274,11 @@ msgstr "Því miður eru engir hópar sem passa við \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Engir hópar eru til. Hví ekki að <a "
-"href=\"%(wagtailusers_create_group_url)s\">bæta við hóp</a>?"
+"Engir hópar eru til. Hví ekki að <a href=\"%(wagtailusers_create_group_url)s"
+"\">bæta við hóp</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ertu viss um að þú viljir eyða þessum notanda?"
@@ -332,19 +332,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grúppan %(group_name)s hefur enga notendur. Viltu <a "
-"href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
+"Grúppan %(group_name)s hefur enga notendur. Viltu <a href="
+"\"%(wagtailusers_add_url)s\">bæta við</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Það eru engir skráðir notendur.  Viltu <a "
-"href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
+"Það eru engir skráðir notendur.  Viltu <a href=\"%(wagtailusers_add_url)s"
+"\">bæta við</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

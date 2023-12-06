@@ -165,11 +165,11 @@ msgstr "Ledsen, inga premierade resultat matchar \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Inga premierade resultat har skapats. Varför inte <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
+"Inga premierade resultat har skapats. Varför inte <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
 
 msgid "Search promoted results"
 msgstr "Premierade sökresultat"

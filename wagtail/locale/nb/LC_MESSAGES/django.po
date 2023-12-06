@@ -289,6 +289,9 @@ msgstr "nettsted"
 msgid "sites"
 msgstr "nettsteder"
 
+msgid "default"
+msgstr "standard"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
