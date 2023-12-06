@@ -287,7 +287,7 @@ class MyPageTest(WagtailPageTestCase):
 
 ### Using `dumpdata`
 
-Creating [fixtures](django:howto/initial-data) for tests is best done by creating content in a development
+Creating [fixtures](inv:django#howto/initial-data) for tests is best done by creating content in a development
 environment, and using Django's [dumpdata](https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-dumpdata) command.
 
 Note that by default `dumpdata` will represent `content_type` by the primary key; this may cause consistency issues when adding / removing models, as content types are populated separately from fixtures. To prevent this, use the `--natural-foreign` switch, which represents content types by `["app", "model"]` instead.

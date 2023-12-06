@@ -10,7 +10,7 @@ For translations and internationalisation of content made with Wagtail see [](in
 
 ## Translation workflow
 
-Wagtail is localised (translated) using Django's [translation system](django:topics/i18n/translation) and the translations are provided to and managed by [Transifex](https://www.transifex.com/), a web platform that helps organisations coordinate translation projects.
+Wagtail is localised (translated) using Django's [translation system](inv:django#topics/i18n/translation) and the translations are provided to and managed by [Transifex](https://www.transifex.com/), a web platform that helps organisations coordinate translation projects.
 
 Translations from Transifex are only integrated into the repository at the time of a new release. When a release is close to being ready there will be a RC (Release Candidate) for the upcoming version and the translations will be exported to Transifex.
 
@@ -38,7 +38,7 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 
 ## Marking strings for translation
 
-In code, strings can be marked for translation with using Django's [translation system](django:topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate`, `translate`, and `_(" ")` in templates.
+In code, strings can be marked for translation with using Django's [translation system](inv:django#topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate`, `translate`, and `_(" ")` in templates.
 
 In both Python and templates, make sure to always use named placeholder. In addition, in Python, only use the printf style formatting. This is to ensure compatibility with Transifex and help translators in their work.
 
@@ -104,7 +104,7 @@ This still works fine. `trans` and `blocktrans` were the tags earlier on in Djan
 
 ## Additional resources
 
--   [](django:topics/i18n/translation)
+-   [](inv:django#topics/i18n/translation)
 -   A screen-share [Wagtail Space US 2020 Lightning Talk](https://www.youtube.com/watch?v=sLI_AuOMUQw&t=17s) that walks through using Transifex step-by-step
 -   [Core development instructions for syncing Wagtail translations with Transifex](https://github.com/wagtail/wagtail/wiki/Managing-Wagtail-translations)
--   [Django docs](django:topics/i18n/translation)
+-   [Django docs](inv:django#topics/i18n/translation)

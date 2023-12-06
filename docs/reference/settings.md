@@ -1,6 +1,6 @@
 # Settings
 
-Wagtail makes use of the following settings, in addition to [Django's core settings](django:ref/settings)`:
+Wagtail makes use of the following settings, in addition to [Django's core settings](inv:django#ref/settings)`:
 
 ## Sites
 

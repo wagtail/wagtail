@@ -6,7 +6,7 @@ As Django models, snippets can be rendered in Django templates using a custom te
 
 ## Including snippets in template tags
 
-The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for [custom template tags](django:howto/custom-template-tags) will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
+The simplest way to make your snippets available to templates is with a template tag. This is mostly done with vanilla Django, so perhaps reviewing Django's documentation for [custom template tags](inv:django#howto/custom-template-tags) will be more helpful. We'll go over the basics, though, and point out any considerations to make for Wagtail.
 
 First, add a new Python file to a `templatetags` folder within your app - for example, `myproject/demo/templatetags/demo_tags.py`. We'll need to load some Django modules and our app's models, and ready the `register` decorator:
 

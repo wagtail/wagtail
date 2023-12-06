@@ -317,7 +317,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 ## Panel customisation
 
 By adding extra parameters to your panel/field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
-(See [Django model field reference](django:ref/models/fields)).
+(See [Django model field reference](inv:django#ref/models/fields)).
 
 (customising_panel_icons)=
 
@@ -358,7 +358,7 @@ Use the `help_text` argument to the panel constructor to customise the help text
 
 ### Placeholder text
 
-By default, Wagtail uses the field's label as placeholder text. To change it, pass to the `FieldPanel` a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](django:ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the `FieldPanel` a widget with a placeholder attribute set to your desired text. You can select widgets from [Django's form widgets](inv:django#ref/forms/widgets), or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
 
 For example, to customise placeholders for a `Book` snippet model:
 

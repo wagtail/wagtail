@@ -102,7 +102,7 @@ the latest Wagtail versions.
 -   [How To Alternate Blocks in Your Django & Wagtail Templates](https://www.coderedcorp.com/blog/how-to-alternate-blocks-in-your-templates/) (19 February 2021)
 -   [Build a Blog With Wagtail CMS (second version)](https://www.accordbox.com/blog/build-blog-wagtail-cms-second-version-available/) (13 January 2021)
 -   [Migrate your Wagtail Website from wagtailtrans to the new wagtail-localize](https://www.cnc.io/en/blog/wagtailtrans-to-wagtail-localize-migration) (10 January 2021)
--   [How to Use the Wagtail CMS for Django: An Overview](https://steelkiwi.com/blog/how-to-use-the-wagtail-cms-for-django-an-overview/) (21 December 2020)
+-   [How to Use the Wagtail CMS for inv:django# An Overview](https://steelkiwi.com/blog/how-to-use-the-wagtail-cms-for-django-an-overview/) (21 December 2020)
 -   [Wagtail `modeladmin` and a dynamic panels list](https://kuttler.eu/code/wagtail-modeladmin-and-dynamic-panels-list/) (14 December 2020)
 -   [Install and Deploy Wagtail CMS on pythonanywhere.com](https://www.theinsidetrade.com/blog/install-and-deploy-wagtail-cms-pythonanywherecom/) (14 December 2020)
 -   [Overriding the admin CSS in Wagtail](https://www.yellowduck.be/posts/overriding-the-admin-css-in-wagtail/) (4 December 2020)
