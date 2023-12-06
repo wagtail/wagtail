@@ -8,7 +8,11 @@ The next step is to create a footer for all pages of your portfolio site. You ca
 
 ## Add a base app
 
-Now, create a general-purpose app named `base`. To generate the `base` app, run the command, `python manage.py startapp base`.
+Now, create a general-purpose app named `base`. To generate the `base` app, run the command:
+
+```sh
+python manage.py startapp base
+```
 
 After generating the `base` app, you must install it on your site. In your `mysite/settings/base.py` file, add `"base"` to the `INSTALLED_APPS` list.
 
