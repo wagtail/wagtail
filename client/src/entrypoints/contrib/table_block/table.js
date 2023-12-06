@@ -218,13 +218,19 @@ function initTable(id, tableOptions) {
     }
   }
 
-  hot = new Handsontable(document.getElementById(containerId), finalOptions);
+  const container = document.getElementById(containerId);
+  hot = new Handsontable(container, finalOptions);
   window.addEventListener('load', () => {
     // Render the table. Calling render also removes 'null' literals from empty cells.
     hot.render();
     resizeHeight(getHeight());
     window.dispatchEvent(new Event('resize'));
   });
+
+  const resizeObserver = new ResizeObserver(() => {
+    window.dispatchEvent(new Event('resize'));
+  });
+  resizeObserver.observe(container.parentElement);
 }
 window.initTable = initTable;
 
