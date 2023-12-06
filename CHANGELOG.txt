@@ -58,9 +58,10 @@ Changelog
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
  * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
 
-5.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
 
+ * Added support for Django 5.0
  * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
  * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
  * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
