@@ -103,8 +103,13 @@ export class ActionController extends Controller<
    * Select all the text in an input or textarea element.
    */
   select() {
-    if (this.element instanceof HTMLButtonElement) return;
-    this.element?.select();
+    if (
+      this.element &&
+      (this.element instanceof HTMLInputElement || this.element instanceof HTMLTextAreaElement) &&
+      typeof this.element.select === 'function'
+    ) {
+      this.element.select();
+    }
   }
 
   /**

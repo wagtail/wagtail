@@ -8,12 +8,28 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail import hooks
+from wagtail.admin.menu import MenuItem
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
+@hooks.register('register_help_menu_item')
+def register_explain_menu_item():
+
+  return MenuItem(
+        'Explain',
+        '#explain-content',
+        icon_name='clipboard-list',
+        order=10000,
+        attrs={
+            'data-controller': 'w-action',
+            'data-action': 'click->w-action#select:prevent:stop',
+            'data-a11y-dialog-show': 'explain-content',
+            'role': 'button'
+        }
+    )
 
 def require_wagtail_login(next):
     login_url = getattr(
