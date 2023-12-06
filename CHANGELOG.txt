@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Added support for Django 5.0
