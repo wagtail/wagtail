@@ -774,6 +774,7 @@
 * Bhuvnesh Sharma
 * Ben Morse
 * Shlomo Markowitz
+* Felipe Lobato
 
 ## Translators
 
