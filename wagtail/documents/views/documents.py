@@ -60,6 +60,7 @@ class BaseListingView(generic.IndexView):
     default_ordering = "title"
     table_class = DocumentTable
     model = get_document_model()
+    show_other_searches = True
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
