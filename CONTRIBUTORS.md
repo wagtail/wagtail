@@ -775,6 +775,7 @@
 * Ben Morse
 * Shlomo Markowitz
 * Felipe Lobato
+* Nandini Arora
 
 ## Translators
 

@@ -380,6 +380,7 @@ Changelog
  * Maintenance: Deprecate `wagtail.contrib.modeladmin` (Sage Abdullah)
  * Maintenance: Upgrade documentation theme `sphinx_wagtail_theme` to v6.1.1 which includes multiple styling fixes and always visible code copy buttons (LB (Ben) Johnston)
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
+* Maintenance: Allow `ActionController` to have a `noop` method to more easily leverage standalone Stimulus action options (Nandini Arora)
 
 
 5.0.5 (19.10.2023)

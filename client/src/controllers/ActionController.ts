@@ -41,6 +41,11 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *     This text will all be selected on focus.
  *   </textarea>
  * </form>
+ *
+ * @example - ensuring a button's click does not propagate
+ * <div>
+ *   <button type="button" data-controller="w-action" data-action="w-action#noop:stop">Go</button>
+ * </div>
  */
 export class ActionController extends Controller<
   HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
@@ -56,6 +61,15 @@ export class ActionController extends Controller<
   click() {
     this.element.click();
   }
+
+  /**
+   * Intentionally does nothing.
+   *
+   * Useful for attaching data-action to leverage the built in
+   * Stimulus options without needing any extra functionality.
+   * e.g. preventDefault (`:prevent`) and stopPropagation (`:stop`).
+   */
+  noop() {}
 
   post(event: Event) {
     event.preventDefault();
