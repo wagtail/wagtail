@@ -140,7 +140,7 @@ class IndexView(BaseListingView):
 
 
 class ListingResultsView(BaseListingView):
-    template_name = "wagtaildocs/documents/results.html"
+    template_name = "wagtaildocs/documents/index_results.html"
 
 
 @permission_checker.require("add")
