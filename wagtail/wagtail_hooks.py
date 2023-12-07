@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail import hooks
-from wagtail.admin.menu import MenuItem
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
