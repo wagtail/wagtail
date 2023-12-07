@@ -115,6 +115,7 @@ class IndexView(
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
+    show_other_searches = False
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
