@@ -53,13 +53,18 @@ class BaseListingView(generic.IndexView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
+    page_title = gettext_lazy("Documents")
+    header_icon = "doc-full-inverse"
     page_kwarg = "p"
     paginate_by = 20
     index_url_name = "wagtaildocs:index"
+    index_results_url_name = "wagtaildocs:listing_results"
+    add_url_name = "wagtaildocs:add_multiple"
     edit_url_name = "wagtaildocs:edit"
     default_ordering = "title"
     table_class = DocumentTable
     model = get_document_model()
+    add_item_label = gettext_lazy("Add a document")
     show_other_searches = True
 
     def get_base_queryset(self):
@@ -116,6 +121,13 @@ class BaseListingView(generic.IndexView):
         if request_query_string:
             next_url += "?" + request_query_string
         return next_url
+
+    def get_add_url(self):
+        # Pass the query string so that the collection filter is preserved
+        return set_query_params(
+            super().get_add_url(),
+            self.request.GET.copy(),
+        )
 
     def get_edit_url(self, instance):
         return set_query_params(
