@@ -9,7 +9,7 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
@@ -17,7 +17,7 @@ msgstr ""
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<rmsolucoeseminformatica@protonmail.com>, 2021\n"
+"<sottomaiormacedotec@gmail.com>, 2021\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -140,11 +140,11 @@ msgstr[2] "Existem %(counter)s correspondências"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a "
-"href=\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
+"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a href="
+"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
 
 msgid "Live version"
 msgstr "Versão publicada"

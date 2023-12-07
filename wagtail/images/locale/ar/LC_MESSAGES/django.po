@@ -248,16 +248,16 @@ msgstr "عذرًا ، لا توجد صور تطابق \"<em>%(query_string)s</em
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a "
-"href=\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "لم تحمِّل أي صور. لماذا لا <a href=\"%(wagtailimages_add_image_url)s\">تحمل "
 "واحد الآن</a>؟"

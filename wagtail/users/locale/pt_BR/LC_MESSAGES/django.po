@@ -13,7 +13,7 @@
 # Iuri L. Machado, 2021
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2021
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2022
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
@@ -287,11 +287,11 @@ msgstr "Desculpe, nenhum grupo coincide com \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Não há grupos configurados. Por que não  <a "
-"href=\"%(wagtailusers_create_group_url)s\">adicionar alguns</a>?"
+"Não há grupos configurados. Por que não  <a href="
+"\"%(wagtailusers_create_group_url)s\">adicionar alguns</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Tem certeza que deseja excluir este usuário?"
@@ -345,19 +345,19 @@ msgstr "Desculpe, nenhum usuário coincide com \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"O grupo %(group_name)s não tem usuários configurados. Por que não <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"O grupo %(group_name)s não tem usuários configurados. Por que não <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Não há usuários configurados. Por que não <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"Não há usuários configurados. Por que não <a href=\"%(wagtailusers_add_url)s"
+"\">adicionar alguns</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

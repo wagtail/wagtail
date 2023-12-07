@@ -217,11 +217,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Aucun résultat de promotion n'a été créé. Pourquoi ne pas <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">en ajouter un</a> ?"
+"Aucun résultat de promotion n'a été créé. Pourquoi ne pas <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">en ajouter un</a> ?"
 
 msgid "Search promoted results"
 msgstr "Rechercher des résultats améliorés"

@@ -109,11 +109,11 @@ msgstr[1] "%(counter)s مورد همخوانی دارد"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"هیچ %(snippet_type_name_plural)s ایجاد نشده. می‌توانید یکی را <a "
-"href=\"%(wagtailsnippets_create_url)s\">ایجاد</a> نمایید."
+"هیچ %(snippet_type_name_plural)s ایجاد نشده. می‌توانید یکی را <a href="
+"\"%(wagtailsnippets_create_url)s\">ایجاد</a> نمایید."
 
 msgid "Live version"
 msgstr "نسخه منتشر شده"

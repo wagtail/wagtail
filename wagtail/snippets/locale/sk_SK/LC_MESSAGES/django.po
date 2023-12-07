@@ -77,8 +77,8 @@ msgstr "Pridať %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 "Zatiaľ neboli vytvorené žiadne %(snippet_type_name_plural)s. Prečo "
 "nevytvoriť <a href=\"%(wagtailsnippets_create_url)s\">jeden teraz</a>?"

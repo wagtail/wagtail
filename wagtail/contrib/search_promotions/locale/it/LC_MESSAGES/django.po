@@ -168,16 +168,16 @@ msgstr[2] "Ci sono %(counter)s corrispondenze"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Spiacente, nessun risultato in evidenza corrispondente a "
-"\"<em>%(query_string)s</em>\""
+"Spiacente, nessun risultato in evidenza corrispondente a \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Non è stato creato nessun risultato in evidenza. Perché non ne <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
+"Non è stato creato nessun risultato in evidenza. Perché non ne <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
 
 msgid "Search promoted results"
 msgstr "Cerca risultati in evidenza"

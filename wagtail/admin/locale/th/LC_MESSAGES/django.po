@@ -314,8 +314,8 @@ msgstr "ชื่อ"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Yes, delete"

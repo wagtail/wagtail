@@ -19,7 +19,7 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=3.2,<4.3",
+    "Django>=4.2,<6.0",
     "django-modelcluster>=6.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
     "django-taggit>=2.0,<5.0",
@@ -112,10 +112,10 @@ https://github.com/wagtail/wagtail/.",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Framework :: Django",
-        "Framework :: Django :: 3.2",
-        "Framework :: Django :: 4.1",
         "Framework :: Django :: 4.2",
+        "Framework :: Django :: 5.0",
         "Framework :: Wagtail",
         "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],

@@ -430,11 +430,11 @@ msgstr "Όνομα"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν συλλογές. Θέλετε να <a "
-"href=\"%(add_collection_url)s\">προσθέσετε μία</a>;"
+"Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
+"\">προσθέσετε μία</a>;"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"

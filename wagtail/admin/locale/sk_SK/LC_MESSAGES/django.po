@@ -313,11 +313,11 @@ msgstr "Názov"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a "
-"href=\"%(add_collection_url)s\">pridajte prvú</a>."
+"Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a href="
+"\"%(add_collection_url)s\">pridajte prvú</a>."
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"

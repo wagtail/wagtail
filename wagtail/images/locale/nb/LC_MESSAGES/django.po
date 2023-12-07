@@ -4,6 +4,7 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Jonathan D, 2023
 # Ole Kristian Losvik <ole@losol.no>, 2020
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,14 @@ msgstr "Støttede formater: %(supported_formats)s."
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr "Ikke et støttet bildeformat. Støttede formater: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ikke et gyldig .%(extension)s bilde. Filtypen samsvarer ikke med filformatet "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -71,8 +80,19 @@ msgstr "Høyrejustert"
 msgid "Collection"
 msgstr "Samling"
 
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Bilde er dekorativt"
+
 msgid "Alt text"
 msgstr "Alt-tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Vennligst legg til alternativ tekst for bildet ditt eller merk det som "
+"dekorativt"
 
 msgid "Filter"
 msgstr "Filter"
@@ -119,6 +139,9 @@ msgstr "Rediger ethvert bilde"
 msgid "Choose"
 msgstr "Velg"
 
+msgid "Select images in choosers"
+msgstr "Velg bilder i velgere"
+
 msgid "title"
 msgstr "tittel"
 
@@ -147,10 +170,77 @@ msgid "images"
 msgstr "bilder"
 
 #, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Legg til merkelapp på 1 bilde"
+msgstr[1] "Legg til merkelapper på %(counter)s bilder"
+
+msgid "Add tags to images"
+msgstr "Legg til merkelapper på bilder"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Er du sikker på at du vil merke det følgende bildet?"
+msgstr[1] "Er du sikker på at du vil merke følgende bilder?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Du har ikke tillatelse til å legge til merkelapper på dette bildet"
+msgstr[1] "Du har ikke tillatelse til å legge til merkelapper på disse bildene"
+
+msgid "Yes, add"
+msgstr "Ja, legg til"
+
+msgid "No, don't add"
+msgstr "Nei, ikke legg til"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Legg til 1 bilde i ny samling"
+msgstr[1] " Legg til %(counter)s bilder i ny samling"
+
+msgid "Add images to collection"
+msgstr "Legg til bilder i samlingen"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"Er du sikker på at du vil legge til følgende bilde til valgte samling?"
+msgstr[1] ""
+"Er du sikker på at du vil legge til følgende bilder til valgte samling?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "Du har ikke tillatelse til å legge dette bildet i en samling"
+msgstr[1] "Du har ikke tillatelse til å legge til disse bildene i en samling"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Slett 1 bilde"
+msgstr[1] "Slett %(counter)s bilder"
+
+msgid "Delete images"
+msgstr "Slett bilder"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Er du sikker på at du vil slette dette bildet?"
+msgstr[1] "Er du sikker på at du vil slette disse bildene?"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Brukt %(usage_count)s gang"
 msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "Du har ikke tillatelse til å slette dette bildet"
+msgstr[1] "Du har ikke tillatelse til å slette disse bildene"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"
@@ -161,17 +251,64 @@ msgstr "Nei, ikke slett"
 msgid "Popular tags"
 msgstr "Populære stikkord"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Opplastingen var vellykket. Det ser ut til at ditt nye bilde er en kopi av "
+"et eksisterende bilde. Du kan slette det hvis det ikke er nødvendig."
+
+msgid "Existing"
+msgstr "Eksisterende"
+
 msgid "New"
 msgstr "Ny"
 
+msgid "Use new image"
+msgstr "Bruk det nye bilde"
+
+msgid "Use existing and delete new"
+msgstr "Bruk eksisterende og slett det nye"
+
 msgid "Latest images"
 msgstr "Siste bilder"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Velg %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Du har ikke lastet opp noen bilder i denne samlingen."
+
+msgid "You haven't uploaded any images."
+msgstr "Du har ikke lastet opp noen bilder."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Hvorfor ikke <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>laste en opp nå</a>?"
 
 msgid "Choose a format"
 msgstr "Velg et format"
 
 msgid "Insert image"
 msgstr "Sett inn bilde"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Bilde <span class=\"visuallyhidden\">oprettet i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Bilder <span class=\"visuallyhidden\">oprettet i "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Endre bildefil:"
@@ -185,6 +322,12 @@ msgstr "Legg til bilde"
 msgid "Save"
 msgstr "Lagre"
 
+msgid "Keep new image"
+msgstr "Behold det nye bildet"
+
+msgid "Delete new image"
+msgstr "Slett det nye bildet"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Endrer bilde %(title)s"
@@ -194,6 +337,9 @@ msgstr "Endrer"
 
 msgid "Delete image"
 msgstr "Slett bilde"
+
+msgid "Image focal point"
+msgstr "Bildets fokuspunkt"
 
 msgid "URL Generator"
 msgstr "URL-generator"
@@ -231,8 +377,29 @@ msgstr "Bruk"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "Sort by"
+msgstr "Sorter etter"
+
+msgid "Entries per page"
+msgstr "Oppføringer per side"
+
 msgid "Popular Tags:"
 msgstr "Populære stikkord:"
+
+msgid "Clear"
+msgstr "Tøm"
+
+msgid "Select all images in listing"
+msgstr "Velg alle bildene i listen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
+
+msgid "Select image"
+msgstr "Velg bilde"
 
 msgid "pixels"
 msgstr "piksler"
@@ -243,19 +410,19 @@ msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a "
-"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder. Hvorfor ikke <a "
-"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 msgid "Generating URL"
 msgstr "Genererer URL"
@@ -297,11 +464,25 @@ msgstr ""
 "tittel, om nødvendig. Du kan også slette bildet dersom opplastingen ikke var "
 "nødvendig."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Opplastingen var vellykket. Det ser ut til at ditt nye bilde er en kopi av "
+"et eksisterende bilde. Du kan slette det hvis det ikke er nødvendig."
+
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
 
 msgid "Server Error"
 msgstr "Serverfeil"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Rapporter denne feilen til nettstedets administrator med følgende "
+"informasjon:"
 
 msgid "Image updated."
 msgstr "Bildet er oppdatert."
@@ -315,8 +496,41 @@ msgstr "Legg til bildetillatelse"
 msgid "Tags"
 msgstr "Tags"
 
+msgid "Tag"
+msgstr "Merkelapp"
+
+msgid "Add tags to the selected images"
+msgstr "Legg til merkelapper på valgte bilder"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "Nye merkelapper har blitt lagt til %(num_parent_objects)d bilde"
+msgstr[1] "Nye merkelapper har blitt lagt til %(num_parent_objects)d bilder"
+
+msgid "Add to collection"
+msgstr "Legg til i samling"
+
+msgid "Add selected images to collection"
+msgstr "Legg til valgte bilder i samling"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d bilde har blitt lagt til %(collection)s"
+msgstr[1] "%(num_parent_objects)d bilder har blitt lagt til %(collection)s"
+
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Delete selected images"
+msgstr "Slett valgte bilder"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] "%(num_parent_objects)d bilde har blitt slettet"
+msgstr[1] "%(num_parent_objects)d bilder har blitt slettet"
 
 msgid "Upload"
 msgstr "Last opp"
@@ -332,6 +546,24 @@ msgstr "Velg et annet bilde"
 
 msgid "Edit this image"
 msgstr "Rediger dette bildet"
+
+msgid "Newest"
+msgstr "Nyeste"
+
+msgid "Oldest"
+msgstr "Eldste"
+
+msgid "Title: (A -> Z)"
+msgstr "Tittel: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Tittel: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Filstørrelse: (lav til høy)"
+
+msgid "File size: (high to low)"
+msgstr "Filstørrelse: (høy til lav)"
 
 msgid "Search images"
 msgstr "Søk i bilder"

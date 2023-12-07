@@ -18,9 +18,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -29,7 +29,7 @@ msgid "Wagtail core"
 msgstr "Ядро Wagtail"
 
 msgid "Add Comment"
-msgstr "Дадаць каментар"
+msgstr "Дадаць Каментар"
 
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
@@ -377,5 +377,12 @@ msgstr "Адхіліць"
 msgid "Copy"
 msgstr "Скапіяваць"
 
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Скапіраваны для перакладу з %(title)s (%(locale)s)"
+
 msgid "Move"
 msgstr "Рухайцеся"
+
+msgid "Add comment"
+msgstr "Дадаць каментар"

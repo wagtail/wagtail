@@ -168,11 +168,11 @@ msgstr[1] "Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Yhtään %(snippet_type_name_plural)s ei ole luotu. Mikset vaikka <a "
-"href=\"%(wagtailsnippets_create_url)s\">lisäisi yhtä nyt</a>?"
+"Yhtään %(snippet_type_name_plural)s ei ole luotu. Mikset vaikka <a href="
+"\"%(wagtailsnippets_create_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Live version"
 msgstr "Esillä oleva versio"

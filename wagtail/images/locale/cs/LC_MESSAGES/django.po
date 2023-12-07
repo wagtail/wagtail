@@ -276,19 +276,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
-"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
-"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 msgid "Generating URL"
 msgstr "Generuji URL"

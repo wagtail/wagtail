@@ -141,11 +141,11 @@ msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق 
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"لم يتم إنشاء نتائج ترويجية. لماذا لا <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
+"لم يتم إنشاء نتائج ترويجية. لماذا لا <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
 
 msgid "Search promoted results"
 msgstr "بحث النتائج التي تم الترويج لها"

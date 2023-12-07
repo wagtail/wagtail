@@ -4,6 +4,7 @@ Changelog
 6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 5.0
  * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Remember previous location on returning from page add/edit actions (Robert Rollins)
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
@@ -18,6 +19,7 @@ Changelog
  * Use a single instance of `PagePermissionPolicy` in `wagtail.permissions` module (Sage Abdullah)
  * Add max tag length validation for multiple uploads (documents/images) (Temidayo Azeez)
  * Ensure expanded side panel does not overlap form content for most viewports (Chiemezuo Akujobi)
+ * Add ability to modify the default ordering for the page explorer view (Shlomo Markowitz)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -57,15 +59,18 @@ Changelog
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
  * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
+ * Maintenance: Removed support for Django < 4.2 (Dan Braghis)
 
-5.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
 
+ * Added support for Django 5.0
  * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
  * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
  * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
  * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
  * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
+ * Fix: Prevent custom controls from stacking on top of the comment button in Draftail toolbar (Ben Morse)
 
 
 5.2.1 (16.11.2023)

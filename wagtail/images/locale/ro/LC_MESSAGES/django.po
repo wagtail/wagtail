@@ -422,19 +422,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine în această colecție. De să nu <a "
-"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine. De să nu <a "
-"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 msgid "Generating URL"
 msgstr "Generarea URL"

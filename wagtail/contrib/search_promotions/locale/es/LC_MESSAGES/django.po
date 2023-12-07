@@ -173,16 +173,16 @@ msgstr[2] "Hay %(counter)s coincidencias"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Lo sentimos, resultados promovidos no encontrados \"<em>%(query_string)s</"
-"em>\""
+"Lo sentimos, resultados promovidos no encontrados \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Resultados promovidos no han sido creados. ¿Por que no <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">agregar uno</a>?"
+"Resultados promovidos no han sido creados. ¿Por que no <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">agregar uno</a>?"
 
 msgid "Search promoted results"
 msgstr "Buscar resultados promovidos"

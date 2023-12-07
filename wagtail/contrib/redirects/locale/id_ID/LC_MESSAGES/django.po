@@ -129,11 +129,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Tidak ada pengalihan yang dibuat. Mengapa tidak <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">menambahnya</a>?"
+"Tidak ada pengalihan yang dibuat. Mengapa tidak <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">menambahnya</a>?"
 
 msgid "Search redirects"
 msgstr "Pengalihan pencarian"

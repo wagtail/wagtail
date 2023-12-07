@@ -110,11 +110,11 @@ msgstr "%(snippet_type_name)s ekle"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a "
-"href=\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
+"Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a href="
+"\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "Live version"
 msgstr "Canlı sürüm"

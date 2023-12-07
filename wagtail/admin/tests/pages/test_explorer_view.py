@@ -126,6 +126,54 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
 
+    def test_change_default_child_page_ordering_attribute(self):
+        # save old get_default_order to reset at end of test
+        # overriding class methods does not reset at end of test case
+        default_order = self.root_page.__class__.admin_default_ordering
+        self.root_page.__class__.admin_default_ordering = "title"
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(
+            page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
+        )
+        self.assertEqual("title", self.root_page.get_admin_default_ordering())
+        self.assertEqual(response.context["ordering"], "title")
+
+        # reset default order at the end of the test
+        self.root_page.__class__.admin_default_ordering = default_order
+
+    def test_change_default_child_page_ordering_method(self):
+        # save old get_default_order to reset at end of test
+        # overriding class methods does not reset at end of test case
+        default_order_function = self.root_page.__class__.get_admin_default_ordering
+
+        def get_default_order(obj):
+            return "-title"
+
+        # override get_default_order_method
+        self.root_page.__class__.get_admin_default_ordering = get_default_order
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual("-title", self.root_page.get_admin_default_ordering())
+        self.assertEqual(
+            page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
+        )
+        self.assertEqual(response.context["ordering"], "-title")
+
+        # reset default order function at the end of the test
+        self.root_page.__class__.get_admin_default_ordering = default_order_function
+
     def test_reverse_ordering(self):
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)),

@@ -128,13 +128,13 @@ msgstr "Désolé, aucun fragment ne correspond à « <em>%(search_query)s</em>�
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">en créer un maintenant</a> ?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">en créer un maintenant</a> ?"
 
 msgid "Publishing…"
 msgstr "Publication..."
@@ -193,11 +193,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a "
-"href=\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
+"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a href="
+"\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
 
 msgid "Live version"
 msgstr "Version publiée"

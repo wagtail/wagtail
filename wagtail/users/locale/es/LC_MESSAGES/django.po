@@ -286,11 +286,11 @@ msgstr "Lo sentimos, ningún grupo coincide con \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"No hay grupos configurados. ¿Por que no <a "
-"href=\"%(wagtailusers_create_group_url)s\">agregar alguno</a>?"
+"No hay grupos configurados. ¿Por que no <a href="
+"\"%(wagtailusers_create_group_url)s\">agregar alguno</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Está seguro de que desea eliminar este usuario?"
@@ -341,19 +341,19 @@ msgstr "Lo sentimos, ningún usuario coincide con \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"El grupo %(group_name)s no tiene usuarios configurados. ¿Por qué no <a "
-"href=\"%(wagtailusers_add_url)s\">añadir alguno</a>?"
+"El grupo %(group_name)s no tiene usuarios configurados. ¿Por qué no <a href="
+"\"%(wagtailusers_add_url)s\">añadir alguno</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"No hay usuarios configurados. ¿Por qué no <a "
-"href=\"%(wagtailusers_add_url)s\">añadir alguno</a>?"
+"No hay usuarios configurados. ¿Por qué no <a href=\"%(wagtailusers_add_url)s"
+"\">añadir alguno</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

@@ -125,11 +125,11 @@ msgstr "Lisa %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Mitte ühtegi %(snippet_type_name_plural)s pole loodud. Lisa <a "
-"href=\"%(wagtailsnippets_create_url)s\">üks</a>?"
+"Mitte ühtegi %(snippet_type_name_plural)s pole loodud. Lisa <a href="
+"\"%(wagtailsnippets_create_url)s\">üks</a>?"
 
 msgid "Live version"
 msgstr "Reaalajas versioon"

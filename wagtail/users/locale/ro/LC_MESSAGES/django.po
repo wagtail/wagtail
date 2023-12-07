@@ -282,11 +282,11 @@ msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu nici un grup"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nu există nici un grup configurat. De ce să nu <a "
-"href=\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
+"Nu există nici un grup configurat. De ce să nu <a href="
+"\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Sigur doriți să ștergeți acest utilizator?"
@@ -342,19 +342,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a "
-"href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a href="
+"\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Nu există nici un utilizator. De ce să nu <a "
-"href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+"Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
+"\">adăugați câțiva</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
