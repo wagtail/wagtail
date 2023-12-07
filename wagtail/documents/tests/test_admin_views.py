@@ -206,13 +206,13 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "There are 50 matches")
 
 
-class TestDocumentListingResultsView(WagtailTestUtils, TransactionTestCase):
+class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtaildocs:listing_results"), params)
+        return self.client.get(reverse("wagtaildocs:index_results"), params)
 
     def test_search(self):
         doc = models.Document.objects.create(title="A boring report")

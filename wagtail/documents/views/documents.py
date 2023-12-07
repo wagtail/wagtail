@@ -49,7 +49,7 @@ class DocumentTable(Table):
         return context
 
 
-class BaseListingView(generic.IndexView):
+class IndexView(generic.IndexView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     context_object_name = "documents"
@@ -58,9 +58,11 @@ class BaseListingView(generic.IndexView):
     page_kwarg = "p"
     paginate_by = 20
     index_url_name = "wagtaildocs:index"
-    index_results_url_name = "wagtaildocs:listing_results"
+    index_results_url_name = "wagtaildocs:index_results"
     add_url_name = "wagtaildocs:add_multiple"
     edit_url_name = "wagtaildocs:edit"
+    template_name = "wagtaildocs/documents/index.html"
+    results_template_name = "wagtaildocs/documents/index_results.html"
     default_ordering = "title"
     table_class = DocumentTable
     model = get_document_model()
@@ -145,14 +147,6 @@ class BaseListingView(generic.IndexView):
             }
         )
         return context
-
-
-class IndexView(BaseListingView):
-    template_name = "wagtaildocs/documents/index.html"
-
-
-class ListingResultsView(BaseListingView):
-    template_name = "wagtaildocs/documents/index_results.html"
 
 
 @permission_checker.require("add")
