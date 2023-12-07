@@ -84,7 +84,60 @@ describe('ActionController', () => {
 
       expect(clickMock).toHaveBeenCalled();
     });
+
   });
+
+  describe('click method for textarea', () => {
+    beforeEach(async()=>{
+      await setup(`
+      <textarea 
+      id="text"
+      data-controller="w-action"
+      data-action="some-event->w-action#click" 
+      > 
+      Text </textarea> 
+      `)
+    })
+
+    it('should call click method then textarea is click via Stimulus action',()=>{
+      const text = document.getElementById('text');
+      const clickMock = jest.fn();
+      HTMLTextAreaElement.prototype.click = clickMock;
+
+      text.addEventListener('some-event', text.click());
+
+      const event = new CustomEvent('some-event');
+      text.dispatchEvent(event);
+
+      expect(clickMock).toHaveBeenCalled();
+    })
+  })
+
+  describe('click method for input', () => {
+    beforeEach(async()=>{
+      await setup(`
+      <input 
+      type="text"
+      id="input"
+      data-controller="w-action"
+      data-action="some-event->w-action#click" 
+      />
+      `)
+    })
+
+    it('should call click method then input is click via Stimulus action',()=>{
+      const input = document.getElementById('input');
+      const clickMock = jest.fn();
+      HTMLInputElement.prototype.click = clickMock;
+
+      input.addEventListener('some-event', input.click());
+
+      const event = new CustomEvent('some-event');
+      input.dispatchEvent(event);
+
+      expect(clickMock).toHaveBeenCalled();
+    })
+  })
 
   describe('redirect method', () => {
     beforeEach(async () => {
