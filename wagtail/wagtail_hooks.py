@@ -15,9 +15,6 @@ from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestrictio
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
-@hooks.register('register_help_menu_item')
-def register_explain_menu_item():
-
   return MenuItem(
         'Explain',
         '#explain-content',
