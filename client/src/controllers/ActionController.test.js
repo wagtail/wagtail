@@ -276,4 +276,31 @@ describe('ActionController', () => {
       expect(handleChangeEvent).toHaveBeenCalled();
     });
   });
+
+  describe('noop method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button id="button" data-controller="w-action" data-action="w-action#noop:prevent:stop">
+        Click me!
+      </button>`);
+    });
+
+    it('should a noop method that does nothing, enabling use of action options', async () => {
+      const button = document.getElementById('button');
+
+      const onClick = jest.fn();
+      document.addEventListener('click', onClick);
+
+      button.dispatchEvent(new Event('click', { bubbles: true }));
+
+      expect(onClick).not.toHaveBeenCalled();
+
+      // remove data-action attribute
+      await Promise.resolve(button.removeAttribute('data-action'));
+
+      button.dispatchEvent(new Event('click', { bubbles: true }));
+
+      expect(onClick).toHaveBeenCalled();
+    });
+  });
 });
