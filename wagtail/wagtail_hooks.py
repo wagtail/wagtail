@@ -14,19 +14,6 @@ from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestrictio
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
-  return MenuItem(
-        'Explain',
-        '#explain-content',
-        icon_name='clipboard-list',
-        order=10000,
-        attrs={
-            'data-controller': 'w-action',
-            'data-action': 'click->w-action#select:prevent:stop',
-            'data-a11y-dialog-show': 'explain-content',
-            'role': 'button'
-        }
-    )
-
 def require_wagtail_login(next):
     login_url = getattr(
         settings, "WAGTAIL_FRONTEND_LOGIN_URL", reverse("wagtailcore_login")
