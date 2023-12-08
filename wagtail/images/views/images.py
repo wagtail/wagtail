@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -35,7 +34,9 @@ INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
-class BaseListingView(TemplateView):
+class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
+    permission_policy = permission_policy
+    any_permission_required = ["add", "change", "delete"]
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
@@ -46,10 +47,6 @@ class BaseListingView(TemplateView):
         "-file_size": _("File size: (high to low)"),
     }
     default_ordering = "-created_at"
-
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
 
     def get_num_entries_per_page(self):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
