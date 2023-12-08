@@ -14,7 +14,7 @@ from django.utils.translation import gettext_lazy, ngettext
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -46,6 +46,13 @@ class BaseListingView(generic.IndexView):
     any_permission_required = ["add", "change", "delete"]
     model = get_image_model()
     show_other_searches = True
+    header_icon = "image"
+    page_title = gettext_lazy("Images")
+    add_item_label = gettext_lazy("Add an image")
+    index_url_name = "wagtailimages:index"
+    index_results_url_name = "wagtailimages:listing_results"
+    add_url_name = "wagtailimages:add_multiple"
+    edit_url_name = "wagtailimages:edit"
 
     def get_paginate_by(self, queryset):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
@@ -100,10 +107,17 @@ class BaseListingView(generic.IndexView):
 
         return self.filters, queryset
 
+    def get_add_url(self):
+        # Pass the query string so that the collection filter is preserved
+        return set_query_params(
+            super().get_add_url(),
+            self.request.GET.copy(),
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        next_url = reverse("wagtailimages:index")
+        next_url = reverse(self.index_url_name)
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
@@ -133,19 +147,12 @@ class IndexView(BaseListingView):
         if len(collections) < 2:
             collections = None
 
-        Image = get_image_model()
-
         context.update(
             {
                 "popular_tags": popular_tags_for_model(get_image_model()),
                 "current_tag": self.current_tag,
                 "collections": collections,
                 "current_collection": self.current_collection,
-                "user_can_add": permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
-                "app_label": Image._meta.app_label,
-                "model_name": Image._meta.model_name,
             }
         )
         return context
