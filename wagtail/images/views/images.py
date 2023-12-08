@@ -114,17 +114,19 @@ class BaseListingView(generic.IndexView):
             self.request.GET.copy(),
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        next_url = reverse(self.index_url_name)
+    def get_next_url(self):
+        next_url = self.get_index_url()
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
+        return next_url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         context.update(
             {
-                "next": next_url,
+                "next": self.get_next_url(),
                 "entries_per_page": self.entries_per_page,
                 "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
                 "current_ordering": self.ordering,
