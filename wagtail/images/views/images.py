@@ -2,8 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import InvalidPage, Paginator
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -11,7 +10,6 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -34,9 +32,7 @@ INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
-class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
-    permission_policy = permission_policy
-    any_permission_required = ["add", "change", "delete"]
+class BaseListingView(generic.PermissionCheckedMixin, generic.BaseListingView):
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
@@ -47,8 +43,11 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
         "-file_size": _("File size: (high to low)"),
     }
     default_ordering = "-created_at"
+    context_object_name = "images"
+    permission_policy = permission_policy
+    any_permission_required = ["add", "change", "delete"]
 
-    def get_num_entries_per_page(self):
+    def get_paginate_by(self, queryset):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
         try:
             entries_per_page = int(entries_per_page)
@@ -57,31 +56,22 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
         if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
             entries_per_page = INDEX_PAGE_SIZE
 
+        self.entries_per_page = entries_per_page
+
         return entries_per_page
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
 
-    def get_ordering(self):
-        # TODO: remove this method when this view will be based on the
-        # generic model index view from wagtail.admin.views.generic.models.IndexView
-        ordering = self.request.GET.get("ordering")
-        if ordering is None or ordering not in self.get_valid_orderings():
-            ordering = self.default_ordering
-        return ordering
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    def get_queryset(self):
         # Get ordering
-        ordering = self.get_ordering()
-
+        self.ordering = self.get_ordering()
         # Get images (filtered by user permission and ordered by `ordering`)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
-            .order_by(ordering)
+            .order_by(self.ordering)
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
@@ -108,6 +98,8 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
         else:
             self.form = SearchForm(placeholder=_("Search images"))
 
+        self.query_string = query_string
+
         # Filter by tag
         self.current_tag = self.request.GET.get("tag")
         if self.current_tag:
@@ -116,12 +108,10 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
             except AttributeError:
                 self.current_tag = None
 
-        entries_per_page = self.get_num_entries_per_page()
-        paginator = Paginator(images, per_page=entries_per_page)
-        try:
-            images = paginator.page(self.request.GET.get("p", 1))
-        except InvalidPage:
-            raise Http404
+        return images
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         next_url = reverse("wagtailimages:index")
         request_query_string = self.request.META.get("QUERY_STRING")
@@ -130,13 +120,12 @@ class BaseListingView(generic.PermissionCheckedMixin, TemplateView):
 
         context.update(
             {
-                "images": images,
-                "query_string": query_string,
-                "is_searching": bool(query_string),
+                "query_string": self.query_string,
+                "is_searching": bool(self.query_string),
                 "next": next_url,
-                "entries_per_page": entries_per_page,
+                "entries_per_page": self.entries_per_page,
                 "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
-                "current_ordering": ordering,
+                "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
         )

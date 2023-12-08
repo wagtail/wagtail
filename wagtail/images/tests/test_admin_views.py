@@ -121,8 +121,8 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         response = self.get({"ordering": "title"})
         self.assertEqual(response.status_code, 200)
         context = response.context
-        self.assertEqual(context["images"].object_list[0], self.kitten_image)
-        self.assertEqual(context["images"].object_list[1], self.puppy_image)
+        self.assertEqual(context["page_obj"].object_list[0], self.kitten_image)
+        self.assertEqual(context["page_obj"].object_list[1], self.puppy_image)
 
     def test_valid_orderings(self):
         orderings = [
@@ -147,8 +147,8 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         context = response.context
         default_ordering = "-created_at"
         self.assertEqual(context["current_ordering"], default_ordering)
-        self.assertEqual(context["images"].object_list[0], self.puppy_image)
-        self.assertEqual(context["images"].object_list[1], self.kitten_image)
+        self.assertEqual(context["page_obj"].object_list[0], self.puppy_image)
+        self.assertEqual(context["page_obj"].object_list[1], self.kitten_image)
 
     def test_default_entries_per_page(self):
         for i in range(1, 33):
@@ -160,14 +160,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
-        object_list = response.context["images"].object_list
+        object_list = response.context["page_obj"].object_list
         # The default number of images shown is 30
         self.assertEqual(len(object_list), 30)
 
         response = self.get({"entries_per_page": 10})
         self.assertEqual(response.status_code, 200)
 
-        object_list = response.context["images"].object_list
+        object_list = response.context["page_obj"].object_list
         self.assertEqual(len(object_list), 10)
 
     def test_default_entries_per_page_uses_default(self):
@@ -183,7 +183,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             response = self.get({"entries_per_page": value})
             self.assertEqual(response.status_code, 200)
 
-            object_list = response.context["images"].object_list
+            object_list = response.context["page_obj"].object_list
             self.assertEqual(len(object_list), default_num_entries_per_page)
 
     def test_collection_order(self):
@@ -263,15 +263,15 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         # no filtering
         response = self.get()
         # three images created above plus the two untagged ones created in setUp()
-        self.assertEqual(response.context["images"].paginator.count, 5)
+        self.assertEqual(response.context["page_obj"].paginator.count, 5)
 
         # filter all images with tag 'one'
         response = self.get({"tag": "one"})
-        self.assertEqual(response.context["images"].paginator.count, 2)
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
         # filter all images with tag 'two'
         response = self.get({"tag": "two"})
-        self.assertEqual(response.context["images"].paginator.count, 1)
+        self.assertEqual(response.context["page_obj"].paginator.count, 1)
 
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 130):
@@ -391,7 +391,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         response = self.get({"q": "Baker", "collection_id": child_collection[0].id})
         status_code = response.status_code
         query_string = response.context["query_string"]
-        response_list = response.context["images"].object_list
+        response_list = response.context["page_obj"].object_list
         response_body = response.content.decode("utf-8")
 
         self.assertEqual(status_code, 200)
@@ -428,7 +428,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         # The tag gets ignored, if a valid search term is present, so this will find all
         # images, as all of them contain "test" in their titles.
         response = self.get({"tag": "one", "q": "test"})
-        self.assertEqual(response.context["images"].paginator.count, 3)
+        self.assertEqual(response.context["page_obj"].paginator.count, 3)
 
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
