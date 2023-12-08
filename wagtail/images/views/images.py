@@ -45,6 +45,7 @@ class BaseListingView(generic.IndexView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
     model = get_image_model()
+    show_other_searches = True
 
     def get_paginate_by(self, queryset):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
