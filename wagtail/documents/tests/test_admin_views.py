@@ -105,6 +105,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def test_index_with_collection_filtered(self):
         root_collection = Collection.get_first_root_node()
         travel_plans = root_collection.add_child(name="Travel plans")
+        models.Document.objects.create(title="Itinerary", collection=travel_plans)
 
         self.make_docs()
 
@@ -113,6 +114,25 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         url = reverse("wagtaildocs:add_multiple")
         self.assertContains(
             response, f'<a href="{url}?collection_id={travel_plans.pk}"'
+        )
+
+        # List should be filtered
+        self.assertEqual(len(response.context["page_obj"]), 1)
+        self.assertContains(response, "Itinerary")
+        self.assertNotContains(response, "Test 42")
+
+        # Should render the "Select all" with the correct collection ID
+        # twice, one for the column header and one in the footer.
+        self.assertContains(
+            response,
+            f"""
+            <input data-bulk-action-parent-id="{travel_plans.pk}"
+                   data-bulk-action-select-all-checkbox
+                   type="checkbox"
+                   aria-label="Select all"
+            />""",
+            html=True,
+            count=2,
         )
 
     def test_collection_nesting(self):
