@@ -30,7 +30,7 @@ INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
-class BaseListingView(generic.IndexView):
+class IndexView(generic.IndexView):
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
@@ -50,9 +50,11 @@ class BaseListingView(generic.IndexView):
     page_title = gettext_lazy("Images")
     add_item_label = gettext_lazy("Add an image")
     index_url_name = "wagtailimages:index"
-    index_results_url_name = "wagtailimages:listing_results"
+    index_results_url_name = "wagtailimages:index_results"
     add_url_name = "wagtailimages:add_multiple"
     edit_url_name = "wagtailimages:edit"
+    template_name = "wagtailimages/images/index.html"
+    results_template_name = "wagtailimages/images/index_results.html"
 
     def get_paginate_by(self, queryset):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
@@ -128,22 +130,18 @@ class BaseListingView(generic.IndexView):
             {
                 "next": self.get_next_url(),
                 "entries_per_page": self.entries_per_page,
+                "current_tag": self.current_tag,
+                "current_collection": self.current_collection,
                 "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
         )
 
-        return context
+        if self.results_only:
+            return context
 
-
-class IndexView(BaseListingView):
-    template_name = "wagtailimages/images/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        collections = permission_policy.collections_user_has_any_permission_for(
+        collections = self.permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
@@ -152,16 +150,10 @@ class IndexView(BaseListingView):
         context.update(
             {
                 "popular_tags": popular_tags_for_model(get_image_model()),
-                "current_tag": self.current_tag,
                 "collections": collections,
-                "current_collection": self.current_collection,
             }
         )
         return context
-
-
-class ListingResultsView(BaseListingView):
-    template_name = "wagtailimages/images/index_results.html"
 
 
 @permission_checker.require("change")

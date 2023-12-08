@@ -438,7 +438,7 @@ class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailimages:listing_results"), params)
+        return self.client.get(reverse("wagtailimages:index_results"), params)
 
     def test_search(self):
         monster = Image.objects.create(
