@@ -14,6 +14,7 @@ from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestrictio
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
+
 def require_wagtail_login(next):
     login_url = getattr(
         settings, "WAGTAIL_FRONTEND_LOGIN_URL", reverse("wagtailcore_login")

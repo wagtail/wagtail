@@ -103,15 +103,24 @@ export class ActionController extends Controller<
    * Select all the text in an input or textarea element.
    */
   select() {
+    const element= this.element;
+
     if (
-      this.element &&
-      (this.element instanceof HTMLInputElement || this.element instanceof HTMLTextAreaElement) &&
-      typeof this.element.select === 'function'
-    ) {
-      this.element.select();
+      element &&
+      (
+      element instanceof HTMLInputElement || 
+      element instanceof HTMLTextAreaElement
+      )) {
+      element.select();
     }
   }
 
+    /**
+   * Useful method for attaching data-action and using the built in
+   * preventDefault (`:prevent`) and stopPropagation (`:stop`) ability.
+   */
+    noop() {}
+    
   /**
    * Reset the field to a supplied or the field's initial value (default).
    * Only update if the value to change to is different from the current value.
