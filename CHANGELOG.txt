@@ -63,6 +63,7 @@ Changelog
  * Fix: Prevent TitleFieldPanel from raising an error when the slug field is missing or read-only (Rohit Sharma)
  * Fix: Ensure that the close button on the new dialog designs is visible in the non-message variant (Nandini Arora)
  * Fix: Ensure the sidebar account toggle has no duplicate accessible labels (Nandini Arora)
+ * Fix: Avoid text overflow issues in comment replies and scroll position issues for long comments (Rohit Sharma)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
