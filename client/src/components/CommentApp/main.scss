@@ -110,7 +110,7 @@ $box-padding: 20px;
 }
 
 .comments-list {
-  position: absolute;
+  position: relative;
   top: 20px;
   inset-inline-end: 20px;
   z-index: calc(theme('zIndex.header') + 5);
