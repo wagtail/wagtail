@@ -152,7 +152,7 @@ class IndexView(BaseListingView):
 
 
 class ListingResultsView(BaseListingView):
-    template_name = "wagtailimages/images/results.html"
+    template_name = "wagtailimages/images/index_results.html"
 
 
 @permission_checker.require("change")
