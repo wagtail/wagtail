@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/generic/listing_results.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block results %}
+{% block before_results %}
     {% if is_searching or is_filtering %}
         <h2 role="alert">
             {% blocktrans trimmed count counter=items_count %}
@@ -14,7 +14,6 @@
     {% if is_searching and view.show_other_searches %}
         {% search_other %}
     {% endif %}
-    {{ block.super }}
 {% endblock %}
 
 {% block no_results_message %}
