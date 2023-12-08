@@ -149,17 +149,15 @@ class IndexView(
         if self.model is None:
             return None
 
-        if self.is_searchable and self.search_kwarg in self.request.GET:
-            return SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(model_name)s")
-                % {"model_name": self.model._meta.verbose_name_plural},
-            )
-
-        return SearchForm(
-            placeholder=_("Search %(model_name)s")
+        placeholder = capfirst(
+            _("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
+
+        if self.is_searchable and self.search_kwarg in self.request.GET:
+            return SearchForm(self.request.GET, placeholder=placeholder)
+
+        return SearchForm(placeholder=placeholder)
 
     def get_filterset_class(self):
         if self.filterset_class:
