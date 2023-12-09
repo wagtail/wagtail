@@ -116,7 +116,7 @@ class TestTableBlock(TestCase):
         """
         self.assertHTMLEqual(result, expected)
 
-    def test_do_not_render_html(self):
+    def test_do_not_render_html_by_default(self):
         """
         Ensure that raw html doesn't render
         by default.
@@ -142,6 +142,36 @@ class TestTableBlock(TestCase):
         """
 
         block = TableBlock()
+        result = block.render(value)
+        self.assertHTMLEqual(result, expected)
+
+    def test_does_render_html_if_allowed(self):
+        """
+        Ensure html renders if table_options set renderer to allow html
+        """
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["<p><strong>Test</strong></p>", None, None],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
+
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td><p><strong>Test</strong></p></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+
+        new_options = self.default_table_options.copy()
+        new_options["renderer"] = "html"
+        block = TableBlock(table_options=new_options)
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
 
@@ -219,6 +249,33 @@ class TestTableBlock(TestCase):
                 <tbody>
                     <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
                     <tr><th scope="row">four</th><td>five</td><td>six</td></tr>
+                </tbody>
+            </table>
+        """
+        block = TableBlock()
+        result = block.render(value)
+        self.assertHTMLEqual(result, expected)
+
+    def test_no_headers(self):
+        """
+        Test table without headers.
+        """
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["Foo", "Bar", "Baz"],
+                ["one", "two", "three"],
+                ["four", "five", "six"],
+            ],
+        }
+
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td>Foo</td><td>Bar</td><td>Baz</td></tr>
+                    <tr><td>one</td><td>two</td><td>three</td></tr>
+                    <tr><td>four</td><td>five</td><td>six</td></tr>
                 </tbody>
             </table>
         """
