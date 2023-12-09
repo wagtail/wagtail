@@ -1,6 +1,9 @@
 import json
 
 from django import forms
+from django.core.exceptions import ValidationError
+from django.forms.fields import Field
+from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
@@ -68,12 +71,18 @@ class TableInputAdapter(WidgetAdapter):
     def js_args(self, widget):
         strings = {
             "Row header": _("Row header"),
-            "Display the first row as a header.": _(
-                "Display the first row as a header."
+            "Table headers": _("Table headers"),
+            "Display the first row as a header": _("Display the first row as a header"),
+            "Display the first column as a header": _(
+                "Display the first column as a header"
             ),
             "Column header": _("Column header"),
-            "Display the first column as a header.": _(
-                "Display the first column as a header."
+            "Display the first row AND first column as headers": _(
+                "Display the first row AND first column as headers"
+            ),
+            "No headers": _("No headers"),
+            "Which cells should be displayed as headers?": _(
+                "Which cells should be displayed as headers?"
             ),
             "Table caption": _("Table caption"),
             "A heading that identifies the overall topic of the table, and is useful for screen reader users.": _(
@@ -116,6 +125,44 @@ class TableBlock(FieldBlock):
 
     def value_for_form(self, value):
         return json.dumps(value)
+
+    def to_python(self, value):
+        """
+        If value came from a table block stored before Wagtail 6.0, we need to set an appropriate
+        value for the header choice. I would really like to have this default to "" and force the
+        editor to reaffirm they don't want any headers, but that woud be a breaking change.
+        """
+        if not value.get("table_header_choice", ""):
+            if value.get("first_row_is_table_header", False) and value.get(
+                "first_col_is_header", False
+            ):
+                value["table_header_choice"] = "both"
+            elif value.get("first_row_is_table_header", False):
+                value["table_header_choice"] = "row"
+            elif value.get("first_col_is_header", False):
+                value["table_header_choice"] = "col"
+            else:
+                value["table_header_choice"] = "neither"
+        return value
+
+    def clean(self, value):
+        if not value:
+            return value
+
+        if value.get("table_header_choice", ""):
+            value["first_row_is_table_header"] = value["table_header_choice"] in [
+                "row",
+                "both",
+            ]
+            value["first_col_is_header"] = value["table_header_choice"] in [
+                "column",
+                "both",
+            ]
+        else:
+            # Ensure we have a choice for the table_header_choice
+            errors = ErrorList(Field.default_error_messages["required"])
+            raise ValidationError("Validation error in TableBlock", params=errors)
+        return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     def get_form_state(self, value):
         # pass state to frontend as a JSON-ish dict - do not serialise to a JSON string
