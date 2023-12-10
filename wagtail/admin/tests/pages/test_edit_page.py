@@ -469,7 +469,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -561,7 +561,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -1279,7 +1279,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-controller="w-dialog">',
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
             html,
             count=1,
             allow_extra_attrs=True,
