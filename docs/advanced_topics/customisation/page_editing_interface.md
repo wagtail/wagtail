@@ -4,52 +4,231 @@
 
 ## Customising the tabbed interface
 
-As standard, Wagtail organises panels for pages into two tabs: 'Content' and 'Promote'. For snippets Wagtail puts all panels into one page. Depending on the requirements of your site, you may wish to customise this for specific page types or snippets - for example, adding an additional tab for sidebar content. This can be done by specifying an `edit_handler` attribute on the page or snippet model. For example:
+
+The simplest way to customise the tabs that appear when editing a model instance is to utlize `wagtail.admin.utils.TabbedEditHandlerGeneratorMixin`. This mixin adds a number of properties and methods that can be overridden to fit your needs.
+
+If your model is a subclass of `Page`, you're in luck! Wagtail's `Page` model already incorporates `TabbedEditHandlerGeneratorMixin`, granting access to numerous customisation options. However, snippets and other models, you'll need to import and apply it explicitly in your model definition, as shown below:
 
 ```python
-from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
+from wagtail.admin.utils import TabbedEditHandlerGeneratorMixin
 
-class BlogPage(Page):
-    # field definitions omitted
 
-    content_panels = [
-        TitleFieldPanel('title', classname="title"),
-        FieldPanel('date'),
-        FieldPanel('body'),
-    ]
-    sidebar_content_panels = [
-        FieldPanel('advert'),
-        InlinePanel('related_links', heading="Related links", label="Related link"),
-    ]
-
-    edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading='Content'),
-        ObjectList(sidebar_content_panels, heading='Sidebar content'),
-        ObjectList(Page.promote_panels, heading='Promote'),
-    ])
+class Employee(models.Model, TabbedEditHandlerGeneratorMixin):
+    ...
 ```
 
-Permissions can be set using `permission` on the `ObjectList` to restrict entire groups of panels to specific users.
+### Adding tabs to a non-page model
+
+The simplest method for controlling the interface is to use attribute values on the model class.
+
+Tab names and labels are controlled via the `edit_handler_tabs` attribute.
+
+`TabbedEditHandlerGeneratorMixin` automatically looks for attributes following the pattern `{tab_name}_panels` to determine the panels for each tab. Consider the following example for the `Employee` model:
 
 ```python
-from wagtail.admin.panels import TabbedInterface, TitleFieldPanel, ObjectList
+
+from django.utils.translation import gettext_lazy as _
+
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.utils import TabbedEditHandlerGeneratorMixin
+
+
+class Employee(models.Model, TabbedEditHandlerGeneratorMixin):
+
+    # The names and labels of tabs that should appear in the
+    # edit interface
+    edit_handler_tabs = [
+        ("personal", _("Personal details")),
+        ("professional", _("Professional details")),
+    ]
+
+    # Panels to appear under the 'Personal details' tab
+    personal_panels = [
+        FieldPanel("first_name"),
+        FieldPanel("last_name"),
+        FieldPanel("email"),
+        FieldPanel("dob"),
+    ]
+
+    # Panels to appear under the 'Professional details' tab.
+    professional_panels = [
+        FieldPanel("employment_start_date"),
+        FieldPanel("line_manager"),
+        FieldPanel("current_role"),
+        FieldPanel("current_role_start_date"),
+    ]
+```
+
+### Extending default tabs for page types
+
+For `Page` models, tab customization follows the same principles. You just need to bear in mind that `Page` models already have an `edit_handler_tabs` attribute with the following value:
+
+```python
+    edit_handler_tabs = [
+        ("content", "Content"),
+        ("promote", "Promote"),
+        ("settings", "Settings"),
+    ]
+```
+
+Adding a new tab (such as "Related") after the "Promote" tab could be achieved by setting the `edit_handler_tabs` attribute on your custom class like this:
+
+
+```python
+from django.utils.translation import gettext_lazy as _
+
+from wagtail.admin.panels import FieldPanel
+
+
+class BlogPage(Page):
+
+    edit_handler_tabs = Page.edit_handler_tabs[:2] + [
+        ("related", _("Related")),
+    ] + Page.edit_handler_tabs[2:]
+
+    # Panels to appear under the 'Related' tab.
+    related_panels = [
+        InlinePanel("related_blogs"),
+        FieldPanel("categories"),
+        FieldPanel("tags"),
+    ]
+```
+
+For enhanced flexibility in defining a list of panels, consider using a class method with the name `get_{tab_name}_panels()` instead. This approach allows for conditional panel inclusion based on other attributes or settings, as illustrated below:
+
+```python
+from django.utils.translation import gettext_lazy as _
+
+from wagtail.admin.panels import FieldPanel
+
+
+class BlogPage(Page):
+
+    # An attribute to toggle the inclusion of `migration_details_panel`
+    # at the bottom of the content tab. It is set to `True` on at least
+    # one subclass
+    is_migrated = False
+
+    migration_details_panel = MultiFieldPanel(
+        heading=_("Migration details")),
+        children=[
+            FieldPanel("migration_source", read_only=True),
+            FieldPanel("migration_source_id", read_only=True),
+            FieldPanel("last_updated_from_source", read_only=True),
+        ],
+    )
+
+    @classmethod
+    def get_content_panels(cls):
+        # Start with the attribute value
+        panels = list(cls.content_panels)
+
+        # Add additional read-only fields for migrated blog types
+        if cls.is_migrated:
+            panels.append(cls.migration_details_panel)
+
+        return panels
+```
+
+Where you have a mixture of fixed and dynamically added panels in a tab, a sensible approach is to define the fixed panels using an attribute, then make any necessary adjustments in the class method.
+
+### Changing the class used for the interface
+
+By default, the `wagtail.admin.panels.TabbedInterface` class is used to define tabbed edit interfaces for models, but you use the `edit_handler_class` attribute to specify an alternative. For example:
+
+```python
+class BlogPage(Page):
+    edit_handler_class = "yourproject.appname.panels.CustomTabbedInterface"
+```
+
+The class should be a subclass of `TabbedInterface`, and the attribute value can be a class or an import path to one.
+
+For additionaly flexibility, consider overriding the `get_edit_handler_class()` class method:
+
+```python
+from yourproject.appname.panels import CustomTabbedInterface
+
+
+class BlogPage(Page):
+
+    @classmethod
+    def get_edit_handler_class(cls):
+        return CustomTabbedInterface
+```
+
+### Changing the class used for tabs
+
+By default, the `wagtail.admin.panels.ObjectList` class is used to create tabs for the interface. You can use the `edit_handler_tab_class` attribute to specify an alternative for ALL tabs. The value should be a subclass of `ObjectList`, and you can use the class as a value directly, or supply the import path as a string. For example:
+
+```python
+class Employee(models.Model, TabbedEditHandlerGeneratorMixin):
+    edit_handler_tab_class = "yourproject.appname.panels.CustomObjectList"
+```
+
+If you want to use a alternative class for a specific tab, or the class attribute does not enough flexibility, you can override the `get_edit_handler_tab_class()` class method instead. For example:
+
+```python
+from wagtail.admin.panels import ObjectList
+from yourproject.appname.panels import CustomObjectList
+
+class Employee(models.Model, TabbedEditHandlerGeneratorMixin):
+
+    @classmethod
+    def get_edit_handler_tab_class(cls, tab_name: str):
+        if tab_name == "personal":
+            return CustomObjectList
+        return ObjectList
+```
+
+### Hiding tabs
+
+Tabs for which no panels can be found (or where the value is an empty list) are automatically excluded from tabbed interfaces. You can also explicitly control tab visibility using a `hide_{tab_name}_tab` attribute. For example:
+
+```python
+class BlogPage(Page):
+    hide_related_tab = True
+```
+
+With this approach, turning the tab 'back on' for specific subclasses is as easy as changing the value to `False`. For example:
+
+```python
+class ShinyBlogPage(BlogPage):
+    hide_related_tab = False
+```
+
+### Conditionally groups of panels depending on user permissions
+
+Django's permission system can be leaveraged to restrict visibility of tabs (or other groups of panels) to users with specific permissions. The `PanelGroup` class (which `ObjectList` is a subclass of) has a `permission` option to support this. While `TabbedEditHandlerGeneratorMixin` does not provide a direct shortcut for utlizing this option, you can override the `create_edit_handler_tab()` class method to customize how tabs are initialized:
+
+```python
+from wagtail.admin.panels import FieldPanel, TitleFieldPanel
+
 
 class FundingPage(Page):
-    # field definitions omitted
+
+    edit_handler_tabs = [
+        ("shared", _("Details")),
+        ("private", _("Admin only")),
+    ]
 
     shared_panels = [
         TitleFieldPanel('title', classname="title"),
         FieldPanel('date'),
         FieldPanel('body'),
     ]
+
     private_panels = [
         FieldPanel('approval'),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(shared_panels, heading='Details'),
-        ObjectList(private_panels, heading='Admin only', permission="superuser"),
-    ])
+    @classmethod
+    def create_edit_handler_tab(cls, name: str, heading: str):
+        # Start by creating a tab the usual way
+        tab = super().create_edit_handler_tab(name, heading)
+        # Restrict visibility of 'private' tab to superusers
+        if name == "private":
+            tab.permission = "superuser"
+        return tab
 ```
 
 For more details on how to work with `Panel`s and `PanelGroup`, see [](forms_panels_overview).
