@@ -68,7 +68,7 @@ class FormPagesListView(generic.IndexView):
 
     def get_base_queryset(self):
         """Return the queryset of form pages for this view"""
-        return get_forms_for_user(self.request.user)
+        return get_forms_for_user(self.request.user).select_related("content_type")
 
 
 class DeleteSubmissionsView(TemplateView):
