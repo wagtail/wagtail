@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.views import generic
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
@@ -22,13 +23,17 @@ def get_submissions_list_view(request, *args, **kwargs):
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
-class FormPagesListView(ListView):
+class FormPagesListView(generic.BaseListingView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
     context_object_name = "form_pages"
     paginate_by = 20
     page_kwarg = "p"
+    index_url_name = "wagtailforms:index"
+    page_title = "Forms"
+    page_subtitle = "Pages"
+    header_icon = "form"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -62,7 +67,7 @@ class FormPagesListView(ListView):
         locale_context = {"locale": None, "translations": []}
 
         if self.locale:
-            url = reverse("wagtailforms:index")
+            url = reverse(self.index_url_name)
             locale_context = {
                 "locale": self.locale,
                 "translations": [
