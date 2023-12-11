@@ -2,6 +2,7 @@ import datetime
 from collections import OrderedDict
 
 from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -9,6 +10,7 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
@@ -23,10 +25,24 @@ def get_submissions_list_view(request, *args, **kwargs):
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
+class ContentTypeColumn(Column):
+    edit_url_name = "wagtailadmin_pages:edit"
+    cell_template_name = "wagtailforms/content_type_column.html"
+
+    def get_url(self, instance):
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["url"] = self.get_url(instance)
+        return context
+
+
 class FormPagesListView(generic.BaseListingView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
+    results_template_name = "wagtailforms/results_forms.html"
     context_object_name = "form_pages"
     paginate_by = 20
     page_kwarg = "p"
@@ -34,6 +50,20 @@ class FormPagesListView(generic.BaseListingView):
     page_title = "Forms"
     page_subtitle = "Pages"
     header_icon = "form"
+    columns = [
+        TitleColumn(
+            "title",
+            classname="title",
+            label=gettext_lazy("Title"),
+            width="50%",
+            url_name="wagtailforms:list_submissions",
+        ),
+        ContentTypeColumn(
+            "content_type",
+            label=gettext_lazy("Origin"),
+            width="50%",
+        ),
+    ]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

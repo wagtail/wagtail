@@ -1,8 +1,5 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
 {% load i18n %}
-{% if form_pages %}
-    {% include "wagtailforms/list_forms.html" %}
-
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl="wagtailforms:index" %}
-{% else %}
+{% block no_results_message %}
     <p>{% trans "No form pages have been created." %}</p>
-{% endif %}
+{% endblock %}

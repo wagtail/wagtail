@@ -3,10 +3,3 @@
 {% block main_header %}
     {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=page_title subtitle=page_subtitle icon=header_icon %}
 {% endblock %}
-{% block listing %}
-    <div class="nice-padding">
-        <div id="form-results" class="forms">
-            {% include "wagtailforms/results_forms.html" %}
-        </div>
-    </div>
-{% endblock %}
