@@ -60,6 +60,8 @@ Changelog
  * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
  * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
  * Maintenance: Removed support for Django < 4.2 (Dan Braghis)
+ * Maintenance: Refactor page explorer index template to extend generic index template (Sage Abdullah)
+
 
 5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
