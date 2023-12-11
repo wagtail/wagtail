@@ -132,7 +132,7 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
         context["all_icons"] = self.get_icons()
         context["example_form"] = ExampleForm()
         context["example_page"] = Paginator(list(range(100)), 10).page(2)
-        context["search_form"] = SearchForm(placeholder=_("Search something"))
+        context["search_form"] = SearchForm()
 
         return context
 

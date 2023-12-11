@@ -160,13 +160,11 @@ class BaseIndexView(generic.IndexView):
         self.query_string = None
         self.is_searching = False
         if "q" in self.request.GET:
-            self.search_form = SearchForm(
-                self.request.GET, placeholder=_("Search pages…")
-            )
+            self.search_form = SearchForm(self.request.GET)
             if self.search_form.is_valid():
                 self.query_string = self.search_form.cleaned_data["q"]
         else:
-            self.search_form = SearchForm(placeholder=_("Search pages…"))
+            self.search_form = SearchForm()
 
         if self.query_string:
             self.is_searching = True
