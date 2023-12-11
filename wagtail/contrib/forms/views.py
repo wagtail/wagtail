@@ -56,11 +56,13 @@ class FormPagesListView(generic.IndexView):
             label=gettext_lazy("Title"),
             width="50%",
             url_name="wagtailforms:list_submissions",
+            sort_key="title",
         ),
         ContentTypeColumn(
             "content_type",
             label=gettext_lazy("Origin"),
             width="50%",
+            sort_key="content_type",
         ),
     ]
     model = Page
