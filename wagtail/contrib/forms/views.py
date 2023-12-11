@@ -41,7 +41,7 @@ class FormPagesListView(generic.IndexView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
-    results_template_name = "wagtailforms/results_forms.html"
+    results_template_name = "wagtailforms/index_results.html"
     context_object_name = "form_pages"
     paginate_by = 20
     page_kwarg = "p"
