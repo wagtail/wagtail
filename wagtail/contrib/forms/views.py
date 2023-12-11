@@ -1,7 +1,6 @@
 import datetime
 from collections import OrderedDict
 
-from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
@@ -15,7 +14,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
-from wagtail.models import Locale, Page
+from wagtail.models import Page
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -38,7 +37,7 @@ class ContentTypeColumn(Column):
         return context
 
 
-class FormPagesListView(generic.BaseListingView):
+class FormPagesListView(generic.IndexView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
@@ -64,52 +63,12 @@ class FormPagesListView(generic.BaseListingView):
             width="50%",
         ),
     ]
+    model = Page
+    is_searchable = False
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        self.locale = None
-
-    def get_queryset(self):
+    def get_base_queryset(self):
         """Return the queryset of form pages for this view"""
-        queryset = get_forms_for_user(self.request.user)
-        if self.locale:
-            queryset = queryset.filter(locale=self.locale)
-        ordering = self.get_ordering()
-        if ordering:
-            if isinstance(ordering, str):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
-        return queryset
-
-    def get(self, request, *args, **kwargs):
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            if request.GET.get("locale"):
-                self.locale = get_object_or_404(
-                    Locale, language_code=request.GET["locale"]
-                )
-            else:
-                self.locale = Locale.get_default()
-
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        locale_context = {"locale": None, "translations": []}
-
-        if self.locale:
-            url = reverse(self.index_url_name)
-            locale_context = {
-                "locale": self.locale,
-                "translations": [
-                    {"locale": locale, "url": url + "?locale=" + locale.language_code}
-                    for locale in Locale.objects.all().exclude(pk=self.locale.pk)
-                ],
-            }
-
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context.update(locale_context)
-
-        return context
+        return get_forms_for_user(self.request.user)
 
 
 class DeleteSubmissionsView(TemplateView):
