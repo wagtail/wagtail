@@ -1,4 +1,17 @@
 {% load wagtailadmin_tags i18n %}
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `breadcrumbs_items` - breadcrumbs items to be rendered, in the format of [{"url": str, "label": str}]
+    - `side_panels` - list of side panels to be rendered
+    - `history_url` - URL to the history view for the current object
+
+    When including this template, use the `only` parameter whenever possible to
+    ensure that the above variables are indeed the only ones needed for this
+    template to work.
+
+{% endcomment %}
 {% fragment as nav_icon_classes %}w-w-4 w-h-4 group-hover:w-transform group-hover:w-scale-110{% endfragment %}
 {% fragment as nav_icon_button_classes %}w-w-slim-header w-h-slim-header w-bg-transparent w-border-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-text-meta w-transition w-group hover:w-text-text-label focus:w-text-text-label expanded:w-text-text-label expanded:w-border-y-2 expanded:w-border-b-current w-shrink-0{% endfragment %}
 {% fragment as nav_icon_counter_classes %}-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] rtl:w-translate-x-[4px] w-translate-x-[-4px] w-text-[0.5625rem] w-font-bold w-text-text-button w-border w-border-surface-page w-rounded-[1rem]{% endfragment %}

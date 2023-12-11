@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url %}
 
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon=header_icon merged=1 only %}

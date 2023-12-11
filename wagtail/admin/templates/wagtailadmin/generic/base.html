@@ -7,7 +7,8 @@
     {% block header %}
         {% block slim_header %}
             {% if breadcrumbs_items %}
-                {% include "wagtailadmin/shared/headers/slim_header.html" %}
+                {# Ensure all necessary variables are passed explicitly here #}
+                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url only %}
             {% endif %}
         {% endblock %}
         {% block main_header %}
