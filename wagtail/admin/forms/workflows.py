@@ -23,7 +23,7 @@ class TaskChooserSearchForm(forms.Form):
     )
 
     def __init__(self, *args, task_type_choices=None, **kwargs):
-        placeholder = kwargs.pop("placeholder", _("Search"))
+        placeholder = kwargs.pop("placeholder", _("Search…"))
         super().__init__(*args, **kwargs)
         self.fields["q"].widget.attrs = {"placeholder": placeholder}
 
