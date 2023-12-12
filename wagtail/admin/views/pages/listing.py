@@ -171,7 +171,7 @@ class BaseIndexView(GenericIndexView):
         return ordering
 
     def get_queryset(self):
-        if self.is_searching:
+        if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
                 pages = Page.objects.all()
             else:

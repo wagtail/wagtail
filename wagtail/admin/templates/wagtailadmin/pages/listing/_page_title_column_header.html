@@ -4,7 +4,7 @@
 {% block after_label %}
     {% if page_obj %}
         {% with start_index=page_obj.start_index end_index=page_obj.end_index result_count=page_obj.paginator.count %}
-            {% if is_searching %}
+            {% if is_searching or is_filtering %}
                 {% if is_searching_whole_tree %}
                     {% blocktranslate trimmed %}
                         {{ start_index }}-{{ end_index }} of {{ result_count }} across entire site.

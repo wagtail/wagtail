@@ -14,6 +14,7 @@ class PageTitleColumn(BaseColumn):
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_context.get("parent_page")
         context["is_searching"] = parent_context.get("is_searching")
+        context["is_filtering"] = parent_context.get("is_filtering")
         context["is_searching_whole_tree"] = parent_context.get(
             "is_searching_whole_tree"
         )
@@ -140,6 +141,7 @@ class PageTable(Table):
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_context.get("parent_page")
         context["is_searching"] = parent_context.get("is_searching")
+        context["is_filtering"] = parent_context.get("is_filtering")
         context["is_searching_whole_tree"] = parent_context.get(
             "is_searching_whole_tree"
         )
