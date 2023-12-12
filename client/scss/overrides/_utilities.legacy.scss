@@ -23,10 +23,6 @@
   }
 }
 
-body.reordering {
-  overflow: visible;
-}
-
 // Show a transparency grid in background
 .show-transparency {
   background: url('#{$images-root}transparency.svg');
