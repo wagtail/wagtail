@@ -19,7 +19,7 @@
     {# Page actions dropdown #}
     {% page_header_buttons parent_page user=request.user view_name="index" %}
 {% endblock %}
-{% block actions %}
+{% block toggles %}
     {{ block.super }}
     {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
 {% endblock %}
