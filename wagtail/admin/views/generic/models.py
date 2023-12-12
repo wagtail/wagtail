@@ -110,7 +110,6 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    filters = None
     filterset_class = None
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
@@ -224,7 +223,7 @@ class IndexView(
 
         queryset = self.get_base_queryset()
 
-        self.filters, queryset = self.filter_queryset(queryset)
+        filters, queryset = self.filter_queryset(queryset)
 
         # Ensure the queryset is of the same model as self.model before filtering,
         # which may not be the case for views like HistoryView where the queryset
@@ -263,17 +262,20 @@ class IndexView(
 
         return queryset
 
-    def filter_queryset(self, queryset):
-        # construct filter instance (self.filters) if not created already
-        if self.filterset_class and self.filters is None:
-            self.filters = self.filterset_class(
-                self.request.GET, queryset=queryset, request=self.request
-            )
-            queryset = self.filters.qs
-        elif self.filters:
-            # if filter object was created on a previous filter_queryset call, re-use it
-            queryset = self.filters.filter_queryset(queryset)
+    @cached_property
+    def filters(self):
+        if self.filterset_class:
+            return self.filterset_class(self.request.GET, request=self.request)
 
+    @cached_property
+    def is_filtering(self):
+        return self.filters.is_valid() and any(
+            self.request.GET.get(f) for f in self.filters.filters
+        )
+
+    def filter_queryset(self, queryset):
+        if self.filters and self.filters.is_valid():
+            queryset = self.filters.filter_queryset(queryset)
         return self.filters, queryset
 
     def search_queryset(self, queryset):
@@ -487,9 +489,7 @@ class IndexView(
 
         if self.filters:
             context["filters"] = self.filters
-            context["is_filtering"] = any(
-                self.request.GET.get(f) for f in self.filters.filters
-            )
+            context["is_filtering"] = self.is_filtering
             context["media"] += self.filters.form.media
 
         context["index_results_url"] = self.get_index_results_url()
