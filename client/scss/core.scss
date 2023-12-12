@@ -89,7 +89,7 @@ These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 */
 
 @import 'objects/objects';
-@import 'objects/avatar';
+
 
 /* COMPONENTS
 These are classes for components.
@@ -105,7 +105,7 @@ These are classes for components.
 @import '../src/components/PageExplorer/PageExplorer';
 @import '../src/components/CommentApp/main';
 
-// Legacy
+@import 'components/avatar';
 @import 'components/icons';
 @import 'components/forms/input-base';
 @import 'components/forms/input-text';
