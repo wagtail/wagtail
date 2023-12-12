@@ -45,9 +45,7 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
 
         {(!isPublished || localeName) && (
           <span className="c-page-explorer__meta">
-            {localeName && (
-              <span className="o-pill c-status">{localeName}</span>
-            )}
+            {localeName && <span className="c-status">{localeName}</span>}
             {!isPublished && <PublicationStatus status={meta.status} />}
           </span>
         )}
