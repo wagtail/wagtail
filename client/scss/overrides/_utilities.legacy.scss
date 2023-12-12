@@ -3,10 +3,6 @@
   display: none !important;
 }
 
-.clearfix {
-  @include clearfix();
-}
-
 .nice-padding {
   padding-inline-start: $mobile-nice-padding;
   padding-inline-end: $mobile-nice-padding;
