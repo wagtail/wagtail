@@ -73,7 +73,7 @@ class IndexView(generic.IndexView):
         # Get documents (filtered by user permission)
         return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
-        )
+        ).select_related("collection")
 
     def filter_queryset(self, queryset):
         self.current_collection = None
