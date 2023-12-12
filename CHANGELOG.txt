@@ -63,6 +63,7 @@ Changelog
  * Maintenance: Refactor page explorer index template to extend generic index template (Sage Abdullah)
  * Maintenance: Replace template components implementation with standalone `laces` library (Tibor Leupold)
  * Maintenance: Refactor snippets index view and template to make better use of generic IndexView (Sage Abdullah)
+ * Maintenance: Introduce an internal `{% formattedfield %}` tag to replace direct use of `wagtailadmin/shared/field.html` (Matt Westcott)
 
 
 5.2.2 (06.12.2023)
