@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/generic/index.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
+{% block bodyclass %}page-explorer {% if ordering == 'ord' %}w-overflow-visible{% endif %}{% endblock %}
 
 {% block header %}
     {% page_permissions parent_page as parent_page_perms %}
