@@ -8,7 +8,7 @@ import Icon from '../Icon/Icon';
  */
 const LoadingSpinner = () => (
   <span>
-    <Icon name="spinner" className="c-spinner" />
+    <Icon name="spinner" className="w-spinner" />
     {` ${gettext('Loading…')}`}
   </span>
 );
