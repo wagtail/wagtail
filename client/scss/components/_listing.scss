@@ -414,6 +414,8 @@ table.listing {
 }
 
 .page-explorer .w-breadcrumbs {
+  @apply sm:w-py-2.5;
+
   li[hidden] ~ li:last-child,
   li:only-child {
     a {
