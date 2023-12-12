@@ -64,6 +64,7 @@ Changelog
  * Maintenance: Replace template components implementation with standalone `laces` library (Tibor Leupold)
  * Maintenance: Refactor snippets index view and template to make better use of generic IndexView (Sage Abdullah)
  * Maintenance: Introduce an internal `{% formattedfield %}` tag to replace direct use of `wagtailadmin/shared/field.html` (Matt Westcott)
+ * Maintenance: Update Telepath dependency to 0.3.1 (Matt Westcott)
 
 
 5.2.2 (06.12.2023)
