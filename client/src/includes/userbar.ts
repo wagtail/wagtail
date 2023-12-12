@@ -73,7 +73,7 @@ export class Userbar extends HTMLElement {
     }
 
     const listItems = list.querySelectorAll('li');
-    const isActiveClass = 'is-active';
+    const isActiveClass = 'w-userbar--active';
 
     this.trigger = trigger;
 
