@@ -14,7 +14,7 @@
     {% page_header_buttons page user=request.user view_name="edit" %}
 {% endblock %}
 
-{% block actions %}
+{% block toggles %}
     {{ block.super }}
     {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page_for_status %}
 {% endblock %}
