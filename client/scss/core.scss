@@ -16,8 +16,7 @@ REFERENCE
 │ tools      │ mixins, functions      │ 2 Tools      │        │
 │ generic    │ resets                 │ 3 Generic    │        │
 │ elements   │ elements, no classes   │ 4 Elements   │        │
-│ objects    │ classes                │ 5 Objects    │ o-     │
-│            │   layout               │              │        │
+│ objects    │ Unused                 │ 5 Objects    │        │
 │ components │ classes                │ 6 Components │ c-     │
 │            │   BEM blocks           │              │        │
 │ overrides  │ classes                │ 7 Trumps     │ u-     │
@@ -35,7 +34,6 @@ OTHER PREFIXES
 ┌────────┬─────────┐
 │ Prefix │ Purpose │
 ├────────┼─────────┤
-│ t-     │ theme   │
 │ is-    │ state   │
 └────────┴─────────┘
 
@@ -66,8 +64,6 @@ This is for resets and other rules that affect large collections of bare element
 * Changes to them should be very rare.
 */
 
-// @import 'generic/generic';
-
 /* ELEMENTS
 These are base styles for bare HTML elements.
 * Changes to them should be very rare.
@@ -81,14 +77,6 @@ These are base styles for bare HTML elements.
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
-
-/* OBJECTS
-These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
-* This is for grids, wrappers, and other non-consmetic layout utilities.
-* These classes are prefixed with `.o-`.
-*/
-
-@import 'objects/objects';
 
 
 /* COMPONENTS
