@@ -9,33 +9,24 @@ REFERENCE
   * Classes should be written using BEM, which we modify to include a prefix.
   * Every BEM block should have its own file.
 
-┌────────────┬────────────────────────┬──────────────┬────────┐
-│ Folder     │ Contents               │ ITCSS level  │ Prefix │
-├────────────┼────────────────────────┼──────────────┼────────┤
-│ settings   │ variables, maps, fonts │ 1 Settings   │        │
-│ tools      │ mixins, functions      │ 2 Tools      │        │
-│ generic    │ resets                 │ 3 Generic    │        │
-│ elements   │ elements, no classes   │ 4 Elements   │        │
-│ objects    │ Unused                 │ 5 Objects    │        │
-│ components │ classes                │ 6 Components │ c-     │
-│            │   BEM blocks           │              │        │
-│ overrides  │ classes                │ 7 Trumps     │ u-     │
-│            │   overrides, utilities │              │        │
-└────────────┴────────────────────────┴──────────────┴────────┘
+┌────────────┬────────────────────────┬──────────────┬
+│ Folder     │ Contents               │ ITCSS level  │
+├────────────┼────────────────────────┼──────────────┼
+│ settings   │ variables, maps, fonts │ 1 Settings   │
+│ tools      │ mixins, functions      │ 2 Tools      │
+│ generic    │ resets                 │ 3 Generic    │
+│ elements   │ elements, no classes   │ 4 Elements   │
+│ objects    │ Unused                 │ 5 Objects    │
+│ components │ classes                │ 6 Components │
+│            │   BEM blocks           │              │
+│ overrides  │ classes                │ 7 Trumps     │
+│            │   overrides, utilities │              │
+└────────────┴────────────────────────┴──────────────┘
 
 SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
 Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
 BEM: https://getbem.com/
-
-
-OTHER PREFIXES
-
-┌────────┬─────────┐
-│ Prefix │ Purpose │
-├────────┼─────────┤
-│ is-    │ state   │
-└────────┴─────────┘
 
 ==============================================================================*/
 
@@ -77,7 +68,6 @@ These are base styles for bare HTML elements.
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
-
 
 /* COMPONENTS
 These are classes for components.
