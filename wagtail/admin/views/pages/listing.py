@@ -20,13 +20,12 @@ from wagtail.admin.ui.tables.pages import (
     PageTable,
     PageTitleColumn,
 )
-from wagtail.admin.views.generic.base import BaseListingView
-from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
+from wagtail.admin.views.generic.models import IndexView as GenericIndexView
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 
 
-class BaseIndexView(PermissionCheckedMixin, BaseListingView):
+class BaseIndexView(GenericIndexView):
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
