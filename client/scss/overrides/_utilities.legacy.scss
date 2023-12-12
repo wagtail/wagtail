@@ -17,12 +17,6 @@
   }
 }
 
-@include media-breakpoint-up(sm) {
-  .divider-before {
-    border-inline-start: 1px solid theme('colors.border-furniture');
-  }
-}
-
 // Show a transparency grid in background
 .show-transparency {
   background: url('#{$images-root}transparency.svg');
