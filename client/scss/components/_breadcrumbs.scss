@@ -1,4 +1,4 @@
-.page-explorer .w-breadcrumbs {
+.w-breadcrumbs:not(.editor-view .w-breadcrumbs) {
   @apply sm:w-py-2.5;
 
   li[hidden] ~ li:last-child,

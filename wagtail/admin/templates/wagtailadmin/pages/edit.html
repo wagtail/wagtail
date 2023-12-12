@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags %}
 {% load i18n %}
 {% load l10n %}
-{% block bodyclass %}{% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
+{% block bodyclass %}editor-view {% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
