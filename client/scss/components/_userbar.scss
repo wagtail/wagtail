@@ -154,24 +154,12 @@ $positions: (
   }
 
   &:first-child {
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-left-radius: $userbar-radius;
     border-start-start-radius: $userbar-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-right-radius: $userbar-radius;
     border-start-end-radius: $userbar-radius;
   }
 
   &:last-child {
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-right-radius: $userbar-radius;
     border-end-end-radius: $userbar-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-left-radius: $userbar-radius;
     border-end-start-radius: $userbar-radius;
   }
 

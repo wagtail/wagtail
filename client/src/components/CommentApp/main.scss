@@ -71,13 +71,7 @@ $box-padding: 20px;
 
   & > &__notice-placeholder:last-child &__notice,
   &__replies:last-child > :last-child &__notice {
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-left-radius: $box-border-radius;
     border-end-start-radius: $box-border-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-right-radius: $box-border-radius;
     border-end-end-radius: $box-border-radius;
   }
 }
