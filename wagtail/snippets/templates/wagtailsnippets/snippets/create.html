@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}editor-view{% endblock %}
 {% block content %}
     {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url %}
 
