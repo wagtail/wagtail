@@ -205,16 +205,16 @@ Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGI
 
 Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
 
-| Browser       | Device/OS  | Version(s) |
-| ------------- | ---------- | ---------- |
-| Mobile Safari | iOS Phone  | Last 2     |
-| Mobile Safari | iOS Tablet | Last 2     |
-| Chrome        | Android    | Last 2     |
-| Chrome        | Desktop    | Last 2     |
-| MS Edge       | Windows    | Last 2     |
-| Firefox       | Desktop    | Latest     |
-| Firefox ESR   | Desktop    | Latest     |
-| Safari        | macOS      | Last 3     |
+| Browser       | Device/OS  | Version(s)         |
+| ------------- | ---------- | ------------------ |
+| Mobile Safari | iOS Phone  | Last 2: 16, 17     |
+| Mobile Safari | iOS Tablet | Last 2: 16, 17     |
+| Chrome        | Android    | Last 2             |
+| Chrome        | Desktop    | Last 2             |
+| MS Edge       | Windows    | Last 2             |
+| Firefox       | Desktop    | Latest             |
+| Firefox ESR   | Desktop    | Latest             |
+| Safari        | macOS      | Last 3: 15, 16, 17 |
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
