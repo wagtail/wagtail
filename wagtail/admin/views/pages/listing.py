@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -36,6 +37,7 @@ class PageFilterSet(WagtailFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
         queryset=lambda request: get_content_types_for_filter(),
+        widget=CheckboxSelectMultiple,
     )
 
     class Meta:
