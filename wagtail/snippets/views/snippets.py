@@ -157,13 +157,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     table_class = InlineActionsTable
 
-    def get_base_queryset(self):
-        # Allow the queryset to be a callable that takes a request
-        # so that it can be evaluated in the context of the request
-        if callable(self.queryset):
-            self.queryset = self.queryset(self.request)
-        return super().get_base_queryset()
-
     def get_columns(self):
         return [
             BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet"),
@@ -715,12 +708,6 @@ class SnippetViewSet(ModelViewSet):
             }
         )
 
-    def get_index_view_kwargs(self, **kwargs):
-        return super().get_index_view_kwargs(
-            queryset=self.get_queryset,
-            **kwargs,
-        )
-
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
             preview_url_name=self.get_url_name("preview_on_add"),
@@ -962,11 +949,16 @@ class SnippetViewSet(ModelViewSet):
             {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
         ]
 
+    def get_base_queryset(self, request):
+        return self.get_queryset(request)
+
     def get_queryset(self, request):
         """
         Returns a QuerySet of all model instances to be shown on the index view.
         If ``None`` is returned (the default), the logic in
         ``index_view.get_base_queryset()`` will be used instead.
+
+        **Deprecated** – use :meth:`get_base_queryset` instead.
         """
         return None
 

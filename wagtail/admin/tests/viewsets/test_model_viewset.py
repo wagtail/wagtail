@@ -698,6 +698,44 @@ class TestOrdering(WagtailTestUtils, TestCase):
         )
 
 
+class TestCustomQuerySet(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        objects = [
+            FeatureCompleteToy(name="[HIDDEN] Secret Toy"),
+            FeatureCompleteToy(name="Public Toy"),
+        ]
+        FeatureCompleteToy.objects.bulk_create(objects)
+
+    def test_superuser(self):
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertContains(response, "[HIDDEN] Secret Toy")
+        self.assertContains(response, "Public Toy")
+        response = self.client.get(reverse("feature_complete_toy:index_results"))
+        self.assertContains(response, "[HIDDEN] Secret Toy")
+        self.assertContains(response, "Public Toy")
+
+    def test_non_superuser(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        toy_edit_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_featurecompletetoy"
+        )
+        self.user.user_permissions.add(admin_permission, toy_edit_permission)
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertNotContains(response, "[HIDDEN] Secret Toy")
+        self.assertContains(response, "Public Toy")
+        response = self.client.get(reverse("feature_complete_toy:index_results"))
+        self.assertNotContains(response, "[HIDDEN] Secret Toy")
+        self.assertContains(response, "Public Toy")
+
+
 class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
