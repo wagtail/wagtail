@@ -22,6 +22,7 @@ Changelog
  * Add ability to modify the default ordering for the page explorer view (Shlomo Markowitz)
  * Remove overly verbose image captions in image listings for screen readers (Sage Abdullah)
  * Ensure screen readers and dictation tools can more easily navigate bulk actions in images, documents and page listings by streamlining labels and descriptions (Sage Abdullah)
+ * Remove support for Safari 14 (Thibaud Colas)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -68,6 +69,7 @@ Changelog
  * Maintenance: Refactor snippets index view and template to make better use of generic IndexView (Sage Abdullah)
  * Maintenance: Introduce an internal `{% formattedfield %}` tag to replace direct use of `wagtailadmin/shared/field.html` (Matt Westcott)
  * Maintenance: Update Telepath dependency to 0.3.1 (Matt Westcott)
+ * Maintenance: Upgrade to latest TypeScript and Storybook (Thibaud Colas, Sage Abdullah)
 
 
 5.2.2 (06.12.2023)
