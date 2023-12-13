@@ -548,6 +548,39 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, [self.old_page.id])
         self.assertContains(response, "Search within 'New page (simple page)'")
 
+    def test_filter_by_page_type(self):
+        new_page_child = SimplePage(
+            title="New page child", slug="new-page-child", content="new page child"
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"content_type": ContentType.objects.get_for_model(SimplePage).pk},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(
+            page_ids, {self.child_page.id, self.new_page.id, new_page_child.id}
+        )
+
+    def test_filter_by_date_updated(self):
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"latest_revision_created_at_after": "2015-01-01"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)

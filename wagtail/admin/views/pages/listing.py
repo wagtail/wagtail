@@ -6,9 +6,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
+from django_filters.filters import DateFromToRangeFilter
 
 from wagtail import hooks
-from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleContentTypeFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
@@ -38,6 +43,10 @@ class PageFilterSet(WagtailFilterSet):
         label=_("Page type"),
         queryset=lambda request: get_content_types_for_filter(),
         widget=CheckboxSelectMultiple,
+    )
+    latest_revision_created_at = DateFromToRangeFilter(
+        label=_("Date Updated"),
+        widget=DateRangePickerWidget,
     )
 
     class Meta:
@@ -352,12 +361,8 @@ class IndexView(BaseIndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         side_panels = self.get_side_panels()
-        context.update(
-            {
-                "side_panels": side_panels,
-                "media": side_panels.media,
-            }
-        )
+        context["side_panels"] = side_panels
+        context["media"] += side_panels.media
         return context
 
     def get_ordering(self):

@@ -269,8 +269,9 @@ class IndexView(
 
     @cached_property
     def is_filtering(self):
-        return self.filters.is_valid() and any(
-            self.request.GET.get(f) for f in self.filters.filters
+        # we are filtering if the filter form has changed from its default state
+        return (
+            self.filters and self.filters.is_valid() and self.filters.form.has_changed()
         )
 
     def filter_queryset(self, queryset):
