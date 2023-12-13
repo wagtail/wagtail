@@ -7,6 +7,8 @@
     - `side_panels` - list of side panels to be rendered
     - `history_url` - URL to the history view for the current object
     - `title` - title of the current page, to be displayed as a hidden h1 for screen readers
+    - `search_url` - URL to the search view, should respond with a partial template for the results
+    - `search_form` - form to be rendered for search
 
     When including this template, use the `only` parameter whenever possible to
     ensure that the above variables are indeed the only ones needed for this
@@ -50,7 +52,31 @@
                 </div>
             </div>
 
-            {% block search_form %}{% endblock %}
+            {% block search_form %}
+                {% if search_url and search_form %}
+                    <form
+                        action="{{ search_url }}"
+                        method="get"
+                        class="w-mx-2"
+                        novalidate
+                        role="search"
+                        data-controller="w-swap"
+                        data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                        data-w-swap-src-value="{{ search_url }}"
+                        data-w-swap-target-value="#listing-results"
+                    >
+                        {% for field in search_form %}
+                            {% formattedfield field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                        {% endfor %}
+                        {% comment %}
+                            Add an initial disabled & hidden submit button so that
+                            pressing 'Enter' will not submit form. Reload is not
+                            required as the content is dynamically loaded.
+                        {% endcomment %}
+                        <input hidden disabled type="submit" />
+                    </form>
+                {% endif %}
+            {% endblock %}
 
             <div class="w-w-full sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 sm:w-pr-4 sm:w-justify-end">
                 {% block toggles %}

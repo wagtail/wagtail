@@ -9,7 +9,7 @@
             {% if breadcrumbs_items %}
                 {# Ensure all necessary variables are passed explicitly here #}
                 {# TODO: Pass `title=header_title` once slim_header and main_header are mutually exclusive (to prevent multiple h1) #}
-                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url only %}
+                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url search_url=index_results_url search_form=search_form only %}
             {% endif %}
         {% endblock %}
         {% block main_header %}
