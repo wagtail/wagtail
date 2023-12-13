@@ -127,7 +127,6 @@ class BaseIndexView(GenericIndexView):
         # Search
         self.query_string = None
         self.is_searching = False
-        self.is_searching_whole_tree = False
         if "q" in self.request.GET:
             self.search_form = SearchForm(
                 self.request.GET, placeholder=_("Search pages…")
@@ -139,7 +138,10 @@ class BaseIndexView(GenericIndexView):
 
         if self.query_string:
             self.is_searching = True
-            self.is_searching_whole_tree = bool(self.request.GET.get("search_all"))
+
+        self.is_searching_whole_tree = bool(self.request.GET.get("search_all")) and (
+            self.is_searching or self.is_filtering
+        )
 
         return super().get(request)
 
