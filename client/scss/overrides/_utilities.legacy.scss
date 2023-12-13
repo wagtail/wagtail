@@ -12,16 +12,3 @@
 .show-transparency {
   background: url('#{$images-root}transparency.svg');
 }
-
-// make a block-level element inline
-.inline {
-  display: inline;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.block {
-  display: block;
-}
