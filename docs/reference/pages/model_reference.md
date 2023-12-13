@@ -331,16 +331,38 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
         The following fields will always be excluded in a copy - `['id', 'path', 'depth', 'numchild', 'url_path', 'path']`.
 
+    .. automethod:: with_content_json
+
+    .. automethod:: save
+
     .. attribute:: base_form_class
 
-        The form class used as a base for editing Pages of this type in the Wagtail page editor.
+        The form class (or import path to one) to be used as a base for editing Pages of this type in the Wagtail page editor.
         This attribute can be set on a model to customise the Page editor form.
         Forms must be a subclass of :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
-    .. automethod:: with_content_json
+    .. automethod:: get_base_form_class
 
-    .. automethod:: save
+    .. autoattribue:: edit_handler_class
+
+    .. automethod:: get_edit_handler_class
+
+    .. autoattribute:: edit_handler_tab_class
+
+    .. automethod:: get_edit_handler_tab_class
+
+    .. autoattribute:: edit_handler_tabs
+
+    .. automethod:: get_edit_handler_tabs
+
+    .. automethod:: get_edit_handler
+
+    .. automethod:: create_edit_handler
+
+    .. automethod:: create_edit_handler_tabs
+
+    .. automethod:: create_edit_handler_tab
 
     .. automethod:: create_alias
 

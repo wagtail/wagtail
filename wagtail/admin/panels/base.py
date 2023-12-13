@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.forms.models import (
@@ -119,17 +120,33 @@ class Panel:
         """
         return {}
 
+    def _get_base_form_class(self):
+        """
+        Return a form class that get_form_class() should use as
+        a base.
+        """
+        if self.base_form_class:
+            # If a custom form class was passed to the panel, use it.
+            return self.base_form_class
+        if hasattr(self.model, "get_base_form_class"):
+            # Try for a 'get_base_form_class' method on the model
+            return self.model.get_base_form_class()
+        else:
+            # Finally, try the 'base_form_class' attribute, or fall
+            # back to WagtailAdminModelForm
+            return getattr(self.model, "base_form_class", WagtailAdminModelForm)
+
     def get_form_class(self):
         """
         Construct a form class that has all the fields and formsets named in
         the children of this edit handler.
         """
         form_options = self.get_form_options()
-        # If a custom form class was passed to the panel, use it.
-        # Otherwise, use the base_form_class from the model.
-        # If that is not defined, use WagtailAdminModelForm.
-        model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
-        base_form_class = self.base_form_class or model_form_class
+
+        base_form_class = self._get_base_form_class()
+        if isinstance(base_form_class, str):
+            # if a path was provided, import it now
+            base_form_class = import_string(base_form_class)
 
         return get_form_for_model(
             self.model,
