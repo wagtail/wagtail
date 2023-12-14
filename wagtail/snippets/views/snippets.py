@@ -109,7 +109,8 @@ class ModelIndexView(generic.IndexView):
     def get_queryset(self):
         return None
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             TitleColumn(
                 "name",
@@ -164,10 +165,11 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.queryset = self.queryset(self.request)
         return super().get_base_queryset()
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet"),
-            *super().get_columns(),
+            *super().columns,
         ]
 
     def _get_title_column(self, *args, **kwargs):
@@ -412,7 +414,8 @@ class HistoryView(history.HistoryView):
     revisions_compare_url_name = None
     revisions_unschedule_url_name = None
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             ActionColumn(
                 "message",

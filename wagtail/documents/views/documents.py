@@ -1,129 +1,157 @@
 import os
 
+from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    DownloadColumn,
+    Table,
+    TitleColumn,
+)
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
-from wagtail.search.backends import get_search_backend
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-class BaseListingView(TemplateView):
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
+class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, obj_type="document", **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        parent = parent_context.get("current_collection")
+        if parent:
+            context["parent"] = parent.id
+        return context
 
+
+class DocumentTable(Table):
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["current_collection"] = parent_context.get("current_collection")
+        return context
+
+
+class IndexView(generic.IndexView):
+    permission_policy = permission_policy
+    any_permission_required = ["add", "change", "delete"]
+    context_object_name = "documents"
+    page_title = gettext_lazy("Documents")
+    header_icon = "doc-full-inverse"
+    page_kwarg = "p"
+    paginate_by = 20
+    index_url_name = "wagtaildocs:index"
+    index_results_url_name = "wagtaildocs:index_results"
+    add_url_name = "wagtaildocs:add_multiple"
+    edit_url_name = "wagtaildocs:edit"
+    template_name = "wagtaildocs/documents/index.html"
+    results_template_name = "wagtaildocs/documents/index_results.html"
+    default_ordering = "title"
+    table_class = DocumentTable
+    model = get_document_model()
+    add_item_label = gettext_lazy("Add a document")
+    show_other_searches = True
+
+    def get_base_queryset(self):
         # Get documents (filtered by user permission)
-        documents = permission_policy.instances_user_has_any_permission_for(
+        return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["change", "delete"]
-        )
+        ).select_related("collection")
 
-        # Ordering
-        if "ordering" in self.request.GET and self.request.GET["ordering"] in [
-            "title",
-            "-created_at",
-        ]:
-            ordering = self.request.GET["ordering"]
-        else:
-            ordering = "-created_at"
-        documents = documents.order_by(ordering)
-
-        # Filter by collection
+    def filter_queryset(self, queryset):
         self.current_collection = None
         collection_id = self.request.GET.get("collection_id")
         if collection_id:
             try:
                 self.current_collection = Collection.objects.get(id=collection_id)
-                documents = documents.filter(collection=self.current_collection)
+                queryset = queryset.filter(collection=self.current_collection)
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        # Search
-        query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
-            if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-                if query_string:
-                    search_backend = get_search_backend()
-                    documents = search_backend.autocomplete(query_string, documents)
-        else:
-            self.form = SearchForm(placeholder=_("Search documents"))
+        return self.filters, queryset
 
-        # Pagination
-        paginator = Paginator(documents, per_page=20)
-        documents = paginator.get_page(self.request.GET.get("p"))
+    @cached_property
+    def columns(self):
+        columns = [
+            BulkActionsColumn("bulk_actions", width="10px"),
+            TitleColumn(
+                "title",
+                label=_("Title"),
+                sort_key="title",
+                get_url=self.get_edit_url,
+                get_title_id=lambda doc: f"document_{quote(doc.pk)}_title",
+            ),
+            DownloadColumn("filename", label=_("File")),
+            DateColumn(
+                "created_at",
+                label=_("Created"),
+                sort_key="created_at",
+                width="16%",
+            ),
+        ]
+        if self.collections:
+            columns.insert(
+                3,
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+            )
+        return columns
 
-        next_url = reverse("wagtaildocs:index")
-        request_query_string = self.request.META.get("QUERY_STRING")
-        if request_query_string:
-            next_url += "?" + request_query_string
-
-        context.update(
-            {
-                "ordering": ordering,
-                "documents": documents,
-                "query_string": query_string,
-                "is_searching": bool(query_string),
-                "next": next_url,
-            }
-        )
-        return context
-
-
-class IndexView(BaseListingView):
-    template_name = "wagtaildocs/documents/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    @cached_property
+    def collections(self):
         collections = permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
             collections = None
+        return collections
 
-        Document = get_document_model()
+    def get_next_url(self):
+        next_url = self.get_index_url()
+        request_query_string = self.request.META.get("QUERY_STRING")
+        if request_query_string:
+            next_url += "?" + request_query_string
+        return next_url
+
+    def get_add_url(self):
+        # Pass the query string so that the collection filter is preserved
+        return set_query_params(
+            super().get_add_url(),
+            self.request.GET.copy(),
+        )
+
+    def get_edit_url(self, instance):
+        return set_query_params(
+            super().get_edit_url(instance),
+            {"next": self.get_next_url()},
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         context.update(
             {
-                "search_form": self.form,
-                "popular_tags": popular_tags_for_model(get_document_model()),
-                "user_can_add": permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
-                "collections": collections,
+                "collections": self.collections,
                 "current_collection": self.current_collection,
-                "app_label": Document._meta.app_label,
-                "model_name": Document._meta.model_name,
             }
         )
         return context
-
-
-class ListingResultsView(BaseListingView):
-    template_name = "wagtaildocs/documents/results.html"
 
 
 @permission_checker.require("add")

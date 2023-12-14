@@ -384,6 +384,15 @@ class ReferencesColumn(Column):
         return context
 
 
+class DownloadColumn(Column):
+    cell_template_name = "wagtailadmin/tables/download_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["download_url"] = instance.url
+        return context
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"

@@ -62,6 +62,11 @@ class HistoryView(IndexView):
     paginate_by = 20
     filterset_class = HistoryReportFilterSet
     table_class = InlineActionsTable
+    columns = [
+        Column("message", label=gettext_lazy("Action")),
+        UserColumn("user", blank_display_name="system"),
+        DateColumn("timestamp", label=gettext_lazy("Date")),
+    ]
 
     def setup(self, request, *args, pk, **kwargs):
         self.pk = pk
@@ -76,13 +81,6 @@ class HistoryView(IndexView):
 
     def get_page_subtitle(self):
         return str(self.object)
-
-    def get_columns(self):
-        return [
-            Column("message", label=gettext("Action")),
-            UserColumn("user", blank_display_name="system"),
-            DateColumn("timestamp", label=gettext("Date")),
-        ]
 
     def get_breadcrumbs_items(self):
         return self.breadcrumbs_items + [

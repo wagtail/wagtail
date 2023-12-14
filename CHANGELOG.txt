@@ -70,6 +70,7 @@ Changelog
  * Maintenance: Introduce an internal `{% formattedfield %}` tag to replace direct use of `wagtailadmin/shared/field.html` (Matt Westcott)
  * Maintenance: Update Telepath dependency to 0.3.1 (Matt Westcott)
  * Maintenance: Upgrade to latest TypeScript and Storybook (Thibaud Colas, Sage Abdullah)
+ * Maintenance: Refactor documents listing view to use generic IndexView (Sage Abdullah)
 
 
 5.2.2 (06.12.2023)
