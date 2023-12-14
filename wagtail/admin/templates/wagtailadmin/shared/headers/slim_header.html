@@ -9,6 +9,7 @@
     - `title` - title of the current page, to be displayed as a hidden h1 for screen readers
     - `search_url` - URL to the search view, should respond with a partial template for the results
     - `search_form` - form to be rendered for search
+    - `actions` - prerendered actions to be displayed in the header
 
     When including this template, use the `only` parameter whenever possible to
     ensure that the above variables are indeed the only ones needed for this
@@ -42,11 +43,12 @@
                             {% endif %}
                         {% endblock %}
 
-                        {% fragment as actions %}{% block actions %}{% endblock %}{% endfragment %}
-                        {% if actions %}
+                        {# Allow actions to be passed as a prerendered variable or defined by extending the template via block_actions #}
+                        {% fragment as block_actions %}{% block actions %}{% endblock %}{% endfragment %}
+                        {% if actions or block_actions %}
                             {# Actions divider #}
                             <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
-                            {{ actions }}
+                            {% firstof actions block_actions %}
                         {% endif %}
                     {% endblock %}
                 </div>
