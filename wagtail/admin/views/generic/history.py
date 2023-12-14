@@ -14,6 +14,7 @@ from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic.base import BaseObjectMixin, WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.models import IndexView
+from wagtail.admin.widgets.button import Button
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -97,6 +98,15 @@ class HistoryView(IndexView):
                 "label": gettext("History"),
                 "sublabel": self.get_page_subtitle(),
             },
+        ]
+
+    def get_main_actions(self):
+        return [
+            Button(
+                label=gettext("Edit"),
+                url=self.get_edit_url(self.object),
+                icon_name="edit",
+            ),
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):

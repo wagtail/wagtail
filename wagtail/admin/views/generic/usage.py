@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui import tables
 from wagtail.admin.utils import get_latest_str
+from wagtail.admin.widgets.button import Button
 from wagtail.models import DraftStateMixin, ReferenceIndex
 
 from .base import BaseListingView, BaseObjectMixin
@@ -36,6 +37,9 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             return object.get_latest_revision_as_object()
         return object
 
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
     def get_page_subtitle(self):
         return get_latest_str(self.object)
 
@@ -51,7 +55,7 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         if self.edit_url_name:
             items.append(
                 {
-                    "url": reverse(self.edit_url_name, args=(quote(self.object.pk),)),
+                    "url": self.get_edit_url(),
                     "label": get_latest_str(self.object),
                 }
             )
@@ -63,6 +67,15 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             }
         )
         return self.breadcrumbs_items + items
+
+    def get_main_actions(self):
+        return [
+            Button(
+                label=_("Edit"),
+                url=self.get_edit_url(),
+                icon_name="edit",
+            ),
+        ]
 
     def get_queryset(self):
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()
