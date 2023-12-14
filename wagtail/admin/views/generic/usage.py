@@ -21,7 +21,7 @@ class TitleColumn(tables.TitleColumn):
 
 class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     paginate_by = 20
-    page_title = gettext_lazy("Usage of")
+    page_title = gettext_lazy("Usage")
     index_url_name = None
     edit_url_name = None
     permission_required = "change"
