@@ -69,6 +69,8 @@ class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
 
 
 class TestCustomIcon(BaseSnippetViewSetTests):
+    # TODO: decide what to do with this test, since the new designs after
+    # Universal Listings and unified breadcrumbs/header don't have icons
     model = FullFeaturedSnippet
 
     def setUp(self):
@@ -82,11 +84,13 @@ class TestCustomIcon(BaseSnippetViewSetTests):
     def test_get_views(self):
         pk = quote(self.object.pk)
         views = [
-            ("list", []),
+            # TODO: Some of these views have been migrated to use the slim_header
+            # only, so there is no header_icon anymore.
+            # ("list", []),
             ("add", []),
             ("edit", [pk]),
             ("delete", [pk]),
-            ("usage", [pk]),
+            # ("usage", [pk]),
             ("unpublish", [pk]),
             ("workflow_history", [pk]),
             ("revisions_revert", [pk, self.revision_1.id]),
@@ -99,18 +103,16 @@ class TestCustomIcon(BaseSnippetViewSetTests):
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(response.context["header_icon"], "cog")
                 self.assertContains(response, "icon icon-cog", count=1)
-                # TODO: Make the list view use the shared header template
-                if view_name != "list":
-                    self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
+                self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
 
     def test_get_history(self):
         response = self.client.get(self.get_url("history", [quote(self.object.pk)]))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-        # History view icon is not configurable for consistency with pages
-        self.assertEqual(response.context["header_icon"], "history")
-        self.assertContains(response, "icon icon-history")
-        self.assertNotContains(response, "icon icon-cog")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/shared/headers/slim_header.html",
+        )
+        self.assertTemplateNotUsed(response, "wagtailadmin/shared/header.html")
 
     def test_get_workflow_history_detail(self):
         # Assign default workflow to the snippet model

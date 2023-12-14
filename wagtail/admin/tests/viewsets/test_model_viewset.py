@@ -135,12 +135,9 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     response, "<p>Some extra custom content</p>", html=True
                 )
 
-    def test_wagtail_admin_template_mixin_variables(self):
+    def test_wagtail_admin_template_mixin_variables_with_legacy_header(self):
         pk = quote(self.custom.pk)
         cases = {
-            "index": ([], "Feature complete toys", None),
-            "add": ([], "New", "Feature complete toy"),
-            "edit": ([pk], "Editing", str(self.custom)),
             "delete": ([pk], "Delete", str(self.custom)),
         }
         for view_name, (args, title, subtitle) in cases.items():
@@ -160,6 +157,27 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     self.assertIsNone(subtitle_el)
                 icon = h1.select_one("svg use[href='#icon-media']")
                 self.assertIsNotNone(icon)
+
+    def test_wagtail_admin_template_mixin_variables(self):
+        pk = quote(self.custom.pk)
+        cases = {
+            "index": ([], "Feature complete toys", None),
+            "add": ([], "New", "Feature complete toy"),
+            "edit": ([pk], "Editing", str(self.custom)),
+        }
+        for view_name, (args, title, subtitle) in cases.items():
+            with self.subTest(view_name=view_name):
+                response = self.client.get(self.get_custom_url(view_name, args=args))
+                soup = self.get_soup(response.content)
+                h1 = soup.select_one("h1")
+                expected_h1 = title
+                if subtitle:
+                    expected_h1 = f"{title}: {subtitle}"
+                self.assertIsNotNone(h1)
+                self.assertEqual(h1.get_text(strip=True), expected_h1)
+                icon = h1.select_one("svg use[href='#icon-media']")
+                # Icon is no longer rendered in the h1 with the slim header in place
+                self.assertIsNone(icon)
 
 
 class TestCustomColumns(WagtailTestUtils, TestCase):

@@ -845,6 +845,7 @@ class SnippetViewSet(ModelViewSet):
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
+            _show_breadcrumbs=False,
         )
 
     @property
@@ -858,6 +859,7 @@ class SnippetViewSet(ModelViewSet):
             object_icon=self.icon,
             header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
+            _show_breadcrumbs=False,
         )
 
     @property
