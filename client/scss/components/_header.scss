@@ -11,7 +11,8 @@
     margin: 0;
   }
 
-  h1 {
+  h1,
+  .w-header__title {
     @apply w-h1;
     position: relative;
   }
