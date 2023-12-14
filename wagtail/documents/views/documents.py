@@ -90,7 +90,7 @@ class IndexView(generic.IndexView):
     @cached_property
     def columns(self):
         columns = [
-            BulkActionsColumn("bulk_actions"),
+            BulkActionsColumn("bulk_actions", width="10px"),
             TitleColumn(
                 "title",
                 label=_("Title"),
@@ -99,7 +99,12 @@ class IndexView(generic.IndexView):
                 get_title_id=lambda doc: f"document_{quote(doc.pk)}_title",
             ),
             DownloadColumn("filename", label=_("File")),
-            DateColumn("created_at", label=_("Created"), sort_key="created_at"),
+            DateColumn(
+                "created_at",
+                label=_("Created"),
+                sort_key="created_at",
+                width="16%",
+            ),
         ]
         if self.collections:
             columns.insert(
