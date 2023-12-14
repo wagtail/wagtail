@@ -304,4 +304,39 @@ describe('CloneController', () => {
       expect(clearEventHandler).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('auto clearing after a determined delay', () => {
+    beforeAll(() => {
+      application?.stop();
+      document.body.innerHTML = `
+    <div
+      class="messages"
+      data-controller="w-clone"
+      data-action="w-clone:add@document->w-clone#add"
+      data-w-clone-auto-clear-value="500"
+    >
+      <div data-w-clone-target="container"></div>
+      <template data-w-clone-target="template">
+        <span class="message">Message</span>
+      </template>
+    </div>`;
+
+      application = Application.start();
+      application.register('w-clone', CloneController);
+    });
+
+    it('should allow for a message to be added via the add method & have it clear automatically', async () => {
+      expect(document.querySelectorAll('.message')).toHaveLength(0);
+
+      document.dispatchEvent(new CustomEvent('w-clone:add'));
+
+      await Promise.resolve();
+
+      expect(document.querySelectorAll('.message')).toHaveLength(1);
+
+      await Promise.resolve(jest.advanceTimersByTime(550));
+
+      expect(document.querySelectorAll('.message')).toHaveLength(0);
+    });
+  });
 });
