@@ -1091,6 +1091,7 @@ def register_icons(icons):
         "rotate.svg",
         "search.svg",
         "site.svg",
+        "sliders.svg",
         "snippet.svg",
         "spinner.svg",
         "strikethrough.svg",

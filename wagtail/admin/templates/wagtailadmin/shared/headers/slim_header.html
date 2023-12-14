@@ -10,6 +10,7 @@
     - `title` - title of the current page, to be displayed as a hidden h1 for screen readers
     - `search_url` - URL to the search view, should respond with a partial template for the results
     - `search_form` - form to be rendered for search
+    - `filters` - filters to be rendered
 
     When including this template, use the `only` parameter whenever possible to
     ensure that the above variables are indeed the only ones needed for this
@@ -77,6 +78,17 @@
                         {% endcomment %}
                         <input hidden disabled type="submit" />
                     </form>
+                {% endif %}
+            {% endblock %}
+
+            {% block filters %}
+                {% if filters %}
+                    {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
+                    {% dialog_toggle classname="button button-secondary button--icon" dialog_id="filters-dialog" text=filters_icon %}
+
+                    {% dialog theme="floating" id="filters-dialog" title=_("Filters") %}
+                        {% include "wagtailadmin/shared/filters.html" %}
+                    {% enddialog %}
                 {% endif %}
             {% endblock %}
 
