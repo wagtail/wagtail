@@ -45,7 +45,7 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import ButtonWithDropdown, ListingButton
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -383,6 +383,40 @@ class IndexView(
         return self.breadcrumbs_items + [
             {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
         ]
+
+    def get_main_actions(self):
+        actions = []
+        if not self.permission_policy or self.permission_policy.user_has_permission(
+            self.request.user, "add"
+        ):
+            actions.append(
+                Button(
+                    self.add_item_label,
+                    url=self.get_add_url(),
+                    icon_name="plus",
+                )
+            )
+        return actions
+
+    def get_more_actions(self):
+        actions = []
+        if self.list_export:
+            actions.append(
+                Button(
+                    _("Download XLSX"),
+                    url=self.xlsx_export_url,
+                    icon_name="download",
+                )
+            )
+            actions.append(
+                Button(
+                    _("Download CSV"),
+                    url=self.csv_export_url,
+                    icon_name="download",
+                )
+            )
+
+        return actions
 
     def get_translations(self):
         index_url = self.get_index_url()
