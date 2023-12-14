@@ -3,7 +3,7 @@
     The breadcrumb component is reused across most of Wagtail's headers.
     Variables this template accepts:
 
-    `items` - A list of {"url": Union[str, None], "label": str} dicts
+    `items` - A list of {"url": Union[str, None], "label": str, "sublabel": Union[str, None]} dicts
     `classname` - Modifier classes
     `is_expanded` - Whether the breadcrumbs are always expanded or not, if True the breadcrumbs will not be collapsible
 {% endcomment %}
@@ -48,13 +48,23 @@
                                     data-w-breadcrumbs-target="content"
                                 {% endif %}
                             >
+                                {% fragment as sublabel %}
+                                    {% if item.sublabel %}
+                                        <span class="w-sr-only">: </span>
+                                        <span class="w-breadcrumbs__sublabel w-font-normal w-hidden w-ml-2.5">
+                                            {{ item.sublabel }}
+                                        </span>
+                                    {% endif %}
+                                {% endfragment %}
                                 {% if item.url is not None %}
                                     <a class="{{ breadcrumb_link_classes }}" href="{{ item.url }}">
                                         {{ item.label }}
+                                        {{ sublabel }}
                                     </a>
                                 {% else %}
                                     <div class="w-flex w-justify-start w-items-center">
                                         {{ item.label }}
+                                        {{ sublabel }}
                                     </div>
                                 {% endif %}
                                 {% if not forloop.last %}

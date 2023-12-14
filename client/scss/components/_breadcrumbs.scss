@@ -11,5 +11,9 @@
         font-size: theme('fontSize.22');
       }
     }
+
+    .w-breadcrumbs__sublabel {
+      display: inline-block;
+    }
   }
 }
