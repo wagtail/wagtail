@@ -6,7 +6,7 @@
   appearance: none;
   border-radius: theme('borderRadius.DEFAULT');
   color: theme('colors.text-context');
-  background-color: theme('colors.surface-field');
+  background-color: theme('colors.surface-field') ;
   border: 1px solid theme('colors.border-field-default');
 
   &:hover {

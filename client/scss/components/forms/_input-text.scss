@@ -27,6 +27,10 @@ textarea {
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
   min-height: $text-input-height;
+
+  //Fix for Chrome autofill changing the background colour from dark to light
+  -webkit-background-clip: text !important; 
+  -webkit-text-fill-color: theme('colors.text-context') !important; 
 }
 
 // Multiline text fields have larger top-bottom padding.
