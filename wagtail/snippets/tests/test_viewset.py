@@ -1472,7 +1472,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"url": "", "label": "History"},
+            {"url": "", "label": "History", "sublabel": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1487,7 +1487,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"url": "", "label": "Usage"},
+            {"url": "", "label": "Usage", "sublabel": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
@@ -1502,7 +1502,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "url": self.get_url("edit", args=(self.object.pk,)),
                 "label": str(self.object),
             },
-            {"url": "", "label": "Inspect"},
+            {"url": "", "label": "Inspect", "sublabel": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 

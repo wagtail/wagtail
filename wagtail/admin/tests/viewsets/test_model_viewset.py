@@ -773,6 +773,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "History",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -797,6 +798,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Usage",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -821,6 +823,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Inspect",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
