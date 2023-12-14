@@ -26,6 +26,8 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     _show_breadcrumbs = False
     breadcrumbs_items = [{"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")}]
     template_name = "wagtailadmin/generic/base.html"
+    main_actions = []
+    more_actions = []
 
     def get_page_title(self):
         return self.page_title
@@ -46,6 +48,12 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     def get_breadcrumbs_items(self):
         return self.breadcrumbs_items
 
+    def get_main_actions(self):
+        return self.main_actions
+
+    def get_more_actions(self):
+        return self.more_actions
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # These are only used for legacy header.html
@@ -60,6 +68,8 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         context["breadcrumbs_items"] = None
         if self._show_breadcrumbs:
             context["breadcrumbs_items"] = self.get_breadcrumbs_items()
+            context["main_actions"] = self.get_main_actions()
+            context["more_actions"] = self.get_more_actions()
         return context
 
     def get_template_names(self):
