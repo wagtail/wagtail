@@ -983,7 +983,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1031,7 +1031,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1053,7 +1053,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
