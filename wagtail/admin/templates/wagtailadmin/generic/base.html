@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
 
 {% block titletag %}{{ header_title }}{% endblock %}
 
@@ -7,9 +8,34 @@
     {% block header %}
         {% block slim_header %}
             {% if breadcrumbs_items %}
+                {% fragment stripped as actions %}
+                    {% block main_actions %}
+                        {% for action in main_actions %}
+                            <a href="{{ action.url }}" class="header-main-action-button w-h-slim-header w-ml-3" data-controller="w-tooltip" data-w-tooltip-content-value="{{ action.label }}">
+                                {% icon name=action.icon_name %}
+                            </a>
+                        {% endfor %}
+                    {% endblock %}
+                    {% block more_actions %}
+                        {% if more_actions %}
+                            {% trans "Actions" as actions_toggle_title %}
+                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=actions_toggle_title toggle_classname="w-p-0 w-w-10 w-h-slim-header hover:w-scale-110 w-transition w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
+                                {% for action in more_actions %}
+                                    <a href="{{ action.url }}" {{ action.base_attrs_string }}>
+                                        {% if action.icon_name %}
+                                            {% icon name=action.icon_name %}
+                                        {% endif %}
+                                        {{ action.label }}
+                                    </a>
+                                {% endfor %}
+                            {% enddropdown %}
+                        {% endif %}
+                    {% endblock %}
+                {% endfragment %}
+
                 {# Ensure all necessary variables are passed explicitly here #}
                 {# TODO: Pass `title=header_title` once slim_header and main_header are mutually exclusive (to prevent multiple h1) #}
-                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url search_url=index_results_url search_form=search_form only %}
+                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url search_url=index_results_url search_form=search_form actions=actions only %}
             {% endif %}
         {% endblock %}
         {% block main_header %}
