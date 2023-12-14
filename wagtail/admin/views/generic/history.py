@@ -92,7 +92,11 @@ class HistoryView(IndexView):
                 "url": self.get_edit_url(self.object),
                 "label": str(self.object),
             },
-            {"url": "", "label": gettext("History")},
+            {
+                "url": "",
+                "label": gettext("History"),
+                "sublabel": self.get_page_subtitle(),
+            },
         ]
 
     def get_context_data(self, *args, object_list=None, **kwargs):

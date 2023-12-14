@@ -1032,7 +1032,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         items = []
@@ -1044,9 +1044,16 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
                 }
             )
         edit_url = self.get_edit_url()
+        object_str = self.get_page_subtitle()
         if edit_url:
-            items.append({"url": edit_url, "label": get_latest_str(self.object)})
-        items.append({"url": "", "label": _("Inspect")})
+            items.append({"url": edit_url, "label": object_str})
+        items.append(
+            {
+                "url": "",
+                "label": _("Inspect"),
+                "sublabel": object_str,
+            }
+        )
         return self.breadcrumbs_items + items
 
     def get_fields(self):

@@ -55,7 +55,13 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                     "label": get_latest_str(self.object),
                 }
             )
-        items.append({"url": "", "label": _("Usage")})
+        items.append(
+            {
+                "url": "",
+                "label": _("Usage"),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
         return self.breadcrumbs_items + items
 
     def get_queryset(self):
