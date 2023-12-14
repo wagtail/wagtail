@@ -675,7 +675,7 @@ class TestBreadcrumb(WagtailTestUtils, TestCase):
         expected = (
             """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="%s">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="%s">
                     Secret plans (simple page)
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -927,7 +927,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/">
                     Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -939,7 +939,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/4/">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/4/">
                     Welcome to example.com!
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -950,7 +950,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/5/">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/5/">
                     Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -968,7 +968,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         # since it's his Closest Common Ancestor.
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/4/">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/4/">
                     Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -979,7 +979,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/pages/5/">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/5/">
                     Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
