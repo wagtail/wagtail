@@ -60,7 +60,7 @@
                     <form
                         action="{{ search_url }}"
                         method="get"
-                        class="w-mx-2"
+                        class="w-slim-header__search-form"
                         novalidate
                         role="search"
                         data-controller="w-swap"
@@ -69,7 +69,7 @@
                         data-w-swap-target-value="#listing-results"
                     >
                         {% for field in search_form %}
-                            {% formattedfield field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                            {% formattedfield field=field sr_only_label=True icon="search" %}
                         {% endfor %}
                         {% comment %}
                             Add an initial disabled & hidden submit button so that
@@ -84,7 +84,7 @@
             {% block filters %}
                 {% if filters %}
                     {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
-                    {% dialog_toggle classname="button button-secondary button--icon" dialog_id="filters-dialog" text=filters_icon %}
+                    {% dialog_toggle classname="w-filter-button" dialog_id="filters-dialog" text=filters_icon %}
 
                     {% dialog theme="floating" id="filters-dialog" title=_("Filters") %}
                         {% include "wagtailadmin/shared/filters.html" %}
