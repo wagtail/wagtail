@@ -3,7 +3,6 @@ from warnings import warn
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.html import format_html
 from django.utils.http import urlencode
 
 from wagtail import hooks
@@ -13,6 +12,7 @@ from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class Button(Component):
+    template_name = "wagtailadmin/shared/button.html"
     show = True
     label = ""
     icon_name = None
@@ -43,16 +43,8 @@ class Button(Component):
             self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
 
-    def render_html(self, parent_context=None):
-        if hasattr(self, "template_name"):
-            return super().render_html(parent_context)
-        else:
-            attrs = {
-                "href": self.url,
-                "class": self.classname,
-            }
-            attrs.update(self.attrs)
-            return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
+    def get_context_data(self, parent_context):
+        return {"button": self}
 
     @property
     def base_attrs_string(self):
