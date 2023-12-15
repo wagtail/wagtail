@@ -28,7 +28,7 @@ from wagtail.admin.ui.tables.pages import (
     PageTable,
     PageTitleColumn,
 )
-from wagtail.admin.views.generic.models import IndexView as GenericIndexView
+from wagtail.admin.views import generic
 from wagtail.models import Page, get_page_models
 from wagtail.permissions import page_permission_policy
 
@@ -54,7 +54,7 @@ class PageFilterSet(WagtailFilterSet):
         fields = ["content_type"]
 
 
-class BaseIndexView(GenericIndexView):
+class BaseIndexView(generic.IndexView):
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
