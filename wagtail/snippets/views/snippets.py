@@ -21,7 +21,6 @@ from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
-    InlineActionsTable,
     LiveStatusTagColumn,
     TitleColumn,
     UserColumn,
@@ -156,7 +155,6 @@ class ModelIndexView(generic.IndexView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
-    table_class = InlineActionsTable
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request

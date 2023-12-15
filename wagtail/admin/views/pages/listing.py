@@ -96,7 +96,7 @@ class BaseIndexView(generic.IndexView):
     page_title = _("Exploring")
 
     columns = [
-        BulkActionsColumn("bulk_actions", width="10px"),
+        BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
             label=_("Title"),
@@ -310,7 +310,7 @@ class BaseIndexView(generic.IndexView):
         self.show_ordering_column = self.ordering == "ord"
         if self.show_ordering_column:
             self.columns = self.columns.copy()
-            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+            self.columns[0] = OrderingColumn("ordering", width="80px", sort_key="ord")
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         context = super().get_context_data(**kwargs)

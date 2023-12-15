@@ -75,13 +75,17 @@ ul.listing {
     }
   }
 
-  &.full-width td:first-child,
-  &.full-width th:first-child {
-    padding-inline-start: 20px;
-    padding-inline-end: 20px;
+  &:has(.bulk-action-checkbox) {
+    td:first-child,
+    th:first-child {
+      // Bulk actions, use smaller width (48px) for smaller screens
+      // (no need to match where the breadcrumbs are)
+      width: theme('spacing.10');
+      text-align: center;
 
-    input[type='checkbox'] {
-      margin-inline-end: 0;
+      input[type='checkbox'] {
+        margin-inline-end: 0;
+      }
     }
   }
 
@@ -419,14 +423,6 @@ table.listing {
   .table-headers,
   thead tr {
     height: 35px;
-
-    .title {
-      padding-inline-start: 0;
-    }
-  }
-
-  tbody .title {
-    padding-inline-start: 0;
   }
 }
 
@@ -603,17 +599,25 @@ table.listing {
       padding-inline-start: 50px;
     }
 
-    &.full-width td:first-child,
-    &.full-width th:first-child {
-      padding-inline-start: 30px;
-      padding-inline-end: 30px;
-    }
+    &:has(.bulk-action-checkbox) {
+      // Bulk actions, match the width of the header spacing up until
+      // the page title (final breadcrumb item):
+      // Breadcrumbs left padding: 20px
+      // Breadcrumbs toggle: 50px
+      // Breadcrumbs toggle margin right: 10px
+      // Total: 80px
+      th:first-child,
+      td:first-child {
+        width: theme('spacing.20');
+        // Follow the left padding for the breadcrumbs (20px)
+        // so the checkbox align with the breadcrumbs toggle.
+        padding-inline-start: theme('spacing.5');
+      }
 
-    // Reduce padding on sort order controls so total width matches previous state
-    &.full-width td.ord,
-    &.full-width th.ord {
-      padding-inline-end: 20px;
-      padding-inline-start: 20px;
+      th:nth-child(2),
+      td:nth-child(2) {
+        padding-inline-start: 0;
+      }
     }
 
     &.full-width .divider td {
