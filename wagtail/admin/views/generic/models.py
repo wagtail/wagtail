@@ -384,31 +384,33 @@ class IndexView(
             {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
-    def get_main_actions(self):
-        actions = []
+    @cached_property
+    def header_buttons(self):
+        buttons = []
         if not self.permission_policy or self.permission_policy.user_has_permission(
             self.request.user, "add"
         ):
-            actions.append(
+            buttons.append(
                 Button(
                     self.add_item_label,
                     url=self.get_add_url(),
                     icon_name="plus",
                 )
             )
-        return actions
+        return buttons
 
-    def get_more_actions(self):
-        actions = []
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
         if self.list_export:
-            actions.append(
+            buttons.append(
                 Button(
                     _("Download XLSX"),
                     url=self.xlsx_export_url,
                     icon_name="download",
                 )
             )
-            actions.append(
+            buttons.append(
                 Button(
                     _("Download CSV"),
                     url=self.csv_export_url,
@@ -416,7 +418,7 @@ class IndexView(
                 )
             )
 
-        return actions
+        return buttons
 
     def get_translations(self):
         index_url = self.get_index_url()
