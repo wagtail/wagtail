@@ -105,7 +105,7 @@ class HeaderButton(Button):
         attrs={},
         **kwargs,
     ):
-        classname = f"{classname} w-header-button w-h-slim-header w-ml-3".strip()
+        classname = f"{classname} w-header-button".strip()
         attrs = attrs.copy()
         attrs.update(
             {
