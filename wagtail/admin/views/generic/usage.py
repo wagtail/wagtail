@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui import tables
 from wagtail.admin.utils import get_latest_str
-from wagtail.admin.widgets.button import Button
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.models import DraftStateMixin, ReferenceIndex
 
 from .base import BaseListingView, BaseObjectMixin
@@ -71,7 +71,7 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     @cached_property
     def header_buttons(self):
         return [
-            Button(
+            HeaderButton(
                 label=_("Edit"),
                 url=self.get_edit_url(),
                 icon_name="edit",

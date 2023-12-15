@@ -14,7 +14,7 @@ from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic.base import BaseObjectMixin, WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.models import IndexView
-from wagtail.admin.widgets.button import Button
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     DraftStateMixin,
@@ -103,7 +103,7 @@ class HistoryView(IndexView):
     @cached_property
     def header_buttons(self):
         return [
-            Button(
+            HeaderButton(
                 label=gettext("Edit"),
                 url=self.get_edit_url(self.object),
                 icon_name="edit",

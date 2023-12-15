@@ -93,6 +93,36 @@ class Button(Component):
         )
 
 
+class HeaderButton(Button):
+    """An icon-only button to be displayed after the breadcrumbs in the header."""
+
+    def __init__(
+        self,
+        label="",
+        url=None,
+        classname="",
+        icon_name=None,
+        attrs={},
+        **kwargs,
+    ):
+        classname = f"{classname} w-header-button w-h-slim-header w-ml-3".strip()
+        attrs = attrs.copy()
+        attrs.update(
+            {
+                "data-controller": "w-tooltip",
+                "data-w-tooltip-content-value": label,
+            }
+        )
+        super().__init__(
+            label="",
+            url=url,
+            classname=classname,
+            icon_name=icon_name,
+            attrs=attrs,
+            **kwargs,
+        )
+
+
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
 class ListingButton(Button):
