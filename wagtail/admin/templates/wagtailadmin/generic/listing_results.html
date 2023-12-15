@@ -11,5 +11,7 @@
         {% endif %}
     {% endblock %}
 {% else %}
-    {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+    <div class="nice-padding w-mt-8">
+        {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+    </div>
 {% endif %}

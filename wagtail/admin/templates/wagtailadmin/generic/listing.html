@@ -13,10 +13,8 @@
     {% endblock %}
 
     {% block listing %}
-        <div class="nice-padding">
-            <div id="listing-results">
-                {% include view.results_template_name|default:"wagtailadmin/generic/listing_results.html" %}
-            </div>
+        <div id="listing-results">
+            {% include view.results_template_name|default:"wagtailadmin/generic/listing_results.html" %}
         </div>
     {% endblock %}
 

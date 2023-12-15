@@ -2,18 +2,20 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block before_results %}
-    {% if is_searching or is_filtering %}
-        <h2 role="alert">
-            {% blocktrans trimmed count counter=items_count %}
-                There is {{ counter }} match
-            {% plural %}
-                There are {{ counter }} matches
-            {% endblocktrans %}
-        </h2>
-    {% endif %}
-    {% if is_searching and view.show_other_searches %}
-        {% search_other %}
-    {% endif %}
+    <div class="nice-padding">
+        {% if is_searching or is_filtering %}
+            <h2 role="alert">
+                {% blocktrans trimmed count counter=items_count %}
+                    There is {{ counter }} match
+                {% plural %}
+                    There are {{ counter }} matches
+                {% endblocktrans %}
+            </h2>
+        {% endif %}
+        {% if is_searching and view.show_other_searches %}
+            {% search_other %}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block no_results_message %}
