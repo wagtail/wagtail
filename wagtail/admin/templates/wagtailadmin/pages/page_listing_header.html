@@ -20,43 +20,6 @@
     {% include "wagtailadmin/shared/page_status_tag_new.html" with page=parent_page %}
 {% endblock %}
 
-{% block search_form %}
-    <div>
-        <div class="w-mx-2">
-            <form
-                class="search-form"
-                action="{{ index_url }}"
-                method="get"
-                novalidate
-                role="search"
-                data-search-form
-                data-controller="w-swap"
-                data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
-                data-w-swap-src-value="{{ results_url }}"
-                data-w-swap-target-value="#listing-results"
-            >
-                {% for field in search_form %}
-                    {% formattedfield field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
-                {% endfor %}
-                {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-                <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
-                <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
-
-                {% dialog_toggle classname='button button-small w-mt-4' dialog_id='filters-dialog' text='Show filters' %}
-                {% dialog theme="floating" id="filters-dialog" title="Filters" dialog_root_selector="[data-search-form]" %}
-                    {% for field in filters.form %}
-                        {% formattedfield field %}
-                    {% endfor %}
-                    <button class="button" type="submit">
-                        {% trans 'Apply filters' %}
-                    </button>
-                {% enddialog %}
-
-            </form>
-        </div>
-    </div>
-{% endblock %}
-
 {% block side_panels %}
     {% include "wagtailadmin/shared/side_panels.html" with in_explorer=True %}
 {% endblock side_panels %}

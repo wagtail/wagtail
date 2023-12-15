@@ -280,7 +280,7 @@ class BaseIndexView(generic.IndexView):
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
-    def get_results_url(self):
+    def get_index_results_url(self):
         return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
 
     def get_history_url(self):
@@ -335,7 +335,7 @@ class BaseIndexView(generic.IndexView):
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
-                "results_url": self.get_results_url(),
+                "search_url": self.get_index_results_url(),
                 "history_url": self.get_history_url(),
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
