@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block listing %}
-    <div class="nice-padding">
+    <div>
         {% if collections %}
-            <form action="{{ index_url }}" method="GET" novalidate>
+            <form class="nice-padding" action="{{ index_url }}" method="GET" novalidate>
                 <ul class="fields">
                     <li>{% include "wagtailadmin/shared/collection_chooser.html" %}</li>
                 </ul>

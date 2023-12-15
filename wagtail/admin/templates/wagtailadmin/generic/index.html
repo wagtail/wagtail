@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block listing %}
-    <div class="nice-padding{% if filters and not breadcrumbs_items %} filterable{% endif %}">
+    <div class="{% if filters and not breadcrumbs_items %} filterable{% endif %}">
         <div id="listing-results">
             {% if breadcrumbs_items and locale %}
                 {# TODO: temporarily put the locale selector here since we no longer use the legacy header #}
