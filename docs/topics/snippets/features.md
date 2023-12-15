@@ -362,6 +362,7 @@ Similar to pages, you can nest other models within a snippet.
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from wagtail.models import Orderable
 
 
