@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
-
+from wagtail.search.index import SearchableContent
 from .base import (
     Block,
     BoundBlock,
@@ -75,10 +75,12 @@ class StreamBlockValidationError(ValidationError):
 
 
 class BaseStreamBlock(Block):
-    def __init__(self, local_blocks=None, search_index=True, **kwargs):
-        self._constructor_kwargs = kwargs
-        self.search_index = search_index
 
+    def __init__(self, local_blocks=None, search_index=True, search_boost=1, **kwargs):
+        self._constructor_kwargs = kwargs
+        self.search_boost = search_boost
+        self.search_index = search_index
+        self.unique_boosts = set([search_boost])
         super().__init__(**kwargs)
 
         # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
@@ -343,10 +345,13 @@ class BaseStreamBlock(Block):
     def get_searchable_content(self, value):
         if not self.search_index:
             return []
-        content = []
-
+        content = SearchableContent()
         for child in value:
-            content.extend(child.block.get_searchable_content(child.value))
+            child_content = child.block.get_searchable_content(child.value)
+            # Multiply boost values of child_content by self.search_boost
+            child_content.multiply_boosts(self.search_boost)
+            # Merge the child content into the parent content
+            content.merge_content(child_content)
 
         return content
 

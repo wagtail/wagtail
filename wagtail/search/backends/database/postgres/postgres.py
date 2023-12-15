@@ -58,11 +58,18 @@ class ObjectIndexer:
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
-            yield (
-                field,
-                get_weight(field.boost),
-                self.prepare_value(field.get_value(obj)),
-            )
+            if hasattr(obj, "unique_boosts"):
+                yield (
+                    field,
+                    self.prepare_value(list(get_weight(field.boost) * obj.unique_boosts)),
+                    self.prepare_value(field.get_value(obj)),
+                )
+            else:
+                yield (
+                    field,
+                    self.prepare_value(list(get_weight(field.boost))),
+                    self.prepare_value(field.get_value(obj)),
+                )
 
         elif isinstance(field, AutocompleteField):
             # AutocompleteField does not define a boost parameter, so use a base weight of 'D'
@@ -539,7 +546,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                     field_lookup,
                     config=search_query.config,
                 ),
-                search_field.boost,
+                # FAIL: test_search_on_individual_field
+                # psycopg2.errors.UndefinedFunction: operator does not exist: real * numeric[]
+                [float(boost) for boost in search_field.unique_boosts],
             )
             for field_lookup, search_field in self.search_fields.items()
         ]

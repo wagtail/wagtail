@@ -29,7 +29,7 @@ from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
-
+from wagtail.search.index import SearchableContent
 
 class FooStreamBlock(blocks.StreamBlock):
     text = blocks.CharBlock()
@@ -120,10 +120,10 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(form_state, "Hello world!")
 
     def test_charfield_searchable_content(self):
-        block = blocks.CharBlock()
+        block = blocks.CharBlock(search_boost=2)
         content = block.get_searchable_content("Hello world!")
 
-        self.assertEqual(content, ["Hello world!"])
+        self.assertEqual(content, SearchableContent({2: ["Hello world!"]}))
 
     def test_search_index_searchable_content(self):
         block = blocks.CharBlock(search_index=False)
@@ -201,7 +201,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             field = forms.CharField(required=True)
 
         block = CustomBlock()
-        self.assertEqual(block.get_searchable_content("foo bar"), [])
+        self.assertEqual(block.get_searchable_content("foo bar"), SearchableContent())
 
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
@@ -657,7 +657,7 @@ class TestRichTextBlock(TestCase):
         )
 
     def test_get_searchable_content(self):
-        block = blocks.RichTextBlock()
+        block = blocks.RichTextBlock(search_boost=2)
         value = RichText(
             '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
             "<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>"
@@ -665,10 +665,10 @@ class TestRichTextBlock(TestCase):
         result = block.get_searchable_content(value)
         self.assertEqual(
             result,
-            [
+            SearchableContent({2: [
                 "Merry Christmas! & a happy new year \n"
                 "Our Santa pet Wagtail has some cool stuff in store for you all!"
-            ],
+            ]}),
         )
 
     def test_search_index_get_searchable_content(self):
@@ -684,10 +684,10 @@ class TestRichTextBlock(TestCase):
         )
 
     def test_get_searchable_content_whitespace(self):
-        block = blocks.RichTextBlock()
+        block = blocks.RichTextBlock(search_boost=2)
         value = RichText("<p>mashed</p><p>po<i>ta</i>toes</p>")
         result = block.get_searchable_content(value)
-        self.assertEqual(result, ["mashed potatoes"])
+        self.assertEqual(result, SearchableContent({2: ["mashed potatoes"]}))
 
     def test_extract_references(self):
         block = blocks.RichTextBlock()
@@ -942,9 +942,10 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             choices=[
                 ("choice-1", "Choice 1"),
                 ("choice-2", "Choice 2"),
-            ]
+            ],
+            search_boost=10,
         )
-        self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+        self.assertEqual(block.get_searchable_content("choice-1"), SearchableContent({10: ["Choice 1"]}))
 
     def test_search_index_searchable_content(self):
         block = blocks.ChoiceBlock(
@@ -963,8 +964,8 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ("choice-2", "Choice 2"),
             ]
 
-        block = blocks.ChoiceBlock(choices=callable_choices)
-        self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+        block = blocks.ChoiceBlock(choices=callable_choices, search_boost=10)
+        self.assertEqual(block.get_searchable_content("choice-1"), SearchableContent({10: ["Choice 1"]}))
 
     def test_optgroup_searchable_content(self):
         block = blocks.ChoiceBlock(
@@ -983,9 +984,10 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                         ("2-2", "Block 2"),
                     ],
                 ),
-            ]
+            ],
+            search_boost=10,
         )
-        self.assertEqual(block.get_searchable_content("2-2"), ["Section 2", "Block 2"])
+        self.assertEqual(block.get_searchable_content("2-2"), SearchableContent({10: ["Section 2", "Block 2"]}))
 
     def test_invalid_searchable_content(self):
         block = blocks.ChoiceBlock(
@@ -994,7 +996,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ("two", "Two"),
             ]
         )
-        self.assertEqual(block.get_searchable_content("three"), [])
+        self.assertEqual(block.get_searchable_content("three"), SearchableContent())
 
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(
@@ -1006,8 +1008,8 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         result = block.get_searchable_content("choice-1")
         # result must survive JSON (de)serialisation, which is not the case for
         # lazy translation objects
-        result = json.loads(json.dumps(result))
-        self.assertEqual(result, ["Choice 1"])
+        result = json.loads(json.dumps(result, default=lambda obj: obj.__json__(), indent=2))
+        self.assertEqual(result, SearchableContent({1: ["Choice 1"]}).__json__())
 
     def test_optgroup_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(
@@ -1031,8 +1033,8 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         result = block.get_searchable_content("2-2")
         # result must survive JSON (de)serialisation, which is not the case for
         # lazy translation objects
-        result = json.loads(json.dumps(result))
-        self.assertEqual(result, ["Section 2", "Block 2"])
+        result = json.loads(json.dumps(result, default=lambda obj: obj.__json__(), indent=2))
+        self.assertEqual(result, SearchableContent({1: ["Section 2", "Block 2"]}).__json__())
 
     def test_deconstruct_with_callable_choices(self):
         def callable_choices():
@@ -1331,7 +1333,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ("choice-2", "Choice 2"),
             ]
         )
-        self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+        self.assertEqual(block.get_searchable_content("choice-1"), SearchableContent({1: ["Choice 1"]}))
 
     def test_search_index_searchable_content(self):
         block = blocks.MultipleChoiceBlock(
@@ -1351,7 +1353,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
 
         block = blocks.MultipleChoiceBlock(choices=callable_choices)
-        self.assertEqual(block.get_searchable_content("choice-1"), ["Choice 1"])
+        self.assertEqual(block.get_searchable_content("choice-1"), SearchableContent({1: ["Choice 1"]}))
 
     def test_optgroup_searchable_content(self):
         block = blocks.MultipleChoiceBlock(
@@ -1372,7 +1374,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ),
             ]
         )
-        self.assertEqual(block.get_searchable_content("2-2"), ["Section 2", "Block 2"])
+        self.assertEqual(block.get_searchable_content("2-2"), SearchableContent({1: ["Section 2", "Block 2"]}))
 
     def test_invalid_searchable_content(self):
         block = blocks.MultipleChoiceBlock(
@@ -1381,7 +1383,9 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ("two", "Two"),
             ]
         )
-        self.assertEqual(block.get_searchable_content("three"), [])
+        print(block.get_searchable_content("three"))
+        print(SearchableContent())
+        self.assertEqual(block.get_searchable_content("three"), SearchableContent())
 
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.MultipleChoiceBlock(
@@ -1393,8 +1397,8 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         result = block.get_searchable_content("choice-1")
         # result must survive JSON (de)serialisation, which is not the case for
         # lazy translation objects
-        result = json.loads(json.dumps(result))
-        self.assertEqual(result, ["Choice 1"])
+        result = json.loads(json.dumps(result, default=lambda obj: obj.__json__(), indent=2))
+        self.assertEqual(result, SearchableContent({1: ["Choice 1"]}).__json__())
 
     def test_optgroup_searchable_content_with_lazy_translation(self):
         block = blocks.MultipleChoiceBlock(
@@ -1418,8 +1422,8 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         result = block.get_searchable_content("2-2")
         # result must survive JSON (de)serialisation, which is not the case for
         # lazy translation objects
-        result = json.loads(json.dumps(result))
-        self.assertEqual(result, ["Section 2", "Block 2"])
+        result = json.loads(json.dumps(result, default=lambda obj: obj.__json__(), indent=2))
+        self.assertEqual(result, SearchableContent({1: ["Section 2", "Block 2"]}).__json__())
 
     def test_deconstruct_with_callable_choices(self):
         def callable_choices():
@@ -2007,7 +2011,7 @@ class TestStructBlock(SimpleTestCase):
             )
         )
 
-        self.assertEqual(content, ["Wagtail site"])
+        self.assertEqual(content, SearchableContent({1: ["Wagtail site"]}))
 
     def test_value_from_datadict(self):
         block = blocks.StructBlock(
@@ -2585,7 +2589,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
 
-        self.assertEqual(content, ["Wagtail", "Django"])
+        self.assertEqual(content, SearchableContent({1: ["Wagtail", "Django"]}))
 
     def test_value_omitted_from_data(self):
         block = blocks.ListBlock(blocks.CharBlock())
@@ -3622,11 +3626,11 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(
             content,
-            [
+            SearchableContent({1: [
                 "My title",
                 "My first paragraph",
                 "My second paragraph",
-            ],
+            ]}),
         )
 
     def test_meta_default(self):

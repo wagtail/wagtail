@@ -10,6 +10,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks import FieldBlock
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
+from wagtail.search.index import SearchableContent
 
 DEFAULT_TABLE_OPTIONS = {
     "minSpareRows": 0,
@@ -92,7 +93,7 @@ register(TableInputAdapter(), TableInput)
 
 
 class TableBlock(FieldBlock):
-    def __init__(self, required=True, help_text=None, table_options=None, **kwargs):
+    def __init__(self, required=True, help_text=None, table_options=None, search_boost=1, **kwargs):
         """
         CharField's 'label' and 'initial' parameters are not exposed, as Block
         handles that functionality natively (via 'label' and 'default')
@@ -102,7 +103,8 @@ class TableBlock(FieldBlock):
         """
         self.table_options = self.get_table_options(table_options=table_options)
         self.field_options = {"required": required, "help_text": help_text}
-
+        self.seach_boost = search_boost
+        self.unique_boost = set([self.seach_boost])
         super().__init__(**kwargs)
 
     @cached_property
@@ -129,7 +131,9 @@ class TableBlock(FieldBlock):
         if value:
             for row in value.get("data", []):
                 content.extend([v for v in row if v])
-        return content
+        if content == []:
+            return SearchableContent()
+        return SearchableContent({self.seach_boost: content})
 
     def render(self, value, context=None):
         template = getattr(self.meta, "template", None)

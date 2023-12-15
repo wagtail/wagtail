@@ -10,6 +10,7 @@ from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
 from wagtail.models import Page
 from wagtail.test.testapp.models import TableBlockStreamPage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.search.index import SearchableContent
 
 from .blocks import TableInput
 
@@ -268,24 +269,24 @@ class TestTableBlock(TestCase):
                 [None, "Foo", None],
             ],
         }
-        block = TableBlock()
+        block = TableBlock(search_boost=10)
         content = block.get_searchable_content(value)
         self.assertEqual(
             content,
-            [
+            SearchableContent({10: [
                 "Test 1",
                 "Test 2",
                 "Test 3",
                 "Bar",
                 "Foo",
-            ],
+            ]}),
         )
 
     def test_searchable_content_for_null_block(self):
         value = None
         block = TableBlock()
         content = block.get_searchable_content(value)
-        self.assertEqual(content, [])
+        self.assertEqual(content, SearchableContent())
 
     def test_render_with_extra_context(self):
         """
@@ -520,8 +521,8 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         """
         block = TableBlock()
         search_content = block.get_searchable_content(value=self.value)
-        self.assertIn("Galactica", search_content)
-        self.assertIn("Brenik", search_content)
+        self.assertIn("Galactica", search_content.as_list())
+        self.assertIn("Brenik", search_content.as_list())
 
 
 # TODO(telepath) replace this with a functional test

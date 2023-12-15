@@ -20,7 +20,7 @@ from wagtail.rich_text import (
     get_text_for_indexing,
 )
 from wagtail.telepath import Adapter, register
-
+from wagtail.search.index import SearchableContent
 from .base import Block
 
 try:
@@ -145,6 +145,7 @@ class CharBlock(FieldBlock):
         help_text=None,
         max_length=None,
         min_length=None,
+        search_boost=1,
         validators=(),
         search_index=True,
         **kwargs,
@@ -160,9 +161,11 @@ class CharBlock(FieldBlock):
             validators=validators,
         )
         super().__init__(**kwargs)
+        self.search_boost = search_boost
+        self.unique_boosts = set([search_boost])
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index else []
+        return SearchableContent({self.search_boost: [force_str(value)]})
 
 
 class TextBlock(FieldBlock):
@@ -174,6 +177,7 @@ class TextBlock(FieldBlock):
         max_length=None,
         min_length=None,
         search_index=True,
+        search_boost=1,
         validators=(),
         **kwargs,
     ):
@@ -187,6 +191,8 @@ class TextBlock(FieldBlock):
         self.rows = rows
         self.search_index = search_index
         super().__init__(**kwargs)
+        self.search_boost = search_boost
+        self.unique_boosts = set([search_boost])
 
     @cached_property
     def field(self):
@@ -197,7 +203,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_str(value)] if self.search_index else []
+        return SearchableContent({self.search_boost: [force_str(value)]})
 
     class Meta:
         icon = "pilcrow"
@@ -494,7 +500,8 @@ class BaseChoiceBlock(FieldBlock):
         self._required = required
         self._default = default
         self.search_index = search_index
-
+        self.search_boost = kwargs.pop("search_boost", 1)
+        self.unique_boosts = set([self.search_boost])
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
             choices = self.choices
@@ -612,11 +619,12 @@ class ChoiceBlock(BaseChoiceBlock):
                 # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
                     if value == k2 or text_value == force_str(k2):
-                        return [force_str(k), force_str(v2)]
+                        return SearchableContent({self.search_boost: [force_str(k), force_str(v2)]})
             else:
                 if value == k or text_value == force_str(k):
-                    return [force_str(v)]
-        return []  # Value was not found in the list of choices
+                    return SearchableContent({self.search_boost:
+                                              [force_str(v)]})
+        return SearchableContent()
 
 
 class MultipleChoiceBlock(BaseChoiceBlock):
@@ -654,7 +662,9 @@ class MultipleChoiceBlock(BaseChoiceBlock):
             else:
                 if value == k or text_value == force_str(k):
                     content.append(force_str(v))
-        return content
+        if content == []:
+            return SearchableContent()
+        return SearchableContent({self.search_boost: content})
 
 
 class RichTextBlock(FieldBlock):
@@ -665,6 +675,7 @@ class RichTextBlock(FieldBlock):
         editor="default",
         features=None,
         max_length=None,
+        search_boost=1,
         validators=(),
         search_index=True,
         **kwargs,
@@ -681,6 +692,8 @@ class RichTextBlock(FieldBlock):
         self.editor = editor
         self.features = features
         self.search_index = search_index
+        self.search_boost = search_boost
+        self.unique_boosts = set([search_boost])
         super().__init__(**kwargs)
 
     def get_default(self):
@@ -721,8 +734,7 @@ class RichTextBlock(FieldBlock):
         if not self.search_index:
             return []
         source = force_str(value.source)
-        # Strip HTML tags to prevent search backend from indexing them
-        return [get_text_for_indexing(source)]
+        return SearchableContent({self.search_boost: [get_text_for_indexing(source)]})
 
     def extract_references(self, value):
         # Extracts any references to images/pages/embeds

@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
+from wagtail.search.index import SearchableContent
 
 from .base import (
     Block,
@@ -106,10 +107,10 @@ class PlaceholderBoundBlock(BoundBlock):
 
 
 class BaseStructBlock(Block):
-    def __init__(self, local_blocks=None, search_index=True, **kwargs):
+    def __init__(self, local_blocks=None, search_index=True, search_boost=1, **kwargs):
         self._constructor_kwargs = kwargs
         self.search_index = search_index
-
+        self.search_boost = search_boost
         super().__init__(**kwargs)
 
         # create a local (shallow) copy of base_blocks so that it can be supplemented by local_blocks
@@ -254,14 +255,28 @@ class BaseStructBlock(Block):
     def get_searchable_content(self, value):
         if not self.search_index:
             return []
-        content = []
-
+        content = SearchableContent()
         for name, block in self.child_blocks.items():
-            content.extend(
-                block.get_searchable_content(value.get(name, block.get_default()))
-            )
-
+            child_content = block.get_searchable_content(value.get(name, block.get_default()))
+            # Multiply boost values of child_content by self.search_boost
+            child_content.multiply_boosts(self.search_boost)
+            # Merge the child content into the parent content
+            content.merge_content(child_content)
         return content
+
+    @property
+    def unique_boosts(self):
+        unique_boosts = set()
+        for _, block in self.child_blocks.items():
+            # If the block has a unique_boosts attribute, merge it
+            if hasattr(block, 'unique_boosts'):
+                unique_boosts.union(block.unique_boosts)
+            # If the block has a search_boost attribute, add it
+            elif hasattr(block, 'search_boost'):
+                unique_boosts.update(block.unique_boosts)
+            else:
+                pass
+        return unique_boosts
 
     def extract_references(self, value):
         for name, block in self.child_blocks.items():

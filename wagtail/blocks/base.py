@@ -20,6 +20,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.search.index import SearchableContent
 
 __all__ = [
     "BaseBlock",
@@ -261,9 +262,9 @@ class Block(metaclass=BaseBlock):
 
     def get_searchable_content(self, value):
         """
-        Returns a list of strings containing text content within this block to be used in a search engine.
+        Returns `SearchableContent` to be used in a search engine.
         """
-        return []
+        return SearchableContent()
 
     def extract_references(self, value):
         return []
