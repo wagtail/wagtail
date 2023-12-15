@@ -23,6 +23,7 @@ Changelog
  * Remove overly verbose image captions in image listings for screen readers (Sage Abdullah)
  * Ensure screen readers and dictation tools can more easily navigate bulk actions in images, documents and page listings by streamlining labels and descriptions (Sage Abdullah)
  * Remove support for Safari 14 (Thibaud Colas)
+ * Add ability to click to copy the URL in the image URL generator page (Sai Srikar Dumpeti)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -71,6 +72,7 @@ Changelog
  * Maintenance: Update Telepath dependency to 0.3.1 (Matt Westcott)
  * Maintenance: Upgrade to latest TypeScript and Storybook (Thibaud Colas, Sage Abdullah)
  * Maintenance: Refactor documents listing view to use generic IndexView (Sage Abdullah)
+ * Maintenance: Support for the Stimulus `CloneController` to auto clear the added content after a set duration (LB (Ben) Johnston)
 
 
 5.2.2 (06.12.2023)

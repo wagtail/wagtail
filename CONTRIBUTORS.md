@@ -776,6 +776,7 @@
 * Shlomo Markowitz
 * Felipe Lobato
 * Nandini Arora
+* Sai Srikar Dumpeti
 
 ## Translators
 
