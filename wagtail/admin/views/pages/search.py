@@ -66,7 +66,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     table_class = PageTable
 
     columns = [
-        BulkActionsColumn("bulk_actions", width="10px"),
+        BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
             classname="title",
