@@ -45,7 +45,12 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
+from wagtail.admin.widgets.button import (
+    Button,
+    ButtonWithDropdown,
+    HeaderButton,
+    ListingButton,
+)
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -391,7 +396,7 @@ class IndexView(
             self.request.user, "add"
         ):
             buttons.append(
-                Button(
+                HeaderButton(
                     self.add_item_label,
                     url=self.get_add_url(),
                     icon_name="plus",
@@ -408,6 +413,7 @@ class IndexView(
                     _("Download XLSX"),
                     url=self.xlsx_export_url,
                     icon_name="download",
+                    priority=90,
                 )
             )
             buttons.append(
@@ -415,6 +421,7 @@ class IndexView(
                     _("Download CSV"),
                     url=self.csv_export_url,
                     icon_name="download",
+                    priority=100,
                 )
             )
 

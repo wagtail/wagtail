@@ -11,25 +11,8 @@
                 {% fragment stripped as actions %}
                     {% block header_buttons %}
                         {% for button in header_buttons %}
-                            <a href="{{ button.url }}" class="header-main-action-button w-h-slim-header w-ml-3" data-controller="w-tooltip" data-w-tooltip-content-value="{{ button.label }}">
-                                {% icon name=button.icon_name %}
-                            </a>
+                            {% component button %}
                         {% endfor %}
-                    {% endblock %}
-                    {% block header_more_buttons %}
-                        {% if header_more_buttons %}
-                            {% trans "Actions" as actions_toggle_title %}
-                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=actions_toggle_title toggle_classname="w-p-0 w-w-10 w-h-slim-header hover:w-scale-110 w-transition w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
-                                {% for button in header_more_buttons %}
-                                    <a href="{{ button.url }}" {{ button.base_attrs_string }}>
-                                        {% if button.icon_name %}
-                                            {% icon name=button.icon_name %}
-                                        {% endif %}
-                                        {{ button.label }}
-                                    </a>
-                                {% endfor %}
-                            {% enddropdown %}
-                        {% endif %}
                     {% endblock %}
                 {% endfragment %}
 

@@ -10,6 +10,7 @@ from django.views.generic.list import BaseListView
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.widgets.button import ButtonWithDropdown
 
 
 class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
@@ -49,10 +50,22 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         return self.breadcrumbs_items
 
     def get_header_buttons(self):
-        return self.header_buttons
+        buttons = sorted(self.header_buttons)
+
+        more_buttons = self.get_header_more_buttons()
+        if more_buttons:
+            buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={"aria-label": _("Actions")},
+                    classname="w-h-slim-header",
+                )
+            )
+        return buttons
 
     def get_header_more_buttons(self):
-        return self.header_more_buttons
+        return sorted(self.header_more_buttons)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
