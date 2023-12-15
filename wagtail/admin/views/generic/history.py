@@ -100,7 +100,8 @@ class HistoryView(IndexView):
             },
         ]
 
-    def get_main_actions(self):
+    @cached_property
+    def header_buttons(self):
         return [
             Button(
                 label=gettext("Edit"),

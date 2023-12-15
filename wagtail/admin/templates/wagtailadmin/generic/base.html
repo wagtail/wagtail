@@ -9,23 +9,23 @@
         {% block slim_header %}
             {% if breadcrumbs_items %}
                 {% fragment stripped as actions %}
-                    {% block main_actions %}
-                        {% for action in main_actions %}
-                            <a href="{{ action.url }}" class="header-main-action-button w-h-slim-header w-ml-3" data-controller="w-tooltip" data-w-tooltip-content-value="{{ action.label }}">
-                                {% icon name=action.icon_name %}
+                    {% block header_buttons %}
+                        {% for button in header_buttons %}
+                            <a href="{{ button.url }}" class="header-main-action-button w-h-slim-header w-ml-3" data-controller="w-tooltip" data-w-tooltip-content-value="{{ button.label }}">
+                                {% icon name=button.icon_name %}
                             </a>
                         {% endfor %}
                     {% endblock %}
-                    {% block more_actions %}
-                        {% if more_actions %}
+                    {% block header_more_buttons %}
+                        {% if header_more_buttons %}
                             {% trans "Actions" as actions_toggle_title %}
                             {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=actions_toggle_title toggle_classname="w-p-0 w-w-10 w-h-slim-header hover:w-scale-110 w-transition w-outline-offset-inside w-relative w-z-30" toggle_tooltip_offset="[0, -2]" %}
-                                {% for action in more_actions %}
-                                    <a href="{{ action.url }}" {{ action.base_attrs_string }}>
-                                        {% if action.icon_name %}
-                                            {% icon name=action.icon_name %}
+                                {% for button in header_more_buttons %}
+                                    <a href="{{ button.url }}" {{ button.base_attrs_string }}>
+                                        {% if button.icon_name %}
+                                            {% icon name=button.icon_name %}
                                         {% endif %}
-                                        {{ action.label }}
+                                        {{ button.label }}
                                     </a>
                                 {% endfor %}
                             {% enddropdown %}

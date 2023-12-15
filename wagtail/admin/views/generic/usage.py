@@ -68,7 +68,8 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         )
         return self.breadcrumbs_items + items
 
-    def get_main_actions(self):
+    @cached_property
+    def header_buttons(self):
         return [
             Button(
                 label=_("Edit"),
