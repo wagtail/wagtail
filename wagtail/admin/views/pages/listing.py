@@ -51,7 +51,7 @@ class PageFilterSet(WagtailFilterSet):
 
     class Meta:
         model = Page
-        fields = ["content_type"]
+        fields = ["content_type", "latest_revision_created_at"]
 
 
 class BaseIndexView(generic.IndexView):
