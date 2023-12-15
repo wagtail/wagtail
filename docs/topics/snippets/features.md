@@ -357,7 +357,7 @@ The [documentation on tagging pages](tagging) has more information on how to use
 
 ## Inline models within snippets
 
-Similar to pages, you can nest other models within a snippet.
+Similar to pages, you can nest other models within a snippet. This requires the snippet model to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model`.
 
 ```python
 from django.db import models
