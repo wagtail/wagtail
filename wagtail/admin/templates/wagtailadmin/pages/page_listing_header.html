@@ -33,6 +33,7 @@
                 method="get"
                 novalidate
                 role="search"
+                data-search-form
                 data-controller="w-swap"
                 data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
                 data-w-swap-src-value="{{ results_url }}"
@@ -44,7 +45,19 @@
                 {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
                 <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
                 <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
-                {% include "wagtailadmin/shared/filters.html" %}
+
+                {% dialog_toggle classname='button button-small w-mt-4' dialog_id='filters-dialog' text='Show filters' %}
+                {% dialog theme="floating" id="filters-dialog" title="Filters" dialog_root_selector="[data-search-form]" %}
+                    <div class="filterable__filters">
+                        {% for field in filters.form %}
+                            {% formattedfield field %}
+                        {% endfor %}
+                        <button class="button" type="submit">
+                            {% trans 'Apply filters' %}
+                        </button>
+                    </div>
+                {% enddialog %}
+
             </form>
         </div>
     </div>
