@@ -75,6 +75,7 @@ Changelog
  * Maintenance: Refactor documents listing view to use generic IndexView (Sage Abdullah)
  * Maintenance: Support for the Stimulus `CloneController` to auto clear the added content after a set duration (LB (Ben) Johnston)
  * Maintenance: Refactor images listing view to use generic IndexView (Sage Abdullah)
+ * Maintenance: Refactor form pages listing view to use generic IndexView (Sage Abdullah)
 
 
 5.2.2 (06.12.2023)
