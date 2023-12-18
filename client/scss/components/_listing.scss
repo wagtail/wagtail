@@ -622,7 +622,7 @@ table.listing {
 
     // If no bulk actions are present, and nice padding is not applied,
     // apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &):not(:has(.bulk-action-checkbox)) {
+    &:not(.nice-padding &, .report &):not(:has(.bulk-action-checkbox)) {
       th:first-child,
       td:first-child {
         padding-inline-start: theme('spacing.20');
