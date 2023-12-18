@@ -514,7 +514,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.cancel_workflow_action()
         else:
             latest_revision = self.page.get_latest_revision()
-            if int(latest_revision.id) != int(self.request.POST.get("version")):
+            if latest_revision and self.request.POST.get("version") and int(latest_revision.id) != int(self.request.POST.get("version")):
                 self.updated_by_another_user = True
             else:
                 self.updated_by_another_user = False
