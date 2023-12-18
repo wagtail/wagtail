@@ -250,7 +250,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "There are no feature complete toys to display",
@@ -273,7 +272,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -297,7 +295,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace, {lookup: ""})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -324,7 +321,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "No feature complete toys match your query",
@@ -351,7 +347,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "There is 1 match")
                 self.assertNotContains(response, "Forky")

@@ -58,21 +58,37 @@
             </div>
 
             {% block search_form %}
-                {% if search_url and search_form %}
+                {% if not search_url %}
+                {% elif search_form or filters %}
                     <form
                         action="{{ search_url }}"
                         method="get"
                         class="w-slim-header__search-form"
                         novalidate
                         role="search"
+                        data-search-form
                         data-controller="w-swap"
-                        data-action="change->w-swap#searchLazy input->w-swap#searchLazy"
+                        data-action="change->w-swap#submitLazy input->w-swap#submitLazy"
                         data-w-swap-src-value="{{ search_url }}"
                         data-w-swap-target-value="#listing-results"
                     >
-                        {% for field in search_form %}
-                            {% formattedfield field=field sr_only_label=True icon="search" %}
-                        {% endfor %}
+                        {% if search_form %}
+                            {% for field in search_form %}
+                                {% formattedfield field=field sr_only_label=True icon="search" %}
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if filters %}
+                            {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
+                            {% dialog_toggle classname="w-filter-button" dialog_id="filters-dialog" text=filters_icon %}
+
+                            {% dialog theme="floating" id="filters-dialog" title=_("Filters") dialog_root_selector="[data-search-form]" %}
+                                {% for field in filters.form %}
+                                    {% formattedfield field %}
+                                {% endfor %}
+                            {% enddialog %}
+                        {% endif %}
+
                         {% comment %}
                             Add an initial disabled & hidden submit button so that
                             pressing 'Enter' will not submit form. Reload is not
@@ -80,17 +96,6 @@
                         {% endcomment %}
                         <input hidden disabled type="submit" />
                     </form>
-                {% endif %}
-            {% endblock %}
-
-            {% block filters %}
-                {% if filters %}
-                    {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
-                    {% dialog_toggle classname="w-filter-button" dialog_id="filters-dialog" text=filters_icon %}
-
-                    {% dialog theme="floating" id="filters-dialog" title=_("Filters") %}
-                        {% include "wagtailadmin/shared/filters.html" %}
-                    {% enddialog %}
                 {% endif %}
             {% endblock %}
 
