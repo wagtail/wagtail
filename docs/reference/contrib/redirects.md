@@ -10,7 +10,8 @@ The `redirects` module provides the models and user interface for managing arbit
 
 ## Installation
 
-The `redirects` module is not enabled by default. To install it, add `wagtail.contrib.redirects` to `INSTALLED_APPS` and `wagtail.contrib.redirects.middleware.RedirectMiddleware` to `MIDDLEWARE` in your project's Django settings file.
+The `redirects` module is enabled by default. However, if you are upgrading from an older version of Wagtail you may need to manually install it. To install it, add `wagtail.contrib.redirects` to `INSTALLED_APPS` and `wagtail.contrib.redirects.middleware.RedirectMiddleware` to `MIDDLEWARE` in your project's Django settings file.
+
 
 ```python
 INSTALLED_APPS = [
