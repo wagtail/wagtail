@@ -25,7 +25,7 @@ def get_site_root(context):
     return Site.find_for_request(context["request"]).root_page
 ```
 
-In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your HomePage. 
+In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your `HomePage` in this case. 
 
 Now, create `mysite/templates/includes/header.html` file and add the following to it:
 
@@ -83,7 +83,7 @@ Now, if you restart your server and reload your homepage, you'll see your site m
 
 ## Add pages to your site menu
 
-You can add any top-level page to the site menu by doing the following:
+You can add any top-level, like your Home page, Blog index page, Portfolio page, and Form page to the site menu by doing the following:
 1. Go to your admin interface.
 2. Go to any top-level page.
 3. Click **Promote**.

@@ -16,10 +16,6 @@ python manage.py startapp base
 
 After generating the `base` app, you must install it on your site. In your `mysite/settings/base.py` file, add `"base"` to the `INSTALLED_APPS` list.
 
-```{note}
-You can structure your project in several ways aside from using a base app. For example, you can use your base app to manage configurations that are related or site-wide.
-```
-
 ## Create navigation settings
 
 Now, go to your `base/models.py` file and add the following lines of code:
@@ -207,7 +203,7 @@ class FooterText(
         verbose_name_plural = "Footer Text"
 ```
 
-In the preceding code, the `FooterText` class inherits from several `Mixins`, the `DraftStateMixin`, `RevisionMixin`, `PreviewableMixin`, and `TranslatableMixin`. In Django, `Mixins` are reusable pieces of code that defines additional functionality. They are implemented as Python classes, so you can inherit their methods and properties.
+In the preceding code, the `FooterText` class inherits from several `Mixins`, the `DraftStateMixin`, `RevisionMixin`, `PreviewableMixin`, and `TranslatableMixin`. In Django, `Mixins` are reusable pieces of code that define additional functionality. They are implemented as Python classes, so you can inherit their methods and properties.
 
 Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixins` to your model. This is because snippets aren't Wagtail `Pages` in their own right. Wagtail `Pages` don't require `Mixins` because they already have them.
 
@@ -283,7 +279,7 @@ The `if` statement in the `get_footer_text` inclusion tag function checks whethe
 Finally, the function returns a dictionary containing the `"footer_text"` key with the value of the retrieved `footer_text` content.
 You'll use this dictionary as context data when rendering your `footer_text` template.
 
-To use the returned dictionary in, create a `templates/base/includes` folder in your `base` folder. Then create a `footer_text.html` file in your `base/templates/base/includes/` folder and add the following to it:
+To use the returned dictionary, create a `templates/base/includes` folder in your `base` folder. Then create a `footer_text.html` file in your `base/templates/base/includes/` folder and add the following to it:
 
 ```html+django
 {% load wagtailcore_tags %}
