@@ -231,7 +231,7 @@ ul.listing {
   }
 
   .actions {
-    float: right;
+    float: inline-end;
     font-size: 0.8rem;
     margin: 0;
 
@@ -240,7 +240,7 @@ ul.listing {
     }
 
     > li {
-      float: left;
+      float: inline-start;
       padding: 0 0.5em 0 0;
       vertical-align: middle;
     }
@@ -277,7 +277,7 @@ ul.listing {
   }
 
   .moderate-actions form {
-    float: left;
+    float: inline-start;
     margin: 0 1em 1em 0;
   }
 
@@ -461,11 +461,11 @@ table.listing {
   }
 
   .prev {
-    float: left;
+    float: inline-start;
   }
 
   .next {
-    float: right;
+    float: inline-end;
   }
 }
 
@@ -484,7 +484,7 @@ table.listing {
 }
 
 .filter-title {
-  float: left;
+  float: inline-start;
   font-size: 0.95em;
   padding: 1em;
   margin: 0 1em 0 0;
@@ -498,7 +498,7 @@ table.listing {
 
   li {
     padding: 0.8em;
-    float: left;
+    float: inline-start;
   }
 
   &__icon {
@@ -532,7 +532,7 @@ table.listing {
         border: 0;
 
         .bulk-action-checkbox {
-          float: left;
+          float: inline-start;
           margin: -0.5em 0.5em 0.5em -0.75em;
         }
 
