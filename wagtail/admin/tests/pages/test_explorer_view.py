@@ -7,7 +7,7 @@ from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.widgets import Button
-from wagtail.models import GroupPagePermission, Locale, Page, Workflow
+from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import (
     CustomPermissionPage,
     SimplePage,
@@ -613,6 +613,25 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {new_page_child.id})
 
+    def test_filter_by_site(self):
+        new_site = Site.objects.create(
+            hostname="new.example.com", root_page=self.new_page
+        )
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"site": new_site.pk},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)
@@ -1066,7 +1085,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(50):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

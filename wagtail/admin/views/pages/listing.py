@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django_filters.filters import DateFromToRangeFilter
+from django_filters.filters import DateFromToRangeFilter, ModelMultipleChoiceFilter
 
 from wagtail import hooks
 from wagtail.admin.filters import (
@@ -31,13 +31,18 @@ from wagtail.admin.ui.tables.pages import (
     PageTitleColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.models import Page, get_page_models
+from wagtail.models import Page, Site, get_page_models
 from wagtail.permissions import page_permission_policy
 
 
 def get_content_types_for_filter():
     models = [model.__name__.lower() for model in get_page_models()]
     return ContentType.objects.filter(model__in=models).order_by("model")
+
+
+class SiteFilter(ModelMultipleChoiceFilter):
+    def get_filter_predicate(self, v):
+        return {"path__startswith": v.root_page.path}
 
 
 class PageFilterSet(WagtailFilterSet):
@@ -61,10 +66,15 @@ class PageFilterSet(WagtailFilterSet):
         ),
         widget=CheckboxSelectMultiple,
     )
+    site = SiteFilter(
+        label=_("Site"),
+        queryset=Site.objects.all(),
+        widget=CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Page
-        fields = ["content_type", "latest_revision_created_at", "owner"]
+        fields = ["content_type", "latest_revision_created_at", "owner", "site"]
 
 
 class BaseIndexView(generic.IndexView):
