@@ -135,7 +135,7 @@ class IndexView(
 
         if self.search_form and self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data[self.search_kwarg]
-            self.is_searching = True
+            self.is_searching = bool(self.search_query)
 
     def get_is_searchable(self):
         if self.model is None:
