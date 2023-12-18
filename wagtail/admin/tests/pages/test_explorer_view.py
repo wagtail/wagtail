@@ -581,6 +581,38 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
 
+    def test_filter_by_owner(self):
+        barry = self.create_user(
+            "barry", password="password", first_name="Barry", last_name="Manilow"
+        )
+        self.create_user(
+            "larry", password="password", first_name="Larry", last_name="King"
+        )
+
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+            owner=barry,
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        # Only users who own any pages should be listed in the filter
+        self.assertContains(response, "Barry Manilow")
+        self.assertNotContains(response, "Larry King")
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"owner": barry.pk},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {new_page_child.id})
+
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)
@@ -1034,7 +1066,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(48):
+        with self.assertNumQueries(49):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

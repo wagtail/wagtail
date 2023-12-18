@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.forms import CheckboxSelectMultiple
@@ -12,6 +13,7 @@ from wagtail import hooks
 from wagtail.admin.filters import (
     DateRangePickerWidget,
     MultipleContentTypeFilter,
+    MultipleUserFilter,
     WagtailFilterSet,
 )
 from wagtail.admin.forms.search import SearchForm
@@ -48,10 +50,21 @@ class PageFilterSet(WagtailFilterSet):
         label=_("Date Updated"),
         widget=DateRangePickerWidget,
     )
+    owner = MultipleUserFilter(
+        label=_("Owner"),
+        queryset=(
+            lambda request: get_user_model().objects.filter(
+                pk__in=Page.objects.order_by()
+                .values_list("owner_id", flat=True)
+                .distinct()
+            )
+        ),
+        widget=CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Page
-        fields = ["content_type", "latest_revision_created_at"]
+        fields = ["content_type", "latest_revision_created_at", "owner"]
 
 
 class BaseIndexView(generic.IndexView):
