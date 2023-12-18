@@ -63,9 +63,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             }
 
         if self.updated_by_another_user:
-            message += " " + _(
-                "Overwriting changes by another user."
-            )
+            message += " " + _("Overwriting changes by another user.")
 
         messages.success(self.request, message)
 
@@ -350,8 +348,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         response = self.run_hook("before_edit_page", self.request, self.page)
         if response:
             return response
-        
-        print(self.latest_revision.created_at)
 
         self.subscription, created = PageSubscription.objects.get_or_create(
             page=self.page,
@@ -517,12 +513,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         elif self.is_cancelling_workflow:
             return self.cancel_workflow_action()
         else:
-            print(self.request.POST.get("version"))
             latest_revision = self.page.get_latest_revision()
-            print(latest_revision.id)
-            
             if int(latest_revision.id) != int(self.request.POST.get("version")):
-                print("AAAAAAAAAAAA")
                 self.updated_by_another_user = True
             else:
                 self.updated_by_another_user = False
