@@ -48,14 +48,12 @@
 
                 {% dialog_toggle classname='button button-small w-mt-4' dialog_id='filters-dialog' text='Show filters' %}
                 {% dialog theme="floating" id="filters-dialog" title="Filters" dialog_root_selector="[data-search-form]" %}
-                    <div class="filterable__filters">
-                        {% for field in filters.form %}
-                            {% formattedfield field %}
-                        {% endfor %}
-                        <button class="button" type="submit">
-                            {% trans 'Apply filters' %}
-                        </button>
-                    </div>
+                    {% for field in filters.form %}
+                        {% formattedfield field %}
+                    {% endfor %}
+                    <button class="button" type="submit">
+                        {% trans 'Apply filters' %}
+                    </button>
                 {% enddialog %}
 
             </form>
