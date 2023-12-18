@@ -16,9 +16,9 @@
             {% csrf_token %}
 
             <input type="hidden" name="version" value="{{ latest_revision.id }}"
-            <input type="hidden" name="next" value="{{ next }}">
+                   <input type="hidden" name="next" value="{{ next }}">
             {{ edit_handler.render_form_content }}
-           
+
             {% if is_revision %}
                 <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
             {% endif %}
