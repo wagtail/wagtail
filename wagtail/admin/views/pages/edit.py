@@ -62,6 +62,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "page_title": self.page.get_admin_display_title()
             }
 
+        if self.updated_by_another_user:
+            message += " " + _(
+                "Overwriting changes by another user."
+            )
+
         messages.success(self.request, message)
 
     def get_commenting_changes(self):
@@ -345,6 +350,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         response = self.run_hook("before_edit_page", self.request, self.page)
         if response:
             return response
+        
+        print(self.latest_revision.created_at)
 
         self.subscription, created = PageSubscription.objects.get_or_create(
             page=self.page,
@@ -510,6 +517,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         elif self.is_cancelling_workflow:
             return self.cancel_workflow_action()
         else:
+            print(self.request.POST.get("version"))
+            latest_revision = self.page.get_latest_revision()
+            print(latest_revision.id)
+            
+            if int(latest_revision.id) != int(self.request.POST.get("version")):
+                print("AAAAAAAAAAAA")
+                self.updated_by_another_user = True
+            else:
+                self.updated_by_another_user = False
             return self.save_action()
 
     def save_action(self):
@@ -888,6 +904,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             {
                 "page": self.page,
                 "page_for_status": self.page_for_status,
+                "latest_revision": self.latest_revision,
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
