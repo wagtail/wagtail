@@ -318,6 +318,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.scheduled_revision = self.real_page_record.scheduled_revision
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
+        self.updated_by_another_user = False
 
         if self.page_class is None:
             raise PageClassNotFoundError(
