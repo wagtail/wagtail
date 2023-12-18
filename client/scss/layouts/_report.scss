@@ -18,7 +18,7 @@
   }
 
   &__actions > div {
-    float: right;
+    float: inline-end;
     display: block;
     margin-inline-end: theme('spacing.3');
   }

@@ -13,7 +13,7 @@
   }
 
   li {
-    float: left;
+    float: inline-start;
 
     .dropdown li,  // dropdown li
         &:last-child {
@@ -84,7 +84,7 @@
   }
 
   .meta {
-    float: right;
+    float: inline-end;
     text-align: end;
     padding: 7px math.div($grid-gutter-width, 2);
     font-size: 0.85em;

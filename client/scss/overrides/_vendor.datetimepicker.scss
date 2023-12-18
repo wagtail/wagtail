@@ -41,7 +41,7 @@
   }
 
   .xdsoft_datepicker {
-    float: left;
+    float: inline-start;
     margin-inline-start: 8px;
   }
 
@@ -90,7 +90,7 @@
   }
 
   .xdsoft_prev {
-    float: left;
+    float: inline-start;
 
     &:before {
       mask-image: url('#{$images-root}icons/arrow-left.svg');
@@ -98,7 +98,7 @@
   }
 
   .xdsoft_today_button {
-    float: left;
+    float: inline-start;
     margin-inline-start: 5px;
 
     &:before {
@@ -107,7 +107,7 @@
   }
 
   .xdsoft_next {
-    float: right;
+    float: inline-end;
 
     &:before {
       mask-image: url('#{$images-root}icons/arrow-right.svg');
@@ -116,7 +116,7 @@
 
   .xdsoft_timepicker {
     min-width: 70px;
-    float: left;
+    float: inline-start;
     text-align: center;
     margin-inline-start: 8px;
     margin-top: 0;
@@ -176,7 +176,7 @@
     line-height: 20px;
     font-weight: bold;
     background-color: theme('colors.surface-page');
-    float: left;
+    float: inline-start;
     width: 182px;
     text-align: center;
     cursor: pointer;

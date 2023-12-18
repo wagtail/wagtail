@@ -82,7 +82,7 @@
     margin-top: 10px;
 
     button {
-      float: right;
+      float: inline-end;
     }
 
     &::after {
@@ -104,7 +104,7 @@
 
     button {
       height: 26px;
-      float: right;
+      float: inline-end;
       margin-inline-start: 5px;
       color: theme('colors.white.DEFAULT');
       background-color: theme('colors.critical.200');

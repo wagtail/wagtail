@@ -622,7 +622,7 @@ Edit your blog page template `blog_page.html` to include the images section:
 
     <!-- Add this: -->
     {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
+        <div style="float: inline-start; margin: 10px">
             {% image item.image fill-320x240 %}
             <p>{{ item.caption }}</p>
         </div>
@@ -793,7 +793,7 @@ Finally, migrate your database by running `python manage.py makemigrations` and 
     {{ page.body|richtext }}
 
     {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
+        <div style="float: inline-start; margin: 10px">
             {% image item.image fill-320x240 %}
             <p>{{ item.caption }}</p>
         </div>

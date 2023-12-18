@@ -13,7 +13,7 @@ class WordCountController extends Controller {
     const output = document.createElement('output');
     output.setAttribute('name', 'word-count');
     output.setAttribute('for', this.element.id);
-    output.style.float = 'right';
+    output.style.float = 'inline-end';
     this.element.insertAdjacentElement('beforebegin', output);
     this.output = output;
     this.updateCount();

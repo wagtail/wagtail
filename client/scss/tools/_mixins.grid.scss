@@ -21,7 +21,7 @@ $padding: math.div($grid-gutter-width, 2);
 // Our column container
 @mixin column($x, $padding: $padding, $grid-columns: $grid-columns) {
   display: inline;
-  float: left;
+  float: inline-start;
   width: 100% * math.div($x, $grid-columns);
   padding-inline-end: $padding;
   padding-inline-start: $padding;
