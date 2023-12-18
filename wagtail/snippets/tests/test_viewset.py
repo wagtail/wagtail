@@ -443,12 +443,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
             '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
             html=True,
         )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
 
     def test_unfiltered_with_results(self):
         self.create_test_snippets()
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "Nasi goreng from Indonesia")
         self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
@@ -461,7 +459,6 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
     def test_empty_filter_with_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": ""})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "Nasi goreng from Indonesia")
         self.assertContains(response, "Fish and chips from the UK")
         self.assertNotContains(response, "There are 2 matches")
@@ -474,7 +471,6 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
     def test_filtered_no_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "PH"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(
             response, "Sorry, no full-featured snippets match your query"
         )
@@ -487,7 +483,6 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
     def test_filtered_with_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "ID"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "Nasi goreng from Indonesia")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
@@ -522,7 +517,6 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
     def test_filtered_searched_no_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "ID", "q": "chips"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(
             response, "Sorry, no full-featured snippets match your query"
         )
@@ -535,7 +529,6 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
     def test_filtered_searched_with_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "UK", "q": "chips"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "Fish and chips from the UK")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
@@ -588,12 +581,10 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
             '<input type="text" name="first_published_at" autocomplete="off" id="id_first_published_at">',
             html=True,
         )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
 
     def test_unfiltered_with_results(self):
         self.create_test_snippets()
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "The first created object")
         self.assertContains(response, "A second one after that")
         self.assertNotContains(response, "There are 2 matches")
@@ -611,7 +602,6 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
     def test_empty_filter_with_results(self):
         self.create_test_snippets()
         response = self.get({"first_published_at": ""})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "The first created object")
         self.assertContains(response, "A second one after that")
         self.assertNotContains(response, "There are 2 matches")
@@ -629,7 +619,6 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
     def test_filtered_no_results(self):
         self.create_test_snippets()
         response = self.get({"first_published_at": "1970-01-01"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(
             response,
             f"Sorry, no {self.model._meta.verbose_name_plural} match your query",
@@ -648,7 +637,6 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
     def test_filtered_with_results(self):
         self.create_test_snippets()
         response = self.get({"first_published_at": self.date_str})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "A second one after that")
         self.assertContains(response, "There is 1 match")
         self.assertContains(
@@ -669,7 +657,6 @@ class TestListFilterWithDict(TestListFilterWithList):
     def test_filtered_contains_with_results(self):
         self.create_test_snippets()
         response = self.get({"text__contains": "second one"})
-        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
         self.assertContains(response, "A second one after that")
         self.assertContains(response, "There is 1 match")
         self.assertContains(

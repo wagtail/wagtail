@@ -150,7 +150,7 @@ class IndexView(
         return self.index_url_name
 
     def get_search_form(self):
-        if self.model is None:
+        if self.model is None or not self.is_searchable:
             return None
 
         if self.is_searchable and self.search_kwarg in self.request.GET:
