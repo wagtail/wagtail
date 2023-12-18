@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
+from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_type_label
 
@@ -135,3 +136,17 @@ class ContentTypeModelMultipleChoiceField(
 
 class MultipleContentTypeFilter(django_filters.ModelMultipleChoiceFilter):
     field_class = ContentTypeModelMultipleChoiceField
+
+
+class UserModelMultipleChoiceField(django_filters.fields.ModelMultipleChoiceField):
+    """
+    Custom ModelMultipleChoiceField for user models, to show the result of
+    get_user_display_name as the label rather than the default string representation
+    """
+
+    def label_from_instance(self, obj):
+        return get_user_display_name(obj)
+
+
+class MultipleUserFilter(django_filters.ModelMultipleChoiceFilter):
+    field_class = UserModelMultipleChoiceField
