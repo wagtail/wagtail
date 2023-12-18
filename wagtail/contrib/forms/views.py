@@ -1,7 +1,7 @@
 import datetime
 from collections import OrderedDict
 
-from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -9,10 +9,12 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.views import generic
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
-from wagtail.models import Locale, Page
+from wagtail.models import Page
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -22,59 +24,53 @@ def get_submissions_list_view(request, *args, **kwargs):
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
-class FormPagesListView(ListView):
+class ContentTypeColumn(Column):
+    edit_url_name = "wagtailadmin_pages:edit"
+    cell_template_name = "wagtailforms/content_type_column.html"
+
+    def get_url(self, instance):
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["url"] = self.get_url(instance)
+        return context
+
+
+class FormPagesListView(generic.IndexView):
     """Lists the available form pages for the current user"""
 
     template_name = "wagtailforms/index.html"
+    results_template_name = "wagtailforms/index_results.html"
     context_object_name = "form_pages"
     paginate_by = 20
     page_kwarg = "p"
+    index_url_name = "wagtailforms:index"
+    page_title = "Forms"
+    page_subtitle = "Pages"
+    header_icon = "form"
+    columns = [
+        TitleColumn(
+            "title",
+            classname="title",
+            label=gettext_lazy("Title"),
+            width="50%",
+            url_name="wagtailforms:list_submissions",
+            sort_key="title",
+        ),
+        ContentTypeColumn(
+            "content_type",
+            label=gettext_lazy("Origin"),
+            width="50%",
+            sort_key="content_type",
+        ),
+    ]
+    model = Page
+    is_searchable = False
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        self.locale = None
-
-    def get_queryset(self):
+    def get_base_queryset(self):
         """Return the queryset of form pages for this view"""
-        queryset = get_forms_for_user(self.request.user)
-        if self.locale:
-            queryset = queryset.filter(locale=self.locale)
-        ordering = self.get_ordering()
-        if ordering:
-            if isinstance(ordering, str):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
-        return queryset
-
-    def get(self, request, *args, **kwargs):
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            if request.GET.get("locale"):
-                self.locale = get_object_or_404(
-                    Locale, language_code=request.GET["locale"]
-                )
-            else:
-                self.locale = Locale.get_default()
-
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        locale_context = {"locale": None, "translations": []}
-
-        if self.locale:
-            url = reverse("wagtailforms:index")
-            locale_context = {
-                "locale": self.locale,
-                "translations": [
-                    {"locale": locale, "url": url + "?locale=" + locale.language_code}
-                    for locale in Locale.objects.all().exclude(pk=self.locale.pk)
-                ],
-            }
-
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context.update(locale_context)
-
-        return context
+        return get_forms_for_user(self.request.user).select_related("content_type")
 
 
 class DeleteSubmissionsView(TemplateView):
