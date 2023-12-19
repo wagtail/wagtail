@@ -54,9 +54,9 @@ from wagtail.admin.views.pages.bulk_actions import (
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import ButtonWithDropdownFromHook, PageListingButton
 from wagtail.models import Collection, Page, Task, Workflow
-from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.permissions import (
     collection_permission_policy,
+    page_permission_policy,
     task_permission_policy,
     workflow_permission_policy,
 )
@@ -73,7 +73,7 @@ class ExplorerMenuItem(MenuItem):
 
     def get_context(self, request):
         context = super().get_context(request)
-        start_page = PagePermissionPolicy().explorable_root_instance(request.user)
+        start_page = page_permission_policy.explorable_root_instance(request.user)
 
         if start_page:
             context["start_page_id"] = start_page.id
@@ -81,7 +81,7 @@ class ExplorerMenuItem(MenuItem):
         return context
 
     def render_component(self, request):
-        start_page = PagePermissionPolicy().explorable_root_instance(request.user)
+        start_page = page_permission_policy.explorable_root_instance(request.user)
 
         if start_page:
             return PageExplorerMenuItemComponent(
@@ -848,28 +848,35 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return PagePermissionPolicy().user_has_permission(request.user, "unlock")
+        return page_permission_policy.user_has_permission(request.user, "unlock")
 
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
         return getattr(
             settings, "WAGTAIL_WORKFLOW_ENABLED", True
-        ) and PagePermissionPolicy().user_has_any_permission(
+        ) and page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
 
 
 class SiteHistoryReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return PagePermissionPolicy().explorable_root_instance(request.user) is not None
+        return page_permission_policy.explorable_root_instance(request.user) is not None
 
 
 class AgingPagesReportMenuItem(MenuItem):
     def is_shown(self, request):
         return getattr(
             settings, "WAGTAIL_AGING_PAGES_ENABLED", True
-        ) and PagePermissionPolicy().user_has_any_permission(
+        ) and page_permission_policy.user_has_any_permission(
+            request.user, ["add", "change", "publish"]
+        )
+
+
+class PageTypesReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
         )
 
@@ -926,6 +933,17 @@ def register_aging_pages_report_menu_item():
         name="aging-pages",
         icon_name="time",
         order=1100,
+    )
+
+
+@hooks.register("register_reports_menu_item")
+def register_page_types_report_menu_item():
+    return PageTypesReportMenuItem(
+        _("Page types usage"),
+        reverse("wagtailadmin_reports:page_types_usage"),
+        name="page-types-usage",
+        icon_name="doc-empty-inverse",
+        order=1200,
     )
 
 
@@ -1014,7 +1032,7 @@ def register_icons(icons):
         "doc-empty-inverse.svg",
         "doc-empty.svg",
         "doc-full-inverse.svg",
-        "doc-full.svg",  # aka file-text-alt
+        "doc-full.svg",
         "dots-horizontal.svg",
         "download.svg",
         "draft.svg",
@@ -1038,7 +1056,7 @@ def register_icons(icons):
         "help.svg",
         "history.svg",
         "home.svg",
-        "image.svg",  # aka picture
+        "image.svg",
         "info-circle.svg",
         "italic.svg",
         "key.svg",
@@ -1062,7 +1080,7 @@ def register_icons(icons):
         "password.svg",
         "pick.svg",
         "pilcrow.svg",
-        "placeholder.svg",  # aka marquee
+        "placeholder.svg",
         "plus-inverse.svg",
         "plus.svg",
         "radio-empty.svg",

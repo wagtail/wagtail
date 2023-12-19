@@ -8,6 +8,7 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Éder Brito <britoederr@gmail.com>, 2021
 # Ed Wurch <ewurch@gmail.com>, 2021
+# Felipe Lobato, 2023
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Hernandison Da Silva Bispo, 2023\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -251,6 +252,9 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Você não pode copiar uma página em si mesmo ao copiar subpáginas"
 
+msgid "Select a new parent for this page."
+msgstr "Selecione uma nova página pai para esta página."
+
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -271,6 +275,13 @@ msgstr ""
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
 "Você não pode atribuir esse fluxo de trabalho à mesma página várias vezes."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Item '%(content_type)s' já possui fluxo de trabalho '%(workflow_name)s' "
+"atribuído."
 
 msgid "Give your workflow a name"
 msgstr "Dê um nome ao seu fluxo de trabalho"
@@ -336,6 +347,20 @@ msgstr "Todos os %(objects)s usuários selecionados na tela foram selecionados"
 
 msgid "All users in listing selected"
 msgstr "Todos os usuários na lista foram selecionados"
+
+msgid "1 snippet selected"
+msgstr "1 item selecionado"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s itens selecionados"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Todos %(objects)s itens dessa página estão selecionados"
+
+msgid "All snippets in listing selected"
+msgstr "Todos os itens da lista foram selecionados"
 
 msgid "1 item selected"
 msgstr "1 item selecionado"
@@ -442,6 +467,9 @@ msgstr "Redefina sua senha"
 msgid "Reset to default"
 msgstr "Restaurar ao padrão"
 
+msgid "Default avatar"
+msgstr "Avatar padrão"
+
 msgid "Upload a profile picture:"
 msgstr "Faça upload de uma foto de perfil:"
 
@@ -493,6 +521,9 @@ msgstr "Escolha um item"
 
 msgid "Choose a page"
 msgstr "Escolha uma página"
+
+msgid "Confirm selection"
+msgstr "Confirmar seleção"
 
 msgid "Convert to internal link"
 msgstr "Converter em um link interno"
@@ -561,11 +592,14 @@ msgstr "Nome"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Nenhuma coleção foi criada. Porque não <a "
-"href=\"%(add_collection_url)s\">adicionar uma</a>?"
+"Nenhuma coleção foi criada. Porque não <a href=\"%(add_collection_url)s"
+"\">adicionar uma</a>?"
+
+msgid "There are no results."
+msgstr "Não existem resultados"
 
 msgid "Yes, delete"
 msgstr "Sim, remover"
@@ -577,11 +611,27 @@ msgstr "Não, não apague"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Tem certeza que deseja deletar esta publicação %(model_name)s?"
+
 msgid "Yes, unpublish it"
 msgstr "Sim, quero despublicar"
 
 msgid "No, don't unpublish"
 msgstr "Não despublicar"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Publicar %(model_name)s"
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "Publicar o %(model_name)s cancelará o fluxo de trabalho atual."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Você gostaria de publicar esse %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1416,14 +1466,13 @@ msgstr "Criar"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Os workflows também se aplicam a sub-páginas. Se você selecionar a página "
-"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a "
-"href=\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu "
-"fluxo de trabalho  atribuído."
+"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a href="
+"\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu fluxo de "
+"trabalho  atribuído."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -1469,15 +1518,15 @@ msgstr "Fase %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum fluxo de trabalho foi criado. Por que não <a "
-"href=\"%(add_url)s\">adicionar um</a>?"
+"Nenhum fluxo de trabalho foi criado. Por que não <a href=\"%(add_url)s"
+"\">adicionar um</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Não há fluxos de trabalho habilitados. Por que não <a "
-"href=\"%(add_url)s\">adicionar um</a>?"
+"Não há fluxos de trabalho habilitados. Por que não <a href=\"%(add_url)s"
+"\">adicionar um</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que deseja criar."
@@ -1956,8 +2005,8 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Você está visualizando uma versão anterior desta página de "
-"<b>%(created_at)s</b> por %(user)s"
+"Você está visualizando uma versão anterior desta página de <b>"
+"%(created_at)s</b> por %(user)s"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

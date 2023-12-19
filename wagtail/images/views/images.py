@@ -2,23 +2,19 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import InvalidPage, Paginator
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -27,7 +23,6 @@ from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.models import Collection, Site
-from wagtail.search.backends import get_search_backend
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -35,7 +30,7 @@ INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
-class BaseListingView(TemplateView):
+class IndexView(generic.IndexView):
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
@@ -46,12 +41,22 @@ class BaseListingView(TemplateView):
         "-file_size": _("File size: (high to low)"),
     }
     default_ordering = "-created_at"
+    context_object_name = "images"
+    permission_policy = permission_policy
+    any_permission_required = ["add", "change", "delete"]
+    model = get_image_model()
+    show_other_searches = True
+    header_icon = "image"
+    page_title = gettext_lazy("Images")
+    add_item_label = gettext_lazy("Add an image")
+    index_url_name = "wagtailimages:index"
+    index_results_url_name = "wagtailimages:index_results"
+    add_url_name = "wagtailimages:add_multiple"
+    edit_url_name = "wagtailimages:edit"
+    template_name = "wagtailimages/images/index.html"
+    results_template_name = "wagtailimages/images/index_results.html"
 
-    @method_decorator(permission_checker.require_any("add", "change", "delete"))
-    def get(self, request):
-        return super().get(request)
-
-    def get_num_entries_per_page(self):
+    def get_paginate_by(self, queryset):
         entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
         try:
             entries_per_page = int(entries_per_page)
@@ -60,126 +65,95 @@ class BaseListingView(TemplateView):
         if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
             entries_per_page = INDEX_PAGE_SIZE
 
+        self.entries_per_page = entries_per_page
+
         return entries_per_page
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
 
-    def get_ordering(self):
-        # TODO: remove this method when this view will be based on the
-        # generic model index view from wagtail.admin.views.generic.models.IndexView
-        ordering = self.request.GET.get("ordering")
-        if ordering is None or ordering not in self.get_valid_orderings():
-            ordering = self.default_ordering
-        return ordering
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    def get_base_queryset(self):
         # Get ordering
-        ordering = self.get_ordering()
-
+        self.ordering = self.get_ordering()
         # Get images (filtered by user permission and ordered by `ordering`)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
-            .order_by(ordering)
+            .order_by(self.ordering)
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
+        return images
 
+    def filter_queryset(self, queryset):
         # Filter by collection
         self.current_collection = None
         collection_id = self.request.GET.get("collection_id")
         if collection_id:
             try:
                 self.current_collection = Collection.objects.get(id=collection_id)
-                images = images.filter(collection=self.current_collection)
+                queryset = queryset.filter(collection=self.current_collection)
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        # Search
-        query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
-            if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-                if query_string:
-                    search_backend = get_search_backend()
-                    images = search_backend.autocomplete(query_string, images)
-        else:
-            self.form = SearchForm(placeholder=_("Search images"))
-
         # Filter by tag
         self.current_tag = self.request.GET.get("tag")
-        if self.current_tag:
+        # Combining search with tag filter is not yet supported, see
+        # https://github.com/wagtail/wagtail/issues/6616
+        if self.current_tag and not self.search_query:
             try:
-                images = images.filter(tags__name=self.current_tag)
-            except (AttributeError):
+                queryset = queryset.filter(tags__name=self.current_tag)
+            except AttributeError:
                 self.current_tag = None
 
-        entries_per_page = self.get_num_entries_per_page()
-        paginator = Paginator(images, per_page=entries_per_page)
-        try:
-            images = paginator.page(self.request.GET.get("p", 1))
-        except InvalidPage:
-            raise Http404
+        return self.filters, queryset
 
-        next_url = reverse("wagtailimages:index")
+    def get_add_url(self):
+        # Pass the query string so that the collection filter is preserved
+        return set_query_params(
+            super().get_add_url(),
+            self.request.GET.copy(),
+        )
+
+    def get_next_url(self):
+        next_url = self.get_index_url()
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
-
-        context.update(
-            {
-                "images": images,
-                "query_string": query_string,
-                "is_searching": bool(query_string),
-                "next": next_url,
-                "entries_per_page": entries_per_page,
-                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
-                "current_ordering": ordering,
-                "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
-            }
-        )
-
-        return context
-
-
-class IndexView(BaseListingView):
-    template_name = "wagtailimages/images/index.html"
+        return next_url
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        collections = permission_policy.collections_user_has_any_permission_for(
+        context.update(
+            {
+                "next": self.get_next_url(),
+                "entries_per_page": self.entries_per_page,
+                "current_tag": self.current_tag,
+                "current_collection": self.current_collection,
+                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
+                "current_ordering": self.ordering,
+                "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
+            }
+        )
+
+        if self.results_only:
+            return context
+
+        collections = self.permission_policy.collections_user_has_any_permission_for(
             self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
             collections = None
 
-        Image = get_image_model()
-
         context.update(
             {
-                "search_form": self.form,
                 "popular_tags": popular_tags_for_model(get_image_model()),
-                "current_tag": self.current_tag,
                 "collections": collections,
-                "current_collection": self.current_collection,
-                "user_can_add": permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
-                "app_label": Image._meta.app_label,
-                "model_name": Image._meta.model_name,
             }
         )
         return context
-
-
-class ListingResultsView(BaseListingView):
-    template_name = "wagtailimages/images/results.html"
 
 
 @permission_checker.require("change")

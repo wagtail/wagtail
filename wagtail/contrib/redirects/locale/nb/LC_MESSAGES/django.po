@@ -4,14 +4,15 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Jonathan D, 2023
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,9 @@ msgstr "Type"
 msgid "Permanent"
 msgstr "Permanent"
 
+msgid "Temporary"
+msgstr "Midlertidig"
+
 msgid "All"
 msgstr "Alle"
 
@@ -41,9 +45,18 @@ msgstr "Alle nettsteder"
 msgid "A redirect with this path already exists."
 msgstr "En videresending med denne stien eksisterer allerede."
 
+msgid "File to import"
+msgstr "Fil som skal importeres"
+
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Støttede formater: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Fra felt"
+
+msgid "To field"
+msgstr "Til felt"
 
 msgid "redirect from"
 msgstr "videresend fra"
@@ -64,8 +77,21 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "videresend til en side"
 
+msgid "target page route"
+msgstr "Målside rute"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Du kan eventuelt angi en rute på målsiden du vil omdirigere til. La stå tomt "
+"for å omdirigere til standard siderute."
+
 msgid "redirect to any URL"
 msgstr "videresend til URL"
+
+msgid "automatically created"
+msgstr "Opprettet automatisk"
 
 msgid "created at"
 msgstr "opprettet"
@@ -76,6 +102,9 @@ msgstr "midlertidig"
 msgid "redirect"
 msgstr "videresending"
 
+msgid "redirects"
+msgstr "videresendinger"
+
 msgid "Add redirect"
 msgstr "Legg til videresending"
 
@@ -84,6 +113,23 @@ msgstr "Lagre"
 
 msgid "Redirects"
 msgstr "Videresendinger"
+
+msgid "Import redirects"
+msgstr "importer videresendinger"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"Velg en fil der videresendinger er adskilt i rader og inneholder kolonner "
+"som representerer <code>fra</code> og <code>til</code> (de kan ha hvilke som "
+"helst navn).</p> <p>Etter innsending blir du tatt med til en "
+"bekreftelsesvisning der du kan tilpasse videresendingene før import.</p>"
+
+msgid "Import"
+msgstr "Importer"
 
 #, python-format
 msgid "Delete redirect %(title)s"
@@ -98,6 +144,15 @@ msgstr "Er du sikker på at du vil slette denne videresendingen?"
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
+msgid "Confirm import"
+msgstr "Bekreft importering"
+
+msgid "Confirm"
+msgstr "Bekreft"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
 msgid "Preview"
 msgstr "Forhåndsvis"
 
@@ -111,20 +166,45 @@ msgstr "Endrer"
 msgid "Delete redirect"
 msgstr "Slett videresending"
 
+msgid "Summary"
+msgstr "Sammendrag"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Fant %(total)s videreføringer, opprettet %(successes)s og fant %(errors)s "
+"feil."
+
 msgid "From"
 msgstr "Fra"
 
 msgid "To"
 msgstr "Til"
 
+msgid "Error"
+msgstr "Feil"
+
 msgid "Continue"
 msgstr "Fortsett"
+
+msgid "Export redirects"
+msgstr "Eksporter videresendinger"
 
 msgid "Site"
 msgstr "Nettsted"
 
 msgid "Edit this redirect"
 msgstr "Endre denne videresendingen"
+
+msgid "No redirects found."
+msgstr "Ingen videresendinger funnet."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -133,11 +213,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
+"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
 
 msgid "Search redirects"
 msgstr "Videresendinger for søk"
@@ -162,3 +242,24 @@ msgstr "Videresendingen \"%(redirect_title)s\" er lagt til."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Videresendingen kunne ikke opprettes grunnet feil."
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Filformatet av typen \"%(extension)s\" støttes ikke"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Importert fil har feil koding: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s oppstod under forsøk på å lese filen: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Importerte %(total)d videresending"
+msgstr[1] "Importerte %(total)d videresendinger"
+
+msgid "Export Redirects"
+msgstr "Eksporter Videresendinger"

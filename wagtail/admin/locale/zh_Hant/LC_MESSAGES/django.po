@@ -490,8 +490,8 @@ msgstr "名稱"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
 

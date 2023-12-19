@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load wagtailusers_tags i18n %}
+{% load wagtailusers_tags i18n wagtailadmin_tags %}
 
 {% block extra_css %}
     {{ block.super }}
@@ -13,9 +13,7 @@
 
         <ul class="fields">
             {% block fields %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" with field=form.name %}
-                </li>
+                <li>{% formattedfield form.name %}</li>
                 {% block extra_fields %}{% endblock extra_fields %}
             {% endblock fields %}
             <li>

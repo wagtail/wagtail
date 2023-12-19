@@ -1,14 +1,18 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/index.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans trimmed with title=parent_page.get_admin_display_title %}Exploring {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
-{% block content %}
+{% block header %}
     {% page_permissions parent_page as parent_page_perms %}
     {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title page_perms=parent_page_perms %}
+{% endblock %}
+
+{% block listing %}
     <div id="listing-results">
         {% include 'wagtailadmin/pages/index_results.html' %}
     </div>
+{% endblock %}
+{% block bulk_actions %}
     {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=_("Select all pages in listing") app_label='wagtailcore' model_name='page' objects=page_obj %}
 {% endblock %}
 

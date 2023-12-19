@@ -171,7 +171,7 @@ describe('ActionController', () => {
   });
 
   describe('select method', () => {
-    beforeEach(async () => {
+    it('select should be called when you click on text in textarea', async () => {
       await setup(`
         <textarea
           id="text"
@@ -182,9 +182,7 @@ describe('ActionController', () => {
           some random text
         </textarea>
       `);
-    });
 
-    it('select should be called when you click on text in textarea', () => {
       const textarea = document.getElementById('text');
 
       // check that there is no selection initially
@@ -197,6 +195,47 @@ describe('ActionController', () => {
       // check that there is a selection after focus
       expect(textarea.selectionStart).toBe(0);
       expect(textarea.selectionEnd).toBe(textarea.value.length);
+    });
+
+    it('select should be called for for input elements', async () => {
+      await setup(`
+      <input
+        type="text"
+        id="input"
+        data-controller="w-action"
+        data-action="some-event->w-action#select"
+        value="some random text"
+      />
+      `);
+
+      const input = document.getElementById('input');
+
+      // check that there is no selection initially
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(0);
+
+      const event = new CustomEvent('some-event');
+      input.dispatchEvent(event);
+
+      // check that there is a selection after the event
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(16);
+    });
+
+    it('select should not throw errors when called on a button element', async () => {
+      await setup(`
+        <button
+          id="button"
+          data-controller="w-action"
+          data-action="click->w-action#select"
+        >
+          Click me
+        </button>
+      `);
+
+      const button = document.getElementById('button');
+
+      expect(() => button.click()).not.toThrow();
     });
   });
 
@@ -274,6 +313,33 @@ describe('ActionController', () => {
 
       expect(input.value).toBe('a new value from action params');
       expect(handleChangeEvent).toHaveBeenCalled();
+    });
+  });
+
+  describe('noop method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button id="button" data-controller="w-action" data-action="w-action#noop:prevent:stop">
+        Click me!
+      </button>`);
+    });
+
+    it('should a noop method that does nothing, enabling use of action options', async () => {
+      const button = document.getElementById('button');
+
+      const onClick = jest.fn();
+      document.addEventListener('click', onClick);
+
+      button.dispatchEvent(new Event('click', { bubbles: true }));
+
+      expect(onClick).not.toHaveBeenCalled();
+
+      // remove data-action attribute
+      await Promise.resolve(button.removeAttribute('data-action'));
+
+      button.dispatchEvent(new Event('click', { bubbles: true }));
+
+      expect(onClick).toHaveBeenCalled();
     });
   });
 });

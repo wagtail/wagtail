@@ -448,8 +448,8 @@ msgstr "اسم"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"

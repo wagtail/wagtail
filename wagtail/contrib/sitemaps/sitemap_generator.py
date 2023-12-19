@@ -42,7 +42,6 @@ class Sitemap(DjangoSitemap):
         last_mods = set()
 
         for item in self.paginator.page(page).object_list.iterator():
-
             url_info_items = item.get_sitemap_urls(self.request)
 
             for url_info in url_info_items:

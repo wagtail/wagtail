@@ -32,6 +32,7 @@ class IndexView(generic.IndexView):
 class CreateView(generic.CreateView):
     page_title = _("Add site")
     success_message = _("Site '%(object)s' created.")
+    error_message = _("The site could not be saved due to errors.")
 
 
 class EditView(generic.EditView):

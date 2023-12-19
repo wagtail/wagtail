@@ -9,6 +9,7 @@ import template from './dropdown.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Dropdown',
   parameters: {
     docs,
   },

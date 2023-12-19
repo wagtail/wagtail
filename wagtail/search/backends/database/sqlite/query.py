@@ -34,8 +34,7 @@ class LexemeCombinable(Expression):
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
             raise TypeError(
-                "Lexeme can only be combined with other Lexemes, "
-                "got {}.".format(type(other))
+                f"Lexeme can only be combined with other Lexemes, got {type(other)}."
             )
         if reversed:
             return CombinedLexeme(other, connector, self)
@@ -248,9 +247,7 @@ def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
         ):  # If there are no negated subqueries, return an And(), now without the redundant MatchAll subqueries.
             return And(not_negated_subqueries)
 
-        for (
-            subquery
-        ) in (
+        for subquery in (
             negated_subqueries
         ):  # If there's a negated MatchAll subquery, then nothing will get matched.
             if isinstance(subquery, MatchAll):
@@ -272,9 +269,7 @@ def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
         ):  # If there are no negated subqueries, return an Or().
             return Or(normalized_subqueries)
 
-        for (
-            subquery
-        ) in (
+        for subquery in (
             negated_subqueries
         ):  # If there's a MatchAll subquery, then anything will get matched.
             if isinstance(subquery, MatchAll):

@@ -174,11 +174,11 @@ msgstr "Uza"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ita seidauk hatama tiha imajen balu. Tamba sa la<a "
-"href=\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
+"Ita seidauk hatama tiha imajen balu. Tamba sa la<a href="
+"\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
 
 msgid "Generating URL"
 msgstr "Gerandu URL"

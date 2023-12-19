@@ -26,7 +26,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 
 User = get_user_model()
 
@@ -130,6 +130,12 @@ class UserObjectsInWorkflowModerationPanel(Component):
                 )
                 .order_by("-current_task_state__started_at")
             )
+            # Filter out workflow states where the GenericForeignKey points to
+            # a nonexistent object. This can happen if the model does not define
+            # a GenericRelation to WorkflowState and the instance is deleted.
+            context["workflow_states"] = [
+                state for state in context["workflow_states"] if state.content_object
+            ]
         else:
             context["workflow_states"] = WorkflowState.objects.none()
         context["request"] = request
@@ -157,6 +163,7 @@ class WorkflowObjectsToModeratePanel(Component):
                 "revision",
                 "task",
                 "revision__user",
+                "workflow_state",
             )
             .prefetch_related(
                 "revision__content_object",
@@ -167,6 +174,12 @@ class WorkflowObjectsToModeratePanel(Component):
         )
         for state in states:
             obj = state.revision.content_object
+            # Skip task states where the revision's GenericForeignKey points to
+            # a nonexistent object. This can happen if the model does not define
+            # a GenericRelation to WorkflowState and/or Revision and the instance
+            # is deleted.
+            if not obj:
+                continue
             actions = state.task.specific.get_actions(obj, request.user)
             workflow_tasks = state.workflow_state.all_tasks_with_status()
 
@@ -221,7 +234,7 @@ class LockedPagesPanel(Component):
                     locked=True,
                     locked_by=request.user,
                 ),
-                "can_remove_locks": PagePermissionPolicy().user_has_permission(
+                "can_remove_locks": page_permission_policy.user_has_permission(
                     request.user, "unlock"
                 ),
                 "request": request,
@@ -285,7 +298,6 @@ class RecentEditsPanel(Component):
 
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
-
     template_name = "wagtailadmin/home.html"
     page_title = gettext_lazy("Dashboard")
 

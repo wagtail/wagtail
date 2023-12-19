@@ -16,7 +16,7 @@ export class FieldBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
-    // See field.html for the reference implementation of this markup.
+    // See wagtailadmin/shared/formatted_field.html for the reference implementation of this markup.
     const dom = $(`
       <div class="w-field__wrapper" data-field-wrapper>
         <div class="${h(this.blockDef.meta.classname)}" data-field>

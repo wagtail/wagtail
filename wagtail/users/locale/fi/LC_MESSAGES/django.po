@@ -278,11 +278,11 @@ msgstr "Ei löytynyt ryhmää hakuehdolla \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
@@ -336,19 +336,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Ryhmään %(group_name)s ei ole asetettu käyttäjiä. Mikset vaikka <a "
-"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+"Ryhmään %(group_name)s ei ole asetettu käyttäjiä. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

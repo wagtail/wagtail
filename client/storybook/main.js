@@ -2,18 +2,16 @@ module.exports = {
   stories: [
     '../../client/**/*.stories.mdx',
     '../../client/**/*.stories.@(js|tsx)',
-    {
-      directory: '../../wagtail/admin/templates/wagtailadmin/shared/',
-      titlePrefix: 'Shared',
-      files: '**/*.stories.*',
-    },
     '../../wagtail/**/*.stories.*',
   ],
+
   addons: ['@storybook/addon-docs', '@storybook/addon-controls'],
-  framework: '@storybook/react',
-  core: {
-    builder: 'webpack5',
+
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {},
   },
+
   // Redefine Babel config to allow TypeScript class fields `declare`.
   // See https://github.com/storybookjs/storybook/issues/12479.
   // The resulting configuration is closer to Wagtail’s Webpack + TypeScript setup,
@@ -26,6 +24,7 @@ module.exports = {
       ['@babel/preset-react', { runtime: 'automatic' }],
     ],
   }),
+
   webpackFinal: (config) => {
     /* eslint-disable no-param-reassign */
 
@@ -66,5 +65,9 @@ module.exports = {
     };
 
     return config;
+  },
+
+  docs: {
+    autodocs: true,
   },
 };

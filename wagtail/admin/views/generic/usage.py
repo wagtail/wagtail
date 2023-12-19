@@ -26,10 +26,6 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     edit_url_name = None
     permission_required = "change"
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.columns = self.get_columns()
-
     @cached_property
     def describe_on_delete(self):
         return bool(self.request.GET.get("describe_on_delete"))
@@ -65,7 +61,8 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     def get_queryset(self):
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             TitleColumn(
                 "name",

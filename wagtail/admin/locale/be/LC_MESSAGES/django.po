@@ -19,9 +19,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Публікаваць"
@@ -392,11 +392,11 @@ msgstr "Імя"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Калекцыі яшчэ не былі створаны. Давай <a "
-"href=\"%(add_collection_url)s\">створым адну</a>?"
+"Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
+"\">створым адну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
@@ -714,6 +714,9 @@ msgstr "Наступная"
 msgid "This page is protected from public view"
 msgstr "Гэтая старонка ахоўваецца публічнага прагляду"
 
+msgid "Confirm"
+msgstr "Пацвярджэнне "
+
 msgid "Add child page"
 msgstr "Дадаць даччыную старонку"
 
@@ -773,6 +776,9 @@ msgstr "Спампаваць XLSX"
 msgid "Download CSV"
 msgstr "Спампаваць CSV"
 
+msgid "Add comment"
+msgstr "Дадаць каментар"
+
 msgid "Filter"
 msgstr "Фільтр"
 
@@ -809,6 +815,16 @@ msgstr "Іншыя пошукі"
 
 msgid "Minimap"
 msgstr "Міні-карта"
+
+msgid "Locale: "
+msgstr "Лакаль:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Даступна ў %(translations_total)s лакалізацыі"
+
+msgid "Switch locales"
+msgstr "Пераключэнне лакалізацыі"
 
 msgid "Unlocked"
 msgstr "Разблакавана"
@@ -880,6 +896,18 @@ msgid ""
 msgstr ""
 "Адсартаваць даччыныя старонкі з '%(parent)s' у '%(label)s у парадку "
 "змяншэння."
+
+msgid "Profile"
+msgstr "Профіль"
+
+msgid "Name and Email"
+msgstr "Імя і электронная пошта"
+
+msgid "Profile picture"
+msgstr "Малюнак профілю"
+
+msgid "Locale"
+msgstr "Лакаль"
 
 msgid "Password"
 msgstr "Пароль"

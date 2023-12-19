@@ -214,6 +214,75 @@ def test_content_page_subpages(self):
    .. autofunction:: inline_formset
 ```
 
+## Creating Page objects within tests
+
+If you want to create page objects within tests, you will need to go through some steps before actually creating the page you want to test.
+
+-   Pages can't be created directly with `MyPage.objects.create()` as you would do with a regular Django model, they need to be added as children to a parent page with `parent.add_child(instance=child)`.
+-   To start the page tree, you need a root page that can be created with `Page.get_first_root_node()`.
+-   You also need a `Site` set up with the correct `hostname` and a `root_page`.
+
+```python
+from wagtail.models import Page, Site
+from wagtail.rich_text import RichText
+from wagtail.test.utils import WagtailPageTestCase
+
+from home.models import HomePage, MyPage
+
+
+class MyPageTest(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        root = Page.get_first_root_node()
+        Site.objects.create(
+            hostname="testserver",
+            root_page=root,
+            is_default_site=True,
+            site_name="testserver",
+        )
+        home = HomePage(title="Home")
+        root.add_child(instance=home)
+        cls.page = MyPage(
+            title="My Page",
+            slug="mypage",
+        )
+        home.add_child(instance=cls.page)
+
+    def test_get(self):
+        response = self.client.get(self.page.url)
+        self.assertEqual(response.status_code, 200)
+```
+
+### Working with Page content
+
+You will likely want to test the content of your page. If it includes a `StreamField`, you will need to set its content as a list of tuples with the block's name and content. For `RichTextBlock`, the content has to be an instance of `RichText`.
+
+```python
+...
+from wagtail.rich_text import RichText
+
+class MyPageTest(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        ...
+        # Create page instance here
+        cls.page.body.extend(
+            [
+                ("heading", "Just a CharField Heading"),
+                ("paragraph", RichText("<p>First paragraph</p>")),
+                ("paragraph", RichText("<p>Second paragraph</p>")),
+            ]
+        )
+        cls.page.save()
+
+    def test_page_content(self):
+        response = self.client.get(self.page.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Just a CharField Heading")
+        self.assertContains(response, "<p>First paragraph</p>")
+        self.assertContains(response, "<p>Second paragraph</p>")
+```
+
 ## Fixtures
 
 ### Using `dumpdata`

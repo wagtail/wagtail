@@ -18,9 +18,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Карыстальнік Wagtail"
@@ -294,11 +294,11 @@ msgstr "Нажаль, ніводны гурт не адпавядае \"%(query)
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Гурты не настроенныя. Давай дададзім <a "
-"href=\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
+"Гурты не настроенныя. Давай дададзім <a href="
+"\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Вы ўпэўнены, што хочаце выдаліць гэтага карыстальніка?"
@@ -355,16 +355,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Гурт %(group_name)s не ўтрымлівае карыстальнікаў. Чаму б не <a "
-"href=\"%(wagtailusers_add_url)s\">дадаць некалькі </a>?"
+"Гурт %(group_name)s не ўтрымлівае карыстальнікаў. Чаму б не <a href="
+"\"%(wagtailusers_add_url)s\">дадаць некалькі </a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
 "Карыстальнікі не сканфігураваны. <a href=\"%(wagtailusers_add_url)s\"> "
 "дадаць карыстальніка </a>?"
@@ -394,6 +394,9 @@ msgstr[0] "%(num_parent_objects)dкарыстальнік быў выдален�
 msgstr[1] "%(num_parent_objects)d карыстальніка выдалілі"
 msgstr[2] "%(num_parent_objects)d карыстальнікаў выдалілі"
 msgstr[3] "%(num_parent_objects)d карыстальнікаў выдалілі"
+
+msgid "Mark as active"
+msgstr "Пазначыць як актыўны"
 
 msgid "Change the active state for selected users"
 msgstr "Змяніць актыўны стан для выбраных карыстальнікаў"
@@ -461,3 +464,11 @@ msgstr "Карыстальнік '%(object)s' выдалены."
 
 msgid "Edit"
 msgstr "Рэдактаванне"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Рэдагаваць карыстальніка '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Выдаліць карыстальніка '%(name)s'"

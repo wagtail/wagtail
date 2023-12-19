@@ -141,11 +141,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
+"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
 
 msgid "Search promoted results"
 msgstr "Αναζήτηση προωθημένων αποτελεσμάτων"

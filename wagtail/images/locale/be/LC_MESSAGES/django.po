@@ -17,12 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail images"
+msgstr "Малявання Wagtail "
 
 msgid "Collection"
 msgstr "Калекцыя"
+
+msgid "Format"
+msgstr "Фармат"
 
 msgid "Alt text"
 msgstr "Тэкст падказкі"
@@ -69,6 +75,21 @@ msgstr "Запампована карыстальнікам"
 msgid "tags"
 msgstr "Тэгі"
 
+msgid "image"
+msgstr "маляванне"
+
+msgid "images"
+msgstr "Малявання"
+
+msgid "Yes, add"
+msgstr "Так, дадаць"
+
+msgid "No, don't add"
+msgstr "Не, не дадаваць"
+
+msgid "Delete images"
+msgstr "Выдаліць малявання"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -89,6 +110,12 @@ msgstr "Новы"
 msgid "Choose a format"
 msgstr "Выбраць фармат"
 
+msgid "Add an image"
+msgstr "Дабавіць маляванне"
+
+msgid "Add image"
+msgstr "Дабавіць маляванне"
+
 msgid "Save"
 msgstr "Захаваць"
 
@@ -107,6 +134,9 @@ msgstr "Файл не знойдзены"
 msgid "Usage"
 msgstr "Выкарыстоўванне"
 
+msgid "Images"
+msgstr "Малявання"
+
 #, python-format
 msgid "There is %(counter)s match"
 msgid_plural "There are %(counter)s matches"
@@ -120,6 +150,9 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Папярэдні прагляд"
+
+msgid "Add images"
+msgstr "Дабавіць адлюстравання"
 
 msgid "Or choose from your computer"
 msgstr "Або абярыце на вашым кампутары"
@@ -141,3 +174,12 @@ msgstr "Запампаваць"
 
 msgid "Uploading…"
 msgstr "Запампоўваецца..."
+
+msgid "Choose an image"
+msgstr "Выбраць малюнак"
+
+msgid "Edit this image"
+msgstr "Адрэдагаваць гэты малюнак"
+
+msgid "Change image"
+msgstr "Змяніць малюнак"

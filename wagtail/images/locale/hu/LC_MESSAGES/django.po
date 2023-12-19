@@ -412,19 +412,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a "
-"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a href="
+"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nem töltött fel képet. Miért nem <a "
-"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nem töltött fel képet. Miért nem <a href="
+"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 msgid "Generating URL"
 msgstr "URL generálása"

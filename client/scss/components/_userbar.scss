@@ -82,13 +82,6 @@ $positions: (
   text-decoration: none;
   position: relative;
 
-  .w-icon:before {
-    transition: color 0.2s ease;
-    font-size: 2rem;
-    width: auto;
-    margin: 0;
-  }
-
   .w-userbar-axe-count {
     display: flex;
     justify-content: center;
@@ -161,24 +154,12 @@ $positions: (
   }
 
   &:first-child {
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-left-radius: $userbar-radius;
     border-start-start-radius: $userbar-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-right-radius: $userbar-radius;
     border-start-end-radius: $userbar-radius;
   }
 
   &:last-child {
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-right-radius: $userbar-radius;
     border-end-end-radius: $userbar-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-bottom-left-radius: $userbar-radius;
     border-end-start-radius: $userbar-radius;
   }
 
@@ -212,17 +193,6 @@ $positions: (
 
     .w-a11y-result__count {
       margin-inline-end: theme('spacing.2');
-    }
-  }
-
-  .w-icon {
-    position: relative;
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      inset-inline-start: 14px;
     }
   }
 

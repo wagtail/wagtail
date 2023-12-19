@@ -4,6 +4,7 @@
 #
 # Translators:
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Felipe Lobato, 2023
 # Hugo Cachitas, 2020
 # Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
@@ -20,8 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, "
-"2015-2016,2022-2023\n"
+"Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -272,11 +272,11 @@ msgstr "Desculpe, nenhum grupo corresponde a \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Ainda não foi configurado nenhum grupo. Que tal <a "
-"href=\"%(wagtailusers_create_group_url)s\">criar um</a>?"
+"Ainda não foi configurado nenhum grupo. Que tal <a href="
+"\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Tem a certeza que quer apagar este utilizador?"
@@ -298,6 +298,9 @@ msgstr "Selecionar todos os utilizadores da listagem"
 
 msgid "Username"
 msgstr "Utilizador"
+
+msgid "Access level"
+msgstr "Level de acesso"
 
 msgid "Status"
 msgstr "Estado"
@@ -328,19 +331,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "O grupo %(group_name)s ainda não tem utilizadores configurados. Que tal <a "
 "href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Ainda não existem utilizadores configurados. Que tal <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"Ainda não existem utilizadores configurados. Que tal <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -365,6 +368,9 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utilizador foi apagado"
 msgstr[1] "%(num_parent_objects)d utilizadores foram apagados"
 msgstr[2] "%(num_parent_objects)d utilizadores foram apagados"
+
+msgid "Mark as active"
+msgstr "Marcar como ativo"
 
 msgid "Change the active state for selected users"
 msgstr "Alterar o estado ativo dos utilizadores selecionados"
@@ -414,6 +420,10 @@ msgid "Users"
 msgstr "Utilizadores"
 
 #, python-format
+msgid "User '%(object)s' created."
+msgstr "Usuário '%(object)s' criado."
+
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utilizador '%(object)s' atualizado."
 
@@ -426,3 +436,11 @@ msgstr "Utilizador '%(object)s' apagado."
 
 msgid "Edit"
 msgstr "Alterar"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Editar usuário '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Deletar usuário '%(name)s'"

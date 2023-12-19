@@ -70,6 +70,7 @@ from wagtail.models import (
     Orderable,
     Page,
     PageManager,
+    PagePermissionTester,
     PageQuerySet,
     PreviewableMixin,
     RevisionMixin,
@@ -1122,6 +1123,22 @@ class FullFeaturedSnippet(
     some_number = models.IntegerField(default=0, blank=True)
 
     some_attribute = "some value"
+
+    workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
+
+    revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
 
     search_fields = [
         index.SearchField("text"),
@@ -2189,3 +2206,13 @@ class SearchTestModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CustomPermissionTester(PagePermissionTester):
+    def can_view_revisions(self):
+        return False
+
+
+class CustomPermissionPage(Page):
+    def permissions_for_user(self, user):
+        return CustomPermissionTester(user, self)

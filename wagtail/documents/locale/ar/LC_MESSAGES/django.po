@@ -5,6 +5,7 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Oumayma el bez, 2023
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
 # Younes Oumakhou, 2022
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Younes Oumakhou, 2022\n"
+"Last-Translator: Oumayma el bez, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +75,7 @@ msgstr[1] "هل أنت متأكد من حذف هذه الوثيقة؟"
 msgstr[2] "هل أنت متأكد من حذف هاتين الوثيقتين؟"
 msgstr[3] "هل أنت متأكد من حذف هذه الوثائق؟"
 msgstr[4] "هل أنت متأكد من حذف هذه الوثائق؟"
-msgstr[5] "هل أنت متأكد من حذف هذه الوثائق؟"
+msgstr[5] "هل تريد حقا حذف هذه الوثائق؟"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -166,19 +167,19 @@ msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_stri
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a "
-"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات. لماذا لا <a "
-"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"

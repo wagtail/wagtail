@@ -77,6 +77,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    Used in place of :attr:`form_fields` to indicate that all of the model's fields except the ones listed here should appear in the create / edit forms. Either ``form_fields`` or ``exclude_form_fields`` must be supplied (unless :meth:`get_form_class` is being overridden).
 
    .. automethod:: get_form_class
+   .. automethod:: get_edit_handler
 
    .. autoattribute:: menu_label
 
@@ -195,7 +196,6 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: chooser_viewset_class
    .. automethod:: get_queryset
    .. automethod:: get_edit_handler
-   .. automethod:: get_form_class
    .. automethod:: get_index_template
    .. automethod:: get_index_results_template
    .. automethod:: get_create_template

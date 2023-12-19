@@ -26,8 +26,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Objavi"
@@ -530,15 +530,15 @@ msgstr "Pretvori v interno povezavo"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"URL, ki ste ga vnesli, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, izgleda, da se ujema z "
-"notranjo stranjo %(page)s, ki ima URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"URL, ki ste ga vnesli, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, izgleda, da se ujema z notranjo "
+"stranjo %(page)s, ki ima URL <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -619,15 +619,18 @@ msgstr "Ime"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Dodana ni še nobena zbirka. Zakaj je ne bi <a "
-"href=\"%(add_collection_url)s\">dodali</a>?"
+"Dodana ni še nobena zbirka. Zakaj je ne bi <a href=\"%(add_collection_url)s"
+"\">dodali</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Žal ni zadetkov za \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Ni rezultatov."
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -666,6 +669,14 @@ msgstr "Prekliči"
 
 msgid "No log entries found."
 msgstr "Najden ni bil noben vnos v dnevnik."
+
+#, python-format
+msgid "No %(model_name)s match your query"
+msgstr "Noben %(model_name)s ne ustreza vaši poizvedbi"
+
+#, python-format
+msgid "There are no %(model_name)s to display"
+msgstr "Ni %(model_name)s za prikaz"
 
 msgid "Update"
 msgstr "Posodbi"
@@ -807,9 +818,9 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Na voljo je nadgradnja za Wagtail. Vaša različica: "
-"<strong>%(current_version)s</strong>. Nova različica: <strong data-w-upgrade-"
-"target=\"latestVersion\"></strong>."
+"Na voljo je nadgradnja za Wagtail. Vaša različica: <strong>"
+"%(current_version)s</strong>. Nova različica: <strong data-w-upgrade-target="
+"\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Preberite opombe ob izdaji."
@@ -835,15 +846,15 @@ msgstr "Stvari v Wagtail %(version)s so se spremenile!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"Ne skrbite, varujemo vas. Oglejte si <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtailov vodnik po urejevalniku</a> če želite izvedeti, "
-"kaj se je spremenilo, in nekaj vznemirljivih novih funkcij!"
+"Ne skrbite, varujemo vas. Oglejte si <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtailov "
+"vodnik po urejevalniku</a> če želite izvedeti, kaj se je spremenilo, in "
+"nekaj vznemirljivih novih funkcij!"
 
 msgid "Awaiting your review"
 msgstr "Čakam na vaš pregled"
@@ -1415,6 +1426,26 @@ msgstr "Razvrsti"
 msgid "Enable ordering of child pages"
 msgstr "Vklopi sortiranje podrejenih strani"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s od %(result_count)s po celotnem spletnem mestu."
+
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Išči znotraj '%(title)s'"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgstr "%(start_index)s-%(end_index)s od %(result_count)s znotraj '%(title)s'."
+
+msgid "Search the whole site"
+msgstr "Iskanje po celotnem spletnem mestu"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(result_count)s"
+msgstr "%(start_index)s-%(end_index)s od %(result_count)s"
+
 msgid "Sites menu"
 msgstr "Meniji strani"
 
@@ -1491,8 +1522,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Izberite, kdaj naj bo ta stran objavljena in/ali poteče"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr "Ta urnik objave bo začel veljati šele, ko izberete možnost »Objavi«."
 
 msgid "Anyone with editing permissions can create schedules"
@@ -1857,14 +1888,14 @@ msgstr "Ta stran še ni bila poslana v moderiranje"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "Za uporabo Wagtail-a je potreben JavaScript, vendar je trenutno onemogočen. "
-"<br />Tukaj so <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">navodila, kako omogočiti JavaScript v "
-"svojem spletnem brskalniku</a>."
+"<br />Tukaj so <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">navodila, kako omogočiti JavaScript v svojem spletnem "
+"brskalniku</a>."
 
 msgid "Skip to main content"
 msgstr "Preskoči na glavno vsebino"
@@ -1914,9 +1945,8 @@ msgstr "Ustvari"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Poteki dela veljajo tudi za podrejene strani. Če tukaj izberete nadrejeno "
 "stran, bodo tudi njene podrejene strani uporabljale ta potek dela. Oglejte "
@@ -2031,8 +2061,8 @@ msgstr "Pokaži onemogočena opravila"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ustvarjena ni bila nobena naloga. Zakaj nebi <a "
-"href=\"%(add_url)s\">ustvarili nove </a>?"
+"Ustvarjena ni bila nobena naloga. Zakaj nebi <a href=\"%(add_url)s"
+"\">ustvarili nove </a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"

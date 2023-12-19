@@ -36,9 +36,7 @@
                         {% if filter_form.visible_fields %}
                             <ul class="fields">
                                 {% for field in filter_form.visible_fields %}
-                                    <li>
-                                        {% include "wagtailadmin/shared/field.html" with field=field %}
-                                    </li>
+                                    <li>{% formattedfield field %}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}

@@ -247,8 +247,8 @@ msgstr "对不起，没有符合“%(query)s”的组"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
 
@@ -299,16 +299,16 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "%(group_name)s组还没有用户，为何不<a href=\"%(wagtailusers_add_url)s\">添加一"
 "些用户</a>？"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
 "目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
 

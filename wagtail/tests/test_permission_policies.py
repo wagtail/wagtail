@@ -30,7 +30,7 @@ class PermissionPolicyTestUtils:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
 
-            for (action, expected_result) in expected_results:
+            for action, expected_result in expected_results:
                 if expected_result:
                     self.assertTrue(
                         self.policy.user_has_permission(user, action),
@@ -58,7 +58,7 @@ class PermissionPolicyTestUtils:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
 
-            for (action, expected_result) in expected_results:
+            for action, expected_result in expected_results:
                 if expected_result:
                     self.assertTrue(
                         self.policy.user_has_permission_for_instance(

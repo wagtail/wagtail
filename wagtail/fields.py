@@ -41,7 +41,7 @@ class RichTextField(models.TextField):
         field = super().formfield(**defaults)
 
         # replace any MaxLengthValidators with RichTextMaxLengthValidators to ignore tags
-        for (i, validator) in enumerate(field.validators):
+        for i, validator in enumerate(field.validators):
             if isinstance(validator, MaxLengthValidator):
                 field.validators[i] = RichTextMaxLengthValidator(
                     validator.limit_value, message=validator.message
@@ -244,7 +244,6 @@ class StreamField(models.Field):
         return self.get_prep_value(value)
 
     def get_searchable_content(self, value):
-
         return self.stream_block.get_searchable_content(value)
 
     def extract_references(self, value):

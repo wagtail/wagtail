@@ -19,7 +19,7 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=3.2,<4.3",
+    "Django>=4.2,<6.0",
     "django-modelcluster>=6.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
     "django-taggit>=2.0,<5.0",
@@ -30,12 +30,13 @@ install_requires = [
     "Pillow>=9.1.0,<11.0.0",
     "beautifulsoup4>=4.8,<4.13",
     "html5lib>=0.999,<2",
-    "Willow[heif]>=1.6.2,<1.7",
+    "Willow[heif]>=1.6.2,<2",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
-    "telepath>=0.1.1,<1",
+    "telepath>=0.3.1,<1",
+    "laces>=0.1,<0.2",
 ]
 
 # Testing dependencies
@@ -51,9 +52,8 @@ testing_extras = [
     "django-pattern-library>=0.7",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
-    "black==22.3.0",
     "doc8==0.8.1",
-    "ruff==0.0.290",
+    "ruff==0.1.5",
     # For enforcing string formatting mechanism in source files
     "semgrep==1.40.0",
     # For templates linting
@@ -113,10 +113,10 @@ https://github.com/wagtail/wagtail/.",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Framework :: Django",
-        "Framework :: Django :: 3.2",
-        "Framework :: Django :: 4.1",
         "Framework :: Django :: 4.2",
+        "Framework :: Django :: 5.0",
         "Framework :: Wagtail",
         "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],

@@ -120,9 +120,9 @@ export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
       name,
       label,
       url,
-      attrs,
-      icon_name: iconName = null,
-      classname = undefined,
+      attrs = {},
+      icon_name: iconName = null as string | null,
+      classname = undefined as string | undefined,
     },
     startPageId: number,
   ) {

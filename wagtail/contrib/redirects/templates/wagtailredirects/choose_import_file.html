@@ -23,9 +23,7 @@
 
         <ul class="fields">
             {% for field in form.visible_fields %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endfor %}
 
             <li>

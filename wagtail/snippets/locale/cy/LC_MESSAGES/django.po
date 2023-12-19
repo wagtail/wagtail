@@ -114,11 +114,11 @@ msgstr "Ychwanegu %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nid oes %(snippet_type_name_plural)s wedi cael eu greu. Pam ddim <a "
-"href=\"%(wagtailsnippets_create_url)s\">creu un</a>?"
+"Nid oes %(snippet_type_name_plural)s wedi cael eu greu. Pam ddim <a href="
+"\"%(wagtailsnippets_create_url)s\">creu un</a>?"
 
 msgid "Preview"
 msgstr "Rhagolwg"

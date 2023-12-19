@@ -15,6 +15,7 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -101,7 +102,6 @@ class IndexView(
     results_template_name = "wagtailadmin/generic/index_results.html"
     index_results_url_name = None
     add_url_name = None
-    add_item_label = gettext_lazy("Add")
     edit_url_name = None
     inspect_url_name = None
     delete_url_name = None
@@ -110,15 +110,14 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    filters = None
     filterset_class = None
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
+    show_other_searches = False
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.columns = self.get_columns()
         self.filterset_class = self.get_filterset_class()
         self.setup_search()
 
@@ -149,17 +148,15 @@ class IndexView(
         if self.model is None:
             return None
 
-        if self.is_searchable and self.search_kwarg in self.request.GET:
-            return SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(model_name)s")
-                % {"model_name": self.model._meta.verbose_name_plural},
-            )
-
-        return SearchForm(
-            placeholder=_("Search %(model_name)s")
+        placeholder = capfirst(
+            _("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
+
+        if self.is_searchable and self.search_kwarg in self.request.GET:
+            return SearchForm(self.request.GET, placeholder=placeholder)
+
+        return SearchForm(placeholder=placeholder)
 
     def get_filterset_class(self):
         if self.filterset_class:
@@ -226,7 +223,7 @@ class IndexView(
 
         queryset = self.get_base_queryset()
 
-        self.filters, queryset = self.filter_queryset(queryset)
+        filters, queryset = self.filter_queryset(queryset)
 
         # Ensure the queryset is of the same model as self.model before filtering,
         # which may not be the case for views like HistoryView where the queryset
@@ -265,17 +262,21 @@ class IndexView(
 
         return queryset
 
-    def filter_queryset(self, queryset):
-        # construct filter instance (self.filters) if not created already
-        if self.filterset_class and self.filters is None:
-            self.filters = self.filterset_class(
-                self.request.GET, queryset=queryset, request=self.request
-            )
-            queryset = self.filters.qs
-        elif self.filters:
-            # if filter object was created on a previous filter_queryset call, re-use it
-            queryset = self.filters.filter_queryset(queryset)
+    @cached_property
+    def filters(self):
+        if self.filterset_class:
+            return self.filterset_class(self.request.GET, request=self.request)
 
+    @cached_property
+    def is_filtering(self):
+        # we are filtering if the filter form has changed from its default state
+        return (
+            self.filters and self.filters.is_valid() and self.filters.form.has_changed()
+        )
+
+    def filter_queryset(self, queryset):
+        if self.filters and self.filters.is_valid():
+            queryset = self.filters.filter_queryset(queryset)
         return self.filters, queryset
 
     def search_queryset(self, queryset):
@@ -342,11 +343,8 @@ class IndexView(
             **kwargs,
         )
 
-    def get_columns(self):
-        # Use columns set at the class level, if available
-        if self.columns is not None:
-            return self.columns
-
+    @cached_property
+    def columns(self):
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):
@@ -468,6 +466,14 @@ class IndexView(
             )
         ]
 
+    @cached_property
+    def add_item_label(self):
+        if self.model:
+            return capfirst(
+                _("Add %(model_name)s") % {"model_name": self.model._meta.verbose_name}
+            )
+        return _("Add")
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
         queryset = self.search_queryset(queryset)
@@ -484,9 +490,7 @@ class IndexView(
 
         if self.filters:
             context["filters"] = self.filters
-            context["is_filtering"] = any(
-                self.request.GET.get(f) for f in self.filters.filters
-            )
+            context["is_filtering"] = self.is_filtering
             context["media"] += self.filters.form.media
 
         context["index_results_url"] = self.get_index_results_url()

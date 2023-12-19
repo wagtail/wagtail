@@ -9,7 +9,7 @@ from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import Page, PageLogEntry, get_page_models
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.users.utils import get_deleted_user_display_name
 
 from .base import PageReportView
@@ -82,6 +82,8 @@ class AgingPagesView(PageReportView):
                 user_id_value, get_deleted_user_display_name(user_id=user_id_value)
             )
             page.last_published_by_user = last_published_by_user
+        else:
+            page.last_published_by_user = ""
 
     def decorate_paginated_queryset(self, queryset):
         user_ids = set(queryset.values_list("last_published_by", flat=True))
@@ -99,8 +101,9 @@ class AgingPagesView(PageReportView):
             page=OuterRef("pk"), action__exact="wagtail.publish"
         )
         self.queryset = (
-            PagePermissionPolicy()
-            .instances_user_has_permission_for(self.request.user, "publish")
+            page_permission_policy.instances_user_has_permission_for(
+                self.request.user, "publish"
+            )
             .exclude(last_published_at__isnull=True)
             .prefetch_workflow_states()
             .select_related("content_type")
@@ -114,7 +117,7 @@ class AgingPagesView(PageReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().user_has_any_permission(
+        if not page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
         ):
             raise PermissionDenied

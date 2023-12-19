@@ -1,10 +1,11 @@
 from functools import lru_cache
 
+from django.apps import apps as global_apps
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.db import DEFAULT_DB_ALIAS, models
+from django.db import DEFAULT_DB_ALIAS, models, router
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
@@ -120,8 +121,21 @@ def register_deferred_snippets():
         _register_snippet_immediately(registerable, viewset)
 
 
-def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
-    model_cts = ContentType.objects.get_for_models(
+def create_extra_permissions(
+    app_config, *args, using=DEFAULT_DB_ALIAS, apps=global_apps, **kwargs
+):
+    app_label = app_config.label
+    try:
+        app_config = apps.get_app_config(app_label)
+        apps.get_model("contenttypes", "ContentType")
+        apps.get_model("auth", "Permission")
+    except LookupError:
+        return
+
+    if not router.allow_migrate_model(using, Permission):
+        return
+
+    model_cts = ContentType.objects.db_manager(using).get_for_models(
         *get_snippet_models(), for_concrete_models=False
     )
 

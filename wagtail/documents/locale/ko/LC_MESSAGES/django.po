@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -212,19 +212,19 @@ msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 �
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a "
-"href=\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a href="
+"\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"업로드된 문서가 없습니다. 지금 문서를 <a "
-"href=\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
+"업로드된 문서가 없습니다. 지금 문서를 <a href="
+"\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
 
 #, python-format
 msgid ""

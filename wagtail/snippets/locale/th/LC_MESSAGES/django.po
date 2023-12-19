@@ -92,11 +92,11 @@ msgstr "เพิ่ม %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a "
-"href=\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
+"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a href="
+"\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Live version"
 msgstr "รุ่นถ่ายทอดสด"

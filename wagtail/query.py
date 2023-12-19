@@ -515,12 +515,11 @@ class SpecificIterable(BaseIterable):
         in the same order, with any annotations intact.
         """
         qs = self.queryset
-        annotation_aliases = qs.query.annotations.keys()
+        annotation_aliases = qs.query.annotation_select
         values_qs = qs.values("pk", "content_type", *annotation_aliases)
 
         # Gather items in batches to reduce peak memory usage
         for values in self._get_chunks(values_qs):
-
             annotations_by_pk = defaultdict(list)
             if annotation_aliases:
                 # Extract annotation results keyed by pk so we can reapply to fetched items.

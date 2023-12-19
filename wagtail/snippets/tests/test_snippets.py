@@ -103,6 +103,9 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             [{"url": "", "label": "Snippets"}],
             response.content,
         )
+        # Now that it uses the generic template,
+        # it should not contain the locale selector
+        self.assertNotContains(response, "data-locale-selector")
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
@@ -313,7 +316,13 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         # Should use the latest draft title in the listing
         self.assertContains(
             response,
-            f'<a href="{edit_url}">Draft-enabled Bar, In Draft</a>',
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    Draft-enabled Bar, In Draft
+                </span>
+            </a>
+            """,
             html=True,
         )
 
@@ -4980,7 +4989,6 @@ class TestSnippetChosen(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
 
     def test_choose_a_non_existing_page(self):
-
         response = self.get(999999)
         self.assertEqual(response.status_code, 404)
 
@@ -5695,7 +5703,6 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
         self.get_checks_result = get_checks_result
 
     def test_model_with_single_tabbed_panel_only(self):
-
         StandardSnippet.content_panels = [FieldPanel("text")]
 
         warning = checks.Warning(

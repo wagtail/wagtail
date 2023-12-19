@@ -133,11 +133,11 @@ msgstr "<em>%(query_string)s</em>に一致する提案はありません。"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"まだ検索結果への提案がありません。<a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
+"まだ検索結果への提案がありません。<a href="
+"\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
 
 msgid "Search promoted results"
 msgstr "提案を検索"

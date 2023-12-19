@@ -342,6 +342,9 @@ msgstr "Обрано всі %(objects)s користувачів на цьому
 msgid "All users in listing selected"
 msgstr "Обрано всіх користувачів у списку"
 
+msgid "1 snippet selected"
+msgstr "вибрано 1 сніпет"
+
 msgid "1 item selected"
 msgstr "Обрано 1 об'єкт"
 
@@ -478,6 +481,14 @@ msgstr "Посилання на телефон"
 msgid "Anchor link"
 msgstr "Якір посилання"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
 msgid "Add an anchor link"
 msgstr "Добавити якір посилання"
 
@@ -558,11 +569,11 @@ msgstr "Ім'я"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a "
-"href=\"%(add_collection_url)s\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
+"\">створити одну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
@@ -913,7 +924,7 @@ msgstr "Оберіть тип сторінки, яку ви б хотіли ст
 
 #, python-format
 msgid "Pages using %(page_type)s"
-msgstr "Сторінка використовує %(page_type)s"
+msgstr "Сторінка типу '%(page_type)s'"
 
 msgid "Are you sure you want to delete these pages?"
 msgstr "Ви впевнені, що ви бажаєте видалити ці сторінки?"
@@ -1154,6 +1165,13 @@ msgstr "Сортувати"
 msgid "Enable ordering of child pages"
 msgstr "Увімкнути впорядковування дочірніх сторінок"
 
+#, python-format
+msgid "Search within '%(title)s'"
+msgstr "Шукати в '%(title)s'"
+
+msgid "Search the whole site"
+msgstr "Шукати по всьому сайту"
+
 msgid "Sites menu"
 msgstr "Меню сайтів"
 
@@ -1210,6 +1228,22 @@ msgstr "Пересунути вгору"
 
 msgid "Move down"
 msgstr "Пересунути вниз"
+
+msgid "Set publishing schedule"
+msgstr "Задати графік публікації"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
+
+msgid ""
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
+msgstr ""
+"Графік публікації почне працювати лише після того, як ви натиснете кнопку "
+"\"Опублікувати\""
+
+msgid "Save schedule"
+msgstr "Зберегти графік"
 
 msgid "Collection management permissions"
 msgstr "Дозволи на керування колекцією"
@@ -1348,8 +1382,32 @@ msgstr[1] "Використано %(usage_count)s рази"
 msgstr[2] "Використано %(usage_count)s разів"
 msgstr[3] "Використано %(usage_count)s разів"
 
+#, python-format
+msgid "by %(user)s"
+msgstr "користувачем %(user)s"
+
 msgid "View history"
 msgstr "Переглянути історію"
+
+msgid "Go-live:"
+msgstr "Буде опубліковано: "
+
+msgid "No publishing schedule set"
+msgstr "Графік публікації відсутній"
+
+msgid "Set schedule"
+msgstr "Задати графік"
+
+msgid "First published"
+msgstr "Вперше опубліковано"
+
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Цей %(model_name)s використано %(usage_count)sраз"
+msgstr[1] "Цей %(model_name)s використано %(usage_count)s рази"
+msgstr[2] "Цей %(model_name)s використано %(usage_count)s разів"
+msgstr[3] "Цей %(model_name)s використано %(usage_count)s разів"
 
 msgid "Edit / Review"
 msgstr "Редагувати / Перевірити"
@@ -1429,9 +1487,8 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1481,8 +1538,8 @@ msgstr "Крок %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a "
-"href=\"%(add_url)s\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
+"\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -1588,6 +1645,14 @@ msgstr "щойно користувачем %(user_display_name)s"
 msgid "Log out"
 msgstr "Вийти"
 
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Використано %(count)s раз"
+msgstr[1] "Використано %(count)s рази"
+msgstr[2] "Використано %(count)s разів"
+msgstr[3] "Використано %(count)s разів"
+
 msgid "Comments"
 msgstr "Коментарі"
 
@@ -1624,6 +1689,9 @@ msgstr "Зображення профілю користувача"
 
 msgid "Locale"
 msgstr "Локаль"
+
+msgid "Theme preferences"
+msgstr "Налаштування теми"
 
 msgid "Password"
 msgstr "Пароль"
@@ -1953,6 +2021,9 @@ msgstr "Приховати дії коментування"
 msgid "Page history"
 msgstr "Історія змін"
 
+msgid "Search pages…"
+msgstr "Пошук сторінок..."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Сторінку '%(page_title)s' розблоковано."
@@ -2181,6 +2252,9 @@ msgstr "Код"
 
 msgid "Reports"
 msgstr "Звіти"
+
+msgid "Help"
+msgstr "Допомога"
 
 msgid "Yes"
 msgstr "Так"

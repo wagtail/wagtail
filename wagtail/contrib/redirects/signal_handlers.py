@@ -93,7 +93,6 @@ def _page_urls_for_sites(
 ) -> Set[Tuple[Site, str, str]]:
     urls = set()
     for site in sites:
-
         # use a `HttpRequest` to influence the return value
         request = get_dummy_request(site=site)
         # reuse cached site root paths if available

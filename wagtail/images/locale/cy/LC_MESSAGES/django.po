@@ -344,19 +344,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a "
-"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
+"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a href="
+"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a "
-"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
+"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a href="
+"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 msgid "Generating URL"
 msgstr "Cynhyrchu URL"

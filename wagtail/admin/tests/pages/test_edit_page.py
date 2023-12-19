@@ -31,6 +31,7 @@ from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
+    CustomPermissionPage,
     EventCategory,
     EventPage,
     EventPageCarouselItem,
@@ -171,6 +172,15 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
         )
 
+        # test that the link to the history view is shown,
+        # one in the header dropdown button, one beside the side panel toggles,
+        # one in the status side panel
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(self.event_page.id,)),
+            count=3,
+        )
+
         # test that AdminURLFinder returns the edit view for the page
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
@@ -188,6 +198,18 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertContains(response, "Referenced 1 time")
         self.assertContains(
             response, reverse("wagtailadmin_pages:usage", args=(self.event_page.id,))
+        )
+
+    def test_edit_custom_permissions(self):
+        page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
+        self.root_page.add_child(instance=page)
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+        # Respecting PagePermissionTester.can_view_revisions(),
+        # should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(page.id,)),
         )
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
@@ -1856,7 +1878,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
-            for (index, item) in enumerate(menu_items):
+            for index, item in enumerate(menu_items):
                 if item.name == "action-publish":
                     # move to top of list
                     menu_items.pop(index)

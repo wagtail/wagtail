@@ -333,6 +333,14 @@ msgstr "Популярні теги:"
 msgid "Select all images in listing"
 msgstr "Обрати всі зображення у списку"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
 msgid "Select image"
 msgstr "Обрати зображення"
 
@@ -345,19 +353,19 @@ msgstr "Вибачте, жодне зображення не відповіда�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення до колекції. Чому б <a "
-"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення до колекції. Чому б <a href="
+"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення. Чому б <a "
-"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення. Чому б <a href="
+"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 msgid "Generating URL"
 msgstr "Генерація URL"

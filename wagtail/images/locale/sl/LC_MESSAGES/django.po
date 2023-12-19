@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -44,6 +44,14 @@ msgstr "Podprte oblike zapisa: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Oblika zapisa slike ni podprta. Podprte oblike so: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ni veljavno. %(extension)s slika. Končnica se ne ujema z obliko datoteke "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -315,6 +323,26 @@ msgstr "Izberite obliko zapisa"
 msgid "Insert image"
 msgstr "Vstavi sliko"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> slika <span class=\"visuallyhidden\">je bila "
+"ustvarjena v %(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> sliki <span class=\"visuallyhidden\">sta bili "
+"ustvarjeni v %(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> slik <span class=\"visuallyhidden\">ustvarjenih v "
+"%(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span> slik <span class=\"visuallyhidden\">ustvarjenih v "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Spremeni datoteko slike:"
 
@@ -418,19 +446,19 @@ msgstr "Žal ni slike, ki bi ustrezala \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V to zbirko niste naložili nobene slike. Zakaj ne bi <a "
-"href=\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
+"V to zbirko niste naložili nobene slike. Zakaj ne bi <a href="
+"\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Naložili niste nobene datoteke. Zakaj je <a "
-"href=\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
+"Naložili niste nobene datoteke. Zakaj je <a href="
+"\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
 
 msgid "Generating URL"
 msgstr "Generiranje URL"
@@ -509,11 +537,27 @@ msgstr "Oznaka"
 msgid "Add tags to the selected images"
 msgstr "Izbranim slikam dodajte oznake"
 
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "%(num_parent_objects)d sliki so bile dodane nove oznake"
+msgstr[1] "%(num_parent_objects)d slikama so bile dodane nove oznake"
+msgstr[2] "%(num_parent_objects)d slikam so bile dodane nove oznake"
+msgstr[3] "%(num_parent_objects)d slikam so bile dodane nove oznake"
+
 msgid "Add to collection"
 msgstr "Dodaj v zbirko"
 
 msgid "Add selected images to collection"
 msgstr "Dodajte izbrane slike v zbirko"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d slika je bila dodana v %(collection)s"
+msgstr[1] "%(num_parent_objects)d sliki sta bili dodani v %(collection)s"
+msgstr[2] "%(num_parent_objects)d slik je bilo dodanih v %(collection)s"
+msgstr[3] "%(num_parent_objects)d slik je bilo dodanih v %(collection)s"
 
 msgid "Delete"
 msgstr "Izbriši"

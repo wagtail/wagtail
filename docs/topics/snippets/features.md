@@ -113,7 +113,11 @@ class Advert(index.Indexed, models.Model):
 
 ## Saving revisions of snippets
 
-If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin. In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. If you need to customise how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define a property instead. For example, the `Advert` snippet could be made revisable as follows:
+If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
+
+In addition to inheriting the mixin, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. Defining the `GenericRelation` is also necessary to ensure that `Revision` instances are automatically deleted when the snippet instance is deleted. If you need to customise how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define the `revisions` as a property.
+
+For example, the `Advert` snippet could be made revisable as follows:
 
 ```python
 # ...
@@ -280,7 +284,9 @@ Locking and unlocking a snippet instance requires `lock` and `unlock` permission
 
 If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
 
-Since the `WorkflowMixin` utilises revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. In addition, it is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
+Since the `WorkflowMixin` utilises revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. It is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
+
+In addition to inheriting the mixins, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.WorkflowState` model so that you can do related queries and that the workflow-related data is properly cleaned up when the snippet instance is deleted.
 
 For example, workflows (with locking) can be enabled for the `Advert` snippet by defining it as follows:
 
@@ -351,11 +357,12 @@ The [documentation on tagging pages](tagging) has more information on how to use
 
 ## Inline models within snippets
 
-Similar to pages, you can nest other models within a snippet.
+Similar to pages, you can nest other models within a snippet. This requires the snippet model to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model`.
 
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from wagtail.models import Orderable
 
 

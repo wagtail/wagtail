@@ -6,31 +6,25 @@
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {% block non_field_errors %}
-            {% for error in form.non_field_errors %}
-                {% help_block status="critical" %}{{ error }}{% endhelp_block %}
-            {% endfor %}
-        {% endblock %}
-
-        {% block hidden_fields %}
-            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-        {% endblock %}
-
-        <ul class="fields">
-            {% block visible_fields %}
-                {% for field in form.visible_fields %}
-                    <li>
-                        {% include "wagtailadmin/shared/field.html" %}
-                    </li>
-                {% endfor %}
+        {% if panel %}
+            {{ panel.render_form_content }}
+        {% else %}
+            {% block hidden_fields %}
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
             {% endblock %}
 
-            <li>
-                {% block actions %}
-                    <input type="submit" value="{{ submit_button_label }}" class="button" />
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        <li>{% formattedfield field %}</li>
+                    {% endfor %}
                 {% endblock %}
-            </li>
-        </ul>
+            </ul>
+        {% endif %}
+
+        {% block actions %}
+            <button type="submit" class="button">{{ submit_button_label }}</button>
+        {% endblock %}
     </form>
 {% endblock %}
 

@@ -96,6 +96,19 @@ msgstr "Заблоковано"
 msgid "Unlocked"
 msgstr "Розблоковано"
 
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' заблокована і запланована до публікації {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Заблоковано через графік публікації"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Зараз заблоковано і буде опубліковано у визначений час"
+
 msgid "latest revision"
 msgstr "остання ревізія"
 
@@ -709,10 +722,10 @@ msgstr ""
 
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Сторінку заплановано для публікації о %(go_live_at)s"
+msgstr "Сторінку заплановано до публікації о %(go_live_at)s"
 
 msgid "Page scheduled for publishing"
-msgstr "Сторінку заплановано для публікації"
+msgstr "Сторінку заплановано до публікації"
 
 msgid "Unschedule publication"
 msgstr "Відмінити заплановану публікацію"

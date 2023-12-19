@@ -128,11 +128,11 @@ msgstr "Προσθήκη %(snippet_type_name)s"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a "
-"href=\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
+"Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a href="
+"\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
 
 msgid "Live version"
 msgstr "Τρέχουσα έκδοση"

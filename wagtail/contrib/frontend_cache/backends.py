@@ -342,7 +342,6 @@ class AzureBaseBackend(BaseBackend):
 
 class AzureFrontDoorBackend(AzureBaseBackend):
     def __init__(self, params):
-
         super().__init__(params)
         try:
             self._front_door_name = params.pop("FRONT_DOOR_NAME")
@@ -372,7 +371,6 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
 class AzureCdnBackend(AzureBaseBackend):
     def __init__(self, params):
-
         super().__init__(params)
         try:
             self._cdn_profile_name = params.pop("CDN_PROFILE_NAME")

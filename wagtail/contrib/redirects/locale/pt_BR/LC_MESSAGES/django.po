@@ -11,14 +11,14 @@
 # Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2018
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2022
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -225,11 +225,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Não há redirecionamentos criados. Por que não foi <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
+"Não há redirecionamentos criados. Por que não foi <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
 
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"

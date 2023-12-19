@@ -20,7 +20,7 @@
         <div class="fields">
             {% block fields %}
                 {% panel id="name" heading=form.name.label id_for_label=form.name.id_for_label is_required=True %}
-                    {% include "wagtailadmin/shared/field.html" with field=form.name show_label=False %}
+                    {% formattedfield field=form.name show_label=False %}
                 {% endpanel %}
                 {% block extra_fields %}{% endblock extra_fields %}
             {% endblock fields %}

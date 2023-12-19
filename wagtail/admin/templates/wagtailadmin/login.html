@@ -33,8 +33,8 @@
                 <input type="hidden" name="next" value="{{ next|default:home_url }}" />
 
                 {% block fields %}
-                    {% field field=form.username %}{% endfield %}
-                    {% field field=form.password %}{% endfield %}
+                    {% formattedfield form.username %}
+                    {% formattedfield form.password %}
 
                     {% if show_password_reset %}
                         <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten password?" %}</a>
@@ -42,7 +42,7 @@
 
                     {% block extra_fields %}
                         {% for field_name, field in form.extra_fields %}
-                            {% field field=field %}{% endfield %}
+                            {% formattedfield field %}
                         {% endfor %}
                     {% endblock extra_fields %}
 

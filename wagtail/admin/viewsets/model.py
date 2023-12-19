@@ -10,6 +10,7 @@ from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
 )
+from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
@@ -151,6 +152,7 @@ class ModelViewSet(ViewSet):
 
     def get_add_view_kwargs(self, **kwargs):
         return {
+            "panel": self._edit_handler,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
             **kwargs,
@@ -158,6 +160,7 @@ class ModelViewSet(ViewSet):
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
+            "panel": self._edit_handler,
             "form_class": self.get_form_class(for_update=True),
             "template_name": self.edit_template_name,
             **kwargs,
@@ -507,6 +510,11 @@ class ModelViewSet(ViewSet):
         """
         Returns the form class to use for the create / edit forms.
         """
+        # If an edit handler is defined, use it to construct the form class.
+        if self._edit_handler:
+            return self._edit_handler.get_form_class()
+
+        # Otherwise, use Django's modelform_factory.
         fields = self.get_form_fields()
         exclude = self.get_exclude_form_fields()
 
@@ -534,6 +542,37 @@ class ModelViewSet(ViewSet):
         Returns a list or tuple of field names to be excluded from the create / edit forms.
         """
         return getattr(self, "exclude_form_fields", None)
+
+    def get_edit_handler(self):
+        """
+        Returns the appropriate edit handler for this ``ModelViewSet`` class.
+        It can be defined either on the model itself or on the ``ModelViewSet``,
+        as the ``edit_handler`` or ``panels`` properties. If none of these are
+        defined, it will return ``None`` and the form will be constructed as
+        a Django form using :meth:`get_form_class` (without using
+        :ref:`forms_panels_overview`).
+        """
+        if hasattr(self, "edit_handler"):
+            edit_handler = self.edit_handler
+        elif hasattr(self, "panels"):
+            panels = self.panels
+            edit_handler = ObjectList(panels)
+        elif hasattr(self.model, "edit_handler"):
+            edit_handler = self.model.edit_handler
+        elif hasattr(self.model, "panels"):
+            panels = self.model.panels
+            edit_handler = ObjectList(panels)
+        else:
+            return None
+        return edit_handler.bind_to_model(self.model)
+
+    @cached_property
+    def _edit_handler(self):
+        """
+        An edit handler that has been bound to the model class,
+        to be used across views.
+        """
+        return self.get_edit_handler()
 
     @property
     def url_finder_class(self):

@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Пошукавае прасоўванне Wagtail"
@@ -145,11 +145,11 @@ msgstr "На жаль, няма вынікаў рэкламы \"<em>%(query_stri
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 
 msgid "Search promoted results"
 msgstr "Пошук рэкламных вынікаў"

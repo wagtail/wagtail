@@ -1,4 +1,3 @@
-// stylelint-disable declaration-no-important
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
@@ -23,16 +22,18 @@
 
   > ul > li > a {
     // Need !important to override body.ready class
+    // stylelint-disable-next-line declaration-no-important
     transition: padding $menu-transition-duration ease !important;
+  }
 
-    .menuitem-label {
-      transition: opacity $menu-transition-duration ease;
-    }
+  .menuitem-label {
+    transition: opacity $menu-transition-duration ease;
   }
 }
 
 .sidebar-footer {
   @apply w-bg-surface-menus w-mt-auto;
+  // stylelint-disable-next-line declaration-no-important
   transition: width $menu-transition-duration ease !important; // Override body.ready
 
   > ul,
@@ -57,12 +58,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-
-      &:before {
-        font-size: 1rem;
-        margin-inline-end: 0.5em;
-        vertical-align: -10%;
-      }
     }
   }
 

@@ -1,6 +1,6 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <td>
-    {% include "wagtailadmin/shared/field.html" with field=form.page sr_only_label=True only %}
+    {% formattedfield field=form.page sr_only_label=True %}
     {{ form.DELETE }}
 </td>
 

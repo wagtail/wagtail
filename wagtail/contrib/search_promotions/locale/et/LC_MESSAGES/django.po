@@ -148,11 +148,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-" Reklaamitud tulemusi pole loodud. Lisa <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">üks</a>?"
+" Reklaamitud tulemusi pole loodud. Lisa <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">üks</a>?"
 
 msgid "Search promoted results"
 msgstr "Otsige reklaamitud tulemusi"

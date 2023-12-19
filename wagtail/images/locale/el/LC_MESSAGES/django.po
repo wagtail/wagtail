@@ -215,19 +215,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a "
-"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
+"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a href="
+"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a "
-"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
+"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a href="
+"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
 
 msgid "Generating URL"
 msgstr "Δημιουργία URL"

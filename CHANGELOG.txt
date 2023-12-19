@@ -4,12 +4,27 @@ Changelog
 6.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 5.0
  * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Remember previous location on returning from page add/edit actions (Robert Rollins)
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
  * Improve layout and accessibility of the image URL generator page, reduce reliance on JavaScript (Temidayo Azeez)
  * Allow `UniqueConstraint` in place of `unique_together` for `TranslatableMixin`'s system check (Temidayo Azeez, Sage Abdullah)
  * Make use of `IndexView.get_add_url()` in snippets index view template (Christer Jensen, Sage Abdullah)
+ * Allow `Page.permissions_for_user()` to be overridden by specific page types (Sébastien Corbin)
+ * Improve visual alignment of explore icon in Page listings for longer content (Krzysztof Jeziorny)
+ * Add `extra_actions` blocks to Snippets and generic index templates (Bhuvnesh Sharma)
+ * Added page types usage report (Jhonatan Lopes)
+ * Add support for defining `panels` / `edit_handler` on `ModelViewSet` (Sage Abdullah)
+ * Use a single instance of `PagePermissionPolicy` in `wagtail.permissions` module (Sage Abdullah)
+ * Add max tag length validation for multiple uploads (documents/images) (Temidayo Azeez)
+ * Ensure expanded side panel does not overlap form content for most viewports (Chiemezuo Akujobi)
+ * Add ability to modify the default ordering for the page explorer view (Shlomo Markowitz)
+ * Remove overly verbose image captions in image listings for screen readers (Sage Abdullah)
+ * Ensure screen readers and dictation tools can more easily navigate bulk actions in images, documents and page listings by streamlining labels and descriptions (Sage Abdullah)
+ * Remove support for Safari 14 (Thibaud Colas)
+ * Add ability to click to copy the URL in the image URL generator page (Sai Srikar Dumpeti)
+ * Add ability to filter by page type and date updated in the page listing view (Matt Westcott)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -20,8 +35,19 @@ Changelog
  * Fix: Use the latest draft when copying an unpublished page for translation (Andrey Nehaychik)
  * Fix: Make Workflow and Aging Pages reports only available to users with page-related permissions (Rohit Sharma)
  * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
+ * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
+ * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
+ * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
+ * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
+ * Fix: Do not show multiple error messages when editing a Site to use existing hostname and port (Rohit Sharma)
+ * Fix: Avoid error when exporting Aging Pages report where a page has an empty `last_published_by_user` (Chiemezuo Akujobi)
+ * Fix: Ensure Page querysets support using `alias` and `specific` (Tomasz Knapik)
+ * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
+ * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
+ * Docs: Add more nuance to the database recommendations in performance page (Jadesola Kareem)
+ * Docs: Add clarity that MultipleChooserPanel may require a chooser viewset and how the functionality is expected to work (Andy Chosak)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
@@ -34,11 +60,39 @@ Changelog
  * Maintenance: Refine styling of listings, account settings panels and the block chooser (Meli Imelda)
  * Maintenance: Remove icon font support (Matt Westcott)
  * Maintenance: Remove deprecated SVG icons (Matt Westcott)
+ * Maintenance: Remove icon font styles (Thibaud Colas)
  * Maintenance: Migrate account editing view to a class-based view (Kehinde Bobade)
  * Maintenance: Upgrade frontend tooling to use Node 20 (LB (Ben) Johnston)
+ * Maintenance: Upgrade `ruff` and replace `black` with `ruff format` (John-Scott Atlakson)
+ * Maintenance: Update Willow upper bound to 2.x (Dan Braghis)
+ * Maintenance: Removed support for Django < 4.2 (Dan Braghis)
+ * Maintenance: Refactor page explorer index template to extend generic index template (Sage Abdullah)
+ * Maintenance: Replace template components implementation with standalone `laces` library (Tibor Leupold)
+ * Maintenance: Refactor snippets index view and template to make better use of generic IndexView (Sage Abdullah)
+ * Maintenance: Introduce an internal `{% formattedfield %}` tag to replace direct use of `wagtailadmin/shared/field.html` (Matt Westcott)
+ * Maintenance: Update Telepath dependency to 0.3.1 (Matt Westcott)
+ * Maintenance: Upgrade to latest TypeScript and Storybook (Thibaud Colas, Sage Abdullah)
+ * Maintenance: Turn on `skipLibCheck` for TypeScript (LB (Ben) Johnston)
+ * Maintenance: Refactor documents listing view to use generic IndexView (Sage Abdullah)
+ * Maintenance: Support for the Stimulus `CloneController` to auto clear the added content after a set duration (LB (Ben) Johnston)
+ * Maintenance: Refactor images listing view to use generic IndexView (Sage Abdullah)
+ * Maintenance: Refactor form pages listing view to use generic IndexView (Sage Abdullah)
+ * Maintenance: Update Stylelint, our linting configuration, Sass, and related code changes (LB (Ben) Johnston)
 
 
-5.2.1 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.2 (06.12.2023)
+~~~~~~~~~~~~~~~~~~
+
+ * Added support for Django 5.0
+ * Fix: Use a visible border and background color to highlight active formatting in the rich text toolbar (Cassidy Pittman)
+ * Fix: Ensure image focal point box can be removed (Gunnar Scherf)
+ * Fix: Ensure that Snippets search results correctly use the `index_results.html` or `index_results_template_name` override on initial load (Stefan Hammer)
+ * Fix: Avoid error when attempting to moderate a page drafted by a now deleted user (Dan Braghis)
+ * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
+ * Fix: Prevent custom controls from stacking on top of the comment button in Draftail toolbar (Ben Morse)
+
+
+5.2.1 (16.11.2023)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Add a fallback background for the editing preview iframe for sites without a background (Ian Price)
@@ -50,6 +104,10 @@ Changelog
  * Fix: Prevent upload of SVG images from failing when image feature detection is enabled (Joshua Munn)
  * Fix: Fix crash when using the locale switcher on the snippets create view (Sage Abdullah)
  * Fix: Fix performance regression on reports from calling `decorate_paginated_queryset` before pagination / filtering (Alex Tomkins)
+ * Fix: Make searching on specific fields work correctly on Elasticsearch when boost is in use (Matt Westcott)
+ * Fix: Prevent snippet permission post-migrate hook from failing on multiple database configurations (Joe Tsoi)
+ * Fix: Reinstate ability to filter on page type when searching on an empty query (Sage Abdullah)
+ * Fix: Prevent error on locked pages report when a user has locked multiple pages (Matt Westcott)
  * Docs: Fix code example for `{% picture ... as ... %}` template tag (Rezyapkin)
 
 
@@ -284,6 +342,7 @@ Changelog
  * Fix: Guard against `TypeError` in `0088_fix_log_entry_json_timestamps` migration (Sage Abdullah)
  * Fix: Add migration to replace JSON null values with empty objects in log entries' data (Sage Abdullah)
  * Fix: Typo in the `page_header_buttons` template tag when accessing the context's request object (Robert Rollins)
+ * Fix: Ensure `ActionController` explicitly checks for elements that allow select functionality (Nandini Arora)
  * Docs: Document how to add non-ModelAdmin views to a `ModelAdminGroup` (Onno Timmerman)
  * Docs: Document how to add StructBlock data to a StreamField (Ramon Wenger)
  * Docs: Update ReadTheDocs settings to v2 to resolve urllib3 issue in linkcheck extension (Thibaud Colas)
@@ -332,6 +391,7 @@ Changelog
  * Maintenance: Deprecate `wagtail.contrib.modeladmin` (Sage Abdullah)
  * Maintenance: Upgrade documentation theme `sphinx_wagtail_theme` to v6.1.1 which includes multiple styling fixes and always visible code copy buttons (LB (Ben) Johnston)
  * Maintenance: Don't update the reference index while deleting it (Andy Chosak)
+* Maintenance: Allow `ActionController` to have a `noop` method to more easily leverage standalone Stimulus action options (Nandini Arora)
 
 
 5.0.5 (19.10.2023)

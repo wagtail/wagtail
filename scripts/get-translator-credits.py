@@ -58,7 +58,7 @@ language_names = [
 ]
 language_names.sort()
 
-for (language_name, locale) in language_names:
+for language_name, locale in language_names:
     print(f"{language_name} - {locale}")  # noqa: T201
     print("-----")  # noqa: T201
     for author in sorted(authors_by_locale[locale]):

@@ -147,17 +147,25 @@ msgid "Choose from popular search terms"
 msgstr "Оберіть з популярних критеріїв пошуку"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Вибачте, відсутні промотовані результати для \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Жодного промотованого результату не створено. Чому б не <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
+"Жодного промотованого результату не створено. Чому б не <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
 
 msgid "Search promoted results"
 msgstr "Пошукові промотовані результати"

@@ -135,11 +135,11 @@ msgstr "متاسفانه نتایج ترویجی شامل «<em>%(query_string)s
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
+"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
 
 msgid "Search promoted results"
 msgstr "جستجوی نتایج ترویج شده"

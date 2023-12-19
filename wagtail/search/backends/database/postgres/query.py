@@ -9,8 +9,7 @@ class LexemeCombinable(Expression):
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
             raise TypeError(
-                "Lexeme can only be combined with other Lexemes, "
-                "got {}.".format(type(other))
+                f"Lexeme can only be combined with other Lexemes, got {type(other)}."
             )
         if reversed:
             return CombinedLexeme(other, connector, self)

@@ -840,6 +840,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def get_preview_url(self):
         return reverse("wagtailadmin_pages:preview_on_edit", args=[self.page.id])
 
+    def get_history_url(self):
+        permissions = self.page.permissions_for_user(self.request.user)
+        if permissions.can_view_revisions():
+            return reverse("wagtailadmin_pages:history", args=[self.page.id])
+
     def get_side_panels(self):
         side_panels = [
             PageStatusSidePanel(
@@ -890,6 +895,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "side_panels": side_panels,
                 "form": self.form,
                 "next": self.next_url,
+                "history_url": self.get_history_url(),
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "page_locked": self.locked_for_user,
                 "workflow_state": self.workflow_state

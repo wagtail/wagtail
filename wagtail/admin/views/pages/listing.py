@@ -1,11 +1,19 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
+from django_filters.filters import DateFromToRangeFilter
 
 from wagtail import hooks
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleContentTypeFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
@@ -20,13 +28,34 @@ from wagtail.admin.ui.tables.pages import (
     PageTable,
     PageTitleColumn,
 )
-from wagtail.admin.views.generic.base import BaseListingView
-from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.permission_policies.pages import Page, PagePermissionPolicy
+from wagtail.admin.views import generic
+from wagtail.models import Page, get_page_models
+from wagtail.permissions import page_permission_policy
 
 
-class BaseIndexView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = PagePermissionPolicy()
+def get_content_types_for_filter():
+    models = [model.__name__.lower() for model in get_page_models()]
+    return ContentType.objects.filter(model__in=models).order_by("model")
+
+
+class PageFilterSet(WagtailFilterSet):
+    content_type = MultipleContentTypeFilter(
+        label=_("Page type"),
+        queryset=lambda request: get_content_types_for_filter(),
+        widget=CheckboxSelectMultiple,
+    )
+    latest_revision_created_at = DateFromToRangeFilter(
+        label=_("Date Updated"),
+        widget=DateRangePickerWidget,
+    )
+
+    class Meta:
+        model = Page
+        fields = ["content_type", "latest_revision_created_at"]
+
+
+class BaseIndexView(generic.IndexView):
+    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -40,6 +69,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
     paginate_by = 50
     table_class = PageTable
     table_classname = "listing full-width"
+    filterset_class = PageFilterSet
 
     columns = [
         BulkActionsColumn("bulk_actions", width="10px"),
@@ -106,7 +136,6 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         # Search
         self.query_string = None
         self.is_searching = False
-        self.is_searching_whole_tree = False
         if "q" in self.request.GET:
             self.search_form = SearchForm(
                 self.request.GET, placeholder=_("Search pages…")
@@ -118,7 +147,10 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
 
         if self.query_string:
             self.is_searching = True
-            self.is_searching_whole_tree = bool(self.request.GET.get("search_all"))
+
+        self.is_searching_whole_tree = bool(self.request.GET.get("search_all")) and (
+            self.is_searching or self.is_filtering
+        )
 
         return super().get(request)
 
@@ -152,7 +184,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         return ordering
 
     def get_queryset(self):
-        if self.is_searching:
+        if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
                 pages = Page.objects.all()
             else:
@@ -163,6 +195,8 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
         pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
+
+        filters, pages = self.filter_queryset(pages)
 
         self.ordering = self.get_ordering()
 
@@ -227,6 +261,11 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
     def get_results_url(self):
         return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
 
+    def get_history_url(self):
+        permissions = self.parent_page.permissions_for_user(self.request.user)
+        if permissions.can_view_revisions():
+            return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
+
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
@@ -241,6 +280,11 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
                 )
             }
         return kwargs
+
+    def get_page_title(self):
+        return _("Exploring %(title)s") % {
+            "title": self.parent_page.get_admin_display_title()
+        }
 
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
@@ -272,6 +316,7 @@ class BaseIndexView(PermissionCheckedMixin, BaseListingView):
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
                 "results_url": self.get_results_url(),
+                "history_url": self.get_history_url(),
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
                 "is_searching_whole_tree": self.is_searching_whole_tree,
@@ -296,6 +341,10 @@ class IndexView(BaseIndexView):
     template_name = "wagtailadmin/pages/index.html"
 
     def get_side_panels(self):
+        # Don't show side panels on the root page
+        if self.parent_page.is_root():
+            return MediaContainer()
+
         side_panels = [
             PageStatusSidePanel(
                 self.parent_page.get_latest_revision_as_object(),
@@ -312,13 +361,21 @@ class IndexView(BaseIndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         side_panels = self.get_side_panels()
-        context.update(
-            {
-                "side_panels": side_panels,
-                "media": side_panels.media,
-            }
-        )
+        context["side_panels"] = side_panels
+        context["media"] += side_panels.media
         return context
+
+    def get_ordering(self):
+        """
+        Use the parent Page's `get_admin_default_ordering` method.
+        """
+        if self.query_string:
+            # default to ordering by relevance
+            return None
+        elif not self.request.GET.get("ordering"):
+            return self.parent_page.get_admin_default_ordering()
+
+        return super().get_ordering()
 
 
 class IndexResultsView(BaseIndexView):

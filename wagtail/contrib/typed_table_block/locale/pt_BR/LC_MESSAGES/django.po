@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<rmsolucoeseminformatica@protonmail.com>, 2021\n"
+"<sottomaiormacedotec@gmail.com>, 2021\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_BR/)\n"
 "MIME-Version: 1.0\n"

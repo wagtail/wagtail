@@ -41,18 +41,18 @@
     border: 3px solid transparent;
     box-sizing: content-box;
   }
+}
 
-  &--count {
-    color: theme('colors.surface-menus');
-    text-align: center;
-    font-size: 0.625rem;
-    font-weight: theme('fontWeight.bold');
-    min-width: theme('spacing.[3.5]');
-    height: theme('spacing.[3.5]');
-    line-height: theme('lineHeight.tight');
+.w-dismissible-badge--count {
+  color: theme('colors.surface-menus');
+  text-align: center;
+  font-size: 0.625rem;
+  font-weight: theme('fontWeight.bold');
+  min-width: theme('spacing.[3.5]');
+  height: theme('spacing.[3.5]');
+  line-height: theme('lineHeight.tight');
 
-    @media (prefers-reduced-motion: no-preference) {
-      animation: pulse-warning 5s 5;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    animation: pulse-warning 5s 5;
   }
 }

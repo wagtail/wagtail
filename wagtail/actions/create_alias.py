@@ -106,7 +106,6 @@ class CreatePageAliasAction:
         reset_translation_key,
         _mpnode_attrs,
     ):
-
         specific_page = page.specific
 
         # FIXME: Switch to the same fields that are excluded from copy

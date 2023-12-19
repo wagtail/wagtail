@@ -1,16 +1,16 @@
 .sidebar-sub-menu-trigger-icon {
   $root: &;
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  inset-inline-end: 15px;
-  margin-inline-start: auto;
 
   @include transition(
     transform $menu-transition-duration ease,
     width $menu-transition-duration ease,
     height $menu-transition-duration ease
   );
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  inset-inline-end: 15px;
+  margin-inline-start: auto;
 
   &--open {
     transform-origin: 50% 50%;
@@ -37,21 +37,11 @@
   > h2 {
     // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
     @apply w-min-h-[180px] w-px-4 w-box-border w-text-center w-text-text-label-menus-default w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar;
-
-    &:before {
-      font-size: 4em;
-      display: block;
-      text-align: center;
-      margin: 0 0 0.2em;
-      width: 100%;
-      opacity: 0.15;
-    }
   }
 
   ul > li {
-    position: relative;
-
     @include transition(border-color $menu-transition-duration ease);
+    position: relative;
   }
 
   > ul {

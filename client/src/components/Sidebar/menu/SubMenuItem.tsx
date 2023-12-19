@@ -168,7 +168,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
     {
       name,
       label,
-      attrs,
+      attrs = {},
       icon_name: iconName = null,
       classname = undefined,
       footer_text: footerText = '',

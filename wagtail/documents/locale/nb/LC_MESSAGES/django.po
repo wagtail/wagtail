@@ -4,15 +4,16 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Jonathan D, 2023
 # Ole Kristian Losvik <ole@losol.no>, 2020
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 15:24+0100\n"
+"POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
+"Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +43,9 @@ msgstr "Rediger ethvert dokument"
 msgid "Choose"
 msgstr "Velg"
 
+msgid "Select documents in choosers"
+msgstr "Velg dokumenter i velgere"
+
 msgid "title"
 msgstr "tittel"
 
@@ -64,10 +68,83 @@ msgid "documents"
 msgstr "dokumenter"
 
 #, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Legg til merkelapper på 1 dokument"
+msgstr[1] "Legg til merkelapper på %(counter)s dokumenter"
+
+msgid "Add tags to documents"
+msgstr "Legg til merkelapper på dokumenter"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Er du sikker på at du vil merke følgende dokument?"
+msgstr[1] "Er du sikker på at du vil merke følgende dokumenter?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] ""
+"Du har ikke tillatelse til å legge til merkelapper på dette dokumentet"
+msgstr[1] ""
+"Du har ikke tillatelse til å legge til merkelapper på disse dokumentene"
+
+msgid "Yes, add"
+msgstr "Ja, legg til"
+
+msgid "No, don't add"
+msgstr "Nei, ikke legg til"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Legg til 1 dokument i ny samling"
+msgstr[1] "Legg til %(counter)s dokumenter i ny samling"
+
+msgid "Add documents to collection"
+msgstr "Legg til dokumenter i samlingen"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Er du sikker på at du vil legge til følgende dokument til valgte samling?"
+msgstr[1] ""
+"Er du sikker på at du vil legge til følgende dokumenter til valgte samling?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] ""
+"Du har ikke tillatelse til å legge til dette dokumentet i en samling"
+msgstr[1] ""
+"Du har ikke tillatelse til å legge til disse dokumentene i en samling"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Slett 1 dokument"
+msgstr[1] "Slett %(counter)s dokumenter"
+
+msgid "Delete documents"
+msgstr "Slett dokumenter"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Er du sikker på at du vil slette dette dokumentet?"
+msgstr[1] "Er du sikker på at du vil slette disse dokumentene?"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Brukt %(usage_count)s gang"
 msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Du har ikke tillatelse til å slette dette dokumentet"
+msgstr[1] "Du har ikke tillatelse til å slette disse dokumentene"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"
@@ -78,11 +155,22 @@ msgstr "Nei, ikke slett"
 msgid "Latest documents"
 msgstr "Siste dokumenter"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Beklager, ingen dokumenter matcher \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Du har ikke lastet opp noen dokumenter til denne samlingen."
 
 msgid "You haven't uploaded any documents."
 msgstr "Du har ikke lastet opp noen dokumenter."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Hvorfor ikke <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>laste en opp nå</a>?"
 
 msgid "Change document:"
 msgstr "Bytt ut dokument:"
@@ -124,6 +212,9 @@ msgstr "Bruk"
 msgid "Documents"
 msgstr "Dokumenter"
 
+msgid "Select all documents in listing"
+msgstr "Velg alle dokumenter i listen"
+
 msgid "Title"
 msgstr "Tittel"
 
@@ -133,25 +224,48 @@ msgstr "Fil"
 msgid "Created"
 msgstr "Opprettet"
 
+msgid "Select document"
+msgstr "Velg dokument"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det er %(counter)s treff"
+msgstr[1] "Det er %(counter)s treff"
+
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har ikke lastet opp noen dokumenter til denne samlingen. Hvorfor ikke <a "
 "href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a "
-"href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a href="
+"\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\">opprettet i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Dokumenter <span class=\"visuallyhidden\">opprettet i "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
@@ -180,6 +294,9 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
 
+msgid "Document updated."
+msgstr "Dokument oppdatert."
+
 msgid "You need a password to access this document."
 msgstr "Du må oppgi et passord for å se dette dokumentet."
 
@@ -192,8 +309,42 @@ msgstr "Legg til dokumenttillatelse"
 msgid "Tags"
 msgstr "Tags"
 
+msgid "Tag"
+msgstr "Merkelapp"
+
+msgid "Add tags to the selected documents"
+msgstr "Legg til merkelapper på valgte dokumenter"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Nye merkelapper er lagt til %(num_parent_objects)d dokument"
+msgstr[1] "Nye merkelapper er lagt til %(num_parent_objects)d dokumenter"
+
+msgid "Add to collection"
+msgstr "Legg til i samling"
+
+msgid "Add selected documents to collection"
+msgstr "Legg til valgte dokumenter i samling"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d dokument er lagt til %(collection)s"
+msgstr[1] "%(num_parent_objects)d dokumenter er lagt til %(collection)s"
+
 msgid "Delete"
 msgstr "Slett"
+
+msgid "Delete selected documents"
+msgstr "Slett valgte dokumenter"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokument er blitt slettet"
+msgstr[1] "%(num_parent_objects)d dokumenter er blitt slettet"
 
 msgid "Choose a document"
 msgstr "Velg et dokument"

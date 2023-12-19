@@ -6,7 +6,7 @@
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 msgid ""
 msgstr ""
@@ -14,8 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -118,6 +117,15 @@ msgstr "Оберіть поточний часовий пояс"
 
 msgid "profile picture"
 msgstr "зображення профілю користувача"
+
+msgid "Light"
+msgstr "Світла"
+
+msgid "Dark"
+msgstr "Темна"
+
+msgid "admin theme"
+msgstr "тема адмінки"
 
 msgid "user profile"
 msgstr "профіль користувача"
@@ -242,11 +250,11 @@ msgstr "Вибачте, жодна група не збігається з \"%(q
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Немає налаштованих груп. Чому б не <a "
-"href=\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
+"Немає налаштованих груп. Чому б не <a href="
+"\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ви впевнені, що хочете видалити цього користувача?"
@@ -285,24 +293,32 @@ msgid "Inactive"
 msgstr "Неактивний"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден користувач не відповідає \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Група %(group_name)s не містить користувачів. Чому б не <a "
-"href=\"%(wagtailusers_add_url)s\"> додати одного</a>?"
+"Група %(group_name)s не містить користувачів. Чому б не <a href="
+"\"%(wagtailusers_add_url)s\"> додати одного</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Немає сконфігурованих користувачів. Чому б не <a "
-"href=\"%(wagtailusers_add_url)s\">додати одного</a>?"
+"Немає сконфігурованих користувачів. Чому б не <a href="
+"\"%(wagtailusers_add_url)s\">додати одного</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

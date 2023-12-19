@@ -1,3 +1,4 @@
+/* stylelint-disable selector-max-combinators */
 // General listings, like for pages, images or snippets
 ul.listing {
   @include unlist();
@@ -63,7 +64,7 @@ ul.listing {
       border: 0;
     }
 
-    th a.label {
+    th a.label:not(.teal) {
       text-decoration: none;
       color: inherit;
       position: relative;
@@ -283,6 +284,7 @@ ul.listing {
   .children,
   .no-children {
     padding: 0;
+    vertical-align: middle;
 
     a {
       display: block;
@@ -543,6 +545,7 @@ table.listing {
           text-align: center;
           height: 180px;
 
+          // Vertically center the image.
           &:before {
             content: '';
             display: inline-block;

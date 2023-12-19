@@ -1,3 +1,4 @@
+// stylelint-disable selector-max-combinators, max-nesting-depth
 @use 'sass:map';
 
 .xdsoft_datetimepicker {
@@ -158,7 +159,6 @@
         padding-inline-start: 0.6em;
         padding-inline-end: 0.6em;
 
-        // stylelint-disable-next-line max-nesting-depth
         &:first-child {
           border-top-width: 0;
         }
@@ -207,7 +207,6 @@
       > div > .xdsoft_option:hover {
         background: theme('colors.text-highlight');
 
-        // stylelint-disable-next-line max-nesting-depth
         @media (forced-colors: active) {
           background: SelectedItem;
         }
@@ -279,20 +278,20 @@
   .xdsoft_calendar td.xdsoft_other_month,
   .xdsoft_calendar td.xdsoft_disabled,
   .xdsoft_time_box > div > div.xdsoft_disabled {
-    opacity: 0.5;
+    opacity: 50%;
     background: theme('colors.border-furniture');
 
     @media (forced-colors: active) {
-      opacity: 1;
+      opacity: 100%;
       color: GrayText;
     }
   }
 
   .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
-    opacity: 0.2;
+    opacity: 20%;
 
     @media (forced-colors: active) {
-      opacity: 1;
+      opacity: 100%;
       color: GrayText;
     }
   }

@@ -16,6 +16,8 @@ from wagtail.models import (
 from wagtail.permission_policies.pages import PagePermissionPolicy
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
+    CustomPermissionPage,
+    CustomPermissionTester,
     EventIndex,
     EventPage,
     SingletonPageViaMaxCount,
@@ -843,6 +845,17 @@ class TestPagePermission(TestCase):
         # the editor is not in the group assigned to moderate the task, so they can't lock or unlock the page
         self.assertFalse(editor_perms.can_lock())
         self.assertFalse(editor_perms.can_unlock())
+
+    def test_custom_permission_tester_page(self):
+        homepage = Page.objects.get(url_path="/home/")
+        instance = CustomPermissionPage(
+            title="This page has a custom permission tester",
+            slug="page-with-custom-permission-tester",
+        )
+        homepage.add_child(instance=instance)
+        page = Page.objects.get(pk=instance.pk)
+        user = get_user_model().objects.get(email="eventeditor@example.com")
+        self.assertIsInstance(page.permissions_for_user(user), CustomPermissionTester)
 
 
 class TestPagePermissionTesterCanCopyTo(TestCase):

@@ -102,13 +102,7 @@
       height: 100%;
       box-sizing: content-box;
       text-align: center;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-top-left-radius: inherit;
       border-start-start-radius: inherit;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-bottom-left-radius: inherit;
       border-end-start-radius: inherit;
     }
 
@@ -287,17 +281,9 @@
 
     @include media-breakpoint-up(sm) {
       &.icon {
-        &:before {
-          line-height: 2.1em;
-        }
-
         &.button-small {
           width: 1.75em;
           height: 1.75em;
-
-          &:before {
-            line-height: 1.7em;
-          }
         }
       }
     }
@@ -314,17 +300,8 @@
     &.bicolor {
       padding-inline-start: 3.5em;
 
-      &:before {
-        width: 2em;
-        font-size: theme('fontSize.16');
-      }
-
       &.button-small {
         padding-inline-start: 3em;
-
-        &:before {
-          width: 1.75em;
-        }
       }
     }
   }

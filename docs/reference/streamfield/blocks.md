@@ -52,6 +52,8 @@ All block definitions accept the following optional keyword arguments:
 -   `group`
     -   The group used to categorise this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
+(field_block_types)=
+
 ## Field block types
 
 ```{eval-rst}

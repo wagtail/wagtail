@@ -1250,3 +1250,33 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.text.strip(), label)
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+
+
+class TestEditHandler(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.url = reverse("feature_complete_toy:edit", args=(quote(cls.object.pk),))
+
+    def test_edit_form_rendered_with_panels(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/panel.html")
+
+        soup = self.get_soup(response.content)
+
+        # Minimap should be rendered
+        minimap_container = soup.select_one("[data-minimap-container]")
+        self.assertIsNotNone(minimap_container)
+
+        # Form should be rendered using panels
+        panels = soup.select("[data-panel]")
+        self.assertEqual(len(panels), 2)
+        headings = ["Name", "Release date"]
+        for expected_heading, panel in zip(headings, panels):
+            rendered_heading = panel.select_one("[data-panel-heading-text]")
+            self.assertIsNotNone(rendered_heading)
+            self.assertEqual(rendered_heading.text.strip(), expected_heading)

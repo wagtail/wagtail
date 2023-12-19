@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% include "wagtailadmin/shared/header.html" with title=_("Choose a task") merged=1 icon="thumbtack" %}
 
 {% if can_create %}
@@ -39,9 +39,7 @@
                 >
                     <ul class="fields">
                         {% for field in search_form %}
-                            <li>
-                                {% include "wagtailadmin/shared/field.html" with field=field %}
-                            </li>
+                            <li>{% formattedfield field %}</li>
                         {% endfor %}
                     </ul>
                 </form>
@@ -56,9 +54,7 @@
         <form class="task-search" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
             <ul class="fields">
                 {% for field in search_form %}
-                    <li>
-                        {% include "wagtailadmin/shared/field.html" with field=field %}
-                    </li>
+                    <li>{% formattedfield field %}</li>
                 {% endfor %}
             </ul>
         </form>

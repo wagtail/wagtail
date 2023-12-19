@@ -35,7 +35,6 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         # even when the requests are for the same site
         for i, request in enumerate([self.get_request(), self.get_request()], 1):
             with self.subTest(attempt=i):
-
                 # force site query beforehand
                 Site.find_for_request(request)
 
@@ -138,7 +137,6 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             ("privacy_policy_page", "http://other/"),
         ):
             with self.subTest(page_fk_field=page_fk_field):
-
                 with self.assertNumQueries(1):
                     # because results are cached, only the first
                     # request for a URL will trigger a query to
@@ -174,7 +172,6 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             ("privacy_policy_page", "http://other/"),
         ):
             with self.subTest(page_fk_field=page_fk_field):
-
                 # only the first request for each URL will trigger queries.
                 # 2 are triggered instead of 1 here, because tests use the
                 # database cache backed, and the cache is queried each time
@@ -182,7 +179,6 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
                 # store them on)
 
                 with self.assertNumQueries(2):
-
                     self.assertEqual(
                         settings.get_page_url(page_fk_field), expected_result
                     )

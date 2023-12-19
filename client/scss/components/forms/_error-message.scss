@@ -7,10 +7,6 @@
   font-weight: bold;
   color: theme('colors.text-error');
 
-  @media (forced-colors: active) {
-    forced-color-adjust: none;
-  }
-
   &::before {
     content: '';
     display: inline-block;

@@ -68,7 +68,6 @@ class TestAdaptLinkMenuItem(TestCase):
         )
 
     def test_adapt_with_deprecated_classnames(self):
-
         with self.assertWarnsRegex(
             RemovedInWagtail70Warning,
             "The `classnames` kwarg for sidebar LinkMenuItem is deprecated - use `classname` instead.",

@@ -34,7 +34,7 @@
                     {% elif field.is_hidden %}
                         {{ field }}
                     {% else %}
-                        {% include "wagtailadmin/shared/field.html" %}
+                        {% formattedfield field %}
                     {% endif %}
                 {% endfor %}
                 <div class="w-hidden sm:w-block">

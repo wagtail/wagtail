@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -92,6 +92,14 @@ msgstr "Komentar"
 
 msgid "Locked"
 msgstr "Zaklenjeno"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nihče ne more spreminjati, ko je %(model_name)s zaklenjen"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaklenii</b> <b>vi</b> ob <b>{datetime}</b>."
 
 #, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."

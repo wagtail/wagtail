@@ -939,7 +939,6 @@ class Filter:
 
     def run(self, image: AbstractImage, output: BytesIO, source: File = None):
         with self.get_willow_image(image, source) as willow:
-
             original_format = willow.format_name
 
             # Fix orientation of image

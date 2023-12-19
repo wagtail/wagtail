@@ -410,11 +410,11 @@ msgstr "İsim"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
-"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
+"\">eklemiyorsun</a>?"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"

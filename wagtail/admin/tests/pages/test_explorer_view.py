@@ -8,7 +8,12 @@ from django.utils.http import urlencode
 from wagtail import hooks
 from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Workflow
-from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
+from wagtail.test.testapp.models import (
+    CustomPermissionPage,
+    SimplePage,
+    SingleEventPage,
+    StandardIndex,
+)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -68,6 +73,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         self.assertContains(response, "1-3 of 3")
 
+        # Should contain a link to the history view
+        # one in the header dropdown button, one beside the side panel toggles,
+        # one in the status side panel
+        # (root_page is a site root, not the Root page, so it should be shown)
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(self.root_page.id,)),
+            count=3,
+        )
+
     def test_explore_results(self):
         explore_results_url = reverse(
             "wagtailadmin_explore_results", args=(self.root_page.id,)
@@ -99,6 +114,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
         self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
         self.assertIn(self.root_page, response.context["pages"])
+        # Should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(1,)),
+        )
 
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
@@ -125,6 +145,54 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
+
+    def test_change_default_child_page_ordering_attribute(self):
+        # save old get_default_order to reset at end of test
+        # overriding class methods does not reset at end of test case
+        default_order = self.root_page.__class__.admin_default_ordering
+        self.root_page.__class__.admin_default_ordering = "title"
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(
+            page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
+        )
+        self.assertEqual("title", self.root_page.get_admin_default_ordering())
+        self.assertEqual(response.context["ordering"], "title")
+
+        # reset default order at the end of the test
+        self.root_page.__class__.admin_default_ordering = default_order
+
+    def test_change_default_child_page_ordering_method(self):
+        # save old get_default_order to reset at end of test
+        # overriding class methods does not reset at end of test case
+        default_order_function = self.root_page.__class__.get_admin_default_ordering
+
+        def get_default_order(obj):
+            return "-title"
+
+        # override get_default_order_method
+        self.root_page.__class__.get_admin_default_ordering = get_default_order
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # child pages should be ordered by title
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual("-title", self.root_page.get_admin_default_ordering())
+        self.assertEqual(
+            page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
+        )
+        self.assertEqual(response.context["ordering"], "-title")
+
+        # reset default order function at the end of the test
+        self.root_page.__class__.get_admin_default_ordering = default_order_function
 
     def test_reverse_ordering(self):
         response = self.client.get(
@@ -479,6 +547,51 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
         self.assertContains(response, "Search within 'New page (simple page)'")
+
+    def test_filter_by_page_type(self):
+        new_page_child = SimplePage(
+            title="New page child", slug="new-page-child", content="new page child"
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"content_type": ContentType.objects.get_for_model(SimplePage).pk},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(
+            page_ids, {self.child_page.id, self.new_page.id, new_page_child.id}
+        )
+
+    def test_filter_by_date_updated(self):
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+            latest_revision_created_at=local_datetime(2016, 1, 1),
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"latest_revision_created_at_after": "2015-01-01"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+
+    def test_explore_custom_permissions(self):
+        page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
+        self.root_page.add_child(instance=page)
+        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+        # Respecting PagePermissionTester.can_view_revisions(),
+        # should not contain a link to the history view
+        self.assertNotContains(
+            response,
+            reverse("wagtailadmin_pages:history", args=(page.id,)),
+        )
 
 
 class TestBreadcrumb(WagtailTestUtils, TestCase):
@@ -921,7 +1034,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(48):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

@@ -4,6 +4,7 @@ import type { Definition } from '@hotwired/stimulus';
 import { ActionController } from './ActionController';
 import { AutosizeController } from './AutosizeController';
 import { BulkController } from './BulkController';
+import { ClipboardController } from './ClipboardController';
 import { CloneController } from './CloneController';
 import { CountController } from './CountController';
 import { DialogController } from './DialogController';
@@ -30,6 +31,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: ActionController, identifier: 'w-action' },
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
+  { controllerConstructor: ClipboardController, identifier: 'w-clipboard' },
   { controllerConstructor: CloneController, identifier: 'w-clone' },
   { controllerConstructor: CloneController, identifier: 'w-messages' },
   { controllerConstructor: CountController, identifier: 'w-count' },

@@ -33,7 +33,7 @@ class assets_mixin:
 
         try:
             package = json.loads(input_file.read().decode("utf-8"))
-        except (ValueError) as e:
+        except ValueError as e:
             print("Unable to read " + path + " " + e)  # noqa: T201
             raise SystemExit(1)
 
@@ -42,7 +42,7 @@ class assets_mixin:
         try:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(str(json.dumps(package, indent=2, ensure_ascii=False)))
-        except (OSError) as e:
+        except OSError as e:
             print(  # noqa: T201
                 "Error setting the version for front-end assets: " + str(e)
             )
@@ -71,7 +71,6 @@ class sdist(base_sdist, assets_mixin):
 
 
 class check_bdist_egg(bdist_egg):
-
     # If this file does not exist, warn the user to compile the assets
     sentinel_dir = "wagtail/wagtailadmin/static/"
 

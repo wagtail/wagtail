@@ -134,13 +134,13 @@ msgstr "Vybrať z načastejšie hľadaných"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</"
-"em>\""
+"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 "Zatiaľ neboli vytvorené žiadne propagované výsledky vyhľadávania. Prečo "
 "nevytvoriť <a href=\"%(wagtailsearchpromotions_add_url)s\">jeden výsledok</"

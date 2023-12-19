@@ -892,7 +892,6 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         )
 
     def test_specific_query_with_annotations_performs_no_additional_queries(self):
-
         with self.assertNumQueries(5):
             pages = list(self.live_pages)
 
@@ -919,6 +918,25 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
         self.assertEqual(results.first().subscribers_count, 1)
         self.assertEqual(results.last().subscribers_count, 1)
+
+    def test_specific_query_with_alias(self):
+        """
+        Ensure alias() works with specific() queries.
+        See https://github.com/wagtail/wagtail/issues/11285 for more details
+        """
+
+        pages = Page.objects.live()
+        user = self.create_test_user()
+        pages.first().subscribers.create(user=user, comment_notifications=False)
+        pages.last().subscribers.create(user=user, comment_notifications=False)
+
+        # This would previously fail as described in #11285.
+        iter(
+            Page.objects.live()
+            .specific()
+            .alias(subscribers_count=Count("subscribers"))
+            .order_by("subscribers_count")
+        )
 
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
