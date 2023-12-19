@@ -696,9 +696,9 @@ class TestOrdering(WagtailTestUtils, TestCase):
             ],
         )
 
-    def test_custom_order(self):
+    def test_custom_order_from_view(self):
         response = self.client.get(reverse("feature_complete_toy:index"))
-        # Should respect the viewset's ordering
+        # Should respect the view's ordering
         self.assertFalse(FeatureCompleteToy._meta.ordering)
         self.assertEqual(
             [obj.name for obj in response.context["object_list"]],
@@ -707,6 +707,20 @@ class TestOrdering(WagtailTestUtils, TestCase):
                 "BBBBBBBBBB",
                 "CCCCCCCCCC",
                 "DDDDDDDDDD",
+            ],
+        )
+
+    def test_custom_order_from_from_viewset(self):
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        # The view has an ordering but it is overwritten by the viewset
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "CCCCCCCCCC",
+                "AAAAAAAAAA",
+                "DDDDDDDDDD",
+                "BBBBBBBBBB",
             ],
         )
 
