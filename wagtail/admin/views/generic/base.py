@@ -33,6 +33,13 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     def get_page_subtitle(self):
         return self.page_subtitle
 
+    def get_header_title(self):
+        title = self.get_page_title()
+        subtitle = self.get_page_subtitle()
+        if subtitle:
+            title = f"{title}: {subtitle}"
+        return title
+
     def get_header_icon(self):
         return self.header_icon
 
@@ -41,9 +48,15 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # These are only used for legacy header.html
+        # and view templates that don't use "wagtailadmin/generic/base.html"
         context["page_title"] = self.get_page_title()
         context["page_subtitle"] = self.get_page_subtitle()
         context["header_icon"] = self.get_header_icon()
+
+        # Once all appropriate views use "wagtailadmin/generic/base.html" and
+        # the slim_header.html, _show_breadcrumbs can be removed
+        context["header_title"] = self.get_header_title()
         context["breadcrumbs_items"] = None
         if self._show_breadcrumbs:
             context["breadcrumbs_items"] = self.get_breadcrumbs_items()

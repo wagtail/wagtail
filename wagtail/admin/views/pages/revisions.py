@@ -33,6 +33,7 @@ def revisions_index(request, page_id):
 
 
 def revisions_revert(request, page_id, revision_id):
+    # TODO: refactor this into a class-based view that extends the EditView
     page = get_object_or_404(Page, id=page_id).specific
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
@@ -116,6 +117,12 @@ def revisions_revert(request, page_id, revision_id):
         ),
     )
 
+    page_title = _("Editing %(page_type)s") % {
+        "page_type": page_class.get_verbose_name()
+    }
+    page_subtitle = page.get_admin_display_title()
+    header_title = f"{page_title}: {page_subtitle}"
+
     return TemplateResponse(
         request,
         "wagtailadmin/pages/edit.html",
@@ -128,6 +135,7 @@ def revisions_revert(request, page_id, revision_id):
             "errors_debug": None,
             "action_menu": action_menu,
             "side_panels": side_panels,
+            "header_title": header_title,
             "form": form,  # Used in unit tests
             "media": media,
         },

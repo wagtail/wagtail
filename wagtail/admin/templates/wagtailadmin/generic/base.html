@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 
-{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+{% block titletag %}{{ header_title }}{% endblock %}
 
 {% block content %}
 
@@ -8,6 +8,7 @@
         {% block slim_header %}
             {% if breadcrumbs_items %}
                 {# Ensure all necessary variables are passed explicitly here #}
+                {# TODO: Pass `title=header_title` once slim_header and main_header are mutually exclusive (to prevent multiple h1) #}
                 {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url only %}
             {% endif %}
         {% endblock %}
