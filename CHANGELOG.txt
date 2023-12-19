@@ -81,6 +81,7 @@ Changelog
  * Maintenance: Refactor form pages listing view to use generic IndexView (Sage Abdullah)
  * Maintenance: Update Stylelint, our linting configuration, Sass, and related code changes (LB (Ben) Johnston)
  * Maintenance: Simplify browserslist and browser support documentation (Thibaud Colas)
+ * Maintenance: Relax django-taggit dependency to allow 5.0 (Sylvain Fankhauser)
 
 
 5.2.2 (06.12.2023)
