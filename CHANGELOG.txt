@@ -25,6 +25,7 @@ Changelog
  * Remove support for Safari 14 (Thibaud Colas)
  * Add ability to click to copy the URL in the image URL generator page (Sai Srikar Dumpeti)
  * Add ability to filter by page type and date updated in the page listing view (Matt Westcott)
+ * Add ability to filter by owner and site in the page listing view (Matt Westcott)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
