@@ -93,6 +93,7 @@ class BaseIndexView(generic.IndexView):
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
+    page_title = _("Exploring")
 
     columns = [
         BulkActionsColumn("bulk_actions", width="10px"),
@@ -302,10 +303,8 @@ class BaseIndexView(generic.IndexView):
             }
         return kwargs
 
-    def get_page_title(self):
-        return _("Exploring %(title)s") % {
-            "title": self.parent_page.get_admin_display_title()
-        }
+    def get_page_subtitle(self):
+        return self.parent_page.get_admin_display_title()
 
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"

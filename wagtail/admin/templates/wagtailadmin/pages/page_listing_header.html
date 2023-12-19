@@ -1,13 +1,6 @@
 {% extends 'wagtailadmin/shared/headers/slim_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
-{% block title %}
-    {# Accessible page title #}
-    <h1 class="w-sr-only">
-        {{ title }}
-    </h1>
-{% endblock %}
-
 {% block breadcrumbs %}
     {# breadcrumbs #}
     {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-2.5' %}

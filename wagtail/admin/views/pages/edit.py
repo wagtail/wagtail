@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
-from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
+from django.views.generic.base import View
 
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
@@ -25,6 +25,7 @@ from wagtail.admin.ui.side_panels import (
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
@@ -38,7 +39,15 @@ from wagtail.models import (
 from wagtail.utils.timestamps import render_timestamp
 
 
-class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
+class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+    def get_page_title(self):
+        return _("Editing %(page_type)s") % {
+            "page_type": self.page_class.get_verbose_name()
+        }
+
+    def get_page_subtitle(self):
+        return self.page.get_admin_display_title()
+
     def get_template_names(self):
         if self.page.alias_of_id:
             return ["wagtailadmin/pages/edit_alias.html"]
