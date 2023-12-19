@@ -9,7 +9,8 @@
 {% block actions %}
     {% page_permissions parent_page as parent_page_perms %}
     {% if parent_page_perms.can_add_subpage %}
-        <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="w-header-button" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Add child page' %}">{% icon name="plus" %}</a>
+        {% trans 'Add child page' as add_child_page_str %}
+        <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="w-header-button" data-controller="w-tooltip" data-w-tooltip-content-value="{{ add_child_page_str }}" aria-label="{{ add_child_page_str }}">{% icon name="plus" %}</a>
     {% endif %}
 
     {# Page actions dropdown #}

@@ -111,6 +111,7 @@ class HeaderButton(Button):
             {
                 "data-controller": "w-tooltip",
                 "data-w-tooltip-content-value": label,
+                "aria-label": label,
             }
         )
         super().__init__(
