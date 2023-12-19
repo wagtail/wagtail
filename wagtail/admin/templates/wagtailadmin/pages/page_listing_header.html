@@ -1,16 +1,19 @@
 {% extends 'wagtailadmin/shared/headers/slim_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
-{% block header_content %}
+{% block title %}
     {# Accessible page title #}
     <h1 class="w-sr-only">
         {{ title }}
     </h1>
+{% endblock %}
+
+{% block breadcrumbs %}
     {# breadcrumbs #}
     {% page_breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root classname='sm:w-py-2.5' %}
-    {# Actions divider #}
-    <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
+{% endblock %}
 
+{% block actions %}
     {% page_permissions parent_page as parent_page_perms %}
     {% if parent_page_perms.can_add_subpage %}
         <a href="{% url "wagtailadmin_pages:add_subpage" parent_page.id %}" class="header-main-action-button w-h-slim-header w-ml-3" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Add child page' %}">{% icon name="plus" %}</a>
