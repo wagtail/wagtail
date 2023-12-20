@@ -26,6 +26,7 @@ Changelog
  * Add ability to click to copy the URL in the image URL generator page (Sai Srikar Dumpeti)
  * Add ability to filter by page type and date updated in the page listing view (Matt Westcott)
  * Add ability to filter by owner and site in the page listing view (Matt Westcott)
+ * Improve right-to-left support by using flow-relative float styles (Thibaud Colas)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -79,6 +80,7 @@ Changelog
  * Maintenance: Refactor images listing view to use generic IndexView (Sage Abdullah)
  * Maintenance: Refactor form pages listing view to use generic IndexView (Sage Abdullah)
  * Maintenance: Update Stylelint, our linting configuration, Sass, and related code changes (LB (Ben) Johnston)
+ * Maintenance: Simplify browserslist and browser support documentation (Thibaud Colas)
 
 
 5.2.2 (06.12.2023)
