@@ -21,6 +21,7 @@ import { SyncController } from './SyncController';
 import { TagController } from './TagController';
 import { TeleportController } from './TeleportController';
 import { TooltipController } from './TooltipController';
+import { UnsavedController } from './UnsavedController';
 import { UpgradeController } from './UpgradeController';
 
 /**
@@ -50,5 +51,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: TagController, identifier: 'w-tag' },
   { controllerConstructor: TeleportController, identifier: 'w-teleport' },
   { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
+  { controllerConstructor: UnsavedController, identifier: 'w-unsaved' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
 ];
