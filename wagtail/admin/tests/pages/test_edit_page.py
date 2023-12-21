@@ -639,7 +639,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_edit_scheduled_expire_in_the_past(self):
         post_data = {
@@ -676,7 +676,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_edit_post_invalid_schedule_with_existing_draft_schedule(self):
         self.child_page.go_live_at = timezone.now() + datetime.timedelta(days=1)
@@ -2290,7 +2290,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This field is required.")
         # form should be marked as having unsaved changes
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_get_edit_form(self):
         response = self.client.get(
@@ -2362,7 +2362,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This field is required.")
         # form should be marked as having unsaved changes
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
 
 class TestIssue2492(WagtailTestUtils, TestCase):
@@ -3207,11 +3207,12 @@ class TestCommenting(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "data-edit-form")
-        self.assertContains(
-            response,
-            'data-edit-form data-controller="w-init" data-w-init-event-value="w-comments:init"',
-        )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("w-comments:init", form["data-w-init-event-value"])
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_commments_disabled(self):
@@ -3220,11 +3221,12 @@ class TestCommenting(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "data-edit-form")
-        self.assertNotContains(
-            response,
-            'data-controller="w-init" data-w-init-event-value="w-comments:init"',
-        )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("", form["data-w-init-event-value"])
 
     def test_new_comment(self):
         post_data = {

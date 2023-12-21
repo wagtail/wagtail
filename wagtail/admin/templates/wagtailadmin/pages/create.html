@@ -8,7 +8,20 @@
 
     {% include 'wagtailadmin/shared/headers/page_create_header.html' with title=header_title %}
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form{% if comments_enabled %} data-controller="w-init" data-w-init-event-value="w-comments:init"{% endif %}>
+    <form
+        id="page-edit-form"
+        action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}"
+        method="POST"
+        novalidate
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-init w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
+        data-w-unsaved-confirmation-value="{{ _("This page has unsaved changes.") }}"
+        data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
+        data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+    >
         {% csrf_token %}
 
         <input type="hidden" name="next" value="{{ next }}">
@@ -54,21 +67,5 @@
             window.wagtailConfig = window.wagtailConfig || {};
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
-
-        $(function(){
-            /* Make user confirm before leaving the editor if there are unsaved changes */
-            {% trans "This page has unsaved changes." as confirmation_message %}
-            enableDirtyFormCheck(
-                '#page-edit-form',
-                {
-                    confirmationMessage: '{{ confirmation_message|escapejs }}',
-
-                    {% if has_unsaved_changes %}
-                        alwaysDirty: true,
-                    {% endif %}
-                    commentApp: window.comments.commentApp
-                }
-            );
-        });
     </script>
 {% endblock %}
