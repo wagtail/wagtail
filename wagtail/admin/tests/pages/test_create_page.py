@@ -544,7 +544,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_simplepage_scheduled_expire_in_the_past(self):
         post_data = {
@@ -585,7 +585,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_simplepage_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -756,7 +756,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_nonexistantparent(self):
         response = self.client.get(
@@ -1897,10 +1897,12 @@ class TestCommenting(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(
-            response,
-            'data-edit-form data-controller="w-init" data-w-init-event-value="w-comments:init"',
-        )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("w-comments:init", form["data-w-init-event-value"])
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_commments_disabled(self):
@@ -1912,8 +1914,9 @@ class TestCommenting(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "data-edit-form")
-        self.assertNotContains(
-            response,
-            'data-controller="w-init" data-w-init-event-value="w-comments:init"',
-        )
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("", form["data-w-init-event-value"])
