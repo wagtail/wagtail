@@ -574,70 +574,70 @@ class SnippetViewSet(ModelViewSet):
     #: If left unset, ``snippets/choose/{app_label}/{model_name}`` is used instead.
     chooser_base_url_path = None
 
-    #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
+    #: The view class to use for the index view; must be a subclass of ``wagtail.snippets.views.snippets.IndexView``.
     index_view_class = IndexView
 
-    #: The view class to use for the create view; must be a subclass of ``wagtail.snippet.views.snippets.CreateView``.
+    #: The view class to use for the create view; must be a subclass of ``wagtail.snippets.views.snippets.CreateView``.
     add_view_class = CreateView
 
-    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippet.views.snippets.EditView``.
+    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippets.views.snippets.EditView``.
     edit_view_class = EditView
 
-    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippet.views.snippets.DeleteView``.
+    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippets.views.snippets.DeleteView``.
     delete_view_class = DeleteView
 
-    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippet.views.snippets.UsageView``.
+    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippets.views.snippets.UsageView``.
     usage_view_class = UsageView
 
-    #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.HistoryView``.
+    #: The view class to use for the history view; must be a subclass of ``wagtail.snippets.views.snippets.HistoryView``.
     history_view_class = HistoryView
 
-    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippet.views.snippets.InspectView``.
+    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippets.views.snippets.InspectView``.
     inspect_view_class = InspectView
 
-    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.PreviewRevisionView``.
+    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippets.views.snippets.PreviewRevisionView``.
     revisions_view_class = PreviewRevisionView
 
-    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsCompareView``.
+    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippets.views.snippets.RevisionsCompareView``.
     revisions_compare_view_class = RevisionsCompareView
 
-    #: The view class to use for unscheduling revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsUnscheduleView``.
+    #: The view class to use for unscheduling revisions; must be a subclass of ``wagtail.snippets.views.snippets.RevisionsUnscheduleView``.
     revisions_unschedule_view_class = RevisionsUnscheduleView
 
-    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnpublishView``.
+    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippets.views.snippets.UnpublishView``.
     unpublish_view_class = UnpublishView
 
-    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnCreateView``.
+    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippets.views.snippets.PreviewOnCreateView``.
     preview_on_add_view_class = PreviewOnCreateView
 
-    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
+    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippets.views.snippets.PreviewOnEditView``.
     preview_on_edit_view_class = PreviewOnEditView
 
-    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.LockView``.
+    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippets.views.snippets.LockView``.
     lock_view_class = LockView
 
-    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnlockView``.
+    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippets.views.snippets.UnlockView``.
     unlock_view_class = UnlockView
 
-    #: The view class to use for performing a workflow action; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowActionView``.
+    #: The view class to use for performing a workflow action; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowActionView``.
     workflow_action_view_class = WorkflowActionView
 
-    #: The view class to use for performing a workflow action that returns the validated data in the response; must be a subclass of ``wagtail.snippet.views.snippets.CollectWorkflowActionDataView``.
+    #: The view class to use for performing a workflow action that returns the validated data in the response; must be a subclass of ``wagtail.snippets.views.snippets.CollectWorkflowActionDataView``.
     collect_workflow_action_data_view_class = CollectWorkflowActionDataView
 
-    #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippet.views.snippets.ConfirmWorkflowCancellationView``.
+    #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippets.views.snippets.ConfirmWorkflowCancellationView``.
     confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
 
-    #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
+    #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowPreviewView``.
     workflow_preview_view_class = WorkflowPreviewView
 
-    #: The view class to use for the workflow history view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryView``.
+    #: The view class to use for the workflow history view; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowHistoryView``.
     workflow_history_view_class = WorkflowHistoryView
 
-    #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
+    #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowHistoryDetailView``.
     workflow_history_detail_view_class = WorkflowHistoryDetailView
 
-    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
+    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippets.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
 
     #: The prefix of template names to look for when rendering the admin views.
@@ -685,7 +685,7 @@ class SnippetViewSet(ModelViewSet):
 
         By default, this class is generated by combining the edit view with
         ``wagtail.admin.views.generic.mixins.RevisionsRevertMixin``. As a result,
-        this class must be a subclass of ``wagtail.snippet.views.snippets.EditView``
+        this class must be a subclass of ``wagtail.snippets.views.snippets.EditView``
         and must handle the reversion correctly.
         """
         revisions_revert_view_class = type(
