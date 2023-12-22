@@ -120,6 +120,9 @@ class FieldBlockAdapter(Adapter):
         if block.field.help_text:
             meta["helpText"] = block.field.help_text
 
+        if hasattr(block, "max_length") and block.max_length is not None:
+            meta["maxLength"] = block.max_length
+
         return [
             block.name,
             block.field.widget,
@@ -678,6 +681,7 @@ class RichTextBlock(FieldBlock):
             "help_text": help_text,
             "validators": validators,
         }
+        self.max_length = max_length
         self.editor = editor
         self.features = features
         self.search_index = search_index
