@@ -231,3 +231,61 @@ Wagtail will generate a new subclass of this form for the model,
 adding any fields defined in `panels` or `content_panels`.
 Any fields already defined on the model will not be overridden by these automatically added fields,
 so the form field for a model field can be overridden by adding it to the custom form.
+
+(custom_page_copy_form)=
+
+## Customising the generated copy page form
+
+```{eval-rst}
+.. class:: wagtail.admin.forms.CopyForm
+```
+
+When copying a page, Wagtail will generate a form to allow the user to modify the copied page. By default, this form subclasses [CopyForm](wagtail.admin.forms.CopyForm). A custom base form class can be configured by setting the `copy_form_class` attribute on any model. Custom forms must subclass [CopyForm](wagtail.admin.forms.CopyForm). 
+
+This can be used to specify alterations to the copied form on a per-model basis.
+
+For example, auto-incrementing the slug field:
+    
+```python
+from django import forms
+from django.db import models
+
+from wagtail.admin.forms.pages import CopyForm
+from wagtail.admin.panels import FieldPanel
+from wagtail.models import Page
+
+
+class CustomCopyForm(CopyForm):
+    def __init__(self, *args, **kwargs):
+        """
+        Override the default copy form to auto-increment the slug.
+        """
+        super().__init__(*args, **kwargs)
+        suffix = 2 # set initial_slug as incremented slug
+        parent_page = self.page.get_parent()
+        if self.page.slug:
+            try:
+                suffix = int(self.page.slug[-1])+1
+                base_slug = self.page.slug[:-2]
+
+            except ValueError:
+                base_slug = self.page.slug
+
+        new_slug = base_slug + f"-{suffix}"
+        while not Page._slug_is_available(new_slug, parent_page):
+            suffix += 1
+            new_slug = f"{base_slug}-{suffix}"
+
+        self.fields["new_slug"].initial = new_slug
+
+class BlogPage(Page):
+    copy_form_class = CustomCopyForm # Set the custom copy form for all EventPage models
+
+    introduction = models.TextField(blank=True)
+    body = RichTextField()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('introduction'),
+        FieldPanel('body'),
+    ]
+```

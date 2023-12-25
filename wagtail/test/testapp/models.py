@@ -21,7 +21,9 @@ from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import ItemBase, TagBase, TaggedItemBase
 
+from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import (
     FieldPanel,
@@ -572,6 +574,38 @@ class FormPage(AbstractEmailForm):
         ),
         FormSubmissionsPanel(),
     ]
+
+
+# CopyForm allowing auto-increment of slugs
+
+
+class CustomCopyForm(CopyForm):
+    def __init__(self, *args, **kwargs):
+        # call super
+        super().__init__(*args, **kwargs)
+        # set initial_slug as incremented slug
+        suffix = 2
+        parent_page = self.page.get_parent()
+        if self.page.slug:
+            try:
+                suffix = int(self.page.slug[-1]) + 1
+                base_slug = self.page.slug[:-2]
+
+            except ValueError:
+                base_slug = self.page.slug
+
+        candidate_slug = base_slug + f"-{suffix}"
+        while not Page._slug_is_available(candidate_slug, parent_page):
+            suffix += 1
+            candidate_slug = f"{base_slug}-{suffix}"
+            candidate_slug
+        allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
+        self.fields["new_slug"] = forms.SlugField(
+            initial=candidate_slug,
+            label=_("New slug"),
+            allow_unicode=allow_unicode,
+            widget=widgets.slug.SlugInput,
+        )
 
 
 # FormPage with a non-HTML extension
@@ -1329,6 +1363,10 @@ class BusinessNowherePage(Page):
     """Not allowed to be placed anywhere"""
 
     parent_page_types = []
+
+
+class CustomCopyFormPage(Page):
+    copy_form_class = CustomCopyForm
 
 
 class TaggedPageTag(TaggedItemBase):
