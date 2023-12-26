@@ -20,7 +20,6 @@ exports[`Menu should render with the minimum required props 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="menu"
-        aria-label="Edit your account"
         className="
             w-px-5
             sidebar-footer__account
@@ -38,7 +37,6 @@ exports[`Menu should render with the minimum required props 1`] = `
             focus:w-bg-surface-menu-item-active
             w-transition"
         onClick={[Function]}
-        title="Edit your account"
         type="button"
       >
         <div
