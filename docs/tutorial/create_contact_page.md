@@ -132,10 +132,6 @@ To add contact information to your portfolio site, follow these steps:
 2. Add the necessary data.
 3. Publish your `Form Page`.
 
-```{note}
-If you want to receive your visitors' messages directly in your inbox, there are further configurations you must implement on your site.
-```
-
 ## Style your contact page
 
 To style your contact page, add the following CSS to your `mysite/static/css/mysite.css` file:
