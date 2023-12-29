@@ -14,7 +14,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest, HttpResponse
-from django.test import RequestFactory, TestCase, TransactionTestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import make_aware, now
@@ -38,6 +38,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.snippets.views.snippets import get_snippet_models_for_index_view
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -78,6 +79,22 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.utils.timestamps import render_timestamp
+
+
+class TestGetSnippetModelsForIndexView(SimpleTestCase):
+    def test_default_lists_all_snippets_without_menu_items(self):
+        self.assertEqual(
+            get_snippet_models_for_index_view(),
+            [
+                model
+                for model in SNIPPET_MODELS
+                if not model.snippet_viewset.get_menu_item_is_registered()
+            ],
+        )
+
+    @override_settings(WAGTAILSNIPPETS_MENU_SHOW_ALL=True)
+    def test_setting_allows_listing_of_all_snippet_models(self):
+        self.assertEqual(get_snippet_models_for_index_view(), SNIPPET_MODELS)
 
 
 class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
