@@ -1204,7 +1204,7 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.assertEqual(item.url, reverse("wagtailsnippets:index"))
 
         # Clear cached property
-        del item._all_have_menu_items
+        del item._snippets_in_index_view
 
         with mock.patch(
             "wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item_is_registered"
@@ -1213,6 +1213,19 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
             menu_items = admin_menu.render_component(self.request)
             snippets = [item for item in menu_items if item.name == "snippets"]
             self.assertEqual(len(snippets), 0)
+
+    def test_snippets_menu_item_hidden_when_user_lacks_permissions_for_snippets(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        menu_items = admin_menu.render_component(self.request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 0)
 
 
 class TestCustomFormClass(BaseSnippetViewSetTests):
