@@ -305,7 +305,7 @@ Python comes with a module that makes it very easy to preview static files in a 
 To start this simple server, run the following commands:
 
 ```sh
-cd docs/_build/html/
+cd _build/html/
 python -m http.server 8080
 ```
 
