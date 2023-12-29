@@ -1,6 +1,7 @@
 from warnings import warn
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
@@ -73,6 +74,19 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
+def get_snippet_models_for_index_view():
+    models = get_snippet_models()
+
+    if getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False):
+        return models
+
+    return [
+        model
+        for model in models
+        if not model.snippet_viewset.get_menu_item_is_registered()
+    ]
+
+
 class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
@@ -91,7 +105,7 @@ class ModelIndexView(generic.BaseListingView):
                 "count": model._default_manager.all().count(),
                 "model": model,
             }
-            for model in get_snippet_models()
+            for model in get_snippet_models_for_index_view()
             if user_can_edit_snippet_type(self.request.user, model)
         ]
 
@@ -293,9 +307,11 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.form, "show_schedule_publishing_toggle", False
                 ),
                 live_object=self.live_object,
-                scheduled_object=self.live_object.get_scheduled_revision_as_object()
-                if self.draftstate_enabled
-                else None,
+                scheduled_object=(
+                    self.live_object.get_scheduled_revision_as_object()
+                    if self.draftstate_enabled
+                    else None
+                ),
                 locale=self.locale,
                 translations=self.translations,
                 usage_url=self.get_usage_url(),
