@@ -85,6 +85,7 @@ Changelog
  * Fix: Raise a `SiteSetting.DoesNotExist` error when retrieving settings for an unrecognised site (Nick Smith)
  * Fix: Ensure that defaulted or unique values declared in `exclude_fields_in_copy` are correctly excluded in new copies, resolving to the default value (Elhussein Almasri)
  * Fix: Ensure that `default_ordering` set on IndexView is preserved if ModelViewSet does not specify an explicit ordering (Cynthia Kiser)
+ * Fix: Ensure that TableBlock cells are accessible when using keyboard control only (Elhussein Almasri)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
