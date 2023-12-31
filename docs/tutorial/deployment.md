@@ -55,7 +55,7 @@ After setting up your Backblaze B2 Cloud Storage, you must link it to your portf
 
 Start by creating a `.env.production` file at the root of your project directory. At this stage, your project directory should look like this:
 
-```txt
+```text
 mysite/
 ├── base
 ├── blog
@@ -130,7 +130,7 @@ Now, use your `keyID` as the value of `AWS_S3_ACCESS_KEY_ID` and `applicationKey
 
 At this stage, the content of your `.env.production` file looks like this:
 
-```txt
+```text
 AWS_STORAGE_BUCKET_NAME=yourname-wagtail-portfolio
 AWS_S3_ENDPOINT_URL=https://s3.us-east-005.backblazeb2.com
 AWS_S3_REGION_NAME=us-east-005
@@ -162,7 +162,7 @@ To set up your Fly.io account, follow these steps:
 3. Sign up using your GitHub account, Google account, or the email option.
 4. Check your email inbox for the verification link to verify your email.
 
-```note
+```{note}
 If your email verification fails, go to your Fly.io [Dashboard](https://fly.io/dashboard) and try again.
 ```
 
@@ -306,7 +306,7 @@ console_command = "/code/manage.py shell"
 
 Now add your production dependencies by replacing the content of your `requirements.txt` file with the following:
 
-```txt
+```text
 Django>=4.2,<4.3
 wagtail==5.1.1
 gunicorn>=21.2.0,<22.0.0
@@ -416,7 +416,7 @@ Now, complete the configuration of your environment variables by modifying your 
 
 The content of your `.env.production` file should now look like this:
 
-```txt
+```text
 AWS_STORAGE_BUCKET_NAME=yourname-wagtail-portfolio
 AWS_S3_ENDPOINT_URL=https://s3.us-east-005.backblazeb2.com
 AWS_S3_REGION_NAME=us-east-005
