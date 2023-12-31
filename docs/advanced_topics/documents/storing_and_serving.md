@@ -43,7 +43,7 @@ WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
 
 Wagtail allows you to specify the permitted file extensions for document uploads using the [WAGTAILDOCS_EXTENSIONS](wagtaildocs_extensions) setting.
 
-It also validates the extensions using Django's [FileExtensionValidator](django:ref/validators#fileextensionvalidator). For example:
+It also validates the extensions using Django's [FileExtensionValidator](https://docs.djangoproject.com/en/stable/ref/validators/#fileextensionvalidator). For example:
 
 ```python
 WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
