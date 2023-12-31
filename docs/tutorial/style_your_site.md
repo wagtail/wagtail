@@ -178,7 +178,7 @@ To add a skip-link, add the following styles to your `mysite/static/css/mysite.c
 
 After adding the styles, go to your `mysite/templates/base.html` file and add a unique identifier:
 
-```html+python
+```html+django
 {% include "includes/header.html" %}
 
 {# Add a unique identifier: #}

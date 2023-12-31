@@ -350,7 +350,7 @@ To add your resume to your portfolio site, follow these steps:
     c. Click **Paragraph block**.   
     d. Copy and paste the following text in your new **Paragraph block**:  
 
-    ```txt
+    ```text
     I'm a Wagtail Developer with a proven track record of developing and maintaining complex web applications. I have experience writing custom code to extend Wagtail applications, collaborating with other developers, and integrating third-party services and APIs.
     ```  
 
@@ -366,7 +366,7 @@ To add your resume to your portfolio site, follow these steps:
 
     j. Type the following after your Heading 3:
 
-    ```txt
+    ```text
     January 2022 to November 2023
 
     - Developed and maintained a complex web application using Wagtail, resulting in a 25% increase in user engagement and a 20% increase in revenue within the first year.
