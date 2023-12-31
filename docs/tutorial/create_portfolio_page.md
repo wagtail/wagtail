@@ -98,7 +98,7 @@ class ImageBlock(StructBlock):
         template = "base/blocks/image_block.html"
 ```
 
-`ImageBlock` inherits from `StructBlock`. `ImageBlock`inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `ImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageChooserBlock` field block type. With `ImageChooserBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
+`ImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `ImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageChooserBlock` field block type. With `ImageChooserBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
 
 Just like `ImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Let's look at those.
 
@@ -140,7 +140,7 @@ Your `BaseStreamBlock` has four child blocks. The `heading_block` uses the previ
 
 Also, you defined a `Meta` class within your `ImageBlock` and `HeadingBlock` blocks. The `Meta` classes provide metadata for the blocks, including icons to visually represent them in the admin interface. The `Meta` classes also include custom templates for rendering your `ImageBlock` and `HeadingBlock` blocks.
 
-```note
+```{note}
 Wagtail provides built-in templates to render each block. However, you can override the built-in template with a custom template.
 ```
 
@@ -172,10 +172,7 @@ To add the custom template of your `HeadingBlock` block, create a `base/template
 ```{note}
 You can also create a custom template for a child block. For example, to create a custom template for `embed_block`, create a `base/templates/base/blocks/embed_block.html` file and add the following to it:
 
-```html+django
-{{ self }}
-```
-
+`{{ self }}`
 ```
 
 ## Use the blocks you created in your portfolio app
