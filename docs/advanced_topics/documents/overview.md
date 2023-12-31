@@ -85,7 +85,7 @@ Here's an example template to access the document field and render it:
 
 ## Using documents within `RichTextFields`
 
-Links to documents can be made in pages using the [`RichTextField`](rich_text_docs). By default, Wagtail will include the features for adding links to documents see [](rich_text_features).
+Links to documents can be made in pages using the [`RichTextField`](rich_text_field). By default, Wagtail will include the features for adding links to documents see [](rich_text_features).
 
 
 You can either exclude or include these by passing the `features` to your `RichTextField`. In the example below we create a `RichTextField` with only documents and basic formatting.
