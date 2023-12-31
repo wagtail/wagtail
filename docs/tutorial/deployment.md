@@ -12,8 +12,8 @@ In this section of the tutorial, you'll use two platforms to deploy your site. Y
 
 You can use fly.io to host your site and serve your images. However, storing your images on a platform other than the one hosting your site provides better performance, security, and reliability.
 
-```note
-In this tutorial, you'll see yourname several times. Replace it with a name of your choice.
+```{note}
+In this tutorial, you'll see "yourname" several times. Replace it with a name of your choice.
 ```
 
 ## Setup Backblaze B2 Cloud Storage
@@ -141,7 +141,7 @@ DJANGO_CSRF_TRUSTED_ORIGINS=https://
 DJANGO_SETTINGS_MODULE=mysite.settings.production
 ```
 
-```note
+```{note}
 The Backblaze B2 storage uses _AWS_ and _S3_ because it works like Amazon Web Services’ S3.
 
 Do not commit or share your `.env.production `file. Anyone with the variables can access your site.
@@ -168,7 +168,7 @@ If your email verification fails, go to your Fly.io [Dashboard](https://fly.io/d
 
 5. Go to **Dashboard > Billing** and click **Add credit card** to add your credit card.
 
-```note
+```{note}
 Adding your credit card allows you to create a project in Fly.io. Fly.io won't charge you after adding your credit card.
 ```
 
@@ -196,8 +196,8 @@ On Windows, navigate to your project directory on **PowerShell**, activate your 
 pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
 ```
 
-```note
-If your get an error on Windows saying the term `pwsh` is  not recognized, install [PowerShell MSI](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#installing-the-msi-package) and then rerun the preceding Windows command.
+```{note}
+If you get an error on Windows saying the term `pwsh` is  not recognized, install [PowerShell MSI](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3#installing-the-msi-package) and then rerun the preceding Windows command.
 ```
 
 7. [Sign in](https://fly.io/docs/hands-on/sign-in/) to your Fly.io by running the following command:
@@ -212,7 +212,7 @@ If you use Microsoft WSL, then run:
 ln -s /usr/bin/wslview /usr/local/bin/xdg-open
 ```
 
-```note
+```{note}
 If you successfully install flyctl but get an error saying "`fly` is not recognized" or "flyctl: command not found error", then you must add flyctl to your PATH. For more information, read [Getting flyctl: command not found error post install](https://community.fly.io/t/getting-flyctl-command-not-found-error-post-install/4954/1).
 ```
 
@@ -221,7 +221,7 @@ If you successfully install flyctl but get an error saying "`fly` is not recogni
 | Question | Instruction |
 | -------- | ------- |
 | Choose an app name | Enter a name of your choice. For example, _yourname-wagtail-portfolio_ |
-| Choose a region for deployment | Select the appropriate region. |
+| Choose a region for deployment | Select the region closest to the _AWS_S3_REGION_NAME_ in your _env.production_ file. |
 | Overwrite ".../.dockerignore"?  | Enter _y_ |
 | Overwrite ".../Dockerfile"?  | Enter _y_ |
 | Would you like to set up a Postgresql database now?  | Enter _y_ |
@@ -246,6 +246,8 @@ If you use a third-party app terminal like the Visual Studio Code terminal, you 
 ## Customize your site to use Fly.io
 
 Now, you must configure your portfolio site for the final deployment.
+
+The `fly launch` command creates two new files, `Dockerfile` and `fly.toml`, in your project directory.
 
 Add the following to your `.gitignore` file to make Git ignore your environment files:
 
@@ -273,7 +275,7 @@ Also, check if your `fly.toml` file has the following:
   release_command = "python manage.py migrate"
 ```
 
-The `fly launch` command creates two new files, `Dockerfile` and `fly.toml`, in your project directory.
+Your `fly.toml` file should look as follows:
 
 ```toml
 app = "yourname-wagtail-portfolio"
@@ -443,6 +445,10 @@ Finally, deploy your site to Fly.io by running the following command:
 fly deploy --ha=false
 ```
 
+```{note}
+Running "fly deploy" creates two machines for your app. Using the "--ha=false" flag creates one machine for your app.
+```
+
 Congratulations! Your site is now live. However, you must add content to it. Start by creating an admin user for your live site. Run the following command:
 
 ```sh
@@ -455,7 +461,7 @@ Then run:
 DJANGO_SUPERUSER_USERNAME=username DJANGO_SUPERUSER_EMAIL=mail@example.com DJANGO_SUPERUSER_PASSWORD=password python manage.py createsuperuser --noinput
 ```
 
-```note
+```{note}
 Ensure you replace _username_, _mail@example.com_, and _password_ with a username, email address, and password of your choice.
 ```
 
@@ -475,6 +481,8 @@ All this while, you've been adding content to your site in the local environment
 ```{note}
 If you encounter errors while trying to access your live site in your browser, check your application logs in your Fly.io Dashboard. To check your application logs, click **Dashboard > Apps > yourname-wagtail-portfolio > Monitoring**
 ```
+
+Congratulations! You made it to the end.
 
 ## Where next
 
