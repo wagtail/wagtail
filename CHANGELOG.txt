@@ -82,6 +82,7 @@ Changelog
  * Maintenance: Update Stylelint, our linting configuration, Sass, and related code changes (LB (Ben) Johnston)
  * Maintenance: Simplify browserslist and browser support documentation (Thibaud Colas)
  * Maintenance: Relax django-taggit dependency to allow 5.0 (Sylvain Fankhauser)
+ * Maintenance: Fix various warnings when building docs (Cynthia Kiser)
 
 
 5.2.2 (06.12.2023)
