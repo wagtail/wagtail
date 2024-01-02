@@ -37,7 +37,7 @@
                                             <a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" target="_blank" rel="noreferrer">{% trans 'Draft' %}</a>
                                         {% endif %}
                                         {% if page.live %}
-                                            {% pageurl page as page_url %}
+                                            {% fullpageurl page as page_url %}
                                             {% if page_url is not None %}
                                                 <a href="{{ page_url }}" target="_blank" rel="noreferrer">{% trans 'Live' %}</a>
                                             {% endif %}

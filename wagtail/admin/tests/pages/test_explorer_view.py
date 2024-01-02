@@ -1092,7 +1092,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         for page in [self.christmas, self.saint_patrick]:
-            status = soup.select_one(f'a.w-status[href="{page.url}"]')
+            status = soup.select_one(f'a.w-status[href="{page.full_url}"]')
             self.assertIsNotNone(status)
             self.assertEqual(
                 status.text.strip(), "Current page status: live + in moderation"
