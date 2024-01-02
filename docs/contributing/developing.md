@@ -289,7 +289,7 @@ The last command will start Storybook at `http://localhost:6006/`. It will proxy
 The Wagtail documentation is built by Sphinx. To install Sphinx and compile the documentation, run:
 
 ```sh
-cd /path/to/wagtail
+# Starting from the wagtail root directory:
 # Install the documentation dependencies
 pip install -e .[docs]
 # or if using zsh as your shell:
@@ -305,6 +305,7 @@ Python comes with a module that makes it very easy to preview static files in a 
 To start this simple server, run the following commands:
 
 ```sh
+# Starting from the wagtail root directory:
 cd docs/_build/html/
 python -m http.server 8080
 ```
@@ -316,6 +317,7 @@ Unfortunately, this cache also hides any warnings thrown by unmodified documenta
 To clear the built HTML and start fresh, so you can see all warnings thrown when building the documentation, run:
 
 ```sh
+# Starting from the wagtail root directory:
 cd docs/
 make clean
 make html
@@ -325,6 +327,7 @@ Wagtail also provides a way for documentation to be compiled automatically on ea
 To do this, you can run the following command to see the changes automatically at `localhost:4000`:
 
 ```sh
+# Starting from the wagtail root directory:
 cd docs/
 make livehtml
 ```
