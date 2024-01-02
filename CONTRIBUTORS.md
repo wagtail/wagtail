@@ -777,6 +777,7 @@
 * Felipe Lobato
 * Nandini Arora
 * Sai Srikar Dumpeti
+* nikhilkalburgi
 
 ## Translators
 

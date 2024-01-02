@@ -56,6 +56,7 @@ Changelog
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
  * Docs: Add more nuance to the database recommendations in performance page (Jadesola Kareem)
  * Docs: Add clarity that MultipleChooserPanel may require a chooser viewset and how the functionality is expected to work (Andy Chosak)
+ * Docs: Clarify where documentation build commands should be run (nikhilkalburgi)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
