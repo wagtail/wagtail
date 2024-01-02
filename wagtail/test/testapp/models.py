@@ -49,6 +49,7 @@ from wagtail.contrib.forms.models import (
     AbstractFormField,
     AbstractFormSubmission,
 )
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
@@ -568,6 +569,7 @@ class FormPage(AbstractEmailForm):
             ],
             "Email",
         ),
+        FormSubmissionsPanel(),
     ]
 
 
