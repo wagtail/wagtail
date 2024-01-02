@@ -78,6 +78,7 @@ class ModelIndexView(generic.IndexView):
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
     _show_breadcrumbs = True
+    header_buttons = []
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
