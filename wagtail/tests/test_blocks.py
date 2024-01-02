@@ -620,6 +620,29 @@ class TestRichTextBlock(TestCase):
             },
         )
 
+    def test_adapter_with_max_length(self):
+        from wagtail.admin.rich_text import DraftailRichTextArea
+
+        block = blocks.RichTextBlock(max_length=400)
+
+        block.set_name("test_richtextblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_richtextblock")
+        self.assertIsInstance(js_args[1], DraftailRichTextArea)
+        self.assertEqual(
+            js_args[2],
+            {
+                "label": "Test richtextblock",
+                "required": True,
+                "icon": "pilcrow",
+                "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
+                "showAddCommentButton": False,  # Draftail manages its own comments
+                "strings": {"ADD_COMMENT": "Add Comment"},
+                "maxLength": 400,
+            },
+        )
+
     def test_validate_required_richtext_block(self):
         block = blocks.RichTextBlock()
 
