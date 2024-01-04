@@ -120,9 +120,11 @@ def reject_request(request):
     # wagtail.admin.auth, specifically where custom user models are involved
     from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 
-    return auth_redirect_to_login(
-        request.get_full_path(), login_url=reverse("wagtailadmin_login")
+    login_url = getattr(
+        settings, "WAGTAILADMIN_LOGIN_URL", reverse("wagtailadmin_login")
     )
+
+    return auth_redirect_to_login(request.get_full_path(), login_url=login_url)
 
 
 def require_admin_access(view_func):

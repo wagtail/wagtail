@@ -528,6 +528,14 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 
 Allows the default `LoginForm` to be extended with extra fields.
 
+### `WAGTAILADMIN_LOGIN_URL`
+
+```python
+WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
+```
+
+This specifies the URL to redirect to when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
+
 ## User preferences
 
 (wagtail_gravatar_provider_url)=
