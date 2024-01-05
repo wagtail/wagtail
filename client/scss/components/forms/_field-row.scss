@@ -12,7 +12,6 @@
     grid-auto-columns: minmax(min-content, 1fr);
   }
 
-  + &,
   .w-field__wrapper + &,
   + .w-field__wrapper {
     margin-top: theme('spacing.5');
