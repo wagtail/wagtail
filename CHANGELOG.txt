@@ -53,6 +53,7 @@ Changelog
  * Fix: Avoid error when exporting Aging Pages report where a page has an empty `last_published_by_user` (Chiemezuo Akujobi)
  * Fix: Ensure Page querysets support using `alias` and `specific` (Tomasz Knapik)
  * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
+ * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
@@ -93,6 +94,12 @@ Changelog
  * Maintenance: Relax django-taggit dependency to allow 5.0 (Sylvain Fankhauser)
  * Maintenance: Fix various warnings when building docs (Cynthia Kiser)
  * Maintenance: Upgrade sphinxcontrib-spelling to 7.x for Python 3.12 compatibility (Matt Westcott)
+
+
+5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
 
 
 5.2.2 (06.12.2023)
