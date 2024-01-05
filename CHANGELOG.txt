@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
+
+
 5.2.2 (06.12.2023)
 ~~~~~~~~~~~~~~~~~~
 
