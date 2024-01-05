@@ -2,6 +2,7 @@ from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -170,6 +171,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     index_url_name = None
     page_kwarg = "p"
     default_ordering = None
+    filterset_class = None
 
     def get_template_names(self):
         if self.results_only:
@@ -178,6 +180,23 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             return [self.results_template_name]
         else:
             return super().get_template_names()
+
+    @cached_property
+    def filters(self):
+        if self.filterset_class:
+            return self.filterset_class(self.request.GET, request=self.request)
+
+    @cached_property
+    def is_filtering(self):
+        # we are filtering if the filter form has changed from its default state
+        return (
+            self.filters and self.filters.is_valid() and self.filters.form.has_changed()
+        )
+
+    def filter_queryset(self, queryset):
+        if self.filters and self.filters.is_valid():
+            queryset = self.filters.filter_queryset(queryset)
+        return queryset
 
     def get_valid_orderings(self):
         orderings = []
@@ -192,6 +211,11 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if ordering not in self.get_valid_orderings():
             ordering = self.default_ordering
         return ordering
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = self.filter_queryset(queryset)
+        return queryset
 
     def get_table_kwargs(self):
         return {
@@ -230,5 +254,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             context["items_count"] = context["paginator"].count
         else:
             context["items_count"] = len(context["object_list"])
+
+        if self.filters:
+            context["filters"] = self.filters
+            context["is_filtering"] = self.is_filtering
+            context["media"] += self.filters.form.media
 
         return context
