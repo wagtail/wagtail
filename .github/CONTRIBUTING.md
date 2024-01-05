@@ -5,23 +5,38 @@ Thank you for considering to help Wagtail.
 We welcome all support, whether on bug reports, code, design, reviews, tests,
 documentation, translations or just feature requests.
 
-## Using the issue tracker
+## Working on an issue
 
-The [issue tracker](https://github.com/wagtail/wagtail/issues) is
-the preferred channel for [bug reports](#bugs), [features requests](#features)
-and [submitting pull requests](#pull-requests). Please don't use the issue tracker
-for support - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail) (preferred) or the [#support channel on the Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack).
+👉 If an issue isn’t being worked on by anyone, go for it! **No need to ask "please assign me this issue".** Add a comment to claim the issue once you’re ready to start.
 
-## New code
+Please review the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html).
+You might like to start by checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
-Please review the
-[contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html).
-You might like to start by checking issues with the
-[good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
+## Reporting bugs
+
+To report bugs, use our [issue tracker](https://github.com/wagtail/wagtail/issues).
+
+## Feature requests
+
+Use our [issue tracker](https://github.com/wagtail/wagtail/issues) for feature requests, or go the [Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack) or [Discussions](https://github.com/wagtail/wagtail/discussions) if you want to discuss an idea before requesting it.
+
+## Support
+
+Please don't use the issue tracker for support - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail) (preferred) or the [#support channel](https://github.com/wagtail/wagtail/wiki/Slack#support) on the [Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack).
 
 ## Code reviews
 
-We welcome code reviews from everyone. There's always a list of pull requests tagged ['Needs review'](https://github.com/wagtail/wagtail/pulls?q=is%3Apr+is%3Aopen+label%3A%22Needs+review%22).
+We welcome code reviews from everyone. There's always a list of pull requests tagged [status:Needs Review](https://github.com/wagtail/wagtail/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc+label%3A%22status%3ANeeds+Review%22).
+
+## Triaging issues
+
+We welcome help with triaging issues and pull requests. You can help by:
+
+- Adding more details or your own perspective to bug reports or feature requests.
+- Attempting to reproduce issues tagged [status:Unconfirmed](https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Astatus%3AUnconfirmed) and sharing your findings.
+- Reviewing or otherwise offering your feedback on pull requests.
+
+View our [issue tracking guidelines](https://docs.wagtail.org/en/latest/contributing/issue_tracking.html) for more information.
 
 ## Translations
 
