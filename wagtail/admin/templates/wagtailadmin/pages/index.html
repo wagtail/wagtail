@@ -9,6 +9,10 @@
 
 {% block listing %}
     <div id="listing-results">
+        {% comment %}
+            This div will be replaced on AJAX refreshes.
+            Do not add page furniture here unless you intend it to disappear on AJAX refresh
+        {% endcomment %}
         {% include 'wagtailadmin/pages/index_results.html' %}
     </div>
 {% endblock %}
