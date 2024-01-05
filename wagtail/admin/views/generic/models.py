@@ -225,10 +225,7 @@ class IndexView(
 
         queryset = self.filter_queryset(queryset)
 
-        # Ensure the queryset is of the same model as self.model before filtering,
-        # which may not be the case for views like HistoryView where the queryset
-        # is of a LogEntry model for self.model.
-        if self.locale and queryset.model == self.model:
+        if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
         has_updated_at_column = any(
