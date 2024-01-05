@@ -134,7 +134,7 @@ class PageTypesUsageReportView(ReportView):
 
         self.queryset = queryset
 
-        self.filters, queryset = self.filter_queryset(queryset)
+        queryset = self.filter_queryset(queryset)
 
         language_code = self.filters.form.cleaned_data.get("page_locale", None)
         site_root_path = self.filters.form.cleaned_data.get("site", None)

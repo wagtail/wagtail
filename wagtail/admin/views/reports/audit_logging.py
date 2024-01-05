@@ -163,7 +163,6 @@ class LogEntriesView(ReportView):
            in the same order as the query.
         """
         queryset = None
-        filters = None
 
         # Retrieve the set of registered log models, and cast it to a list so that we assign
         # an index number to each one; this index number will be used to distinguish models
@@ -178,7 +177,7 @@ class LogEntriesView(ReportView):
                     log_model_index=Value(log_model_index, output_field=IntegerField())
                 )
             )
-            filters, sub_queryset = self.filter_queryset(sub_queryset)
+            sub_queryset = self.filter_queryset(sub_queryset)
             # disable any native ordering on the queryset; we will re-apply it on the combined result
             sub_queryset = sub_queryset.order_by()
             if queryset is None:
@@ -186,7 +185,7 @@ class LogEntriesView(ReportView):
             else:
                 queryset = queryset.union(sub_queryset)
 
-        return filters, queryset.order_by("-timestamp")
+        return queryset.order_by("-timestamp")
 
     def decorate_paginated_queryset(self, queryset):
         # build lists of ids from queryset, grouped by log model index

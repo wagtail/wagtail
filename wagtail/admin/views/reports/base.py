@@ -16,7 +16,7 @@ class ReportView(IndexView):
         return object_list
 
     def get(self, request, *args, **kwargs):
-        self.filters, self.object_list = self.get_filtered_queryset()
+        self.object_list = self.get_filtered_queryset()
         context = self.get_context_data()
         # Decorate the queryset *after* Django's BaseListView has returned a paginated/reduced
         # list of objects

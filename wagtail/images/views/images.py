@@ -107,7 +107,7 @@ class IndexView(generic.IndexView):
             except AttributeError:
                 self.current_tag = None
 
-        return self.filters, queryset
+        return queryset
 
     def get_add_url(self):
         # Pass the query string so that the collection filter is preserved
