@@ -67,7 +67,7 @@ class TestLoginView(WagtailTestUtils, TestCase):
         response = self.client.get(login_url)
         self.assertRedirects(response, homepage_admin_url)
 
-    @override_settings(WAGTAILADMIN_USER_LOGIN_URL="http://example.com/login/")
+    @override_settings(WAGTAILADMIN_LOGIN_URL="http://example.com/login/")
     def test_unauthenticated_redirect_to_custom_login_url(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertRedirects(

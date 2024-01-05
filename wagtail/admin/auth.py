@@ -121,7 +121,7 @@ def reject_request(request):
     from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 
     login_url = getattr(
-        settings, "WAGTAILADMIN_USER_LOGIN_URL", reverse("wagtailadmin_login")
+        settings, "WAGTAILADMIN_LOGIN_URL", reverse("wagtailadmin_login")
     )
 
     return auth_redirect_to_login(request.get_full_path(), login_url=login_url)
