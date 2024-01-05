@@ -156,7 +156,7 @@ Finally, before 'claiming' check you can do the following;
 
 ### 6. Contributing a solution
 
-**Important:** We only use GitHub's issue assignment feature to members of the Wagtail core team. If an issue is not assigned to anyone, feel free to work on it, **no need to ask "please assign me this issue"**.
+**Important:** If an issue is not assigned to anyone and doesn’t already have a pull request, feel free to work on it, **no need to ask "please assign me this issue"**. We only use GitHub's issue assignment feature to assign certain issues to members of the Wagtail core team.
 
 If you feel ready to contribute a solution, now is a good time to add a comment to the issue describing your intention to do so, to prevent duplicating efforts. Instead of asking "please assign me this issue", write something similar to the following:
 
