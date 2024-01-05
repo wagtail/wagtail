@@ -1,9 +1,10 @@
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.views.generic.models import IndexView
+from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 
-class ReportView(IndexView):
+class ReportView(SpreadsheetExportMixin, BaseListingView):
     template_name = "wagtailadmin/reports/base_report.html"
     title = ""
     paginate_by = 50
@@ -29,6 +30,13 @@ class ReportView(IndexView):
         context = super().get_context_data(*args, **kwargs)
         context["title"] = self.title
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.is_export:
+            return self.as_spreadsheet(
+                context["object_list"], self.request.GET.get("export")
+            )
+        return super().render_to_response(context, **response_kwargs)
 
 
 class PageReportView(ReportView):
