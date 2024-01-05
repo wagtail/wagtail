@@ -115,7 +115,6 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    filterset_class = None
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
@@ -123,7 +122,11 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.filterset_class = self.get_filterset_class()
+
+        if not self.filterset_class:
+            # Allow filterset_class to be dynamically constructed from list_filter
+            self.filterset_class = self.get_filterset_class()
+
         self.setup_search()
 
     def setup_search(self):
@@ -159,9 +162,6 @@ class IndexView(
         return SearchForm()
 
     def get_filterset_class(self):
-        if self.filterset_class:
-            return self.filterset_class
-
         if not self.list_filter or not self.model:
             return None
 
@@ -260,23 +260,6 @@ class IndexView(
             else:
                 queryset = queryset.order_by("-pk")
 
-        return queryset
-
-    @cached_property
-    def filters(self):
-        if self.filterset_class:
-            return self.filterset_class(self.request.GET, request=self.request)
-
-    @cached_property
-    def is_filtering(self):
-        # we are filtering if the filter form has changed from its default state
-        return (
-            self.filters and self.filters.is_valid() and self.filters.form.has_changed()
-        )
-
-    def filter_queryset(self, queryset):
-        if self.filters and self.filters.is_valid():
-            queryset = self.filters.filter_queryset(queryset)
         return queryset
 
     def search_queryset(self, queryset):
@@ -525,11 +508,6 @@ class IndexView(
         if context["can_add"]:
             context["add_url"] = context["header_action_url"] = self.get_add_url()
             context["header_action_label"] = self.add_item_label
-
-        if self.filters:
-            context["filters"] = self.filters
-            context["is_filtering"] = self.is_filtering
-            context["media"] += self.filters.form.media
 
         context["index_results_url"] = self.get_index_results_url()
         context["is_searchable"] = self.is_searchable
