@@ -85,7 +85,7 @@ class IndexView(generic.IndexView):
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        return self.filters, queryset
+        return queryset
 
     @cached_property
     def columns(self):

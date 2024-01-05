@@ -218,7 +218,7 @@ class BaseIndexView(generic.IndexView):
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
 
-        filters, pages = self.filter_queryset(pages)
+        pages = self.filter_queryset(pages)
 
         self.ordering = self.get_ordering()
 

@@ -223,7 +223,7 @@ class IndexView(
 
         queryset = self.get_base_queryset()
 
-        filters, queryset = self.filter_queryset(queryset)
+        queryset = self.filter_queryset(queryset)
 
         # Ensure the queryset is of the same model as self.model before filtering,
         # which may not be the case for views like HistoryView where the queryset
@@ -277,7 +277,7 @@ class IndexView(
     def filter_queryset(self, queryset):
         if self.filters and self.filters.is_valid():
             queryset = self.filters.filter_queryset(queryset)
-        return self.filters, queryset
+        return queryset
 
     def search_queryset(self, queryset):
         if not self.search_query:
