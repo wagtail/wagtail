@@ -175,6 +175,7 @@ class ModelViewSet(ViewSet):
     def get_history_view_kwargs(self, **kwargs):
         return {
             "template_name": self.history_template_name,
+            "history_results_url_name": self.get_url_name("history_results"),
             "header_icon": "history",
             **kwargs,
         }
@@ -255,6 +256,12 @@ class ModelViewSet(ViewSet):
     def history_view(self):
         return self.construct_view(
             self.history_view_class, **self.get_history_view_kwargs()
+        )
+
+    @property
+    def history_results_view(self):
+        return self.construct_view(
+            self.history_view_class, **self.get_history_view_kwargs(), results_only=True
         )
 
     @property
@@ -600,6 +607,11 @@ class ModelViewSet(ViewSet):
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path(
+                "history-results/<str:pk>/",
+                self.history_results_view,
+                name="history_results",
+            ),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
         ]
 

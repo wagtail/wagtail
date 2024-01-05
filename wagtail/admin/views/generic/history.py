@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 import django_filters
-from django.contrib.admin.utils import unquote
+from django.contrib.admin.utils import quote, unquote
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -12,8 +12,12 @@ from django.views.generic import TemplateView
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
-from wagtail.admin.views.generic.base import BaseObjectMixin, WagtailAdminTemplateMixin
-from wagtail.admin.views.generic.models import IndexView
+from wagtail.admin.views.generic.base import (
+    BaseListingView,
+    BaseObjectMixin,
+    WagtailAdminTemplateMixin,
+)
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
@@ -54,10 +58,11 @@ class HistoryReportFilterSet(WagtailFilterSet):
         self.filters["action"].extra["choices"] = get_actions_for_filter()
 
 
-class HistoryView(IndexView):
+class HistoryView(PermissionCheckedMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
     results_template_name = "wagtailadmin/generic/history_results.html"
+    history_results_url_name = None
     header_icon = "history"
     is_searchable = False
     paginate_by = 20
@@ -68,6 +73,7 @@ class HistoryView(IndexView):
         UserColumn("user", blank_display_name="system"),
         DateColumn("timestamp", label=gettext_lazy("Date")),
     ]
+    edit_url_name = None
 
     def setup(self, request, *args, pk, **kwargs):
         self.pk = pk
@@ -110,6 +116,14 @@ class HistoryView(IndexView):
             ),
         ]
 
+    def get_edit_url(self, instance):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(instance.pk),))
+
+    def get_history_results_url(self, instance):
+        if self.history_results_url_name:
+            return reverse(self.history_results_url_name, args=(quote(instance.pk),))
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
@@ -118,12 +132,15 @@ class HistoryView(IndexView):
             "model_name": self.model._meta.verbose_name
         }
         context["header_action_icon"] = "edit"
+        context["index_results_url"] = self.get_history_results_url(self.object)
         return context
 
-    def get_base_queryset(self):
-        return log_registry.get_logs_for_instance(self.object).select_related(
+    def get_queryset(self):
+        queryset = log_registry.get_logs_for_instance(self.object).select_related(
             "revision", "user", "user__wagtail_userprofile"
         )
+        queryset = self.filter_queryset(queryset)
+        return queryset
 
 
 class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):

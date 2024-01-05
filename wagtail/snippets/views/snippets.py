@@ -1141,6 +1141,11 @@ class SnippetViewSet(ModelViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path(
+                "history-results/<str:pk>/",
+                self.history_results_view,
+                name="history_results",
+            ),
         ]
 
         if self.inspect_view_enabled:
