@@ -131,6 +131,7 @@ Changelog
  * Maintenance: Reduce gap between snippets and generic views/templates (Sage Abdullah)
  * Maintenance: Migrate page listing menu re-ordering (drag & drop) from jQuery inline scripts to `OrderableController` (Aman Pandey, LB (Ben) Johnston)
  * Maintenance: Clean up scss variable usage, remove unused variables and mixins, adopt more core token variables (Jai Vignesh J, Nandini Arora, LB (Ben) Johnston)
+ * Maintenance: Migrate Image URL generator views to class based views (Rohit Sharma)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
