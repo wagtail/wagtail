@@ -778,6 +778,7 @@
 * Nandini Arora
 * Sai Srikar Dumpeti
 * Nikhil S Kalburgi
+* Salvo Polizzi
 
 ## Translators
 

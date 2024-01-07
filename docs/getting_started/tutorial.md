@@ -351,6 +351,7 @@ You can now access the URL, <http://127.0.0.1:8000/blog> on your site. This give
 Now create a model and template for your blog posts. Edit `blog/models.py` to include:
 
 ```python
+from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
@@ -358,8 +359,7 @@ from wagtail.admin.panels import FieldPanel
 # add this:
 from wagtail.search import index
 
-
-# Keep the definition of BlogIndexPage model, and add the BlogPage model:
+# keep the definition of BlogIndexPage model, and add the BlogPage model:
 
 class BlogPage(Page):
     date = models.DateField("Post date")
