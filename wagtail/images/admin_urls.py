@@ -8,10 +8,14 @@ urlpatterns = [
     path("results/", images.IndexView.as_view(results_only=True), name="index_results"),
     path("<int:image_id>/", images.edit, name="edit"),
     path("<int:image_id>/delete/", images.DeleteView.as_view(), name="delete"),
-    path("<int:image_id>/generate_url/", images.url_generator, name="url_generator"),
+    path(
+        "<int:image_id>/generate_url/",
+        images.URLGeneratorView.as_view(),
+        name="url_generator",
+    ),
     path(
         "<int:image_id>/generate_url/<str:filter_spec>/",
-        images.generate_url,
+        images.GenerateURLView.as_view(),
         name="generate_url",
     ),
     path("<int:image_id>/preview/<str:filter_spec>/", images.preview, name="preview"),
