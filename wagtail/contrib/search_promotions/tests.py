@@ -483,7 +483,7 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
-        # Create an search pick to edit
+        # Create a search pick to edit
         self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(
             page_id=1, sort_order=0, description="Root page"
@@ -645,7 +645,7 @@ class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
-        # Create an search pick to delete
+        # Create a search pick to delete
         self.query = Query.get("Hello")
         self.search_pick = self.query.editors_picks.create(
             page_id=1, description="Root page"

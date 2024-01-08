@@ -780,6 +780,7 @@
 * Nikhil S Kalburgi
 * Salvo Polizzi
 * Badr Fourane
+* Vaishnav Dasari
 
 ## Translators
 
