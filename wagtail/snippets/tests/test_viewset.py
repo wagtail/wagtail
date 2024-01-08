@@ -1514,7 +1514,5 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         response = self.client.get(self.get_url("list") + "?locale=fr")
         add_url = self.get_url("add") + "?locale=fr&customised=param"
         soup = self.get_soup(response.content)
-        # Should contain the customised add URL in two places:
-        # The main action button, and the "Why not add one?" suggestion
         links = soup.find_all("a", attrs={"href": add_url})
-        self.assertEqual(len(links), 2)
+        self.assertEqual(len(links), 1)

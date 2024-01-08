@@ -6,7 +6,7 @@ from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
-from wagtail.coreutils import get_content_type_label
+from wagtail.coreutils import get_content_languages, get_content_type_label
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -87,7 +87,38 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
     field_class = FilteredModelChoiceField
 
 
+class LocaleFilter(django_filters.ChoiceFilter):
+    def filter(self, qs, language_code):
+        if language_code:
+            return qs.filter(locale__language_code=language_code)
+        return qs
+
+
 class WagtailFilterSet(django_filters.FilterSet):
+    @classmethod
+    def get_filters(cls):
+        from wagtail.models.i18n import TranslatableMixin
+
+        filters = super().get_filters()
+
+        # Add a locale filter if the model is translatable
+        # and there isn't one already.
+        if (
+            cls._meta.model
+            and issubclass(cls._meta.model, TranslatableMixin)
+            and "locale" not in filters
+        ):
+            filters["locale"] = LocaleFilter(
+                label=_("Locale"),
+                choices=list(get_content_languages().items()),
+                empty_label=None,
+                null_label=_("All"),
+                null_value=None,
+                widget=forms.RadioSelect,
+            )
+
+        return filters
+
     @classmethod
     def filter_for_lookup(cls, field, lookup_type):
         filter_class, params = super().filter_for_lookup(field, lookup_type)
