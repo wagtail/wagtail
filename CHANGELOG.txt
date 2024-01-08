@@ -736,6 +736,7 @@ Changelog
  * Fix: Prevent memory exhaustion when purging a large number of revisions (Jake Howard)
  * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
  * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
+ * Fix: Add right-to-left (RTL) support for the caret of select inputs (Badr Fourane)
  * Fix: Use the workflow name as the workflow information dialog title (Sage Abdullah)
  * Fix: Link to workflow history view instead of page history view in the workflow information dialog (Sage Abdullah)
  * Fix: Fix in-progress count in warning message when disabling workflows (Sage Abdullah)

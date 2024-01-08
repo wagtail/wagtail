@@ -779,6 +779,7 @@
 * Sai Srikar Dumpeti
 * Nikhil S Kalburgi
 * Salvo Polizzi
+* Badr Fourane
 
 ## Translators
 
