@@ -162,12 +162,23 @@ class IndexView(
         return SearchForm()
 
     def get_filterset_class(self):
-        if not self.list_filter or not self.model:
+        # Allow filterset_class to be dynamically constructed from list_filter.
+
+        # If the model is translatable and we're using the slim header
+        # (breadcrumbs), ensure a ``WagtailFilterSet`` subclass is returned
+        # anyway (even if list_filter is undefined), so the locale filter is
+        # always included.
+        if self.locale and self._show_breadcrumbs:
+            pass
+        # However, if the slim header is not used, the locale selector uses
+        # plain links instead of using a filterset. Thus, only add filters if
+        # list_filter is defined.
+        elif not self.list_filter or not self.model:
             return None
 
         class Meta:
             model = self.model
-            fields = self.list_filter
+            fields = self.list_filter or []
 
         return type(
             f"{self.model.__name__}FilterSet",
@@ -225,7 +236,7 @@ class IndexView(
 
         queryset = self.filter_queryset(queryset)
 
-        if self.locale:
+        if self.locale and not self.filters:
             queryset = queryset.filter(locale=self.locale)
 
         has_updated_at_column = any(

@@ -337,22 +337,16 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
+        soup = self.get_soup(response.content)
 
-        switch_to_french_url = (
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-            + "?locale=fr"
-        )
-        self.assertContains(
-            response,
-            f'<a href="{switch_to_french_url}" data-locale-selector-link>',
-        )
+        french_input = soup.select_one('input[name="locale"][value="fr"]')
+        self.assertIsNotNone(french_input)
 
         # Check that the add URLs include the locale
         add_url = (
             reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
             + "?locale=en"
         )
-        soup = self.get_soup(response.content)
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
         self.assertContains(
@@ -365,8 +359,10 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
+        soup = self.get_soup(response.content)
 
-        self.assertNotContains(response, "data-locale-selector")
+        input_element = soup.select_one('input[name="locale"]')
+        self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
@@ -380,8 +376,10 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
+        soup = self.get_soup(response.content)
 
-        self.assertNotContains(response, "data-locale-selector")
+        input_element = soup.select_one('input[name="locale"]')
+        self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_tests_advert:add")
