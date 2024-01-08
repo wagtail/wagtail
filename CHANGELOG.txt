@@ -95,6 +95,7 @@ Changelog
  * Maintenance: Relax django-taggit dependency to allow 5.0 (Sylvain Fankhauser)
  * Maintenance: Fix various warnings when building docs (Cynthia Kiser)
  * Maintenance: Upgrade sphinxcontrib-spelling to 7.x for Python 3.12 compatibility (Matt Westcott)
+ * Maintenance: Move logic for django-filters filtering into `BaseListingView` (Matt Westcott)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
