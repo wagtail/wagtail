@@ -164,16 +164,10 @@ class IndexView(
     def get_filterset_class(self):
         # Allow filterset_class to be dynamically constructed from list_filter.
 
-        # If the model is translatable and we're using the slim header
-        # (breadcrumbs), ensure a ``WagtailFilterSet`` subclass is returned
-        # anyway (even if list_filter is undefined), so the locale filter is
-        # always included.
-        if self.locale and self._show_breadcrumbs:
-            pass
-        # However, if the slim header is not used, the locale selector uses
-        # plain links instead of using a filterset. Thus, only add filters if
-        # list_filter is defined.
-        elif not self.list_filter or not self.model:
+        # If the model is translatable, ensure a ``WagtailFilterSet`` subclass
+        # is returned anyway (even if list_filter is undefined), so the locale
+        # filter is always included.
+        if not self.model or (not self.list_filter and not self.locale):
             return None
 
         class Meta:
@@ -235,9 +229,6 @@ class IndexView(
         queryset = self.get_base_queryset()
 
         queryset = self.filter_queryset(queryset)
-
-        if self.locale and not self.filters:
-            queryset = queryset.filter(locale=self.locale)
 
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
@@ -419,18 +410,6 @@ class IndexView(
             )
 
         return buttons
-
-    def get_translations(self):
-        index_url = self.get_index_url()
-        if not index_url:
-            return []
-        return [
-            {
-                "locale": locale,
-                "url": self._set_locale_query_param(index_url, locale),
-            }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
-        ]
 
     def get_list_more_buttons(self, instance):
         buttons = []
