@@ -310,9 +310,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             hover:w-bg-surface-menu-item-active
             focus:w-bg-surface-menu-item-active
             w-transition`}
-            title={gettext('Edit your account')}
             onClick={onClickAccountSettings}
-            aria-label={gettext('Edit your account')}
             aria-haspopup="menu"
             aria-expanded={accountSettingsOpen ? 'true' : 'false'}
             type="button"
