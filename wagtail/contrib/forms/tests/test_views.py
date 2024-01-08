@@ -282,35 +282,22 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
                 )
             )
 
-    def get_switch_current_locale_markup(self, locale):
-        return rf"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+{locale.get_display_name()}"
-
-    def get_switch_link_markup(self, locale):
-        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" data-locale-selector-link>'
-
     def test_forms_index(self):
         response = self.client.get(self.forms_index_url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
 
-        self.assertRegex(
-            response.content.decode(),
-            self.get_switch_current_locale_markup(self.en_locale),
-        )
-        self.assertContains(response, self.get_switch_link_markup(self.fr_locale))
-
-        response = self.client.get(
-            self.forms_index_url, {"locale": self.fr_locale.language_code}
-        )
-        self.assertRegex(
-            response.content.decode(),
-            self.get_switch_current_locale_markup(self.fr_locale),
-        )
-        self.assertContains(response, self.get_switch_link_markup(self.en_locale))
+        soup = self.get_soup(response.content)
+        inputs = soup.select('input[name="locale"]')
+        values = [input.attrs.get("value") for input in inputs]
+        self.assertEqual(len(inputs), 3)
+        self.assertEqual(values, ["", "en", "fr"])
 
     def test_forms_index_pagination(self):
         # Create some more form pages to make pagination kick in
+        # There are 43 pages in total, 2 in test.json, 1 in setUp, and
+        # 40 from the following
         self.make_form_pages(parent=self.form_page, num=20)
         self.make_form_pages(parent=self.fr_form_page, num=20)
 
@@ -324,7 +311,14 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
 
+        # Default unfiltered view should show pages from all locales,
+        # so page 3 should exist
         response = self.client.get(self.forms_index_url, {"p": 3})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["page_obj"].number, 3)
+        self.assertEqual(len(response.context["page_obj"].object_list), 3)
+
+        response = self.client.get(self.forms_index_url, {"p": 4})
         self.assertEqual(response.status_code, 404)
 
         # now check the French pages.
