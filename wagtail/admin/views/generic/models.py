@@ -383,13 +383,15 @@ class IndexView(
     @cached_property
     def header_buttons(self):
         buttons = []
-        if not self.permission_policy or self.permission_policy.user_has_permission(
-            self.request.user, "add"
+        add_url = self.get_add_url()
+        if add_url and (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         ):
             buttons.append(
                 HeaderButton(
                     self.add_item_label,
-                    url=self.get_add_url(),
+                    url=add_url,
                     icon_name="plus",
                 )
             )
