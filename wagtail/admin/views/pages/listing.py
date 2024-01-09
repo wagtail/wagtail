@@ -205,15 +205,17 @@ class BaseIndexView(generic.IndexView):
 
         return ordering
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
-                pages = Page.objects.all()
+                return Page.objects.all()
             else:
-                pages = self.parent_page.get_descendants()
+                return self.parent_page.get_descendants()
         else:
-            pages = self.parent_page.get_children()
+            return self.parent_page.get_children()
 
+    def get_queryset(self):
+        pages = self.get_base_queryset()
         pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
