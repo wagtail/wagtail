@@ -248,9 +248,9 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
-        ordering = self.get_ordering()
-        if ordering:
-            queryset = self.order_queryset(queryset, ordering)
+        self.ordering = self.get_ordering()
+        if self.ordering:
+            queryset = self.order_queryset(queryset, self.ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)

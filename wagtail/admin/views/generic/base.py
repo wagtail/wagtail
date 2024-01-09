@@ -218,12 +218,16 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        self.ordering = self.get_ordering()
+        # FIXME: get_ordering is also called from super().get_queryset (but it doesn't keep the result),
+        # so we are calling it twice here.
+
         queryset = self.filter_queryset(queryset)
         return queryset
 
     def get_table_kwargs(self):
         return {
-            "ordering": self.get_ordering(),
+            "ordering": self.ordering,
             "classname": self.table_classname,
             "base_url": self.index_url,
         }
