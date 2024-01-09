@@ -206,25 +206,6 @@ class IndexView(
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
     def order_queryset(self, queryset, ordering):
-        # Explicitly handle null values for the updated at column to ensure consistency
-        # across database backends and match the behaviour in page explorer
-        if ordering == "_updated_at":
-            return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
-        elif ordering == "-_updated_at":
-            return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
-        else:
-            return super().order_queryset(queryset, ordering)
-
-    def get_queryset(self):
-        # Instead of calling super().get_queryset(), we copy the initial logic
-        # from Django's MultipleObjectMixin into get_base_queryset(), because
-        # we need to annotate the updated_at before using it for ordering.
-        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
-
-        queryset = self.get_base_queryset()
-
-        queryset = self.filter_queryset(queryset)
-
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
             for column in self.columns
@@ -232,19 +213,29 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
-        self.ordering = self.get_ordering()
-        queryset = self.order_queryset(queryset, self.ordering)
+        # Explicitly handle null values for the updated at column to ensure consistency
+        # across database backends and match the behaviour in page explorer
+        if ordering == "_updated_at":
+            return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
+        elif ordering == "-_updated_at":
+            return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
+        else:
+            queryset = super().order_queryset(queryset, ordering)
 
-        # Preserve the model-level ordering if specified, but fall back on
-        # updated_at and PK if not (to ensure pagination is consistent)
-        if not queryset.ordered:
-            if has_updated_at_column:
-                queryset = queryset.order_by(
-                    models.F("_updated_at").desc(nulls_last=True), "-pk"
-                )
-            else:
-                queryset = queryset.order_by("-pk")
+            # Preserve the model-level ordering if specified, but fall back on
+            # updated_at and PK if not (to ensure pagination is consistent)
+            if not queryset.ordered:
+                if has_updated_at_column:
+                    queryset = queryset.order_by(
+                        models.F("_updated_at").desc(nulls_last=True), "-pk"
+                    )
+                else:
+                    queryset = queryset.order_by("-pk")
 
+            return queryset
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
         queryset = self.search_queryset(queryset)
         return queryset
 
