@@ -217,10 +217,11 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             ordering = self.default_ordering
         return ordering
 
-    def order_queryset(self, queryset, ordering):
-        if not ordering:
+    def order_queryset(self, queryset):
+        if not self.ordering:
             return queryset
 
+        ordering = self.ordering
         if not isinstance(ordering, (list, tuple)):
             ordering = (ordering,)
         return queryset.order_by(*ordering)
@@ -249,7 +250,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         queryset = self.get_base_queryset()
         self.ordering = self.get_ordering()
-        queryset = self.order_queryset(queryset, self.ordering)
+        queryset = self.order_queryset(queryset)
         queryset = self.filter_queryset(queryset)
         return queryset
 
