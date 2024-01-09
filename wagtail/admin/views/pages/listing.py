@@ -208,17 +208,29 @@ class BaseIndexView(generic.IndexView):
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
-                return Page.objects.all()
+                pages = Page.objects.all()
             else:
-                return self.parent_page.get_descendants()
+                pages = self.parent_page.get_descendants()
         else:
-            return self.parent_page.get_children()
+            pages = self.parent_page.get_children()
 
-    def get_queryset(self):
-        pages = self.get_base_queryset()
         pages = pages.prefetch_related(
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
+
+        # We want specific page instances, but do not need streamfield values here
+        pages = pages.defer_streamfields().specific()
+
+        # Annotate queryset with various states to be used later for performance optimisations
+        if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            pages = pages.prefetch_workflow_states()
+
+        pages = pages.annotate_site_root_state().annotate_approved_schedule()
+
+        return pages
+
+    def get_queryset(self):
+        pages = self.get_base_queryset()
 
         pages = self.filter_queryset(pages)
 
@@ -245,18 +257,9 @@ class BaseIndexView(generic.IndexView):
             else:
                 pages = pages.order_by(self.ordering)
 
-        # We want specific page instances, but do not need streamfield values here
-        pages = pages.defer_streamfields().specific()
-
-        # allow hooks defer_streamfieldsyset
+        # allow hooks to modify queryset
         for hook in hooks.get_hooks("construct_explorer_page_queryset"):
             pages = hook(self.parent_page, pages, self.request)
-
-        # Annotate queryset with various states to be used later for performance optimisations
-        if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
-            pages = pages.prefetch_workflow_states()
-
-        pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
         if self.is_searching:
             if self.ordering:
