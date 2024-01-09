@@ -126,10 +126,9 @@ class ModelIndexView(generic.IndexView):
         ]
 
     def get_context_data(self, **kwargs):
-        ordering = self.get_ordering()
-        reverse = ordering[0] == "-"
+        reverse = self.ordering[0] == "-"
 
-        if ordering in ["count", "-count"]:
+        if self.ordering in ["count", "-count"]:
             snippet_types = sorted(
                 self.snippet_types,
                 key=lambda type: type["count"],

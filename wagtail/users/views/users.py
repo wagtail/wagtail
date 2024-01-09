@@ -118,7 +118,7 @@ class Index(IndexView):
         if "last_name" in model_fields and "first_name" in model_fields:
             users = users.order_by("last_name", "first_name")
 
-        if self.get_ordering() == "username":
+        if self.ordering == "username":
             users = users.order_by(User.USERNAME_FIELD)
 
         return users
@@ -127,7 +127,7 @@ class Index(IndexView):
         context_data = super().get_context_data(
             *args, object_list=object_list, **kwargs
         )
-        context_data["ordering"] = self.get_ordering()
+        context_data["ordering"] = self.ordering
         context_data["group"] = self.group
 
         context_data.update(
