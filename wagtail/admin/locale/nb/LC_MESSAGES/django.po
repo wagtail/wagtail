@@ -801,16 +801,16 @@ msgstr "Oppsummering for nettstedet"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Side <span class=\"visuallyhidden\">opprettet i "
+"<span>%(total)s</span> Side <span class=\"w-sr-only\">opprettet i "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Sider <span class=\"visuallyhidden\">opprettet i "
+"<span>%(total)s</span> Sider <span class=\"w-sr-only\">opprettet i "
 "%(site_name)s</span>"
 
 #, python-format

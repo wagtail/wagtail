@@ -816,16 +816,16 @@ msgstr "Oldal összegzés"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> oldal <span class=\"visuallyhidden\">létrehozva itt: "
+"<span>%(total)s</span> oldal <span class=\"w-sr-only\">létrehozva itt: "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> oldal <span class=\"visuallyhidden\">létrehozva itt: "
+"<span>%(total)s</span> oldal <span class=\"w-sr-only\">létrehozva itt: "
 "%(site_name)s</span>"
 
 #, python-format

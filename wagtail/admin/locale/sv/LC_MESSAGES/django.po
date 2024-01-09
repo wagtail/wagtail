@@ -802,16 +802,16 @@ msgstr "Sajtsammanställning"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Sida <span class=\"visuallyhidden\">skapades i "
+"<span>%(total)s</span> Sida <span class=\"w-sr-only\">skapades i "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Sidor <span class=\"visuallyhidden\">skapades i "
+"<span>%(total)s</span> Sidor <span class=\"w-sr-only\">skapades i "
 "%(site_name)s</span>"
 
 #, python-format

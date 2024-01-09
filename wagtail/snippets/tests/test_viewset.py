@@ -719,7 +719,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
                 <svg class="icon icon-success default w-text-positive-100" aria-hidden="true">
                     <use href="#icon-success"></use>
                 </svg>
-                <span class="visuallyhidden">True</span>
+                <span class="w-sr-only">True</span>
             </td>
             """,
             html=True,
@@ -732,7 +732,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
                 <svg class="icon icon-error default w-text-critical-100" aria-hidden="true">
                     <use href="#icon-error"></use>
                 </svg>
-                <span class="visuallyhidden">False</span>
+                <span class="w-sr-only">False</span>
             </td>
             """,
             html=True,
@@ -745,7 +745,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
                 <svg class="icon icon-help default" aria-hidden="true">
                     <use href="#icon-help"></use>
                 </svg>
-                <span class="visuallyhidden">None</span>
+                <span class="w-sr-only">None</span>
             </td>
             """,
             html=True,
