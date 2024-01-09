@@ -217,6 +217,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             ordering = self.default_ordering
         return ordering
 
+    @cached_property
+    def ordering(self):
+        return self.get_ordering()
+
     def order_queryset(self, queryset):
         if not self.ordering:
             return queryset
@@ -244,12 +248,12 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     def get_queryset(self):
         # Instead of calling super().get_queryset(), we copy the initial logic from Django's
         # MultipleObjectMixin into get_base_queryset(). This allows us to perform additional steps
-        # before the ordering step (such as annotations), and retain the result of get_ordering()
-        # in self.ordering for use in get_table_kwargs() and elsewhere.
+        # before the ordering step (such as annotations), and funnel the call to get_ordering()
+        # through the cached property self.ordering so that we don't have to worry about calling
+        # get_ordering() multiple times.
         # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
 
         queryset = self.get_base_queryset()
-        self.ordering = self.get_ordering()
         queryset = self.order_queryset(queryset)
         queryset = self.filter_queryset(queryset)
         return queryset
