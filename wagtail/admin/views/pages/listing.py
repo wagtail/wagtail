@@ -266,21 +266,23 @@ class BaseIndexView(generic.IndexView):
         if self.ordering:
             pages = self.order_queryset(pages, self.ordering)
 
-        # allow hooks to modify queryset
-        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
-            pages = hook(self.parent_page, pages, self.request)
-
         pages = self.search_queryset(pages)
 
         return pages
 
     def search_queryset(self, queryset):
-        if not self.is_searching:
-            return queryset
+        # allow hooks to modify queryset. This should happen as close as possible to the
+        # final queryset, but (for backward compatibility) needs to be passed an actual queryset
+        # rather than a search result object
+        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
+            queryset = hook(self.parent_page, queryset, self.request)
 
-        return queryset.autocomplete(
-            self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
-        )
+        if self.is_searching:
+            queryset = queryset.autocomplete(
+                self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
+            )
+
+        return queryset
 
     def get_paginate_by(self, queryset):
         if self.ordering == "ord":
