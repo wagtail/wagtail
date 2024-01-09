@@ -72,13 +72,12 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
-class ModelIndexView(generic.IndexView):
+class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
     _show_breadcrumbs = True
-    header_buttons = []
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
