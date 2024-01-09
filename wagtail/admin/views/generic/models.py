@@ -259,6 +259,7 @@ class IndexView(
             else:
                 queryset = queryset.order_by("-pk")
 
+        queryset = self.search_queryset(queryset)
         return queryset
 
     def search_queryset(self, queryset):
@@ -484,11 +485,8 @@ class IndexView(
             )
         return _("Add")
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
-        queryset = self.search_queryset(queryset)
-
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
         context["can_add"] = (
             self.permission_policy is None
