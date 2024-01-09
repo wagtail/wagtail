@@ -20,6 +20,11 @@
   &__emphasise-span-tags span {
     color: theme('colors.warning.100');
   }
+
+  // Don't apply horizontal margins if nice-padding is applied in the parent
+  .nice-padding & {
+    margin-inline: 0;
+  }
 }
 
 .footer__container {

@@ -588,9 +588,24 @@ class CreateView(
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.form = context.get("form")
+        side_panels = self.get_side_panels()
         context["action_url"] = self.get_add_url()
         context["submit_button_label"] = self.submit_button_label
+        context["side_panels"] = side_panels
+        context["media"] += side_panels.media
         return context
+
+    def get_side_panels(self):
+        side_panels = [
+            StatusSidePanel(
+                self.form.instance,
+                self.request,
+                locale=self.locale,
+                translations=self.translations,
+            )
+        ]
+        return MediaContainer(side_panels)
 
     def get_translations(self):
         add_url = self.get_add_url()
@@ -833,11 +848,10 @@ class EditView(
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
         side_panels = self.get_side_panels()
-        media = context.get("media") + side_panels.media
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
         context["side_panels"] = side_panels
-        context["media"] = media
+        context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None

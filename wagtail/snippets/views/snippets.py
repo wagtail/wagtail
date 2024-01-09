@@ -271,21 +271,9 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = self.get_side_panels()
-        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "side_panels": side_panels,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
 
 
