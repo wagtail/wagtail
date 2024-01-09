@@ -343,12 +343,6 @@ class DeleteView(generic.DeleteView):
     def run_after_hook(self):
         return self.run_hook("after_delete_snippet", self.request, [self.object])
 
-    def get_success_message(self):
-        return _("%(model_name)s '%(object)s' deleted.") % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": self.object,
-        }
-
 
 class UsageView(generic.UsageView):
     view_name = "usage"

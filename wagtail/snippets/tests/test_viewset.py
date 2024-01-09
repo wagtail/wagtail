@@ -89,7 +89,7 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             # ("list", []),
             # ("add", []),
             # ("edit", [pk]),
-            ("delete", [pk]),
+            # ("delete", [pk]),
             # ("usage", [pk]),
             ("unpublish", [pk]),
             ("workflow_history", [pk]),

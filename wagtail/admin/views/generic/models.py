@@ -881,6 +881,7 @@ class DeleteView(
     permission_required = "delete"
     success_message = None
     page_title = gettext_lazy("Delete")
+    success_message = gettext_lazy("%(model_name)s '%(object)s' deleted.")
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -946,7 +947,13 @@ class DeleteView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "model_name": capfirst(self.object._meta.verbose_name),
+                "object": self.object,
+            }
+        )
 
     def delete_action(self):
         with transaction.atomic():
