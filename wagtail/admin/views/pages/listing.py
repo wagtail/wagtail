@@ -186,11 +186,11 @@ class BaseIndexView(generic.IndexView):
             "-latest_revision_created_at",
         ]
 
-        if self.query_string:
+        if self.is_searching and not self.is_explicitly_ordered:
             # default to ordering by relevance
             default_ordering = None
         else:
-            default_ordering = "-latest_revision_created_at"
+            default_ordering = self.parent_page.get_admin_default_ordering()
             # ordering by page order is only available when not searching
             valid_orderings.append("ord")
 
@@ -230,26 +230,30 @@ class BaseIndexView(generic.IndexView):
         return pages
 
     def order_queryset(self, queryset, ordering):
-        if not self.is_searching:
-            if ordering == "ord":
-                # preserve the native ordering from get_children()
-                pass
-            elif ordering == "latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the top of the list.
-                # Do this by annotating with Count('latest_revision_created_at'),
-                # which returns 0 for these
-                queryset = queryset.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("null_position", "latest_revision_created_at")
-            elif ordering == "-latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the end of the list.
-                queryset = queryset.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("-null_position", "-latest_revision_created_at")
-            else:
-                queryset = super().order_queryset(queryset, ordering)
+        if self.is_searching and not self.is_explicitly_ordered:
+            # search backend will order by relevance in this case, so don't bother to
+            # apply an ordering on the queryset
+            return queryset
+
+        if ordering == "ord":
+            # preserve the native ordering from get_children()
+            pass
+        elif ordering == "latest_revision_created_at":
+            # order by oldest revision first.
+            # Special case NULL entries - these should go at the top of the list.
+            # Do this by annotating with Count('latest_revision_created_at'),
+            # which returns 0 for these
+            queryset = queryset.annotate(
+                null_position=Count("latest_revision_created_at")
+            ).order_by("null_position", "latest_revision_created_at")
+        elif ordering == "-latest_revision_created_at":
+            # order by oldest revision first.
+            # Special case NULL entries - these should go at the end of the list.
+            queryset = queryset.annotate(
+                null_position=Count("latest_revision_created_at")
+            ).order_by("-null_position", "-latest_revision_created_at")
+        else:
+            queryset = super().order_queryset(queryset, ordering)
 
         return queryset
 
@@ -267,7 +271,7 @@ class BaseIndexView(generic.IndexView):
             pages = hook(self.parent_page, pages, self.request)
 
         if self.is_searching:
-            if self.ordering:
+            if self.is_explicitly_ordered:
                 pages = pages.order_by(self.ordering).autocomplete(
                     self.query_string, order_by_relevance=False
                 )
@@ -394,18 +398,6 @@ class IndexView(BaseIndexView):
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         return context
-
-    def get_ordering(self):
-        """
-        Use the parent Page's `get_admin_default_ordering` method.
-        """
-        if self.query_string:
-            # default to ordering by relevance
-            return None
-        elif not self.request.GET.get("ordering"):
-            return self.parent_page.get_admin_default_ordering()
-
-        return super().get_ordering()
 
 
 class IndexResultsView(BaseIndexView):
