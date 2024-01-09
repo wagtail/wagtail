@@ -229,16 +229,16 @@ class BaseIndexView(generic.IndexView):
 
         return pages
 
-    def order_queryset(self, queryset, ordering):
+    def order_queryset(self, queryset):
         if self.is_searching and not self.is_explicitly_ordered:
             # search backend will order by relevance in this case, so don't bother to
             # apply an ordering on the queryset
             return queryset
 
-        if ordering == "ord":
+        if self.ordering == "ord":
             # preserve the native ordering from get_children()
             pass
-        elif ordering == "latest_revision_created_at":
+        elif self.ordering == "latest_revision_created_at":
             # order by oldest revision first.
             # Special case NULL entries - these should go at the top of the list.
             # Do this by annotating with Count('latest_revision_created_at'),
@@ -246,14 +246,14 @@ class BaseIndexView(generic.IndexView):
             queryset = queryset.annotate(
                 null_position=Count("latest_revision_created_at")
             ).order_by("null_position", "latest_revision_created_at")
-        elif ordering == "-latest_revision_created_at":
+        elif self.ordering == "-latest_revision_created_at":
             # order by oldest revision first.
             # Special case NULL entries - these should go at the end of the list.
             queryset = queryset.annotate(
                 null_position=Count("latest_revision_created_at")
             ).order_by("-null_position", "-latest_revision_created_at")
         else:
-            queryset = super().order_queryset(queryset, ordering)
+            queryset = super().order_queryset(queryset)
 
         return queryset
 

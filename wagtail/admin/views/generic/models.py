@@ -205,7 +205,7 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def order_queryset(self, queryset, ordering):
+    def order_queryset(self, queryset):
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
             for column in self.columns
@@ -215,12 +215,12 @@ class IndexView(
 
         # Explicitly handle null values for the updated at column to ensure consistency
         # across database backends and match the behaviour in page explorer
-        if ordering == "_updated_at":
+        if self.ordering == "_updated_at":
             return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
-        elif ordering == "-_updated_at":
+        elif self.ordering == "-_updated_at":
             return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
         else:
-            queryset = super().order_queryset(queryset, ordering)
+            queryset = super().order_queryset(queryset)
 
             # Preserve the model-level ordering if specified, but fall back on
             # updated_at and PK if not (to ensure pagination is consistent)
