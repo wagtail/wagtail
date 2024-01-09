@@ -257,19 +257,6 @@ class BaseIndexView(generic.IndexView):
 
         return queryset
 
-    def get_queryset(self):
-        pages = self.get_base_queryset()
-
-        pages = self.filter_queryset(pages)
-
-        self.ordering = self.get_ordering()
-        if self.ordering:
-            pages = self.order_queryset(pages, self.ordering)
-
-        pages = self.search_queryset(pages)
-
-        return pages
-
     def search_queryset(self, queryset):
         # allow hooks to modify queryset. This should happen as close as possible to the
         # final queryset, but (for backward compatibility) needs to be passed an actual queryset
