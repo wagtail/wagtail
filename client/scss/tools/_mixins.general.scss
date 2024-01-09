@@ -68,15 +68,6 @@
   width: 1px;
 }
 
-@mixin visuallyvisible {
-  clip: auto;
-  height: auto;
-  width: auto;
-  margin: initial;
-  overflow: visible;
-  position: initial;
-}
-
 @mixin svg-icon($size: 1em, $position: text-top) {
   width: $size;
   height: $size;
