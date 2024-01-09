@@ -25,3 +25,7 @@ indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
+
+# Make sure this file _doesn’t_ end with a final newline. It breaks rendering.
+[wagtail/admin/templates/wagtailadmin/shared/icon.html]
+insert_final_newline = false
