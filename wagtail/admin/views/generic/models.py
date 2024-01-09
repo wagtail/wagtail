@@ -266,7 +266,7 @@ class IndexView(
         return queryset
 
     def search_queryset(self, queryset):
-        if not self.search_query:
+        if not self.is_searching:
             return queryset
 
         if class_is_indexed(queryset.model) and self.search_backend_name:

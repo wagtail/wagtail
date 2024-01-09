@@ -270,15 +270,17 @@ class BaseIndexView(generic.IndexView):
         for hook in hooks.get_hooks("construct_explorer_page_queryset"):
             pages = hook(self.parent_page, pages, self.request)
 
-        if self.is_searching:
-            if self.is_explicitly_ordered:
-                pages = pages.order_by(self.ordering).autocomplete(
-                    self.query_string, order_by_relevance=False
-                )
-            else:
-                pages = pages.autocomplete(self.query_string)
+        pages = self.search_queryset(pages)
 
         return pages
+
+    def search_queryset(self, queryset):
+        if not self.is_searching:
+            return queryset
+
+        return queryset.autocomplete(
+            self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
+        )
 
     def get_paginate_by(self, queryset):
         if self.ordering == "ord":
