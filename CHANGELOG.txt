@@ -818,6 +818,10 @@ Changelog
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
  * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
+ * Maintenance: Remove or replace legacy CSS classes: visuallyhidden, visuallyvisible, divider-after, divider-before, inline, inline-block, block, u-hidden, clearfix, reordering, overflow (Thibaud Colas)
+ * Maintenance: Prevent future issues with icon.html end-of-file newlines (Thibaud Colas)
+ * Maintenance: Rewrite styles using legacy `c-`, `o-`, `u-`, `t-`, `is-` prefixes (Thibaud Colas)
+ * Maintenance: Remove invalid CSS styles / Sass selector concatenation (Thibaud Colas)
 
 
 4.1.9 (19.10.2023)
