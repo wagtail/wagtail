@@ -220,6 +220,17 @@ class IndexView(
             )
         return queryset
 
+    def order_queryset(self, queryset, ordering):
+        # Explicitly handle null values for the updated at column to ensure consistency
+        # across database backends and match the behaviour in page explorer
+        if ordering == "_updated_at":
+            ordering = models.F("_updated_at").asc(nulls_first=True)
+        elif ordering == "-_updated_at":
+            ordering = models.F("_updated_at").desc(nulls_last=True)
+        if not isinstance(ordering, (list, tuple)):
+            ordering = (ordering,)
+        return queryset.order_by(*ordering)
+
     def get_queryset(self):
         # Instead of calling super().get_queryset(), we copy the initial logic
         # from Django's MultipleObjectMixin into get_base_queryset(), because
@@ -239,15 +250,7 @@ class IndexView(
 
         ordering = self.get_ordering()
         if ordering:
-            # Explicitly handle null values for the updated at column to ensure consistency
-            # across database backends and match the behaviour in page explorer
-            if ordering == "_updated_at":
-                ordering = models.F("_updated_at").asc(nulls_first=True)
-            elif ordering == "-_updated_at":
-                ordering = models.F("_updated_at").desc(nulls_last=True)
-            if not isinstance(ordering, (list, tuple)):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
+            queryset = self.order_queryset(queryset, ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
