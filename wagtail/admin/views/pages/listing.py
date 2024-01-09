@@ -229,33 +229,38 @@ class BaseIndexView(generic.IndexView):
 
         return pages
 
+    def order_queryset(self, queryset, ordering):
+        if not self.is_searching:
+            if ordering == "ord":
+                # preserve the native ordering from get_children()
+                pass
+            elif ordering == "latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the top of the list.
+                # Do this by annotating with Count('latest_revision_created_at'),
+                # which returns 0 for these
+                queryset = queryset.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("null_position", "latest_revision_created_at")
+            elif ordering == "-latest_revision_created_at":
+                # order by oldest revision first.
+                # Special case NULL entries - these should go at the end of the list.
+                queryset = queryset.annotate(
+                    null_position=Count("latest_revision_created_at")
+                ).order_by("-null_position", "-latest_revision_created_at")
+            else:
+                queryset = super().order_queryset(queryset, ordering)
+
+        return queryset
+
     def get_queryset(self):
         pages = self.get_base_queryset()
 
         pages = self.filter_queryset(pages)
 
         self.ordering = self.get_ordering()
-
-        if not self.is_searching:
-            if self.ordering == "ord":
-                # preserve the native ordering from get_children()
-                pass
-            elif self.ordering == "latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the top of the list.
-                # Do this by annotating with Count('latest_revision_created_at'),
-                # which returns 0 for these
-                pages = pages.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("null_position", "latest_revision_created_at")
-            elif self.ordering == "-latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the end of the list.
-                pages = pages.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("-null_position", "-latest_revision_created_at")
-            else:
-                pages = pages.order_by(self.ordering)
+        if self.ordering:
+            pages = self.order_queryset(pages, self.ordering)
 
         # allow hooks to modify queryset
         for hook in hooks.get_hooks("construct_explorer_page_queryset"):
