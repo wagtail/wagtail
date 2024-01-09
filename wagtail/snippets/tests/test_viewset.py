@@ -88,12 +88,12 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             # only, so there is no header_icon anymore.
             # ("list", []),
             # ("add", []),
-            ("edit", [pk]),
+            # ("edit", [pk]),
             ("delete", [pk]),
             # ("usage", [pk]),
             ("unpublish", [pk]),
             ("workflow_history", [pk]),
-            ("revisions_revert", [pk, self.revision_1.id]),
+            # ("revisions_revert", [pk, self.revision_1.id]),
             ("revisions_compare", [pk, self.revision_1.id, self.revision_2.id]),
             ("revisions_unschedule", [pk, self.revision_2.id]),
         ]
