@@ -205,31 +205,15 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def get_base_queryset(self):
-        if self.queryset is not None:
-            queryset = self.queryset
-            if isinstance(queryset, models.QuerySet):
-                queryset = queryset.all()
-        elif self.model is not None:
-            queryset = self.model._default_manager.all()
-        else:
-            raise ImproperlyConfigured(
-                "%(cls)s is missing a QuerySet. Define "
-                "%(cls)s.model, %(cls)s.queryset, or override "
-                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
-            )
-        return queryset
-
     def order_queryset(self, queryset, ordering):
         # Explicitly handle null values for the updated at column to ensure consistency
         # across database backends and match the behaviour in page explorer
         if ordering == "_updated_at":
-            ordering = models.F("_updated_at").asc(nulls_first=True)
+            return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
         elif ordering == "-_updated_at":
-            ordering = models.F("_updated_at").desc(nulls_last=True)
-        if not isinstance(ordering, (list, tuple)):
-            ordering = (ordering,)
-        return queryset.order_by(*ordering)
+            return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
+        else:
+            return super().order_queryset(queryset, ordering)
 
     def get_queryset(self):
         # Instead of calling super().get_queryset(), we copy the initial logic
@@ -249,8 +233,7 @@ class IndexView(
             queryset = self._annotate_queryset_updated_at(queryset)
 
         self.ordering = self.get_ordering()
-        if self.ordering:
-            queryset = self.order_queryset(queryset, self.ordering)
+        queryset = self.order_queryset(queryset, self.ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)

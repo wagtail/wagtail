@@ -1,5 +1,6 @@
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
+from django.db import models
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
@@ -216,11 +217,40 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             ordering = self.default_ordering
         return ordering
 
+    def order_queryset(self, queryset, ordering):
+        if not ordering:
+            return queryset
+
+        if not isinstance(ordering, (list, tuple)):
+            ordering = (ordering,)
+        return queryset.order_by(*ordering)
+
+    def get_base_queryset(self):
+        if self.queryset is not None:
+            queryset = self.queryset
+            if isinstance(queryset, models.QuerySet):
+                queryset = queryset.all()
+        elif self.model is not None:
+            queryset = self.model._default_manager.all()
+        else:
+            raise ImproperlyConfigured(
+                "%(cls)s is missing a QuerySet. Define "
+                "%(cls)s.model, %(cls)s.queryset, or override "
+                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
+            )
+        return queryset
+
     def get_queryset(self):
-        queryset = super().get_queryset()
+        # Instead of calling super().get_queryset(), we copy the initial logic from Django's
+        # MultipleObjectMixin into get_base_queryset(). This allows us to perform additional steps
+        # before the ordering step (such as annotations), and retain the result of get_ordering()
+        # in self.ordering for use in get_table_kwargs() and elsewhere.
+        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
+
+        queryset = self.get_base_queryset()
+
         self.ordering = self.get_ordering()
-        # FIXME: get_ordering is also called from super().get_queryset (but it doesn't keep the result),
-        # so we are calling it twice here.
+        queryset = self.order_queryset(queryset, self.ordering)
 
         queryset = self.filter_queryset(queryset)
         return queryset
