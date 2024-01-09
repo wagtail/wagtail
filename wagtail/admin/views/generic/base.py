@@ -206,6 +206,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 orderings.append("-%s" % col.sort_key)
         return orderings
 
+    @cached_property
+    def is_explicitly_ordered(self):
+        return "ordering" in self.request.GET
+
     def get_ordering(self):
         ordering = self.request.GET.get("ordering", self.default_ordering)
         if ordering not in self.get_valid_orderings():

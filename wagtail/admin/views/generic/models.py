@@ -273,7 +273,10 @@ class IndexView(
             search_backend = get_search_backend(self.search_backend_name)
             if queryset.model.get_autocomplete_search_fields():
                 return search_backend.autocomplete(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
             else:
                 # fall back on non-autocompleting search
@@ -284,7 +287,10 @@ class IndexView(
                     category=RuntimeWarning,
                 )
                 return search_backend.search(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
         query = Q()
         for field in self.search_fields or []:
