@@ -220,9 +220,11 @@ class CreateEditViewOptionalFeaturesMixin:
     """
 
     view_name = "create"
+    preview_url_name = None
     lock_url_name = None
     unlock_url_name = None
     revisions_unschedule_url_name = None
+    revisions_compare_url_name = None
     workflow_history_url_name = None
     confirm_workflow_cancellation_url_name = None
 
