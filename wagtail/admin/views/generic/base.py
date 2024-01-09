@@ -248,10 +248,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
 
         queryset = self.get_base_queryset()
-
         self.ordering = self.get_ordering()
         queryset = self.order_queryset(queryset, self.ordering)
-
         queryset = self.filter_queryset(queryset)
         return queryset
 
