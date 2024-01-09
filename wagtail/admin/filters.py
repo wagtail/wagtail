@@ -1,5 +1,6 @@
 import django_filters
 from django import forms
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
@@ -95,20 +96,23 @@ class LocaleFilter(django_filters.ChoiceFilter):
 
 
 class WagtailFilterSet(django_filters.FilterSet):
-    @classmethod
-    def get_filters(cls):
-        from wagtail.models.i18n import TranslatableMixin
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
 
-        filters = super().get_filters()
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            self._add_locale_filter()
 
+    def _add_locale_filter(self):
         # Add a locale filter if the model is translatable
         # and there isn't one already.
+        from wagtail.models.i18n import TranslatableMixin
+
         if (
-            cls._meta.model
-            and issubclass(cls._meta.model, TranslatableMixin)
-            and "locale" not in filters
+            self._meta.model
+            and issubclass(self._meta.model, TranslatableMixin)
+            and "locale" not in self.filters
         ):
-            filters["locale"] = LocaleFilter(
+            self.filters["locale"] = LocaleFilter(
                 label=_("Locale"),
                 choices=list(get_content_languages().items()),
                 empty_label=None,
@@ -116,8 +120,6 @@ class WagtailFilterSet(django_filters.FilterSet):
                 null_value=None,
                 widget=forms.RadioSelect,
             )
-
-        return filters
 
     @classmethod
     def filter_for_lookup(cls, field, lookup_type):
