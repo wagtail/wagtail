@@ -199,7 +199,7 @@ ul.listing {
     }
 
     label span {
-      @include visuallyhidden();
+      @apply w-sr-only;
     }
 
     input {

@@ -814,16 +814,16 @@ msgstr "Resum del lloc"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Pàgina <span class=\"visuallyhidden\">creada a "
+"<span>%(total)s</span> Pàgina <span class=\"w-sr-only\">creada a "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Pàgines <span class=\"visuallyhidden\">creades a "
+"<span>%(total)s</span> Pàgines <span class=\"w-sr-only\">creades a "
 "%(site_name)s</span>"
 
 #, python-format

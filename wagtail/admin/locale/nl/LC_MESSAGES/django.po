@@ -841,16 +841,16 @@ msgstr "Site samenvatting"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> pagina <span class=\"visuallyhidden\"> aangemaakt in "
+"<span>%(total)s</span> pagina <span class=\"w-sr-only\"> aangemaakt in "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> pagina's <span class=\"visuallyhidden\">aangemaakt in "
+"<span>%(total)s</span> pagina's <span class=\"w-sr-only\">aangemaakt in "
 "%(site_name)s</span>"
 
 #, python-format

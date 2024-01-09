@@ -815,16 +815,16 @@ msgstr "Resumo do sitio"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Páxina <span class=\"visuallyhidden\">creadas en "
+"<span>%(total)s</span> Páxina <span class=\"w-sr-only\">creadas en "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Páxinas <span class=\"visuallyhidden\">creadas en "
+"<span>%(total)s</span> Páxinas <span class=\"w-sr-only\">creadas en "
 "%(site_name)s</span>"
 
 #, python-format

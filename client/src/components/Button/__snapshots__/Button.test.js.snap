@@ -7,7 +7,7 @@ exports[`Button #accessibleLabel 1`] = `
   onClick={[Function]}
 >
   <span
-    className="visuallyhidden"
+    className="w-sr-only"
   >
     I am here in the shadows
   </span>

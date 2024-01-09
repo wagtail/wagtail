@@ -685,13 +685,13 @@ msgstr "사이트 요약"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>페이지는 <span class=\"visuallyhidden\">%(site_name)s</"
+"<span>%(total)s</span>페이지는 <span class=\"w-sr-only\">%(site_name)s</"
 "span>안에 생성되었습니다."
 
 msgid "Task started"
