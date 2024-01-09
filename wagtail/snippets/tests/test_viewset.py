@@ -87,7 +87,7 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             # TODO: Some of these views have been migrated to use the slim_header
             # only, so there is no header_icon anymore.
             # ("list", []),
-            ("add", []),
+            # ("add", []),
             ("edit", [pk]),
             ("delete", [pk]),
             # ("usage", [pk]),
