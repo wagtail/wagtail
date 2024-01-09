@@ -98,7 +98,7 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertBreadcrumbsItemsRendered(
             [{"url": "", "label": "Snippets"}],
             response.content,
