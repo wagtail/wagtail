@@ -685,6 +685,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["publishing_will_cancel_workflow"] = getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
+        context["revisions_compare_url_name"] = self.revisions_compare_url_name
         return context
 
     def post(self, request, *args, **kwargs):

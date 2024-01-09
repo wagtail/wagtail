@@ -328,19 +328,9 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "revisions_compare_url_name": self.revisions_compare_url_name,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
 
 
