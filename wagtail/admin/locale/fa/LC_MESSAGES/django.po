@@ -715,16 +715,16 @@ msgstr "خلاصه سایت"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> صفحه در <span class=\"visuallyhidden\">%(site_name)s "
+"<span>%(total)s</span> صفحه در <span class=\"w-sr-only\">%(site_name)s "
 "ساخته شده اند</span>"
 msgstr[1] ""
-"<span>%(total)s</span> صفحه در <span class=\"visuallyhidden\">%(site_name)s "
+"<span>%(total)s</span> صفحه در <span class=\"w-sr-only\">%(site_name)s "
 "ساخته شده اند</span>"
 
 #, python-format

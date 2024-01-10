@@ -319,3 +319,33 @@
     }
   }
 }
+
+.w-header-button {
+  // Temporarily copied from .c-sf-add-button
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.7');
+  height: theme('spacing.slim-header');
+  appearance: none;
+  color: theme('colors.text-button-outline-default');
+  padding: 0;
+  cursor: pointer;
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    padding: theme('spacing.[0.5]');
+    border: 1px solid theme('colors.text-button-outline-default');
+    border-radius: theme('borderRadius.full');
+    transition: transform 0.3s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .icon {
+      color: theme('colors.surface-page');
+      background-color: theme('colors.text-button-outline-default');
+    }
+  }
+}

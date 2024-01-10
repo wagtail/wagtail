@@ -135,12 +135,9 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     response, "<p>Some extra custom content</p>", html=True
                 )
 
-    def test_wagtail_admin_template_mixin_variables(self):
+    def test_wagtail_admin_template_mixin_variables_with_legacy_header(self):
         pk = quote(self.custom.pk)
         cases = {
-            "index": ([], "Feature complete toys", None),
-            "add": ([], "New", "Feature complete toy"),
-            "edit": ([pk], "Editing", str(self.custom)),
             "delete": ([pk], "Delete", str(self.custom)),
         }
         for view_name, (args, title, subtitle) in cases.items():
@@ -160,6 +157,27 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     self.assertIsNone(subtitle_el)
                 icon = h1.select_one("svg use[href='#icon-media']")
                 self.assertIsNotNone(icon)
+
+    def test_wagtail_admin_template_mixin_variables(self):
+        pk = quote(self.custom.pk)
+        cases = {
+            "index": ([], "Feature complete toys", None),
+            "add": ([], "New", "Feature complete toy"),
+            "edit": ([pk], "Editing", str(self.custom)),
+        }
+        for view_name, (args, title, subtitle) in cases.items():
+            with self.subTest(view_name=view_name):
+                response = self.client.get(self.get_custom_url(view_name, args=args))
+                soup = self.get_soup(response.content)
+                h1 = soup.select_one("h1")
+                expected_h1 = title
+                if subtitle:
+                    expected_h1 = f"{title}: {subtitle}"
+                self.assertIsNotNone(h1)
+                self.assertEqual(h1.get_text(strip=True), expected_h1)
+                icon = h1.select_one("svg use[href='#icon-media']")
+                # Icon is no longer rendered in the h1 with the slim header in place
+                self.assertIsNone(icon)
 
 
 class TestCustomColumns(WagtailTestUtils, TestCase):
@@ -232,7 +250,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "There are no feature complete toys to display",
@@ -247,7 +264,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
 
@@ -255,7 +272,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -271,7 +287,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
 
@@ -279,7 +295,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace, {lookup: ""})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -291,7 +306,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertFalse(input.attrs.get("value"))
@@ -306,7 +321,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "No feature complete toys match your query",
@@ -318,7 +332,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
@@ -333,7 +347,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "There is 1 match")
                 self.assertNotContains(response, "Forky")
@@ -345,7 +358,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
@@ -773,6 +786,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "History",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -797,6 +811,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Usage",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -821,6 +836,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Inspect",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -932,9 +948,9 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         response = self.client.get(self.url, {"action": "wagtail.create"})
         soup = self.get_soup(response.content)
         rows = soup.select("tbody tr")
-        heading = soup.select_one("h2")
+        heading = soup.select_one("h2:not(.w-dialog h2)")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(heading.text.strip(), "There is 1 match")
+        self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
 
@@ -980,7 +996,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1028,7 +1044,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1050,7 +1066,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)

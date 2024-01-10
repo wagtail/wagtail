@@ -85,6 +85,12 @@ register_form_field_override(
     ),
 )
 
+# Slug fields
+register_form_field_override(
+    models.SlugField,
+    override={"widget": widgets.SlugInput},
+)
+
 
 # Callback to allow us to override the default form fields provided for each model field.
 def formfield_for_dbfield(db_field, **kwargs):

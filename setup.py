@@ -20,9 +20,9 @@ except ImportError:
 
 install_requires = [
     "Django>=4.2,<6.0",
-    "django-modelcluster>=6.1,<7.0",
+    "django-modelcluster>=6.2.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
-    "django-taggit>=2.0,<5.0",
+    "django-taggit>=4.0,<5.1",
     "django-treebeard>=4.5.1,<5.0",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=23.3,<24",
@@ -71,7 +71,7 @@ testing_extras = [
 # Documentation dependencies
 documentation_extras = [
     "pyenchant>=3.1.1,<4",
-    "sphinxcontrib-spelling>=5.4.0,<6",
+    "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.1.1",

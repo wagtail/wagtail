@@ -814,13 +814,13 @@ msgstr "Upplýsingar um vef"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Síða <span class=\"visuallyhidden\">búin til í "
+"<span>%(total)s</span> Síða <span class=\"w-sr-only\">búin til í "
 "%(site_name)s</span>"
 msgstr[1] "<span>%(total)s</span> Síður búnar til í %(site_name)s</span>"
 

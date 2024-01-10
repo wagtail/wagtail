@@ -18,7 +18,11 @@ class FormSubmissionsPanel(Panel):
         def submissions(self):
             form_page_model = self.panel.model
             form_submissions_model = form_page_model().get_submission_class()
-            return form_submissions_model.objects.filter(page=self.instance)
+            if self.instance.pk:
+                return form_submissions_model.objects.filter(page=self.instance)
+            else:
+                # Page has not been created yet, so there can't be any submissions
+                return form_submissions_model.objects.none()
 
         @cached_property
         def submission_count(self):

@@ -2,7 +2,7 @@
 
 exports[`PublicationStatus #status live 1`] = `
 <span
-  className="o-pill c-status c-status--live"
+  className="c-status c-status--live"
 >
   live + draft
 </span>
@@ -10,7 +10,7 @@ exports[`PublicationStatus #status live 1`] = `
 
 exports[`PublicationStatus #status not live 1`] = `
 <span
-  className="o-pill c-status"
+  className="c-status"
 >
   live + draft
 </span>

@@ -17,7 +17,7 @@ const Transition = ({ name, component, className, duration, children }) => (
     component={component}
     transitionEnterTimeout={duration}
     transitionLeaveTimeout={duration}
-    transitionName={`c-transition-${name}`}
+    transitionName={`w-transition-${name}`}
     className={className}
   >
     {children}

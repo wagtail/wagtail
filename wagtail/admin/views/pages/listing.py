@@ -93,9 +93,10 @@ class BaseIndexView(generic.IndexView):
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
+    page_title = _("Exploring")
 
     columns = [
-        BulkActionsColumn("bulk_actions", width="10px"),
+        BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
             label=_("Title"),
@@ -160,13 +161,11 @@ class BaseIndexView(generic.IndexView):
         self.query_string = None
         self.is_searching = False
         if "q" in self.request.GET:
-            self.search_form = SearchForm(
-                self.request.GET, placeholder=_("Search pages…")
-            )
+            self.search_form = SearchForm(self.request.GET)
             if self.search_form.is_valid():
                 self.query_string = self.search_form.cleaned_data["q"]
         else:
-            self.search_form = SearchForm(placeholder=_("Search pages…"))
+            self.search_form = SearchForm()
 
         if self.query_string:
             self.is_searching = True
@@ -187,11 +186,11 @@ class BaseIndexView(generic.IndexView):
             "-latest_revision_created_at",
         ]
 
-        if self.query_string:
+        if self.is_searching and not self.is_explicitly_ordered:
             # default to ordering by relevance
             default_ordering = None
         else:
-            default_ordering = "-latest_revision_created_at"
+            default_ordering = self.parent_page.get_admin_default_ordering()
             # ordering by page order is only available when not searching
             valid_orderings.append("ord")
 
@@ -206,7 +205,7 @@ class BaseIndexView(generic.IndexView):
 
         return ordering
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
                 pages = Page.objects.all()
@@ -219,37 +218,8 @@ class BaseIndexView(generic.IndexView):
             "content_type", "sites_rooted_here"
         ) & self.permission_policy.explorable_instances(self.request.user)
 
-        filters, pages = self.filter_queryset(pages)
-
-        self.ordering = self.get_ordering()
-
-        if not self.is_searching:
-            if self.ordering == "ord":
-                # preserve the native ordering from get_children()
-                pass
-            elif self.ordering == "latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the top of the list.
-                # Do this by annotating with Count('latest_revision_created_at'),
-                # which returns 0 for these
-                pages = pages.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("null_position", "latest_revision_created_at")
-            elif self.ordering == "-latest_revision_created_at":
-                # order by oldest revision first.
-                # Special case NULL entries - these should go at the end of the list.
-                pages = pages.annotate(
-                    null_position=Count("latest_revision_created_at")
-                ).order_by("-null_position", "-latest_revision_created_at")
-            else:
-                pages = pages.order_by(self.ordering)
-
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
-
-        # allow hooks defer_streamfieldsyset
-        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
-            pages = hook(self.parent_page, pages, self.request)
 
         # Annotate queryset with various states to be used later for performance optimisations
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
@@ -257,15 +227,49 @@ class BaseIndexView(generic.IndexView):
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
-        if self.is_searching:
-            if self.ordering:
-                pages = pages.order_by(self.ordering).autocomplete(
-                    self.query_string, order_by_relevance=False
-                )
-            else:
-                pages = pages.autocomplete(self.query_string)
-
         return pages
+
+    def order_queryset(self, queryset):
+        if self.is_searching and not self.is_explicitly_ordered:
+            # search backend will order by relevance in this case, so don't bother to
+            # apply an ordering on the queryset
+            return queryset
+
+        if self.ordering == "ord":
+            # preserve the native ordering from get_children()
+            pass
+        elif self.ordering == "latest_revision_created_at":
+            # order by oldest revision first.
+            # Special case NULL entries - these should go at the top of the list.
+            # Do this by annotating with Count('latest_revision_created_at'),
+            # which returns 0 for these
+            queryset = queryset.annotate(
+                null_position=Count("latest_revision_created_at")
+            ).order_by("null_position", "latest_revision_created_at")
+        elif self.ordering == "-latest_revision_created_at":
+            # order by oldest revision first.
+            # Special case NULL entries - these should go at the end of the list.
+            queryset = queryset.annotate(
+                null_position=Count("latest_revision_created_at")
+            ).order_by("-null_position", "-latest_revision_created_at")
+        else:
+            queryset = super().order_queryset(queryset)
+
+        return queryset
+
+    def search_queryset(self, queryset):
+        # allow hooks to modify queryset. This should happen as close as possible to the
+        # final queryset, but (for backward compatibility) needs to be passed an actual queryset
+        # rather than a search result object
+        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
+            queryset = hook(self.parent_page, queryset, self.request)
+
+        if self.is_searching:
+            queryset = queryset.autocomplete(
+                self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
+            )
+
+        return queryset
 
     def get_paginate_by(self, queryset):
         if self.ordering == "ord":
@@ -275,13 +279,10 @@ class BaseIndexView(generic.IndexView):
         else:
             return self.paginate_by
 
-    def paginate_queryset(self, queryset, page_size):
-        return super().paginate_queryset(queryset, page_size)
-
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
-    def get_results_url(self):
+    def get_index_results_url(self):
         return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
 
     def get_history_url(self):
@@ -304,16 +305,14 @@ class BaseIndexView(generic.IndexView):
             }
         return kwargs
 
-    def get_page_title(self):
-        return _("Exploring %(title)s") % {
-            "title": self.parent_page.get_admin_display_title()
-        }
+    def get_page_subtitle(self):
+        return self.parent_page.get_admin_display_title()
 
     def get_context_data(self, **kwargs):
         self.show_ordering_column = self.ordering == "ord"
         if self.show_ordering_column:
             self.columns = self.columns.copy()
-            self.columns[0] = OrderingColumn("ordering", width="10px", sort_key="ord")
+            self.columns[0] = OrderingColumn("ordering", width="80px", sort_key="ord")
         self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         context = super().get_context_data(**kwargs)
@@ -338,7 +337,7 @@ class BaseIndexView(generic.IndexView):
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
                 "index_url": self.get_index_url(),
-                "results_url": self.get_results_url(),
+                "search_url": self.get_index_results_url(),
                 "history_url": self.get_history_url(),
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
@@ -387,18 +386,6 @@ class IndexView(BaseIndexView):
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         return context
-
-    def get_ordering(self):
-        """
-        Use the parent Page's `get_admin_default_ordering` method.
-        """
-        if self.query_string:
-            # default to ordering by relevance
-            return None
-        elif not self.request.GET.get("ordering"):
-            return self.parent_page.get_admin_default_ordering()
-
-        return super().get_ordering()
 
 
 class IndexResultsView(BaseIndexView):

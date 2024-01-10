@@ -27,6 +27,15 @@ Changelog
  * Add ability to filter by page type and date updated in the page listing view (Matt Westcott)
  * Add ability to filter by owner and site in the page listing view (Matt Westcott)
  * Improve right-to-left support by using flow-relative float styles (Thibaud Colas)
+ * Show edit as a main action in generic history and usage views (Sage Abdullah)
+ * Make styles for header buttons consistent (Sage Abdullah)
+ * Improve styles of slim header's search and filters (Sage Abdullah)
+ * Change page listing's add button to icon-only (Sage Abdullah)
+ * Add sublabel to breadcrumbs, including history, usage, and inspect views (Sage Abdullah)
+ * Standardise search form placeholder to 'Search…' (Sage Abdullah)
+ * Use SlugInput on all SlugFields by default (LB (Ben) Johnston)
+ * Show character counts on RichTextBlock with `max_length` (Elhussein Almasri)
+ * Move locale selector in generic IndexView to a filter (Sage Abdullah)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -45,11 +54,14 @@ Changelog
  * Fix: Avoid error when exporting Aging Pages report where a page has an empty `last_published_by_user` (Chiemezuo Akujobi)
  * Fix: Ensure Page querysets support using `alias` and `specific` (Tomasz Knapik)
  * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
+ * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
  * Docs: Add more nuance to the database recommendations in performance page (Jadesola Kareem)
  * Docs: Add clarity that MultipleChooserPanel may require a chooser viewset and how the functionality is expected to work (Andy Chosak)
+ * Docs: Clarify where documentation build commands should be run (Nikhil S Kalburgi)
+ * Docs: Add missing import to tutorial BlogPage example (Salvo Polizzi)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
@@ -81,6 +93,17 @@ Changelog
  * Maintenance: Refactor form pages listing view to use generic IndexView (Sage Abdullah)
  * Maintenance: Update Stylelint, our linting configuration, Sass, and related code changes (LB (Ben) Johnston)
  * Maintenance: Simplify browserslist and browser support documentation (Thibaud Colas)
+ * Maintenance: Relax django-taggit dependency to allow 5.0 (Sylvain Fankhauser)
+ * Maintenance: Fix various warnings when building docs (Cynthia Kiser)
+ * Maintenance: Upgrade sphinxcontrib-spelling to 7.x for Python 3.12 compatibility (Matt Westcott)
+ * Maintenance: Move logic for django-filters filtering into `BaseListingView` (Matt Westcott)
+ * Maintenance: Refactor listing views to share more queryset ordering logic (Matt Westcott)
+
+
+5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
 
 
 5.2.2 (06.12.2023)
@@ -715,6 +738,7 @@ Changelog
  * Fix: Prevent memory exhaustion when purging a large number of revisions (Jake Howard)
  * Fix: Add right-to-left (RTL) support for the following form components: Switch, Minimap, live preview (Thibaud Colas)
  * Fix: Improve right-to-left (RTL) positioning for the following components: Page explorer, Sidebar sub-menu, rich text tooltips, rich text toolbar trigger, editor section headers (Thibaud Colas)
+ * Fix: Add right-to-left (RTL) support for the caret of select inputs (Badr Fourane)
  * Fix: Use the workflow name as the workflow information dialog title (Sage Abdullah)
  * Fix: Link to workflow history view instead of page history view in the workflow information dialog (Sage Abdullah)
  * Fix: Fix in-progress count in warning message when disabling workflows (Sage Abdullah)
@@ -796,6 +820,10 @@ Changelog
  * Maintenance: Migrate privacy switch, FileFields, history buttons, error messages, Datetimepicker, ordering icons, thumbnails, ModelAdmin, page listings, workflows, and user creation form controls to SVG icons (Thibaud Colas)
  * Maintenance: Switch form submission listings to use the same ordering icons as other listings (Thibaud Colas)
  * Maintenance: Refactor "More" dropdowns, locale selector, "Switch locales", page actions, to use the same dropdown component (Thibaud Colas)
+ * Maintenance: Remove or replace legacy CSS classes: visuallyhidden, visuallyvisible, divider-after, divider-before, inline, inline-block, block, u-hidden, clearfix, reordering, overflow (Thibaud Colas)
+ * Maintenance: Prevent future issues with icon.html end-of-file newlines (Thibaud Colas)
+ * Maintenance: Rewrite styles using legacy `c-`, `o-`, `u-`, `t-`, `is-` prefixes (Thibaud Colas)
+ * Maintenance: Remove invalid CSS styles / Sass selector concatenation (Thibaud Colas)
 
 
 4.1.9 (19.10.2023)

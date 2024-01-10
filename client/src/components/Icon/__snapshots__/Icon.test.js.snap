@@ -37,7 +37,7 @@ exports[`Icon #title 1`] = `
     />
   </svg>
   <span
-    className="visuallyhidden"
+    className="w-sr-only"
   >
     Test title
   </span>

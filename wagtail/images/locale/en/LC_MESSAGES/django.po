@@ -356,10 +356,10 @@ msgstr ""
 #: templates/wagtailimages/homepage/site_summary_images.html:6
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
 msgstr[1] ""

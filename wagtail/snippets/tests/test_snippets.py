@@ -337,24 +337,18 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
+        soup = self.get_soup(response.content)
 
-        switch_to_french_url = (
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-            + "?locale=fr"
-        )
-        self.assertContains(
-            response,
-            f'<a href="{switch_to_french_url}" data-locale-selector-link>',
-        )
+        french_input = soup.select_one('input[name="locale"][value="fr"]')
+        self.assertIsNotNone(french_input)
 
         # Check that the add URLs include the locale
         add_url = (
             reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
             + "?locale=en"
         )
-        self.assertContains(
-            response, f'<a href="{add_url}" class="button bicolor button--icon">'
-        )
+        add_button = soup.select_one(f'a[href="{add_url}"]')
+        self.assertIsNotNone(add_button)
         self.assertContains(
             response,
             f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
@@ -365,14 +359,16 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
+        soup = self.get_soup(response.content)
 
-        self.assertNotContains(response, "data-locale-selector")
+        input_element = soup.select_one('input[name="locale"]')
+        self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
-        self.assertContains(
-            response, f'<a href="{add_url}" class="button bicolor button--icon">'
-        )
+        soup = self.get_soup(response.content)
+        add_button = soup.select_one(f'a[href="{add_url}"]')
+        self.assertIsNotNone(add_button)
         self.assertContains(
             response,
             f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
@@ -380,14 +376,16 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
+        soup = self.get_soup(response.content)
 
-        self.assertNotContains(response, "data-locale-selector")
+        input_element = soup.select_one('input[name="locale"]')
+        self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_tests_advert:add")
-        self.assertContains(
-            response, f'<a href="{add_url}" class="button bicolor button--icon">'
-        )
+        soup = self.get_soup(response.content)
+        add_button = soup.select_one(f'a[href="{add_url}"]')
+        self.assertIsNotNone(add_button)
         self.assertContains(
             response,
             f'No adverts have been created. Why not <a href="{add_url}">add one</a>',
@@ -4271,11 +4269,10 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
             html=True,
         )
 
-        # Should use the latest draft title in the header subtitle
-        self.assertContains(
-            response,
-            '<span class="w-header__subtitle">Draft-enabled Bar, In Draft</span>',
-        )
+        soup = self.get_soup(response.content)
+        sublabel = soup.select_one(".w-breadcrumbs__sublabel")
+        # Should use the latest draft title in the breadcrumbs sublabel
+        self.assertEqual(sublabel.get_text(strip=True), "Draft-enabled Bar, In Draft")
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_with_i18n_enabled(self):

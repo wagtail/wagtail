@@ -11,7 +11,8 @@
     margin: 0;
   }
 
-  h1 {
+  h1,
+  .w-header__title {
     @apply w-h1;
     position: relative;
   }
@@ -164,6 +165,25 @@
 
     .col9 {
       @include column(9);
+    }
+  }
+}
+
+.w-slim-header {
+  &__search-form {
+    @apply w-mx-2 w-flex w-items-center w-gap-2;
+  }
+
+  .w-field__wrapper:not(.w-dialog .w-field__wrapper) {
+    @apply w-mb-0;
+
+    .w-field__input {
+      @apply w-mt-0;
+
+      input {
+        @apply w-text-16;
+        min-height: theme('spacing.10');
+      }
     }
   }
 }

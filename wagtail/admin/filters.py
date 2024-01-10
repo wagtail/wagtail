@@ -1,12 +1,13 @@
 import django_filters
 from django import forms
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
-from wagtail.coreutils import get_content_type_label
+from wagtail.coreutils import get_content_languages, get_content_type_label
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -87,7 +88,39 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
     field_class = FilteredModelChoiceField
 
 
+class LocaleFilter(django_filters.ChoiceFilter):
+    def filter(self, qs, language_code):
+        if language_code:
+            return qs.filter(locale__language_code=language_code)
+        return qs
+
+
 class WagtailFilterSet(django_filters.FilterSet):
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            self._add_locale_filter()
+
+    def _add_locale_filter(self):
+        # Add a locale filter if the model is translatable
+        # and there isn't one already.
+        from wagtail.models.i18n import TranslatableMixin
+
+        if (
+            self._meta.model
+            and issubclass(self._meta.model, TranslatableMixin)
+            and "locale" not in self.filters
+        ):
+            self.filters["locale"] = LocaleFilter(
+                label=_("Locale"),
+                choices=list(get_content_languages().items()),
+                empty_label=None,
+                null_label=_("All"),
+                null_value=None,
+                widget=forms.RadioSelect,
+            )
+
     @classmethod
     def filter_for_lookup(cls, field, lookup_type):
         filter_class, params = super().filter_for_lookup(field, lookup_type)

@@ -21,7 +21,6 @@ from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
-    InlineActionsTable,
     LiveStatusTagColumn,
     TitleColumn,
     UserColumn,
@@ -79,6 +78,7 @@ class ModelIndexView(generic.IndexView):
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
     _show_breadcrumbs = True
+    header_buttons = []
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -126,10 +126,9 @@ class ModelIndexView(generic.IndexView):
         ]
 
     def get_context_data(self, **kwargs):
-        ordering = self.get_ordering()
-        reverse = ordering[0] == "-"
+        reverse = self.ordering[0] == "-"
 
-        if ordering in ["count", "-count"]:
+        if self.ordering in ["count", "-count"]:
             snippet_types = sorted(
                 self.snippet_types,
                 key=lambda type: type["count"],
@@ -156,7 +155,6 @@ class ModelIndexView(generic.IndexView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
-    table_class = InlineActionsTable
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request
@@ -845,6 +843,7 @@ class SnippetViewSet(ModelViewSet):
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
+            _show_breadcrumbs=False,
         )
 
     @property
@@ -858,6 +857,7 @@ class SnippetViewSet(ModelViewSet):
             object_icon=self.icon,
             header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
+            _show_breadcrumbs=False,
         )
 
     @property
@@ -1140,6 +1140,11 @@ class SnippetViewSet(ModelViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path(
+                "history-results/<str:pk>/",
+                self.history_results_view,
+                name="history_results",
+            ),
         ]
 
         if self.inspect_view_enabled:

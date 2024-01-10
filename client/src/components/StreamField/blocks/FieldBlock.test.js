@@ -90,6 +90,7 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         icon: 'placeholder',
         classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
+        maxLength: 1000,
       },
     );
 
@@ -118,19 +119,22 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         attributes: {
           'aria-describedby': 'the-prefix-helptext',
           'required': '',
+          'maxLength': 1000,
         },
       },
       parentCapabilities: new Map(),
     });
   });
 
-  test('getAttributes() returns aria-describedby and required attributes', () => {
+  test('getAttributes() returns aria-describedby, required and maxlength attributes', () => {
     const attributes = boundBlock.getAttributes();
     expect(attributes).toEqual({
       // Added because FieldBlockDefinition has a helpText in its meta options
       'aria-describedby': 'the-prefix-helptext',
       // Added because FieldBlockDefinition has required set in its meta options
       'required': '',
+      // Added because FieldBlockDefinition has maxLength set in its meta options
+      'maxLength': 1000,
     });
   });
 

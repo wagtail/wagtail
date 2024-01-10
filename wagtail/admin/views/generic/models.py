@@ -45,7 +45,12 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import ButtonWithDropdown, ListingButton
+from wagtail.admin.widgets.button import (
+    Button,
+    ButtonWithDropdown,
+    HeaderButton,
+    ListingButton,
+)
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -110,7 +115,6 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    filterset_class = None
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
@@ -118,7 +122,11 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.filterset_class = self.get_filterset_class()
+
+        if not self.filterset_class:
+            # Allow filterset_class to be dynamically constructed from list_filter
+            self.filterset_class = self.get_filterset_class()
+
         self.setup_search()
 
     def setup_search(self):
@@ -130,7 +138,7 @@ class IndexView(
 
         if self.search_form and self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data[self.search_kwarg]
-            self.is_searching = True
+            self.is_searching = bool(self.search_query)
 
     def get_is_searchable(self):
         if self.model is None:
@@ -145,29 +153,26 @@ class IndexView(
         return self.index_url_name
 
     def get_search_form(self):
-        if self.model is None:
+        if self.model is None or not self.is_searchable:
             return None
 
-        placeholder = capfirst(
-            _("Search %(model_name)s")
-            % {"model_name": self.model._meta.verbose_name_plural}
-        )
-
         if self.is_searchable and self.search_kwarg in self.request.GET:
-            return SearchForm(self.request.GET, placeholder=placeholder)
+            return SearchForm(self.request.GET)
 
-        return SearchForm(placeholder=placeholder)
+        return SearchForm()
 
     def get_filterset_class(self):
-        if self.filterset_class:
-            return self.filterset_class
+        # Allow filterset_class to be dynamically constructed from list_filter.
 
-        if not self.list_filter or not self.model:
+        # If the model is translatable, ensure a ``WagtailFilterSet`` subclass
+        # is returned anyway (even if list_filter is undefined), so the locale
+        # filter is always included.
+        if not self.model or (not self.list_filter and not self.locale):
             return None
 
         class Meta:
             model = self.model
-            fields = self.list_filter
+            fields = self.list_filter or []
 
         return type(
             f"{self.model.__name__}FilterSet",
@@ -200,37 +205,7 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def get_base_queryset(self):
-        if self.queryset is not None:
-            queryset = self.queryset
-            if isinstance(queryset, models.QuerySet):
-                queryset = queryset.all()
-        elif self.model is not None:
-            queryset = self.model._default_manager.all()
-        else:
-            raise ImproperlyConfigured(
-                "%(cls)s is missing a QuerySet. Define "
-                "%(cls)s.model, %(cls)s.queryset, or override "
-                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
-            )
-        return queryset
-
-    def get_queryset(self):
-        # Instead of calling super().get_queryset(), we copy the initial logic
-        # from Django's MultipleObjectMixin into get_base_queryset(), because
-        # we need to annotate the updated_at before using it for ordering.
-        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
-
-        queryset = self.get_base_queryset()
-
-        filters, queryset = self.filter_queryset(queryset)
-
-        # Ensure the queryset is of the same model as self.model before filtering,
-        # which may not be the case for views like HistoryView where the queryset
-        # is of a LogEntry model for self.model.
-        if self.locale and queryset.model == self.model:
-            queryset = queryset.filter(locale=self.locale)
-
+    def order_queryset(self, queryset):
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
             for column in self.columns
@@ -238,56 +213,44 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
-        ordering = self.get_ordering()
-        if ordering:
-            # Explicitly handle null values for the updated at column to ensure consistency
-            # across database backends and match the behaviour in page explorer
-            if ordering == "_updated_at":
-                ordering = models.F("_updated_at").asc(nulls_first=True)
-            elif ordering == "-_updated_at":
-                ordering = models.F("_updated_at").desc(nulls_last=True)
-            if not isinstance(ordering, (list, tuple)):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
+        # Explicitly handle null values for the updated at column to ensure consistency
+        # across database backends and match the behaviour in page explorer
+        if self.ordering == "_updated_at":
+            return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
+        elif self.ordering == "-_updated_at":
+            return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
+        else:
+            queryset = super().order_queryset(queryset)
 
-        # Preserve the model-level ordering if specified, but fall back on
-        # updated_at and PK if not (to ensure pagination is consistent)
-        if not queryset.ordered:
-            if has_updated_at_column:
-                queryset = queryset.order_by(
-                    models.F("_updated_at").desc(nulls_last=True), "-pk"
-                )
-            else:
-                queryset = queryset.order_by("-pk")
+            # Preserve the model-level ordering if specified, but fall back on
+            # updated_at and PK if not (to ensure pagination is consistent)
+            if not queryset.ordered:
+                if has_updated_at_column:
+                    queryset = queryset.order_by(
+                        models.F("_updated_at").desc(nulls_last=True), "-pk"
+                    )
+                else:
+                    queryset = queryset.order_by("-pk")
 
+            return queryset
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = self.search_queryset(queryset)
         return queryset
 
-    @cached_property
-    def filters(self):
-        if self.filterset_class:
-            return self.filterset_class(self.request.GET, request=self.request)
-
-    @cached_property
-    def is_filtering(self):
-        # we are filtering if the filter form has changed from its default state
-        return (
-            self.filters and self.filters.is_valid() and self.filters.form.has_changed()
-        )
-
-    def filter_queryset(self, queryset):
-        if self.filters and self.filters.is_valid():
-            queryset = self.filters.filter_queryset(queryset)
-        return self.filters, queryset
-
     def search_queryset(self, queryset):
-        if not self.search_query:
+        if not self.is_searching:
             return queryset
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
             if queryset.model.get_autocomplete_search_fields():
                 return search_backend.autocomplete(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
             else:
                 # fall back on non-autocompleting search
@@ -298,7 +261,10 @@ class IndexView(
                     category=RuntimeWarning,
                 )
                 return search_backend.search(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
         query = Q()
         for field in self.search_fields or []:
@@ -389,17 +355,45 @@ class IndexView(
             {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
-    def get_translations(self):
-        index_url = self.get_index_url()
-        if not index_url:
-            return []
-        return [
-            {
-                "locale": locale,
-                "url": self._set_locale_query_param(index_url, locale),
-            }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
-        ]
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        add_url = self.get_add_url()
+        if add_url and (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "add")
+        ):
+            buttons.append(
+                HeaderButton(
+                    self.add_item_label,
+                    url=add_url,
+                    icon_name="plus",
+                )
+            )
+        return buttons
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if self.list_export:
+            buttons.append(
+                Button(
+                    _("Download XLSX"),
+                    url=self.xlsx_export_url,
+                    icon_name="download",
+                    priority=90,
+                )
+            )
+            buttons.append(
+                Button(
+                    _("Download CSV"),
+                    url=self.csv_export_url,
+                    icon_name="download",
+                    priority=100,
+                )
+            )
+
+        return buttons
 
     def get_list_more_buttons(self, instance):
         buttons = []
@@ -474,11 +468,8 @@ class IndexView(
             )
         return _("Add")
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
-        queryset = self.search_queryset(queryset)
-
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
         context["can_add"] = (
             self.permission_policy is None
@@ -487,11 +478,6 @@ class IndexView(
         if context["can_add"]:
             context["add_url"] = context["header_action_url"] = self.get_add_url()
             context["header_action_label"] = self.add_item_label
-
-        if self.filters:
-            context["filters"] = self.filters
-            context["is_filtering"] = self.is_filtering
-            context["media"] += self.filters.form.media
 
         context["index_results_url"] = self.get_index_results_url()
         context["is_searchable"] = self.is_searchable
@@ -1003,7 +989,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         items = []
@@ -1015,9 +1001,16 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
                 }
             )
         edit_url = self.get_edit_url()
+        object_str = self.get_page_subtitle()
         if edit_url:
-            items.append({"url": edit_url, "label": get_latest_str(self.object)})
-        items.append({"url": "", "label": _("Inspect")})
+            items.append({"url": edit_url, "label": object_str})
+        items.append(
+            {
+                "url": "",
+                "label": _("Inspect"),
+                "sublabel": object_str,
+            }
+        )
         return self.breadcrumbs_items + items
 
     def get_fields(self):

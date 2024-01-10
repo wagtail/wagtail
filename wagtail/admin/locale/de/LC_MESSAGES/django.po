@@ -881,16 +881,16 @@ msgstr "Seitenzusammenfassung"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Seite <span class=\"visuallyhidden\">erstellt in "
+"<span>%(total)s</span> Seite <span class=\"w-sr-only\">erstellt in "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Seiten <span class=\"visuallyhidden\">erstellt in "
+"<span>%(total)s</span> Seiten <span class=\"w-sr-only\">erstellt in "
 "%(site_name)s</span>"
 
 #, python-format

@@ -54,7 +54,7 @@ class FundingPage(Page):
 
 For more details on how to work with `Panel`s and `PanelGroup`, see [](forms_panels_overview).
 
-(rich_text)=
+(rich_text_field)=
 
 ## Rich Text (HTML)
 

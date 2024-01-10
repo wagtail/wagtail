@@ -73,14 +73,11 @@ class IndexView(generic.IndexView):
         return self.ORDERING_OPTIONS
 
     def get_base_queryset(self):
-        # Get ordering
-        self.ordering = self.get_ordering()
-        # Get images (filtered by user permission and ordered by `ordering`)
+        # Get images (filtered by user permission)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
-            .order_by(self.ordering)
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
@@ -107,7 +104,7 @@ class IndexView(generic.IndexView):
             except AttributeError:
                 self.current_tag = None
 
-        return self.filters, queryset
+        return queryset
 
     def get_add_url(self):
         # Pass the query string so that the collection filter is preserved

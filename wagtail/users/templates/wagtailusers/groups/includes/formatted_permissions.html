@@ -50,26 +50,26 @@
                         <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
                         <td>
                             {% if content_perms_dict.add %}
-                                <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.add.perm.name }}</label>
+                                <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.add.perm.name }}</label>
                                 {{ content_perms_dict.add.checkbox.tag }}
                             {% endif %}
                         </td>
                         <td>
                             {% if content_perms_dict.change %}
-                                <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.change.perm.name }}</label>
+                                <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.change.perm.name }}</label>
                                 {{ content_perms_dict.change.checkbox.tag }}
                             {% endif %}
                         </td>
                         <td>
                             {% if content_perms_dict.delete %}
-                                <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.delete.perm.name }}</label>
+                                <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.delete.perm.name }}</label>
                                 {{ content_perms_dict.delete.checkbox.tag }}
                             {% endif %}
                         </td>
                         {% if extra_perms_exist.publish %}
                             <td>
                                 {% if content_perms_dict.publish %}
-                                    <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.publish.perm.name }}</label>
+                                    <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.publish.perm.name }}</label>
                                     {{ content_perms_dict.publish.checkbox.tag }}
                                 {% endif %}
                             </td>
@@ -77,7 +77,7 @@
                         {% if extra_perms_exist.lock %}
                             <td>
                                 {% if content_perms_dict.lock %}
-                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.lock.perm.name }}</label>
+                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.lock.perm.name }}</label>
                                     {{ content_perms_dict.lock.checkbox.tag }}
                                 {% endif %}
                             </td>
@@ -85,7 +85,7 @@
                         {% if extra_perms_exist.unlock %}
                             <td>
                                 {% if content_perms_dict.unlock %}
-                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.unlock.perm.name }}</label>
+                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.unlock.perm.name }}</label>
                                     {{ content_perms_dict.unlock.checkbox.tag }}
                                 {% endif %}
                             </td>

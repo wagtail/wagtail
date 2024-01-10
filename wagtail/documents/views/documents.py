@@ -85,12 +85,12 @@ class IndexView(generic.IndexView):
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        return self.filters, queryset
+        return queryset
 
     @cached_property
     def columns(self):
         columns = [
-            BulkActionsColumn("bulk_actions", width="10px"),
+            BulkActionsColumn("bulk_actions"),
             TitleColumn(
                 "title",
                 label=_("Title"),

@@ -1,14 +1,13 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load wagtailadmin_tags %}
 {% load i18n %}
 {% load l10n %}
-{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}{% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
+{% block bodyclass %}editor-view {% if page.live %}page-is-live{% endif %} {% if page_locked %}content-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
 
-    {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
+    {% include 'wagtailadmin/shared/headers/page_edit_header.html' with title=header_title %}
 
     {% block form %}
 

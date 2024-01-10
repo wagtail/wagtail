@@ -69,7 +69,7 @@ class FormPage(AbstractEmailForm):
     ]
 ```
 
-In the preceding code, your `FormField` model inherits from `AbstractFormField`. With`AbstractFormField`, you can define any form field type of your choice in the admin interface. `page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')` defines a parent-child relationship between the `FormField` and `FormPage` models.
+In the preceding code, your `FormField` model inherits from `AbstractFormField`. With `AbstractFormField`, you can define any form field type of your choice in the admin interface. `page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')` defines a parent-child relationship between the `FormField` and `FormPage` models.
 
 On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects a `form_fields` to be defined.
 

@@ -92,4 +92,4 @@ Now, you want to display your search across your site. One way to do this is to 
 </header>
 ```
 
-Welldone! You now have a fully deployable portfolio site. The next section of this tutorial will walk you through how to deploy your site.
+Well done! You now have a fully deployable portfolio site. The next section of this tutorial will walk you through how to deploy your site.

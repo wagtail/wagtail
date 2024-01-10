@@ -155,6 +155,10 @@ export class FieldBlock {
       attributes.required = '';
     }
 
+    if (this.blockDef.meta.maxLength) {
+      attributes.maxLength = this.blockDef.meta.maxLength;
+    }
+
     return attributes;
   }
 

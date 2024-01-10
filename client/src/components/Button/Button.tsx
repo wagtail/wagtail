@@ -55,7 +55,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
 }) => {
   const hasText = React.Children.count(children) > 0;
   const accessibleElt = accessibleLabel ? (
-    <span className="visuallyhidden">{accessibleLabel}</span>
+    <span className="w-sr-only">{accessibleLabel}</span>
   ) : null;
 
   return (

@@ -9,7 +9,8 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
+from django.utils.translation import gettext_lazy
+from django.views.generic.base import View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
@@ -21,6 +22,7 @@ from wagtail.admin.ui.side_panels import (
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import Locale, Page, PageSubscription
 
 
@@ -59,8 +61,9 @@ def add_subpage(request, parent_page_id):
     )
 
 
-class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
+class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     template_name = "wagtailadmin/pages/create.html"
+    page_title = gettext_lazy("New")
 
     def dispatch(
         self, request, content_type_app_name, content_type_model_name, parent_page_id
@@ -159,6 +162,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.submit_action()
         else:
             return self.save_action()
+
+    def get_page_subtitle(self):
+        return self.page_class.get_verbose_name()
 
     def get_edit_message_button(self):
         return messages.button(

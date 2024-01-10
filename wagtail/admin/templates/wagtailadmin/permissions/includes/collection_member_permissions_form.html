@@ -7,7 +7,7 @@
 
 {% for option in form.permissions %}
     <td>
-        <label for="{{ option.id_for_label }}" class="visuallyhidden">{{ option.choice_label }}</label>
+        <label for="{{ option.id_for_label }}" class="w-sr-only">{{ option.choice_label }}</label>
         {{ option.tag }}
     </td>
 {% endfor %}

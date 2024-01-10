@@ -51,7 +51,7 @@ header {
 
 Now, reload your portfolio site to reflect the styles.
 
-```note
+```{note}
 If your webpage's styles do not update after reloading, then you may need to clear your browser cache.
 ```
 
@@ -134,7 +134,7 @@ In the preceding template, you made the following modifications:
 
 4. You wrapped the `{% block content %}` and `{% endblock %}` tags with a `<main>` HTML5 tag. The `<main>` tag is a semantic HTML5 tag used to indicate the main content of a webpage.
 
-Also, you should dynamically get your HomePage's title to use in your site menu instead of hardcoding it in your template. Also, you should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve users' experience for keyboard and screen reader users. 
+Also, you should dynamically get your HomePage's title to use in your site menu instead of hardcoding it in your template. You should include the child pages of the Home page in your site menu if they have their 'Show in menus' option checked. Finally, you want to ensure that you add the `wagtailuserbar` that you removed from your `base` template to your `header` template. This will improve users' experience for keyboard and screen reader users. 
 
 To make the improvements mentioned in the preceding paragraph, modify your `mysite/templates/includes/header.html` file as follows:
 
@@ -178,7 +178,7 @@ To add a skip-link, add the following styles to your `mysite/static/css/mysite.c
 
 After adding the styles, go to your `mysite/templates/base.html` file and add a unique identifier:
 
-```html+python
+```html+django
 {% include "includes/header.html" %}
 
 {# Add a unique identifier: #}

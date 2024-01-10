@@ -131,7 +131,7 @@ class PageExplorerPanel extends React.Component<
       >
         <div role="dialog" aria-label={gettext('Page explorer')}>
           <Transition name={transition} className="c-page-explorer">
-            <div key={depth} className="c-transition-group">
+            <div key={depth} className="w-transition-group">
               <PageExplorerHeader
                 depth={depth}
                 page={page}

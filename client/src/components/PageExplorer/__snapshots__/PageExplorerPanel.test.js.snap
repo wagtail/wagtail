@@ -24,7 +24,7 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
       name="push"
     >
       <div
-        className="c-transition-group"
+        className="w-transition-group"
         key="1"
       >
         <PageExplorerHeader
@@ -99,7 +99,7 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
       name="push"
     >
       <div
-        className="c-transition-group"
+        className="w-transition-group"
         key="1"
       >
         <PageExplorerHeader
@@ -155,7 +155,7 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
       name="push"
     >
       <div
-        className="c-transition-group"
+        className="w-transition-group"
         key="1"
       >
         <PageExplorerHeader
@@ -239,7 +239,7 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
       name="push"
     >
       <div
-        className="c-transition-group"
+        className="w-transition-group"
         key="1"
       >
         <PageExplorerHeader
@@ -292,7 +292,7 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
       name="push"
     >
       <div
-        className="c-transition-group"
+        className="w-transition-group"
         key="1"
       >
         <PageExplorerHeader
