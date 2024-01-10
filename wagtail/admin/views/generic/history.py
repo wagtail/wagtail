@@ -21,6 +21,7 @@ from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
+    BaseLogEntry,
     DraftStateMixin,
     ModelLogEntry,
     Revision,
@@ -130,11 +131,7 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
-        context["header_action_url"] = self.get_edit_url(self.object)
-        context["header_action_label"] = gettext("Edit this %(model_name)s") % {
-            "model_name": self.model._meta.verbose_name
-        }
-        context["header_action_icon"] = "edit"
+        context["model_opts"] = BaseLogEntry._meta
         return context
 
     def get_queryset(self):

@@ -955,6 +955,18 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
 
+    def test_filtered_no_results(self):
+        response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})
+        soup = self.get_soup(response.content)
+        results = soup.select_one("#listing-results")
+        table = soup.select_one("table")
+        p = results.select_one("p")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(results)
+        self.assertIsNone(table)
+        self.assertIsNotNone(p)
+        self.assertEqual(p.text.strip(), "No log entries match your query")
+
     def test_empty(self):
         ModelLogEntry.objects.all().delete()
         response = self.client.get(self.url)
@@ -963,7 +975,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         table = soup.select_one("table")
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(results)
-        self.assertEqual(results.text.strip(), "No log entries found.")
+        self.assertEqual(results.text.strip(), "There are no log entries to display")
         self.assertIsNone(table)
 
     def test_edit_view_links_to_history_view(self):
