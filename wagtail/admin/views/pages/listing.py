@@ -279,9 +279,6 @@ class BaseIndexView(generic.IndexView):
         else:
             return self.paginate_by
 
-    def paginate_queryset(self, queryset, page_size):
-        return super().paginate_queryset(queryset, page_size)
-
     def get_index_url(self):
         return reverse("wagtailadmin_explore", args=[self.parent_page.id])
 
