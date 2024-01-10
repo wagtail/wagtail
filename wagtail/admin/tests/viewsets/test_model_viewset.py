@@ -949,9 +949,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         response = self.client.get(self.url, {"action": "wagtail.create"})
         soup = self.get_soup(response.content)
         rows = soup.select("tbody tr")
-        heading = soup.select_one("h2:not(.w-dialog h2)")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
 
@@ -963,7 +961,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         table = soup.select_one("table")
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(results)
-        self.assertEqual(results.text.strip(), "No log entries found.")
+        self.assertEqual(results.text.strip(), "There are no results.")
         self.assertIsNone(table)
 
     def test_edit_view_links_to_history_view(self):

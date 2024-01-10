@@ -344,7 +344,6 @@ class DeleteView(generic.DeleteView):
 
 class UsageView(generic.UsageView):
     view_name = "usage"
-    template_name = "wagtailsnippets/snippets/usage.html"
 
 
 class ActionColumn(Column):
