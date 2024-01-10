@@ -1,6 +1,8 @@
 $header-icon-size: theme('spacing.4');
 $header-button-size-mobile: $mobile-nice-padding;
 $header-button-size: theme('spacing.6');
+$header-anchor-size: theme('spacing.6');
+
 
 .w-panel {
   --header-gap: 0;
@@ -110,6 +112,8 @@ $header-button-size: theme('spacing.6');
 .w-panel__anchor--suffix {
   @include media-breakpoint-up(sm) {
     display: none;
+    width: $header-anchor-size;
+    height: $header-anchor-size;
   }
 }
 
