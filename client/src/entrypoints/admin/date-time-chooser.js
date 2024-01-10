@@ -44,7 +44,7 @@ function initDateChooser(id, opts) {
           format: 'Y-m-d',
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -59,7 +59,7 @@ function initDateChooser(id, opts) {
           format: 'Y-m-d',
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
