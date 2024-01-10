@@ -67,8 +67,8 @@ $header-button-size: theme('spacing.6');
   border-radius: theme('borderRadius.full');
   margin: 0;
   padding: 0;
-  width: $header-button-size-mobile;
-  height: $header-button-size-mobile;
+  width: $header-button-size;
+  height: $header-button-size;
 
   &:focus-visible,
   &:hover {
@@ -89,11 +89,6 @@ $header-button-size: theme('spacing.6');
     @media (forced-colors: active) {
       color: GrayText;
     }
-  }
-
-  @include media-breakpoint-up(sm) {
-    width: $header-button-size;
-    height: $header-button-size;
   }
 }
 
