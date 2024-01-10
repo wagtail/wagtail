@@ -44,7 +44,7 @@ function initDateChooser(id, opts) {
           format: 'Y-m-d',
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -59,7 +59,7 @@ function initDateChooser(id, opts) {
           format: 'Y-m-d',
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -79,7 +79,7 @@ function initTimeChooser(id, opts) {
           scrollInput: false,
           format: 'H:i',
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -92,7 +92,7 @@ function initTimeChooser(id, opts) {
           datepicker: false,
           format: 'H:i',
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -112,7 +112,7 @@ function initDateTimeChooser(id, opts) {
           scrollInput: false,
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
@@ -125,7 +125,7 @@ function initDateTimeChooser(id, opts) {
           format: 'Y-m-d H:i',
           onGenerate: hideCurrent,
           onChangeDateTime(_, $el) {
-            $el.get(0).dispatchEvent(new Event('change'));
+            $el.get(0).dispatchEvent(new Event('change', { bubbles: true }));
           },
         },
         opts || {},
