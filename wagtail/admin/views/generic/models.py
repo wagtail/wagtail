@@ -28,6 +28,7 @@ from django.views.generic.edit import (
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
@@ -638,7 +639,13 @@ class CreateView(
         if instance := self.get_initial_form_instance():
             # super().get_form_kwargs() will use self.object as the instance kwarg
             self.object = instance
-        return super().get_form_kwargs()
+        kwargs = super().get_form_kwargs()
+
+        form_class = self.get_form_class()
+        # Add for_user support for PermissionedForm
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
@@ -813,6 +820,13 @@ class EditView(
             }
             for translation in self.object.get_translations().select_related("locale")
         ]
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        form_class = self.get_form_class()
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
