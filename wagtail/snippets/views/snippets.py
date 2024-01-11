@@ -222,7 +222,6 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
     template_name = "wagtailsnippets/snippets/create.html"
-    error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_create_snippet", self.request, self.model)
@@ -280,7 +279,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     template_name = "wagtailsnippets/snippets/edit.html"
-    error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_edit_snippet", self.request, self.object)

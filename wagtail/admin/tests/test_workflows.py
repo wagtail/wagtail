@@ -1728,10 +1728,9 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
             response,
             f"The {self.model_name} could not be saved due to validation errors",
         )
-        # Snippets have a custom error message that's not made generic yet
         self.assertNotContains(
             response,
-            "The snippet could not be saved due to errors",
+            f"The {self.model_name} could not be saved due to errors",
         )
 
     def test_email_headers(self):
