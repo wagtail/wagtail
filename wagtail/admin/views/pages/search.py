@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.search import SearchForm
@@ -64,6 +63,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     page_kwarg = "p"
     context_object_name = "pages"
     table_class = PageTable
+    index_url_name = "wagtailadmin_pages:search"
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -159,9 +159,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
 
         return pages
 
-    def get_index_url(self):
-        return reverse("wagtailadmin_pages:search")
-
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["show_locale_labels"] = self.show_locale_labels
@@ -176,7 +173,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
-                "index_url": self.get_index_url(),
             }
         )
         return context

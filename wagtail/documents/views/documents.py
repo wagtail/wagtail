@@ -123,7 +123,7 @@ class IndexView(generic.IndexView):
         return collections
 
     def get_next_url(self):
-        next_url = self.get_index_url()
+        next_url = self.index_url
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string

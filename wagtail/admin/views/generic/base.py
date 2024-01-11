@@ -325,6 +325,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             **self.get_table_kwargs(),
         )
 
+    @cached_property
+    def index_url(self):
+        return self.get_index_url()
+
     def get_index_url(self):
         if self.index_url_name:
             return reverse(self.index_url_name)
@@ -332,7 +336,6 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        self.index_url = self.get_index_url()
         table = self.get_table(context["object_list"])
 
         context["index_url"] = self.index_url
