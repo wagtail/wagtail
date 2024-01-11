@@ -288,10 +288,13 @@ class RecentEditsPanel(Component):
         page_keys = [int(pr.object_id) for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         context["last_edits"] = []
+        unique_object_ids = set()
         for revision in last_edits:
+            object_id = revision.object_id
             page = pages.get(int(revision.object_id))
-            if page:
+            if page and object_id not in unique_object_ids:
                 context["last_edits"].append([revision, page])
+                unique_object_ids.add(object_id)
 
         context["request"] = request
         return context
