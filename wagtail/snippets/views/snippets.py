@@ -233,19 +233,9 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
 
-    def _get_initial_form_instance(self):
-        instance = self.model()
-
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-
-        return instance
-
     def get_form_kwargs(self):
         return {
             **super().get_form_kwargs(),
-            "instance": self._get_initial_form_instance(),
             "for_user": self.request.user,
         }
 

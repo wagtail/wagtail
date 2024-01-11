@@ -628,6 +628,18 @@ class CreateView(
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
 
+    def get_initial_form_instance(self):
+        if self.locale:
+            instance = self.model()
+            instance.locale = self.locale
+            return instance
+
+    def get_form_kwargs(self):
+        if instance := self.get_initial_form_instance():
+            # super().get_form_kwargs() will use self.object as the instance kwarg
+            self.object = instance
+        return super().get_form_kwargs()
+
     def save_instance(self):
         """
         Called after the form is successfully validated - saves the object to the db
