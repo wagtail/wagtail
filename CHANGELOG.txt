@@ -57,6 +57,7 @@ Changelog
  * Fix: Ensure workflow dashboard panels work when the page/snippet is missing (Sage Abdullah)
  * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
  * Fix: Avoid duplicate entries in "Recent edits" panel when copying pages (Matt Westcott)
+ * Fix: Prevent TitleFieldPanel from raising an error when the slug field is missing or read-only (Rohit Sharma)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
