@@ -131,7 +131,9 @@ class PageTable(Table):
         attrs = super().get_row_attrs(instance)
         if self.use_row_ordering_attributes:
             attrs["id"] = "page_%d" % instance.id
-            attrs["data-page-title"] = instance.get_admin_display_title()
+            attrs["data-w-orderable-item-id"] = instance.id
+            attrs["data-w-orderable-item-label"] = instance.get_admin_display_title()
+            attrs["data-w-orderable-target"] = "item"
         return attrs
 
     def get_context_data(self, parent_context):

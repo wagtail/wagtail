@@ -349,17 +349,7 @@ ul.listing {
     }
   }
 
-  .handle {
-    cursor: move;
-    width: 20px;
-    color: theme('colors.icon-secondary');
-
-    &:hover {
-      color: theme('colors.icon-secondary-hover');
-    }
-  }
-
-  .ui-sortable-helper {
+  .w-orderable__item--active {
     border: 1px dashed theme('colors.border-field-default');
     border-width: 1px 0;
 
@@ -371,6 +361,10 @@ ul.listing {
     .title {
       display: table-cell;
     }
+  }
+
+  .w-orderable__item__handle {
+    cursor: move;
   }
 
   table .no-results-message {
@@ -661,11 +655,6 @@ table.listing {
 td.ord {
   // Align with the row's title text, and the column's label.
   vertical-align: top;
-
-  .handle {
-    width: 100%;
-    text-align: center;
-  }
 }
 
 table.listing {

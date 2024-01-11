@@ -1,10 +1,18 @@
 {% load i18n wagtailadmin_tags %}
 <td class="ord">
-    <div class="handle" tabindex="0" aria-live="polite" data-order-handle>
+    <button
+        class="w-orderable__item__handle button button-small text-replace button--icon"
+        type="button"
+        aria-live="polite"
+        data-w-orderable-target="handle"
+        data-action="keydown.up->w-orderable#up:prevent keydown.down->w-orderable#down:prevent keydown.enter->w-orderable#apply blur->w-orderable#apply"
+    >
         {% icon name="grip" classname="default" %}
         <span class="w-sr-only">
             {% trans 'Drag' %}
-            <span data-order-label>Item {{ row.index|add:1 }} of {{ table.row_count }}</span>
+            <span>
+                {% blocktranslate trimmed with index=row.index|add:1 total=table.row_count %}Item {{ index }} of {{ total }}{% endblocktranslate %}
+            </span>
         </span>
-    </div>
+    </button>
 </td>
