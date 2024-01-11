@@ -77,7 +77,11 @@ class TitleFieldPanel(FieldPanel):
                 actions = [widget.attrs.get("data-action", None)] + self.apply_actions
                 attrs["data-action"] = " ".join(filter(None, actions))
 
-            targets = [self.get_target_selector(target) for target in panel.targets if target in self.form]
+            targets = [
+                self.get_target_selector(target)
+                for target in panel.targets
+                if target in self.form
+            ]
             attrs["data-w-sync-target-value"] = ", ".join(filter(None, targets))
 
             placeholder = self.get_placeholder()
