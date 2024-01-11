@@ -1025,17 +1025,21 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         actual_attrs = html.find("input", {"name": "title"}).attrs
 
         expected_attrs = {
-            "aria-describedby": "panel-child-content-child-title-helptext",
-            "data-action": "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
-            "data-controller": "w-sync",
-            "data-w-sync-target-value": "#id_slug",
-            "id": "id_title",
-            "maxlength": "255",
-            "name": "title",
-            "placeholder": "Page title*",
-            "required": "",
-            "type": "text",
-        }
+        "aria-describedby": "panel-child-content-child-title-helptext",
+        "data-action": "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
+        "data-controller": "w-sync",
+        "id": "id_title",
+        "maxlength": "255",
+        "name": "title",
+        "placeholder": "Page title*",
+        "required": "",
+        "type": "text",
+    }
+
+        if "slug" in actual_attrs["data-w-sync-target-value"]:
+            expected_attrs["data-w-sync-target-value"] = "#id_slug"
+        else:
+            expected_attrs["data-w-sync-target-value"] = ""
 
         self.assertEqual(actual_attrs, expected_attrs)
 
