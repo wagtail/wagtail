@@ -1,13 +1,22 @@
+from collections import namedtuple
+
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.list import BaseListView
+from django_filters.filters import (
+    ChoiceFilter,
+    DateFromToRangeFilter,
+    ModelChoiceFilter,
+    ModelMultipleChoiceFilter,
+)
 
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, Table
@@ -162,6 +171,10 @@ class BaseOperationView(BaseObjectMixin, View):
         return redirect(self.get_success_url())
 
 
+# Represents a django-filters filter that is currently in force on a listing queryset
+ActiveFilter = namedtuple("ActiveFilter", ["field_label", "value"])
+
+
 class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     template_name = "wagtailadmin/generic/listing.html"
     results_template_name = "wagtailadmin/generic/listing_results.html"
@@ -198,6 +211,46 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if self.filters and self.filters.is_valid():
             queryset = self.filters.filter_queryset(queryset)
         return queryset
+
+    @cached_property
+    def active_filters(self):
+        filters = []
+
+        if not self.filters:
+            return filters
+
+        for field_name in self.filters.form.changed_data:
+            filter_def = self.filters.filters[field_name]
+            value = self.filters.form.cleaned_data[field_name]
+            if isinstance(filter_def, ModelMultipleChoiceFilter):
+                field = filter_def.field
+                for item in value:
+                    filters.append(
+                        ActiveFilter(filter_def.label, field.label_from_instance(item))
+                    )
+            elif isinstance(filter_def, ModelChoiceFilter):
+                field = filter_def.field
+                filters.append(
+                    ActiveFilter(filter_def.label, field.label_from_instance(value))
+                )
+            elif isinstance(filter_def, DateFromToRangeFilter):
+                start_date_display = date_format(value.start) if value.start else ""
+                end_date_display = date_format(value.stop) if value.stop else ""
+                filters.append(
+                    ActiveFilter(
+                        filter_def.label,
+                        "%s - %s" % (start_date_display, end_date_display),
+                    )
+                )
+            elif isinstance(filter_def, ChoiceFilter):
+                choices = {str(id): label for id, label in filter_def.field.choices}
+                filters.append(
+                    ActiveFilter(filter_def.label, choices.get(str(value), str(value)))
+                )
+            else:
+                filters.append(ActiveFilter(filter_def.label, str(value)))
+
+        return filters
 
     def get_valid_orderings(self):
         orderings = []

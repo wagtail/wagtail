@@ -1,0 +1,7 @@
+<ul class="active-filters">
+    {% for filter in active_filters %}
+        <li>
+            {{ filter.field_label }}: <b>{{ filter.value }}</b>
+        </li>
+    {% endfor %}
+</ul>

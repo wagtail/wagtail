@@ -2,6 +2,10 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block before_results %}
+    {% if view.active_filters %}
+        {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
+    {% endif %}
+
     <div class="nice-padding">
         {% if is_searching or is_filtering %}
             <h2 role="alert">

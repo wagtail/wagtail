@@ -1,5 +1,9 @@
 {% load wagtailadmin_tags i18n %}
 
+{% if view.active_filters %}
+    {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
+{% endif %}
+
 <form id="page-reorder-form">
     {% csrf_token %}
 
