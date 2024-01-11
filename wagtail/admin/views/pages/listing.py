@@ -5,7 +5,6 @@ from django.db.models import Count
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django_filters.filters import (
     ChoiceFilter,
@@ -322,9 +321,20 @@ class BaseIndexView(generic.IndexView):
 
         if self.show_ordering_column:
             kwargs["attrs"] = {
-                "aria-description": gettext(
-                    "Press enter to select an item, use up and down arrows to move the item, press enter to complete the move or escape to cancel the current move."
+                "aria-description": _(
+                    "Press enter to select an item, use up and down arrows to move the item. Pressing enter or moving to a different item will complete the move."
+                ),
+                "data-controller": "w-orderable",
+                "data-w-orderable-active-class": "w-orderable--active",
+                "data-w-orderable-chosen-class": "w-orderable__item--active",
+                "data-w-orderable-container-value": "tbody",
+                "data-w-orderable-message-value": _(
+                    "'%(page_title)s' has been moved successfully."
                 )
+                % {"page_title": "__LABEL__"},
+                "data-w-orderable-url-value": reverse(
+                    "wagtailadmin_pages:set_page_position", args=[999999]
+                ),
             }
         return kwargs
 
