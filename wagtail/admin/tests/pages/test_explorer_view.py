@@ -563,6 +563,12 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, {self.child_page.id, self.new_page.id, new_page_child.id}
         )
+        soup = self.get_soup(response.content)
+        active_filters = soup.find("ul", class_="active-filters")
+        self.assertEqual(
+            active_filters.find("li").text.strip(),
+            "Page type: Simple page",
+        )
 
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(
@@ -580,6 +586,12 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+        soup = self.get_soup(response.content)
+        active_filters = soup.find("ul", class_="active-filters")
+        self.assertEqual(
+            active_filters.find("li").text.strip(),
+            "Date updated: Jan. 1, 2015 -",
+        )
 
     def test_filter_by_owner(self):
         barry = self.create_user(
@@ -613,6 +625,13 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {new_page_child.id})
 
+        soup = self.get_soup(response.content)
+        active_filters = soup.find("ul", class_="active-filters")
+        self.assertEqual(
+            active_filters.find("li").text.strip(),
+            "Owner: Barry Manilow",
+        )
+
     def test_filter_by_site(self):
         new_site = Site.objects.create(
             hostname="new.example.com", root_page=self.new_page
@@ -631,6 +650,13 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
+
+        soup = self.get_soup(response.content)
+        active_filters = soup.find("ul", class_="active-filters")
+        self.assertEqual(
+            active_filters.find("li").text.strip(),
+            "Site: new.example.com",
+        )
 
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
