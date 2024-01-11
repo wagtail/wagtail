@@ -2260,6 +2260,25 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
             "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
         )
 
+    def test_form_without_slugfield(self):
+        html = self.get_edit_handler_html(ObjectList([TitleFieldPanel("title")]))
+
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
+
+        attrs = html.find("input").attrs
+        self.assertEqual(attrs["data-w-sync-target-value"], "")
+
+    def test_form_with_readonly_slugfield(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title"), FieldPanel("slug", read_only=True)]),
+            instance=EventPage(),
+        )
+
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
+
+        attrs = html.find("input").attrs
+        self.assertEqual(attrs["data-w-sync-target-value"], "")
+
     def test_not_using_apply_actions_if_live(self):
         """
         If the Page (or any model) has `live = True`, do not apply the actions by default.
