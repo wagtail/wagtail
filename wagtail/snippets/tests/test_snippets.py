@@ -718,7 +718,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be created due to errors.")
+        self.assertContains(response, "The advert could not be created due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
@@ -1491,7 +1491,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be saved due to errors.")
+        self.assertContains(response, "The advert could not be saved due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
@@ -5359,7 +5359,10 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_edit_invalid(self):
         response = self.post(self.snippet_a, post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be saved due to errors.")
+        self.assertContains(
+            response,
+            "The standard snippet with custom primary key could not be saved due to errors.",
+        )
         self.assertContains(response, "This field is required.")
 
     def test_edit(self):
