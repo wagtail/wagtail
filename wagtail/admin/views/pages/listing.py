@@ -52,7 +52,7 @@ class PageFilterSet(WagtailFilterSet):
         widget=CheckboxSelectMultiple,
     )
     latest_revision_created_at = DateFromToRangeFilter(
-        label=_("Date Updated"),
+        label=_("Date updated"),
         widget=DateRangePickerWidget,
     )
     owner = MultipleUserFilter(
