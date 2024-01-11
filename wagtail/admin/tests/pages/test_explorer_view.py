@@ -51,6 +51,12 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
+    def assertContainsActiveFilter(self, response, filter_name, value):
+        soup = self.get_soup(response.content)
+        active_filter = soup.find("ul", class_="active-filters").find("li")
+        self.assertEqual(active_filter.contents[0].strip(), f"{filter_name}:")
+        self.assertEqual(active_filter.find("b").text.strip(), value)
+
     def test_explore(self):
         explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
         response = self.client.get(explore_url)
@@ -563,12 +569,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, {self.child_page.id, self.new_page.id, new_page_child.id}
         )
-        soup = self.get_soup(response.content)
-        active_filters = soup.find("ul", class_="active-filters")
-        self.assertEqual(
-            active_filters.find("li").text.strip(),
-            "Page type: Simple page",
-        )
+        self.assertContainsActiveFilter(response, "Page type", "Simple page")
 
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(
@@ -586,12 +587,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
-        soup = self.get_soup(response.content)
-        active_filters = soup.find("ul", class_="active-filters")
-        self.assertEqual(
-            active_filters.find("li").text.strip(),
-            "Date updated: Jan. 1, 2015 -",
-        )
+        self.assertContainsActiveFilter(response, "Date updated", "Jan. 1, 2015 -")
 
     def test_filter_by_owner(self):
         barry = self.create_user(
@@ -624,13 +620,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {new_page_child.id})
-
-        soup = self.get_soup(response.content)
-        active_filters = soup.find("ul", class_="active-filters")
-        self.assertEqual(
-            active_filters.find("li").text.strip(),
-            "Owner: Barry Manilow",
-        )
+        self.assertContainsActiveFilter(response, "Owner", "Barry Manilow")
 
     def test_filter_by_site(self):
         new_site = Site.objects.create(
@@ -650,13 +640,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
-
-        soup = self.get_soup(response.content)
-        active_filters = soup.find("ul", class_="active-filters")
-        self.assertEqual(
-            active_filters.find("li").text.strip(),
-            "Site: new.example.com",
-        )
+        self.assertContainsActiveFilter(response, "Site", "new.example.com")
 
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
