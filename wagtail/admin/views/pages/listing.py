@@ -295,7 +295,7 @@ class BaseIndexView(generic.IndexView):
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
         kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
-        kwargs["actions_next_url"] = self.get_index_url()
+        kwargs["actions_next_url"] = self.index_url
 
         if self.show_ordering_column:
             kwargs["attrs"] = {
@@ -336,7 +336,6 @@ class BaseIndexView(generic.IndexView):
             {
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
-                "index_url": self.get_index_url(),
                 "search_url": self.get_index_results_url(),
                 "history_url": self.get_history_url(),
                 "search_form": self.search_form,
