@@ -172,7 +172,9 @@ class BaseOperationView(BaseObjectMixin, View):
 
 
 # Represents a django-filters filter that is currently in force on a listing queryset
-ActiveFilter = namedtuple("ActiveFilter", ["field_label", "value"])
+ActiveFilter = namedtuple(
+    "ActiveFilter", ["field_label", "value", "removed_filter_url"]
+)
 
 
 class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
@@ -212,6 +214,33 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             queryset = self.filters.filter_queryset(queryset)
         return queryset
 
+    def get_url_without_filter_param(self, param):
+        """
+        Return the index URL with the given filter parameter removed from the query string
+        """
+        base_url = self.index_url.split("?")[0]
+        query_dict = self.request.GET.copy()
+        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
+        if isinstance(param, (list, tuple)):
+            for p in param:
+                query_dict.pop(p, None)
+        else:
+            query_dict.pop(param, None)
+        return base_url + "?" + query_dict.urlencode()
+
+    def get_url_without_filter_param_value(self, param, value):
+        """
+        Return the index URL where the filter parameter with the given value has been removed
+        from the query string, preserving all other values for that parameter
+        """
+        base_url = self.index_url.split("?")[0]
+        query_dict = self.request.GET.copy()
+        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
+        query_dict.setlist(
+            param, [v for v in query_dict.getlist(param) if v != str(value)]
+        )
+        return base_url + "?" + query_dict.urlencode()
+
     @cached_property
     def active_filters(self):
         filters = []
@@ -226,12 +255,22 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 field = filter_def.field
                 for item in value:
                     filters.append(
-                        ActiveFilter(filter_def.label, field.label_from_instance(item))
+                        ActiveFilter(
+                            filter_def.label,
+                            field.label_from_instance(item),
+                            self.get_url_without_filter_param_value(
+                                field_name, item.pk
+                            ),
+                        )
                     )
             elif isinstance(filter_def, ModelChoiceFilter):
                 field = filter_def.field
                 filters.append(
-                    ActiveFilter(filter_def.label, field.label_from_instance(value))
+                    ActiveFilter(
+                        filter_def.label,
+                        field.label_from_instance(value),
+                        self.get_url_without_filter_param(field_name),
+                    )
                 )
             elif isinstance(filter_def, DateFromToRangeFilter):
                 start_date_display = date_format(value.start) if value.start else ""
@@ -240,15 +279,28 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         filter_def.label,
                         "%s - %s" % (start_date_display, end_date_display),
+                        self.get_url_without_filter_param(
+                            [f"{field_name}_before", f"{field_name}_after"]
+                        ),
                     )
                 )
             elif isinstance(filter_def, ChoiceFilter):
                 choices = {str(id): label for id, label in filter_def.field.choices}
                 filters.append(
-                    ActiveFilter(filter_def.label, choices.get(str(value), str(value)))
+                    ActiveFilter(
+                        filter_def.label,
+                        choices.get(str(value), str(value)),
+                        self.get_url_without_filter_param(field_name),
+                    )
                 )
             else:
-                filters.append(ActiveFilter(filter_def.label, str(value)))
+                filters.append(
+                    ActiveFilter(
+                        filter_def.label,
+                        str(value),
+                        self.get_url_without_filter_param(field_name),
+                    )
+                )
 
         return filters
 
