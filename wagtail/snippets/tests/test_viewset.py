@@ -437,7 +437,7 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
     def test_unfiltered_no_results(self):
         response = self.get()
-        self.assertContains(response, "No full-featured snippets have been created.")
+        self.assertContains(response, "There are no full-featured snippets to display")
         self.assertContains(
             response,
             '<label for="id_country_code_0"><input type="radio" name="country_code" value="" id="id_country_code_0" checked>All</label>',
@@ -471,9 +471,7 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
     def test_filtered_no_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "PH"})
-        self.assertContains(
-            response, "Sorry, no full-featured snippets match your query"
-        )
+        self.assertContains(response, "No full-featured snippets match your query")
         self.assertContains(
             response,
             '<label for="id_country_code_2"><input type="radio" name="country_code" value="PH" id="id_country_code_2" checked>Philippines</label>',
@@ -517,9 +515,7 @@ class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
     def test_filtered_searched_no_results(self):
         self.create_test_snippets()
         response = self.get({"country_code": "ID", "q": "chips"})
-        self.assertContains(
-            response, "Sorry, no full-featured snippets match your query"
-        )
+        self.assertContains(response, "No full-featured snippets match your query")
         self.assertContains(
             response,
             '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
@@ -566,10 +562,9 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
 
     def test_unfiltered_no_results(self):
         response = self.get()
-        add_url = self.get_url("add")
         self.assertContains(
             response,
-            f'No {self.model._meta.verbose_name_plural} have been created. Why not <a href="{add_url}">add one</a>',
+            f"There are no {self.model._meta.verbose_name_plural} to display",
         )
         self.assertContains(
             response,
@@ -621,7 +616,7 @@ class TestListFilterWithList(BaseSnippetViewSetTests):
         response = self.get({"first_published_at": "1970-01-01"})
         self.assertContains(
             response,
-            f"Sorry, no {self.model._meta.verbose_name_plural} match your query",
+            f"No {self.model._meta.verbose_name_plural} match your query",
         )
         self.assertContains(
             response,
@@ -1503,10 +1498,8 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         response = self.client.get(self.get_url("list"))
         add_url = self.get_url("add") + "?customised=param"
         soup = self.get_soup(response.content)
-        # Should contain the customised add URL in two places:
-        # The main action button, and the "Why not add one?" suggestion
         links = soup.find_all("a", attrs={"href": add_url})
-        self.assertEqual(len(links), 2)
+        self.assertEqual(len(links), 1)
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_index_view_get_add_url_is_respected_with_i18n(self):

@@ -349,10 +349,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         )
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no translatable snippets to display")
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -369,10 +366,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no translatable snippets to display")
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
@@ -386,10 +380,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No adverts have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no adverts to display")
 
 
 class TestModelOrdering(WagtailTestUtils, TestCase):
