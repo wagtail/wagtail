@@ -624,7 +624,10 @@ class CreateView(
         ]
         return MediaContainer(side_panels)
 
-    def get_translations(self):
+    @cached_property
+    def translations(self):
+        if not self.locale:
+            return []
         add_url = self.get_add_url()
         return [
             {
@@ -757,13 +760,14 @@ class EditView(
     def get_last_updated_info(self):
         return log_registry.get_logs_for_instance(self.object).first()
 
-    def get_edit_url(self):
+    def get_edit_url(self, instance=None):
+        instance = instance or self.object
         if not self.edit_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
                 "edit_url_name attribute or a get_edit_url method"
             )
-        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_delete_url(self):
         if self.delete_url_name:
@@ -785,13 +789,14 @@ class EditView(
             )
         return reverse(self.index_url_name)
 
-    def get_translations(self):
-        if not self.edit_url_name:
+    @cached_property
+    def translations(self):
+        if not self.edit_url_name or not self.locale:
             return []
         return [
             {
                 "locale": translation.locale,
-                "url": reverse(self.edit_url_name, args=[quote(translation.pk)]),
+                "url": self.get_edit_url(translation),
             }
             for translation in self.object.get_translations().select_related("locale")
         ]

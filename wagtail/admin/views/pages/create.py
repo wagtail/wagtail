@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic.base import View
@@ -117,7 +118,6 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                         Locale, language_code=selected_locale
                     )
             self.page.locale = self.locale
-            self.translations = self.get_translations()
         else:
             self.locale = None
             self.translations = []
@@ -403,7 +403,8 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         return context
 
-    def get_translations(self):
+    @cached_property
+    def translations(self):
         # Pages can be created in any language at the root level
         if self.parent_page.is_root():
             return [

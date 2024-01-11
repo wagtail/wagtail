@@ -5,6 +5,7 @@ from django.db.models import Count
 from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django_filters.filters import DateFromToRangeFilter, ModelMultipleChoiceFilter
@@ -152,7 +153,6 @@ class BaseIndexView(generic.IndexView):
             and not self.parent_page.is_root()
         ):
             self.locale = self.parent_page.locale
-            self.translations = self.get_translations()
         else:
             self.locale = None
             self.translations = []
@@ -347,7 +347,8 @@ class BaseIndexView(generic.IndexView):
 
         return context
 
-    def get_translations(self):
+    @cached_property
+    def translations(self):
         return [
             {
                 "locale": translation.locale,
