@@ -506,8 +506,10 @@ class CreateView(
     template_name = "wagtailadmin/generic/create.html"
     page_title = gettext_lazy("New")
     permission_required = "add"
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' created.")
+    error_message = gettext_lazy(
+        "The %(model_name)s could not be created due to errors."
+    )
     submit_button_label = gettext_lazy("Create")
     actions = ["create"]
 
@@ -576,7 +578,13 @@ class CreateView(
     def get_success_message(self, instance):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": instance}
+        return capfirst(
+            self.success_message
+            % {
+                "object": instance,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [messages.button(self.get_edit_url(), _("Edit"))]
@@ -584,7 +592,10 @@ class CreateView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -678,8 +689,8 @@ class EditView(
     template_name = "wagtailadmin/generic/edit.html"
     permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
+    error_message = gettext_lazy("The %(model_name)s could not be saved due to errors.")
     submit_button_label = gettext_lazy("Save")
     actions = ["edit"]
 
@@ -810,7 +821,13 @@ class EditView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "object": self.object,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [
@@ -822,7 +839,10 @@ class EditView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def form_valid(self, form):
         self.form = form
@@ -879,7 +899,6 @@ class DeleteView(
     template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
     permission_required = "delete"
-    success_message = None
     page_title = gettext_lazy("Delete")
     success_message = gettext_lazy("%(model_name)s '%(object)s' deleted.")
 

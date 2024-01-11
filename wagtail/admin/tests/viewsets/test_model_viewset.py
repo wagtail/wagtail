@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
+from django.utils.html import escape
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
@@ -1296,3 +1297,72 @@ class TestEditHandler(WagtailTestUtils, TestCase):
             rendered_heading = panel.select_one("[data-panel-heading-text]")
             self.assertIsNotNone(rendered_heading)
             self.assertEqual(rendered_heading.text.strip(), expected_heading)
+
+
+class TestDefaultMessages(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.create_url = reverse("feature_complete_toy:add")
+        cls.edit_url = reverse(
+            "feature_complete_toy:edit", args=(quote(cls.object.pk),)
+        )
+        cls.delete_url = reverse(
+            "feature_complete_toy:delete", args=(quote(cls.object.pk),)
+        )
+
+    def test_create_error(self):
+        response = self.client.post(
+            self.create_url,
+            data={"name": "", "release_date": "2024-01-11"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("The feature complete toy could not be created due to errors."),
+        )
+
+    def test_create_success(self):
+        response = self.client.post(
+            self.create_url,
+            data={"name": "Pink Flamingo", "release_date": "2024-01-11"},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("Feature complete toy 'Pink Flamingo (2024-01-11)' created."),
+        )
+
+    def test_edit_error(self):
+        response = self.client.post(
+            self.edit_url, data={"name": "", "release_date": "2024-01-11"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("The feature complete toy could not be saved due to errors."),
+        )
+
+    def test_edit_success(self):
+        response = self.client.post(
+            self.edit_url,
+            data={"name": "rubberduck", "release_date": "2024-02-01"},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("Feature complete toy 'rubberduck (2024-02-01)' updated."),
+        )
+
+    def test_delete_success(self):
+        response = self.client.post(self.delete_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape(f"Feature complete toy '{self.object}' deleted."),
+        )
