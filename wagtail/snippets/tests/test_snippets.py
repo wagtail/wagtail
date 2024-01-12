@@ -4203,6 +4203,17 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertContains(response, "Edited", count=1)
                 self.assertNotContains(response, "Created")
+                soup = self.get_soup(response.content)
+                filter = soup.select_one(".w-active-filters .w-pill")
+                clear_button = filter.select_one(".w-pill__remove")
+                self.assertEqual(
+                    filter.get_text(separator=" ", strip=True),
+                    "Action: Edit",
+                )
+                self.assertIsNotNone(clear_button)
+                url, params = clear_button.attrs.get("data-w-swap-src-value").split("?")
+                self.assertEqual(url, self.get_url(snippet, "history_results"))
+                self.assertNotIn("action=wagtail.edit", params)
 
     def test_should_not_show_actions_on_non_revisable_snippet(self):
         response = self.get(self.non_revisable_snippet)
