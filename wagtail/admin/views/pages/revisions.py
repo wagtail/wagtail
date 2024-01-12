@@ -77,6 +77,7 @@ def revisions_revert(request, page_id, revision_id):
     action_menu = PageActionMenu(
         request,
         view="revisions_revert",
+        is_revision=True,
         page=page,
         lock=lock,
         locked_for_user=lock is not None and lock.for_user(request.user),
