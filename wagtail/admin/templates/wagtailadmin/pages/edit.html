@@ -21,22 +21,13 @@
                 <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
             {% endif %}
 
-            <footer class="footer">
-                <ul>
-                    <li class="footer__container">
-                        <nav aria-label="{% trans 'Actions' %}">
-                            <ul>
-                                <li class="actions actions--primary">
-                                    {{ action_menu.render_html }}
-                                </li>
-
-                                {% block extra_footer_actions %}
-                                {% endblock %}
-                            </ul>
-                        </nav>
-                    </li>
-                    {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
-                </ul>
+            <footer class="footer w-flex">
+                <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                    {{ action_menu.render_html }}
+                    {% block extra_footer_actions %}
+                    {% endblock %}
+                </nav>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
             </footer>
         </form>
     {% endblock %}
