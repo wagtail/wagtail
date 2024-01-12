@@ -16,14 +16,8 @@
                     {{ panel.render_form_content }}
                 </div>
                 <footer class="footer">
-                    <nav aria-label="{% trans 'Actions' %}">
-                        <ul>
-                            <li class="actions actions--primary footer__container">
-                                <div class="dropdown dropup dropdown-button match-width {% if view.view_name == 'revisions_revert' %}warning{% endif %}">
-                                    {{ action_menu.render_html }}
-                                </div>
-                            </li>
-                        </ul>
+                    <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                        {{ action_menu.render_html }}
                     </nav>
                 </footer>
             </form>
