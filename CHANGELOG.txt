@@ -76,6 +76,7 @@ Changelog
  * Fix: Ensure `MultipleChooserPanel` modal works correctly when `USE_THOUSAND_SEPARATOR` is `True` for pages with ids over 1,000 (Sankalp, Rohit Sharma)
  * Fix: When using an empty table header (`th`) for visual spacing, ensure this is ignored by accessibility tooling (V Rohitansh)
  * Fix: Ensure the panel anchor button sizes meet accessibility guidelines for minimum dimensions (Nandini Arora)
+ * Fix: Raise a 404 for bulk actions for models which don't exist instead of throwing a 500 error (Alex Tomkins)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
