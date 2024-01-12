@@ -100,3 +100,16 @@ $radius: theme('borderRadius.sm');
     border-end-end-radius: var(--last-item-end-end-radius);
   }
 }
+
+.w-dropdown-button > .warning {
+  & + .w-dropdown .button {
+    background-color: theme('colors.warning.100');
+    border-color: $separator;
+  }
+
+  & + .w-dropdown .w-dropdown__toggle {
+    border-inline-end-color: theme('colors.warning.100');
+    border-top-color: theme('colors.warning.100');
+    border-bottom-color: theme('colors.warning.100');
+  }
+}
