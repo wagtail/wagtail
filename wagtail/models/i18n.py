@@ -215,11 +215,17 @@ class TranslatableQuerySetMixin:
         :py:attr:`.localized <wagtail.models.TranslatableMixin.localized>` property
         on the :py:class:`TranslatableMixin <wagtail.models.TranslatableMixin>`.
 
-        By default, the same ordering definition as in the original queryset is applied.
-        This means that the translated values are being considered during ordering,
-        which can lead to a different order than the original queryset. If you want to
-        preserve the same order as the original queryset, you need to pass
-        ``preserve_order=True``.
+        A translation of an instance will have the same ``translation_key`` as the
+        original but a different ``locale`` than the original instance.
+
+        By default, the same ordering definition as in the original queryset is applied
+        to the localized queryset. This means that the translated values are being
+        considered during ordering. The consideration of the translated values can lead
+        to the localized queryset having a different order than the original queryset,
+        meaning, the translation keys in the localized queryset are not in the same
+        order as they were in the original queryset. If you want to ensure that the
+        translation keys are in the same order in the localized queryset as they were in
+        the original queryset, you need to pass ``preserve_order=True``.
 
         If a model inherits from
         :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
