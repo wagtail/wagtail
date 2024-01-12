@@ -2252,11 +2252,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         self.assertEqual(attrs["name"], "title")
         self.assertEqual(attrs["placeholder"], "Page title*")
         self.assertEqual(attrs["data-controller"], "w-sync")
-        if "slug" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_slug",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_slug")
         self.assertEqual(
             attrs["data-action"],
             "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
@@ -2299,11 +2295,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         attrs = html.find("input").attrs
 
         self.assertEqual(attrs["data-controller"], "w-sync")
-        if "url" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_url",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_url")
         self.assertIsNotNone(attrs["data-action"])
 
     def test_using_apply_actions_if_non_page_model_with_live_property(self):
@@ -2323,11 +2315,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         attrs = html.find("input").attrs
 
         self.assertEqual(attrs["data-controller"], "w-sync")
-        if "url" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_url",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_url")
         self.assertIsNone(attrs.get("data-action"))
 
         # apply_if_live should work the same when apply_if_live is True
@@ -2369,11 +2357,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         attrs = html.find("input").attrs
 
         self.assertEqual(attrs["data-controller"], "w-sync")
-        if "title" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_title",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_title")
 
     def test_targets_override_with_multiple_fields(self):
         html = self.get_edit_handler_html(
@@ -2389,16 +2373,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         attrs = html.find("input").attrs
 
         self.assertEqual(attrs["data-controller"], "w-sync")
-        if "cost" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_cost",
-            )
-        if "location" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_location",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_cost, #id_location")
 
     def test_classname_override(self):
         html = self.get_edit_handler_html(
@@ -2444,11 +2419,7 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         )
 
         # "data-w-sync-target-value" should be ignored if supplied in widget attrs
-        if "slug" in attrs["data-w-sync-target-value"]:
-            self.assertEqual(
-                attrs["data-w-sync-target-value"],
-                "#id_slug",
-            )
+        self.assertEqual(attrs["data-w-sync-target-value"], "#id_slug")
 
         # other data attributes should be appended
         self.assertEqual(attrs["data-w-clean-filters-value"], "trim upper")
