@@ -219,7 +219,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         """
         Return the index URL with the given filter parameter removed from the query string
         """
-        base_url = self.index_url.split("?")[0]
+        base_url = self.index_results_url.split("?")[0]
         query_dict = self.request.GET.copy()
         query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
         if isinstance(param, (list, tuple)):
@@ -234,7 +234,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         Return the index URL where the filter parameter with the given value has been removed
         from the query string, preserving all other values for that parameter
         """
-        base_url = self.index_url.split("?")[0]
+        base_url = self.index_results_url.split("?")[0]
         query_dict = self.request.GET.copy()
         query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
         query_dict.setlist(
