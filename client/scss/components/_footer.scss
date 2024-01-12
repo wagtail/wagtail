@@ -1,189 +1,111 @@
 @use 'sass:math';
 
 .footer {
-  $border-curvature: 3px;
   @include transition(bottom 0.5s ease 1s);
   @include row();
+  margin-top: $mobile-nice-padding;
   margin-inline-start: $mobile-nice-padding;
   margin-inline-end: $mobile-nice-padding;
   z-index: 20;
 
-  ul {
-    @include unlist();
-  }
-
-  li {
-    float: inline-start;
-
-    .dropdown li,  // dropdown li
-        &:last-child {
-      margin-inline-end: 0;
-    }
-  }
-
-  &__container {
-    border-radius: $border-curvature $border-curvature 0 0;
-    background: theme('colors.surface-menus');
-    color: theme('colors.text-label-menus-default');
-    margin-top: 0;
-    margin-inline-end: 0;
-    transition: transform 1s;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &.footer__container--hidden {
-      transform: translateY(100%);
-    }
-
-    li {
-      margin-inline-end: 1em;
-    }
-  }
-
-  &__save-warning {
-    font-size: 0.95em;
-    display: flex;
-    align-items: center;
-
-    .icon {
-      font-size: 1.2em;
-      margin-inline-end: 0.5em;
-    }
-
-    p {
-      margin: -0.2em 0 0 0;
-    }
-  }
-
-  &__emphasise-span-tags span {
-    color: theme('colors.warning.100');
-  }
-
-  .actions {
-    width: 250px;
-
-    &--primary {
-      width: 350px;
-    }
-
-    .dropdown {
-      input[type='submit'],
-      input[type='reset'],
-      input[type='button'],
-      button,
-      .button {
-        padding-inline-end: 2.6em;
-      }
-    }
-  }
-
-  .preview .dropdown {
-    width: 250px;
-  }
-
-  .meta {
-    float: inline-end;
-    text-align: end;
-    padding: 7px math.div($grid-gutter-width, 2);
-    font-size: 0.85em;
-
-    p {
-      margin: 0;
-      margin-inline-end: $grid-gutter-width;
-      white-space: nowrap;
-    }
-
-    a {
-      color: inherit;
-
-      &:hover {
-        color: theme('colors.text-link-default');
-      }
-    }
-  }
-
-  @include media-breakpoint-down(xs) {
-    margin-top: $mobile-nice-padding;
-
-    .actions,
-    .preview,
-    &__container,
-    .preview .dropdown {
-      width: 100%;
-    }
-
-    .meta {
-      p {
-        white-space: normal;
-        width: 100%;
-      }
-
-      .avatar {
-        inset-inline-start: auto;
-      }
-    }
-
-    &__container {
-      &:not(:first-child) {
-        border-radius: 0;
-      }
-
-      &--hidden {
-        display: none;
-      }
-    }
-
-    &__save-warning {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-  }
-
   @include media-breakpoint-up(sm) {
+    margin-top: 0;
     margin-inline-start: calc(#{$desktop-nice-padding} - 0.75em);
     margin-inline-end: $desktop-nice-padding;
     width: auto;
     position: fixed;
     bottom: 0;
+  }
 
-    > ul {
-      display: flex;
+  &__emphasise-span-tags span {
+    color: theme('colors.warning.100');
+  }
+}
+
+.footer__container {
+  border-radius: theme('borderRadius.sm') theme('borderRadius.sm') 0 0;
+  background: theme('colors.surface-menus');
+  color: theme('colors.text-label-menus-default');
+  transition: transform 1s;
+
+  @include media-breakpoint-down(xs) {
+    width: 100%;
+
+    &:not(:first-child) {
+      border-radius: 0;
     }
+  }
 
-    &__container {
-      padding: 0.75em;
-      margin-inline-end: 0;
+  @include media-breakpoint-up(sm) {
+    padding: theme('spacing.[2.5]');
+    margin-inline-end: 0;
 
-      &:not(:first-child) {
-        margin-inline-start: -$border-curvature;
-      }
+    &:not(:first-child) {
+      margin-inline-start: calc(-1 * theme('borderRadius.sm'));
     }
+  }
 
-    &__save-warning {
-      margin-inline-end: 50px;
+  &.footer__container--hidden {
+    transform: translateY(100%);
+
+    @include media-breakpoint-down(xs) {
+      display: none;
     }
   }
 }
 
+.footer__save-warning {
+  font-size: 0.95em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .icon {
+    font-size: 1.2em;
+    margin-inline-end: 0.5em;
+  }
+
+  p {
+    margin: -0.2em 0 0 0;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-end: 50px;
+    align-items: center;
+  }
+}
+
 // Footer control bar for performing actions on the page
-footer .actions,
-footer .preview {
+.actions {
+  width: 100%;
+
+  @include media-breakpoint-up(sm) {
+    width: 250px;
+  }
+
+  &--primary {
+    @include media-breakpoint-up(sm) {
+      width: 350px;
+    }
+  }
+
   .button {
     @apply w-leading-none w-inline-flex w-items-center;
+    font-weight: 600;
+    white-space: initial;
 
     .icon {
+      width: theme('spacing.4');
       margin-inline-end: theme('spacing.2');
       flex-shrink: 0;
     }
   }
 }
 
-footer .actions {
-  .button {
-    font-weight: 600;
-    white-space: initial;
+.actions .w-dropdown-button {
+  width: 100%;
+
+  > .button {
+    flex-grow: 1;
   }
 }
