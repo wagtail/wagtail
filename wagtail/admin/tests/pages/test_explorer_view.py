@@ -53,7 +53,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
     def assertContainsActiveFilter(self, response, filter_name, value):
         soup = self.get_soup(response.content)
-        active_filter = soup.find("ul", class_="active-filters").find("li")
+        active_filter = soup.find("ul", class_="w-active-filters").find("li")
         self.assertEqual(active_filter.contents[0].strip(), f"{filter_name}:")
         self.assertEqual(active_filter.find("b").text.strip(), value)
 
