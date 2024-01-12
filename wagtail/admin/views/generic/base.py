@@ -185,6 +185,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     table_classname = None
     columns = [Column("__str__", label=_("Title"))]
     index_url_name = None
+    index_results_url_name = None
     page_kwarg = "p"
     default_ordering = None
     filterset_class = None
@@ -385,12 +386,21 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if self.index_url_name:
             return reverse(self.index_url_name)
 
+    @cached_property
+    def index_results_url(self):
+        return self.get_index_results_url()
+
+    def get_index_results_url(self):
+        if self.index_results_url_name:
+            return reverse(self.index_results_url_name)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
         table = self.get_table(context["object_list"])
 
         context["index_url"] = self.index_url
+        context["index_results_url"] = self.index_results_url
         context["table"] = table
         context["media"] = table.media
         # On Django's BaseListView, a listing where pagination is applied, but the results

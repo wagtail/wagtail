@@ -336,7 +336,6 @@ class BaseIndexView(generic.IndexView):
             {
                 "parent_page": self.parent_page,
                 "ordering": self.ordering,
-                "search_url": self.get_index_results_url(),
                 "history_url": self.get_history_url(),
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,

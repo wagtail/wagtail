@@ -4,7 +4,7 @@
 
 {% block header %}
     {% page_permissions parent_page as parent_page_perms %}
-    {% include 'wagtailadmin/pages/page_listing_header.html' with title=header_title search_url=search_url page_perms=parent_page_perms %}
+    {% include 'wagtailadmin/pages/page_listing_header.html' with title=header_title search_url=index_results_url page_perms=parent_page_perms %}
 {% endblock %}
 
 {% block listing %}
