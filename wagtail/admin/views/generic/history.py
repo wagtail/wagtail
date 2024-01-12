@@ -124,6 +124,9 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
         if self.history_results_url_name:
             return reverse(self.history_results_url_name, args=(quote(instance.pk),))
 
+    def get_index_results_url(self):
+        return self.get_history_results_url(self.object)
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
@@ -132,7 +135,6 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
             "model_name": self.model._meta.verbose_name
         }
         context["header_action_icon"] = "edit"
-        context["index_results_url"] = self.get_history_results_url(self.object)
         return context
 
     def get_queryset(self):
