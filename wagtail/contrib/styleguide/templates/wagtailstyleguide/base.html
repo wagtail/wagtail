@@ -321,67 +321,27 @@
     {% panel id="dropdowns" heading="Dropdown buttons" %}
 
         <div class="row">
-            <div class="col3">
-                <div class="dropdown dropdown-button match-width">
-                    <button type="button" class="button">drop down</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">items should not exceed button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropdown-button">
-                    <button type="button" class="button">drop down</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">Items in this list do not match button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropup dropdown-button match-width">
-                    <button type="button" class="button">drop up</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                    <ul>
-                        <li><a href="#">item 1</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropup dropdown-button match-width">
-                    <button value="drop up" class="button">{% icon name="view" %}icon dropup</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                    <ul>
-                        <li><a href="#">item 1</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <br />
-            <div class="col3">
-                <div class="dropdown dropdown-button match-width">
-                    <a href="#" class="button" value="drop down">Link button</a>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">items should not exceed button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
+            {% fragment as button %}
+                <a href="" class="button">
+                    dropdown
+                </a>
+            {% endfragment %}
+            {% dropdown_button button=button %}
+                <a class="button" href="#">items should not exceed button width</a>
+            {% enddropdown_button %}
 
-            <div class="col3">
-                <button class="button">button for comparison of height</button>
-            </div>
+            {% fragment as button %}
+                <button type="button" class="button bicolor button--icon">
+                    {% icon name="view" wrapped=1 %}icon dropdown
+                </button>
+            {% endfragment %}
+            {% dropdown_button button=button toggle_icon="arrow-up" %}
+                <a class="button" href="#">first item</a>
+                <a class="button" href="#">second item</a>
+            {% enddropdown_button %}
+
+            <button class="button">button for comparison of height</button>
         </div>
 
         <div class="row">
