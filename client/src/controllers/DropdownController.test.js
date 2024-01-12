@@ -8,12 +8,14 @@ describe('DropdownController', () => {
 
   beforeEach(async () => {
     document.body.innerHTML = `
-<div data-controller="w-dropdown" data-w-dropdown-theme-value="dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
-<button id="toggle" type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
-  <div data-w-dropdown-target="content">
-    <a href="/">Option</a>
+<section>
+  <div data-controller="w-dropdown" data-w-dropdown-theme-value="dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
+    <button id="toggle" type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+    <div data-w-dropdown-target="content">
+      <a href="/">Option</a>
+    </div>
   </div>
-</div>`;
+</section>`;
 
     application = Application.start();
     application.register('w-dropdown', DropdownController);
