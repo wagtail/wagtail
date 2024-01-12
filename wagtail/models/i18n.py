@@ -231,12 +231,16 @@ class TranslatableQuerySetMixin:
         ``include_draft_translations=True``. Regardless of this option, the resulting
         localized queryset will be the same length as the original.
 
-        Note: The draft state of an original instance is not considered. I.e., if the
-        original instance is in draft, its translation is also in draft and
-        ``include_draft_translations=False`` is used, then the original instance will
-        be used in the localized queryset (regardless of its draft state). To exclude
-        original draft instances from the localized queryset, filter the original
-        queryset to only include live instances.
+        Note: The draft state of an original instance is not considered when determining
+        if the original or the translation should be included in the localized queryset.
+        In the default configuration (``include_draft_translations=False``), draft
+        translations are not considered as translated. In a situation where the
+        original instance is in draft and its translation is also in draft, the original
+        instance will be used in the localized queryset (regardless of its draft state)
+        because the existence of the draft translation is ignored. This means the
+        original instance is considered not translated and is used in the localized
+        queryset. To exclude original draft instances from the localized queryset, the
+        original queryset should be filtered to only include live instances.
 
         By default, the localized queryset will fall back to the original (untranslated)
         instances if no translation into the active locale is available. This fallback
