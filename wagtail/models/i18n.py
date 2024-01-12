@@ -258,8 +258,8 @@ class TranslatableQuerySetMixin:
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
 
-        Note: Because this method returns a new queryset that is not a subset of the
-        original queryset effects of methods like ``select_related`` and
+        Note: This method returns a new queryset that is not a subset of the original
+        queryset. Because of that, effects of methods like ``select_related`` and
         ``prefetch_related`` are not retained. If you want to use them on the resulting
         queryset, you should apply them after ``.localized()``.
         """
