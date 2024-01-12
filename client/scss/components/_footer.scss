@@ -14,10 +14,13 @@
 
   li {
     float: inline-start;
+  }
 
-    .dropdown li,  // dropdown li
-        &:last-child {
-      margin-inline-end: 0;
+  .w-dropdown-button {
+    width: 100%;
+
+    > .button {
+      flex-grow: 1;
     }
   }
 
@@ -67,20 +70,6 @@
     &--primary {
       width: 350px;
     }
-
-    .dropdown {
-      input[type='submit'],
-      input[type='reset'],
-      input[type='button'],
-      button,
-      .button {
-        padding-inline-end: 2.6em;
-      }
-    }
-  }
-
-  .preview .dropdown {
-    width: 250px;
   }
 
   .meta {
@@ -108,9 +97,7 @@
     margin-top: $mobile-nice-padding;
 
     .actions,
-    .preview,
-    &__container,
-    .preview .dropdown {
+    &__container {
       width: 100%;
     }
 
@@ -154,7 +141,7 @@
     }
 
     &__container {
-      padding: 0.75em;
+      padding: theme('spacing.[2.5]');
       margin-inline-end: 0;
 
       &:not(:first-child) {
@@ -169,12 +156,12 @@
 }
 
 // Footer control bar for performing actions on the page
-footer .actions,
-footer .preview {
+footer .actions {
   .button {
     @apply w-leading-none w-inline-flex w-items-center;
 
     .icon {
+      width: theme('spacing.4');
       margin-inline-end: theme('spacing.2');
       flex-shrink: 0;
     }
