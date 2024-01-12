@@ -238,12 +238,12 @@ class TranslatableQuerySetMixin:
         original draft instances from the localized queryset, filter the original
         queryset to only include live instances.
 
-        By default, the localized queryset can contain untranslated instances from the
-        original queryset if no translation for the instance is available. If this is
-        not desired, pass ``include_only_translations=True`` to only include instances
-        that are translated into the active locale. In case not all instances are
-        translated and ``include_draft_translations=True`` is passed, the resulting
-        queryset will be shorter than the original.
+        By default, the localized queryset will fall back to the original (untranslated)
+        instances if no translation into the active locale is available. This fallback
+        behaviour can be disabled by passing ``include_only_translations=True``. With
+        this option, only translated instances will be included in the resulting
+        queryset. That means that the resulting queryset can be shorter than the
+        original when not all instances are translated.
 
         Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
         method returns the original queryset unchanged.
