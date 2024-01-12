@@ -5,7 +5,6 @@ from typing import Any, Mapping, Union
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
-from django.db import connection
 from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
@@ -21,6 +20,7 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.models import (
     Page,
+    PageLogEntry,
     Revision,
     TaskState,
     WorkflowState,
@@ -255,44 +255,26 @@ class RecentEditsPanel(Component):
 
         # Last n edited pages
         edit_count = getattr(settings, "WAGTAILADMIN_RECENT_EDITS_LIMIT", 5)
-        if connection.vendor == "mysql":
-            # MySQL can't handle the subselect created by the ORM version -
-            # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
-            last_edits = Revision.objects.raw(
-                """
-                SELECT wr.* FROM
-                    wagtailcore_revision wr JOIN (
-                        SELECT max(created_at) AS max_created_at, object_id FROM
-                            wagtailcore_revision WHERE user_id = %s AND base_content_type_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
-                    ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
-                 """,
-                [
-                    User._meta.pk.get_db_prep_value(request.user.pk, connection),
-                    get_default_page_content_type().id,
-                    edit_count,
-                ],
-            )
-        else:
-            last_edits_dates = (
-                Revision.page_revisions.filter(user=request.user)
-                .values("object_id")
-                .annotate(latest_date=Max("created_at"))
-                .order_by("-latest_date")
-                .values("latest_date")[:edit_count]
-            )
-            last_edits = Revision.page_revisions.filter(
-                created_at__in=last_edits_dates
-            ).order_by("-created_at")
 
-        # The revision's object_id is a string, so cast it to int first.
-        page_keys = [int(pr.object_id) for pr in last_edits]
-        pages = Page.objects.specific().in_bulk(page_keys)
-        context["last_edits"] = []
-        for revision in last_edits:
-            page = pages.get(int(revision.object_id))
+        # Query the audit log to get a resultset of (page ID, latest edit timestamp)
+        last_edits_dates = (
+            PageLogEntry.objects.filter(user=request.user, action="wagtail.edit")
+            .values("page_id")
+            .annotate(latest_date=Max("timestamp"))
+            .order_by("-latest_date")[:edit_count]
+        )
+        # Retrieve the page objects for those IDs
+        pages_mapping = Page.objects.specific().in_bulk(
+            [log["page_id"] for log in last_edits_dates]
+        )
+        # Compile a list of (latest edit timestamp, page object) tuples
+        last_edits = []
+        for log in last_edits_dates:
+            page = pages_mapping.get(log["page_id"])
             if page:
-                context["last_edits"].append([revision, page])
+                last_edits.append((log["latest_date"], page))
 
+        context["last_edits"] = last_edits
         context["request"] = request
         return context
 

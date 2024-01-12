@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for revision, page in last_edits %}
+                {% for last_edited_at, page in last_edits %}
                     <tr>
                         <td class="title" valign="top">
                             <div class="title-wrapper">
@@ -49,7 +49,7 @@
                         <td valign="top">
                             {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                         </td>
-                        <td valign="top">{% human_readable_date revision.created_at %}</td>
+                        <td valign="top">{% human_readable_date last_edited_at %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
