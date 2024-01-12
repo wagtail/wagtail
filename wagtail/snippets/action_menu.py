@@ -352,7 +352,6 @@ class SnippetActionMenu:
                 "default_menu_item": rendered_default_item,
                 "show_menu": bool(self.menu_items),
                 "rendered_menu_items": rendered_menu_items,
-                "is_revision": self.context["view"] == "revisions_revert",
             },
             request=self.request,
         )
