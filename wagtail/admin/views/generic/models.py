@@ -105,7 +105,6 @@ class IndexView(
     model = None
     template_name = "wagtailadmin/generic/index.html"
     results_template_name = "wagtailadmin/generic/index_results.html"
-    index_results_url_name = None
     add_url_name = None
     edit_url_name = None
     inspect_url_name = None
@@ -323,10 +322,6 @@ class IndexView(
 
         return columns
 
-    def get_index_results_url(self):
-        if self.index_results_url_name:
-            return reverse(self.index_results_url_name)
-
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
@@ -479,7 +474,6 @@ class IndexView(
             context["add_url"] = context["header_action_url"] = self.get_add_url()
             context["header_action_label"] = self.add_item_label
 
-        context["index_results_url"] = self.get_index_results_url()
         context["is_searchable"] = self.is_searchable
         context["search_url"] = self.get_search_url()
         context["search_form"] = self.search_form
