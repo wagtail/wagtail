@@ -2259,15 +2259,12 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         )
 
     def test_form_without_slugfield(self):
-        html = self.get_edit_handler_html(
-            ObjectList([TitleFieldPanel("title")])
-        )
+        html = self.get_edit_handler_html(ObjectList([TitleFieldPanel("title")]))
 
         self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
 
         attrs = html.find("input").attrs
         self.assertEqual(attrs["data-w-sync-target-value"], "")
-        self.assertRaises(KeyError())
 
     def test_not_using_apply_actions_if_live(self):
         """
