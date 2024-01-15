@@ -183,6 +183,15 @@ const staticColors = {
     },
   },
   info: {
+    125: {
+      hex: '#186076',
+      hsl: 'hsl(194.0, 66.2%, 27.8%)',
+      bgUtility: 'w-bg-info-125',
+      textUtility: 'w-text-info-125',
+      cssVariable: '--w-color-info-125',
+      usage: 'Hover background only, for information messages',
+      contrastText: 'white',
+    },
     100: {
       hex: '#1F7E9A',
       hsl: 'hsl(193.7 66.5% 36.3%)',
