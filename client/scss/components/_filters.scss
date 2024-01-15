@@ -38,3 +38,8 @@
     height: theme('fontSize.16');
   }
 }
+
+.w-active-filters {
+  @apply w-m-0 w-py-4 w-bg-surface-header w-border-b w-border-border-furniture w-flex w-flex-wrap w-list-none w-gap-2;
+  @include nice-padding;
+}

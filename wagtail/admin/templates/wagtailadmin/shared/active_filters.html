@@ -1,12 +1,16 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <ul class="w-active-filters">
     {% for filter in active_filters %}
-        <li>
-            {{ filter.field_label }}: <b>{{ filter.value }}</b>
-            <a href="{{ filter.removed_filter_url }}"
-               aria-label="{% blocktranslate trimmed with field_label=filter.field_label value=filter.value %}Remove filter on {{ field_label }}: {{ value }}{% endblocktranslate %}">
-                [x]
-            </a>
+        <li class="w-pill">
+            <button class="w-pill__content">
+                <span class="w-text-14">{{ filter.field_label }}:</span>
+                <b class="w-ml-1">{{ filter.value }}</b>
+            </button>
+            <button
+                class="w-pill__remove"
+                aria-label="{% trans 'Clear' %}">
+                {% icon name="cross" classname="w-h-4 w-w-4" %}
+            </button>
         </li>
     {% endfor %}
 </ul>
