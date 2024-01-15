@@ -272,7 +272,6 @@ class RecentEditsPanel(Component):
         for log in last_edits_dates:
             page = pages_mapping.get(log["page_id"])
             if page:
-                page.user_last_edited_at = log["latest_date"]
                 last_edits.append((log["latest_date"], page))
 
         context["last_edits"] = last_edits
