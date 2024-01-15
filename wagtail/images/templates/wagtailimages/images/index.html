@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block listing %}
-    <div class="nice-padding">
-        <form class="image-search" action="{{ index_url }}" method="GET" novalidate>
+    <div>
+        <form class="image-search nice-padding" action="{{ index_url }}" method="GET" novalidate>
             {% if current_tag %}
                 <input type="hidden" name="tag" value="{{ current_tag }}" />
             {% endif %}
