@@ -22,6 +22,7 @@ import { TagController } from './TagController';
 import { TeleportController } from './TeleportController';
 import { TooltipController } from './TooltipController';
 import { UpgradeController } from './UpgradeController';
+import { TabsController } from './TabsController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
@@ -47,6 +48,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
+  { controllerConstructor: TabsController, identifier: 'w-tabs' },
   { controllerConstructor: TagController, identifier: 'w-tag' },
   { controllerConstructor: TeleportController, identifier: 'w-teleport' },
   { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
