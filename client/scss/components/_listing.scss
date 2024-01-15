@@ -91,7 +91,7 @@ ul.listing {
     }
   }
 
-  &:has(.bulk-action-checkbox) {
+  &:has(.bulk-actions-filter-checkbox) {
     td:first-child,
     th:first-child {
       // Bulk actions, use smaller width (48px) for smaller screens
@@ -609,7 +609,7 @@ table.listing {
       padding-inline-start: 50px;
     }
 
-    &:has(.bulk-action-checkbox) {
+    &:has(.bulk-actions-filter-checkbox) {
       // Bulk actions, match the width of the header spacing up until
       // the page title (final breadcrumb item):
       // Breadcrumbs left padding: 20px
@@ -632,7 +632,7 @@ table.listing {
 
     // If no bulk actions are present, and nice padding is not applied,
     // apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &, .report &):not(:has(.bulk-action-checkbox)) {
+    &:not(.nice-padding &, .report &):not(:has(.bulk-actions-filter-checkbox)) {
       th:first-child,
       td:first-child {
         padding-inline-start: theme('spacing.20');
