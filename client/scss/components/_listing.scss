@@ -646,10 +646,6 @@ table.listing {
 
 // Transitions
 .listing {
-  thead .dropdown ul {
-    @include transition(none);
-  }
-
   .children,
   .no-children {
     @include transition(background-color 0.2s ease);

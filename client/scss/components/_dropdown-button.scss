@@ -129,3 +129,8 @@ $radius: theme('borderRadius.sm');
     border-bottom-color: theme('colors.warning.100');
   }
 }
+
+// Reduces the visibility of secondary actions like "Unpublish" or "Delete".
+.w-dropdown-button .action-secondary {
+  color: theme('colors.text-label-menus-default');
+}

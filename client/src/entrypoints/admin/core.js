@@ -211,31 +211,6 @@ function enableDirtyFormCheck(formSelector, options) {
 window.enableDirtyFormCheck = enableDirtyFormCheck;
 
 $(() => {
-  // eslint-disable-next-line func-names
-  $('.dropdown').each(function () {
-    const $dropdown = $(this);
-
-    $('.dropdown-toggle', $dropdown).on('click', (e) => {
-      e.stopPropagation();
-      $dropdown.toggleClass('open');
-
-      if ($dropdown.hasClass('open')) {
-        // If a dropdown is opened, add an event listener for document clicks to close it
-        $(document).on('click.dropdown.cancel', (e2) => {
-          const relTarg = e2.relatedTarget || e2.toElement;
-
-          // Only close dropdown if the click target wasn't a child of this dropdown
-          if (!$(relTarg).parents().is($dropdown)) {
-            $dropdown.removeClass('open');
-            $(document).off('click.dropdown.cancel');
-          }
-        });
-      } else {
-        $(document).off('click.dropdown.cancel');
-      }
-    });
-  });
-
   /* Dropzones */
   $('.drop-zone')
     .on('dragover', function onDragOver() {
