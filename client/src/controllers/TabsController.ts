@@ -51,12 +51,12 @@ export class TabsController extends Controller<HTMLElement> {
     this.tabsPanel = this.element.querySelectorAll('[role=tabpanel]');
     this.tabTriggerLinks = this.element.querySelectorAll('[data-tab-trigger]');
     this.tabList = this.element.querySelector('[role=tablist]') as HTMLElement;
-    
+
     if (this.tabTriggerLinks) {
       this.tabTriggerLinks.forEach((trigger) => {
         trigger.addEventListener('click', (e) => {
           e.preventDefault();
-          const href = trigger.getAttribute("href") as string
+          const href = trigger.getAttribute('href') as string;
           const tab = this.getTabElementByHref(href) as HTMLElement;
           if (tab) {
             this.selectTab(tab);
