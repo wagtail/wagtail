@@ -80,7 +80,7 @@ class TitleFieldPanel(FieldPanel):
             targets = [
                 self.get_target_selector(target)
                 for target in panel.targets
-                if target in str(self.form)
+                if target in self.form.fields
             ]
             attrs["data-w-sync-target-value"] = ", ".join(filter(None, targets))
 
