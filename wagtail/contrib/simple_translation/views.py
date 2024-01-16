@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
+from wagtail import hooks
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.models import DraftStateMixin, Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
@@ -54,18 +55,46 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
                     if isinstance(self.object, Page):
+                        for fn in hooks.get_hooks("before_translate_page"):
+                            result = fn(request, self.object, locale, include_subtree)
+                            if hasattr(result, "status_code"):
+                                return result
+
                         action = CopyPageForTranslationAction(
                             page=self.object,
                             locale=locale,
                             include_subtree=include_subtree,
                             user=user,
                         )
-                        action.execute(skip_permission_checks=True)
+                        translated_page = action.execute(
+                            skip_permission_checks=True,
+                        )
+
+                        for fn in hooks.get_hooks("after_translate_page"):
+                            result = fn(
+                                request,
+                                self.object,
+                                translated_page,
+                                include_subtree,
+                            )
+                            if hasattr(result, "status_code"):
+                                return result
 
                     else:
-                        self.object.copy_for_translation(
+                        for fn in hooks.get_hooks("before_translate_object"):
+                            result = fn(request, self.object, locale)
+                            if hasattr(result, "status_code"):
+                                return result
+
+                        translated_object = self.object.copy_for_translation(
                             locale
-                        ).save()  # pragma: no cover
+                        )
+                        translated_object.save()  # pragma: no cover
+
+                        for fn in hooks.get_hooks("after_translate_object"):
+                            result = fn(request, self.object, translated_object)
+                            if hasattr(result, "status_code"):
+                                return result
 
                 single_translated_object = None
                 if len(form.cleaned_data["locales"]) == 1:
