@@ -85,13 +85,14 @@
 
   &--primary {
     @include media-breakpoint-up(sm) {
-      width: 350px;
+      width: 310px;
     }
   }
 
   .button {
     @apply w-leading-none w-inline-flex w-items-center;
     font-weight: 600;
+    padding: 0 theme('spacing.3');
     white-space: initial;
 
     .icon {
