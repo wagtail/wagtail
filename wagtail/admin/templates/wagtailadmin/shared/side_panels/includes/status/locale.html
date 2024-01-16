@@ -12,6 +12,12 @@
         {% trans 'No other translations' as help_text %}
     {% endif %}
 
+    {% if parent_locale %}
+        {% blocktrans with parent_locale_name=parent_locale.get_display_name asvar secondary_help_text %}
+            Translated from: {{ parent_locale_name }}
+        {% endblocktrans %}
+    {% endif %}
+
     {% with icon_name='globe' title=locale.get_display_name %}
         {{ block.super }}
     {% endwith %}

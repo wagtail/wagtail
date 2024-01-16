@@ -1731,6 +1731,9 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
         self.assertFalse(fr_homepage.live)
         self.assertTrue(fr_homepage.has_unpublished_changes)
 
+        # Translated page must have information about parent page locale
+        self.assertEqual(fr_homepage.parent_locale, self.en_homepage.locale)
+
     def test_copy_childpage_without_parent(self):
         response = self.get_response(self.en_eventindex.id, {"locale": "fr"})
 
@@ -1749,6 +1752,7 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
 
         self.assertNotEqual(self.en_eventindex.id, fr_eventindex.id)
         self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(fr_eventindex.parent_locale, self.en_eventindex.locale)
         self.assertEqual(
             fr_eventindex.translation_key, self.en_eventindex.translation_key
         )
@@ -1759,6 +1763,7 @@ class TestCopyForTranslationAction(AdminAPITestCase, TestCase):
 
         self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
         self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.parent_locale, self.en_homepage.locale)
         self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
         self.assertEqual(fr_homepage.slug, "home-fr")
 

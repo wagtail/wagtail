@@ -118,12 +118,20 @@ class CopyPageForTranslationAction:
         slug = find_available_slug(translated_parent, slug)
 
         if alias:
-            return page.create_alias(
+            page_alias = page.create_alias(
                 parent=translated_parent,
                 update_slug=slug,
                 update_locale=locale,
                 reset_translation_key=False,
             )
+            page_alias.parent_locale = page.locale
+            page_alias.save(
+                update_fields=[
+                    "parent_locale",
+                ]
+            )
+
+            return page_alias
 
         else:
             # Update locale on translatable child objects as well
@@ -134,11 +142,13 @@ class CopyPageForTranslationAction:
 
                 if isinstance(child_object, TranslatableMixin):
                     child_object.locale = locale
+                    child_object.parent_locale = page.locale
 
             return page.copy(
                 to=translated_parent,
                 update_attrs={
                     "locale": locale,
+                    "parent_locale": page.locale,
                     "slug": slug,
                 },
                 copy_revisions=False,
@@ -212,12 +222,14 @@ class CopyForTranslationAction:
         )
         translated, child_object_map = _copy(object, exclude_fields=exclude_fields)
         translated.locale = locale
+        translated.parent_locale = object.locale
 
         # Update locale on any translatable child objects as well
         # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
         for (_child_relation, _old_pk), child_object in child_object_map.items():
             if isinstance(child_object, TranslatableMixin):
                 child_object.locale = locale
+                child_object.parent_locale = object.locale
 
         return translated
 
