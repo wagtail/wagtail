@@ -781,6 +781,7 @@
 * Salvo Polizzi
 * Badr Fourane
 * Vaishnav Dasari
+* Aditya
 
 ## Translators
 
