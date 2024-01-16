@@ -159,7 +159,6 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
                     "file_path": icon_path,
                     "name": name,
                     "source": source_match.group(1) if source_match else None,
-                    "icon": icon,
                 }
             )
         return all_icons.items()

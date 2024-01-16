@@ -521,10 +521,7 @@
                     <tbody>
                         {% for item in icons %}
                             <tr>
-                                {# Renders the icon’s SVG within a SVG element, #}
-                                {# so we fully control the rendering without changing the icon’s markup. #}
-                                {# Icons are loaded with render_to_string, so need |safe. #}
-                                <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
+                                <td>{% icon name=item.name classname="w-w-8 w-h-8" %}</td>
                                 <td><code>{{ item.name }}</code></td>
                                 <td>{{ item.source }}</td>
                                 <td><code>{{ item.file_path }}</code></td>
