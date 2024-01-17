@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 5.0
+ * Implemented universal listings – a unified listing and filtering interface for Pages, Snippets, Forms (Ben Enright, Matt Westcott, Thibaud Colas, Sage Abdullah)
  * Added `search_index` option to StreamField blocks to control whether the block is indexed for searching (Vedant Pandey)
  * Remember previous location on returning from page add/edit actions (Robert Rollins)
  * Update settings file in project settings to address Django 4.2 deprecations (Sage Abdullah)
