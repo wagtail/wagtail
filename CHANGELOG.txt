@@ -116,6 +116,7 @@ Changelog
  * Maintenance: Migrate styleguide ad-hoc JavaScript to use styles only to avoid CSP issues (LB (Ben) Johnston)
  * Maintenance: Update Jest version - frontend tooling (Nandini Arora)
  * Maintenance: Add more CSS authoring guidelines (Thibaud Colas)
+ * Maintenance: Remove non-functional and inaccessible auto-focus on first field in page create forms (LB (Ben) Johnston)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
