@@ -347,9 +347,14 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
             reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
             + "?locale=en"
         )
-        add_button = soup.select_one(f'a[href="{add_url}"]')
-        self.assertIsNotNone(add_button)
-        self.assertContains(response, "There are no translatable snippets to display")
+        add_buttons = soup.select(f'a[href="{add_url}"]')
+        self.assertEqual(len(add_buttons), 2)
+        self.assertContains(
+            response,
+            f"""<p>There are no translatable snippets to display.
+            Why not <a href="{add_url}">add one</a>?</p>""",
+            html=True,
+        )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -364,9 +369,14 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
         soup = self.get_soup(response.content)
-        add_button = soup.select_one(f'a[href="{add_url}"]')
-        self.assertIsNotNone(add_button)
-        self.assertContains(response, "There are no translatable snippets to display")
+        add_buttons = soup.select(f'a[href="{add_url}"]')
+        self.assertEqual(len(add_buttons), 2)
+        self.assertContains(
+            response,
+            f"""<p>There are no translatable snippets to display.
+            Why not <a href="{add_url}">add one</a>?</p>""",
+            html=True,
+        )
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
@@ -378,9 +388,14 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_tests_advert:add")
         soup = self.get_soup(response.content)
-        add_button = soup.select_one(f'a[href="{add_url}"]')
-        self.assertIsNotNone(add_button)
-        self.assertContains(response, "There are no adverts to display")
+        add_buttons = soup.select(f'a[href="{add_url}"]')
+        self.assertEqual(len(add_buttons), 2)
+        self.assertContains(
+            response,
+            f"""<p>There are no adverts to display.
+            Why not <a href="{add_url}">add one</a>?</p>""",
+            html=True,
+        )
 
 
 class TestModelOrdering(WagtailTestUtils, TestCase):

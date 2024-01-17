@@ -23,15 +23,25 @@
 {% endblock %}
 
 {% block no_results_message %}
-    {% if is_searching or is_filtering %}
-        {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
-            No {{ model_name }} match your query
-        {% endblocktrans %}
-    {% else %}
-        {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
-            There are no {{ model_name }} to display
-        {% endblocktrans %}
-    {% endif %}
+    {% fragment as no_results_message %}
+        {% if is_searching or is_filtering %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
+                No {{ model_name }} match your query.
+            {% endblocktrans %}
+            {{ no_results_text|capfirst }}
+        {% else %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
+                There are no {{ model_name }} to display.
+            {% endblocktrans %}
+            {{ no_results_text|capfirst }}
 
-    <p>{{ no_results_text|capfirst }}</p>
+            {% if add_url %}
+                {% blocktrans trimmed %}
+                    Why not <a href="{{ add_url }}">add one</a>?
+                {% endblocktrans %}
+            {% endif %}
+        {% endif %}
+    {% endfragment %}
+
+    <p>{{ no_results_message }}</p>
 {% endblock %}
