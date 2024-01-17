@@ -166,6 +166,10 @@
       margin-inline-end: 50px;
     }
   }
+
+  &--no-margin {
+    margin-inline: 0;
+  }
 }
 
 // Footer control bar for performing actions on the page

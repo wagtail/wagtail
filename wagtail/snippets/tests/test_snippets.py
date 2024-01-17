@@ -98,7 +98,7 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertBreadcrumbsItemsRendered(
             [{"url": "", "label": "Snippets"}],
             response.content,
@@ -349,10 +349,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         )
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no translatable snippets to display")
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -369,10 +366,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no translatable snippets to display")
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
@@ -386,10 +380,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         add_button = soup.select_one(f'a[href="{add_url}"]')
         self.assertIsNotNone(add_button)
-        self.assertContains(
-            response,
-            f'No adverts have been created. Why not <a href="{add_url}">add one</a>',
-        )
+        self.assertContains(response, "There are no adverts to display")
 
 
 class TestModelOrdering(WagtailTestUtils, TestCase):
@@ -727,7 +718,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be created due to errors.")
+        self.assertContains(response, "The advert could not be created due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
@@ -1500,7 +1491,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be saved due to errors.")
+        self.assertContains(response, "The advert could not be saved due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
@@ -2287,7 +2278,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should use the latest draft content for the title
         self.assertContains(
             response,
-            '<h1 class="w-header__title" id="header-title"><svg class="icon icon-snippet w-header__glyph" aria-hidden="true"><use href="#icon-snippet"></use></svg>Draft-enabled Bar, In Draft</h1>',
+            '<h2 class="w-header__title" id="header-title">Draft-enabled Bar, In Draft</h2>',
             html=True,
         )
 
@@ -5368,7 +5359,10 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
 
     def test_edit_invalid(self):
         response = self.post(self.snippet_a, post_data={"foo": "bar"})
-        self.assertContains(response, "The snippet could not be saved due to errors.")
+        self.assertContains(
+            response,
+            "The standard snippet with custom primary key could not be saved due to errors.",
+        )
         self.assertContains(response, "This field is required.")
 
     def test_edit(self):

@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 from django.views.generic.base import View
@@ -377,7 +378,6 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             self.locale = self.page.locale
-            self.translations = self.get_translations()
         else:
             self.locale = None
             self.translations = []
@@ -928,7 +928,8 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         return context
 
-    def get_translations(self):
+    @cached_property
+    def translations(self):
         return [
             {
                 "locale": translation.locale,

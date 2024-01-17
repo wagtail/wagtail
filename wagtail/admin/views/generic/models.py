@@ -32,6 +32,7 @@ from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
@@ -506,8 +507,10 @@ class CreateView(
     template_name = "wagtailadmin/generic/create.html"
     page_title = gettext_lazy("New")
     permission_required = "add"
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' created.")
+    error_message = gettext_lazy(
+        "The %(model_name)s could not be created due to errors."
+    )
     submit_button_label = gettext_lazy("Create")
     actions = ["create"]
 
@@ -576,7 +579,13 @@ class CreateView(
     def get_success_message(self, instance):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": instance}
+        return capfirst(
+            self.success_message
+            % {
+                "object": instance,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [messages.button(self.get_edit_url(), _("Edit"))]
@@ -584,15 +593,36 @@ class CreateView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.form = context.get("form")
+        side_panels = self.get_side_panels()
         context["action_url"] = self.get_add_url()
         context["submit_button_label"] = self.submit_button_label
+        context["side_panels"] = side_panels
+        context["media"] += side_panels.media
         return context
 
-    def get_translations(self):
+    def get_side_panels(self):
+        side_panels = [
+            StatusSidePanel(
+                self.form.instance,
+                self.request,
+                locale=self.locale,
+                translations=self.translations,
+            )
+        ]
+        return MediaContainer(side_panels)
+
+    @cached_property
+    def translations(self):
+        if not self.locale:
+            return []
         add_url = self.get_add_url()
         return [
             {
@@ -601,6 +631,24 @@ class CreateView(
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
+
+    def get_initial_form_instance(self):
+        if self.locale:
+            instance = self.model()
+            instance.locale = self.locale
+            return instance
+
+    def get_form_kwargs(self):
+        if instance := self.get_initial_form_instance():
+            # super().get_form_kwargs() will use self.object as the instance kwarg
+            self.object = instance
+        kwargs = super().get_form_kwargs()
+
+        form_class = self.get_form_class()
+        # Add for_user support for PermissionedForm
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
@@ -663,8 +711,8 @@ class EditView(
     template_name = "wagtailadmin/generic/edit.html"
     permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
+    error_message = gettext_lazy("The %(model_name)s could not be saved due to errors.")
     submit_button_label = gettext_lazy("Save")
     actions = ["edit"]
 
@@ -725,13 +773,14 @@ class EditView(
     def get_last_updated_info(self):
         return log_registry.get_logs_for_instance(self.object).first()
 
-    def get_edit_url(self):
+    def get_edit_url(self, instance=None):
+        instance = instance or self.object
         if not self.edit_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
                 "edit_url_name attribute or a get_edit_url method"
             )
-        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_delete_url(self):
         if self.delete_url_name:
@@ -753,16 +802,24 @@ class EditView(
             )
         return reverse(self.index_url_name)
 
-    def get_translations(self):
-        if not self.edit_url_name:
+    @cached_property
+    def translations(self):
+        if not self.edit_url_name or not self.locale:
             return []
         return [
             {
                 "locale": translation.locale,
-                "url": reverse(self.edit_url_name, args=[quote(translation.pk)]),
+                "url": self.get_edit_url(translation),
             }
             for translation in self.object.get_translations().select_related("locale")
         ]
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        form_class = self.get_form_class()
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
@@ -795,7 +852,13 @@ class EditView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "object": self.object,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [
@@ -807,7 +870,10 @@ class EditView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def form_valid(self, form):
         self.form = form
@@ -833,11 +899,10 @@ class EditView(
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
         side_panels = self.get_side_panels()
-        media = context.get("media") + side_panels.media
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
         context["side_panels"] = side_panels
-        context["media"] = media
+        context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
@@ -865,8 +930,8 @@ class DeleteView(
     template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
     permission_required = "delete"
-    success_message = None
     page_title = gettext_lazy("Delete")
+    success_message = gettext_lazy("%(model_name)s '%(object)s' deleted.")
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -932,7 +997,13 @@ class DeleteView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "model_name": capfirst(self.object._meta.verbose_name),
+                "object": self.object,
+            }
+        )
 
     def delete_action(self):
         with transaction.atomic():

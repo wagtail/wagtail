@@ -72,13 +72,12 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
-class ModelIndexView(generic.IndexView):
+class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
     _show_breadcrumbs = True
-    header_buttons = []
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -222,10 +221,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
-    preview_url_name = None
-    permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
-    error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_create_snippet", self.request, self.model)
@@ -235,22 +231,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
-
-    def _get_initial_form_instance(self):
-        instance = self.model()
-
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-
-        return instance
-
-    def get_form_kwargs(self):
-        return {
-            **super().get_form_kwargs(),
-            "instance": self._get_initial_form_instance(),
-            "for_user": self.request.user,
-        }
 
     def get_side_panels(self):
         side_panels = [
@@ -274,31 +254,15 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = self.get_side_panels()
-        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "side_panels": side_panels,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
-    preview_url_name = None
-    revisions_compare_url_name = None
-    permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
-    error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_edit_snippet", self.request, self.object)
@@ -313,9 +277,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
             instance=self.object,
             locked_for_user=self.locked_for_user,
         )
-
-    def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get_side_panels(self):
         side_panels = [
@@ -346,27 +307,14 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "revisions_compare_url_name": self.revisions_compare_url_name,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
 
 
 class DeleteView(generic.DeleteView):
     view_name = "delete"
-    page_title = gettext_lazy("Delete")
-    permission_required = "delete"
-    header_icon = "snippet"
 
     def run_before_hook(self):
         return self.run_hook("before_delete_snippet", self.request, [self.object])
@@ -374,16 +322,9 @@ class DeleteView(generic.DeleteView):
     def run_after_hook(self):
         return self.run_hook("after_delete_snippet", self.request, [self.object])
 
-    def get_success_message(self):
-        return _("%(model_name)s '%(object)s' deleted.") % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": self.object,
-        }
-
 
 class UsageView(generic.UsageView):
     view_name = "usage"
-    template_name = "wagtailsnippets/snippets/usage.html"
 
 
 class ActionColumn(Column):
