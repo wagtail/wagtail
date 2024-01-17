@@ -121,6 +121,9 @@ class Index(IndexView):
         if self.ordering == "username":
             users = users.order_by(User.USERNAME_FIELD)
 
+        if not self.request.user.is_superuser:
+            return users.filter(is_superuser=False)
+
         return users
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -172,6 +175,14 @@ class Create(CreateView):
     def get_add_url(self):
         return None
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if not self.request.user.is_superuser:
+            if "is_superuser" in context["form"].fields.keys():
+                del context["form"].fields["is_superuser"]
+        context["action_url"] = self.get_add_url()
+        context["submit_button_label"] = self.submit_button_label
+        return context
 
 class Edit(EditView):
     """
@@ -195,7 +206,8 @@ class Edit(EditView):
         self.object = self.get_object()
         self.can_delete = user_can_delete_user(request.user, self.object)
         self.editing_self = request.user == self.object
-
+        if self.object.is_superuser and not self.request.user.is_superuser:
+            raise PermissionDenied
     def save_instance(self):
         instance = super().save_instance()
         if self.object == self.request.user and "password1" in self.form.changed_data:
@@ -234,7 +246,9 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.pop("action_url")
+        if not self.request.user.is_superuser:
+            if "is_superuser" in context["form"].fields.keys():
+                del context["form"].fields["is_superuser"]
         context["can_delete"] = self.can_delete
         return context
 
