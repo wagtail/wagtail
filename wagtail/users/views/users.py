@@ -184,6 +184,7 @@ class Create(CreateView):
         context["submit_button_label"] = self.submit_button_label
         return context
 
+
 class Edit(EditView):
     """
     Provide the ability to edit a user within the admin.
@@ -208,6 +209,7 @@ class Edit(EditView):
         self.editing_self = request.user == self.object
         if self.object.is_superuser and not self.request.user.is_superuser:
             raise PermissionDenied
+
     def save_instance(self):
         instance = super().save_instance()
         if self.object == self.request.user and "password1" in self.form.changed_data:
