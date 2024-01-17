@@ -786,6 +786,7 @@
 * Curtis Maloney
 * Jai Vignesh J
 * Sankalp
+* V Rohitansh
 
 ## Translators
 
