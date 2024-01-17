@@ -293,19 +293,19 @@ const dark = [
         cssVariable: '--w-color-surface-field-inactive',
       },
       'surface-header': {
-        value: 'var(--w-color-grey-600)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-header',
         textUtility: 'w-text-surface-header',
         cssVariable: '--w-color-surface-header',
       },
       'surface-menus': {
-        value: 'var(--w-color-grey-500)',
+        value: 'var(--w-color-grey-800)',
         bgUtility: 'w-bg-surface-menus',
         textUtility: 'w-text-surface-menus',
         cssVariable: '--w-color-surface-menus',
       },
       'surface-menu-item-active': {
-        value: 'var(--w-color-grey-600)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-menu-item-active',
         textUtility: 'w-text-surface-menu-item-active',
         cssVariable: '--w-color-surface-menu-item-active',
@@ -335,7 +335,7 @@ const dark = [
         cssVariable: '--w-color-surface-button-inactive',
       },
       'surface-button-outline-hover': {
-        value: 'var(--w-color-grey-500)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-button-outline-hover',
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',

@@ -30,6 +30,24 @@ const staticColors = {
     },
   },
   grey: {
+    800: {
+      hex: '#1D1D1D',
+      hsl: 'hsl(0 0% 11.4%)',
+      bgUtility: 'w-bg-grey-800',
+      textUtility: 'w-text-grey-800',
+      cssVariable: '--w-color-grey-800',
+      usage: 'Backgrounds for panels in dark theme',
+      contrastText: 'white',
+    },
+    700: {
+      hex: '#222222',
+      hsl: 'hsl(0 0% 13.3%)',
+      bgUtility: 'w-bg-grey-700',
+      textUtility: 'w-text-grey-700',
+      cssVariable: '--w-color-grey-700',
+      usage: 'Backgrounds for panels in dark theme',
+      contrastText: 'white',
+    },
     600: {
       hex: '#262626',
       hsl: 'hsl(0 0% 14.9%)',
@@ -193,8 +211,8 @@ const staticColors = {
       contrastText: 'white',
     },
     100: {
-      hex: '#1F7E9A',
-      hsl: 'hsl(193.7 66.5% 36.3%)',
+      hex: '#1D7792',
+      hsl: 'hsl(193 66.9% 34.3%)',
       bgUtility: 'w-bg-info-100',
       textUtility: 'w-text-info-100',
       cssVariable: '--w-color-info-100',
@@ -253,8 +271,8 @@ const staticColors = {
   },
   critical: {
     200: {
-      hex: '#CD4444',
-      hsl: 'hsl(0 57.8% 53.5%)',
+      hex: '#CA3B3B',
+      hsl: 'hsl(0 57.4% 51.2%)',
       bgUtility: 'w-bg-critical-200',
       textUtility: 'w-text-critical-200',
       cssVariable: '--w-color-critical-200',
@@ -271,8 +289,8 @@ const staticColors = {
       contrastText: 'primary',
     },
     50: {
-      hex: '#FDE9E9',
-      hsl: 'hsl(0 83.3% 95.3%)',
+      hex: '#FEF0F0',
+      hsl: 'hsl(0 87.5% 96.9%)',
       bgUtility: 'w-bg-critical-50',
       textUtility: 'w-text-critical-50',
       cssVariable: '--w-color-critical-50',
