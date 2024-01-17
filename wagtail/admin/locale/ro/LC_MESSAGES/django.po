@@ -703,12 +703,12 @@ msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
 
 #, python-format
-msgid "No %(model_name)s match your query"
+msgid "No %(model_name)s match your query."
 msgstr "Niciun %(model_name)s nu se potrivește cu căutarea dvs."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Nu există %(model_name)s de afișat"
+msgid "There are no %(model_name)s to display."
+msgstr "Nu există %(model_name)s de afișat."
 
 msgid "Update"
 msgstr "Actualizează"

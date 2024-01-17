@@ -671,12 +671,12 @@ msgid "No log entries found."
 msgstr "Najden ni bil noben vnos v dnevnik."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Noben %(model_name)s ne ustreza vaši poizvedbi"
+msgid "No %(model_name)s match your query."
+msgstr "Noben %(model_name)s ne ustreza vaši poizvedbi."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Ni %(model_name)s za prikaz"
+msgid "There are no %(model_name)s to display."
+msgstr "Ni %(model_name)s za prikaz."
 
 msgid "Update"
 msgstr "Posodbi"

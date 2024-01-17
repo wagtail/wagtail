@@ -697,12 +697,12 @@ msgid "No log entries found."
 msgstr "Nincs naplóbejegyzés."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Egyetlen %(model_name)s sem felel meg a keresési feltételeknek"
+msgid "No %(model_name)s match your query."
+msgstr "Egyetlen %(model_name)s sem felel meg a keresési feltételeknek."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Nincs megjeleníthető %(model_name)s"
+msgid "There are no %(model_name)s to display."
+msgstr "Nincs megjeleníthető %(model_name)s."
 
 msgid "Update"
 msgstr "Frissítés"

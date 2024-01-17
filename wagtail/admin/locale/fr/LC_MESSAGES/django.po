@@ -729,12 +729,12 @@ msgid "No log entries found."
 msgstr "Aucune entrée de journal trouvée."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Aucun(e) %(model_name)s ne correspond à votre recherche"
+msgid "No %(model_name)s match your query."
+msgstr "Aucun(e) %(model_name)s ne correspond à votre recherche."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Aucun(e) %(model_name)s à afficher"
+msgid "There are no %(model_name)s to display."
+msgstr "Aucun(e) %(model_name)s à afficher."
 
 msgid "Update"
 msgstr "Mettre à jour"

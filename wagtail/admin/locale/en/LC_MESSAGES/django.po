@@ -942,12 +942,12 @@ msgstr ""
 
 #: templates/wagtailadmin/generic/index_results.html:19
 #, python-format
-msgid "No %(model_name)s match your query"
+msgid "No %(model_name)s match your query."
 msgstr ""
 
 #: templates/wagtailadmin/generic/index_results.html:23
 #, python-format
-msgid "There are no %(model_name)s to display"
+msgid "There are no %(model_name)s to display."
 msgstr ""
 
 #: templates/wagtailadmin/generic/multiple_upload/edit_form.html:24

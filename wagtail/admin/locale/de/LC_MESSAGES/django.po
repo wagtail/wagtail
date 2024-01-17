@@ -762,12 +762,12 @@ msgid "No log entries found."
 msgstr "Keine Protokoll-Einträge gefunden."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Keine %(model_name)s entsprechen Ihrer Anfrage"
+msgid "No %(model_name)s match your query."
+msgstr "Keine %(model_name)s entsprechen Ihrer Anfrage."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Es sind keine %(model_name)s zum Anzeigen vorhanden"
+msgid "There are no %(model_name)s to display."
+msgstr "Es sind keine %(model_name)s zum Anzeigen vorhanden."
 
 msgid "Update"
 msgstr "Update"

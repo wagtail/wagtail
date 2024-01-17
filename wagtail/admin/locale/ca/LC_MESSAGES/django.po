@@ -695,12 +695,12 @@ msgid "No log entries found."
 msgstr "No s'han trobat entrades de registre."
 
 #, python-format
-msgid "No %(model_name)s match your query"
+msgid "No %(model_name)s match your query."
 msgstr "Cap %(model_name)s coincideix amb la vostra consulta."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "No hi ha cap %(model_name)s per mostrar"
+msgid "There are no %(model_name)s to display."
+msgstr "No hi ha cap %(model_name)s per mostrar."
 
 msgid "Update"
 msgstr "Actualitzar"

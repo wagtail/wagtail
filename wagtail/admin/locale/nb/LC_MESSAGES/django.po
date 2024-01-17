@@ -682,12 +682,12 @@ msgid "No log entries found."
 msgstr "Ingen loggoppføringer funnet."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Ingen %(model_name)s matcher forespørselen din"
+msgid "No %(model_name)s match your query."
+msgstr "Ingen %(model_name)s matcher forespørselen din."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Det er ingen %(model_name)s å vise"
+msgid "There are no %(model_name)s to display."
+msgstr "Det er ingen %(model_name)s å vise."
 
 msgid "Update"
 msgstr "Oppdatér"

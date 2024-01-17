@@ -719,8 +719,8 @@ msgid "No log entries found."
 msgstr "Brak wpisów w logu."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Brak %(model_name)s do wyświetlenia"
+msgid "There are no %(model_name)s to display."
+msgstr "Brak %(model_name)s do wyświetlenia."
 
 msgid "Update"
 msgstr "Uaktualnij"

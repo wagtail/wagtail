@@ -696,12 +696,12 @@ msgid "No log entries found."
 msgstr "Non se atoparon entradas no rexistro."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Ningún %(model_name)s coincide ca túa busca"
+msgid "No %(model_name)s match your query."
+msgstr "Ningún %(model_name)s coincide ca túa busca."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Non hai %(model_name)s que amosar"
+msgid "There are no %(model_name)s to display."
+msgstr "Non hai %(model_name)s que amosar."
 
 msgid "Update"
 msgstr "Actualizar"

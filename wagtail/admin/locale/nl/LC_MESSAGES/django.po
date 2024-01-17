@@ -722,12 +722,12 @@ msgid "No log entries found."
 msgstr "Geen logboekvermeldingen gevonden."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Er is geen match met uw zoekopdracht %(model_name)s"
+msgid "No %(model_name)s match your query."
+msgstr "Er is geen match met uw zoekopdracht %(model_name)s."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Er is geen%(model_name)s om weer te geven"
+msgid "There are no %(model_name)s to display."
+msgstr "Er is geen%(model_name)s om weer te geven."
 
 msgid "Update"
 msgstr "Bijwerken"

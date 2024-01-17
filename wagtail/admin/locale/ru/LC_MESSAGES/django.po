@@ -746,12 +746,12 @@ msgid "No log entries found."
 msgstr "Записи в журнале не найдены."
 
 #, python-format
-msgid "No %(model_name)s match your query"
+msgid "No %(model_name)s match your query."
 msgstr "По запросу %(model_name)s нет совпадений."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Нет %(model_name)s для отображения"
+msgid "There are no %(model_name)s to display."
+msgstr "Нет %(model_name)s для отображения."
 
 msgid "Update"
 msgstr "Обновить"

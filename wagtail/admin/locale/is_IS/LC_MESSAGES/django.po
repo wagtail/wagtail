@@ -695,12 +695,12 @@ msgid "No log entries found."
 msgstr "Engar atburðaskráningar fundust."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Engin %(model_name)s passa við leit þína"
+msgid "No %(model_name)s match your query."
+msgstr "Engin %(model_name)s passa við leit þína."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Það eru engin %(model_name)s til að sýna"
+msgid "There are no %(model_name)s to display."
+msgstr "Það eru engin %(model_name)s til að sýna."
 
 msgid "Update"
 msgstr "Uppfæra"
