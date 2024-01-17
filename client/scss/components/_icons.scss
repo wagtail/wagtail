@@ -100,3 +100,13 @@ use[href='#icon-spinner'] {
 .icon-wagtail__wordmark {
   fill: theme('colors.text-context');
 }
+
+// Icons mirroring for RTL languages to match the rest of the Wagtail UI.
+// Automatically mirror child elements of SVG icons marked with
+// icon--directional. This will be applied to the children of the <symbol>
+// elements in the icons sprite, ensuring all usages of the icons will be in the
+// correct direction.
+.icon--directional * {
+  transform: scaleX(var(--w-direction-factor));
+  transform-origin: center;
+}

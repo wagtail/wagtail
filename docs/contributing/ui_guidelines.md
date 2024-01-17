@@ -53,7 +53,7 @@ For all of our styles, we use:
 -   `box-sizing: border-box`, with elements always inheriting the `box-sizing` of their parent.
 -   Global CSS variables for colors, so they can be changed by site implementers.
 -   Global CSS variables for font family, so they can be changed by site implementers.
--   A `--w-direction-factor` CSS variable, set to `1` by default and `-1` for RTL languages, to allow reversing of calculations of physical values (transforms, background positions).
+-   A `--w-direction-factor` CSS variable, set to `1` by default and `-1` for RTL languages, to allow reversing of calculations of physical values (transforms, background positions) and mirroring of icons and visuals with directional elements like arrows.
 
 ### Tailwind usage
 
@@ -164,8 +164,9 @@ Icons are SVG files in the [Wagtail admin template folder](https://github.com/wa
 When adding or updating an icon,
 
 1. Run it through [SVGO](https://jakearchibald.github.io/svgomg/) with appropriate compression settings.
-2. Manually remove any unnecessary attributes.
+2. Manually remove any unnecessary attributes. Set the `viewBox` attribute, and remove `width` and `height` attributes.
 3. Manually add its `id` attribute with a prefix of `icon-` and the icon name matching the file name. Keep the icon as named from its source if possible.
 4. Add or preserve licensing information as a HTML comment starting with an exclamation mark: `<!--! Icon license -->`. For Font Awesome, we want: `<!--! [icon name] ([icon style]): Font Awesome [version] -->`. For example, `<!--! triangle-exclamation (solid): Font Awesome Pro 6.4.0 -->`.
 5. Add the icon to Wagtail’s own implementation of the `register_icons` hook, in alphabetical order.
 6. Go to the styleguide and copy the Wagtail icons table according to instructions in the template, pasting the result in `wagtail_icons_table.txt`.
+7. If the icon requires [right-to-left mirroring](https://rtlstyling.com/posts/rtl-styling#bidirectional-icons), add the `class="icon--directional"` attribute.
