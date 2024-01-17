@@ -7,6 +7,7 @@ export interface TextAreaProps {
   onChange?(newValue: string): void;
   focusOnMount?: boolean;
   focusTarget?: boolean;
+  autoFocus?: boolean;
   additionalAttributes?: React.ComponentPropsWithoutRef<'textarea'>;
 }
 
@@ -53,6 +54,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(
 
     return (
       <textarea
+        autoFocus={focusOnMount}
         data-focus-target={focusTarget}
         rows={1}
         style={{ resize: 'none', overflowY: 'hidden' }}

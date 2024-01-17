@@ -44,8 +44,8 @@ $breakpoints: (
 // Our fonts are based off of a list of system fallbacks to ensure
 // that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
 
-$font-sans: theme('fontFamily.sans');
-$font-mono: theme('fontFamily.mono');
+theme('fontFamily.sans'): theme('fontFamily.sans');
+theme('fontFamily.mono'): theme('fontFamily.mono');
 
 // misc sizing
 $menu-width: 200px;
@@ -62,5 +62,3 @@ $sidebar-toggle-size: 35px;
 $menu-transition-duration: 150ms;
 
 $focus-outline-width: 3px;
-
-$object-title-height: 40px;
