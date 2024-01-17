@@ -30,9 +30,10 @@ Draw or download an icon and save it in a template folder:
 
 The `svg` tag should:
 
--   Set the `id="icon-<name>"` attribute, icons are referenced by this name
--   Set the `xmlns="http://www.w3.org/2000/svg"` attribute
--   Set the `viewBox="..."` attribute
+-   Set the `id="icon-<name>"` attribute, icons are referenced by this name.
+-   Set the `xmlns="http://www.w3.org/2000/svg"` attribute.
+-   Set the `viewBox="..."` attribute, and no `width` and `height` attributes.
+-   If the icon should be mirrored in right-to-left (RTL) languages, set the `class="icon--directional"` attribute.
 -   Include license / source information in a `<!--! -->` HTML comment, if applicable.
 
 Set `fill="currentColor"` or remove `fill` attributes so the icon color changes according to usage.
