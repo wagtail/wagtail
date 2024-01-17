@@ -342,6 +342,10 @@ class IndexView(
         if self.add_url_name:
             return self._set_locale_query_param(reverse(self.add_url_name))
 
+    @cached_property
+    def add_url(self):
+        return self.get_add_url()
+
     def get_page_title(self):
         if not self.page_title and self.model:
             return capfirst(self.model._meta.verbose_name_plural)
@@ -357,12 +361,11 @@ class IndexView(
     @cached_property
     def header_buttons(self):
         buttons = []
-        add_url = self.get_add_url()
-        if add_url:
+        if self.add_url:
             buttons.append(
                 HeaderButton(
                     self.add_item_label,
-                    url=add_url,
+                    url=self.add_url,
                     icon_name="plus",
                 )
             )
@@ -472,7 +475,7 @@ class IndexView(
             or self.permission_policy.user_has_permission(self.request.user, "add")
         )
         if context["can_add"]:
-            context["add_url"] = context["header_action_url"] = self.get_add_url()
+            context["add_url"] = context["header_action_url"] = self.add_url
             context["header_action_label"] = self.add_item_label
 
         context["is_searchable"] = self.is_searchable
@@ -560,6 +563,10 @@ class CreateView(
             )
         return self._set_locale_query_param(reverse(self.add_url_name))
 
+    @cached_property
+    def add_url(self):
+        return self.get_add_url()
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -602,7 +609,7 @@ class CreateView(
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
         side_panels = self.get_side_panels()
-        context["action_url"] = self.get_add_url()
+        context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
@@ -620,11 +627,10 @@ class CreateView(
         return MediaContainer(side_panels)
 
     def get_translations(self):
-        add_url = self.get_add_url()
         return [
             {
                 "locale": locale,
-                "url": self._set_locale_query_param(add_url, locale),
+                "url": self._set_locale_query_param(self.add_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
