@@ -1,7 +1,8 @@
+$sidebar-toggle-spacing: 12px;
+$sidebar-toggle-size: 35px;
+
 @mixin sidebar-toggle() {
   @include transition(background-color $menu-transition-duration ease);
-  $sidebar-toggle-spacing: 12px;
-  $sidebar-toggle-size: 35px;
   position: absolute;
   top: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;

@@ -1,5 +1,6 @@
 @use 'sass:math';
 $grid-gutter-width: 3%;
+
 .footer {
   $border-curvature: 3px;
   @include transition(bottom 0.5s ease 1s);
