@@ -100,3 +100,30 @@ use[href='#icon-spinner'] {
 .icon-wagtail__wordmark {
   fill: theme('colors.text-context');
 }
+
+// Icons mirroring for RTL languages.
+// Automatically mirror icons with directional elements which need to be flipped in RTL layouts,
+// to match the rest of the Wagtail UI.
+.icon-arrow-right-full,
+.icon-arrow-left,
+.icon-arrow-right,
+.icon-breadcrumb-expand,
+.icon-comment,
+.icon-comment-add,
+.icon-comment-add-reversed,
+.icon-cut,
+.icon-edit,
+.icon-expand-right,
+.icon-list-ul,
+.icon-lock-open,
+.icon-login,
+.icon-logout,
+.icon-openquote,
+.icon-pilcrow,
+.icon-redirect,
+.icon-resubmit,
+.icon-snippet,
+.icon-tag,
+.icon-thumbtack-crossed {
+  transform: scaleX(var(--w-direction-factor));
+}

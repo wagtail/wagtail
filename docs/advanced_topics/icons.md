@@ -30,9 +30,9 @@ Draw or download an icon and save it in a template folder:
 
 The `svg` tag should:
 
--   Set the `id="icon-<name>"` attribute, icons are referenced by this name
--   Set the `xmlns="http://www.w3.org/2000/svg"` attribute
--   Set the `viewBox="..."` attribute
+-   Set the `id="icon-<name>"` attribute, icons are referenced by this name.
+-   Set the `xmlns="http://www.w3.org/2000/svg"` attribute.
+-   Set the `viewBox="..."` attribute, and no `width` and `height` attributes.
 -   Include license / source information in a `<!--! -->` HTML comment, if applicable.
 
 Set `fill="currentColor"` or remove `fill` attributes so the icon color changes according to usage.
@@ -46,6 +46,14 @@ def register_icons(icons):
 ```
 
 The majority of Wagtail’s default icons are drawn on a 16x16 viewBox, sourced from the [FontAwesome v6 free icons set](https://fontawesome.com/v6/search?m=free).
+
+If the icon contains directional elements, you can also add CSS with the [](insert_global_admin_css) hook to mirror it for right-to-left languages:
+
+```css
+.icon-<name> {
+    transform: scaleX(var(--w-direction-factor));
+}
+```
 
 ## Icon template tag
 
