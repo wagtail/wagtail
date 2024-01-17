@@ -114,7 +114,7 @@ $positions: (
   margin: 0;
   min-width: 210px;
   visibility: hidden;
-  font-family: $font-sans;
+  font-family: theme('fontFamily.sans');
   font-size: 0.875rem;
   padding-inline-start: 0;
   text-decoration: none;
@@ -142,7 +142,7 @@ $positions: (
   overflow: hidden;
   transition-duration: 0.125s;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-  font-family: $font-sans;
+  font-family: theme('fontFamily.sans');
   font-size: 1rem;
   text-decoration: none;
 
@@ -216,7 +216,7 @@ $positions: (
 .w-dialog--userbar {
   // Display off to the side of the page rather than in the middle.
   inset-inline-start: auto;
-  font-family: $font-sans;
+  font-family: theme('fontFamily.sans');
   padding-inline-end: 2rem;
   z-index: $userbar-z-index;
 
