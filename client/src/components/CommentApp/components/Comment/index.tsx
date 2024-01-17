@@ -231,7 +231,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
         />
         <form onSubmit={onSave}>
           <TextArea
-            autoFocus
             focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
