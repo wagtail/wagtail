@@ -9,10 +9,6 @@
 $images-root: '../images/';
 
 // grid settings
-$grid-columns: 12;
-$grid-gutter-width: 3%;
-$grid-max-width: 1200px;
-$grid-content-indent: 0.7;
 
 $mobile-nice-padding: 20px;
 $desktop-nice-padding: 80px;
@@ -53,9 +49,6 @@ $menu-width-slim: 60px;
 $side-panel-width: 500px;
 
 $mobile-nav-indent: 50px;
-
-$sidebar-toggle-spacing: 12px;
-$sidebar-toggle-size: 35px;
 
 // transitions
 // Please keep in sync with SIDEBAR_TRANSITION_DURATION variable in `client/src/components/Sidebar/Sidebar.tsx`
