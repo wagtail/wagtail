@@ -38,7 +38,7 @@ We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://s
 
 ### Stylesheets
 
-Most of our styles are combined into a single main stylesheet, `core.css`. This is the recommended approach for all new styles, to reduce potential style clashes, and encourage reuse of utilities and component styles between views. Imports within `core.scss` are structured according to ITCSS. There are three major exceptions to the ITCSS structure:
+Most of our styles are combined into a single main stylesheet, `core.css`. This is the recommended approach for all new styles, to reduce potential style clashes, and encourage reuse of utilities and component styles between views. Imports within `core.scss` are structured according to ITCSS. There are two major exceptions to the ITCSS structure:
 
 -   Legacy vendor CSS in `vendor/` is imported in the order it was loaded in before adding in the main stylesheet, to avoid compatibility issues. If possible, those styles should be converted to components and loaded further down the cascade.
 -   Legacy layout-specific styles in `layouts/` are imported at the very end of the file, matching how styles were previously loaded across multiple stylesheets. If possible, those styles should be converted to components or utilities and loaded further up the cascade.
