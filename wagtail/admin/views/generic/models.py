@@ -335,6 +335,10 @@ class IndexView(
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
     def get_add_url(self):
+        if self.permission_policy and not self.permission_policy.user_has_permission(
+            self.request.user, "add"
+        ):
+            return None
         if self.add_url_name:
             return self._set_locale_query_param(reverse(self.add_url_name))
 
@@ -354,10 +358,7 @@ class IndexView(
     def header_buttons(self):
         buttons = []
         add_url = self.get_add_url()
-        if add_url and (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "add")
-        ):
+        if add_url:
             buttons.append(
                 HeaderButton(
                     self.add_item_label,
