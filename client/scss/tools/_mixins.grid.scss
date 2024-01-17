@@ -1,5 +1,9 @@
 @use 'sass:math';
 
+// grid settings
+$grid-columns: 12;
+$grid-gutter-width: 3%;
+
 // Utility variable - you should never need to modify this
 $padding: math.div($grid-gutter-width, 2);
 
