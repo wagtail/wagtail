@@ -149,7 +149,7 @@ class ModelViewSet(ViewSet):
             **kwargs,
         }
         if self.ordering:
-            view_kwargs["ordering"] = self.ordering
+            view_kwargs["default_ordering"] = self.ordering
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):

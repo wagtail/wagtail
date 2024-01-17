@@ -696,6 +696,20 @@ class TestOrdering(WagtailTestUtils, TestCase):
             ],
         )
 
+    def test_custom_order_from_query_args(self):
+        response = self.client.get(reverse("feature_complete_toy:index") + "?ordering=strid")
+        # Should respect the view's ordering
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "CCCCCCCCCC",
+                "AAAAAAAAAA",
+                "DDDDDDDDDD",
+                "BBBBBBBBBB",
+            ],
+        )
+
     def test_custom_order_from_view(self):
         response = self.client.get(reverse("feature_complete_toy:index"))
         # Should respect the view's ordering
