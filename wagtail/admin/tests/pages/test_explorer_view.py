@@ -665,6 +665,42 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             f"site={new_site.pk}",
         )
 
+    def test_filter_by_has_child_pages(self):
+        new_page_child = SimplePage(
+            title="New page child",
+            slug="new-page-child",
+            content="new page child",
+        )
+        self.new_page.add_child(instance=new_page_child)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"has_child_pages": "true"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.new_page.id})
+        self.assertContainsActiveFilter(
+            response,
+            "Has child pages: Yes",
+            "has_child_pages=true",
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"has_child_pages": "false"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(
+            page_ids, {self.child_page.id, self.old_page.id, new_page_child.id}
+        )
+        self.assertContainsActiveFilter(
+            response,
+            "Has child pages: No",
+            "has_child_pages=false",
+        )
+
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)

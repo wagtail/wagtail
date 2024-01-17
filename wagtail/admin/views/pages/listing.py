@@ -2,12 +2,16 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django_filters.filters import DateFromToRangeFilter, ModelMultipleChoiceFilter
+from django_filters.filters import (
+    ChoiceFilter,
+    DateFromToRangeFilter,
+    ModelMultipleChoiceFilter,
+)
 
 from wagtail import hooks
 from wagtail.admin.filters import (
@@ -45,6 +49,16 @@ class SiteFilter(ModelMultipleChoiceFilter):
         return {"path__startswith": v.root_page.path}
 
 
+class HasChildPagesFilter(ChoiceFilter):
+    def filter(self, qs, value):
+        if value == "true":
+            return qs.filter(numchild__gt=0)
+        elif value == "false":
+            return qs.filter(numchild=0)
+        else:  # None / empty string
+            return qs
+
+
 class PageFilterSet(WagtailFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
@@ -71,10 +85,19 @@ class PageFilterSet(WagtailFilterSet):
         queryset=Site.objects.all(),
         widget=CheckboxSelectMultiple,
     )
+    has_child_pages = HasChildPagesFilter(
+        label=_("Has child pages"),
+        empty_label=_("Any"),
+        choices=[
+            ("true", _("Yes")),
+            ("false", _("No")),
+        ],
+        widget=RadioSelect,
+    )
 
     class Meta:
         model = Page
-        fields = ["content_type", "latest_revision_created_at", "owner", "site"]
+        fields = []  # only needed for filters being generated automatically
 
 
 class BaseIndexView(generic.IndexView):
