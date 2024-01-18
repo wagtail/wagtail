@@ -1011,22 +1011,88 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         for rendered_row, expected_row in zip(rendered_rows, expected):
             self.assertSequenceEqual(rendered_row, expected_row)
 
-    def test_filters(self):
+    def test_action_filter(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        # Should only show the created and edited options for the filter
+        soup = self.get_soup(response.content)
+        options = soup.select('select[name="action"] option')
+        self.assertEqual(len(options), 3)
+        self.assertEqual(
+            {option.attrs.get("value") for option in options},
+            {"", "wagtail.create", "wagtail.edit"},
+        )
+        # Should not show the heading when not searching
+        heading = soup.select_one('h2[role="alert"]')
+        self.assertIsNone(heading)
+
+        # Should only show the edited log
         response = self.client.get(self.url, {"action": "wagtail.edit"})
+        self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         rows = soup.select("#listing-results tbody tr")
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Edited")
 
+        # Should only show the created log
         response = self.client.get(self.url, {"action": "wagtail.create"})
+        self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         rows = soup.select("#listing-results tbody tr")
         heading = soup.select_one('h2[role="alert"]')
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
+
+        # Should display the heading when there are results
+        heading = soup.select_one('h2[role="alert"]')
+        self.assertEqual(heading.string.strip(), "There is 1 match")
+
+    def test_user_filter(self):
+        # A user who absolutely has no permissions to the model
+        self.create_user("no_power")
+
+        # A user who has permissions to the model,
+        # but only has logs for a different object
+        has_power = self.create_superuser("has_power")
+        other_obj = FeatureCompleteToy.objects.create(name="Woody")
+        log(
+            instance=other_obj,
+            action="wagtail.create",
+            content_changed=True,
+            user=has_power,
+        )
+
+        # A user who does not have permissions to the model,
+        # but has logs for the object (e.g. maybe they used to have permissions)
+        previously_has_power = self.create_user("previously_has_power")
+        log(
+            instance=self.object,
+            action="wagtail.edit",
+            content_changed=True,
+            user=previously_has_power,
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Should only show the current user and the previously_has_power user
+        options = soup.select('select[name="user"] option')
+        self.assertEqual(len(options), 3)
+        self.assertEqual(
+            {option.attrs.get("value") for option in options},
+            {"", str(self.user.pk), str(previously_has_power.pk)},
+        )
+
+        response = self.client.get(self.url, {"user": str(self.user.pk)})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 2)
+
+        response = self.client.get(self.url, {"user": str(previously_has_power.pk)})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 1)
 
     def test_filtered_no_results(self):
         response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})

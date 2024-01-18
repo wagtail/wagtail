@@ -23,7 +23,6 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     BaseLogEntry,
     DraftStateMixin,
-    ModelLogEntry,
     Revision,
     RevisionMixin,
     TaskState,
@@ -31,9 +30,9 @@ from wagtail.models import (
 )
 
 
-def get_actions_for_filter():
+def get_actions_for_filter(queryset):
     # Only return those actions used by model log entries.
-    actions = set(ModelLogEntry.objects.all().get_actions())
+    actions = set(queryset.get_actions())
     return [action for action in log_registry.get_choices() if action[0] in actions]
 
 
@@ -45,19 +44,16 @@ class HistoryReportFilterSet(WagtailFilterSet):
     user = django_filters.ModelChoiceFilter(
         label=gettext_lazy("User"),
         field_name="user",
-        queryset=lambda request: ModelLogEntry.objects.all().get_users(),
+        # queryset is set dynamically in __init__()
     )
     timestamp = django_filters.DateFromToRangeFilter(
         label=gettext_lazy("Date"), widget=DateRangePickerWidget
     )
 
-    class Meta:
-        model = ModelLogEntry
-        fields = ["action", "user", "timestamp"]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.filters["action"].extra["choices"] = get_actions_for_filter()
+        self.filters["action"].extra["choices"] = get_actions_for_filter(self.queryset)
+        self.filters["user"].extra["queryset"] = self.queryset.get_users()
 
 
 class HistoryView(PermissionCheckedMixin, BaseListingView):
@@ -143,16 +139,24 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
         context["model_opts"] = BaseLogEntry._meta
         return context
 
-    def get_queryset(self):
-        queryset = log_registry.get_logs_for_instance(self.object).select_related(
-            "user", "user__wagtail_userprofile"
-        )
+    def get_base_queryset(self):
+        queryset = log_registry.get_logs_for_instance(self.object)
+        return self._annotate_queryset(queryset)
+
+    def _annotate_queryset(self, queryset):
+        queryset = queryset.select_related("user", "user__wagtail_userprofile")
         if isinstance(self.object, RevisionMixin):
             queryset = queryset.select_related("revision").annotate(
                 previous_revision_id=Revision.objects.previous_revision_id_subquery(),
             )
-        queryset = self.filter_queryset(queryset)
         return queryset
+
+    def get_filterset_kwargs(self):
+        # Pass custom queryset so the FilterSet can use it when initialising the
+        # filters, instead of using the default model.objects.all() queryset.
+        kwargs = super().get_filterset_kwargs()
+        kwargs["queryset"] = self.get_base_queryset()
+        return kwargs
 
 
 class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):
