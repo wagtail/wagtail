@@ -338,6 +338,15 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
 
+                # Should render the active filters even when there are no results
+                active_filters = soup.select_one(".w-active-filters")
+                self.assertIsNotNone(active_filters)
+                clear = active_filters.select_one(".w-pill__remove")
+                self.assertIsNotNone(clear)
+                url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+                self.assertEqual(url, reverse(f"{url_namespace}:index_results"))
+                self.assertNotIn(f"{lookup}={value}", params)
+
     def test_filtered_with_results(self):
         lookup_values = {
             "release_date": "1995-11-19",
@@ -363,6 +372,15 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
+
+                # Should render the active filters
+                active_filters = soup.select_one(".w-active-filters")
+                self.assertIsNotNone(active_filters)
+                clear = active_filters.select_one(".w-pill__remove")
+                self.assertIsNotNone(clear)
+                url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+                self.assertEqual(url, reverse(f"{url_namespace}:index_results"))
+                self.assertNotIn(f"{lookup}={value}", params)
 
 
 class TestSearchIndexView(WagtailTestUtils, TestCase):

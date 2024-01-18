@@ -4,8 +4,6 @@
 {% block no_results_message %}
     {% if is_searching %}
         <h2 role="alert">{% blocktrans trimmed %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
-
-        {% search_other %}
     {% else %}
         {% with wagtaildocs_add_document_url=add_url %}
             {% if current_collection %}

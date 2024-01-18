@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 
+{% block before_results %}{% endblock %}
 {% if object_list %}
-    {% block before_results %}{% endblock %}
     {% block results %}
         {% component table %}
     {% endblock %}
