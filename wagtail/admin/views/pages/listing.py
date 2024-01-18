@@ -35,7 +35,7 @@ from wagtail.admin.ui.tables.pages import (
     PageTitleColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.models import Page, Site, get_page_models
+from wagtail.models import Page, PageLogEntry, Site, get_page_models
 from wagtail.permissions import page_permission_policy
 
 
@@ -59,6 +59,20 @@ class HasChildPagesFilter(ChoiceFilter):
             return qs
 
 
+class EditedByFilter(MultipleUserFilter):
+    def filter(self, qs, value):
+        if value:
+            qs = qs.filter(
+                pk__in=PageLogEntry.objects.filter(
+                    action="wagtail.edit", user__in=value
+                )
+                .order_by()
+                .values_list("page_id", flat=True)
+                .distinct()
+            )
+        return qs
+
+
 class PageFilterSet(WagtailFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
@@ -75,6 +89,18 @@ class PageFilterSet(WagtailFilterSet):
             lambda request: get_user_model().objects.filter(
                 pk__in=Page.objects.order_by()
                 .values_list("owner_id", flat=True)
+                .distinct()
+            )
+        ),
+        widget=CheckboxSelectMultiple,
+    )
+    edited_by = EditedByFilter(
+        label=_("Edited by"),
+        queryset=(
+            lambda request: get_user_model().objects.filter(
+                pk__in=PageLogEntry.objects.filter(action="wagtail.edit")
+                .order_by()
+                .values_list("user_id", flat=True)
                 .distinct()
             )
         ),
