@@ -69,6 +69,8 @@ Changelog
  * Fix: Ensure that the close button on the new dialog designs is visible in the non-message variant (Nandini Arora)
  * Fix: Ensure the sidebar account toggle has no duplicate accessible labels (Nandini Arora)
  * Fix: Avoid text overflow issues in comment replies and scroll position issues for long comments (Rohit Sharma)
+ * Fix: Ensure that page listing re-ordering messages and accessible labels can be translated  (Aman Pandey, LB (Ben) Johnston)
+ * Fix: Resolve multiple issues with page listing re-ordering using keyboard and screen readers (Aman Pandey)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
@@ -122,6 +124,7 @@ Changelog
  * Maintenance: Remove non-functional and inaccessible auto-focus on first field in page create forms (LB (Ben) Johnston)
  * Maintenance: Migrate the unsaved form checks & confirmation trigger to Stimulus `UnsavedController` (Sai Srikar Dumpeti, LB (Ben) Johnston)
  * Maintenance: Reduce gap between snippets and generic views/templates (Sage Abdullah)
+ * Maintenance: Migrate page listing menu re-ordering (drag & drop) from jQuery inline scripts to `OrderableController` (Aman Pandey, LB (Ben) Johnston)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
