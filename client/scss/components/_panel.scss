@@ -24,7 +24,7 @@ $header-button-size: theme('spacing.6');
   display: flex;
   align-items: center;
   margin-bottom: theme('spacing.[0.5]');
-  margin-inline-start: -1 * $mobile-nice-padding;
+  margin-inline-start: calc(-1 * #{$mobile-nice-padding});
 
   @include media-breakpoint-up(sm) {
     margin-inline-start: calc(
