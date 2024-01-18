@@ -121,6 +121,7 @@ Changelog
  * Maintenance: Add more CSS authoring guidelines (Thibaud Colas)
  * Maintenance: Remove non-functional and inaccessible auto-focus on first field in page create forms (LB (Ben) Johnston)
  * Maintenance: Migrate the unsaved form checks & confirmation trigger to Stimulus `UnsavedController` (Sai Srikar Dumpeti, LB (Ben) Johnston)
+ * Maintenance: Reduce gap between snippets and generic views/templates (Sage Abdullah)
 
 
 5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
