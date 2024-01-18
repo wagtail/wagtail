@@ -154,6 +154,13 @@ msgstr "Ви не завантажили жодних документів до 
 msgid "You haven't uploaded any documents."
 msgstr "Ви не завантажили жодних документів."
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Чому б не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>завантажити якесь зараз</a>?"
+
 msgid "Change document:"
 msgstr "Змінити документ:"
 
@@ -276,6 +283,9 @@ msgstr "Дозволи для документа"
 
 msgid "Add a document permission"
 msgstr "Додати дозвіл для документа"
+
+msgid "Tags"
+msgstr "Теги"
 
 msgid "Tag"
 msgstr "Тег"

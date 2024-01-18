@@ -7,7 +7,7 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -168,11 +168,23 @@ msgstr "No, non eliminarlo"
 msgid "Latest documents"
 msgstr "Ultimi documenti"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Spiacente, nessun documento corrisponde a \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Non hai ancora caricato alcun documento in questa raccolta."
 
 msgid "You haven't uploaded any documents."
 msgstr "Non hai ancora caricato alcun documento."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Perché non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>caricarne una adesso</a>?"
 
 msgid "Change document:"
 msgstr "Cambia documento"
@@ -209,7 +221,7 @@ msgid "File not found"
 msgstr "File non trovato"
 
 msgid "Usage"
-msgstr "Uso"
+msgstr "Utilizzo"
 
 msgid "Documents"
 msgstr "Documenti"
@@ -256,6 +268,23 @@ msgid ""
 msgstr ""
 "Non hai caricato alcun documento. Perché non <a href="
 "\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Documento <span class=\"w-sr-only\">creato in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Documenti <span class=\"w-sr-only\">creati in "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Documenti <span class=\"w-sr-only\">creati in "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"

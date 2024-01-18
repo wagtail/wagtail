@@ -99,6 +99,7 @@ listeng
 yi huang <yi.codeplayer.gmail.com>
 汇民 王 <whuim.qq.com>
 祝沙军 <zhushajun.gmail.com>
+蚂蚁先生 <pzf_karl.hotmail.com>
 飘 赵 <275980464.qq.com>
 
 Chinese (Traditional) - zh_Hant
@@ -132,6 +133,7 @@ Kryštof Pilnáček <krystof.pilnacek.rossum.ai>
 Loic Teixeira
 Marek Turnovec <aesculap.gmail.com>
 Martin Galda <martingalda9.gmail.com>
+Martin Rejmon
 Martina Oleksakova <martina.oleksakova.tul.cz>
 Matt Westcott <matthew.torchbox.com>
 Mirek Zvolský <zvolsky.seznam.cz>
@@ -313,6 +315,7 @@ Hindi - hi
 -----
 Anshika Vashistha
 Apoorv Saini
+priyanshu kumar
 
 Hungarian - hu
 -----

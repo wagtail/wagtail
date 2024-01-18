@@ -24,6 +24,7 @@
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2021
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
+# 蚂蚁先生 <pzf_karl@hotmail.com>, 2023
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
@@ -31,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Terry Peng, 2023\n"
+"Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -523,6 +524,27 @@ msgstr "确认选择"
 msgid "Convert to internal link"
 msgstr "转换为内部链接"
 
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"您输入的URL，<a target=\"_blank\" rel=\"noreferrer\" href=\"%(submitted_url)s"
+"\">%(submitted_url)s</a>，看起来与内部页面%(page)s匹配，该页面的URL为<a "
+"target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
+"%(internal_url)s</a>。"
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"将页面%(page)s转换为内部链接，如果底层页面修改了链接，则链接将自动更新。您想"
+"这样做吗？"
+
 msgid "Use external link"
 msgstr "使用外部链接"
 
@@ -597,6 +619,13 @@ msgid ""
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "对不起，没有找到与“<em>%(search_query)s</em>”匹配的结果。"
+
+msgid "There are no results."
+msgstr "没有结果。"
+
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
@@ -607,6 +636,10 @@ msgstr "否，不删除"
 msgid "Unpublish %(title)s"
 msgstr "取消发布%(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "你确定要取消发布%(model_name)s吗？"
+
 msgid "Yes, unpublish it"
 msgstr "是，取消发布"
 
@@ -616,6 +649,14 @@ msgstr "否，不取消发布"
 #, python-format
 msgid "Publish %(model_name)s"
 msgstr "发布 %(model_name)s"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"您提交审核的%(model_name)s被工作流<strong>%(workflow)s</strong>中的任务"
+"<strong>%(task)s</strong>标记为需要更改。"
 
 msgid "Cancel"
 msgstr "取消"

@@ -6,7 +6,7 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2021-2023
+# Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -258,7 +258,7 @@ msgstr "Kies %(object)s"
 
 #, python-format
 msgid "Choose another %(object)s"
-msgstr "Kies een andere %(object)s"
+msgstr "Kies %(object)s"
 
 #, python-format
 msgid "Edit this %(object)s"

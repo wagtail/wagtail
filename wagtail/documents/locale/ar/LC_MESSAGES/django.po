@@ -91,7 +91,7 @@ msgid "Yes, delete"
 msgstr "نعم احذف"
 
 msgid "No, don't delete"
-msgstr "لا, لا تذف"
+msgstr "لا, لا تحذف"
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"

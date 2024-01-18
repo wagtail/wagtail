@@ -295,6 +295,12 @@ msgstr "Аднаўленне пароля"
 msgid "Reset your password"
 msgstr "Скінуць пароль"
 
+msgid "Go back"
+msgstr "Вярнуцца"
+
+msgid "Select all"
+msgstr "Выбраць усе"
+
 msgid "Internal link"
 msgstr "Унутранная спасылка"
 
@@ -587,6 +593,9 @@ msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
 
 msgid "Move"
 msgstr "Рухайцеся"
+
+msgid "Yes, convert it"
+msgstr "Так, канвертаваць яго"
 
 #, python-format
 msgid "Delete %(title)s"

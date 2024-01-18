@@ -27,7 +27,7 @@
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
 # Scriptim <Scriptim@gmx.de>, 2020
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Scriptim <Scriptim@gmx.de>, 2020
@@ -39,7 +39,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Sie haben noch keine „%(snippet_type_name_plural)s“ Schnipsel erstellt. <a "
+"Sie haben noch keine „%(snippet_type_name_plural)s“-Schnipsel erstellt. <a "
 "href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins.</a>"
 
 msgid "Live version"

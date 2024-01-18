@@ -6,7 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,18 @@ msgstr "Scegli il tuo fuso orario attuale"
 
 msgid "profile picture"
 msgstr "Immagine del profilo"
+
+msgid "System default"
+msgstr "Default di sistema"
+
+msgid "Light"
+msgstr "Chiaro"
+
+msgid "Dark"
+msgstr "Scuro"
+
+msgid "admin theme"
+msgstr "tema admin"
 
 msgid "user profile"
 msgstr "profilo utente"
@@ -298,6 +310,9 @@ msgstr "Seleziona tutti gli utenti nella lista"
 msgid "Username"
 msgstr "Username"
 
+msgid "Access level"
+msgstr "Livello di accesso"
+
 msgid "Status"
 msgstr "Stato"
 
@@ -365,6 +380,9 @@ msgstr[0] "%(num_parent_objects)d utente è stato eliminato"
 msgstr[1] "%(num_parent_objects)d utenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d utenti sono stati eliminati"
 
+msgid "Mark as active"
+msgstr "Segna come attivo"
+
 msgid "Change the active state for selected users"
 msgstr "Cambia lo stato attivo per gli utenti selezionati"
 
@@ -416,6 +434,10 @@ msgid "Users"
 msgstr "Utenti"
 
 #, python-format
+msgid "User '%(object)s' created."
+msgstr "Utente '%(object)s' creato."
+
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utente '%(object)s' aggiornato."
 
@@ -428,3 +450,11 @@ msgstr "Utente '%(object)s' eliminato."
 
 msgid "Edit"
 msgstr "Modifica"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Modifica utente '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Elimina utente '%(name)s'"

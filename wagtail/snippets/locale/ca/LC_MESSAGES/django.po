@@ -127,7 +127,7 @@ msgid "Publishing…"
 msgstr "Publicant..."
 
 msgid "Publish this version"
-msgstr "Publica aquesta versió"
+msgstr "Publicar aquesta versió"
 
 msgid "Saving…"
 msgstr "Desant…"
