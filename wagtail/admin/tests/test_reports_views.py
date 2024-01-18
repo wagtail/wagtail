@@ -759,12 +759,12 @@ class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
 
     def test_filter_by_content_type(self):
         response = self.get(
-            params={"content_type": self.home_page.specific.content_type.pk}
+            params={"content_type": self.aboutus_page.specific.content_type.pk}
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, self.home_page.title)
-        self.assertNotContains(response, self.aboutus_page.title)
+        self.assertContains(response, self.aboutus_page.title)
+        self.assertNotContains(response, self.home_page.title)
 
     def test_filter_by_last_published_at(self):
         self.home_page.last_published_at = timezone.now()
