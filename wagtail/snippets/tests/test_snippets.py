@@ -138,6 +138,27 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 302)
 
+    def get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="tests", codename="change_advert"
+            ),
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "<p>There are no adverts to display.</p>",
+            html=True,
+        )
+        self.assertNotContains(response, reverse("wagtailsnippets_tests_advert:add"))
+
     def test_ordering(self):
         """
         Listing should be ordered descending by PK if no ordering has been set on the model
