@@ -715,12 +715,12 @@ msgid "No log entries found."
 msgstr "Nessun log trovato."
 
 #, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Nessun %(model_name)s corrisponde alla tua ricerca"
+msgid "No %(model_name)s match your query."
+msgstr "Nessun %(model_name)s corrisponde alla tua ricerca."
 
 #, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Non ci sono %(model_name)s da visualizzare"
+msgid "There are no %(model_name)s to display."
+msgstr "Non ci sono %(model_name)s da visualizzare."
 
 msgid "Update"
 msgstr "Aggiorna"
