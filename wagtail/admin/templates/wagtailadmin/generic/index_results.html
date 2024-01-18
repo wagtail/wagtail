@@ -6,8 +6,16 @@
         {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
     {% endif %}
 
-    <div class="nice-padding">
-        {% if is_searching or is_filtering %}
+    {% if is_searching and view.show_other_searches %}
+        <div class="nice-padding">
+            {% search_other %}
+        </div>
+    {% endif %}
+
+    {% if not object_list %}
+        {# pass, to allow the same logic as `if object_list and (is_searching or is_filtering)` #}
+    {% elif is_searching or is_filtering %}
+        <div class="nice-padding">
             <h2 role="alert">
                 {% blocktrans trimmed count counter=items_count %}
                     There is {{ counter }} match
@@ -15,11 +23,8 @@
                     There are {{ counter }} matches
                 {% endblocktrans %}
             </h2>
-        {% endif %}
-        {% if is_searching and view.show_other_searches %}
-            {% search_other %}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block no_results_message %}
