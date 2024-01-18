@@ -28,6 +28,8 @@ Changelog
  * Add ability to filter by page type and date updated in the page listing view (Matt Westcott)
  * Add ability to filter by owner and site in the page listing view (Matt Westcott)
  * Improve right-to-left support by using flow-relative float styles (Thibaud Colas)
+ * Improve right-to-left support by mirroring Wagtail icons as needed (Sage Abdullah)
+ * Add support for mirroring third-party icons added in Wagtail (Sage Abdullah)
  * Show edit as a main action in generic history and usage views (Sage Abdullah)
  * Make styles for header buttons consistent (Sage Abdullah)
  * Improve styles of slim header's search and filters (Sage Abdullah)
