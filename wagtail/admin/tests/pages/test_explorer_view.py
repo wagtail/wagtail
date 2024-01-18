@@ -650,6 +650,43 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             f"owner={barry.pk}",
         )
 
+    def test_filter_by_edited_by_user(self):
+        barry = self.create_superuser(
+            "barry", password="password", first_name="Barry", last_name="Manilow"
+        )
+        self.create_user(
+            "larry", password="password", first_name="Larry", last_name="King"
+        )
+
+        self.login(username="barry", password="password")
+
+        post_data = {
+            "title": "Hello world!",
+            "content": "hello from Barry",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
+        )
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"edited_by": barry.pk},
+        )
+        self.assertEqual(response.status_code, 200)
+        # Only users who have edited any pages should be listed in the filter
+        self.assertContains(response, "Barry Manilow")
+        self.assertNotContains(response, "Larry King")
+
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertEqual(page_ids, {self.child_page.id})
+        self.assertContainsActiveFilter(
+            response,
+            "Edited by: Barry Manilow",
+            f"edited_by={barry.pk}",
+        )
+
     def test_filter_by_site(self):
         new_site = Site.objects.create(
             hostname="new.example.com", root_page=self.new_page
@@ -1179,7 +1216,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(50):
+        with self.assertNumQueries(51):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
