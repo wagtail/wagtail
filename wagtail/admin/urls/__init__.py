@@ -36,7 +36,7 @@ urlpatterns = [
     ),
     path(
         "pages/<int:parent_page_id>/results/",
-        listing.IndexResultsView.as_view(),
+        listing.IndexView.as_view(results_only=True),
         name="wagtailadmin_explore_results",
     ),
     # bulk actions
