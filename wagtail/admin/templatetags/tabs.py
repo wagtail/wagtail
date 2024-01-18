@@ -3,33 +3,36 @@ from django import template
 register = template.Library()
 
 
+def generate_tab_panel_id(title):
+    return f'tab-{title.lower().replace(" ",  "-")}'
+
+
+def generate_tab_label_id(title):
+    return f'tab-label-{title.lower().replace(" ",  "-")}'
+
+
 @register.tag
 def tabs(parser, token):
     # Parse tabs and content
     tabs = parser.parse(("endtabs",))
-    args = token.split_contents()
-    kwargs = {arg.split("=")[0]: arg.split("=")[1] for arg in args[1:]}
     parser.delete_first_token()
-    return TabsNode(tabs, token, kwargs)
+    return TabsNode(tabs, token)
 
 
 class TabsNode(template.Node):
-    def __init__(self, tabs, token, kwargs):
+    def __init__(self, tabs, token):
         self.tabs = tabs
         self.token = token
-        self.kwargs = kwargs
 
     def render(self, context):
         output = f"""
-          <div class="tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadTabsFromHistory" data-w-tabs-active-tab-id-value={self.kwargs.get("active_tab_id")}> 
+          <div class="tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadTabsFromHistory" data-w-tabs-active-tab-id-value=""> 
           <div class="w-tabs__wrapper"> 
-          <div class="w-tabs__list" role="tablist">
+          <div class="w-tabs__list" role="tablist" data-w-tabs-target="tabList">
         """
         for node in self.tabs:
             if isinstance(node, TabNode):
-                output += node.render(
-                    context, active_tab_id=self.kwargs.get("active_tab_id")
-                )  # Render each tab's content
+                output += node.render(context)  # Render each tab's content
         output += """
           </div>
           </div>
@@ -39,17 +42,12 @@ class TabsNode(template.Node):
         """
         for node in self.tabs:
             if isinstance(node, TabNode):
-                tab_label = node.kwargs.get("tab_id")
-                tab_panel_id = tab_label.replace("-label", "")
+                tab_title = node.kwargs.get("title").strip('"')
+                tab_label_id = generate_tab_label_id(tab_title)
+                tab_panel_id = generate_tab_panel_id(tab_title)
 
-                is_hidden = (
-                    'hidden="true"'
-                    if self.kwargs.get("active_tab_id") != tab_label
-                    else ""
-                )
-
-                output += f"""<section id={tab_panel_id} class="w-tabs__panel " role="tabpanel" aria-labelledby={tab_label} {is_hidden}>"""
-                output += node.content.render(context)  # Render each tab's content
+                output += f"""<section id={tab_panel_id} class="w-tabs__panel " role="tabpanel" aria-labelledby={tab_label_id} hidden="true" data-w-tabs-target="tabPanel">"""
+                output += node.content.render(context)
                 output += "</section>"
 
         output += """
@@ -61,7 +59,6 @@ class TabsNode(template.Node):
 
 @register.tag
 def tab(parser, token):
-    # Parse tab attributes and content
     args = token.split_contents()
     kwargs = {arg.split("=")[0]: arg.split("=")[1] for arg in args[1:]}
     content = parser.parse(("endtab",))
@@ -74,12 +71,9 @@ class TabNode(template.Node):
         self.kwargs = kwargs
         self.content = content
 
-    def render(self, context, active_tab_id):
-        tab_id = self.kwargs.get("tab_id")
-        tab_id_panel = self.kwargs.get("tab_id").replace("-label", "").strip('"')
+    def render(self, context):
         tab_title = self.kwargs.get("title").strip('"')
-        tab_selected = (
-            'aria-selected="true"' if active_tab_id == self.kwargs.get("tab_id") else ""
-        )
-        output = f"""<a id={tab_id} href="#{tab_id_panel}" class="w-tabs__tab" role="tab" data-action="click->w-tabs#changeTab keydown->w-tabs#switchTabOnArrowPress keydown->w-tabs#switchTabOnArrowPress" {tab_selected} aria-controls={tab_id}>{tab_title}</a>"""
+        tab_label_id = generate_tab_label_id(tab_title)
+        tab_panel_id = generate_tab_panel_id(tab_title)
+        output = f"""<a id={tab_label_id} href="#{tab_panel_id}" class="w-tabs__tab" role="tab" data-action="click->w-tabs#changeTab keydown->w-tabs#switchTabOnArrowPress" aria-controls={tab_panel_id} data-w-tabs-target="tabLabel">{tab_title}</a>"""
         return output
