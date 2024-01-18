@@ -35,7 +35,6 @@ export class TabsController extends Controller<HTMLDivElement> {
   declare tabPanelTargets: HTMLElement[];
 
   declare disableURLValue: boolean;
-  declare initialPageLoadValue: boolean;
   declare activeTabIdValue: string;
   declare transitionValue: number;
   declare animateValue: boolean;
@@ -65,6 +64,10 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   connect() {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, this.transitionValue * 2);
+
     if (this.tabLabelTargets) {
       this.setAriaControlByHref(this.tabLabelTargets);
       const tabActive = [...this.tabLabelTargets].find(
@@ -123,13 +126,6 @@ export class TabsController extends Controller<HTMLDivElement> {
       this.animateIn(tabContent);
     } else {
       tabContent.hidden = false;
-    }
-
-    if (this.initialPageLoadValue) {
-      // On first load set the scroll to top to avoid scrolling to active section and header covering up tabs
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, this.transitionValue * 2);
     }
 
     const href = tab.getAttribute('href') as string;
@@ -212,14 +208,10 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   setURLHash(tabId: string) {
-    if (
-      !this.initialPageLoadValue &&
-      (!window.history.state || window.history.state.tabContent !== tabId)
-    ) {
+    if (!window.history.state || window.history.state.tabContent !== tabId) {
       // Add a new history item to the stack
       window.history.pushState({ tabContent: tabId }, '', `#${tabId}`);
     }
-    this.initialPageLoadValue = false;
   }
 
   selectTabByURLHash() {
