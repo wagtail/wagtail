@@ -251,7 +251,11 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         for field_name in self.filters.form.changed_data:
             filter_def = self.filters.filters[field_name]
-            value = self.filters.form.cleaned_data[field_name]
+            try:
+                value = self.filters.form.cleaned_data[field_name]
+            except KeyError:
+                continue  # invalid filter value
+
             if isinstance(filter_def, ModelMultipleChoiceFilter):
                 field = filter_def.field
                 for item in value:

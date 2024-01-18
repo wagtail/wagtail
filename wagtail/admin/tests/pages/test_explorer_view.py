@@ -701,6 +701,22 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             "has_child_pages=false",
         )
 
+    def test_invalid_filter(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"has_child_pages": "unknown"},
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNone(active_filters)
+        error_message = soup.select_one(".w-field__errors .error-message")
+        self.assertIsNotNone(error_message)
+        self.assertEqual(
+            error_message.string.strip(),
+            "Select a valid choice. unknown is not one of the available choices.",
+        )
+
     def test_explore_custom_permissions(self):
         page = CustomPermissionPage(title="Page with custom perms", slug="custom-perms")
         self.root_page.add_child(instance=page)
