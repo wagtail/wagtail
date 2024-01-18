@@ -159,7 +159,7 @@ def get_page_models():
     """
     Returns a list of all non-abstract Page model classes defined in this project.
     """
-    return PAGE_MODEL_CLASSES
+    return PAGE_MODEL_CLASSES.copy()
 
 
 def get_page_content_types(include_base_page_type=True):
