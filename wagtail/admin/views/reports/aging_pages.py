@@ -1,6 +1,5 @@
 import django_filters
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
@@ -8,16 +7,11 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
-from wagtail.models import Page, PageLogEntry, get_page_models
+from wagtail.models import Page, PageLogEntry, get_page_content_types
 from wagtail.permissions import page_permission_policy
 from wagtail.users.utils import get_deleted_user_display_name
 
 from .base import PageReportView
-
-
-def get_content_types_for_filter():
-    models = [model.__name__.lower() for model in get_page_models()]
-    return ContentType.objects.filter(model__in=models).order_by("model")
 
 
 class AgingPagesReportFilterSet(WagtailFilterSet):
@@ -25,7 +19,8 @@ class AgingPagesReportFilterSet(WagtailFilterSet):
         label=_("Last published before"), lookup_expr="lte", widget=AdminDateInput
     )
     content_type = ContentTypeFilter(
-        label=_("Type"), queryset=lambda request: get_content_types_for_filter()
+        label=_("Type"),
+        queryset=lambda request: get_page_content_types(include_base_page_type=False),
     )
 
     class Meta:
