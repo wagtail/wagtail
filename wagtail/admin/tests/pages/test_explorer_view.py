@@ -582,6 +582,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             f"content_type={page_type_pk}",
         )
 
+        # "Page" should not be listed as a content type
+        soup = self.get_soup(response.content)
+        page_type_labels = {
+            list(label.children)[-1].strip()
+            for label in soup.select("#filters-dialog #id_content_type label")
+        }
+        self.assertIn("Simple page", page_type_labels)
+        self.assertNotIn("Page", page_type_labels)
+
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(
             title="New page child",

@@ -162,6 +162,20 @@ def get_page_models():
     return PAGE_MODEL_CLASSES
 
 
+def get_page_content_types(include_base_page_type=True):
+    """
+    Returns a queryset of all ContentType objects corresponding to Page model classes.
+    """
+    models = get_page_models()
+    if not include_base_page_type:
+        models.remove(Page)
+
+    content_type_ids = [
+        ct.pk for ct in ContentType.objects.get_for_models(*models).values()
+    ]
+    return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
+
+
 def get_default_page_content_type():
     """
     Returns the content type to use as a default for pages whose content type

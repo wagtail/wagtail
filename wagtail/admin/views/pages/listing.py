@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
@@ -35,13 +34,8 @@ from wagtail.admin.ui.tables.pages import (
     PageTitleColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.models import Page, Site, get_page_models
+from wagtail.models import Page, Site, get_page_content_types
 from wagtail.permissions import page_permission_policy
-
-
-def get_content_types_for_filter():
-    models = [model.__name__.lower() for model in get_page_models()]
-    return ContentType.objects.filter(model__in=models).order_by("model")
 
 
 class SiteFilter(ModelMultipleChoiceFilter):
@@ -62,7 +56,7 @@ class HasChildPagesFilter(ChoiceFilter):
 class PageFilterSet(WagtailFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
-        queryset=lambda request: get_content_types_for_filter(),
+        queryset=lambda request: get_page_content_types(include_base_page_type=False),
         widget=CheckboxSelectMultiple,
     )
     latest_revision_created_at = DateFromToRangeFilter(
