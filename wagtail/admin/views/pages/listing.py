@@ -119,7 +119,9 @@ class PageFilterSet(WagtailFilterSet):
         fields = []  # only needed for filters being generated automatically
 
 
-class BaseIndexView(generic.IndexView):
+class IndexView(generic.IndexView):
+    template_name = "wagtailadmin/pages/index.html"
+    results_template_name = "wagtailadmin/pages/index_results.html"
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
@@ -403,6 +405,11 @@ class BaseIndexView(generic.IndexView):
             }
         )
 
+        if not self.results_only:
+            side_panels = self.get_side_panels()
+            context["side_panels"] = side_panels
+            context["media"] += side_panels.media
+
         return context
 
     def get_translations(self):
@@ -415,10 +422,6 @@ class BaseIndexView(generic.IndexView):
             .only("id", "locale")
             .select_related("locale")
         ]
-
-
-class IndexView(BaseIndexView):
-    template_name = "wagtailadmin/pages/index.html"
 
     def get_side_panels(self):
         # Don't show side panels on the root page
@@ -437,14 +440,3 @@ class IndexView(BaseIndexView):
             ),
         ]
         return MediaContainer(side_panels)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        side_panels = self.get_side_panels()
-        context["side_panels"] = side_panels
-        context["media"] += side_panels.media
-        return context
-
-
-class IndexResultsView(BaseIndexView):
-    template_name = "wagtailadmin/pages/index_results.html"
