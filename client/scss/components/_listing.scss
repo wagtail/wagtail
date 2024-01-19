@@ -623,7 +623,12 @@ table.listing {
         // so the checkbox align with the breadcrumbs toggle.
         padding-inline-start: theme('spacing.5');
       }
+    }
 
+    // Remove left padding from the second column if either bulk action or
+    // custom ordering is active, as the padding to match the breadcrumbs is
+    // already handled by the first column.
+    &:has(.bulk-actions-filter-checkbox, .ord) {
       th:nth-child(2),
       td:nth-child(2) {
         padding-inline-start: 0;
@@ -632,7 +637,9 @@ table.listing {
 
     // If no bulk actions are present, and nice padding is not applied,
     // apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &, .report &):not(:has(.bulk-actions-filter-checkbox)) {
+    &:not(.nice-padding &, .report &):not(
+        :has(.bulk-actions-filter-checkbox, .ord)
+      ) {
       th:first-child,
       td:first-child {
         padding-inline-start: theme('spacing.20');
