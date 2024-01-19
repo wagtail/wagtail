@@ -175,7 +175,7 @@ class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
         self.assertContains(response, "testuser")
         # response should contain not page furniture
         self.assertNotContains(response, "Add a user")
@@ -283,7 +283,7 @@ class TestUserIndexResultsView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
         self.assertContains(response, "testuser")
         # response should not contain page furniture
         self.assertNotContains(response, "Add a user")

@@ -70,7 +70,7 @@ class Index(IndexView):
     """
 
     template_name = "wagtailusers/users/index.html"
-    results_template_name = "wagtailusers/users/results.html"
+    results_template_name = "wagtailusers/users/index_results.html"
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(User)
     model = User
