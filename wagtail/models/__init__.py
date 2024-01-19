@@ -9,6 +9,7 @@ should implement low-level generic functionality which is then imported by highe
 as Page.
 """
 
+from collections.abc import Iterable, Sequence
 import functools
 import logging
 import posixpath
@@ -1299,6 +1300,57 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
+
+    def _check_unique(self,children,parent_url_path):
+        slugs = set()
+        for child in children:
+            if "slug" not in child["data"]:
+                child["data"]["slug"] = slugify(child["data"]["title"], allow_unicode=True)
+            if child["data"]["slug"] in slugs:
+                raise ValidationError(
+                    {
+                        "slug": _(
+                            "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
+                        )
+                        % {"page_slug": child["data"]["slug"], "parent_url_path": parent_url_path}
+                    }
+                )
+            slugs.add(child["data"]["slug"])
+            child["data"]["url_path"] = parent_url_path + child["data"]["slug"] + "/"
+            if "children" in child["data"]:
+                self.check_unique(child["data"]["children"],child["data"]["url_path"])
+        return True
+    
+    def bulk_add_children(self, children):
+        """
+        Add multiple pages as children of this page.
+
+        This calls load_bulk() on the list of dictionaries passed in
+        """
+
+        # Check if slug exists, if so, check if it is available. If not, generate a new one from the title
+        existing_children = self.get_children()
+
+        try:
+            self._check_unique(children,self.url_path)
+        except ValidationError as e:
+            raise e
+        
+        if(existing_children.filter(slug__in=[child["data"]["slug"] for child in children]).exists()):
+            raise ValidationError(
+                {
+                   "One or more of the slugs already exists"
+                }
+            )
+        
+        # Load the pages into the database
+        pages = Page.load_bulk(children, self)
+
+        return pages
+
+    
+            
+            
     @property
     def revisions(self):
         # Always use the specific page instance when querying for revisions as
@@ -2697,6 +2749,91 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for codename, _, name in PAGE_PERMISSION_TYPES
             if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
+
+
+class CustomPageManager(models.Manager):
+
+    @transaction.atomic
+    def bulk_create(self, objs, **kwargs):
+        pages_info = {}
+        for page in objs:
+            page_post_details = {}
+            if kwargs.get("clean", True):
+                page.full_clean()
+
+            page_post_details["slug_changed"] = False
+            page_post_details["is_new"] = page.id is None
+
+            if page_post_details["is_new"]:
+                # we are creating a record. If we're doing things properly, this should happen
+                # through a treebeard method like add_child, in which case the 'path' field
+                # has been set and so we can safely call get_parent
+                page.set_url_path(page.get_parent())
+            else:
+                # Check that we are committing the slug to the database
+                # Basically: If update_fields has been specified, and slug is not included, skip this step
+                if not (
+                    "update_fields" in kwargs and "slug" not in kwargs["update_fields"]
+                ):
+                    # see if the slug has changed from the record in the db, in which case we need to
+                    # update url_path of self and all descendants. Even though we might not need it,
+                    # the specific page is fetched here for sending to the 'page_slug_changed' signal.
+                    old_record = Page.objects.get(id=page.id).specific
+                    if old_record.slug != page.slug:
+                        page.set_url_path(page.get_parent())
+                        page_post_details["slug_changed"] = True
+                        page_post_details["old_url_path"] = old_record.url_path
+                        page_post_details["new_url_path"] = page.url_path
+            pages_info[page] = page_post_details
+            
+        #result = super(models.Manager, self).bulk_create(objs, **kwargs)
+        result = super(models.Manager,self).bulk_create(objs,**kwargs)
+
+        for page in pages_info:
+            page_post_details = pages_info[page]
+            if page_post_details["slug_changed"]:
+                page._update_descendant_url_paths(page_post_details["old_url_path"], page_post_details["new_url_path"])
+                # Emit page_slug_changed signal on successful db commit
+                transaction.on_commit(
+                    lambda: page_slug_changed.send(
+                        sender=page.specific_class or page.__class__,
+                        instance=page.specific,
+                        instance_before=old_record,
+                    )
+                )
+        
+
+
+            if self.is_site_root():
+                Site.clear_site_root_paths_cache()
+
+            # Log
+            if page_post_details["is_new"]:
+                cls = type(page)
+                logger.info(
+                    'Page created: "%s" id=%d content_type=%s.%s path=%s',
+                    page.title,
+                    page.id,
+                    cls._meta.app_label,
+                    cls.__name__,
+                    page.url_path,
+                )
+
+            if kwargs.get("log_action",None) is not None:
+                # The default for log_action is False. i.e. don't log unless specifically instructed
+                # Page creation is a special case that we want logged by default, but allow skipping it
+                # explicitly by passing log_action=None
+                if page_post_details["is_new"]:
+                    log(
+                        instance=page,
+                        action="wagtail.create",
+                        user=kwargs.get("user",None) or page.owner,
+                        content_changed=True,
+                    )
+                elif kwargs.get("log_action",None):
+                    log(instance=page, action=kwargs.get("log_action",None, user=kwargs.get("user",None)))
+
+        return result
 
 
 class Orderable(models.Model):
