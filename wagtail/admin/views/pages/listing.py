@@ -322,7 +322,7 @@ class BaseIndexView(generic.IndexView):
         if self.show_ordering_column:
             kwargs["attrs"] = {
                 "aria-description": _(
-                    "Press enter to select an item, use up and down arrows to move the item. Pressing enter or moving to a different item will complete the move."
+                    "Focus on the drag button and press up or down arrows to move the item, then press enter to submit the change."
                 ),
                 "data-controller": "w-orderable",
                 "data-w-orderable-active-class": "w-orderable--active",
