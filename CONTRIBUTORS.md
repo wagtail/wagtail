@@ -783,6 +783,7 @@
 * Vaishnav Dasari
 * Aditya
 * Tommaso Amici
+* Curtis Maloney
 
 ## Translators
 
