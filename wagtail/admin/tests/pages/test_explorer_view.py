@@ -409,6 +409,25 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 404)
 
+    def test_no_pagination_with_custom_ordering(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"ordering": "ord"},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we don't have a paginator page object
+        self.assertIsNone(response.context["page_obj"])
+
+        # Check that all pages are shown
+        self.assertContains(response, "1-153 of 153")
+        self.assertEqual(len(response.context["pages"]), 153)
+
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_bulk_action_checkbox(self):
         """

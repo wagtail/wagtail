@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block after_label %}
-    {% with start_index=page_obj.start_index end_index=page_obj.end_index result_count=page_obj.paginator.count %}
+    {% with result_count=items_count %}
         {% if is_searching or is_filtering %}
             {% if is_searching_whole_tree %}
                 {% if result_count %}
