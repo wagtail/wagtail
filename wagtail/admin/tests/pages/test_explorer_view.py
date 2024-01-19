@@ -630,7 +630,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         page_type_labels = {
             list(label.children)[-1].strip()
-            for label in soup.select("#filters-dialog #id_content_type label")
+            for label in soup.select("#id_content_type label")
         }
         self.assertIn("Simple page", page_type_labels)
         self.assertNotIn("Page", page_type_labels)

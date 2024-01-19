@@ -967,7 +967,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         response = self.client.get(self.url, {"action": "wagtail.create"})
         soup = self.get_soup(response.content)
         rows = soup.select("tbody tr")
-        heading = soup.select_one("h2:not(.w-dialog h2)")
+        heading = soup.select_one('h2[role="alert"]')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
