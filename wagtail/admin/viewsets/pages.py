@@ -1,6 +1,7 @@
 from django.urls import path
 
 from wagtail.admin.views.pages.listing import IndexView
+from wagtail.models import Page
 
 from .base import ViewSet
 
@@ -8,11 +9,13 @@ from .base import ViewSet
 class PageListingViewSet(ViewSet):
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
     index_view_class = IndexView
+    model = Page
 
     def get_index_view_kwargs(self, **kwargs):
         return {
             "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
+            "model": self.model,
             **kwargs,
         }
 

@@ -142,6 +142,7 @@ class IndexView(generic.IndexView):
     index_url_name = None
     index_results_url_name = None
     default_ordering = "-latest_revision_created_at"
+    model = Page
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -220,14 +221,16 @@ class IndexView(generic.IndexView):
         return ordering
 
     def get_base_queryset(self):
-        pages = Page.objects.all()
+        pages = self.model.objects.filter(depth__gt=1)
         pages = self._annotate_queryset(pages)
         return pages
 
     def _annotate_queryset(self, pages):
-        pages = pages.prefetch_related(
-            "content_type", "sites_rooted_here"
-        ) & self.permission_policy.explorable_instances(self.request.user)
+        pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
+            pk__in=self.permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
