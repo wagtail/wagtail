@@ -165,6 +165,12 @@ const light = [
         textUtility: 'w-text-text-button-outline-default',
         cssVariable: '--w-color-text-button-outline-default',
       },
+      'text-button-outline-hover': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-text-button-outline-hover',
+        textUtility: 'w-text-text-button-outline-hover',
+        cssVariable: '--w-color-text-button-outline-hover',
+      },
       'text-highlight': {
         value: 'var(--w-color-secondary-75)',
         bgUtility: 'w-bg-text-highlight',
@@ -252,6 +258,12 @@ const light = [
         bgUtility: 'w-bg-border-button-outline-default',
         textUtility: 'w-text-border-button-outline-default',
         cssVariable: '--w-color-border-button-outline-default',
+      },
+      'border-button-outline-hover': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-border-button-outline-hover',
+        textUtility: 'w-text-border-button-outline-hover',
+        cssVariable: '--w-color-border-button-outline-hover',
       },
     },
   },
@@ -411,6 +423,12 @@ const dark = [
         textUtility: 'w-text-text-button-outline-default',
         cssVariable: '--w-color-text-button-outline-default',
       },
+      'text-button-outline-hover': {
+        value: 'var(--w-color-secondary-100)',
+        bgUtility: 'w-bg-text-button-outline-hover',
+        textUtility: 'w-text-text-button-outline-hover',
+        cssVariable: '--w-color-text-button-outline-hover',
+      },
       'text-highlight': {
         value: 'var(--w-color-secondary-400)',
         bgUtility: 'w-bg-text-highlight',
@@ -498,6 +516,12 @@ const dark = [
         bgUtility: 'w-bg-border-button-outline-default',
         textUtility: 'w-text-border-button-outline-default',
         cssVariable: '--w-color-border-button-outline-default',
+      },
+      'border-button-outline-hover': {
+        value: 'var(--w-color-secondary-100)',
+        bgUtility: 'w-bg-border-button-outline-hover',
+        textUtility: 'w-text-border-button-outline-hover',
+        cssVariable: '--w-color-border-button-outline-hover',
       },
     },
   },
