@@ -32,15 +32,15 @@ describe('OrderableController', () => {
       data-w-orderable-message-value="'__label__' has been updated!"
     >
       <li data-w-orderable-target="item" data-w-orderable-item-id="73" data-w-orderable-item-label="Beef">
-        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply blur->w-orderable#apply">--</button>
+        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply">--</button>
         Item 73
       </li>
       <li data-w-orderable-target="item" data-w-orderable-item-id="75" data-w-orderable-item-label="Cheese">
-        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply blur->w-orderable#apply">--</button>
+        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply">--</button>
         Item 75
       </li>
       <li data-w-orderable-target="item" data-w-orderable-item-id="93" data-w-orderable-item-label="Santa">
-        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply blur->w-orderable#apply">--</button>
+        <button class="handle" type="button" data-w-orderable-target="handle" data-action="keyup.up->w-orderable#up:prevent keyup.down->w-orderable#down:prevent keydown.enter->w-orderable#apply">--</button>
         Item 93
       </li>
     </ul>
