@@ -190,20 +190,13 @@ class IndexView(generic.IndexView):
         return super().get(request)
 
     def get_valid_orderings(self):
-        valid_orderings = [
-            "title",
-            "-title",
-            "live",
-            "-live",
-            "latest_revision_created_at",
-            "-latest_revision_created_at",
-        ]
+        valid_orderings = super().get_valid_orderings()
 
-        if not self.is_searching:
+        if self.is_searching:
             # ordering by content type not currently available when searching, due to
             # https://github.com/wagtail/wagtail/issues/6616
-            valid_orderings.append("content_type")
-            valid_orderings.append("-content_type")
+            valid_orderings.remove("content_type")
+            valid_orderings.remove("-content_type")
 
         return valid_orderings
 

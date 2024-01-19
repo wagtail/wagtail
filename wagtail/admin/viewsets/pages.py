@@ -10,12 +10,14 @@ class PageListingViewSet(ViewSet):
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
     index_view_class = IndexView
     model = Page
+    columns = IndexView.columns
 
     def get_index_view_kwargs(self, **kwargs):
         return {
             "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
             "model": self.model,
+            "columns": self.columns,
             **kwargs,
         }
 
