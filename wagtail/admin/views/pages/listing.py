@@ -138,6 +138,8 @@ class IndexView(generic.IndexView):
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
     page_title = _("Exploring")
+    index_url_name = "wagtailadmin_explore"
+    index_results_url_name = "wagtailadmin_explore_results"
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -186,7 +188,7 @@ class IndexView(generic.IndexView):
             self.parent_page.pk == root_page.pk
             or self.parent_page.is_descendant_of(root_page)
         ):
-            return redirect("wagtailadmin_explore", root_page.pk)
+            return redirect(self.index_url_name, root_page.pk)
 
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
@@ -331,10 +333,10 @@ class IndexView(generic.IndexView):
             return self.paginate_by
 
     def get_index_url(self):
-        return reverse("wagtailadmin_explore", args=[self.parent_page.id])
+        return reverse(self.index_url_name, args=[self.parent_page.id])
 
     def get_index_results_url(self):
-        return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
+        return reverse(self.index_results_url_name, args=[self.parent_page.id])
 
     def get_history_url(self):
         permissions = self.parent_page.permissions_for_user(self.request.user)
@@ -416,7 +418,7 @@ class IndexView(generic.IndexView):
         return [
             {
                 "locale": translation.locale,
-                "url": reverse("wagtailadmin_explore", args=[translation.id]),
+                "url": reverse(self.index_url_name, args=[translation.id]),
             }
             for translation in self.parent_page.get_translations()
             .only("id", "locale")
