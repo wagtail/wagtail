@@ -1300,27 +1300,31 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-
-    def _check_unique(self,children,parent_url_path):
+    def _check_unique(self, children, parent_url_path):
         slugs = set()
         for child in children:
             if "slug" not in child["data"]:
-                child["data"]["slug"] = slugify(child["data"]["title"], allow_unicode=True)
+                child["data"]["slug"] = slugify(
+                    child["data"]["title"], allow_unicode=True
+                )
             if child["data"]["slug"] in slugs:
                 raise ValidationError(
                     {
                         "slug": _(
                             "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
                         )
-                        % {"page_slug": child["data"]["slug"], "parent_url_path": parent_url_path}
+                        % {
+                            "page_slug": child["data"]["slug"],
+                            "parent_url_path": parent_url_path,
+                        }
                     }
                 )
             slugs.add(child["data"]["slug"])
             child["data"]["url_path"] = parent_url_path + child["data"]["slug"] + "/"
             if "children" in child["data"]:
-                self.check_unique(child["data"]["children"],child["data"]["url_path"])
+                self.check_unique(child["data"]["children"], child["data"]["url_path"])
         return True
-    
+
     def bulk_add_children(self, children):
         """
         Add multiple pages as children of this page.
@@ -1332,25 +1336,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         existing_children = self.get_children()
 
         try:
-            self._check_unique(children,self.url_path)
+            self._check_unique(children, self.url_path)
         except ValidationError as e:
             raise e
-        
-        if(existing_children.filter(slug__in=[child["data"]["slug"] for child in children]).exists()):
-            raise ValidationError(
-                {
-                   "One or more of the slugs already exists"
-                }
-            )
-        
+
+        if existing_children.filter(
+            slug__in=[child["data"]["slug"] for child in children]
+        ).exists():
+            raise ValidationError({"One or more of the slugs already exists"})
+
         # Load the pages into the database
         pages = Page.load_bulk(children, self)
 
         return pages
 
-    
-            
-            
     @property
     def revisions(self):
         # Always use the specific page instance when querying for revisions as
@@ -2752,7 +2751,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
 
 class CustomPageManager(models.Manager):
-
     @transaction.atomic
     def bulk_create(self, objs, **kwargs):
         pages_info = {}
@@ -2785,14 +2783,16 @@ class CustomPageManager(models.Manager):
                         page_post_details["old_url_path"] = old_record.url_path
                         page_post_details["new_url_path"] = page.url_path
             pages_info[page] = page_post_details
-            
-        #result = super(models.Manager, self).bulk_create(objs, **kwargs)
-        result = super(models.Manager,self).bulk_create(objs,**kwargs)
+
+        # result = super(models.Manager, self).bulk_create(objs, **kwargs)
+        result = super(models.Manager, self).bulk_create(objs, **kwargs)
 
         for page in pages_info:
             page_post_details = pages_info[page]
             if page_post_details["slug_changed"]:
-                page._update_descendant_url_paths(page_post_details["old_url_path"], page_post_details["new_url_path"])
+                page._update_descendant_url_paths(
+                    page_post_details["old_url_path"], page_post_details["new_url_path"]
+                )
                 # Emit page_slug_changed signal on successful db commit
                 transaction.on_commit(
                     lambda: page_slug_changed.send(
@@ -2801,8 +2801,6 @@ class CustomPageManager(models.Manager):
                         instance_before=old_record,
                     )
                 )
-        
-
 
             if self.is_site_root():
                 Site.clear_site_root_paths_cache()
@@ -2819,7 +2817,7 @@ class CustomPageManager(models.Manager):
                     page.url_path,
                 )
 
-            if kwargs.get("log_action",None) is not None:
+            if kwargs.get("log_action", None) is not None:
                 # The default for log_action is False. i.e. don't log unless specifically instructed
                 # Page creation is a special case that we want logged by default, but allow skipping it
                 # explicitly by passing log_action=None
@@ -2827,11 +2825,16 @@ class CustomPageManager(models.Manager):
                     log(
                         instance=page,
                         action="wagtail.create",
-                        user=kwargs.get("user",None) or page.owner,
+                        user=kwargs.get("user", None) or page.owner,
                         content_changed=True,
                     )
-                elif kwargs.get("log_action",None):
-                    log(instance=page, action=kwargs.get("log_action",None, user=kwargs.get("user",None)))
+                elif kwargs.get("log_action", None):
+                    log(
+                        instance=page,
+                        action=kwargs.get(
+                            "log_action", None, user=kwargs.get("user", None)
+                        ),
+                    )
 
         return result
 
@@ -3593,7 +3596,8 @@ class Task(SpecificMixin, models.Model):
 
     def user_can_access_editor(self, obj, user):
         """Returns True if a user who would not normally be able to access the editor for the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        Note that returning False does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def locked_for_user(self, obj, user):
@@ -3605,12 +3609,14 @@ class Task(SpecificMixin, models.Model):
 
     def user_can_lock(self, obj, user):
         """Returns True if a user who would not normally be able to lock the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        Note that returning False does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def user_can_unlock(self, obj, user):
         """Returns True if a user who would not normally be able to unlock the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        Note that returning False does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def get_actions(self, obj, user):
@@ -4425,7 +4431,8 @@ class TaskState(SpecificMixin, models.Model):
     @transaction.atomic
     def cancel(self, user=None, resume=False, comment=""):
         """Cancel the task state and update the workflow state. If ``resume`` is set to True, then upon update the workflow state
-        is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible"""
+        is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible
+        """
         self.status = self.STATUS_CANCELLED
         self.finished_at = timezone.now()
         self.comment = comment
@@ -4442,7 +4449,8 @@ class TaskState(SpecificMixin, models.Model):
 
     def copy(self, update_attrs=None, exclude_fields=None):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
-        specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
+        specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs
+        """
         exclude_fields = (
             self.default_exclude_fields_in_copy
             + self.exclude_fields_in_copy
