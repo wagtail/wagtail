@@ -158,13 +158,6 @@ class IndexView(generic.IndexView):
             sort_key="latest_revision_created_at",
             width="12%",
         ),
-        Column(
-            "type",
-            label=_("Type"),
-            accessor="page_type_display_name",
-            sort_key="content_type",
-            width="12%",
-        ),
         PageStatusColumn(
             "status",
             label=_("Status"),
@@ -195,8 +188,11 @@ class IndexView(generic.IndexView):
         if self.is_searching:
             # ordering by content type not currently available when searching, due to
             # https://github.com/wagtail/wagtail/issues/6616
-            valid_orderings.remove("content_type")
-            valid_orderings.remove("-content_type")
+            try:
+                valid_orderings.remove("content_type")
+                valid_orderings.remove("-content_type")
+            except ValueError:
+                pass
 
         return valid_orderings
 
@@ -313,9 +309,22 @@ class ExplorableIndexView(IndexView):
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
 
-    columns = IndexView.columns + [
-        NavigateToChildrenColumn("navigate", width="10%"),
-    ]
+    columns = (
+        IndexView.columns[0:3]
+        + [
+            Column(
+                "type",
+                label=_("Type"),
+                accessor="page_type_display_name",
+                sort_key="content_type",
+                width="12%",
+            ),
+        ]
+        + IndexView.columns[3:]
+        + [
+            NavigateToChildrenColumn("navigate", width="10%"),
+        ]
+    )
 
     def get(self, request, parent_page_id=None):
         if parent_page_id:
