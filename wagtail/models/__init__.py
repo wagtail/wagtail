@@ -9,7 +9,6 @@ should implement low-level generic functionality which is then imported by highe
 as Page.
 """
 
-from collections.abc import Iterable, Sequence
 import functools
 import logging
 import posixpath
