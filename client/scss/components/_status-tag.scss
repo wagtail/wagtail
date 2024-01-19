@@ -42,14 +42,14 @@
 button.w-status:hover,
 a.w-status:hover,
 a.w-status.w-status--primary:hover {
-  border-color: theme('colors.border-button-outline-default');
-  color: theme('colors.text-button-outline-default');
+  border-color: theme('colors.border-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
 }
 
 button.w-status:hover {
-  border-color: theme('colors.border-button-outline-default');
-  background-color: theme('colors.surface-button-hover');
-  color: theme('colors.surface-page');
+  border-color: theme('colors.border-button-outline-hover');
+  background-color: theme('colors.surface-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
 }
 
 // Special case for text-transform: uppercase.

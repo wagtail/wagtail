@@ -336,7 +336,7 @@ ul.listing {
 
     &:hover,
     &:focus {
-      color: theme('colors.text-button-outline-default');
+      color: theme('colors.text-button-outline-hover');
     }
 
     &:focus {
@@ -361,7 +361,7 @@ ul.listing {
 
     &--active a,
     a:hover {
-      color: theme('colors.text-button-outline-default');
+      color: theme('colors.text-button-outline-hover');
     }
   }
 
