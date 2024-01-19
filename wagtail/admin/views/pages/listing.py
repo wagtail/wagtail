@@ -218,7 +218,7 @@ class BaseIndexView(generic.IndexView):
 
         return super().get(request)
 
-    def get_ordering(self):
+    def get_valid_orderings(self):
         valid_orderings = [
             "title",
             "-title",
@@ -228,11 +228,7 @@ class BaseIndexView(generic.IndexView):
             "-latest_revision_created_at",
         ]
 
-        if self.is_searching and not self.is_explicitly_ordered:
-            # default to ordering by relevance
-            default_ordering = None
-        else:
-            default_ordering = self.parent_page.get_admin_default_ordering()
+        if not self.is_searching:
             # ordering by page order is only available when not searching
             valid_orderings.append("ord")
 
@@ -241,8 +237,17 @@ class BaseIndexView(generic.IndexView):
             valid_orderings.append("content_type")
             valid_orderings.append("-content_type")
 
+        return valid_orderings
+
+    def get_ordering(self):
+        if self.is_searching and not self.is_explicitly_ordered:
+            # default to ordering by relevance
+            default_ordering = None
+        else:
+            default_ordering = self.parent_page.get_admin_default_ordering()
+
         ordering = self.request.GET.get("ordering", default_ordering)
-        if ordering not in valid_orderings:
+        if ordering not in self.get_valid_orderings():
             ordering = default_ordering
 
         return ordering
