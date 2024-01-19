@@ -121,7 +121,7 @@ class PageFilterSet(WagtailFilterSet):
 
 
 class IndexView(generic.IndexView):
-    template_name = "wagtailadmin/pages/index.html"
+    template_name = "wagtailadmin/pages/explorable_index.html"
     results_template_name = "wagtailadmin/pages/index_results.html"
     permission_policy = page_permission_policy
     any_permission_required = {
