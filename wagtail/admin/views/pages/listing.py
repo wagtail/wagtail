@@ -68,11 +68,6 @@ class EditedByFilter(MultipleUserFilter):
 
 
 class PageFilterSet(WagtailFilterSet):
-    content_type = MultipleContentTypeFilter(
-        label=_("Page type"),
-        queryset=lambda request: get_page_content_types(include_base_page_type=False),
-        widget=CheckboxSelectMultiple,
-    )
     latest_revision_created_at = DateFromToRangeFilter(
         label=_("Date updated"),
         widget=DateRangePickerWidget,
@@ -118,6 +113,14 @@ class PageFilterSet(WagtailFilterSet):
     class Meta:
         model = Page
         fields = []  # only needed for filters being generated automatically
+
+
+class ExplorablePageFilterSet(PageFilterSet):
+    content_type = MultipleContentTypeFilter(
+        label=_("Page type"),
+        queryset=lambda request: get_page_content_types(include_base_page_type=False),
+        widget=CheckboxSelectMultiple,
+    )
 
 
 class IndexView(generic.IndexView):
@@ -308,6 +311,7 @@ class ExplorableIndexView(IndexView):
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
+    filterset_class = ExplorablePageFilterSet
 
     columns = (
         IndexView.columns[0:3]
