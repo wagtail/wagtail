@@ -121,7 +121,7 @@ class PageFilterSet(WagtailFilterSet):
 
 
 class IndexView(generic.IndexView):
-    template_name = "wagtailadmin/pages/explorable_index.html"
+    template_name = "wagtailadmin/pages/index.html"
     results_template_name = "wagtailadmin/pages/index_results.html"
     permission_policy = page_permission_policy
     any_permission_required = {
@@ -138,7 +138,7 @@ class IndexView(generic.IndexView):
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
-    page_title = _("Exploring")
+    page_title = _("Pages")
     index_url_name = None
     index_results_url_name = None
     default_ordering = "-latest_revision_created_at"
@@ -299,7 +299,6 @@ class IndexView(generic.IndexView):
                 "is_searching": self.is_searching,
             }
         )
-
         return context
 
 
@@ -310,8 +309,10 @@ class ExplorableIndexView(IndexView):
     searching or filtering.
     """
 
+    template_name = "wagtailadmin/pages/explorable_index.html"
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
+    page_title = _("Exploring")
 
     columns = IndexView.columns + [
         NavigateToChildrenColumn("navigate", width="10%"),
