@@ -71,6 +71,8 @@ Changelog
  * Fix: Avoid text overflow issues in comment replies and scroll position issues for long comments (Rohit Sharma)
  * Fix: Ensure that page listing re-ordering messages and accessible labels can be translated  (Aman Pandey, LB (Ben) Johnston)
  * Fix: Resolve multiple issues with page listing re-ordering using keyboard and screen readers (Aman Pandey)
+ * Fix: Remove 'Page' from page types filter on aging pages report (Matt Westcott)
+ * Fix: Prevent page types filter from showing other non-Page models that match by name (Matt Westcott)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
