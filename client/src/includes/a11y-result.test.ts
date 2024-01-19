@@ -1,5 +1,5 @@
 import { AxeResults } from 'axe-core';
-import { sortAxeViolations } from './userbar';
+import { sortAxeViolations } from './a11y-result';
 
 const mockDocument = `
 <div id="a"></div>
