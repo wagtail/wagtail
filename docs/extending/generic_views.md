@@ -78,7 +78,7 @@ You can group multiple `ModelViewSet`s' menu items inside a single top-level men
 
 ### Listing view
 
-The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to override the default ordering configured in the listing view.
+The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to override the `default_ordering` configured in the listing view.
 
 You can add the ability to filter the listing view by defining a {attr}`~ModelViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
 

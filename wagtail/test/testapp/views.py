@@ -203,7 +203,7 @@ class SearchTestModelViewSet(ModelViewSet):
 
 class FeatureCompleteToyIndexView(IndexView):
     model = FeatureCompleteToy
-    ordering = ["name", "-release_date"]
+    default_ordering = ["name", "-release_date"]
 
 
 class FeatureCompleteToyViewSet(ModelViewSet):
@@ -273,6 +273,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             model=FeatureCompleteToy,
             exclude_form_fields=(),
             index_view_class=FeatureCompleteToyIndexView,
+            list_display=["name", "strid", "release_date"],
             ordering=["strid"],
         ),
     )
