@@ -9,6 +9,7 @@ import { CloneController } from './CloneController';
 import { CountController } from './CountController';
 import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
+import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
 import { InitController } from './InitController';
 import { OrderableController } from './OrderableController';
@@ -39,6 +40,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: CountController, identifier: 'w-count' },
   { controllerConstructor: DialogController, identifier: 'w-dialog' },
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
+  { controllerConstructor: DrilldownController, identifier: 'w-drilldown' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: InitController, identifier: 'w-init' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },

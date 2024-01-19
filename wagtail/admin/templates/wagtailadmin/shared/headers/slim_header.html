@@ -79,14 +79,35 @@
                         {% endif %}
 
                         {% if filters %}
-                            {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
-                            {% dialog_toggle classname="w-filter-button" dialog_id="filters-dialog" text=filters_icon %}
-
-                            {% dialog theme="floating" id="filters-dialog" title=_("Filters") dialog_root_selector="[data-search-form]" %}
-                                {% for field in filters.form %}
-                                    {% formattedfield field %}
-                                {% endfor %}
-                            {% enddialog %}
+                            <div class="w-drilldown" data-controller="w-drilldown">
+                                {% fragment as toggle_suffix %}
+                                    <span class="w-drilldown__count" hidden></span>
+                                {% endfragment %}
+                                {% dropdown theme="drilldown" toggle_icon="sliders" toggle_classname="w-filter-button" toggle_aria_label=_("Show filters") toggle_suffix=toggle_suffix %}
+                                    <div class="w-drilldown__contents">
+                                        <div class="w-drilldown__menu" data-w-drilldown-target="menu">
+                                            <h2 class="w-help-text w-pl-5 w-py-2.5 w-my-0">{% trans "Filter by" %}</h2>
+                                            {% for field in filters.form %}
+                                                <button class="w-drilldown__toggle" data-w-drilldown-target="toggle" data-action="click->w-drilldown#open" type="button" class="w-flex w-justify-between" aria-expanded="false" aria-controls="drilldown-{{field.auto_id}}">
+                                                    {{ field.label }}
+                                                    <div class="w-flex w-items-center w-gap-2">
+                                                        <span class="w-drilldown__count" hidden></span>
+                                                        {% icon name="arrow-right" %}
+                                                    </div>
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                        {% for field in filters.form %}
+                                            <div class="w-drilldown__submenu" id="drilldown-{{field.auto_id}}" hidden tabindex="-1">
+                                                <button class="w-drilldown__back" type="button" data-action="click->w-drilldown#close" aria-label="{% trans 'Back' %}">
+                                                    {% icon name="arrow-left" %}
+                                                </button>
+                                                {% formattedfield field %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% enddropdown %}
+                            </div>
                         {% endif %}
 
                         {% comment %}

@@ -86,6 +86,11 @@ const themeOptions = {
     maxWidth: 350,
     placement: 'bottom',
   },
+  'drilldown': {
+    arrow: false,
+    maxWidth: 'none',
+    placement: 'bottom-end',
+  },
   'dropdown-button': {
     arrow: false,
     maxWidth: 'none',
