@@ -11,6 +11,7 @@ class PageListingViewSet(ViewSet):
     index_view_class = IndexView
     model = Page
     columns = IndexView.columns
+    filterset_class = IndexView.filterset_class
 
     def get_index_view_kwargs(self, **kwargs):
         return {
@@ -18,6 +19,7 @@ class PageListingViewSet(ViewSet):
             "index_results_url_name": self.get_url_name("index_results"),
             "model": self.model,
             "columns": self.columns,
+            "filterset_class": self.filterset_class,
             **kwargs,
         }
 
