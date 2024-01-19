@@ -138,11 +138,11 @@ class IndexView(generic.IndexView):
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
-    page_title = _("Pages")
     index_url_name = None
     index_results_url_name = None
     default_ordering = "-latest_revision_created_at"
     model = Page
+    _show_breadcrumbs = True
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -279,6 +279,9 @@ class IndexView(generic.IndexView):
 
     def get_index_results_url(self):
         return reverse(self.index_results_url_name)
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [{"url": "", "label": self.get_page_title()}]
 
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
