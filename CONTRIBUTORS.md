@@ -785,6 +785,7 @@
 * Tommaso Amici
 * Curtis Maloney
 * Jai Vignesh J
+* Sankalp
 
 ## Translators
 
