@@ -1299,33 +1299,30 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    def _check_unique(self, children, parent_url_path,existing_slugs=None):
-        slugs = [child["data"]["slug"] for child in children if "slug" in child["data"] ]
+    def _check_unique(self, children, parent_url_path, existing_slugs=None):
+        slugs = [child["data"]["slug"] for child in children if "slug" in child["data"]]
         if existing_slugs:
             slugs.extend(existing_slugs)
-        if(len(slugs) != len(set(slugs))):
+        if len(slugs) != len(set(slugs)):
             raise ValidationError(
-                    {
-                        "slug": _(
-                            "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
-                        )
-                        % {
-                            "parent_url_path": parent_url_path,
-                        }
+                {
+                    "slug": _(
+                        "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
+                    )
+                    % {
+                        "parent_url_path": parent_url_path,
                     }
-                )
+                }
+            )
         for child in children:
             if "slug" not in child["data"]:
-                candidate_slug = slugify(
-                    child["data"]["title"], allow_unicode=True
-                )
+                candidate_slug = slugify(child["data"]["title"], allow_unicode=True)
                 suffix = 1
                 while candidate_slug in slugs:
                     suffix += 1
                     candidate_slug = "%s-%d" % (candidate_slug, suffix)
                 child["data"]["slug"] = candidate_slug
 
-                
             child["data"]["url_path"] = parent_url_path + child["data"]["slug"] + "/"
             if "children" in child["data"]:
                 self.check_unique(child["data"]["children"], child["data"]["url_path"])
@@ -1339,9 +1336,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
 
         existing_slugs = self.get_children().values_list("slug", flat=True)
-        
+
         try:
-            self._check_unique(children, self.url_path,existing_slugs)
+            self._check_unique(children, self.url_path, existing_slugs)
         except ValidationError as e:
             raise e
 
