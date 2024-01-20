@@ -51,6 +51,44 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["table"].data), 2)
         self.assertEqual(response.context["table"].data[1].specific, page)
 
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
+    def test_multiple_chooser_view(self):
+        self.page = Page.objects.get(id=1)
+
+        self.child_page = SimplePage(
+            title="test_child_page", content="test content", pk=10022
+        )
+        self.page.add_child(instance=self.child_page)
+
+        response = self.get({"multiple": "1"})
+
+        checkbox_value = str(self.child_page.id)
+        decoded_content = response.content.decode()
+
+        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+    @override_settings(USE_THOUSAND_SEPARATOR=False)
+    def test_multiple_chooser_view_without_thousand_separator(self):
+        self.page = Page.objects.get(id=1)
+
+        self.child_page = SimplePage(
+            title="test_child_page", content="test content", pk=10050
+        )
+        self.page.add_child(instance=self.child_page)
+
+        response = self.get({"multiple": "1"})
+
+        checkbox_value = str(self.child_page.id)
+        decoded_content = response.content.decode()
+
+        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
 
 class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
     def setUp(self):
