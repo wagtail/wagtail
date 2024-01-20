@@ -784,6 +784,7 @@
 * Aditya
 * Tommaso Amici
 * Curtis Maloney
+* Jai Vignesh J
 
 ## Translators
 
