@@ -1299,26 +1299,33 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    def _check_unique(self, children, parent_url_path):
-        slugs = set()
-        for child in children:
-            if "slug" not in child["data"]:
-                child["data"]["slug"] = slugify(
-                    child["data"]["title"], allow_unicode=True
-                )
-            if child["data"]["slug"] in slugs:
-                raise ValidationError(
+    def _check_unique(self, children, parent_url_path,existing_slugs=None):
+        slugs = [child["data"]["slug"] for child in children if "slug" in child["data"] ]
+        if existing_slugs:
+            slugs.extend(existing_slugs)
+        if(len(slugs) != len(set(slugs))):
+            raise ValidationError(
                     {
                         "slug": _(
-                            "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
+                            "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
                         )
                         % {
-                            "page_slug": child["data"]["slug"],
                             "parent_url_path": parent_url_path,
                         }
                     }
                 )
-            slugs.add(child["data"]["slug"])
+        for child in children:
+            if "slug" not in child["data"]:
+                candidate_slug = slugify(
+                    child["data"]["title"], allow_unicode=True
+                )
+                suffix = 1
+                while candidate_slug in slugs:
+                    suffix += 1
+                    candidate_slug = "%s-%d" % (candidate_slug, suffix)
+                child["data"]["slug"] = candidate_slug
+
+                
             child["data"]["url_path"] = parent_url_path + child["data"]["slug"] + "/"
             if "children" in child["data"]:
                 self.check_unique(child["data"]["children"], child["data"]["url_path"])
@@ -1331,18 +1338,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This calls load_bulk() on the list of dictionaries passed in
         """
 
-        # Check if slug exists, if so, check if it is available. If not, generate a new one from the title
-        existing_children = self.get_children()
-
+        existing_slugs = self.get_children().values_list("slug", flat=True)
+        
         try:
-            self._check_unique(children, self.url_path)
+            self._check_unique(children, self.url_path,existing_slugs)
         except ValidationError as e:
             raise e
-
-        if existing_children.filter(
-            slug__in=[child["data"]["slug"] for child in children]
-        ).exists():
-            raise ValidationError({"One or more of the slugs already exists"})
 
         # Load the pages into the database
         pages = Page.load_bulk(children, self)
