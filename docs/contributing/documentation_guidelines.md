@@ -229,10 +229,16 @@ You can select widgets from [Django's form widgets](inv:django#ref/forms/widgets
     This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
 ```
 
-There is no support for id (hash) refs at this point, so these will need to be written out as full URLs, remember to use the `stable` URL and not a specific version.
+There is no support for id (hash) refs on pages at this time, so these will need to be written out as full URLs, remember to use the `stable` URL and not a specific version. In some cases you may be able to reference the name of the hash directly though.
 
 ```md
+<!-- #django-template-context-processors-i18n does not work, so a full URL will be needed -->
+
 [django.template.context_processors.i18n](https://docs.djangoproject.com/en/stable/ref/templates/api/#django-template-context-processors-i18n)
+
+<!--  #meta-and-multi-table-inheritance does work as a direct name reference -->
+
+[multi-table inheritance](inv:django#meta-and-multi-table-inheritance)
 ```
 
 ### Note and warning call-outs
