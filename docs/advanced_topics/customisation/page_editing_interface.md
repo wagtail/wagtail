@@ -240,12 +240,12 @@ so the form field for a model field can be overridden by adding it to the custom
 .. class:: wagtail.admin.forms.CopyForm
 ```
 
-When copying a page, Wagtail will generate a form to allow the user to modify the copied page. By default, this form subclasses [CopyForm](wagtail.admin.forms.CopyForm). A custom base form class can be configured by setting the `copy_form_class` attribute on any model. Custom forms must subclass [CopyForm](wagtail.admin.forms.CopyForm). 
+When copying a page, Wagtail will generate a form to allow the user to modify the copied page. By default, this form subclasses [CopyForm](wagtail.admin.forms.CopyForm). A custom base form class can be configured by setting the `copy_form_class` attribute on any model. Custom forms must subclass [CopyForm](wagtail.admin.forms.CopyForm).
 
 This can be used to specify alterations to the copied form on a per-model basis.
 
 For example, auto-incrementing the slug field:
-    
+
 ```python
 from django import forms
 from django.db import models

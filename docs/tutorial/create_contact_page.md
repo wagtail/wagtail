@@ -119,7 +119,7 @@ Now, migrate your database by running `python manage.py makemigrations` and then
 
 To add contact information to your portfolio site, follow these steps:
 
-1. Create a **Form page** as a child page of **Home** by following these steps:  
+1. Create a **Form page** as a child page of **Home** by following these steps:
 
     a. Restart your server.  
     b. Go to your admin interface.  
@@ -127,7 +127,7 @@ To add contact information to your portfolio site, follow these steps:
     d. Click `Home`.  
     e. Click the `...` icon at the top of the resulting page.  
     f. Click `add child page`.  
-    g. Click `Form page`.  
+    g. Click `Form page`.
 
 2. Add the necessary data.
 3. Publish your `Form Page`.

@@ -38,7 +38,7 @@ New documents saved are stored in the [reference index](managing_the_reference_i
 
 ## Using documents in a Page
 
-To include a document file in a Wagtail page, you can use `FieldPanel` in your page model. 
+To include a document file in a Wagtail page, you can use `FieldPanel` in your page model.
 
 Here's an example:
 
@@ -87,9 +87,7 @@ Here's an example template to access the document field and render it:
 
 Links to documents can be made in pages using the [`RichTextField`](rich_text_field). By default, Wagtail will include the features for adding links to documents see [](rich_text_features).
 
-
 You can either exclude or include these by passing the `features` to your `RichTextField`. In the example below we create a `RichTextField` with only documents and basic formatting.
-
 
 ```python
 # models.py
@@ -107,8 +105,6 @@ class BlogPage(Page):
         FieldPanel("document_footnotes"),
     ]
 ```
-
-
 
 ## Using documents within `StreamField`
 
@@ -147,7 +143,6 @@ In `blog_page.html`, add the following block of code to display the document lin
     <a href="{{ block.value.url }}">{{ block.value.title }}</a>
 {% endfor %}
 ```
-
 
 ## Working documents and collections
 
