@@ -238,8 +238,9 @@ To add your footer text, go to your [admin interface](https://guide.wagtail.org/
 In this tutorial, you'll use a custom template tag to display your footer text.
 
 In your `base` folder, create a `templatetags` folder. Within your new `templatetags` folder, create the following files:
-- `__init__.py`
-- `navigation_tags.py`
+
+-   `__init__.py`
+-   `navigation_tags.py`
 
 Leave your `base/templatetags/__init__.py` file blank and add the following to your `base/templatetags/navigation_tags.py` file:
 

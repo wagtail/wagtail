@@ -63,8 +63,8 @@ Wagtail uses most of Tailwind’s core plugins, with an override for them to cre
 
 With utility classes, we recommend to:
 
-- Keep their number to a reasonable maximum, creating component styles instead if the utilities are inter-dependent, or if they are frequently reused together.
-- Avoid utilities relating to font size, weight, or other typographic considerations. Instead, use the higher-level type scale as defined in `typography.js`.
+-   Keep their number to a reasonable maximum, creating component styles instead if the utilities are inter-dependent, or if they are frequently reused together.
+-   Avoid utilities relating to font size, weight, or other typographic considerations. Instead, use the higher-level type scale as defined in `typography.js`.
 
 ### Sass usage
 
@@ -147,9 +147,9 @@ This is an area of active improvement for Wagtail, with [ongoing discussions](ht
 
 We support right-to-left languages, and in particular viewing the Wagtail admin interface in a horizontally mirrored layout. Here are guidelines to guarantee support:
 
-- Write styles with [logical properties and values](https://rtlstyling.com/posts/rtl-styling#css-logical-properties) whenever possible.
-- For styles that can only be written with physical properties (translations, background positions), use the `--w-direction-factor` variable equal to 1 or -1 so the value reverses based on the `dir` attribute of the element or page.
-- As a last resort, use `[dir='rtl']` style if there is no other way to write styles.
+-   Write styles with [logical properties and values](https://rtlstyling.com/posts/rtl-styling#css-logical-properties) whenever possible.
+-   For styles that can only be written with physical properties (translations, background positions), use the `--w-direction-factor` variable equal to 1 or -1 so the value reverses based on the `dir` attribute of the element or page.
+-   As a last resort, use `[dir='rtl']` style if there is no other way to write styles.
 
 Make sure to also reverse the direction of any position calculation in JavaScript, as there is no support of logical values in DOM APIs (x-axis offsets always from the left).
 
