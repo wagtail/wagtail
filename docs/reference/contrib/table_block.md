@@ -1,6 +1,6 @@
 # TableBlock
 
-The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://handsontable.com/) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
+The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://github.com/handsontable/handsontable/tree/6.2.2) (distributed under the MIT license) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
 
 ![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](../../_static/images/screen40_table_block.png)
 
