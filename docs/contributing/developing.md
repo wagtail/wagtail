@@ -282,7 +282,7 @@ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
 npm run storybook
 ```
 
-The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for inv:django# `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
+The last command will start Storybook at `http://localhost:6006/`. It will proxy specific requests to Django at `http://localhost:8000` by default. Use the `TEST_ORIGIN` environment variable to use a different port for Django: `TEST_ORIGIN=http://localhost:9000 npm run storybook`.
 
 ## Compiling the documentation
 
