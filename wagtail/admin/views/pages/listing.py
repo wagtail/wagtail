@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db.models import Count
+from django.db.models import F
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -218,7 +218,7 @@ class BaseIndexView(generic.IndexView):
 
         return super().get(request)
 
-    def get_ordering(self):
+    def get_valid_orderings(self):
         valid_orderings = [
             "title",
             "-title",
@@ -228,11 +228,7 @@ class BaseIndexView(generic.IndexView):
             "-latest_revision_created_at",
         ]
 
-        if self.is_searching and not self.is_explicitly_ordered:
-            # default to ordering by relevance
-            default_ordering = None
-        else:
-            default_ordering = self.parent_page.get_admin_default_ordering()
+        if not self.is_searching:
             # ordering by page order is only available when not searching
             valid_orderings.append("ord")
 
@@ -241,8 +237,17 @@ class BaseIndexView(generic.IndexView):
             valid_orderings.append("content_type")
             valid_orderings.append("-content_type")
 
+        return valid_orderings
+
+    def get_ordering(self):
+        if self.is_searching and not self.is_explicitly_ordered:
+            # default to ordering by relevance
+            default_ordering = None
+        else:
+            default_ordering = self.parent_page.get_admin_default_ordering()
+
         ordering = self.request.GET.get("ordering", default_ordering)
-        if ordering not in valid_orderings:
+        if ordering not in self.get_valid_orderings():
             ordering = default_ordering
 
         return ordering
@@ -280,20 +285,22 @@ class BaseIndexView(generic.IndexView):
         if self.ordering == "ord":
             # preserve the native ordering from get_children()
             pass
-        elif self.ordering == "latest_revision_created_at":
+        elif self.ordering == "latest_revision_created_at" and not self.is_searching:
             # order by oldest revision first.
             # Special case NULL entries - these should go at the top of the list.
-            # Do this by annotating with Count('latest_revision_created_at'),
-            # which returns 0 for these
-            queryset = queryset.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("null_position", "latest_revision_created_at")
-        elif self.ordering == "-latest_revision_created_at":
+            # Skip this special case when searching (and fall through to plain field ordering
+            # instead) as search backends do not support F objects in order_by
+            queryset = queryset.order_by(
+                F("latest_revision_created_at").asc(nulls_first=True)
+            )
+        elif self.ordering == "-latest_revision_created_at" and not self.is_searching:
             # order by oldest revision first.
             # Special case NULL entries - these should go at the end of the list.
-            queryset = queryset.annotate(
-                null_position=Count("latest_revision_created_at")
-            ).order_by("-null_position", "-latest_revision_created_at")
+            # Skip this special case when searching (and fall through to plain field ordering
+            # instead) as search backends do not support F objects in order_by
+            queryset = queryset.order_by(
+                F("latest_revision_created_at").desc(nulls_last=True)
+            )
         else:
             queryset = super().order_queryset(queryset)
 
