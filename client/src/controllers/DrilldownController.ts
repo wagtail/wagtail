@@ -8,38 +8,31 @@ export class DrilldownController extends Controller<HTMLElement> {
   };
 
   declare activeSubmenuValue: string;
-  declare swapSuccessListener: (e: Event) => void;
 
   declare readonly menuTarget: HTMLElement;
   declare readonly toggleTargets: HTMLButtonElement[];
 
   connect() {
     this.updateToggleCounts();
-
-    this.swapSuccessListener = (e: Event) => {
-      const swapEvent = e as CustomEvent<{ requestUrl: string }>;
-      if ((e.target as HTMLElement)?.id === 'listing-results') {
-        const params = new URLSearchParams(
-          swapEvent.detail?.requestUrl.split('?')[1],
-        );
-        const filteredParams = new URLSearchParams();
-        params.forEach((value, key) => {
-          if (value.trim() !== '') {
-            // Check if the value is not empty after trimming white space
-            filteredParams.append(key, value);
-          }
-        });
-        const queryString = '?' + filteredParams.toString();
-        this.updateToggleCounts();
-        window.history.replaceState(null, '', queryString);
-      }
-    };
-
-    document.addEventListener('w-swap:success', this.swapSuccessListener);
   }
 
-  disconnect() {
-    document.removeEventListener('w-swap:success', this.swapSuccessListener);
+  updateParamsCount(e: Event) {
+    const swapEvent = e as CustomEvent<{ requestUrl: string }>;
+    if ((e.target as HTMLElement)?.id === 'listing-results') {
+      const params = new URLSearchParams(
+        swapEvent.detail?.requestUrl.split('?')[1],
+      );
+      const filteredParams = new URLSearchParams();
+      params.forEach((value, key) => {
+        if (value.trim() !== '') {
+          // Check if the value is not empty after trimming white space
+          filteredParams.append(key, value);
+        }
+      });
+      const queryString = '?' + filteredParams.toString();
+      this.updateToggleCounts();
+      window.history.replaceState(null, '', queryString);
+    }
   }
 
   open(e: MouseEvent) {

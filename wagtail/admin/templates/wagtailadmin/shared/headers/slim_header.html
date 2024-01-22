@@ -79,7 +79,7 @@
                         {% endif %}
 
                         {% if filters %}
-                            <div class="w-drilldown" data-controller="w-drilldown">
+                            <div class="w-drilldown" data-controller="w-drilldown" data-action="w-swap:success@document->w-drilldown#updateParamsCount">
                                 {% fragment as toggle_suffix %}
                                     <span class="w-drilldown__count" hidden></span>
                                 {% endfragment %}
