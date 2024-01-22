@@ -202,6 +202,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: get_parent
 
+    .. automethod:: get_children
+
     .. automethod:: get_ancestors
 
     .. automethod:: get_descendants
