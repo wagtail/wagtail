@@ -156,7 +156,7 @@ new_table_options = {
         'redo',
         '---------',
         'copy',
-        'cut'
+        'cut',
         '---------',
         'alignment',
     ],
