@@ -106,6 +106,7 @@ Changelog
  * Docs: Add `Page` model reference `get_children` documentation (Salvo Polizzi)
  * Docs: Enforce CI build checks for documentation so that malformed links or missing images will not be allowed (Neeraj Yetheendran)
  * Docs: Update spelling on customizing admin template and page model section from British to American English (Victoria Poromon)
+ * Docs: Add documentation for how to override the file locations for custom image models via `get_upload_to` methods (Osaf AliSayed, Dharmik Gangani)
  * Maintenance: Update BeautifulSoup upper bound to 4.12.x (scott-8)
  * Maintenance: Migrate initialization of classes (such as `body.ready`) from multiple JavaScript implementations to one Stimulus controller `w-init` (Chiemezuo Akujobi)
  * Maintenance: Adopt the usage of translate string literals using `arg=_('...')` in all `wagtailadmin` module templates (Chiemezuo Akujobi)
