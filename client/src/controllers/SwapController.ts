@@ -259,6 +259,21 @@ export class SwapController extends Controller<
       })
       .then((results) => {
         target.innerHTML = results;
+
+        /* HACK: if target now contains a `<template id="filters-dialog-fragment">` element,
+        replace the contents of the filters dialog with it */
+        const filtersDialogFragment = target.querySelector(
+          '#filters-dialog-fragment',
+        );
+        if (filtersDialogFragment) {
+          const filtersDialog = document.querySelector(
+            '#filters-dialog [data-w-dialog-target="body"]',
+          );
+          if (filtersDialog) {
+            filtersDialog.innerHTML = filtersDialogFragment.innerHTML;
+          }
+        }
+
         this.dispatch('success', {
           cancelable: false,
           detail: { requestUrl, results },

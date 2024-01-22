@@ -4,6 +4,12 @@
     {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
 {% endif %}
 
+{% if render_filters_fragment %}
+    <template id="filters-dialog-fragment">
+        {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters %}
+    </template>
+{% endif %}
+
 <form id="page-reorder-form">
     {% csrf_token %}
 

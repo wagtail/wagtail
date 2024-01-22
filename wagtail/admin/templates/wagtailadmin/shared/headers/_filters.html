@@ -1,0 +1,5 @@
+{% load wagtailadmin_tags %}
+
+{% for field in filters.form %}
+    {% formattedfield field %}
+{% endfor %}
