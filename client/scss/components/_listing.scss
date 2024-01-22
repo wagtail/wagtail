@@ -678,3 +678,20 @@ table.listing {
     color: theme('colors.text-link-default');
   }
 }
+
+.w-title-ellipsis {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 20ch;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    max-width: 30ch;
+  }
+
+  @include media-breakpoint-up(md) {
+    max-width: none;
+  }
+}

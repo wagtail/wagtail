@@ -559,7 +559,10 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         page_ids = [page.id for page in response.context["pages"]]
         self.assertEqual(page_ids, [self.old_page.id])
-        self.assertContains(response, "Search within 'New page (simple page)'")
+        self.assertContains(
+            response,
+            "Search in '<span class=\"w-title-ellipsis\">New page (simple page)</span>'",
+        )
 
     def test_filter_by_page_type(self):
         new_page_child = SimplePage(
