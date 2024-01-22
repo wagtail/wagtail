@@ -263,9 +263,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                         ActiveFilter(
                             filter_def.label,
                             field.label_from_instance(item),
-                            self.get_url_without_filter_param_value(
-                                field_name, item.pk
-                            ),
+                            self.get_url_without_filter_param_value(field_name, item.pk)
+                            + "&filter_fragment=1",
                         )
                     )
             elif isinstance(filter_def, ModelChoiceFilter):
@@ -274,7 +273,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         filter_def.label,
                         field.label_from_instance(value),
-                        self.get_url_without_filter_param(field_name),
+                        self.get_url_without_filter_param(field_name)
+                        + "&filter_fragment=1",
                     )
                 )
             elif isinstance(filter_def, DateFromToRangeFilter):
@@ -286,7 +286,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                         "%s - %s" % (start_date_display, end_date_display),
                         self.get_url_without_filter_param(
                             [f"{field_name}_before", f"{field_name}_after"]
-                        ),
+                        )
+                        + "&filter_fragment=1",
                     )
                 )
             elif isinstance(filter_def, ChoiceFilter):
@@ -295,7 +296,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         filter_def.label,
                         choices.get(str(value), str(value)),
-                        self.get_url_without_filter_param(field_name),
+                        self.get_url_without_filter_param(field_name)
+                        + "&filter_fragment=1",
                     )
                 )
             else:
@@ -303,7 +305,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         filter_def.label,
                         str(value),
-                        self.get_url_without_filter_param(field_name),
+                        self.get_url_without_filter_param(field_name)
+                        + "&filter_fragment=1",
                     )
                 )
 
@@ -422,5 +425,14 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             context["filters"] = self.filters
             context["is_filtering"] = self.is_filtering
             context["media"] += self.filters.form.media
+
+        # If we're rendering the results as an HTML fragment, the caller can pass a filter_fragment=1
+        # URL parameter to indicate that the filters should be rendered as a <template> block so that
+        # we can replace the existing filters.
+        context["render_filters_fragment"] = (
+            self.request.GET.get("filter_fragment")
+            and self.filters
+            and self.results_only
+        )
 
         return context
