@@ -159,6 +159,28 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
 
+    def test_ordering_search_results_by_created_at(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"q": "page", "ordering": "latest_revision_created_at"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # child pages should be ordered by updated_at, oldest first
+        page_ids = [page.id for page in response.context["pages"]]
+        self.assertEqual(page_ids, [self.old_page.id, self.new_page.id])
+
+    def test_ordering_search_results_by_content_type(self):
+        # Ordering search results by content_type is not currently supported,
+        # but should not cause an error
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"q": "page", "ordering": "content_type"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
     def test_change_default_child_page_ordering_attribute(self):
         # save old get_default_order to reset at end of test
         # overriding class methods does not reset at end of test case

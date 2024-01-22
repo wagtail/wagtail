@@ -285,15 +285,19 @@ class BaseIndexView(generic.IndexView):
         if self.ordering == "ord":
             # preserve the native ordering from get_children()
             pass
-        elif self.ordering == "latest_revision_created_at":
+        elif self.ordering == "latest_revision_created_at" and not self.is_searching:
             # order by oldest revision first.
             # Special case NULL entries - these should go at the top of the list.
+            # Skip this special case when searching (and fall through to plain field ordering
+            # instead) as search backends do not support F objects in order_by
             queryset = queryset.order_by(
                 F("latest_revision_created_at").asc(nulls_first=True)
             )
-        elif self.ordering == "-latest_revision_created_at":
+        elif self.ordering == "-latest_revision_created_at" and not self.is_searching:
             # order by oldest revision first.
             # Special case NULL entries - these should go at the end of the list.
+            # Skip this special case when searching (and fall through to plain field ordering
+            # instead) as search backends do not support F objects in order_by
             queryset = queryset.order_by(
                 F("latest_revision_created_at").desc(nulls_last=True)
             )
