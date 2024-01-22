@@ -29,7 +29,9 @@ class UnlockView(BaseOperationView):
         self.object.locked = False
         self.object.locked_by = None
         self.object.locked_at = None
-        self.object.save(update_fields=["locked", "locked_by", "locked_at"])
+        self.object.save(
+            update_fields=["locked", "locked_by", "locked_at"], clean=False
+        )
         log(instance=self.object, action="wagtail.unlock", user=self.request.user)
 
     def get_success_message(self):
