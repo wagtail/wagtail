@@ -16,7 +16,7 @@ class LockView(BaseOperationView):
         self.object.locked = True
         self.object.locked_by = self.request.user
         self.object.locked_at = timezone.now()
-        self.object.save(update_fields=["locked", "locked_by", "locked_at"])
+        self.object.save(False, update_fields=["locked", "locked_by", "locked_at"])
         log(instance=self.object, action="wagtail.lock", user=self.request.user)
 
 
