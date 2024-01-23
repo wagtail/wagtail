@@ -173,7 +173,7 @@ class BaseOperationView(BaseObjectMixin, View):
 
 # Represents a django-filters filter that is currently in force on a listing queryset
 ActiveFilter = namedtuple(
-    "ActiveFilter", ["field_name", "field_label", "value", "removed_filter_url"]
+    "ActiveFilter", ["auto_id", "field_label", "value", "removed_filter_url"]
 )
 
 
@@ -253,6 +253,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         for field_name in self.filters.form.changed_data:
             filter_def = self.filters.filters[field_name]
+            bound_field = self.filters.form[field_name]
             try:
                 value = self.filters.form.cleaned_data[field_name]
             except KeyError:
@@ -263,7 +264,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 for item in value:
                     filters.append(
                         ActiveFilter(
-                            field_name,
+                            bound_field.auto_id,
                             filter_def.label,
                             field.label_from_instance(item),
                             self.get_url_without_filter_param_value(
@@ -275,7 +276,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 field = filter_def.field
                 filters.append(
                     ActiveFilter(
-                        field_name,
+                        bound_field.auto_id,
                         filter_def.label,
                         field.label_from_instance(value),
                         self.get_url_without_filter_param(field_name),
@@ -286,7 +287,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 end_date_display = date_format(value.stop) if value.stop else ""
                 filters.append(
                     ActiveFilter(
-                        field_name,
+                        bound_field.auto_id,
                         filter_def.label,
                         "%s - %s" % (start_date_display, end_date_display),
                         self.get_url_without_filter_param(
@@ -298,7 +299,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                 choices = {str(id): label for id, label in filter_def.field.choices}
                 filters.append(
                     ActiveFilter(
-                        field_name,
+                        bound_field.auto_id,
                         filter_def.label,
                         choices.get(str(value), str(value)),
                         self.get_url_without_filter_param(field_name),
@@ -307,7 +308,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             else:
                 filters.append(
                     ActiveFilter(
-                        field_name,
+                        bound_field.auto_id,
                         filter_def.label,
                         str(value),
                         self.get_url_without_filter_param(field_name),
