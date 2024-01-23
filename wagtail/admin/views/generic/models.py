@@ -367,6 +367,7 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
+                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
                 )
             )
         return buttons
@@ -381,6 +382,10 @@ class IndexView(
                     url=self.xlsx_export_url,
                     icon_name="download",
                     priority=90,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
                 )
             )
             buttons.append(
@@ -389,6 +394,10 @@ class IndexView(
                     url=self.csv_export_url,
                     icon_name="download",
                     priority=100,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
                 )
             )
 
