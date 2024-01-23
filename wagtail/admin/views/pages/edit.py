@@ -19,6 +19,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
@@ -872,6 +873,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.page, self.request))
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)

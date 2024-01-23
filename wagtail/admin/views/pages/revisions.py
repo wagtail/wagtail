@@ -15,6 +15,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
@@ -95,6 +96,7 @@ def revisions_revert(request, page_id, revision_id):
     ]
     if page.is_previewable():
         side_panels.append(PreviewSidePanel(page, request, preview_url=preview_url))
+        side_panels.append(ChecksSidePanel(page, request))
     if form.show_comments_toggle:
         side_panels.append(CommentsSidePanel(page, request))
     side_panels = MediaContainer(side_panels)

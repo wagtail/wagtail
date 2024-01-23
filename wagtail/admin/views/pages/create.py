@@ -16,6 +16,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
@@ -363,6 +364,12 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             side_panels.append(
                 PreviewSidePanel(
                     self.page, self.request, preview_url=self.get_preview_url()
+                )
+            )
+            side_panels.append(
+                ChecksSidePanel(
+                    self.page,
+                    self.request,
                 )
             )
         if self.form.show_comments_toggle:
