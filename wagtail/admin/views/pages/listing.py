@@ -347,10 +347,10 @@ class BaseIndexView(generic.IndexView):
         kwargs["actions_next_url"] = self.index_url
 
         if self.show_ordering_column:
+            kwargs["caption"] = _(
+                "Focus on the drag button and press up or down arrows to move the item, then press enter to submit the change."
+            )
             kwargs["attrs"] = {
-                "aria-description": _(
-                    "Focus on the drag button and press up or down arrows to move the item, then press enter to submit the change."
-                ),
                 "data-controller": "w-orderable",
                 "data-w-orderable-active-class": "w-orderable--active",
                 "data-w-orderable-chosen-class": "w-orderable__item--active",
