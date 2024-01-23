@@ -32,18 +32,6 @@
                 </a>
                 {% icon name="arrow-right" classname=icon_classes %}
             </li>
-        {% elif forloop.first %}
-            {# For limited-permission users whose breadcrumb starts further down from the root #}
-            <li
-                class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
-                {% if not is_expanded %}hidden{% endif %}
-                data-w-breadcrumbs-target="content"
-            >
-                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
-                    {% trans "Root" %}
-                </a>
-                {% icon name="arrow-right" classname=icon_classes %}
-            </li>
         {% elif forloop.last %}
             <li
                 class="{{ breadcrumb_item_classes }} w-font-bold"
