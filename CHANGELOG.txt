@@ -1,10 +1,11 @@
 Changelog
 =========
 
-5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+5.2.3 (23.01.2024)
+~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
+ * Fix: Specify telepath 0.3.1 as the minimum supported version, for Django 5.0 compatibility (Matt Westcott)
 
 
 5.2.2 (06.12.2023)
