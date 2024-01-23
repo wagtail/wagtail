@@ -32,7 +32,7 @@ export class DrilldownController extends Controller<HTMLElement> {
       );
       const filteredParams = new URLSearchParams();
       params.forEach((value, key) => {
-        if (value.trim() !== '') {
+        if (value.trim() !== '' && !key.startsWith('_w_')) {
           // Check if the value is not empty after trimming white space
           filteredParams.append(key, value);
         }
