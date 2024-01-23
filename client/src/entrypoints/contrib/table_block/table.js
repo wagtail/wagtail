@@ -32,20 +32,13 @@ function initTable(id, tableOptions) {
     });
     return htCoreHeight + tableParent.find('[data-field]').first().height();
   };
-  const resizeTargets = [`#${containerId}`, '.wtHider', '.wtHolder'];
+  const resizeTargets = [`#${containerId}`];
   const resizeHeight = function (height) {
     const currTable = $('#' + id);
     $.each(resizeTargets, function () {
       currTable.closest('[data-field]').find(this).height(height);
     });
   };
-  function resizeWidth(width) {
-    $.each(resizeTargets, function () {
-      $(this).width(width);
-    });
-    const $field = $('.w-field--table_input');
-    $field.width(width);
-  }
 
   try {
     dataForForm = JSON.parse(hiddenStreamInput.val());
@@ -60,17 +53,6 @@ function initTable(id, tableOptions) {
     if (hasOwn(dataForForm, 'table_header_choice')) {
       headerChoice.prop('value', dataForForm.table_header_choice);
     }
-  }
-
-  if (!hasOwn(tableOptions, 'width') || !hasOwn(tableOptions, 'height')) {
-    // Size to parent field width if width is not given in tableOptions
-    $(window).on('resize', () => {
-      hot.updateSettings({
-        width: getWidth(),
-        height: getHeight(),
-      });
-      resizeWidth('100%');
-    });
   }
 
   const persist = function () {
@@ -211,12 +193,25 @@ function initTable(id, tableOptions) {
     }
   }
 
-  hot = new Handsontable(document.getElementById(containerId), finalOptions);
+  const container = document.getElementById(containerId);
+  hot = new Handsontable(container, finalOptions);
+
   window.addEventListener('load', () => {
     // Render the table. Calling render also removes 'null' literals from empty cells.
     hot.render();
-    resizeHeight(getHeight());
-    window.dispatchEvent(new Event('resize'));
+
+    if (!hasOwn(tableOptions, 'width') || !hasOwn(tableOptions, 'height')) {
+      // Size to parent field size if no width/height is given
+      const resizeHandler = () => {
+        hot.updateSettings({
+          width: getWidth(),
+          height: getHeight(),
+        });
+      };
+      resizeHandler();
+      const resizeObserver = new ResizeObserver(() => resizeHandler());
+      resizeObserver.observe(container.parentElement);
+    }
   });
 }
 window.initTable = initTable;
