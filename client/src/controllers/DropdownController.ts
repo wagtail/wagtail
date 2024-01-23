@@ -164,6 +164,10 @@ export class DropdownController extends Controller<HTMLElement> {
       this.dispatch('shown');
     };
 
+    const onHide = () => {
+      this.dispatch('hide');
+    };
+
     return {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
@@ -187,6 +191,7 @@ export class DropdownController extends Controller<HTMLElement> {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.enable();
         }
+        onHide();
       },
     };
   }
