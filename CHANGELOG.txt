@@ -141,7 +141,7 @@ Changelog
  * Maintenance: Remove non-functional and inaccessible auto-focus on first field in page create forms (LB (Ben) Johnston)
  * Maintenance: Migrate the unsaved form checks & confirmation trigger to Stimulus `UnsavedController` (Sai Srikar Dumpeti, LB (Ben) Johnston)
  * Maintenance: Reduce gap between snippets and generic views/templates (Sage Abdullah)
- * Maintenance: Migrate page listing menu re-ordering (drag & drop) from jQuery inline scripts to `OrderableController` (Aman Pandey, LB (Ben) Johnston)
+ * Maintenance: Migrate page listing menu re-ordering (drag & drop) from jQuery inline scripts to `OrderableController` with a more accessible solution (Aman Pandey, LB (Ben) Johnston)
  * Maintenance: Clean up scss variable usage, remove unused variables and mixins, adopt more core token variables (Jai Vignesh J, Nandini Arora, LB (Ben) Johnston)
  * Maintenance: Migrate Image URL generator views to class based views (Rohit Sharma)
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
