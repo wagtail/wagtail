@@ -98,6 +98,22 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
       throw new Error('Invalid template content.');
     }
 
+    // HACK:
+    // cloneNode doesn't run scripts, so we need to create new script elements
+    // and copy the attributes and innerHTML over. This is necessary when we're
+    // teleporting a template that contains legacy init code, e.g. initDateChooser.
+    // Only do this for inline scripts, as that's what we're expecting.
+    templateElement
+      .querySelectorAll('script:not([src], [type])')
+      .forEach((script) => {
+        const newScript = document.createElement('script');
+        Array.from(script.attributes).forEach((key) =>
+          newScript.setAttribute(key.nodeName, key.nodeValue || ''),
+        );
+        newScript.innerHTML = script.innerHTML;
+        script.replaceWith(newScript);
+      });
+
     return templateElement;
   }
 }
