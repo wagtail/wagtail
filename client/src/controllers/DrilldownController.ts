@@ -58,6 +58,16 @@ export class DrilldownController extends Controller<HTMLElement> {
   }
 
   /**
+   * Delay closing the submenu to allow the top-level menu to fade out first.
+   * Useful for resetting the state when the user clicks outside the menu.
+   * This can be used as an action for the w-dropdown:hidden event of the menu,
+   * e.g. data-action="w-dropdown:hidden->w-drilldown#delayedClose".
+   */
+  delayedClose() {
+    setTimeout(() => this.close(), 200);
+  }
+
+  /**
    * Derive the component’s targets based on the state,
    * so the drilldown state can be controlled externally more easily.
    */
