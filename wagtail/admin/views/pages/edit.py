@@ -63,7 +63,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             }
 
         if self.updated_by_another_user:
-            message += " " + _("Overwriting changes by another user.")
+            overwrite_warning_message = _(
+                "Page Revision %(initial_page_revision)s overwriting changes by another user in %(overwritten_page_revision)s."
+            ) % {
+                "initial_page_revision": self.request.POST.get("page_revision_id"),
+                "overwritten_page_revision": self.page.get_latest_revision().id,
+            }
+            messages.warning(self.request, overwrite_warning_message)
 
         messages.success(self.request, message)
 
@@ -517,8 +523,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             latest_revision = self.page.get_latest_revision()
             if (
                 latest_revision
-                and self.request.POST.get("version")
-                and int(latest_revision.id) != int(self.request.POST.get("version"))
+                and self.request.POST.get("page_revision_id")
+                and int(latest_revision.id)
+                != int(self.request.POST.get("page_revision_id"))
             ):
                 self.updated_by_another_user = True
             else:
