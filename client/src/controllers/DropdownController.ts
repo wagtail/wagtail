@@ -219,11 +219,19 @@ export class DropdownController extends Controller<HTMLElement> {
     // function, so we need to get these ahead in time.
     const reference = this.reference;
     const toggleTarget = this.toggleTarget;
+    const dispatch = this.dispatch.bind(this);
 
     return {
       name: 'hideTooltipOnClickAway',
       fn(instance: Instance) {
         const onClick = (e: MouseEvent) => {
+          const event = dispatch('clickaway', {
+            cancelable: true,
+            detail: { target: e.target },
+          });
+          if (event.defaultPrevented) {
+            return;
+          }
           if (
             instance.state.isShown &&
             // Hide if the click is outside of the reference element,
