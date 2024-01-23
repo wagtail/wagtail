@@ -79,7 +79,7 @@
                         {% endif %}
 
                         {% if filters %}
-                            <div id="filters-drilldown" class="w-drilldown" data-controller="w-drilldown" data-action="w-swap:success@document->w-drilldown#updateParamsCount w-dropdown:hide->w-drilldown#delayedClose">
+                            <div id="filters-drilldown" class="w-drilldown" data-controller="w-drilldown" data-action="w-swap:success@document->w-drilldown#updateParams w-dropdown:hide->w-drilldown#delayedClose" data-w-drilldown-count-attr-value="data-w-active-filter-name">
                                 {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters only %}
                             </div>
                         {% endif %}

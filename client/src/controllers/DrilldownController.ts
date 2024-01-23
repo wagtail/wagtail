@@ -10,21 +10,44 @@ export class DrilldownController extends Controller<HTMLElement> {
   static values = {
     // Default: main menu.
     activeSubmenu: { default: '', type: String },
+    countAttr: { default: '', type: String },
   };
 
   declare activeSubmenuValue: string;
+  declare countAttrValue: string;
 
-  declare readonly countTarget: HTMLElement;
+  declare readonly countTargets: HTMLElement[];
   declare readonly menuTarget: HTMLElement;
   declare readonly toggleTargets: HTMLButtonElement[];
 
-  connect() {
-    const filteredParams = new URLSearchParams(window.location.search);
-    this.countTarget.hidden = filteredParams.size === 0;
-    this.countTarget.textContent = filteredParams.size.toString();
+  countTargetConnected() {
+    this.updateCount();
   }
 
-  updateParamsCount(e: Event) {
+  /**
+   * Update the count of items in the menu.
+   * This is done by counting the number of elements with the data attribute
+   * specified by the countAttrValue value that have the same value as the
+   * data-count-name attribute of the countTarget.
+   * If the countTarget does not have a data-count-name attribute, then all
+   * elements with the data attribute specified by the countAttrValue value
+   * are counted.
+   */
+  updateCount() {
+    const total = document.querySelectorAll(`[${this.countAttrValue}]`).length;
+    this.countTargets.forEach((countTarget) => {
+      const name = countTarget.dataset.countName;
+      const count = name
+        ? document.querySelectorAll(`[${this.countAttrValue}=${name}]`).length
+        : total;
+      // eslint-disable-next-line no-param-reassign
+      countTarget.hidden = count === 0;
+      // eslint-disable-next-line no-param-reassign
+      countTarget.textContent = count.toString();
+    });
+  }
+
+  updateParams(e: Event) {
     const swapEvent = e as CustomEvent<{ requestUrl: string }>;
     if ((e.target as HTMLElement)?.id === 'listing-results') {
       const params = new URLSearchParams(
@@ -39,11 +62,8 @@ export class DrilldownController extends Controller<HTMLElement> {
       });
       const queryString = `?${filteredParams.toString()}`;
       window.history.replaceState(null, '', queryString);
-
-      // Update the drilldown’s count badge based on remaining filter parameters.
-      this.countTarget.hidden = filteredParams.size === 0;
-      this.countTarget.textContent = filteredParams.size.toString();
     }
+    this.updateCount();
   }
 
   open(e: MouseEvent) {
