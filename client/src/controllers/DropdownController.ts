@@ -176,7 +176,7 @@ export class DropdownController extends Controller<HTMLElement> {
       trigger: 'click',
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
-      getReferenceClientRect: () => this.getReference().getBoundingClientRect(),
+      getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
       plugins: this.plugins,
       onShow() {
@@ -207,7 +207,7 @@ export class DropdownController extends Controller<HTMLElement> {
   /**
    * Use a different reference element depending on the theme.
    */
-  getReference() {
+  get reference() {
     const toggleParent = this.toggleTarget.parentElement as HTMLElement;
     return this.themeValue === 'dropdown-button'
       ? (toggleParent.parentElement as HTMLElement)
