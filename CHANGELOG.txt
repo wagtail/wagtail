@@ -144,6 +144,7 @@ Changelog
  * Maintenance: Clean up scss variable usage, remove unused variables and mixins, adopt more core token variables (Jai Vignesh J, Nandini Arora, LB (Ben) Johnston)
  * Maintenance: Migrate Image URL generator views to class based views (Rohit Sharma)
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
+ * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
 
 
 5.2.3 (23.01.2024)
