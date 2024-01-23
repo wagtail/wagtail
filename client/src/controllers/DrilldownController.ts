@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+import { ActionController } from './ActionController';
+import { DropdownController } from './DropdownController';
 
 /**
  * Drilldown menu interaction combined with URL-driven
@@ -13,15 +15,42 @@ export class DrilldownController extends Controller<HTMLElement> {
     countAttr: { default: '', type: String },
   };
 
+  static outlets = [
+    // w-action outlet for submenu toggles that are outside the drilldown.
+    // We don't really use anything specific to ActionController, we just need
+    // a Stimulus controller to be able to use the outlet. As with toggle targets,
+    // these need to have aria-controls.
+    'w-action',
+
+    // w-dropdown outlet for the popup menu, to allow interacting with the
+    // DropdownController programmatically.
+    'w-dropdown',
+  ];
+
   declare activeSubmenuValue: string;
   declare countAttrValue: string;
 
   declare readonly countTargets: HTMLElement[];
   declare readonly menuTarget: HTMLElement;
   declare readonly toggleTargets: HTMLButtonElement[];
+  declare readonly hasWDropdownOutlet: boolean;
+  declare readonly wActionOutlets: ActionController[];
+  declare readonly wDropdownOutlet: DropdownController;
 
   countTargetConnected() {
     this.updateCount();
+  }
+
+  connect(): void {
+    this.open = this.open.bind(this);
+  }
+
+  wActionOutletConnected(_: ActionController, element: HTMLElement) {
+    element.addEventListener('click', this.open);
+  }
+
+  wActionOutletDisconnected(_: ActionController, element: HTMLElement) {
+    element.removeEventListener('click', this.open);
   }
 
   /**
@@ -107,7 +136,33 @@ export class DrilldownController extends Controller<HTMLElement> {
     }
   }
 
+  /**
+   * Prevent clicks on the w-action outlets from closing the dropdown.
+   * Usage: data-action="w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
+   */
+  preventOutletClickaway(e: Event) {
+    const clickawayEvent = e as CustomEvent<{ target: HTMLElement }>;
+    const target = clickawayEvent.detail.target;
+    if (!target) return;
+    const controlledIds = this.toggleTargets.map((toggle) =>
+      toggle.getAttribute('aria-controls'),
+    );
+    const clickawayControl =
+      target.closest('button')?.getAttribute('aria-controls') || '';
+    if (controlledIds.includes(clickawayControl)) {
+      e.preventDefault();
+    }
+  }
+
   toggle(expanded: boolean, toggle: HTMLButtonElement) {
+    // If we're expanding, the toggle may be inside the w-dropdown outlet while
+    // the dropdown is hidden (e.g. opening directly to a submenu from an
+    // overall collapsed state).
+    // Ensure that the dropdown is shown so Tippy renders the toggle in the DOM.
+    if (this.hasWDropdownOutlet && expanded) {
+      this.wDropdownOutlet.show();
+    }
+
     const controls = toggle.getAttribute('aria-controls');
     const content = this.element.querySelector<HTMLElement>(`#${controls}`);
     if (!content) {
