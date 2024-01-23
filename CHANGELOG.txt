@@ -49,6 +49,7 @@ Changelog
  * Keep database state of pages and snippets updated while in draft state (Stefan Hammer)
  * Add the accessibility checker within the page and snippets editor (Thibaud Colas)
  * Add `DrilldownController` and `w-drilldown` component to support drilldown menus (Thibaud Colas)
+ * Add support for `caption` on admin UI Table component (Aman Pandey)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
