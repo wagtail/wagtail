@@ -791,6 +791,7 @@
 * Osaf AliSayed
 * Ramchandra Shahi Thakuri
 * Nix Asteri
+* Karthik Ayangar
 
 ## Translators
 

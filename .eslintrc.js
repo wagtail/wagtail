@@ -55,6 +55,14 @@ module.exports = {
     'import/resolver': { node: { extensions: ['.js', '.ts', '.tsx'] } },
   },
   overrides: [
+    // Rules that needs to be adjusted for TypeScript only files
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/no-shadow': 'error',
+        'no-shadow': 'off',
+      },
+    },
     // Rules that we are ignoring currently due to legacy code in React components only
     {
       files: ['client/src/components/**'],
