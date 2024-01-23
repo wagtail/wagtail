@@ -213,7 +213,7 @@ For more complex widgets we can now integrate additional libraries whenever the 
 
 In this example we will build a color picker widget using the [Coloris](https://coloris.js.org/) JavaScript library with support for custom widget options.
 
-First, let's start with the HTML, building on the [Django widgets](django:ref/forms/widgets) system that Wagtail supports for `FieldPanel` and `FieldBlock`. Using the `build_attrs` method, we build up the appropriate Stimulus data attributes to support common data structures being passed into the controller.
+First, let's start with the HTML, building on the [Django widgets](inv:django#ref/forms/widgets) system that Wagtail supports for `FieldPanel` and `FieldBlock`. Using the `build_attrs` method, we build up the appropriate Stimulus data attributes to support common data structures being passed into the controller.
 
 Observe that we are using `json.dumps` for complex values (a list of strings in this case), Django will automatically escape these values when rendered to avoid common causes of insecure client-side code.
 
