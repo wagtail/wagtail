@@ -12,6 +12,7 @@
                 <button class="w-drilldown__toggle" type="button" aria-expanded="false" aria-controls="drilldown-{{ field.auto_id }}" data-w-drilldown-target="toggle" data-action="click->w-drilldown#open">
                     {{ field.label }}
                     <div class="w-flex w-items-center w-gap-2">
+                        <span class="w-drilldown__count" data-w-drilldown-target="count" data-count-name="{{ field.name }}" hidden></span>
                         {% icon name="arrow-right" %}
                     </div>
                 </button>
