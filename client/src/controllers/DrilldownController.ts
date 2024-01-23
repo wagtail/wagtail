@@ -1,19 +1,27 @@
 import { Controller } from '@hotwired/stimulus';
 
+/**
+ * Drilldown menu interaction combined with URL-driven
+ * state management for listing filters.
+ */
 export class DrilldownController extends Controller<HTMLElement> {
-  static targets = ['menu', 'toggle'];
+  static targets = ['count', 'menu', 'toggle'];
 
   static values = {
+    // Default: main menu.
     activeSubmenu: { default: '', type: String },
   };
 
   declare activeSubmenuValue: string;
 
+  declare readonly countTarget: HTMLElement;
   declare readonly menuTarget: HTMLElement;
   declare readonly toggleTargets: HTMLButtonElement[];
 
   connect() {
-    this.updateToggleCounts();
+    const filteredParams = new URLSearchParams(window.location.search);
+    this.countTarget.hidden = filteredParams.size === 0;
+    this.countTarget.textContent = filteredParams.size.toString();
   }
 
   updateParamsCount(e: Event) {
@@ -29,9 +37,12 @@ export class DrilldownController extends Controller<HTMLElement> {
           filteredParams.append(key, value);
         }
       });
-      const queryString = '?' + filteredParams.toString();
-      this.updateToggleCounts();
+      const queryString = `?${filteredParams.toString()}`;
       window.history.replaceState(null, '', queryString);
+
+      // Update the drilldown’s count badge based on remaining filter parameters.
+      this.countTarget.hidden = filteredParams.size === 0;
+      this.countTarget.textContent = filteredParams.size.toString();
     }
   }
 
@@ -44,9 +55,12 @@ export class DrilldownController extends Controller<HTMLElement> {
 
   close() {
     this.activeSubmenuValue = '';
-    this.updateToggleCounts();
   }
 
+  /**
+   * Derive the component’s targets based on the state,
+   * so the drilldown state can be controlled externally more easily.
+   */
   activeSubmenuValueChanged(activeSubmenu: string, prevActiveSubmenu?: string) {
     if (prevActiveSubmenu) {
       const toggle = document.querySelector(
@@ -72,45 +86,11 @@ export class DrilldownController extends Controller<HTMLElement> {
     toggle.setAttribute('aria-expanded', expanded.toString());
     content.hidden = !expanded;
     this.menuTarget.hidden = expanded;
-    this.element.classList.toggle('w-drilldown--active', expanded);
 
     if (expanded) {
       content.focus();
     } else {
       toggle.focus();
     }
-  }
-
-  /**
-   * Placeholder function until this is more correctly set up with the backend.
-   */
-  updateToggleCounts() {
-    let sum = 0;
-
-    this.toggleTargets.forEach((toggle) => {
-      const content = this.element.querySelector<HTMLElement>(
-        `#${toggle.getAttribute('aria-controls')}`,
-      );
-      const counter = toggle.querySelector<HTMLElement>('.w-drilldown__count');
-      if (!content || !counter) {
-        return;
-      }
-      // Hack to detect fields with a non-default value.
-      const nbActiveFields = content.querySelectorAll(
-        '[type="checkbox"]:checked, [type="radio"]:checked:not([id$="_0"]), option:checked:not(:first-child), input:not([type="checkbox"], [type="radio"]):not(:placeholder-shown)',
-      ).length;
-      counter.hidden = nbActiveFields === 0;
-      counter.textContent = nbActiveFields.toString();
-      sum += nbActiveFields;
-    });
-
-    const sumCounter = this.element.querySelector<HTMLElement>(
-      '.w-drilldown__count',
-    );
-    if (!sumCounter) {
-      return;
-    }
-    sumCounter.hidden = sum === 0;
-    sumCounter.textContent = sum.toString();
   }
 }

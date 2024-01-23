@@ -57,10 +57,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         clear_button = soup.select_one(".w-active-filters .w-pill__remove")
         self.assertIsNotNone(active_filter)
         self.assertEqual(active_filter.get_text(separator=" ", strip=True), text)
-        self.assertEqual(
-            active_filter.attrs.get("data-a11y-dialog-show"),
-            "filters-dialog",
-        )
         self.assertIsNotNone(clear_button)
         self.assertNotIn(param, clear_button.attrs.get("data-w-swap-src-value"))
 

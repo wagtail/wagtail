@@ -62,6 +62,7 @@
 
 .w-drilldown__submenu .w-field__label {
   @apply w-label-1;
+  // Align with the submenu’s back button.
   margin-top: theme('spacing.2');
   margin-bottom: theme('spacing.3');
 }
@@ -76,8 +77,10 @@
   font-weight: theme('fontWeight.bold');
   border-radius: theme('borderRadius.full');
   background-color: theme('colors.info.100');
+  border: 1px solid theme('colors.info.100');
   color: theme('colors.white.DEFAULT');
 
+  // Reuse the same count component as a button badge.
   .w-filter-button & {
     position: absolute;
     top: calc(-0.5 * #{$badge-size});
