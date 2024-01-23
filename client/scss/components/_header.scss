@@ -174,7 +174,7 @@
     @apply w-mx-2 w-flex w-items-center w-gap-2;
   }
 
-  .w-field__wrapper:not(.w-dialog .w-field__wrapper) {
+  .w-field__wrapper:not(.w-drilldown .w-field__wrapper) {
     @apply w-mb-0;
 
     .w-field__input {

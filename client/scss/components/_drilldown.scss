@@ -60,10 +60,15 @@
   }
 }
 
+.w-drilldown__submenu .w-field__wrapper {
+  // Align the margin-top with the submenu’s back button
+  // and reduce the default margin-bottom.
+  margin-top: theme('spacing.2');
+  margin-bottom: theme('spacing.2');
+}
+
 .w-drilldown__submenu .w-field__label {
   @apply w-label-1;
-  // Align with the submenu’s back button.
-  margin-top: theme('spacing.2');
   margin-bottom: theme('spacing.3');
 }
 
