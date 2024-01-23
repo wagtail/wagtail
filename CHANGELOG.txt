@@ -46,6 +46,7 @@ Changelog
  * Replace legacy dropdown component with new Tippy dropdown-button (Thibaud Colas)
  * Add ability to filter by existence of child pages in the page listing view (Matt Westcott)
  * Polish dark theme styles and update color tokens (Thibaud Colas, Rohit Sharma)
+ * Keep database state of pages and snippets updated while in draft state (Stefan Hammer)
  * Add the accessibility checker within the page and snippets editor (Thibaud Colas)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
