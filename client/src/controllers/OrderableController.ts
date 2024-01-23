@@ -1,7 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
-// eslint-disable-next-line no-shadow
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',

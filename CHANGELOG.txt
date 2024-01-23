@@ -13,6 +13,7 @@ Changelog
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
+ * Maintenance: Adjust Eslint rules for TypeScript files (Karthik Ayangar)
 
 
 6.0 (xx.xx.xxxx) - IN DEVELOPMENT
