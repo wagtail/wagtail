@@ -26,7 +26,6 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
         with self.assertRaises(TestSiteSetting.DoesNotExist):
             TestSiteSetting.for_request(request)
 
-    @override_settings(ALLOWED_HOSTS=["no-site-match.example"])
     def test_for_site_raises_does_not_exist_when_site_is_none(self):
         with self.assertRaises(TestSiteSetting.DoesNotExist):
             TestSiteSetting.for_site(None)

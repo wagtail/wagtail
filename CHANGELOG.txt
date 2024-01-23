@@ -46,7 +46,9 @@ Changelog
  * Replace legacy dropdown component with new Tippy dropdown-button (Thibaud Colas)
  * Add ability to filter by existence of child pages in the page listing view (Matt Westcott)
  * Polish dark theme styles and update color tokens (Thibaud Colas, Rohit Sharma)
+ * Keep database state of pages and snippets updated while in draft state (Stefan Hammer)
  * Add the accessibility checker within the page and snippets editor (Thibaud Colas)
+ * Add `DrilldownController` and `w-drilldown` component to support drilldown menus (Thibaud Colas)
  * Fix: Update system check for overwriting storage backends to recognise the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions wide viewports (CheesyPhoenix, Christer Jensen)
@@ -81,6 +83,7 @@ Changelog
  * Fix: Raise a 404 for bulk actions for models which don't exist instead of throwing a 500 error (Alex Tomkins)
  * Fix: Raise a `SiteSetting.DoesNotExist` error when retrieving settings for an unrecognised site (Nick Smith)
  * Fix: Ensure that defaulted or unique values declared in `exclude_fields_in_copy` are correctly excluded in new copies, resolving to the default value (Elhussein Almasri)
+ * Fix: Ensure that `default_ordering` set on IndexView is preserved if ModelViewSet does not specify an explicit ordering (Cynthia Kiser)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
  * Docs: Add section to testing docs about creating pages and working with page content (Mariana Bedran Lesche)
@@ -143,10 +146,11 @@ Changelog
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
 
 
-5.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+5.2.3 (23.01.2024)
+~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent a ValueError with `FormSubmissionsPanel` on Django 5.0 when creating a new form page (Matt Westcott)
+ * Fix: Specify telepath 0.3.1 as the minimum supported version, for Django 5.0 compatibility (Matt Westcott)
 
 
 5.2.2 (06.12.2023)

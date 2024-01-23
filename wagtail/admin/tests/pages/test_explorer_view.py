@@ -57,10 +57,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         clear_button = soup.select_one(".w-active-filters .w-pill__remove")
         self.assertIsNotNone(active_filter)
         self.assertEqual(active_filter.get_text(separator=" ", strip=True), text)
-        self.assertEqual(
-            active_filter.attrs.get("data-a11y-dialog-show"),
-            "filters-dialog",
-        )
         self.assertIsNotNone(clear_button)
         self.assertNotIn(param, clear_button.attrs.get("data-w-swap-src-value"))
 
@@ -630,7 +626,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         page_type_labels = {
             list(label.children)[-1].strip()
-            for label in soup.select("#filters-dialog #id_content_type label")
+            for label in soup.select("#id_content_type label")
         }
         self.assertIn("Simple page", page_type_labels)
         self.assertNotIn("Page", page_type_labels)
