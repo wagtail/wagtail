@@ -62,7 +62,7 @@ def create_default_workflows(apps, schema_editor):
             )
             task.groups.set(groups)
 
-        # get a Workflow containing only this task if if exists, otherwise create it
+        # get a Workflow containing only this task if it exists, otherwise create it
         workflow = (
             Workflow.objects.annotate(task_number=Count("workflow_tasks"))
             .filter(task_number=1)

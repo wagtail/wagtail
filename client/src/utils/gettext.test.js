@@ -70,7 +70,7 @@ describe('gettextNoop', () => {
 });
 
 describe('pluralIdx', () => {
-  it('should return false if if Django pluralidx is not loaded', () => {
+  it('should return false if Django pluralidx is not loaded', () => {
     expect(pluralIdx(3)).toEqual(false);
   });
 
