@@ -51,10 +51,10 @@ WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
 
 ## Document password required template
 
-Wagtail provides the `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` setting to use a custom template when a password is required to access a protected document. Read more about [](private_pages).
+Wagtail provides the `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` setting to use a custom template when a password is required to access a protected document. Read more about [](private_pages).
 
 Here's an example:
 
 ```python
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
