@@ -6,7 +6,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
@@ -21,6 +21,7 @@ from wagtail.test.testapp.models import (
     SearchTestModel,
     VariousOnDeleteModel,
 )
+from wagtail.test.testapp.views import FCToyAlt1ViewSet
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -1304,6 +1305,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
             ),
             (
+                "Copy",
+                f"Copy '{self.object}'",
+                reverse("feature_complete_toy:copy", args=[quote(self.object.pk)]),
+            ),
+            (
                 "Inspect",
                 f"Inspect '{self.object}'",
                 reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
@@ -1324,6 +1330,82 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.text.strip(), label)
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+
+    def test_copy_disabled(self):
+        response = self.client.get(reverse("fctoy_alt1:index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
+        self.assertIsNotNone(more_dropdown)
+        more_button = more_dropdown.select_one("button")
+        self.assertEqual(
+            more_button.attrs.get("aria-label").strip(),
+            f"More options for '{self.object}'",
+        )
+
+        expected_buttons = [
+            (
+                "Edit",
+                f"Edit '{self.object}'",
+                reverse("fctoy_alt1:edit", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Inspect",
+                f"Inspect '{self.object}'",
+                reverse("fctoy_alt1:inspect", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Delete",
+                f"Delete '{self.object}'",
+                reverse("fctoy_alt1:delete", args=[quote(self.object.pk)]),
+            ),
+        ]
+
+        rendered_buttons = more_dropdown.select("a")
+        self.assertEqual(len(rendered_buttons), len(expected_buttons))
+
+        for rendered_button, (label, aria_label, url) in zip(
+            rendered_buttons, expected_buttons
+        ):
+            self.assertEqual(rendered_button.text.strip(), label)
+            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
+            self.assertEqual(rendered_button.attrs.get("href"), url)
+
+
+class TestCopyView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.url = reverse("feature_complete_toy:copy", args=[quote(self.object.pk)])
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_form_is_prefilled(self):
+        request = RequestFactory().get(self.url)
+        request.user = self.user
+        view = FCToyAlt1ViewSet().copy_view_class()
+        view.setup(request)
+        view.model = self.object.__class__
+        view.kwargs = {"pk": self.object.pk}
+
+        self.assertEqual(view.get_form_kwargs()["instance"], self.object)
 
 
 class TestEditHandler(WagtailTestUtils, TestCase):

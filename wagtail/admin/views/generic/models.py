@@ -107,6 +107,7 @@ class IndexView(
     results_template_name = "wagtailadmin/generic/index_results.html"
     add_url_name = None
     edit_url_name = None
+    copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -326,6 +327,10 @@ class IndexView(
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
+    def get_copy_url(self, instance):
+        if self.copy_url_name:
+            return reverse(self.copy_url_name, args=(quote(instance.pk),))
+
     def get_inspect_url(self, instance):
         if self.inspect_url_name:
             return reverse(self.inspect_url_name, args=(quote(instance.pk),))
@@ -367,6 +372,7 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
+                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
                 )
             )
         return buttons
@@ -381,6 +387,10 @@ class IndexView(
                     url=self.xlsx_export_url,
                     icon_name="download",
                     priority=90,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
                 )
             )
             buttons.append(
@@ -389,6 +399,10 @@ class IndexView(
                     url=self.csv_export_url,
                     icon_name="download",
                     priority=100,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
                 )
             )
 
@@ -411,6 +425,20 @@ class IndexView(
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
                     },
                     priority=10,
+                )
+            )
+        copy_url = self.get_copy_url(instance)
+        can_copy = self.permission_policy.user_has_permission(self.request.user, "add")
+        if copy_url and can_copy:
+            buttons.append(
+                ListingButton(
+                    _("Copy"),
+                    url=copy_url,
+                    icon_name="copy",
+                    attrs={
+                        "aria-label": _("Copy '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=20,
                 )
             )
         inspect_url = self.get_inspect_url(instance)
@@ -674,6 +702,14 @@ class CreateView(
         if error_message is not None:
             messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
+
+
+class CopyView(CreateView):
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+
+    def get_form_kwargs(self):
+        return {**super().get_form_kwargs(), "instance": self.get_object()}
 
 
 class EditView(

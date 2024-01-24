@@ -57,6 +57,7 @@ class MemberViewSet(SnippetViewSet):
     icon = "user"
     list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
     list_per_page = 50
+    copy_view_enabled = False
     inspect_view_enabled = True
     admin_url_namespace = "member_views"
     base_url_path = "internal/member"
@@ -91,6 +92,14 @@ Similar URL customisations are also possible for the snippet chooser views throu
 You can customise the listing view to add custom columns, filters, pagination, etc. via various attributes available on the `SnippetViewSet`. Refer to [the listing view customisations for `ModelViewSet`](modelviewset_listing) for more details.
 
 Additionally, you can customise the base queryset for the listing view by overriding the {meth}`~SnippetViewSet.get_queryset` method.
+
+## Copy view
+
+```{versionadded} 6.0
+
+```
+
+The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`. Refer to [the copy view customisations for `ModelViewSet`](modelviewset_copy) for more details.
 
 ## Inspect view
 

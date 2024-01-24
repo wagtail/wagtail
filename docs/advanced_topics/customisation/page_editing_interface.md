@@ -236,6 +236,10 @@ so the form field for a model field can be overridden by adding it to the custom
 
 ## Customising the generated copy page form
 
+```{versionadded} 6.0
+
+```
+
 ```{eval-rst}
 .. class:: wagtail.admin.forms.CopyForm
 ```
