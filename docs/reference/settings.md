@@ -632,18 +632,18 @@ For new releases, Wagtail may show a notification banner on the dashboard that h
 
 ## Frontend authentication
 
-### `PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 ```
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-### `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
