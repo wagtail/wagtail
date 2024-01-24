@@ -95,20 +95,22 @@ export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
   static values = {
     hideOnClick: { default: false, type: Boolean },
+    keepMounted: { default: false, type: Boolean },
     offset: Array,
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
   // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
   // option for outside clicks that defaults to true and we don't yet expose it.
-  declare hideOnClickValue: boolean;
-  declare offsetValue: [number, number];
+  declare readonly hideOnClickValue: boolean;
+  declare readonly keepMountedValue: boolean;
+  declare readonly offsetValue: [number, number];
+  declare readonly hasOffsetValue: boolean;
+  declare readonly themeValue: TippyTheme;
 
   declare readonly contentTarget: HTMLDivElement;
   declare readonly hasContentTarget: boolean;
-  declare readonly hasOffsetValue: boolean;
   declare readonly toggleTarget: HTMLButtonElement;
-  declare readonly themeValue: TippyTheme;
 
   tippy?: Instance<Props>;
 
@@ -144,9 +146,21 @@ export class DropdownController extends Controller<HTMLElement> {
       });
     }
 
-    const onShow = () => {
+    const onCreate = (instance: Instance<Props>) => {
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        this.element.append(popper);
+        popper.hidden = true;
+      }
+    };
+
+    const onShow = (instance: Instance<Props>) => {
       if (hoverTooltipInstance) {
         hoverTooltipInstance.disable();
+      }
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        popper.hidden = false;
       }
     };
 
@@ -161,6 +175,14 @@ export class DropdownController extends Controller<HTMLElement> {
       }
     };
 
+    const onHidden = (instance: Instance<Props>) => {
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        this.element.append(popper);
+        popper.hidden = true;
+      }
+    };
+
     return {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
@@ -171,9 +193,11 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
+      onCreate,
       onShow,
       onShown,
       onHide,
+      onHidden,
     };
   }
 
