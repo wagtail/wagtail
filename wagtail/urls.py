@@ -18,7 +18,7 @@ else:
 
 
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
-    settings, "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/login.html"
+    settings, "WAGTAIL_FRONTEND_LOGIN_TEMPLATE", "wagtailcore/login.html"
 )
 
 

@@ -2550,7 +2550,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
     password_required_template = getattr(
-        settings, "PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/password_required.html"
+        settings, "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/password_required.html"
     )
 
     def serve_password_required_response(self, request, form, action_url):
