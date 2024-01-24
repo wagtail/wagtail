@@ -217,11 +217,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen doorverwijzingen aangemaakt. Waarom <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen doorverwijzingen aangemaakt. Waarom <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">voeg je er niet een toe</a>?"
 
 msgid "Search redirects"
 msgstr "Zoek doorverwijzingen"

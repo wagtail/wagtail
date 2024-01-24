@@ -28,7 +28,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -40,7 +40,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Florian Vogt <flori@vorlif.org>, 2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -446,19 +446,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Bilder in dieser Sammlung hochgeladen. Warum nicht "
 "jetzt <a href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a href="
-"\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
+"Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a "
+"href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 msgid "Generating URL"
 msgstr "URL wird erzeugt"

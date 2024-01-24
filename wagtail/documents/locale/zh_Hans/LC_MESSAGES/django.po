@@ -221,16 +221,16 @@ msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有文档。为何不 <a href=\"%(wagtaildocs_add_document_url)s\">上传"
 "一份</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
 "a> ？"
