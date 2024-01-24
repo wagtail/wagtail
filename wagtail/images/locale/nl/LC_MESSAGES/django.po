@@ -310,20 +310,6 @@ msgstr "Kies een formaat"
 msgid "Insert image"
 msgstr "Voeg afbeelding in"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> afbeelding <span class=\"w-sr-only\">aangemaakt "
-"ijn %(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> afbeeldingen <span class=\"w-sr-only"
-"\">aangemaakt in %(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
 
@@ -424,19 +410,19 @@ msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a href="
-"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a "
+"href=\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a href="
-"\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
+"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
+"href=\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
 
 msgid "Generating URL"
 msgstr "Bezig met URL genereren"

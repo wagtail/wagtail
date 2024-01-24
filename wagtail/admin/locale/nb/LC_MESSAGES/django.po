@@ -531,15 +531,15 @@ msgstr "Konverter til intern lenke"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med den "
-"interne siden %(page)s, som har URL-en <a target=\"_blank\" rel=\"noreferrer"
-"\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med "
+"den interne siden %(page)s, som har URL-en <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -622,11 +622,11 @@ msgstr "Navn"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ingen samlinger har blitt opprettet. Hvorfor ikke <a href="
-"\"%(add_collection_url)s\">legg til en</a>?"
+"Ingen samlinger har blitt opprettet. Hvorfor ikke <a "
+"href=\"%(add_collection_url)s\">legg til en</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -661,8 +661,8 @@ msgstr "Publiser %(model_name)s"
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
 "Denne %(model_name)s er for øyeblikket ved <strong>%(task)s</strong> i "
 "<strong>%(workflow)s</strong>."
@@ -680,14 +680,6 @@ msgstr "Avbryt"
 
 msgid "No log entries found."
 msgstr "Ingen loggoppføringer funnet."
-
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "Ingen %(model_name)s matcher forespørselen din."
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Det er ingen %(model_name)s å vise."
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -801,20 +793,6 @@ msgstr "Oppsummering for nettstedet"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Side <span class=\"w-sr-only\">opprettet i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Sider <span class=\"w-sr-only\">opprettet i "
-"%(site_name)s</span>"
-
-#, python-format
-msgid ""
 "Wagtail upgrade available. Your version: <strong>%(current_version)s</"
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
@@ -844,13 +822,13 @@ msgstr "Endringer har skjedd i Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
 "Editor Guide</a> for å få en oversikt over hva som har endret seg og noen "
 "spennende nye funksjoner!"
 
@@ -961,8 +939,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet %(task)s"
-"\"."
+"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet "
+"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
