@@ -185,9 +185,9 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: route
 
     .. automethod:: serve
-    
+
     .. automethod:: route_for_request
-    
+
     .. automethod:: find_for_request
 
     .. autoattribute:: context_object_name
@@ -311,7 +311,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: password_required_template
 
-        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
+        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
     .. attribute:: is_creatable
 
