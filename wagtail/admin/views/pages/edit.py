@@ -19,6 +19,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
@@ -522,7 +523,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             return self.save_action()
 
     def save_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -547,7 +548,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_and_remain()
 
     def publish_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -643,7 +644,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def submit_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -690,7 +691,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def restart_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # save revision
@@ -732,7 +733,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def perform_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         if self.has_content_changes:
@@ -772,7 +773,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
     def cancel_workflow_action(self):
         self.workflow_state.cancel(user=self.request.user)
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -872,6 +873,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.page, self.request))
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)

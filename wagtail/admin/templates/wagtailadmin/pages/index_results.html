@@ -4,6 +4,12 @@
     {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
 {% endif %}
 
+{% if render_filters_fragment %}
+    <template data-controller="w-teleport" data-w-teleport-target-value="#filters-drilldown" data-w-teleport-reset-value="true">
+        {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters %}
+    </template>
+{% endif %}
+
 <form id="page-reorder-form">
     {% csrf_token %}
 

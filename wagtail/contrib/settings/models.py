@@ -142,6 +142,8 @@ class BaseSiteSetting(AbstractSetting):
         """
         Get or create an instance of this setting for the site.
         """
+        if site is None:
+            raise cls.DoesNotExist("%s does not exist for site None." % cls)
         queryset = cls.base_queryset()
         instance, created = queryset.get_or_create(site=site)
         return instance

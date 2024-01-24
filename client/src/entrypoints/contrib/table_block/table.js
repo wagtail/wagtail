@@ -5,6 +5,18 @@
 import $ from 'jquery';
 import { hasOwn } from '../../../utils/hasOwn';
 
+/**
+ * Due to the limitations of Handsontable, the 'cell' elements do not accept keyboard focus.
+ * To achieve this we will convert each cell to contenteditable with plaintext (for browsers that support this).
+ * This is not a perfect fix, clicking in a cell and then using keyboard has some quirks.
+ * However, without these attributes the keyboard cannot navigate to edit these cells at a..
+ */
+const keyboardAccessAttrs = {
+  'contenteditable': 'true',
+  'plaintext-only': 'true',
+  'tabindex': '0',
+};
+
 function initTable(id, tableOptions) {
   const containerId = id + '-handsontable-container';
   var tableHeaderId = id + '-handsontable-header';
@@ -20,12 +32,12 @@ function initTable(id, tableOptions) {
   let hot = null;
   let dataForForm = null;
   let isInitialized = false;
+  const tableParent = $('#' + id).parent();
 
   const getWidth = function () {
     return $('.w-field--table_input').closest('.w-panel').width();
   };
   const getHeight = function () {
-    const tableParent = $('#' + id).parent();
     let htCoreHeight = 0;
     tableParent.find('.htCore').each(function () {
       htCoreHeight += $(this).height();
@@ -164,6 +176,10 @@ function initTable(id, tableOptions) {
   const structureEvent = function (index, amount) {
     resizeHeight(getHeight());
     persist();
+    // wait until the document is ready and add these attributes.
+    $(() => {
+      $(tableParent).find('td, th').attr(keyboardAccessAttrs);
+    });
   };
 
   headerChoice.on('change', () => {
@@ -216,6 +232,7 @@ function initTable(id, tableOptions) {
     // Render the table. Calling render also removes 'null' literals from empty cells.
     hot.render();
     resizeHeight(getHeight());
+    tableParent.find('td, th').attr(keyboardAccessAttrs);
     window.dispatchEvent(new Event('resize'));
   });
 }
@@ -263,6 +280,13 @@ class TableInput {
       <div id="${id}-handsontable-container"></div>
       <input type="hidden" name="${name}" id="${id}" placeholder="${this.strings['Table']}">
     `;
+    // added these attributes to allow  user move through Table  using 'keyboard` and enable edit it.
+    $(() => {
+      const tableParent = document.getElementById(
+        `${id}-handsontable-container`,
+      );
+      $(tableParent).find('td, th').attr(keyboardAccessAttrs);
+    });
     placeholder.replaceWith(container);
 
     const input = container.querySelector(`input[name="${name}"]`);

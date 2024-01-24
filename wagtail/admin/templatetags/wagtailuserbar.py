@@ -47,9 +47,8 @@ def wagtailuserbar(context, position="bottom-right"):
     if not user.has_perm("wagtailadmin.access_admin"):
         return ""
 
-    # Don't render if page is loaded in page editor's preview panel iframe
-    if getattr(request, "in_preview_panel", False):
-        return ""
+    # Render the userbar differently within the preview panel.
+    in_preview_panel = getattr(request, "in_preview_panel", False)
 
     # Render the userbar using the user's preferred admin language
     userprofile = UserProfile.get_for_user(user)
@@ -61,7 +60,11 @@ def wagtailuserbar(context, position="bottom-right"):
         except AttributeError:
             revision_id = None
 
-        if page and page.id:
+        if in_preview_panel:
+            items = [
+                AccessibilityItem(),
+            ]
+        elif page and page.id:
             if revision_id:
                 revision = Revision.page_revisions.get(id=revision_id)
                 items = [

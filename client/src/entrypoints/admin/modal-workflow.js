@@ -19,6 +19,9 @@ function ModalWorkflow(opts) {
     'onload' (optional): dict of callbacks to be called when loading a step of the workflow.
       The 'step' field in the response identifies the callback to call, passing it the
       modal object and response data as arguments
+    'triggerElement' (optional): element that triggered the modal.
+      It will be disabled while the modal is shown.
+      If not provided, defaults to `document.activeElement` (which may not work as expected in Safari).
   */
 
   const self = {};
@@ -37,8 +40,11 @@ function ModalWorkflow(opts) {
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
     $('body > .modal').remove();
 
-    // disable the trigger element so it cannot be clicked twice while modal is loading
-    self.triggerElement = document.activeElement;
+    // Disable the trigger element so it cannot be clicked twice while modal is loading, allow triggerElement to be passed in via opts.
+    // Important: Safari will not focus on an element on click so activeElement will not be set as expected
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
+    // https://bugs.webkit.org/show_bug.cgi?id=22261
+    self.triggerElement = opts.triggerElement || document.activeElement;
     self.triggerElement.setAttribute('disabled', true);
 
     // set default contents of container
@@ -61,6 +67,8 @@ function ModalWorkflow(opts) {
     self.container.on('hide.bs.modal', () => {
       if (!self.triggerElement.hasAttribute('data-force-disabled')) {
         self.triggerElement.removeAttribute('disabled');
+        // support w-progress controller reset if activated on the button's click
+        self.triggerElement.removeAttribute('data-w-progress-loading-value');
       }
     });
 

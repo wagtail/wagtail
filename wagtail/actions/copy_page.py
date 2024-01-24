@@ -221,6 +221,14 @@ class CopyPageAction:
                                 child_object["translation_key"]
                             )
 
+                for exclude_field in specific_page.exclude_fields_in_copy:
+                    if exclude_field in revision_content and hasattr(
+                        page_copy, exclude_field
+                    ):
+                        revision_content[exclude_field] = getattr(
+                            page_copy, exclude_field, None
+                        )
+
                 revision.content = revision_content
 
                 # Save

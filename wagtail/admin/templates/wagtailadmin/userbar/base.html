@@ -1,7 +1,8 @@
 {% load wagtailadmin_tags i18n %}
 <!-- Wagtail user bar embed code -->
 <template id="wagtail-userbar-template">
-    <aside>
+    {# In preview panels, we still render the userbar UI, but hidden by default. #}
+    <aside {% if request.in_preview_panel %}hidden{% endif %}>
         <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar part="userbar">
             <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
             {% hook_output 'insert_global_admin_css' %}

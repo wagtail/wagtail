@@ -304,7 +304,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
 
         # Should show the new tab button with the default mode set
@@ -332,7 +332,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
 
         # Should show the new tab button with the default mode set and correctly quoted
@@ -368,7 +368,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
 
         # Should show the new tab button with the default mode set
@@ -398,7 +398,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
         )
 
         # Should show the new tab button with the default mode set and correctly quoted
