@@ -80,25 +80,7 @@ export const rotateToggleIcon = {
   },
 };
 
-const themeOptions = {
-  'dropdown': {
-    arrow: true,
-    maxWidth: 350,
-    placement: 'bottom',
-  },
-  'drilldown': {
-    arrow: false,
-    maxWidth: 'none',
-    placement: 'bottom-end',
-  },
-  'dropdown-button': {
-    arrow: false,
-    maxWidth: 'none',
-    placement: 'bottom-start',
-  },
-} as const;
-
-type TippyTheme = keyof typeof themeOptions;
+type TippyTheme = 'dropdown' | 'drilldown' | 'dropdown-button';
 
 /**
  * A Tippy.js tooltip with interactive "dropdown" options.
@@ -174,14 +156,12 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
-      ...themeOptions[this.themeValue],
+      ...this.themeOptions,
       trigger: 'click',
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
-      hideOnClick: !this.useCustomHideOnClickAway,
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
-      plugins: this.plugins,
       onShow() {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.disable();
@@ -199,13 +179,35 @@ export class DropdownController extends Controller<HTMLElement> {
     };
   }
 
-  get useCustomHideOnClickAway() {
-    // Tippy's default hideOnClick option for "hiding on click away" doesn't
-    // work well with our datetime libraries. Instead, we use a custom plugin
-    // to hide the tooltip when clicking outside the dropdown. It's unlikely
-    // we'll render a datetime picker for themes other than drilldown, so use
-    // the custom solution for this theme only.
-    return this.themeValue === 'drilldown';
+  get themeOptions() {
+    return (
+      {
+        'dropdown': {
+          arrow: true,
+          maxWidth: 350,
+          placement: 'bottom',
+          plugins: this.plugins,
+        },
+        'drilldown': {
+          arrow: false,
+          maxWidth: 'none',
+          placement: 'bottom-end',
+          // Tippy's default hideOnClick option for "hiding on click away" doesn't
+          // work well with our datetime libraries. Instead, we use a custom plugin
+          // to hide the tooltip when clicking outside the dropdown. It's unlikely
+          // we'll render a datetime picker for themes other than drilldown, so use
+          // the custom solution for this theme only.
+          hideOnClick: false,
+          plugins: this.plugins.concat([this.hideTooltipOnClickAway]),
+        },
+        'dropdown-button': {
+          arrow: false,
+          maxWidth: 'none',
+          placement: 'bottom-start',
+          plugins: this.plugins,
+        },
+      } as const
+    )[this.themeValue];
   }
 
   /**
@@ -263,9 +265,6 @@ export class DropdownController extends Controller<HTMLElement> {
     ];
     if (this.hideOnClickValue) {
       plugins.push(hideTooltipOnClickInside);
-    }
-    if (this.useCustomHideOnClickAway) {
-      plugins.push(this.hideTooltipOnClickAway);
     }
     return plugins;
   }
