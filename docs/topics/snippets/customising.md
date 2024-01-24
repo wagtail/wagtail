@@ -95,6 +95,10 @@ Additionally, you can customise the base queryset for the listing view by overri
 
 ## Copy view
 
+```{versionadded} 6.0
+
+```
+
 The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`. Refer to [the copy view customisations for `ModelViewSet`](modelviewset_copy) for more details.
 
 ## Inspect view
