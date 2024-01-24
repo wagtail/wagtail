@@ -528,6 +528,8 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 
 Allows the default `LoginForm` to be extended with extra fields.
 
+(wagtailadmin_login_url)=
+
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python

@@ -99,6 +99,10 @@ If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.g
 
 ### Copy view
 
+```{versionadded} 6.0
+
+```
+
 The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
 
 The view's form will be generated in the same way as create or edit forms. To use a custom form, override the `copy_view_class` and modify the `form_class` property on that class.
