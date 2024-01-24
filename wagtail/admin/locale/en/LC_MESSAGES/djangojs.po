@@ -64,7 +64,7 @@ msgstr ""
 msgid "Character count:"
 msgstr ""
 
-#: src/entrypoints/admin/modal-workflow.js:50
+#: src/entrypoints/admin/modal-workflow.js:56
 msgid "Close"
 msgstr ""
 
@@ -109,13 +109,8 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:62
+#: src/components/PageExplorer/PageExplorerItem.tsx:60
 msgid "Edit '%(title)s'"
-msgstr ""
-
-#: src/components/Sidebar/modules/MainMenu.tsx:313
-#: src/components/Sidebar/modules/MainMenu.tsx:315
-msgid "Edit your account"
 msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:238
@@ -126,7 +121,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:209
+#: src/entrypoints/admin/preview-panel.js:276
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -139,7 +134,7 @@ msgstr ""
 msgid "Focus comment"
 msgstr ""
 
-#: src/components/Draftail/index.js:162
+#: src/components/Draftail/index.js:161
 msgid "Horizontal line"
 msgstr ""
 
@@ -147,7 +142,7 @@ msgstr ""
 msgid "Insert a block"
 msgstr ""
 
-#: src/components/Draftail/index.js:216
+#: src/components/Draftail/index.js:215
 msgid "Line break"
 msgstr ""
 
@@ -168,7 +163,7 @@ msgid "More actions"
 msgstr ""
 
 #: src/components/ComboBox/ComboBox.tsx:11
-#: src/components/Draftail/index.js:242
+#: src/components/Draftail/index.js:241
 #: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
@@ -202,7 +197,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/includes/chooserModal.js:52
+#: src/includes/chooserModal.js:51
 msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
@@ -261,7 +256,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
-#: src/includes/chooserModal.js:62
+#: src/includes/chooserModal.js:61
 msgid "Server Error"
 msgstr ""
 
@@ -281,7 +276,7 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/includes/chooserModal.js:22
+#: src/includes/chooserModal.js:21
 msgid "This field is required."
 msgstr ""
 
@@ -302,10 +297,10 @@ msgstr ""
 msgid "Unpin toolbar"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:75
+#: src/components/PageExplorer/PageExplorerItem.tsx:73
 msgid "View child pages of '%(title)s'"
 msgstr ""
 
-#: src/components/Draftail/index.js:213
+#: src/components/Draftail/index.js:212
 msgid "Write something or type ‘/’ to insert a block"
 msgstr ""

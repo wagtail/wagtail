@@ -19,6 +19,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -30,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -264,19 +265,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a href="
-"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</a>"
+"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Dokumente hochgeladen. <a href="
-"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</a>"
+"Sie haben noch keine Dokumente hochgeladen. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eines hoch!</"
+"a>"
 
 #, python-format
 msgid ""
@@ -286,11 +289,11 @@ msgid_plural ""
 "<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">wurde in "
-"%(site_name)s erstellt</span>"
+"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">erstellt in "
+"%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Dokumente <span class=\"w-sr-only\">wurden in "
-"%(site_name)s erstellt</span>"
+"<span>%(total)s</span> Dokumente <span class=\"w-sr-only\">erstellt in "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Mehrere Dokumente hinzufügen"

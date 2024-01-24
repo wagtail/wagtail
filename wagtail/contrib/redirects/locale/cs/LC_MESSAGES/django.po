@@ -184,11 +184,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
+"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
 
 msgid "Search redirects"
 msgstr "Hledat přesměrování"

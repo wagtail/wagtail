@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,7 +214,7 @@ msgstr ""
 msgid "Popular search terms"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/queries/chooser/chooser.html:13
+#: templates/wagtailsearchpromotions/queries/chooser/chooser.html:11
 msgid "Search"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgstr ""
 msgid "No results found"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/queries/chooser_field.html:8
+#: templates/wagtailsearchpromotions/queries/chooser_field.html:7
 msgid "Choose from popular search terms"
 msgstr ""
 
@@ -249,32 +249,28 @@ msgid ""
 "href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:80
-msgid "Search promoted results"
-msgstr ""
-
-#: views.py:145
+#: views.py:144
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views.py:149 views.py:209
+#: views.py:148 views.py:208
 msgid "Edit"
 msgstr ""
 
-#: views.py:167
+#: views.py:166
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:205
+#: views.py:204
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views.py:225
+#: views.py:224
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:255
+#: views.py:254
 msgid "Editor's picks deleted."
 msgstr ""

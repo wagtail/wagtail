@@ -231,33 +231,19 @@ msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Skjal <span class=\"w-sr-only\">búið til í "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Skjöl <span class=\"w-sr-only\">búin til í "
-"%(site_name)s</span>"
+"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 msgid "Add multiple documents"
 msgstr "Bæta við mörgum skrám"

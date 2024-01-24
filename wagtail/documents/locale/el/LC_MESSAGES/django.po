@@ -150,19 +150,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει έγγραφα στη συλλογή. Θέλετε να <a href="
-"\"%(wagtaildocs_add_document_url)s\">ανεβάσετε ένα</a>;"
+"Δεν έχετε ανεβάσει έγγραφα στη συλλογή. Θέλετε να <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ανεβάσετε ένα</a>;"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν υπάρχουν έγγραφα. Θέλετε να <a href=\"%(wagtaildocs_add_document_url)s"
-"\">ανεβάσετε μερικά</a>;"
+"Δεν υπάρχουν έγγραφα. Θέλετε να <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ανεβάσετε μερικά</a>;"
 
 msgid "Add multiple documents"
 msgstr "Προσθήκη πολλαπλών εγγράφων"

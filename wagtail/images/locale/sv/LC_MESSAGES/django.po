@@ -297,20 +297,6 @@ msgstr "Välj ett format"
 msgid "Insert image"
 msgstr "Lägg in bild"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> bild <span class=\"w-sr-only\">skapades i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> bilder <span class=\"w-sr-only\">skapades i "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Byt bildfil:"
 
@@ -412,19 +398,19 @@ msgstr "Ledsen, inga bilder matchar <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några bilder till den här samlingen. Varför inte <a "
 "href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har inte laddat upp några bilder  Varför inte <a href="
-"\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
+"Du har inte laddat upp några bilder  Varför inte <a "
+"href=\"%(wagtailimages_add_image_url)s\">ladda upp en nu</a>?"
 
 msgid "Generating URL"
 msgstr "Genererar URL"
