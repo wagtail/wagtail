@@ -190,7 +190,7 @@ def check_view_restrictions(document, request):
 
                 password_required_template = getattr(
                     settings,
-                    "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+                    "WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
                     "wagtaildocs/password_required.html",
                 )
 
