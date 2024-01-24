@@ -134,7 +134,7 @@ class ModelViewSet(ViewSet):
         return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
-        return {
+        view_kwargs = {
             "template_name": self.index_template_name,
             "results_template_name": self.index_results_template_name,
             "list_display": self.list_display,
@@ -146,9 +146,11 @@ class ModelViewSet(ViewSet):
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
-            "default_ordering": self.ordering,
             **kwargs,
         }
+        if self.ordering:
+            view_kwargs["default_ordering"] = self.ordering
+        return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
         return {

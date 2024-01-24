@@ -1,6 +1,11 @@
 {% load wagtailadmin_tags %}
 
 <table{% include "wagtailadmin/shared/attrs.html" with attrs=table.attrs %}>
+    {% with caption=table.get_caption %}
+        {% if caption %}
+            <caption class="w-sr-only">{{ caption }}</caption>
+        {% endif %}
+    {% endwith %}
     {% if table.has_column_widths %}
         {% for column in table.columns.values %}
             <col {% if column.width %}width="{{ column.width }}"{% endif %} />

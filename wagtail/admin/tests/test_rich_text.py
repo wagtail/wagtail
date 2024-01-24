@@ -219,8 +219,14 @@ class TestOverriddenDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTes
         self.assertEqual(response.status_code, 200)
 
         # Check that custom editor (default editor by now) was replaced with fake editor
-        self.assertNotContains(response, 'customEditorInitScript("id_body");')
-        self.assertContains(response, 'legacyEditorInitScript("id_body");')
+        self.assertNotContains(
+            response,
+            '<template data-controller="custom-editor" data-id="id_body"',
+        )
+        self.assertContains(
+            response,
+            '<template data-controller="legacy-editor" data-id="id_body"',
+        )
 
     @unittest.expectedFailure  # TODO(telepath)
     def test_overridden_default_editor_in_rich_text_block(self):
@@ -235,8 +241,14 @@ class TestOverriddenDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTes
         self.assertEqual(response.status_code, 200)
 
         # Check that custom editor (default editor by now) was replaced with fake editor
-        self.assertNotContains(response, 'customEditorInitScript("__PREFIX__-value");')
-        self.assertContains(response, 'legacyEditorInitScript("__PREFIX__-value");')
+        self.assertNotContains(
+            response,
+            '<template data-controller="custom-editor" data-id="__PREFIX__-value"',
+        )
+        self.assertContains(
+            response,
+            '<template data-controller="legacy-editor" data-id="__PREFIX__-value"',
+        )
 
 
 @override_settings(
@@ -268,8 +280,14 @@ class TestCustomDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTestCas
         self.assertEqual(response.status_code, 200)
 
         # Check that custom editor (default editor by now) was replaced with fake editor
-        self.assertNotContains(response, 'legacyEditorInitScript("id_body");')
-        self.assertContains(response, 'customEditorInitScript("id_body");')
+        self.assertNotContains(
+            response,
+            '<template data-controller="legacy-editor" data-id="id_body"',
+        )
+        self.assertContains(
+            response,
+            '<template data-controller="custom-editor" data-id="id_body"',
+        )
 
     @unittest.expectedFailure  # TODO(telepath)
     def test_custom_editor_in_rich_text_block(self):
@@ -283,7 +301,9 @@ class TestCustomDefaultRichText(WagtailTestUtils, BaseRichTextEditHandlerTestCas
         # Check status code
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, 'customEditorInitScript("__PREFIX__-value");')
+        self.assertContains(
+            response, '<template data-controller="custom-editor" data-id="id_body"'
+        )
 
 
 class TestRichTextValue(TestCase):

@@ -16,7 +16,7 @@ from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.side_panels import PreviewSidePanel
+from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -266,6 +266,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                     self.form.instance, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.form.instance, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
@@ -322,6 +323,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.object, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.object, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):

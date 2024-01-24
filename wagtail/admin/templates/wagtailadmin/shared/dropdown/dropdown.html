@@ -8,6 +8,7 @@
     - `attrs` (string?) - more attributes for parent element
     - `toggle_icon` (string?) - toggle icon identifier
     - `toggle_label` (string?) - Visible label for the toggle button
+    - `toggle_suffix` (string?) - Visible content for the toggle button after the icon
     - `toggle_aria_label` (string?) - aria-label for the toggle button
     - `toggle_describedby` (string?) - aria-describedby for the toggle button
     - `toggle_classname` (string?) - additional toggle classes
@@ -24,6 +25,7 @@
         {% if toggle_icon %}
             {% icon name=toggle_icon classname="w-dropdown__toggle-icon" %}
         {% endif %}
+        {{ toggle_suffix }}
     </button>
 
     <div data-w-dropdown-target="content" class="w-dropdown__content" hidden>

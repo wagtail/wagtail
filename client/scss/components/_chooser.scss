@@ -28,7 +28,7 @@ $preview-size: 2.625rem; // 42px
 
   &:hover,
   &:focus {
-    color: theme('colors.surface-button-hover');
+    color: theme('colors.text-link-hover');
     background-color: theme('colors.surface-page');
   }
 }

@@ -47,6 +47,40 @@ class TestTable(TestCase):
         """,
         )
 
+    def test_table_render_with_caption(self):
+        data = [
+            {"first_name": "Paul", "last_name": "Simon"},
+            {"first_name": "Art", "last_name": "Garfunkel"},
+        ]
+
+        caption = "Test table"
+
+        table = Table(
+            columns=[
+                Column("first_name"),
+                Column("last_name"),
+            ],
+            data=data,
+            caption=caption,
+        )
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(
+            html,
+            """
+            <table class="listing">
+                <caption class="w-sr-only">Test table</caption>
+                <thead>
+                    <tr><th>First name</th><th>Last name</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Paul</td><td>Simon</td></tr>
+                    <tr><td>Art</td><td>Garfunkel</td></tr>
+                </tbody>
+            </table>
+        """,
+        )
+
     def test_table_render_with_width(self):
         data = [
             {"first_name": "Paul", "last_name": "Simon"},

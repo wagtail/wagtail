@@ -123,7 +123,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         self.assertNotEqual(response.content, b"Overridden!")
 
         # The instances were not deleted
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.snippet_model.objects.filter(
                 pk__in=[snippet.pk for snippet in self.test_snippets]
             ),
@@ -135,7 +135,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         def hook_func(request, action_type, instances, action_class_instance):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(action_type, "delete")
-            self.assertQuerysetEqual(instances, self.test_snippets)
+            self.assertEqual(set(instances), set(self.test_snippets))
             self.assertIsInstance(action_class_instance, DeleteBulkAction)
             return HttpResponse("Overridden!")
 
@@ -146,7 +146,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.content, b"Overridden!")
 
         # Request intercepted before the snippets were deleted
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.snippet_model.objects.filter(
                 pk__in=[snippet.pk for snippet in self.test_snippets]
             ),
@@ -158,7 +158,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         def hook_func(request, action_type, instances, action_class_instance):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(action_type, "delete")
-            self.assertQuerysetEqual(instances, self.test_snippets)
+            self.assertEqual(set(instances), set(self.test_snippets))
             self.assertIsInstance(action_class_instance, DeleteBulkAction)
             return HttpResponse("Overridden!")
 
@@ -182,7 +182,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
     def test_before_delete_snippet_hook_get(self):
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, self.test_snippets)
+            self.assertEqual(set(instances), set(self.test_snippets))
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_delete_snippet", hook_func):
@@ -192,7 +192,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.content, b"Overridden!")
 
         # Request intercepted before the snippets were deleted
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.snippet_model.objects.filter(
                 pk__in=[snippet.pk for snippet in self.test_snippets]
             ),
@@ -203,7 +203,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
     def test_before_delete_snippet_hook_post(self):
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, self.test_snippets)
+            self.assertEqual(set(instances), set(self.test_snippets))
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_delete_snippet", hook_func):
@@ -213,7 +213,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.content, b"Overridden!")
 
         # Request intercepted before the snippets were deleted
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.snippet_model.objects.filter(
                 pk__in=[snippet.pk for snippet in self.test_snippets]
             ),
@@ -224,7 +224,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
     def test_after_delete_snippet_hook(self):
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, self.test_snippets)
+            self.assertEqual(set(instances), set(self.test_snippets))
             return HttpResponse("Overridden!")
 
         with self.register_hook("after_delete_snippet", hook_func):

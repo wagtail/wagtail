@@ -7,7 +7,9 @@
     {% endblock %}
     {% block pagination %}
         {% if is_paginated %}
-            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            <div class="nice-padding">
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            </div>
         {% endif %}
     {% endblock %}
 {% else %}

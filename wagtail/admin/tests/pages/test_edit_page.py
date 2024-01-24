@@ -117,6 +117,36 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
+    def assertSchedulingDialogRendered(self, response, edit_url):
+        # Should show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        # Should render the main form with data-edit-form attribute
+        self.assertTagInHTML(
+            f'<form action="{edit_url}" method="POST" data-edit-form>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
     def test_page_edit(self):
         # Tests that the edit page loads
         response = self.client.get(
@@ -364,6 +394,86 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_page_edit_post_unpublished_page(self):
+        # Based on test_page_edit_post(), but tests changes on a draft page vs. live page.
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "hello edited",
+            "slug": "hello-unpublished-world-edited",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+        self.assertFalse(child_page_new.live)
+
+        # Page fields should be changed, since the page is still a draft
+        self.assertEqual(child_page_new.title, "Hello unpublished world! edited")
+        self.assertEqual(child_page_new.content, "hello edited")
+        self.assertEqual(child_page_new.slug, "hello-unpublished-world-edited")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data["title"])
+
+        # Publish the page
+        go_live_at = timezone.now()
+        post_data.update(
+            {
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+
+        # The page should be live now
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.live)
+
+        # We edit the live page again, but now those changes must not be written to the database.
+        post_data = {
+            "title": "Hello unpublished world! edited 2",
+            "content": "hello edited 2",
+            "slug": "hello-unpublished-world-edited-2",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+
+        # The page should have "has_unpublished_changes" flag set
+        child_page_new = SimplePage.objects.get(id=self.unpublished_page.id)
+        self.assertTrue(child_page_new.has_unpublished_changes)
+
+        # live Page fields should not be changed
+        self.assertEqual(child_page_new.title, "Hello unpublished world! edited")
+        self.assertEqual(child_page_new.content, "hello edited")
+        self.assertEqual(child_page_new.slug, "hello-unpublished-world-edited")
+
+        # The draft_title should have a new title
+        self.assertEqual(child_page_new.draft_title, post_data["title"])
+
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
 
@@ -452,28 +562,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should show the "Edit schedule" button
-        html = response.content.decode()
-        self.assertTagInHTML(
-            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-
-        # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-        self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
+        self.assertSchedulingDialogRendered(response, edit_url)
 
         self.assertContains(
             response,
@@ -545,27 +634,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should show the "Edit schedule" button
-        self.assertTagInHTML(
-            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-
-        # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-        self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
+        self.assertSchedulingDialogRendered(response, edit_url)
 
         # Should show the input with the correct value in the user's timezone
         self.assertTagInHTML(
@@ -1261,29 +1330,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             html=True,
             count=1,
         )
-
-        # Should show the "Edit schedule" button
-        html = response.content.decode()
-        self.assertTagInHTML(
-            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-
-        # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
-        self.assertTagInHTML(
-            '<div id="schedule-publishing-dialog" class="w-dialog w-dialog--message publishing" data-controller="w-dialog">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
-        )
+        self.assertSchedulingDialogRendered(response, edit_url)
 
     def test_edit_post_publish_schedule_before_a_scheduled_expire_page(self):
         # First let's publish a page with *just* an expire_at in the future

@@ -93,3 +93,24 @@ Options:
 
     .. automethod:: add_redirect
 ```
+
+(redirects_api_endpoint)=
+
+## API
+
+You can create an API endpoint to retrieve redirects or find specific redirects by path.
+
+See the [](api_v2_configuration) documentation on how to configure the Wagtail API.
+
+Add the following code to add the redirects endpoint:
+
+```python
+from wagtail.contrib.redirects.api import RedirectsAPIViewSet
+
+api_router.register_endpoint('redirects', RedirectsAPIViewSet)
+```
+
+With this configuration, redirects will be available at `/api/v2/redirects/`.
+
+Specific redirects by path can be resolved with `/api/v2/redirects/find/?html_path=<path>`,
+which will return either a `200` response with the redirects detail, or a `404` not found response.
