@@ -144,12 +144,21 @@ export class DropdownController extends Controller<HTMLElement> {
       });
     }
 
+    const onShow = () => {
+      if (hoverTooltipInstance) {
+        hoverTooltipInstance.disable();
+      }
+    };
+
     const onShown = () => {
       this.dispatch('shown');
     };
 
     const onHide = () => {
       this.dispatch('hide');
+      if (hoverTooltipInstance) {
+        hoverTooltipInstance.enable();
+      }
     };
 
     return {
@@ -162,20 +171,9 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
-      onShow() {
-        if (hoverTooltipInstance) {
-          hoverTooltipInstance.disable();
-        }
-      },
-      onShown() {
-        onShown();
-      },
-      onHide() {
-        if (hoverTooltipInstance) {
-          hoverTooltipInstance.enable();
-        }
-        onHide();
-      },
+      onShow,
+      onShown,
+      onHide,
     };
   }
 
