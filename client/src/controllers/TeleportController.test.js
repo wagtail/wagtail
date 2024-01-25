@@ -116,6 +116,55 @@ describe('TeleportController', () => {
       );
     });
 
+    it('should clear the target container if the reset value is set to true', async () => {
+      document.body.innerHTML += `
+        <div id="target-container"><p>I should not be here</p></div>
+        `;
+
+      const template = document.querySelector('template');
+      template.setAttribute(
+        'data-w-teleport-target-value',
+        '#target-container',
+      );
+      template.setAttribute('data-w-teleport-reset-value', 'true');
+
+      expect(document.getElementById('target-container').innerHTML).toEqual(
+        '<p>I should not be here</p>',
+      );
+
+      application.start();
+
+      await Promise.resolve();
+
+      expect(document.getElementById('target-container').innerHTML).toEqual(
+        '<div id="content">Some content</div>',
+      );
+    });
+
+    it('should not clear the target container if the reset value is unset (false)', async () => {
+      document.body.innerHTML += `
+        <div id="target-container"><p>I should still be here</p></div>
+        `;
+
+      const template = document.querySelector('template');
+      template.setAttribute(
+        'data-w-teleport-target-value',
+        '#target-container',
+      );
+
+      expect(document.getElementById('target-container').innerHTML).toEqual(
+        '<p>I should still be here</p>',
+      );
+
+      application.start();
+
+      await Promise.resolve();
+
+      expect(document.getElementById('target-container').innerHTML).toEqual(
+        '<p>I should still be here</p><div id="content">Some content</div>',
+      );
+    });
+
     it('should throw an error if the template content is empty', async () => {
       const errors = [];
 
