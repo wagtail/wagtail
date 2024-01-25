@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -35,7 +35,10 @@ from wagtail.admin.views.generic.preview import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
+from wagtail.admin.widgets.button import (
+    BaseDropdownMenuButton,
+    ButtonWithDropdown,
+)
 from wagtail.models import (
     DraftStateMixin,
     LockableMixin,
@@ -275,6 +278,18 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         context["media"] += action_menu.media
         context["action_menu"] = action_menu
         return context
+
+
+class CopyView(CreateView):
+    def get_object(self):
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+
+    def _get_initial_form_instance(self):
+        instance = self.get_object()
+        # Set locale of the new instance
+        if self.locale:
+            instance.locale = self.locale
+        return instance
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
@@ -540,6 +555,9 @@ class SnippetViewSet(ModelViewSet):
     #: The view class to use for the create view; must be a subclass of ``wagtail.snippets.views.snippets.CreateView``.
     add_view_class = CreateView
 
+    #: The view class to use for the copy view; must be a subclass of ``wagtail.snippet.views.snippets.CopyView``.
+    copy_view_class = CopyView
+
     #: The view class to use for the edit view; must be a subclass of ``wagtail.snippets.views.snippets.EditView``.
     edit_view_class = EditView
 
@@ -690,6 +708,9 @@ class SnippetViewSet(ModelViewSet):
             **kwargs,
         )
 
+    def get_copy_view_kwargs(self, **kwargs):
+        return self.get_add_view_kwargs(**kwargs)
+
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
             preview_url_name=self.get_url_name("preview_on_edit"),
@@ -761,6 +782,10 @@ class SnippetViewSet(ModelViewSet):
             self.lock_view_class,
             success_url_name=self.get_url_name("edit"),
         )
+
+    @property
+    def copy_view(self):
+        return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
 
     @property
     def unlock_view(self):
@@ -1108,6 +1133,9 @@ class SnippetViewSet(ModelViewSet):
                 name="history_results",
             ),
         ]
+
+        if self.copy_view_enabled:
+            urlpatterns += [path("copy/<str:pk>/", self.copy_view, name="copy")]
 
         if self.inspect_view_enabled:
             urlpatterns += [

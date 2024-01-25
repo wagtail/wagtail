@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+import { ActionController } from './ActionController';
+import { DropdownController } from './DropdownController';
 
 /**
  * Drilldown menu interaction combined with URL-driven
@@ -10,21 +12,71 @@ export class DrilldownController extends Controller<HTMLElement> {
   static values = {
     // Default: main menu.
     activeSubmenu: { default: '', type: String },
+    countAttr: { default: '', type: String },
   };
 
-  declare activeSubmenuValue: string;
+  static outlets = [
+    // w-action outlet for submenu toggles that are outside the drilldown.
+    // We don't really use anything specific to ActionController, we just need
+    // a Stimulus controller to be able to use the outlet. As with toggle targets,
+    // these need to have aria-controls.
+    'w-action',
 
-  declare readonly countTarget: HTMLElement;
+    // w-dropdown outlet for the popup menu, to allow interacting with the
+    // DropdownController programmatically.
+    'w-dropdown',
+  ];
+
+  declare activeSubmenuValue: string;
+  declare countAttrValue: string;
+
+  declare readonly countTargets: HTMLElement[];
   declare readonly menuTarget: HTMLElement;
   declare readonly toggleTargets: HTMLButtonElement[];
+  declare readonly hasWDropdownOutlet: boolean;
+  declare readonly wActionOutlets: ActionController[];
+  declare readonly wDropdownOutlet: DropdownController;
 
-  connect() {
-    const filteredParams = new URLSearchParams(window.location.search);
-    this.countTarget.hidden = filteredParams.size === 0;
-    this.countTarget.textContent = filteredParams.size.toString();
+  countTargetConnected() {
+    this.updateCount();
   }
 
-  updateParamsCount(e: Event) {
+  connect(): void {
+    this.open = this.open.bind(this);
+  }
+
+  wActionOutletConnected(_: ActionController, element: HTMLElement) {
+    element.addEventListener('click', this.open);
+  }
+
+  wActionOutletDisconnected(_: ActionController, element: HTMLElement) {
+    element.removeEventListener('click', this.open);
+  }
+
+  /**
+   * Update the count of items in the menu.
+   * This is done by counting the number of elements with the data attribute
+   * specified by the countAttrValue value that have the same value as the
+   * data-count-name attribute of the countTarget.
+   * If the countTarget does not have a data-count-name attribute, then all
+   * elements with the data attribute specified by the countAttrValue value
+   * are counted.
+   */
+  updateCount() {
+    const total = document.querySelectorAll(`[${this.countAttrValue}]`).length;
+    this.countTargets.forEach((countTarget) => {
+      const name = countTarget.dataset.countName;
+      const count = name
+        ? document.querySelectorAll(`[${this.countAttrValue}=${name}]`).length
+        : total;
+      // eslint-disable-next-line no-param-reassign
+      countTarget.hidden = count === 0;
+      // eslint-disable-next-line no-param-reassign
+      countTarget.textContent = count.toString();
+    });
+  }
+
+  updateParams(e: Event) {
     const swapEvent = e as CustomEvent<{ requestUrl: string }>;
     if ((e.target as HTMLElement)?.id === 'listing-results') {
       const params = new URLSearchParams(
@@ -32,18 +84,15 @@ export class DrilldownController extends Controller<HTMLElement> {
       );
       const filteredParams = new URLSearchParams();
       params.forEach((value, key) => {
-        if (value.trim() !== '') {
+        if (value.trim() !== '' && !key.startsWith('_w_')) {
           // Check if the value is not empty after trimming white space
           filteredParams.append(key, value);
         }
       });
       const queryString = `?${filteredParams.toString()}`;
       window.history.replaceState(null, '', queryString);
-
-      // Update the drilldown’s count badge based on remaining filter parameters.
-      this.countTarget.hidden = filteredParams.size === 0;
-      this.countTarget.textContent = filteredParams.size.toString();
     }
+    this.updateCount();
   }
 
   open(e: MouseEvent) {
@@ -55,6 +104,16 @@ export class DrilldownController extends Controller<HTMLElement> {
 
   close() {
     this.activeSubmenuValue = '';
+  }
+
+  /**
+   * Delay closing the submenu to allow the top-level menu to fade out first.
+   * Useful for resetting the state when the user clicks outside the menu.
+   * This can be used as an action for the w-dropdown:hidden event of the menu,
+   * e.g. data-action="w-dropdown:hidden->w-drilldown#delayedClose".
+   */
+  delayedClose() {
+    setTimeout(() => this.close(), 200);
   }
 
   /**
@@ -77,7 +136,33 @@ export class DrilldownController extends Controller<HTMLElement> {
     }
   }
 
+  /**
+   * Prevent clicks on the w-action outlets from closing the dropdown.
+   * Usage: data-action="w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
+   */
+  preventOutletClickaway(e: Event) {
+    const clickawayEvent = e as CustomEvent<{ target: HTMLElement }>;
+    const target = clickawayEvent.detail.target;
+    if (!target) return;
+    const controlledIds = this.toggleTargets.map((toggle) =>
+      toggle.getAttribute('aria-controls'),
+    );
+    const clickawayControl =
+      target.closest('button')?.getAttribute('aria-controls') || '';
+    if (controlledIds.includes(clickawayControl)) {
+      e.preventDefault();
+    }
+  }
+
   toggle(expanded: boolean, toggle: HTMLButtonElement) {
+    // If we're expanding, the toggle may be inside the w-dropdown outlet while
+    // the dropdown is hidden (e.g. opening directly to a submenu from an
+    // overall collapsed state).
+    // Ensure that the dropdown is shown so Tippy renders the toggle in the DOM.
+    if (this.hasWDropdownOutlet && expanded) {
+      this.wDropdownOutlet.show();
+    }
+
     const controls = toggle.getAttribute('aria-controls');
     const content = this.element.querySelector<HTMLElement>(`#${controls}`);
     if (!content) {

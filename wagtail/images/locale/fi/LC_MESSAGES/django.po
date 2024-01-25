@@ -300,20 +300,6 @@ msgstr "Valitse muoto"
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> kuva <span class=\"w-sr-only\">luotu sivustolle "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> kuvaa <span class=\"w-sr-only\">luotu sivustolle "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Vaihda kuvatiedosto:"
 
@@ -416,19 +402,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Generating URL"
 msgstr "Generoidaan osoitetta"

@@ -35,6 +35,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.snippets.views.snippets import CopyView
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -284,10 +285,10 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         )
 
         def hide_delete_button_for_lovely_advert(buttons, snippet, user):
-            # Edit, delete, dummy button
-            self.assertEqual(len(buttons), 3)
+            # Edit, delete, dummy button, copy button
+            self.assertEqual(len(buttons), 4)
             buttons[:] = [button for button in buttons if button.url != delete_url]
-            self.assertEqual(len(buttons), 2)
+            self.assertEqual(len(buttons), 3)
 
         with hooks.register_temporarily(
             "construct_snippet_listing_buttons",
@@ -937,6 +938,29 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             html=True,
         )
         self.assertNotContains(response, "<em>'Save'</em>")
+
+
+class TestSnippetCopyView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.snippet = StandardSnippet.objects.create(text="Test snippet")
+        self.url = reverse(
+            StandardSnippet.snippet_viewset.get_url_name("copy"),
+            args=(self.snippet.pk,),
+        )
+        self.login()
+
+    def test_simple(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+
+    def test_form_prefilled(self):
+        request = RequestFactory().get(self.url)
+        view = CopyView()
+        view.model = StandardSnippet
+        view.setup(request, pk=self.snippet.pk)
+
+        self.assertEqual(view._get_initial_form_instance(), self.snippet)
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)

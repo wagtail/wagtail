@@ -295,20 +295,6 @@ msgstr "Formátum kiválasztása"
 msgid "Insert image"
 msgstr "Kép beillesztése"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> kép <span class=\"w-sr-only\">létrehozva itt: "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> kép <span class=\"w-sr-only\">létrehozva itt: "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Kép cseréje:"
 
@@ -412,19 +398,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a href="
-"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a "
+"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nem töltött fel képet. Miért nem <a href="
-"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nem töltött fel képet. Miért nem <a "
+"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 msgid "Generating URL"
 msgstr "URL generálása"

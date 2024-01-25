@@ -117,6 +117,8 @@ export class DropdownController extends Controller<HTMLElement> {
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
+  // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
+  // option for outside clicks that defaults to true and we don't yet expose it.
   declare hideOnClickValue: boolean;
   declare offsetValue: [number, number];
 
@@ -164,6 +166,10 @@ export class DropdownController extends Controller<HTMLElement> {
       this.dispatch('shown');
     };
 
+    const onHide = () => {
+      this.dispatch('hide');
+    };
+
     return {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
@@ -172,7 +178,8 @@ export class DropdownController extends Controller<HTMLElement> {
       trigger: 'click',
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
-      getReferenceClientRect: () => this.getReference().getBoundingClientRect(),
+      hideOnClick: !this.useCustomHideOnClickAway,
+      getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
       plugins: this.plugins,
       onShow() {
@@ -187,22 +194,86 @@ export class DropdownController extends Controller<HTMLElement> {
         if (hoverTooltipInstance) {
           hoverTooltipInstance.enable();
         }
+        onHide();
+      },
+    };
+  }
+
+  get useCustomHideOnClickAway() {
+    // Tippy's default hideOnClick option for "hiding on click away" doesn't
+    // work well with our datetime libraries. Instead, we use a custom plugin
+    // to hide the tooltip when clicking outside the dropdown. It's unlikely
+    // we'll render a datetime picker for themes other than drilldown, so use
+    // the custom solution for this theme only.
+    return this.themeValue === 'drilldown';
+  }
+
+  /**
+   * Hides tooltip on click away from the reference element.
+   * A custom implementation to replace tippy's default hideOnClick option,
+   * which doesn't play well with our datetime libraries (or others that render
+   * elements outside of the dropdown's DOM).
+   */
+  get hideTooltipOnClickAway() {
+    // We can't use `this` to access the controller instance inside the plugin
+    // function, so we need to get these ahead in time.
+    const reference = this.reference;
+    const toggleTarget = this.toggleTarget;
+    const dispatch = this.dispatch.bind(this);
+
+    return {
+      name: 'hideTooltipOnClickAway',
+      fn(instance: Instance) {
+        const onClick = (e: MouseEvent) => {
+          const event = dispatch('clickaway', {
+            cancelable: true,
+            detail: { target: e.target },
+          });
+          if (event.defaultPrevented) {
+            return;
+          }
+          if (
+            instance.state.isShown &&
+            // Hide if the click is outside of the reference element,
+            // or if the click is on the toggle button itself.
+            (!reference.contains(e.target as Node) ||
+              toggleTarget.contains(e.target as Node))
+          ) {
+            instance.hide();
+          }
+        };
+
+        return {
+          onShow() {
+            document.addEventListener('click', onClick);
+          },
+          onHide() {
+            document.removeEventListener('click', onClick);
+          },
+        };
       },
     };
   }
 
   get plugins() {
-    return [
+    const plugins = [
       hideTooltipOnBreadcrumbsChange,
       hideTooltipOnEsc,
       rotateToggleIcon,
-    ].concat(this.hideOnClickValue ? [hideTooltipOnClickInside] : []);
+    ];
+    if (this.hideOnClickValue) {
+      plugins.push(hideTooltipOnClickInside);
+    }
+    if (this.useCustomHideOnClickAway) {
+      plugins.push(this.hideTooltipOnClickAway);
+    }
+    return plugins;
   }
 
   /**
    * Use a different reference element depending on the theme.
    */
-  getReference() {
+  get reference() {
     const toggleParent = this.toggleTarget.parentElement as HTMLElement;
     return this.themeValue === 'dropdown-button'
       ? (toggleParent.parentElement as HTMLElement)

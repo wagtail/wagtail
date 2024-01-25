@@ -7,6 +7,10 @@
   }
 
   &__remove {
-    @apply w-pr-3 w-py-1 w-rounded-r-xl w-border w-border-info-100 w-bg-info-100 hover:w-bg-info-125 w-text-white hover:w-text-white w-p-0 w-pl-2 w-flex w-items-center w-justify-center w-h-full;
+    @apply w-pr-3 w-py-1 w-rounded-r-xl w-border w-border-info-100 w-bg-info-100 w-text-white w-p-0 w-pl-2 w-flex w-items-center w-justify-center w-h-full;
+  }
+
+  button {
+    @apply hover:w-bg-info-125;
   }
 }

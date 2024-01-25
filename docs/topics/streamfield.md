@@ -577,7 +577,13 @@ hero_image = my_page.body.first_block_by_name('image')
 <div class="hero-image">{{ page.body.first_block_by_name.image }}</div>
 ```
 
+(streamfield_search)=
+
 ## Search considerations
+
+```{versionadded} 6.0
+
+```
 
 Like any other field, content in a StreamField can be made searchable by adding the field to the model's search_fields definition - see {ref}`wagtailsearch_indexing_fields`. By default, all text content from the stream will be added to the search index. If you wish to exclude certain block types from being indexed, pass the keyword argument `search_index=False` as part of the block's definition. For example:
 

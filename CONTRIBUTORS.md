@@ -787,6 +787,7 @@
 * Jai Vignesh J
 * Sankalp
 * V Rohitansh
+* Andreas Donig
 
 ## Translators
 

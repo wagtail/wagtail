@@ -413,8 +413,10 @@ class Table(Component):
         ordering=None,
         classname=None,
         attrs=None,
+        caption=None,
     ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
+        self.caption = caption
         self.data = data
         if template_name:
             self.template_name = template_name
@@ -423,6 +425,9 @@ class Table(Component):
         if classname is not None:
             self.classname = classname
         self.base_attrs = attrs or {}
+
+    def get_caption(self):
+        return self.caption
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

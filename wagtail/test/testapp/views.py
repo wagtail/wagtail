@@ -239,6 +239,7 @@ class FCToyAlt1ViewSet(ModelViewSet):
     menu_label = "FC Toys Alt 1"
     inspect_view_enabled = True
     inspect_view_fields_exclude = ["strid", "release_date"]
+    copy_view_enabled = False
 
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(is_searchable=False, **kwargs)
