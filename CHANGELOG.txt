@@ -36,6 +36,7 @@ Changelog
  * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
  * Fix: Update email notification header to the new logo design (rahulsamant37)
  * Fix: Change `file_size` field on document model to avoid artificial 2Gb limit (Gabriel Getzie)
+ * Fix: Ensure that `TypedTableBlock` uses the correct API representations of child blocks (Matt Westcott)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
