@@ -19,7 +19,7 @@ export class LinkController extends Controller<HTMLElement> {
   }
 
   connect() {
-    this.setParamsFromLocation();
+    this.setParams();
   }
 
   get reflectAll() {
@@ -33,11 +33,13 @@ export class LinkController extends Controller<HTMLElement> {
 
     const sourceParams = url.searchParams;
     sourceParams.forEach((value, key) => {
+      // Skip the key if
       if (
-        key.startsWith('_w_') || // Wagtail internal
-        // Delete the key if we want to preserve it from the current URL, or
-        // if we don't want to reflect it to the new URL
+        // it's a Wagtail internal param, or
+        key.startsWith('_w_') ||
+        // we want to preserve it from the current URL, or
         this.preserveKeysValue.includes(key) ||
+        // we don't want to reflect it to the new URL
         (!reflectAll && !this.reflectKeysValue.includes(key))
       ) {
         return;
@@ -57,12 +59,14 @@ export class LinkController extends Controller<HTMLElement> {
     this.element.setAttribute(this.attrNameValue, currentUrl.toString());
   }
 
-  setParamsFromSwapRequest(e: CustomEvent<{ requestUrl?: string }>) {
-    if (!e.detail?.requestUrl) return;
-    this.setParamsFromURL(new URL(e.detail.requestUrl, window.location.href));
-  }
+  setParams(e?: CustomEvent<{ requestUrl?: string }>) {
+    if (!e) {
+      this.setParamsFromURL(new URL(window.location.href));
+      return;
+    }
 
-  setParamsFromLocation() {
-    this.setParamsFromURL(new URL(window.location.href));
+    if (!e.detail?.requestUrl) return;
+
+    this.setParamsFromURL(new URL(e.detail.requestUrl, window.location.href));
   }
 }
