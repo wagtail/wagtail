@@ -217,17 +217,11 @@ export class DropdownController extends Controller<HTMLElement> {
    * elements outside of the dropdown's DOM).
    */
   get hideTooltipOnClickAway() {
-    // We can't use `this` to access the controller instance inside the plugin
-    // function, so we need to get these ahead in time.
-    const reference = this.reference;
-    const toggleTarget = this.toggleTarget;
-    const dispatch = this.dispatch.bind(this);
-
     return {
       name: 'hideTooltipOnClickAway',
-      fn(instance: Instance) {
+      fn: (instance: Instance) => {
         const onClick = (e: MouseEvent) => {
-          const event = dispatch('clickaway', {
+          const event = this.dispatch('clickaway', {
             cancelable: true,
             detail: { target: e.target },
           });
@@ -238,8 +232,8 @@ export class DropdownController extends Controller<HTMLElement> {
             instance.state.isShown &&
             // Hide if the click is outside of the reference element,
             // or if the click is on the toggle button itself.
-            (!reference.contains(e.target as Node) ||
-              toggleTarget.contains(e.target as Node))
+            (!this.reference.contains(e.target as Node) ||
+              this.toggleTarget.contains(e.target as Node))
           ) {
             instance.hide();
           }
