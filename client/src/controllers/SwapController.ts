@@ -46,6 +46,7 @@ export class SwapController extends Controller<
     icon: { default: '', type: String },
     loading: { default: false, type: Boolean },
     src: { default: '', type: String },
+    reflect: { default: false, type: Boolean },
     target: { default: '#listing-results', type: String },
     wait: { default: 200, type: Number },
   };
@@ -58,6 +59,7 @@ export class SwapController extends Controller<
   declare iconValue: string;
   declare loadingValue: boolean;
   declare srcValue: string;
+  declare reflectValue: boolean;
   declare targetValue: string;
   declare waitValue: number;
 
@@ -215,6 +217,20 @@ export class SwapController extends Controller<
     this.replace(url + queryString);
   }
 
+  reflectParams(url: string) {
+    const params = new URL(url, window.location.href).searchParams;
+    const filteredParams = new URLSearchParams();
+    params.forEach((value, key) => {
+      // Check if the value is not empty after trimming white space
+      // and if the key is not a Wagtail internal param
+      if (value.trim() !== '' && !key.startsWith('_w_')) {
+        filteredParams.append(key, value);
+      }
+    });
+    const queryString = `?${filteredParams.toString()}`;
+    window.history.replaceState(null, '', queryString);
+  }
+
   /**
    * Abort any existing requests & set up new abort controller, then fetch and replace
    * the HTML target with the new results.
@@ -259,11 +275,24 @@ export class SwapController extends Controller<
       })
       .then((results) => {
         target.innerHTML = results;
+
+        if (this.reflectValue) {
+          const event = this.dispatch('reflect', {
+            cancelable: true,
+            detail: { requestUrl },
+            target,
+          });
+          if (!event.defaultPrevented) {
+            this.reflectParams(requestUrl);
+          }
+        }
+
         this.dispatch('success', {
           cancelable: false,
           detail: { requestUrl, results },
           target,
         });
+
         return results;
       })
       .catch((error) => {
