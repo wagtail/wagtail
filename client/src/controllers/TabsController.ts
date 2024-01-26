@@ -2,37 +2,37 @@
 import { Controller } from '@hotwired/stimulus';
 
 interface IndexedEventTarget extends EventTarget {
-  index: number
+  index: number;
 }
 
 interface TabLink extends HTMLAnchorElement {
-  index: number
+  index: number;
 }
 
 enum Keys {
-  Left = "ArrowLeft",
-  Right = "ArrowRight",
-  Home = "Home",
-  End = "End"
+  Left = 'ArrowLeft',
+  Right = 'ArrowRight',
+  Home = 'Home',
+  End = 'End',
 }
 
 enum KeyWeight {
   ArrowLeft = -1,
-  ArrowRight = 1
+  ArrowRight = 1,
 }
 
 /**
  * @example - creating a simple tabs interface
  * <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-active-value="" data-w-tabs-animate-class="animate-in">
- *       <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
- *           <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab " role="tab"
- *                tabindex="-1" data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
- *               Tab 1
- *           </a>
- *           <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab " role="tab"
- *                data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
- *               Tab 2
- *           </a>
+ *   <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
+ *       <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab " role="tab"
+ *          tabindex="-1" data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
+ *         Tab 1
+ *       </a>
+ *       <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab " role="tab"
+ *          data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
+ *         Tab 2
+ *       </a>
  *   </div>
  *
  *   <div class="tab-content tab-content--comments-enabled">
@@ -49,7 +49,7 @@ enum KeyWeight {
 export class TabsController extends Controller<HTMLDivElement> {
   static targets = ['list', 'trigger', 'label', 'panel'];
 
-  static classes = ['animate']
+  static classes = ['animate'];
 
   static values = {
     transition: { default: 150, type: Number },
@@ -58,7 +58,7 @@ export class TabsController extends Controller<HTMLDivElement> {
     animate: { default: true, type: Boolean },
   };
 
-  declare animateClass;
+  declare animateClass: string;
 
   declare listTarget: HTMLDivElement;
   declare triggerTargets: HTMLAnchorElement[];
@@ -72,33 +72,33 @@ export class TabsController extends Controller<HTMLDivElement> {
 
   activeValueChanged(currentValue: string, previousValue: string) {
     if (previousValue) {
-      this.hideTabContent(previousValue)
+      this.hideTabContent(previousValue);
     }
 
-    const tab = this.getTabLabelByHref(currentValue)
+    const tab = this.getTabLabelByHref(currentValue);
     if (tab) {
-      tab.setAttribute("aria-selected", "true");
-      tab.removeAttribute("tabindex")
+      tab.setAttribute('aria-selected', 'true');
+      tab.removeAttribute('tabindex');
     }
 
-    const tabContent = this.getTabPanelByHref(currentValue)
+    const tabContent = this.getTabPanelByHref(currentValue);
 
     if (tabContent) {
       if (this.animateValue) {
         this.animateIn(tabContent);
       } else {
-        tabContent.hidden = false
+        tabContent.hidden = false;
       }
 
       this.listTarget.dispatchEvent(
         new CustomEvent('switch', {
-          detail: { tab: tab?.getAttribute("href")?.replace("#", "") }
-        })
-      )
-      document.dispatchEvent(new CustomEvent("wagtail:tab-changed"));
+          detail: { tab: tab?.getAttribute('href')?.replace('#', '') },
+        }),
+      );
+      document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
 
       if (!this.disableValue) {
-        this.setURLHash(currentValue)
+        this.setURLHash(currentValue);
       }
     }
   }
@@ -111,7 +111,9 @@ export class TabsController extends Controller<HTMLDivElement> {
     this.setAriaControls(this.labelTargets);
     this.setTabLabelIndex();
 
-    const activeTab = this.labelTargets.find((button) => button.getAttribute('aria-selected') === 'true');
+    const activeTab = this.labelTargets.find(
+      (button) => button.getAttribute('aria-selected') === 'true',
+    );
 
     this.panelTargets.forEach((tab) => {
       // eslint-disable-next-line no-param-reassign
@@ -121,7 +123,7 @@ export class TabsController extends Controller<HTMLDivElement> {
     if (window.location.hash && !this.disableValue) {
       this.setTabByURLHash();
     } else if (activeTab) {
-      this.activeValue = activeTab.getAttribute("aria-controls") as string;
+      this.activeValue = activeTab.getAttribute('aria-controls') as string;
     } else {
       this.selectFirstTab();
     }
@@ -130,26 +132,32 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   handleTriggerLinks(event: MouseEvent) {
-    const href = (event.target as HTMLAnchorElement).getAttribute("href") as string;
-    const tab = this.getTabLabelByHref(href)
+    const href = (event.target as HTMLAnchorElement).getAttribute(
+      'href',
+    ) as string;
+    const tab = this.getTabLabelByHref(href);
     if (tab) {
-      this.activeValue = href.replace("#", "")
-      tab.focus()
+      this.activeValue = href.replace('#', '');
+      tab.focus();
     }
   }
 
   handleTabChange(event: MouseEvent) {
-    const tabId = (event.target as HTMLElement).getAttribute("aria-controls") as string;
-    this.activeValue = tabId
+    const tabId = (event.target as HTMLElement).getAttribute(
+      'aria-controls',
+    ) as string;
+    this.activeValue = tabId;
     // this.selectTab(targetElement);
   }
 
   getTabLabelByHref(tabId: string): HTMLElement | undefined {
-    return this.labelTargets.find((tab) => tab.getAttribute("aria-controls") === tabId)
+    return this.labelTargets.find(
+      (tab) => tab.getAttribute('aria-controls') === tabId,
+    );
   }
 
   getTabPanelByHref(tabId: string): HTMLElement | undefined {
-    return this.panelTargets.find((tab) => tab.getAttribute("id") === tabId)
+    return this.panelTargets.find((tab) => tab.getAttribute('id') === tabId);
   }
 
   setAriaControls(tabLinks: HTMLAnchorElement[]) {
@@ -162,22 +170,24 @@ export class TabsController extends Controller<HTMLDivElement> {
   setTabLabelIndex() {
     (this.labelTargets as TabLink[]).forEach((label, index) => {
       // eslint-disable-next-line no-param-reassign
-      label.index = index
-    })
+      label.index = index;
+    });
   }
 
   setURLHash(tabId: string) {
     if (!window.history.state || window.history.state.tabContent !== tabId) {
       // Add a new history item to the stack
-      window.history.pushState({ tabContent: tabId }, "", `#${tabId}`);
+      window.history.pushState({ tabContent: tabId }, '', `#${tabId}`);
     }
   }
 
   setTabByURLHash() {
     if (window.location.hash) {
-      const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '').replace("#", "");
+      const cleanedHash = window.location.hash
+        .replace(/[^\w\-#]/g, '')
+        .replace('#', '');
       if (cleanedHash) {
-        this.activeValue = cleanedHash
+        this.activeValue = cleanedHash;
         // this.selectTab(tab);
       } else {
         // The hash doesn't match a tab on the page then select first tab
@@ -187,8 +197,8 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   selectFirstTab() {
-    const href = this.labelTargets[0].getAttribute("aria-controls") as string
-    this.activeValue = href
+    const href = this.labelTargets[0].getAttribute('aria-controls') as string;
+    this.activeValue = href;
   }
 
   animateIn(tabContent: HTMLElement) {
@@ -216,22 +226,22 @@ export class TabsController extends Controller<HTMLDivElement> {
       return;
     }
 
-    const tabContent = this.getTabPanelByHref(tabId)
+    const tabContent = this.getTabPanelByHref(tabId);
     if (!tabContent) {
       return;
     }
     if (this.animateValue) {
       this.animateOut(tabContent);
     } else {
-      tabContent.hidden = true
+      tabContent.hidden = true;
     }
 
-    const tab = this.getTabLabelByHref(tabId)
+    const tab = this.getTabLabelByHref(tabId);
     if (!tab) {
       return;
     }
-    tab.setAttribute("aria-selected", "false");
-    tab.setAttribute("tabindex", "-1")
+    tab.setAttribute('aria-selected', 'false');
+    tab.setAttribute('tabindex', '-1');
   }
 
   handleKeydown(event: KeyboardEvent) {
@@ -263,17 +273,17 @@ export class TabsController extends Controller<HTMLDivElement> {
 
     let direction: number = 0;
     if (pressed === Keys.Left) {
-      direction = KeyWeight.ArrowLeft
+      direction = KeyWeight.ArrowLeft;
     }
     if (pressed === Keys.Right) {
-      direction = KeyWeight.ArrowRight
+      direction = KeyWeight.ArrowRight;
     }
 
     const tabIndex = (event.target as IndexedEventTarget).index;
-    const tab = this.labelTargets[tabIndex + direction]
+    const tab = this.labelTargets[tabIndex + direction];
     if (tabIndex !== undefined) {
       if (tab) {
-        this.activeValue = tab.getAttribute("aria-controls") as string;
+        this.activeValue = tab.getAttribute('aria-controls') as string;
         tab.focus();
       } else if (pressed === Keys.Left) {
         this.focusLastTab();
@@ -285,24 +295,23 @@ export class TabsController extends Controller<HTMLDivElement> {
 
   focusFirstTab() {
     const tab = this.labelTargets[0];
-    this.activeValue = tab.getAttribute("aria-controls") as string;
+    this.activeValue = tab.getAttribute('aria-controls') as string;
     tab.focus();
   }
 
   focusLastTab() {
     const tab = this.labelTargets[this.labelTargets.length - 1];
-    this.activeValue = tab.getAttribute("aria-controls") as string;
+    this.activeValue = tab.getAttribute('aria-controls') as string;
     tab.focus();
   }
 
   loadHistory(event: PopStateEvent) {
     if (event.state && event.state.tabContent) {
-      const tab = this.getTabLabelByHref(event.state.tabContent)
+      const tab = this.getTabLabelByHref(event.state.tabContent);
       if (tab) {
         this.activeValue = event.state.tabContent;
         tab.focus();
       }
     }
   }
-
 }
