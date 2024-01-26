@@ -1,33 +1,29 @@
+/* eslint-disable no-shadow */
 import { Controller } from '@hotwired/stimulus';
 
-const TAB_DEFAULTS = {
-  css: {
-    animate: 'animate-in',
-  },
-  keys: {
-    end: 'End',
-    home: 'Home',
-    left: 'ArrowLeft',
-    up: 'ArrowUp',
-    right: 'ArrowRight',
-    down: 'ArrowDown',
-  },
-  direction: {
-    ArrowLeft: -1,
-    ArrowRight: 1,
-  },
+enum ArrowKeys {
+  Left = "ArrowLeft",
+  Right = "ArrowRight"
+}
+
+enum KeyWeight {
+  ArrowLeft = -1,
+  ArrowRight = 1
 }
 
 export class TabsController extends Controller<HTMLDivElement> {
   static targets = ['list', 'trigger', 'label', 'panel'];
 
+  static classes = ['animate']
+
   static values = {
     transition: { default: 150, type: Number },
     active: { default: '', type: String },
     disable: { default: false, type: Boolean },
-    initialPageLoad: { default: true, type: Boolean },
     animate: { default: true, type: Boolean },
   };
+
+  declare animateClass;
 
   declare listTarget: HTMLDivElement;
   declare triggerTargets: HTMLElement[];
@@ -38,22 +34,6 @@ export class TabsController extends Controller<HTMLDivElement> {
   declare activeValue: string;
   declare transitionValue: number;
   declare animateValue: boolean;
-
-  initialize() {
-    if (this.triggerTargets) {
-      this.labelTargets.forEach((trigger) => {
-        trigger.addEventListener('click', (e) => {
-          e.preventDefault();
-          const href = trigger.getAttribute('href') as string;
-          const tab = this.getTabElementByHref(href) as HTMLElement;
-          if (tab) {
-            this.selectTab(tab);
-            tab.focus();
-          }
-        });
-      });
-    }
-  }
 
   // Populate a list of links aria-controls attributes with their href value
   setAriaControlByHref(tabLinks: HTMLAnchorElement[] | HTMLElement[]) {
@@ -68,28 +48,25 @@ export class TabsController extends Controller<HTMLDivElement> {
       window.scrollTo(0, 0);
     }, this.transitionValue * 2);
 
-    if (this.labelTargets) {
-      this.setAriaControlByHref(this.labelTargets);
-      const tabActive = [...this.labelTargets].find(
-        (button) => button.getAttribute('aria-selected') === 'true',
-      );
+    this.setAriaControlByHref(this.labelTargets);
+    const tabActive = [...this.labelTargets].find(
+      (button) => button.getAttribute('aria-selected') === 'true',
+    );
 
-      if (window.location.hash && !this.disableValue) {
-        this.selectTabByURLHash();
-      } else if (tabActive) {
-        this.panelTargets.forEach((tab) => {
-          // eslint-disable-next-line no-param-reassign
-          tab.hidden = true;
-        });
-        this.selectTab(tabActive);
-      } else {
-        this.selectFirstTab();
-      }
+    this.panelTargets.forEach((tab) => {
+      // eslint-disable-next-line no-param-reassign
+      tab.hidden = true;
+    });
+
+    if (window.location.hash && !this.disableValue) {
+      this.selectTabByURLHash();
+    } else if (tabActive) {
+      this.selectTab(tabActive);
+    } else {
+      this.selectFirstTab();
     }
 
-    if (this.triggerTargets) {
-      this.setAriaControlByHref(this.triggerTargets);
-    }
+    this.setAriaControlByHref(this.triggerTargets);
   }
 
   selectTab(tab: HTMLElement) {
@@ -193,14 +170,14 @@ export class TabsController extends Controller<HTMLDivElement> {
       tabContent.hidden = false;
       // Wait for hidden attribute to be applied then fade in
       setTimeout(() => {
-        tabContent.classList.add(TAB_DEFAULTS.css.animate);
+        tabContent.classList.add(this.animateClass);
       }, this.transitionValue);
     }, this.transitionValue);
   }
 
   animateOut(tabContent: HTMLElement) {
     // Wait element to transition out and then hide with hidden
-    tabContent.classList.remove(TAB_DEFAULTS.css.animate);
+    tabContent.classList.remove(this.animateClass);
     setTimeout(() => {
       // eslint-disable-next-line no-param-reassign
       tabContent.hidden = true;
@@ -215,20 +192,14 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   selectTabByURLHash() {
-    if (window.location.hash) {
-      const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-      // Support linking straight to a tab, or to an element within a tab.
-      const tabID = document
-        .querySelector(cleanedHash)
-        ?.closest('[role="tabpanel"]')
-        ?.getAttribute('aria-labelledby') as string;
-      const tab = document.getElementById(tabID);
-      if (tab) {
-        this.selectTab(tab);
-      } else {
-        // The hash doesn't match a tab on the page then select first tab
-        this.selectFirstTab();
-      }
+    const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
+    // Support linking straight to a tab, or to an element within a tab.
+    const tab = this.element.querySelector(`[aria-controls=${cleanedHash.replace("#", "")}]`) as HTMLElement
+    if (tab) {
+      this.selectTab(tab);
+    } else {
+      // The hash doesn't match a tab on the page then select first tab
+      this.selectFirstTab();
     }
   }
 
@@ -252,29 +223,38 @@ export class TabsController extends Controller<HTMLDivElement> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const index = event.target.index;
-    const { direction, keys } = TAB_DEFAULTS;
+    let weight = 0;
 
-    if (direction[keyPressed]) {
-      if (index !== undefined) {
-        if (this.labelTargets[index + direction[keyPressed]]) {
-          const tab = this.labelTargets[
-            index + direction[keyPressed]
-          ] as HTMLAnchorElement;
-          tab.focus();
-          this.selectTab(tab);
-        } else if (keyPressed === keys.left) {
-          const lastTab = this.labelTargets[this.labelTargets.length - 1];
-          this.focusTab(lastTab);
-        } else if (keyPressed === keys.right) {
-          const firstTab = this.labelTargets[0];
-          this.focusTab(firstTab);
-        }
-      }
+    if (keyPressed === ArrowKeys.Left) {
+      weight = KeyWeight.ArrowLeft
+    }
+
+    if (keyPressed === ArrowKeys.Right) {
+      weight = KeyWeight.ArrowRight
+    }
+
+    if (index === undefined) {
+      return;
+    }
+    
+    if (this.labelTargets[index + weight]) {
+      const tab = this.labelTargets[
+        index + weight
+      ] as HTMLAnchorElement;
+      tab.focus();
+      this.selectTab(tab);
+    } else if (keyPressed === ArrowKeys.Left) {
+      const lastTab = this.labelTargets[this.labelTargets.length - 1];
+      this.focusTab(lastTab);
+    } else if (keyPressed === ArrowKeys.Right) {
+      const firstTab = this.labelTargets[0];
+      this.focusTab(firstTab);
     }
   }
 
+
   focusTab(tab: HTMLAnchorElement) {
-    tab.focus();
     this.selectTab(tab);
+    tab.focus();
   }
 }
