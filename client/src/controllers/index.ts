@@ -27,6 +27,7 @@ import { SessionController } from './SessionController';
 import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
+import { TabsController } from './TabsController';
 import { TagController } from './TagController';
 import { TeleportController } from './TeleportController';
 import { TooltipController } from './TooltipController';
@@ -68,6 +69,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
+  { controllerConstructor: TabsController, identifier: 'w-tabs' },
   { controllerConstructor: TagController, identifier: 'w-tag' },
   { controllerConstructor: TeleportController, identifier: 'w-teleport' },
   { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
