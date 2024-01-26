@@ -1167,7 +1167,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         # When Josh is viewing his visible root page, he should the page title as a non-hidden, single-item breadcrumb.
         expected = """
             <li
-                class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold">
+                class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold" data-w-breadcrumbs-target="content">
                 <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label"
                    href="/admin/pages/4/">
                     Welcome to example.com!
