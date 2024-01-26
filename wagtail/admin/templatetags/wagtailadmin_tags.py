@@ -92,10 +92,17 @@ def page_breadcrumbs(
     if not cca:
         return {"items": Page.objects.none()}
 
-    return {
-        "items": page.get_ancestors(inclusive=include_self)
+    items = (
+        page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
-        .specific(),
+        .specific()
+    )
+
+    if len(items) == 1:
+        is_expanded = True
+
+    return {
+        "items": items,
         "current_page": page,
         "is_expanded": is_expanded,
         "page_perms": page_perms,
