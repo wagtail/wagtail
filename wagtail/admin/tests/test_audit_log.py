@@ -95,15 +95,15 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            "Added the &#x27;Private, accessible to logged-in users&#x27; view restriction",
+            "Added the &#x27;Private, accessible to any logged-in users&#x27; view restriction",
         )
         self.assertContains(
             response,
-            "Updated the view restriction to &#x27;Private, accessible with the following password&#x27;",
+            "Updated the view restriction to &#x27;Private, accessible with a shared password&#x27;",
         )
         self.assertContains(
             response,
-            "Removed the &#x27;Private, accessible with the following password&#x27; view restriction",
+            "Removed the &#x27;Private, accessible with a shared password&#x27; view restriction",
         )
 
         self.assertContains(

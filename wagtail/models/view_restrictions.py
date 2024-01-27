@@ -19,13 +19,20 @@ class BaseViewRestriction(models.Model):
 
     RESTRICTION_CHOICES = (
         (NONE, _("Public")),
-        (LOGIN, _("Private, accessible to logged-in users")),
-        (PASSWORD, _("Private, accessible with the following password")),
+        (PASSWORD, _("Private, accessible with a shared password")),
+        (LOGIN, _("Private, accessible to any logged-in users")),
         (GROUPS, _("Private, accessible to users in specific groups")),
     )
 
     restriction_type = models.CharField(max_length=20, choices=RESTRICTION_CHOICES)
-    password = models.CharField(verbose_name=_("password"), max_length=255, blank=True)
+    password = models.CharField(
+        verbose_name=_("shared password"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "Shared passwords should not be used to protect sensitive content. Anyone who has this password will be able to view the content."
+        ),
+    )
     groups = models.ManyToManyField(Group, verbose_name=_("groups"), blank=True)
 
     def accept_request(self, request):
