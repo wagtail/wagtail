@@ -4,7 +4,7 @@ Changelog
 6.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Refine wording of page & collection privacy using password is a shared password and should not be used for secure content (Rohit Sharma, Jake Howard)
 
 
 6.0 (xx.xx.xxxx) - IN DEVELOPMENT
