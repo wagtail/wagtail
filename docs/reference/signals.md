@@ -152,11 +152,11 @@ This signal is emitted from a `WorkflowState` when a page's workflow completes s
 
 ## workflow_cancelled
 
-This signal is emitted from a `WorkflowState` when a page's workflow is cancelled
+This signal is emitted from a `WorkflowState` when a page's workflow is canceled
 
 -   `sender` - `WorkflowState`
 -   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who cancelled the workflow
+-   `user` - The user who canceled the workflow
 -   `kwargs` - Any other arguments passed to `workflow_cancelled.send()`
 
 ## task_submitted
@@ -188,9 +188,9 @@ This signal is emitted from a `TaskState` when a page's task is approved
 
 ## task_cancelled
 
-This signal is emitted from a `TaskState` when a page's task is cancelled.
+This signal is emitted from a `TaskState` when a page's task is canceled.
 
 -   `sender` - `TaskState`
 -   `instance` - The specific `TaskState` instance.
--   `user` - The user who cancelled the task
+-   `user` - The user who canceled the task
 -   `kwargs` - Any other arguments passed to `task_cancelled.send()`

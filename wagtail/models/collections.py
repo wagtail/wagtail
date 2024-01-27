@@ -90,7 +90,7 @@ class Collection(MP_Node):
         Renders this Collection's name as a formatted string that displays its hierarchical depth via indentation.
         If indentation_start_depth is supplied, the Collection's depth is rendered relative to that depth.
         indentation_start_depth defaults to 2, the depth of the first non-Root Collection.
-        Pass html=True to get a HTML representation, instead of the default plain-text.
+        Pass html=True to get an HTML representation, instead of the default plain-text.
 
         Example text output: "    ↳ Pies"
         Example HTML output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Pies"

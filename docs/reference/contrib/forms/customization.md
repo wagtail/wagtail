@@ -1,4 +1,6 @@
-# Form builder customisation
+(form_builder_customization)=
+
+# Form builder customization
 
 For a basic usage example see [form builder usage](form_builder_usage).
 
@@ -268,10 +270,10 @@ Your template should look like this:
                     <input type="submit">
                 </form>
             {% else %}
-                <div>You can fill in the from only one time.</div>
+                <div>You can fill in the form only one time.</div>
             {% endif %}
         {% else %}
-            <div>To fill in the form, you must to log in.</div>
+            <div>To fill in the form, you must log in.</div>
         {% endif %}
     </body>
 </html>
@@ -322,7 +324,7 @@ class FormPage(AbstractEmailForm):
         Implements a simple multi-step form.
 
         Stores each step into a session.
-        When the last step was submitted correctly, saves whole form into a DB.
+        When the last step is submitted correctly, saves the whole form into a DB.
         """
 
         session_key_data = 'form_data-%s' % self.pk
@@ -340,7 +342,7 @@ class FormPage(AbstractEmailForm):
 
         if request.method == 'POST':
             # The first step will be submitted with step_number == 2,
-            # so we need to get a form from previous step
+            # so we need to get a form from the previous step
             # Edge case - submission of the last step
             prev_step = step if is_last_step else paginator.page(step.previous_page_number())
 
@@ -460,7 +462,7 @@ class FormPage(AbstractEmailForm):
         context = super().get_context(request, *args, **kwargs)
 
         # If you need to show results only on landing page,
-        # you may need check request.method
+        # You may need to check request.method
 
         results = dict()
         # Get information about form fields
@@ -535,7 +537,7 @@ You can also show the results on the landing page.
 
 You can override the `render_landing_page` method on your `FormPage` to change what is rendered when a form submits.
 
-In this example below we have added a `thank_you_page` field that enables custom redirects after a form submits to the selected page.
+In the example below we have added a `thank_you_page` field that enables custom redirects after a form submits to the selected page.
 
 When overriding the `render_landing_page` method, we check if there is a linked `thank_you_page` and then redirect to it if it exists.
 
@@ -586,7 +588,7 @@ class FormPage(AbstractEmailForm):
 
 ## Customise form submissions listing in Wagtail Admin
 
-The Admin listing of form submissions can be customised by setting the attribute `submissions_list_view_class` on your FormPage model.
+The Admin listing of form submissions can be customized by setting the attribute `submissions_list_view_class` on your FormPage model.
 
 The list view class must be a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a child class of Django's class based {class}`~django.views.generic.list.ListView`.
 
@@ -614,7 +616,7 @@ class FormField(AbstractFormField):
 
 
 class FormPage(AbstractEmailForm):
-    """Form Page with customised submissions listing view"""
+    """Form Page with customized submissions listing view"""
 
     # set custom view class as class attribute
     submissions_list_view_class = CustomSubmissionsListView
@@ -630,7 +632,7 @@ class FormPage(AbstractEmailForm):
 First, make the new field type available in the page editor by changing your `FormField` model.
 
 -   Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
--   Each choice must contain a unique key and a human readable name of the field, for example `('slug', 'URL Slug')`
+-   Each choice must contain a unique key and a human-readable name of the field, for example `('slug', 'URL Slug')`
 -   Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
 -   You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
@@ -653,7 +655,7 @@ from wagtail.contrib.forms.models import (
 
 
 class FormField(AbstractFormField):
-    # extend the built in field type choices
+    # extend the built-in field type choices
     # our field type key will be 'ipaddress'
     CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
 
@@ -709,7 +711,7 @@ class FormPage(AbstractEmailForm):
         # Get the original content (string)
         email_content = super().render_email(form)
 
-        # Add a title (not part of original method)
+        # Add a title (not part of the original method)
         title = '{}: {}'.format('Form', self.title)
 
         content = [title, '', email_content, '']
@@ -764,11 +766,11 @@ class FormPage(AbstractEmailForm):
 
 ## Custom `clean_name` generation
 
--   Each time a new `FormField` is added a `clean_name` also gets generated based on the user entered `label`.
--   `AbstractFormField` has a method `get_field_clean_name` to convert the label into a HTML valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
+-   Each time a new `FormField` is added a `clean_name` also gets generated based on the user-entered `label`.
+-   `AbstractFormField` has a method `get_field_clean_name` to convert the label into an HTML-valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
 -   The resolved `clean_name` is also used as the form field name in rendered HTML forms.
 -   Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
--   This method gets called on creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
+-   This method gets called on the creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
 -   This method gets called for form previews and also validation of duplicate labels.
 
 ```python
@@ -798,7 +800,7 @@ class FormPage(AbstractEmailForm):
 
 ## Using `FormMixin` or `EmailFormMixin` to use with other `Page` subclasses
 
-If you need to add form behaviour while extending an additional class, you can use the base mixins instead of the abstract models.
+If you need to add form behavior while extending an additional class, you can use the base mixins instead of the abstract models.
 
 ```python
 from wagtail.models import Page

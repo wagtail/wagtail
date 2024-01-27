@@ -122,7 +122,7 @@ class UserApprovalTask(Task):
 
 ## Customising behaviour
 
-Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behaviour. Here are some of the most useful:
+Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behavior. Here are some of the most useful:
 
 `Task.user_can_access_editor(obj, user)`, `Task.user_can_lock(obj, user)`, `Task.user_can_unlock(obj, user)`:
 
@@ -174,7 +174,7 @@ Returns the name of a custom template to be used in rendering the data entry mod
 
 This performs the actions specified in `Task.get_actions(obj, user)`: it is passed an action name, for example, `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
 
-For example, let's say we wanted to add an additional option: cancelling the entire workflow:
+For example, let's say we wanted to add an additional option: canceling the entire workflow:
 
 ```python
 def on_action(self, task_state, user, action_name):
@@ -186,7 +186,7 @@ def on_action(self, task_state, user, action_name):
 
 `Task.get_task_states_user_can_moderate(user, **kwargs)`:
 
-This returns a QuerySet of `TaskStates` (or subclasses) the given user can moderate - this is currently used to select objects to display on the user's dashboard.
+This returns a QuerySet of `TaskStates` (or subclasses) that the given user can moderate - this is currently used to select objects to display on the user's dashboard.
 
 For example:
 
@@ -215,7 +215,7 @@ def get_description(cls):
 
 Wagtail's notifications are sent by `wagtail.admin.mail.Notifier` subclasses: callables intended to be connected to a signal.
 
-By default, email notifications are sent upon workflow submission, approval and rejection, and upon submission to a group approval task.
+By default, email notifications are sent upon workflow submission, approval, and rejection, and upon submission to a group approval task.
 
 As an example, we'll add email notifications for when our new task is started.
 
@@ -237,7 +237,7 @@ class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def can_handle(self, instance, **kwargs):
         if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, UserApprovalTask):
-            # Don't send notifications if a Task has been cancelled and then resumed - when object was updated to a new revision
+            # Don't send notifications if a Task has been canceled and then resumed - when object was updated to a new revision
             return not TaskState.objects.filter(workflow_state=instance.workflow_state, task=instance.task, status=TaskState.STATUS_CANCELLED).exists()
         return False
 

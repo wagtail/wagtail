@@ -1,13 +1,13 @@
 (custom_account_settings)=
 
-# Customising the user account settings form
+# Customizing the user account settings form
 
-This document describes how to customise the user account settings form that can be found by clicking "Account settings"
+This document describes how to customize the user account settings form which can be found by clicking "Account settings"
 at the bottom of the main menu.
 
 ## Adding new panels
 
-Each panel on this form is a separate model form which can operate on an instance of either the user model, or the {class}`wagtail.users.models.UserProfile`.
+Each panel on this form is a separate model form that can operate on an instance of either the user model, or the {class}`wagtail.users.models.UserProfile`.
 
 ### Basic example
 
@@ -113,7 +113,7 @@ class CustomSettingsPanel(BaseSettingsPanel):
 -   `title` - The display name of the title
 -   `order` - The order of the tab. The builtin Wagtail tabs start at `100` and increase by `100` for each tab
 
-## Customising the template
+## Customizing the template
 
 You can provide a custom template for the panel by specifying a template name:
 

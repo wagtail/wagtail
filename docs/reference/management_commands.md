@@ -10,7 +10,7 @@
 ./manage.py publish_scheduled
 ```
 
-This command publishes, updates or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
+This command publishes, updates, or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
 
 (fixtree)=
 
@@ -129,7 +129,7 @@ An alias for the `update_index` command that can be used when another installed 
 ./manage.py rebuild_references_index
 ```
 
-This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
+This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents, and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
 
 ### Silencing the command
 
@@ -145,7 +145,7 @@ python manage.py rebuild_references_index --verbosity 0
 ./manage.py show_references_index
 ```
 
-Displays a summary of the contents of the references index. This shows the number of objects indexed against each model type, and can be useful to identify which models are being indexed without rebuilding the index itself.
+Displays a summary of the contents of the references index. This shows the number of objects indexed against each model type and can be useful to identify which models are being indexed without rebuilding the index itself.
 
 (wagtail_update_image_renditions)=
 
@@ -156,9 +156,9 @@ Displays a summary of the contents of the references index. This shows the numbe
 ```
 
 This command provides the ability to regenerate image renditions.
-This is useful if you have deployed to a server where the image renditions have not yet been generated or you have changed the underlying image rendition behaviour and need to ensure all renditions are created again.
+This is useful if you have deployed to a server where the image renditions have not yet been generated or you have changed the underlying image rendition behavior and need to ensure all renditions are created again.
 
-This does not remove rendition images that are unused, this can be done by clearing the folder using `rm -rf` or similar, once this is done you can then use the management command to generate the renditions.
+This does not remove unused rendition images, this can be done by clearing the folder using `rm -rf` or similar, once this is done you can then use the management command to generate the renditions.
 
 Options:
 

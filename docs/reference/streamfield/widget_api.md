@@ -2,7 +2,7 @@
 
 # Form widget client-side API
 
-In order for the StreamField editing interface to dynamically create form fields, any Django form widgets used within StreamField blocks must have an accompanying JavaScript implementation, defining how the widget is rendered client-side and populated with data, and how to extract data from that field. Wagtail provides this implementation for widgets inheriting from `django.forms.widgets.Input`, `django.forms.Textarea`, `django.forms.Select` and `django.forms.RadioSelect`. For any other widget types, or ones which require custom client-side behaviour, you will need to provide your own implementation.
+For the StreamField editing interface to dynamically create form fields, any Django form widgets used within StreamField blocks must have an accompanying JavaScript implementation, defining how the widget is rendered client-side and populated with data, and how to extract data from that field. Wagtail provides this implementation for widgets inheriting from `django.forms.widgets.Input`, `django.forms.Textarea`, `django.forms.Select` and `django.forms.RadioSelect`. For any other widget types, or ones that require custom client-side behavior, you will need to provide your own implementation.
 
 This implementation can be driven by [Stimulus](extending_client_side_stimulus) or for deeper integrations you can leverage telepath.
 
@@ -41,7 +41,7 @@ The JavaScript object associated with a widget instance should provide a single 
 ```{eval-rst}
 .. js:function:: render(placeholder, name, id, initialState)
 
-   Render a copy of this widget into the current page, and perform any initialisation required.
+   Render a copy of this widget into the current page, and perform any initialization required.
 
    :param placeholder: An HTML DOM element to be replaced by the widget's HTML.
    :param name: A string to be used as the ``name`` attribute on the input element. For widgets that use multiple input elements (and have server-side logic for collating them back into a final value), this can be treated as a prefix, with further elements delimited by dashes. (For example, if ``name`` is ``'person-0'``, the widget may create elements with names ``person-0-first_name`` and ``person-0-surname`` without risking collisions with other field names on the form.)
