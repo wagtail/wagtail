@@ -1,12 +1,12 @@
-(customising_group_views)=
+(customizing_group_views)=
 
-# Customising group edit/create views
+# Customizing group edit/create views
 
-The views for managing groups within the app are collected into a 'viewset' class, which acts as a single point of reference for all shared components of those views, such as forms. By subclassing the viewset, it is possible to override those components and customise the behaviour of the group management interface.
+The views for managing groups within the app are collected into a 'viewset' class, which acts as a single point of reference for all shared components of those views, such as forms. By subclassing the viewset, it is possible to override those components and customize the behavior of the group management interface.
 
 ## Custom edit/create forms
 
-This example shows how to customise forms on the 'edit group' and 'create group' views in the Wagtail admin.
+This example shows how to customize forms on the 'edit group' and 'create group' views in the Wagtail admin.
 
 Let's say you need to connect Active Directory groups with Django groups.
 We create a model for Active Directory groups as follows:
@@ -107,11 +107,11 @@ INSTALLED_APPS = [
 ]
 ```
 
-(customising_group_views_permissions_order)=
+(customizing_group_views_permissions_order)=
 
-## Customising the group editor permissions ordering
+## Customizing the group editor permissions ordering
 
-The order that object types appear in the group editor's "Object permissions" and "Other permissions" sections can be configured by registering that order in one or more `AppConfig` definitions. The order value is typically an integer between 0 and 999, although this is not enforced.
+The order in which object types appear in the group editor's "Object permissions" and "Other permissions" sections can be configured by registering that order in one or more `AppConfig` definitions. The order value is typically an integer between 0 and 999, although this is not enforced.
 
 ```python
 from django.apps import AppConfig

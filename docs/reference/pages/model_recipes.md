@@ -31,7 +31,7 @@ class EventPage(Page):
             return super().serve(request)
 ```
 
-{meth}`~wagtail.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a `TemplateResponse` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a `HttpResponse` will not receive these benefits.
+{meth}`~wagtail.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a `TemplateResponse` object with the template and context that it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a `HttpResponse` will not receive these benefits.
 
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
@@ -75,7 +75,7 @@ class Page(...):
                 raise Http404
 ```
 
-{meth}`~wagtail.models.Page.route` takes the current object (`self`), the `request` object, and a list of the remaining `path_components` from the request URL. It either continues delegating routing by calling {meth}`~wagtail.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a `RouteResult` object or raising a 404 error.
+{meth}`~wagtail.models.Page.route` takes the current object (`self`), the `request` object, and a list of the remaining `path_components` from the request URL. It either continues delegating routing by calling {meth}`~wagtail.models.Page.route` again on one of its children in the Wagtail tree or ends the routing process by returning a `RouteResult` object or raising a 404 error.
 
 The `RouteResult` object (defined in wagtail.url_routing) encapsulates all the information Wagtail needs to call a page's {meth}`~wagtail.models.Page.serve` method and return a final response: this information consists of the page object, and any additional `args`/`kwargs` to be passed to {meth}`~wagtail.models.Page.serve`.
 
@@ -227,11 +227,11 @@ class BlogPage(Page):
     tags = ClusterTaggableManager(through='demo.TaggedBlog', blank=True)
 ```
 
-Within the admin, the tag field will automatically recognise the custom tag model being used, and will offer autocomplete suggestions taken from that tag model.
+Within the admin, the tag field will automatically recognize the custom tag model being used and will offer autocomplete suggestions taken from that tag model.
 
 ### Disabling free tagging
 
-By default, tag fields work on a "free tagging" basis: editors can enter anything into the field, and upon saving, any tag text not recognised as an existing tag will be created automatically. To disable this behaviour, and only allow editors to enter tags that already exist in the database, custom tag models accept a `free_tagging = False` option:
+By default, tag fields work on a "free tagging" basis: editors can enter anything into the field, and upon saving, any tag text not recognized as an existing tag will be created automatically. To disable this behavior, and only allow editors to enter tags that already exist in the database, custom tag models accept a `free_tagging = False` option:
 
 ```python
 from taggit.models import TagBase
@@ -250,11 +250,11 @@ Here we have registered `BlogTag` as a snippet, to provide an interface for admi
 
 ### Managing tags as snippets
 
-In order to manage all the tags used in a project, you can register the `Tag` model as a snippet to be managed via the Wagtail admin. This will allow you to have a tag admin interface within the main menu in which you can add, edit or delete your tags.
+To manage all the tags used in a project, you can register the `Tag` model as a snippet to be managed via the Wagtail admin. This will allow you to have a tag admin interface within the main menu in which you can add, edit or delete your tags.
 
 Tags that are removed from a content don't get deleted from the `Tag` model and will still be shown in typeahead tag completion. So having a tag interface is a great way to completely get rid of tags you don't need.
 
-To add the tag interface, add the following block of code to a `wagtail_hooks.py` file within any your project’s apps:
+To add the tag interface, add the following block of code to a `wagtail_hooks.py` file within any of your project’s apps:
 
 ```python
 from wagtail.admin.panels import FieldPanel
@@ -276,4 +276,4 @@ class TagsSnippetViewSet(SnippetViewSet):
 register_snippet(TagsSnippetViewSet)
 ```
 
-A `Tag` model has a `name` and `slug` required fields. If you decide to add a tag, it is recommended to only display the `name` field panel as the slug field is autofilled when the `name` field is filled and you don't need to enter the same name in both the fields.
+A `Tag` model has a `name` and `slug` required fields. If you decide to add a tag, it is recommended to only display the `name` field panel as the slug field is automatically populated when the `name` field is filled and you don't need to enter the same name in both fields.

@@ -197,7 +197,7 @@ Allows to pass template context (by default) to the StreamField template.
 See [StreamField template rendering](streamfield_template_rendering) for more information.
 
 ```{note}
-The ``{% include_block %}`` tag is designed to closely follow the syntax and behaviour
+The ``{% include_block %}`` tag is designed to closely follow the syntax and behavior
 of Jinja's ``{% include %}``, so it does not implement the Django version's feature of
 only passing specified variables into the context.
 ```
