@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import { Controller } from '@hotwired/stimulus';
+import { debounce } from '../utils/debounce';
 
 interface IndexedEventTarget extends EventTarget {
   index: number;
@@ -58,7 +59,7 @@ export class TabsController extends Controller<HTMLDivElement> {
     animate: { default: true, type: Boolean },
   };
 
-  declare animateClass: string;
+  declare readonly animateClass: string;
 
   declare listTarget: HTMLDivElement;
   declare triggerTargets: HTMLAnchorElement[];
@@ -95,7 +96,11 @@ export class TabsController extends Controller<HTMLDivElement> {
           detail: { tab: tab?.getAttribute('href')?.replace('#', '') },
         }),
       );
-      document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
+      this.dispatch('changed', {
+        cancelable: false,
+        detail: { to: previousValue },
+      });
+      // document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
 
       if (!this.disableValue) {
         this.setURLHash(currentValue);
@@ -106,7 +111,7 @@ export class TabsController extends Controller<HTMLDivElement> {
   connect() {
     this.validate();
 
-    setTimeout(() => {
+    debounce(() => {
       window.scrollTo(0, 0);
     }, this.transitionValue * 2);
 
