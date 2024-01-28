@@ -25,11 +25,11 @@ enum KeyWeight {
  * @example - creating a simple tabs interface
  * <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-active-value="" data-w-tabs-animate-class="animate-in">
  *   <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
- *       <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab " role="tab"
+ *       <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab"
  *          tabindex="-1" data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
  *         Tab 1
  *       </a>
- *       <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab " role="tab"
+ *       <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
  *          data-action="click->w-tabs#handleTabChange:prevent keydown->w-tabs#handleKeydown" data-w-tabs-target="label">
  *         Tab 2
  *       </a>
@@ -104,6 +104,8 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   connect() {
+    this.validate();
+
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, this.transitionValue * 2);
@@ -313,5 +315,36 @@ export class TabsController extends Controller<HTMLDivElement> {
         tab.focus();
       }
     }
+  }
+
+  validate() {
+    this.labelTargets.forEach((label, idx) => {
+      const panel = this.panelTargets[idx];
+      if (label.getAttribute('role') !== 'tab') {
+        // eslint-disable-next-line no-console
+        console.warn(
+          label,
+          "this element does not have role='tab' aria attribute",
+        );
+      }
+      if (panel.getAttribute('role') !== 'tabpanel') {
+        // eslint-disable-next-line no-console
+        console.warn(
+          panel,
+          "this element does not have role='tabpanel' aria attribute",
+        );
+      }
+      if (panel.getAttribute('aria-labelledby') !== label.id) {
+        // eslint-disable-next-line no-console
+        console.warn(panel, 'this element does not have aria-labelledby');
+      }
+      if (this.listTarget.getAttribute('role') !== 'tablist') {
+        // eslint-disable-next-line no-console
+        console.warn(
+          this.listTarget,
+          "this element does not have role='tablist' aria attribute",
+        );
+      }
+    });
   }
 }
