@@ -2,15 +2,15 @@
 
 # Title generation on upload
 
-When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
+When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customize this filename to title conversion.
 
 The filename to title conversion is used on the single file widget, multiple upload widget, and within chooser modals.
 
-You can also customise this [same behaviour for documents](../documents/title_generation_on_upload).
+You can also customize this [same behavior for documents](../documents/title_generation_on_upload).
 
-You can customise the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:images-upload'` event.
+You can customize the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:images-upload'` event.
 
-The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
+The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however, any JavaScript that adds the event listener will work.
 
 ## DOM event
 
@@ -24,7 +24,7 @@ To modify the generated `Image` title, access and update `event.detail.data.titl
 
 For single image uploads, the custom event will only run if the title does not already have a value so that we do not overwrite whatever the user has typed.
 
-You can prevent the default behaviour by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple upload, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the image.
+You can prevent the default behavior by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple uploads, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the image.
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 
