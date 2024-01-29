@@ -126,7 +126,7 @@ For static colors, either set each color separately (for example `--w-color-prim
 
 ## Specifying a site or page in the branding
 
-The admin interface has a number of variables available to the renderer context that can be used to customize the branding on the admin page. These can be useful for customizing the dashboard on a multi-tenanted Wagtail installation:
+The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multi-tenanted Wagtail installation:
 
 ### `root_page`
 
