@@ -100,7 +100,6 @@ export class TabsController extends Controller<HTMLDivElement> {
         cancelable: false,
         detail: { to: previousValue },
       });
-      // document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
 
       if (!this.disableValue) {
         this.setURLHash(currentValue);
@@ -154,7 +153,6 @@ export class TabsController extends Controller<HTMLDivElement> {
       'aria-controls',
     ) as string;
     this.activeValue = tabId;
-    // this.selectTab(targetElement);
   }
 
   getTabLabelByHref(tabId: string): HTMLElement | undefined {
@@ -195,7 +193,6 @@ export class TabsController extends Controller<HTMLDivElement> {
         .replace('#', '');
       if (cleanedHash) {
         this.activeValue = cleanedHash;
-        // this.selectTab(tab);
       } else {
         // The hash doesn't match a tab on the page then select first tab
         this.selectFirstTab();
