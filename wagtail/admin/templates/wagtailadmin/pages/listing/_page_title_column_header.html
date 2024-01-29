@@ -1,16 +1,23 @@
 {% extends "wagtailadmin/tables/column_header.html" %}
 {% load wagtailadmin_tags i18n %}
 
+<style>
+    /* Add a custom style block to adjust text baseline */
+    .baseline-adjust {
+        vertical-align: baseline;
+    }
+</style>
+
 {% block after_label %}
     {% if is_searching or is_filtering %}
         {% if is_searching_whole_tree %}
             {% if items_count %}
                 {% blocktranslate trimmed %}
-                    {{ start_index }}-{{ end_index }} of {{ items_count }} across entire site.
+                    <span class="baseline-adjust">{{ start_index }}-{{ end_index }} of {{ items_count }} across entire site.</span>
                 {% endblocktranslate %}
             {% else %}
                 {% blocktranslate trimmed %}
-                    No results across entire site.
+                    <span class="baseline-adjust">No results across entire site.</span>
                 {% endblocktranslate %}
             {% endif %}
             <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">
@@ -19,11 +26,11 @@
         {% else %}
             {% if items_count %}
                 {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
-                    {{ start_index }}-{{ end_index }} of {{ items_count }} in '<span class="w-title-ellipsis">{{ title }}</span>'.
+                    <span class="baseline-adjust">{{ start_index }}-{{ end_index }} of {{ items_count }} in '<span class="w-title-ellipsis">{{ title }}</span>'.</span>
                 {% endblocktranslate %}
             {% else %}
                 {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
-                    No results in '<span class="w-title-ellipsis">{{ title }}</span>'.
+                    <span class="baseline-adjust">No results in '<span class="w-title-ellipsis">{{ title }}</span>'.</span>
                 {% endblocktranslate %}
             {% endif %}
             <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
@@ -32,7 +39,7 @@
         {% endif %}
     {% else %}
         {% blocktranslate trimmed %}
-            {{ start_index }}-{{ end_index }} of {{ items_count }}
+            <span class="baseline-adjust">{{ start_index }}-{{ end_index }} of {{ items_count }}</span>
         {% endblocktranslate %}
     {% endif %}
 {% endblock %}
