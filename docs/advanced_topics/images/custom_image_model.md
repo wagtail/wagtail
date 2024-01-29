@@ -2,7 +2,7 @@
 
 # Custom image models
 
-The `Image` model can be customised, allowing additional fields to be added
+The `Image` model can be customized, allowing additional fields to be added
 to images.
 
 To do this, you need to add two models to your project:

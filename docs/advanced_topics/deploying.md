@@ -60,7 +60,7 @@ The django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage`
 
 ### Cache
 
-Wagtail is designed to make huge advantage of Django's [cache framework](inv:django#topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
+Wagtail is designed to leverage Django's [cache framework](inv:django#topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
 
 Wagtail supports any of Django's cache backend, however we recommend against using one tied to the specific process or environment Django is running (eg `FileBasedCache` or `LocMemCache`).
 
@@ -72,7 +72,7 @@ Wagtail, and by extension Django, can be deployed in many different ways on many
 
 Django has a [deployment checklist](inv:django#howto/deployment/checklist) which runs through everything you should have done or should be aware of before deploying a Django application.
 
-### Performance optimisation
+### Performance optimization
 
 Your production site should be as fast and performant as possible. For tips on how to ensure Wagtail performs as well as possible, take a look at our [performance tips](performance_overview).
 
@@ -80,8 +80,8 @@ Your production site should be as fast and performant as possible. For tips on h
 
 ## Deployment examples
 
-Some examples for deployments on a few hosting platforms can be found in [](./third_party_tutorials). This is not a complete list of platforms where Wagtail can run, nor is it necessarily the only way to run Wagtail there.
+Some examples of deployments on a few hosting platforms can be found in [](./third_party_tutorials). This is not a complete list of platforms where Wagtail can run, nor is it necessarily the only way to run Wagtail there.
 
-An example of a production Wagtail site is [guide.wagail.org](https://guide.wagtail.org/), which is [open-source](https://github.com/wagtail/guide) and run on Heroku. More information on its hosting environment can be found in [its documentation](https://github.com/wagtail/guide/blob/main/docs/hosting-environment.md).
+An example of a production Wagtail site is [guide.wagail.org](https://guide.wagtail.org/), which is [open-source](https://github.com/wagtail/guide) and runs on Heroku. More information on its hosting environment can be found in [its documentation](https://github.com/wagtail/guide/blob/main/docs/hosting-environment.md).
 
 If you have successfully installed Wagtail on your platform or infrastructure, please [contribute](../contributing/index) your notes to this documentation!

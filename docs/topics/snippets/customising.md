@@ -4,9 +4,9 @@
 
 (wagtailsnippets_custom_admin_views)=
 
-# Customising admin views for snippets
+# Customizing admin views for snippets
 
-Additional customisations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customisations provided by `ModelViewSet` such as customising the listing view (e.g. adding custom columns, filters), creating a custom menu item, and more.
+Additional customizations to the admin views for each snippet model can be achieved through a custom {class}`~SnippetViewSet` class. The `SnippetViewSet` is a subclass of {class}`.ModelViewSet`, with snippets-specific properties provided by default. Hence, it supports the same customizations provided by `ModelViewSet` such as customizing the listing view (e.g. adding custom columns, and filters), creating a custom menu item, and more.
 
 Before proceeding, ensure that you register the snippet model using `register_snippet` as a function instead of a decorator, as described in [](wagtailsnippets_registering).
 
@@ -83,15 +83,15 @@ You can define an {attr}`~.ViewSet.icon` attribute on the `SnippetViewSet` to sp
 
 ## URL namespace and base URL path
 
-The {attr}`~.ViewSet.url_namespace` property can be overridden to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, overriding {attr}`~.ViewSet.url_prefix` allows you to customise the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`.
+The {attr}`~.ViewSet.url_namespace` property can be overridden to use a custom URL namespace for the URL patterns of the views. If unset, it defaults to `wagtailsnippets_{app_label}_{model_name}`. Meanwhile, overriding {attr}`~.ViewSet.url_prefix` allows you to customize the base URL path relative to the Wagtail admin URL. If unset, it defaults to `snippets/app_label/model_name`.
 
-Similar URL customisations are also possible for the snippet chooser views through {attr}`~SnippetViewSet.chooser_admin_url_namespace`, {attr}`~SnippetViewSet.chooser_base_url_path`, {meth}`~SnippetViewSet.get_chooser_admin_url_namespace`, and {meth}`~SnippetViewSet.get_chooser_admin_base_path`.
+Similar URL customizations are also possible for the snippet chooser views through {attr}`~SnippetViewSet.chooser_admin_url_namespace`, {attr}`~SnippetViewSet.chooser_base_url_path`, {meth}`~SnippetViewSet.get_chooser_admin_url_namespace`, and {meth}`~SnippetViewSet.get_chooser_admin_base_path`.
 
 ## Listing view
 
-You can customise the listing view to add custom columns, filters, pagination, etc. via various attributes available on the `SnippetViewSet`. Refer to [the listing view customisations for `ModelViewSet`](modelviewset_listing) for more details.
+You can customize the listing view to add custom columns, filters, pagination, etc. via various attributes available on the `SnippetViewSet`. Refer to [the listing view customizations for `ModelViewSet`](modelviewset_listing) for more details.
 
-Additionally, you can customise the base queryset for the listing view by overriding the {meth}`~SnippetViewSet.get_queryset` method.
+Additionally, you can customize the base queryset for the listing view by overriding the {meth}`~SnippetViewSet.get_queryset` method.
 
 ## Copy view
 
@@ -99,21 +99,21 @@ Additionally, you can customise the base queryset for the listing view by overri
 
 ```
 
-The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`. Refer to [the copy view customisations for `ModelViewSet`](modelviewset_copy) for more details.
+The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`. Refer to [the copy view customizations for `ModelViewSet`](modelviewset_copy) for more details.
 
 ## Inspect view
 
-The inspect view is disabled by default, as it's not often useful for most models. To enable it, set {attr}`~.ModelViewSet.inspect_view_enabled` to `True`. Refer to [the inspect view customisations for `ModelViewSet`](modelviewset_inspect) for more details.
+The inspect view is disabled by default, as it's not often useful for most models. To enable it, set {attr}`~.ModelViewSet.inspect_view_enabled` to `True`. Refer to [the inspect view customizations for `ModelViewSet`](modelviewset_inspect) for more details.
 
 (wagtailsnippets_templates)=
 
 ## Templates
 
-Template customisations work the same way as for `ModelViewSet`, except that the {attr}`~.ModelViewSet.template_prefix` defaults to `wagtailsnippets/snippets/`. Refer to [the template customisations for `ModelViewSet`](modelviewset_templates) for more details.
+Template customizations work the same way as for `ModelViewSet`, except that the {attr}`~.ModelViewSet.template_prefix` defaults to `wagtailsnippets/snippets/`. Refer to [the template customizations for `ModelViewSet`](modelviewset_templates) for more details.
 
 ## Menu item
 
-By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. However, you can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~.ViewSet.add_to_admin_menu` to `True`. Refer to [the menu customisations for `ModelViewSet`](modelviewset_menu) for more details.
+By default, registering a snippet model will add a "Snippets" menu item to the sidebar menu. However, you can configure a snippet model to have its own top-level menu item in the sidebar menu by setting {attr}`~.ViewSet.add_to_admin_menu` to `True`. Refer to [the menu customizations for `ModelViewSet`](modelviewset_menu) for more details.
 
 An example of a custom `SnippetViewSet` subclass with `add_to_admin_menu` set to `True`:
 
@@ -165,4 +165,4 @@ register_snippet(MarketingViewSetGroup)
 
 If all snippet models have their own menu items, the "Snippets" menu item will not be shown.
 
-Various additional attributes are available to customise the viewset - see {class}`~SnippetViewSet`.
+Various additional attributes are available to customize the viewset - see {class}`~SnippetViewSet`.
