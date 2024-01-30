@@ -4,13 +4,10 @@ from django.urls import include, path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail import hooks
 from warnings import warn
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+
+from wagtail import hooks
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
@@ -33,6 +30,7 @@ from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.wagtail_hooks import require_wagtail_login
+
 
 
 @hooks.register("register_admin_urls")

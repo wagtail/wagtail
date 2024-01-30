@@ -5,6 +5,8 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import etag
+from warnings import warn
+
 from wagtail import hooks
 from wagtail.documents import get_document_model
 from wagtail.documents.models import document_served
@@ -13,7 +15,6 @@ from wagtail.models import CollectionViewRestriction
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.sendfile import sendfile
-from warnings import warn
 
 
 def document_etag(request, document_id, document_filename):
