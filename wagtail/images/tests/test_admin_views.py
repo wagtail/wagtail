@@ -568,8 +568,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
@@ -663,7 +662,9 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailimages/images/add.html")
 
         # The form should have an error
-        self.assertFormError(response, "form", "file", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "file", "This field is required."
+        )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
     def test_add_too_large_file(self):
@@ -682,8 +683,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         # The form should have an error
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
                 file_size=filesizeformat(len(file_content)),
@@ -708,8 +708,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         # The form should have an error
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "This file has too many pixels (307200). Maximum pixels 1.",
         )
@@ -1927,7 +1926,9 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
         )
 
         # The form should have an error
-        self.assertFormError(response, "form", "file", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "file", "This field is required."
+        )
 
     def test_upload_duplicate(self):
         def post_image(title="Test image"):
@@ -2055,8 +2056,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
             response, "wagtailadmin/generic/chooser/creation_form.html"
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
@@ -2086,8 +2086,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
             response, "wagtailadmin/generic/chooser/creation_form.html"
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
@@ -2670,7 +2669,9 @@ class TestMultipleImageUploader(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -3152,7 +3153,9 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
             "/admin/images/multiple/delete_upload/%d/"
             % response.context["uploaded_image"].id,
         )
-        self.assertFormError(response, "form", "author", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "author", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
