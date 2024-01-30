@@ -299,7 +299,7 @@ Here are a few things to be wary of.
 
 #### Custom Page models
 
-When creating customised Page models in fixtures, you will need to add both a
+When creating customized Page models in fixtures, you will need to add both a
 `wagtailcore.page` entry, and one for your custom Page model.
 
 Let's say you have a `website` module which defines a `Homepage(Page)` class.
@@ -326,7 +326,7 @@ You could create such a homepage in a fixture with:
 
 #### Treebeard fields
 
-Filling in the `path` / `numchild` / `depth` fields is necessary in order for tree operations like `get_parent()` to work correctly.
+Filling in the `path` / `numchild` / `depth` fields is necessary for tree operations like `get_parent()` to work correctly.
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
 The [Treebeard docs](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) might help in understanding how this works.

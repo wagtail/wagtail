@@ -5,7 +5,7 @@
 This example shows how to add a text field and foreign key field to a custom user model
 and configure Wagtail user forms to allow the fields values to be updated.
 
-Create a custom user model. This must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`. In this case we extend the `AbstractUser` class and add two fields. The foreign key references another model (not shown).
+Create a custom user model. This must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`. In this case, we extend the `AbstractUser` class and add two fields. The foreign key references another model (not shown).
 
 ```python
 from django.contrib.auth.models import AbstractUser
@@ -70,11 +70,11 @@ Template edit.html:
 ```
 
 The `extra_fields` block allows fields to be inserted below the `last_name` field
-in the default templates. Other block overriding options exist to allow appending
-fields to the end or beginning of the existing fields, or to allow all the fields to
+in the default templates. Other block-overriding options exist to allow appending
+fields to the end or beginning of the existing fields or to allow all the fields to
 be redefined.
 
-Add the wagtail settings to your project to reference the user form additions:
+Add the Wagtail settings to your project to reference the user form additions:
 
 ```python
 WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'

@@ -788,6 +788,7 @@
 * Sankalp
 * V Rohitansh
 * Andreas Donig
+* Osaf AliSayed
 
 ## Translators
 

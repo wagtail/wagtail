@@ -1,8 +1,8 @@
-# Customising admin templates
+# Customizing admin templates
 
 In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism.
 
-You need to create a `templates/wagtailadmin/` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, `dashboard`. This app must be registered in `INSTALLED_APPS` before `wagtail.admin`:
+You need to create a `templates/wagtailadmin/` folder within one of your apps - this may be an existing one or a new one created for this purpose, for example, `dashboard`. This app must be registered in `INSTALLED_APPS` before `wagtail.admin`:
 
 ```python
 INSTALLED_APPS = (
@@ -21,7 +21,7 @@ INSTALLED_APPS = (
 
 ## Custom branding
 
-The template blocks that are available to customise the branding in the admin interface are as follows:
+The template blocks that are available to customize the branding in the admin interface are as follows:
 
 ### `branding_logo`
 
@@ -36,7 +36,7 @@ To replace the default logo, create a template file `dashboard/templates/wagtail
 {% endblock %}
 ```
 
-The logo also appears in the following pages and can be replaced with its template file:
+The logo also appears on the following pages and can be replaced with its template file:
 
 -   **login page** - create a template file `dashboard/templates/wagtailadmin/login.html` that overwrites the `branding_logo` block.
 -   **404 error page** - create a template file `dashboard/templates/wagtailadmin/404.html` that overrides the `branding_logo` block.
@@ -89,7 +89,7 @@ To replace the welcome message on the dashboard, create a template file `dashboa
 
 ## Custom user interface fonts
 
-To customise the font families used in the admin user interface, inject a CSS file using the hook [](insert_global_admin_css) and override the variables within the `:root` selector:
+To customize the font families used in the admin user interface, inject a CSS file using the hook [](insert_global_admin_css) and override the variables within the `:root` selector:
 
 ```css
 :root {
@@ -100,25 +100,25 @@ To customise the font families used in the admin user interface, inject a CSS fi
 
 (custom_user_interface_colours)=
 
-## Custom user interface colours
+## Custom user interface colors
 
 ```{warning}
-The default Wagtail colours conform to the WCAG2.1 AA level colour contrast requirements. When customising the admin colours you should test the contrast using tools like [Axe](https://www.deque.com/axe/browser-extensions/).
+The default Wagtail colors conform to the WCAG2.1 AA level color contrast requirements. When customizing the admin colors you should test the contrast using tools like [Axe](https://www.deque.com/axe/browser-extensions/).
 ```
 
-To customise the colours used in the admin user interface, inject a CSS file using the hook [](insert_global_admin_css) and set the desired variables within the `:root` selector. Colour variables are reused across both the light and dark themes of the admin interface. To change the colours of a specific theme, use:
+To customize the colors used in the admin user interface, inject a CSS file using the hook [](insert_global_admin_css) and set the desired variables within the `:root` selector. Color variables are reused across both the light and dark themes of the admin interface. To change the colors of a specific theme, use:
 
 -   `:root, .w-theme-light` for the light theme.
 -   `.w-theme-dark` for the dark theme.
 -   `@media (prefers-color-scheme: light) { .w-theme-system { […] }}` for the light theme via system settings.
 -   `@media (prefers-color-scheme: dark) { .w-theme-system { […] }}` for the dark theme via system settings.
 
-There are two ways to customise Wagtail’s colour scheme:
+There are two ways to customize Wagtail’s color scheme:
 
--   Set static colour variables, which are then reused in both light and dark themes across a wide number of UI components.
--   Set semantic colours, which are more numerous but allow customising specific UI components.
+-   Set static color variables, which are then reused in both light and dark themes across a wide number of UI components.
+-   Set semantic colors, which are more numerous but allow customizing specific UI components.
 
-For static colours, either set each colour separately (for example `--w-color-primary: #2E1F5E;`); or separately set [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (`--w-color-primary-hue`, `--w-color-primary-saturation`, `--w-color-primary-lightness`) variables so all shades are customised at once. For example, setting `--w-color-secondary-hue: 180;` will customise all of the secondary shades at once.
+For static colors, either set each color separately (for example `--w-color-primary: #2E1F5E;`); or separately set [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (`--w-color-primary-hue`, `--w-color-primary-saturation`, `--w-color-primary-lightness`) variables so all shades are customized at once. For example, setting `--w-color-secondary-hue: 180;` will customize all of the secondary shades at once.
 
 ```{include} ../../_static/wagtail_colors_tables.txt
 
@@ -126,11 +126,11 @@ For static colours, either set each colour separately (for example `--w-color-pr
 
 ## Specifying a site or page in the branding
 
-The admin interface has a number of variables available to the renderer context that can be used to customise the branding in the admin page. These can be useful for customising the dashboard on a multitenanted Wagtail installation:
+The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multi-tenanted Wagtail installation:
 
 ### `root_page`
 
-Returns the highest explorable page object for the currently logged in user. If the user has no explore rights, this will default to `None`.
+Returns the highest explorable page object for the currently logged-in user. If the user has no explore rights, this will default to `None`.
 
 ### `root_site`
 
@@ -182,7 +182,7 @@ To add extra fields to the login form, override the `fields` block. You will nee
 
 ### `submit_buttons`
 
-To add extra buttons to the login form, override the `submit_buttons` block. You will need to add `{{ block.super }}` somewhere in your block to include the sign in button:
+To add extra buttons to the login form, override the `submit_buttons` block. You will need to add `{{ block.super }}` somewhere in your block to include the sign-in button:
 
 ```html+django
 {% extends "wagtailadmin/login.html" %}
@@ -195,7 +195,7 @@ To add extra buttons to the login form, override the `submit_buttons` block. You
 
 ### `login_form`
 
-To completely customise the login form, override the `login_form` block. This block wraps the whole contents of the `<form>` element:
+To completely customize the login form, override the `login_form` block. This block wraps the whole contents of the `<form>` element:
 
 ```html+django
 {% extends "wagtailadmin/login.html" %}

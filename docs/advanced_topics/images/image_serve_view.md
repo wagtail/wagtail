@@ -99,7 +99,7 @@ You can pass an optional view name that will be used to serve the image through.
 
 ### Making the view redirect instead of serve
 
-By default, the view will serve the image file directly. This behaviour can be
+By default, the view will serve the image file directly. This behavior can be
 changed to a 301 redirect instead, which may be useful if you host your images
 externally.
 
@@ -142,7 +142,7 @@ urlpatterns = [
 ]
 ```
 
-You can customise it to override the backend defined in the `SENDFILE_BACKEND`
+You can customize it to override the backend defined in the `SENDFILE_BACKEND`
 setting:
 
 ```python
@@ -153,7 +153,7 @@ class MySendFileView(SendFileView):
     backend = MyCustomBackend
 ```
 
-You can also customise it to serve private files. For example, if the only need
+You can also customize it to serve private files. For example, if the only need
 is to be authenticated (Django >= 1.9):
 
 ```python

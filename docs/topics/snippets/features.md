@@ -43,9 +43,9 @@ With the following `demo/previews/advert.html` template:
 </html>
 ```
 
-The variables available in the default context are `request` (a fake {class}`~django.http.HttpRequest` object) and `object` (the snippet instance). To customise the context, you can override the {meth}`~wagtail.models.PreviewableMixin.get_preview_context` method.
+The variables available in the default context are `request` (a fake {class}`~django.http.HttpRequest` object) and `object` (the snippet instance). To customize the context, you can override the {meth}`~wagtail.models.PreviewableMixin.get_preview_context` method.
 
-By default, the `serve_preview` method returns a {class}`~django.template.response.TemplateResponse` that is rendered using the request object, the template returned by `get_preview_template`, and the context object returned by `get_preview_context`. You can override the `serve_preview` method to customise the rendering and/or routing logic.
+By default, the `serve_preview` method returns a {class}`~django.template.response.TemplateResponse` that is rendered using the request object, the template returned by `get_preview_template`, and the context object returned by `get_preview_context`. You can override the `serve_preview` method to customize the rendering and/or routing logic.
 
 Similar to pages, you can define multiple preview modes by overriding the {attr}`~wagtail.models.PreviewableMixin.preview_modes` property. For example, the following `Advert` snippet has two preview modes:
 
@@ -115,7 +115,7 @@ class Advert(index.Indexed, models.Model):
 
 If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
 
-In addition to inheriting the mixin, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. Defining the `GenericRelation` is also necessary to ensure that `Revision` instances are automatically deleted when the snippet instance is deleted. If you need to customise how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define the `revisions` as a property.
+In addition to inheriting the mixin, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. Defining the `GenericRelation` is also necessary to ensure that `Revision` instances are automatically deleted when the snippet instance is deleted. If you need to customize how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define the `revisions` as a property.
 
 For example, the `Advert` snippet could be made revisable as follows:
 
@@ -238,7 +238,7 @@ You can publish revisions programmatically by calling {meth}`instance.publish(re
 
 If you use the scheduled publishing feature, make sure that you run the [`publish_scheduled`](publish_scheduled) management command periodically. For more details, see [](scheduled_publishing).
 
-Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
+Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and displays them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 ```{warning}
 Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (for example, by checking its `live` field). We are planning to improve this in the future.
@@ -276,15 +276,15 @@ If you use the other mixins, make sure to apply `LockableMixin` after the other 
 
 The `LockableMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
 
-Locking and unlocking a snippet instance requires `lock` and `unlock` permissions on the snippet model, respectively. For models with `LockableMixin` applied, Wagtail automatically creates the corresponding `lock` and `unlock` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
+Locking and unlocking a snippet instance requires `lock` and `unlock` permissions on the snippet model, respectively. For models with `LockableMixin` applied, Wagtail automatically creates the corresponding `lock` and `unlock` permissions and displays them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 (wagtailsnippets_enabling_workflows)=
 
 ## Enabling workflows for snippets
 
-If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information of the current workflow.
+If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail will automatically add the ability to assign a workflow to the model. With a workflow assigned to the snippet model, a "Submit for moderation" and other workflow action menu items will be shown in the editor. The status side panel will also show the information on the current workflow.
 
-Since the `WorkflowMixin` utilises revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. It is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
+Since the `WorkflowMixin` utilizes revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. It is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
 
 In addition to inheriting the mixins, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.WorkflowState` model so that you can do related queries and that the workflow-related data is properly cleaned up when the snippet instance is deleted.
 
