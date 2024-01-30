@@ -517,14 +517,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "go_live_at",
             "Go live date/time must be before expiry date/time",
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "expire_at",
             "Go live date/time must be before expiry date/time",
         )
@@ -567,7 +565,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "expire_at", "Expiry date/time must be in the future"
+            response.context["form"],
+            "expire_at",
+            "Expiry date/time must be in the future",
         )
 
         self.assertContains(
@@ -749,8 +749,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "slug",
             "The slug 'hello-world' is already in use within the parent page",
         )
@@ -787,7 +786,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, "form", "foo", "Field foo must be bar")
+        self.assertFormError(response.context["form"], "foo", "Field foo must be bar")
         self.assertFalse(
             Page.objects.filter(
                 path__startswith=self.root_page.path, slug="hello-world"
@@ -911,7 +910,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
     def test_whitespace_titles_with_tab(self):
         post_data = {
@@ -929,7 +930,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
@@ -1000,8 +1003,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Check that a form error was raised
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "slug",
             "Ensure this value has at most 255 characters (it has 287).",
         )

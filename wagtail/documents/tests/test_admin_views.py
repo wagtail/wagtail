@@ -1188,7 +1188,9 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -1480,7 +1482,9 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
             "/admin/documents/multiple/delete_upload/%d/"
             % response.context["uploaded_document"].id,
         )
-        self.assertFormError(response, "form", "author", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "author", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
