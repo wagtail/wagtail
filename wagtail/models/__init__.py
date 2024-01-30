@@ -100,16 +100,6 @@ from .audit_log import (  # noqa: F401
     LogEntryQuerySet,
     ModelLogEntry,
 )
-from .collections import (  # noqa: F401
-    BaseCollectionManager,
-    Collection,
-    CollectionManager,
-    CollectionMember,
-    CollectionViewRestriction,
-    GroupCollectionPermission,
-    GroupCollectionPermissionManager,
-    get_root_collection_id,
-)
 from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
 from .i18n import (  # noqa: F401
     BootstrapTranslatableMixin,
@@ -119,6 +109,17 @@ from .i18n import (  # noqa: F401
     TranslatableMixin,
     bootstrap_translatable_model,
     get_translatable_models,
+)
+from .media import (  # noqa: F401
+    BaseCollectionManager,
+    Collection,
+    CollectionManager,
+    CollectionMember,
+    CollectionViewRestriction,
+    GroupCollectionPermission,
+    GroupCollectionPermissionManager,
+    UploadedFile,
+    get_root_collection_id,
 )
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401

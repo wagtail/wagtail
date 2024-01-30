@@ -15,7 +15,6 @@ from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.fields import get_allowed_image_extensions
 from wagtail.images.forms import get_image_form, get_image_multi_form
-from wagtail.images.models import UploadedImage
 from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
 from wagtail.images.utils import find_image_duplicates
 
@@ -23,7 +22,6 @@ from wagtail.images.utils import find_image_duplicates
 class AddView(BaseAddView):
     permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
-    upload_model = UploadedImage
 
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
@@ -35,7 +33,7 @@ class AddView(BaseAddView):
     delete_upload_url_name = "wagtailimages:delete_upload_multiple"
     edit_upload_form_prefix = "uploaded-image"
     context_upload_name = "uploaded_image"
-    context_upload_id_name = "uploaded_image_id"
+    context_upload_id_name = "uploaded_file_id"
 
     def get_model(self):
         return get_image_model()
@@ -131,8 +129,7 @@ class DeleteView(BaseDeleteView):
 class CreateFromUploadedImageView(BaseCreateFromUploadView):
     edit_upload_url_name = "wagtailimages:create_multiple_from_uploaded_image"
     delete_upload_url_name = "wagtailimages:delete_upload_multiple"
-    upload_model = UploadedImage
-    upload_pk_url_kwarg = "uploaded_image_id"
+    upload_pk_url_kwarg = "uploaded_file_id"
     edit_upload_form_prefix = "uploaded-image"
     context_object_id_name = "image_id"
     context_upload_name = "uploaded_image"
@@ -160,5 +157,7 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
 
 
 class DeleteUploadView(BaseDeleteUploadView):
-    upload_model = UploadedImage
-    upload_pk_url_kwarg = "uploaded_image_id"
+    upload_pk_url_kwarg = "uploaded_file_id"
+
+    def get_model(self):
+        return get_image_model()

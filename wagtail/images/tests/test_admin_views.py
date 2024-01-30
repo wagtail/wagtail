@@ -4,6 +4,7 @@ import urllib
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
@@ -16,12 +17,12 @@ from django.utils.safestring import mark_safe
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
-from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
     Page,
+    UploadedFile,
     get_root_collection_id,
 )
 from wagtail.test.testapp.models import (
@@ -2886,7 +2887,7 @@ class TestMultipleImageUploaderWithCustomImageModel(WagtailTestUtils, TestCase):
 
     def test_unique_together_validation_error(self):
         """
-        If unique_together validation fails, create an UploadedImage and return a form so the
+        If unique_together validation fails, create an UploadedFile and return a form so the
         user can fix it
         """
         root_collection = Collection.get_first_root_node()
@@ -2895,7 +2896,7 @@ class TestMultipleImageUploaderWithCustomImageModel(WagtailTestUtils, TestCase):
         self.image.save()
 
         image_count_before = CustomImage.objects.count()
-        uploaded_image_count_before = UploadedImage.objects.count()
+        uploaded_image_count_before = UploadedFile.objects.count()
 
         response = self.client.post(
             reverse("wagtailimages:add_multiple"),
@@ -2908,9 +2909,9 @@ class TestMultipleImageUploaderWithCustomImageModel(WagtailTestUtils, TestCase):
         )
 
         image_count_after = CustomImage.objects.count()
-        uploaded_image_count_after = UploadedImage.objects.count()
+        uploaded_image_count_after = UploadedFile.objects.count()
 
-        # an UploadedImage should have been created now, but not a CustomImage
+        # an UploadedFile should have been created now, but not a CustomImage
         self.assertEqual(image_count_after, image_count_before)
         self.assertEqual(uploaded_image_count_after, uploaded_image_count_before + 1)
 
@@ -3034,8 +3035,9 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
     def setUp(self):
         self.user = self.login()
 
-        # Create an UploadedImage for running tests on
-        self.uploaded_image = UploadedImage.objects.create(
+        # Create an UploadedFile for running tests on
+        self.uploaded_image = UploadedFile.objects.create(
+            for_content_type=ContentType.objects.get_for_model(get_image_model()),
             file=get_test_image_file(),
             uploaded_by_user=self.user,
         )
@@ -3053,11 +3055,11 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
 
     def test_add_post(self):
         """
-        A POST request to the add view should create an UploadedImage rather than an image,
+        A POST request to the add view should create an UploadedFile rather than an image,
         as we do not have enough data to pass CustomImageWithAuthor's validation yet
         """
         image_count_before = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_before = UploadedImage.objects.count()
+        uploaded_image_count_before = UploadedFile.objects.count()
 
         response = self.client.post(
             reverse("wagtailimages:add_multiple"),
@@ -3069,9 +3071,9 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         )
 
         image_count_after = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_after = UploadedImage.objects.count()
+        uploaded_image_count_after = UploadedFile.objects.count()
 
-        # an UploadedImage should have been created now, but not a CustomImageWithAuthor
+        # an UploadedFile should have been created now, but not a CustomImageWithAuthor
         self.assertEqual(image_count_after, image_count_before)
         self.assertEqual(uploaded_image_count_after, uploaded_image_count_before + 1)
 
@@ -3137,10 +3139,10 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
     def test_create_from_upload_invalid_post(self):
         """
         Posting an invalid form to the create_from_uploaded_image view throws a validation error and leaves the
-        UploadedImage intact
+        UploadedFile intact
         """
         image_count_before = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_before = UploadedImage.objects.count()
+        uploaded_image_count_before = UploadedFile.objects.count()
 
         # Send request
         response = self.client.post(
@@ -3156,9 +3158,9 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         )
 
         image_count_after = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_after = UploadedImage.objects.count()
+        uploaded_image_count_after = UploadedFile.objects.count()
 
-        # no changes to image / UploadedImage count
+        # no changes to image / UploadedFile count
         self.assertEqual(image_count_after, image_count_before)
         self.assertEqual(uploaded_image_count_after, uploaded_image_count_before)
 
@@ -3194,7 +3196,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         Posting a valid form to the create_from_uploaded_image view will create the image
         """
         image_count_before = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_before = UploadedImage.objects.count()
+        uploaded_image_count_before = UploadedFile.objects.count()
 
         # Send request
         response = self.client.post(
@@ -3212,7 +3214,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         )
 
         image_count_after = CustomImageWithAuthor.objects.count()
-        uploaded_image_count_after = UploadedImage.objects.count()
+        uploaded_image_count_after = UploadedFile.objects.count()
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -3223,7 +3225,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         self.assertIn("image_id", response_json)
         self.assertTrue(response_json["success"])
 
-        # Image should have been created, UploadedImage deleted
+        # Image should have been created, UploadedFile deleted
         self.assertEqual(image_count_after, image_count_before + 1)
         self.assertEqual(uploaded_image_count_after, uploaded_image_count_before - 1)
 
@@ -3239,7 +3241,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
 
     def test_delete_uploaded_image(self):
         """
-        This tests that a POST request to the delete view deletes the UploadedImage
+        This tests that a POST request to the delete view deletes the UploadedFile
         """
         # Send request
         response = self.client.post(
@@ -3254,7 +3256,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
 
         # Make sure the image is deleted
         self.assertFalse(
-            UploadedImage.objects.filter(id=self.uploaded_image.id).exists()
+            UploadedFile.objects.filter(id=self.uploaded_image.id).exists()
         )
 
         # Check JSON
