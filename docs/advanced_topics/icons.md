@@ -12,7 +12,7 @@ Elements that use icons are:
 -   [Snippets](wagtailsnippets_icon)
 -   [StreamField blocks](custom_streamfield_blocks)
 
-This document describes how to choose, add and customise icons.
+This document describes how to choose, add and customize icons.
 
 ## Add a custom icon
 

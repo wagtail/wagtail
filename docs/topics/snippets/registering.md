@@ -2,7 +2,7 @@
 
 # Registering snippets
 
-Snippets can be registered using `register_snippet` as a decorator or as a function. The latter is recommended, but the decorator is provided for convenience and backwards compatibility.
+Snippets can be registered using `register_snippet` as a decorator or as a function. The latter is recommended, but the decorator is provided for convenience and backward compatibility.
 
 ## Using `@register_snippet` as a decorator
 
@@ -47,7 +47,7 @@ from myapp.models import Advert
 register_snippet(Advert)
 ```
 
-Registering snippets in this way allows you to add further customisations using a custom {class}`~wagtail.snippets.views.snippets.SnippetViewSet` class later. This also provides better separation between your Django model and Wagtail-specific concerns. For example, instead of defining the `panels` or `edit_handler` on the model class, they can be defined on the `SnippetViewSet` class:
+Registering snippets in this way allows you to add further customizations using a custom {class}`~wagtail.snippets.views.snippets.SnippetViewSet` class later. This also provides a better separation between your Django model and Wagtail-specific concerns. For example, instead of defining the `panels` or `edit_handler` on the model class, they can be defined on the `SnippetViewSet` class:
 
 ```python
 # myapp/wagtail_hooks.py
@@ -71,4 +71,4 @@ class AdvertViewSet(SnippetViewSet):
 register_snippet(AdvertViewSet)
 ```
 
-If you would like to do more customisations of the panels, you can override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_handler` method. Further customisations will be explained later in [](wagtailsnippets_custom_admin_views).
+If you would like to do more customizations of the panels, you can override the {meth}`~wagtail.snippets.views.snippets.SnippetViewSet.get_edit_handler` method. Further customizations will be explained later in [](wagtailsnippets_custom_admin_views).

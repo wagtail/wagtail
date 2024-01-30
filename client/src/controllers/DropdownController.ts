@@ -80,25 +80,7 @@ export const rotateToggleIcon = {
   },
 };
 
-const themeOptions = {
-  'dropdown': {
-    arrow: true,
-    maxWidth: 350,
-    placement: 'bottom',
-  },
-  'drilldown': {
-    arrow: false,
-    maxWidth: 'none',
-    placement: 'bottom-end',
-  },
-  'dropdown-button': {
-    arrow: false,
-    maxWidth: 'none',
-    placement: 'bottom-start',
-  },
-} as const;
-
-type TippyTheme = keyof typeof themeOptions;
+type TippyTheme = 'dropdown' | 'drilldown' | 'dropdown-button';
 
 /**
  * A Tippy.js tooltip with interactive "dropdown" options.
@@ -113,20 +95,22 @@ export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
   static values = {
     hideOnClick: { default: false, type: Boolean },
+    keepMounted: { default: false, type: Boolean },
     offset: Array,
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
   // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
   // option for outside clicks that defaults to true and we don't yet expose it.
-  declare hideOnClickValue: boolean;
-  declare offsetValue: [number, number];
+  declare readonly hideOnClickValue: boolean;
+  declare readonly keepMountedValue: boolean;
+  declare readonly offsetValue: [number, number];
+  declare readonly hasOffsetValue: boolean;
+  declare readonly themeValue: TippyTheme;
 
   declare readonly contentTarget: HTMLDivElement;
   declare readonly hasContentTarget: boolean;
-  declare readonly hasOffsetValue: boolean;
   declare readonly toggleTarget: HTMLButtonElement;
-  declare readonly themeValue: TippyTheme;
 
   tippy?: Instance<Props>;
 
@@ -162,50 +146,90 @@ export class DropdownController extends Controller<HTMLElement> {
       });
     }
 
+    const onCreate = (instance: Instance<Props>) => {
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        this.element.append(popper);
+        popper.hidden = true;
+      }
+    };
+
+    const onShow = (instance: Instance<Props>) => {
+      if (hoverTooltipInstance) {
+        hoverTooltipInstance.disable();
+      }
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        popper.hidden = false;
+      }
+    };
+
     const onShown = () => {
       this.dispatch('shown');
     };
 
     const onHide = () => {
       this.dispatch('hide');
+      if (hoverTooltipInstance) {
+        hoverTooltipInstance.enable();
+      }
+    };
+
+    const onHidden = (instance: Instance<Props>) => {
+      if (this.keepMountedValue) {
+        const { popper } = instance;
+        this.element.append(popper);
+        popper.hidden = true;
+      }
     };
 
     return {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
-      ...themeOptions[this.themeValue],
+      ...this.themeOptions,
       trigger: 'click',
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
-      hideOnClick: !this.useCustomHideOnClickAway,
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
       theme: this.themeValue,
-      plugins: this.plugins,
-      onShow() {
-        if (hoverTooltipInstance) {
-          hoverTooltipInstance.disable();
-        }
-      },
-      onShown() {
-        onShown();
-      },
-      onHide() {
-        if (hoverTooltipInstance) {
-          hoverTooltipInstance.enable();
-        }
-        onHide();
-      },
+      onCreate,
+      onShow,
+      onShown,
+      onHide,
+      onHidden,
     };
   }
 
-  get useCustomHideOnClickAway() {
-    // Tippy's default hideOnClick option for "hiding on click away" doesn't
-    // work well with our datetime libraries. Instead, we use a custom plugin
-    // to hide the tooltip when clicking outside the dropdown. It's unlikely
-    // we'll render a datetime picker for themes other than drilldown, so use
-    // the custom solution for this theme only.
-    return this.themeValue === 'drilldown';
+  get themeOptions() {
+    return (
+      {
+        'dropdown': {
+          arrow: true,
+          maxWidth: 350,
+          placement: 'bottom',
+          plugins: this.plugins,
+        },
+        'drilldown': {
+          arrow: false,
+          maxWidth: 'none',
+          placement: 'bottom-end',
+          // Tippy's default hideOnClick option for "hiding on click away" doesn't
+          // work well with our datetime libraries. Instead, we use a custom plugin
+          // to hide the tooltip when clicking outside the dropdown. It's unlikely
+          // we'll render a datetime picker for themes other than drilldown, so use
+          // the custom solution for this theme only.
+          hideOnClick: false,
+          plugins: this.plugins.concat([this.hideTooltipOnClickAway]),
+        },
+        'dropdown-button': {
+          arrow: false,
+          maxWidth: 'none',
+          placement: 'bottom-start',
+          plugins: this.plugins,
+        },
+      } as const
+    )[this.themeValue];
   }
 
   /**
@@ -215,17 +239,11 @@ export class DropdownController extends Controller<HTMLElement> {
    * elements outside of the dropdown's DOM).
    */
   get hideTooltipOnClickAway() {
-    // We can't use `this` to access the controller instance inside the plugin
-    // function, so we need to get these ahead in time.
-    const reference = this.reference;
-    const toggleTarget = this.toggleTarget;
-    const dispatch = this.dispatch.bind(this);
-
     return {
       name: 'hideTooltipOnClickAway',
-      fn(instance: Instance) {
+      fn: (instance: Instance) => {
         const onClick = (e: MouseEvent) => {
-          const event = dispatch('clickaway', {
+          const event = this.dispatch('clickaway', {
             cancelable: true,
             detail: { target: e.target },
           });
@@ -236,8 +254,8 @@ export class DropdownController extends Controller<HTMLElement> {
             instance.state.isShown &&
             // Hide if the click is outside of the reference element,
             // or if the click is on the toggle button itself.
-            (!reference.contains(e.target as Node) ||
-              toggleTarget.contains(e.target as Node))
+            (!this.reference.contains(e.target as Node) ||
+              this.toggleTarget.contains(e.target as Node))
           ) {
             instance.hide();
           }
@@ -263,9 +281,6 @@ export class DropdownController extends Controller<HTMLElement> {
     ];
     if (this.hideOnClickValue) {
       plugins.push(hideTooltipOnClickInside);
-    }
-    if (this.useCustomHideOnClickAway) {
-      plugins.push(this.hideTooltipOnClickAway);
     }
     return plugins;
   }
