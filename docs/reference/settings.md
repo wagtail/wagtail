@@ -528,6 +528,8 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 
 Allows the default `LoginForm` to be extended with extra fields.
 
+(wagtailadmin_login_url)=
+
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python
@@ -640,20 +642,20 @@ WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-```{versionchanged} 5.2
+```{versionchanged} 6.1
 PASSWORD_REQUIRED_TEMPLATE has been deprecated , use of WAGTAIL_PASSWORD_REQUIRED_TEMPLATE is insisted .
 ```
 
-### `WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
 
-```{versionchanged} 5.2
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE has been deprecated , use of WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE is insisted .
+```{versionchanged} 6.1
+DOCUMENT_PASSWORD_REQUIRED_TEMPLATE has been deprecated , use of WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE is insisted .
 ```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`

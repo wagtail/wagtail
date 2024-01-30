@@ -79,7 +79,7 @@ A basic template suitable for use as `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` might 
 </html>
 ```
 
-Password restrictions on documents use a separate template, specified through the setting `WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`; this template also receives the context variables `form` and `action_url` as described above.
+Password restrictions on documents use a separate template, specified through the setting `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`; this template also receives the context variables `form` and `action_url` as described above.
 
 ## Setting a "password required" page for a specific page type
 

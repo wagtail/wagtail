@@ -4,7 +4,8 @@ from django.urls import include, path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
-
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from warnings import warn
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import (
@@ -188,14 +189,26 @@ def check_view_restrictions(document, request):
                     "wagtaildocs_authenticate_with_password", args=[restriction.id]
                 )
 
-                password_required_template = getattr(
+                if hasattr(settings, "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE"):
+                    warn(
+                    "The `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    category=RemovedInWagtail70Warning,
+                    )
+
+                PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = getattr(
                     settings,
-                    "WAGTAIL_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
-                    "wagtaildocs/password_required.html",
-                )
+                    "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
+                    getattr(settings, "PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE", "wagtaildocs/password_required.html")
+                    )
+
+                # password_required_template = getattr(
+                #     settings,
+                #     "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
+                #     "wagtaildocs/password_required.html",
+                # )
 
                 context = {"form": form, "action_url": action_url}
-                return TemplateResponse(request, password_required_template, context)
+                return TemplateResponse(request, PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE, context)
 
             elif restriction.restriction_type in [
                 BaseViewRestriction.LOGIN,
