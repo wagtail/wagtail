@@ -3,7 +3,6 @@ from contextlib import contextmanager
 from typing import Union
 
 from bs4 import BeautifulSoup
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import override_settings as django_override_settings
@@ -17,7 +16,7 @@ def override_settings(**kwargs):
     """
     DEFAULT_FILE_STORAGE = kwargs.get("DEFAULT_FILE_STORAGE")
     storages = settings.STORAGES
-    if DEFAULT_FILE_STORAGE is not None and DJANGO_VERSION >= (4, 2):
+    if DEFAULT_FILE_STORAGE is not None:
         kwargs.pop("DEFAULT_FILE_STORAGE")
         kwargs["STORAGES"] = {
             **storages,
@@ -25,7 +24,7 @@ def override_settings(**kwargs):
         }
 
     STATICFILES_STORAGE = kwargs.get("STATICFILES_STORAGE")
-    if STATICFILES_STORAGE is not None and DJANGO_VERSION >= (4, 2):
+    if STATICFILES_STORAGE is not None:
         kwargs.pop("STATICFILES_STORAGE")
         kwargs["STORAGES"] = {
             **storages,
@@ -282,42 +281,3 @@ class WagtailTestUtils:
                 0,
                 msg_prefix + "Couldn't find '%s' in template script" % needle,
             )
-
-    def assertFormError(self, response, form, field, errors, msg_prefix=""):
-        # Compatibility shim for Django >= 4.1.
-        # Update test cases to use the new signature when we drop support for Django < 5.0.
-        # See https://github.com/django/django/pull/15179
-        if DJANGO_VERSION >= (4, 1):
-            form = response.context[form]
-            return super().assertFormError(form, field, errors, msg_prefix)
-        return super().assertFormError(response, form, field, errors, msg_prefix)
-
-    def assertFormsetError(
-        self, response, formset, form_index, field, errors, msg_prefix=""
-    ):
-        # Compatibility shim for Django >= 4.1.
-        # Update test cases to use the new signature when we drop support for Django < 5.0.
-        # See https://github.com/django/django/pull/15179
-        if DJANGO_VERSION >= (4, 1):
-            formset = response.context[formset]
-
-            # The assertFormsetError() method was renamed to assertFormSetError() in Django 4.2.
-            # Update test cases to use the new name when we drop support for Django < 5.1.
-            if DJANGO_VERSION >= (4, 2):
-                return super().assertFormSetError(
-                    formset, form_index, field, errors, msg_prefix
-                )
-
-            return super().assertFormsetError(
-                formset, form_index, field, errors, msg_prefix
-            )
-        return super().assertFormsetError(
-            response, formset, form_index, field, errors, msg_prefix
-        )
-
-    def assertQuerysetEqual(self, qs, values, transform=None, ordered=True, msg=None):
-        # The assertQuerysetEqual() method was renamed to assertQuerySetEqual() in Django 4.2.
-        # Update test cases to use the new name when we drop support for Django < 5.1.
-        if DJANGO_VERSION >= (4, 2):
-            return super().assertQuerySetEqual(qs, values, transform, ordered, msg)
-        return super().assertQuerysetEqual(qs, values, transform, ordered, msg)
