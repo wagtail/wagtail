@@ -4,9 +4,9 @@
 
 Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface. This sets a restriction on who is allowed to view the page and its sub-pages. Several different kinds of restrictions are available:
 
--   **Accessible to logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
--   **Accessible with the following password:** The user must enter the given password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
--   **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, to view the page.
+-   **Accessible to any logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
+-   **Accessible with a shared password:** The user must enter the given shared password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
+-   **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
 
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).
 

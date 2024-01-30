@@ -203,7 +203,7 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         history_response = self.client.get(history_url)
 
         # Check that the expected log message is present
-        expected_log_message = "Removed the &#x27;Private, accessible with the following password&#x27; view restriction. The page is public."
+        expected_log_message = "Removed the &#x27;Private, accessible with a shared password&#x27; view restriction. The page is public."
         self.assertContains(
             history_response,
             expected_log_message,
