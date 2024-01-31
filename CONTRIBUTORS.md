@@ -789,6 +789,7 @@
 * V Rohitansh
 * Andreas Donig
 * Osaf AliSayed
+* ramchandra-st
 
 ## Translators
 
