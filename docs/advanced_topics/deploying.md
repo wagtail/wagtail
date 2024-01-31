@@ -22,7 +22,7 @@ As with all Django projects, static files are only served by the Django applicat
 See [Django's documentation on deploying static files](inv:django#howto/static-files/deployment).
 
 The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues.
-We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.storage.ManifestStaticFilesStorage) in the `STATICFILES_STORAGE` setting - this ensures that different versions of files are assigned distinct URLs.
+We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.storage.ManifestStaticFilesStorage) in the `STORAGES["staticfiles"]` setting - this ensures that different versions of files are assigned distinct URLs.
 
 (user_uploaded_files)=
 
@@ -31,7 +31,7 @@ We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.st
 Wagtail follows [Django's conventions for managing uploaded files](inv:django#topics/files).
 So by default, Wagtail uses Django's built-in `FileSystemStorage` class which stores files on your site's server, in the directory specified by the `MEDIA_ROOT` setting.
 Alternatively, Wagtail can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3;
-this is done through the [DEFAULT_FILE_STORAGE](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE)
+this is done through the [`STORAGES["default"]`](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STORAGES)
 setting in conjunction with an add-on package such as [django-storages](https://django-storages.readthedocs.io/).
 
 When using `FileSystemStorage`, image urls are constructed starting from the path specified by the `MEDIA_URL`.
