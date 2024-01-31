@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.core.files.base import ContentFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
-from wagtail.test.utils import override_settings
 
 
 class TestCorrectDownloadUrlSerialization(TestCase):
@@ -31,7 +31,12 @@ class TestCorrectDownloadUrlSerialization(TestCase):
 
     @override_settings(
         WAGTAILDOCS_SERVE_METHOD="redirect",
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage",
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
         WAGTAILAPI_BASE_URL="http://example.com/",
     )
     def test_serializer_wagtaildocs_serve_redirect(self):
@@ -48,7 +53,12 @@ class TestCorrectDownloadUrlSerialization(TestCase):
 
     @override_settings(
         WAGTAILDOCS_SERVE_METHOD="direct",
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage",
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
         MEDIA_URL="http://remotestorage.com/media/",
         WAGTAILAPI_BASE_URL="http://example.com/",
     )

@@ -5,11 +5,10 @@ from unittest import mock
 
 from django.conf import settings
 from django.core.files.base import ContentFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
-from wagtail.test.utils import override_settings
 
 
 @override_settings(WAGTAILDOCS_SERVE_METHOD=None)
@@ -239,7 +238,12 @@ class TestDirectDocumentUrls(TestCase):
 
 @override_settings(
     WAGTAILDOCS_SERVE_METHOD=None,
-    DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage",
+    STORAGES={
+        **settings.STORAGES,
+        "default": {
+            "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+        },
+    },
 )
 class TestServeWithExternalStorage(TestCase):
     """
