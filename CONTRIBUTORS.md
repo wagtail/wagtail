@@ -789,7 +789,7 @@
 * V Rohitansh
 * Andreas Donig
 * Osaf AliSayed
-* ramchandra-st
+* Ramchandra Shahi Thakuri
 * Nix Asteri
 
 ## Translators
