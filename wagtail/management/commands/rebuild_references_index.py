@@ -38,7 +38,9 @@ class Command(BaseCommand):
 
         with transaction.atomic():
             with disable_reference_index_auto_update():
-                ReferenceIndex.objects.all().delete()
+                # Use `_raw_delete` to avoid loading instances into memory
+                all_references = ReferenceIndex.objects.all()
+                all_references._raw_delete(using=all_references.db)
 
             for model in apps.get_models():
                 if not ReferenceIndex.is_indexed(model):
