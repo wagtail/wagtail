@@ -279,7 +279,7 @@ class Index:
         item.index_entries.using(self.db_alias).delete()
 
     def __str__(self):
-        return self.nam
+        return self.name
 
 
 class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
