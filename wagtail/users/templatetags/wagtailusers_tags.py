@@ -95,12 +95,16 @@ def format_permissions(permission_bound_field):
                 }
             else:
                 extra_perms_exist["custom"] = True
+                perm_model_class = perm.content_type.model_class()
                 custom_perms.append(
                     {
                         "perm": perm,
-                        "name": re.sub(
-                            f"{perm.content_type.name}$", "", perm.name, flags=re.I
-                        ).strip(),
+                        # "name": re.sub(
+                        #     f"{perm.content_type.name}$", "", perm.name, flags=re.I
+                        # ).strip(),
+                        "name": "Can view"
+                        if permission_action == "view"
+                        else perm.name,
                         "selected": checkbox.data["selected"],
                     }
                 )
