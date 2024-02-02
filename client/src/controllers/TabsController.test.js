@@ -55,10 +55,6 @@ describe('TabsController', () => {
                   data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
                     Tab 2
                 </a>
-                <a id="tab-label-tab-3" href="#tab-tab-3" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 3
-                </a>
             </div>
             <div class="tab-content tab-content--comments-enabled">
                 <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
@@ -66,9 +62,6 @@ describe('TabsController', () => {
                 </section>
                 <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
                     tab-2
-                </section>
-                <section id="tab-tab-3" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
-                    tab-3
                 </section>
             </div>
         </div>
@@ -128,10 +121,6 @@ describe('TabsController', () => {
                   data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
                     Tab 2
                 </a>
-                <a id="tab-label-tab-3" href="#tab-tab-3" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 3
-                </a>
             </div>
             <div class="tab-content tab-content--comments-enabled">
                 <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
@@ -139,9 +128,6 @@ describe('TabsController', () => {
                 </section>
                 <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
                     tab-2
-                </section>
-                <section id="tab-tab-3" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
-                    tab-3
                 </section>
             </div>
         </div>
@@ -171,10 +157,6 @@ describe('TabsController', () => {
                   data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
                     Tab 2
                 </a>
-                <a id="tab-label-tab-3" href="#tab-tab-3" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 3
-                </a>
             </div>
             <div class="tab-content tab-content--comments-enabled">
                 <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
@@ -182,9 +164,6 @@ describe('TabsController', () => {
                 </section>
                 <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
                     tab-2
-                </section>
-                <section id="tab-tab-3" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
-                    tab-3
                 </section>
             </div>
         </div>
