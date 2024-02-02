@@ -85,8 +85,8 @@
                                 class="w-drilldown"
                                 data-controller="w-drilldown"
                                 data-action="w-swap:success@document->w-drilldown#updateCount w-dropdown:hide->w-drilldown#delayedClose w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
-                                data-w-drilldown-count-attr-value="data-w-active-filter-name"
-                                data-w-drilldown-w-action-outlet="[data-w-active-filter-name][data-controller='w-action']"
+                                data-w-drilldown-count-attr-value="data-w-active-filter-id"
+                                data-w-drilldown-w-action-outlet="[data-w-active-filter-id][data-controller='w-action']"
                                 data-w-drilldown-w-dropdown-outlet="#filters-drilldown [data-controller='w-dropdown']"
                             >
                                 {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters only %}
