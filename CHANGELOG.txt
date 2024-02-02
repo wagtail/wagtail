@@ -8,6 +8,7 @@ Changelog
  * Add RelatedObjectsColumn to the table UI framework (Matt Westcott)
  * Reduce memory usage when rebuilding search indexes (Jake Howard)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
+ * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
