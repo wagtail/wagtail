@@ -12,6 +12,7 @@ Changelog
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
+ * Fix: Ensure re-ordering buttons work correctly when using a nested InlinePanel (Adrien Hamraoui)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update multiple pages in the reference sections and multiple page names to their US spelling instead of UK spelling (Victoria Poromon)
