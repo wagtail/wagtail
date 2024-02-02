@@ -63,6 +63,7 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
     results_template_name = "wagtailadmin/generic/history_results.html"
+    history_url_name = None
     history_results_url_name = None
     header_icon = "history"
     is_searchable = False
@@ -121,9 +122,16 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
+    def get_history_url(self, instance):
+        if self.history_url_name:
+            return reverse(self.history_url_name, args=(quote(instance.pk),))
+
     def get_history_results_url(self, instance):
         if self.history_results_url_name:
             return reverse(self.history_results_url_name, args=(quote(instance.pk),))
+
+    def get_index_url(self):  # used for pagination links
+        return self.get_history_url(self.object)
 
     def get_index_results_url(self):
         return self.get_history_results_url(self.object)
