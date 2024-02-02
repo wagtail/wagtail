@@ -655,7 +655,7 @@ WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
 
 ```{versionchanged} 6.1
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE has been deprecated , use of WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE is insisted .
+`DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` .
 ```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
