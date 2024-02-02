@@ -643,7 +643,7 @@ WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
 ```{versionchanged} 6.1
-PASSWORD_REQUIRED_TEMPLATE has been deprecated , use of WAGTAIL_PASSWORD_REQUIRED_TEMPLATE is insisted .
+`PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`.
 ```
 
 ### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
