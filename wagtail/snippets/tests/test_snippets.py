@@ -1374,14 +1374,12 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "go_live_at",
             "Go live date/time must be before expiry date/time",
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "expire_at",
             "Go live date/time must be before expiry date/time",
         )
@@ -1412,7 +1410,9 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "expire_at", "Expiry date/time must be in the future"
+            response.context["form"],
+            "expire_at",
+            "Expiry date/time must be in the future",
         )
 
         self.assertContains(
@@ -2483,14 +2483,12 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "go_live_at",
             "Go live date/time must be before expiry date/time",
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "expire_at",
             "Go live date/time must be before expiry date/time",
         )
@@ -2521,7 +2519,9 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "expire_at", "Expiry date/time must be in the future"
+            response.context["form"],
+            "expire_at",
+            "Expiry date/time must be in the future",
         )
 
         self.assertContains(
@@ -3929,7 +3929,7 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
+            self.assertQuerySetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_delete_snippet", hook_func):
@@ -3948,7 +3948,7 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
+            self.assertQuerySetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_delete_snippet", hook_func):
@@ -3973,7 +3973,7 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
+            self.assertQuerySetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook("after_delete_snippet", hook_func):

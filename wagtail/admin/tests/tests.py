@@ -1,7 +1,6 @@
 import json
 import unittest
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -76,18 +75,11 @@ class TestHome(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>0 broken links</li>")
 
         # check that media attached to summary items is correctly pulled in
-        if DJANGO_VERSION >= (4, 1):
-            self.assertContains(
-                response,
-                '<link href="/static/testapp/css/broken-links.css" media="all" rel="stylesheet">',
-                html=True,
-            )
-        else:
-            self.assertContains(
-                response,
-                '<link href="/static/testapp/css/broken-links.css" type="text/css" media="all" rel="stylesheet">',
-                html=True,
-            )
+        self.assertContains(
+            response,
+            '<link href="/static/testapp/css/broken-links.css" media="all" rel="stylesheet">',
+            html=True,
+        )
 
     def test_never_cache_header(self):
         # This tests that wagtailadmins global cache settings have been applied correctly

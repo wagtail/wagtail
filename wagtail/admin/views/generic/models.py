@@ -1,6 +1,5 @@
 import warnings
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import (
@@ -11,7 +10,6 @@ from django.core.exceptions import (
 from django.db import models, transaction
 from django.db.models import Q
 from django.db.models.functions import Cast
-from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -20,14 +18,11 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
-from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import (
     BaseCreateView,
+    BaseDeleteView,
     BaseUpdateView,
-    DeletionMixin,
-    FormMixin,
 )
-from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
@@ -61,39 +56,6 @@ from wagtail.search.index import class_is_indexed
 from .base import BaseListingView, WagtailAdminTemplateMixin
 from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
-
-if DJANGO_VERSION >= (4, 0):
-    BaseDeleteView = DjangoBaseDeleteView
-else:
-    # As of Django 4.0 BaseDeleteView has switched to a new implementation based on FormMixin
-    # where custom deletion logic now lives in form_valid:
-    # https://docs.djangoproject.com/en/4.0/releases/4.0/#deleteview-changes
-    # Here we define BaseDeleteView to match the Django 4.0 implementation to keep it consistent
-    # across all versions.
-    class BaseDeleteView(DeletionMixin, FormMixin, BaseDetailView):
-        """
-        Base view for deleting an object.
-        Using this base class requires subclassing to provide a response mixin.
-        """
-
-        form_class = Form
-
-        def post(self, request, *args, **kwargs):
-            # Set self.object before the usual form processing flow.
-            # Inlined because having DeletionMixin as the first base, for
-            # get_success_url(), makes leveraging super() with ProcessFormView
-            # overly complex.
-            self.object = self.get_object()
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
-
-        def form_valid(self, form):
-            success_url = self.get_success_url()
-            self.object.delete()
-            return HttpResponseRedirect(success_url)
 
 
 class IndexView(

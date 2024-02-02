@@ -374,9 +374,8 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "pages_formset",
+        self.assertFormSetError(
+            response.context["pages_formset"],
             0,
             "page",
             ["This page already has workflow 'existing_workflow' assigned."],
@@ -606,9 +605,8 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "pages_formset",
+        self.assertFormSetError(
+            response.context["pages_formset"],
             None,
             None,
             ["You cannot assign this workflow to the same page multiple times."],

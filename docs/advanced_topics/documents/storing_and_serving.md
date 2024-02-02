@@ -6,7 +6,7 @@ Wagtail follows [Django’s conventions for managing uploaded files](inv:django#
 
 ## File storage location
 
-Wagtail uses the [DEFAULT_FILE_STORAGE](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE) setting to determine where and how user-uploaded files are stored. By default, Wagtail stores files in the local filesystem.
+Wagtail uses the [`STORAGES["default"]`](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STORAGES) setting to determine where and how user-uploaded files are stored. By default, Wagtail stores files in the local filesystem.
 
 ## Serving documents
 

@@ -681,14 +681,12 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "go_live_at",
             "Go live date/time must be before expiry date/time",
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "expire_at",
             "Go live date/time must be before expiry date/time",
         )
@@ -727,7 +725,9 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "expire_at", "Expiry date/time must be in the future"
+            response.context["form"],
+            "expire_at",
+            "Expiry date/time must be in the future",
         )
 
         self.assertContains(
@@ -1591,8 +1591,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "slug",
             "The slug 'hello-world' is already in use within the parent page",
         )

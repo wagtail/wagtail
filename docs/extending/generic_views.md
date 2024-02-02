@@ -145,10 +145,6 @@ By default, the model registered with a `ModelViewSet` will also be registered t
 
 Various additional attributes are available to customise the viewset - see the {class}`ModelViewSet` documentation.
 
-```{versionadded} 5.2
-The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
-```
-
 (chooserviewset)=
 
 ## ChooserViewSet

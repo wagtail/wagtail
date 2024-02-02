@@ -152,7 +152,6 @@ module.exports = {
     // Files that use jquery via a global
     {
       files: [
-        'docs/_static/**',
         'wagtail/contrib/search_promotions/static_src/wagtailsearchpromotions/js/query-chooser-modal.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/queries/chooser_field.js',

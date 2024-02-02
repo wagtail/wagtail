@@ -1266,7 +1266,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     exclude_fields_in_copy = []
     default_exclude_fields_in_copy = [
         "id",
-        "path",
         "depth",
         "numchild",
         "url_path",

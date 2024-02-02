@@ -277,10 +277,6 @@ Compared to the previous example with the two separate hooks, this will result i
 
 For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSet` documentation.
 
-```{versionadded} 5.2
-Support for registering a menu item in the base `ViewSet` class was added.
-```
-
 (using_base_viewsetgroup)=
 
 ## Combining multiple `ViewSet`s using a `ViewSetGroup`
@@ -312,7 +308,3 @@ def register_viewset():
 This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
 
 For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
-
-```{versionadded} 5.2
-The `ViewSetGroup` class was added.
-```

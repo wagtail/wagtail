@@ -401,9 +401,8 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "searchpicks_formset",
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
             None,
             None,
             "Please specify at least one recommendation for this search term.",
@@ -426,9 +425,8 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "searchpicks_formset",
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
             None,
             None,
             "Please only select a page OR enter an external link.",
@@ -448,9 +446,8 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "searchpicks_formset",
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
             None,
             None,
             "You must recommend a page OR an external link.",
@@ -470,9 +467,8 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "searchpicks_formset",
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
             None,
             None,
             "You must enter an external link text if you enter an external link URL.",
@@ -632,9 +628,8 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
-        self.assertFormsetError(
-            response,
-            "searchpicks_formset",
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
             None,
             None,
             "Please specify at least one recommendation for this search term.",

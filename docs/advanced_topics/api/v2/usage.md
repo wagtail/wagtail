@@ -231,10 +231,6 @@ Content-Type: application/json
 }
 ```
 
-```{versionadded} 5.2
-
-```
-
 #### Random ordering
 
 Passing `random` into the `?order` parameter will make results return in a

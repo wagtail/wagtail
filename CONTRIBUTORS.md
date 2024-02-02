@@ -789,6 +789,8 @@
 * V Rohitansh
 * Andreas Donig
 * Osaf AliSayed
+* Ramchandra Shahi Thakuri
+* Nix Asteri
 
 ## Translators
 

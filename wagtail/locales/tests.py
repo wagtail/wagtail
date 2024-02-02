@@ -72,8 +72,7 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "language_code",
             ["Select a valid choice. en is not one of the available choices."],
         )
@@ -88,8 +87,7 @@ class TestLocaleCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "language_code",
             ["Select a valid choice. ja is not one of the available choices."],
         )
@@ -181,8 +179,7 @@ class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "language_code",
             ["Select a valid choice. en is not one of the available choices."],
         )
@@ -197,8 +194,7 @@ class TestLocaleEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "language_code",
             ["Select a valid choice. ja is not one of the available choices."],
         )

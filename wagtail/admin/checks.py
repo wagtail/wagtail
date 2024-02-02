@@ -192,13 +192,11 @@ def file_overwrite_check(app_configs, **kwargs):
 
     if DJANGO_VERSION >= (5, 1):
         file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
-    elif DJANGO_VERSION >= (4, 2):
+    else:
         try:
             file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
         except AttributeError:
             file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
-    else:
-        file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
 
     errors = []
 

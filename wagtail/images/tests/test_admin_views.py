@@ -2,11 +2,12 @@ import datetime
 import json
 import urllib
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
-from django.test import RequestFactory, TestCase, TransactionTestCase
+from django.test import RequestFactory, TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
@@ -29,7 +30,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     VariousOnDeleteModel,
 )
-from wagtail.test.utils import WagtailTestUtils, override_settings
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
@@ -568,8 +569,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
@@ -633,7 +633,12 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         self.assertEqual(image.collection, root_collection)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_add_with_external_file_storage(self):
         response = self.post(
@@ -663,7 +668,9 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailimages/images/add.html")
 
         # The form should have an error
-        self.assertFormError(response, "form", "file", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "file", "This field is required."
+        )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
     def test_add_too_large_file(self):
@@ -682,8 +689,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         # The form should have an error
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
                 file_size=filesizeformat(len(file_content)),
@@ -708,8 +714,7 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         # The form should have an error
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "This file has too many pixels (307200). Maximum pixels 1.",
         )
@@ -941,7 +946,12 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         self.assertContains(response, expected_url)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
@@ -1041,7 +1051,12 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         self.assertNotEqual(self.image.file_hash, "abcedf")
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
@@ -1086,7 +1101,12 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         self.check_get_missing_file_displays_warning()
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_get_missing_file_displays_warning_with_custom_storage(self):
         self.check_get_missing_file_displays_warning()
@@ -1927,7 +1947,9 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
         )
 
         # The form should have an error
-        self.assertFormError(response, "form", "file", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "file", "This field is required."
+        )
 
     def test_upload_duplicate(self):
         def post_image(title="Test image"):
@@ -2055,8 +2077,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
             response, "wagtailadmin/generic/chooser/creation_form.html"
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
@@ -2086,8 +2107,7 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
             response, "wagtailadmin/generic/chooser/creation_form.html"
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "file",
             "Not a supported image format. Supported formats: AVIF, GIF, JPG, JPEG, PNG, WEBP.",
         )
@@ -2098,7 +2118,12 @@ class TestImageChooserUploadView(WagtailTestUtils, TestCase):
         self.assertContains(response, expected_action_attr)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_upload_with_external_storage(self):
         response = self.client.post(
@@ -2670,7 +2695,9 @@ class TestMultipleImageUploader(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -3152,7 +3179,9 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
             "/admin/images/multiple/delete_upload/%d/"
             % response.context["uploaded_image"].id,
         )
-        self.assertFormError(response, "form", "author", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "author", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())

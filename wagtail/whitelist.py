@@ -99,7 +99,7 @@ class Whitelister:
     def clean(self, html):
         """Clean up an HTML string to contain just the allowed elements /
         attributes"""
-        doc = BeautifulSoup(html, "html5lib")
+        doc = BeautifulSoup(html, "html.parser")
         self.clean_node(doc, doc)
 
         # Pass strings through django.utils.html.escape when generating the final HTML.

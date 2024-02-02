@@ -270,7 +270,7 @@ class Index:
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
-        item.index_entries.using(self.db_alias).delete()
+        item.index_entries.all()._raw_delete(using=self.db_alias)
 
     def __str__(self):
         return self.name
@@ -685,7 +685,7 @@ class SQLiteSearchBackend(BaseSearchBackend):
             for connection in connections.all()
             if connection.vendor == "sqlite"
         ]:
-            IndexEntry._default_manager.using(connection.alias).delete()
+            IndexEntry._default_manager.all()._raw_delete(using=connection.alias)
 
     def add_type(self, model):
         pass  # Not needed.

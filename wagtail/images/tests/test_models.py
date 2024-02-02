@@ -1,5 +1,6 @@
 import unittest
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files import File
@@ -7,7 +8,7 @@ from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
@@ -26,7 +27,7 @@ from wagtail.test.testapp.models import (
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.test.utils import WagtailTestUtils, override_settings
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import (
     Image,
@@ -108,7 +109,12 @@ class TestImage(TestCase):
         self.assertTrue(self.image.is_stored_locally())
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
+        STORAGES={
+            **settings.STORAGES,
+            "default": {
+                "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+            },
+        },
     )
     def test_is_stored_locally_with_external_storage(self):
         self.assertFalse(self.image.is_stored_locally())

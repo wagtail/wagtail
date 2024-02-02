@@ -1,4 +1,3 @@
-from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -29,21 +28,11 @@ class TextIDGenericRelation(GenericRelation):
             from_field.get_col(remote_alias), Cast(to_field.get_col(alias), from_field)
         )
 
-    if DJANGO_VERSION >= (4, 0):
-
-        def get_extra_restriction(self, alias, remote_alias):
-            cond = WhereNode()
-            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
-            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
-            return cond
-
-    else:
-
-        def get_extra_restriction(self, where_class, alias, remote_alias):
-            cond = where_class()
-            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
-            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
-            return cond
+    def get_extra_restriction(self, alias, remote_alias):
+        cond = WhereNode()
+        cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
+        cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
+        return cond
 
     def resolve_related_fields(self):
         return []

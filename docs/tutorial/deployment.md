@@ -356,7 +356,7 @@ CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if "AWS_STORAGE_BUCKET_NAME" in os.environ:
     AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
@@ -367,7 +367,7 @@ if "AWS_STORAGE_BUCKET_NAME" in os.environ:
 
     INSTALLED_APPS.append("storages")
 
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STORAGES["default"]["BACKEND"] = "storages.backends.s3boto3.S3Boto3Storage"
 
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
