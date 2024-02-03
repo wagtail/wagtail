@@ -8,13 +8,53 @@ Users with publish permission on a page can set it to be private by clicking the
 -   **Accessible with a shared password:** The user must enter the given shared password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
 -   **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
 
+```{warning}
+Shared passwords should not be used to protect sensitive content, as the password is shared between all users, and stored in plain text in the database. Where possible, it's recommended to require users log in to access private page content.
+```
+
+You can disable shared password for pages using `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`.
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+```
+
+Any existing shared password usage will remain active but will not be viewable by the user within the admin, these can be removed in the Django shell as follows.
+
+```py
+from wagtail.models import Page
+
+for page in Page.objects.private():
+   page.get_view_restrictions().filter(restriction_type='password').delete()
+```
+
+(private_collections)=
+
+## Private collections (restricting documents)
+
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).
 
-Private pages and documents work on Wagtail out of the box - the site implementer does not need to do anything to set them up. However, the default "login" and "password required" forms are only bare-bones HTML pages, and site implementers may wish to replace them with a page customized to their site design.
+You can also disable shared password for collections (which will impact document links) using `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`.
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+```
+
+Any existing shared password usage will remain active but will not be viewable within the admin, these can be removed in the Django shell as follows.
+
+```py
+from wagtail.models import Collection
+
+for collection in Collection.objects.all():
+    collection.get_view_restrictions().filter(restriction_type='password').delete()
+```
 
 (login_page)=
 
 ## Setting up a login page
+
+Private pages and collections (restricting documents) work on Wagtail out of the box - the site implementer does not need to do anything to set them up.
+
+However, the default "login" and "password required" forms are only bare-bones HTML pages, and site implementers may wish to replace them with a page customized to their site design.
 
 The basic login page can be customized by setting `WAGTAIL_FRONTEND_LOGIN_TEMPLATE` to the path of a template you wish to use:
 

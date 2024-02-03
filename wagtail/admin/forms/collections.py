@@ -1,6 +1,7 @@
 from itertools import groupby
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -19,6 +20,17 @@ from .view_restrictions import BaseViewRestrictionForm
 
 
 class CollectionViewRestrictionForm(BaseViewRestrictionForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION", True):
+            self.fields["restriction_type"].choices = [
+                choice
+                for choice in CollectionViewRestriction.RESTRICTION_CHOICES
+                if choice[0] != CollectionViewRestriction.PASSWORD
+            ]
+            del self.fields["password"]
+
     class Meta:
         model = CollectionViewRestriction
         fields = ("restriction_type", "password", "groups")

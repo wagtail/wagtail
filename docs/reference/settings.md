@@ -668,6 +668,26 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
+### `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`
+
+If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+```
+
+See [](private_pages) for more details.
+
+### `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`
+
+If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+```
+
+See [](private_pages) for more details.
+
 ## Tags
 
 ### `TAGGIT_CASE_INSENSITIVE`
