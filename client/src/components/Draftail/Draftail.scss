@@ -85,6 +85,12 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   &--focus {
     outline: $focus-outline-width solid theme('colors.focus');
   }
+
+  // To Ensure Auto scrolling while writing 
+  overflow-y: scroll;
+  scroll-behavior: auto;
+  max-height: 500px;
+  scroll-padding-bottom: 100px;
 }
 
 .Draftail-Editor__wrapper {
