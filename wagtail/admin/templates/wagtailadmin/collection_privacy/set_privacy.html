@@ -3,7 +3,9 @@
 <form action="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" method="POST" novalidate>
     {% csrf_token %}
     {% formattedfield field=form.restriction_type show_label=False %}
-    {% formattedfield form.password %}
+    {% if form.password is not None %}
+        {% formattedfield form.password %}
+    {% endif %}
     <div id="groups-fields">
         {% formattedfield form.groups %}
     </div>
