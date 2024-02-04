@@ -795,6 +795,7 @@
 * mirusu400
 * Advik Kabra
 * Ankur Raiyani
+* Hossein
 
 ## Translators
 
