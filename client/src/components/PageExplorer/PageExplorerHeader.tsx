@@ -2,7 +2,7 @@ import React from 'react';
 import { ADMIN_URLS } from '../../config/wagtailConfig';
 
 import { gettext } from '../../utils/gettext';
-import Button from '../Button/Button';
+import Link from '../Link/Link';
 import Icon from '../Icon/Icon';
 import { PageState } from './reducers/nodes';
 
@@ -68,7 +68,7 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({
 
   return (
     <div className="c-page-explorer__header">
-      <Button
+      <Link
         href={!isSiteRoot ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
         className="c-page-explorer__header__title"
         onClick={onClick}
@@ -81,7 +81,7 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({
           />
           <span>{page.admin_display_title || gettext('Pages')}</span>
         </div>
-      </Button>
+      </Link>
       {!isSiteRoot &&
         page.meta.locale &&
         page.translations &&

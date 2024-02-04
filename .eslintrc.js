@@ -70,7 +70,6 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/interactive-supports-focus': 'off',
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
-        'jsx-a11y/role-supports-aria-props': 'off',
         'no-restricted-syntax': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react-hooks/rules-of-hooks': 'off',
