@@ -793,6 +793,7 @@
 * Nix Asteri
 * Karthik Ayangar
 * mirusu400
+* Advik Kabra
 
 ## Translators
 
