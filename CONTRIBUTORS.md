@@ -789,6 +789,7 @@
 * V Rohitansh
 * Andreas Donig
 * Osaf AliSayed
+* mirusu400
 
 ## Translators
 
