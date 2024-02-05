@@ -2458,7 +2458,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.submitter.first_name = "Sebastian"
         self.submitter.last_name = "Mitter"
         self.submitter.save()
-        self.post("submit")
+        self.post("submit", follow=True)
         self.login(user=self.moderator)
 
     def setup_workflow_and_tasks(self):
@@ -2591,9 +2591,33 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
                 self.assertEqual(response.status_code, 200)
                 self.assertNotIn("Hello world!", content)
 
+    def test_workflow_report_deleted(self):
+        self.object.delete()
+        response = self.client.get(reverse("wagtailadmin_reports:workflow"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello world!")
+        # test_workflow is only rendered in the filter, not the results
+        self.assertContains(response, "test_workflow", count=1)
+        self.assertNotContains(response, "Sebastian Mitter")
+        self.assertNotContains(response, "March 31, 2020")
+
+        response = self.client.get(reverse("wagtailadmin_reports:workflow_tasks"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello world!")
+
 
 class TestSnippetWorkflowReport(TestPageWorkflowReport, BaseSnippetWorkflowTests):
     pass
+
+
+class TestNonLockableSnippetWorkflowReport(
+    TestPageWorkflowReport, BaseSnippetWorkflowTests
+):
+    # This model does not use LockableMixin, and it also does not have a
+    # GenericRelation to WorkflowState and Revision, but it should not break
+    # the report page.
+    # See https://github.com/wagtail/wagtail/issues/11300 for more details.
+    model = ModeratedModel
 
 
 class TestPageNotificationPreferences(BasePageWorkflowTests):
