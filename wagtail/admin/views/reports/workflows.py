@@ -188,8 +188,11 @@ class WorkflowView(ReportView):
             content_type_id__in=get_editable_content_type_ids(self.request)
         )
 
-        return WorkflowState.objects.filter(editable_pages | editable_objects).order_by(
-            "-created_at"
+        return (
+            WorkflowState.objects.filter(editable_pages | editable_objects)
+            .select_related("workflow", "requested_by")
+            .prefetch_related("content_object", "content_object__latest_revision")
+            .order_by("-created_at")
         )
 
     def dispatch(self, request, *args, **kwargs):
@@ -256,6 +259,12 @@ class WorkflowTasksView(ReportView):
                 self.request
             )
         )
-        return TaskState.objects.filter(editable_pages | editable_objects).order_by(
-            "-started_at"
+        return (
+            TaskState.objects.filter(editable_pages | editable_objects)
+            .select_related("workflow_state", "task")
+            .prefetch_related(
+                "workflow_state__content_object",
+                "workflow_state__content_object__latest_revision",
+            )
+            .order_by("-started_at")
         )
