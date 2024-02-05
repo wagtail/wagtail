@@ -1434,7 +1434,11 @@ class EventPageChooserModel(models.Model):
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text="help text", on_delete=models.CASCADE)
     full_featured = models.ForeignKey(
-        FullFeaturedSnippet, on_delete=models.CASCADE, null=True, blank=True
+        FullFeaturedSnippet,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Chosen snippet",
     )
 
     panels = [

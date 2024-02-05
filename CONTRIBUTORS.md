@@ -808,6 +808,7 @@
 * Mark Niehues
 * Georgios Roumeliotis
 * David Buxton
+* Abdelrahman Hamada
 
 ## Translators
 

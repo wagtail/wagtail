@@ -42,6 +42,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestIncorrectRegistration(SimpleTestCase):
@@ -773,6 +774,44 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             html=True,
             count=1,
         )
+
+
+class TestRelatedFieldListDisplay(BaseSnippetViewSetTests):
+    model = SnippetChooserModel
+
+    def setUp(self):
+        super().setUp()
+        url = "https://example.com/free_examples"
+        self.advert = Advert.objects.create(url=url, text="Free Examples")
+        self.ffs = FullFeaturedSnippet.objects.create(text="royale with cheese")
+
+    def test_empty_foreignkey(self):
+        self.no_ffs_chooser = self.model.objects.create(advert=self.advert)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Chosen snippet text")
+        self.assertContains(response, "<td></td>", html=True)
+
+    def test_single_level_relation(self):
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        headers = [
+            header.get_text(strip=True)
+            for header in soup.select("#listing-results table th")
+        ]
+        self.assertIn("Chosen snippet text", headers)
+        self.assertContains(response, "<td>royale with cheese</td>", html=True)
+
+    def test_multi_level_relation(self):
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+        dummy_revision = self.ffs.save_revision()
+        timestamp = render_timestamp(dummy_revision.created_at)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Latest revision created at")
+        self.assertContains(response, f"<td>{timestamp}</td>", html=True)
 
 
 class TestListExport(BaseSnippetViewSetTests):

@@ -9,6 +9,7 @@ from django.core.exceptions import (
 )
 from django.db import models, transaction
 from django.db.models import Q
+from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -256,7 +257,32 @@ class IndexView(
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
-        label, attr = label_for_field(field_name, self.model, return_attr=True)
+        lookups = (
+            [field_name]
+            if hasattr(self.model, field_name)
+            else field_name.split(LOOKUP_SEP)
+        )
+        *relations, field = lookups
+        model_class = self.model
+
+        # Iterate over the relation list to try to get the last model
+        # where the field exists
+        foreign_field_name = ""
+        for model in relations:
+            foreign_field = model_class._meta.get_field(model)
+            foreign_field_name = foreign_field.verbose_name
+            model_class = foreign_field.related_model
+
+        label, attr = label_for_field(field, model_class, return_attr=True)
+
+        # For some languages, it may be more appropriate to put the field label
+        # before the related model name
+        if foreign_field_name:
+            label = _("%(related_model_name)s %(field_label)s") % {
+                "related_model_name": foreign_field_name,
+                "field_label": label,
+            }
+
         sort_key = getattr(attr, "admin_order_field", None)
 
         # attr is None if the field is an actual database field,
@@ -264,8 +290,12 @@ class IndexView(
         if attr is None:
             sort_key = field_name
 
+        accessor = field_name
+        # Build the dotted relation if needed, for use in multigetattr
+        if relations:
+            accessor = ".".join(lookups)
         return column_class(
-            field_name,
+            accessor,
             label=capfirst(label),
             sort_key=sort_key,
             **kwargs,
