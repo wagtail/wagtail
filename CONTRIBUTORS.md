@@ -792,6 +792,7 @@
 * Ramchandra Shahi Thakuri
 * Nix Asteri
 * Karthik Ayangar
+* mirusu400
 
 ## Translators
 
