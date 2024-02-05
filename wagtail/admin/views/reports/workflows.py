@@ -195,6 +195,9 @@ class WorkflowView(ReportView):
             .order_by("-created_at")
         )
 
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.content_object]
+
     def dispatch(self, request, *args, **kwargs):
         if not page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
@@ -268,3 +271,6 @@ class WorkflowTasksView(ReportView):
             )
             .order_by("-started_at")
         )
+
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.workflow_state.content_object]
