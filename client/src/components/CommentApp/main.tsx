@@ -51,7 +51,6 @@ export interface InitialComment {
   deleted: boolean;
   resolved: boolean;
 }
-/* eslint-enable */
 
 const getAuthor = (
   authors: Map<string, { name: string; avatar_url: string }>,
@@ -145,7 +144,6 @@ function CommentListing({
       {commentsRendered}
     </ol>
   );
-  /* eslint-enable react/no-danger */
 }
 
 export class CommentApp {

@@ -164,9 +164,8 @@ function onSelectIndividualCheckbox(e) {
 function onClickSelectAllInListing(e) {
   e.preventDefault();
   checkedState.selectAllInListing = true;
-  document.querySelector(
-    BULK_ACTION_NUM_OBJECTS,
-  ).textContent = `${getStringForListing('ALL_IN_LISTING')}.`;
+  document.querySelector(BULK_ACTION_NUM_OBJECTS).textContent =
+    `${getStringForListing('ALL_IN_LISTING')}.`;
   document
     .querySelector(BULK_ACTION_NUM_OBJECTS_IN_LISTING)
     .classList.add('w-hidden');
