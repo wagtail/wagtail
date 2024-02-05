@@ -194,6 +194,9 @@ class WorkflowView(ReportView):
             .order_by("-created_at")
         )
 
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.content_object]
+
 
 class WorkflowTasksView(ReportView):
     template_name = "wagtailadmin/reports/workflow_tasks.html"
@@ -260,3 +263,6 @@ class WorkflowTasksView(ReportView):
             )
             .order_by("-started_at")
         )
+
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.workflow_state.content_object]
