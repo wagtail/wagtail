@@ -107,6 +107,7 @@ Changelog
  * Fix: Ensure that `default_ordering` set on IndexView is preserved if ModelViewSet does not specify an explicit ordering (Cynthia Kiser)
  * Fix: Ensure that TableBlock cells are accessible when using keyboard control only (Elhussein Almasri)
  * Fix: Resolve issue where clicking Publish for a Page that was in workflow in Safari would block publishing and not trigger the workflow confirmation modal (Alex Morega)
+ * Fix: Fix pagination links on model history and usage views (Matt Westcott)
  * Docs: New developer tutorial (Damilola Oladele, Meagen Voss, Thibaud Colas)
  * Docs: Document, for contributors, the use of translate string literals passed as arguments to tags and filters using `_()` within templates (Chiemezuo Akujobi)
  * Docs: Document all features for the Documents app in one location (Neeraj Yetheendran)
