@@ -1,5 +1,5 @@
+import datetime
 import json
-from datetime import datetime
 from urllib.parse import urljoin
 from warnings import warn
 
@@ -771,7 +771,7 @@ def timesince_last_update(
     """
     # translation usage below is intentionally verbose to be easier to work with translations
 
-    if last_update.date() == datetime.today().date():
+    if last_update.date() == datetime.datetime.today().date():
         if timezone.is_aware(last_update):
             time_str = timezone.localtime(last_update).strftime("%H:%M")
         else:
@@ -1290,10 +1290,15 @@ def workflow_status_with_date(workflow_state):
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
+    if isinstance(date, datetime.datetime):
+        tooltip_format = settings.WAGTAIL_DATETIME_FORMAT
+    elif isinstance(date, datetime.date):
+        tooltip_format = settings.WAGTAIL_DATE_FORMAT
     return {
         "date": date,
         "description": description,
         "placement": placement,
+        "tooltip_format": tooltip_format,
     }
 
 
