@@ -236,8 +236,7 @@ class Elasticsearch6AutocompleteQueryCompiler(
     def get_inner_query(self):
         fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
         fields = [Field(field) for field in fields]
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
+        if len(fields) == 0 or not isinstance(self.query, PlainText):
             return {"bool": {"mustNot": {"match_all": {}}}}
 
         return self._compile_plaintext_query(self.query, fields)

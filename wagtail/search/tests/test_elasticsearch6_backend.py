@@ -84,6 +84,21 @@ class TestElasticsearch6SearchQuery(TestCase):
         }
         self.assertDictEqual(query.get_query(), expected_result)
 
+    def test_non_plaintext_autocomplete(self):
+        # Create a query
+        query = self.autocomplete_query_compiler_class(
+            models.Book.objects.all(), MATCH_ALL
+        )
+
+        # Check it
+        expected_result = {
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {"bool": {"mustNot": {"match_all": {}}}},
+            }
+        }
+        self.assertDictEqual(query.get_query(), expected_result)
+
     def test_none_query_string(self):
         # Create a query
         query = self.query_compiler_class(models.Book.objects.all(), MATCH_ALL)
