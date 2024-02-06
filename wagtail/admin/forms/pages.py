@@ -31,7 +31,7 @@ class CopyForm(forms.Form):
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),
             widget=widgets.AdminPageChooser(
-                self.page.specific_class.allowed_parent_page_models(),
+                target_models=self.page.specific_class.allowed_parent_page_models(),
                 can_choose_root=True,
                 user_perms="copy_to",
             ),
