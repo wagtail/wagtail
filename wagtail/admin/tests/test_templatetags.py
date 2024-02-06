@@ -205,6 +205,22 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn("1\xa0hour ago", html)
         self.assertIn('data-w-tooltip-placement-value="top"', html)
 
+    def test_human_readable_date_wtih_date_object(self):
+        today = timezone.localdate()
+        template = """
+            {% load wagtailadmin_tags %}
+            {% human_readable_date date %}
+        """
+
+        html = Template(template).render(Context({"date": today}))
+        self.assertIn("Today", html)
+
+        html = Template(template).render(
+            Context({"date": today - timedelta(days=1, hours=1)})
+        )
+        self.assertIn("1\xa0day ago", html)
+        self.assertIn('data-w-tooltip-placement-value="top"', html)
+
     def test_human_readable_date_with_args(self):
         now = timezone.now()
         template = """
