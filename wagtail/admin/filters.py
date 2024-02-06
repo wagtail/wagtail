@@ -105,16 +105,24 @@ class WagtailFilterSet(django_filters.FilterSet):
     def _add_locale_filter(self):
         # Add a locale filter if the model is translatable
         # and there isn't one already.
-        from wagtail.models.i18n import TranslatableMixin
+        from wagtail.models.i18n import Locale, TranslatableMixin
 
         if (
             self._meta.model
             and issubclass(self._meta.model, TranslatableMixin)
             and "locale" not in self.filters
         ):
+            # Only add the locale filter if there are multiple content languages
+            # in the settings and the corresponding Locales exist.
+            languages = get_content_languages()
+            locales = set(Locale.objects.values_list("language_code", flat=True))
+            choices = [(k, v) for k, v in languages.items() if k in locales]
+            if len(choices) <= 1:
+                return
+
             self.filters["locale"] = LocaleFilter(
                 label=_("Locale"),
-                choices=list(get_content_languages().items()),
+                choices=choices,
                 empty_label=None,
                 null_label=_("All"),
                 null_value=None,

@@ -201,7 +201,10 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     @cached_property
     def filters(self):
         if self.filterset_class:
-            return self.filterset_class(self.request.GET, request=self.request)
+            filterset = self.filterset_class(self.request.GET, request=self.request)
+            # Don't use the filterset if it has no fields
+            if filterset.form.fields:
+                return filterset
 
     @cached_property
     def is_filtering(self):
