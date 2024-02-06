@@ -1291,9 +1291,9 @@ def workflow_status_with_date(workflow_state):
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
     if isinstance(date, datetime.datetime):
-        tooltip_format = settings.WAGTAIL_DATETIME_FORMAT
+        tooltip_format = getattr(settings, "DATETIME_FORMAT", "N j, Y, P")
     elif isinstance(date, datetime.date):
-        tooltip_format = settings.WAGTAIL_DATE_FORMAT
+        tooltip_format = getattr(settings, "DATE_FORMAT", "N j, Y")
     return {
         "date": date,
         "description": description,
