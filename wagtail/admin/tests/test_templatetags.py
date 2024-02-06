@@ -115,6 +115,7 @@ class TestVersionedStatic(SimpleTestCase):
         self.assertEqual(result, "http://example.org/static/wagtailadmin/js/core.js")
 
 
+@override_settings(WAGTAIL_DATE_FORMAT="N j, Y", WAGTAIL_DATETIME_FORMAT="N j, Y, P")
 @freeze_time("2020-07-01 12:00:00")
 class TestTimesinceTags(SimpleTestCase):
     def test_timesince_simple(self):
@@ -204,6 +205,7 @@ class TestTimesinceTags(SimpleTestCase):
         )
         self.assertIn("1\xa0hour ago", html)
         self.assertIn('data-w-tooltip-placement-value="top"', html)
+        self.assertIn('data-w-tooltip-content-value="July 1, 2020, 7:50 p.m."', html)
 
     def test_human_readable_date_wtih_date_object(self):
         today = timezone.localdate()
@@ -213,13 +215,14 @@ class TestTimesinceTags(SimpleTestCase):
         """
 
         html = Template(template).render(Context({"date": today}))
-        self.assertIn("Today", html)
+        self.assertIn("12\xa0hours ago", html)
 
         html = Template(template).render(
             Context({"date": today - timedelta(days=1, hours=1)})
         )
         self.assertIn("1\xa0day ago", html)
         self.assertIn('data-w-tooltip-placement-value="top"', html)
+        self.assertIn('data-w-tooltip-content-value="June 30, 2020"', html)
 
     def test_human_readable_date_with_args(self):
         now = timezone.now()
