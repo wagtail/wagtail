@@ -249,6 +249,35 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         self.assertIn(event_page.id, pages)
         self.assertTrue(pages[self.child_page.id].can_choose)
 
+    def test_with_multiple_specific_page_types_display_warning(self):
+        # Add a page that is not a SimplePage
+        event_page = EventPage(
+            title="event",
+            location="the moon",
+            audience="public",
+            cost="free",
+            date_from="2001-01-01",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        # Send request
+        response = self.get({"page_type": "tests.simplepage,tests.eventpage"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["page_type_names"], ["Simple page", "Event page"]
+        )
+
+        html = response.json().get("html")
+        expected = """
+            <p class="help-block help-warning">
+                <svg class="icon icon-warning icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+                Only the following page types may be chosen for this field: Simple page, Event page. Search results will exclude pages of other types.
+            </p>
+        """
+
+        self.assertTagInHTML(expected, html)
+
     def test_with_unknown_page_type(self):
         response = self.get({"page_type": "foo.bar"})
         self.assertEqual(response.status_code, 404)
