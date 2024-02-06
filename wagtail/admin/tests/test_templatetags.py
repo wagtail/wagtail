@@ -189,6 +189,7 @@ class TestTimesinceTags(SimpleTestCase):
             timesince,
         )
 
+    @override_settings(USE_TZ=False)
     def test_human_readable_date(self):
         now = timezone.now()
         template = """
@@ -204,10 +205,11 @@ class TestTimesinceTags(SimpleTestCase):
         )
         self.assertIn("1\xa0hour ago", html)
         self.assertIn('data-w-tooltip-placement-value="top"', html)
-        self.assertIn('data-w-tooltip-content-value="July 1, 2020, 7:50 p.m."', html)
+        self.assertIn('data-w-tooltip-content-value="July 1, 2020, 10:50 a.m."', html)
 
+    @override_settings(USE_TZ=False)
     def test_human_readable_date_with_date_object(self):
-        today = timezone.localdate()
+        today = timezone.now().date()
         template = """
             {% load wagtailadmin_tags %}
             {% human_readable_date date %}
