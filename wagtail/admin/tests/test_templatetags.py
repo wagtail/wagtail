@@ -115,7 +115,6 @@ class TestVersionedStatic(SimpleTestCase):
         self.assertEqual(result, "http://example.org/static/wagtailadmin/js/core.js")
 
 
-@override_settings(WAGTAIL_DATE_FORMAT="N j, Y", WAGTAIL_DATETIME_FORMAT="N j, Y, P")
 @freeze_time("2020-07-01 12:00:00")
 class TestTimesinceTags(SimpleTestCase):
     def test_timesince_simple(self):
@@ -207,7 +206,7 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn('data-w-tooltip-placement-value="top"', html)
         self.assertIn('data-w-tooltip-content-value="July 1, 2020, 7:50 p.m."', html)
 
-    def test_human_readable_date_wtih_date_object(self):
+    def test_human_readable_date_with_date_object(self):
         today = timezone.localdate()
         template = """
             {% load wagtailadmin_tags %}
