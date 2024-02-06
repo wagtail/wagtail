@@ -859,6 +859,7 @@
 * Strapchay
 * Alex Fulcher
 * Harsh Dange
+* Mauro Soche
 
 ## Translators
 
