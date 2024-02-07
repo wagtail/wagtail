@@ -66,6 +66,8 @@
   // and reduce the default margin-bottom.
   margin-top: theme('spacing.2');
   margin-bottom: theme('spacing.2');
+  // Force fields to stay within the width of the drilldown.
+  max-width: calc(260px - theme('spacing.4'));
 }
 
 .w-drilldown__submenu .w-field__label {
