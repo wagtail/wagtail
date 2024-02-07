@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2019-2021\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -26,24 +26,11 @@ msgstr "Wagtail table block"
 msgid "Row header"
 msgstr "Cabeçalho da linha"
 
-msgid "Display the first row as a header."
-msgstr "Mostrar a primeira linha como um cabeçalho."
-
 msgid "Column header"
 msgstr "Cabeçalho da coluna"
 
-msgid "Display the first column as a header."
-msgstr "Mostrar a primeira coluna como um cabeçalho."
-
 msgid "Table caption"
 msgstr "Legenda da tabela"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Um cabeçalho que identifica o tópico geral da tabela e é útil para usuários "
-"de leitores de tela"
 
 msgid "Table"
 msgstr "Tabela"

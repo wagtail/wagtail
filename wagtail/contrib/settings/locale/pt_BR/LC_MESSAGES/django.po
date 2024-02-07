@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -30,15 +30,8 @@ msgstr "padrão"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s para %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Editando %(instance)s"
-
 msgid "Site"
 msgstr "Site"
-
-msgid "Editing"
-msgstr "Editando"
 
 msgid "Saving…"
 msgstr "Salvando…"
@@ -52,9 +45,9 @@ msgstr "Configurações"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Essa configuração não pôde ser aberta porque não há site definido."
 
+msgid "The setting could not be saved due to errors."
+msgstr "A configuração não pôde ser salva devido a erros."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s atualizado."
-
-msgid "The setting could not be saved due to errors."
-msgstr "A configuração não pôde ser salva devido a erros."

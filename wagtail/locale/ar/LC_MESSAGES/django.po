@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -173,9 +173,6 @@ msgstr "صفحة"
 msgid "pages"
 msgstr "صفحات"
 
-msgid "submitted for moderation"
-msgstr "قدمت للإشراف"
-
 msgid "created at"
 msgstr "أنشئت في"
 
@@ -193,9 +190,6 @@ msgstr "مجموعة"
 
 msgid "permission"
 msgstr "تصريح"
-
-msgid "permission type"
-msgstr "نوع  التصريح"
 
 msgid "group page permission"
 msgstr "إذن صفحة المجموعة"

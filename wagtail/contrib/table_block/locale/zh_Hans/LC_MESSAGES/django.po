@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -30,22 +30,11 @@ msgstr "Wagtail 数据表块"
 msgid "Row header"
 msgstr "行标题"
 
-msgid "Display the first row as a header."
-msgstr "将第一行作为行标题。"
-
 msgid "Column header"
 msgstr "列标题"
 
-msgid "Display the first column as a header."
-msgstr "将第一列作为列标题。"
-
 msgid "Table caption"
 msgstr "表格标题"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr "综合说明表格内容的标题，对屏幕阅读器用户很有用"
 
 msgid "Table"
 msgstr "表格"

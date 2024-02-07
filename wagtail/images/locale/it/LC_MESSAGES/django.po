@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -382,9 +382,6 @@ msgstr "File non trovato"
 msgid "Usage"
 msgstr "Utilizzo"
 
-msgid "Images"
-msgstr "Immagini"
-
 msgid "Sort by"
 msgstr "Ordina per"
 
@@ -396,19 +393,6 @@ msgstr "Tag Popolari:"
 
 msgid "Select all images in listing"
 msgstr "Seleziona tutte le immagini nella lista"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "C'è %(counter)s corrispondenza"
-msgstr[1] "Ci sono %(counter)s corrispondenze"
-msgstr[2] "Ci sono %(counter)s corrispondenze"
-
-msgid "Select image"
-msgstr "Seleziona immagine"
-
-msgid "pixels"
-msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -431,21 +415,11 @@ msgstr ""
 "Non hai caricato nessuna immagine. Perché non <a "
 "href=\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
 
-msgid "Generating URL"
-msgstr "Generando URL"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Anteprima"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Le immagini generate più grandi dello schermo appariranno più piccole in "
-"anteprima in modo da adattarsi allo schermo."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Aggiungi immagini multiple"
@@ -577,8 +551,8 @@ msgstr "Dimensione file: (crescente)"
 msgid "File size: (high to low)"
 msgstr "Dimensione file: (decrescente)"
 
-msgid "Search images"
-msgstr "Cerca immagini"
+msgid "Images"
+msgstr "Immagini"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

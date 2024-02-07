@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -28,15 +28,8 @@ msgstr "sjálfgefin"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s fyrir %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Breyti %(instance)s"
-
 msgid "Site"
 msgstr "Síða"
-
-msgid "Editing"
-msgstr "Breyti"
 
 msgid "Saving…"
 msgstr "Vista…"
@@ -52,9 +45,9 @@ msgstr ""
 "Ekki er hægt að breyta þessari stillingu þar sem engin síða hefur verið "
 "skilgreind."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Ekki var hægt að vista stillingarnar, villur komu upp."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)suppfært."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Ekki var hægt að vista stillingarnar, villur komu upp."

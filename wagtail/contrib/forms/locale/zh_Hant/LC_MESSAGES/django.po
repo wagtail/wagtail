@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Ocin Leung, 2020\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -146,18 +146,6 @@ msgstr "刪除表單數據"
 msgid "Delete"
 msgstr "刪除"
 
-msgid "Forms"
-msgstr "表單"
-
-msgid "Pages"
-msgstr "頁面"
-
-msgid "Title"
-msgstr "標題"
-
-msgid "Origin"
-msgstr "原始"
-
 msgid "Delete selected submissions"
 msgstr "刪除選中提交"
 
@@ -166,9 +154,6 @@ msgstr "所有的提交"
 
 msgid "Latest submission"
 msgstr "上一次提交"
-
-msgid "No form pages have been created."
-msgstr "還沒有創建表單頁面。"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -183,6 +168,18 @@ msgstr "過濾器"
 
 msgid "Apply filters"
 msgstr "套用過濾"
+
+msgid "Forms"
+msgstr "表單"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Pages"
+msgstr "頁面"
 
 #, python-format
 msgid "One submission has been deleted."

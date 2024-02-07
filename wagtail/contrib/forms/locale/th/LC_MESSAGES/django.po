@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -135,18 +135,6 @@ msgstr "ลบจากข้อมูล"
 msgid "Delete"
 msgstr "ลบ"
 
-msgid "Forms"
-msgstr "แบบฟอร์ม"
-
-msgid "Pages"
-msgstr "หลายหน้า"
-
-msgid "Title"
-msgstr "หัวข้อ"
-
-msgid "Origin"
-msgstr "ต้นแบบ"
-
 msgid "Delete selected submissions"
 msgstr "การส่งที่เราเลือกลบแล้ว"
 
@@ -155,9 +143,6 @@ msgstr "การส่งทั้งหมด"
 
 msgid "Latest submission"
 msgstr "การส่งล่าสุด"
-
-msgid "No form pages have been created."
-msgstr "ไม่มีหน้าแบบฟอร์มที่ถูกสร้าง"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -169,6 +154,18 @@ msgstr "ไม่เคยมีการส่งของ '%(title)s' รู�
 
 msgid "Filter"
 msgstr "คัดกรอง"
+
+msgid "Forms"
+msgstr "แบบฟอร์ม"
+
+msgid "Title"
+msgstr "หัวข้อ"
+
+msgid "Origin"
+msgstr "ต้นแบบ"
+
+msgid "Pages"
+msgstr "หลายหน้า"
 
 #, python-format
 msgid "One submission has been deleted."

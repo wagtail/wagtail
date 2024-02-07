@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -326,24 +326,6 @@ msgstr "טיוטה"
 msgid "Live"
 msgstr "חי"
 
-msgid "Pages awaiting moderation"
-msgstr "עמוד ממתין לעריכה"
-
-msgid "Type"
-msgstr "סוג"
-
-msgid "Edited"
-msgstr "ערוך"
-
-msgid "Approve"
-msgstr "אשרו"
-
-msgid "Reject"
-msgstr "דחו"
-
-msgid "Preview"
-msgstr "תצוגה מקדימה"
-
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
 
@@ -355,6 +337,9 @@ msgstr "תאריך"
 
 msgid "Site summary"
 msgstr "סיכום אתר"
+
+msgid "Preview"
+msgstr "תצוגה מקדימה"
 
 msgid "Sign in"
 msgstr "התחברות "
@@ -392,10 +377,6 @@ msgstr "העמוד \"%(title)s\" נדחה"
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "העמוד \"%(page)s\" הועבר לאישור"
 
 msgid "Page privacy"
 msgstr "הגדרות פרטיות של העמוד"
@@ -466,20 +447,8 @@ msgstr "העתק"
 msgid "Copy this page"
 msgstr "העתק עמוד זה"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "%(page_type)s חדש"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "עריכת %(page_type)s: %(title)s"
-
 msgid "User"
 msgstr "משתמש"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "מסייר ב%(title)s"
 
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
@@ -529,8 +498,14 @@ msgstr "עברו מעלה"
 msgid "Move down"
 msgstr "עברו מטה"
 
+msgid "Type"
+msgstr "סוג"
+
 msgid "Updated"
 msgstr "עדכן"
+
+msgid "Pages"
+msgstr "עמודים"
 
 msgid "Locked"
 msgstr "נעול"
@@ -557,6 +532,9 @@ msgstr "בלתי נעול"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
+msgid "Edited"
+msgstr "ערוך"
+
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
 
@@ -577,9 +555,6 @@ msgstr "לעמוד הבית "
 
 msgid "Editing"
 msgstr "עריכה"
-
-msgid "Usage of"
-msgstr "שימוש ב:"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -621,30 +596,21 @@ msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
 msgid "Page '%(page_title)s' deleted."
 msgstr "עמוד %(page_title)s נמחק"
 
-msgid "This page is currently awaiting moderation"
-msgstr "העמוד ממתין לעריכה"
-
 msgid "The page could not be saved as it is locked"
 msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
 
 msgid "The page could not be saved due to validation errors"
 msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
+msgid "Owner"
+msgstr "בעלים"
+
+msgid "Site"
+msgstr "אתר"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "עמוד %(page_title)s בלתי נעול כעת"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "העמוד %(page_title)s אינו ממתין לעריכה כרגע "
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "עמוד %(page_title)s פורסם"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "עמוד %(page_title)s נדחה עבור פרסום"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -657,8 +623,9 @@ msgstr "פרסום עמוד %(page_title)s בוטל"
 msgid "Pages using"
 msgstr "עמודים משמשים"
 
-msgid "Pages"
-msgstr "עמודים"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "העמוד %(page_title)s אינו ממתין לעריכה כרגע "
 
 msgid "Choose an item"
 msgstr "בחרו פריט"

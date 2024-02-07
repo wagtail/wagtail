@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: André Bouatchidzé <a@anbz.net>, 2015\n"
 "Language-Team: Georgian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,20 +34,20 @@ msgstr "შენახვა"
 msgid "Filesize"
 msgstr "ფაილის ზომა"
 
-msgid "Documents"
-msgstr "დოკუმენტები"
-
-msgid "Title"
-msgstr "სათაური"
+msgid "Delete"
+msgstr "წაშლა"
 
 msgid "File"
 msgstr "ფაილი"
-
-msgid "Delete"
-msgstr "წაშლა"
 
 msgid "Choose another document"
 msgstr "სხვა დოკუმენტის არჩევა"
 
 msgid "Edit this document"
 msgstr "ამ დოკუმენტის რედაქტირება"
+
+msgid "Documents"
+msgstr "დოკუმენტები"
+
+msgid "Title"
+msgstr "სათაური"

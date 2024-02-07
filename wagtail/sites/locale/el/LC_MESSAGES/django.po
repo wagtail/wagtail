@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,12 +57,12 @@ msgstr "Προσθήκη δικτυακού τόπου"
 msgid "Site '%(object)s' created."
 msgstr "Δημιουργήθηκε ο δικτυακός τόπος '%(object)s'."
 
+msgid "The site could not be saved due to errors."
+msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Ενημέρωση του δικτυακού τόπου '%(object)s'."
-
-msgid "The site could not be saved due to errors."
-msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
 
 msgid "Delete site"
 msgstr "Διαγραφή site"

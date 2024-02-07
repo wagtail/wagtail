@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -188,9 +188,6 @@ msgstr "페이지"
 msgid "pages"
 msgstr "페이지"
 
-msgid "submitted for moderation"
-msgstr "검토를 위해 제출됨"
-
 msgid "created at"
 msgstr "생성된 일시"
 
@@ -208,9 +205,6 @@ msgstr "그룹"
 
 msgid "permission"
 msgstr "권한"
-
-msgid "permission type"
-msgstr "권한 형태"
 
 msgid "group page permission"
 msgstr "그룹 페이지 권한"

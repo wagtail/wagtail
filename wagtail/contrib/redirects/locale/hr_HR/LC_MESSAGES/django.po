@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -221,9 +221,6 @@ msgstr ""
 "Nema postavljenih preusmjeravanja. Zašto ne <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">dodate jedno</a>?"
 
-msgid "Search redirects"
-msgstr "Pretraži preusmjeravanja"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Preusmjeravanje '%(redirect_title)s' je ažurirano."
@@ -244,6 +241,9 @@ msgstr "Preusmjeravanje '%(redirect_title)s' je dodano."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Nije moguće stvoriti presumjeravanje zbog grešaka."
+
+msgid "Search redirects"
+msgstr "Pretraži preusmjeravanja"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

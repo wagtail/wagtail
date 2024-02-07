@@ -53,9 +53,6 @@ msgstr "Redaguoti"
 msgid "Edit '%(title)s'"
 msgstr "Redaguoti '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Redaguoti savo vartotoją"
-
 msgid "Horizontal line"
 msgstr "Horizontali linija"
 

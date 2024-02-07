@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -148,18 +148,6 @@ msgstr "データから削除する"
 msgid "Delete"
 msgstr "削除"
 
-msgid "Forms"
-msgstr "フォーム"
-
-msgid "Pages"
-msgstr "ページ"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "Origin"
-msgstr "出身"
-
 msgid "Delete selected submissions"
 msgstr "選択した送信を削除します"
 
@@ -168,9 +156,6 @@ msgstr "合計送信数"
 
 msgid "Latest submission"
 msgstr "最新の送信"
-
-msgid "No form pages have been created."
-msgstr "まだフォームページはありません。"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -185,6 +170,18 @@ msgstr "フィルター"
 
 msgid "Apply filters"
 msgstr "フィルターを適用"
+
+msgid "Forms"
+msgstr "フォーム"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Origin"
+msgstr "出身"
+
+msgid "Pages"
+msgstr "ページ"
 
 #, python-format
 msgid "One submission has been deleted."

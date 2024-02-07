@@ -29,9 +29,6 @@ msgstr "Upraviť"
 msgid "Edit '%(title)s'"
 msgstr "Upraviť '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Upraviť váš účet"
-
 msgid "No results"
 msgstr "Žiadne výsledky"
 

@@ -3,7 +3,6 @@
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
 # karlsander <karlsander@gmail.com>, 2022
 # Norman Uekermann <nue@melexis.com>, 2022
-# 79353a696ad19dc202b261b3067b7640_bec941e, 2022
 # Peter Dreuw <archandha@gmx.net>, 2022
 # Henrik Kröger <hedwig@riseup.net>, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
@@ -91,9 +90,6 @@ msgstr "Bearbeiten"
 
 msgid "Edit '%(title)s'"
 msgstr "‚%(title)s‘ bearbeiten"
-
-msgid "Edit your account"
-msgstr "Bearbeiten Sie Ihr Konto"
 
 msgid "Enter your comments..."
 msgstr "Geben Sie Ihre Kommentare ein..."

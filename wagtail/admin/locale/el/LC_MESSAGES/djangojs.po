@@ -1,6 +1,5 @@
 #
 # Translators:
-# 79353a696ad19dc202b261b3067b7640_bec941e, 2022
 # serafeim <serafeim@torchbox.com>, 2022
 # Karl Hobley <karl@torchbox.com>, 2022
 # Yiannis Inglessis <negtheone@gmail.com>, 2022
@@ -48,9 +47,6 @@ msgstr "Επεξεργασία"
 
 msgid "Edit '%(title)s'"
 msgstr "Επεξεργασία '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Επεξεργαστείτε το λογαριασμό σας"
 
 msgid "Focus comment"
 msgstr "Εστίαση σχολίου"

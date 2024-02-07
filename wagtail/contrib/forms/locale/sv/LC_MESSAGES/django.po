@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -174,18 +174,6 @@ msgstr[1] "Är du säker på att du vill radera dessa formulärinlagor?"
 msgid "Delete"
 msgstr "Radera"
 
-msgid "Forms"
-msgstr "Formulär"
-
-msgid "Pages"
-msgstr "Sidor"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Origin"
-msgstr "Källa"
-
 msgid "Delete selected submissions"
 msgstr "Radera valda inlämningar"
 
@@ -194,9 +182,6 @@ msgstr "Antal inlämningar"
 
 msgid "Latest submission"
 msgstr "Senaste inlämning"
-
-msgid "No form pages have been created."
-msgstr "Inga formulär har skapats."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -211,6 +196,18 @@ msgstr "Filtrera"
 
 msgid "Apply filters"
 msgstr "Filtrera"
+
+msgid "Forms"
+msgstr "Formulär"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Källa"
+
+msgid "Pages"
+msgstr "Sidor"
 
 #, python-format
 msgid "One submission has been deleted."
