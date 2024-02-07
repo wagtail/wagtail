@@ -794,6 +794,7 @@
 * Karthik Ayangar
 * mirusu400
 * Advik Kabra
+* Ankur Raiyani
 
 ## Translators
 
