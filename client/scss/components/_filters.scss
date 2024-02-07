@@ -38,6 +38,10 @@
     width: theme('fontSize.16');
     height: theme('fontSize.16');
   }
+
+  &:hover {
+    border-color: theme('colors.border-field-hover');
+  }
 }
 
 .w-active-filters {
