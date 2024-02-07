@@ -1304,7 +1304,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             existing_pages = []
         # Extract slugs from the children
         # Children is a list of Page objects
-        slugs = [child.slug for child in children+list(existing_pages) if hasattr(child, "slug") and child.slug]
+        slugs = [
+            child.slug
+            for child in children + list(existing_pages)
+            if hasattr(child, "slug") and child.slug
+        ]
         if len(slugs) != len(set(slugs)):
             raise ValidationError(
                 {
