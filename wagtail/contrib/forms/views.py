@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.translation import gettext_lazy, ngettext
+from django.utils.translation import gettext, gettext_lazy, ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
@@ -46,9 +46,10 @@ class FormPagesListView(generic.IndexView):
     paginate_by = 20
     page_kwarg = "p"
     index_url_name = "wagtailforms:index"
-    page_title = "Forms"
-    page_subtitle = "Pages"
+    index_results_url_name = "wagtailforms:index_results"
+    page_title = gettext_lazy("Forms")
     header_icon = "form"
+    _show_breadcrumbs = True
     columns = [
         TitleColumn(
             "title",
@@ -67,6 +68,13 @@ class FormPagesListView(generic.IndexView):
     ]
     model = Page
     is_searchable = False
+
+    def get_breadcrumbs_items(self):
+        if not self.model:
+            return self.breadcrumbs_items
+        return self.breadcrumbs_items + [
+            {"url": "", "label": self.page_title, "sublabel": gettext("Pages")},
+        ]
 
     def get_base_queryset(self):
         """Return the queryset of form pages for this view"""

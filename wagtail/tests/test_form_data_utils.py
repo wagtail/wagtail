@@ -9,38 +9,38 @@ class TestQueryDictFromHTML(SimpleTestCase):
         <input type="hidden" name="csrfmiddlewaretoken" value="Z783HTL5Bc2J54WhAtEeR3eefM1FBkq0EbTfNnYnepFGuJSOfvosFvwjeKYtMwFr">
         <input type="hidden" name="no_value_input">
         <input type="hidden" value="no name input">
-        <div class="mt-8 max-w-md">
-            <div class="grid grid-cols-1 gap-6">
-                <label class="block">
-                    <span class="text-gray-700">Full name</span>
-                    <input type="text" name="name" value="Jane Doe" class="mt-1 block w-full" placeholder="">
+        <div>
+            <div>
+                <label>
+                    <span>Full name</span>
+                    <input type="text" name="name" value="Jane Doe" placeholder="">
                 </label>
-                <label class="block">
-                    <span class="text-gray-700">Email address</span>
-                    <input type="email" name="email" class="mt-1 block w-full" value="jane@example.com" placeholder="name@example.com">
+                <label>
+                    <span>Email address</span>
+                    <input type="email" name="email" value="jane@example.com" placeholder="name@example.com">
                 </label>
             </div>
         </div>
     </form>
     <form id="event-details">
-        <div class="mt-8 max-w-md">
-            <div class="grid grid-cols-1 gap-6">
-                <label class="block">
-                    <span class="text-gray-700">When is your event?</span>
-                    <input type="date" name="date" class="mt-1 block w-full" value="2023-01-01">
+        <div>
+            <div>
+                <label>
+                    <span>When is your event?</span>
+                    <input type="date" name="date" value="2023-01-01">
                 </label>
-                <label class="block">
-                    <span class="text-gray-700">What type of event is it?</span>
-                    <select name="event_type" class="block w-full mt-1">
+                <label>
+                    <span>What type of event is it?</span>
+                    <select name="event_type">
                         <option value="corporate">Corporate event</option>
                         <option value="wedding">Wedding</option>
                         <option value="birthday">Birthday</option>
                         <option value="other" selected>Other</option>
                     </select>
                 </label>
-                <label class="block">
-                    <span class="text-gray-700">What age groups is it suitable for?</span>
-                    <select name="ages" class="block w-full mt-1" multiple>
+                <label>
+                    <span>What age groups is it suitable for?</span>
+                    <select name="ages" multiple>
                         <option>Infants</option>
                         <option>Children</option>
                         <option>Teenagers</option>
@@ -54,9 +54,9 @@ class TestQueryDictFromHTML(SimpleTestCase):
         </div>
     </form>
     <form id="market-research">
-        <div class="mt-8 max-w-md">
-            <div class="grid grid-cols-1 gap-6">
-                <fieldset class="block">
+        <div>
+            <div>
+                <fieldset>
                     <legend>How many pets do you have?</legend>
                     <div class="radio-list">
                         <div class="radio">
@@ -85,7 +85,7 @@ class TestQueryDictFromHTML(SimpleTestCase):
                         </div>
                     </div>
                 </fieldset>
-                <fieldset class="block">
+                <fieldset>
                     <legend>Which two colours do you like best?</legend>
                     <div class="checkbox-list">
                         <div class="checkbox">
@@ -120,9 +120,9 @@ class TestQueryDictFromHTML(SimpleTestCase):
                         </div>
                     </div>
                 </fieldset>
-                <label class="block">
-                    <span class="text-gray-700">Tell us what you love</span>
-                    <textarea name="love" class="mt-1 block w-full" rows="3">Comic books</textarea>
+                <label>
+                    <span>Tell us what you love</span>
+                    <textarea name="love" rows="3">Comic books</textarea>
                 </label>
             </div>
         </div>

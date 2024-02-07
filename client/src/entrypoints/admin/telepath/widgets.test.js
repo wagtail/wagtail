@@ -333,6 +333,11 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
       inputId,
       TEST_VALUE,
       parentCapabilities,
+      {
+        attributes: {
+          maxLength: 512,
+        },
+      },
     );
     inputElement = document.querySelector('#the-id');
   });
@@ -340,6 +345,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   test('it renders correctly', () => {
     expect(document.querySelector('.Draftail-Editor__wrapper')).toBeTruthy();
     expect(document.querySelector('input').value).toBe(TEST_VALUE);
+    expect(document.querySelector('input').maxLength).toBe(512);
   });
 
   test('getValue() returns the current value', () => {

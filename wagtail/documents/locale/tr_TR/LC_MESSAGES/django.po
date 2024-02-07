@@ -138,19 +138,19 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona belge yüklemediniz. Neden <a href="
-"\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Hiç belge yüklemediniz. Neden <a href=\"%(wagtaildocs_add_document_url)s"
-"\">bir tane yüklemiyorsunuz</a>?"
+"Hiç belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 msgid "Add multiple documents"
 msgstr "Birden fazla belge akle"

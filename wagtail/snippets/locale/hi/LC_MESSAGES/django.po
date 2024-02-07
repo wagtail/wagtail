@@ -18,6 +18,12 @@ msgstr ""
 "Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "प्रकाशित"
+
+msgid "Submit for moderation"
+msgstr "मॉडरेशन के लिए सबमिट करें"
+
 msgid "Save"
 msgstr "Save"
 

@@ -1,3 +1,4 @@
+/* stylelint-disable selector-max-combinators */
 // General listings, like for pages, images or snippets
 ul.listing {
   @include unlist();
@@ -26,7 +27,11 @@ ul.listing {
 
   td,
   th {
-    padding: 1.2em 1em;
+    padding: 1.2em 0.3em;
+
+    @include media-breakpoint-up(sm) {
+      padding: 1.2em 1em;
+    }
 
     &.no-padding {
       padding: 0;
@@ -35,7 +40,11 @@ ul.listing {
 
   &.small td,
   th {
-    padding: 0.6em 1em;
+    padding: 0.6em 0.3em;
+
+    @include media-breakpoint-up(sm) {
+      padding: 0.6em 1em;
+    }
   }
 
   td {
@@ -43,8 +52,12 @@ ul.listing {
   }
 
   td.title {
-    padding: 1em;
     line-height: 2em;
+    padding: 1em 0.3em;
+
+    @include media-breakpoint-up(sm) {
+      padding: 1em;
+    }
   }
 
   thead {
@@ -57,6 +70,10 @@ ul.listing {
       text-align: start;
       font-weight: normal;
       white-space: nowrap;
+    }
+
+    th.title {
+      white-space: normal;
     }
 
     th.children {
@@ -74,13 +91,17 @@ ul.listing {
     }
   }
 
-  &.full-width td:first-child,
-  &.full-width th:first-child {
-    padding-inline-start: 20px;
-    padding-inline-end: 20px;
+  &:has(.bulk-actions-filter-checkbox) {
+    td:first-child,
+    th:first-child {
+      // Bulk actions, use smaller width (48px) for smaller screens
+      // (no need to match where the breadcrumbs are)
+      width: theme('spacing.10');
+      text-align: center;
 
-    input[type='checkbox'] {
-      margin-inline-end: 0;
+      input[type='checkbox'] {
+        margin-inline-end: 0;
+      }
     }
   }
 
@@ -194,7 +215,7 @@ ul.listing {
     }
 
     label span {
-      @include visuallyhidden();
+      @apply w-sr-only;
     }
 
     input {
@@ -230,7 +251,7 @@ ul.listing {
   }
 
   .actions {
-    float: right;
+    float: inline-end;
     font-size: 0.8rem;
     margin: 0;
 
@@ -239,7 +260,7 @@ ul.listing {
     }
 
     > li {
-      float: left;
+      float: inline-start;
       padding: 0 0.5em 0 0;
       vertical-align: middle;
     }
@@ -276,7 +297,7 @@ ul.listing {
   }
 
   .moderate-actions form {
-    float: left;
+    float: inline-start;
     margin: 0 1em 1em 0;
   }
 
@@ -315,7 +336,7 @@ ul.listing {
 
     &:hover,
     &:focus {
-      color: theme('colors.text-button-outline-default');
+      color: theme('colors.text-button-outline-hover');
     }
 
     &:focus {
@@ -340,21 +361,11 @@ ul.listing {
 
     &--active a,
     a:hover {
-      color: theme('colors.text-button-outline-default');
+      color: theme('colors.text-button-outline-hover');
     }
   }
 
-  .handle {
-    cursor: move;
-    width: 20px;
-    color: theme('colors.icon-secondary');
-
-    &:hover {
-      color: theme('colors.icon-secondary-hover');
-    }
-  }
-
-  .ui-sortable-helper {
+  .w-orderable__item--active {
     border: 1px dashed theme('colors.border-field-default');
     border-width: 1px 0;
 
@@ -366,6 +377,10 @@ ul.listing {
     .title {
       display: table-cell;
     }
+  }
+
+  .w-orderable__item__handle {
+    cursor: move;
   }
 
   table .no-results-message {
@@ -412,34 +427,12 @@ table.listing {
   }
 }
 
-.page-explorer .w-breadcrumbs {
-  li[hidden] ~ li:last-child,
-  li:only-child {
-    a {
-      font-size: theme('fontSize.18');
-      font-weight: theme('fontWeight.extrabold');
-
-      @include media-breakpoint-up(md) {
-        font-size: theme('fontSize.22');
-      }
-    }
-  }
-}
-
 .page-explorer .listing {
   position: relative;
 
   .table-headers,
   thead tr {
     height: 35px;
-
-    .title {
-      padding-inline-start: 0;
-    }
-  }
-
-  tbody .title {
-    padding-inline-start: 0;
   }
 }
 
@@ -460,11 +453,11 @@ table.listing {
   }
 
   .prev {
-    float: left;
+    float: inline-start;
   }
 
   .next {
-    float: right;
+    float: inline-end;
   }
 }
 
@@ -483,7 +476,7 @@ table.listing {
 }
 
 .filter-title {
-  float: left;
+  float: inline-start;
   font-size: 0.95em;
   padding: 1em;
   margin: 0 1em 0 0;
@@ -497,7 +490,7 @@ table.listing {
 
   li {
     padding: 0.8em;
-    float: left;
+    float: inline-start;
   }
 
   &__icon {
@@ -531,7 +524,7 @@ table.listing {
         border: 0;
 
         .bulk-action-checkbox {
-          float: left;
+          float: inline-start;
           margin: -0.5em 0.5em 0.5em -0.75em;
         }
 
@@ -616,17 +609,41 @@ table.listing {
       padding-inline-start: 50px;
     }
 
-    &.full-width td:first-child,
-    &.full-width th:first-child {
-      padding-inline-start: 30px;
-      padding-inline-end: 30px;
+    &:has(.bulk-actions-filter-checkbox) {
+      // Bulk actions, match the width of the header spacing up until
+      // the page title (final breadcrumb item):
+      // Breadcrumbs left padding: 20px
+      // Breadcrumbs toggle: 50px
+      // Breadcrumbs toggle margin right: 10px
+      // Total: 80px
+      th:first-child,
+      td:first-child {
+        width: theme('spacing.20');
+        // Follow the left padding for the breadcrumbs (20px)
+        // so the checkbox align with the breadcrumbs toggle.
+        padding-inline-start: theme('spacing.5');
+      }
     }
 
-    // Reduce padding on sort order controls so total width matches previous state
-    &.full-width td.ord,
-    &.full-width th.ord {
-      padding-inline-end: 20px;
-      padding-inline-start: 20px;
+    // Remove left padding from the second column if either bulk action or
+    // custom ordering is active, as the padding to match the breadcrumbs is
+    // already handled by the first column.
+    &:has(.bulk-actions-filter-checkbox, .ord) {
+      th:nth-child(2),
+      td:nth-child(2) {
+        padding-inline-start: 0;
+      }
+    }
+
+    // If no bulk actions are present, and nice padding is not applied,
+    // apply the same 80px padding via the first column's left padding.
+    &:not(.nice-padding &, .report &):not(
+        :has(.bulk-actions-filter-checkbox, .ord)
+      ) {
+      th:first-child,
+      td:first-child {
+        padding-inline-start: theme('spacing.20');
+      }
     }
 
     &.full-width .divider td {
@@ -646,10 +663,6 @@ table.listing {
 
 // Transitions
 .listing {
-  thead .dropdown ul {
-    @include transition(none);
-  }
-
   .children,
   .no-children {
     @include transition(background-color 0.2s ease);
@@ -665,15 +678,27 @@ table.listing {
 td.ord {
   // Align with the row's title text, and the column's label.
   vertical-align: top;
-
-  .handle {
-    width: 100%;
-    text-align: center;
-  }
 }
 
 table.listing {
   th.ordered {
     color: theme('colors.text-link-default');
+  }
+}
+
+.w-title-ellipsis {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 20ch;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    max-width: 30ch;
+  }
+
+  @include media-breakpoint-up(md) {
+    max-width: none;
   }
 }

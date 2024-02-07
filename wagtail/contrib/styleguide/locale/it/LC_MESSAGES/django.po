@@ -28,6 +28,9 @@ msgstr "Guida di stile Wagtail"
 msgid "Styleguide"
 msgstr "Styleguide"
 
+msgid "Minimap"
+msgstr "Minimap"
+
 msgid "Save"
 msgstr "Salva"
 

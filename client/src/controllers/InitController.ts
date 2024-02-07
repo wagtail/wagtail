@@ -5,9 +5,14 @@ import { debounce } from '../utils/debounce';
  * Adds the ability for a controlled element to add or remove classes
  * when ready to be interacted with.
  *
- * @example
+ * @example - Dynamic classes when ready
  * <div class="keep-me hide-me" data-controller="w-init" data-w-init-remove-class="hide-me" data-w-init-ready-class="loaded">
  *   When the DOM is ready, this div will have the class 'loaded' added and 'hide-me' removed.
+ * </div>
+ *
+ * @example - Custom event dispatching
+ * <div class="keep-me hide-me" data-controller="w-init" data-w-init-event-value="custom:event other-custom:event">
+ *   When the DOM is ready, two additional custom events will be dispatched; `custom:event` and `other-custom:event`.
  * </div>
  */
 export class InitController extends Controller<HTMLElement> {
@@ -15,11 +20,13 @@ export class InitController extends Controller<HTMLElement> {
 
   static values = {
     delay: { default: -1, type: Number },
+    event: { default: '', type: String },
   };
 
   declare readonly readyClasses: string[];
   declare readonly removeClasses: string[];
 
+  declare eventValue: string;
   declare delayValue: number;
 
   connect() {
@@ -31,14 +38,19 @@ export class InitController extends Controller<HTMLElement> {
    * By default, the action will be immediate (negative value).
    * Even when immediate, allow for a microtask delay to allow for other
    * controllers to connect, then do any updates do classes/dispatch events.
+   * Support the ability to also dispatch custom event names.
    */
   ready() {
+    const events = this.eventValue.split(' ').filter(Boolean);
     const delayValue = this.delayValue;
 
     debounce(() => true, delayValue < 0 ? null : delayValue)().then(() => {
       this.element.classList.add(...this.readyClasses);
       this.element.classList.remove(...this.removeClasses);
       this.dispatch('ready', { bubbles: true, cancelable: false });
+      events.forEach((name) => {
+        this.dispatch(name, { bubbles: true, cancelable: false, prefix: '' });
+      });
       this.remove();
     });
   }

@@ -378,6 +378,11 @@ class DraftailRichTextArea {
     input.id = id;
     input.name = name;
 
+    if (typeof options?.attributes === 'object') {
+      Object.entries(options.attributes).forEach(([key, value]) => {
+        input.setAttribute(key, value);
+      });
+    }
     // If the initialState is an EditorState, rather than serialized rawContentState, it's
     // easier for us to initialize the widget blank and then setState to the correct state
     const initialiseBlank = !!initialState.getCurrentContent;

@@ -1,0 +1,30 @@
+{% load wagtailadmin_tags i18n %}
+
+{% fragment as toggle_suffix %}
+    <span class="w-drilldown__count" data-w-drilldown-target="count" hidden></span>
+{% endfragment %}
+
+{% dropdown theme="drilldown" toggle_icon="sliders" toggle_classname="w-filter-button" toggle_aria_label=_("Show filters") toggle_suffix=toggle_suffix keep_mounted=True %}
+    <div class="w-drilldown__contents">
+        <div class="w-drilldown__menu" data-w-drilldown-target="menu">
+            <h2 class="w-help-text w-pl-5 w-py-2.5 w-my-0">{% trans "Filter by" %}</h2>
+            {% for field in filters.form %}
+                <button class="w-drilldown__toggle" type="button" aria-expanded="false" aria-controls="drilldown-{{ field.auto_id }}" data-w-drilldown-target="toggle" data-action="click->w-drilldown#open">
+                    {{ field.label }}
+                    <div class="w-flex w-items-center w-gap-2">
+                        <span class="w-drilldown__count" data-w-drilldown-target="count" data-count-name="{{ field.auto_id }}" hidden></span>
+                        {% icon name="arrow-right" %}
+                    </div>
+                </button>
+            {% endfor %}
+        </div>
+        {% for field in filters.form %}
+            <div class="w-drilldown__submenu" id="drilldown-{{ field.auto_id }}" hidden tabindex="-1">
+                <button class="w-drilldown__back" type="button" aria-label="{% trans 'Back' %}" data-action="click->w-drilldown#close">
+                    {% icon name="arrow-left" %}
+                </button>
+                {% formattedfield field %}
+            </div>
+        {% endfor %}
+    </div>
+{% enddropdown %}

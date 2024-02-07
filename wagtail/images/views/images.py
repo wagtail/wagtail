@@ -10,6 +10,7 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
+from django.views import View
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -73,14 +74,11 @@ class IndexView(generic.IndexView):
         return self.ORDERING_OPTIONS
 
     def get_base_queryset(self):
-        # Get ordering
-        self.ordering = self.get_ordering()
-        # Get images (filtered by user permission and ordered by `ordering`)
+        # Get images (filtered by user permission)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
-            .order_by(self.ordering)
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
@@ -107,7 +105,7 @@ class IndexView(generic.IndexView):
             except AttributeError:
                 self.current_tag = None
 
-        return self.filters, queryset
+        return queryset
 
     def get_add_url(self):
         # Pass the query string so that the collection filter is preserved
@@ -117,7 +115,7 @@ class IndexView(generic.IndexView):
         )
 
     def get_next_url(self):
-        next_url = self.get_index_url()
+        next_url = self.index_url
         request_query_string = self.request.META.get("QUERY_STRING")
         if request_query_string:
             next_url += "?" + request_query_string
@@ -236,71 +234,86 @@ def edit(request, image_id):
     )
 
 
-def url_generator(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
+class URLGeneratorView(generic.InspectView):
+    any_permission_required = ["change"]
+    model = get_image_model()
+    pk_url_kwarg = "image_id"
+    header_icon = "image"
+    page_title = "Generating URL"
+    template_name = "wagtailimages/images/url_generator.html"
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", image
-    ):
-        raise PermissionDenied
+    def get_page_subtitle(self):
+        return self.object.title
 
-    form = URLGeneratorForm(
-        initial={
-            "filter_method": "original",
-            "width": image.width,
-            "height": image.height,
-        }
-    )
+    def get_fields(self):
+        return []
 
-    return TemplateResponse(
-        request,
-        "wagtailimages/images/url_generator.html",
-        {
-            "image": image,
-            "form": form,
-        },
-    )
+    def get(self, request, image_id, *args, **kwargs):
+        self.object = get_object_or_404(self.model, id=image_id)
 
+        if not permission_policy.user_has_permission_for_instance(
+            request.user, "change", self.object
+        ):
+            raise PermissionDenied
 
-def generate_url(request, image_id, filter_spec):
-    # Get the image
-    Image = get_image_model()
-    try:
-        image = Image.objects.get(id=image_id)
-    except Image.DoesNotExist:
-        return JsonResponse({"error": "Cannot find image."}, status=404)
-
-    # Check if this user has edit permission on this image
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", image
-    ):
-        return JsonResponse(
-            {"error": "You do not have permission to generate a URL for this image."},
-            status=403,
+        self.form = URLGeneratorForm(
+            initial={
+                "filter_method": "original",
+                "width": self.object.width,
+                "height": self.object.height,
+            }
         )
 
-    # Parse the filter spec to make sure its valid
-    try:
-        Filter(spec=filter_spec).operations
-    except InvalidFilterSpecError:
-        return JsonResponse({"error": "Invalid filter spec."}, status=400)
+        return self.render_to_response(self.get_context_data())
 
-    # Generate url
-    signature = generate_signature(image_id, filter_spec)
-    url = reverse("wagtailimages_serve", args=(signature, image_id, filter_spec))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form
+        return context
 
-    # Get site root url
-    try:
-        site_root_url = Site.objects.get(is_default_site=True).root_url
-    except Site.DoesNotExist:
-        site_root_url = Site.objects.first().root_url
 
-    # Generate preview url
-    preview_url = reverse("wagtailimages:preview", args=(image_id, filter_spec))
+class GenerateURLView(View):
+    def get(self, request, image_id, filter_spec):
+        # Get the image
+        Image = get_image_model()
+        try:
+            image = Image.objects.get(id=image_id)
+        except Image.DoesNotExist:
+            return JsonResponse({"error": "Cannot find image."}, status=404)
 
-    return JsonResponse(
-        {"url": site_root_url + url, "preview_url": preview_url}, status=200
-    )
+        # Check if this user has edit permission on this image
+        if not permission_policy.user_has_permission_for_instance(
+            request.user, "change", image
+        ):
+            return JsonResponse(
+                {
+                    "error": "You do not have permission to generate a URL for this image."
+                },
+                status=403,
+            )
+
+        # Parse the filter spec to make sure it's valid
+        try:
+            Filter(spec=filter_spec).operations
+        except InvalidFilterSpecError:
+            return JsonResponse({"error": "Invalid filter spec."}, status=400)
+
+        # Generate url
+        signature = generate_signature(image_id, filter_spec)
+        url = reverse("wagtailimages_serve", args=(signature, image_id, filter_spec))
+
+        # Get site root url
+        try:
+            site_root_url = Site.objects.get(is_default_site=True).root_url
+        except Site.DoesNotExist:
+            site_root_url = Site.objects.first().root_url
+
+        # Generate preview url
+        preview_url = reverse("wagtailimages:preview", args=(image_id, filter_spec))
+
+        return JsonResponse(
+            {"url": site_root_url + url, "preview_url": preview_url}, status=200
+        )
 
 
 def preview(request, image_id, filter_spec):

@@ -20,14 +20,14 @@ As part of defining your site’s models, here are areas to pay special attentio
 
 ### Alt text for images
 
-The default behaviour for Wagtail images is to use the `title` field as the alt text ([#4945](https://github.com/wagtail/wagtail/issues/4945)).
+The default behavior for Wagtail images is to use the `title` field as the alt text ([#4945](https://github.com/wagtail/wagtail/issues/4945)).
 This is inappropriate, as it’s not communicated in the CMS interface, and the image upload form uses the image’s filename as the title by default.
 
 Ideally, always add an optional “alt text” field wherever an image is used, alongside the image field:
 
 -   For normal fields, add an alt text field to your image’s panel.
 -   For StreamField, add an extra field to your image block.
--   For rich text – Wagtail already makes it possible to customise alt text for rich text images.
+-   For rich text – Wagtail already makes it possible to customize alt text for rich text images.
 
 When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide `help_text` with appropriate guidance.
 For example, linking to [established resources on alt text](https://axesslab.com/alt-texts/).
@@ -128,7 +128,7 @@ A number of built-in tools and additional resources are available to help create
 
 ### Built-in accessibility checker
 
-Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag). The checker can help authors create more accessible websites following best practices and accessibility standards like [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/).
+Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag) and editing views supporting previews. The checker can help authors create more accessible websites following best practices and accessibility standards like [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/).
 
 The checker is based on the [Axe](https://github.com/dequelabs/axe-core) testing engine and scans the loaded page for errors.
 
@@ -143,7 +143,7 @@ By default, the checker includes the following rules to find common accessibilit
 -   `link-name`: `<a>` link elements must always have a text label.
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
 
-To customise how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
+To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
 The following is the reference documentation for the `AccessibilityItem` class:
 
@@ -158,9 +158,9 @@ The following is the reference documentation for the `AccessibilityItem` class:
     .. autoattribute:: axe_messages
        :no-value:
 
-    The above attributes can also be overridden via the following methods to allow per-request customisation.
+    The above attributes can also be overridden via the following methods to allow per-request customization.
     When overriding these methods, be mindful of the mutability of the class attributes above.
-    To avoid unexpected behaviour, you should always return a new object instead of modifying the attributes
+    To avoid unexpected behavior, you should always return a new object instead of modifying the attributes
     directly in the methods.
 
     .. method:: get_axe_include(request)
@@ -169,7 +169,7 @@ The following is the reference documentation for the `AccessibilityItem` class:
     .. method:: get_axe_rules(request)
     .. method:: get_axe_messages(request)
 
-    For more advanced customisation, you can also override the following methods:
+    For more advanced customization, you can also override the following methods:
 
     .. automethod:: get_axe_context
     .. automethod:: get_axe_options

@@ -777,6 +777,23 @@
 * Felipe Lobato
 * Nandini Arora
 * Sai Srikar Dumpeti
+* Nikhil S Kalburgi
+* Salvo Polizzi
+* Badr Fourane
+* Vaishnav Dasari
+* Aditya
+* Tommaso Amici
+* Curtis Maloney
+* Jai Vignesh J
+* Sankalp
+* V Rohitansh
+* Andreas Donig
+* Osaf AliSayed
+* Ramchandra Shahi Thakuri
+* Nix Asteri
+* Karthik Ayangar
+* mirusu400
+* Advik Kabra
 
 ## Translators
 

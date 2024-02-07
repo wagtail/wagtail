@@ -52,6 +52,9 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the usage view; must be a subclass of ``wagtail.admin.views.generic.usage.UsageView``.
     usage_view_class = usage.UsageView
 
+    #: The view class to use for the copy view; must be a subclass of ``wagtail.admin.views.generic.CopyView``.
+    copy_view_class = generic.CopyView
+
     #: The view class to use for the inspect view; must be a subclass of ``wagtail.admin.views.generic.InspectView``.
     inspect_view_class = generic.InspectView
 
@@ -87,6 +90,9 @@ class ModelViewSet(ViewSet):
 
     #: The fields to exclude from the inspect view.
     inspect_view_fields_exclude = []
+
+    #: Whether to enable the copy view. Defaults to ``True``.
+    copy_view_enabled = True
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
@@ -129,12 +135,14 @@ class ModelViewSet(ViewSet):
                 **kwargs,
             }
         )
+        if self.copy_view_enabled:
+            view_kwargs["copy_url_name"] = self.get_url_name("copy")
         if self.inspect_view_enabled:
             view_kwargs["inspect_url_name"] = self.get_url_name("inspect")
         return view_kwargs
 
     def get_index_view_kwargs(self, **kwargs):
-        return {
+        view_kwargs = {
             "template_name": self.index_template_name,
             "results_template_name": self.index_results_template_name,
             "list_display": self.list_display,
@@ -146,9 +154,11 @@ class ModelViewSet(ViewSet):
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
-            "default_ordering": self.ordering,
             **kwargs,
         }
+        if self.ordering:
+            view_kwargs["default_ordering"] = self.ordering
+        return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
         return {
@@ -175,6 +185,7 @@ class ModelViewSet(ViewSet):
     def get_history_view_kwargs(self, **kwargs):
         return {
             "template_name": self.history_template_name,
+            "history_results_url_name": self.get_url_name("history_results"),
             "header_icon": "history",
             **kwargs,
         }
@@ -194,6 +205,9 @@ class ModelViewSet(ViewSet):
             "fields_exclude": self.inspect_view_fields_exclude,
             **kwargs,
         }
+
+    def get_copy_view_kwargs(self, **kwargs):
+        return self.get_add_view_kwargs(**kwargs)
 
     @property
     def index_view(self):
@@ -258,6 +272,12 @@ class ModelViewSet(ViewSet):
         )
 
     @property
+    def history_results_view(self):
+        return self.construct_view(
+            self.history_view_class, **self.get_history_view_kwargs(), results_only=True
+        )
+
+    @property
     def usage_view(self):
         return self.construct_view(
             self.usage_view_class, **self.get_usage_view_kwargs()
@@ -268,6 +288,10 @@ class ModelViewSet(ViewSet):
         return self.construct_view(
             self.inspect_view_class, **self.get_inspect_view_kwargs()
         )
+
+    @property
+    def copy_view(self):
+        return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
 
     def get_templates(self, name="index", fallback=""):
         """
@@ -600,6 +624,11 @@ class ModelViewSet(ViewSet):
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path(
+                "history-results/<str:pk>/",
+                self.history_results_view,
+                name="history_results",
+            ),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
         ]
 
@@ -607,6 +636,9 @@ class ModelViewSet(ViewSet):
             urlpatterns.append(
                 path("inspect/<str:pk>/", self.inspect_view, name="inspect")
             )
+
+        if self.copy_view_enabled:
+            urlpatterns.append(path("copy/<str:pk>/", self.copy_view, name="copy"))
 
         # RemovedInWagtail70Warning: Remove legacy URL patterns
         urlpatterns += self._legacy_urlpatterns

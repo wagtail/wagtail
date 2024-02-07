@@ -2,7 +2,7 @@
 
 Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.models.Page` class.
 
-As all page types are Django models, you can use any field type that Django provides. See [Model field reference](django:ref/models/fields) for a complete list of field types you can use. Wagtail also provides `wagtail.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
+As all page types are Django models, you can use any field type that Django provides. See [Model field reference](inv:django#ref/models/fields) for a complete list of field types you can use. Wagtail also provides `wagtail.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
 ```{note}
 If you're not yet familiar with Django models, have a quick look at the following links to get you started:
@@ -140,9 +140,9 @@ These are used for structuring fields in the interface.
 -   {class}`~wagtail.admin.panels.InlinePanel`
 -   {class}`~wagtail.admin.panels.FieldRowPanel`
 
-#### Customising the page editor interface
+#### Customizing the page editor interface
 
-The page editor can be customised further. See [Customising the editing interface](/advanced_topics/customisation/page_editing_interface).
+The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customisation/page_editing_interface).
 
 (page_type_business_rules)=
 
@@ -155,7 +155,7 @@ Both parent and subpage types take a list of model classes or model names. Model
 -   `parent_page_types` limits which page types this type can be created under
 -   `subpage_types` limits which page types can be created under this type
 
-By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behaviour.
+By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behavior.
 
 Setting `parent_page_types` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
@@ -179,7 +179,7 @@ The most common method of retrieving page URLs is by using the [`{% pageurl %}`]
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 
-#### Customising URL patterns for a page model
+#### Customizing URL patterns for a page model
 
 The `Page.get_url_parts(request)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. It should return a tuple of `(site_id, root_url, page_path)`, which are used by `get_url` and `get_full_url` (see below) to construct the given type of page URL.
 
@@ -229,9 +229,9 @@ You just need to create a template in a location where it can be accessed with t
 
 ### Template context
 
-Wagtail renders templates with the `page` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use `{{ page.title }}`. All variables provided by [context processors](https://docs.djangoproject.com/en/stable/ref/templates/api/#subclassing-context-requestcontext) are also available.
+Wagtail renders templates with the `page` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use `{{ page.title }}`. All variables provided by [context processors](inv:django#subclassing-context-requestcontext) are also available.
 
-#### Customising template context
+#### Customizing template context
 
 All pages have a `get_context` method that is called whenever the template is rendered and returns a dictionary of variables to bind into the template.
 
@@ -427,7 +427,7 @@ This will then make `related_links` available as a relation across all page type
 
 ## Working with pages
 
-Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/stable/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
+Wagtail uses Django's [multi-table inheritance](inv:django#meta-and-multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
 Each page is added to both Wagtail's built-in {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
 

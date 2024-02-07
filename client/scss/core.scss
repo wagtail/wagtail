@@ -9,35 +9,24 @@ REFERENCE
   * Classes should be written using BEM, which we modify to include a prefix.
   * Every BEM block should have its own file.
 
-┌────────────┬────────────────────────┬──────────────┬────────┐
-│ Folder     │ Contents               │ ITCSS level  │ Prefix │
-├────────────┼────────────────────────┼──────────────┼────────┤
-│ settings   │ variables, maps, fonts │ 1 Settings   │        │
-│ tools      │ mixins, functions      │ 2 Tools      │        │
-│ generic    │ resets                 │ 3 Generic    │        │
-│ elements   │ elements, no classes   │ 4 Elements   │        │
-│ objects    │ classes                │ 5 Objects    │ o-     │
-│            │   layout               │              │        │
-│ components │ classes                │ 6 Components │ c-     │
-│            │   BEM blocks           │              │        │
-│ overrides  │ classes                │ 7 Trumps     │ u-     │
-│            │   overrides, utilities │              │        │
-└────────────┴────────────────────────┴──────────────┴────────┘
+┌────────────┬────────────────────────┬──────────────┬
+│ Folder     │ Contents               │ ITCSS level  │
+├────────────┼────────────────────────┼──────────────┼
+│ settings   │ variables, maps, fonts │ 1 Settings   │
+│ tools      │ mixins, functions      │ 2 Tools      │
+│ generic    │ resets                 │ 3 Generic    │
+│ elements   │ elements, no classes   │ 4 Elements   │
+│ objects    │ Unused                 │ 5 Objects    │
+│ components │ classes                │ 6 Components │
+│            │   BEM blocks           │              │
+│ overrides  │ classes                │ 7 Trumps     │
+│            │   overrides, utilities │              │
+└────────────┴────────────────────────┴──────────────┘
 
 SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
 Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
 BEM: https://getbem.com/
-
-
-OTHER PREFIXES
-
-┌────────┬─────────┐
-│ Prefix │ Purpose │
-├────────┼─────────┤
-│ t-     │ theme   │
-│ is-    │ state   │
-└────────┴─────────┘
 
 ==============================================================================*/
 
@@ -66,8 +55,6 @@ This is for resets and other rules that affect large collections of bare element
 * Changes to them should be very rare.
 */
 
-// @import 'generic/generic';
-
 /* ELEMENTS
 These are base styles for bare HTML elements.
 * Changes to them should be very rare.
@@ -82,18 +69,9 @@ These are base styles for bare HTML elements.
 @import 'elements/typography';
 @import 'elements/forms';
 
-/* OBJECTS
-These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
-* This is for grids, wrappers, and other non-consmetic layout utilities.
-* These classes are prefixed with `.o-`.
-*/
-
-@import 'objects/objects';
-@import 'objects/avatar';
-
 /* COMPONENTS
 These are classes for components.
-* These classes (unless legacy) are prefixed with `.c-`.
+* These classes (unless legacy) are prefixed with `.w-`.
 * React component styles live in the same folders as their React components,
   which is the preferred pattern over housing them in the scss folder.
 */
@@ -105,7 +83,7 @@ These are classes for components.
 @import '../src/components/PageExplorer/PageExplorer';
 @import '../src/components/CommentApp/main';
 
-// Legacy
+@import 'components/avatar';
 @import 'components/icons';
 @import 'components/forms/input-base';
 @import 'components/forms/input-text';
@@ -132,8 +110,9 @@ These are classes for components.
 @import 'components/panel';
 @import 'components/dialog';
 @import 'components/dismissible';
+@import 'components/drilldown';
 @import 'components/dropdown';
-@import 'components/dropdown.legacy';
+@import 'components/dropdown-button';
 @import 'components/help-block';
 @import 'components/button';
 @import 'components/modals';
@@ -162,7 +141,10 @@ These are classes for components.
 @import 'components/preview-panel';
 @import 'components/preview-error';
 @import 'components/form-side';
+@import 'components/a11y-result';
 @import 'components/userbar';
+@import 'components/breadcrumbs';
+@import 'components/pill';
 
 @import '../src/components/Sidebar/Sidebar';
 @import '../src/components/Minimap/Minimap';
@@ -180,7 +162,6 @@ These are classes that provide overrides.
 
 // UTILITIES: classes that do one simple thing.
 @import 'overrides/utilities.focus';
-@import 'overrides/utilities.visuallyhidden';
 
 // Legacy utilities
 @import 'overrides/utilities.legacy';

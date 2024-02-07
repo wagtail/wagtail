@@ -27,25 +27,21 @@
         </ul>
 
         {% block footer %}
-            <footer class="footer" role="contentinfo">
-                <ul>
-                    <li class="actions footer__container">
-                        {% block form_actions %}
-                            <div class="dropdown dropup dropdown-button match-width">
-                                <button
-                                    type="submit"
-                                    class="button action-save button-longrunning"
-                                    data-controller="w-progress"
-                                    data-action="w-progress#activate"
-                                    data-w-progress-active-value="{% trans 'Creating…' %}"
-                                >
-                                    {% icon name="spinner" %}
-                                    <em data-w-progress-target="label">{% trans 'Create' %}</em>
-                                </button>
-                            </div>
-                        {% endblock %}
-                    </li>
-                </ul>
+            <footer class="footer">
+                <div class="actions footer__container w-flex">
+                    {% block form_actions %}
+                        <button
+                            type="submit"
+                            class="button action-save button-longrunning w-flex-grow"
+                            data-controller="w-progress"
+                            data-action="w-progress#activate"
+                            data-w-progress-active-value="{% trans 'Creating…' %}"
+                        >
+                            {% icon name="spinner" %}
+                            <em data-w-progress-target="label">{% trans 'Create' %}</em>
+                        </button>
+                    {% endblock %}
+                </div>
             </footer>
         {% endblock %}
     </form>

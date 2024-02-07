@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { ChooserModal } from '../../includes/chooserModal';
-import { initTooltips } from '../../includes/initTooltips';
 
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   browse(modal, jsonData) {
@@ -140,7 +139,6 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
     }
     ajaxifyBrowseResults();
-    initTooltips();
 
     /*
     Focus on the search box when opening the modal.

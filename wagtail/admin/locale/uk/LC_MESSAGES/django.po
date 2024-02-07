@@ -10,7 +10,7 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022-2023
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022-2024
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
 # Zoriana Zaiats, 2018
@@ -21,7 +21,7 @@ msgstr ""
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
-"2020,2022-2023\n"
+"2020,2022-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -501,6 +501,9 @@ msgstr "Вибрати"
 msgid "Choose a page"
 msgstr "Оберіть сторінку"
 
+msgid "Confirm selection"
+msgstr "Підтвердити вибір"
+
 msgid "Convert to internal link"
 msgstr "Конвертувати у внутрішнє посилання"
 
@@ -518,6 +521,10 @@ msgstr "Вставити зовнішнє посилання"
 
 msgid "Add a phone link"
 msgstr "Додати посилання на телефон"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Вибрати %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -569,11 +576,18 @@ msgstr "Ім'я"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
-"\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a "
+"href=\"%(add_collection_url)s\">створити одну</a>?"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Вибачте, немає співпадінь для \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Немає результатів"
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
@@ -585,11 +599,23 @@ msgstr "Ні, не видаляти"
 msgid "Unpublish %(title)s"
 msgstr "Зняти з публікації %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Ви впевнені, що хочете зняти з публікації цей %(model_name)s?"
+
 msgid "Yes, unpublish it"
 msgstr "Так, зняти з публікації"
 
 msgid "No, don't unpublish"
 msgstr "Ні, не знімати з публікації"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Опублікувати %(model_name)s"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Ви все ще хочете опублікувати цю %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Скасувати"
@@ -599,6 +625,16 @@ msgstr "Записи в журналі не знайдені. "
 
 msgid "Update"
 msgstr "Оновити"
+
+msgid "Preview not available"
+msgstr "Попередній перегляд недоступний"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Попередній перегляд неможливий через помилки валідації. <br /> Натисніть "
+"зберегти щоб підсвітити відповідні поля"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -612,6 +648,22 @@ msgstr "Поля"
 
 msgid "Changes"
 msgstr "Зміни"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Переміщено вниз на 1 місце."
+msgstr[1] "Переміщено вниз на %(counter)s місця."
+msgstr[2] "Переміщено вниз на %(counter)s місць."
+msgstr[3] "Переміщено вниз на %(counter)s місць."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Переміщено вгору на 1 місце."
+msgstr[1] "Переміщено вгору на %(counter)s місця."
+msgstr[2] "Переміщено вгору на %(counter)s місць."
+msgstr[3] "Переміщено вгору на %(counter)s місць."
 
 msgid "There are no differences between these two versions"
 msgstr "Немає ніяких відмінностей між цими двома версіями"
@@ -980,6 +1032,14 @@ msgstr "Ні, не переміщувати"
 msgid "Are you sure you want to publish these pages?"
 msgstr "Ви впевнені, що хочете опублікувати ці сторінки?"
 
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Ця сторінка має одну дочірню сторінку зняту з публікації"
+msgstr[1] "Ця сторінка має %(counter)s дочірніх сторінки знятих з публікації"
+msgstr[2] "Ця сторінка має %(counter)s дочірніх сторінок знятих з публікації"
+msgstr[3] "Ця сторінка має %(counter)s дочірніх сторінок знятих з публікації"
+
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
 msgstr[0] "Вам не дозволено публікувати цю сторінку"
@@ -992,6 +1052,14 @@ msgstr "Так, опублікувати"
 
 msgid "No, don't publish"
 msgstr "Ні, не опубліковувати"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Зняти з публікації 1 сторінку"
+msgstr[1] "Зняти з публікації %(counter)s сторінки"
+msgstr[2] "Зняти з публікації %(counter)s сторінок"
+msgstr[3] "Зняти з публікації %(counter)s сторінок"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Ви впевнені, що хочете зняти з публікації ці сторінки?"
@@ -1142,8 +1210,11 @@ msgstr "Обрати всі сторінки у списку"
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
 
+msgid "This page is locked, by you, to further editing"
+msgstr "Сторінку заблоковано вами для майбутнього редагування"
+
 msgid "This page is locked to further editing"
-msgstr "Сторінку заблоковану для майбутнього редагування"
+msgstr "Сторінку заблоковано для майбутнього редагування"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1236,8 +1307,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Графік публікації почне працювати лише після того, як ви натиснете кнопку "
 "\"Опублікувати\""
@@ -1263,6 +1334,10 @@ msgstr "Оновлено"
 msgid "Locking status"
 msgstr "Статус блокування"
 
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Заблоковано <b>вами</b> о <b>%(locking_date)s</b>"
+
 msgid "Locked"
 msgstr "Заблоковано"
 
@@ -1277,6 +1352,9 @@ msgstr "За завданням"
 
 msgid "Workflow"
 msgstr "Робочий процес"
+
+msgid "Page/Snippet"
+msgstr "Сторінка/Сніпет"
 
 msgid "Requested by"
 msgstr "За вимогою"
@@ -1398,6 +1476,16 @@ msgstr "Графік публікації відсутній"
 msgid "Set schedule"
 msgstr "Задати графік"
 
+msgid "Preview is out of date"
+msgstr "Попередній перегляд застарів"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Виправте помилки валідації, щоб користуватись попереднім переглядом "
+"(збереження сторінки підсвітить помилки)"
+
 msgid "First published"
 msgstr "Вперше опубліковано"
 
@@ -1487,8 +1575,9 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1538,8 +1627,8 @@ msgstr "Крок %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
-"\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a "
+"href=\"%(add_url)s\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -1642,6 +1731,10 @@ msgstr "%(time_period)s тому"
 msgid "just now by %(user_display_name)s"
 msgstr "щойно користувачем %(user_display_name)s"
 
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s тому користувачем %(user_display_name)s"
+
 msgid "Log out"
 msgstr "Вийти"
 
@@ -1739,6 +1832,10 @@ msgid "Workflow progress"
 msgstr "Прогрес робочого процесу"
 
 #, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s не може бути збережено через блокування"
+
+#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' оновлено."
 
@@ -1757,6 +1854,10 @@ msgstr "Переглянути"
 msgid "Delete '%(title)s'"
 msgstr "Видалити '%(title)s'"
 
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Більше опцій для '%(title)s'"
+
 msgid "Editing"
 msgstr "Редагування"
 
@@ -1768,6 +1869,10 @@ msgstr "Найбільш раннє"
 
 msgid "Latest"
 msgstr "Останнє"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' знято з публікації"
 
 msgid "Usage of"
 msgstr "Використання"

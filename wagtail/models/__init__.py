@@ -159,7 +159,21 @@ def get_page_models():
     """
     Returns a list of all non-abstract Page model classes defined in this project.
     """
-    return PAGE_MODEL_CLASSES
+    return PAGE_MODEL_CLASSES.copy()
+
+
+def get_page_content_types(include_base_page_type=True):
+    """
+    Returns a queryset of all ContentType objects corresponding to Page model classes.
+    """
+    models = get_page_models()
+    if not include_base_page_type:
+        models.remove(Page)
+
+    content_type_ids = [
+        ct.pk for ct in ContentType.objects.get_for_models(*models).values()
+    ]
+    return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
 
 
 def get_default_page_content_type():
@@ -1252,7 +1266,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     exclude_fields_in_copy = []
     default_exclude_fields_in_copy = [
         "id",
-        "path",
         "depth",
         "numchild",
         "url_path",

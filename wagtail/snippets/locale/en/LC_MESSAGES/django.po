@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,52 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: action_menu.py:72
+#: action_menu.py:70
 #: templates/wagtailsnippets/snippets/action_menu/publish.html:13
 msgid "Publish"
 msgstr ""
 
-#: action_menu.py:85
+#: action_menu.py:83
 msgid "Submit for moderation"
 msgstr ""
 
-#: action_menu.py:122
+#: action_menu.py:111
 #, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr ""
 
-#: action_menu.py:132
+#: action_menu.py:121
 #, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr ""
 
-#: action_menu.py:173
+#: action_menu.py:162
 msgid "Restart workflow "
 msgstr ""
 
-#: action_menu.py:203
+#: action_menu.py:183
 msgid "Cancel workflow "
 msgstr ""
 
-#: action_menu.py:217
+#: action_menu.py:197
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:238 bulk_actions/delete.py:15 views/snippets.py:396
+#: action_menu.py:218 bulk_actions/delete.py:15
 msgid "Delete"
 msgstr ""
 
-#: action_menu.py:259
+#: action_menu.py:239
 #: templates/wagtailsnippets/snippets/action_menu/save.html:25
 msgid "Save"
 msgstr ""
 
-#: action_menu.py:266
+#: action_menu.py:246
 #: templates/wagtailsnippets/snippets/action_menu/locked.html:4
 msgid "Locked"
 msgstr ""
 
-#: action_menu.py:343
+#: action_menu.py:323
 #, python-format
 msgid "%(label)s and Publish"
 msgstr ""
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Delete selected snippets"
 msgstr ""
 
-#: bulk_actions/delete.py:88 views/snippets.py:407
+#: bulk_actions/delete.py:88
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
@@ -169,57 +169,13 @@ msgstr ""
 msgid "Save draft"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/create.html:3
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/create.html:7
-msgid "New"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/create.html:18
-#: templates/wagtailsnippets/snippets/edit.html:19
+#: templates/wagtailsnippets/snippets/create.html:16
+#: templates/wagtailsnippets/snippets/edit.html:17
 msgid "Actions"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/edit.html:3
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/index.html:3
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/index.html:18
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/index.html:32
+#: templates/wagtailsnippets/snippets/index.html:13
 msgid "Select all snippets in listing"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/index_results.html:5
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/wagtailsnippets/snippets/index_results.html:18
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/index_results.html:25
-#: templates/wagtailsnippets/snippets/index_results.html:27
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/revisions/_actions.html:9
@@ -258,51 +214,43 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:78 views/snippets.py:105 views/snippets.py:990
+#: views/snippets.py:79 views/snippets.py:106 views/snippets.py:952
 #: wagtail_hooks.py:44
 msgid "Snippets"
 msgstr ""
 
-#: views/snippets.py:117
+#: views/snippets.py:119
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:123
+#: views/snippets.py:125
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:212
+#: views/snippets.py:216
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:240
-msgid "The snippet could not be created due to errors."
-msgstr ""
-
-#: views/snippets.py:330
-msgid "The snippet could not be saved due to errors."
-msgstr ""
-
-#: views/snippets.py:451
+#: views/snippets.py:400
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:454
+#: views/snippets.py:403
 msgid "Date"
 msgstr ""
 
-#: views/snippets.py:479
+#: views/snippets.py:428
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:485
+#: views/snippets.py:434
 #, python-format
 msgid "%(model_name)s history"
 msgstr ""
 
-#: views/snippets.py:989
+#: views/snippets.py:951
 msgid "Home"
 msgstr ""
 

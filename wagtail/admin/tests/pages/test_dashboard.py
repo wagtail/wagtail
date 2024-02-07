@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
+from freezegun import freeze_time
 
 from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.coreutils import get_dummy_request
@@ -84,17 +86,13 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
         self.assertIn("Your most recent edits", response.content.decode("utf-8"))
 
     def test_missing_page_record(self):
-        # Ensure that the panel still renders when one of the returned revision records
-        # has no corresponding Page object. It's unclear how this happens, since revisions
-        # are deleted on page deletion, but there are reports of this happening in
-        # https://github.com/wagtail/wagtail/issues/9185
-
-        # edit the revision object to be owned by Alice and have an unrecognised object ID
-        self.revision.user = self.user_alice
-        self.revision.object_id = "999999"
-        self.revision.save()
+        # Ensure that the panel still renders when one of the page IDs returned from querying
+        # PageLogEntry has no corresponding Page object. This can happen if a page is deleted,
+        # because PageLogEntry records are kept on deletion.
 
         self.login(username="alice", password="password")
+        self.change_something("Alice's edit")
+        self.child_page.delete()
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
 
@@ -102,7 +100,11 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
         """Test if the panel actually returns expected pages"""
         self.login(username="bob", password="password")
         # change a page
-        self.change_something("Bob's edit")
+
+        edit_timestamp = timezone.now()
+        with freeze_time(edit_timestamp):
+            self.change_something("Bob's edit")
+
         # set a user to 'mock' a request
         self.client.user = get_user_model().objects.get(email="bob@example.com")
         # get the panel to get the last edits
@@ -111,10 +113,35 @@ class TestRecentEditsPanel(WagtailTestUtils, TestCase):
 
         page = Page.objects.get(pk=self.child_page.id).specific
 
-        # check if the revision is the revision of edited Page
-        self.assertEqual(ctx["last_edits"][0][0].content_object, page)
-        # check if the page in this list is the specific page of this revision
+        # check the timestamp matches the edit
+        self.assertEqual(ctx["last_edits"][0][0], edit_timestamp)
+        # check if the page in this list is the specific page
         self.assertEqual(ctx["last_edits"][0][1], page)
+
+    def test_copying_does_not_count_as_an_edit(self):
+        self.login(username="bob", password="password")
+        # change a page
+        self.change_something("Bob was ere")
+
+        # copy the page
+        post_data = {
+            "new_title": "Goodbye world!",
+            "new_slug": "goodbye-world",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "alias": False,
+        }
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.child_page.id,)), post_data
+        )
+        # check that page has been copied
+        self.assertTrue(Page.objects.get(title="Goodbye world!"))
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Your most recent edits")
+        self.assertContains(response, "Bob was ere")
+        self.assertNotContains(response, "Goodbye world!")
 
 
 class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
@@ -128,7 +155,7 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         # an unpredictable number of queries)
         pages_to_edit = Page.objects.filter(id__in=[4, 5, 6, 9, 12, 13]).specific()
         for page in pages_to_edit:
-            page.save_revision(user=self.bob)
+            page.save_revision(user=self.bob, log_action=True)
 
     def test_panel_query_count(self):
         # fake a request object with bob as the user

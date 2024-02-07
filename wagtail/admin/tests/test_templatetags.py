@@ -512,7 +512,7 @@ class StatusTagTest(SimpleTestCase):
         expected = """
             <span class="w-status w-status--primary">live</span>
             <span class="w-status">live</span>
-            <span class="w-status w-status--primary"><span class="visuallyhidden">hidden translated label</span>live</span>
+            <span class="w-status w-status--primary"><span class="w-sr-only">hidden translated label</span>live</span>
             <span class="w-status"></span>
         """
 
@@ -531,7 +531,7 @@ class StatusTagTest(SimpleTestCase):
 
         expected = """
             <a href="/test-url/" class="w-status w-status--primary" title="title" target="_blank" rel="noreferrer">
-                <span class="visuallyhidden">hidden label</span>
+                <span class="w-sr-only">hidden label</span>
                 live
             </a>
             <a href="/test-url/" class="w-status w-status--primary" title="title">
@@ -560,11 +560,11 @@ class StatusTagTest(SimpleTestCase):
 
         expected = """
             <a href="/test-url/" class="w-status w-status--primary" title="title" target="_blank" rel="noreferrer">
-                <span class="visuallyhidden">hidden label</span>
+                <span class="w-sr-only">hidden label</span>
                 live
             </a>
             <span class="w-status w-status--primary" data-example='present'>
-                <span class="visuallyhidden">hidden label</span>
+                <span class="w-sr-only">hidden label</span>
                 live
             </span>
         """

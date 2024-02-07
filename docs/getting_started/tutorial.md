@@ -12,7 +12,7 @@ If you want to add Wagtail to an existing Django project instead, see [](integra
 
 ### Install dependencies
 
-Wagtail supports Python 3.8, 3.9, 3.10, and 3.11.
+View the [compatible versions of Python](compatible_django_python_versions) that Wagtail supports.
 
 To check if you have an appropriate version of Python 3, run the following command:
 
@@ -225,7 +225,7 @@ Also, you must load `wagtailcore_tags` at the top of the template and provide ad
 
 ### Wagtail template tags
 
-In addition to Django's [template tags and filters](django:ref/templates/builtins),
+In addition to Django's [template tags and filters](inv:django#ref/templates/builtins),
 Wagtail provides a number of its own [template tags & filters](template_tags_and_filters),
 which you can load by including `{% load wagtailcore_tags %}` at the top of
 your template file.
@@ -351,6 +351,7 @@ You can now access the URL, <http://127.0.0.1:8000/blog> on your site. This give
 Now create a model and template for your blog posts. Edit `blog/models.py` to include:
 
 ```python
+from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
@@ -358,8 +359,7 @@ from wagtail.admin.panels import FieldPanel
 # add this:
 from wagtail.search import index
 
-
-# Keep the definition of BlogIndexPage model, and add the BlogPage model:
+# keep the definition of BlogIndexPage model, and add the BlogPage model:
 
 class BlogPage(Page):
     date = models.DateField("Post date")
@@ -622,7 +622,7 @@ Edit your blog page template `blog_page.html` to include the images section:
 
     <!-- Add this: -->
     {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
+        <div style="float: inline-start; margin: 10px">
             {% image item.image fill-320x240 %}
             <p>{{ item.caption }}</p>
         </div>
@@ -793,7 +793,7 @@ Finally, migrate your database by running `python manage.py makemigrations` and 
     {{ page.body|richtext }}
 
     {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
+        <div style="float: inline-start; margin: 10px">
             {% image item.image fill-320x240 %}
             <p>{{ item.caption }}</p>
         </div>

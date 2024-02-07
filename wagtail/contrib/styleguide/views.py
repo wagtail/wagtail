@@ -13,6 +13,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput,
@@ -91,6 +92,9 @@ class ExampleForm(forms.Form):
     document_chooser = forms.BooleanField(required=True)
     snippet_chooser = forms.BooleanField(required=True)
 
+    class Media:
+        css = {"all": [versioned_static("wagtailstyleguide/css/animate-progress.css")]}
+
 
 icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")
 icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
@@ -132,7 +136,7 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
         context["all_icons"] = self.get_icons()
         context["example_form"] = ExampleForm()
         context["example_page"] = Paginator(list(range(100)), 10).page(2)
-        context["search_form"] = SearchForm(placeholder=_("Search something"))
+        context["search_form"] = SearchForm()
 
         return context
 
@@ -155,7 +159,6 @@ class IndexView(WagtailAdminTemplateMixin, TemplateView):
                     "file_path": icon_path,
                     "name": name,
                     "source": source_match.group(1) if source_match else None,
-                    "icon": icon,
                 }
             )
         return all_icons.items()

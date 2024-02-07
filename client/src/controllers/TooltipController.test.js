@@ -67,6 +67,29 @@ describe('TooltipController', () => {
     expect(tooltip.dataset.placement).toEqual('bottom'); // the default placement
   });
 
+  it("should ensure the tooltip closes on 'esc' keydown", async () => {
+    const tooltipTrigger = document.getElementById('tooltip-default');
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+
+    tooltipTrigger.dispatchEvent(new Event('mouseenter'));
+
+    await Promise.resolve();
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(1);
+
+    // now press the escape key
+    document
+      .querySelector('section')
+      .dispatchEvent(
+        new KeyboardEvent('keydown', { bubbles: true, key: 'Escape' }),
+      );
+
+    await Promise.resolve();
+
+    expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(0);
+  });
+
   it('should create a tooltip that accepts a different placement value', async () => {
     const tooltipTrigger = document.getElementById('tooltip-custom');
 

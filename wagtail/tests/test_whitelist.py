@@ -28,7 +28,7 @@ class TestCheckUrl(TestCase):
 
 class TestAttributeRule(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.soup = self.get_soup('<b foo="bar">baz</b>', "html5lib")
+        self.soup = self.get_soup('<b foo="bar">baz</b>')
 
     def test_no_rule_for_attr(self):
         """
@@ -88,7 +88,7 @@ class TestAttributeRule(WagtailTestUtils, TestCase):
         attributes.
         """
         soup = self.get_soup(
-            '<b foo="bar" baz="quux" snowman="barbecue"></b>', "html5lib"
+            '<b foo="bar" baz="quux" snowman="barbecue"></b>',
         )
         tag = soup.b
         allow_without_attributes(tag)
@@ -103,7 +103,7 @@ class TestWhitelister(WagtailTestUtils, TestCase):
         """
         Unknown node should remove a node from the parent document
         """
-        soup = self.get_soup("<foo><bar>baz</bar>quux</foo>", "html5lib")
+        soup = self.get_soup("<foo><bar>baz</bar>quux</foo>")
         tag = soup.foo
         self.whitelister.clean_unknown_node("", soup.bar)
         self.assertEqual(str(tag), "<foo>quux</foo>")
@@ -113,7 +113,7 @@ class TestWhitelister(WagtailTestUtils, TestCase):
         <b> tags are allowed without attributes. This remains true
         when tags are nested.
         """
-        soup = self.get_soup('<b><b class="delete me">foo</b></b>', "html5lib")
+        soup = self.get_soup('<b><b class="delete me">foo</b></b>')
         tag = soup.b
         self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), "<b><b>foo</b></b>")
@@ -122,19 +122,19 @@ class TestWhitelister(WagtailTestUtils, TestCase):
         """
         <foo> tags should be removed, even when nested.
         """
-        soup = self.get_soup("<b><foo>bar</foo></b>", "html5lib")
+        soup = self.get_soup("<b><foo>bar</foo></b>")
         tag = soup.b
         self.whitelister.clean_tag_node(tag, tag)
         self.assertEqual(str(tag), "<b>bar</b>")
 
     def test_clean_string_node_does_nothing(self):
-        soup = self.get_soup("<b>bar</b>", "html5lib")
+        soup = self.get_soup("<b>bar</b>")
         string = soup.b.string
         self.whitelister.clean_string_node(string, string)
         self.assertEqual(str(string), "bar")
 
     def test_clean_node_does_not_change_navigable_strings(self):
-        soup = self.get_soup("<b>bar</b>", "html5lib")
+        soup = self.get_soup("<b>bar</b>")
         string = soup.b.string
         self.whitelister.clean_node(string, string)
         self.assertEqual(str(string), "bar")

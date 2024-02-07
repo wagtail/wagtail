@@ -1,7 +1,5 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load wagtailimages_tags wagtailadmin_tags i18n %}
-
-{% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block extra_css %}
     <style>
@@ -11,11 +9,8 @@
     </style>
 {% endblock %}
 
-{% block content %}
-    {% trans "Generating URL" as title_str %}
-    {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
-
-    <div class="w-image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
+{% block main_content %}
+    <div class="w-image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' object.id '__filterspec__' %}">
         <form class="w-image-url-generator__form w-mb-5">
             {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
             {% field_row max_content=True %}

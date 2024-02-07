@@ -172,7 +172,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "password", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "password", "This field is required."
+        )
 
     def test_unset_password_restriction(self):
         """
@@ -203,7 +205,7 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         history_response = self.client.get(history_url)
 
         # Check that the expected log message is present
-        expected_log_message = "Removed the &#x27;Private, accessible with the following password&#x27; view restriction. The page is public."
+        expected_log_message = "Removed the &#x27;Private, accessible with a shared password&#x27; view restriction. The page is public."
         self.assertContains(
             history_response,
             expected_log_message,
@@ -287,7 +289,7 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "groups", "Please select at least one group."
+            response.context["form"], "groups", "Please select at least one group."
         )
 
     def test_unset_group_restriction(self):

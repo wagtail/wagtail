@@ -8,7 +8,7 @@
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2023
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2024
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
 # Zoriana Zaiats, 2018
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2023\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,24 @@ msgstr "Коментар"
 
 msgid "Locked"
 msgstr "Заблоковано"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Ніхто не може вносити зміни поки %(model_name)s заблоковано"
+
+msgid "Locked by you"
+msgstr "Заблоковано вами"
+
+msgid "Locked by another user"
+msgstr "Заблоковано іншим користувачем"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Тільки ви можете вносити зміни поки %(model_name)s заблоковано"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Тільки %(user)s може вносити зміни поки %(model_name)s заблоковано"
 
 msgid "Unlocked"
 msgstr "Розблоковано"
@@ -203,7 +221,7 @@ msgid "title"
 msgstr "заголовок"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "Заголовок сторінки, який міг би зацікавити публіку"
+msgstr "Заголовок сторінки, який будуть бачити читачі"
 
 msgid "slug"
 msgstr "коротка назва для URL"

@@ -38,8 +38,8 @@
   }
 
   &:hover {
-    color: theme('colors.text-button-outline-default');
-    border-color: theme('colors.border-button-outline-default');
+    color: theme('colors.text-button-outline-hover');
+    border-color: theme('colors.border-button-outline-hover');
     background-color: theme('colors.surface-button-outline-hover');
   }
 

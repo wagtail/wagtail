@@ -1,4 +1,6 @@
 .w-dialog {
+  --w-dialog-close-icon-color: theme('colors.icon-primary');
+
   position: fixed;
   display: flex;
   inset-inline-start: 0;
@@ -57,7 +59,7 @@
   &__close-icon {
     width: theme('spacing.4');
     height: theme('spacing.4');
-    color: theme('colors.grey.600');
+    color: var(--w-dialog-close-icon-color, #{theme('colors.icon-primary')});
   }
 
   &__content {
@@ -132,6 +134,10 @@
       background: theme('colors.positive.50');
       color: theme('colors.positive.100');
     }
+  }
+
+  &--message {
+    --w-dialog-close-icon-color: theme('colors.grey.600');
   }
 
   &__message-icon {

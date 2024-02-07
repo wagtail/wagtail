@@ -150,7 +150,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.homepage.id,)), content
         )
 
-    def test_userbar_not_in_preview_panel(self):
+    def test_userbar_hidden_in_preview_panel(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(
             Context(
@@ -163,8 +163,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
 
-        # Make sure nothing was rendered
-        self.assertEqual(content, "")
+        self.assertIn("<aside hidden>", content)
 
 
 class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):

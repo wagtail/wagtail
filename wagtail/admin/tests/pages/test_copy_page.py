@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from wagtail.models import GroupPagePermission, Page
 from wagtail.test.testapp.models import (
+    CustomCopyFormPage,
     EventPage,
     EventPageSpeaker,
     PageWithExcludedCopyField,
@@ -343,8 +344,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "new_slug",
             'This slug is already in use within the context of its parent page "Welcome to your new Wagtail site!"',
         )
@@ -367,8 +367,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "new_parent_page",
             "You cannot copy a page into itself when copying subpages",
         )
@@ -411,8 +410,7 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "new_slug",
             "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or hyphens.",
         )
@@ -781,3 +779,22 @@ class TestPageCopy(WagtailTestUtils, TestCase):
             event_page.speakers.first().translation_key,
             new_page.speakers.first().translation_key,
         )
+
+    def test_page_copy_with_custom_copy_form(self):
+        custom_copy_form_page = self.root_page.add_child(
+            instance=CustomCopyFormPage(
+                title="Hello world!",
+                slug="copy-form",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:copy", args=(custom_copy_form_page.id,))
+        )
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check if slug is hello-world-2
+        self.assertContains(response, "copy-form-2")

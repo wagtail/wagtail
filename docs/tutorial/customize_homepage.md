@@ -77,9 +77,13 @@ class HomePage(Page):
 
 You might already be familiar with the different parts of your `HomePage` model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`. The `wagtailcore.Page` is the base class for all other page types in Wagtail. This means all Wagtail pages inherit from `wagtailcore.Page`. For instance, your `class HomePage(page)` inherits from `wagtailcore.Page`.
 
-Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` and `hero_cta_link` fields on your Homepage will be set to null, preserving their data entries. Read the [Django documentation on the `on_delete` attribute](django.db.models.ForeignKey.on_delete) for more details.
+Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` or `hero_cta_link` fields on your Homepage will be set to null, but the rest of the data will be preserved. Read the [Django documentation on the `on_delete` attribute](django.db.models.ForeignKey.on_delete) for more details.
 
-The `related_name` attribute creates a relationship between related models. For example, if you want to access the HomePage's `image` from `wagtailimages.Image`, you can use the `related_name` attribute. When you use `related_name="+"`, you create a connection between models that doesn't create a reverse relationship for your `ForeignKey` fields. In other words, you're instructing Django to create a way to access the HomePage's `image` from `wagtailimages.Image` but not a way to access `wagtailimages.Image` from the HomePage's `image`.
+By default, Django creates a reverse relation between the models when you have a `ForeignKey` field within your model. Django also generates a name for this reverse relation using the model name and the `_set` suffix. You can use the default name of the reverse relation to access the model with the `ForeignKey` field from the referenced model.
+
+You can override this default naming behavior and provide a custom name for the reverse relationship by using the `related_name` attribute. For example, if you want to access your `HomePage` from `wagtailimages.Image`, you can use the value you provided for your `related_name` attribute.
+
+However, when you use `related_name="+"`, you create a connection between models without creating a reverse relation. In other words, you're instructing Django to create a way to access `wagtailimages.Image` from your `Homepage` but not a way to access `HomePage` from `wagtailimages.Image`.
 
 While `body` is a `RichTextField`, `hero_text` and `hero_cta` are `CharField`, a Django string field for storing short text.
 
@@ -99,10 +103,10 @@ To add content to your homepage through the admin interface, follow these steps:
 
 1. Log in to your [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
 2. Click Pages.
-3. Click the **pencil**  icon beside **Home**.
+3. Click the **pencil** icon beside **Home**.
 4. Choose an image, choose a page, and add data to the input fields.
 
-```Note
+```{note}
 You can choose your home page or blog index page to link to your Call to Action. You can choose a more suitable page later in the tutorial.
 ```
 
@@ -138,6 +142,6 @@ In your Homepage template, notice the use of `firstof` in line 13. It's helpful 
 
 Congratulations! You've completed the first stage of your Portfolio website 🎉🎉🎉.
 
-<!-- 
+<!--
 Ask Thibaud if the Resume page is downloadable.
 -->

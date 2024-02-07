@@ -1,7 +1,5 @@
-from wsgiref.util import FileWrapper
-
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import classonlymethod, method_decorator
@@ -66,11 +64,8 @@ class ServeView(View):
         with rendition.get_willow_image() as willow_image:
             mime_type = willow_image.mime_type
 
-        # Open and serve the file
-        rendition.file.open("rb")
-        return StreamingHttpResponse(
-            FileWrapper(rendition.file), content_type=mime_type
-        )
+        # Serve the file
+        return FileResponse(rendition.file, content_type=mime_type)
 
     def redirect(self, rendition):
         # Redirect to the file's public location

@@ -6,7 +6,7 @@ On loading, Wagtail will search for any app with the file `wagtail_hooks.py` and
 
 ```{note}
 Hooks are typically used to customise the view-level behaviour of the Wagtail admin and front-end.
-For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use [Django's signal mechanism](django:topics/signals) (see also: [Wagtail signals](signals)), as these are not dependent on a user taking a particular path through the admin interface.
+For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use [Django's signal mechanism](inv:django#topics/signals) (see also: [Wagtail signals](signals)), as these are not dependent on a user taking a particular path through the admin interface.
 ```
 
 Registering functions with a Wagtail hook is done through the `@hooks.register` decorator:
@@ -247,10 +247,6 @@ Add an item to the Wagtail admin menu. The callable passed to this hook must ret
 -   `classname` - additional classes applied to the link.
 -   `order` - an integer which determines the item's position in the menu.
 
-```{versionchanged} 5.2
-Use `classname` as the `classnames` keyword argument is deprecated and will be removed in a future release.
-```
-
 For menu items that are only available to superusers, the subclass `wagtail.admin.menu.AdminOnlyMenuItem` can be used in place of `MenuItem`.
 
 `MenuItem` can be further subclassed to customise its initialisation or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (`wagtail/admin/menu.py`) for details.
@@ -270,7 +266,7 @@ def register_frank_menu_item():
 
 ### `register_admin_urls`
 
-Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see [url dispatcher](django:topics/http/urls).
+Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see [url dispatcher](inv:django#topics/http/urls).
 
 ```python
 from django.http import HttpResponse
@@ -369,10 +365,6 @@ Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook
 -   `icon_name` - icon to display next to the label.
 -   `attrs` - additional HTML attributes to apply to the link.
 -   `order` - an integer which determines the item's position in the list of options.
-
-```{versionchanged} 5.2
-Use `classname` as the `classnames` keyword argument is deprecated and will be removed in a future release.
-```
 
 Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
 
@@ -567,10 +559,6 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
-
-```{versionchanged} 5.2
-The hook function now receives a `user` argument instead of a `page_perms` argument, and a `view_name` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
-```
 
 ## Editor workflow
 
@@ -1026,10 +1014,6 @@ The arguments passed to the hook are as follows:
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 
-```{versionchanged} 5.2
-The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
-```
-
 (register_page_listing_more_buttons)=
 
 ### `register_page_listing_more_buttons`
@@ -1057,10 +1041,6 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
-
-```{versionchanged} 5.2
-The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
-```
 
 #### Buttons with dropdown lists
 
@@ -1098,10 +1078,6 @@ def page_custom_listing_more_buttons(page, user, next_url=None):
 
 The template for the dropdown button can be customised by overriding `wagtailadmin/pages/listing/_button_with_dropdown.html`. Make sure to leave the dropdown UI component itself as-is.
 
-```{versionchanged} 5.2
-The `ButtonWithDropdownFromHook` constructor, and the corresponding hook function, now receive a `user` argument instead of a `page_perms` argument.
-```
-
 (construct_page_listing_buttons)=
 
 ### `construct_page_listing_buttons`
@@ -1113,10 +1089,6 @@ Modify the final list of page listing buttons in the page explorer. The callable
 def remove_page_listing_button_item(buttons, page, user, context=None):
     if page.is_root:
         buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
-```
-
-```{versionchanged} 5.2
-The hook function now receives a `user` argument instead of a `page_perms` argument. To check the user's permissions on the page, use `page.permissions_for_user(user)`.
 ```
 
 ## Page serving
@@ -1340,10 +1312,6 @@ Modify the final list of snippet listing buttons. The callable passed to this ho
 @hooks.register('construct_snippet_listing_buttons')
 def remove_snippet_listing_button_item(buttons, snippet, user):
     buttons.pop()  # Removes the 'delete' button
-```
-
-```{versionchanged} 5.2
-The `context` argument has been removed from this hook.
 ```
 
 ## Bulk actions

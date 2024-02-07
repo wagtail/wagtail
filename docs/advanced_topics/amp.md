@@ -8,7 +8,7 @@ AMP version of the site.
 
 ## Overview
 
-In the next section, we will add a new URL entry that points at Wagtail's
+In the next section, we will add a new URL entry that points to Wagtail's
 internal `serve()` view which will have the effect of rendering the whole
 site again under the `/amp` prefix.
 
@@ -19,7 +19,7 @@ a request object.
 After that, we will add a template context processor to allow us to check from
 within templates which version of the site is being rendered.
 
-Then, finally, we will modify the behaviour of the `{% image %}` tag to make it
+Then, finally, we will modify the behavior of the `{% image %}` tag to make it
 render `<amp-img>` tags when rendering the AMP version of the site.
 
 ## Creating the second page tree
@@ -132,7 +132,7 @@ def serve(request, path):
         return response
 ```
 
-Then we need to create a `amp_urls.py` file in the same app:
+Then we need to create an `amp_urls.py` file in the same app:
 
 ```python
 # <app>/amp_urls.py
@@ -171,7 +171,7 @@ the site.
 This is optional, but worth doing so we can confirm that everything is working
 so far.
 
-Add a `amp_context_processors.py` file into your app that contains the
+Add an `amp_context_processors.py` file into your app that contains the
 following:
 
 ```python
@@ -275,7 +275,7 @@ class MyPageModel(PageAMPTemplateMixin, Page):
 ## Overriding the `{% image %}` tag to output `<amp-img>` tags
 
 Finally, let's change Wagtail's `{% image %}` tag, so it renders an `<amp-img>`
-tags when rendering pages with AMP enabled. We'll make the change on the
+tags when rendering pages with AMP enabled. We'll make the change to the
 `Rendition` model itself so it applies to both images rendered with the
 `{% image %}` tag and images rendered in rich text fields as well.
 

@@ -9,7 +9,7 @@ exports[`Transition basic 1`] = `
   transitionEnterTimeout={210}
   transitionLeave={true}
   transitionLeaveTimeout={210}
-  transitionName="c-transition-push"
+  transitionName="w-transition-push"
 />
 `;
 
@@ -22,6 +22,6 @@ exports[`Transition label 1`] = `
   transitionEnterTimeout={210}
   transitionLeave={true}
   transitionLeaveTimeout={210}
-  transitionName="c-transition-push"
+  transitionName="w-transition-push"
 />
 `;

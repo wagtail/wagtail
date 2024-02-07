@@ -2,7 +2,6 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.forms.pages import WagtailAdminPageForm
-from wagtail.admin.widgets.slug import SlugInput
 from wagtail.models import Page
 from wagtail.utils.decorators import cached_classmethod
 
@@ -21,7 +20,7 @@ def set_default_page_edit_handlers(cls):
     cls.promote_panels = [
         MultiFieldPanel(
             [
-                FieldPanel("slug", widget=SlugInput),
+                FieldPanel("slug"),
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
             ],

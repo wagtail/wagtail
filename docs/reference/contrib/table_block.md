@@ -1,6 +1,6 @@
 # TableBlock
 
-The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://handsontable.com/) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
+The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://github.com/handsontable/handsontable/tree/6.2.2) (distributed under the MIT license) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
 
 ![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](../../_static/images/screen40_table_block.png)
 
@@ -103,7 +103,7 @@ Every key in the `table_options` dictionary maps to a [handsontable](https://han
 -   [language](https://handsontable.com/docs/6.2.2/Options.html#language) - The default language setting. By default TableBlock tries to get the language from `django.utils.translation.get_language`. If needed, this setting can be overridden here.
 -   [renderer](https://handsontable.com/docs/6.2.2/Options.html#renderer) - The default setting Handsontable uses to render the content of table cells.
 -   [autoColumnSize](https://handsontable.com/docs/6.2.2/Options.html#autoColumnSize) - Enables or disables the `autoColumnSize` plugin. The TableBlock default setting is `False`.
--   [mergedCells](https://handsontable.com/docs/6.2.0/Options.html#mergeCells) - Can be set to `True` or `False`, determined if merging cells is allowed. Remember to add `'mergeCells'` to the `'contextMenu'` option also.
+-   [mergeCells](https://handsontable.com/docs/6.2.0/Options.html#mergeCells) - Can be set to `True` or `False`, determined if merging cells is allowed. Remember to add `'mergeCells'` to the `'contextMenu'` option also.
 
 A [complete list of handsontable options](https://handsontable.com/docs/6.2.2/Options.html) can be found on the Handsontable website.
 
@@ -156,7 +156,7 @@ new_table_options = {
         'redo',
         '---------',
         'copy',
-        'cut'
+        'cut',
         '---------',
         'alignment',
     ],

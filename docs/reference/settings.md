@@ -1,6 +1,6 @@
 # Settings
 
-Wagtail makes use of the following settings, in addition to [Django's core settings](django:ref/settings)`:
+Wagtail makes use of the following settings, in addition to [Django's core settings](inv:django#ref/settings)`:
 
 ## Sites
 
@@ -527,6 +527,16 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 ```
 
 Allows the default `LoginForm` to be extended with extra fields.
+
+(wagtailadmin_login_url)=
+
+### `WAGTAILADMIN_LOGIN_URL`
+
+```python
+WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
+```
+
+This specifies the URL to redirect to when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
 
 ## User preferences
 

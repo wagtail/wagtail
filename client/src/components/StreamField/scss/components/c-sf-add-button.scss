@@ -31,7 +31,7 @@ $icon-size: theme('spacing.4');
   &:focus-visible {
     .icon {
       color: theme('colors.surface-page');
-      background-color: theme('colors.text-button-outline-default');
+      background-color: theme('colors.text-button-outline-hover');
     }
   }
 

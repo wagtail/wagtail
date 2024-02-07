@@ -1,16 +1,14 @@
 import os.path
 import unittest
 import urllib
-from io import StringIO
 from unittest import mock
 
 from django.conf import settings
 from django.core.files.base import ContentFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
-from wagtail.test.utils import override_settings
 
 
 @override_settings(WAGTAILDOCS_SERVE_METHOD=None)
@@ -18,11 +16,11 @@ class TestServeView(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document", file_hash="123456")
         self.document.file.save(
-            "serve_view.doc", ContentFile("A boring example document")
+            "serve_view.doc", ContentFile(b"A boring example document")
         )
         self.pdf_document = models.Document(title="Test document", file_hash="123456")
         self.pdf_document.file.save(
-            "serve_view.pdf", ContentFile("A boring example document")
+            "serve_view.pdf", ContentFile(b"A boring example document")
         )
 
     def tearDown(self):
@@ -74,10 +72,9 @@ class TestServeView(TestCase):
         mock_doc.filename = self.document.filename
         mock_doc.content_type = self.document.content_type
         mock_doc.content_disposition = self.document.content_disposition
-        mock_doc.file = StringIO("file-like object" * 10)
+        mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
-        mock_doc.file.size = 30
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -108,10 +105,9 @@ class TestServeView(TestCase):
         mock_doc.filename = self.pdf_document.filename
         mock_doc.content_type = self.pdf_document.content_type
         mock_doc.content_disposition = self.pdf_document.content_disposition
-        mock_doc.file = StringIO("file-like object" * 10)
+        mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
-        mock_doc.file.size = 30
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks
@@ -242,7 +238,12 @@ class TestDirectDocumentUrls(TestCase):
 
 @override_settings(
     WAGTAILDOCS_SERVE_METHOD=None,
-    DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage",
+    STORAGES={
+        **settings.STORAGES,
+        "default": {
+            "BACKEND": "wagtail.test.dummy_external_storage.DummyExternalStorage"
+        },
+    },
 )
 class TestServeWithExternalStorage(TestCase):
     """
@@ -384,10 +385,9 @@ class TestServeWithUnicodeFilename(TestCase):
         # Create a mock document to hit the correct code path.
         mock_doc = mock.Mock()
         mock_doc.filename = "TÈST.doc"
-        mock_doc.file = StringIO("file-like object" * 10)
+        mock_doc.file = ContentFile(b"file-like object" * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
-        mock_doc.file.size = 30
         mock_get_object_or_404.return_value = mock_doc
 
         # Bypass 'before_serve_document' hooks

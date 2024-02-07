@@ -22,8 +22,8 @@ def copy(request, page_id):
     # Check if the user has permission to publish subpages on the parent
     can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
 
-    # Create the form
-    form = CopyForm(
+    form_class = getattr(page.specific_class, "copy_form_class", CopyForm)
+    form = form_class(
         request.POST or None, user=request.user, page=page, can_publish=can_publish
     )
 

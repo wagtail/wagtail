@@ -46,7 +46,7 @@ describe('PageExplorerHeader', () => {
 
   it('#onClick', () => {
     const wrapper = mount(<PageExplorerHeader {...mockProps} />);
-    wrapper.find('Button').simulate('click');
+    wrapper.find('Link').simulate('click');
 
     expect(mockProps.onClick).toHaveBeenCalledTimes(1);
   });

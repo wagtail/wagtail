@@ -57,7 +57,7 @@ msgstr "Налаштування не буде відчинене тому, що
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "%(setting_type)sоновлено."
+msgstr "%(setting_type)s оновлено."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Неможливо зберегти налаштування через помилки."

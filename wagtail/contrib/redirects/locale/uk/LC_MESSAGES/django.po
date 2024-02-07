@@ -5,6 +5,7 @@
 # Translators:
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2023-2024
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 msgid ""
 msgstr ""
@@ -12,8 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-19 23:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2023-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,9 @@ msgstr "перенаправити на сторінку"
 msgid "redirect to any URL"
 msgstr "перенаправити на будь-який URL"
 
+msgid "automatically created"
+msgstr "створено автоматично"
+
 msgid "created at"
 msgstr "створено о"
 
@@ -92,6 +95,9 @@ msgid "temporary"
 msgstr "тимчасово"
 
 msgid "redirect"
+msgstr "перенаправлення"
+
+msgid "redirects"
 msgstr "перенаправлення"
 
 msgid "Add redirect"
@@ -193,11 +199,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ще немає жодного перенаправлення. Чому б не <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
+"Ще немає жодного перенаправлення. Чому б не <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
 
 msgid "Search redirects"
 msgstr "Пошук перенаправлень"

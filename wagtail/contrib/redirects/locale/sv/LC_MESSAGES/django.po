@@ -214,11 +214,11 @@ msgstr "Ledsen, inga omdirigeringar matchar \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Inga omdirigeringar har skapats. Varför inte <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">skapa en</a>?"
+"Inga omdirigeringar har skapats. Varför inte <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">skapa en</a>?"
 
 msgid "Search redirects"
 msgstr "Sökomdirigeringar"

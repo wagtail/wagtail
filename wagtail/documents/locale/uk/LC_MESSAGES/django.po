@@ -154,6 +154,13 @@ msgstr "Ви не завантажили жодних документів до 
 msgid "You haven't uploaded any documents."
 msgstr "Ви не завантажили жодних документів."
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Чому б не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>завантажити якесь зараз</a>?"
+
 msgid "Change document:"
 msgstr "Змінити документ:"
 
@@ -223,19 +230,19 @@ msgstr "Вибачте, жоден документ не відповідає \"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ви ще не завантажили жодного документа до колекції. Чому б зараз <a href="
-"\"%(wagtaildocs_add_document_url)s\">не завантажити якийсь</a>?"
+"Ви ще не завантажили жодного документа до колекції. Чому б зараз <a "
+"href=\"%(wagtaildocs_add_document_url)s\">не завантажити якийсь</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ви ще не завантажили жодного документа. Чому б зараз <a href="
-"\"%(wagtaildocs_add_document_url)s\">не завантажити якийсь</a>?"
+"Ви ще не завантажили жодного документа. Чому б зараз <a "
+"href=\"%(wagtaildocs_add_document_url)s\">не завантажити якийсь</a>?"
 
 msgid "Add multiple documents"
 msgstr "Додати декілька документів"
@@ -276,6 +283,9 @@ msgstr "Дозволи для документа"
 
 msgid "Add a document permission"
 msgstr "Додати дозвіл для документа"
+
+msgid "Tags"
+msgstr "Теги"
 
 msgid "Tag"
 msgstr "Тег"

@@ -17,7 +17,7 @@ import ComboBox, {
   comboBoxNoResults,
   comboBoxTriggerLabel,
 } from '../../ComboBox/ComboBox';
-import { hideTooltipOnEsc } from '../../../includes/initTooltips';
+import { hideTooltipOnEsc } from '../../../controllers/TooltipController';
 import {
   addErrorMessages,
   removeErrorMessages,

@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui import tables
 from wagtail.admin.utils import get_latest_str
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.models import DraftStateMixin, ReferenceIndex
 
 from .base import BaseListingView, BaseObjectMixin
@@ -21,9 +22,10 @@ class TitleColumn(tables.TitleColumn):
 
 class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     paginate_by = 20
-    page_title = gettext_lazy("Usage of")
+    page_title = gettext_lazy("Usage")
     index_url_name = None
     edit_url_name = None
+    usage_url_name = None
     permission_required = "change"
 
     @cached_property
@@ -35,6 +37,16 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         if isinstance(object, DraftStateMixin):
             return object.get_latest_revision_as_object()
         return object
+
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    def get_usage_url(self, instance):
+        if self.usage_url_name:
+            return reverse(self.usage_url_name, args=(quote(instance.pk),))
+
+    def get_index_url(self):  # used for pagination links
+        return self.get_usage_url(self.object)
 
     def get_page_subtitle(self):
         return get_latest_str(self.object)
@@ -51,12 +63,28 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         if self.edit_url_name:
             items.append(
                 {
-                    "url": reverse(self.edit_url_name, args=(quote(self.object.pk),)),
+                    "url": self.get_edit_url(),
                     "label": get_latest_str(self.object),
                 }
             )
-        items.append({"url": "", "label": _("Usage")})
+        items.append(
+            {
+                "url": "",
+                "label": _("Usage"),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
         return self.breadcrumbs_items + items
+
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                label=_("Edit"),
+                url=self.get_edit_url(),
+                icon_name="edit",
+            ),
+        ]
 
     def get_queryset(self):
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()

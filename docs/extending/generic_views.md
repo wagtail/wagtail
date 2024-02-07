@@ -35,6 +35,7 @@ class PersonViewSet(ModelViewSet):
     form_fields = ["first_name", "last_name"]
     icon = "user"
     add_to_admin_menu = True
+    copy_view_enabled = False
     inspect_view_enabled = True
 
 
@@ -78,7 +79,7 @@ You can group multiple `ModelViewSet`s' menu items inside a single top-level men
 
 ### Listing view
 
-The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
+The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to override the `default_ordering` configured in the listing view.
 
 You can add the ability to filter the listing view by defining a {attr}`~ModelViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
 
@@ -93,6 +94,18 @@ You can add the ability to export the listing view to a spreadsheet by setting t
 You can define a `panels` or `edit_handler` attribute on the `ModelViewSet` or your Django model to use Wagtail's panels mechanism. For more details, see [](forms_panels_overview).
 
 If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.get_edit_handler` method is not overridden, the form will be rendered as a plain Django form. You can customise the form by setting the {attr}`~ModelViewSet.form_fields` attribute to specify the fields to be shown on the form. Alternatively, you can set the {attr}`~ModelViewSet.exclude_form_fields` attribute to specify the fields to be excluded from the form. If panels are not used, you must define `form_fields` or `exclude_form_fields`, unless {meth}`~ModelViewSet.get_form_class` is overridden.
+
+(modelviewset_copy)=
+
+### Copy view
+
+```{versionadded} 6.0
+
+```
+
+The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
+
+The view's form will be generated in the same way as create or edit forms. To use a custom form, override the `copy_view_class` and modify the `form_class` property on that class.
 
 (modelviewset_inspect)=
 
@@ -131,10 +144,6 @@ For some common views, Wagtail also allows you to override the template used by 
 By default, the model registered with a `ModelViewSet` will also be registered to the [reference index](managing_the_reference_index). You can turn off this behavior by setting {attr}`~ModelViewSet.add_to_reference_index` to `False`.
 
 Various additional attributes are available to customise the viewset - see the {class}`ModelViewSet` documentation.
-
-```{versionadded} 5.2
-The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
-```
 
 (chooserviewset)=
 

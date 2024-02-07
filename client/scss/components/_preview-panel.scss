@@ -1,14 +1,14 @@
 .preview-panel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
   --w-preview-background-color: var(--w-color-white);
   --preview-width-ratio: min(
     1,
     var(--preview-panel-width, 450) / var(--preview-device-width, 375)
   );
   --preview-iframe-width: calc(1px * var(--preview-device-width, 375));
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &__area {
     height: 100%;

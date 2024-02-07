@@ -23,7 +23,7 @@ $draftail-toolbar-icon-size: 1em;
 $draftail-trigger-additional-size: 30px;
 $draftail-block-hoverable-area-offset: 40px;
 
-$draftail-editor-font-family: $font-sans;
+$draftail-editor-font-family: theme('fontFamily.sans');
 
 @import '../../../../node_modules/draft-js/dist/Draft';
 @import '../../../../node_modules/draftail/src/index';
@@ -77,10 +77,10 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-Editor {
-  @include input-base();
   // Number used inside a `calc` function, which doesn’t support unitless zero.
   // stylelint-disable-next-line length-zero-no-unit
   --draftail-offset-inline-start: 0px;
+  @include input-base();
 
   &--focus {
     outline: $focus-outline-width solid theme('colors.focus');
@@ -191,7 +191,7 @@ $draftail-editor-font-family: $font-sans;
   &:hover,
   &:focus-visible {
     color: theme('colors.surface-page');
-    background-color: theme('colors.text-button-outline-default');
+    background-color: theme('colors.text-button-outline-hover');
   }
 
   .icon {

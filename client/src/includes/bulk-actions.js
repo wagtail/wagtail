@@ -126,12 +126,12 @@ function onSelectIndividualCheckbox(e) {
     if (checkedState.shouldShowAllInListingText) {
       document
         .querySelector(BULK_ACTION_NUM_OBJECTS_IN_LISTING)
-        .classList.remove('u-hidden');
+        .classList.remove('w-hidden');
     }
   } else if (checkedState.shouldShowAllInListingText) {
     document
       .querySelector(BULK_ACTION_NUM_OBJECTS_IN_LISTING)
-      .classList.add('u-hidden');
+      .classList.add('w-hidden');
   }
 
   if (numCheckedObjects > 0) {
@@ -169,7 +169,7 @@ function onClickSelectAllInListing(e) {
   ).textContent = `${getStringForListing('ALL_IN_LISTING')}.`;
   document
     .querySelector(BULK_ACTION_NUM_OBJECTS_IN_LISTING)
-    .classList.add('u-hidden');
+    .classList.add('w-hidden');
 }
 
 /**

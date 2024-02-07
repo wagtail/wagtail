@@ -89,7 +89,6 @@ def index(request):
                 "query_string": query_string,
                 "search_form": SearchForm(
                     data={"q": query_string} if query_string else None,
-                    placeholder=_("Search redirects"),
                 ),
                 "user_can_add": permission_policy.user_has_permission(
                     request.user, "add"

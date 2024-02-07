@@ -165,6 +165,12 @@ const light = [
         textUtility: 'w-text-text-button-outline-default',
         cssVariable: '--w-color-text-button-outline-default',
       },
+      'text-button-outline-hover': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-text-button-outline-hover',
+        textUtility: 'w-text-text-button-outline-hover',
+        cssVariable: '--w-color-text-button-outline-hover',
+      },
       'text-highlight': {
         value: 'var(--w-color-secondary-75)',
         bgUtility: 'w-bg-text-highlight',
@@ -253,6 +259,12 @@ const light = [
         textUtility: 'w-text-border-button-outline-default',
         cssVariable: '--w-color-border-button-outline-default',
       },
+      'border-button-outline-hover': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-border-button-outline-hover',
+        textUtility: 'w-text-border-button-outline-hover',
+        cssVariable: '--w-color-border-button-outline-hover',
+      },
     },
   },
   {
@@ -293,19 +305,19 @@ const dark = [
         cssVariable: '--w-color-surface-field-inactive',
       },
       'surface-header': {
-        value: 'var(--w-color-grey-600)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-header',
         textUtility: 'w-text-surface-header',
         cssVariable: '--w-color-surface-header',
       },
       'surface-menus': {
-        value: 'var(--w-color-grey-500)',
+        value: 'var(--w-color-grey-800)',
         bgUtility: 'w-bg-surface-menus',
         textUtility: 'w-text-surface-menus',
         cssVariable: '--w-color-surface-menus',
       },
       'surface-menu-item-active': {
-        value: 'var(--w-color-grey-600)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-menu-item-active',
         textUtility: 'w-text-surface-menu-item-active',
         cssVariable: '--w-color-surface-menu-item-active',
@@ -335,7 +347,7 @@ const dark = [
         cssVariable: '--w-color-surface-button-inactive',
       },
       'surface-button-outline-hover': {
-        value: 'var(--w-color-grey-500)',
+        value: 'var(--w-color-grey-700)',
         bgUtility: 'w-bg-surface-button-outline-hover',
         textUtility: 'w-text-surface-button-outline-hover',
         cssVariable: '--w-color-surface-button-outline-hover',
@@ -410,6 +422,12 @@ const dark = [
         bgUtility: 'w-bg-text-button-outline-default',
         textUtility: 'w-text-text-button-outline-default',
         cssVariable: '--w-color-text-button-outline-default',
+      },
+      'text-button-outline-hover': {
+        value: 'var(--w-color-secondary-100)',
+        bgUtility: 'w-bg-text-button-outline-hover',
+        textUtility: 'w-text-text-button-outline-hover',
+        cssVariable: '--w-color-text-button-outline-hover',
       },
       'text-highlight': {
         value: 'var(--w-color-secondary-400)',
@@ -498,6 +516,12 @@ const dark = [
         bgUtility: 'w-bg-border-button-outline-default',
         textUtility: 'w-text-border-button-outline-default',
         cssVariable: '--w-color-border-button-outline-default',
+      },
+      'border-button-outline-hover': {
+        value: 'var(--w-color-secondary-100)',
+        bgUtility: 'w-bg-border-button-outline-hover',
+        textUtility: 'w-text-border-button-outline-hover',
+        cssVariable: '--w-color-border-button-outline-hover',
       },
     },
   },

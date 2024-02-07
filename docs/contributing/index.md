@@ -1,5 +1,13 @@
 # Contributing to Wagtail
 
+Thank you for your interest in improving Wagtail!
+
+## First-time contributors
+
+1. Read this document first.
+2. We don’t assign tasks. Feel free to pick any issue/task that isn’t already being worked on by someone else.
+3. Read the [Your first contribution guide](first_contribution_guide).
+
 ## Issues
 
 The easiest way to contribute to Wagtail is to tell us how to improve it! First, check to see if your bug or feature request has already been submitted at [github.com/wagtail/wagtail/issues](https://github.com/wagtail/wagtail/issues). If it has, and you have some supporting information which may help us deal with it, comment on the existing issue. If not, please [create a new one](https://github.com/wagtail/wagtail/issues/new), providing as much relevant context as possible. For example, if you're experiencing problems with installation, detail your environment and the steps you've already taken. If something isn't displaying correctly, tell us what browser you're using, and include a screenshot if possible.
@@ -61,6 +69,7 @@ If you are developing packages for Wagtail, you can add the following [PyPI](htt
 -   [`Framework :: Wagtail :: 3`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+3)
 -   [`Framework :: Wagtail :: 4`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+4)
 -   [`Framework :: Wagtail :: 5`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+5)
+-   [`Framework :: Wagtail :: 6`](https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+6)
 
 You can also find a curated list of awesome packages, articles, and other cool resources from the Wagtail community at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 

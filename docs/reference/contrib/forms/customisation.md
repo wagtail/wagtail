@@ -798,7 +798,7 @@ class FormPage(AbstractEmailForm):
 
 ## Using `FormMixin` or `EmailFormMixin` to use with other `Page` subclasses
 
-If you need to add form behaviour while extending an additional class, you can use the base mixins instead of the abstract modals.
+If you need to add form behaviour while extending an additional class, you can use the base mixins instead of the abstract models.
 
 ```python
 from wagtail.models import Page

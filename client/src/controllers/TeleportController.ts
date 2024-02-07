@@ -4,6 +4,8 @@ import { Controller } from '@hotwired/stimulus';
  * Allows the controlled element's content to be copied and appended
  * to another place in the DOM. Once copied, the original controlled
  * element will be removed from the DOM unless `keep` is true.
+ * If `reset` is true, the target element will be emptied before
+ * the controlled element is appended.
  * If a target selector isn't provided, a default target of
  * `document.body` or the Shadow Root's first DOM node will be used.
  * Depending on location of the controlled element.
@@ -22,11 +24,14 @@ import { Controller } from '@hotwired/stimulus';
 export class TeleportController extends Controller<HTMLTemplateElement> {
   static values = {
     keep: { default: false, type: Boolean },
+    reset: { default: false, type: Boolean },
     target: { default: '', type: String },
   };
 
   /** If true, keep the original DOM element intact, otherwise remove it when cloned. */
   declare keepValue: boolean;
+  /** If true, empty the target element's contents before appending the cloned element. */
+  declare resetValue: boolean;
   /** A selector to determine the target location to clone the element. */
   declare targetValue: string;
 
@@ -40,6 +45,7 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
 
     const complete = () => {
       if (completed) return;
+      if (this.resetValue) target.innerHTML = '';
       target.append(this.templateElement);
       this.dispatch('appended', { cancelable: false, detail: { target } });
       completed = true;
@@ -91,6 +97,22 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
     if (!(templateElement instanceof HTMLElement)) {
       throw new Error('Invalid template content.');
     }
+
+    // HACK:
+    // cloneNode doesn't run scripts, so we need to create new script elements
+    // and copy the attributes and innerHTML over. This is necessary when we're
+    // teleporting a template that contains legacy init code, e.g. initDateChooser.
+    // Only do this for inline scripts, as that's what we're expecting.
+    templateElement
+      .querySelectorAll('script:not([src], [type])')
+      .forEach((script) => {
+        const newScript = document.createElement('script');
+        Array.from(script.attributes).forEach((key) =>
+          newScript.setAttribute(key.nodeName, key.nodeValue || ''),
+        );
+        newScript.innerHTML = script.innerHTML;
+        script.replaceWith(newScript);
+      });
 
     return templateElement;
   }

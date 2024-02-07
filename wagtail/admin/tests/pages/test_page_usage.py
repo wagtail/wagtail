@@ -30,7 +30,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
-        self.assertContains(response, "Usage of")
+        self.assertContains(response, "Usage")
         self.assertContains(response, "Hello world!")
 
     def test_has_private_usage(self):
@@ -40,7 +40,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
-        self.assertContains(response, "Usage of")
+        self.assertContains(response, "Usage")
         self.assertContains(response, "Hello world!")
 
         self.assertContains(response, "(Private page chooser model)")
@@ -63,7 +63,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
-        self.assertContains(response, "Usage of")
+        self.assertContains(response, "Usage")
         self.assertContains(response, "Hello world!")
 
         self.assertContains(response, "Contact us")

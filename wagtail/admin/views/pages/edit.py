@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
-from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
+from django.views.generic.base import View
 
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
@@ -19,12 +19,14 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
@@ -38,7 +40,15 @@ from wagtail.models import (
 from wagtail.utils.timestamps import render_timestamp
 
 
-class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
+class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+    def get_page_title(self):
+        return _("Editing %(page_type)s") % {
+            "page_type": self.page_class.get_verbose_name()
+        }
+
+    def get_page_subtitle(self):
+        return self.page.get_admin_display_title()
+
     def get_template_names(self):
         if self.page.alias_of_id:
             return ["wagtailadmin/pages/edit_alias.html"]
@@ -533,7 +543,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.save_action()
 
     def save_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -558,7 +568,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return self.redirect_and_remain()
 
     def publish_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -654,7 +664,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def submit_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -701,7 +711,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def restart_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # save revision
@@ -743,7 +753,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return self.redirect_away()
 
     def perform_workflow_action(self):
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         if self.has_content_changes:
@@ -783,7 +793,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def cancel_workflow_action(self):
         self.workflow_state.cancel(user=self.request.user)
-        self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=not self.page.live)
         self.subscription.save()
 
         # Save revision
@@ -883,6 +893,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     self.page, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.page, self.request))
         if self.form.show_comments_toggle:
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)

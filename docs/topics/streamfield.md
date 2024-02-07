@@ -2,11 +2,11 @@
 
 # How to use StreamField for mixed content
 
-StreamField provides a content editing model suitable for pages that do not follow a fixed structure -- such as blog posts or news stories -- where the text may be interspersed with subheadings, images, pull quotes and video. It's also suitable for more specialised content types, such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of 'blocks', which can be repeated and arranged in any order.
+StreamField provides a content editing model suitable for pages that do not follow a fixed structure -- such as blog posts or news stories -- where the text may be interspersed with subheadings, images, pull quotes and video. It's also suitable for more specialized content types, such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of 'blocks', which can be repeated and arranged in any order.
 
 For further background on StreamField, and why you would use it instead of a rich text field for the article body, see the blog post [Rich text fields and faster horses](https://torchbox.com/blog/rich-text-fields-and-faster-horses/).
 
-StreamField also offers a rich API to define your own block types, ranging from simple collections of sub-blocks (such as a 'person' block consisting of first name, surname and photograph) to completely custom components with their own editing interface. Within the database, the StreamField content is stored as JSON, ensuring that the full informational content of the field is preserved, rather than just an HTML representation of it.
+StreamField also offers a rich API to define your own block types, ranging from simple collections of sub-blocks (such as a 'person' block consisting of first name, surname, and photograph) to completely custom components with their own editing interface. Within the database, the StreamField content is stored as JSON, ensuring that the full informational content of the field is preserved, rather than just an HTML representation of it.
 
 ## Using StreamField
 
@@ -498,7 +498,7 @@ All block types, not just `StructBlock`, support the `template` property. Howeve
 
 ## Customisations
 
-All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customisations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
+All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
 
 (modifying_streamfield_data)=
 
@@ -521,7 +521,7 @@ my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever a
 my_page.save()
 ```
 
-If a block extending a StructBlock is to be used inside of the StreamField's value, the value of this block can be provided as a python dict (similar in what is accepted by the block's `.to_python` method).
+If a block extending a StructBlock is to be used inside of the StreamField's value, the value of this block can be provided as a Python dict (similar to what is accepted by the block's `.to_python` method).
 
 ```python
 
@@ -577,7 +577,13 @@ hero_image = my_page.body.first_block_by_name('image')
 <div class="hero-image">{{ page.body.first_block_by_name.image }}</div>
 ```
 
+(streamfield_search)=
+
 ## Search considerations
+
+```{versionadded} 6.0
+
+```
 
 Like any other field, content in a StreamField can be made searchable by adding the field to the model's search_fields definition - see {ref}`wagtailsearch_indexing_fields`. By default, all text content from the stream will be added to the search index. If you wish to exclude certain block types from being indexed, pass the keyword argument `search_index=False` as part of the block's definition. For example:
 

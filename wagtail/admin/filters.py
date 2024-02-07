@@ -1,11 +1,13 @@
 import django_filters
 from django import forms
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
+from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
-from wagtail.coreutils import get_content_type_label
+from wagtail.coreutils import get_content_languages, get_content_type_label
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -86,7 +88,47 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
     field_class = FilteredModelChoiceField
 
 
+class LocaleFilter(django_filters.ChoiceFilter):
+    def filter(self, qs, language_code):
+        if language_code:
+            return qs.filter(locale__language_code=language_code)
+        return qs
+
+
 class WagtailFilterSet(django_filters.FilterSet):
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            self._add_locale_filter()
+
+    def _add_locale_filter(self):
+        # Add a locale filter if the model is translatable
+        # and there isn't one already.
+        from wagtail.models.i18n import Locale, TranslatableMixin
+
+        if (
+            self._meta.model
+            and issubclass(self._meta.model, TranslatableMixin)
+            and "locale" not in self.filters
+        ):
+            # Only add the locale filter if there are multiple content languages
+            # in the settings and the corresponding Locales exist.
+            languages = get_content_languages()
+            locales = set(Locale.objects.values_list("language_code", flat=True))
+            choices = [(k, v) for k, v in languages.items() if k in locales]
+            if len(choices) <= 1:
+                return
+
+            self.filters["locale"] = LocaleFilter(
+                label=_("Locale"),
+                choices=choices,
+                empty_label=None,
+                null_label=_("All"),
+                null_value=None,
+                widget=forms.RadioSelect,
+            )
+
     @classmethod
     def filter_for_lookup(cls, field, lookup_type):
         filter_class, params = super().filter_for_lookup(field, lookup_type)
@@ -119,3 +161,33 @@ class ContentTypeModelChoiceField(django_filters.fields.ModelChoiceField):
 
 class ContentTypeFilter(django_filters.ModelChoiceFilter):
     field_class = ContentTypeModelChoiceField
+
+
+class ContentTypeModelMultipleChoiceField(
+    django_filters.fields.ModelMultipleChoiceField
+):
+    """
+    Custom ModelMultipleChoiceField for ContentType, to show the model verbose name as the label rather
+    than the default 'wagtailcore | page' representation of a ContentType
+    """
+
+    def label_from_instance(self, obj):
+        return get_content_type_label(obj)
+
+
+class MultipleContentTypeFilter(django_filters.ModelMultipleChoiceFilter):
+    field_class = ContentTypeModelMultipleChoiceField
+
+
+class UserModelMultipleChoiceField(django_filters.fields.ModelMultipleChoiceField):
+    """
+    Custom ModelMultipleChoiceField for user models, to show the result of
+    get_user_display_name as the label rather than the default string representation
+    """
+
+    def label_from_instance(self, obj):
+        return get_user_display_name(obj)
+
+
+class MultipleUserFilter(django_filters.ModelMultipleChoiceFilter):
+    field_class = UserModelMultipleChoiceField

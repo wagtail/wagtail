@@ -20,17 +20,16 @@ except ImportError:
 
 install_requires = [
     "Django>=4.2,<6.0",
-    "django-modelcluster>=6.1,<7.0",
+    "django-modelcluster>=6.2.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
-    "django-taggit>=2.0,<5.0",
+    "django-taggit>=4.0,<5.1",
     "django-treebeard>=4.5.1,<5.0",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=23.3,<24",
     "draftjs_exporter>=2.1.5,<6.0",
     "Pillow>=9.1.0,<11.0.0",
     "beautifulsoup4>=4.8,<4.13",
-    "html5lib>=0.999,<2",
-    "Willow[heif]>=1.6.2,<2",
+    "Willow[heif]>=1.8.0,<2",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
@@ -71,11 +70,11 @@ testing_extras = [
 # Documentation dependencies
 documentation_extras = [
     "pyenchant>=3.1.1,<4",
-    "sphinxcontrib-spelling>=5.4.0,<6",
+    "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==6.1.1",
-    "myst_parser==0.18.1",
+    "sphinx-wagtail-theme==6.2.0",
+    "myst_parser==2.0.0",
     "sphinx_copybutton>=0.5,<1.0",
 ]
 

@@ -2,36 +2,36 @@
 // Transitions
 // =============================================================================
 
-$c-transition-duration: 200ms;
+$w-transition-duration: 200ms;
 
-.c-transition-group {
+.w-transition-group {
   position: absolute;
   width: 100%;
   top: 0;
 }
 
-.c-transition-push-enter {
+.w-transition-push-enter {
   transform: translateX(calc(var(--w-direction-factor) * 100%));
   transition:
-    transform $c-transition-duration ease,
-    opacity $c-transition-duration linear;
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
   opacity: 0;
 }
 
-.c-transition-push-enter-active {
+.w-transition-push-enter-active {
   transform: translateX(0);
   opacity: 1;
 }
 
-.c-transition-push-leave {
+.w-transition-push-leave {
   transform: translateX(0);
   transition:
-    transform $c-transition-duration ease,
-    opacity $c-transition-duration linear;
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
   opacity: 1;
 }
 
-.c-transition-push-leave-active {
+.w-transition-push-leave-active {
   transform: translateX(calc(var(--w-direction-factor) * -100%));
   opacity: 0;
 }
@@ -39,28 +39,28 @@ $c-transition-duration: 200ms;
 // =============================================================================
 // Pop transition
 // =============================================================================
-.c-transition-pop-enter {
+.w-transition-pop-enter {
   transform: translateX(calc(var(--w-direction-factor) * -100%));
   transition:
-    transform $c-transition-duration ease,
-    opacity $c-transition-duration linear;
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
   opacity: 0;
 }
 
-.c-transition-pop-enter-active {
+.w-transition-pop-enter-active {
   transform: translateX(0);
   opacity: 1;
 }
 
-.c-transition-pop-leave {
+.w-transition-pop-leave {
   transform: translateX(0);
   transition:
-    transform $c-transition-duration ease,
-    opacity $c-transition-duration linear;
+    transform $w-transition-duration ease,
+    opacity $w-transition-duration linear;
   opacity: 1;
 }
 
-.c-transition-pop-leave-active {
+.w-transition-pop-leave-active {
   transform: translateX(calc(var(--w-direction-factor) * 100%));
   opacity: 0;
 }

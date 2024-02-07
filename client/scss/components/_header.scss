@@ -11,7 +11,8 @@
     margin: 0;
   }
 
-  h1 {
+  h1,
+  .w-header__title {
     @apply w-h1;
     position: relative;
   }
@@ -57,12 +58,12 @@
   }
 
   .col {
-    float: left;
+    float: inline-start;
     margin-inline-end: 2em;
   }
 
   .left {
-    float: left;
+    float: inline-start;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -72,7 +73,7 @@
     display: flex;
     gap: theme('spacing[2.5]');
     text-align: end;
-    float: right;
+    float: inline-end;
   }
 
   // For case where content below header should merge with it
@@ -132,12 +133,12 @@
     }
 
     .left {
-      float: left;
+      float: inline-start;
       margin-inline-end: 0;
 
       &:first-child {
         padding-bottom: 0;
-        float: left;
+        float: inline-start;
       }
     }
 
@@ -146,7 +147,7 @@
 
       .right,
       .left {
-        float: right;
+        float: inline-end;
       }
     }
 
@@ -164,6 +165,25 @@
 
     .col9 {
       @include column(9);
+    }
+  }
+}
+
+.w-slim-header {
+  &__search-form {
+    @apply w-mx-2 w-flex w-items-center w-gap-2;
+  }
+
+  .w-field__wrapper:not(.w-drilldown .w-field__wrapper) {
+    @apply w-mb-0;
+
+    .w-field__input {
+      @apply w-mt-0;
+
+      > input {
+        @apply w-text-16;
+        min-height: theme('spacing.10');
+      }
     }
   }
 }
