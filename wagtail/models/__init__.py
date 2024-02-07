@@ -1299,10 +1299,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    def _check_unique(self, children, parent_url_path, existing_slugs=None):
-        slugs = [child["data"]["slug"] for child in children if "slug" in child["data"]]
-        if existing_slugs:
-            slugs.extend(existing_slugs)
+    def _check_unique(self, children, existing_pages=None):
+        if not existing_pages:
+            existing_pages = []
+        # Extract slugs from the children
+        # Children is a list of Page objects
+        slugs = [child.slug for child in children+list(existing_pages) if hasattr(child, "slug") and child.slug]
         if len(slugs) != len(set(slugs)):
             raise ValidationError(
                 {
@@ -1310,40 +1312,45 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
                     )
                     % {
-                        "parent_url_path": parent_url_path,
+                        "parent_url_path": children[0].parent.path,
                     }
                 }
             )
         for child in children:
-            if "slug" not in child["data"]:
-                candidate_slug = slugify(child["data"]["title"], allow_unicode=True)
+            if not hasattr(child, "slug") or not child.slug:
+                candidate_slug = slugify(child.title, allow_unicode=True)
                 suffix = 1
                 while candidate_slug in slugs:
                     suffix += 1
                     candidate_slug = "%s-%d" % (candidate_slug, suffix)
-                child["data"]["slug"] = candidate_slug
+                child.slug = candidate_slug
+                slugs.append(candidate_slug)
 
-            child["data"]["url_path"] = parent_url_path + child["data"]["slug"] + "/"
-            if "children" in child["data"]:
-                self.check_unique(child["data"]["children"], child["data"]["url_path"])
-        return True
+            child.path = child.parent.path + child.slug + "/"
+            child.depth = child.parent.depth + 1
+            # Update numchild for the parent page
+            child.parent.numchild += 1
+            if child.locale_id is None:
+                child.locale = self.get_default_locale()
+        return children
 
     def bulk_add_children(self, children):
         """
         Add multiple pages as children of this page.
 
-        This calls load_bulk() on the list of dictionaries passed in
+        This calls bulk_create on the Page model, so it bypasses the save method and does not
         """
 
-        existing_slugs = self.get_children().values_list("slug", flat=True)
+        # Get the list of existing children to check for duplicate slugs
+        existing_pages = self.get_children()
 
         try:
-            self._check_unique(children, self.url_path, existing_slugs)
+            children = self._check_unique(children, existing_pages)
         except ValidationError as e:
             raise e
 
         # Load the pages into the database
-        pages = Page.load_bulk(children, self)
+        pages = Page.objects.bulk_create(children)
 
         return pages
 
