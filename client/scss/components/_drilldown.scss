@@ -34,7 +34,7 @@
 .w-drilldown__submenu {
   display: grid;
   grid-template-columns: min-content 1fr;
-  padding-inline-end: theme('spacing.[2.5]');
+  padding-inline-end: theme('spacing.4');
 }
 
 .w-drilldown .w-drilldown__back {
@@ -46,6 +46,7 @@
   .icon {
     pointer-events: none;
     margin-inline-end: 0;
+    opacity: 1;
   }
 
   &:hover {
@@ -65,6 +66,8 @@
   // and reduce the default margin-bottom.
   margin-top: theme('spacing.2');
   margin-bottom: theme('spacing.2');
+  // Force fields to stay within the width of the drilldown.
+  max-width: calc(260px - theme('spacing.4'));
 }
 
 .w-drilldown__submenu .w-field__label {
@@ -76,7 +79,7 @@
   $badge-size: theme('spacing.4');
   width: $badge-size;
   height: $badge-size;
-  line-height: $badge-size;
+  line-height: 1.5;
   text-align: center;
   font-size: 0.5625rem;
   font-weight: theme('fontWeight.bold');
