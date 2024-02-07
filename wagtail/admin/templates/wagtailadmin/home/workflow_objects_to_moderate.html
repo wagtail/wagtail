@@ -54,7 +54,7 @@
                                                 {% if obj.is_previewable %}
                                                     <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
                                                 {% endif %}
-                                                {% if state.live_revision %}
+                                                {% if state.live_revision_id %}
                                                     <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
                                                 {% endif %}
                                                 {% if state.previous_revision %}
