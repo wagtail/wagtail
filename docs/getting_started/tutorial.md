@@ -667,7 +667,7 @@ class BlogPage(Page):
     ]
 ```
 
-This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tags` and include the main image as a thumbnail alongside each post:
+This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tags` library and include the main image as a thumbnail alongside each post:
 
 ```html+django
 <!-- Load wagtailimages_tags: -->
