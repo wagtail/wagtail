@@ -34,7 +34,7 @@
 .w-drilldown__submenu {
   display: grid;
   grid-template-columns: min-content 1fr;
-  padding-inline-end: theme('spacing.[2.5]');
+  padding-inline-end: theme('spacing.4');
 }
 
 .w-drilldown .w-drilldown__back {
