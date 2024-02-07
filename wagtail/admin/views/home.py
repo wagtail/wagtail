@@ -266,8 +266,10 @@ class RecentEditsPanel(Component):
             .order_by("-latest_date")[:edit_count]
         )
         # Retrieve the page objects for those IDs
-        pages_mapping = Page.objects.specific().in_bulk(
-            [log["page_id"] for log in last_edits_dates]
+        pages_mapping = (
+            Page.objects.specific()
+            .prefetch_workflow_states()
+            .in_bulk([log["page_id"] for log in last_edits_dates])
         )
         # Compile a list of (latest edit timestamp, page object) tuples
         last_edits = []
