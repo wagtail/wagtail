@@ -3676,9 +3676,7 @@ class GroupApprovalTask(Task):
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
-            return TaskState.objects.filter(
-                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
-            )
+            return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
 
@@ -4123,10 +4121,10 @@ class WorkflowState(models.Model):
 
 class BaseTaskStateManager(models.Manager):
     def reviewable_by(self, user):
-        tasks = Task.objects.filter(active=True)
+        tasks = Task.objects.filter(active=True).specific()
         states = TaskState.objects.none()
         for task in tasks:
-            states = states | task.specific.get_task_states_user_can_moderate(user=user)
+            states = states | task.get_task_states_user_can_moderate(user=user)
         return states
 
 

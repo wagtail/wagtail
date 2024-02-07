@@ -161,7 +161,6 @@ class WorkflowObjectsToModeratePanel(Component):
             TaskState.objects.reviewable_by(request.user)
             .select_related(
                 "revision",
-                "task",
                 "revision__user",
                 "workflow_state",
                 "workflow_state__workflow",
@@ -173,6 +172,7 @@ class WorkflowObjectsToModeratePanel(Component):
             )
             .order_by("-started_at")
         )
+
         for state in states:
             obj = state.revision.content_object
             # Skip task states where the revision's GenericForeignKey points to
