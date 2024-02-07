@@ -18,7 +18,7 @@ Changelog
  * Maintenance: Rename the React `Button` that only renders links (a element) to `Link` and remove unused prop & behavior that was non-compliant for aria role usage (Advik Kabra)
 
 
-6.0 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0 (07.02.2024)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 5.0
