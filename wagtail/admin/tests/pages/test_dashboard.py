@@ -387,7 +387,7 @@ class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(26):
+        with self.assertNumQueries(19):
             html = panel.render_html(parent_context)
 
         soup = self.get_soup(html)

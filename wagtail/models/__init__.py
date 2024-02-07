@@ -3648,24 +3648,37 @@ class GroupApprovalTask(Task):
 
         return super().start(workflow_state, user=user)
 
+    def _user_in_groups(self, user):
+        # Cache the check whether "this user is in any of this
+        # GroupApprovalTask's groups" on the user object, in case we do it
+        # against the same user and task multiple times in a request.
+        # Use a dict to map the task id to the check result, in case we also
+        # check against different GroupApprovalTasks for the same user.
+        cache_attr = "_group_approval_task_checks"
+        if not (checks_cache := getattr(user, cache_attr, {})):
+            setattr(user, cache_attr, checks_cache)
+
+        if self.pk not in checks_cache:
+            checks_cache[self.pk] = self.groups.filter(
+                id__in=user.groups.all()
+            ).exists()
+
+        return checks_cache[self.pk]
+
     def user_can_access_editor(self, obj, user):
-        return (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return self._user_in_groups(user) or user.is_superuser
 
     def locked_for_user(self, obj, user):
-        return not (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return not (self._user_in_groups(user) or user.is_superuser)
 
     def user_can_lock(self, obj, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self._user_in_groups(user)
 
     def user_can_unlock(self, obj, user):
         return False
 
     def get_actions(self, obj, user):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
+        if self._user_in_groups(user) or user.is_superuser:
             return [
                 ("reject", _("Request changes"), True),
                 ("approve", _("Approve"), False),
@@ -3675,7 +3688,7 @@ class GroupApprovalTask(Task):
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
+        if self._user_in_groups(user) or user.is_superuser:
             return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
