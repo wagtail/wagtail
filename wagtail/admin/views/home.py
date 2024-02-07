@@ -164,6 +164,7 @@ class WorkflowObjectsToModeratePanel(Component):
                 "task",
                 "revision__user",
                 "workflow_state",
+                "workflow_state__workflow",
             )
             .prefetch_related(
                 "revision__content_object",
