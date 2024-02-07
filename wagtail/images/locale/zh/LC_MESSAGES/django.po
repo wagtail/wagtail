@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Adeline Link, 2022\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,14 +88,11 @@ msgstr "文件大小"
 msgid "File not found"
 msgstr "未找到文件"
 
-msgid "Images"
-msgstr "图片"
+msgid "Preview"
+msgstr "预览"
 
 msgid "URL"
 msgstr "URL"
-
-msgid "Preview"
-msgstr "预览"
 
 msgid "Server Error"
 msgstr "服务错误"
@@ -118,8 +115,8 @@ msgstr "选择一个图片"
 msgid "Choose another image"
 msgstr "选择另外一个图片"
 
-msgid "Search images"
-msgstr "搜索图片"
+msgid "Images"
+msgstr "图片"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

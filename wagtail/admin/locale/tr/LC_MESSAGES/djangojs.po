@@ -35,9 +35,6 @@ msgstr "Düzenle"
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' düzenle"
 
-msgid "Edit your account"
-msgstr "Hesabını düzenle"
-
 msgid "Horizontal line"
 msgstr "Yatay çizgi"
 

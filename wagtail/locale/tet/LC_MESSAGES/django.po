@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -161,9 +161,6 @@ msgstr "Pajina"
 msgid "pages"
 msgstr "Pajina sira"
 
-msgid "submitted for moderation"
-msgstr "Submete ona ba moderasaun"
-
 msgid "created at"
 msgstr "Kria iha"
 
@@ -181,9 +178,6 @@ msgstr "Grupu"
 
 msgid "permission"
 msgstr "Permisaun"
-
-msgid "permission type"
-msgstr "Tipu Permisaun "
 
 msgid "group page permission"
 msgstr "Grupu pajina permisaun"

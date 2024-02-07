@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -228,9 +228,6 @@ msgstr "stránka"
 msgid "pages"
 msgstr "stránky"
 
-msgid "submitted for moderation"
-msgstr "odesláno ke schválení"
-
 msgid "created at"
 msgstr "vytvořeno:"
 
@@ -248,9 +245,6 @@ msgstr "skupina"
 
 msgid "permission"
 msgstr "oprávnění"
-
-msgid "permission type"
-msgstr "typ oprávnění"
 
 msgid "group page permission"
 msgstr "skupinové oprávnění stránky"

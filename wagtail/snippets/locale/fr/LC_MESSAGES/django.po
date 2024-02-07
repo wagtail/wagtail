@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -154,50 +154,11 @@ msgstr "Remplacer la version actuelle"
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Nouveau(elle) %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Nouveau"
-
 msgid "Actions"
 msgstr "Actions"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Modification de %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragments %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Ajouter un %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Sélectionner tous les fragments dans la liste"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr ""
-"Désolé, aucun(e) %(snippet_type_name_plural)s ne correspond à votre recherche"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a "
-"href=\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
 
 msgid "Live version"
 msgstr "Version publiée"
@@ -238,12 +199,6 @@ msgstr "Occurrences"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Plus d’options pour « %(title)s »"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Le fragment ne peut être créé du fait d'erreurs."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Le fragment ne peut être enregistré du fait d'erreurs."
 
 msgid "Action"
 msgstr "Action"

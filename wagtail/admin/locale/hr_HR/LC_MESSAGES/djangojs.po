@@ -65,9 +65,6 @@ msgstr "Uredi"
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Uredite vaš račun"
-
 msgid "Horizontal line"
 msgstr "Vodoravna linija"
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -307,34 +307,6 @@ msgstr "Izbriši korisnika"
 msgid "Select all users in listing"
 msgstr "Odaberite sve korisnike iz popisa"
 
-msgid "Username"
-msgstr "Korisničko ime"
-
-msgid "Access level"
-msgstr "Razina pristupa"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Zadnja prijava"
-
-msgid "Admin"
-msgstr "Administrator"
-
-msgid "Active"
-msgstr "Aktivan"
-
-msgid "Inactive"
-msgstr "Neaktivan"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s rezultata"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -356,6 +328,27 @@ msgid ""
 msgstr ""
 "Nema postavljenih korisnika. Zašto ne <a "
 "href=\"%(wagtailusers_add_url)s\">dodate neke</a>?"
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "Access level"
+msgstr "Razina pristupa"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Last Login"
+msgstr "Zadnja prijava"
+
+msgid "Admin"
+msgstr "Administrator"
+
+msgid "Active"
+msgstr "Aktivan"
+
+msgid "Inactive"
+msgstr "Neaktivan"
 
 #, python-format
 msgid "user %(id)s (deleted)"

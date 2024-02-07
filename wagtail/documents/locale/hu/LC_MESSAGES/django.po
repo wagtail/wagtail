@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -208,29 +208,8 @@ msgstr "Fájl nem található"
 msgid "Usage"
 msgstr "Használat"
 
-msgid "Documents"
-msgstr "Dokumentumok"
-
 msgid "Select all documents in listing"
 msgstr "Összes dokumentum kiválasztása a listában"
-
-msgid "Title"
-msgstr "Cím"
-
-msgid "File"
-msgstr "Fájl"
-
-msgid "Created"
-msgstr "Létrehozva"
-
-msgid "Select document"
-msgstr "Dokumentum kíválasztása"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -333,6 +312,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokumentum törölve"
 msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 
+msgid "File"
+msgstr "Fájl"
+
+msgid "Created"
+msgstr "Létrehozva"
+
 msgid "Choose a document"
 msgstr "dokumentum kiválasztása"
 
@@ -342,8 +327,11 @@ msgstr "Válasszon másik dokumentumot"
 msgid "Edit this document"
 msgstr "Dokumentum szerkesztése"
 
-msgid "Search documents"
-msgstr "Keresés a dokumentumokban"
+msgid "Documents"
+msgstr "Dokumentumok"
+
+msgid "Title"
+msgstr "Cím"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

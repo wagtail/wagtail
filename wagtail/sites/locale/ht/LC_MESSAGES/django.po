@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Hantz Vius <vhantz@protonmail.com>, 2020\n"
 "Language-Team: Haitian (Haitian Creole) (http://app.transifex.com/torchbox/"
@@ -50,12 +50,12 @@ msgstr "Ajoute sit"
 msgid "Site '%(object)s' created."
 msgstr "Sit '%(object)s' la kreye."
 
+msgid "The site could not be saved due to errors."
+msgstr "Sit la pa t kapab anrejistre akòz de erè."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Sit '%(object)s' la aktyalize."
-
-msgid "The site could not be saved due to errors."
-msgstr "Sit la pa t kapab anrejistre akòz de erè."
 
 msgid "Delete site"
 msgstr "Siprime sit la"

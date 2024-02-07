@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,9 @@ msgstr "Dátumtól"
 
 msgid "Date to"
 msgstr "Dátumig"
+
+msgid "Locale"
+msgstr "Nyelv"
 
 msgid "All"
 msgstr "Összes"
@@ -476,6 +479,9 @@ msgstr "Vissza"
 msgid "Bulk actions"
 msgstr "Tömeges akciók"
 
+msgid "Select"
+msgstr "Kiválasztás"
+
 msgid "Select row"
 msgstr "Sor kiválasztása"
 
@@ -694,9 +700,6 @@ msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
 msgid "Cancel"
 msgstr "Mégsem"
 
-msgid "No log entries found."
-msgstr "Nincs naplóbejegyzés."
-
 msgid "Update"
 msgstr "Frissítés"
 
@@ -770,31 +773,6 @@ msgstr "Vázlat"
 msgid "Live"
 msgstr "Közzétett oldal"
 
-msgid "Pages awaiting moderation"
-msgstr "Moderálásra váró oldalak"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "Edited"
-msgstr "Szerkesztve"
-
-msgid "Preview this page"
-msgstr "Oldal előnézete"
-
-msgid "Approve"
-msgstr "Jóváhagy"
-
-msgid "Reject"
-msgstr "Elutasít"
-
-msgid "Preview"
-msgstr "Előnézet"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "létrehozó: %(name)s"
-
 msgid "Your most recent edits"
 msgstr "A legutóbbi szerkesztések"
 
@@ -859,6 +837,9 @@ msgstr "Feladatok"
 msgid "Task submitted by"
 msgstr "Feladat beküldője "
 
+msgid "Preview"
+msgstr "Előnézet"
+
 msgid "Compare with live version"
 msgstr "Hasonlítás az éles verzióval"
 
@@ -908,17 +889,6 @@ msgstr "Az oldalt itt szerkesztheti:"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "A \"%(title)s\" című oldal elutasításra került"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "A \"%(page)s\" oldalt %(editor)s benyújtotta moderálásra."
-
-msgid "You can preview the page here:"
-msgstr "Az oldal előnézetét itt tekintheti meg:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
 
 #, python-format
 msgid ""
@@ -980,6 +950,9 @@ msgid ""
 msgstr ""
 "A(z) \"%(title)s\" oldal jóváhagyásra lett küldve a moderációs folyamat "
 "\"%(task)s\" lépésben."
+
+msgid "You can preview the page here:"
+msgstr "Az oldal előnézetét itt tekintheti meg:"
 
 #, python-format
 msgid ""
@@ -1593,16 +1566,8 @@ msgstr "Másolás"
 msgid "Copy this page"
 msgstr "Oldal másolása"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Új %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Ezen az oldalon mentetlen változtatások vannak."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "%(page_type)s szerkesztése: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Ez az oldal egy másik oldalhoz kapcsolt példány."
@@ -1635,9 +1600,8 @@ msgstr "Élő verzió"
 msgid "Current draft"
 msgstr "Jelenlegi vázlat"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "%(title)s tallózása"
+msgid "No log entries found."
+msgstr "Nincs naplóbejegyzés."
 
 msgid "Select all pages in listing"
 msgstr "Összes oldal kiválasztása a listában"
@@ -1709,28 +1673,8 @@ msgstr "Sorbarendezés"
 msgid "Enable ordering of child pages"
 msgstr "Aloldalak sorba rendezésének engedélyezése"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
-msgstr ""
-"%(start_index)s- %(end_index)s a(z) %(result_count)s találatból a teljes "
-"oldalon."
-
-#, python-format
-msgid "Search within '%(title)s'"
-msgstr "Keresés ezen belül: '%(title)s'"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
-msgstr ""
-"%(start_index)s - %(end_index)s a(z) %(result_count)s találatból ezen belül: "
-"'%(title)s'."
-
 msgid "Search the whole site"
 msgstr "Keresés a teljes oldalon"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s"
-msgstr "%(start_index)s - %(end_index)s a(z) %(result_count)s találatból"
 
 msgid "Sites menu"
 msgstr "Webhely menü"
@@ -1797,9 +1741,6 @@ msgstr "Mozgatás fel"
 msgid "Move down"
 msgstr "Mozgatás le"
 
-msgid "Set publishing schedule"
-msgstr "Közzététel időzítése"
-
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr ""
@@ -1821,6 +1762,9 @@ msgstr ""
 "De csak a közzétételi jogosultsággal rendelkező felhasználók tudják "
 "érvényessé tenni."
 
+msgid "Set publishing schedule"
+msgstr "Közzététel időzítése"
+
 msgid "Save schedule"
 msgstr "Időzítés mentése"
 
@@ -1836,6 +1780,9 @@ msgstr "Utolsó közzététel"
 msgid "Last published by"
 msgstr "Utoljára közzétette "
 
+msgid "Type"
+msgstr "Típus"
+
 msgid "No pages found."
 msgstr "Nincs megfelelő oldal."
 
@@ -1844,6 +1791,9 @@ msgstr "Egyetlen oldal sem felel meg a feltételeknek."
 
 msgid "Updated"
 msgstr "Frissítve"
+
+msgid "Pages"
+msgstr "Oldalak"
 
 msgid "Locking status"
 msgstr "Zárolás státusz"
@@ -1896,6 +1846,9 @@ msgstr "Munkafolyamat szerint"
 msgid "Completed at"
 msgstr "Befejezve: "
 
+msgid "Clear"
+msgstr "Alapállapot"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s/%(total_pages)s. oldal"
@@ -1915,25 +1868,20 @@ msgstr "XSLX letöltése"
 msgid "Download CSV"
 msgstr "CSV letöltése"
 
-msgid "Add comment"
-msgstr "Megjegyzés hozzáadása"
-
 msgid "Filter"
 msgstr "Szűrő"
 
 msgid "Apply filters"
 msgstr "Szűrés"
 
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Back"
+msgstr "Vissza"
+
 msgid "History"
 msgstr "Történet"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Új: %(model_name)s"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "%(title)s%(page_type)s szerkesztése"
 
 msgid "Root"
 msgstr "Gyökér"
@@ -1986,6 +1934,9 @@ msgstr "Oldalsáv kapcsolása"
 
 msgid "Side panel width"
 msgstr "Oldalpanel szélessége"
+
+msgid "Issues found"
+msgstr "Problémák találhatóak"
 
 msgid "Comment notifications"
 msgstr "Értesítések megjegyzésekről"
@@ -2153,6 +2104,9 @@ msgstr "Idővonal"
 msgid "Initial Revision"
 msgstr "Eredeti verzió"
 
+msgid "Edited"
+msgstr "Szerkesztve"
+
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
 msgstr "%(action)s végrehajtva <b>%(who)s</b> által ekkor: <b>%(at)s</b>"
@@ -2207,9 +2161,6 @@ msgstr "Előre a fő tartalomig"
 
 msgid "View Wagtail quick actions"
 msgstr "Gyors akciók megtekintése"
-
-msgid "Issues found"
-msgstr "Problémák találhatóak"
 
 msgid "Accessibility"
 msgstr "Akadálymentesség"
@@ -2501,9 +2452,6 @@ msgstr "Rendezés '%(label)s' szerint növekvő sorrendben."
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Rendezés '%(label)s' szerint csökkenő sorrendben."
 
-msgid "Select page"
-msgstr "Oldal kiválasztása"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -2573,9 +2521,6 @@ msgstr "Név és e-mail-cím"
 msgid "Profile picture"
 msgstr "Profilkép"
 
-msgid "Locale"
-msgstr "Nyelv"
-
 msgid "Theme preferences"
 msgstr "Téma beállítások"
 
@@ -2587,9 +2532,6 @@ msgstr "A fiók beállításainak mentése sikeres volt!"
 
 msgid "You have been successfully logged out."
 msgstr "A kijelentkezés sikeres volt."
-
-msgid "Select"
-msgstr "Kiválasztás"
 
 msgid "Collections"
 msgstr "Gyűjtemények"
@@ -2623,10 +2565,6 @@ msgstr "Biztosan törli a gyűjteményt?"
 
 msgid "Home"
 msgstr "Nyitólap"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "%(model_name)s szerkesztése"
 
 msgid "Workflow progress"
 msgstr "Munkafolyamat állapot"
@@ -2719,10 +2657,6 @@ msgstr ""
 "verziója időzítve lett."
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "%(model_name)s keresése"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' szerkesztése"
 
@@ -2741,8 +2675,16 @@ msgstr "'%(title)s' törlése"
 msgid "More options for '%(title)s'"
 msgstr "'%(title)s' további lehetőségei"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Új: %(model_name)s"
+
 msgid "Editing"
 msgstr "Szerkesztés"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' törölve."
 
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
@@ -2768,9 +2710,6 @@ msgstr "'%(object)s' %(revision_id)s verziójának időzítése visszavonva."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "\"%(object)s\" %(revision_id)s verziója"
-
-msgid "Usage of"
-msgstr "Használat"
 
 msgid "If you confirm deletion"
 msgstr "Ha megerősíti a törlést"
@@ -2939,8 +2878,9 @@ msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' oldal törölve."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Ez az oldal jelenleg moderálásra vár"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s szerkesztése"
 
 #, python-format
 msgid ""
@@ -3007,38 +2947,15 @@ msgstr "Megjegyzés akciók elrejtése"
 msgid "Page history"
 msgstr "Oldaltörténet"
 
-msgid "Search pages…"
-msgstr "Oldalak keresése..."
+msgid "Site"
+msgstr "Weboldal"
 
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Egy elem kiválasztásához nyomja meg az Enter gombot. A fel- és lefelé nyíl "
-"gombokkal mozgatni tudja az elemet, az Enter újbóli megnyomásával elmenti a "
-"pozíciót, míg az Esc gomb visszateszi az elemet a korábbi helyére."
+msgid "Yes"
+msgstr "Igen"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' oldal zárolása fel lett oldva."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "'%(page_title)s' oldal jelenleg nem vár moderálásra."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "'%(page_title)s' oldal közzétéve."
-
-msgid "Failed to send approval notifications"
-msgstr "Nem sikerült értesítést küldeni a jóváhagyásról."
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "'%(page_title)s' oldal közzététele el lett utasítva."
-
-msgid "Failed to send rejection notifications"
-msgstr "Nem sikerült értesítést küldeni az elutasításról."
 
 #, python-format
 msgid ""
@@ -3066,6 +2983,10 @@ msgstr "'%(page_title)s' oldal visszavonva."
 
 msgid "Pages using"
 msgstr "Oldalak, amik használják "
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "'%(page_title)s' oldal jelenleg nem vár moderálásra."
 
 #, python-format
 msgid ""
@@ -3227,9 +3148,6 @@ msgstr "'%(task_name)s' feladat bekapcsolva."
 msgid "Choose another"
 msgstr "Másik kiválasztása"
 
-msgid "Pages"
-msgstr "Oldalak"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "'%(title)s' vázlatának előnézete"
@@ -3311,9 +3229,6 @@ msgstr "Szerkesztők Kézikönyve (Angol)"
 
 msgid "Help"
 msgstr "Segítség"
-
-msgid "Yes"
-msgstr "Igen"
 
 msgid "Choose an item"
 msgstr "Elem kiválasztása"

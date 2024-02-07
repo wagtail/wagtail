@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -196,24 +196,6 @@ msgstr "Lisa kasutaja"
 msgid "Delete user"
 msgstr "Kustuta kasutaja"
 
-msgid "Username"
-msgstr "Kasutajanimi"
-
-msgid "Status"
-msgstr "Staatus"
-
-msgid "Last Login"
-msgstr "Viimane sisselogimine"
-
-msgid "Admin"
-msgstr "Administraator"
-
-msgid "Active"
-msgstr "Aktiivne"
-
-msgid "Inactive"
-msgstr "Mitteaktiivne"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski kasutaja ei vasta  \"<em>%(query_string)s</em>\\"
@@ -233,6 +215,24 @@ msgid ""
 msgstr ""
 "Konfigureeritud pole ühtegi kasutajat. Miks mitte <a "
 "href=\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
+
+msgid "Username"
+msgstr "Kasutajanimi"
+
+msgid "Status"
+msgstr "Staatus"
+
+msgid "Last Login"
+msgstr "Viimane sisselogimine"
+
+msgid "Admin"
+msgstr "Administraator"
+
+msgid "Active"
+msgstr "Aktiivne"
+
+msgid "Inactive"
+msgstr "Mitteaktiivne"
 
 msgid "Groups"
 msgstr "Grupid"

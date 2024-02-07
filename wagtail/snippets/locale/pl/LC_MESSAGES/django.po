@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,52 +155,11 @@ msgstr "Zastąp aktualną rewizję"
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Nowy %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Nowy"
-
 msgid "Actions"
 msgstr "Akcje"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Edycja %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippety %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Dodaj %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Zaznacz wszystkie skrawki na liście"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Jest %(counter)s dopasowanie"
-msgstr[1] "Jest %(counter)s dopasowań"
-msgstr[2] "Jest %(counter)s dopasowań"
-msgstr[3] "Jest %(counter)s dopasowań"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr ""
-"Przepraszamy, żaden %(snippet_type_name_plural)s pasuje do twojego "
-"wyszukiwania"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Żaden %(snippet_type_name_plural)s nie został stworzony. Czemu nie <a "
-"href=\"%(wagtailsnippets_create_url)s\">dodać jednego</a>?"
 
 msgid "Live version"
 msgstr "Wersja Live"
@@ -241,12 +200,6 @@ msgstr "Instancje"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Więcej opcji dla '%(title)s'"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Snippet nie mógł zostać stworzony z powodu błędów."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 
 msgid "Action"
 msgstr "Akcja"

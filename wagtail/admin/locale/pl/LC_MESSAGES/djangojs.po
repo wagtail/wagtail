@@ -1,7 +1,6 @@
 #
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2022
-# Mateusz <undefined5102@gmail.com>, 2022
 # Miłosz Miśkiewicz, 2022
 # Loic Teixeira, 2022
 # Krzysztof Jeziorny <github@jeziorny.net>, 2023
@@ -89,9 +88,6 @@ msgstr "Edytuj"
 
 msgid "Edit '%(title)s'"
 msgstr "Edytuj '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Edytuj swoje konto"
 
 msgid "Enter your comments..."
 msgstr "Dodaj komentarz…"

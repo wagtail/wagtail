@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -257,9 +257,6 @@ msgstr "páginas"
 msgid "object id"
 msgstr "id del objeto"
 
-msgid "submitted for moderation"
-msgstr "enviado para moderación"
-
 msgid "created at"
 msgstr "creado el"
 
@@ -283,9 +280,6 @@ msgstr "grupo"
 
 msgid "permission"
 msgstr "permiso"
-
-msgid "permission type"
-msgstr "tipo de permiso"
 
 msgid "group page permission"
 msgstr "grupo de permisos de página"

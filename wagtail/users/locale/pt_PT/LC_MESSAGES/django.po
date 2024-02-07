@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -296,34 +296,6 @@ msgstr "Apagar utilizador"
 msgid "Select all users in listing"
 msgstr "Selecionar todos os utilizadores da listagem"
 
-msgid "Username"
-msgstr "Utilizador"
-
-msgid "Access level"
-msgstr "Level de acesso"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Last Login"
-msgstr "Último início de sessão"
-
-msgid "Admin"
-msgstr "Administração"
-
-msgid "Active"
-msgstr "Ativo"
-
-msgid "Inactive"
-msgstr "Inativo"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrado %(counter)s resultado"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -344,6 +316,27 @@ msgid ""
 msgstr ""
 "Ainda não existem utilizadores configurados. Que tal <a "
 "href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+msgid "Username"
+msgstr "Utilizador"
+
+msgid "Access level"
+msgstr "Level de acesso"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Last Login"
+msgstr "Último início de sessão"
+
+msgid "Admin"
+msgstr "Administração"
+
+msgid "Active"
+msgstr "Ativo"
+
+msgid "Inactive"
+msgstr "Inativo"
 
 #, python-format
 msgid "user %(id)s (deleted)"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,9 +30,6 @@ msgstr "výchozí"
 msgid "Site"
 msgstr "Web"
 
-msgid "Editing"
-msgstr "Edituje se"
-
 msgid "Saving…"
 msgstr "Ukládání…"
 
@@ -45,9 +42,9 @@ msgstr "Nastavení"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Nastavení nebylo možné načíst protože není definovaný žádný web."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s aktualizováno."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."

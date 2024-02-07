@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -360,9 +360,6 @@ msgstr "Fájl nem található"
 msgid "Usage"
 msgstr "Használat"
 
-msgid "Images"
-msgstr "Képek"
-
 msgid "Sort by"
 msgstr "Sorrend"
 
@@ -377,18 +374,6 @@ msgstr "Alapállapot"
 
 msgid "Select all images in listing"
 msgstr "Összes kép kiválasztása a listában"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
-msgid "Select image"
-msgstr "Kép kiválasztása"
-
-msgid "pixels"
-msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -412,21 +397,11 @@ msgstr ""
 "Még nem töltött fel képet. Miért nem <a "
 "href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
-msgid "Generating URL"
-msgstr "URL generálása"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Előnézet"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Kérjük vegye figyelembe, hogy a képernyőnél nagyobb méretű képek kisebbnek "
-"látszanak az előnézetben, hogy kiférjenek."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Több kép hozzáadása"
@@ -550,8 +525,8 @@ msgstr "Fájlméret: (növekvő)"
 msgid "File size: (high to low)"
 msgstr "Fájlméret: (csökkenő)"
 
-msgid "Search images"
-msgstr "Képek keresése"
+msgid "Images"
+msgstr "Képek"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

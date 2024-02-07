@@ -6,8 +6,8 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrei Satsevich, 2023
 # Andrei Satsevich, 2023
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -340,35 +340,6 @@ msgstr "Удалить пользователя"
 msgid "Select all users in listing"
 msgstr "Выбрать всех пользователей в списке"
 
-msgid "Username"
-msgstr "Имя пользователя"
-
-msgid "Access level"
-msgstr "Уровень доступа"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Last Login"
-msgstr "Последний вход"
-
-msgid "Admin"
-msgstr "Администратор"
-
-msgid "Active"
-msgstr "Активный"
-
-msgid "Inactive"
-msgstr "Неактивный"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Есть %(counter)s совпадение"
-msgstr[1] "Есть %(counter)s совпадений"
-msgstr[2] "Есть %(counter)s совпадений"
-msgstr[3] "Есть %(counter)s совпадений"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -390,6 +361,27 @@ msgid ""
 msgstr ""
 "Пользователи не сконфигурированы. <a "
 "href=\"%(wagtailusers_add_url)s\">Добавить пользователя</a>."
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Access level"
+msgstr "Уровень доступа"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Last Login"
+msgstr "Последний вход"
+
+msgid "Admin"
+msgstr "Администратор"
+
+msgid "Active"
+msgstr "Активный"
+
+msgid "Inactive"
+msgstr "Неактивный"
 
 #, python-format
 msgid "user %(id)s (deleted)"

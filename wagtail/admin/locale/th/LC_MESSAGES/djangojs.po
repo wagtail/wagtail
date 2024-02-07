@@ -2,10 +2,11 @@
 # Translators:
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2022
 # Loic Teixeira, 2022
+# Siramol Khunchai, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/torchbox/teams/8009/th/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: th\n"
@@ -16,6 +17,9 @@ msgstr "ข้อความอย่างอื่น"
 
 msgid "Close"
 msgstr "ปิด"
+
+msgid "Collapse all"
+msgstr "ย่อทั้งหมด"
 
 msgid "Dashboard"
 msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
@@ -29,8 +33,8 @@ msgstr "แก้ไข"
 msgid "Edit '%(title)s'"
 msgstr "แก้ไข'%(title)s'"
 
-msgid "Edit your account"
-msgstr "แก้ไขบัญชีของคุณ"
+msgid "Expand all"
+msgstr "ขยายทั้งหมด"
 
 msgid "Horizontal line"
 msgstr "บรรทัดแนวนอน"
@@ -61,6 +65,9 @@ msgstr "เซฟ,เก็บข้อมูล"
 
 msgid "Search"
 msgstr "ค้นหา"
+
+msgid "Search options…"
+msgstr "ค้นหาตัวเลือก..."
 
 msgid "See all"
 msgstr "เปิดทั้งหมด"

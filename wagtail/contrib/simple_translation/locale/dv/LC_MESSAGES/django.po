@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (https://app.transifex.com/torchbox/teams/8009/dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "ވެގްޓޭލް އާއްމު ތަރުޖަމާ"
+
+msgid "Select all"
+msgstr "ހުރިހާއެއްޗެއް ސެލެކްޓް ކޮށްލާ"
+
+msgid "Locales"
+msgstr "ބަސްތައް"
+
+msgid "All child pages will be created."
+msgstr "ހުރިހާ ޗައިލްޑް ޕޭޖްތަކެއް ވެސް ހެދޭނެ"
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "ދަށު ގަސް ހިމަނާ ( %(descendant_count)s ސަފްހާ)"
+msgstr[1] "ދަށު ގަސް ހިމަނާ (%(descendant_count)sސަފްހާތައް)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "އެއް ބެލެނިވެރި ސަފްހާ ތަރުޖަމާ ކުރެވިފައި ނުވާތީ އެއް locales ވަނީ ޑިސޭބަލް ކޮށްލާފައި"
+msgstr[1] "ބައެއް ބެލެނިވެރި ސަފްހާތައް ތަރުޖަމާ ކުރެވިފައި ނުވާތީ ބަައެއް ބަސްތައް ވަނީ ޑިސޭބަލް ކޮށްލާފައި"
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "ބެލެނިވެރި ޞަފްޙާ ތަރުޖަމާ ކުރޭ"
+msgstr[1] "ބެލެނިވެރި ޞަފްޙާތައް ތަރުޖަމާ ކުރޭ"
+
+msgid "Submit"
+msgstr "ހުށައަޅާ"
+
+msgid "Translate"
+msgstr "ތަރުޖަމާ ކުރޭ"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s ބަސްތައް"
+
+msgid "Translate page"
+msgstr "ސަފްހާ ތަރުޖަމާ ކުރޭ"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "ސަފުހާ '%(page_title)s' ވަނީ %(locales)s އިން ކާމިޔާބުކަމާއެކީ އުފެއްދިފައި"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "%(model_name)sތަރުޖަމާ ކުރޭ"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "ކާމިޔާބުކަމާއެކީ %(model_name)s%(object)s އަށް %(locales)s އުފެއްދިއްޖެ "
+
+msgid "Translate this page"
+msgstr "މި ޞަފްޙާ ތަރުޖަމާ ކުރޭ"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr " '%(title)s' ތަރުޖަމާ ކުރޭ"

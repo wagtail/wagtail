@@ -31,9 +31,6 @@ msgstr "Rediger"
 msgid "Edit '%(title)s'"
 msgstr "Rediger '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Rediger din konto"
-
 msgid "Horizontal line"
 msgstr "Horisontal linje"
 
