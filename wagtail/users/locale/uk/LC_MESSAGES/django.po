@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,7 +27,7 @@ msgstr ""
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Wagtail users"
-msgstr "Користувачі Wagtail "
+msgstr "Користувачі Wagtail"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Може містити лише літери, цифри та символи @/./+/-/_."
@@ -274,32 +274,6 @@ msgstr "Видалити користувача"
 msgid "Select all users in listing"
 msgstr "Обрати всіх користувачів у списку"
 
-msgid "Username"
-msgstr "Ім'я користувача"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Last Login"
-msgstr "Останній логін"
-
-msgid "Admin"
-msgstr "Адмін"
-
-msgid "Active"
-msgstr "Активний"
-
-msgid "Inactive"
-msgstr "Неактивний"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Знайдено %(counter)s співпадіння"
-msgstr[1] "Знайдено %(counter)s співпадінь"
-msgstr[2] "Знайдено %(counter)s співпадінь"
-msgstr[3] "Знайдено %(counter)s співпадінь"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден користувач не відповідає \"<em>%(query_string)s</em>\""
@@ -319,6 +293,27 @@ msgid ""
 msgstr ""
 "Немає сконфігурованих користувачів. Чому б не <a "
 "href=\"%(wagtailusers_add_url)s\">додати одного</a>?"
+
+msgid "Username"
+msgstr "Ім'я користувача"
+
+msgid "Access level"
+msgstr "Рівень доступу"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Last Login"
+msgstr "Останній логін"
+
+msgid "Admin"
+msgstr "Адмін"
+
+msgid "Active"
+msgstr "Активний"
+
+msgid "Inactive"
+msgstr "Неактивний"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -345,6 +340,9 @@ msgstr[0] "%(num_parent_objects)dкористувач був видалений"
 msgstr[1] "%(num_parent_objects)d користувачів було видалено"
 msgstr[2] "%(num_parent_objects)d користувачів було видалено"
 msgstr[3] "%(num_parent_objects)d користувачів було видалено"
+
+msgid "Mark as active"
+msgstr "Позначити активним"
 
 msgid "Change the active state for selected users"
 msgstr "Змінити активний стан для вибраних користувачів"
@@ -394,6 +392,10 @@ msgstr "Додати користувача"
 
 msgid "Users"
 msgstr "Користувачі"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Користувача '%(object)s' створено"
 
 #, python-format
 msgid "User '%(object)s' updated."

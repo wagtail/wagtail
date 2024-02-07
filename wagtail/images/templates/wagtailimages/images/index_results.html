@@ -1,0 +1,38 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% load i18n l10n %}
+
+{% block results %}
+    <div class="nice-padding">
+        <ul class="listing horiz images">
+            {% for image in object_list %}
+                <li>
+                    {% fragment as title_id %}image_{{ image.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
+                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" instance=image aria_describedby=title_id only %}
+                    <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
+                        <figure>
+                            {% include "wagtailimages/images/results_image.html" %}
+                            <figcaption id="{{ title_id }}">
+                                {{ image.title|ellipsistrim:60 }}
+                            </figcaption>
+                        </figure>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block no_results_message %}
+    {% if is_searching %}
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+    {% else %}
+        {% with wagtailimages_add_image_url=add_url %}
+            {% if current_collection %}
+                <p>{% blocktrans trimmed %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+            {% else %}
+                <p>{% blocktrans trimmed %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}

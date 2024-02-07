@@ -270,7 +270,7 @@ class Index:
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
-        item.index_entries.using(self.db_alias).delete()
+        item.index_entries.all()._raw_delete(using=self.db_alias)
 
     def __str__(self):
         return self.name
@@ -471,7 +471,6 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         return self.get_index_vectors()
 
     def _build_rank_expression(self, vectors, config):
-
         # TODO: Come up with my own expression class that compiles down to bm25
 
         rank_expressions = [
@@ -508,7 +507,9 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         vectors = self.get_search_vectors()
         rank_expression = self._build_rank_expression(vectors, config)
 
-        combined_vector = vectors[0][
+        combined_vector = vectors[
+            0
+        ][
             0
         ]  # We create a combined vector for the search results queryset. We start with the first vector and build from there.
         for vector, boost in vectors[1:]:
@@ -684,7 +685,7 @@ class SQLiteSearchBackend(BaseSearchBackend):
             for connection in connections.all()
             if connection.vendor == "sqlite"
         ]:
-            IndexEntry._default_manager.using(connection.alias).delete()
+            IndexEntry._default_manager.all()._raw_delete(using=connection.alias)
 
     def add_type(self, model):
         pass  # Not needed.

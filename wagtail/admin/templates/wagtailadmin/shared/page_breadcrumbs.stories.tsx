@@ -9,6 +9,7 @@ import template from './page_breadcrumbs.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Page Breadcrumbs',
   parameters: { docs },
   argTypes: { ...argTypes },
 };

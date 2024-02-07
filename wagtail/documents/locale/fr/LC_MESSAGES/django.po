@@ -16,13 +16,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -240,30 +241,8 @@ msgstr "Fichier non trouvé"
 msgid "Usage"
 msgstr "Utilisation"
 
-msgid "Documents"
-msgstr "Documents"
-
 msgid "Select all documents in listing"
 msgstr "Sélectionner tous les documents dans la liste"
-
-msgid "Title"
-msgstr "Titre"
-
-msgid "File"
-msgstr "Fichier"
-
-msgid "Created"
-msgstr "Créé(e)"
-
-msgid "Select document"
-msgstr "Sélectionner le document"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -287,23 +266,20 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Document <span class=\"visuallyhidden\">créé dans "
-"%(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> document <span class=\"w-sr-only\">créé dans "
+"%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">créés dans "
-"%(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> documents <span class=\"w-sr-only\">créés dans "
+"%(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">créés dans "
-"%(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> documents <span class=\"w-sr-only\">créés dans "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Ajouter plusieurs documents"
@@ -398,6 +374,12 @@ msgstr[0] "%(num_parent_objects)d document a été supprimé"
 msgstr[1] "%(num_parent_objects)d documents ont été supprimés"
 msgstr[2] "%(num_parent_objects)d documents ont été supprimés"
 
+msgid "File"
+msgstr "Fichier"
+
+msgid "Created"
+msgstr "Créé(e)"
+
 msgid "Choose a document"
 msgstr "Choisir un document"
 
@@ -407,8 +389,11 @@ msgstr "Choisir un autre document"
 msgid "Edit this document"
 msgstr "Modifier ce document"
 
-msgid "Search documents"
-msgstr "Rechercher des documents"
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Title"
+msgstr "Titre"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

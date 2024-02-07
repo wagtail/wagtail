@@ -202,6 +202,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: get_parent
 
+    .. automethod:: get_children
+
     .. automethod:: get_ancestors
 
     .. automethod:: get_descendants
@@ -217,6 +219,36 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: has_translation
 
     .. automethod:: copy_for_translation
+
+    .. method:: get_admin_default_ordering
+
+       Returns the default sort order for child pages to be sorted in viewing the admin pages index and not seeing search results.
+
+       The following sort orders are available:
+
+       - ``'content_type'``
+       - ``'-content_type'``
+       - ``'latest_revision_created_at'``
+       - ``'-latest_revision_created_at'``
+       - ``'live'``
+       - ``'-live'``
+       - ``'ord'``
+       - ``'title'``
+       - ``'-title'``
+
+       For example to make a page sort by title for all the child pages only if there are < 20 pages.
+
+       .. code-block:: python
+
+           class BreadsIndexPage(Page):
+               def get_admin_default_ordering(self):
+                   if Page.objects.child_of(self).count() < 20:
+                       return 'title'
+                   return self.admin_default_ordering
+
+    .. attribute:: admin_default_ordering
+
+        An attribute version for the method ``get_admin_default_ordering()``, defaults to ``'-latest_revision_created_at'``.
 
     .. autoattribute:: localized
 
@@ -279,7 +311,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: is_creatable
 
-        Controls if this page can be created through the Wagtail administration. Defaults to ``True``, and is not inherited by subclasses. This is useful when using :ref:`multi-table inheritance <django:multi-table-inheritance>`, to stop the base model from being created as an actual page.
+        Controls if this page can be created through the Wagtail administration. Defaults to ``True``, and is not inherited by subclasses. This is useful when using :ref:`multi-table inheritance <django:meta-and-multi-table-inheritance>`, to stop the base model from being created as an actual page.
 
     .. attribute:: max_count
 
@@ -475,7 +507,7 @@ The `translation_key` and `locale` fields have a unique key constraint to preven
 ```{note}
 This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
 
-If your model defines a [`Meta` class](django:ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
+If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
 ```
 
 ```{versionchanged} 6.0

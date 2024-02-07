@@ -12,7 +12,7 @@ from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.log_actions import LogContext
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 
 
 def permission_denied(request):
@@ -107,7 +107,7 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    return PagePermissionPolicy().user_has_any_permission(
+    return page_permission_policy.user_has_any_permission(
         user, {"add", "change", "publish", "bulk_delete", "lock", "unlock"}
     )
 
@@ -120,14 +120,15 @@ def reject_request(request):
     # wagtail.admin.auth, specifically where custom user models are involved
     from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 
-    return auth_redirect_to_login(
-        request.get_full_path(), login_url=reverse("wagtailadmin_login")
+    login_url = getattr(
+        settings, "WAGTAILADMIN_LOGIN_URL", reverse("wagtailadmin_login")
     )
+
+    return auth_redirect_to_login(request.get_full_path(), login_url=login_url)
 
 
 def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
-
         user = request.user
 
         if user.is_anonymous:

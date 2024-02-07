@@ -33,11 +33,12 @@
     <tbody>
         {% for user in users %}
             <tr>
-                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
-                <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
+                {% fragment as title_id %}user_{{ user.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" instance=user aria_describedby=title_id only %}
+                <td class="title" valign="top">
                     <div class="title-wrapper">
                         {% avatar user=user size="small" %}
-                        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
+                        <a id="{{ title_id }}" href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                     </div>
                     <ul class="actions">
                         {% user_listing_buttons user %}

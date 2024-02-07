@@ -68,11 +68,10 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
             )
         )
 
-        # Should use the latest draft title in the header subtitle
-        self.assertContains(
-            response,
-            '<span class="w-header__subtitle">Draft-enabled Bar, In Draft</span>',
-        )
+        soup = self.get_soup(response.content)
+        sublabel = soup.select_one(".w-breadcrumbs__sublabel")
+        # Should use the latest draft title in the breadcrumbs sublabel
+        self.assertEqual(sublabel.get_text(strip=True), "Draft-enabled Bar, In Draft")
 
     def test_usage(self):
         # resave so that usage count gets updated

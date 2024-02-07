@@ -5,7 +5,11 @@ from wagtail.documents.views import documents, multiple
 app_name = "wagtaildocs"
 urlpatterns = [
     path("", documents.IndexView.as_view(), name="index"),
-    path("results/", documents.ListingResultsView.as_view(), name="listing_results"),
+    path(
+        "results/",
+        documents.IndexView.as_view(results_only=True),
+        name="index_results",
+    ),
     path("add/", documents.add, name="add"),
     path("edit/<int:document_id>/", documents.edit, name="edit"),
     path("delete/<int:document_id>/", documents.DeleteView.as_view(), name="delete"),

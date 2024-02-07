@@ -336,9 +336,12 @@ class ReferenceIndex(models.Model):
                         # select the appropriate superclass if necessary, before converting back to a
                         # content type.
                         model = ContentType.objects.get_for_id(ct_value).model_class()
-                        yield cls._get_base_content_type(model).id, str(
-                            fk_value
-                        ), field.name, field.name
+                        yield (
+                            cls._get_base_content_type(model).id,
+                            str(fk_value),
+                            field.name,
+                            field.name,
+                        )
 
                     continue
 
@@ -347,9 +350,12 @@ class ReferenceIndex(models.Model):
 
                 value = field.value_from_object(object)
                 if value is not None:
-                    yield cls._get_base_content_type(field.related_model).id, str(
-                        value
-                    ), field.name, field.name
+                    yield (
+                        cls._get_base_content_type(field.related_model).id,
+                        str(value),
+                        field.name,
+                        field.name,
+                    )
 
             if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
@@ -483,7 +489,7 @@ class ReferenceIndex(models.Model):
         deleted_reference_ids = []
         # Look at the reference record and the supporting content_type / id for each existing
         # reference in the database
-        for (reference_data, (content_type_id, id)) in existing_references.items():
+        for reference_data, (content_type_id, id) in existing_references.items():
             if reference_data in references:
                 # Do not delete this reference, as it is still present in the new set
                 continue

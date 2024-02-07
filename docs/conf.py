@@ -77,7 +77,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Wagtail Documentation"
-copyright = f"{datetime.now().year}, Torchbox and contributors"
+copyright = f"{datetime.now().year}, Torchbox and contributors. BSD license"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -137,6 +137,12 @@ intersphinx_mapping = {
         "https://docs.djangoproject.com/en/stable/",
         "https://docs.djangoproject.com/en/stable/_objects/",
     )
+}
+
+myst_url_schemes = {
+    "https": None,
+    "http": None,
+    "mailto": None,
 }
 
 # -- Options for HTML output ----------------------------------------------

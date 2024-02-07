@@ -1,17 +1,21 @@
 import { Application } from '@hotwired/stimulus';
 import { DropdownController } from './DropdownController';
 
+jest.useFakeTimers();
+
 describe('DropdownController', () => {
   let application;
 
   beforeEach(async () => {
     document.body.innerHTML = `
-<div data-controller="w-dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
-  <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
-  <div data-w-dropdown-target="content">
-    <a href="/">Option</a>
+<section>
+  <div data-controller="w-dropdown" data-w-dropdown-theme-value="dropdown" data-action="custom:show->w-dropdown#show custom:hide->w-dropdown#hide">
+    <button id="toggle" type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+    <div data-w-dropdown-target="content">
+      <a href="/">Option</a>
+    </div>
   </div>
-</div>`;
+</section>`;
 
     application = Application.start();
     application.register('w-dropdown', DropdownController);
@@ -33,6 +37,7 @@ describe('DropdownController', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
+    document.body.innerHTML = '';
     application?.stop();
   });
 
@@ -50,6 +55,11 @@ describe('DropdownController', () => {
     expect(expandedContent).toHaveLength(1);
 
     expect(expandedContent[0].innerHTML).toContain('<a href="/">Option</a>');
+  });
+
+  it('supports providing a theme to Tippy.js', () => {
+    const toggle = document.querySelector('[data-w-dropdown-target="toggle"]');
+    expect(toggle._tippy.props.theme).toBe('dropdown');
   });
 
   it('triggers custom event on activation', async () => {
@@ -74,6 +84,28 @@ describe('DropdownController', () => {
         target: dropdownElement,
       }),
     );
+  });
+
+  it("should ensure the tooltip closes on 'esc' keydown", async () => {
+    const toggle = document.getElementById('toggle');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    toggle.dispatchEvent(new Event('click'));
+
+    await jest.runAllTimersAsync();
+
+    // check the tooltip is open
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+    // now press the escape key
+    document
+      .querySelector('section')
+      .dispatchEvent(
+        new KeyboardEvent('keydown', { bubbles: true, key: 'Escape' }),
+      );
+
+    await Promise.resolve();
+
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('should support methods to show and hide the dropdown', async () => {

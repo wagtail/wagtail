@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,35 +30,35 @@ msgstr ""
 msgid "Add Comment"
 msgstr ""
 
-#: blocks/list_block.py:207 blocks/stream_block.py:176
-#: blocks/stream_block.py:206
+#: blocks/list_block.py:207 blocks/stream_block.py:177
+#: blocks/stream_block.py:207
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
 msgstr ""
 
-#: blocks/list_block.py:215 blocks/stream_block.py:186
-#: blocks/stream_block.py:216
+#: blocks/list_block.py:215 blocks/stream_block.py:187
+#: blocks/stream_block.py:217
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
-#: blocks/list_block.py:411 blocks/stream_block.py:780
+#: blocks/list_block.py:412 blocks/stream_block.py:783
 msgid "Move up"
 msgstr ""
 
-#: blocks/list_block.py:412 blocks/stream_block.py:781
+#: blocks/list_block.py:413 blocks/stream_block.py:784
 msgid "Move down"
 msgstr ""
 
-#: blocks/list_block.py:413 blocks/stream_block.py:782
+#: blocks/list_block.py:414 blocks/stream_block.py:785
 msgid "Duplicate"
 msgstr ""
 
-#: blocks/list_block.py:414 blocks/stream_block.py:783 wagtail_hooks.py:115
+#: blocks/list_block.py:415 blocks/stream_block.py:786 wagtail_hooks.py:115
 msgid "Delete"
 msgstr ""
 
-#: blocks/list_block.py:415 blocks/stream_block.py:784 models/__init__.py:1105
+#: blocks/list_block.py:416 blocks/stream_block.py:787 models/__init__.py:1114
 msgid "Add"
 msgstr ""
 
@@ -71,7 +71,7 @@ msgstr ""
 msgid "This block has no options."
 msgstr ""
 
-#: blocks/stream_block.py:181
+#: blocks/stream_block.py:182
 msgid "This field is required."
 msgstr ""
 
@@ -103,604 +103,596 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: locks.py:51 wagtail_hooks.py:128
+#: locks.py:48 wagtail_hooks.py:128
 msgid "Locked"
 msgstr ""
 
-#: locks.py:58
+#: locks.py:55
 #, python-format
 msgid "No one can make changes while the %(model_name)s is locked"
 msgstr ""
 
-#: locks.py:105
+#: locks.py:92
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
 msgstr ""
 
-#: locks.py:114
+#: locks.py:101
 #, python-brace-format
 msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr ""
 
-#: locks.py:122
+#: locks.py:109
 #, python-brace-format
 msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
 msgstr ""
 
-#: locks.py:132
+#: locks.py:119
 #, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr ""
 
-#: locks.py:138
+#: locks.py:125
 msgid "Locked by you"
 msgstr ""
 
-#: locks.py:140
+#: locks.py:127
 msgid "Locked by another user"
 msgstr ""
 
-#: locks.py:146
+#: locks.py:133
 #, python-format
 msgid "Only you can make changes while the %(model_name)s is locked"
 msgstr ""
 
-#: locks.py:151
+#: locks.py:138
 #, python-format
 msgid "Only %(user)s can make changes while the %(model_name)s is locked"
 msgstr ""
 
-#: locks.py:181
+#: locks.py:168
 #, python-format
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr ""
 
-#: locks.py:188
+#: locks.py:175
 #, python-brace-format
 msgid ""
 "This {model_name} is awaiting <b>'{task_name}'</b> in the "
 "<b>'{workflow_name}'</b> workflow."
 msgstr ""
 
-#: locks.py:199
+#: locks.py:186
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr ""
 
-#: locks.py:212 wagtail_hooks.py:129
+#: locks.py:199 wagtail_hooks.py:129
 msgid "Unlocked"
 msgstr ""
 
-#: locks.py:213
+#: locks.py:200
 msgid "Locked by workflow"
 msgstr ""
 
-#: locks.py:219
+#: locks.py:206
 #, python-format
 msgid ""
 "Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
 "from editing"
 msgstr ""
 
-#: locks.py:224
+#: locks.py:211
 #, python-format
 msgid "Only reviewers can edit and approve the %(model_name)s"
 msgstr ""
 
-#: locks.py:264
+#: locks.py:251
 #, python-brace-format
 msgid ""
 "{model_name} '{title}' is locked and has been scheduled to go live at "
 "{datetime}"
 msgstr ""
 
-#: locks.py:273
+#: locks.py:260
 msgid "Locked by schedule"
 msgstr ""
 
-#: locks.py:276
+#: locks.py:263
 msgid "Currently locked and will go live on the scheduled date"
 msgstr ""
 
-#: models/__init__.py:260
+#: models/__init__.py:272
 msgid "latest revision"
 msgstr ""
 
-#: models/__init__.py:446 models/__init__.py:524 models/__init__.py:1065
+#: models/__init__.py:455 models/__init__.py:533 models/__init__.py:1074
 msgid "live"
 msgstr ""
 
-#: models/__init__.py:448
+#: models/__init__.py:457
 msgid "has unpublished changes"
 msgstr ""
 
-#: models/__init__.py:452
+#: models/__init__.py:461
 msgid "first published at"
 msgstr ""
 
-#: models/__init__.py:455
+#: models/__init__.py:464
 msgid "last published at"
 msgstr ""
 
-#: models/__init__.py:460
+#: models/__init__.py:469
 msgid "live revision"
 msgstr ""
 
-#: models/__init__.py:468
+#: models/__init__.py:477
 msgid "go live date/time"
 msgstr ""
 
-#: models/__init__.py:471
+#: models/__init__.py:480
 msgid "expiry date/time"
 msgstr ""
 
-#: models/__init__.py:474 models/__init__.py:513 models/__init__.py:1050
+#: models/__init__.py:483 models/__init__.py:522 models/__init__.py:1059
 msgid "expired"
 msgstr ""
 
-#: models/__init__.py:515 models/__init__.py:1052
+#: models/__init__.py:524 models/__init__.py:1061
 msgid "scheduled"
 msgstr ""
 
-#: models/__init__.py:517 models/__init__.py:1056
+#: models/__init__.py:526 models/__init__.py:1065
 msgid "draft"
 msgstr ""
 
-#: models/__init__.py:520 models/__init__.py:1059
+#: models/__init__.py:529 models/__init__.py:1068
 msgid "live + scheduled"
 msgstr ""
 
-#: models/__init__.py:522 models/__init__.py:1063
+#: models/__init__.py:531 models/__init__.py:1072
 msgid "live + draft"
 msgstr ""
 
-#: models/__init__.py:759
+#: models/__init__.py:768
 msgid "Default"
 msgstr ""
 
-#: models/__init__.py:828
+#: models/__init__.py:837
 msgid "locked"
 msgstr ""
 
-#: models/__init__.py:831
+#: models/__init__.py:840
 msgid "locked at"
 msgstr ""
 
-#: models/__init__.py:835
+#: models/__init__.py:844
 msgid "locked by"
 msgstr ""
 
-#: models/__init__.py:1054
+#: models/__init__.py:1063
 msgid "in moderation"
 msgstr ""
 
-#: models/__init__.py:1061
+#: models/__init__.py:1070
 msgid "live + in moderation"
 msgstr ""
 
-#: models/__init__.py:1105
+#: models/__init__.py:1114
 msgid "Add/edit pages you own"
 msgstr ""
 
-#: models/__init__.py:1106
+#: models/__init__.py:1115
 msgid "Bulk delete"
 msgstr ""
 
-#: models/__init__.py:1106
+#: models/__init__.py:1115
 msgid "Delete pages with children"
 msgstr ""
 
-#: models/__init__.py:1107 wagtail_hooks.py:114
+#: models/__init__.py:1116 wagtail_hooks.py:114
 msgid "Edit"
 msgstr ""
 
-#: models/__init__.py:1107
+#: models/__init__.py:1116
 msgid "Edit any page"
 msgstr ""
 
-#: models/__init__.py:1108 wagtail_hooks.py:128
+#: models/__init__.py:1117 wagtail_hooks.py:128
 msgid "Lock"
 msgstr ""
 
-#: models/__init__.py:1108
+#: models/__init__.py:1117
 msgid "Lock/unlock pages you've locked"
 msgstr ""
 
-#: models/__init__.py:1109 wagtail_hooks.py:116
+#: models/__init__.py:1118 wagtail_hooks.py:116
 msgid "Publish"
 msgstr ""
 
-#: models/__init__.py:1109
+#: models/__init__.py:1118
 msgid "Publish any page"
 msgstr ""
 
-#: models/__init__.py:1110 wagtail_hooks.py:129
+#: models/__init__.py:1119 wagtail_hooks.py:129
 msgid "Unlock"
 msgstr ""
 
-#: models/__init__.py:1110
+#: models/__init__.py:1119
 msgid "Unlock any page"
 msgstr ""
 
-#: models/__init__.py:1122
+#: models/__init__.py:1131
 msgid "title"
 msgstr ""
 
-#: models/__init__.py:1124
+#: models/__init__.py:1133
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: models/__init__.py:1129
+#: models/__init__.py:1138
 msgid "slug"
 msgstr ""
 
-#: models/__init__.py:1133
+#: models/__init__.py:1142
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: models/__init__.py:1138 models/__init__.py:3594 models/__init__.py:3644
-#: models/__init__.py:4478 models/audit_log.py:195
+#: models/__init__.py:1147 models/__init__.py:3331 models/__init__.py:3381
+#: models/__init__.py:4207 models/audit_log.py:193
 msgid "content type"
 msgstr ""
 
-#: models/__init__.py:1143
+#: models/__init__.py:1152
 msgid "URL path"
 msgstr ""
 
-#: models/__init__.py:1146
+#: models/__init__.py:1155
 msgid "owner"
 msgstr ""
 
-#: models/__init__.py:1156
+#: models/__init__.py:1165
 msgid "title tag"
 msgstr ""
 
-#: models/__init__.py:1160
+#: models/__init__.py:1169
 msgid ""
 "The name of the page displayed on search engine results as the clickable "
 "headline."
 msgstr ""
 
-#: models/__init__.py:1166
+#: models/__init__.py:1175
 msgid "show in menus"
 msgstr ""
 
-#: models/__init__.py:1169
+#: models/__init__.py:1178
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: models/__init__.py:1173
+#: models/__init__.py:1182
 msgid "meta description"
 msgstr ""
 
-#: models/__init__.py:1176
+#: models/__init__.py:1185
 msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
 msgstr ""
 
-#: models/__init__.py:1181
+#: models/__init__.py:1190
 msgid "latest revision created at"
 msgstr ""
 
-#: models/__init__.py:1398
+#: models/__init__.py:1417
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
 "'%(parent_url_path)s'"
 msgstr ""
 
-#: models/__init__.py:2670 models/__init__.py:3011 models/__init__.py:3486
-#: models/__init__.py:3553
+#: models/__init__.py:2690 models/__init__.py:2923 models/__init__.py:3223
+#: models/__init__.py:3290
 msgid "page"
 msgstr ""
 
-#: models/__init__.py:2671
+#: models/__init__.py:2691
 msgid "pages"
 msgstr ""
 
-#: models/__init__.py:2741 models/__init__.py:4013
+#: models/__init__.py:2747 models/__init__.py:3742
 #: models/reference_index.py:110 models/reference_index.py:120
 msgid "object id"
 msgstr ""
 
-#: models/__init__.py:2745
-msgid "submitted for moderation"
-msgstr ""
-
-#: models/__init__.py:2747 models/__init__.py:4032
+#: models/__init__.py:2749 models/__init__.py:3761
 msgid "created at"
 msgstr ""
 
-#: models/__init__.py:2750
+#: models/__init__.py:2752
 msgid "user"
 msgstr ""
 
-#: models/__init__.py:2758
+#: models/__init__.py:2760
 msgid "content JSON"
 msgstr ""
 
-#: models/__init__.py:2761
+#: models/__init__.py:2763
 msgid "approved go live at"
 msgstr ""
 
-#: models/__init__.py:2942 models/__init__.py:4448
+#: models/__init__.py:2886 models/__init__.py:4177
 msgid "revision"
 msgstr ""
 
-#: models/__init__.py:2943
+#: models/__init__.py:2887
 msgid "revisions"
 msgstr ""
 
-#: models/__init__.py:3005 models/collections.py:159
+#: models/__init__.py:2917 models/collections.py:159
 msgid "group"
 msgstr ""
 
-#: models/__init__.py:3017 models/collections.py:170
+#: models/__init__.py:2929 models/collections.py:170
 msgid "permission"
 msgstr ""
 
-#: models/__init__.py:3023
-msgid "permission type"
-msgstr ""
-
-#: models/__init__.py:3050
+#: models/__init__.py:2942
 msgid "group page permission"
 msgstr ""
 
-#: models/__init__.py:3051
+#: models/__init__.py:2943
 msgid "group page permissions"
 msgstr ""
 
-#: models/__init__.py:3494
+#: models/__init__.py:3231
 msgid "page view restriction"
 msgstr ""
 
-#: models/__init__.py:3495
+#: models/__init__.py:3232
 msgid "page view restrictions"
 msgstr ""
 
-#: models/__init__.py:3561 models/__init__.py:3602 models/__init__.py:3881
-#: models/__init__.py:4023
+#: models/__init__.py:3298 models/__init__.py:3339 models/__init__.py:3610
+#: models/__init__.py:3752
 msgid "workflow"
 msgstr ""
 
-#: models/__init__.py:3586
+#: models/__init__.py:3323
 msgid "workflow page"
 msgstr ""
 
-#: models/__init__.py:3587
+#: models/__init__.py:3324
 msgid "workflow pages"
 msgstr ""
 
-#: models/__init__.py:3615
+#: models/__init__.py:3352
 msgid "workflow_tasks"
 msgstr ""
 
-#: models/__init__.py:3621 models/__init__.py:3785 models/__init__.py:4454
+#: models/__init__.py:3358 models/__init__.py:3514 models/__init__.py:4183
 msgid "task"
 msgstr ""
 
-#: models/__init__.py:3628
+#: models/__init__.py:3365
 msgid "workflow task order"
 msgstr ""
 
-#: models/__init__.py:3629
+#: models/__init__.py:3366
 msgid "workflow task orders"
 msgstr ""
 
-#: models/__init__.py:3641 models/__init__.py:3795 models/collections.py:56
+#: models/__init__.py:3378 models/__init__.py:3524 models/collections.py:56
 msgid "name"
 msgstr ""
 
-#: models/__init__.py:3649 models/__init__.py:3797
+#: models/__init__.py:3386 models/__init__.py:3526
 msgid "active"
 msgstr ""
 
-#: models/__init__.py:3652
+#: models/__init__.py:3389
 msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
 
-#: models/__init__.py:3786
+#: models/__init__.py:3515
 msgid "tasks"
 msgstr ""
 
-#: models/__init__.py:3800
+#: models/__init__.py:3529
 msgid ""
 "Active workflows can be added to pages/snippets. Deactivating a workflow "
 "does not remove it from existing pages/snippets."
 msgstr ""
 
-#: models/__init__.py:3882
+#: models/__init__.py:3611
 msgid "workflows"
 msgstr ""
 
-#: models/__init__.py:3888 models/view_restrictions.py:29
+#: models/__init__.py:3617 models/view_restrictions.py:29
 msgid "groups"
 msgstr ""
 
-#: models/__init__.py:3890
+#: models/__init__.py:3619
 msgid ""
 "Pages/snippets at this step in a workflow will be moderated or approved by "
 "these groups of users"
 msgstr ""
 
-#: models/__init__.py:3936
+#: models/__init__.py:3665
 msgid "Request changes"
 msgstr ""
 
-#: models/__init__.py:3937 wagtail_hooks.py:130
+#: models/__init__.py:3666 wagtail_hooks.py:132
 msgid "Approve"
 msgstr ""
 
-#: models/__init__.py:3938
+#: models/__init__.py:3667
 msgid "Approve with comment"
 msgstr ""
 
-#: models/__init__.py:3953
+#: models/__init__.py:3682
 msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr ""
 
-#: models/__init__.py:3956
+#: models/__init__.py:3685
 msgid "Group approval task"
 msgstr ""
 
-#: models/__init__.py:3957
+#: models/__init__.py:3686
 msgid "Group approval tasks"
 msgstr ""
 
-#: models/__init__.py:4001 models/__init__.py:4432
+#: models/__init__.py:3730 models/__init__.py:4161
 msgid "In progress"
 msgstr ""
 
-#: models/__init__.py:4002 models/__init__.py:4433 wagtail_hooks.py:130
+#: models/__init__.py:3731 models/__init__.py:4162 wagtail_hooks.py:132
 msgid "Approved"
 msgstr ""
 
-#: models/__init__.py:4003
+#: models/__init__.py:3732
 msgid "Needs changes"
 msgstr ""
 
-#: models/__init__.py:4004 models/__init__.py:4436
+#: models/__init__.py:3733 models/__init__.py:4165
 msgid "Cancelled"
 msgstr ""
 
-#: models/__init__.py:4028 models/__init__.py:4459
+#: models/__init__.py:3757 models/__init__.py:4188
 msgid "status"
 msgstr ""
 
-#: models/__init__.py:4035
+#: models/__init__.py:3764
 msgid "requested by"
 msgstr ""
 
-#: models/__init__.py:4047
+#: models/__init__.py:3776
 msgid "current task state"
 msgstr ""
 
-#: models/__init__.py:4077
+#: models/__init__.py:3806
 msgid ""
 "There may only be one in progress or needs changes workflow state per page/"
 "snippet."
 msgstr ""
 
-#: models/__init__.py:4087
+#: models/__init__.py:3816
 #, python-format
 msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
 msgstr ""
 
-#: models/__init__.py:4317
+#: models/__init__.py:4046
 msgid "Not started"
 msgstr ""
 
-#: models/__init__.py:4368
+#: models/__init__.py:4097
 msgid "Workflow state"
 msgstr ""
 
-#: models/__init__.py:4369
+#: models/__init__.py:4098
 msgid "Workflow states"
 msgstr ""
 
-#: models/__init__.py:4434 wagtail_hooks.py:131
+#: models/__init__.py:4163 wagtail_hooks.py:133
 msgid "Rejected"
 msgstr ""
 
-#: models/__init__.py:4435
+#: models/__init__.py:4164
 msgid "Skipped"
 msgstr ""
 
-#: models/__init__.py:4442
+#: models/__init__.py:4171
 msgid "workflow state"
 msgstr ""
 
-#: models/__init__.py:4463
+#: models/__init__.py:4192
 msgid "started at"
 msgstr ""
 
-#: models/__init__.py:4465
+#: models/__init__.py:4194
 msgid "finished at"
 msgstr ""
 
-#: models/__init__.py:4469
+#: models/__init__.py:4198
 msgid "finished by"
 msgstr ""
 
-#: models/__init__.py:4498
+#: models/__init__.py:4227
 #, python-format
 msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
 msgstr ""
 
-#: models/__init__.py:4628
+#: models/__init__.py:4357
 msgid "Task state"
 msgstr ""
 
-#: models/__init__.py:4629
+#: models/__init__.py:4358
 msgid "Task states"
 msgstr ""
 
-#: models/__init__.py:4696
+#: models/__init__.py:4422
 msgid "page log entry"
 msgstr ""
 
-#: models/__init__.py:4697
+#: models/__init__.py:4423
 msgid "page log entries"
 msgstr ""
 
-#: models/__init__.py:4715
+#: models/__init__.py:4441
 msgid "Draft saved"
 msgstr ""
 
-#: models/__init__.py:4763
+#: models/__init__.py:4489
 msgid "comment"
 msgstr ""
 
-#: models/__init__.py:4764
+#: models/__init__.py:4490
 msgid "comments"
 msgstr ""
 
-#: models/__init__.py:4859
+#: models/__init__.py:4585
 msgid "comment reply"
 msgstr ""
 
-#: models/__init__.py:4860
+#: models/__init__.py:4586
 msgid "comment replies"
 msgstr ""
 
-#: models/audit_log.py:204
+#: models/audit_log.py:202
 msgid "timestamp (UTC)"
 msgstr ""
 
-#: models/audit_log.py:241
+#: models/audit_log.py:239
 msgid "log entry"
 msgstr ""
 
-#: models/audit_log.py:242
+#: models/audit_log.py:240
 msgid "log entries"
 msgstr ""
 
-#: models/audit_log.py:254
+#: models/audit_log.py:252
 #, python-format
 msgid "The log action '%(action_name)s' has not been registered."
 msgstr ""
 
-#: models/audit_log.py:286
+#: models/audit_log.py:284
 msgid "system"
 msgstr ""
 
-#: models/audit_log.py:308
+#: models/audit_log.py:306
 #, python-format
 msgid "Unknown %(action)s"
 msgstr ""
 
-#: models/audit_log.py:343
+#: models/audit_log.py:341
 msgid "model log entry"
 msgstr ""
 
-#: models/audit_log.py:344
+#: models/audit_log.py:342
 msgid "model log entries"
 msgstr ""
 
@@ -729,34 +721,34 @@ msgstr ""
 msgid "group collection permissions"
 msgstr ""
 
-#: models/reference_index.py:672
+#: models/reference_index.py:678
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr ""
 
-#: models/reference_index.py:676
+#: models/reference_index.py:682
 msgid "prevents deletion"
 msgstr ""
 
-#: models/reference_index.py:678
+#: models/reference_index.py:684
 #, python-format
 msgid "will be set to the default %(model_name)s"
 msgstr ""
 
-#: models/reference_index.py:682
+#: models/reference_index.py:688
 msgid "will do nothing"
 msgstr ""
 
-#: models/reference_index.py:692
+#: models/reference_index.py:698
 msgid "may prevent deletion"
 msgstr ""
 
-#: models/reference_index.py:700
+#: models/reference_index.py:706
 #, python-format
 msgid "will be set to a %(model_name)s specified by the system"
 msgstr ""
 
-#: models/reference_index.py:706
+#: models/reference_index.py:712
 msgid "will unset the reference"
 msgstr ""
 
@@ -923,351 +915,351 @@ msgstr ""
 msgid "Unpublished scheduled draft"
 msgstr ""
 
-#: wagtail_hooks.py:131
+#: wagtail_hooks.py:133
 msgid "Reject"
 msgstr ""
 
-#: wagtail_hooks.py:135
+#: wagtail_hooks.py:137
 msgid "Rename"
 msgstr ""
 
-#: wagtail_hooks.py:139
+#: wagtail_hooks.py:141
 #, python-format
 msgid "Renamed from '%(old)s' to '%(new)s'"
 msgstr ""
 
-#: wagtail_hooks.py:144
+#: wagtail_hooks.py:146
 msgid "Renamed"
 msgstr ""
 
-#: wagtail_hooks.py:148
+#: wagtail_hooks.py:150
 msgid "Revert"
 msgstr ""
 
-#: wagtail_hooks.py:153
+#: wagtail_hooks.py:155
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
 msgstr ""
 
-#: wagtail_hooks.py:163
+#: wagtail_hooks.py:165
 msgid "Reverted to previous revision"
 msgstr ""
 
-#: wagtail_hooks.py:167
+#: wagtail_hooks.py:169
 msgid "Copy"
 msgstr ""
 
-#: wagtail_hooks.py:171
+#: wagtail_hooks.py:173
 #, python-format
 msgid "Copied from %(title)s"
 msgstr ""
 
-#: wagtail_hooks.py:175
+#: wagtail_hooks.py:177
 msgid "Copied"
 msgstr ""
 
-#: wagtail_hooks.py:179
+#: wagtail_hooks.py:181
 msgid "Copy for translation"
 msgstr ""
 
-#: wagtail_hooks.py:183
+#: wagtail_hooks.py:185
 #, python-format
 msgid "Copied for translation from %(title)s (%(locale)s)"
 msgstr ""
 
-#: wagtail_hooks.py:191
+#: wagtail_hooks.py:193
 msgid "Copied for translation"
 msgstr ""
 
-#: wagtail_hooks.py:195
+#: wagtail_hooks.py:197
 msgid "Create alias"
 msgstr ""
 
-#: wagtail_hooks.py:199
+#: wagtail_hooks.py:201
 #, python-format
 msgid "Created an alias of %(title)s"
 msgstr ""
 
-#: wagtail_hooks.py:203
+#: wagtail_hooks.py:205
 msgid "Created an alias"
 msgstr ""
 
-#: wagtail_hooks.py:207
+#: wagtail_hooks.py:209
 msgid "Convert alias into ordinary page"
 msgstr ""
 
-#: wagtail_hooks.py:211
+#: wagtail_hooks.py:213
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr ""
 
-#: wagtail_hooks.py:215
+#: wagtail_hooks.py:217
 msgid "Converted an alias into an ordinary page"
 msgstr ""
 
-#: wagtail_hooks.py:219
+#: wagtail_hooks.py:221
 msgid "Move"
 msgstr ""
 
-#: wagtail_hooks.py:223
+#: wagtail_hooks.py:225
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr ""
 
-#: wagtail_hooks.py:228
+#: wagtail_hooks.py:230
 msgid "Moved"
 msgstr ""
 
-#: wagtail_hooks.py:232
+#: wagtail_hooks.py:234
 msgid "Reorder"
 msgstr ""
 
-#: wagtail_hooks.py:236
+#: wagtail_hooks.py:238
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr ""
 
-#: wagtail_hooks.py:240
+#: wagtail_hooks.py:242
 msgid "Reordered"
 msgstr ""
 
-#: wagtail_hooks.py:244
+#: wagtail_hooks.py:246
 msgid "Schedule publication"
 msgstr ""
 
-#: wagtail_hooks.py:250
+#: wagtail_hooks.py:252
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
 "%(go_live_at)s."
 msgstr ""
 
-#: wagtail_hooks.py:265
+#: wagtail_hooks.py:267
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
 msgstr ""
 
-#: wagtail_hooks.py:273
+#: wagtail_hooks.py:275
 msgid "Page scheduled for publishing"
 msgstr ""
 
-#: wagtail_hooks.py:277
+#: wagtail_hooks.py:279
 msgid "Unschedule publication"
 msgstr ""
 
-#: wagtail_hooks.py:283
+#: wagtail_hooks.py:285
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
 "%(go_live_at)s."
 msgstr ""
 
-#: wagtail_hooks.py:300
+#: wagtail_hooks.py:302
 #, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"
 msgstr ""
 
-#: wagtail_hooks.py:310
+#: wagtail_hooks.py:312
 msgid "Page unscheduled from publishing"
 msgstr ""
 
-#: wagtail_hooks.py:314
+#: wagtail_hooks.py:316
 msgid "Add view restrictions"
 msgstr ""
 
-#: wagtail_hooks.py:318
+#: wagtail_hooks.py:320
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr ""
 
-#: wagtail_hooks.py:322
+#: wagtail_hooks.py:324
 msgid "Added view restriction"
 msgstr ""
 
-#: wagtail_hooks.py:326
+#: wagtail_hooks.py:328
 msgid "Update view restrictions"
 msgstr ""
 
-#: wagtail_hooks.py:330
+#: wagtail_hooks.py:332
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
 msgstr ""
 
-#: wagtail_hooks.py:334
+#: wagtail_hooks.py:336
 msgid "Updated view restriction"
 msgstr ""
 
-#: wagtail_hooks.py:338
+#: wagtail_hooks.py:340
 msgid "Remove view restrictions"
 msgstr ""
 
-#: wagtail_hooks.py:343
+#: wagtail_hooks.py:345
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction. The page is public."
 msgstr ""
 
-#: wagtail_hooks.py:348
+#: wagtail_hooks.py:350
 msgid "Removed view restriction"
 msgstr ""
 
-#: wagtail_hooks.py:363
+#: wagtail_hooks.py:365
 msgid "Add comment"
 msgstr ""
 
-#: wagtail_hooks.py:367
+#: wagtail_hooks.py:369
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:375
+#: wagtail_hooks.py:377
 msgid "Added a comment"
 msgstr ""
 
-#: wagtail_hooks.py:379
+#: wagtail_hooks.py:381
 msgid "Edit comment"
 msgstr ""
 
-#: wagtail_hooks.py:383
+#: wagtail_hooks.py:385
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:391
+#: wagtail_hooks.py:393
 msgid "Edited a comment"
 msgstr ""
 
-#: wagtail_hooks.py:395
+#: wagtail_hooks.py:397
 msgid "Delete comment"
 msgstr ""
 
-#: wagtail_hooks.py:399
+#: wagtail_hooks.py:401
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:407
+#: wagtail_hooks.py:409
 msgid "Deleted a comment"
 msgstr ""
 
-#: wagtail_hooks.py:411
+#: wagtail_hooks.py:413
 msgid "Resolve comment"
 msgstr ""
 
-#: wagtail_hooks.py:415
+#: wagtail_hooks.py:417
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:423
+#: wagtail_hooks.py:425
 msgid "Resolved a comment"
 msgstr ""
 
-#: wagtail_hooks.py:427
+#: wagtail_hooks.py:429
 msgid "Reply to comment"
 msgstr ""
 
-#: wagtail_hooks.py:431
+#: wagtail_hooks.py:433
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:439
+#: wagtail_hooks.py:441
 msgid "Replied to a comment"
 msgstr ""
 
-#: wagtail_hooks.py:443
+#: wagtail_hooks.py:445
 msgid "Edit reply to comment"
 msgstr ""
 
-#: wagtail_hooks.py:448
+#: wagtail_hooks.py:450
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:457
+#: wagtail_hooks.py:459
 msgid "Edited a reply"
 msgstr ""
 
-#: wagtail_hooks.py:461
+#: wagtail_hooks.py:463
 msgid "Delete reply to comment"
 msgstr ""
 
-#: wagtail_hooks.py:466
+#: wagtail_hooks.py:468
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr ""
 
-#: wagtail_hooks.py:475
+#: wagtail_hooks.py:477
 msgid "Deleted a reply"
 msgstr ""
 
-#: wagtail_hooks.py:486
+#: wagtail_hooks.py:488
 msgid "Workflow: start"
 msgstr ""
 
-#: wagtail_hooks.py:490
+#: wagtail_hooks.py:492
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
 msgstr ""
 
-#: wagtail_hooks.py:495
+#: wagtail_hooks.py:497
 msgid "Workflow started"
 msgstr ""
 
-#: wagtail_hooks.py:499
+#: wagtail_hooks.py:501
 msgid "Workflow: approve task"
 msgstr ""
 
-#: wagtail_hooks.py:504
+#: wagtail_hooks.py:506
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
 msgstr ""
 
-#: wagtail_hooks.py:509
+#: wagtail_hooks.py:511
 #, python-format
 msgid "Approved at '%(task)s'. '%(workflow)s' complete"
 msgstr ""
 
-#: wagtail_hooks.py:514
+#: wagtail_hooks.py:516
 msgid "Workflow task approved"
 msgstr ""
 
-#: wagtail_hooks.py:518
+#: wagtail_hooks.py:520
 msgid "Workflow: reject task"
 msgstr ""
 
-#: wagtail_hooks.py:522
+#: wagtail_hooks.py:524
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr ""
 
-#: wagtail_hooks.py:526
+#: wagtail_hooks.py:528
 msgid "Workflow task rejected. Workflow complete"
 msgstr ""
 
-#: wagtail_hooks.py:530
+#: wagtail_hooks.py:532
 msgid "Workflow: resume task"
 msgstr ""
 
-#: wagtail_hooks.py:534
+#: wagtail_hooks.py:536
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed"
 msgstr ""
 
-#: wagtail_hooks.py:538
+#: wagtail_hooks.py:540
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr ""
 
-#: wagtail_hooks.py:542
+#: wagtail_hooks.py:544
 msgid "Workflow: cancel"
 msgstr ""
 
-#: wagtail_hooks.py:546
+#: wagtail_hooks.py:548
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr ""
 
-#: wagtail_hooks.py:551
+#: wagtail_hooks.py:553
 msgid "Workflow cancelled"
 msgstr ""

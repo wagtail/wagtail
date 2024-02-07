@@ -8,6 +8,7 @@ from wagtail.admin.forms.collections import (
     CollectionChoiceField,
     collection_member_permission_formset_factory,
 )
+from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
 from wagtail.documents.models import Document
 from wagtail.documents.permissions import (
@@ -60,6 +61,11 @@ class BaseDocumentForm(BaseCollectionMemberForm):
 
     class Meta:
         widgets = {"tags": AdminTagWidget, "file": forms.FileInput()}
+
+    def clean_tags(self):
+        tags = self.cleaned_data["tags"]
+        validate_tag_length(tags)
+        return tags
 
 
 def get_document_base_form():

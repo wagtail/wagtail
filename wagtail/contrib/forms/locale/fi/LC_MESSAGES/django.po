@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -173,18 +173,6 @@ msgstr[1] "Haluatko varmasti poistaa nämä lähetetyt lomakkeet?"
 msgid "Delete"
 msgstr "Poista"
 
-msgid "Forms"
-msgstr "Lomakkeet"
-
-msgid "Pages"
-msgstr "Sivut"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "Origin"
-msgstr "Lähde"
-
 msgid "Delete selected submissions"
 msgstr "Poista valitut tiedot"
 
@@ -193,9 +181,6 @@ msgstr "Lähettyjä yhteensä"
 
 msgid "Latest submission"
 msgstr "Viimeksi lähetetty"
-
-msgid "No form pages have been created."
-msgstr "Lomakesivuja ei ole luotu."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -210,6 +195,18 @@ msgstr "Suodatin"
 
 msgid "Apply filters"
 msgstr "Toteuta suodatukset"
+
+msgid "Forms"
+msgstr "Lomakkeet"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "Origin"
+msgstr "Lähde"
+
+msgid "Pages"
+msgstr "Sivut"
 
 #, python-format
 msgid "One submission has been deleted."

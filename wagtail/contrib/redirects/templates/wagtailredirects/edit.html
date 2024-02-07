@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with title=redirect.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
@@ -12,9 +12,7 @@
 
         <ul class="fields">
             {% for field in form.visible_fields %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endfor %}
 
             <li>

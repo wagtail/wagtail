@@ -103,4 +103,49 @@ describe('InitController', () => {
       expect(handleEvent).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('when using custom event names', () => {
+    const handleEvent = jest.fn();
+    document.addEventListener('w-init:ready', handleEvent);
+    document.addEventListener('custom:event', handleEvent);
+    document.addEventListener('other-custom:event', handleEvent);
+
+    beforeAll(() => {
+      jest.clearAllMocks();
+
+      application?.stop();
+
+      // intentionally adding extra spaces in the event-value below
+      const events = 'custom:event  other-custom:event ';
+
+      document.body.innerHTML = `
+        <div
+          id="test"
+          class="hide-me"
+          data-controller="w-init"
+          data-w-init-event-value="${events}"
+        >
+          Test body
+        </div>
+      `;
+
+      application = Application.start();
+    });
+
+    it('should dispatch additional events', async () => {
+      expect(handleEvent).not.toHaveBeenCalled();
+
+      application.register('w-init', InitController);
+
+      await Promise.resolve(); // no delay, just wait for the next tick
+
+      expect(handleEvent).toHaveBeenCalledTimes(3);
+
+      expect(handleEvent.mock.calls.map(([event]) => event.type)).toEqual([
+        'w-init:ready',
+        'custom:event',
+        'other-custom:event',
+      ]);
+    });
+  });
 });

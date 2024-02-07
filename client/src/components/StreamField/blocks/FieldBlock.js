@@ -16,7 +16,7 @@ export class FieldBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
-    // See field.html for the reference implementation of this markup.
+    // See wagtailadmin/shared/formatted_field.html for the reference implementation of this markup.
     const dom = $(`
       <div class="w-field__wrapper" data-field-wrapper>
         <div class="${h(this.blockDef.meta.classname)}" data-field>
@@ -153,6 +153,10 @@ export class FieldBlock {
     // If the block is required, we must tell the widget to render a required attribute in its HTML.
     if (this.blockDef.meta.required) {
       attributes.required = '';
+    }
+
+    if (this.blockDef.meta.maxLength) {
+      attributes.maxLength = this.blockDef.meta.maxLength;
     }
 
     return attributes;

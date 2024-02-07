@@ -55,9 +55,6 @@ msgstr "수정"
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' 수정"
 
-msgid "Edit your account"
-msgstr "당신의 계정 변경"
-
 msgid "Focus comment"
 msgstr "인기 댓글"
 

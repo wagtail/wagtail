@@ -1,27 +1,16 @@
 {% extends 'wagtailadmin/shared/headers/slim_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
-{% block header_content %}
+{% block breadcrumbs %}
     {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' page_perms=page_perms %}
+{% endblock %}
 
-    <h1 class="w-sr-only">
-        {% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} {{ title }}{% endblocktrans %}
-    </h1>
-
-    {# Actions divider #}
-    <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
+{% block actions %}
     {# Page actions dropdown #}
     {% page_header_buttons page user=request.user view_name="edit" %}
 {% endblock %}
 
-{% block actions %}
+{% block toggles %}
     {{ block.super }}
-
-    {# Page history #}
-    {% if page.get_latest_revision %}
-        {% url 'wagtailadmin_pages:history' page.id as history_url %}
-        {% include "wagtailadmin/shared/headers/_history_icon_link.html" with history_url=history_url nav_icon_button_classes=nav_icon_button_classes nav_icon_classes=nav_icon_classes only %}
-    {% endif %}
-
     {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page_for_status %}
 {% endblock %}

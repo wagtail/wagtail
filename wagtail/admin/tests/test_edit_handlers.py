@@ -1751,7 +1751,6 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         self.assertEqual(replies_formset.forms[0].for_user, self.commenting_user)
 
     def test_comment_form_validation(self):
-
         form = self.EventPageForm(
             {
                 "comments-TOTAL_FORMS": 2,
@@ -1872,7 +1871,6 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
             )
 
     def test_comment_reply_form_validation(self):
-
         form = self.EventPageForm(
             {
                 "comments-TOTAL_FORMS": 1,
@@ -2260,6 +2258,25 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
             "focus->w-sync#check blur->w-sync#apply change->w-sync#apply keyup->w-sync#apply",
         )
 
+    def test_form_without_slugfield(self):
+        html = self.get_edit_handler_html(ObjectList([TitleFieldPanel("title")]))
+
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
+
+        attrs = html.find("input").attrs
+        self.assertEqual(attrs["data-w-sync-target-value"], "")
+
+    def test_form_with_readonly_slugfield(self):
+        html = self.get_edit_handler_html(
+            ObjectList([TitleFieldPanel("title"), FieldPanel("slug", read_only=True)]),
+            instance=EventPage(),
+        )
+
+        self.assertIsNotNone(html.find(attrs={"class": "w-panel title"}))
+
+        attrs = html.find("input").attrs
+        self.assertEqual(attrs["data-w-sync-target-value"], "")
+
     def test_not_using_apply_actions_if_live(self):
         """
         If the Page (or any model) has `live = True`, do not apply the actions by default.
@@ -2378,7 +2395,6 @@ class TestTitleFieldPanel(WagtailTestUtils, TestCase):
         self.assertEqual(attrs["data-w-sync-target-value"], "#id_cost, #id_location")
 
     def test_classname_override(self):
-
         html = self.get_edit_handler_html(
             ObjectList(
                 [TitleFieldPanel("title", classname="super-title"), FieldPanel("slug")]

@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.search import SearchForm
@@ -20,7 +19,7 @@ from wagtail.admin.ui.tables.pages import (
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.models import Page
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -51,7 +50,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
 
 class BaseSearchView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = PagePermissionPolicy()
+    permission_policy = page_permission_policy
     any_permission_required = {
         "add",
         "change",
@@ -64,9 +63,10 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     page_kwarg = "p"
     context_object_name = "pages"
     table_class = PageTable
+    index_url_name = "wagtailadmin_pages:search"
 
     columns = [
-        BulkActionsColumn("bulk_actions", width="10px"),
+        BulkActionsColumn("bulk_actions"),
         PageTitleColumn(
             "title",
             classname="title",
@@ -159,9 +159,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
 
         return pages
 
-    def get_index_url(self):
-        return reverse("wagtailadmin_pages:search")
-
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["show_locale_labels"] = self.show_locale_labels
@@ -176,7 +173,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
-                "index_url": self.get_index_url(),
             }
         )
         return context

@@ -6,6 +6,7 @@ import template from './header.html';
 const { docs, argTypes } = generateDocs(template);
 
 export default {
+  title: 'Shared / Header',
   parameters: {
     docs,
   },

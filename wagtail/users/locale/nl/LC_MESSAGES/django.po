@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -307,6 +307,26 @@ msgstr "Verwijder gebruiker"
 msgid "Select all users in listing"
 msgstr "Selecteer alle gebruikers in lijst"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"De groep %(group_name)s heeft geen gebruikers. <a "
+"href=\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
+"gebruikers toe</a>."
+
 msgid "Username"
 msgstr "Gebruikersnaam"
 
@@ -327,32 +347,6 @@ msgstr "Actief"
 
 msgid "Inactive"
 msgstr "Inactief"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"De groep %(group_name)s heeft geen gebruikers. <a "
-"href=\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
-"gebruikers toe</a>."
 
 #, python-format
 msgid "user %(id)s (deleted)"

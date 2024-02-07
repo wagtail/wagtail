@@ -517,14 +517,12 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "go_live_at",
             "Go live date/time must be before expiry date/time",
         )
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "expire_at",
             "Go live date/time must be before expiry date/time",
         )
@@ -544,7 +542,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_simplepage_scheduled_expire_in_the_past(self):
         post_data = {
@@ -567,7 +565,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "expire_at", "Expiry date/time must be in the future"
+            response.context["form"],
+            "expire_at",
+            "Expiry date/time must be in the future",
         )
 
         self.assertContains(
@@ -585,7 +585,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_simplepage_post_publish(self):
         # Connect a mock signal handler to page_published signal
@@ -749,14 +749,13 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "slug",
             "The slug 'hello-world' is already in use within the parent page",
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
-        self.assertContains(response, "alwaysDirty: true")
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
     def test_create_nonexistantparent(self):
         response = self.client.get(
@@ -787,7 +786,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, "form", "foo", "Field foo must be bar")
+        self.assertFormError(response.context["form"], "foo", "Field foo must be bar")
         self.assertFalse(
             Page.objects.filter(
                 path__startswith=self.root_page.path, slug="hello-world"
@@ -911,7 +910,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
     def test_whitespace_titles_with_tab(self):
         post_data = {
@@ -929,7 +930,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
     def test_whitespace_titles_with_tab_in_seo_title(self):
         post_data = {
@@ -1000,8 +1003,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # Check that a form error was raised
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "slug",
             "Ensure this value has at most 255 characters (it has 287).",
         )
@@ -1874,3 +1876,49 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
 
         self.assertEqual(subscription.user, self.user)
         self.assertFalse(subscription.comment_notifications)
+
+
+class TestCommenting(WagtailTestUtils, TestCase):
+    """
+    Tests the commenting related logic of the create page view.
+    """
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_commments_enabled_by_default(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["tests", "simplepage", self.root_page.id],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("w-comments:init", form["data-w-init-event-value"])
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_commments_disabled(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=["tests", "simplepage", self.root_page.id],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("[data-edit-form]")
+        self.assertEqual("page-edit-form", form["id"])
+        self.assertIn("w-init", form["data-controller"])
+        self.assertEqual("", form["data-w-init-event-value"])

@@ -37,6 +37,28 @@ class TestDocumentFormOverride(TestCase):
         self.assertIsInstance(form.fields["tags"].widget, widgets.AdminTagWidget)
         self.assertEqual(form.fields["tags"].widget.tag_model, RestaurantTag)
 
+    def test_tags_longer_than_max_characters(self):
+        long_value = "longtag" * 20
+
+        form_data = {
+            "title": "Test Document",
+            "file": OverriddenWidget,
+            "tags": [long_value],
+        }
+
+        form_cls = get_document_form(models.Document)
+        form = form_cls(form_data)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("tags", form.errors)
+        self.assertEqual(
+            form.errors["tags"][0],
+            "Tag(s) ['{val}'] are over {max_tag_length} characters".format(
+                val=long_value,
+                max_tag_length=taggit_models.TagBase._meta.get_field("name").max_length,
+            ),
+        )
+
     @override_settings(
         WAGTAILDOCS_DOCUMENT_FORM_BASE="wagtail.test.testapp.media_forms.AlternateDocumentForm"
     )

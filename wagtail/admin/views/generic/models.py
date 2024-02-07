@@ -1,6 +1,5 @@
 import warnings
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import (
@@ -11,22 +10,19 @@ from django.core.exceptions import (
 from django.db import models, transaction
 from django.db.models import Q
 from django.db.models.functions import Cast
-from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
-from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import (
     BaseCreateView,
+    BaseDeleteView,
     BaseUpdateView,
-    DeletionMixin,
-    FormMixin,
 )
-from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
@@ -44,7 +40,12 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import ButtonWithDropdown, ListingButton
+from wagtail.admin.widgets.button import (
+    Button,
+    ButtonWithDropdown,
+    HeaderButton,
+    ListingButton,
+)
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -56,39 +57,6 @@ from .base import BaseListingView, WagtailAdminTemplateMixin
 from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
-if DJANGO_VERSION >= (4, 0):
-    BaseDeleteView = DjangoBaseDeleteView
-else:
-    # As of Django 4.0 BaseDeleteView has switched to a new implementation based on FormMixin
-    # where custom deletion logic now lives in form_valid:
-    # https://docs.djangoproject.com/en/4.0/releases/4.0/#deleteview-changes
-    # Here we define BaseDeleteView to match the Django 4.0 implementation to keep it consistent
-    # across all versions.
-    class BaseDeleteView(DeletionMixin, FormMixin, BaseDetailView):
-        """
-        Base view for deleting an object.
-        Using this base class requires subclassing to provide a response mixin.
-        """
-
-        form_class = Form
-
-        def post(self, request, *args, **kwargs):
-            # Set self.object before the usual form processing flow.
-            # Inlined because having DeletionMixin as the first base, for
-            # get_success_url(), makes leveraging super() with ProcessFormView
-            # overly complex.
-            self.object = self.get_object()
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
-
-        def form_valid(self, form):
-            success_url = self.get_success_url()
-            self.object.delete()
-            return HttpResponseRedirect(success_url)
-
 
 class IndexView(
     SpreadsheetExportMixin,
@@ -99,10 +67,9 @@ class IndexView(
     model = None
     template_name = "wagtailadmin/generic/index.html"
     results_template_name = "wagtailadmin/generic/index_results.html"
-    index_results_url_name = None
     add_url_name = None
-    add_item_label = gettext_lazy("Add")
     edit_url_name = None
+    copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -110,16 +77,18 @@ class IndexView(
     search_backend_name = "default"
     is_searchable = None
     search_kwarg = "q"
-    filters = None
-    filterset_class = None
     columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
+    show_other_searches = False
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.columns = self.get_columns()
-        self.filterset_class = self.get_filterset_class()
+
+        if not self.filterset_class:
+            # Allow filterset_class to be dynamically constructed from list_filter
+            self.filterset_class = self.get_filterset_class()
+
         self.setup_search()
 
     def setup_search(self):
@@ -131,7 +100,7 @@ class IndexView(
 
         if self.search_form and self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data[self.search_kwarg]
-            self.is_searching = True
+            self.is_searching = bool(self.search_query)
 
     def get_is_searchable(self):
         if self.model is None:
@@ -146,31 +115,26 @@ class IndexView(
         return self.index_url_name
 
     def get_search_form(self):
-        if self.model is None:
+        if self.model is None or not self.is_searchable:
             return None
 
         if self.is_searchable and self.search_kwarg in self.request.GET:
-            return SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(model_name)s")
-                % {"model_name": self.model._meta.verbose_name_plural},
-            )
+            return SearchForm(self.request.GET)
 
-        return SearchForm(
-            placeholder=_("Search %(model_name)s")
-            % {"model_name": self.model._meta.verbose_name_plural}
-        )
+        return SearchForm()
 
     def get_filterset_class(self):
-        if self.filterset_class:
-            return self.filterset_class
+        # Allow filterset_class to be dynamically constructed from list_filter.
 
-        if not self.list_filter or not self.model:
+        # If the model is translatable, ensure a ``WagtailFilterSet`` subclass
+        # is returned anyway (even if list_filter is undefined), so the locale
+        # filter is always included.
+        if not self.model or (not self.list_filter and not self.locale):
             return None
 
         class Meta:
             model = self.model
-            fields = self.list_filter
+            fields = self.list_filter or []
 
         return type(
             f"{self.model.__name__}FilterSet",
@@ -203,37 +167,7 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def get_base_queryset(self):
-        if self.queryset is not None:
-            queryset = self.queryset
-            if isinstance(queryset, models.QuerySet):
-                queryset = queryset.all()
-        elif self.model is not None:
-            queryset = self.model._default_manager.all()
-        else:
-            raise ImproperlyConfigured(
-                "%(cls)s is missing a QuerySet. Define "
-                "%(cls)s.model, %(cls)s.queryset, or override "
-                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
-            )
-        return queryset
-
-    def get_queryset(self):
-        # Instead of calling super().get_queryset(), we copy the initial logic
-        # from Django's MultipleObjectMixin into get_base_queryset(), because
-        # we need to annotate the updated_at before using it for ordering.
-        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
-
-        queryset = self.get_base_queryset()
-
-        self.filters, queryset = self.filter_queryset(queryset)
-
-        # Ensure the queryset is of the same model as self.model before filtering,
-        # which may not be the case for views like HistoryView where the queryset
-        # is of a LogEntry model for self.model.
-        if self.locale and queryset.model == self.model:
-            queryset = queryset.filter(locale=self.locale)
-
+    def order_queryset(self, queryset):
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
             for column in self.columns
@@ -241,52 +175,44 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
-        ordering = self.get_ordering()
-        if ordering:
-            # Explicitly handle null values for the updated at column to ensure consistency
-            # across database backends and match the behaviour in page explorer
-            if ordering == "_updated_at":
-                ordering = models.F("_updated_at").asc(nulls_first=True)
-            elif ordering == "-_updated_at":
-                ordering = models.F("_updated_at").desc(nulls_last=True)
-            if not isinstance(ordering, (list, tuple)):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
+        # Explicitly handle null values for the updated at column to ensure consistency
+        # across database backends and match the behaviour in page explorer
+        if self.ordering == "_updated_at":
+            return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
+        elif self.ordering == "-_updated_at":
+            return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
+        else:
+            queryset = super().order_queryset(queryset)
 
-        # Preserve the model-level ordering if specified, but fall back on
-        # updated_at and PK if not (to ensure pagination is consistent)
-        if not queryset.ordered:
-            if has_updated_at_column:
-                queryset = queryset.order_by(
-                    models.F("_updated_at").desc(nulls_last=True), "-pk"
-                )
-            else:
-                queryset = queryset.order_by("-pk")
+            # Preserve the model-level ordering if specified, but fall back on
+            # updated_at and PK if not (to ensure pagination is consistent)
+            if not queryset.ordered:
+                if has_updated_at_column:
+                    queryset = queryset.order_by(
+                        models.F("_updated_at").desc(nulls_last=True), "-pk"
+                    )
+                else:
+                    queryset = queryset.order_by("-pk")
 
+            return queryset
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = self.search_queryset(queryset)
         return queryset
 
-    def filter_queryset(self, queryset):
-        # construct filter instance (self.filters) if not created already
-        if self.filterset_class and self.filters is None:
-            self.filters = self.filterset_class(
-                self.request.GET, queryset=queryset, request=self.request
-            )
-            queryset = self.filters.qs
-        elif self.filters:
-            # if filter object was created on a previous filter_queryset call, re-use it
-            queryset = self.filters.filter_queryset(queryset)
-
-        return self.filters, queryset
-
     def search_queryset(self, queryset):
-        if not self.search_query:
+        if not self.is_searching:
             return queryset
 
         if class_is_indexed(queryset.model) and self.search_backend_name:
             search_backend = get_search_backend(self.search_backend_name)
             if queryset.model.get_autocomplete_search_fields():
                 return search_backend.autocomplete(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
             else:
                 # fall back on non-autocompleting search
@@ -297,7 +223,10 @@ class IndexView(
                     category=RuntimeWarning,
                 )
                 return search_backend.search(
-                    self.search_query, queryset, fields=self.search_fields
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
                 )
         query = Q()
         for field in self.search_fields or []:
@@ -342,11 +271,8 @@ class IndexView(
             **kwargs,
         )
 
-    def get_columns(self):
-        # Use columns set at the class level, if available
-        if self.columns is not None:
-            return self.columns
-
+    @cached_property
+    def columns(self):
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):
@@ -359,13 +285,13 @@ class IndexView(
 
         return columns
 
-    def get_index_results_url(self):
-        if self.index_results_url_name:
-            return reverse(self.index_results_url_name)
-
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
+
+    def get_copy_url(self, instance):
+        if self.copy_url_name:
+            return reverse(self.copy_url_name, args=(quote(instance.pk),))
 
     def get_inspect_url(self, instance):
         if self.inspect_url_name:
@@ -376,8 +302,16 @@ class IndexView(
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
     def get_add_url(self):
+        if self.permission_policy and not self.permission_policy.user_has_permission(
+            self.request.user, "add"
+        ):
+            return None
         if self.add_url_name:
             return self._set_locale_query_param(reverse(self.add_url_name))
+
+    @cached_property
+    def add_url(self):
+        return self.get_add_url()
 
     def get_page_title(self):
         if not self.page_title and self.model:
@@ -391,17 +325,50 @@ class IndexView(
             {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
         ]
 
-    def get_translations(self):
-        index_url = self.get_index_url()
-        if not index_url:
-            return []
-        return [
-            {
-                "locale": locale,
-                "url": self._set_locale_query_param(index_url, locale),
-            }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
-        ]
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if self.add_url:
+            buttons.append(
+                HeaderButton(
+                    self.add_item_label,
+                    url=self.add_url,
+                    icon_name="plus",
+                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
+                )
+            )
+        return buttons
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if self.list_export:
+            buttons.append(
+                Button(
+                    _("Download XLSX"),
+                    url=self.xlsx_export_url,
+                    icon_name="download",
+                    priority=90,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
+                )
+            )
+            buttons.append(
+                Button(
+                    _("Download CSV"),
+                    url=self.csv_export_url,
+                    icon_name="download",
+                    priority=100,
+                    attrs={
+                        "data-controller": "w-link",
+                        "data-w-link-preserve-keys-value": '["export"]',
+                    },
+                )
+            )
+
+        return buttons
 
     def get_list_more_buttons(self, instance):
         buttons = []
@@ -420,6 +387,20 @@ class IndexView(
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
                     },
                     priority=10,
+                )
+            )
+        copy_url = self.get_copy_url(instance)
+        can_copy = self.permission_policy.user_has_permission(self.request.user, "add")
+        if copy_url and can_copy:
+            buttons.append(
+                ListingButton(
+                    _("Copy"),
+                    url=copy_url,
+                    icon_name="copy",
+                    attrs={
+                        "aria-label": _("Copy '%(title)s'") % {"title": str(instance)}
+                    },
+                    priority=20,
                 )
             )
         inspect_url = self.get_inspect_url(instance)
@@ -468,28 +449,25 @@ class IndexView(
             )
         ]
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
-        queryset = self.search_queryset(queryset)
+    @cached_property
+    def add_item_label(self):
+        if self.model:
+            return capfirst(
+                _("Add %(model_name)s") % {"model_name": self.model._meta.verbose_name}
+            )
+        return _("Add")
 
-        context = super().get_context_data(*args, object_list=queryset, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
         context["can_add"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         )
         if context["can_add"]:
-            context["add_url"] = context["header_action_url"] = self.get_add_url()
+            context["add_url"] = context["header_action_url"] = self.add_url
             context["header_action_label"] = self.add_item_label
 
-        if self.filters:
-            context["filters"] = self.filters
-            context["is_filtering"] = any(
-                self.request.GET.get(f) for f in self.filters.filters
-            )
-            context["media"] += self.filters.form.media
-
-        context["index_results_url"] = self.get_index_results_url()
         context["is_searchable"] = self.is_searchable
         context["search_url"] = self.get_search_url()
         context["search_form"] = self.search_form
@@ -522,8 +500,10 @@ class CreateView(
     template_name = "wagtailadmin/generic/create.html"
     page_title = gettext_lazy("New")
     permission_required = "add"
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' created.")
+    error_message = gettext_lazy(
+        "The %(model_name)s could not be created due to errors."
+    )
     submit_button_label = gettext_lazy("Create")
     actions = ["create"]
 
@@ -573,6 +553,10 @@ class CreateView(
             )
         return self._set_locale_query_param(reverse(self.add_url_name))
 
+    @cached_property
+    def add_url(self):
+        return self.get_add_url()
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -592,7 +576,13 @@ class CreateView(
     def get_success_message(self, instance):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": instance}
+        return capfirst(
+            self.success_message
+            % {
+                "object": instance,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [messages.button(self.get_edit_url(), _("Edit"))]
@@ -600,20 +590,37 @@ class CreateView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["action_url"] = self.get_add_url()
+        self.form = context.get("form")
+        side_panels = self.get_side_panels()
+        context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
+        context["side_panels"] = side_panels
+        context["media"] += side_panels.media
         return context
 
+    def get_side_panels(self):
+        side_panels = [
+            StatusSidePanel(
+                self.form.instance,
+                self.request,
+                locale=self.locale,
+                translations=self.translations,
+            )
+        ]
+        return MediaContainer(side_panels)
+
     def get_translations(self):
-        add_url = self.get_add_url()
         return [
             {
                 "locale": locale,
-                "url": self._set_locale_query_param(add_url, locale),
+                "url": self._set_locale_query_param(self.add_url, locale),
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
@@ -659,6 +666,14 @@ class CreateView(
         return super().form_invalid(form)
 
 
+class CopyView(CreateView):
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+
+    def get_form_kwargs(self):
+        return {**super().get_form_kwargs(), "instance": self.get_object()}
+
+
 class EditView(
     LocaleMixin,
     PanelMixin,
@@ -679,8 +694,8 @@ class EditView(
     template_name = "wagtailadmin/generic/edit.html"
     permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
-    success_message = None
-    error_message = None
+    success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
+    error_message = gettext_lazy("The %(model_name)s could not be saved due to errors.")
     submit_button_label = gettext_lazy("Save")
     actions = ["edit"]
 
@@ -811,7 +826,13 @@ class EditView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "object": self.object,
+                "model_name": self.model and self.model._meta.verbose_name,
+            }
+        )
 
     def get_success_buttons(self):
         return [
@@ -823,7 +844,10 @@ class EditView(
     def get_error_message(self):
         if self.error_message is None:
             return None
-        return self.error_message
+        return capfirst(
+            self.error_message
+            % {"model_name": self.model and self.model._meta.verbose_name}
+        )
 
     def form_valid(self, form):
         self.form = form
@@ -849,11 +873,10 @@ class EditView(
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
         side_panels = self.get_side_panels()
-        media = context.get("media") + side_panels.media
         context["action_url"] = self.get_edit_url()
         context["history_url"] = self.get_history_url()
         context["side_panels"] = side_panels
-        context["media"] = media
+        context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
@@ -881,8 +904,8 @@ class DeleteView(
     template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
     permission_required = "delete"
-    success_message = None
     page_title = gettext_lazy("Delete")
+    success_message = gettext_lazy("%(model_name)s '%(object)s' deleted.")
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -948,7 +971,13 @@ class DeleteView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message % {"object": self.object}
+        return capfirst(
+            self.success_message
+            % {
+                "model_name": capfirst(self.object._meta.verbose_name),
+                "object": self.object,
+            }
+        )
 
     def delete_action(self):
         with transaction.atomic():
@@ -999,7 +1028,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         items = []
@@ -1011,9 +1040,16 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
                 }
             )
         edit_url = self.get_edit_url()
+        object_str = self.get_page_subtitle()
         if edit_url:
-            items.append({"url": edit_url, "label": get_latest_str(self.object)})
-        items.append({"url": "", "label": _("Inspect")})
+            items.append({"url": edit_url, "label": object_str})
+        items.append(
+            {
+                "url": "",
+                "label": _("Inspect"),
+                "sublabel": object_str,
+            }
+        )
         return self.breadcrumbs_items + items
 
     def get_fields(self):

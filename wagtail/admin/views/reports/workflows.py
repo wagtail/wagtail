@@ -23,7 +23,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
@@ -37,7 +37,7 @@ def get_requested_by_queryset(request):
 
 
 def get_editable_page_ids_query(request):
-    pages = PagePermissionPolicy().instances_user_has_permission_for(
+    pages = page_permission_policy.instances_user_has_permission_for(
         request.user, "change"
     )
     # Need to cast the page ids to string because Postgres doesn't support
@@ -188,12 +188,18 @@ class WorkflowView(ReportView):
             content_type_id__in=get_editable_content_type_ids(self.request)
         )
 
-        return WorkflowState.objects.filter(editable_pages | editable_objects).order_by(
-            "-created_at"
+        return (
+            WorkflowState.objects.filter(editable_pages | editable_objects)
+            .select_related("workflow", "requested_by")
+            .prefetch_related("content_object", "content_object__latest_revision")
+            .order_by("-created_at")
         )
 
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.content_object]
+
     def dispatch(self, request, *args, **kwargs):
-        if not PagePermissionPolicy().user_has_any_permission(
+        if not page_permission_policy.user_has_any_permission(
             request.user, ["add", "change", "publish"]
         ):
             raise PermissionDenied
@@ -256,6 +262,15 @@ class WorkflowTasksView(ReportView):
                 self.request
             )
         )
-        return TaskState.objects.filter(editable_pages | editable_objects).order_by(
-            "-started_at"
+        return (
+            TaskState.objects.filter(editable_pages | editable_objects)
+            .select_related("workflow_state", "task")
+            .prefetch_related(
+                "workflow_state__content_object",
+                "workflow_state__content_object__latest_revision",
+            )
+            .order_by("-started_at")
         )
+
+    def decorate_paginated_queryset(self, object_list):
+        return [obj for obj in object_list if obj.workflow_state.content_object]

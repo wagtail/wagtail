@@ -294,7 +294,7 @@ class Tabs {
   }
 
   /**
-   * Set url to have tab an tab hash at the end
+   * Set url to have a tab hash at the end
    */
   setURLHash(tabId) {
     if (

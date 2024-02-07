@@ -22,10 +22,10 @@
             </ul>
         {% endif %}
 
-        {% include "wagtailadmin/shared/field.html" with field=form.page only %}
-        {% include "wagtailadmin/shared/field.html" with field=form.external_link_url only %}
-        {% include "wagtailadmin/shared/field.html" with field=form.external_link_text only %}
-        {% include "wagtailadmin/shared/field.html" with field=form.description only %}
+        {% formattedfield form.page %}
+        {% formattedfield form.external_link_url %}
+        {% formattedfield form.external_link_text %}
+        {% formattedfield form.description %}
     {% endpanel %}
 
     {{ form.id }}

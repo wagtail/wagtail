@@ -1,5 +1,4 @@
 $header-icon-size: theme('spacing.4');
-$header-button-size-mobile: $mobile-nice-padding;
 $header-button-size: theme('spacing.6');
 
 .w-panel {
@@ -24,7 +23,7 @@ $header-button-size: theme('spacing.6');
   display: flex;
   align-items: center;
   margin-bottom: theme('spacing.[0.5]');
-  margin-inline-start: -1 * $mobile-nice-padding;
+  margin-inline-start: calc(-1 * #{$mobile-nice-padding});
 
   @include media-breakpoint-up(sm) {
     margin-inline-start: calc(
@@ -67,8 +66,8 @@ $header-button-size: theme('spacing.6');
   border-radius: theme('borderRadius.full');
   margin: 0;
   padding: 0;
-  width: $header-button-size-mobile;
-  height: $header-button-size-mobile;
+  width: $header-button-size;
+  height: $header-button-size;
 
   &:focus-visible,
   &:hover {
@@ -89,11 +88,6 @@ $header-button-size: theme('spacing.6');
     @media (forced-colors: active) {
       color: GrayText;
     }
-  }
-
-  @include media-breakpoint-up(sm) {
-    width: $header-button-size;
-    height: $header-button-size;
   }
 }
 

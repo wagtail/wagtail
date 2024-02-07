@@ -168,13 +168,18 @@ module.exports = {
           ...transparencies,
           ...generateColorVariables(staticColors),
           ...generateThemeColorVariables(colorThemes.light),
+          'color-scheme': 'light',
         },
         '.w-theme-system': {
-          '@media (prefers-color-scheme: dark)': generateThemeColorVariables(
-            colorThemes.dark,
-          ),
+          '@media (prefers-color-scheme: dark)': {
+            ...generateThemeColorVariables(colorThemes.dark),
+            'color-scheme': 'dark',
+          },
         },
-        '.w-theme-dark': generateThemeColorVariables(colorThemes.dark),
+        '.w-theme-dark': {
+          ...generateThemeColorVariables(colorThemes.dark),
+          'color-scheme': 'dark',
+        },
       });
     }),
     /** Support for aria-expanded=true variant */
@@ -184,7 +189,7 @@ module.exports = {
   ],
   corePlugins: {
     ...vanillaRTL.disabledCorePlugins,
-    // Disable float and clear which have poor RTL support.
+    // Disable float and clear. Use Flexbox or Grid instead.
     float: false,
     clear: false,
     // Disable text-transform so we don’t rely on uppercasing text.

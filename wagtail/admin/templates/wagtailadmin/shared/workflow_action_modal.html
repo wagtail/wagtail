@@ -11,7 +11,7 @@
                 {% if field.is_hidden %}
                     {{ field }}
                 {% else %}
-                    {% include "wagtailadmin/shared/field.html" with field=field %}
+                    {% formattedfield field %}
                 {% endif %}
             {% endfor %}
             <li>

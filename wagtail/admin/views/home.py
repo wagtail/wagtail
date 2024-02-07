@@ -5,7 +5,6 @@ from typing import Any, Mapping, Union
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
-from django.db import connection
 from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
@@ -21,12 +20,13 @@ from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.models import (
     Page,
+    PageLogEntry,
     Revision,
     TaskState,
     WorkflowState,
     get_default_page_content_type,
 )
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 
 User = get_user_model()
 
@@ -130,6 +130,12 @@ class UserObjectsInWorkflowModerationPanel(Component):
                 )
                 .order_by("-current_task_state__started_at")
             )
+            # Filter out workflow states where the GenericForeignKey points to
+            # a nonexistent object. This can happen if the model does not define
+            # a GenericRelation to WorkflowState and the instance is deleted.
+            context["workflow_states"] = [
+                state for state in context["workflow_states"] if state.content_object
+            ]
         else:
             context["workflow_states"] = WorkflowState.objects.none()
         context["request"] = request
@@ -157,6 +163,7 @@ class WorkflowObjectsToModeratePanel(Component):
                 "revision",
                 "task",
                 "revision__user",
+                "workflow_state",
             )
             .prefetch_related(
                 "revision__content_object",
@@ -167,6 +174,12 @@ class WorkflowObjectsToModeratePanel(Component):
         )
         for state in states:
             obj = state.revision.content_object
+            # Skip task states where the revision's GenericForeignKey points to
+            # a nonexistent object. This can happen if the model does not define
+            # a GenericRelation to WorkflowState and/or Revision and the instance
+            # is deleted.
+            if not obj:
+                continue
             actions = state.task.specific.get_actions(obj, request.user)
             workflow_tasks = state.workflow_state.all_tasks_with_status()
 
@@ -221,7 +234,7 @@ class LockedPagesPanel(Component):
                     locked=True,
                     locked_by=request.user,
                 ),
-                "can_remove_locks": PagePermissionPolicy().user_has_permission(
+                "can_remove_locks": page_permission_policy.user_has_permission(
                     request.user, "unlock"
                 ),
                 "request": request,
@@ -242,50 +255,31 @@ class RecentEditsPanel(Component):
 
         # Last n edited pages
         edit_count = getattr(settings, "WAGTAILADMIN_RECENT_EDITS_LIMIT", 5)
-        if connection.vendor == "mysql":
-            # MySQL can't handle the subselect created by the ORM version -
-            # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
-            last_edits = Revision.objects.raw(
-                """
-                SELECT wr.* FROM
-                    wagtailcore_revision wr JOIN (
-                        SELECT max(created_at) AS max_created_at, object_id FROM
-                            wagtailcore_revision WHERE user_id = %s AND base_content_type_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
-                    ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
-                 """,
-                [
-                    User._meta.pk.get_db_prep_value(request.user.pk, connection),
-                    get_default_page_content_type().id,
-                    edit_count,
-                ],
-            )
-        else:
-            last_edits_dates = (
-                Revision.page_revisions.filter(user=request.user)
-                .values("object_id")
-                .annotate(latest_date=Max("created_at"))
-                .order_by("-latest_date")
-                .values("latest_date")[:edit_count]
-            )
-            last_edits = Revision.page_revisions.filter(
-                created_at__in=last_edits_dates
-            ).order_by("-created_at")
 
-        # The revision's object_id is a string, so cast it to int first.
-        page_keys = [int(pr.object_id) for pr in last_edits]
-        pages = Page.objects.specific().in_bulk(page_keys)
-        context["last_edits"] = []
-        for revision in last_edits:
-            page = pages.get(int(revision.object_id))
+        # Query the audit log to get a resultset of (page ID, latest edit timestamp)
+        last_edits_dates = (
+            PageLogEntry.objects.filter(user=request.user, action="wagtail.edit")
+            .values("page_id")
+            .annotate(latest_date=Max("timestamp"))
+            .order_by("-latest_date")[:edit_count]
+        )
+        # Retrieve the page objects for those IDs
+        pages_mapping = Page.objects.specific().in_bulk(
+            [log["page_id"] for log in last_edits_dates]
+        )
+        # Compile a list of (latest edit timestamp, page object) tuples
+        last_edits = []
+        for log in last_edits_dates:
+            page = pages_mapping.get(log["page_id"])
             if page:
-                context["last_edits"].append([revision, page])
+                last_edits.append((log["latest_date"], page))
 
+        context["last_edits"] = last_edits
         context["request"] = request
         return context
 
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
-
     template_name = "wagtailadmin/home.html"
     page_title = gettext_lazy("Dashboard")
 

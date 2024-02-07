@@ -30,7 +30,7 @@ To use `RoutablePageMixin`, you need to make your class inherit from both :class
 
 These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object; typically this is done through a call to `django.shortcuts.render`.
 
-The `path` and `re_path` decorators from `wagtail.contrib.routable_page.models.path` are similar to [the Django `django.urls` `path` and `re_path` functions](django:topics/http/urls). The former allows the use of plain paths and converters while the latter lets you specify your URL patterns as regular expressions.
+The `path` and `re_path` decorators from `wagtail.contrib.routable_page.models.path` are similar to [the Django `django.urls` `path` and `re_path` functions](inv:django#topics/http/urls). The former allows the use of plain paths and converters while the latter lets you specify your URL patterns as regular expressions.
 
 Here's an example of an `EventIndexPage` with three views, assuming that an `EventPage` model with an `event_date` field has been defined elsewhere:
 

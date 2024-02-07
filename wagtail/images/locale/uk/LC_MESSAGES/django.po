@@ -6,16 +6,15 @@
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Ivan Tyshchenko <iv.tihon@gmail.com>, 2021
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -169,6 +168,14 @@ msgstr "зображення"
 msgid "images"
 msgstr "зображення"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Додати теги до 1-го зображення"
+msgstr[1] "Додати теги до %(counter)s-х зображеннь"
+msgstr[2] "Додати теги до %(counter)s зображень"
+msgstr[3] "Додати теги до %(counter)s зображень"
+
 msgid "Add tags to images"
 msgstr "Додати теги до зображень"
 
@@ -191,6 +198,14 @@ msgstr "Так, додати"
 
 msgid "No, don't add"
 msgstr "Ні, не додавати"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Додати 1 зображення в нову колекцію"
+msgstr[1] "Додати %(counter)s зображення в нову колекцію"
+msgstr[2] "Додати %(counter)s зображень в нову колекцію"
+msgstr[3] "Додати %(counter)s зображеннь в нову колекцію"
 
 msgid "Add images to collection"
 msgstr "Додати зображення до колекції"
@@ -253,14 +268,44 @@ msgstr "Ні, не видаляти"
 msgid "Popular tags"
 msgstr "Популярні теги"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Надсилання успішне. Проте схоже, що ваше нове зображення є дублікатом уже "
+"існуючого. Ви можете видалити його, якщо воно непотрібне"
+
 msgid "Existing"
 msgstr "Існуючі"
 
 msgid "New"
 msgstr "Новий"
 
+msgid "Use new image"
+msgstr "Використати нове зображення"
+
+msgid "Use existing and delete new"
+msgstr "Використати існуюче і видалити нове"
+
 msgid "Latest images"
 msgstr "Останні зображення"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Вибрати %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Ви ще не надіслали жодних зображень у цю колекцію"
+
+msgid "You haven't uploaded any images."
+msgstr "Ви не надіслали жодних зображень"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Чому б не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>завантажити якесь зараз</a>?"
 
 msgid "Choose a format"
 msgstr "Оберіть формат"
@@ -280,6 +325,12 @@ msgstr "Додати зображення"
 msgid "Save"
 msgstr "Зберегти"
 
+msgid "Keep new image"
+msgstr "Зберегти нове зображення"
+
+msgid "Delete new image"
+msgstr "Видалити нове зображення"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Редагування зображення %(title)s"
@@ -289,6 +340,9 @@ msgstr "Редагування"
 
 msgid "Delete image"
 msgstr "Видалити зображення"
+
+msgid "Image focal point"
+msgstr "Фокальна точка зображення"
 
 msgid "URL Generator"
 msgstr "Генератор URL"
@@ -324,28 +378,17 @@ msgstr "Файл не знайдено"
 msgid "Usage"
 msgstr "Використання"
 
-msgid "Images"
-msgstr "Зображення"
+msgid "Sort by"
+msgstr "Сотрувати за"
+
+msgid "Entries per page"
+msgstr "Елементів на сторінці"
 
 msgid "Popular Tags:"
 msgstr "Популярні теги:"
 
 msgid "Select all images in listing"
 msgstr "Обрати всі зображення у списку"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Знайдено %(counter)s співпадіння"
-msgstr[1] "Знайдено %(counter)s співпадінь"
-msgstr[2] "Знайдено %(counter)s співпадінь"
-msgstr[3] "Знайдено %(counter)s співпадінь"
-
-msgid "Select image"
-msgstr "Обрати зображення"
-
-msgid "pixels"
-msgstr "пікселів"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -367,21 +410,11 @@ msgstr ""
 "Ви не завантажили жодного зображення. Чому б <a "
 "href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
-msgid "Generating URL"
-msgstr "Генерація URL"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Попередній перегляд"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Зауважте, що зображення, сгенеровані більшими за розмір екрану, будуть "
-"показані тут у меншому розмірі: вони будуть пристосовані до розміру екрану"
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Додати декілька зображень"
@@ -408,11 +441,23 @@ msgstr ""
 "цього зображення. Ви також можете повністю видалити це зображення, якщо "
 "надсилання не було потрібне. "
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Надсилання успішне. Проте схоже, що ваше нове зображення є дублікатом вже "
+"існуючого. Ви можете видалити його, якщо воно не потрібне"
+
 msgid "Sorry, upload failed."
 msgstr "Вибачте, надсилання зазнало невдачі. "
 
 msgid "Server Error"
 msgstr "Помилка сервера"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Надіслати цю помилку адміністратору сайту з наступною інформацією:"
 
 msgid "Image updated."
 msgstr "Зображення оновлено."
@@ -422,6 +467,9 @@ msgstr "Дозволи для зображення"
 
 msgid "Add an image permission"
 msgstr "Додати дозвіл для зображення"
+
+msgid "Tags"
+msgstr "Теги"
 
 msgid "Tag"
 msgstr "Тег"
@@ -474,11 +522,32 @@ msgstr "Йде надсилання..."
 msgid "Choose an image"
 msgstr "Оберіть зображення"
 
+msgid "Choose another image"
+msgstr "Оберіть інше зображення"
+
 msgid "Edit this image"
 msgstr "Редагувати зображення"
 
-msgid "Search images"
-msgstr "Пошук зображень"
+msgid "Newest"
+msgstr "Найновіші"
+
+msgid "Oldest"
+msgstr "Найстаріші"
+
+msgid "Title: (A -> Z)"
+msgstr "Заголовок: (А -> Я)"
+
+msgid "Title: (Z -> A)"
+msgstr "Заголовок: (Я -> А)"
+
+msgid "File size: (low to high)"
+msgstr "Розмір файлу: (від менших до більших)"
+
+msgid "File size: (high to low)"
+msgstr "Розмір файлу: (від більших до менших)"
+
+msgid "Images"
+msgstr "Зображення"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

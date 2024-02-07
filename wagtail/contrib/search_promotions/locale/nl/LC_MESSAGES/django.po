@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>, "
 "2015,2018,2020,2023\n"
@@ -217,9 +217,6 @@ msgid ""
 msgstr ""
 "Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
-
-msgid "Search promoted results"
-msgstr "Zoek gepromote resultaten"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

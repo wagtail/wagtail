@@ -1,7 +1,5 @@
-from wsgiref.util import FileWrapper
-
 from django.conf import settings
-from django.http import Http404, HttpResponse, StreamingHttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -77,7 +75,6 @@ def serve(request, document_id, document_filename):
         return redirect(direct_url)
 
     if local_path:
-
         # Use wagtail.utils.sendfile to serve the file;
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
@@ -93,15 +90,12 @@ def serve(request, document_id, document_filename):
         return sendfile(request, local_path, **sendfile_opts)
 
     else:
-
         # We are using a storage backend which does not expose filesystem paths
         # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
         # redirecting to the file url directly.
         # Fall back on pre-sendfile behaviour of reading the file content and serving it
-        # as a StreamingHttpResponse
-
-        wrapper = FileWrapper(doc.file)
-        response = StreamingHttpResponse(wrapper, doc.content_type)
+        # as a FileResponse
+        response = FileResponse(doc.file, doc.content_type)
 
         # set filename and filename* to handle non-ascii characters in filename
         # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition

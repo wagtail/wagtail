@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "page"
+msgstr "ސަފްހާ"
+
+msgid "Save"
+msgstr "ސޭވްކުރޭ"
+
+msgid "Delete"
+msgstr "ޑިލީޓްކުރެވޭ"
+
+msgid "Yes, delete"
+msgstr "ލައްބަ! ފުހެލާ"
+
+msgid "Editing"
+msgstr "އެޑިޓްކުރަނީ"
+
+msgid "Move up"
+msgstr "މައްޗަށް ދޭ"
+
+msgid "Move down"
+msgstr "ތިރިޔަށް ދޭ"
+
+msgid "External link"
+msgstr "ބޭރު ލިންކް"
+
+msgid "None"
+msgstr "None"
+
+msgid "Search"
+msgstr "ހޯދާ"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s މެޗު އެބަހުއްޓެވެ"
+msgstr[1] "%(counter)s މެޗުތައް އެބަހުއްޓެވެ"
+
+msgid "Edit"
+msgstr "އެޑިޓް"

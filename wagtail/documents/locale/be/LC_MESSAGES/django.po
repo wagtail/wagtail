@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -63,6 +63,12 @@ msgstr "дакумент"
 
 msgid "documents"
 msgstr "дакументы"
+
+msgid "Yes, add"
+msgstr "Так, дадаць"
+
+msgid "No, don't add"
+msgstr "Не, не дадаваць"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -124,26 +130,6 @@ msgstr "Файл не знойдзены"
 msgid "Usage"
 msgstr "Выкарыстоўванне"
 
-msgid "Documents"
-msgstr "Дакументы"
-
-msgid "Title"
-msgstr "Назва"
-
-msgid "File"
-msgstr "Файл"
-
-msgid "Created"
-msgstr "Створаны"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Ёсць %(counter)s супадзенне"
-msgstr[1] "Ёсць %(counter)s супадзенняў"
-msgstr[2] "Ёсць %(counter)s супадзенняў"
-msgstr[3] "Ёсць %(counter)s супадзенняў"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -204,6 +190,12 @@ msgstr "Дадаць правы доступу да дакумента"
 msgid "Delete"
 msgstr "Выдаліць"
 
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Створаны"
+
 msgid "Choose a document"
 msgstr "Абраць дакумент"
 
@@ -213,8 +205,11 @@ msgstr "Абраць іншы дакумент"
 msgid "Edit this document"
 msgstr "Рэдагаваць гэты дакумент"
 
-msgid "Search documents"
-msgstr "Пошул дакументаў"
+msgid "Documents"
+msgstr "Дакументы"
+
+msgid "Title"
+msgstr "Назва"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

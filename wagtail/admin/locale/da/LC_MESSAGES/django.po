@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -381,21 +381,6 @@ msgstr "Skitse"
 msgid "Live"
 msgstr "Live"
 
-msgid "Type"
-msgstr "Type"
-
-msgid "Edited"
-msgstr "Redigeret"
-
-msgid "Approve"
-msgstr "Godkend"
-
-msgid "Reject"
-msgstr "Afvis"
-
-msgid "Preview"
-msgstr "Forhåndsvis"
-
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
 
@@ -410,6 +395,9 @@ msgstr "Side opsummering"
 
 msgid "Close"
 msgstr "Luk"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
 
 msgid "Sign in"
 msgstr "Log Ind"
@@ -517,26 +505,14 @@ msgstr "Kopi"
 msgid "Copy this page"
 msgstr "Kopier denne side"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Ny %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Denne side har ugemte ændringer."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Redigerer %(page_type)s: %(title)s"
 
 msgid "Live version"
 msgstr "Live version"
 
 msgid "Current draft"
 msgstr "Nuværende skitse"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Udforsker %(title)s"
 
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."
@@ -583,8 +559,14 @@ msgstr "Bevæg op"
 msgid "Move down"
 msgstr "Bevæg ned"
 
+msgid "Type"
+msgstr "Type"
+
 msgid "Updated"
 msgstr "Opdateret"
+
+msgid "Pages"
+msgstr "Sider"
 
 msgid "Locked"
 msgstr "Låst"
@@ -600,6 +582,9 @@ msgstr "Ulåst"
 
 msgid "Lock"
 msgstr "Lås"
+
+msgid "Edited"
+msgstr "Redigeret"
 
 msgid "Add a child page"
 msgstr "Tilføj en underside"
@@ -676,6 +661,9 @@ msgstr "Side '%(page_title)s' er blevet udgivet."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Side '%(page_title)s' er blivet indsendt til moderation."
 
+msgid "Site"
+msgstr "Site"
+
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "SIde '%(page_title)s' flyttet."
@@ -686,9 +674,6 @@ msgstr "SIde '%(page_title)s' afpubliceret."
 
 msgid "Pages using"
 msgstr "Sider der bruger"
-
-msgid "Pages"
-msgstr "Sider"
 
 msgid "Bulleted list"
 msgstr "Liste med prikker"

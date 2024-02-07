@@ -6,7 +6,13 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Guide for managing a complex multi-tenancy setup with Wagtail](https://cynthiakiser.com/blog/2023/11/01/multitenancy-with-wagtail.html) (1 November 2023)
+-   [Wagtail tutorial video series, getting started through to e-commerce integration with PayPal](https://www.youtube.com/playlist?list=PLl5rkhS-ZxnePQpI2Ty63hpAvfUTrqdt1) (1 November 2023)
+-   [Integrating Next.js and Wagtail: Building a Headless, Content-Driven Website](https://blog.traleor.com/headless-nextjs-wagtail/) (21 October 2023)
+-   [Wagtail tutorial video series, building a blog](https://www.youtube.com/playlist?list=PLeLGN29skXLpaaSZXRkIMzNAOCPyemCve) (1 October 2023)
 -   [Deploy Wagtail CMS to PythonAnywhere using git push to a bare repo](https://www.nickmoreton.co.uk/articles/deploy-wagtail-cms-to-pythonanywhere/) (27 September 2023)
+-   [Building a custom Django command to check all admin pages are loading correctly in Wagtail](https://www.nickmoreton.co.uk/articles/wagtail-response-checker/) (1 September 2023)
+-   [Integrating ChatGPT with Wagtail for efficient content generation](https://octave.nz/post/integrating-chatgpt-with-wagtail-for-efficient-content-generation-and-content-management) (15 August 2023)
 -   [Creating Wagtail Streamfield StructBlocks with a Customised Editor Interface](https://enzedonline.com/en/tech-blog/how-to-create-wagtail-streamfield-structblocks-with-a-customised-editor-interface/) (9 July 2023)
 -   [Wagtail on Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0) (26 June 2023)
 -   [How to create a custom Wagtail CMS page type?](https://itcertifications.medium.com/how-to-create-a-custom-wagtail-cms-page-type-7bf72aff8413) (29 June 2023)

@@ -9,6 +9,7 @@ from wagtail.admin.forms.collections import (
     CollectionChoiceField,
     collection_member_permission_formset_factory,
 )
+from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
@@ -77,6 +78,11 @@ class BaseImageForm(BaseCollectionMemberForm):
                 attrs={"class": "focal_point_height"}
             ),
         }
+
+    def clean_tags(self):
+        tags = self.cleaned_data["tags"]
+        validate_tag_length(tags)
+        return tags
 
 
 def get_image_base_form():

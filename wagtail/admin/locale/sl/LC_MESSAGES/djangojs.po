@@ -89,9 +89,6 @@ msgstr "Uredi"
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Uredite vaš račun"
-
 msgid "Enter your comments..."
 msgstr "Vnesite vaš komentar"
 

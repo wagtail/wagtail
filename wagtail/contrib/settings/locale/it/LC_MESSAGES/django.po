@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,15 +36,8 @@ msgstr "default"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s per %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Modifica %(instance)s"
-
 msgid "Site"
 msgstr "Sito"
-
-msgid "Editing"
-msgstr "Modifica"
 
 msgid "Saving…"
 msgstr "Salvataggio in corso…"
@@ -60,9 +53,9 @@ msgstr ""
 "Questa impostazione non può essere aperta perché non esiste un sito "
 "predefinito."
 
+msgid "The setting could not be saved due to errors."
+msgstr "L'impostazione non può essere salvata a causa di errori."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s aggiornata."
-
-msgid "The setting could not be saved due to errors."
-msgstr "L'impostazione non può essere salvata a causa di errori."

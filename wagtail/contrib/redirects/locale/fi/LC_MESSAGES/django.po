@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -200,9 +200,6 @@ msgstr ""
 "Et ole luonut yhtään uudelleenohjausta. Mikset vaikka <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">lisäisi yhtä nyt</a>?"
 
-msgid "Search redirects"
-msgstr "Hae uudelleenohjauksia"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Uudelleenohjaus '%(redirect_title)s' päivitetty."
@@ -223,6 +220,9 @@ msgstr "Uudelleenohjaus '%(redirect_title)s' lisätty."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Uudelleenohjausta ei voitu luoda virheiden vuoksi."
+
+msgid "Search redirects"
+msgstr "Hae uudelleenohjauksia"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

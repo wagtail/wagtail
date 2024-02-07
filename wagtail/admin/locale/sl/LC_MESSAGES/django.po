@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -79,6 +79,9 @@ msgstr "Datum od"
 
 msgid "Date to"
 msgstr "Datum do"
+
+msgid "Locale"
+msgstr "Jezik in območje"
 
 msgid "All"
 msgstr "Vse"
@@ -481,6 +484,9 @@ msgstr "Pojdi nazaj"
 msgid "Bulk actions"
 msgstr "Množična dejanja"
 
+msgid "Select"
+msgstr "Izberite"
+
 msgid "Select row"
 msgstr "Izberite vrstico"
 
@@ -667,17 +673,6 @@ msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
 msgid "Cancel"
 msgstr "Prekliči"
 
-msgid "No log entries found."
-msgstr "Najden ni bil noben vnos v dnevnik."
-
-#, python-format
-msgid "No %(model_name)s match your query"
-msgstr "Noben %(model_name)s ne ustreza vaši poizvedbi"
-
-#, python-format
-msgid "There are no %(model_name)s to display"
-msgstr "Ni %(model_name)s za prikaz"
-
 msgid "Update"
 msgstr "Posodbi"
 
@@ -755,31 +750,6 @@ msgstr "Osnutek"
 msgid "Live"
 msgstr "Objavljeno"
 
-msgid "Pages awaiting moderation"
-msgstr "Strani čakajoč potrditev"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Edited"
-msgstr "Urejeno"
-
-msgid "Preview this page"
-msgstr "Predogled strani"
-
-msgid "Approve"
-msgstr "Potrdi"
-
-msgid "Reject"
-msgstr "Zavrni"
-
-msgid "Preview"
-msgstr "Predogled"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "avtor %(name)s"
-
 msgid "Your most recent edits"
 msgstr "Zadnja urejanja vsebine"
 
@@ -791,26 +761,6 @@ msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Povzetek spletnega mesta"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Stran <span class=\"visuallyhidden\">ustvarjena v "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Strani <span class=\"visuallyhidden\">ustvarjeni v "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Strani <span class=\"visuallyhidden\">ustvarjenih v "
-"%(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> Strani <span class=\"visuallyhidden\">ustvarjenih v "
-"%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -865,6 +815,9 @@ msgstr "Naloge"
 msgid "Task submitted by"
 msgstr "Nalogo je poslal"
 
+msgid "Preview"
+msgstr "Predogled"
+
 msgid "Compare with live version"
 msgstr "Primerjaj z objavljeno različico"
 
@@ -916,17 +869,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Stran \"%(title)s\" je bila zavrnjena"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Stran\"%(page)s\" je bila oddana v potrditev s strani %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Predogled strani so lahko ogledate tukaj:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Stran \"%(page)s\" je bila oddana v potrditev"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -944,6 +886,9 @@ msgstr "Stran '%(title)s' je bila odobrena v '%(task)s'."
 msgid ""
 "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "Stran \"%(title)s\" je bila zavrnjena v fazi moderiranja \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Predogled strani so lahko ogledate tukaj:"
 
 #, python-format
 msgid "You can preview the %(model_name)s here:"
@@ -1309,16 +1254,8 @@ msgstr "Kopiraj"
 msgid "Copy this page"
 msgstr "Kopiraj to stran"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nov %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Urejanje %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Ta stran je vzdevek drugi strani."
@@ -1351,9 +1288,8 @@ msgstr "Različica v živo"
 msgid "Current draft"
 msgstr "Trenutni osnutek"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Raziskovalec: %(title)s"
+msgid "No log entries found."
+msgstr "Najden ni bil noben vnos v dnevnik."
 
 msgid "Select all pages in listing"
 msgstr "Izberite vse strani na seznamu"
@@ -1426,25 +1362,8 @@ msgstr "Razvrsti"
 msgid "Enable ordering of child pages"
 msgstr "Vklopi sortiranje podrejenih strani"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
-msgstr ""
-"%(start_index)s-%(end_index)s od %(result_count)s po celotnem spletnem mestu."
-
-#, python-format
-msgid "Search within '%(title)s'"
-msgstr "Išči znotraj '%(title)s'"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
-msgstr "%(start_index)s-%(end_index)s od %(result_count)s znotraj '%(title)s'."
-
 msgid "Search the whole site"
 msgstr "Iskanje po celotnem spletnem mestu"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s"
-msgstr "%(start_index)s-%(end_index)s od %(result_count)s"
 
 msgid "Sites menu"
 msgstr "Meniji strani"
@@ -1511,9 +1430,6 @@ msgstr "Premakni navzgor"
 msgid "Move down"
 msgstr "Premakni navzdol"
 
-msgid "Set publishing schedule"
-msgstr "Nastavite urnik objave"
-
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr "Izberite, kdaj naj bo ta %(model_name)s aktiven in/ali poteče"
@@ -1532,6 +1448,9 @@ msgstr "Vsakdo z dovoljenji za urejanje lahko načrtuje objavo"
 msgid "But only those with publishing permissions can make them effective."
 msgstr "Toda le tisti z dovoljenji za objavo jih lahko aktivirajo."
 
+msgid "Set publishing schedule"
+msgstr "Nastavite urnik objave"
+
 msgid "Save schedule"
 msgstr "Shrani urnik"
 
@@ -1547,6 +1466,9 @@ msgstr "Nazadnje objavljeno"
 msgid "Last published by"
 msgstr "Nazadnje objavil"
 
+msgid "Type"
+msgstr "Tip"
+
 msgid "No pages found."
 msgstr "Najdena ni nobena stran."
 
@@ -1555,6 +1477,9 @@ msgstr "Nobena stran ne ustreza merilom tega poročila."
 
 msgid "Updated"
 msgstr "Posodobljeno"
+
+msgid "Pages"
+msgstr "Strani"
 
 msgid "Locking status"
 msgstr "Status zaklepanja"
@@ -1607,6 +1532,9 @@ msgstr "Po poteku dela"
 msgid "Completed at"
 msgstr "Zaključeno ob"
 
+msgid "Clear"
+msgstr "Počisti"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Stran %(page_num)s od %(total_pages)s."
@@ -1626,25 +1554,20 @@ msgstr "Prenesi XLSX"
 msgid "Download CSV"
 msgstr "Prenesi CSV"
 
-msgid "Add comment"
-msgstr "Dodaj komentar"
-
 msgid "Filter"
 msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Uporabi filter"
 
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+msgid "Back"
+msgstr "Nazaj"
+
 msgid "History"
 msgstr "Zgodovina"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nov: %(model_name)s"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "Urejanje %(page_type)s %(title)s"
 
 msgid "Root"
 msgstr "Koren"
@@ -1697,6 +1620,9 @@ msgstr "Preklopi stransko ploščo"
 
 msgid "Side panel width"
 msgstr "Širina stranske vrstice"
+
+msgid "Issues found"
+msgstr "Najdene težave"
 
 msgid "Comment notifications"
 msgstr "Obvestila o komentarjih"
@@ -1852,6 +1778,9 @@ msgstr "Časovnica"
 msgid "Initial Revision"
 msgstr "Začetna revizija"
 
+msgid "Edited"
+msgstr "Urejeno"
+
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
 msgstr "%(action)s avtorja<b>%(who)s</b> ob<b>%(at)s</b>"
@@ -1902,9 +1831,6 @@ msgstr "Preskoči na glavno vsebino"
 
 msgid "View Wagtail quick actions"
 msgstr "Oglejte si hitra dejanja Wagtail"
-
-msgid "Issues found"
-msgstr "Najdene težave"
 
 msgid "Accessibility"
 msgstr "Dostopnost"
@@ -2174,9 +2100,6 @@ msgstr "Razvrsti po '%(label)s' v naraščajočem vrstnem redu."
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Razvrsti po '%(label)s' v padajočem vrstnem redu."
 
-msgid "Select page"
-msgstr "Izberi stran"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -2244,9 +2167,6 @@ msgstr "Ime in elektronski naslov"
 msgid "Profile picture"
 msgstr "Profilna slika"
 
-msgid "Locale"
-msgstr "Jezik in območje"
-
 msgid "Theme preferences"
 msgstr "Nastavitve teme"
 
@@ -2258,9 +2178,6 @@ msgstr "Vaše nastavitve računa so bile uspešno spremenjene!"
 
 msgid "You have been successfully logged out."
 msgstr "Uspešno ste bili odjavljeni."
-
-msgid "Select"
-msgstr "Izberite"
 
 msgid "Collections"
 msgstr "Zbirke"
@@ -2295,10 +2212,6 @@ msgstr "Ali ste prepričani, da želite izbrisati to zbirko?"
 msgid "Home"
 msgstr "Domov"
 
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Uredi ta %(model_name)s"
-
 msgid "Workflow progress"
 msgstr "Napredek poteka dela"
 
@@ -2330,10 +2243,6 @@ msgstr ""
 "%(model_name)s '%(object)s' je bila nadomeščen z različico od %(timestamp)s"
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "Išči %(model_name)s"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
 
@@ -2352,8 +2261,16 @@ msgstr "Izbriši '%(title)s'"
 msgid "More options for '%(title)s'"
 msgstr "Več možnosti za '%(title)s'"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nov: %(model_name)s"
+
 msgid "Editing"
 msgstr "Urejanje"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' izbrisan."
 
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
@@ -2379,9 +2296,6 @@ msgstr "Verzija %(revision_id)s od \"%(object)s\" ni več načrtovana."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "Revizija %(revision_id)s od \"%(object)s\""
-
-msgid "Usage of"
-msgstr "Uporabe"
 
 msgid "If you confirm deletion"
 msgstr "Če potrdite izbris"
@@ -2485,8 +2399,9 @@ msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stran '%(page_title)s' izbrisana."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Stran trenutno čaka na potrditev"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Urejanje%(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -2524,35 +2439,15 @@ msgstr "Skrij dejanja komentiranja"
 msgid "Page history"
 msgstr "Zgodovina strani"
 
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Pritisnite enter, da izberete element, uporabite puščici gor in dol, da "
-"premaknete element, pritisnite enter, da dokončate premik, ali escape, da "
-"prekličete trenutni premik."
+msgid "Site"
+msgstr "Spletno mesto"
+
+msgid "Yes"
+msgstr "Da"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stran '%(page_title)s' je sedaj odklenjena."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Stran '%(page_title)s' trenutno ne čaka na potrditev."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Stran '%(page_title)s' objavljena."
-
-msgid "Failed to send approval notifications"
-msgstr "Pošiljanje obvestil o odobritvi ni uspelo"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Objava strani '%(page_title)s' zavrnjena."
-
-msgid "Failed to send rejection notifications"
-msgstr "Pošiljanje obvestil o zavrnitvi ni uspelo"
 
 #, python-format
 msgid ""
@@ -2572,6 +2467,10 @@ msgstr "Stran '%(page_title)s' umaknjena iz objave."
 
 msgid "Pages using"
 msgstr "Strani tipa"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stran '%(page_title)s' trenutno ne čaka na potrditev."
 
 msgid "Last published before"
 msgstr "Nazadnje objavljeno pred"
@@ -2713,9 +2612,6 @@ msgstr "Naloga '%(task_name)s' omogočena."
 msgid "Choose another"
 msgstr "Izberite drugega"
 
-msgid "Pages"
-msgstr "Strani"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Predogled osnutka različice '%(title)s'"
@@ -2797,9 +2693,6 @@ msgstr "Vodič po urejevalniku"
 
 msgid "Help"
 msgstr "Pomoč"
-
-msgid "Yes"
-msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Izberite element"

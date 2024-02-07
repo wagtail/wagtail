@@ -1,44 +1,27 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ object }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}{% if locked_for_user %}content-locked{% endif %}{% endblock %}
-{% block content %}
-    {% include 'wagtailadmin/shared/headers/slim_header.html' %}
+{% block bodyclass %}{{ block.super }} {% if locked_for_user %}content-locked{% endif %}{% endblock %}
 
-    {% include "wagtailadmin/shared/header.html" with title=object icon=header_icon merged=1 only %}
-
-    <div class="row row-flush">
-
-        <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
-            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
-                {% csrf_token %}
-                <div class="nice-padding">
-                    {{ panel.render_form_content }}
-                </div>
-                <footer class="footer">
-                    <nav aria-label="{% trans 'Actions' %}">
-                        <ul>
-                            <li class="actions actions--primary footer__container">
-                                <div class="dropdown dropup dropdown-button match-width {% if view.view_name == 'revisions_revert' %}warning{% endif %}">
-                                    {{ action_menu.render_html }}
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                </footer>
-            </form>
-        </div>
-    </div>
+{% block slim_header %}
+    {% comment %}
+        We can't use the `only` keyword yet, because the SnippetStatusSidePanel still rely on some
+        context variables from the view. As a result, we can't reuse the include from the generic
+        template and have to copy it here without the `only` keyword.
+    {% endcomment %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url %}
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
+{% block actions %}
+    <footer class="footer">
+        <nav class="actions actions--primary footer__container w-grid" aria-label="{% trans 'Actions' %}">
+            {{ action_menu.render_html }}
+        </nav>
+    </footer>
 {% endblock %}
+
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ media.js }}
 
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page

@@ -181,6 +181,7 @@ class TitleColumn(Column):
         name,
         url_name=None,
         get_url=None,
+        get_title_id=None,
         label_prefix=None,
         get_label_id=None,
         link_classname=None,
@@ -191,6 +192,7 @@ class TitleColumn(Column):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
+        self._get_title_id_func = get_title_id
         self.label_prefix = label_prefix
         self._get_label_id_func = get_label_id
         self.link_attrs = link_attrs or {}
@@ -205,6 +207,7 @@ class TitleColumn(Column):
         )
         if self.link_classname is not None:
             context["link_attrs"]["class"] = self.link_classname
+        context["title_id"] = self.get_title_id(instance, parent_context)
         context["label_id"] = self.get_label_id(instance, parent_context)
         return context
 
@@ -217,6 +220,10 @@ class TitleColumn(Column):
         elif self.url_name:
             id = multigetattr(instance, self.id_accessor)
             return reverse(self.url_name, args=(quote(id),))
+
+    def get_title_id(self, instance, parent_context):
+        if self._get_title_id_func:
+            return self._get_title_id_func(instance)
 
     def get_label_id(self, instance, parent_context):
         if self._get_label_id_func:
@@ -319,12 +326,32 @@ class UserColumn(Column):
 
 
 class BulkActionsCheckboxColumn(BaseColumn):
+    """
+    A checkbox column for the bulk actions feature.
+
+    When using this column, there should be another column (e.g. a TitleColumn)
+    that has an element with the id "{obj_type}_{instance.pk}_title" that contains
+    the title of the object (and nothing else) for screen reader purposes.
+    """
+
     header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
     cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
 
+    def __init__(self, *args, obj_type, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.obj_type = obj_type
+
+    def get_aria_describedby(self, instance):
+        return f"{self.obj_type}_{quote(instance.pk)}_title"
+
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["obj"] = instance
+        context.update(
+            {
+                "obj_type": self.obj_type,
+                "aria_describedby": self.get_aria_describedby(instance),
+            }
+        )
         return context
 
 
@@ -357,6 +384,24 @@ class ReferencesColumn(Column):
         return context
 
 
+class DownloadColumn(Column):
+    cell_template_name = "wagtailadmin/tables/download_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["download_url"] = instance.url
+        return context
+
+
+class RelatedObjectsColumn(Column):
+    """Outputs a list of objects related to the object through a one-to-many relationship"""
+
+    cell_template_name = "wagtailadmin/tables/related_objects_cell.html"
+
+    def get_value(self, instance):
+        return getattr(instance, self.accessor).all()
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
@@ -377,8 +422,10 @@ class Table(Component):
         ordering=None,
         classname=None,
         attrs=None,
+        caption=None,
     ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
+        self.caption = caption
         self.data = data
         if template_name:
             self.template_name = template_name
@@ -387,6 +434,9 @@ class Table(Component):
         if classname is not None:
             self.classname = classname
         self.base_attrs = attrs or {}
+
+    def get_caption(self):
+        return self.caption
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

@@ -15,6 +15,9 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Add a comment"
+msgstr "Дадаць каментар"
+
 msgid "Alt text"
 msgstr "Тэкст падказкі"
 
@@ -41,9 +44,6 @@ msgstr "Рэдагаваць"
 
 msgid "Edit '%(title)s'"
 msgstr "Змяніць «%(title)s»"
-
-msgid "Edit your account"
-msgstr "Рэдагаваць ваш рахунак"
 
 msgid "Horizontal line"
 msgstr "Гарызантальная лінія"
@@ -77,6 +77,9 @@ msgstr "Абнавіць старонку"
 
 msgid "Save"
 msgstr "Захаваць"
+
+msgid "Saving..."
+msgstr "Захаванне..."
 
 msgid "Search"
 msgstr "Пошук"

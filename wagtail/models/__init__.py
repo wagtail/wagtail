@@ -159,7 +159,21 @@ def get_page_models():
     """
     Returns a list of all non-abstract Page model classes defined in this project.
     """
-    return PAGE_MODEL_CLASSES
+    return PAGE_MODEL_CLASSES.copy()
+
+
+def get_page_content_types(include_base_page_type=True):
+    """
+    Returns a queryset of all ContentType objects corresponding to Page model classes.
+    """
+    models = get_page_models()
+    if not include_base_page_type:
+        models.remove(Page)
+
+    content_type_ids = [
+        ct.pk for ct in ContentType.objects.get_for_models(*models).values()
+    ]
+    return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
 
 
 def get_default_page_content_type():
@@ -1245,11 +1259,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
     max_count_per_parent = None
 
+    # Set the default order for child pages to be shown in the Page index listing
+    admin_default_ordering = "-latest_revision_created_at"
+
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
     default_exclude_fields_in_copy = [
         "id",
-        "path",
         "depth",
         "numchild",
         "url_path",
@@ -1361,6 +1377,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
         return super().get_default_locale()
+
+    def get_admin_default_ordering(self):
+        """
+        Determine the default ordering for child pages in the admin index listing.
+        Returns a string (e.g. 'latest_revision_created_at, title, ord' or 'live').
+        """
+        return self.admin_default_ordering
 
     def full_clean(self, *args, **kwargs):
         # Apply fixups that need to happen before per-field validation occurs
@@ -2377,6 +2400,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return a PagePermissionsTester object defining what actions the user can perform on this page
         """
+        # Allow specific classes to override this method, but only cast to the
+        # specific instance if it's not already specific and if the method has
+        # been overridden. This helps improve performance when working with
+        # base Page querysets.
+        is_overridden = (
+            self.specific_class
+            and self.specific_class.permissions_for_user
+            != type(self).permissions_for_user
+        )
+        if is_overridden and not isinstance(self, self.specific_class):
+            return self.specific_deferred.permissions_for_user(user)
         return PagePermissionTester(user, self)
 
     def is_previewable(self):
@@ -2919,10 +2953,10 @@ class GroupPagePermission(models.Model):
 
 class PagePermissionTester:
     def __init__(self, user, page):
-        from wagtail.permission_policies.pages import PagePermissionPolicy
+        from wagtail.permissions import page_permission_policy
 
         self.user = user
-        self.permission_policy = PagePermissionPolicy()
+        self.permission_policy = page_permission_policy
         self.page = page
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
@@ -4351,13 +4385,10 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
-        from wagtail.permission_policies.pages import PagePermissionPolicy
+        from wagtail.permissions import page_permission_policy
 
-        q = Q(
-            page__in=PagePermissionPolicy()
-            .explorable_instances(user)
-            .values_list("pk", flat=True)
-        )
+        explorable_instances = page_permission_policy.explorable_instances(user)
+        q = Q(page__in=explorable_instances.values_list("pk", flat=True))
 
         root_page_permissions = Page.get_first_root_node().permissions_for_user(user)
         if (

@@ -1,6 +1,30 @@
 import { Controller } from '@hotwired/stimulus';
 import tippy, { Placement, Props, Instance } from 'tippy.js';
-import { hideTooltipOnEsc } from '../includes/initTooltips';
+import { domReady } from '../utils/domReady';
+
+/**
+ * Hides tooltip when escape key is pressed.
+ */
+export const hideTooltipOnEsc = {
+  name: 'hideOnEsc',
+  defaultValue: true,
+  fn({ hide }: Instance) {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        hide();
+      }
+    }
+
+    return {
+      onShow() {
+        document.addEventListener('keydown', onKeyDown);
+      },
+      onHide() {
+        document.removeEventListener('keydown', onKeyDown);
+      },
+    };
+  },
+};
 
 /**
  * A Tippy.js tooltip with simple popover content.
@@ -51,12 +75,29 @@ export class TooltipController extends Controller<HTMLElement> {
     return {
       content: this.contentValue,
       placement: this.placementValue,
-      plugins: [hideTooltipOnEsc],
+      plugins: this.plugins,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
     };
   }
 
+  get plugins() {
+    return [hideTooltipOnEsc];
+  }
+
   disconnect() {
     this.tippy?.destroy();
+  }
+
+  /**
+   * Ensure we have backwards compatibility for any data-tippy usage on initial load.
+   *
+   * @deprecated RemovedInWagtail70
+   */
+  static afterLoad() {
+    domReady().then(() => {
+      tippy('[data-tippy-content]', {
+        plugins: [hideTooltipOnEsc],
+      });
+    });
   }
 }

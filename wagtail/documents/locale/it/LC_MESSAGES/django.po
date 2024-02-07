@@ -7,15 +7,15 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -168,11 +168,23 @@ msgstr "No, non eliminarlo"
 msgid "Latest documents"
 msgstr "Ultimi documenti"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Spiacente, nessun documento corrisponde a \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Non hai ancora caricato alcun documento in questa raccolta."
 
 msgid "You haven't uploaded any documents."
 msgstr "Non hai ancora caricato alcun documento."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Perché non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>caricarne una adesso</a>?"
 
 msgid "Change document:"
 msgstr "Cambia documento"
@@ -209,32 +221,10 @@ msgid "File not found"
 msgstr "File non trovato"
 
 msgid "Usage"
-msgstr "Uso"
-
-msgid "Documents"
-msgstr "Documenti"
+msgstr "Utilizzo"
 
 msgid "Select all documents in listing"
 msgstr "Seleziona tutti i documenti dalla lista"
-
-msgid "Title"
-msgstr "Titolo"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created"
-msgstr "Creato"
-
-msgid "Select document"
-msgstr "Seleziona documento"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "C'è %(counter)s corrispondenza"
-msgstr[1] "Ci sono %(counter)s corrispondenze"
-msgstr[2] "Ci sono %(counter)s corrispondenze"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -341,6 +331,12 @@ msgstr[0] "%(num_parent_objects)d documento è stato eliminato"
 msgstr[1] "%(num_parent_objects)d documenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d documenti sono stati eliminati"
 
+msgid "File"
+msgstr "File"
+
+msgid "Created"
+msgstr "Creato"
+
 msgid "Choose a document"
 msgstr "Scegli un documento"
 
@@ -350,8 +346,11 @@ msgstr "Scegli un'altro documento"
 msgid "Edit this document"
 msgstr "Modifica questo documento"
 
-msgid "Search documents"
-msgstr "Cerca documenti"
+msgid "Documents"
+msgstr "Documenti"
+
+msgid "Title"
+msgstr "Titolo"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

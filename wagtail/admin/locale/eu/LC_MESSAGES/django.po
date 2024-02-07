@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 67feb0cba3962a6c9f09eb0e43697461_528661a "
 "<cbde1c637170da616adcdde6daca673c_96059>, 2014\n"
@@ -98,18 +98,6 @@ msgstr ""
 msgid "Edit this page"
 msgstr "Orrialde hau editatu"
 
-msgid "Pages awaiting moderation"
-msgstr "Moderatzeke dauden orrialdeak"
-
-msgid "Approve"
-msgstr "Baieztatu"
-
-msgid "Reject"
-msgstr "Ezeztatu"
-
-msgid "Preview"
-msgstr "Aurrikusi"
-
 msgid "Your most recent edits"
 msgstr "Zure edizio berrienak"
 
@@ -118,6 +106,9 @@ msgstr "Egoera"
 
 msgid "Date"
 msgstr "Data"
+
+msgid "Preview"
+msgstr "Aurrikusi"
 
 msgid "Move up"
 msgstr "Gora mugitu"

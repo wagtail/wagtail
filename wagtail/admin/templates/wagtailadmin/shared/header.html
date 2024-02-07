@@ -10,7 +10,7 @@
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `search_form` - form object for the search form. Required if search_url is passed
     - `search_results_url` - URL to be used for async requests to search results, if not provided, the form's action URL will be used
-    - `search_target` - A selector string to be used as the target for teh search results to be swapped into. Defaults to '#results'
+    - `search_target` - A selector string to be used as the target for the search results to be swapped into. Defaults to '#listing-results'
     - `search_disable_async` - If True, the default header async search functionality will not be used
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
@@ -59,21 +59,23 @@
                     {% endif %}
                 >
                     {% for field in search_form %}
-                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
+                        {% formattedfield field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
                     {% endfor %}
                     {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-                    <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
-                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
+                    <div class="w-sr-only"><input disabled type="submit" aria-hidden="true"/></div>
+                    <div class="submit w-sr-only"><input type="submit" value="Search" class="button" /></div>
                 </form>
             {% elif search %}
                 {{ search }}
             {% endif %}
         </div>
         <div class="{% block right_column_classname %}right{% endblock %}">
+            {% if base_actions %}
+                {{ base_actions }}
+            {% endif %}
             {% block right_column %}
                 {% if action_url %}
                     <div class="actionbutton">
-                        {{ base_actions }}
                         {% with action_icon|default:'plus' as action_icon_name %}
                             <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text|capfirst }}</a>
                         {% endwith %}

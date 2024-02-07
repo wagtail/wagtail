@@ -153,13 +153,13 @@ class TestRichTextFieldComparison(TestFieldComparison):
             SimplePage._meta.get_field("content"),
             SimplePage(content="Original content"),
             SimplePage(
-                content='<script type="text/javascript">doSomethingBad();</script>'
+                content='Do something good. <script type="text/javascript">doSomethingBad();</script>'
             ),
         )
 
         self.assertEqual(
             comparison.htmldiff(),
-            '<span class="deletion">Original content</span><span class="addition">doSomethingBad();</span>',
+            '<span class="deletion">Original content</span><span class="addition">Do something good.</span>',
         )
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 
@@ -491,7 +491,7 @@ class TestStreamFieldComparison(TestCase):
 
         self.assertEqual(
             comparison.htmldiff(),
-            '<div class="comparison__child-object">I really like <span class="deletion">Wagtail &lt;3</span><span class="addition">evil code &gt;_&lt; doSomethingBad();</span></div>',
+            '<div class="comparison__child-object">I really like <span class="deletion">Wagtail &lt;3</span><span class="addition">evil code &gt;_&lt;</span></div>',
         )
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 
@@ -525,7 +525,7 @@ class TestStreamFieldComparison(TestCase):
 
         self.assertEqual(
             comparison.htmldiff(),
-            '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object addition">I really like evil code &gt;_&lt; doSomethingBad();</div>',
+            '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object addition">I really like evil code &gt;_&lt;</div>',
         )
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 
@@ -559,7 +559,7 @@ class TestStreamFieldComparison(TestCase):
 
         self.assertEqual(
             comparison.htmldiff(),
-            '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object deletion">I really like evil code &gt;_&lt; doSomethingBad();</div>',
+            '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object deletion">I really like evil code &gt;_&lt;</div>',
         )
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 

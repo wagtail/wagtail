@@ -21,6 +21,10 @@
     @apply w-w-4 w-h-4 w-mr-3 w-transition w-opacity-50 w-shrink-0;
   }
 
+  .icon-wrapper .icon {
+    @apply w-mr-0;
+  }
+
   &:hover {
     @apply w-text-text-label-menus-active w-bg-surface-menu-item-active;
 

@@ -1,6 +1,5 @@
 import json
 from unittest import mock
-from urllib.parse import quote
 
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -57,7 +56,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["documents"].number, 2)
+        self.assertEqual(response.context["page_obj"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_docs()
@@ -65,11 +64,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": "Hello World!"})
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
-
-        # Check that we got page one
-        self.assertEqual(response.context["documents"].number, 1)
+        self.assertEqual(response.status_code, 404)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -77,14 +72,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": 99999})
 
         # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
-
-        # Check that we got the last page
-        self.assertEqual(
-            response.context["documents"].number,
-            response.context["documents"].paginator.num_pages,
-        )
+        self.assertEqual(response.status_code, 404)
 
     def test_ordering(self):
         orderings = ["title", "-created_at"]
@@ -96,8 +84,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.get()
-        self.assertNotContains(response, "<th>Collection</th>")
-        self.assertNotContains(response, "<td>Root</td>")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
 
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
@@ -107,8 +95,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.get()
-        self.assertContains(response, "<th>Collection</th>")
-        self.assertContains(response, "<td>Root</td>")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
         self.assertEqual(
             [collection.name for collection in response.context["collections"]],
             ["Root", "Evil plans", "Good plans"],
@@ -117,6 +105,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def test_index_with_collection_filtered(self):
         root_collection = Collection.get_first_root_node()
         travel_plans = root_collection.add_child(name="Travel plans")
+        models.Document.objects.create(title="Itinerary", collection=travel_plans)
 
         self.make_docs()
 
@@ -125,6 +114,25 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         url = reverse("wagtaildocs:add_multiple")
         self.assertContains(
             response, f'<a href="{url}?collection_id={travel_plans.pk}"'
+        )
+
+        # List should be filtered
+        self.assertEqual(len(response.context["page_obj"]), 1)
+        self.assertContains(response, "Itinerary")
+        self.assertNotContains(response, "Test 42")
+
+        # Should render the "Select all" with the correct collection ID
+        # twice, one for the column header and one in the footer.
+        self.assertContains(
+            response,
+            f"""
+            <input data-bulk-action-parent-id="{travel_plans.pk}"
+                   data-bulk-action-select-all-checkbox
+                   type="checkbox"
+                   aria-label="Select all"
+            />""",
+            html=True,
+            count=2,
         )
 
     def test_collection_nesting(self):
@@ -148,8 +156,8 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
-        next_url = quote(response._request.get_full_path())
-        self.assertContains(response, f"{edit_url}?next={next_url}")
+        params = urlencode({"next": response._request.get_full_path()})
+        self.assertContains(response, f"{edit_url}?{params}")
 
     def test_search_form_rendered(self):
         response = self.get()
@@ -218,24 +226,37 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "There are 50 matches")
 
 
-class TestDocumentListingResultsView(WagtailTestUtils, TransactionTestCase):
+class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
         Collection.add_root(name="Root")
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtaildocs:listing_results"), params)
+        return self.client.get(reverse("wagtaildocs:index_results"), params)
 
     def test_search(self):
         doc = models.Document.objects.create(title="A boring report")
 
         response = self.get({"q": "boring"})
+        params = urlencode({"next": "/admin/documents/?q=boring"})
         self.assertEqual(response.status_code, 200)
         # 'next' param on edit page link should point back to the documents index, not the results view
-        self.assertContains(
-            response,
-            "/admin/documents/edit/%d/?next=/admin/documents/%%3Fq%%3Dboring" % doc.id,
-        )
+        self.assertContains(response, f"/admin/documents/edit/{doc.pk}/?{params}")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
+
+    def test_search_with_collection(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+        doc = models.Document.objects.create(title="A boring report")
+
+        response = self.get({"q": "boring"})
+        params = urlencode({"next": "/admin/documents/?q=boring"})
+        self.assertEqual(response.status_code, 200)
+        # 'next' param on edit page link should point back to the documents index, not the results view
+        self.assertContains(response, f"/admin/documents/edit/{doc.pk}/?{params}")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
 
 
 class TestDocumentAddView(WagtailTestUtils, TestCase):
@@ -1167,7 +1188,9 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         )
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "title", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -1459,7 +1482,9 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
             "/admin/documents/multiple/delete_upload/%d/"
             % response.context["uploaded_document"].id,
         )
-        self.assertFormError(response, "form", "author", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "author", "This field is required."
+        )
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -1654,8 +1679,8 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertNotContains(response, "<th>Collection</th>")
-        self.assertNotContains(response, "<td>Root</td>")
+        self.assertNotContains(response, "<th>Collection</th>", html=True)
+        self.assertNotContains(response, "<td>Root</td>", html=True)
 
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
@@ -1664,8 +1689,8 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         self.make_docs()
 
         response = self.client.get(reverse("wagtaildocs:index"))
-        self.assertContains(response, "<th>Collection</th>")
-        self.assertContains(response, "<td>Root</td>")
+        self.assertContains(response, "<th>Collection</th>", html=True)
+        self.assertContains(response, "<td>Root</td>", html=True)
 
 
 class TestDocumentChooserViewSearch(WagtailTestUtils, TransactionTestCase):

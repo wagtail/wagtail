@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
@@ -58,7 +59,6 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 
 class TestIndexView(IndexView):
-
     model = ModelWithStringTypePrimaryKey
     index_url_name = "testapp_generic_index"
     template_name = "tests/generic_view_templates/index.html"
@@ -73,7 +73,6 @@ class CustomModelEditForm(forms.ModelForm):
 
 
 class TestEditView(EditView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/edit.html"
@@ -87,7 +86,6 @@ class TestEditView(EditView):
 
 
 class TestDeleteView(DeleteView):
-
     model = ModelWithStringTypePrimaryKey
     context_object_name = "test_object"
     template_name = "tests/generic_view_templates/delete.html"
@@ -203,25 +201,34 @@ class SearchTestModelViewSet(ModelViewSet):
     form_fields = ["title", "body"]
 
 
+class FeatureCompleteToyIndexView(IndexView):
+    model = FeatureCompleteToy
+    default_ordering = ["name", "-release_date"]
+
+
 class FeatureCompleteToyViewSet(ModelViewSet):
     model = FeatureCompleteToy
     url_namespace = "feature_complete_toy"
     url_prefix = "feature-complete-toy"
     menu_label = "Feature Complete Toys"
     icon = "media"
-    exclude_form_fields = ()
     template_prefix = "customprefix/"
     index_template_name = "tests/fctoy_index.html"
+    index_view_class = FeatureCompleteToyIndexView
     list_display = ["name", BooleanColumn("is_cool"), UpdatedAtColumn()]
     list_filter = ["name", "release_date"]
     list_export = ["name", "release_date", "is_cool"]
     export_filename = "feature-complete-toys"
     export_headings = {"release_date": "Launch date"}
     list_per_page = 5
-    ordering = ["name", "-release_date"]
     # search_fields derived from the model
     inspect_view_enabled = True
     inspect_view_fields = ["strid", "release_date"]
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("release_date"),
+    ]
 
 
 class FCToyAlt1ViewSet(ModelViewSet):
@@ -232,6 +239,7 @@ class FCToyAlt1ViewSet(ModelViewSet):
     menu_label = "FC Toys Alt 1"
     inspect_view_enabled = True
     inspect_view_fields_exclude = ["strid", "release_date"]
+    copy_view_enabled = False
 
     def get_index_view_kwargs(self, **kwargs):
         return super().get_index_view_kwargs(is_searchable=False, **kwargs)
@@ -259,6 +267,15 @@ class ToyViewSetGroup(ModelViewSetGroup):
             exclude_form_fields=(),
             search_fields=["name"],
             search_backend_name=None,
+        ),
+        ModelViewSet(
+            name="fctoy-alt3",
+            menu_label="FC Toys Alt 3",
+            model=FeatureCompleteToy,
+            exclude_form_fields=(),
+            index_view_class=FeatureCompleteToyIndexView,
+            list_display=["name", "strid", "release_date"],
+            ordering=["strid"],
         ),
     )
 

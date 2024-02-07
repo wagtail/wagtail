@@ -118,7 +118,7 @@ django-admin makemigrations --settings=wagtail.test.settings
 ### Testing against PostgreSQL
 
 ```{note}
-In order to run these tests, you must install the required modules for PostgreSQL as described in Django's [Databases documentation](django:ref/databases).
+In order to run these tests, you must install the required modules for PostgreSQL as described in Django's [Databases documentation](inv:django#ref/databases).
 ```
 
 By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
@@ -133,7 +133,7 @@ If you need to use a different user, password, host, or port, use the `PGUSER`, 
 ### Testing against a different database
 
 ```{note}
-In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](django:ref/databases) or the 3rd-party database backend's documentation.
+In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](inv:django#ref/databases) or the 3rd-party database backend's documentation.
 ```
 
 If you need to test against a different database, set the `DATABASE_ENGINE`
@@ -205,25 +205,18 @@ Integration tests target `http://127.0.0.1:8000` by default. Use the `TEST_ORIGI
 
 Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
 
-| Browser       | Device/OS  | Version(s) |
-| ------------- | ---------- | ---------- |
-| Mobile Safari | iOS Phone  | Last 2     |
-| Mobile Safari | iOS Tablet | Last 2     |
-| Chrome        | Android    | Last 2     |
-| Chrome        | Desktop    | Last 2     |
-| MS Edge       | Windows    | Last 2     |
-| Firefox       | Desktop    | Latest     |
-| Firefox ESR   | Desktop    | Latest     |
-| Safari        | macOS      | Last 3     |
+| Browser       | Device/OS  | Version(s)         |
+| ------------- | ---------- | ------------------ |
+| Mobile Safari | iOS Phone  | Last 2: 16, 17     |
+| Mobile Safari | iOS Tablet | Last 2: 16, 17     |
+| Chrome        | Android    | Last 2             |
+| Chrome        | Desktop    | Last 2             |
+| MS Edge       | Windows    | Last 2             |
+| Firefox       | Desktop    | Latest             |
+| Firefox ESR   | Desktop    | Latest             |
+| Safari        | macOS      | Last 3: 15, 16, 17 |
 
-We aim for Wagtail to work in those environments, there are known support gaps for Safari 13 introduced in Wagtail 4.0 to provide better support for RTL languages. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
-
-IE 11 support has been officially dropped in 2.15 as it is gradually falling out of use. Features already known not to work include:
-
--   Rich text copy-paste in the rich text editor.
--   Sticky toolbar in the rich text editor.
--   Focus outline styles in the main menu & explorer menu.
--   Keyboard access to the actions in page listing tables.
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
 **Unsupported browsers / devices include:**
 
@@ -296,7 +289,8 @@ The last command will start Storybook at `http://localhost:6006/`. It will proxy
 The Wagtail documentation is built by Sphinx. To install Sphinx and compile the documentation, run:
 
 ```sh
-cd /path/to/wagtail
+# Starting from the wagtail root directory:
+
 # Install the documentation dependencies
 pip install -e .[docs]
 # or if using zsh as your shell:
@@ -312,6 +306,8 @@ Python comes with a module that makes it very easy to preview static files in a 
 To start this simple server, run the following commands:
 
 ```sh
+# Starting from the wagtail root directory:
+
 cd docs/_build/html/
 python -m http.server 8080
 ```
@@ -323,6 +319,8 @@ Unfortunately, this cache also hides any warnings thrown by unmodified documenta
 To clear the built HTML and start fresh, so you can see all warnings thrown when building the documentation, run:
 
 ```sh
+# Starting from the wagtail root directory:
+
 cd docs/
 make clean
 make html
@@ -332,6 +330,8 @@ Wagtail also provides a way for documentation to be compiled automatically on ea
 To do this, you can run the following command to see the changes automatically at `localhost:4000`:
 
 ```sh
+# Starting from the wagtail root directory:
+
 cd docs/
 make livehtml
 ```
@@ -345,3 +345,21 @@ pre-commit install
 ```
 
 pre-commit should now run on every commit you make.
+
+(developing_using_a_fork)
+
+## Using forks for installation
+
+Sometimes it may be necessary to install Wagtail from a fork. For example your site depends on a bug fix that is currently waiting for review, and you cannot afford waiting for a new release.
+
+The Wagtail release process includes steps for static asset building and translations updated which means you cannot update your requirements file to point a particular git commit in the main repository.
+
+To install from your fork, from the root of your Wagtail git checkout (and assuming the tooling for building the static assets has previously been installed using `npm install`), run:
+
+```sh
+python ./setup.py sdist
+```
+
+This will create a `.tar.gz` package within `dist/,` which can be installed with `pip`.
+
+For remote deployments, it's usually most convenient to upload this to a public URL somewhere and place that URL in your project's requirements in place of the standard `wagtail` line.

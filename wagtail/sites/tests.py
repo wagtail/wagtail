@@ -151,12 +151,17 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {"hostname": "localhost", "port": "80", "root_page": str(self.home_page.id)}
         )
         expected_html = """
-            <div class="help-block help-critical">
-                <svg class="icon icon-warning icon" aria-hidden="true">
+            <li class="error">
+                <svg class="class="icon icon-warning messages-icon"" aria-hidden="true">
                     <use href="#icon-warning"></use>
                 </svg>
+                The site could not be saved due to errors.
+                <ul class="errorlist">
+                <li>
                 Site with this Hostname and Port already exists.
-            </div>
+                </li>
+                </ul>
+            </li>
         """
         self.assertTagInHTML(expected_html, response.content.decode())
 
@@ -314,12 +319,17 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             site_id=second_site.id,
         )
         expected_html = """
-            <div class="help-block help-critical">
-                <svg class="icon icon-warning icon" aria-hidden="true">
+            <li class="error">
+                <svg class="class="icon icon-warning messages-icon"" aria-hidden="true">
                     <use href="#icon-warning"></use>
                 </svg>
+                The site could not be saved due to errors.
+                <ul class="errorlist">
+                <li>
                 Site with this Hostname and Port already exists.
-            </div>
+                </li>
+                </ul>
+            </li>
         """
         self.assertTagInHTML(expected_html, response.content.decode())
 

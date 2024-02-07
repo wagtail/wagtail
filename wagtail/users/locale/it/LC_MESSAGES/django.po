@@ -6,15 +6,15 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,18 @@ msgstr "Scegli il tuo fuso orario attuale"
 
 msgid "profile picture"
 msgstr "Immagine del profilo"
+
+msgid "System default"
+msgstr "Default di sistema"
+
+msgid "Light"
+msgstr "Chiaro"
+
+msgid "Dark"
+msgstr "Scuro"
+
+msgid "admin theme"
+msgstr "tema admin"
 
 msgid "user profile"
 msgstr "profilo utente"
@@ -295,31 +307,6 @@ msgstr "Elimina utente"
 msgid "Select all users in listing"
 msgstr "Seleziona tutti gli utenti nella lista"
 
-msgid "Username"
-msgstr "Username"
-
-msgid "Status"
-msgstr "Stato"
-
-msgid "Last Login"
-msgstr "Ultima Login"
-
-msgid "Admin"
-msgstr "Amministratore"
-
-msgid "Active"
-msgstr "Attivo"
-
-msgid "Inactive"
-msgstr "Inattivo"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "C'è %(counter)s corrispondenza"
-msgstr[1] "Ci sono %(counter)s  corrispondenze"
-msgstr[2] "Ci sono %(counter)s corrispondenze"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -340,6 +327,27 @@ msgid ""
 msgstr ""
 "Non ci sono utenti configurati. Perché non <a "
 "href=\"%(wagtailusers_add_url)s\">ne aggiungi qualcuno</a>?"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Access level"
+msgstr "Livello di accesso"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Last Login"
+msgstr "Ultima Login"
+
+msgid "Admin"
+msgstr "Amministratore"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Inactive"
+msgstr "Inattivo"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -364,6 +372,9 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utente è stato eliminato"
 msgstr[1] "%(num_parent_objects)d utenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d utenti sono stati eliminati"
+
+msgid "Mark as active"
+msgstr "Segna come attivo"
 
 msgid "Change the active state for selected users"
 msgstr "Cambia lo stato attivo per gli utenti selezionati"
@@ -416,6 +427,10 @@ msgid "Users"
 msgstr "Utenti"
 
 #, python-format
+msgid "User '%(object)s' created."
+msgstr "Utente '%(object)s' creato."
+
+#, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utente '%(object)s' aggiornato."
 
@@ -428,3 +443,11 @@ msgstr "Utente '%(object)s' eliminato."
 
 msgid "Edit"
 msgstr "Modifica"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Modifica utente '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Elimina utente '%(name)s'"

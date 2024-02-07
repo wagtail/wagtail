@@ -1,11 +1,75 @@
+import axe from 'axe-core';
+import {
+  getAxeConfiguration,
+  renderA11yResults,
+} from '../../includes/a11y-result';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
+
+const runAccessibilityChecks = async (onClickSelector) => {
+  const a11yRowTemplate = document.querySelector('#w-a11y-result-row-template');
+  const a11ySelectorTemplate = document.querySelector(
+    '#w-a11y-result-selector-template',
+  );
+  const checksPanel = document.querySelector('[data-checks-panel]');
+  const config = getAxeConfiguration(document.body);
+  const toggleCounter = document.querySelector(
+    '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
+  );
+  const panelCounter = document.querySelector(
+    '[data-side-panel="checks"] [data-a11y-result-count]',
+  );
+
+  if (
+    !a11yRowTemplate ||
+    !a11ySelectorTemplate ||
+    !config ||
+    !toggleCounter ||
+    !panelCounter
+  ) {
+    return;
+  }
+
+  // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
+  const context = {
+    include: {
+      fromFrames: ['#preview-iframe'].concat(config.context.include),
+    },
+  };
+  if (config.context.exclude?.length > 0) {
+    context.exclude = {
+      fromFrames: ['#preview-iframe'].concat(config.context.exclude),
+    };
+  }
+
+  const results = await axe.run(context, config.options);
+
+  const a11yErrorsNumber = results.violations.reduce(
+    (sum, violation) => sum + violation.nodes.length,
+    0,
+  );
+
+  toggleCounter.innerText = a11yErrorsNumber.toString();
+  toggleCounter.hidden = a11yErrorsNumber === 0;
+  panelCounter.innerText = a11yErrorsNumber.toString();
+  panelCounter.classList.toggle('has-errors', a11yErrorsNumber > 0);
+
+  renderA11yResults(
+    checksPanel,
+    results,
+    config,
+    a11yRowTemplate,
+    a11ySelectorTemplate,
+    onClickSelector,
+  );
+};
 
 function initPreview() {
   const previewSidePanel = document.querySelector(
     '[data-side-panel="preview"]',
   );
+  const checksSidePanel = document.querySelector('[data-side-panel="checks"]');
 
   // Preview side panel is not shown if the object does not have any preview modes
   if (!previewSidePanel) return;
@@ -141,6 +205,9 @@ function initPreview() {
 
       // Remove the load event listener so it doesn't fire when switching modes
       newIframe.removeEventListener('load', handleLoad);
+
+      const onClickSelector = () => newTabButton.click();
+      runAccessibilityChecks(onClickSelector);
     };
 
     newIframe.addEventListener('load', handleLoad);
@@ -271,13 +338,28 @@ function initPreview() {
       );
     });
 
+    // Use the same processing as the preview panel.
+    checksSidePanel?.addEventListener('show', () => {
+      checkAndUpdatePreview();
+      updateInterval = setInterval(
+        checkAndUpdatePreview,
+        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+      );
+    });
+
     previewSidePanel.addEventListener('hide', () => {
+      clearInterval(updateInterval);
+    });
+    checksSidePanel?.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
   } else {
     // Even if the preview is not updated automatically, we still need to
     // initialise the preview data when the panel is shown
     previewSidePanel.addEventListener('show', () => {
+      setPreviewData();
+    });
+    checksSidePanel?.addEventListener('show', () => {
       setPreviewData();
     });
   }

@@ -16,9 +16,7 @@ from wagtail.models import Page
 # management command.
 class Admin(Model):
     class Meta:
-        default_permissions = (
-            []
-        )  # don't create the default add / change / delete / view perms
+        default_permissions = []  # don't create the default add / change / delete / view perms
         permissions = [
             ("access_admin", "Can access Wagtail admin"),
         ]

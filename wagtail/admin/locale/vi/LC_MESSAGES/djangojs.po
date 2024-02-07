@@ -44,9 +44,6 @@ msgstr "Biên tập"
 msgid "Edit '%(title)s'"
 msgstr "Chỉnh sửa '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Chỉnh sửa tài khoản của bạn"
-
 msgid "Loading…"
 msgstr "Đang tải..."
 

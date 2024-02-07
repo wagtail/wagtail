@@ -107,11 +107,11 @@ class LocaleMixin:
         self.translations = self.get_translations() if self.locale else []
 
     def get_locale(self):
-        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if hasattr(self, "model") and self.model:
-            i18n_enabled = i18n_enabled and issubclass(self.model, TranslatableMixin)
+        if not getattr(self, "model", None):
+            return None
 
-        if not i18n_enabled:
+        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        if not i18n_enabled or not issubclass(self.model, TranslatableMixin):
             return None
 
         if hasattr(self, "object") and self.object:
@@ -220,9 +220,11 @@ class CreateEditViewOptionalFeaturesMixin:
     """
 
     view_name = "create"
+    preview_url_name = None
     lock_url_name = None
     unlock_url_name = None
     revisions_unschedule_url_name = None
+    revisions_compare_url_name = None
     workflow_history_url_name = None
     confirm_workflow_cancellation_url_name = None
 
@@ -471,7 +473,9 @@ class CreateEditViewOptionalFeaturesMixin:
         and returns the new object. Override this to implement custom save logic.
         """
         if self.draftstate_enabled:
-            instance = self.form.save(commit=False)
+            instance = self.form.save(
+                commit=self.view_name == "edit" and not self.object.live
+            )
 
             # If DraftStateMixin is applied, only save to the database in CreateView,
             # and make sure the live field is set to False.
@@ -683,6 +687,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["publishing_will_cancel_workflow"] = getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
+        context["revisions_compare_url_name"] = self.revisions_compare_url_name
         return context
 
     def post(self, request, *args, **kwargs):
@@ -736,7 +741,7 @@ class RevisionsRevertMixin:
         return self.revision.as_object()
 
     def save_instance(self):
-        commit = not issubclass(self.model, DraftStateMixin)
+        commit = not issubclass(self.model, DraftStateMixin) or not self.object.live
         instance = self.form.save(commit=commit)
 
         self.has_content_changes = self.form.has_changed()

@@ -7,7 +7,7 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,14 @@ msgstr "Formati supportati: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Formato immagine non supportato. Formati supportati: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Non è un'immagine .%(extension)s valida. L'estensione non corrisponde al "
+"formato del file (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -263,6 +271,14 @@ msgstr "No, non rimuovere"
 msgid "Popular tags"
 msgstr "Tags popolari"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Caricamento avvenuto con successo. Tuttavia, la tua nuova immagine sembra "
+"essere un duplicato di un'immagine esistente. Puoi eliminarla se non è "
+"necessaria."
+
 msgid "Existing"
 msgstr "Esistente"
 
@@ -272,8 +288,28 @@ msgstr "Nuovo"
 msgid "Use new image"
 msgstr "Utilizza una nuova immagine"
 
+msgid "Use existing and delete new"
+msgstr "Utilizza esistente ed elimina nuova"
+
 msgid "Latest images"
 msgstr "Ultime immagini"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Seleziona %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Non hai caricato nessuna immagine in questa raccolta."
+
+msgid "You haven't uploaded any images."
+msgstr "Non hai caricato alcuna immagine."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Perché non <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>caricarne una adesso</a>?"
 
 msgid "Choose a format"
 msgstr "Scegli un formato"
@@ -292,6 +328,12 @@ msgstr "Aggiungi immagine"
 
 msgid "Save"
 msgstr "Salva"
+
+msgid "Keep new image"
+msgstr "Mantieni la nuova immagine"
+
+msgid "Delete new image"
+msgstr "Elimina nuova immagine"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -340,27 +382,17 @@ msgstr "File non trovato"
 msgid "Usage"
 msgstr "Utilizzo"
 
-msgid "Images"
-msgstr "Immagini"
+msgid "Sort by"
+msgstr "Ordina per"
+
+msgid "Entries per page"
+msgstr "Record per pagina"
 
 msgid "Popular Tags:"
 msgstr "Tag Popolari:"
 
 msgid "Select all images in listing"
 msgstr "Seleziona tutte le immagini nella lista"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "C'è %(counter)s corrispondenza"
-msgstr[1] "Ci sono %(counter)s corrispondenze"
-msgstr[2] "Ci sono %(counter)s corrispondenze"
-
-msgid "Select image"
-msgstr "Seleziona immagine"
-
-msgid "pixels"
-msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -383,21 +415,11 @@ msgstr ""
 "Non hai caricato nessuna immagine. Perché non <a "
 "href=\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
 
-msgid "Generating URL"
-msgstr "Generando URL"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Anteprima"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Le immagini generate più grandi dello schermo appariranno più piccole in "
-"anteprima in modo da adattarsi allo schermo."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Aggiungi immagini multiple"
@@ -421,6 +443,14 @@ msgid ""
 msgstr ""
 "Caricamento eseguito con successo. Aggiorna il titolo dell'immagine con uno "
 "appropriato se necessario."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Caricamento avvenuto con successo. Tuttavia, la tua nuova immagine sembra "
+"essere un duplicato di questa immagine esistente. Puoi eliminarla se non è "
+"necessaria."
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
@@ -503,8 +533,26 @@ msgstr "Scegli un'altra immagine"
 msgid "Edit this image"
 msgstr "Modifica questa immagine"
 
-msgid "Search images"
-msgstr "Cerca immagini"
+msgid "Newest"
+msgstr "Più recente"
+
+msgid "Oldest"
+msgstr "Meno recente"
+
+msgid "Title: (A -> Z)"
+msgstr "Titolo: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titolo: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Dimensione file: (crescente)"
+
+msgid "File size: (high to low)"
+msgstr "Dimensione file: (decrescente)"
+
+msgid "Images"
+msgstr "Immagini"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

@@ -4,7 +4,7 @@ exports[`PageExplorerItem children 1`] = `
 <div
   className="c-page-explorer__item"
 >
-  <Button
+  <Link
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
@@ -17,8 +17,8 @@ exports[`PageExplorerItem children 1`] = `
     >
       test
     </h3>
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action c-page-explorer__item__action--small"
     href="/admin/pages/5/edit/"
   >
@@ -27,8 +27,8 @@ exports[`PageExplorerItem children 1`] = `
       name="edit"
       title="Edit 'test'"
     />
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action"
     href="/admin/pages/5/"
     onClick={[Function]}
@@ -38,7 +38,7 @@ exports[`PageExplorerItem children 1`] = `
       name="arrow-right"
       title="View child pages of 'test'"
     />
-  </Button>
+  </Link>
 </div>
 `;
 
@@ -46,7 +46,7 @@ exports[`PageExplorerItem renders 1`] = `
 <div
   className="c-page-explorer__item"
 >
-  <Button
+  <Link
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
@@ -55,8 +55,8 @@ exports[`PageExplorerItem renders 1`] = `
     >
       test
     </h3>
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action c-page-explorer__item__action--small"
     href="/admin/pages/5/edit/"
   >
@@ -65,7 +65,7 @@ exports[`PageExplorerItem renders 1`] = `
       name="edit"
       title="Edit 'test'"
     />
-  </Button>
+  </Link>
 </div>
 `;
 
@@ -73,7 +73,7 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
 <div
   className="c-page-explorer__item"
 >
-  <Button
+  <Link
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
@@ -99,8 +99,8 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
         }
       />
     </span>
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action c-page-explorer__item__action--small"
     href="/admin/pages/5/edit/"
   >
@@ -109,8 +109,8 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
       name="edit"
       title="Edit 'test'"
     />
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action"
     href="/admin/pages/5/"
     onClick={[Function]}
@@ -120,7 +120,7 @@ exports[`PageExplorerItem should show a publication status if not live 1`] = `
       name="arrow-right"
       title="View child pages of 'test'"
     />
-  </Button>
+  </Link>
 </div>
 `;
 
@@ -128,7 +128,7 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
 <div
   className="c-page-explorer__item"
 >
-  <Button
+  <Link
     className="c-page-explorer__item__link"
     href="/admin/pages/5/"
   >
@@ -154,8 +154,8 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
         }
       />
     </span>
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action c-page-explorer__item__action--small"
     href="/admin/pages/5/edit/"
   >
@@ -164,8 +164,8 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
       name="edit"
       title="Edit 'test'"
     />
-  </Button>
-  <Button
+  </Link>
+  <Link
     className="c-page-explorer__item__action"
     href="/admin/pages/5/"
     onClick={[Function]}
@@ -175,6 +175,6 @@ exports[`PageExplorerItem should show a publication status with unpublished chan
       name="arrow-right"
       title="View child pages of 'test'"
     />
-  </Button>
+  </Link>
 </div>
 `;

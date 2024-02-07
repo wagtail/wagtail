@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,22 +27,11 @@ msgstr "웨그테일 테이블 블록"
 msgid "Row header"
 msgstr "행 헤더"
 
-msgid "Display the first row as a header."
-msgstr "첫 번째 행을 헤더로 표시합니다."
-
 msgid "Column header"
 msgstr "열 헤더"
 
-msgid "Display the first column as a header."
-msgstr "첫 번째 열을 헤더로 표시합니다."
-
 msgid "Table caption"
 msgstr "표 주석"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr "표의 전반적 주제를 나타내면서 스크린 리더 사용자에게 유용한 제목"
 
 msgid "Table"
 msgstr "테이블"

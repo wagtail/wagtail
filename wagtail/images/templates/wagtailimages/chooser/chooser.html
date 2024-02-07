@@ -5,9 +5,7 @@
     <form data-chooser-modal-search action="{{ results_url }}" method="GET" autocomplete="off" novalidate>
         <ul class="fields">
             {% for field in filter_form %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" with field=field %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endfor %}
             {% if popular_tags %}
                 <li class="taglist w-label-3">

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -243,9 +243,6 @@ msgstr "页面"
 msgid "object id"
 msgstr "对象ID"
 
-msgid "submitted for moderation"
-msgstr "已提交审核"
-
 msgid "created at"
 msgstr "创建时间"
 
@@ -269,9 +266,6 @@ msgstr "组"
 
 msgid "permission"
 msgstr "权限"
-
-msgid "permission type"
-msgstr "权限类型"
 
 msgid "group page permission"
 msgstr "群组页面权限"

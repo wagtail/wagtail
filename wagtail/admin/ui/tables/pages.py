@@ -11,12 +11,22 @@ class PageTitleColumn(BaseColumn):
 
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
+        context["items_count"] = parent_context.get("items_count")
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_context.get("parent_page")
         context["is_searching"] = parent_context.get("is_searching")
+        context["is_filtering"] = parent_context.get("is_filtering")
         context["is_searching_whole_tree"] = parent_context.get(
             "is_searching_whole_tree"
         )
+
+        # If results are not paginated e.g. when using the OrderingColumn,
+        # all items are displayed on the page
+        context["start_index"] = 1
+        context["end_index"] = context["items_count"]
+        if context["page_obj"]:
+            context["start_index"] = context["page_obj"].start_index()
+            context["end_index"] = context["page_obj"].end_index()
         return context
 
     def get_cell_context_data(self, instance, parent_context):
@@ -43,24 +53,14 @@ class PageStatusColumn(BaseColumn):
 
 
 class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, obj_type="page")
+
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
         parent_page = parent_context.get("parent_page")
         if parent_page:
             context["parent"] = parent_page.id
-        return context
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context.update(
-            {
-                "obj_type": "page",
-                "aria_labelledby_prefix": "page_",
-                "aria_labelledby": str(instance.pk),
-                "aria_labelledby_suffix": "_title",
-                "checkbox_aria_label": gettext("Select page"),
-            }
-        )
         return context
 
 
@@ -140,16 +140,20 @@ class PageTable(Table):
         attrs = super().get_row_attrs(instance)
         if self.use_row_ordering_attributes:
             attrs["id"] = "page_%d" % instance.id
-            attrs["data-page-title"] = instance.get_admin_display_title()
+            attrs["data-w-orderable-item-id"] = instance.id
+            attrs["data-w-orderable-item-label"] = instance.get_admin_display_title()
+            attrs["data-w-orderable-target"] = "item"
         return attrs
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["show_locale_labels"] = self.show_locale_labels
         context["perms"] = parent_context.get("perms")
+        context["items_count"] = parent_context.get("items_count")
         context["page_obj"] = parent_context.get("page_obj")
         context["parent_page"] = parent_context.get("parent_page")
         context["is_searching"] = parent_context.get("is_searching")
+        context["is_filtering"] = parent_context.get("is_filtering")
         context["is_searching_whole_tree"] = parent_context.get(
             "is_searching_whole_tree"
         )

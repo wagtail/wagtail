@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% trans "Choose a format" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str %}
@@ -11,7 +11,7 @@
         <form action="{{ select_format_action_url }}" method="POST" novalidate>
             {% csrf_token %}
             {% for field in form %}
-                {% include "wagtailadmin/shared/field.html" with field=field %}
+                {% formattedfield field %}
             {% endfor %}
             <input type="submit" value="{% trans 'Insert image' %}" class="button" />
         </form>

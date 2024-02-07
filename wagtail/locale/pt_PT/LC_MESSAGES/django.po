@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -252,9 +252,6 @@ msgstr "página"
 msgid "pages"
 msgstr "páginas"
 
-msgid "submitted for moderation"
-msgstr "enviada para moderação"
-
 msgid "created at"
 msgstr "criado em"
 
@@ -272,9 +269,6 @@ msgstr "grupo"
 
 msgid "permission"
 msgstr "permissão"
-
-msgid "permission type"
-msgstr "tipo de permissão"
 
 msgid "group page permission"
 msgstr "permissão de página de grupo"

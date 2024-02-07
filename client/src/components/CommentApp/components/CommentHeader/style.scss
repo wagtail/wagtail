@@ -32,7 +32,7 @@
   }
 
   &__action {
-    float: left;
+    float: inline-start;
     margin-inline-start: 5px;
     border-radius: 5px;
     width: 30px;
@@ -40,18 +40,17 @@
 
     > button,
     > details > summary {
-      // Hides triangle on Firefox
-      list-style-type: none;
-      // Hides triangle on Chrome
-      &::-webkit-details-marker {
-        display: none;
-      }
+      list-style-type: none; // Hides triangle on Firefox
       width: 30px;
       height: 30px;
       position: relative;
       background-color: unset;
       border: unset;
       padding: 0;
+
+      &::-webkit-details-marker {
+        display: none; // Hides triangle on Chrome
+      }
 
       svg {
         position: absolute;

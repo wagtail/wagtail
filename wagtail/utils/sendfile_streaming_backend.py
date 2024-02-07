@@ -4,9 +4,8 @@
 import os
 import stat
 from email.utils import mktime_tz, parsedate_tz
-from wsgiref.util import FileWrapper
 
-from django.http import HttpResponseNotModified, StreamingHttpResponse
+from django.http import FileResponse, HttpResponseNotModified
 from django.utils.http import http_date
 
 
@@ -20,7 +19,7 @@ def sendfile(request, filename, **kwargs):
     ):
         return HttpResponseNotModified()
 
-    response = StreamingHttpResponse(FileWrapper(open(filename, "rb")))
+    response = FileResponse(open(filename, "rb"))
 
     response["Last-Modified"] = http_date(statobj[stat.ST_MTIME])
     return response

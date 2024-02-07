@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -29,15 +29,8 @@ msgstr "default"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s for %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Hadi'a hela %(instance)s"
-
 msgid "Site"
 msgstr "situs"
-
-msgid "Editing"
-msgstr "Hadia hela"
 
 msgid "Saving…"
 msgstr "Rai hela..."
@@ -51,9 +44,9 @@ msgstr "Konfigurasaun"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Konfigurasaun ita boot la bele haree tanba laiha definisaun situs."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Konfigurasaun ne'e la bele rai tanba iha erru sira."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)satualiza ona."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Konfigurasaun ne'e la bele rai tanba iha erru sira."

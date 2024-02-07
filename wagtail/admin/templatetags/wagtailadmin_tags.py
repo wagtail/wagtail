@@ -19,11 +19,12 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.html import avoid_wrapping, conditional_escape, json_script
+from django.utils.html import avoid_wrapping, json_script
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
+from laces.templatetags.laces import component
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -54,7 +55,7 @@ from wagtail.models import (
     Page,
     PageViewRestriction,
 )
-from wagtail.permission_policies.pages import PagePermissionPolicy
+from wagtail.permissions import page_permission_policy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -87,14 +88,21 @@ def page_breadcrumbs(
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = PagePermissionPolicy().explorable_root_instance(user)
+    cca = page_permission_policy.explorable_root_instance(user)
     if not cca:
         return {"items": Page.objects.none()}
 
-    return {
-        "items": page.get_ancestors(inclusive=include_self)
+    items = (
+        page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
-        .specific(),
+        .specific()
+    )
+
+    if len(items) == 1:
+        is_expanded = True
+
+    return {
+        "items": items,
         "current_page": page,
         "is_expanded": is_expanded,
         "page_perms": page_perms,
@@ -253,9 +261,7 @@ def test_page_is_public(context, page):
             "request"
         ].all_page_view_restriction_paths = PageViewRestriction.objects.select_related(
             "page"
-        ).values_list(
-            "page__path", flat=True
-        )
+        ).values_list("page__path", flat=True)
 
     is_private = any(
         page.path.startswith(restricted_path)
@@ -936,116 +942,20 @@ def resolve_url(url):
         return ""
 
 
-class ComponentNode(template.Node):
-    def __init__(
-        self,
-        component,
-        extra_context=None,
-        isolated_context=False,
-        fallback_render_method=None,
-        target_var=None,
-    ):
-        self.component = component
-        self.extra_context = extra_context or {}
-        self.isolated_context = isolated_context
-        self.fallback_render_method = fallback_render_method
-        self.target_var = target_var
-
-    def render(self, context: Context) -> str:
-        # Render a component by calling its render_html method, passing request and context from the
-        # calling template.
-        # If fallback_render_method is true, objects without a render_html method will have render()
-        # called instead (with no arguments) - this is to provide deprecation path for things that have
-        # been newly upgraded to use the component pattern.
-
-        component = self.component.resolve(context)
-
-        if self.fallback_render_method:
-            fallback_render_method = self.fallback_render_method.resolve(context)
-        else:
-            fallback_render_method = False
-
-        values = {
-            name: var.resolve(context) for name, var in self.extra_context.items()
-        }
-
-        if hasattr(component, "render_html"):
-            if self.isolated_context:
-                html = component.render_html(context.new(values))
-            else:
-                with context.push(**values):
-                    html = component.render_html(context)
-        elif fallback_render_method and hasattr(component, "render"):
-            html = component.render()
-        else:
-            raise ValueError(f"Cannot render {component!r} as a component")
-
-        if self.target_var:
-            context[self.target_var] = html
-            return ""
-        else:
-            if context.autoescape:
-                html = conditional_escape(html)
-            return html
-
-
-@register.tag(name="component")
-def component(parser, token):
-    bits = token.split_contents()[1:]
-    if not bits:
-        raise template.TemplateSyntaxError(
-            "'component' tag requires at least one argument, the component object"
-        )
-
-    component = parser.compile_filter(bits.pop(0))
-
-    # the only valid keyword argument immediately following the component
-    # is fallback_render_method
-    flags = token_kwargs(bits, parser)
-    fallback_render_method = flags.pop("fallback_render_method", None)
-    if flags:
-        raise template.TemplateSyntaxError(
-            "'component' tag only accepts 'fallback_render_method' as a keyword argument"
-        )
-
-    extra_context = {}
-    isolated_context = False
-    target_var = None
-
-    while bits:
-        bit = bits.pop(0)
-        if bit == "with":
-            extra_context = token_kwargs(bits, parser)
-        elif bit == "only":
-            isolated_context = True
-        elif bit == "as":
-            try:
-                target_var = bits.pop(0)
-            except IndexError:
-                raise template.TemplateSyntaxError(
-                    "'component' tag with 'as' must be followed by a variable name"
-                )
-        else:
-            raise template.TemplateSyntaxError(
-                "'component' tag received an unknown argument: %r" % bit
-            )
-
-    return ComponentNode(
-        component,
-        extra_context=extra_context,
-        isolated_context=isolated_context,
-        fallback_render_method=fallback_render_method,
-        target_var=target_var,
-    )
-
-
 class FragmentNode(template.Node):
-    def __init__(self, nodelist, target_var):
+    def __init__(self, nodelist, target_var, stripped=False):
         self.nodelist = nodelist
         self.target_var = target_var
+        self.stripped = stripped
 
     def render(self, context):
         fragment = self.nodelist.render(context) if self.nodelist else ""
+        # Only strip the leading and trailing spaces, unlike
+        # {% blocktrans trimmed %} that also does line-by-line stripping.
+        # Then, use mark_safe because the SafeString returned by
+        # NodeList.render() is lost after stripping.
+        if self.stripped:
+            fragment = mark_safe(fragment.strip())
         context[self.target_var] = fragment
         return ""
 
@@ -1062,11 +972,27 @@ def fragment(parser, token):
 
     Copy-paste of slippers’ fragment template tag.
     See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
+
+    To strip leading and trailing whitespace produced in the fragment, use the
+    `stripped` option. This is useful if you need to check if the resulting
+    fragment is empty (after leading and trailing spaces are removed):
+
+        {% fragment stripped as recipient %}
+            {{ title }} {{ first_name }} {{ last_name }}
+        {% endfragment }
+        {% if recipient %}
+            Recipient: {{ recipient }}
+        {% endif %}
+
+    Note that the stripped option only strips leading and trailing spaces, unlike
+    {% blocktrans trimmed %} that also does line-by-line stripping. This is because
+    the fragment may contain HTML tags that are sensitive to whitespace, such as
+    <pre> and <code>.
     """
     error_message = "The syntax for fragment is {% fragment as variable_name %}"
 
     try:
-        tag_name, _, target_var = token.split_contents()
+        tag_name, *options, target_var = token.split_contents()
         nodelist = parser.parse(("endfragment",))
         parser.delete_first_token()
     except ValueError:
@@ -1074,7 +1000,9 @@ def fragment(parser, token):
             raise template.TemplateSyntaxError(error_message)
         return ""
 
-    return FragmentNode(nodelist, target_var)
+    stripped = "stripped" in options
+
+    return FragmentNode(nodelist, target_var, stripped=stripped)
 
 
 class BlockInclusionNode(template.Node):
@@ -1086,7 +1014,8 @@ class BlockInclusionNode(template.Node):
             Proceed with caution.
         {% endmy_tag %}
 
-    Within `my_tag`’s template, the template fragment will be accessible as the {{ children }} context variable.
+    Within `my_tag`’s template, the template fragment will be accessible as the {{ children }} context variable
+    (or other variable as specified by `content_var`).
 
     The output can also be stored as a variable in the parent context:
 
@@ -1097,6 +1026,9 @@ class BlockInclusionNode(template.Node):
     Inspired by slippers’ Component Node.
     See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L47.
     """
+
+    # Context variable into which the tag's rendered content will be placed
+    content_var = "children"
 
     def __init__(self, nodelist, template, extra_context, target_var=None):
         self.nodelist = nodelist
@@ -1118,7 +1050,7 @@ class BlockInclusionNode(template.Node):
 
         t = context.template.engine.get_template(self.template)
         # Add the `children` variable in the rendered template’s context.
-        context_data = self.get_context_data({**values, "children": children})
+        context_data = self.get_context_data({**values, self.content_var: children})
         output = t.render(Context(context_data, autoescape=context.autoescape))
 
         if self.target_var:
@@ -1189,6 +1121,13 @@ class DropdownNode(BlockInclusionNode):
 register.tag("dropdown", DropdownNode.handle)
 
 
+class DropdownButtonNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/dropdown/dropdown_button.html"
+
+
+register.tag("dropdown_button", DropdownButtonNode.handle)
+
+
 class PanelNode(BlockInclusionNode):
     template = "wagtailadmin/shared/panel.html"
 
@@ -1196,11 +1135,118 @@ class PanelNode(BlockInclusionNode):
 register.tag("panel", PanelNode.handle)
 
 
-class FieldNode(BlockInclusionNode):
+class RawFormattedFieldNode(BlockInclusionNode):
+    content_var = "rendered_field"
     template = "wagtailadmin/shared/field.html"
 
 
-register.tag("field", FieldNode.handle)
+register.tag("rawformattedfield", RawFormattedFieldNode.handle)
+
+
+@register.inclusion_tag("wagtailadmin/shared/formatted_field.html")
+def formattedfield(
+    field=None,
+    rendered_field=None,
+    classname="",
+    show_label=True,
+    id_for_label=None,
+    sr_only_label=False,
+    icon=None,
+    help_text=None,
+    help_text_id=None,
+    show_add_comment_button=False,
+    label_text=None,
+    error_message_id=None,
+):
+    """
+    Renders a form field in standard Wagtail admin layout.
+    - `field` - The Django form field to render.
+    - `rendered_field` - The rendered HTML of the field, to be used in preference to `field`.
+    - `classname` - For legacy patterns requiring field-specific classes. Avoid if possible.
+    - `show_label` - Hide the label if it is rendered outside of the field.
+    - `id_for_label` - Manually set this this if the field’s HTML isn’t rendered by Django (for example hard-coded in HTML).
+        We add an id to the label so we can use it as a descriptor for the "Add comment" button.
+    - `sr_only_label` - Make the label invisible for all but screen reader users. Use this if the field is displayed without a label.
+    - `icon` - Some fields have an icon, though this is generally a legacy pattern.
+    - `help_text` - Manually set this if the field’s HTML is hard-coded.
+    - `help_text_id` - The help text’s id, necessary so it can be attached to the field with `aria-describedby`.
+    - `show_add_comment_button` - Display a comment control within Wagtail forms.
+    - `label_text` - Manually set this if the field’s HTML is hard-coded.
+    - `error_message_id` - ID of the error message container element.
+    """
+
+    label_for = id_for_label or (field and field.id_for_label) or ""
+
+    context = {
+        "classname": classname,
+        "show_label": show_label,
+        "sr_only_label": sr_only_label,
+        "icon": icon,
+        "show_add_comment_button": show_add_comment_button,
+        "error_message_id": error_message_id,
+        "label_for": label_for,
+        "label_id": f"{label_for}-label" if label_for else "",
+        "label_text": label_text or (field and field.label) or "",
+        "required": field and field.field.required,
+        "contentpath": field.name if field else "",
+        "help_text": help_text or (field and field.help_text) or "",
+    }
+
+    if help_text_id:
+        context["help_text_id"] = help_text_id
+    elif field and field.help_text and field.id_for_label:
+        context["help_text_id"] = f"{field.id_for_label}-helptext"
+    else:
+        context["help_text_id"] = ""
+
+    if field:
+        context["rendered_field"] = rendered_field or render_with_errors(field)
+        context[
+            "field_classname"
+        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+
+        errors = field.errors
+        has_errors = bool(errors)
+        if has_errors and hasattr(field.field.widget, "render_with_errors"):
+            # field handles its own error rendering, so don't output them here
+            # (but still keep has_errors=True to keep the error styling)
+            errors = []
+
+        context["has_errors"] = has_errors
+        context["errors"] = errors
+    else:
+        context["rendered_field"] = rendered_field
+        context["field_classname"] = ""
+        context["has_errors"] = False
+        context["errors"] = []
+
+    return context
+
+
+@register.inclusion_tag("wagtailadmin/shared/formatted_field.html", takes_context=True)
+def formattedfieldfromcontext(context):
+    """
+    Variant of formattedfield that takes its arguments from the template context. Used by the
+    wagtailadmin/shared/field.html template.
+    """
+    kwargs = {}
+    for arg in (
+        "field",
+        "rendered_field",
+        "classname",
+        "show_label",
+        "id_for_label",
+        "sr_only_label",
+        "icon",
+        "help_text",
+        "help_text_id",
+        "show_add_comment_button",
+        "label_text",
+        "error_message_id",
+    ):
+        if arg in context:
+            kwargs[arg] = context[arg]
+    return formattedfield(**kwargs)
 
 
 class FieldRowNode(BlockInclusionNode):
@@ -1249,3 +1295,8 @@ def human_readable_date(date, description=None, placement="top"):
         "description": description,
         "placement": placement,
     }
+
+
+# Shadow the laces `component` tag which was extracted from Wagtail. The shadowing
+# is useful to avoid having to update all the templates that use the `component` tag.
+register.tag("component", component)

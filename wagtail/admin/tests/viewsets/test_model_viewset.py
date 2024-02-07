@@ -6,13 +6,15 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
+from django.utils.html import escape
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
@@ -20,6 +22,7 @@ from wagtail.test.testapp.models import (
     SearchTestModel,
     VariousOnDeleteModel,
 )
+from wagtail.test.testapp.views import FCToyAlt1ViewSet
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -135,12 +138,9 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     response, "<p>Some extra custom content</p>", html=True
                 )
 
-    def test_wagtail_admin_template_mixin_variables(self):
+    def test_wagtail_admin_template_mixin_variables_with_legacy_header(self):
         pk = quote(self.custom.pk)
         cases = {
-            "index": ([], "Feature complete toys", None),
-            "add": ([], "New", "Feature complete toy"),
-            "edit": ([pk], "Editing", str(self.custom)),
             "delete": ([pk], "Delete", str(self.custom)),
         }
         for view_name, (args, title, subtitle) in cases.items():
@@ -160,6 +160,27 @@ class TestTemplateConfiguration(WagtailTestUtils, TestCase):
                     self.assertIsNone(subtitle_el)
                 icon = h1.select_one("svg use[href='#icon-media']")
                 self.assertIsNotNone(icon)
+
+    def test_wagtail_admin_template_mixin_variables(self):
+        pk = quote(self.custom.pk)
+        cases = {
+            "index": ([], "Feature complete toys", None),
+            "add": ([], "New", "Feature complete toy"),
+            "edit": ([pk], "Editing", str(self.custom)),
+        }
+        for view_name, (args, title, subtitle) in cases.items():
+            with self.subTest(view_name=view_name):
+                response = self.client.get(self.get_custom_url(view_name, args=args))
+                soup = self.get_soup(response.content)
+                h1 = soup.select_one("h1")
+                expected_h1 = title
+                if subtitle:
+                    expected_h1 = f"{title}: {subtitle}"
+                self.assertIsNotNone(h1)
+                self.assertEqual(h1.get_text(strip=True), expected_h1)
+                icon = h1.select_one("svg use[href='#icon-media']")
+                # Icon is no longer rendered in the h1 with the slim header in place
+                self.assertIsNone(icon)
 
 
 class TestCustomColumns(WagtailTestUtils, TestCase):
@@ -232,7 +253,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "There are no feature complete toys to display",
@@ -247,7 +267,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
 
@@ -255,7 +275,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -271,7 +290,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
 
@@ -279,7 +298,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
         for case, (url_namespace, lookup, label_text) in self.cases.items():
             with self.subTest(case=case):
                 response = self.get(url_namespace, {lookup: ""})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "Forky")
                 self.assertNotContains(response, "There are 2 matches")
@@ -291,7 +309,7 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertFalse(input.attrs.get("value"))
@@ -306,7 +324,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(
                     response,
                     "No feature complete toys match your query",
@@ -318,10 +335,19 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
+
+                # Should render the active filters even when there are no results
+                active_filters = soup.select_one(".w-active-filters")
+                self.assertIsNotNone(active_filters)
+                clear = active_filters.select_one(".w-pill__remove")
+                self.assertIsNotNone(clear)
+                url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+                self.assertEqual(url, reverse(f"{url_namespace}:index_results"))
+                self.assertNotIn(f"{lookup}={value}", params)
 
     def test_filtered_with_results(self):
         lookup_values = {
@@ -333,7 +359,6 @@ class TestListFilter(WagtailTestUtils, TestCase):
             with self.subTest(case=case):
                 value = lookup_values[lookup]
                 response = self.get(url_namespace, {lookup: value})
-                self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
                 self.assertContains(response, "Buzz Lightyear")
                 self.assertContains(response, "There is 1 match")
                 self.assertNotContains(response, "Forky")
@@ -345,10 +370,19 @@ class TestListFilter(WagtailTestUtils, TestCase):
                 soup = self.get_soup(response.content)
                 label = soup.select_one(f"label#id_{lookup}-label")
                 self.assertIsNotNone(label)
-                self.assertEqual(label.text.strip(), label_text)
+                self.assertEqual(label.string.strip(), label_text)
                 input = soup.select_one(f"input#id_{lookup}")
                 self.assertIsNotNone(input)
                 self.assertEqual(input.attrs.get("value"), value)
+
+                # Should render the active filters
+                active_filters = soup.select_one(".w-active-filters")
+                self.assertIsNotNone(active_filters)
+                clear = active_filters.select_one(".w-pill__remove")
+                self.assertIsNotNone(clear)
+                url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+                self.assertEqual(url, reverse(f"{url_namespace}:index_results"))
+                self.assertNotIn(f"{lookup}={value}", params)
 
 
 class TestSearchIndexView(WagtailTestUtils, TestCase):
@@ -683,9 +717,22 @@ class TestOrdering(WagtailTestUtils, TestCase):
             ],
         )
 
-    def test_custom_order(self):
+    def test_custom_order_from_query_args(self):
+        response = self.client.get(reverse("fctoy-alt3:index") + "?ordering=-name")
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "DDDDDDDDDD",
+                "CCCCCCCCCC",
+                "BBBBBBBBBB",
+                "AAAAAAAAAA",
+            ],
+        )
+
+    def test_custom_order_from_view(self):
         response = self.client.get(reverse("feature_complete_toy:index"))
-        # Should respect the viewset's ordering
+        # Should respect the view's ordering
         self.assertFalse(FeatureCompleteToy._meta.ordering)
         self.assertEqual(
             [obj.name for obj in response.context["object_list"]],
@@ -694,6 +741,20 @@ class TestOrdering(WagtailTestUtils, TestCase):
                 "BBBBBBBBBB",
                 "CCCCCCCCCC",
                 "DDDDDDDDDD",
+            ],
+        )
+
+    def test_custom_order_from_from_viewset(self):
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        # The view has an ordering but it is overwritten by the viewset
+        self.assertFalse(FeatureCompleteToy._meta.ordering)
+        self.assertEqual(
+            [obj.name for obj in response.context["object_list"]],
+            [
+                "CCCCCCCCCC",
+                "AAAAAAAAAA",
+                "DDDDDDDDDD",
+                "BBBBBBBBBB",
             ],
         )
 
@@ -773,9 +834,22 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "History",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_history_view_pagination(self):
+        for i in range(25):
+            log(instance=self.object, action="wagtail.edit", user=self.user)
+
+        history_url = reverse(
+            "feature_complete_toy:history",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(history_url)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, f'<a href="{history_url}?p=2">')
 
     def test_usage_view(self):
         usage_url = reverse(
@@ -797,9 +871,24 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Usage",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view_pagination(self):
+        for i in range(25):
+            VariousOnDeleteModel.objects.create(
+                text=f"Toybox {i}", cascading_toy=self.object
+            )
+
+        usage_url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(usage_url)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, f'<a href="{usage_url}?p=2">')
 
     def test_inspect_view(self):
         inspect_url = reverse(
@@ -821,6 +910,7 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             {
                 "url": "",
                 "label": "Inspect",
+                "sublabel": str(self.object),
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
@@ -932,11 +1022,23 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         response = self.client.get(self.url, {"action": "wagtail.create"})
         soup = self.get_soup(response.content)
         rows = soup.select("tbody tr")
-        heading = soup.select_one("h2")
+        heading = soup.select_one('h2[role="alert"]')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(heading.text.strip(), "There is 1 match")
+        self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
+
+    def test_filtered_no_results(self):
+        response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})
+        soup = self.get_soup(response.content)
+        results = soup.select_one("#listing-results")
+        table = soup.select_one("table")
+        p = results.select_one("p")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(results)
+        self.assertIsNone(table)
+        self.assertIsNotNone(p)
+        self.assertEqual(p.text.strip(), "No log entries match your query.")
 
     def test_empty(self):
         ModelLogEntry.objects.all().delete()
@@ -946,7 +1048,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         table = soup.select_one("table")
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(results)
-        self.assertEqual(results.text.strip(), "No log entries found.")
+        self.assertEqual(results.text.strip(), "There are no log entries to display.")
         self.assertIsNone(table)
 
     def test_edit_view_links_to_history_view(self):
@@ -980,7 +1082,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1028,7 +1130,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1050,7 +1152,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
         h1 = soup.select_one("h1")
-        self.assertEqual(h1.text.strip(), f"Usage of {self.object}")
+        self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
         tds = soup.select("tbody tr td")
         self.assertEqual(len(tds), 3)
@@ -1230,6 +1332,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
             ),
             (
+                "Copy",
+                f"Copy '{self.object}'",
+                reverse("feature_complete_toy:copy", args=[quote(self.object.pk)]),
+            ),
+            (
                 "Inspect",
                 f"Inspect '{self.object}'",
                 reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
@@ -1250,3 +1357,178 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.text.strip(), label)
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+
+    def test_copy_disabled(self):
+        response = self.client.get(reverse("fctoy_alt1:index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
+        self.assertIsNotNone(more_dropdown)
+        more_button = more_dropdown.select_one("button")
+        self.assertEqual(
+            more_button.attrs.get("aria-label").strip(),
+            f"More options for '{self.object}'",
+        )
+
+        expected_buttons = [
+            (
+                "Edit",
+                f"Edit '{self.object}'",
+                reverse("fctoy_alt1:edit", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Inspect",
+                f"Inspect '{self.object}'",
+                reverse("fctoy_alt1:inspect", args=[quote(self.object.pk)]),
+            ),
+            (
+                "Delete",
+                f"Delete '{self.object}'",
+                reverse("fctoy_alt1:delete", args=[quote(self.object.pk)]),
+            ),
+        ]
+
+        rendered_buttons = more_dropdown.select("a")
+        self.assertEqual(len(rendered_buttons), len(expected_buttons))
+
+        for rendered_button, (label, aria_label, url) in zip(
+            rendered_buttons, expected_buttons
+        ):
+            self.assertEqual(rendered_button.text.strip(), label)
+            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
+            self.assertEqual(rendered_button.attrs.get("href"), url)
+
+
+class TestCopyView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.url = reverse("feature_complete_toy:copy", args=[quote(self.object.pk)])
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_form_is_prefilled(self):
+        request = RequestFactory().get(self.url)
+        request.user = self.user
+        view = FCToyAlt1ViewSet().copy_view_class()
+        view.setup(request)
+        view.model = self.object.__class__
+        view.kwargs = {"pk": self.object.pk}
+
+        self.assertEqual(view.get_form_kwargs()["instance"], self.object)
+
+
+class TestEditHandler(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.url = reverse("feature_complete_toy:edit", args=(quote(cls.object.pk),))
+
+    def test_edit_form_rendered_with_panels(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/panel.html")
+
+        soup = self.get_soup(response.content)
+
+        # Minimap should be rendered
+        minimap_container = soup.select_one("[data-minimap-container]")
+        self.assertIsNotNone(minimap_container)
+
+        # Form should be rendered using panels
+        panels = soup.select("[data-panel]")
+        self.assertEqual(len(panels), 2)
+        headings = ["Name", "Release date"]
+        for expected_heading, panel in zip(headings, panels):
+            rendered_heading = panel.select_one("[data-panel-heading-text]")
+            self.assertIsNotNone(rendered_heading)
+            self.assertEqual(rendered_heading.text.strip(), expected_heading)
+
+
+class TestDefaultMessages(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.create_url = reverse("feature_complete_toy:add")
+        cls.edit_url = reverse(
+            "feature_complete_toy:edit", args=(quote(cls.object.pk),)
+        )
+        cls.delete_url = reverse(
+            "feature_complete_toy:delete", args=(quote(cls.object.pk),)
+        )
+
+    def test_create_error(self):
+        response = self.client.post(
+            self.create_url,
+            data={"name": "", "release_date": "2024-01-11"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("The feature complete toy could not be created due to errors."),
+        )
+
+    def test_create_success(self):
+        response = self.client.post(
+            self.create_url,
+            data={"name": "Pink Flamingo", "release_date": "2024-01-11"},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("Feature complete toy 'Pink Flamingo (2024-01-11)' created."),
+        )
+
+    def test_edit_error(self):
+        response = self.client.post(
+            self.edit_url, data={"name": "", "release_date": "2024-01-11"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("The feature complete toy could not be saved due to errors."),
+        )
+
+    def test_edit_success(self):
+        response = self.client.post(
+            self.edit_url,
+            data={"name": "rubberduck", "release_date": "2024-02-01"},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape("Feature complete toy 'rubberduck (2024-02-01)' updated."),
+        )
+
+    def test_delete_success(self):
+        response = self.client.post(self.delete_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape(f"Feature complete toy '{self.object}' deleted."),
+        )

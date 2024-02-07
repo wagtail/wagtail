@@ -38,6 +38,7 @@ class TestTableBlock(TestCase):
         )
 
         self.form_data = {
+            "table-caption": "Countries and their food",
             "table-column-count": "2",
             "table-row-count": "3",
             "table-column-0-type": "country",
@@ -71,6 +72,7 @@ class TestTableBlock(TestCase):
                 {"values": ["nl", "A small country with stroopwafels"]},
                 {"values": ["fr", "A large country with baguettes"]},
             ],
+            "caption": "Countries and their food",
         }
 
     def test_value_from_datadict(self):
@@ -81,6 +83,7 @@ class TestTableBlock(TestCase):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
 
         self.assertIsInstance(table, TypedTable)
+        self.assertEqual(table.caption, "Countries and their food")
         self.assertEqual(len(table.columns), 2)
         self.assertEqual(table.columns[0]["heading"], "Country")
         self.assertEqual(table.columns[1]["heading"], "Description")
@@ -103,6 +106,7 @@ class TestTableBlock(TestCase):
         # Column id 1 is a population column that was deleted before being replaced by the
         # current one with id 3.
         form_data = {
+            "table-caption": "Countries and their food",
             # table-column-count includes deleted columns, as it's telling the server code
             # the maximum column ID number it should consider
             "table-column-count": "4",
@@ -129,6 +133,7 @@ class TestTableBlock(TestCase):
         table = self.block.value_from_datadict(form_data, {}, "table")
 
         self.assertIsInstance(table, TypedTable)
+        self.assertEqual(table.caption, "Countries and their food")
         self.assertEqual(len(table.columns), 3)
         self.assertEqual(table.columns[0]["heading"], "Country")
         self.assertEqual(table.columns[1]["heading"], "Population")
@@ -145,6 +150,7 @@ class TestTableBlock(TestCase):
         Test that we can turn JSONish data from the database into a TypedTable instance
         """
         table = self.block.to_python(self.db_data)
+        self.assertEqual(table.caption, "Countries and their food")
         self.assertIsInstance(table, TypedTable)
         self.assertEqual(len(table.columns), 2)
         self.assertEqual(table.columns[0]["heading"], "Country")
@@ -188,6 +194,7 @@ class TestTableBlock(TestCase):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
         html = self.block.render(table)
 
+        self.assertIn("<caption>Countries and their food</caption>", html)
         self.assertIn('<th scope="col">Country</th>', html)
         # rendering should use the block renderings of the child blocks ('FR' not 'fr')
         self.assertIn("<td>FR</td>", html)

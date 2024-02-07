@@ -14,11 +14,11 @@
         <form method="post" novalidate>
             {% csrf_token %}
 
-            {% field field=form.email %}{% endfield %}
+            {% formattedfield form.email %}
 
             {% block extra_fields %}
                 {% for field_name, field in form.extra_fields %}
-                    {% field field=field %}{% endfield %}
+                    {% formattedfield field %}
                 {% endfor %}
             {% endblock extra_fields %}
 

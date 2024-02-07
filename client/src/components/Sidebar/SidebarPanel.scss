@@ -1,7 +1,7 @@
 .sidebar-panel {
-  @apply w-transition-sidebar;
   // With CSS variable allows panels with different widths to animate properly
   --width: #{$menu-width};
+  @apply w-transition-sidebar;
 
   visibility: hidden;
   transform: translateX(calc(var(--w-direction-factor) * -100%));

@@ -321,65 +321,27 @@
     {% panel id="dropdowns" heading="Dropdown buttons" %}
 
         <div class="row">
-            <div class="col3">
-                <div class="dropdown dropdown-button match-width">
-                    <button type="button" class="button">drop down</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">items should not exceed button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropdown-button">
-                    <button type="button" class="button">drop down</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">Items in this list do not match button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropup dropdown-button match-width">
-                    <button type="button" class="button">drop up</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                    <ul>
-                        <li><a href="#">item 1</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col3">
-                <div class="dropdown dropup dropdown-button match-width">
-                    <button value="drop up" class="button">{% icon name="view" %}icon dropup</button>
-                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                    <ul>
-                        <li><a href="#">item 1</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <br />
-            <div class="col3">
-                <div class="dropdown dropdown-button match-width">
-                    <a href="#" class="button" value="drop down">Link button</a>
-                    <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                    <ul>
-                        <li><a href="#">items should not exceed button width</a></li>
-                        <li><a href="#">item 2</a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="w-flex w-gap-4">
+                {% fragment as button %}
+                    <a href="" class="button">
+                        dropdown
+                    </a>
+                {% endfragment %}
+                {% dropdown_button button=button %}
+                    <a class="button" href="#">items should not exceed button width</a>
+                {% enddropdown_button %}
 
-            <div class="col3">
+                {% fragment as button %}
+                    <button type="button" class="button bicolor button--icon">
+                        {% icon name="view" wrapped=1 %}icon dropdown
+                    </button>
+                {% endfragment %}
+                {% dropdown_button button=button toggle_icon="arrow-up" %}
+                    <a class="button" href="#">first item</a>
+                    <a class="button" href="#">second item</a>
+                {% enddropdown_button %}
+
                 <button class="button">button for comparison of height</button>
             </div>
         </div>
@@ -469,9 +431,7 @@
                     {% if field.name == 'file' %}
                         {% include "wagtailimages/images/_file_field.html" %}
                     {% else %}
-                        <li>
-                            {% include "wagtailadmin/shared/field.html" %}
-                        </li>
+                        <li>{% formattedfield field %}</li>
                     {% endif %}
                 {% endfor %}
                 <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button no">{% trans "Delete image" %}</a></li>
@@ -561,10 +521,7 @@
                     <tbody>
                         {% for item in icons %}
                             <tr>
-                                {# Renders the icon’s SVG within a SVG element, #}
-                                {# so we fully control the rendering without changing the icon’s markup. #}
-                                {# Icons are loaded with render_to_string, so need |safe. #}
-                                <td><svg width="32" height="32" fill="currentColor">{{ item.icon|safe }}</svg></td>
+                                <td>{% icon name=item.name classname="w-w-8 w-h-8" %}</td>
                                 <td><code>{{ item.name }}</code></td>
                                 <td>{{ item.source }}</td>
                                 <td><code>{{ item.file_path }}</code></td>
@@ -583,19 +540,4 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
     {{ example_form.media.js }}
-
-    <script>
-        $(function(){
-            (function runprogress(){
-                var to = setTimeout(function(){
-                    runprogress();
-                    clearTimeout(to);
-                    setTimeout(function(){
-                        $('#progress-example .bar').css('width', '20%');
-                    }, 2000);
-                }, 3000);
-                $('#progress-example .bar').css('width', '80%');
-            })();
-        })
-    </script>
 {% endblock %}

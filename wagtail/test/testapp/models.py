@@ -21,7 +21,9 @@ from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import ItemBase, TagBase, TaggedItemBase
 
+from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import (
     FieldPanel,
@@ -49,6 +51,7 @@ from wagtail.contrib.forms.models import (
     AbstractFormField,
     AbstractFormSubmission,
 )
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
@@ -70,6 +73,7 @@ from wagtail.models import (
     Orderable,
     Page,
     PageManager,
+    PagePermissionTester,
     PageQuerySet,
     PreviewableMixin,
     RevisionMixin,
@@ -568,7 +572,40 @@ class FormPage(AbstractEmailForm):
             ],
             "Email",
         ),
+        FormSubmissionsPanel(),
     ]
+
+
+# CopyForm allowing auto-increment of slugs
+
+
+class CustomCopyForm(CopyForm):
+    def __init__(self, *args, **kwargs):
+        # call super
+        super().__init__(*args, **kwargs)
+        # set initial_slug as incremented slug
+        suffix = 2
+        parent_page = self.page.get_parent()
+        if self.page.slug:
+            try:
+                suffix = int(self.page.slug[-1]) + 1
+                base_slug = self.page.slug[:-2]
+
+            except ValueError:
+                base_slug = self.page.slug
+
+        candidate_slug = base_slug + f"-{suffix}"
+        while not Page._slug_is_available(candidate_slug, parent_page):
+            suffix += 1
+            candidate_slug = f"{base_slug}-{suffix}"
+            candidate_slug
+        allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
+        self.fields["new_slug"] = forms.SlugField(
+            initial=candidate_slug,
+            label=_("New slug"),
+            allow_unicode=allow_unicode,
+            widget=widgets.slug.SlugInput,
+        )
 
 
 # FormPage with a non-HTML extension
@@ -1123,6 +1160,22 @@ class FullFeaturedSnippet(
 
     some_attribute = "some value"
 
+    workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
+
+    revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="full_featured_snippet",
+        for_concrete_model=False,
+    )
+
     search_fields = [
         index.SearchField("text"),
         index.AutocompleteField("text"),
@@ -1310,6 +1363,10 @@ class BusinessNowherePage(Page):
     """Not allowed to be placed anywhere"""
 
     parent_page_types = []
+
+
+class CustomCopyFormPage(Page):
+    copy_form_class = CustomCopyForm
 
 
 class TaggedPageTag(TaggedItemBase):
@@ -2189,3 +2246,13 @@ class SearchTestModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CustomPermissionTester(PagePermissionTester):
+    def can_view_revisions(self):
+        return False
+
+
+class CustomPermissionPage(Page):
+    def permissions_for_user(self, user):
+        return CustomPermissionTester(user, self)

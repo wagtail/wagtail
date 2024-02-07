@@ -9,9 +9,7 @@
             {% if field.is_hidden %}
                 {{ field }}
             {% else %}
-                <li>
-                    {% include "wagtailadmin/shared/field.html" %}
-                </li>
+                <li>{% formattedfield field %}</li>
             {% endif %}
         {% endfor %}
         <li>

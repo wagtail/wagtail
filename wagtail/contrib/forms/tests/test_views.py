@@ -76,6 +76,30 @@ class TestFormResponsesPanel(TestCase):
         self.assertFalse(self.panel.is_shown())
 
 
+class TestFormResponsesPanelWithNewPage(TestCase):
+    def setUp(self):
+        self.request = RequestFactory().get("/")
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
+        self.form_page = FormPage()
+
+        self.FormPageForm = get_form_for_model(
+            FormPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "to_address", "from_address", "subject"],
+        )
+
+        panel = FormSubmissionsPanel().bind_to_model(FormPage)
+        self.panel = panel.get_bound_panel(
+            instance=self.form_page, form=self.FormPageForm(), request=self.request
+        )
+
+    def test_render_without_submissions(self):
+        """The panel should not be shown if the number of submission is zero."""
+        self.assertFalse(self.panel.is_shown())
+
+
 class TestFormResponsesPanelWithCustomSubmissionClass(WagtailTestUtils, TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/")
@@ -258,35 +282,22 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
                 )
             )
 
-    def get_switch_current_locale_markup(self, locale):
-        return rf"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+{locale.get_display_name()}"
-
-    def get_switch_link_markup(self, locale):
-        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" data-locale-selector-link>'
-
     def test_forms_index(self):
         response = self.client.get(self.forms_index_url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
 
-        self.assertRegex(
-            response.content.decode(),
-            self.get_switch_current_locale_markup(self.en_locale),
-        )
-        self.assertContains(response, self.get_switch_link_markup(self.fr_locale))
-
-        response = self.client.get(
-            self.forms_index_url, {"locale": self.fr_locale.language_code}
-        )
-        self.assertRegex(
-            response.content.decode(),
-            self.get_switch_current_locale_markup(self.fr_locale),
-        )
-        self.assertContains(response, self.get_switch_link_markup(self.en_locale))
+        soup = self.get_soup(response.content)
+        inputs = soup.select('input[name="locale"]')
+        values = [input.attrs.get("value") for input in inputs]
+        self.assertEqual(len(inputs), 3)
+        self.assertEqual(values, ["", "en", "fr"])
 
     def test_forms_index_pagination(self):
         # Create some more form pages to make pagination kick in
+        # There are 43 pages in total, 2 in test.json, 1 in setUp, and
+        # 40 from the following
         self.make_form_pages(parent=self.form_page, num=20)
         self.make_form_pages(parent=self.fr_form_page, num=20)
 
@@ -300,7 +311,14 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
 
+        # Default unfiltered view should show pages from all locales,
+        # so page 3 should exist
         response = self.client.get(self.forms_index_url, {"p": 3})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["page_obj"].number, 3)
+        self.assertEqual(len(response.context["page_obj"].object_list), 3)
+
+        response = self.client.get(self.forms_index_url, {"p": 4})
         self.assertEqual(response.status_code, 404)
 
         # now check the French pages.
@@ -1602,7 +1620,6 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
-
         self.login(username="superuser", password="password")
         # Find root page
         self.root_page = Page.objects.get(id=2)
@@ -1759,7 +1776,6 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
 
 class TestPreview(WagtailTestUtils, TestCase):
-
     post_data = {
         "title": "Form page!",
         "content": "Some content",
@@ -1824,3 +1840,85 @@ class TestPreview(WagtailTestUtils, TestCase):
                 response = self.client.get(preview_url + params)
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
+
+
+class TestFormPageCreate(WagtailTestUtils, TestCase):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_get_creation_form(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_creation_form(self):
+        post_data = {
+            "title": "Form page!",
+            "slug": "contact-us",
+            "form_fields-TOTAL_FORMS": "1",
+            "form_fields-INITIAL_FORMS": "1",
+            "form_fields-MIN_NUM_FORMS": "0",
+            "form_fields-MAX_NUM_FORMS": "1000",
+            "form_fields-0-id": "",
+            "form_fields-0-label": "Field One",
+            "form_fields-0-field_type": "singleline",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(slug="contact-us")
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+
+class TestFormPageEdit(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.form_page = make_form_page()
+
+        # Login
+        self.user = self.login()
+
+    def test_get_edit_form(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.form_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_edit_form(self):
+        post_data = {
+            "title": "Updated form page",
+            "slug": "contact-us",
+            "form_fields-TOTAL_FORMS": "1",
+            "form_fields-INITIAL_FORMS": "1",
+            "form_fields-MIN_NUM_FORMS": "0",
+            "form_fields-MAX_NUM_FORMS": "1000",
+            "form_fields-0-id": "",
+            "form_fields-0-label": "Field One",
+            "form_fields-0-field_type": "singleline",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.form_page.id,)),
+            post_data,
+        )
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(self.form_page.id,))
+        )
+        page = Page.objects.get(slug="contact-us").get_latest_revision_as_object()
+        self.assertEqual(page.title, "Updated form page")

@@ -145,7 +145,6 @@ class CopyPageAction:
         )
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
-
             if self.process_child_object:
                 self.process_child_object(
                     specific_page, page_copy, child_relation, child_object
@@ -221,6 +220,14 @@ class CopyPageAction:
                             ] = self.generate_translation_key(
                                 child_object["translation_key"]
                             )
+
+                for exclude_field in specific_page.exclude_fields_in_copy:
+                    if exclude_field in revision_content and hasattr(
+                        page_copy, exclude_field
+                    ):
+                        revision_content[exclude_field] = getattr(
+                            page_copy, exclude_field, None
+                        )
 
                 revision.content = revision_content
 

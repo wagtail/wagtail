@@ -51,6 +51,44 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["table"].data), 2)
         self.assertEqual(response.context["table"].data[1].specific, page)
 
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
+    def test_multiple_chooser_view(self):
+        self.page = Page.objects.get(id=1)
+
+        self.child_page = SimplePage(
+            title="test_child_page", content="test content", pk=10022
+        )
+        self.page.add_child(instance=self.child_page)
+
+        response = self.get({"multiple": "1"})
+
+        checkbox_value = str(self.child_page.id)
+        decoded_content = response.content.decode()
+
+        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+    @override_settings(USE_THOUSAND_SEPARATOR=False)
+    def test_multiple_chooser_view_without_thousand_separator(self):
+        self.page = Page.objects.get(id=1)
+
+        self.child_page = SimplePage(
+            title="test_child_page", content="test content", pk=10050
+        )
+        self.page.add_child(instance=self.child_page)
+
+        response = self.get({"multiple": "1"})
+
+        checkbox_value = str(self.child_page.id)
+        decoded_content = response.content.decode()
+
+        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
 
 class TestCanChooseRootFlag(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -259,7 +297,7 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         # Look for a link element in the breadcrumbs with the admin title
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold " data-w-breadcrumbs-target="content">
-                <a class="w-flex w-items-center w-h-full w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-text-label w-h-full" href="/admin/choose-page/{page_id}/?">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/choose-page/{page_id}/?">
                     {page_title}
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">

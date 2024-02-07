@@ -1,8 +1,7 @@
 .report {
+  @include nice-margin();
   display: grid;
   grid-column-gap: theme('spacing.12');
-
-  @include nice-margin();
 
   &__results {
     &--text {
@@ -19,8 +18,7 @@
   }
 
   &__actions > div {
-    float: right;
-    display: block;
+    float: inline-end;
     margin-inline-end: theme('spacing.3');
   }
 

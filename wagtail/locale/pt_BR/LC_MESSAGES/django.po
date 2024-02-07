@@ -14,13 +14,13 @@
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020-2021
 # Marcio Mazza <marciomazza@gmail.com>, 2016
-# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
+# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2022
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -253,9 +253,6 @@ msgstr "páginas"
 msgid "object id"
 msgstr "id do objeto"
 
-msgid "submitted for moderation"
-msgstr "enviada para moderação"
-
 msgid "created at"
 msgstr "criado em"
 
@@ -279,9 +276,6 @@ msgstr "grupo"
 
 msgid "permission"
 msgstr "permissão"
-
-msgid "permission type"
-msgstr "tipo de permissão"
 
 msgid "group page permission"
 msgstr "grupo de permissão da página"

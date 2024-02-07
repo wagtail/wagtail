@@ -25,7 +25,7 @@ The simplest way is to add global JavaScript files via hooks, see [](insert_edit
 
 For JavaScript added when a specific Widget is used you can add an inner `Media` class to ensure that the file is loaded when the widget is used, see [Django's docs on their form `Media` class](https://docs.djangoproject.com/en/stable/topics/forms/media/#assets-as-a-static-definition).
 
-In a similar way, Wagtail's [template components](template_components) provide a `media` property or `Media` class to add scripts when rendered.
+In a similar way, Wagtail's [](./template_components) provide a `media` property or `Media` class to add scripts when rendered.
 
 These will ensure the added files are used in the admin after the core JavaScript admin files are already loaded.
 
@@ -204,6 +204,128 @@ def editor_js():
 ```
 
 You should be able to see that on your Blog Pages, the introduction field will now have a small `output` element showing the count and max words being used.
+
+(extending_client_side_stimulus_widget)=
+
+#### A more complex widget example
+
+For more complex widgets we can now integrate additional libraries whenever the widget appears in the rendered HTML, either on initial load or dynamically without the need for any inline `script` elements.
+
+In this example we will build a color picker widget using the [Coloris](https://coloris.js.org/) JavaScript library with support for custom widget options.
+
+First, let's start with the HTML, building on the [Django widgets](inv:django#ref/forms/widgets) system that Wagtail supports for `FieldPanel` and `FieldBlock`. Using the `build_attrs` method, we build up the appropriate Stimulus data attributes to support common data structures being passed into the controller.
+
+Observe that we are using `json.dumps` for complex values (a list of strings in this case), Django will automatically escape these values when rendered to avoid common causes of insecure client-side code.
+
+```py
+# myapp/widgets.py
+import json
+
+from django.forms import Media, TextInput
+
+from django.utils.translation import gettext as _
+
+class ColorWidget(TextInput):
+    """
+    See https://coloris.js.org/
+    """
+
+    def __init__(self, attrs=None, swatches=[], theme='large'):
+        self.swatches = swatches
+        self.theme = theme
+        super().__init__(attrs=attrs);
+
+    def build_attrs(self, *args, **kwargs):
+        attrs = super().build_attrs(*args, **kwargs)
+        attrs['data-controller'] = 'color'
+        attrs['data-color-theme-value'] = self.theme
+        attrs['data-color-swatches-value'] = json.dumps(swatches)
+        return attrs
+
+    @property
+    def media(self):
+        return Media(
+            js=[
+                # load the UI library
+                "https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js",
+                # load controller JS
+                "js/color-controller.js",
+            ],
+            css={"all": ["https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"]},
+        )
+```
+
+For the Stimulus controller, we pass the values through to the JavaScript library, including a reference to the controlled element via `this.element.id`.
+
+```javascript
+// myapp/static/js/color-controller.js
+
+class ColorController extends window.StimulusModule.Controller {
+    static values = { swatches: Array, theme: String };
+
+    connect() {
+        // create
+        Coloris({ el: `#${this.element.id}` });
+
+        // set options after initial creation
+        setTimeout(() => {
+            Coloris({ swatches: this.swatchesValue, theme: this.themeValue });
+        });
+    }
+}
+
+window.wagtail.app.register('color', ColorController);
+```
+
+Now we can use this widget in any `FieldPanel` or any `FieldBlock` for StreamFields, it will automatically instantiate the JavaScript to the field's element.
+
+```py
+# blocks.py
+
+# ... other imports
+from django import forms
+from wagtail.blocks import FieldBlock
+
+from .widgets import ColorWidget
+
+
+class ColorBlock(FieldBlock):
+    def __init__(self, *args, **kwargs):
+        swatches = kwargs.pop('swatches', [])
+        theme = kwargs.pop('theme', 'large')
+        self.field = forms.CharField(widget=ColorWidget(swatches=swatches, theme=theme))
+        super().__init__(*args, **kwargs)
+```
+
+```py
+# models.py
+
+# ... other imports
+from django import forms
+from wagtail.admin.panels import FieldPanel
+
+from .blocks import ColorBlock
+from .widgets import ColorWidget
+
+
+BREAD_COLOR_PALETTE = ["#CFAC89", "#C68C5F", "#C47647", "#98644F", "#42332E"]
+
+class BreadPage(Page):
+    body = StreamField([
+        # ...
+        ('color', ColorBlock(swatches=BREAD_COLOR_PALETTE)),
+        # ...
+    ], use_json_field=True)
+    color = models.CharField(blank=True, max_length=50)
+
+    # ... other fields
+
+    content_panels = Page.content_panels + [
+        # ... other panels
+        FieldPanel("body"),
+        FieldPanel("color", widget=ColorWidget(swatches=BREAD_COLOR_PALETTE)),
+    ]
+```
 
 #### Using a build system
 

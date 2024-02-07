@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -318,35 +318,6 @@ msgstr "Выдаліць карыстальніка"
 msgid "Select all users in listing"
 msgstr "Выбраць усіх карыстальнікаў у спісе"
 
-msgid "Username"
-msgstr "Імя карыстальніка"
-
-msgid "Access level"
-msgstr "Узровень доступу"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Last Login"
-msgstr "Апошні ўваход"
-
-msgid "Admin"
-msgstr "Адміністратар"
-
-msgid "Active"
-msgstr "Актыўны"
-
-msgid "Inactive"
-msgstr "Неактыўны"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Ёсць %(counter)s супадзенне"
-msgstr[1] "Ёсць %(counter)s супадзенняў"
-msgstr[2] "Ёсць %(counter)s супадзенняў"
-msgstr[3] "Ёсць %(counter)s супадзенняў"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -368,6 +339,27 @@ msgid ""
 msgstr ""
 "Карыстальнікі не сканфігураваны. <a href=\"%(wagtailusers_add_url)s\"> "
 "дадаць карыстальніка </a>?"
+
+msgid "Username"
+msgstr "Імя карыстальніка"
+
+msgid "Access level"
+msgstr "Узровень доступу"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Last Login"
+msgstr "Апошні ўваход"
+
+msgid "Admin"
+msgstr "Адміністратар"
+
+msgid "Active"
+msgstr "Актыўны"
+
+msgid "Inactive"
+msgstr "Неактыўны"
 
 #, python-format
 msgid "user %(id)s (deleted)"

@@ -5,6 +5,7 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Oumayma el bez, 2023
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
 # Younes Oumakhou, 2022
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Younes Oumakhou, 2022\n"
+"Last-Translator: Oumayma el bez, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +75,7 @@ msgstr[1] "هل أنت متأكد من حذف هذه الوثيقة؟"
 msgstr[2] "هل أنت متأكد من حذف هاتين الوثيقتين؟"
 msgstr[3] "هل أنت متأكد من حذف هذه الوثائق؟"
 msgstr[4] "هل أنت متأكد من حذف هذه الوثائق؟"
-msgstr[5] "هل أنت متأكد من حذف هذه الوثائق؟"
+msgstr[5] "هل تريد حقا حذف هذه الوثائق؟"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -90,7 +91,7 @@ msgid "Yes, delete"
 msgstr "نعم احذف"
 
 msgid "No, don't delete"
-msgstr "لا, لا تذف"
+msgstr "لا, لا تحذف"
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
@@ -137,28 +138,6 @@ msgstr "الملف غير موجود"
 
 msgid "Usage"
 msgstr "استعمال"
-
-msgid "Documents"
-msgstr "وثائق"
-
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-msgid "Created"
-msgstr "تم إنشاؤه"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -218,6 +197,12 @@ msgstr "إضافة إذن وثيقة"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "File"
+msgstr "ملف"
+
+msgid "Created"
+msgstr "تم إنشاؤه"
+
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -227,8 +212,11 @@ msgstr "اختر وثيقة أخقى"
 msgid "Edit this document"
 msgstr "تحرير هذه الوثيقة"
 
-msgid "Search documents"
-msgstr "ابحث وثائق"
+msgid "Documents"
+msgstr "وثائق"
+
+msgid "Title"
+msgstr "عنوان"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

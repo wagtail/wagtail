@@ -1,13 +1,13 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 <td>
-    {% include "wagtailadmin/shared/field.html" with field=form.collection sr_only_label=True only %}
+    {% formattedfield field=form.collection sr_only_label=True %}
     {{ form.DELETE }}
 </td>
 
 {% for option in form.permissions %}
     <td>
-        <label for="{{ option.id_for_label }}" class="visuallyhidden">{{ option.choice_label }}</label>
+        <label for="{{ option.id_for_label }}" class="w-sr-only">{{ option.choice_label }}</label>
         {{ option.tag }}
     </td>
 {% endfor %}

@@ -57,9 +57,6 @@ msgstr "編集"
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s'を編集します"
 
-msgid "Edit your account"
-msgstr "アカウント変更"
-
 msgid "Focus comment"
 msgstr "コメントにフォーカス"
 

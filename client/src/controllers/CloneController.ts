@@ -30,11 +30,27 @@ type AddOptions = {
  *     <li data-message-status="error-or-success"><span></span></li>
  *  </template>
  * </div>
+ *
+ * @example - Using to show a temporary element with auto-clearing
+ * ```html
+ * <div
+ *  data-controller="w-clone"
+ *  data-action="readystatechange@document->w-clone#add:once"
+ *  data-w-clone-auto-clear-value="5_000"
+ * >
+ *   <div data-w-clone-target="container"></div>
+ *   <template data-w-clone-target="template">
+ *     <p>Page has loaded, this will be removed in 5 seconds.</p>
+ *   </template>
+ *   </div>
+ * </div>
+ *
  */
 export class CloneController extends Controller<HTMLElement> {
   static classes = ['added', 'hide', 'show'];
   static targets = ['container', 'template'];
   static values = {
+    autoClear: { default: 0, type: Number },
     clearDelay: { default: 0, type: Number },
     showDelay: { default: 0, type: Number },
   };
@@ -49,9 +65,12 @@ export class CloneController extends Controller<HTMLElement> {
   declare readonly showClasses: string[];
   declare readonly templateTarget: HTMLTemplateElement;
   declare readonly templateTargets: HTMLTemplateElement[];
-  /** Delay, in milliseconds, after adjusting classes before the content should be cleared */
+
+  /** Auto clears after adding with the declared duration, in milliseconds. If zero or below, will not be used. */
+  declare autoClearValue: number;
+  /** Delay, in milliseconds, after adjusting classes before the content should be cleared. */
   declare clearDelayValue: number;
-  /** Delay, in milliseconds, before adjusting classes on show */
+  /** Delay, in milliseconds, before adjusting classes on show. */
   declare showDelayValue: number;
 
   /** Internal tracking of whether a clearing delay is in progress. */
@@ -88,7 +107,14 @@ export class CloneController extends Controller<HTMLElement> {
       this.element.classList.remove(...this.hideClasses);
       this.element.classList.add(...this.showClasses);
       this.dispatch('added');
-    }, this.showDelayValue || null /* run immediately if zero */)();
+    }, this.showDelayValue || null /* run immediately if zero */)().then(() => {
+      // Once complete, check if we should automatically clear the content after a delay
+      const autoClearValue = this.autoClearValue || null;
+      if (!autoClearValue) return;
+      debounce(() => {
+        this.clear();
+      }, this.autoClearValue)();
+    });
   }
 
   /**

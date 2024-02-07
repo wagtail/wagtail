@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -145,7 +145,7 @@ msgid "Add a recommended result"
 msgstr "Afegir un resultat recomanat"
 
 msgid "Search Terms"
-msgstr "Termini de cerca"
+msgstr "Termes de cerca"
 
 msgid "Add new promoted result"
 msgstr "Afegir un nou resultat promocionat"
@@ -214,9 +214,6 @@ msgid ""
 msgstr ""
 "No s'ha creat cap resultat promocionat. per què no n'<a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">afegiu un</a>?"
-
-msgid "Search promoted results"
-msgstr "Resultats de cerca promocionats"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

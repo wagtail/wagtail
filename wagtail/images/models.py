@@ -300,6 +300,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         self.file.seek(0)
 
     def get_upload_to(self, filename):
+        """
+        Generates a file path in the "original_images" folder.
+        Ensuring ASCII characters and limiting length to prevent filesystem issues during uploads.
+        """
+
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)
 
@@ -939,7 +944,6 @@ class Filter:
 
     def run(self, image: AbstractImage, output: BytesIO, source: File = None):
         with self.get_willow_image(image, source) as willow:
-
             original_format = willow.format_name
 
             # Fix orientation of image
@@ -1029,6 +1033,8 @@ class Filter:
                 return willow.save_as_avif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
+            elif output_format == "ico":
+                return willow.save_as_ico(output)
             raise UnknownOutputImageFormatError(
                 f"Unknown output image format '{output_format}'"
             )
@@ -1265,6 +1271,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
         return self.img_tag()
 
     def get_upload_to(self, filename):
+        """
+        Generates a file path within the "images" folder by combining the folder name and the validated filename.
+        """
         folder_name = "images"
         filename = self.file.field.storage.get_valid_name(filename)
         return os.path.join(folder_name, filename)

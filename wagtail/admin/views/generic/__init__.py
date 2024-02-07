@@ -14,6 +14,7 @@ from .mixins import (  # noqa: F401
     RevisionsRevertMixin,
 )
 from .models import (  # noqa: F401
+    CopyView,
     CreateView,
     DeleteView,
     EditView,

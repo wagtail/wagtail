@@ -152,7 +152,6 @@ class TestExceptionRaisedForInstance(BadDataMigrationTestCase):
             self.append_invalid_instance_data()
 
     def test_migrate(self):
-
         with self.assertRaisesMessage(
             InvalidBlockDefError,
             "Invalid block def in {} object ({})".format(

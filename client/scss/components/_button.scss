@@ -50,9 +50,9 @@
     background-color: transparent;
 
     &:hover {
-      background-color: theme('colors.surface-page');
-      border-color: currentColor;
-      color: theme('colors.surface-button-default');
+      background-color: theme('colors.surface-button-outline-hover');
+      border-color: theme('colors.border-button-outline-hover');
+      color: theme('colors.text-button-outline-hover');
     }
   }
 
@@ -102,13 +102,7 @@
       height: 100%;
       box-sizing: content-box;
       text-align: center;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-top-left-radius: inherit;
       border-start-start-radius: inherit;
-      // Remove once we drop support for Safari 14.
-      // stylelint-disable-next-line property-disallowed-list
-      border-bottom-left-radius: inherit;
       border-end-start-radius: inherit;
     }
 
@@ -287,17 +281,9 @@
 
     @include media-breakpoint-up(sm) {
       &.icon {
-        &:before {
-          line-height: 2.1em;
-        }
-
         &.button-small {
           width: 1.75em;
           height: 1.75em;
-
-          &:before {
-            line-height: 1.7em;
-          }
         }
       }
     }
@@ -314,17 +300,8 @@
     &.bicolor {
       padding-inline-start: 3.5em;
 
-      &:before {
-        width: 2em;
-        font-size: theme('fontSize.16');
-      }
-
       &.button-small {
         padding-inline-start: 3em;
-
-        &:before {
-          width: 1.75em;
-        }
       }
     }
   }
@@ -339,6 +316,36 @@
       &:hover {
         border-color: Highlight;
       }
+    }
+  }
+}
+
+.w-header-button {
+  // Temporarily copied from .c-sf-add-button
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.7');
+  height: theme('spacing.slim-header');
+  appearance: none;
+  color: theme('colors.text-button-outline-default');
+  padding: 0;
+  cursor: pointer;
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    padding: theme('spacing.[0.5]');
+    border: 1px solid theme('colors.text-button-outline-default');
+    border-radius: theme('borderRadius.full');
+    transition: transform 0.3s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .icon {
+      color: theme('colors.surface-page');
+      background-color: theme('colors.text-button-outline-hover');
     }
   }
 }

@@ -1,14 +1,27 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load wagtailadmin_tags %}
 {% load i18n %}
-
-{% block titletag %}{% blocktrans trimmed with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}editor-view{% endblock %}
 
 {% block content %}
+    {% get_comments_enabled as comments_enabled %}
 
-    {% include 'wagtailadmin/shared/headers/page_create_header.html' %}
+    {% include 'wagtailadmin/shared/headers/page_create_header.html' with title=header_title %}
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+    <form
+        id="page-edit-form"
+        action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}"
+        method="POST"
+        novalidate
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-init w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
+        data-w-unsaved-confirmation-value="{{ _("This page has unsaved changes.") }}"
+        data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
+        data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+    >
         {% csrf_token %}
 
         <input type="hidden" name="next" value="{{ next }}">
@@ -21,24 +34,13 @@
 
         {{ edit_handler.render_form_content }}
 
-        <footer class="footer">
-            <ul>
-                <li class="footer__container">
-                    <nav aria-label="{% trans 'Actions' %}">
-                        <ul>
-                            <li class="actions actions--primary">
-                                <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                                    {{ action_menu.render_html }}
-                                </div>
-                            </li>
-
-                            {% block extra_footer_actions %}
-                            {% endblock %}
-                        </ul>
-                    </nav>
-                </li>
-                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
-            </ul>
+        <footer class="footer w-grid md:w-grid-flow-col">
+            <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                {{ action_menu.render_html }}
+                {% block extra_footer_actions %}
+                {% endblock %}
+            </nav>
+            {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
         </footer>
     </form>
 
@@ -65,29 +67,5 @@
             window.wagtailConfig = window.wagtailConfig || {};
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
-
-        $(function(){
-            $('#page-edit-form .tab-content section.active input').first().trigger('focus');
-
-            /* Make user confirm before leaving the editor if there are unsaved changes */
-            {% trans "This page has unsaved changes." as confirmation_message %}
-            enableDirtyFormCheck(
-                '#page-edit-form',
-                {
-                    confirmationMessage: '{{ confirmation_message|escapejs }}',
-
-                    {% if has_unsaved_changes %}
-                        alwaysDirty: true,
-                    {% endif %}
-                    commentApp: window.comments.commentApp
-                }
-            );
-
-            {% get_comments_enabled as comments_enabled %}
-            {% if comments_enabled %}
-                // Initialise comments UI
-                window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
-            {% endif %}
-        });
     </script>
 {% endblock %}

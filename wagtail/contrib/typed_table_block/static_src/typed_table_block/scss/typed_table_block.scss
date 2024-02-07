@@ -2,12 +2,6 @@
 @import '../../../../../../client/scss/tools';
 
 .typed-table-block {
-  &__wrapper {
-    overflow-x: auto;
-    // Reserve space for the add column menu.
-    min-height: 20rem;
-  }
-
   // Layout is handled by the table markup.
   .w-field__wrapper {
     margin-bottom: 0;
@@ -104,4 +98,10 @@
     // Add enough space for the block picker.
     padding-inline-start: theme('spacing.9');
   }
+}
+
+.typed-table-block__wrapper {
+  overflow-x: auto;
+  // Reserve space for the add column menu.
+  min-height: 20rem;
 }

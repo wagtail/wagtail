@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Duc Huynh <duchuynhthoai@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -25,22 +25,11 @@ msgstr "Bảng của Wagtail"
 msgid "Row header"
 msgstr "Đầu trang theo dòng"
 
-msgid "Display the first row as a header."
-msgstr "Chọn dòng đầu của báng tính là tiêu đề của bảng."
-
 msgid "Column header"
 msgstr "Đầu trang theo cột"
 
-msgid "Display the first column as a header."
-msgstr "Chọn cột đầu của báng tính là tiêu đề của bảng"
-
 msgid "Table caption"
 msgstr "Tên của bảng"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr "Tiêu đề thể hiện nội dung của bảng."
 
 msgid "Table"
 msgstr "Bảnh"

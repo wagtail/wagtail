@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -408,24 +408,6 @@ msgstr "Hohenga"
 msgid "Unlock"
 msgstr "Iriti"
 
-msgid "Pages awaiting moderation"
-msgstr "Ngā whārangi e tatari ana hei whakaōrite"
-
-msgid "Type"
-msgstr "Momo"
-
-msgid "Edited"
-msgstr "Kua whakarerekē"
-
-msgid "Approve"
-msgstr "Whakamiha"
-
-msgid "Reject"
-msgstr "Parahako"
-
-msgid "Preview"
-msgstr "Titiro"
-
 msgid "Your most recent edits"
 msgstr "Ou whakarerekē hou"
 
@@ -440,6 +422,9 @@ msgstr "Te pae whakarāpopototanga"
 
 msgid "Close"
 msgstr "Kōpani"
+
+msgid "Preview"
+msgstr "Titiro"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -465,10 +450,6 @@ msgstr "Kua parahako te whārangi \"%(title)s\""
 
 msgid "You can preview the page here:"
 msgstr "Ka taea e koe te titiro kī te whārangi ki konei:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Kua tuohu te whārangi \"%(page)s\" hei whakaōrite"
 
 msgid "This page has been made private by a parent page."
 msgstr "He paraiweti tēnei whārangi mai i he matua whārangi."
@@ -502,6 +483,12 @@ msgstr "Mū ki runga"
 msgid "Move down"
 msgstr "Mū ki raro"
 
+msgid "Type"
+msgstr "Momo"
+
+msgid "Pages"
+msgstr "Ngā whārangi"
+
 msgid "Workflow"
 msgstr "Mahi pūheke"
 
@@ -514,6 +501,9 @@ msgstr "I whakatutuki ki"
 msgid "Filter"
 msgstr "Tātari"
 
+msgid "Back"
+msgstr "Whakahoki"
+
 msgid "Lock"
 msgstr "Raka"
 
@@ -525,6 +515,9 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "I whakamahi %(usage_count)s taima"
 msgstr[1] "I whakamahi %(usage_count)s taima"
+
+msgid "Edited"
+msgstr "Kua whakarerekē"
 
 msgid "Page"
 msgstr "Whārangi"
@@ -564,8 +557,9 @@ msgstr "Muku '%(title)s'"
 msgid "Editing"
 msgstr "Whakarerekē"
 
-msgid "Usage of"
-msgstr "Te whakamahi ō "
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' kua muku."
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -577,14 +571,14 @@ msgstr "Papatohu"
 msgid "View live"
 msgstr "Mātaki mataora"
 
+msgid "Site"
+msgstr "Pae"
+
 msgid "Show"
 msgstr "Whakakite"
 
 msgid "Awaiting my review"
 msgstr "E tatari ana mō tōku arotake"
-
-msgid "Pages"
-msgstr "Ngā whārangi"
 
 msgid "Choose an item"
 msgstr "Kōwhiri he tūemi"

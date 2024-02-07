@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.ui.tables import Column, DateColumn
+from wagtail.admin.ui.tables import Column, DateColumn, DownloadColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -54,15 +54,6 @@ class DocumentCreationFormMixin(CreationFormMixin):
             kwargs["instance"] = self.model(uploaded_by_user=self.request.user)
 
         return kwargs
-
-
-class DownloadColumn(Column):
-    cell_template_name = "wagtaildocs/tables/download_cell.html"
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context["download_url"] = instance.url
-        return context
 
 
 class BaseDocumentChooseView(BaseChooseView):

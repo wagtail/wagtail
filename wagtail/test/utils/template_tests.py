@@ -58,12 +58,25 @@ class AdminTemplateTestUtils:
                     element,
                     f"Expected '{item['label']}' breadcrumbs item to be a div",
                 )
-            label = element.text.strip()
+
+            # Sublabel is optional and the : separator is invisible
+            label = element.get_text(strip=True)
+            sublabel = None
+            if item.get("sublabel"):
+                label, sublabel = label.split(":", maxsplit=1)
+
             self.assertEqual(
                 label,
                 item["label"],
                 f"Expected '{item['label']}' breadcrumbs item label, found '{label}'",
             )
+
+            if sublabel:
+                self.assertEqual(
+                    sublabel,
+                    item["sublabel"],
+                    f"Expected '{item['sublabel']}' breadcrumbs item sublabel, found '{sublabel}'",
+                )
 
     def assertBreadcrumbsNotRendered(
         self: Union[WagtailTestUtils, SimpleTestCase],

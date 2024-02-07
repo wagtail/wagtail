@@ -276,10 +276,10 @@ class Index:
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
-        item.index_entries.using(self.db_alias).delete()
+        item.index_entries.all()._raw_delete(using=self.db_alias)
 
     def __str__(self):
-        return self.nam
+        return self.name
 
 
 class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
@@ -491,9 +491,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         )
         if not negated:
             index_entries = index_entries.filter(match_expression)
-            if (
-                self.order_by_relevance
-            ):  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
+            if self.order_by_relevance:  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
                 index_entries = index_entries.order_by(score_expression.desc())
         else:
             index_entries = index_entries.exclude(match_expression)
@@ -664,7 +662,7 @@ class MySQLSearchBackend(BaseSearchBackend):
             for connection in connections.all()
             if connection.vendor == "mysql"
         ]:
-            IndexEntry._default_manager.using(connection.alias).delete()
+            IndexEntry._default_manager.all()._raw_delete(using=connection.alias)
 
     def add_type(self, model):
         pass  # Not needed.

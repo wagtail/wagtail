@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2022-2023
+# Roger Pons <rogerpons@gmail.com>, 2017,2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -208,29 +208,8 @@ msgstr "No s'ha trobat el fitxer"
 msgid "Usage"
 msgstr "Ús"
 
-msgid "Documents"
-msgstr "Documents"
-
 msgid "Select all documents in listing"
 msgstr "Seleccionar tots els documents del llistat"
-
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-msgid "Created"
-msgstr "Creada"
-
-msgid "Select document"
-msgstr "Seleccionar document"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "S'ha trobat %(counter)s coincidència"
-msgstr[1] "S'ha trobat %(counter)s coincidències"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -254,16 +233,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Document <span class=\"visuallyhidden\">creat a "
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">creat a "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">creats a "
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">creats a "
 "%(site_name)s</span>"
 
 msgid "Add multiple documents"
@@ -347,6 +326,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "S'ha esborrat %(num_parent_objects)d document"
 msgstr[1] "S'han esborrat %(num_parent_objects)d documents"
 
+msgid "File"
+msgstr "Arxiu"
+
+msgid "Created"
+msgstr "Creada"
+
 msgid "Choose a document"
 msgstr "Escull un document"
 
@@ -356,8 +341,11 @@ msgstr "Escull un altre document"
 msgid "Edit this document"
 msgstr "Editar aquest document"
 
-msgid "Search documents"
-msgstr "Cercar documents"
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Title"
+msgstr "Títol"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

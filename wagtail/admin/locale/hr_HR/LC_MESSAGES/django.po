@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -495,9 +495,6 @@ msgstr "Ne, nemoj odjaviti"
 msgid "Cancel"
 msgstr "Odustani"
 
-msgid "No log entries found."
-msgstr "Nema pronađenih zapisa."
-
 msgid "Update"
 msgstr "Ažuriraj"
 
@@ -549,24 +546,6 @@ msgstr "Skica"
 msgid "Live"
 msgstr "Uživo"
 
-msgid "Type"
-msgstr "Tip"
-
-msgid "Edited"
-msgstr "Uređeno"
-
-msgid "Preview this page"
-msgstr "Pregledaj ovu stranicu"
-
-msgid "Approve"
-msgstr "Odobri"
-
-msgid "Reject"
-msgstr "Odbij"
-
-msgid "Preview"
-msgstr "Pregled"
-
 msgid "Your most recent edits"
 msgstr "Vaša nedavna uređivanja"
 
@@ -590,6 +569,9 @@ msgstr "Čekaju vaš pregled"
 
 msgid "Tasks"
 msgstr "Zadaci"
+
+msgid "Preview"
+msgstr "Pregled"
 
 msgid "Compare with live version"
 msgstr "Usporedi sa verzijom uživo"
@@ -642,17 +624,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Stranica \"%(title)s\" je odbijena"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Stranicu \"%(page)s\" je na moderiranje poslao korisnik %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Stranicu možete pregledati ovdje:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Stranice \"%(page)s\" je poslana na moderiranje"
-
-#, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Stranica \"%(title)s\" je odobrena u \"%(task)s\"."
 
@@ -664,6 +635,9 @@ msgstr "Stranica \"%(title)s\" je odbijena u fazi moderacije \"%(task)s\"."
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "Stranica \"%(title)s\" je odbijena tijekom \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Stranicu možete pregledati ovdje:"
 
 msgid "New comments"
 msgstr "Novi komentari"
@@ -853,16 +827,8 @@ msgstr "Kopiraj"
 msgid "Copy this page"
 msgstr "Kopiraj ovu stranicu"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nova %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Stranica sadrži promjene koje nisu spremljene"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Uređivanje %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Stranica je alias od druge stranice."
@@ -892,9 +858,8 @@ msgstr "Verzija uživo"
 msgid "Current draft"
 msgstr "Trenutna skica"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Pretraživanje %(title)s"
+msgid "No log entries found."
+msgstr "Nema pronađenih zapisa."
 
 msgid "Configure a site now."
 msgstr "Postavite sjedište sada."
@@ -970,11 +935,17 @@ msgstr "Pomakni prema gore"
 msgid "Move down"
 msgstr "Pomakni prema dolje"
 
+msgid "Type"
+msgstr "Tip"
+
 msgid "No pages found."
 msgstr "Nema pronađenih stranica."
 
 msgid "Updated"
 msgstr "Ažurirano"
+
+msgid "Pages"
+msgstr "Stranice"
 
 msgid "Locking status"
 msgstr "Status zaključavanja"
@@ -1025,21 +996,20 @@ msgstr "Preuzmi XLSX"
 msgid "Download CSV"
 msgstr "Preuzmi CSV"
 
-msgid "Add comment"
-msgstr "Dodaj komentar"
-
 msgid "Filter"
 msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Primjeni filtere"
 
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+msgid "Back"
+msgstr "Povratak"
+
 msgid "History"
 msgstr "Povijest"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Novi: %(model_name)s"
 
 msgid "Root"
 msgstr "Korijen"
@@ -1111,6 +1081,9 @@ msgstr "Vremenska crta"
 
 msgid "Initial Revision"
 msgstr "Početna revizija"
+
+msgid "Edited"
+msgstr "Uređeno"
 
 msgid "with comment:"
 msgstr "uz komentar:"
@@ -1358,10 +1331,6 @@ msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 msgid "Home"
 msgstr "Naslovna"
 
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Uredi ovaj %(model_name)s"
-
 msgid "Workflow progress"
 msgstr "Napredak tijeka rada"
 
@@ -1388,8 +1357,16 @@ msgstr "Pregledaj '%(title)s'"
 msgid "Delete '%(title)s'"
 msgstr "Izbriši '%(title)s'"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Novi: %(model_name)s"
+
 msgid "Editing"
 msgstr "Uređivanje"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' je izbrisan."
 
 msgid "Inspecting"
 msgstr "Pregled"
@@ -1399,9 +1376,6 @@ msgstr "Najranije"
 
 msgid "Latest"
 msgstr "Najnovije"
-
-msgid "Usage of"
-msgstr "Upotreba"
 
 msgid "Field"
 msgstr "Polje"
@@ -1452,6 +1426,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Stranica '%(page_title)s' je izbrisana."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "Uređivanje %(page_type)s"
+
+#, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Stanica '%(page_title)s' je ažurirana."
 
@@ -1485,19 +1463,15 @@ msgstr "Nije moguće sačuvati stranicu budući da je zaključana"
 msgid "Page history"
 msgstr "Povijest stranice"
 
+msgid "Site"
+msgstr "Sjedište"
+
+msgid "Yes"
+msgstr "Da"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stranica '%(page_title)s' je otključana."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Stranica '%(page_title)s' je objavljena."
-
-msgid "Failed to send approval notifications"
-msgstr "Neuspjelo slanje obavijesti odobrenja"
-
-msgid "Failed to send rejection notifications"
-msgstr "Neuspjelo slanje odbijenica"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1614,9 +1588,6 @@ msgstr "Zadatak '%(object)s' je onemogućen."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Zadatak '%(task_name)s' je omogućen."
 
-msgid "Pages"
-msgstr "Stranice"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Pregledajte skicu od '%(title)s'"
@@ -1684,9 +1655,6 @@ msgstr "Kod"
 
 msgid "Reports"
 msgstr "Izvješća"
-
-msgid "Yes"
-msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Odaberi stavku"

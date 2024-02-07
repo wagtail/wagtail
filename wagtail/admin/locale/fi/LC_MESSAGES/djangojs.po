@@ -83,9 +83,6 @@ msgstr "Muokkaa"
 msgid "Edit '%(title)s'"
 msgstr "Muokkaa '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Muokkaa tiliäsi"
-
 msgid "Enter your comments..."
 msgstr "Kirjoita kommentit..."
 

@@ -2,7 +2,7 @@
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 3.2, 4.1, and 4.2. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 4.2 and 5.0. First, install the `wagtail` package from PyPI:
 
 ```sh
 pip install wagtail
@@ -105,7 +105,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](django:howto/static-files/deployment).
+Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](inv:django#howto/static-files/deployment).
 
 With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 

@@ -6,7 +6,7 @@
 
 ## Custom editing interfaces for `StructBlock`
 
-To customise the styling of a `StructBlock` as it appears in the page editor, you can specify a `form_classname` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to override the default value of `struct-block`:
+To customize the styling of a `StructBlock` as it appears in the page editor, you can specify a `form_classname` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to override the default value of `struct-block`:
 
 ```python
 class PersonBlock(blocks.StructBlock):
@@ -23,10 +23,10 @@ class PersonBlock(blocks.StructBlock):
 You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_global_admin_css) hook.
 
 ```{note}
-Wagtail's editor styling has some built in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
+Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
 ```
 
-For more extensive customisations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
+For more extensive customizations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
 
 **`children`**  
 An `OrderedDict` of `BoundBlock`s for all of the child blocks making up this `StructBlock`.
@@ -62,7 +62,7 @@ class PersonBlock(blocks.StructBlock):
         form_template = 'myapp/block_forms/person.html'
 ```
 
-A form template for a StructBlock must include the output of `render_form` for each child block in the `children` dict, inside a container element with a `data-contentpath` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. The StructBlock's form template is also responsible for rendering labels for each field, but this (and all other HTML markup) can be customised as you see fit. The template below replicates the default StructBlock form rendering:
+A form template for a StructBlock must include the output of `render_form` for each child block in the `children` dict, inside a container element with a `data-contentpath` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. The StructBlock's form template is also responsible for rendering labels for each field, but this (and all other HTML markup) can be customized as you see fit. The template below replicates the default StructBlock form rendering:
 
 ```html+django
 {% load wagtailadmin_tags  %}
@@ -106,7 +106,7 @@ class AddressBlock(StructBlock):
     ])
 ```
 
-we may wish to disable the 'state' field when a country other than United States is selected. Since new blocks can be added dynamically, we need to integrate with StreamField's own front-end logic to ensure that our custom JavaScript code is executed when a new block is initialised.
+we may wish to disable the 'state' field when a country other than United States is selected. Since new blocks can be added dynamically, we need to integrate with StreamField's own front-end logic to ensure that our custom JavaScript code is executed when a new block is initialized.
 
 StreamField uses the [telepath](https://wagtail.github.io/telepath/) library to map Python block classes such as `StructBlock` to a corresponding JavaScript implementation. These JavaScript implementations can be accessed through the `window.wagtailStreamField.blocks` namespace, as the following classes:
 
@@ -138,7 +138,7 @@ class AddressBlockAdapter(StructBlockAdapter):
 register(AddressBlockAdapter(), AddressBlock)
 ```
 
-Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognised by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:
+Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognized by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:
 
 ```javascript
 class AddressBlockDefinition extends window.wagtailStreamField.blocks
@@ -184,7 +184,7 @@ class LinkBlock(StructBlock):
     external_url = URLBlock(label="external URL", required=False)
 ```
 
-you may want to make a `url` property available, that returns either the page URL or external URL depending which one was filled in. A common mistake is to define this property on the block class itself:
+you may want to make a `url` property available, that returns either the page URL or external URL depending on which one was filled in. A common mistake is to define this property on the block class itself:
 
 ```python
 class LinkBlock(StructBlock):
@@ -197,7 +197,7 @@ class LinkBlock(StructBlock):
         return self.external_url or self.page.url
 ```
 
-This does not work because the value as seen in the template is not an instance of `LinkBlock`. `StructBlock` instances only serve as specifications for the block's behaviour, and do not hold block data in their internal state - in this respect, they are similar to Django's form widget objects (which provide methods for rendering a given value as a form field, but do not hold on to the value itself).
+This does not work because the value as seen in the template is not an instance of `LinkBlock`. `StructBlock` instances only serve as specifications for the block's behavior, and do not hold block data in their internal state - in this respect, they are similar to Django's form widget objects (which provide methods for rendering a given value as a form field, but do not hold on to the value itself).
 
 Instead, you should define a subclass of `StructValue` that implements your custom property or method. Within this method, the block's data can be accessed as `self['page']` or `self.get('page')`, since `StructValue` is a dict-like object.
 
@@ -247,12 +247,12 @@ class IPAddressBlock(FieldBlock):
         super().__init__(**kwargs)
 ```
 
-Since the StreamField editing interface needs to create blocks dynamically, certain complex widget types will need additional JavaScript code to define how to render and populate them on the client-side. If a field uses a widget type that does not inherit from one of the classes inheriting from `django.forms.widgets.Input`, `django.forms.Textarea`, `django.forms.Select` or `django.forms.RadioSelect`, or has customised client-side behaviour to the extent where it is not possible to read or write its data simply by accessing the form element's `value` property, you will need to provide a JavaScript handler object, implementing the methods detailed on [](streamfield_widget_api).
+Since the StreamField editing interface needs to create blocks dynamically, certain complex widget types will need additional JavaScript code to define how to render and populate them on the client-side. If a field uses a widget type that does not inherit from one of the classes inheriting from `django.forms.widgets.Input`, `django.forms.Textarea`, `django.forms.Select` or `django.forms.RadioSelect`, or has customized client-side behavior to the extent where it is not possible to read or write its data simply by accessing the form element's `value` property, you will need to provide a JavaScript handler object, implementing the methods detailed on [](streamfield_widget_api).
 
 ## Handling block definitions within migrations
 
 As with any model field in Django, any changes to a model definition that affect a StreamField will result in a migration file that contains a 'frozen' copy of that field definition. Since a StreamField definition is more complex than a typical model field, there is an increased likelihood of definitions from your project being imported into the migration -- which would cause problems later on if those definitions are moved or deleted.
 
-To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock -- in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
+To mitigate this, StructBlock, StreamBlock, and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock -- in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
 
-If you subclass any other block class, such as `FieldBlock`, you will need to either keep that class definition in place for the lifetime of your project, or implement a [custom deconstruct method](django:custom-deconstruct-method) that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type -- for example, if you add extra arguments to the constructor -- you will need to provide your own `deconstruct` method.
+If you subclass any other block class, such as `FieldBlock`, you will need to either keep that class definition in place for the lifetime of your project, or implement a [custom deconstruct method](inv:django#custom-deconstruct-method) that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customize a StructBlock, StreamBlock, or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type -- for example, if you add extra arguments to the constructor -- you will need to provide your own `deconstruct` method.

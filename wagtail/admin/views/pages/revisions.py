@@ -15,6 +15,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
+    ChecksSidePanel,
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
@@ -33,6 +34,7 @@ def revisions_index(request, page_id):
 
 
 def revisions_revert(request, page_id, revision_id):
+    # TODO: refactor this into a class-based view that extends the EditView
     page = get_object_or_404(Page, id=page_id).specific
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
@@ -76,6 +78,7 @@ def revisions_revert(request, page_id, revision_id):
     action_menu = PageActionMenu(
         request,
         view="revisions_revert",
+        is_revision=True,
         page=page,
         lock=lock,
         locked_for_user=lock is not None and lock.for_user(request.user),
@@ -93,6 +96,7 @@ def revisions_revert(request, page_id, revision_id):
     ]
     if page.is_previewable():
         side_panels.append(PreviewSidePanel(page, request, preview_url=preview_url))
+        side_panels.append(ChecksSidePanel(page, request))
     if form.show_comments_toggle:
         side_panels.append(CommentsSidePanel(page, request))
     side_panels = MediaContainer(side_panels)
@@ -116,6 +120,12 @@ def revisions_revert(request, page_id, revision_id):
         ),
     )
 
+    page_title = _("Editing %(page_type)s") % {
+        "page_type": page_class.get_verbose_name()
+    }
+    page_subtitle = page.get_admin_display_title()
+    header_title = f"{page_title}: {page_subtitle}"
+
     return TemplateResponse(
         request,
         "wagtailadmin/pages/edit.html",
@@ -128,6 +138,7 @@ def revisions_revert(request, page_id, revision_id):
             "errors_debug": None,
             "action_menu": action_menu,
             "side_panels": side_panels,
+            "header_title": header_title,
             "form": form,  # Used in unit tests
             "media": media,
         },

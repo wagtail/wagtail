@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lautaro Bringas, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,6 +95,9 @@ msgstr "Fecha de"
 
 msgid "Date to"
 msgstr "Fecha a"
+
+msgid "Locale"
+msgstr "Región"
 
 msgid "All"
 msgstr "Todo"
@@ -488,6 +491,9 @@ msgstr "Atrás"
 msgid "Bulk actions"
 msgstr "Acciones masivas"
 
+msgid "Select"
+msgstr "Seleccionar"
+
 msgid "Select row"
 msgstr "Selecionar fila"
 
@@ -685,9 +691,6 @@ msgstr "¿Aún te gustaría publicar este %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgid "No log entries found."
-msgstr "No se encontraron entradas de registro."
-
 msgid "Update"
 msgstr "Actualizar"
 
@@ -763,31 +766,6 @@ msgstr "Borrador"
 msgid "Live"
 msgstr "En vivo"
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas en espera de ser moderadas"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Edited"
-msgstr "Editado"
-
-msgid "Preview this page"
-msgstr "Previsualizar esta página"
-
-msgid "Approve"
-msgstr "Aprobar"
-
-msgid "Reject"
-msgstr "Rechazar"
-
-msgid "Preview"
-msgstr "Previsualizar"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "por %(name)s"
-
 msgid "Your most recent edits"
 msgstr "Tus ediciones más recientes"
 
@@ -799,23 +777,6 @@ msgstr "Fecha"
 
 msgid "Site summary"
 msgstr "Resumen del sitio"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Página <span class=\"visuallyhidden\">creada en "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Páginas <span class=\"visuallyhidden\">creadas "
-"en%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span>Páginas <span class=\"visuallyhidden\">creadas en "
-"%(site_name)s</span>"
 
 msgid "Read the release notes."
 msgstr "Lea los detalles de la versión."
@@ -856,6 +817,9 @@ msgstr "Tareas"
 
 msgid "Task submitted by"
 msgstr "Tarea enviada por"
+
+msgid "Preview"
+msgstr "Previsualizar"
 
 msgid "Compare with live version"
 msgstr "Comparar con la versión públicada"
@@ -908,18 +872,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "La página \"%(title)s\" ha sido rechazada"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr ""
-"La página \"%(page)s\" ha sido enviada para ser moderada por %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Puedes previsualizar la página aquí:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "La página \"%(page)s\" ha sido enviada para ser moderada"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -951,6 +903,9 @@ msgid ""
 msgstr ""
 "La página \"%(title)s\" ha sido enviada para aprobación en etapa de "
 "moderación \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Puedes previsualizar la página aquí:"
 
 #, python-format
 msgid ""
@@ -1528,16 +1483,8 @@ msgstr "Copiar"
 msgid "Copy this page"
 msgstr "Copiar esta página"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nueva %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tiene cambios que no se han guardado."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Editando %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Esta página es una alias de otra página."
@@ -1570,9 +1517,8 @@ msgstr "Versión en vivo"
 msgid "Current draft"
 msgstr "Borrador actual"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Explorando %(title)s"
+msgid "No log entries found."
+msgstr "No se encontraron entradas de registro."
 
 msgid "Select all pages in listing"
 msgstr "Seleccionar todas las páginas de la lista"
@@ -1707,9 +1653,6 @@ msgstr "Subir"
 msgid "Move down"
 msgstr "Bajar"
 
-msgid "Set publishing schedule"
-msgstr "Establece la fecha de publicación"
-
 msgid "Choose when this page should go live and/or expire"
 msgstr "Elige cuándo esta página debe publicarse y/o expirar."
 
@@ -1720,6 +1663,9 @@ msgid "But only those with publishing permissions can make them effective."
 msgstr ""
 "Pero solamente aquellos con permisos de publicación pueden hacerlas "
 "efectivas."
+
+msgid "Set publishing schedule"
+msgstr "Establece la fecha de publicación"
 
 msgid "Save schedule"
 msgstr "Guardar fecha"
@@ -1736,6 +1682,9 @@ msgstr "Última publicación"
 msgid "Last published by"
 msgstr "Última publicación por"
 
+msgid "Type"
+msgstr "Tipo"
+
 msgid "No pages found."
 msgstr "No se encontraron páginas."
 
@@ -1744,6 +1693,9 @@ msgstr "Ninguna página coincide con los criterios de este informe."
 
 msgid "Updated"
 msgstr "Actualizada"
+
+msgid "Pages"
+msgstr "Páginas"
 
 msgid "Locking status"
 msgstr "Estado de bloqueo"
@@ -1793,6 +1745,9 @@ msgstr "Por Flujo de Trabajo"
 msgid "Completed at"
 msgstr "Completado el"
 
+msgid "Clear"
+msgstr "Limpiar"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -1812,25 +1767,20 @@ msgstr "Descargar XLSX"
 msgid "Download CSV"
 msgstr "Descargar CSV"
 
-msgid "Add comment"
-msgstr "Añadir comentario"
-
 msgid "Filter"
 msgstr "Filtro"
 
 msgid "Apply filters"
 msgstr "Aplicar filtros"
 
+msgid "Add comment"
+msgstr "Añadir comentario"
+
+msgid "Back"
+msgstr "Regresar"
+
 msgid "History"
 msgstr "Historial"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nuevo: %(model_name)s"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "Editando %(page_type)s %(title)s"
 
 msgid "Root"
 msgstr "Raíz"
@@ -1883,6 +1833,9 @@ msgstr "Alternar menú lateral"
 
 msgid "Side panel width"
 msgstr "Anchura del panel lateral"
+
+msgid "Issues found"
+msgstr "Problemas encontrados"
 
 msgid "Comment notifications"
 msgstr "Notificaciones de comentario"
@@ -2021,6 +1974,9 @@ msgstr "Línea de tiempo"
 msgid "Initial Revision"
 msgstr "Revisión inicial"
 
+msgid "Edited"
+msgstr "Editado"
+
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
 msgstr "%(action)s por <b>%(who)s</b> en <b>%(at)s</b>"
@@ -2071,9 +2027,6 @@ msgstr "Saltar al contenido principal"
 
 msgid "View Wagtail quick actions"
 msgstr "Ver acciones rápidas de Wagtail"
-
-msgid "Issues found"
-msgstr "Problemas encontrados"
 
 msgid "Accessibility"
 msgstr "Accesibilidad"
@@ -2336,9 +2289,6 @@ msgstr "Comentarios"
 msgid "Toggle preview"
 msgstr "Alternar vista previa"
 
-msgid "Select page"
-msgstr "Selecionar página"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -2367,9 +2317,6 @@ msgstr "Nombre y Correo Electrónico"
 msgid "Profile picture"
 msgstr "Foto de perfil"
 
-msgid "Locale"
-msgstr "Región"
-
 msgid "Theme preferences"
 msgstr "Preferencias de estilo"
 
@@ -2381,9 +2328,6 @@ msgstr "¡La configuración de tu cuenta se ha cambiado correctamente!"
 
 msgid "You have been successfully logged out."
 msgstr "Se ha cerrado sesión correctamente."
-
-msgid "Select"
-msgstr "Seleccionar"
 
 msgid "Collections"
 msgstr "Colecciones"
@@ -2417,10 +2361,6 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 
 msgid "Home"
 msgstr "Inicio"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Editar este %(model_name)s"
 
 msgid "Workflow progress"
 msgstr "Progreso de flujo de trabajo"
@@ -2489,10 +2429,6 @@ msgstr ""
 "%(model_name)s '%(object)s'."
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "Buscar %(model_name)s"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
 
@@ -2503,8 +2439,16 @@ msgstr "Inspeccionar"
 msgid "Delete '%(title)s'"
 msgstr "Eliminar '%(title)s'"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nuevo: %(model_name)s"
+
 msgid "Editing"
 msgstr "Editando"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' eliminado."
 
 msgid "Inspecting"
 msgstr "Inspeccionar"
@@ -2526,9 +2470,6 @@ msgstr "La versión %(revision_id)s of \"%(object)s\" ha sido desplanificada."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr " revisión %(revision_id)s de \"%(object)s\""
-
-msgid "Usage of"
-msgstr "Uso de"
 
 msgid "Field"
 msgstr "Campo"
@@ -2703,8 +2644,9 @@ msgstr "Esta página no pudo ser creada debido a errores de validación"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Página '%(page_title)s' eliminada."
 
-msgid "This page is currently awaiting moderation"
-msgstr "La página está a la espera de ser moderada"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Editando %(page_type)s"
 
 #, python-format
 msgid ""
@@ -2771,35 +2713,18 @@ msgstr "Ocultar acciones de comentario"
 msgid "Page history"
 msgstr "Historial de página"
 
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Pulsa Intro para seleccionar un item, utiliza las teclas de cursor arriba y "
-"abajo para mover el item, pulsa intro para completar el movimiento o la "
-"tecla esc para cancelarlo."
+msgid "Owner"
+msgstr "Propietario"
+
+msgid "Site"
+msgstr "Sitio"
+
+msgid "Yes"
+msgstr "Sí"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Página '%(page_title)s' se encuentra desbloqueada."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "La página '%(page_title)s' no está esperando a ser moderada."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Página '%(page_title)s' publicada."
-
-msgid "Failed to send approval notifications"
-msgstr "Fallo al enviar notificaciones de aprovación"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Rechazada la publicación de la página '%(page_title)s'."
-
-msgid "Failed to send rejection notifications"
-msgstr "Fallo al enviar notificaciones de rechazo."
 
 #, python-format
 msgid ""
@@ -2827,6 +2752,10 @@ msgstr "Página '%(page_title)s' sin publicar."
 
 msgid "Pages using"
 msgstr "Páginas usando"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "La página '%(page_title)s' no está esperando a ser moderada."
 
 #, python-format
 msgid ""
@@ -2945,9 +2874,6 @@ msgstr "Tarea '%(task_name)s' activada."
 msgid "Choose another"
 msgstr "eliga ortro"
 
-msgid "Pages"
-msgstr "Páginas"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Versión de vista previa sin publicar para  '%(title)s'"
@@ -3029,9 +2955,6 @@ msgstr "Guía del Editor"
 
 msgid "Help"
 msgstr "Ayuda"
-
-msgid "Yes"
-msgstr "Sí"
 
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"

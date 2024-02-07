@@ -205,5 +205,7 @@ def image_format_name_to_content_type(image_format_name):
         return "image/webp"
     elif image_format_name == "avif":
         return "image/avif"
+    elif image_format_name == "ico":
+        return "image/x-icon"
     else:
         raise ValueError("Unknown image format name")

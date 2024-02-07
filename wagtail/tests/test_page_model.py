@@ -1385,7 +1385,6 @@ class TestCopyPage(TestCase):
         )
 
     def test_copy_page_with_process_child_object_supplied(self):
-
         # We'll provide this when copying and test that it gets called twice:
         # Once for the single speaker, and another for the single advert_placement
         modify_child = Mock()
@@ -1910,13 +1909,16 @@ class TestCopyPage(TestCase):
                 special_field="Context is for Kings",
             )
         )
+        page.save_revision()
         new_page = page.copy(to=homepage, update_attrs={"slug": "disco-2"})
+        exclude_field = new_page.latest_revision.content["special_field"]
 
         self.assertEqual(page.title, new_page.title)
         self.assertNotEqual(page.id, new_page.id)
         self.assertNotEqual(page.path, new_page.path)
         # special_field is in the list to be excluded
         self.assertNotEqual(page.special_field, new_page.special_field)
+        self.assertEqual(new_page.special_field, exclude_field)
 
     def test_page_with_generic_relation(self):
         """Test that a page with a GenericRelation will have that relation ignored when

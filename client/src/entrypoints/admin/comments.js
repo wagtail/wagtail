@@ -105,11 +105,11 @@ window.comments = (() => {
     }
 
     show() {
-      this.node.classList.remove('u-hidden');
+      this.node.classList.remove('!w-hidden');
     }
 
     hide() {
-      this.node.classList.add('u-hidden');
+      this.node.classList.add('!w-hidden');
     }
 
     setOnClickHandler(localId) {
@@ -231,7 +231,7 @@ window.comments = (() => {
         'aria-describedby',
         this.commentAdditionNode.getAttribute('aria-describedby'),
       );
-      annotationNode.classList.remove('u-hidden');
+      annotationNode.classList.remove('!w-hidden');
       this.commentAdditionNode.insertAdjacentElement(
         'beforebegin',
         annotationNode,
@@ -337,6 +337,17 @@ window.comments = (() => {
     commentApp.store.subscribe(updateCommentCount);
     updateCommentCount();
   }
+
+  /** Add support for initializing comments via event dispatching. */
+  document.addEventListener(
+    'w-comments:init',
+    ({ target }) => {
+      setTimeout(() => {
+        initCommentsInterface(target);
+      });
+    },
+    { once: true },
+  );
 
   return {
     commentApp,

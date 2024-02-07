@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,12 +53,12 @@ msgstr "Site ekle"
 msgid "Site '%(object)s' created."
 msgstr "'%(object)s' sitesi oluşturuldu."
 
+msgid "The site could not be saved due to errors."
+msgstr "Sitesi hata nedeniyle kaydedilemedi."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "'%(object)s' sitesi güncellendi."
-
-msgid "The site could not be saved due to errors."
-msgstr "Sitesi hata nedeniyle kaydedilemedi."
 
 msgid "Delete site"
 msgstr "Siteyi sil"

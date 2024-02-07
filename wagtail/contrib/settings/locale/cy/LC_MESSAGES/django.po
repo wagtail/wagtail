@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2017\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,9 +27,6 @@ msgstr "diofyn"
 msgid "Site"
 msgstr "Safle"
 
-msgid "Editing"
-msgstr "Golygu"
-
 msgid "Saving…"
 msgstr "Cadw…"
 
@@ -42,9 +39,9 @@ msgstr "Gosodiadau"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Ni ellid agor y gosodiad hwn oherwydd nad oes safle wedi'i ddiffinio."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Ni ellid achub y gosodiadau oherwydd gwallau."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)swedi'i ddiweddaru."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Ni ellid achub y gosodiadau oherwydd gwallau."

@@ -1,10 +1,11 @@
 from warnings import warn
 
 from django.apps import apps
+from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -13,15 +14,13 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.panels.group import ObjectList
-from wagtail.admin.panels.model_utils import extract_panel_definitions_from_model_class
+from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.side_panels import PreviewSidePanel
+from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
-    InlineActionsTable,
     LiveStatusTagColumn,
     TitleColumn,
     UserColumn,
@@ -36,7 +35,10 @@ from wagtail.admin.views.generic.preview import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
+from wagtail.admin.widgets.button import (
+    BaseDropdownMenuButton,
+    ButtonWithDropdown,
+)
 from wagtail.models import (
     DraftStateMixin,
     LockableMixin,
@@ -73,7 +75,7 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
-class ModelIndexView(generic.IndexView):
+class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
@@ -109,7 +111,8 @@ class ModelIndexView(generic.IndexView):
     def get_queryset(self):
         return None
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             TitleColumn(
                 "name",
@@ -125,10 +128,9 @@ class ModelIndexView(generic.IndexView):
         ]
 
     def get_context_data(self, **kwargs):
-        ordering = self.get_ordering()
-        reverse = ordering[0] == "-"
+        reverse = self.ordering[0] == "-"
 
-        if ordering in ["count", "-count"]:
+        if self.ordering in ["count", "-count"]:
             snippet_types = sorted(
                 self.snippet_types,
                 key=lambda type: type["count"],
@@ -155,11 +157,6 @@ class ModelIndexView(generic.IndexView):
 
 class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
-    index_results_url_name = None
-    delete_url_name = None
-    any_permission_required = ["add", "change", "delete"]
-    page_kwarg = "p"
-    table_class = InlineActionsTable
 
     def get_base_queryset(self):
         # Allow the queryset to be a callable that takes a request
@@ -168,11 +165,19 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             self.queryset = self.queryset(self.request)
         return super().get_base_queryset()
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
-            BulkActionsCheckboxColumn("checkbox", accessor=lambda obj: obj),
-            *super().get_columns(),
+            BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet"),
+            *super().columns,
         ]
+
+    def _get_title_column(self, *args, **kwargs):
+        return super()._get_title_column(
+            *args,
+            **kwargs,
+            get_title_id=lambda instance: f"snippet_{quote(instance.pk)}_title",
+        )
 
     def get_list_buttons(self, instance):
         more_buttons = self.get_list_more_buttons(instance)
@@ -216,27 +221,10 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
         return list_buttons
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "can_add_snippet": self.permission_policy.user_has_permission(
-                    self.request.user, "add"
-                ),
-            }
-        )
-
-        return context
-
 
 class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
-    preview_url_name = None
-    permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
-    error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_create_snippet", self.request, self.model)
@@ -281,35 +269,32 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
                     self.form.instance, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.form.instance, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        self.form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = self.get_side_panels()
-        media = context.get("media") + MediaContainer([action_menu, side_panels]).media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "side_panels": side_panels,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
+
+
+class CopyView(CreateView):
+    def get_object(self):
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+
+    def _get_initial_form_instance(self):
+        instance = self.get_object()
+        # Set locale of the new instance
+        if self.locale:
+            instance.locale = self.locale
+        return instance
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
-    preview_url_name = None
-    revisions_compare_url_name = None
-    permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
-    error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_edit_snippet", self.request, self.object)
@@ -353,31 +338,19 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.object, self.request, preview_url=self.get_preview_url()
                 )
             )
+            side_panels.append(ChecksSidePanel(self.object, self.request))
         return MediaContainer(side_panels)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
-
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "action_menu": action_menu,
-                "revisions_compare_url_name": self.revisions_compare_url_name,
-                "media": media,
-            }
-        )
-
+        context["media"] += action_menu.media
+        context["action_menu"] = action_menu
         return context
 
 
 class DeleteView(generic.DeleteView):
     view_name = "delete"
-    page_title = gettext_lazy("Delete")
-    permission_required = "delete"
-    header_icon = "snippet"
 
     def run_before_hook(self):
         return self.run_hook("before_delete_snippet", self.request, [self.object])
@@ -385,16 +358,9 @@ class DeleteView(generic.DeleteView):
     def run_after_hook(self):
         return self.run_hook("after_delete_snippet", self.request, [self.object])
 
-    def get_success_message(self):
-        return _("%(model_name)s '%(object)s' deleted.") % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": self.object,
-        }
-
 
 class UsageView(generic.UsageView):
     view_name = "usage"
-    template_name = "wagtailsnippets/snippets/usage.html"
 
 
 class ActionColumn(Column):
@@ -423,7 +389,8 @@ class HistoryView(history.HistoryView):
     revisions_compare_url_name = None
     revisions_unschedule_url_name = None
 
-    def get_columns(self):
+    @cached_property
+    def columns(self):
         return [
             ActionColumn(
                 "message",
@@ -548,6 +515,12 @@ class WorkflowHistoryDetailView(
 class SnippetViewSet(ModelViewSet):
     """
     A viewset that instantiates the admin views for snippets.
+
+    All attributes and methods from
+    :class:`~wagtail.admin.viewsets.model.ModelViewSet` are available.
+
+    For more information on how to use this class,
+    see :ref:`wagtailsnippets_custom_admin_views`.
     """
 
     #: The model class to be registered as a snippet with this viewset.
@@ -576,70 +549,73 @@ class SnippetViewSet(ModelViewSet):
     #: If left unset, ``snippets/choose/{app_label}/{model_name}`` is used instead.
     chooser_base_url_path = None
 
-    #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
+    #: The view class to use for the index view; must be a subclass of ``wagtail.snippets.views.snippets.IndexView``.
     index_view_class = IndexView
 
-    #: The view class to use for the create view; must be a subclass of ``wagtail.snippet.views.snippets.CreateView``.
+    #: The view class to use for the create view; must be a subclass of ``wagtail.snippets.views.snippets.CreateView``.
     add_view_class = CreateView
 
-    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippet.views.snippets.EditView``.
+    #: The view class to use for the copy view; must be a subclass of ``wagtail.snippet.views.snippets.CopyView``.
+    copy_view_class = CopyView
+
+    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippets.views.snippets.EditView``.
     edit_view_class = EditView
 
-    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippet.views.snippets.DeleteView``.
+    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippets.views.snippets.DeleteView``.
     delete_view_class = DeleteView
 
-    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippet.views.snippets.UsageView``.
+    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippets.views.snippets.UsageView``.
     usage_view_class = UsageView
 
-    #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.HistoryView``.
+    #: The view class to use for the history view; must be a subclass of ``wagtail.snippets.views.snippets.HistoryView``.
     history_view_class = HistoryView
 
-    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippet.views.snippets.InspectView``.
+    #: The view class to use for the inspect view; must be a subclass of ``wagtail.snippets.views.snippets.InspectView``.
     inspect_view_class = InspectView
 
-    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.PreviewRevisionView``.
+    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippets.views.snippets.PreviewRevisionView``.
     revisions_view_class = PreviewRevisionView
 
-    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsCompareView``.
+    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippets.views.snippets.RevisionsCompareView``.
     revisions_compare_view_class = RevisionsCompareView
 
-    #: The view class to use for unscheduling revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsUnscheduleView``.
+    #: The view class to use for unscheduling revisions; must be a subclass of ``wagtail.snippets.views.snippets.RevisionsUnscheduleView``.
     revisions_unschedule_view_class = RevisionsUnscheduleView
 
-    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnpublishView``.
+    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippets.views.snippets.UnpublishView``.
     unpublish_view_class = UnpublishView
 
-    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnCreateView``.
+    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippets.views.snippets.PreviewOnCreateView``.
     preview_on_add_view_class = PreviewOnCreateView
 
-    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
+    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippets.views.snippets.PreviewOnEditView``.
     preview_on_edit_view_class = PreviewOnEditView
 
-    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.LockView``.
+    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippets.views.snippets.LockView``.
     lock_view_class = LockView
 
-    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnlockView``.
+    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippets.views.snippets.UnlockView``.
     unlock_view_class = UnlockView
 
-    #: The view class to use for performing a workflow action; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowActionView``.
+    #: The view class to use for performing a workflow action; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowActionView``.
     workflow_action_view_class = WorkflowActionView
 
-    #: The view class to use for performing a workflow action that returns the validated data in the response; must be a subclass of ``wagtail.snippet.views.snippets.CollectWorkflowActionDataView``.
+    #: The view class to use for performing a workflow action that returns the validated data in the response; must be a subclass of ``wagtail.snippets.views.snippets.CollectWorkflowActionDataView``.
     collect_workflow_action_data_view_class = CollectWorkflowActionDataView
 
-    #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippet.views.snippets.ConfirmWorkflowCancellationView``.
+    #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippets.views.snippets.ConfirmWorkflowCancellationView``.
     confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
 
-    #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
+    #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowPreviewView``.
     workflow_preview_view_class = WorkflowPreviewView
 
-    #: The view class to use for the workflow history view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryView``.
+    #: The view class to use for the workflow history view; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowHistoryView``.
     workflow_history_view_class = WorkflowHistoryView
 
-    #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
+    #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippets.views.snippets.WorkflowHistoryDetailView``.
     workflow_history_detail_view_class = WorkflowHistoryDetailView
 
-    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippet.views.chooser.SnippetChooserViewSet``.
+    #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippets.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
 
     #: The prefix of template names to look for when rendering the admin views.
@@ -667,9 +643,6 @@ class SnippetViewSet(ModelViewSet):
             self, "menu_item_is_registered", bool(self.menu_hook)
         )
 
-        # This edit handler has been bound to the model and is used for the views.
-        self._edit_handler = self.get_edit_handler()
-
     @cached_property
     def url_prefix(self):
         # SnippetViewSet historically allows overriding the URL prefix via the
@@ -690,7 +663,7 @@ class SnippetViewSet(ModelViewSet):
 
         By default, this class is generated by combining the edit view with
         ``wagtail.admin.views.generic.mixins.RevisionsRevertMixin``. As a result,
-        this class must be a subclass of ``wagtail.snippet.views.snippets.EditView``
+        this class must be a subclass of ``wagtail.snippets.views.snippets.EditView``
         and must handle the reversion correctly.
         """
         revisions_revert_view_class = type(
@@ -731,14 +704,15 @@ class SnippetViewSet(ModelViewSet):
 
     def get_add_view_kwargs(self, **kwargs):
         return super().get_add_view_kwargs(
-            panel=self._edit_handler,
             preview_url_name=self.get_url_name("preview_on_add"),
             **kwargs,
         )
 
+    def get_copy_view_kwargs(self, **kwargs):
+        return self.get_add_view_kwargs(**kwargs)
+
     def get_edit_view_kwargs(self, **kwargs):
         return super().get_edit_view_kwargs(
-            panel=self._edit_handler,
             preview_url_name=self.get_url_name("preview_on_edit"),
             workflow_history_url_name=self.get_url_name("workflow_history"),
             confirm_workflow_cancellation_url_name=self.get_url_name(
@@ -810,6 +784,10 @@ class SnippetViewSet(ModelViewSet):
         )
 
     @property
+    def copy_view(self):
+        return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
+
+    @property
     def unlock_view(self):
         return self.construct_view(
             self.unlock_view_class,
@@ -852,6 +830,7 @@ class SnippetViewSet(ModelViewSet):
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
+            _show_breadcrumbs=False,
         )
 
     @property
@@ -865,6 +844,7 @@ class SnippetViewSet(ModelViewSet):
             object_icon=self.icon,
             header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
+            _show_breadcrumbs=False,
         )
 
     @property
@@ -1147,7 +1127,15 @@ class SnippetViewSet(ModelViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            path(
+                "history-results/<str:pk>/",
+                self.history_results_view,
+                name="history_results",
+            ),
         ]
+
+        if self.copy_view_enabled:
+            urlpatterns += [path("copy/<str:pk>/", self.copy_view, name="copy")]
 
         if self.inspect_view_enabled:
             urlpatterns += [
@@ -1257,31 +1245,19 @@ class SnippetViewSet(ModelViewSet):
 
     def get_edit_handler(self):
         """
-        Returns the appropriate edit handler for this ``SnippetViewSet`` class.
-        It can be defined either on the model itself or on the ``SnippetViewSet``,
-        as the ``edit_handler`` or ``panels`` properties. Falls back to
-        extracting panel / edit handler definitions from the model class.
+        Like :meth:`ModelViewSet.get_edit_handler()
+        <wagtail.admin.viewsets.model.ModelViewSet.get_edit_handler>`,
+        but falls back to extracting panel definitions from the model class
+        if no edit handler is defined.
         """
-        if hasattr(self, "edit_handler"):
-            edit_handler = self.edit_handler
-        elif hasattr(self, "panels"):
-            panels = self.panels
-            edit_handler = ObjectList(panels)
-        elif hasattr(self.model, "edit_handler"):
-            edit_handler = self.model.edit_handler
-        elif hasattr(self.model, "panels"):
-            panels = self.model.panels
-            edit_handler = ObjectList(panels)
-        else:
-            exclude = self.get_exclude_form_fields()
-            panels = extract_panel_definitions_from_model_class(
-                self.model, exclude=exclude
-            )
-            edit_handler = ObjectList(panels)
-        return edit_handler.bind_to_model(self.model)
+        edit_handler = super().get_edit_handler()
+        if edit_handler:
+            return edit_handler
 
-    def get_form_class(self, for_update=False):
-        return self._edit_handler.get_form_class()
+        exclude = self.get_exclude_form_fields()
+        panels = extract_panel_definitions_from_model_class(self.model, exclude=exclude)
+        edit_handler = ObjectList(panels)
+        return edit_handler.bind_to_model(self.model)
 
     def register_chooser_viewset(self):
         viewsets.register(self.chooser_viewset)
