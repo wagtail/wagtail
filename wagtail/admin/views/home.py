@@ -168,7 +168,6 @@ class WorkflowObjectsToModeratePanel(Component):
             .prefetch_related(
                 "revision__content_object",
                 "revision__content_object__latest_revision",
-                "revision__content_object__live_revision",
             )
             .order_by("-started_at")
         )
@@ -208,7 +207,7 @@ class WorkflowObjectsToModeratePanel(Component):
                     "obj": obj,
                     "revision": state.revision,
                     "previous_revision": previous_revision,
-                    "live_revision": obj.live_revision,
+                    "live_revision_id": obj.live_revision_id,
                     "task_state": state,
                     "actions": actions,
                     "workflow_tasks": workflow_tasks,
