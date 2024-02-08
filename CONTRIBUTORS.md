@@ -796,6 +796,7 @@
 * Advik Kabra
 * Ankur Raiyani
 * Hossein
+* Andre Delorme
 
 ## Translators
 
