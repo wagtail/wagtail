@@ -797,6 +797,7 @@
 * Ankur Raiyani
 * Hossein
 * Andre Delorme
+* arshyia3000
 
 ## Translators
 
