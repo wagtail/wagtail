@@ -792,8 +792,8 @@ class GuacamoleMenuItem(ActionMenuItem):
 
 
 @hooks.register('register_page_action_menu_item')
-def register_guacamole_menu_item():
-    return GuacamoleMenuItem(order=10)
+def register_guacamole_menu_item(order=10):
+    return GuacamoleMenuItem()
 ```
 
 (construct_page_action_menu)=
