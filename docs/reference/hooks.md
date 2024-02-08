@@ -792,7 +792,7 @@ class GuacamoleMenuItem(ActionMenuItem):
 
 
 @hooks.register('register_page_action_menu_item')
-def register_guacamole_menu_item(order=None):
+def register_guacamole_menu_item():
     return GuacamoleMenuItem(order=10)
 ```
 
@@ -1244,7 +1244,7 @@ class GuacamoleMenuItem(ActionMenuItem):
 
 
 @hooks.register('register_snippet_action_menu_item')
-def register_guacamole_menu_item():
+def register_guacamole_menu_item(model):
     return GuacamoleMenuItem(order=10)
 ```
 
