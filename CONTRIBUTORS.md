@@ -790,6 +790,7 @@
 * Andreas Donig
 * Osaf AliSayed
 * mirusu400
+* Maikel Martens
 
 ## Translators
 
