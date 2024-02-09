@@ -799,6 +799,7 @@
 * Andre Delorme
 * arshyia3000
 * Adrien Hamraoui
+* Maikel Martens
 
 ## Translators
 

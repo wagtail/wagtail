@@ -33,6 +33,7 @@ Changelog
 
  * Fix: Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
  * Fix: Prevent failure on `collectstatic` when `ManifestStaticFilesStorage` is in use (Matt Westcott)
+ * Fix: Prevent error on submitting an empty search in the admin under Elasticsearch (Maikel Martens)
 
 
 6.0 (07.02.2024)
