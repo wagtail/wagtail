@@ -1,3 +1,5 @@
+import glob
+import os
 from urllib.parse import urlparse
 
 from django import http
@@ -17,11 +19,32 @@ def _get_redirect(request, path):
     site = Site.find_for_request(request)
     try:
         return models.Redirect.get_for_site(site).get(old_path=path)
+    except models.Redirect.DoesNotExist:
+        # Check for wildcard redirects
+        wildcard_redirects = models.Redirect.get_for_site(site).filter(
+            old_path__endswith="*"
+        )
+
+        for redirect in wildcard_redirects:
+            wildcard_path = redirect.old_path.rstrip("*")
+            wildcard_redirects_prefix = models.Redirect.get_for_site(site).filter(
+                old_path__startswith=wildcard_path
+            )
+            redirect_paths = [r.old_path for r in wildcard_redirects_prefix]
+            matched_paths = []
+
+            for rp in redirect_paths:
+                rp = os.path.normpath(rp)
+                matched_paths.extend(glob.glob(os.path.join(rp + "*"), recursive=True))
+            matched_paths = [path.replace("\\", "/") for path in matched_paths]
+
+            for matched_path in matched_paths:
+                if path.startswith(matched_path):
+                    return redirect
+        return None
     except models.Redirect.MultipleObjectsReturned:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
         return models.Redirect.objects.get(site=site, old_path=path)
-    except models.Redirect.DoesNotExist:
-        return None
 
 
 def get_redirect(request, path):
