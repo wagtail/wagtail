@@ -1678,6 +1678,49 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             custom_label.get_text(strip=True), "Can sync roadmap items from GitHub"
         )
 
+    def test_formset_data_attributes(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        panel = soup.find(id="page-permissions-section")
+        self.assertIn("w-formset", panel.attrs["data-controller"])
+        self.assertEqual(
+            "totalFormsInput",
+            panel.find(id="id_page_permissions-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        self.assertEqual(
+            "forms",
+            panel.find("table").find("tbody").attrs["data-w-formset-target"],
+        )
+
+        # Other panels are rendered with different formset classes, test one of them
+
+        panel = soup.find(id="collection-management-permissions-section")
+        self.assertIn("w-formset", panel.attrs["data-controller"])
+
+        self.assertEqual(
+            "totalFormsInput",
+            panel.find(id="id_collection_permissions-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        self.assertEqual(
+            "forms",
+            panel.find("table").find("tbody").attrs["data-w-formset-target"],
+        )
+
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
@@ -2229,6 +2272,59 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertGreaterEqual(len(toggle_add_items), 30)
         self.assertEqual(toggle_add_items[0]["data-action"], "w-bulk#toggle")
+
+    def test_formset_data_attributes(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        panel = soup.find(id="page-permissions-section")
+        self.assertIn("w-formset", panel.attrs["data-controller"])
+        self.assertEqual(
+            "totalFormsInput",
+            panel.find(id="id_page_permissions-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        tbody = panel.find("table").find("tbody")
+        self.assertEqual(
+            "forms",
+            tbody.attrs["data-w-formset-target"],
+        )
+
+        row = tbody.find("tr")
+        self.assertEqual(
+            "child",
+            row.attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "deleteInput",
+            row.find(id="id_page_permissions-0-DELETE").attrs["data-w-formset-target"],
+        )
+
+        # Other panels are rendered with different formset classes, test one of them
+
+        panel = soup.find(id="collection-management-permissions-section")
+        self.assertIn("w-formset", panel.attrs["data-controller"])
+
+        self.assertEqual(
+            "totalFormsInput",
+            panel.find(id="id_collection_permissions-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            panel.find("template").attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "forms",
+            panel.find("table").find("tbody").attrs["data-w-formset-target"],
+        )
 
 
 class TestGroupViewSet(TestCase):
