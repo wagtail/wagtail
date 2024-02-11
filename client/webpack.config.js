@@ -37,7 +37,6 @@ module.exports = function exports(env, argv) {
       'core',
       'date-time-chooser',
       'draftail',
-      'expanding-formset',
       'filtered-select',
       'icons',
       'modal-workflow',
@@ -175,11 +174,6 @@ module.exports = function exports(env, argv) {
           {
             from: 'wagtail/contrib/search_promotions/static_src/',
             to: 'wagtail/contrib/search_promotions/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/users/static_src/',
-            to: 'wagtail/users/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
         ],
