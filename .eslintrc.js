@@ -167,7 +167,6 @@ module.exports = {
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
         'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
         'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
-        'wagtail/users/static_src/wagtailusers/js/group-form.js',
       ],
       globals: { $: 'readonly', jQuery: 'readonly' },
     },
