@@ -571,6 +571,55 @@ class TestRedirects(TestCase):
         # should default is_permanent to True
         self.assertIs(redirect.is_permanent, True)
 
+    def test_wildcard_redirect(self):
+        # Create a wildcard redirect
+        redirect = models.Redirect(old_path="/wildcard/*", redirect_link="/redirectto")
+        redirect.save()
+
+        # Navigate to it
+        response1 = self.client.get("/wildcard/sample/page/5")
+
+        response2 = self.client.get("/wildcard/55")
+
+        self.assertRedirects(
+            response1, "/redirectto", status_code=301, fetch_redirect_response=False
+        )
+
+        self.assertRedirects(
+            response2, "/redirectto", status_code=301, fetch_redirect_response=False
+        )
+
+    def test_wildcard_redirect_to_page(self):
+        christmas_page = Page.objects.get(url_path="/home/events/christmas/")
+
+        # Create a wildcard redirect
+        models.Redirect.objects.create(old_path="/xmas/*", redirect_page=christmas_page)
+
+        response = self.client.get("/xmas/christmas/100", HTTP_HOST="test.example.com")
+        self.assertRedirects(
+            response,
+            "/events/christmas/",
+            status_code=301,
+            fetch_redirect_response=False,
+        )
+
+    def test_exact_match_with_wildcard_redirect(self):
+        # Create the first redirect
+        redirect1 = models.Redirect(old_path="/redirect", redirect_link="/redirectto2")
+        redirect1.save()
+
+        # Create the wildcard redirect
+        redirect2 = models.Redirect(
+            old_path="/redirect/*", redirect_link="/redirectto1"
+        )
+        redirect2.save()
+
+        response2 = self.client.get("/redirect")
+
+        self.assertRedirects(
+            response2, "/redirectto2", status_code=301, fetch_redirect_response=False
+        )
+
 
 class TestRedirectsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
