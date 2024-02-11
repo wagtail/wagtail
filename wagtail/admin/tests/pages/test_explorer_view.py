@@ -1140,7 +1140,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-max-w-0" data-w-breadcrumbs-target="content" hidden>
                 <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label" href="/admin/pages/4/">
-                    Root
+                    Welcome to example.com!
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -1159,8 +1159,22 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
             </li>
         """
         self.assertContains(response, expected, html=True)
-        # The page title shouldn't appear because it's the "home" breadcrumb.
-        self.assertNotContains(response, "Welcome to example.com!")
+
+    def test_nonadmin_sees_non_hidden_root(self):
+        self.login(username="josh", password="password")
+        response = self.client.get(reverse("wagtailadmin_explore", args=[4]))
+        self.assertEqual(response.status_code, 200)
+        # When Josh is viewing his visible root page, he should the page title as a non-hidden, single-item breadcrumb.
+        expected = """
+            <li
+                class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold" data-w-breadcrumbs-target="content">
+                <a class="w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label"
+                   href="/admin/pages/4/">
+                    Welcome to example.com!
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
 
     def test_admin_home_page_changes_with_permissions(self):
         self.login(username="bob", password="password")

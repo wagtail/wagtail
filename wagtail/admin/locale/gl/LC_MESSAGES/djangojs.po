@@ -82,9 +82,6 @@ msgstr "Editar"
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Editar a túa conta"
-
 msgid "Enter your comments..."
 msgstr "Introduce os teus comentarios..."
 

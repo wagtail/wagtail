@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -298,33 +298,6 @@ msgstr "Eyða notanda"
 msgid "Select all users in listing"
 msgstr "Velja alla notendur"
 
-msgid "Username"
-msgstr "Notandanafn"
-
-msgid "Access level"
-msgstr "Aðgangur"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Last Login"
-msgstr "Síðasta innskráning"
-
-msgid "Admin"
-msgstr "Stjórnandi"
-
-msgid "Active"
-msgstr "Virkur"
-
-msgid "Inactive"
-msgstr "Óvirkur"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] " Það eru %(counter)s niðurstöður        "
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -345,6 +318,27 @@ msgid ""
 msgstr ""
 "Það eru engir skráðir notendur.  Viltu <a "
 "href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
+
+msgid "Username"
+msgstr "Notandanafn"
+
+msgid "Access level"
+msgstr "Aðgangur"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Last Login"
+msgstr "Síðasta innskráning"
+
+msgid "Admin"
+msgstr "Stjórnandi"
+
+msgid "Active"
+msgstr "Virkur"
+
+msgid "Inactive"
+msgstr "Óvirkur"
 
 #, python-format
 msgid "user %(id)s (deleted)"

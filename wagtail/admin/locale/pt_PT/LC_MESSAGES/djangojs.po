@@ -55,9 +55,6 @@ msgstr "Alterar"
 msgid "Edit '%(title)s'"
 msgstr "Alterar '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Alterar a sua conta"
-
 msgid "Focus comment"
 msgstr "Colocar enfoque no comentário"
 

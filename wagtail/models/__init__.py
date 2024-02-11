@@ -3519,7 +3519,7 @@ class WorkflowManager(models.Manager):
         return self.filter(active=True)
 
 
-class Workflow(ClusterableModel):
+class AbstractWorkflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_("name"))
     active = models.BooleanField(
         verbose_name=_("active"),
@@ -3608,6 +3608,11 @@ class Workflow(ClusterableModel):
     class Meta:
         verbose_name = _("workflow")
         verbose_name_plural = _("workflows")
+        abstract = True
+
+
+class Workflow(AbstractWorkflow):
+    pass
 
 
 class GroupApprovalTask(Task):

@@ -124,6 +124,17 @@ class CopyForm(forms.Form):
 
 
 class PageViewRestrictionForm(BaseViewRestrictionForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE", True):
+            self.fields["restriction_type"].choices = [
+                choice
+                for choice in PageViewRestriction.RESTRICTION_CHOICES
+                if choice[0] != PageViewRestriction.PASSWORD
+            ]
+            del self.fields["password"]
+
     class Meta:
         model = PageViewRestriction
         fields = ("restriction_type", "password", "groups")

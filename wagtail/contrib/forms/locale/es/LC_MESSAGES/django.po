@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -186,18 +186,6 @@ msgstr[2] "¿Seguro que quieres eliminar estos envíos de formulario?"
 msgid "Delete"
 msgstr "Eliminar"
 
-msgid "Forms"
-msgstr "Formularios"
-
-msgid "Pages"
-msgstr "Páginas"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "Origin"
-msgstr "Origen"
-
 msgid "Delete selected submissions"
 msgstr "Eliminar las presentaciones seleccionadas"
 
@@ -206,9 +194,6 @@ msgstr "Presentaciones totales"
 
 msgid "Latest submission"
 msgstr "Última presentación"
-
-msgid "No form pages have been created."
-msgstr "No se han creado páginas de formularios."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -223,6 +208,18 @@ msgstr "Filtro"
 
 msgid "Apply filters"
 msgstr "Aplicar filtros"
+
+msgid "Forms"
+msgstr "Formularios"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Origen"
+
+msgid "Pages"
+msgstr "Páginas"
 
 #, python-format
 msgid "One submission has been deleted."

@@ -1,9 +1,5 @@
 # Create contact page
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 Having a contact page on your portfolio site will help you connect with potential clients, employers, or other professionals who are interested in your skills.
 
 In this section of the tutorial, you'll add a contact page to your portfolio site using Wagtail forms.

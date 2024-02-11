@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2019-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -328,9 +328,6 @@ msgstr "íður"
 msgid "object id"
 msgstr "object id"
 
-msgid "submitted for moderation"
-msgstr "send inn til samþykktar"
-
 msgid "created at"
 msgstr "búin til"
 
@@ -354,9 +351,6 @@ msgstr "hópur"
 
 msgid "permission"
 msgstr "heimild"
-
-msgid "permission type"
-msgstr "tegund heimildar"
 
 msgid "group page permission"
 msgstr "síðuheimild hóps"

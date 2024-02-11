@@ -39,9 +39,6 @@ msgstr "ویرایش"
 msgid "Edit '%(title)s'"
 msgstr "ویرایش '%(title)s'"
 
-msgid "Edit your account"
-msgstr "ویرایش حساب شما"
-
 msgid "Horizontal line"
 msgstr "خط افقی"
 

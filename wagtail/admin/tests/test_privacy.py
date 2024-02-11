@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.models import Page, PageViewRestriction
@@ -209,6 +209,40 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertContains(
             history_response,
             expected_log_message,
+        )
+
+    def test_set_shared_password_page(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+        )
+
+        input_el = self.get_soup(response.content).select_one("[data-field-input]")
+        self.assertEqual(response.status_code, 200)
+
+        # check that input option for password is visible
+        self.assertIn("password", response.context["form"].fields)
+
+        # check that the option for password is visible
+        self.assertIsNotNone(input_el)
+
+    @override_settings(WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE=False)
+    def test_unset_shared_password_page(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # check that input option for password is not visible
+        self.assertNotIn("password", response.context["form"].fields)
+        self.assertFalse(
+            response.context["form"]
+            .fields["restriction_type"]
+            .valid_value(PageViewRestriction.PASSWORD)
+        )
+
+        # check that the option for password is not visible
+        self.assertNotContains(
+            response, '<div class="w-field__input" data-field-input>'
         )
 
     def test_get_private_groups(self):

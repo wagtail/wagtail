@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -195,6 +195,10 @@ msgstr "أضف مستخدم"
 msgid "Delete user"
 msgstr "إحذف المستخدم"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
+
 msgid "Username"
 msgstr "إسم المستخدم"
 
@@ -212,20 +216,6 @@ msgstr "نشيط"
 
 msgid "Inactive"
 msgstr "غير نشط"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "مجموعات"

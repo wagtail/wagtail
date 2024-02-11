@@ -68,9 +68,6 @@ msgstr "编辑"
 msgid "Edit '%(title)s'"
 msgstr "编辑 '%(title)s'"
 
-msgid "Edit your account"
-msgstr "编辑账户"
-
 msgid "Enter your comments..."
 msgstr "输入你的注释"
 

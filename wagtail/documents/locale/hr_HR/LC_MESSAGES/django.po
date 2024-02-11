@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -216,30 +216,8 @@ msgstr "Datoteka nije pronađena"
 msgid "Usage"
 msgstr "Upotreba"
 
-msgid "Documents"
-msgstr "Dokumenti"
-
 msgid "Select all documents in listing"
 msgstr "Odaberi sve dokumente iz popisa"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "File"
-msgstr "Datoteka"
-
-msgid "Created"
-msgstr "Stvoreno"
-
-msgid "Select document"
-msgstr "Odaberi dokument"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s rezultata"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -344,6 +322,12 @@ msgstr[0] "%(num_parent_objects)d dokument je izbrisan"
 msgstr[1] "%(num_parent_objects)d dokumenata je izbrisano"
 msgstr[2] "%(num_parent_objects)d dokumenata je izbrisano"
 
+msgid "File"
+msgstr "Datoteka"
+
+msgid "Created"
+msgstr "Stvoreno"
+
 msgid "Choose a document"
 msgstr "Odaberi dokument"
 
@@ -353,8 +337,11 @@ msgstr "Odaberi drugi dokument"
 msgid "Edit this document"
 msgstr "Uredi ovaj dokument"
 
-msgid "Search documents"
-msgstr "Pretraži dokumente"
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Naslov"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

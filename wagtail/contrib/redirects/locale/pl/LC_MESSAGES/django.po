@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2018,2020-2021,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -230,9 +230,6 @@ msgstr ""
 "Nie zostały stworzone żadne przekierowania. Czemu nie <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
 
-msgid "Search redirects"
-msgstr "Szukaj przekierowań"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Uaktualniono przekierowanie '%(redirect_title)s'."
@@ -253,6 +250,9 @@ msgstr "Przekierowanie '%(redirect_title)s' dodane."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
+
+msgid "Search redirects"
+msgstr "Szukaj przekierowań"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

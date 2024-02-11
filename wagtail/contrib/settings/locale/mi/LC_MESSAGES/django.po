@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,9 +25,6 @@ msgstr "taunoa"
 msgid "Site"
 msgstr "Pae"
 
-msgid "Editing"
-msgstr "Whakarerekē"
-
 msgid "Saving…"
 msgstr "pupuru ana..."
 
@@ -40,9 +37,9 @@ msgstr "tautuhinga"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Nōtemea e kore he pae tautuhi, ehara tēnei ka taea ki te pōaha "
 
+msgid "The setting could not be saved due to errors."
+msgstr "Ehara tēnei i puritia, he raruraru."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s whakahou."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Ehara tēnei i puritia, he raruraru."

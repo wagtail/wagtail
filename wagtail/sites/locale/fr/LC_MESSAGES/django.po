@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: incognitae <pierre@onoffdesign.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -56,12 +56,12 @@ msgstr "Ajouter un site"
 msgid "Site '%(object)s' created."
 msgstr "Site « %(object)s » créé."
 
+msgid "The site could not be saved due to errors."
+msgstr "Le site ne peut être enregistré du fait d'erreurs."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Site « %(object)s » mis à jour."
-
-msgid "The site could not be saved due to errors."
-msgstr "Le site ne peut être enregistré du fait d'erreurs."
 
 msgid "Delete site"
 msgstr "Supprimer le site"

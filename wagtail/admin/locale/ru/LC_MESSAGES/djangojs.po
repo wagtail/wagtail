@@ -96,9 +96,6 @@ msgstr "Редактировать"
 msgid "Edit '%(title)s'"
 msgstr "Редактировать '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Редактировать вашу учётную запись"
-
 msgid "Enter your comments..."
 msgstr "Напишите ваши комментарии..."
 

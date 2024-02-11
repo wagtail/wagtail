@@ -1,9 +1,5 @@
 # Tutorial
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 ```{toctree}
 ---
 maxdepth: 2
@@ -35,7 +31,3 @@ You'll learn the following in this tutorial:
 -   How to deploy a Wagtail website
 
 Now, let's dive in.
-
-## Warning: brand new documentation, feedback welcome
-
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).

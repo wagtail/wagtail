@@ -16,7 +16,7 @@ class TestForMigrations(TestCase):
         app_labels = {
             app.label
             for app in apps.get_app_configs()
-            if app.name.startswith("wagtail.")
+            if app.name.split(".")[0] == "wagtail"
         }
         for app_label in app_labels:
             apps.get_app_config(app_label.split(".")[-1])

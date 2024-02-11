@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -139,18 +139,6 @@ msgstr "Hapus data formulir"
 msgid "Delete"
 msgstr "Hapus"
 
-msgid "Forms"
-msgstr "Formulir"
-
-msgid "Pages"
-msgstr "Halaman"
-
-msgid "Title"
-msgstr "Judul"
-
-msgid "Origin"
-msgstr "Asal"
-
 msgid "Delete selected submissions"
 msgstr "Hapus hasil terpilih"
 
@@ -159,9 +147,6 @@ msgstr "Total hasil"
 
 msgid "Latest submission"
 msgstr "Hasil terakhir"
-
-msgid "No form pages have been created."
-msgstr "Tidak ada halaman formulir yang dibuat."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -173,6 +158,18 @@ msgstr "Tidak terdapat hasil untuk formulir '%(title)s'."
 
 msgid "Filter"
 msgstr "Saring"
+
+msgid "Forms"
+msgstr "Formulir"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Origin"
+msgstr "Asal"
+
+msgid "Pages"
+msgstr "Halaman"
 
 #, python-format
 msgid "One submission has been deleted."

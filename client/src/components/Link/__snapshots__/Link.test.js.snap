@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button #accessibleLabel 1`] = `
+exports[`Link #accessibleLabel 1`] = `
 <a
   className=""
   href="#"
@@ -14,7 +14,7 @@ exports[`Button #accessibleLabel 1`] = `
 </a>
 `;
 
-exports[`Button #children 1`] = `
+exports[`Link #children 1`] = `
 <a
   className=""
   href="#"
@@ -24,16 +24,7 @@ exports[`Button #children 1`] = `
 </a>
 `;
 
-exports[`Button #dialogTrigger 1`] = `
-<a
-  aria-haspopup="dialog"
-  className=""
-  href="#"
-  onClick={[Function]}
-/>
-`;
-
-exports[`Button #target 1`] = `
+exports[`Link #target 1`] = `
 <a
   className=""
   href="#"
@@ -43,7 +34,7 @@ exports[`Button #target 1`] = `
 />
 `;
 
-exports[`Button basic 1`] = `
+exports[`Link basic 1`] = `
 <a
   className=""
   href="#"

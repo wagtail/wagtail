@@ -1033,6 +1033,8 @@ class Filter:
                 return willow.save_as_avif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
+            elif output_format == "ico":
+                return willow.save_as_ico(output)
             raise UnknownOutputImageFormatError(
                 f"Unknown output image format '{output_format}'"
             )

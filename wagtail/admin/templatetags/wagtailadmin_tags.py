@@ -1,5 +1,5 @@
+import datetime
 import json
-from datetime import datetime
 from urllib.parse import urljoin
 from warnings import warn
 
@@ -92,10 +92,17 @@ def page_breadcrumbs(
     if not cca:
         return {"items": Page.objects.none()}
 
-    return {
-        "items": page.get_ancestors(inclusive=include_self)
+    items = (
+        page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
-        .specific(),
+        .specific()
+    )
+
+    if len(items) == 1:
+        is_expanded = True
+
+    return {
+        "items": items,
         "current_page": page,
         "is_expanded": is_expanded,
         "page_perms": page_perms,
@@ -764,7 +771,7 @@ def timesince_last_update(
     """
     # translation usage below is intentionally verbose to be easier to work with translations
 
-    if last_update.date() == datetime.today().date():
+    if last_update.date() == datetime.datetime.today().date():
         if timezone.is_aware(last_update):
             time_str = timezone.localtime(last_update).strftime("%H:%M")
         else:
@@ -1283,10 +1290,15 @@ def workflow_status_with_date(workflow_state):
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
+    if isinstance(date, datetime.datetime):
+        tooltip_format = getattr(settings, "DATETIME_FORMAT", "N j, Y, P")
+    elif isinstance(date, datetime.date):
+        tooltip_format = getattr(settings, "DATE_FORMAT", "N j, Y")
     return {
         "date": date,
         "description": description,
         "placement": placement,
+        "tooltip_format": tooltip_format,
     }
 
 

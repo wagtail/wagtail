@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,6 @@ msgstr "vaikimis"
 msgid "Site"
 msgstr "Sait"
 
-msgid "Editing"
-msgstr "Redigeerimine"
-
 msgid "Saving…"
 msgstr "Salvestan..."
 
@@ -41,9 +38,9 @@ msgstr "Sätted"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Seda seadet ei saanud avada, kuna pole ühtegi saiti määratletud."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Seadet ei õnnestunud vigade tõttu salvestada."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s uuendatud."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Seadet ei õnnestunud vigade tõttu salvestada."

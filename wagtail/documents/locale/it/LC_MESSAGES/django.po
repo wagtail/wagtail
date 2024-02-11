@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -223,30 +223,8 @@ msgstr "File non trovato"
 msgid "Usage"
 msgstr "Utilizzo"
 
-msgid "Documents"
-msgstr "Documenti"
-
 msgid "Select all documents in listing"
 msgstr "Seleziona tutti i documenti dalla lista"
-
-msgid "Title"
-msgstr "Titolo"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created"
-msgstr "Creato"
-
-msgid "Select document"
-msgstr "Seleziona documento"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "C'è %(counter)s corrispondenza"
-msgstr[1] "Ci sono %(counter)s corrispondenze"
-msgstr[2] "Ci sono %(counter)s corrispondenze"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -353,6 +331,12 @@ msgstr[0] "%(num_parent_objects)d documento è stato eliminato"
 msgstr[1] "%(num_parent_objects)d documenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d documenti sono stati eliminati"
 
+msgid "File"
+msgstr "File"
+
+msgid "Created"
+msgstr "Creato"
+
 msgid "Choose a document"
 msgstr "Scegli un documento"
 
@@ -362,8 +346,11 @@ msgstr "Scegli un'altro documento"
 msgid "Edit this document"
 msgstr "Modifica questo documento"
 
-msgid "Search documents"
-msgstr "Cerca documenti"
+msgid "Documents"
+msgstr "Documenti"
+
+msgid "Title"
+msgstr "Titolo"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

@@ -2,7 +2,6 @@
 # Translators:
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2022
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
-# Mauricio Baeza <python@amigos.email>, 2022
 # Oscar Luciano Espirilla Flores, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
@@ -79,9 +78,6 @@ msgstr "Editar"
 
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Editar tu cuenta"
 
 msgid "Enter your comments..."
 msgstr "Introduce tus comentarios..."

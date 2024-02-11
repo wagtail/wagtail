@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -209,29 +209,8 @@ msgstr "Fil ikke funnet"
 msgid "Usage"
 msgstr "Bruk"
 
-msgid "Documents"
-msgstr "Dokumenter"
-
 msgid "Select all documents in listing"
 msgstr "Velg alle dokumenter i listen"
-
-msgid "Title"
-msgstr "Tittel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created"
-msgstr "Opprettet"
-
-msgid "Select document"
-msgstr "Velg dokument"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -332,6 +311,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokument er blitt slettet"
 msgstr[1] "%(num_parent_objects)d dokumenter er blitt slettet"
 
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Opprettet"
+
 msgid "Choose a document"
 msgstr "Velg et dokument"
 
@@ -341,8 +326,11 @@ msgstr "Velg et annet dokument"
 msgid "Edit this document"
 msgstr "Endre dette dokumentet"
 
-msgid "Search documents"
-msgstr "Søk i dokumenter"
+msgid "Documents"
+msgstr "Dokumenter"
+
+msgid "Title"
+msgstr "Tittel"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

@@ -9,13 +9,14 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Oliver Engel <codeangel@posteo.de>, 2021
+# Stefan Hammer <stefan@hammerworxx.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Oliver Engel <codeangel@posteo.de>, 2021\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,24 +31,36 @@ msgstr "Wagtail Tabellen-Block"
 msgid "Row header"
 msgstr "Kopfzeile"
 
-msgid "Display the first row as a header."
-msgstr "Anwählen damit die erste Zeile als Kopfzeile ausgegeben wird."
+msgid "Table headers"
+msgstr "Tabellenüberschriften"
+
+msgid "Display the first row as a header"
+msgstr "Die erste Zeile als Überschrift anzeigen"
+
+msgid "Display the first column as a header"
+msgstr "Die erste Spalte als Überschrift anzeigen"
 
 msgid "Column header"
 msgstr "Kopfspalte"
 
-msgid "Display the first column as a header."
-msgstr "Anwählen damit die erste Spalte als Kopfspalte ausgegeben wird."
+msgid "Display the first row AND first column as headers"
+msgstr "Die erste Zeile UND die erste Spalte als Überschriften anzeigen"
+
+msgid "No headers"
+msgstr "Keine Überschriften"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Welche Zellen sollen als Überschriften angezeigt werden?"
 
 msgid "Table caption"
 msgstr "Tabellenüberschrift"
 
 msgid ""
 "A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
+"screen reader users."
 msgstr ""
-"Eine Überschrift, die den Inhalt der Tabelle wiedergibt und nützlich für "
-"Screenreader ist"
+"Eine Überschrift, die das Gesamtthema der Tabelle identifiziert und für "
+"Benutzer von Bildschirmleseprogrammen nützlich ist."
 
 msgid "Table"
 msgstr "Tabelle"

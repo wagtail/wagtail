@@ -304,7 +304,9 @@ class FullFeaturedSnippetViewSet(SnippetViewSet):
 
     class IndexView(SnippetViewSet.index_view_class):
         def get_add_url(self):
-            return set_query_params(super().get_add_url(), {"customised": "param"})
+            if not (add_url := super().get_add_url()):
+                return None
+            return set_query_params(add_url, {"customised": "param"})
 
     index_view_class = IndexView
 

@@ -1,7 +1,6 @@
 #
 # Translators:
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
-# Eirik Krogstad <eirikkr@gmail.com>, 2022
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2022
 # Loic Teixeira, 2022
 # Jonathan D, 2023
@@ -38,9 +37,6 @@ msgstr "Rediger"
 
 msgid "Edit '%(title)s'"
 msgstr "Endre '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Endre din konto"
 
 msgid "Horizontal line"
 msgstr "Horisontal linje"

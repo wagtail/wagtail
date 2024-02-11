@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -360,9 +360,6 @@ msgstr "Fil ikke funnet"
 msgid "Usage"
 msgstr "Bruk"
 
-msgid "Images"
-msgstr "Bilder"
-
 msgid "Sort by"
 msgstr "Sorter etter"
 
@@ -377,18 +374,6 @@ msgstr "Tøm"
 
 msgid "Select all images in listing"
 msgstr "Velg alle bildene i listen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
-
-msgid "Select image"
-msgstr "Velg bilde"
-
-msgid "pixels"
-msgstr "piksler"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -410,21 +395,11 @@ msgstr ""
 "Du har ikke lastet opp noen bilder. Hvorfor ikke <a "
 "href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
-msgid "Generating URL"
-msgstr "Genererer URL"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Merk at bilder som genereres større enn skjermen vil fremstå mindre når de "
-"forhåndsvises her, så de har plass på skjermen."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Legg til flere bilder"
@@ -551,8 +526,8 @@ msgstr "Filstørrelse: (lav til høy)"
 msgid "File size: (high to low)"
 msgstr "Filstørrelse: (høy til lav)"
 
-msgid "Search images"
-msgstr "Søk i bilder"
+msgid "Images"
+msgstr "Bilder"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

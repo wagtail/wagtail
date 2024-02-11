@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -31,9 +31,6 @@ msgstr ""
 
 msgid "Wagtail search"
 msgstr "Pesquisa Wagtail"
-
-msgid "Query Daily Hits"
-msgstr "Consultar Acessos Diários"
 
 msgid "index entry"
 msgstr "entrada de índice"

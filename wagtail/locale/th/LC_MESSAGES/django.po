@@ -5,14 +5,15 @@
 # Translators:
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,9 @@ msgstr "เลื่อนขึ้น,ขยับขึ้น"
 msgid "Move down"
 msgstr "เลื่อนลง,ขยับลง"
 
+msgid "Duplicate"
+msgstr "ทำซ้ำ"
+
 msgid "Delete"
 msgstr "ลบ,ลบทิ้ง"
 
@@ -62,8 +66,17 @@ msgstr "ล็อกเรียบร้อยแล้ว"
 msgid "Unlocked"
 msgstr "ปลดล็อก"
 
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr "{model_name} '{title}' ถูกล็อค และมีกำหนดการเผยแพร่เมื่อ {datetime}"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "ถูกล็อคอยู่ในตอนนี้ และจะเผยแพร่เมื่อถึงวันที่กำหนด"
+
 msgid "live"
-msgstr "ถ่ายทอดสด"
+msgstr "เผยแพร่"
 
 msgid "has unpublished changes"
 msgstr "มีการเปลี่ยนแปลงยกเลิก"
@@ -74,8 +87,11 @@ msgstr "ตีพิมพ์ครั้งแรกเมื่อ"
 msgid "last published at"
 msgstr "ตีพิมพ์ครั้งสุดท้ายเมื่อ"
 
+msgid "live revision"
+msgstr "การแก้ไขการเผยแพร่"
+
 msgid "go live date/time"
-msgstr "ถ่ายทอดสด วันที่/เวลา"
+msgstr "เผยแพร่ วันที่/เวลา"
 
 msgid "expiry date/time"
 msgstr "วันหมดอายุ/เวลา"
@@ -90,16 +106,19 @@ msgid "draft"
 msgstr "ร่าง"
 
 msgid "live + scheduled"
-msgstr "ถ่ายทอดสด + ตาราง"
+msgstr "เผยแพร่ + กำหนดการ"
 
 msgid "live + draft"
-msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
+msgstr "เผยแพร่ + ร่าง"
 
 msgid "Default"
 msgstr "ต้นแบบ"
 
 msgid "locked"
 msgstr "ล็อค"
+
+msgid "live + in moderation"
+msgstr "เผยแพร่ + รอตรวจ"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
@@ -164,9 +183,6 @@ msgstr "หน้า"
 msgid "pages"
 msgstr "หลายๆหน้า"
 
-msgid "submitted for moderation"
-msgstr "ส่งสำหรับตรวจเรียบร้อยแล้ว"
-
 msgid "created at"
 msgstr "สร้างขึ้นเมื่อ"
 
@@ -177,16 +193,13 @@ msgid "content JSON"
 msgstr "ข้อมูลของ JSON"
 
 msgid "approved go live at"
-msgstr "อนุมัติให้ไปยังถ่ายทอดสด"
+msgstr "ได้รับอนุมัติให้ไปที่เผยแพร่"
 
 msgid "group"
 msgstr "กลุ่ม"
 
 msgid "permission"
 msgstr "การอนุญาต"
-
-msgid "permission type"
-msgstr "ประเภทของการอนุญาต"
 
 msgid "group page permission"
 msgstr "การอนุญาตหลายๆหน้า"
@@ -208,6 +221,9 @@ msgstr "กลุ่ม"
 
 msgid "Approve"
 msgstr "ยืนยัน"
+
+msgid "Draft saved"
+msgstr "บันทึกฉบับร่างเรียบร้อย"
 
 msgid "collection"
 msgstr "ของสะสม"
@@ -264,6 +280,9 @@ msgstr "เว็บไซด์"
 msgid "sites"
 msgstr "หลายเว็บไซด์"
 
+msgid "default"
+msgstr "ค่าเริ่มต้น"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -316,6 +335,9 @@ msgstr "ต่อเนื่อง"
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
 
+msgid "Published"
+msgstr "เผยแพร่แล้ว"
+
 msgid "Unpublish"
 msgstr "ยกเลิกประกาศ"
 
@@ -327,3 +349,11 @@ msgstr "ก๊อปปี้,คัดลอก"
 
 msgid "Move"
 msgstr "เคลื่อนย้าย"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "กำหนดให้หน้านี้ทำการเผยแพร่เมื่อ %(go_live_at)s"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "กำหนดให้หน้านี้ยุติการเผยแพร่เมื่อ %(go_live_at)s"

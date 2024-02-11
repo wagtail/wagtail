@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -173,24 +173,6 @@ msgstr "编辑这个页面"
 msgid "Draft"
 msgstr "草稿"
 
-msgid "Pages awaiting moderation"
-msgstr "这些页面在等待审核"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "Edited"
-msgstr "已编辑"
-
-msgid "Approve"
-msgstr "通过"
-
-msgid "Reject"
-msgstr "拒绝"
-
-msgid "Preview"
-msgstr "预览"
-
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
 
@@ -202,6 +184,9 @@ msgstr "日期"
 
 msgid "Site summary"
 msgstr "网站摘要"
+
+msgid "Preview"
+msgstr "预览"
 
 msgid "Sign in"
 msgstr "登录"
@@ -240,10 +225,6 @@ msgstr "这个页面 \"%(title)s\" 已经被拒绝"
 
 msgid "You can preview the page here:"
 msgstr "你可以在此预览这页："
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "这个页面 \"%(page)s\" 已经提交审核"
 
 msgid "Page privacy"
 msgstr "页面隐私"
@@ -302,14 +283,6 @@ msgid "Copy"
 msgstr "复制"
 
 #, python-format
-msgid "New %(page_type)s"
-msgstr "新%(page_type)s类"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "浏览%(title)s"
-
-#, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
@@ -340,9 +313,15 @@ msgstr "向上移动"
 msgid "Move down"
 msgstr "向下移动"
 
+msgid "Type"
+msgstr "类型"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第%(page_num)s页 共%(total_pages)s页"
+
+msgid "Edited"
+msgstr "已编辑"
 
 msgid "New"
 msgstr "新"
@@ -379,23 +358,8 @@ msgstr "第 '%(page_title)s' 页已创建。"
 msgid "Page '%(page_title)s' deleted."
 msgstr "第 '%(page_title)s' 页已删除"
 
-msgid "This page is currently awaiting moderation"
-msgstr "这页正在等待审核"
-
 msgid "The page could not be saved due to validation errors"
 msgstr "这页无法保存，因为页面发生验证错误"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "第 '%(page_title)s' 页当前不需要等待审核。"
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "第 '%(page_title)s' 页已发布。"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "第 '%(page_title)s' 页已被拒绝发布。"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -407,6 +371,10 @@ msgstr "第 '%(page_title)s' 页已取消发布"
 
 msgid "Pages using"
 msgstr "页面在用"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "第 '%(page_title)s' 页当前不需要等待审核。"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

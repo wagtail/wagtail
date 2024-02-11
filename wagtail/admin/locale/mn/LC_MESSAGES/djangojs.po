@@ -31,9 +31,6 @@ msgstr "Засах"
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' засах"
 
-msgid "Edit your account"
-msgstr "Хэрэглэгчийн эрхээ засах"
-
 msgid "Horizontal line"
 msgstr "Хөндлөн зураас"
 

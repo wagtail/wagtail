@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,17 +26,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "Wagtail jednotná úprava vzhledu"
 
-msgid "Styleguide"
-msgstr "Jednotná úprava vzhledu"
-
 msgid "Save"
 msgstr "Uložit"
 
 msgid "Delete image"
 msgstr "Smazat obrázek"
 
-msgid "Search something"
-msgstr "Hledat ..."
+msgid "Styleguide"
+msgstr "Jednotná úprava vzhledu"
 
 msgid "Success message"
 msgstr "Úspěch"

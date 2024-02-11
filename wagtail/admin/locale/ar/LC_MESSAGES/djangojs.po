@@ -40,9 +40,6 @@ msgstr "تحرير"
 msgid "Edit '%(title)s'"
 msgstr "تحرير '%(title)s'"
 
-msgid "Edit your account"
-msgstr "تعديل حسابك"
-
 msgid "Horizontal line"
 msgstr "خط افقي"
 

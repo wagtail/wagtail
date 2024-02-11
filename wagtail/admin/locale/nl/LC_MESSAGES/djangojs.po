@@ -86,9 +86,6 @@ msgstr "Bewerk"
 msgid "Edit '%(title)s'"
 msgstr "Wijzig '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Wijzig je account"
-
 msgid "Enter your comments..."
 msgstr "Typ commentaar... "
 

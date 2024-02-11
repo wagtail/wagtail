@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tomáš Podivínský, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -239,24 +239,6 @@ msgstr "Přidat uživatele"
 msgid "Delete user"
 msgstr "Smazat uživatele"
 
-msgid "Username"
-msgstr "Uživatelské jméno"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Last Login"
-msgstr "Poslední přihlášení"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktivní"
-
-msgid "Inactive"
-msgstr "Neaktivní"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -277,6 +259,24 @@ msgid ""
 msgstr ""
 "Nejsou určeni uživatelé. Pojďme <a href=\"%(wagtailusers_add_url)s\">nějaké "
 "přidat</a>?"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Last Login"
+msgstr "Poslední přihlášení"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "Inactive"
+msgstr "Neaktivní"
 
 #, python-format
 msgid "user %(id)s (deleted)"

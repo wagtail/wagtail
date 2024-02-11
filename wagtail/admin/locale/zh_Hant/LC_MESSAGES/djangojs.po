@@ -51,9 +51,6 @@ msgstr "編輯"
 msgid "Edit '%(title)s'"
 msgstr "編輯 '%(title)s'"
 
-msgid "Edit your account"
-msgstr "編輯帳號"
-
 msgid "Horizontal line"
 msgstr "水平線"
 

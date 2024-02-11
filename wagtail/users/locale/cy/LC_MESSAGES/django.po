@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -258,24 +258,6 @@ msgstr "Dileu defnyddiwr"
 msgid "Select all users in listing"
 msgstr "Dewiswch yr holl ddefnyddwyr wrth restru"
 
-msgid "Username"
-msgstr "Enw defnyddiwr"
-
-msgid "Status"
-msgstr "Statws"
-
-msgid "Last Login"
-msgstr "Mewngofnod Diwethaf"
-
-msgid "Admin"
-msgstr "Gweinyddol"
-
-msgid "Active"
-msgstr "Actif"
-
-msgid "Inactive"
-msgstr "Anactif"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -297,6 +279,24 @@ msgid ""
 msgstr ""
 "Nid oes unrhyw ddefnyddwyr wedi'u ffurfweddu. Pam ddim <a "
 "href=\"%(wagtailusers_add_url)s\">ychwanegu un</a>?"
+
+msgid "Username"
+msgstr "Enw defnyddiwr"
+
+msgid "Status"
+msgstr "Statws"
+
+msgid "Last Login"
+msgstr "Mewngofnod Diwethaf"
+
+msgid "Admin"
+msgstr "Gweinyddol"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Inactive"
+msgstr "Anactif"
 
 msgid "Assign role to selected users"
 msgstr "Neilltuo rôl i ddefnyddwyr dethol"

@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,21 +28,33 @@ msgstr "Bloques de táboa de Wagtail"
 msgid "Row header"
 msgstr "Cabeceira da fila"
 
-msgid "Display the first row as a header."
+msgid "Table headers"
+msgstr "Encabezados da táboa"
+
+msgid "Display the first row as a header"
 msgstr "Mostrar a primeira fila como unha cabeceira"
+
+msgid "Display the first column as a header"
+msgstr "Mostrar a primeira columna como unha cabeceira"
 
 msgid "Column header"
 msgstr "Cabeceira da columna"
 
-msgid "Display the first column as a header."
-msgstr "Mostrar a primeira columna como unha cabeceira."
+msgid "Display the first row AND first column as headers"
+msgstr "Mostrar a primeira fila E a primeira columna como cabeceiras"
+
+msgid "No headers"
+msgstr "Sen cabeceiras"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Qué celdas deberían mostrarse como encabezados?"
 
 msgid "Table caption"
 msgstr "Pe de táboa"
 
 msgid ""
 "A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
+"screen reader users."
 msgstr ""
 "Un encabezado que identifica o contido xeral da táboa, e é útil para os "
 "usuarios con lectores de pantalla."

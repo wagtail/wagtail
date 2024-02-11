@@ -1,5 +1,5 @@
 import {
-  Button,
+  Link,
   Icon,
   PublicationStatus,
   LoadingSpinner,
@@ -8,8 +8,8 @@ import {
 } from './index';
 
 describe('wagtail package API', () => {
-  it('has Button', () => {
-    expect(Button).toBeDefined();
+  it('has Link', () => {
+    expect(Link).toBeDefined();
   });
 
   it('has Icon', () => {

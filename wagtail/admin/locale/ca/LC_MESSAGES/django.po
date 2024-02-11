@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -72,6 +72,9 @@ msgstr "Data d'inici"
 
 msgid "Date to"
 msgstr "Data de fi"
+
+msgid "Locale"
+msgstr "Localització"
 
 msgid "All"
 msgstr "Tot"
@@ -473,6 +476,9 @@ msgstr "Anar enrere"
 msgid "Bulk actions"
 msgstr "Accions en lot"
 
+msgid "Select"
+msgstr "Seleccionar"
+
 msgid "Select row"
 msgstr "Seleccionar fila"
 
@@ -691,9 +697,6 @@ msgstr "Encara voleu publicar aquest/a %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-msgid "No log entries found."
-msgstr "No s'han trobat entrades de registre."
-
 #, python-format
 msgid "No %(model_name)s match your query."
 msgstr "Cap %(model_name)s concorda amb la vostra consulta."
@@ -775,31 +778,6 @@ msgstr "Esborrany"
 msgid "Live"
 msgstr "En viu"
 
-msgid "Pages awaiting moderation"
-msgstr "Pàgines a l'espera de moderació"
-
-msgid "Type"
-msgstr "Tipus"
-
-msgid "Edited"
-msgstr "Editat"
-
-msgid "Preview this page"
-msgstr "Previsualitza aquesta pàgina"
-
-msgid "Approve"
-msgstr "Aprovar"
-
-msgid "Reject"
-msgstr "Rebutjar"
-
-msgid "Preview"
-msgstr "Vista prèvia"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "per %(name)s"
-
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
 
@@ -879,6 +857,9 @@ msgstr "Tasques"
 msgid "Task submitted by"
 msgstr "Tasca enviada per"
 
+msgid "Preview"
+msgstr "Vista prèvia"
+
 msgid "Compare with live version"
 msgstr "Comparar amb la versió en viu"
 
@@ -928,17 +909,6 @@ msgstr "Pots editar la pàgina aquí:"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "La pàgina \"%(title)s\" ha sigut rebutjada"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "La pàgina \"%(page)s\" ha estat enviada a moderació per %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Pots veure la vista prèvia de la pàgina aquí:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
 
 #, python-format
 msgid ""
@@ -997,6 +967,9 @@ msgid ""
 msgstr ""
 "La pàgina \"%(title)s\" ha estat enviada a aprovació a la fase de moderació "
 "\"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Pots veure la vista prèvia de la pàgina aquí:"
 
 #, python-format
 msgid ""
@@ -1610,16 +1583,8 @@ msgstr "Copiar"
 msgid "Copy this page"
 msgstr "Copiar aquesta pàgina"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nova %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Editant %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Aquesta pàgina és un àlies d'una altra."
@@ -1652,9 +1617,8 @@ msgstr "Versió en viu"
 msgid "Current draft"
 msgstr "Esborrany actual"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Explorant %(title)s"
+msgid "No log entries found."
+msgstr "No s'han trobat entrades de registre."
 
 msgid "Select all pages in listing"
 msgstr "Seleccionar totes les pàgines del llistat"
@@ -1726,24 +1690,8 @@ msgstr "Ordenació"
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s de %(result_count)s en tot el lloc."
-
-#, python-format
-msgid "Search within '%(title)s'"
-msgstr "Cercar a '%(title)s'"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
-msgstr "%(start_index)s-%(end_index)s de %(result_count)sa '%(title)s'."
-
 msgid "Search the whole site"
 msgstr "Cercar en tot el lloc"
-
-#, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s"
-msgstr "%(start_index)s-%(end_index)s de %(result_count)s"
 
 msgid "Sites menu"
 msgstr "Menú de llocs"
@@ -1808,9 +1756,6 @@ msgstr "Puja"
 msgid "Move down"
 msgstr "Baixa"
 
-msgid "Set publishing schedule"
-msgstr "Establir la programació de la publicació"
-
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr "Escollir quan aquest/a %(model_name)s hagi d'anar a En viu i/o expirar"
@@ -1831,6 +1776,9 @@ msgstr "Qualsevol usuari amb permís d'edició pot programar publicacions"
 msgid "But only those with publishing permissions can make them effective."
 msgstr "Però només aquells amb permís de publicació pot fer-les efectives."
 
+msgid "Set publishing schedule"
+msgstr "Establir la programació de la publicació"
+
 msgid "Save schedule"
 msgstr "Desar programació de publicació"
 
@@ -1846,6 +1794,9 @@ msgstr "Última publicació"
 msgid "Last published by"
 msgstr "Última publicació per"
 
+msgid "Type"
+msgstr "Tipus"
+
 msgid "No pages found."
 msgstr "No s'ha trobat cap pàgina."
 
@@ -1854,6 +1805,9 @@ msgstr "No s'han trobat pàgines que acompleixin aquests criteris d'informe."
 
 msgid "Updated"
 msgstr "Actualitzat"
+
+msgid "Pages"
+msgstr "Pàgines"
 
 msgid "Locking status"
 msgstr "Estat de bloqueig"
@@ -1906,6 +1860,9 @@ msgstr "Per fluxe de treball"
 msgid "Completed at"
 msgstr "Completat el"
 
+msgid "Clear"
+msgstr "Netejar"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pàgina %(page_num)s de %(total_pages)s."
@@ -1925,25 +1882,20 @@ msgstr "Baixa XLSX"
 msgid "Download CSV"
 msgstr "Baixa CSV"
 
-msgid "Add comment"
-msgstr "Afegir comentari"
-
 msgid "Filter"
 msgstr "Filtra"
 
 msgid "Apply filters"
 msgstr "Aplica els filtres"
 
+msgid "Add comment"
+msgstr "Afegir comentari"
+
+msgid "Back"
+msgstr "Tornar"
+
 msgid "History"
 msgstr "Historial"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Nou: %(model_name)s"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "Editant%(page_type)s %(title)s"
 
 msgid "Root"
 msgstr "Arrel"
@@ -1996,6 +1948,9 @@ msgstr "Communtar panell lateral"
 
 msgid "Side panel width"
 msgstr "Ample del panell lateral"
+
+msgid "Issues found"
+msgstr "Incidències trobades"
 
 msgid "Comment notifications"
 msgstr "Notificacions de comentaris"
@@ -2164,6 +2119,9 @@ msgstr "Línia de temps"
 msgid "Initial Revision"
 msgstr "Revisió inicial"
 
+msgid "Edited"
+msgstr "Editat"
+
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
 msgstr "%(action)s per <b>%(who)s</b> el <b>%(at)s</b>"
@@ -2218,9 +2176,6 @@ msgstr "Saltar al contingut principal"
 
 msgid "View Wagtail quick actions"
 msgstr "Veure accions ràpides de Wagtail"
-
-msgid "Issues found"
-msgstr "Incidències trobades"
 
 msgid "Accessibility"
 msgstr "Accessibilitat"
@@ -2512,9 +2467,6 @@ msgstr "Ordenar per '%(label)s' en ordre ascencent."
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Ordenar per '%(label)s' en ordre descendent."
 
-msgid "Select page"
-msgstr "Seleccionar pàgina"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -2584,9 +2536,6 @@ msgstr "Nom i Email"
 msgid "Profile picture"
 msgstr "Imatge de perfil"
 
-msgid "Locale"
-msgstr "Localització"
-
 msgid "Theme preferences"
 msgstr "Preferències de tema"
 
@@ -2598,9 +2547,6 @@ msgstr "La configuració del vostre compte s'ha canviat correctament!"
 
 msgid "You have been successfully logged out."
 msgstr "Heu finalitzat la sessió."
-
-msgid "Select"
-msgstr "Seleccionar"
 
 msgid "Collections"
 msgstr "Col·leccions"
@@ -2634,10 +2580,6 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 
 msgid "Home"
 msgstr "Inici"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Editar aquest %(model_name)s"
 
 msgid "Workflow progress"
 msgstr "Progrés dels fluxe de treball"
@@ -2729,10 +2671,6 @@ msgstr ""
 "programada per a publicar."
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "Cercar %(model_name)s"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
 
@@ -2751,8 +2689,16 @@ msgstr "Esborrar '%(title)s'"
 msgid "More options for '%(title)s'"
 msgstr "Més opcions per '%(title)s'"
 
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Nou: %(model_name)s"
+
 msgid "Editing"
 msgstr "Editant"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' esborrat."
 
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
@@ -2779,9 +2725,6 @@ msgstr ""
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revisió %(revision_id)s de \"%(object)s\""
-
-msgid "Usage of"
-msgstr "Utilització de"
 
 msgid "If you confirm deletion"
 msgstr "Si confirmeu l'esborrat"
@@ -2959,9 +2902,6 @@ msgstr "No es pot crear la pàgina per causa d'errors de validació"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Pàgina '%(page_title)s' eliminada."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Aquesta pàgina està esperant moderació"
-
 #, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
@@ -3026,38 +2966,15 @@ msgstr "Amagar les accions de comentaris"
 msgid "Page history"
 msgstr "Historial de pàgina"
 
-msgid "Search pages…"
-msgstr "Cercar pàgines..."
+msgid "Site"
+msgstr "Lloc web"
 
-msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
-msgstr ""
-"Premeu intro per seleccionar un element, utilitzeu les fletxes amunt i avall "
-"per moure l'element, premeu intro per completar el moviment o escape per "
-"cancel·lar el moviment actual."
+msgid "Yes"
+msgstr "Sí"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "La pàgina '%(page_title)s' ara està desbloquejada."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "La pàgina '%(page_title)s' ja no es troba esperant moderació."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Pàgina '%(page_title)s' publicada."
-
-msgid "Failed to send approval notifications"
-msgstr "Ha fallat l'enviament de notificacions d'aprovació"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "La pàgina '%(page_title)s' ha estat rebutjada per publicació"
-
-msgid "Failed to send rejection notifications"
-msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
 #, python-format
 msgid ""
@@ -3085,6 +3002,10 @@ msgstr "S'ha anul·lat la publicació de la pàgina '%(page_title)s'."
 
 msgid "Pages using"
 msgstr "Pàgines en ús"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "La pàgina '%(page_title)s' ja no es troba esperant moderació."
 
 #, python-format
 msgid ""
@@ -3248,9 +3169,6 @@ msgstr "S'ha activat la tasca %(task_name)s'."
 msgid "Choose another"
 msgstr "Triar un altre"
 
-msgid "Pages"
-msgstr "Pàgines"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Previsualitzar versió d'esborrany de '%(title)s'"
@@ -3332,9 +3250,6 @@ msgstr "Guia de l'Editor"
 
 msgid "Help"
 msgstr "Ajuda"
-
-msgid "Yes"
-msgstr "Sí"
 
 msgid "Choose an item"
 msgstr "Escull un element"

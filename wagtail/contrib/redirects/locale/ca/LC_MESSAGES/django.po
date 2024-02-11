@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -221,9 +221,6 @@ msgstr ""
 "No s'ha creat cap redirecció. Per què no <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">afegeixes una</a>?"
 
-msgid "Search redirects"
-msgstr "Cerca redireccions"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redireccionament '%(redirect_title)s' actualitzat."
@@ -244,6 +241,9 @@ msgstr "S'ha afegit la redirecció '%(redirect_title)s'"
 
 msgid "The redirect could not be created due to errors."
 msgstr "No s'ha pogut crear el redireccionament."
+
+msgid "Search redirects"
+msgstr "Cerca redireccions"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

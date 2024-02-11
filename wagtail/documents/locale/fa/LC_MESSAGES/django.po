@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -134,21 +134,6 @@ msgstr "اندازه فایل"
 msgid "File not found"
 msgstr "فایل پیدا نشد"
 
-msgid "Documents"
-msgstr "اسناد"
-
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "فایل"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s مورد همخوانی دارد"
-msgstr[1] "%(counter)s مورد همخوانی دارد"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
@@ -207,6 +192,9 @@ msgstr "افزودن یک مجوز سند"
 msgid "Delete"
 msgstr "حذف"
 
+msgid "File"
+msgstr "فایل"
+
 msgid "Choose a document"
 msgstr "یک سند انتخاب کنید"
 
@@ -216,8 +204,11 @@ msgstr "سند دیگری را انتخاب کنید"
 msgid "Edit this document"
 msgstr "ویرایش این سند"
 
-msgid "Search documents"
-msgstr "جستجوی سندها"
+msgid "Documents"
+msgstr "اسناد"
+
+msgid "Title"
+msgstr "عنوان"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

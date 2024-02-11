@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -27,9 +27,6 @@ msgstr "default"
 msgid "Site"
 msgstr "Situs"
 
-msgid "Editing"
-msgstr "Mengubah"
-
 msgid "Saving…"
 msgstr "Menyimpan…"
 
@@ -43,9 +40,9 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Pengaturan ini tidak dapat dibuka karena tidak ada situs yang didefinisikan."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Pengaturan tidak dapat disimpan karena terdapat kesalahan."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s diperbarui."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Pengaturan tidak dapat disimpan karena terdapat kesalahan."

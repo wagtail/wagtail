@@ -1,7 +1,6 @@
 #
 # Translators:
 # nahuel, 2022
-# Karl Hobley <karl@torchbox.com>, 2022
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
@@ -88,9 +87,6 @@ msgstr "Modifier"
 
 msgid "Edit '%(title)s'"
 msgstr "Modifier '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Modifiez votre compte"
 
 msgid "Enter your comments..."
 msgstr "Entrez votre commentaire…"

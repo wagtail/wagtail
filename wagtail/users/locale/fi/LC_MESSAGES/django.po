@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -302,33 +302,6 @@ msgstr "Poista käyttäjä"
 msgid "Select all users in listing"
 msgstr "Valitse listauksen kaikki käyttäjät"
 
-msgid "Username"
-msgstr "Käyttäjänimi"
-
-msgid "Access level"
-msgstr "Pääsytaso"
-
-msgid "Status"
-msgstr "Tila"
-
-msgid "Last Login"
-msgstr "Viimeksi kirjautunut"
-
-msgid "Admin"
-msgstr "Ylläpitäjä"
-
-msgid "Active"
-msgstr "Aktiivinen"
-
-msgid "Inactive"
-msgstr "Passiivinen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -349,6 +322,27 @@ msgid ""
 msgstr ""
 "Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
 "href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "Access level"
+msgstr "Pääsytaso"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Last Login"
+msgstr "Viimeksi kirjautunut"
+
+msgid "Admin"
+msgstr "Ylläpitäjä"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Inactive"
+msgstr "Passiivinen"
 
 #, python-format
 msgid "user %(id)s (deleted)"

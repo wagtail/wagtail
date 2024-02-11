@@ -25,6 +25,7 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     page_title = gettext_lazy("Usage")
     index_url_name = None
     edit_url_name = None
+    usage_url_name = None
     permission_required = "change"
 
     @cached_property
@@ -39,6 +40,13 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
 
     def get_edit_url(self):
         return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    def get_usage_url(self, instance):
+        if self.usage_url_name:
+            return reverse(self.usage_url_name, args=(quote(instance.pk),))
+
+    def get_index_url(self):  # used for pagination links
+        return self.get_usage_url(self.object)
 
     def get_page_subtitle(self):
         return get_latest_str(self.object)

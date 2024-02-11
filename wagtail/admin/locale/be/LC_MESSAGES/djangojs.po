@@ -45,9 +45,6 @@ msgstr "Рэдагаваць"
 msgid "Edit '%(title)s'"
 msgstr "Змяніць «%(title)s»"
 
-msgid "Edit your account"
-msgstr "Рэдагаваць ваш рахунак"
-
 msgid "Horizontal line"
 msgstr "Гарызантальная лінія"
 

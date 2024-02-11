@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2018,2020\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -27,24 +27,11 @@ msgstr "Wagtail töflu blokk"
 msgid "Row header"
 msgstr "Töfluhaus"
 
-msgid "Display the first row as a header."
-msgstr "Birta fyrstu röð sem töfluhaus"
-
 msgid "Column header"
 msgstr "Fyrirsagnadálkur"
 
-msgid "Display the first column as a header."
-msgstr "Birta fyrsta dálk sem fyrirsagnadálk"
-
 msgid "Table caption"
 msgstr "Töflufyrirsögn"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Fyrirsögn sem lýsir almennu innihaldi töflunnar, og er gagnleg fyrir "
-"notendur skjálesara"
 
 msgid "Table"
 msgstr "Tafla"

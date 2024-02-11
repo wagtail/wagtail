@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -196,9 +196,6 @@ msgstr "ページ"
 msgid "pages"
 msgstr "ページ"
 
-msgid "submitted for moderation"
-msgstr "承認リクエストを送信しました。"
-
 msgid "created at"
 msgstr "作成日"
 
@@ -215,9 +212,6 @@ msgid "group"
 msgstr "グループ"
 
 msgid "permission"
-msgstr "権限"
-
-msgid "permission type"
 msgstr "権限"
 
 msgid "group page permission"

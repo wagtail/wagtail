@@ -15,14 +15,15 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024
 # Timothy Allen <flipper@peregrinesalon.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -328,6 +329,23 @@ msgstr "Choisissez un format"
 msgid "Insert image"
 msgstr "Insérer l'image"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> image <span class=\"w-sr-only\">créée dans "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> images <span class=\"w-sr-only\">créées dans "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> images <span class=\"w-sr-only\">créées dans "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Changer le fichier d'image"
 
@@ -393,9 +411,6 @@ msgstr "Fichier non trouvé"
 msgid "Usage"
 msgstr "Utilisation"
 
-msgid "Images"
-msgstr "Images"
-
 msgid "Sort by"
 msgstr "Ordonner par"
 
@@ -410,19 +425,6 @@ msgstr "Effacer"
 
 msgid "Select all images in listing"
 msgstr "Sélectionner toutes les images dans la liste"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
-msgid "Select image"
-msgstr "Sélectionner l'image"
-
-msgid "pixels"
-msgstr "pixels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -445,21 +447,23 @@ msgstr ""
 "Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a "
 "href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
 
-msgid "Generating URL"
-msgstr "Génération d'URL"
+msgid "Preview"
+msgstr "Prévisualisation"
 
 msgid "URL"
 msgstr "URL"
 
-msgid "Preview"
-msgstr "Prévisualisation"
+msgid "Image URL"
+msgstr "URL de l'image"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Veuillez noter que les images générées plus grandes que l'écran seront plus "
-"petites dans cet aperçu afin d'apparaître en entier."
+msgid "Copy URL"
+msgstr "Copier l'URL"
+
+msgid "Copied to clipboard"
+msgstr "Copié dans le presse-papier"
+
+msgid "Copying to clipboard failed"
+msgstr "Impossible de copier dans le presse-papier"
 
 msgid "Add multiple images"
 msgstr "Ajouter plusieurs images"
@@ -597,8 +601,8 @@ msgstr "Taille de fichier : (croissant)"
 msgid "File size: (high to low)"
 msgstr "Taille de fichier : (décroissant)"
 
-msgid "Search images"
-msgstr "Rechercher des images"
+msgid "Images"
+msgstr "Images"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

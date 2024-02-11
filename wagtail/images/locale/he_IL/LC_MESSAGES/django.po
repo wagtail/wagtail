@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -117,24 +117,11 @@ msgstr "גודל קובץ"
 msgid "File not found"
 msgstr "קובץ לא נמצא "
 
-msgid "Images"
-msgstr "תמונות "
-
-msgid "Generating URL"
-msgstr "מייצר כתובת"
-
-msgid "URL"
-msgstr "כתובת"
-
 msgid "Preview"
 msgstr "תצוגה מקדימה "
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"שימו לב, תמונות שגודלן גדול מזה של המסך יראו קטנות יותר בתצוגה מקדימה, כדי "
-"שיתאימו למסך"
+msgid "URL"
+msgstr "כתובת"
 
 msgid "Add multiple images"
 msgstr "הוספת מספר תמונות"
@@ -177,8 +164,8 @@ msgstr "בחרו תמונה אחרת"
 msgid "Edit this image"
 msgstr "ערוך תמונה זו "
 
-msgid "Search images"
-msgstr "חיפוש תמונות "
+msgid "Images"
+msgstr "תמונות "
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

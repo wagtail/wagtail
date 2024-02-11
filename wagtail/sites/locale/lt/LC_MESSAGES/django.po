@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -54,12 +54,12 @@ msgstr "Pridėti tinklalapį"
 msgid "Site '%(object)s' created."
 msgstr "Tinklalapis '%(object)s' sukurtas."
 
+msgid "The site could not be saved due to errors."
+msgstr "Šis tinklalapis negali būti išsaugotas dėl klaidų."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Tinklalapis '%(object)s' atnaujintas."
-
-msgid "The site could not be saved due to errors."
-msgstr "Šis tinklalapis negali būti išsaugotas dėl klaidų."
 
 msgid "Delete site"
 msgstr "Ištrinti tinklalapį"

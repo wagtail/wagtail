@@ -23,9 +23,6 @@ msgstr "מחק"
 msgid "Edit"
 msgstr "ערוך"
 
-msgid "Edit your account"
-msgstr "ערכו את חשבונכם"
-
 msgid "Page"
 msgstr "עמוד"
 

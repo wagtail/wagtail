@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -142,49 +142,11 @@ msgstr "Zamijeni trenutnu verziju"
 msgid "Save draft"
 msgstr "Spremi skicu"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Novi %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Novi"
-
 msgid "Actions"
 msgstr "Postupci"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Uređivanje %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Izresci %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Dodaj %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Odaberi sve izreske iz popisa"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr "Nažalost niti jedan %(snippet_type_name_plural)s ne odgovara upitu"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Nema %(snippet_type_name_plural)s. Zašto ne <a "
-"href=\"%(wagtailsnippets_create_url)s\">dodate jedan</a>?"
 
 msgid "Live version"
 msgstr "Verzija uživo"
@@ -221,12 +183,6 @@ msgstr "Naziv"
 
 msgid "Instances"
 msgstr "Broj instanci"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Nije moguće stvoriti izrezak zbog grešaka."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Nije moguće sačuvati izrezak zbog grešaka."
 
 msgid "Action"
 msgstr "Radnja"

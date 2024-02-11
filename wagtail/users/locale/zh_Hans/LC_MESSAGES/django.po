@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -270,29 +270,6 @@ msgstr "删除用户"
 msgid "Select all users in listing"
 msgstr "选择列表中的所有用户"
 
-msgid "Username"
-msgstr "用户名"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Last Login"
-msgstr "最后登录"
-
-msgid "Admin"
-msgstr "管理"
-
-msgid "Active"
-msgstr "有效"
-
-msgid "Inactive"
-msgstr "无效"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "总共有 %(counter)s 条匹配"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
@@ -311,6 +288,24 @@ msgid ""
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Last Login"
+msgstr "最后登录"
+
+msgid "Admin"
+msgstr "管理"
+
+msgid "Active"
+msgstr "有效"
+
+msgid "Inactive"
+msgstr "无效"
 
 #, python-format
 msgid "user %(id)s (deleted)"

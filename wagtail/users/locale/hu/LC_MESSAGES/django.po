@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -303,33 +303,6 @@ msgstr "Felhasználó törlése"
 msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
 
-msgid "Username"
-msgstr "Felhasználónév"
-
-msgid "Access level"
-msgstr "Elérés szintje"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Last Login"
-msgstr "Utolsó belépés"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktív"
-
-msgid "Inactive"
-msgstr "Kikapcsolt"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -351,6 +324,27 @@ msgid ""
 msgstr ""
 "Nincs felhasználó létrehozva. Miért nem <a "
 "href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "Access level"
+msgstr "Elérés szintje"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Last Login"
+msgstr "Utolsó belépés"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktív"
+
+msgid "Inactive"
+msgstr "Kikapcsolt"
 
 #, python-format
 msgid "user %(id)s (deleted)"

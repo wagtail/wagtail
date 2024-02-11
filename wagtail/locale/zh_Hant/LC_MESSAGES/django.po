@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -204,9 +204,6 @@ msgstr "頁面"
 msgid "pages"
 msgstr "頁面"
 
-msgid "submitted for moderation"
-msgstr "已提交審核"
-
 msgid "created at"
 msgstr "創建時間"
 
@@ -230,9 +227,6 @@ msgstr "群組"
 
 msgid "permission"
 msgstr "權限"
-
-msgid "permission type"
-msgstr "權限類型"
 
 msgid "group page permission"
 msgstr "群組頁面權限"

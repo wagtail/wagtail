@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Martin <martinpajuste@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -204,9 +204,6 @@ msgstr "lehele"
 msgid "pages"
 msgstr "lehekülgi"
 
-msgid "submitted for moderation"
-msgstr "modereerimiseks esitatud"
-
 msgid "created at"
 msgstr "loodud aadressil"
 
@@ -230,9 +227,6 @@ msgstr "Grupp"
 
 msgid "permission"
 msgstr "luba"
-
-msgid "permission type"
-msgstr "loa tüüp"
 
 msgid "group page permission"
 msgstr "grupilehe luba"

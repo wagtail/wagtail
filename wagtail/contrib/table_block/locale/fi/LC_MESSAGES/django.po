@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,24 +28,11 @@ msgstr "Wagtailin taulukkolohko"
 msgid "Row header"
 msgstr "Riviotsikko"
 
-msgid "Display the first row as a header."
-msgstr "Näytä ensimmäinen rivi otsikkona."
-
 msgid "Column header"
 msgstr "Sarakeotsikko"
 
-msgid "Display the first column as a header."
-msgstr "Näytä ensimmäinen sarake otsikkona."
-
 msgid "Table caption"
 msgstr "Taulukon otsikko"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Otsikko, joka ilmaisee taulukon aiheen ja hyödyttää ruudunlukijoitten "
-"käyttäjiä"
 
 msgid "Table"
 msgstr "Taulukko"

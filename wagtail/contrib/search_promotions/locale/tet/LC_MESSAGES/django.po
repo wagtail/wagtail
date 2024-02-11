@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -128,9 +128,6 @@ msgstr "Hili husi buka termus populár  "
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "Deskulpa, rezultadu promove la korresponde \" %(query_string)s 1\""
-
-msgid "Search promoted results"
-msgstr "Buka rezultadu ne'ebé promove tiha ona"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

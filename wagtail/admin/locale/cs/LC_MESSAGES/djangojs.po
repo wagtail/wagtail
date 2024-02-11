@@ -56,9 +56,6 @@ msgstr "Upravit"
 msgid "Edit '%(title)s'"
 msgstr "Editovat '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Upravte svůj účet"
-
 msgid "Focus comment"
 msgstr "Zvýraznit komentář"
 

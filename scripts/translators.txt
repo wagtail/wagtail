@@ -150,6 +150,11 @@ Loic Teixeira
 MRostgaard <Mrostgaard.gmail.com>
 Mads Kronborg <madskronborg99.gmail.com>
 
+Divehi - dv
+-----
+Fauzaan Gasim
+Matt Westcott <matthew.torchbox.com>
+
 Dutch - nl
 -----
 Arne Turpyn <info.arneturpyn.com>
@@ -182,6 +187,7 @@ Neeraj PY
 Estonian - et
 -----
 Erlend <debcf78e.opayq.com>
+Erlend Eelmets <debcf78e.opayq.com>
 Loic Teixeira
 Martin <martinpajuste.gmail.com>
 Matt Westcott <matthew.torchbox.com>
@@ -212,7 +218,6 @@ Benoît Vogel <contact.spicy-informatique.com>
 Bertrand Bordage <bordage.bertrand.gmail.com>
 Dominique PERETTI <dperetti.gmail.com>
 Fabien Le Frapper <contact.fabienlefrapper.me>
-Karl Hobley <karl.torchbox.com>
 Loic Teixeira
 Léo <leo.naeka.fr>
 Matt Westcott <matthew.torchbox.com>
@@ -398,6 +403,7 @@ Kyu Choi
 Kyungil Choi <hanpama.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
+mirusu400
 
 Latvian - lv
 -----
@@ -533,7 +539,7 @@ Alexey Sveshnikov
 Alexey Trofimov <funkindy.gmail.com>
 Anatoly <pandorinpan.gmail.com>
 Andrei Satsevich
-Andrey <talkerbox.live.com>
+Andrei “Talkerbox” Audzei <bigtalkerbox.gmail.com>
 Arseni M <arseni+transifex.mouchinski.com>
 Daniil <fleepd.gmail.com>
 Eugene <eugene.mechanism.gmail.com>
@@ -654,6 +660,7 @@ Thai - th
 Amawalee Combe <dang.getsalebox.com>
 Jon Combe <jon.naremit.com>
 Loic Teixeira
+Siramol Khunchai
 Walaksawan Vervoort <nula_wala.yahoo.com>
 
 Turkish - tr

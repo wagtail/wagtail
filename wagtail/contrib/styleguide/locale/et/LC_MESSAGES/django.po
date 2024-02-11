@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -23,17 +23,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "Wagtail stiili juhend"
 
-msgid "Styleguide"
-msgstr "Stiili juhend"
-
 msgid "Save"
 msgstr "Salvesta"
 
 msgid "Delete image"
 msgstr "Kustuta pilt"
 
-msgid "Search something"
-msgstr "Otsi midagi"
+msgid "Styleguide"
+msgstr "Stiili juhend"
 
 msgid "Success message"
 msgstr " Edusõnum"

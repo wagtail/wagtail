@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -25,17 +25,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-msgid "Styleguide"
-msgstr "Príručka štýlovania"
-
 msgid "Save"
 msgstr "Uložiť"
 
 msgid "Delete image"
 msgstr "Zmazať obrázok"
 
-msgid "Search something"
-msgstr "Hľadať niečo"
+msgid "Styleguide"
+msgstr "Príručka štýlovania"
 
 msgid "Success message"
 msgstr "Úspešná správa"

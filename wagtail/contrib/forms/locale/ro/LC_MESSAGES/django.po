@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dan Braghis, 2014-2020,2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -172,18 +172,6 @@ msgstr[2] "Sigur doriți să ștergeți aceste depuneri de formular?"
 msgid "Delete"
 msgstr "Șterge"
 
-msgid "Forms"
-msgstr "Formulare"
-
-msgid "Pages"
-msgstr "Pagini"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "Origin"
-msgstr "Origine"
-
 msgid "Delete selected submissions"
 msgstr "Șterge înregistrările selectate"
 
@@ -192,9 +180,6 @@ msgstr "Total înregistrări"
 
 msgid "Latest submission"
 msgstr "Ultima înregistrare"
-
-msgid "No form pages have been created."
-msgstr "Nu a fost creată nici o pagină de formular"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -209,6 +194,18 @@ msgstr "Filtrează"
 
 msgid "Apply filters"
 msgstr "Aplică filtre"
+
+msgid "Forms"
+msgstr "Formulare"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Pages"
+msgstr "Pagini"
 
 #, python-format
 msgid "One submission has been deleted."

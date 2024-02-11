@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -99,15 +99,6 @@ msgstr "Veľkosť súboru"
 msgid "File not found"
 msgstr "Súbor nebol nájdený"
 
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -164,6 +155,9 @@ msgstr "Tagy"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "File"
+msgstr "Súbor"
+
 msgid "Choose a document"
 msgstr "Zvoliť dokument"
 
@@ -173,8 +167,11 @@ msgstr "Zvoliť ďalší dokument"
 msgid "Edit this document"
 msgstr "Upraviť tento dokument"
 
-msgid "Search documents"
-msgstr "Hľadať dokumenty"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

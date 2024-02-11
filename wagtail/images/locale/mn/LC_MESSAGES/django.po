@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -223,22 +223,16 @@ msgstr "Файл олдсонгүй"
 msgid "Usage"
 msgstr "Хэрэглээ"
 
-msgid "Images"
-msgstr "Зургууд"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
 
-msgid "Generating URL"
-msgstr "URL үүсгэж байна"
+msgid "Preview"
+msgstr "Урдчилж харах"
 
 msgid "URL"
 msgstr "URL хаяг"
-
-msgid "Preview"
-msgstr "Урдчилж харах"
 
 msgid "Add multiple images"
 msgstr "Олон зураг нэмэх"
@@ -291,8 +285,8 @@ msgstr "Өөр зураг сонгох"
 msgid "Edit this image"
 msgstr "Энэ зургийг засах"
 
-msgid "Search images"
-msgstr "Зураг хайх"
+msgid "Images"
+msgstr "Зургууд"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

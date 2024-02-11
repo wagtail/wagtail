@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "ޑީފޯލްޓް"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s އަށް %(site)s "
+
+msgid "Site"
+msgstr "ސައިޓް"
+
+msgid "Saving…"
+msgstr "ސޭވްކުރަނީ"
+
+msgid "Save"
+msgstr "ސޭވްކުރޭ"
+
+msgid "Settings"
+msgstr "ސެޓިންގް"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "ސައިޓް ޑިފައިން ވެފަ ނެތީމަ ސެޓިން ހުޅުވޭކަށް ނެތް!"
+
+msgid "The setting could not be saved due to errors."
+msgstr "މައްސަލަތަކެއް އެބައުޅޭ، ސެޓިން ސޭވް ވާކަށް ނެތް!"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s އިސްދާރުކުރެވިއްޖެ."

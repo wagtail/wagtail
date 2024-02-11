@@ -1,9 +1,5 @@
 # Add search to your site
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 Using the Wagtail `start` command to start your project gives you a built-in search app. This built-in search app provides a simple search functionality for your site.
 
 However, you can customize your search template to suit your portfolio site. To customize your search template, go to your `search/templates/search.html` file and modify it as follows:

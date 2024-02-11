@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2016,2020\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -34,15 +34,8 @@ msgstr "standaard"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s voor %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "%(instance)s aan het bewerken"
-
 msgid "Site"
 msgstr "Site"
-
-msgid "Editing"
-msgstr "Aan het wijzigen"
 
 msgid "Saving…"
 msgstr "Bezig met opslaan…"
@@ -57,9 +50,9 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Deze instelling kon niet worden geopend omdat er geen site is aangegeven."
 
+msgid "The setting could not be saved due to errors."
+msgstr "De instelling kon vanwege fouten niet worden opgeslagen."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s gewijzigd."
-
-msgid "The setting could not be saved due to errors."
-msgstr "De instelling kon vanwege fouten niet worden opgeslagen."

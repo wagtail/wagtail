@@ -14,6 +14,7 @@ from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import (
     FeatureCompleteToy,
@@ -838,6 +839,18 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
+    def test_history_view_pagination(self):
+        for i in range(25):
+            log(instance=self.object, action="wagtail.edit", user=self.user)
+
+        history_url = reverse(
+            "feature_complete_toy:history",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(history_url)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, f'<a href="{history_url}?p=2">')
+
     def test_usage_view(self):
         usage_url = reverse(
             "feature_complete_toy:usage",
@@ -862,6 +875,20 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             },
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_usage_view_pagination(self):
+        for i in range(25):
+            VariousOnDeleteModel.objects.create(
+                text=f"Toybox {i}", cascading_toy=self.object
+            )
+
+        usage_url = reverse(
+            "feature_complete_toy:usage",
+            args=(quote(self.object.pk),),
+        )
+        response = self.client.get(usage_url)
+        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, f'<a href="{usage_url}?p=2">')
 
     def test_inspect_view(self):
         inspect_url = reverse(

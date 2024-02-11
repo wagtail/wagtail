@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -151,18 +151,6 @@ msgstr "Dileu data'r ffurflen"
 msgid "Delete"
 msgstr "Dileu"
 
-msgid "Forms"
-msgstr "Ffurflenni"
-
-msgid "Pages"
-msgstr "Tudalennau"
-
-msgid "Title"
-msgstr "Teitl"
-
-msgid "Origin"
-msgstr "Gwraidd"
-
 msgid "Delete selected submissions"
 msgstr "Dileu cyflwyniadau dethol"
 
@@ -171,9 +159,6 @@ msgstr "Cyfanswm y cyflwyniadau"
 
 msgid "Latest submission"
 msgstr "Y cyflwyniadau diweddaraf"
-
-msgid "No form pages have been created."
-msgstr "Nid oes unrhyw dudalennau ffurflen wedi'u creu."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -185,6 +170,18 @@ msgstr "Nid oes unrhyw gyflwyniad o'r ffurflen '%(title)s'."
 
 msgid "Filter"
 msgstr "Hidlydd"
+
+msgid "Forms"
+msgstr "Ffurflenni"
+
+msgid "Title"
+msgstr "Teitl"
+
+msgid "Origin"
+msgstr "Gwraidd"
+
+msgid "Pages"
+msgstr "Tudalennau"
 
 #, python-format
 msgid "One submission has been deleted."

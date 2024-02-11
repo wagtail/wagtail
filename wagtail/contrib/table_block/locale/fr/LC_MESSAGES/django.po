@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Léo <leo@naeka.fr>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,24 +28,11 @@ msgstr "Bloc « tableau » Wagtail"
 msgid "Row header"
 msgstr "Ligne d'en-tête"
 
-msgid "Display the first row as a header."
-msgstr "Afficher la première ligne en tant qu'en-tête."
-
 msgid "Column header"
 msgstr "Colonne d'en-tête"
 
-msgid "Display the first column as a header."
-msgstr "Afficher la première colonne en tant qu'en-tête."
-
 msgid "Table caption"
 msgstr "Légende"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Un en-tête décrivant le sujet du tableau et qui sera utile aux utilisateurs "
-"de  lecteur d'écran"
 
 msgid "Table"
 msgstr "Tableau"

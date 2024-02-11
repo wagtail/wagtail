@@ -1,7 +1,7 @@
 #
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
-# Erlend <debcf78e@opayq.com>, 2022
+# Erlend Eelmets <debcf78e@opayq.com>, 2022
 # Loic Teixeira, 2022
 #
 msgid ""
@@ -38,9 +38,6 @@ msgstr "Muuda"
 
 msgid "Edit '%(title)s'"
 msgstr "Muuda üksust „%(title)s”"
-
-msgid "Edit your account"
-msgstr "Muutke oma kontot"
 
 msgid "Horizontal line"
 msgstr "Horisontaalne joon"

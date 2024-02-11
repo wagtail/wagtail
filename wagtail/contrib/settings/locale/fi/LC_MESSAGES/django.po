@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,15 +30,8 @@ msgstr "oletusarvo"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s sivustolle %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Muokataan %(instance)s"
-
 msgid "Site"
 msgstr "Sivusto"
-
-msgid "Editing"
-msgstr "Muokataan"
 
 msgid "Saving…"
 msgstr "Tallennetaan…"
@@ -52,9 +45,9 @@ msgstr "Asetukset"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Tätä asetusta ei voitu avata, koska sivustoa ei ole määritelty."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Asetusta ei voitu tallentaa virheiden vuoksi."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s päivitetty."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Asetusta ei voitu tallentaa virheiden vuoksi."

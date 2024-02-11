@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -196,6 +196,10 @@ msgstr "Pridėti vartotoją"
 msgid "Delete user"
 msgstr "Ištrinti vartotoją"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
+
 msgid "Username"
 msgstr "Vartotojo vardas"
 
@@ -213,10 +217,6 @@ msgstr "Aktyvus"
 
 msgid "Inactive"
 msgstr "Neaktyvus"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
 
 msgid "Delete selected users"
 msgstr "Ištrinti pasirinktus vartotojus"

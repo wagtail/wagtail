@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -306,34 +306,6 @@ msgstr "Șterge utilizator"
 msgid "Select all users in listing"
 msgstr "Selectează toți utilizatorii din listă"
 
-msgid "Username"
-msgstr "Nume utlizator"
-
-msgid "Access level"
-msgstr "Nivel de acces"
-
-msgid "Status"
-msgstr "Stare"
-
-msgid "Last Login"
-msgstr "Ultima logare"
-
-msgid "Admin"
-msgstr "Administrator"
-
-msgid "Active"
-msgstr "Activ"
-
-msgid "Inactive"
-msgstr "Inactiv"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Există %(counter)s potrivire"
-msgstr[1] "Sunt %(counter)s potriviri"
-msgstr[2] "Sunt %(counter)s potriviri"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -355,6 +327,27 @@ msgid ""
 msgstr ""
 "Nu există nici un utilizator. De ce să nu <a "
 "href=\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+msgid "Username"
+msgstr "Nume utlizator"
+
+msgid "Access level"
+msgstr "Nivel de acces"
+
+msgid "Status"
+msgstr "Stare"
+
+msgid "Last Login"
+msgstr "Ultima logare"
+
+msgid "Admin"
+msgstr "Administrator"
+
+msgid "Active"
+msgstr "Activ"
+
+msgid "Inactive"
+msgstr "Inactiv"
 
 #, python-format
 msgid "user %(id)s (deleted)"

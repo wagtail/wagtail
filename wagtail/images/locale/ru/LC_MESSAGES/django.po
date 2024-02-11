@@ -5,8 +5,9 @@
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrei Satsevich, 2023
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei Satsevich, 2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # gsstver <gsstver@gmail.com>, 2016
@@ -30,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -341,6 +342,26 @@ msgstr "Выберите формат"
 msgid "Insert image"
 msgstr "Вставить изображение"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Изборажение <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Изображения <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Изображений <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span>Изображений <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Изменить файл изображения:"
 
@@ -406,9 +427,6 @@ msgstr "Файл не найден"
 msgid "Usage"
 msgstr "Использование"
 
-msgid "Images"
-msgstr "Изображения"
-
 msgid "Sort by"
 msgstr "Сортировать по"
 
@@ -423,20 +441,6 @@ msgstr "Очистить"
 
 msgid "Select all images in listing"
 msgstr "Выбрать все изображения из списка"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Есть %(counter)s совпадение"
-msgstr[1] "Есть %(counter)s совпадений"
-msgstr[2] "Есть %(counter)s совпадений"
-msgstr[3] "Есть %(counter)s совпадений"
-
-msgid "Select image"
-msgstr "Выбрать изображение"
-
-msgid "pixels"
-msgstr "пикселей"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -459,21 +463,23 @@ msgstr ""
 "Вы не загрузили ни одного изображения. Почему бы <a "
 "href=\"%(wagtailimages_add_image_url)s\">не загрузить сейчас</a>?"
 
-msgid "Generating URL"
-msgstr "Создание URL"
+msgid "Preview"
+msgstr "Превью"
 
 msgid "URL"
 msgstr "URL"
 
-msgid "Preview"
-msgstr "Превью"
+msgid "Image URL"
+msgstr "URL изображения"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Обратите внимание, что большие изображения будет выглядеть меньше при "
-"предварительном просмотре здесь, чтобы они поместились на экране."
+msgid "Copy URL"
+msgstr "Копировать URL"
+
+msgid "Copied to clipboard"
+msgstr "Скопировано в буфер обмена"
+
+msgid "Copying to clipboard failed"
+msgstr "Копирование в буфер обмена не удалось"
 
 msgid "Add multiple images"
 msgstr "Добавить несколько изображений"
@@ -606,8 +612,8 @@ msgstr "Размер файла: (от меньшего к большему)"
 msgid "File size: (high to low)"
 msgstr "Размер файла: (от большого к меньшему)"
 
-msgid "Search images"
-msgstr "Поиск изображений"
+msgid "Images"
+msgstr "Изображения"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

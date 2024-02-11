@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -222,9 +222,6 @@ msgid ""
 msgstr ""
 "Aucun résultat de promotion n'a été créé. Pourquoi ne pas <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">en ajouter un</a> ?"
-
-msgid "Search promoted results"
-msgstr "Rechercher des résultats améliorés"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

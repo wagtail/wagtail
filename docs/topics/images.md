@@ -431,7 +431,7 @@ For example, to make the tag always convert the image to a JPEG, use `format-jpe
 {% image page.photo width-400 format-jpeg %}
 ```
 
-You may also use `format-png` or `format-gif`.
+You may also use `format-png`, `format-gif` or `format-ico`.
 
 ### Lossless AVIF and WebP
 
@@ -440,6 +440,14 @@ You can encode the image into lossless AVIF or WebP format by using `format-avif
 ```html+django
 {% image page.photo width-400 format-avif-lossless %}
 {% image page.photo width-400 format-webp-lossless %}
+```
+
+### Favicon generation
+
+You can save images as a `.ico` file using `format-ico`, which is especially useful when managing a site's favicon through the Admin.
+
+```html+django
+<link rel="icon" href="{% image favicon_image format-ico %}" />
 ```
 
 (image_background_colour)=

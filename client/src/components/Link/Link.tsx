@@ -28,21 +28,20 @@ const handleClick = (
   }
 };
 
-interface ButtonProps {
+interface LinkProps {
   className?: string;
   accessibleLabel?: string;
   href?: string;
   target?: string;
   preventDefault?: boolean;
   onClick?(e: React.MouseEvent): void;
-  dialogTrigger?: boolean;
   navigate?(url: string): Promise<void>;
 }
 
 /**
  * A reusable button. Uses a <a> tag underneath.
  */
-const Button: React.FunctionComponent<ButtonProps> = ({
+const Link: React.FunctionComponent<LinkProps> = ({
   className = '',
   children,
   accessibleLabel,
@@ -50,7 +49,6 @@ const Button: React.FunctionComponent<ButtonProps> = ({
   target,
   preventDefault = true,
   onClick,
-  dialogTrigger,
   navigate,
 }) => {
   const hasText = React.Children.count(children) > 0;
@@ -65,11 +63,10 @@ const Button: React.FunctionComponent<ButtonProps> = ({
       rel={target === '_blank' ? 'noreferrer' : undefined}
       href={href}
       target={target}
-      aria-haspopup={dialogTrigger ? 'dialog' : undefined}
     >
       {hasText ? children : accessibleElt}
     </a>
   );
 };
 
-export default Button;
+export default Link;

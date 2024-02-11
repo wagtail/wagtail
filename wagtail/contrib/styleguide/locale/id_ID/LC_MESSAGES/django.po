@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -22,17 +22,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "Wagtail panduan style"
 
-msgid "Styleguide"
-msgstr "Panduan style"
-
 msgid "Save"
 msgstr "Simpan"
 
 msgid "Delete image"
 msgstr "Hapus gambar"
 
-msgid "Search something"
-msgstr "Cari sesuatu"
+msgid "Styleguide"
+msgstr "Panduan style"
 
 msgid "Success message"
 msgstr "Pesan sukses"

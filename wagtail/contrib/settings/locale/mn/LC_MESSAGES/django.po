@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,15 +28,8 @@ msgstr "өгөгдмөл"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site)s -н %(site_setting)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "%(instance)s -г засч байна."
-
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Editing"
-msgstr "Засч байна"
 
 msgid "Saving…"
 msgstr "Хадгалж байна"
@@ -50,9 +43,9 @@ msgstr "Тохиргоо"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Ямар нэг сайт тохируулаагүй учир энэ тохиргоо нээгдэхгүй."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Дараах алдаануудаас болж тохиргоо хадгалагдсангүй."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s шинэчлэгдлээ."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Дараах алдаануудаас болж тохиргоо хадгалагдсангүй."

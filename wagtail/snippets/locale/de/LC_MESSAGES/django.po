@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -152,7 +152,7 @@ msgid ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
+"Sie haben keine „%(snippet_type_name)s“-Schnipsel erstellt. Warum nicht <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ein neues erstellen</a>?"
 
@@ -174,48 +174,11 @@ msgstr "Aktuelle Revision ersetzen"
 msgid "Save draft"
 msgstr "Entwurf speichern"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s erstellen"
-
-msgid "New"
-msgstr "Erstellen"
-
 msgid "Actions"
 msgstr "Aktionen"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Bearbeite %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Schnipsel %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s hinzufügen"
-
 msgid "Select all snippets in listing"
 msgstr "Alle Schnipsel in der Aufzählung auswählen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr "Es gibt leider keine %(snippet_type_name_plural)s zu Ihrer Anfrage"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a "
-"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Sie haben noch keine „%(snippet_type_name_plural)s“-Schnipsel erstellt. <a "
-"href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins.</a>"
 
 msgid "Live version"
 msgstr "Live-Version"
@@ -256,12 +219,6 @@ msgstr "Instanzen"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Weitere Optionen für '%(title)s'"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 
 msgid "Action"
 msgstr "Aktion"

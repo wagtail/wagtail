@@ -82,9 +82,6 @@ msgstr "Redigera"
 msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Redigera ditt konto"
-
 msgid "Enter your comments..."
 msgstr "Skriva dina kommentarer..."
 

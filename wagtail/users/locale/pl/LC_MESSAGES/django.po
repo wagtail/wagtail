@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -324,35 +324,6 @@ msgstr "Usuń użytkownika"
 msgid "Select all users in listing"
 msgstr "Wybierz wszystkich użytkowników z listy"
 
-msgid "Username"
-msgstr "Nazwa użytkownika"
-
-msgid "Access level"
-msgstr "Poziom dostępu"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Ostatnie logowanie"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktywny"
-
-msgid "Inactive"
-msgstr "Nieaktywny"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Jest %(counter)s dopasowanie"
-msgstr[1] "Jest %(counter)s dopasowań"
-msgstr[2] "Jest %(counter)s dopasowań"
-msgstr[3] "Jest %(counter)s dopasowań"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -373,6 +344,27 @@ msgid ""
 msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_add_url)s\">dodasz "
 "kilku</a>?"
+
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+msgid "Access level"
+msgstr "Poziom dostępu"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Last Login"
+msgstr "Ostatnie logowanie"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktywny"
+
+msgid "Inactive"
+msgstr "Nieaktywny"
 
 #, python-format
 msgid "user %(id)s (deleted)"

@@ -355,11 +355,23 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
 
+    @override_settings(
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ("ar", "Arabic"),
+            ("en", "English"),
+            ("fr", "French"),
+        ]
+    )
     def test_locale_selector(self):
         response = self.client.get(
             reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
         )
         soup = self.get_soup(response.content)
+
+        # Should only show languages that also have the corresponding Locale
+        # (the Arabic locale is not created in the setup, so it should not be shown)
+        arabic_input = soup.select_one('input[name="locale"][value="ar"]')
+        self.assertIsNone(arabic_input)
 
         french_input = soup.select_one('input[name="locale"][value="fr"]')
         self.assertIsNotNone(french_input)
@@ -377,6 +389,21 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
             Why not <a href="{add_url}">add one</a>?</p>""",
             html=True,
         )
+
+    def test_no_locale_filter_when_only_one_locale(self):
+        self.fr_locale.delete()
+        response = self.client.get(
+            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
+        )
+        soup = self.get_soup(response.content)
+
+        locale_input = soup.select_one('input[name="locale"]')
+        self.assertIsNone(locale_input)
+
+        # The viewset has no other filters configured,
+        # so the filters drilldown should not be present
+        filters_drilldown = soup.select_one("#filters-drilldown")
+        self.assertIsNone(filters_drilldown)
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):

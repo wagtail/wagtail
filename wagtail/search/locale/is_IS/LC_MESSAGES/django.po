@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2016,2021\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail search"
 msgstr "Leit í Wagtail"
-
-msgid "Query Daily Hits"
-msgstr "Fjöldi daglegra leita"
 
 msgid "index entry"
 msgstr "leitarorð"

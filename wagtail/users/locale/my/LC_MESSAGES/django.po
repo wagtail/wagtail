@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -113,12 +113,12 @@ msgstr "အသုံးပြုသူထည့်ပါ"
 msgid "Delete user"
 msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
 
-msgid "Status"
-msgstr "အခြေအနေ"
-
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "စိတ်မကောင်းပါ၊ ဘယ်အသုံးပြုသူမှ \"<em>%(query_string)s</em>\"နှင့် မကိုက်ညီပါ"
+
+msgid "Status"
+msgstr "အခြေအနေ"
 
 msgid "Groups"
 msgstr "အဖွဲ့များ"

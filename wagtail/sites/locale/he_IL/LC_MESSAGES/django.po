@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -48,12 +48,12 @@ msgstr "הוספת אתר"
 msgid "Site '%(object)s' created."
 msgstr "עמוד '%(object)s' נוצר"
 
+msgid "The site could not be saved due to errors."
+msgstr "לא ניתן לשמור את האתר בעקבות שגיאות "
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "אתר '%(object)s' עודכן"
-
-msgid "The site could not be saved due to errors."
-msgstr "לא ניתן לשמור את האתר בעקבות שגיאות "
 
 msgid "Delete site"
 msgstr "מחק אתר"

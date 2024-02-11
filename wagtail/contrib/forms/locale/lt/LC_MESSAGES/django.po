@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -141,18 +141,6 @@ msgstr "Ištrinti formos duomenis"
 msgid "Delete"
 msgstr "Ištrinti"
 
-msgid "Forms"
-msgstr "Formos"
-
-msgid "Pages"
-msgstr "Puslapiai"
-
-msgid "Title"
-msgstr "Pavadinimas"
-
-msgid "Origin"
-msgstr "Kilmė"
-
 msgid "Delete selected submissions"
 msgstr "Ištrinti pasirinktus pateikimus"
 
@@ -161,9 +149,6 @@ msgstr "Viso pateikimų"
 
 msgid "Latest submission"
 msgstr "Paskutinis pateikimas"
-
-msgid "No form pages have been created."
-msgstr "Jokie formų puslapiai nebuvo sukurti."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -178,6 +163,18 @@ msgstr "Filtras"
 
 msgid "Apply filters"
 msgstr "Taikyti filtrus"
+
+msgid "Forms"
+msgstr "Formos"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "Origin"
+msgstr "Kilmė"
+
+msgid "Pages"
+msgstr "Puslapiai"
 
 #, python-format
 msgid "One submission has been deleted."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -149,21 +149,6 @@ msgstr ""
 msgid "Edit this page"
 msgstr "Редактирайте тази страница"
 
-msgid "Pages awaiting moderation"
-msgstr "Страници очакващи модерация"
-
-msgid "Type"
-msgstr "Вид"
-
-msgid "Approve"
-msgstr "Одобрете"
-
-msgid "Reject"
-msgstr "Отхвърлете"
-
-msgid "Preview"
-msgstr "Преглед"
-
 msgid "Your most recent edits"
 msgstr "Вашите последни редакции"
 
@@ -175,6 +160,9 @@ msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Обобщение на Страницата"
+
+msgid "Preview"
+msgstr "Преглед"
 
 msgid "Sign in"
 msgstr "Влез"
@@ -206,10 +194,6 @@ msgstr "Елемента \"%(title)s\" на страницата бе отхвъ
 
 msgid "You can preview the page here:"
 msgstr "Можете да прегледате страницата тук:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
 msgid "Save draft"
 msgstr "Запази като чернова"
@@ -261,14 +245,6 @@ msgid "Are you sure you want to unpublish this page?"
 msgstr "Сигурен ли сте, че искате да отмените публикуването на тази страница?"
 
 #, python-format
-msgid "New %(page_type)s"
-msgstr "Нова %(page_type)s"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Преглед на %(title)s"
-
-#, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
@@ -298,6 +274,9 @@ msgstr "Нагоре"
 
 msgid "Move down"
 msgstr "Надолу"
+
+msgid "Type"
+msgstr "Вид"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -338,23 +317,8 @@ msgstr "Страница '%(page_title)s' е създадена."
 msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' е изтрита."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Тази страница очаква да бъде модерирана"
-
 msgid "The page could not be saved due to validation errors"
 msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Страница '%(page_title)s' не очаква да бъде модерирана."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Страница '%(page_title)s' е публикувана."
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Страница '%(page_title)s' отхвърлена от публикуване."
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -366,6 +330,10 @@ msgstr "Страница '%(page_title)s' отменена от публикув
 
 msgid "Pages using"
 msgstr "Страници използващи"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Страница '%(page_title)s' не очаква да бъде модерирана."
 
 msgid "Choose an item"
 msgstr "Изберете обект"

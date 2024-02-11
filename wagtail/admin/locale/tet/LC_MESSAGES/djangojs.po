@@ -37,9 +37,6 @@ msgstr "Hadia"
 msgid "Edit '%(title)s'"
 msgstr " Edit '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Hadia ita nia konta"
-
 msgid "Horizontal line"
 msgstr "Liña orizontal"
 

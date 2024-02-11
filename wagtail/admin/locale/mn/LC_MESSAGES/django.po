@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -513,31 +513,6 @@ msgstr "Ноорог"
 msgid "Live"
 msgstr "Нийтлэгдсэн"
 
-msgid "Pages awaiting moderation"
-msgstr "Хянагдахаар хүлээгдэж буй хуудсууд"
-
-msgid "Type"
-msgstr "Төрөл"
-
-msgid "Edited"
-msgstr "Засагдсан"
-
-msgid "Preview this page"
-msgstr "Хуудсыг урдчилж харах"
-
-msgid "Approve"
-msgstr "Зөвшөөрөх"
-
-msgid "Reject"
-msgstr "Татгалзах"
-
-msgid "Preview"
-msgstr "Урдчилж харах"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "%(name)s"
-
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
 
@@ -567,6 +542,9 @@ msgstr "Үүрэг даалгавар"
 
 msgid "Task submitted by"
 msgstr "Үүрэг даалгавар бүртгэсэн"
+
+msgid "Preview"
+msgstr "Урдчилж харах"
 
 msgid "Compare with live version"
 msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
@@ -615,16 +593,8 @@ msgstr "Хуудсыг энд засах боломжтой:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "\"%(title)s\" хуудсыг нийтлэхээс татгалзлаа."
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr " \"%(page)s\" хуудсыг хянуулахаар %(editor)s илгээсэн байна."
-
 msgid "You can preview the page here:"
 msgstr "Хуудсыг энд урдчилж харах боломжтой:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr " \"%(page)s\" хуудсыг хянуулахаар илгээсэн байна."
 
 msgid "New comments"
 msgstr "Шинэ сэтгэгдэл"
@@ -770,16 +740,8 @@ msgstr "Хуулах"
 msgid "Copy this page"
 msgstr "Энэ хуудсыг хуулах"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Шинэ %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Засч байна %(page_type)s: %(title)s"
 
 msgid "Action"
 msgstr "Үйлдэл"
@@ -789,10 +751,6 @@ msgstr "Нийтлэгдсэн хувилбар"
 
 msgid "Current draft"
 msgstr "Одоогийн ноорог"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "%(title)s-дыг үзэж байна"
 
 msgid "Configure a site now."
 msgstr "Сайтаа тохируулна уу."
@@ -857,8 +815,14 @@ msgstr "Дээш зөөх"
 msgid "Move down"
 msgstr "Доош зөөх"
 
+msgid "Type"
+msgstr "Төрөл"
+
 msgid "Updated"
 msgstr "Шинэчлэгдсэн"
+
+msgid "Pages"
+msgstr "Хуудсууд"
 
 msgid "Locked"
 msgstr "Түгжигдсэн"
@@ -917,6 +881,9 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
 msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
+
+msgid "Edited"
+msgstr "Засагдсан"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
@@ -994,6 +961,10 @@ msgstr "Шалгалт"
 msgid "Editing"
 msgstr "Засч байна"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s%(object)s устгагдлаа."
+
 msgid "Inspecting"
 msgstr "Шалгаж байна"
 
@@ -1002,9 +973,6 @@ msgstr "Хамгийн эхний"
 
 msgid "Latest"
 msgstr "Хамгийн сүүлийн"
-
-msgid "Usage of"
-msgstr "Хэрэглээ"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1047,9 +1015,6 @@ msgstr "Баталгаажуулалтын алдаанаас болж хууд�
 msgid "Page '%(page_title)s' deleted."
 msgstr "'%(page_title)s' хуудас устлаа."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Энэ хуудас хянуулахаар хүлээгдэж байна"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "'%(page_title)s' хуудас шинэчлэгдлээ."
@@ -1068,27 +1033,12 @@ msgstr "Түгжигдсэн хуудсыг засах хадгалах боло
 msgid "The page could not be saved due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
 
+msgid "Site"
+msgstr "Сайт"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "'%(page_title)s' хуудасны түгжээ тайлагдлаа."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "'%(page_title)s' хуудас нийтлэгдлээ."
-
-msgid "Failed to send approval notifications"
-msgstr "Зөвшөөрсөн мэдэгдэл илгээхэд алдаа гарлаа"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "'%(page_title)s' хуудас нийтлэхээс татгалзагдлаа."
-
-msgid "Failed to send rejection notifications"
-msgstr "Татгалзсан мэдэгдэл илгээхэд алдаа гарлаа"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1101,8 +1051,9 @@ msgstr "'%(page_title)s' хуудсыг хаалаа."
 msgid "Pages using"
 msgstr "Ашиглаж буй хуудсууд"
 
-msgid "Pages"
-msgstr "Хуудсууд"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "'%(page_title)s' хуудас хянуулахаар хүлээгдэж байна."
 
 #, python-format
 msgid "Move page '%(title)s'"

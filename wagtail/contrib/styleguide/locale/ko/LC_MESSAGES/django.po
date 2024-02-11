@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,17 +22,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "웨그테일 스타일 가이드"
 
-msgid "Styleguide"
-msgstr "스타일가이드"
-
 msgid "Save"
 msgstr "저장"
 
 msgid "Delete image"
 msgstr "이미지 삭제"
 
-msgid "Search something"
-msgstr "검색"
+msgid "Styleguide"
+msgstr "스타일가이드"
 
 msgid "Success message"
 msgstr "성공 메시지"

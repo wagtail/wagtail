@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -51,12 +51,12 @@ msgstr "ဆိုက်ထည့်ပါ"
 msgid "Site '%(object)s' created."
 msgstr "'%(object)s'ဆိုက်ကို ဖန်တီးပြီးပါပြီ။"
 
+msgid "The site could not be saved due to errors."
+msgstr "အမှားအယွင်းများကြောင့် ဆိုက်ကို မသိမ်းဆည်းနိုင်ပါ။"
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "'%(object)s'ဆိုက်ကို မြှင့်တင်ပြီးပါပြီ။"
-
-msgid "The site could not be saved due to errors."
-msgstr "အမှားအယွင်းများကြောင့် ဆိုက်ကို မသိမ်းဆည်းနိုင်ပါ။"
 
 msgid "Delete site"
 msgstr "ဆိုက်ကိုဖျက်သိမ်းပါ"

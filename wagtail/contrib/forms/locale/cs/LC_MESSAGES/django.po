@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,18 +155,6 @@ msgstr "Smazat formulářová data"
 msgid "Delete"
 msgstr "Smazat"
 
-msgid "Forms"
-msgstr "Formuláře"
-
-msgid "Pages"
-msgstr "Stránky"
-
-msgid "Title"
-msgstr "Název"
-
-msgid "Origin"
-msgstr "Původní"
-
 msgid "Delete selected submissions"
 msgstr "Smazat vybraná odeslání"
 
@@ -175,9 +163,6 @@ msgstr "Celkový počet odeslání"
 
 msgid "Latest submission"
 msgstr "Poslední odeslání"
-
-msgid "No form pages have been created."
-msgstr "Žádné stránky s formuláři nebyly vytvořeny."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -192,6 +177,18 @@ msgstr "Filtr"
 
 msgid "Apply filters"
 msgstr "Použít filtry"
+
+msgid "Forms"
+msgstr "Formuláře"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Origin"
+msgstr "Původní"
+
+msgid "Pages"
+msgstr "Stránky"
 
 #, python-format
 msgid "One submission has been deleted."

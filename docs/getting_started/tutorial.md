@@ -12,7 +12,7 @@ If you want to add Wagtail to an existing Django project instead, see [](integra
 
 ### Install dependencies
 
-Wagtail supports Python 3.8, 3.9, 3.10, and 3.11.
+View the [compatible versions of Python](compatible_django_python_versions) that Wagtail supports.
 
 To check if you have an appropriate version of Python 3, run the following command:
 
@@ -346,7 +346,7 @@ Now that this is complete, here is how you can create a page from the Wagtail [a
 4.  Choose **Blog index page** from the list of the page types.
 5.  Use "Our Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
 
-You can now access the URL, <http://127.0.0.1:8000/blog> on your site. This gives you an error page showing "TemplateDoesNotExist" because you are yet to create a template for the new page. Also, note how the slug from the Promote tab defines the page URL.
+You can now access the URL, <http://127.0.0.1:8000/blog> on your site. Note how the slug from the Promote tab defines the page URL.
 
 Now create a model and template for your blog posts. Edit `blog/models.py` to include:
 
@@ -667,7 +667,7 @@ class BlogPage(Page):
     ]
 ```
 
-This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tag` and include the main image as a thumbnail alongside each post:
+This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tags` library and include the main image as a thumbnail alongside each post:
 
 ```html+django
 <!-- Load wagtailimages_tags: -->

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -339,9 +339,6 @@ msgstr "oldalak"
 msgid "object id"
 msgstr "azonosító"
 
-msgid "submitted for moderation"
-msgstr "moderálásra beküld"
-
 msgid "created at"
 msgstr "létrehozás ideje"
 
@@ -365,9 +362,6 @@ msgstr "csoport"
 
 msgid "permission"
 msgstr "hozzáférés"
-
-msgid "permission type"
-msgstr "hozzáférés típusa"
 
 msgid "group page permission"
 msgstr "csoport hozzáférés"

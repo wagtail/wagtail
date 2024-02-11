@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -48,12 +48,12 @@ msgstr "Aumenta site"
 msgid "Site '%(object)s' created."
 msgstr "Site '%(object)s' kria ona"
 
+msgid "The site could not be saved due to errors."
+msgstr "Site nee la bele rai tamba iha erru sira."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Situs '%(object)s' atualiza ona"
-
-msgid "The site could not be saved due to errors."
-msgstr "Site nee la bele rai tamba iha erru sira."
 
 msgid "Delete site"
 msgstr "Hamoos situs"

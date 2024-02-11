@@ -83,9 +83,6 @@ msgstr "Szerkesztés"
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' szerkesztése"
 
-msgid "Edit your account"
-msgstr "Fiók szerkesztése"
-
 msgid "Enter your comments..."
 msgstr "Írja be a megjegyzést..."
 

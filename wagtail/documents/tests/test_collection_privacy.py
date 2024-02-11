@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group
 from django.core.files.base import ContentFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.documents.models import Document
@@ -19,6 +19,7 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     def setUp(self):
         self.fake_file = ContentFile(b"A boring example document")
         self.fake_file.name = "test.txt"
+        self.collection = Collection.objects.get(id=2)
         self.password_collection = Collection.objects.get(name="Password protected")
         self.login_collection = Collection.objects.get(name="Login protected")
         self.group_collection = Collection.objects.get(name="Group protected")
@@ -133,3 +134,32 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         self.login(username="eventmoderator", password="password")
         response, url = self.get_document(self.login_collection)
         self.assertEqual(response.status_code, 200)
+
+    def test_set_shared_password_with_logged_in_user(self):
+        self.login()
+        response = self.client.get(
+            reverse("wagtailadmin_collections:set_privacy", args=(self.collection.id,)),
+        )
+
+        input_el = self.get_soup(response.content).select_one("[data-field-input]")
+        self.assertEqual(response.status_code, 200)
+
+        # check that input option for password is visible
+        self.assertIn("password", response.context["form"].fields)
+
+        # check that the option for password is visible
+        self.assertIsNotNone(input_el)
+
+    @override_settings(WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION=False)
+    def test_unset_shared_password_with_logged_in_user(self):
+        self.login()
+        response = self.client.get(
+            reverse("wagtailadmin_collections:set_privacy", args=(self.collection.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("password", response.context["form"].fields)
+        self.assertFalse(
+            response.context["form"]
+            .fields["restriction_type"]
+            .valid_value(CollectionViewRestriction.PASSWORD)
+        )

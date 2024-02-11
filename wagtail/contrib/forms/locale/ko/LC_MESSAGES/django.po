@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -169,18 +169,6 @@ msgstr[0] "정말 제출된 해당 폼을 삭제하길 원합니까?"
 msgid "Delete"
 msgstr "삭제"
 
-msgid "Forms"
-msgstr "양식"
-
-msgid "Pages"
-msgstr "페이지"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "Origin"
-msgstr "원본"
-
 msgid "Delete selected submissions"
 msgstr "선택된 제출 삭제"
 
@@ -189,9 +177,6 @@ msgstr "전체 제출"
 
 msgid "Latest submission"
 msgstr "최근 제출"
-
-msgid "No form pages have been created."
-msgstr "양식 페이지가 생성되지 않았습니다."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -206,6 +191,18 @@ msgstr "필터"
 
 msgid "Apply filters"
 msgstr "필터를 적용한"
+
+msgid "Forms"
+msgstr "양식"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Origin"
+msgstr "원본"
+
+msgid "Pages"
+msgstr "페이지"
 
 #, python-format
 msgid "One submission has been deleted."

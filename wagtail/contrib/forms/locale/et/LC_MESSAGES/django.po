@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -149,18 +149,6 @@ msgstr "Kustutage vormi andmed"
 msgid "Delete"
 msgstr "Kustuta"
 
-msgid "Forms"
-msgstr "Vormid"
-
-msgid "Pages"
-msgstr "Lehed"
-
-msgid "Title"
-msgstr "Pealkiri"
-
-msgid "Origin"
-msgstr " Päritolu"
-
 msgid "Delete selected submissions"
 msgstr "Kustutage valitud esildised"
 
@@ -169,9 +157,6 @@ msgstr "Kõik kanded"
 
 msgid "Latest submission"
 msgstr "Viimased kanded"
-
-msgid "No form pages have been created."
-msgstr "Vormilehti pole loodud."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -186,6 +171,18 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Rakenda filtrid"
+
+msgid "Forms"
+msgstr "Vormid"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Origin"
+msgstr " Päritolu"
+
+msgid "Pages"
+msgstr "Lehed"
 
 #, python-format
 msgid "One submission has been deleted."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -180,15 +180,6 @@ msgstr "Mở khóa"
 msgid "Draft"
 msgstr "Bản nháp"
 
-msgid "Approve"
-msgstr "Phê chuẩn"
-
-msgid "Reject"
-msgstr "Từ chối"
-
-msgid "Preview"
-msgstr "Xem trước"
-
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -197,6 +188,9 @@ msgstr "Ngày"
 
 msgid "Close"
 msgstr "Đóng"
+
+msgid "Preview"
+msgstr "Xem trước"
 
 msgid "Publishing…"
 msgstr "Đang xuất bản..."
@@ -217,6 +211,9 @@ msgstr "Bình luận"
 #, python-format
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
+
+msgid "Pages"
+msgstr "Trang"
 
 msgid "Locked"
 msgstr "Đã bị khóa"
@@ -282,6 +279,9 @@ msgstr "Trang tổng quan"
 msgid "View live"
 msgstr "Xem bản live"
 
+msgid "Site"
+msgstr "Trang"
+
 msgid "Date/Time"
 msgstr "Ngày/Giờ"
 
@@ -300,6 +300,3 @@ msgstr "Luồng công việc '%(object)s' đã được tạo."
 
 msgid "Editing workflow"
 msgstr "Biên tập luồng công việc"
-
-msgid "Pages"
-msgstr "Trang"

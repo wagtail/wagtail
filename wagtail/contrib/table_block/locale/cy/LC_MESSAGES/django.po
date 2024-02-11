@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,24 +28,11 @@ msgstr "Bloc bwrdd Wagtail"
 msgid "Row header"
 msgstr "Pennawd rhes"
 
-msgid "Display the first row as a header."
-msgstr "Arddangos y rhes gyntaf fel pennawd."
-
 msgid "Column header"
 msgstr "Pennawd colofn"
 
-msgid "Display the first column as a header."
-msgstr "Arddangos y golofn gyntaf fel pennawd."
-
 msgid "Table caption"
 msgstr "Pennawd bwrdd"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Pennawd sy'n nodi pwnc cyffredinol y tabl, ac sy'n ddefnyddiol i ddefnyddwyr "
-"darllenwyr sgrin"
 
 msgid "Table"
 msgstr "Bwrdd"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -337,9 +337,6 @@ msgstr "pagini"
 msgid "object id"
 msgstr "id obiect"
 
-msgid "submitted for moderation"
-msgstr "trimisă pentru moderare."
-
 msgid "created at"
 msgstr "creat la"
 
@@ -363,9 +360,6 @@ msgstr "grup"
 
 msgid "permission"
 msgstr "permisiune"
-
-msgid "permission type"
-msgstr "tip permisiune"
 
 msgid "group page permission"
 msgstr "permisie grup pagină"

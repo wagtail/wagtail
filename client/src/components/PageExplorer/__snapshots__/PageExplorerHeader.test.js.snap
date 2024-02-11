@@ -4,7 +4,7 @@ exports[`PageExplorerHeader #depth at root 1`] = `
 <div
   className="c-page-explorer__header"
 >
-  <Button
+  <Link
     className="c-page-explorer__header__title"
     href="/admin/pages/undefined/"
     onClick={[MockFunction]}
@@ -20,7 +20,7 @@ exports[`PageExplorerHeader #depth at root 1`] = `
         Pages
       </span>
     </div>
-  </Button>
+  </Link>
 </div>
 `;
 
@@ -28,7 +28,7 @@ exports[`PageExplorerHeader #page 1`] = `
 <div
   className="c-page-explorer__header"
 >
-  <Button
+  <Link
     className="c-page-explorer__header__title"
     href="/admin/pages/a/"
     onClick={[MockFunction]}
@@ -44,7 +44,7 @@ exports[`PageExplorerHeader #page 1`] = `
         test
       </span>
     </div>
-  </Button>
+  </Link>
 </div>
 `;
 
@@ -52,7 +52,7 @@ exports[`PageExplorerHeader basic 1`] = `
 <div
   className="c-page-explorer__header"
 >
-  <Button
+  <Link
     className="c-page-explorer__header__title"
     href="/admin/pages/undefined/"
     onClick={[MockFunction]}
@@ -68,6 +68,6 @@ exports[`PageExplorerHeader basic 1`] = `
         Pages
       </span>
     </div>
-  </Button>
+  </Link>
 </div>
 `;

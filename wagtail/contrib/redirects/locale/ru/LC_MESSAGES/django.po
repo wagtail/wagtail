@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Никита Викторович <hnknta@gmail.com>, 2014
 # sergeybe <sergeybe@gmail.com>, 2020
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -228,9 +228,6 @@ msgstr ""
 "Перенаправления еще не созданы. Почему бы не <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">добавить одно</a>?"
 
-msgid "Search redirects"
-msgstr "Искать перенаправления"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Перенаправление '%(redirect_title)s' обновлено."
@@ -251,6 +248,9 @@ msgstr "Перенаправление '%(redirect_title)s' добавлено."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Перенаправление не может быть создано из-за ошибок."
+
+msgid "Search redirects"
+msgstr "Искать перенаправления"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

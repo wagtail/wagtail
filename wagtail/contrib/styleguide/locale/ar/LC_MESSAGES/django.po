@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,17 +24,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "دليل الاسلوب"
 
-msgid "Styleguide"
-msgstr "دليل الأسلوب"
-
 msgid "Save"
 msgstr "احفظ"
 
 msgid "Delete image"
 msgstr "احذف صورة"
 
-msgid "Search something"
-msgstr "ابحث شيئا"
+msgid "Styleguide"
+msgstr "دليل الأسلوب"
 
 msgid "Success message"
 msgstr "رسالة النجاح"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -229,9 +229,6 @@ msgstr "σελίδα"
 msgid "pages"
 msgstr "σελίδες"
 
-msgid "submitted for moderation"
-msgstr "υποβλήθηκαν για έλεγχο"
-
 msgid "created at"
 msgstr "δημιουργία στις"
 
@@ -249,9 +246,6 @@ msgstr "ομάδα"
 
 msgid "permission"
 msgstr "άδεια"
-
-msgid "permission type"
-msgstr "είδος άδειας"
 
 msgid "group page permission"
 msgstr "άδεια ομάδας σελίδων"

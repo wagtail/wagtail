@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: Dan Braghis, 2016\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,24 +27,11 @@ msgstr "Bloc tabel Wagtail"
 msgid "Row header"
 msgstr "Antent rând"
 
-msgid "Display the first row as a header."
-msgstr "Afișează primul rând ca antet."
-
 msgid "Column header"
 msgstr "Antet coloană"
 
-msgid "Display the first column as a header."
-msgstr "Afișează prima coloană ca antet."
-
 msgid "Table caption"
 msgstr "Legendă tabel"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Titlu care identifică subiectul general al tabelului și este util pentru "
-"utilizatorii cititorilor de ecran"
 
 msgid "Table"
 msgstr "Tabel"

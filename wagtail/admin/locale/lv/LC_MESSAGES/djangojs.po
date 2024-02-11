@@ -38,9 +38,6 @@ msgstr "Labot"
 msgid "Edit '%(title)s'"
 msgstr "Rediģēt '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Mainīt konta iestatījumus"
-
 msgid "Horizontal line"
 msgstr "Horizontāla līnija"
 

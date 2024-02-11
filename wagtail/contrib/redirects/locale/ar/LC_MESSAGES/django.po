@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -152,9 +152,6 @@ msgstr ""
 "لم يتم إنشاء عمليات إعادة توجيه. لماذا لا<a "
 "href=\"%(wagtailredirects_add_redirect_url)s\"> تضيف واحدة</a>؟"
 
-msgid "Search redirects"
-msgstr "ابحث تغييرات الاتجاه"
-
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "جددت عملية تغيير الاتجاه %(redirect_title)s"
@@ -175,3 +172,6 @@ msgstr "تمت إعادة توجيه '%(redirect_title)s'."
 
 msgid "The redirect could not be created due to errors."
 msgstr "لا يمكن إنشاء إعادة التوجيه بسبب الأخطاء."
+
+msgid "Search redirects"
+msgstr "ابحث تغييرات الاتجاه"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -51,12 +51,12 @@ msgstr "Legg til nettsted"
 msgid "Site '%(object)s' created."
 msgstr "Nettstedet \"%(object)s\" er opprettet."
 
+msgid "The site could not be saved due to errors."
+msgstr "Nettstedet kunne ikke lagres grunnet feil."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "Nettstedet \"%(object)s\" er oppdatert."
-
-msgid "The site could not be saved due to errors."
-msgstr "Nettstedet kunne ikke lagres grunnet feil."
 
 msgid "Delete site"
 msgstr "Slett nettsted"

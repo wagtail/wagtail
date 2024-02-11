@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2018,2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -169,18 +169,6 @@ msgstr[1] "Ertu viss um að þú viljir eyða þessum innsendingum?"
 msgid "Delete"
 msgstr "Eyða"
 
-msgid "Forms"
-msgstr "Skráningarform"
-
-msgid "Pages"
-msgstr "Síður"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "Origin"
-msgstr "Uppruni"
-
 msgid "Delete selected submissions"
 msgstr "Eyða völdum innsendingum"
 
@@ -189,9 +177,6 @@ msgstr "Heildarfjöldi innsendinga"
 
 msgid "Latest submission"
 msgstr "Síðasta innsending"
-
-msgid "No form pages have been created."
-msgstr "Engin skráningarform hafa verið búin til"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -206,6 +191,18 @@ msgstr "Sía"
 
 msgid "Apply filters"
 msgstr "Bæta við síum"
+
+msgid "Forms"
+msgstr "Skráningarform"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "Origin"
+msgstr "Uppruni"
+
+msgid "Pages"
+msgstr "Síður"
 
 #, python-format
 msgid "One submission has been deleted."

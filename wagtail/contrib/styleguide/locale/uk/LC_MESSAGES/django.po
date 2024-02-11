@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,17 +25,14 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "Гід по стилям Wagtail "
 
-msgid "Styleguide"
-msgstr "Гід по стилям"
-
 msgid "Save"
 msgstr "Зберегти"
 
 msgid "Delete image"
 msgstr "Видалити зображення"
 
-msgid "Search something"
-msgstr "Шукати щось"
+msgid "Styleguide"
+msgstr "Гід по стилям"
 
 msgid "Success message"
 msgstr "Повідомлення на позначення успішності"

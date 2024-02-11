@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -180,6 +180,18 @@ msgstr "افزودن کاربر"
 msgid "Delete user"
 msgstr "حذف کاربر"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» منطبق نبود"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
+"مورد اضافه کنید</a>؟"
+
 msgid "Username"
 msgstr "نام کاربری"
 
@@ -194,24 +206,6 @@ msgstr "فعال"
 
 msgid "Inactive"
 msgstr "غیرفعال"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s مورد همخوانی دارد"
-msgstr[1] "%(counter)s مورد همخوانی دارد"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» منطبق نبود"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
-"مورد اضافه کنید</a>؟"
 
 msgid "Groups"
 msgstr "گروه ها"

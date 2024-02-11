@@ -409,7 +409,7 @@ class WebPQualityOperation(FilterOperation):
 
 
 class FormatOperation(FilterOperation):
-    supported_formats = ["jpeg", "png", "gif", "webp", "avif"]
+    supported_formats = ["jpeg", "png", "gif", "webp", "avif", "ico"]
 
     def construct(self, format, *options):
         self.format = format
