@@ -53,7 +53,6 @@ from modelcluster.models import (
     get_serializable_data_for_fields,
     model_from_serializable_data,
 )
-from numconv import to_alphabetic
 from treebeard.mp_tree import MP_Node
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
@@ -1299,31 +1298,82 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
-    
-    def _process_sibling(self, nodes):
+
+    def _process_sibling(self, nodes, parent):
         """
         Create child nodes according to the node_order_by attribute.
         """
-        pos = self._prepare_pos_var_for_add_sibling("sorted-sibling")
+
         newpositions = []
         siblings_so_far = self.get_siblings()
         for i, node in enumerate(nodes):
-            pos = "sorted-sibling"
-            node.depth = self.depth 
-            siblings = self.get_sorted_pos_queryset(
-                siblings_so_far, node)
+            pos = self._prepare_pos_var_for_add_sibling("sorted-sibling")
+            node.depth = self.depth
+            siblings = self.get_sorted_pos_queryset(siblings_so_far, node)
             try:
                 newpos = siblings.all()[0]._get_lastpos_in_path()
             except IndexError:
                 newpos = None
                 pos = "last-sibling"
             newpositions.append(newpos)
+            _, newpath = self.reorder_nodes_before_add_or_move(
+                pos, newpos, self.depth, self, siblings, None, False
+            )
 
-
-
-
+            parent.numchild += 1
+            node.path = newpath
+            # Add node to siblings_so_far. Make node a queryset to union with siblings_so_far
+            siblings_so_far = siblings_so_far.union(siblings)
 
         return nodes
+
+    def _process_leaf(self, nodes):
+        """
+        Process children to add to a leaf node
+        """
+        # Get number of children
+
+        step = 1
+        max_length = self.__class__._meta.get_field("path").max_length
+        for node in nodes:
+            node.depth = self.depth + 1
+            node.path = self.__class__._get_path(self.path, node.depth, step)
+            step += 1
+            if len(node.path) > max_length:
+                raise ValidationError(
+                    "The new node is too deep in the tree, try \
+                      increasing the path.max_length property \
+                    and UPDATE your database"
+                )
+            self.numchild += 1
+            node._cached_parent_obj = self
+
+        self.save()
+
+        return
+
+    def _process_unordered_children(self, nodes):
+        """
+        Create child nodes without any specific order.
+        """
+        last_child = self.get_last_child()
+        max_length = self.__class__._meta.get_field("path").max_length
+        for node in nodes:
+            node.depth = self.depth + 1
+            node.path = last_child._inc_path()
+            last_child = node
+            if len(node.path) > max_length:
+                raise ValidationError(
+                    "The new node is too deep in the tree, try \
+                      increasing the path.max_length property \
+                    and UPDATE your database"
+                )
+            self.numchild += 1
+            node._cached_parent_obj = self
+
+        self.save()
+
+        return
 
     def _process_child_nodes(self, nodes):
         """
@@ -1331,19 +1381,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         as appropriate and also updating the parent's numchild. This is performed by the treebeard library when saving
         the page to the database using their inbuilt tree functionality.
         """
-        option = None
-        if self.node_order_by and not self.is_leaf():
-            option = self.get_last_child()._process_sibling
-        
-        elif self.is_leaf():
-            option = self._process_leaf
-        
-        else:
 
-            option = self._process_children
-        
-        return option(nodes)
-    
+        if self.node_order_by and not self.is_leaf():
+            return self.get_last_child()._process_sibling(nodes, self)
+
+        if self.is_leaf():
+            return self._process_leaf(nodes)
+
+        return self._process_unordered_children(nodes)
 
     def _check_unique(self, children, existing_pages=None):
         if not existing_pages:
@@ -1378,8 +1423,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             if child.locale_id is None:
                 child.locale = self.get_default_locale()
-        return 
+        return
 
+    @transaction.atomic
     def bulk_add_children(self, children):
         """
         Add multiple pages as children of this page.
@@ -1402,9 +1448,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self._check_unique(children, existing_pages)
         except ValidationError as e:
             raise e
-        
 
-        
+        # Process the child nodes
+        self._process_child_nodes(children)
 
         # Load the pages into the database
         pages = Page.objects.bulk_create(children)
