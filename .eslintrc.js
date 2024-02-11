@@ -174,7 +174,6 @@ module.exports = {
     {
       files: ['wagtail/**/**'],
       globals: {
-        buildExpandingFormset: 'readonly',
         escapeHtml: 'readonly',
         ModalWorkflow: 'readonly',
         DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS: 'writable',
