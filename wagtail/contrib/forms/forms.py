@@ -173,35 +173,48 @@ class SelectDateForm(django.forms.Form):
 
 class WagtailAdminFormPageForm(WagtailAdminPageForm):
     def clean(self):
-        super().clean()
+        from .models import AbstractFormField
 
-        # Check for duplicate form fields by comparing their internal clean_names
-        if "form_fields" in self.formsets:
-            forms = self.formsets["form_fields"].forms
-            for form in forms:
-                form.is_valid()
+        cleaned_data = super().clean()
+        # Dynamically detect all related AbstractFormField subclasses to ensure
+        # validation is applied regardless of the related_name or if there are multiple
+        # AbstractFormField subclasses related to this page.
+        form_fields_related_names = [
+            related_object.related_name
+            for related_object in self.instance._meta.related_objects
+            if issubclass(related_object.related_model, AbstractFormField)
+        ]
 
-            # Use existing clean_name or generate for new fields.
-            # clean_name is set in FormField.save
-            clean_names = [
-                f.instance.clean_name or f.instance.get_field_clean_name()
-                for f in forms
-            ]
-            duplicate_clean_name = next(
-                (n for n in clean_names if clean_names.count(n) > 1), None
-            )
-            if duplicate_clean_name:
-                duplicate_form_field = next(
-                    f
-                    for f in self.formsets["form_fields"].forms
-                    if f.instance.get_field_clean_name() == duplicate_clean_name
+        for related_name in form_fields_related_names:
+            # Check for duplicate form fields by comparing their internal clean_names
+            if related_name in self.formsets:
+                forms = self.formsets[related_name].forms
+                for form in forms:
+                    form.is_valid()
+
+                # Use existing clean_name or generate for new fields.
+                # clean_name is set in FormField.save
+                clean_names = [
+                    f.instance.clean_name or f.instance.get_field_clean_name()
+                    for f in forms
+                ]
+                duplicate_clean_name = next(
+                    (n for n in clean_names if clean_names.count(n) > 1), None
                 )
-                duplicate_form_field.add_error(
-                    "label",
-                    django.forms.ValidationError(
-                        _(
-                            "There is another field with the label %(label_name)s, please change one of them."
-                        )
-                        % {"label_name": duplicate_form_field.instance.label}
-                    ),
-                )
+                if duplicate_clean_name:
+                    duplicate_form_field = next(
+                        f
+                        for f in self.formsets[related_name].forms
+                        if f.instance.get_field_clean_name() == duplicate_clean_name
+                    )
+                    duplicate_form_field.add_error(
+                        "label",
+                        django.forms.ValidationError(
+                            _(
+                                "There is another field with the label %(label_name)s, "
+                                "please change one of them."
+                            )
+                            % {"label_name": duplicate_form_field.instance.label}
+                        ),
+                    )
+        return cleaned_data
