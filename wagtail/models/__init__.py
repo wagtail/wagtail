@@ -53,6 +53,7 @@ from modelcluster.models import (
     get_serializable_data_for_fields,
     model_from_serializable_data,
 )
+from numconv import to_alphabetic
 from treebeard.mp_tree import MP_Node
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
@@ -1298,6 +1299,51 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+    
+    def _process_sibling(self, nodes):
+        """
+        Create child nodes according to the node_order_by attribute.
+        """
+        pos = self._prepare_pos_var_for_add_sibling("sorted-sibling")
+        newpositions = []
+        siblings_so_far = self.get_siblings()
+        for i, node in enumerate(nodes):
+            pos = "sorted-sibling"
+            node.depth = self.depth 
+            siblings = self.get_sorted_pos_queryset(
+                siblings_so_far, node)
+            try:
+                newpos = siblings.all()[0]._get_lastpos_in_path()
+            except IndexError:
+                newpos = None
+                pos = "last-sibling"
+            newpositions.append(newpos)
+
+
+
+
+
+        return nodes
+
+    def _process_child_nodes(self, nodes):
+        """
+        Process the child nodes of this page, setting their paths and depths
+        as appropriate and also updating the parent's numchild. This is performed by the treebeard library when saving
+        the page to the database using their inbuilt tree functionality.
+        """
+        option = None
+        if self.node_order_by and not self.is_leaf():
+            option = self.get_last_child()._process_sibling
+        
+        elif self.is_leaf():
+            option = self._process_leaf
+        
+        else:
+
+            option = self._process_children
+        
+        return option(nodes)
+    
 
     def _check_unique(self, children, existing_pages=None):
         if not existing_pages:
@@ -1316,7 +1362,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
                     )
                     % {
-                        "parent_url_path": children[0].parent.path,
+                        "parent_url_path": self.path,
                     }
                 }
             )
@@ -1330,13 +1376,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 child.slug = candidate_slug
                 slugs.append(candidate_slug)
 
-            child.path = child.parent.path + child.slug + "/"
-            child.depth = child.parent.depth + 1
-            # Update numchild for the parent page
-            child.parent.numchild += 1
             if child.locale_id is None:
                 child.locale = self.get_default_locale()
-        return children
+        return 
 
     def bulk_add_children(self, children):
         """
@@ -1345,13 +1387,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This calls bulk_create on the Page model, so it bypasses the save method and does not
         """
 
+        # Check if the children are in adding state
+        for child in children:
+            if not child._state.adding:
+                raise ValueError(
+                    "Attempted to add a tree node that is \
+                    already in the database.\
+                    bulk_add_children can only be used to add new pages, not to update existing pages"
+                )
         # Get the list of existing children to check for duplicate slugs
         existing_pages = self.get_children()
 
         try:
-            children = self._check_unique(children, existing_pages)
+            self._check_unique(children, existing_pages)
         except ValidationError as e:
             raise e
+        
+
+        
 
         # Load the pages into the database
         pages = Page.objects.bulk_create(children)
