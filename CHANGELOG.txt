@@ -20,6 +20,7 @@ Changelog
  * Maintenance: Adjust Eslint rules for TypeScript files (Karthik Ayangar)
  * Maintenance: Rename the React `Button` that only renders links (a element) to `Link` and remove unused prop & behavior that was non-compliant for aria role usage (Advik Kabra)
  * Maintenance: Set up an `wagtail.models.AbstractWorkflow` model to support future customisations around workflows (Hossein)
+ * Maintenance: Improve `classnames` template tag to handle nested lists of strings (LB (Ben) Johnston)
 
 
 6.0 (07.02.2024)
