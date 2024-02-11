@@ -304,7 +304,6 @@ class Edit(EditView):
         pages_formset = self.get_pages_formset()
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
-        context["pages_formset"] = pages_formset
         context["has_workflow_enabled_models"] = bool(get_workflow_enabled_models())
         context["content_type_form"] = self.get_content_type_form()
         context["can_disable"] = (
@@ -315,7 +314,14 @@ class Edit(EditView):
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
-        context["media"] = bound_panel.media + form.media + pages_formset.media
+        context["media"] = bound_panel.media + form.media
+
+        # Only add the pages_formset if the workflow is active
+        if self.object.active:
+            pages_formset = self.get_pages_formset()
+            context["pages_formset"] = pages_formset
+            context["media"] += pages_formset.media
+
         return context
 
     @property
