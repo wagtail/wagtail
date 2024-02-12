@@ -158,15 +158,15 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
             page.save_revision(user=self.bob, log_action=True)
 
     def test_panel_query_count(self):
-        # fake a request object with bob as the user
-        self.client.user = self.bob
-        with self.assertNumQueries(4):
-            # Instantiating/getting context of RecentEditsPanel should not generate N+1 queries -
+        panel = RecentEditsPanel()
+        parent_context = {"request": self.dummy_request}
+        # Warm up the cache
+        html = panel.render_html(parent_context)
+
+        with self.assertNumQueries(14):
+            # Rendering RecentEditsPanel should not generate N+1 queries -
             # i.e. any number less than 6 would be reasonable here
-            panel = RecentEditsPanel()
-            parent_context = {"request": self.dummy_request}
-            panel.get_context_data(parent_context)
+            html = panel.render_html(parent_context)
 
         # check that the panel is still actually returning results
-        html = panel.render_html(parent_context)
         self.assertIn("Ameristralia Day", html)
