@@ -27,6 +27,7 @@ Changelog
  * Fix: Prevent generic model edit view from unquoting non-integer primary keys multiple times (Matt Westcott)
  * Fix: Ensure comments are functional when editing Page models with `read_only` `Fieldpanel`s in use (Strapchay)
  * Fix: Ensure the accessible labels and tooltips reflect the correct private/public status on the live link button within pages after changing the privacy (Ayaan Qadri)
+ * Fix: Fix empty `th` (table heading) elements that are not compliant with accessibility standards (Jai Vignesh J)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
