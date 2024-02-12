@@ -1,6 +1,6 @@
 /* stylelint-disable declaration-no-important, selector-attribute-name-disallowed-list */
 
-$logo-size: 110px;
+$logo-size: 130px;
 
 // Wagging animation
 @keyframes tail-wag {
@@ -70,14 +70,15 @@ $logo-size: 110px;
   // Bird wrapper
   &__icon-wrapper {
     @apply w-bg-white-15 w-relative w-overflow-hidden hover:w-overflow-visible;
-    margin: auto;
+    margin: 0 -3%;
     width: $logo-size;
     height: $logo-size;
     border-radius: 50%;
 
     .sidebar--slim & {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
+      margin: 0 -12%;
     }
 
     .page404__bg & {
