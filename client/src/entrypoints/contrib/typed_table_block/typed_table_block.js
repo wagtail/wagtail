@@ -76,7 +76,7 @@ export class TypedTableBlock {
           <table>
             <thead>
               <tr>
-                <th></th>
+                <th aria-hidden="true"></th>
                 <th class="control-cell">
                   <button type="button" class="button button-small button-secondary append-column" data-append-column>
                     ${h(strings.ADD_COLUMN)}
