@@ -233,7 +233,9 @@ class LockedPagesPanel(Component):
                 "locked_pages": Page.objects.filter(
                     locked=True,
                     locked_by=request.user,
-                ),
+                )
+                .order_by("-locked_at", "-latest_revision_created_at", "-pk")
+                .specific(defer=True),
                 "can_remove_locks": page_permission_policy.user_has_permission(
                     request.user, "unlock"
                 ),

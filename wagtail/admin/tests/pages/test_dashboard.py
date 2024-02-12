@@ -215,9 +215,13 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         self.bob = self.create_superuser(username="bob", password="password")
         self.dummy_request = get_dummy_request()
         self.dummy_request.user = self.bob
-        Page.objects.filter(id__in=[9, 12, 13]).update(
-            locked=True, locked_by=self.bob, locked_at=timezone.now()
-        )
+
+        pages = Page.objects.filter(pk__in=[9, 12, 13]).order_by("pk")
+        for i, page in enumerate(pages):
+            page.locked = True
+            page.locked_by = self.bob
+            page.locked_at = timezone.now() + timezone.timedelta(hours=i)
+            page.save()
 
     def test_panel_query_count(self):
         panel = LockedPagesPanel()
@@ -228,8 +232,13 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         with self.assertNumQueries(4):
             html = panel.render_html(parent_context)
         soup = self.get_soup(html)
-        expected_titles = {"Ameristralia Day", "Steal underpants", "Saint Patrick"}
-        titles = {e.get_text(strip=True) for e in soup.select(".title-wrapper a")}
+        # Should be sorted descending by locked_at
+        expected_titles = [
+            "Saint Patrick (single event)",
+            "Steal underpants",
+            "Ameristralia Day",
+        ]
+        titles = [e.get_text(strip=True) for e in soup.select(".title-wrapper a")]
         self.assertEqual(titles, expected_titles)
 
 
