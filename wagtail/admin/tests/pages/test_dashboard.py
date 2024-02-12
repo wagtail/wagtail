@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.views.home import RecentEditsPanel
+from wagtail.admin.views.home import LockedPagesPanel, RecentEditsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Workflow
 from wagtail.test.testapp.models import SimplePage
@@ -199,3 +199,28 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
             for e in soup.select(".w-status")
         ]
         self.assertEqual(statuses, expected_statuses)
+
+
+class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.bob = self.create_superuser(username="bob", password="password")
+        self.dummy_request = get_dummy_request()
+        self.dummy_request.user = self.bob
+        Page.objects.filter(id__in=[9, 12, 13]).update(
+            locked=True, locked_by=self.bob, locked_at=timezone.now()
+        )
+
+    def test_panel_query_count(self):
+        panel = LockedPagesPanel()
+        parent_context = {"request": self.dummy_request, "csrf_token": "dummy"}
+        # Warm up the cache
+        html = panel.render_html(parent_context)
+
+        with self.assertNumQueries(4):
+            html = panel.render_html(parent_context)
+        soup = self.get_soup(html)
+        expected_titles = {"Ameristralia Day", "Steal underpants", "Saint Patrick"}
+        titles = {e.get_text(strip=True) for e in soup.select(".title-wrapper a")}
+        self.assertEqual(titles, expected_titles)
