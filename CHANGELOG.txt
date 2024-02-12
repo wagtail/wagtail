@@ -38,6 +38,7 @@ Changelog
  * Maintenance: Upgrade Puppeteer integration tests for reliability (Matt Westcott)
  * Maintenance: Restore ability to use `.in_bulk()` on specific querysets under Django 5.2a0 (Sage Abdullah)
  * Maintenance: Add generated `test-media` to .gitignore (Shlomo Markowitz)
+ * Maintenance: Improve `debounce` util's return type for better TypeScript usage (Sage Abdullah)
 
 
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
