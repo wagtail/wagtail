@@ -10,6 +10,7 @@ from wagtail.admin.views.home import (
     LockedPagesPanel,
     RecentEditsPanel,
     UserObjectsInWorkflowModerationPanel,
+    WorkflowObjectsToModeratePanel,
 )
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
@@ -288,6 +289,96 @@ class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
         html = panel.render_html(parent_context)
 
         with self.assertNumQueries(6):
+            html = panel.render_html(parent_context)
+
+        soup = self.get_soup(html)
+        self.assertEqual(len(soup.select('svg use[href="#icon-lock"]')), 2)
+        expected_titles = [
+            "Some obj 2",
+            "Some obj 1",
+            "Saint Patrick (single event)",
+            "Christmas",
+            "Steal underpants",
+            "Ameristralia Day",
+        ]
+        titles = [e.get_text(strip=True) for e in soup.select(".title-wrapper a")]
+        self.assertEqual(titles, expected_titles)
+
+
+class WorkflowObjectsToModerateQueryCount(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.superuser = self.create_superuser(username="admin", password="password")
+        self.bob = self.create_user(username="bob", password="password")
+        self.moderator = self.create_user(username="moderator", password="password")
+
+        editors = Group.objects.get(name="Editors")
+        moderators = Group.objects.get(name="Moderators")
+
+        editors.user_set.add(self.bob)
+        moderators.user_set.add(self.moderator)
+
+        root = Page.get_first_root_node()
+        GroupPagePermission.objects.create(
+            group=editors, page=root, permission_type="change"
+        )
+        GroupPagePermission.objects.create(
+            group=moderators, page=root, permission_type="change"
+        )
+        GroupPagePermission.objects.create(
+            group=moderators, page=root, permission_type="publish"
+        )
+
+        editors.permissions.add(
+            Permission.objects.get(codename="change_fullfeaturedsnippet")
+        )
+        moderators.permissions.add(
+            *Permission.objects.filter(
+                codename__in=[
+                    "change_fullfeaturedsnippet",
+                    "publish_fullfeaturedsnippet",
+                ]
+            ),
+        )
+
+        workflow = Workflow.objects.first()
+        WorkflowContentType.objects.create(
+            workflow=workflow,
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+        )
+
+        # Pages workflow started by bob and locked by moderator
+        for page in Page.objects.filter(id__in=[9, 12]).specific():
+            page.save_revision()
+            workflow.start(page, self.bob)
+            # Lock it to test the lock indicator
+            page.locked = True
+            page.locked_by = self.moderator
+            page.locked_at = timezone.now()
+            page.save()
+
+        # Page workflow started by bob
+        for page in Page.objects.filter(id__in=[4, 13]).specific():
+            page.save_revision()
+            workflow.start(page, self.bob)
+
+        # Snippet workflow started by bob
+        for i in range(1, 3):
+            obj = FullFeaturedSnippet.objects.create(text=f"Some obj {i}")
+            obj.save_revision()
+            workflow.start(obj, self.bob)
+
+        self.dummy_request = get_dummy_request()
+        self.dummy_request.user = self.moderator
+
+    def test_panel_query_count(self):
+        panel = WorkflowObjectsToModeratePanel()
+        parent_context = {"request": self.dummy_request, "csrf_token": "dummy"}
+        # Warm up the cache
+        html = panel.render_html(parent_context)
+
+        with self.assertNumQueries(40):
             html = panel.render_html(parent_context)
 
         soup = self.get_soup(html)
