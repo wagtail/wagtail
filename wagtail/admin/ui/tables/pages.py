@@ -81,7 +81,7 @@ class NavigateToChildrenColumn(BaseColumn):
         return context
 
     def render_header_html(self, parent_context):
-        return mark_safe("<th></th>")
+        return mark_safe("<th aria-hidden='true'></th>")
 
 
 class PageTable(Table):
