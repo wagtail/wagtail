@@ -6,7 +6,7 @@ from freezegun import freeze_time
 
 from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page
+from wagtail.models import Page, Workflow
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -151,11 +151,27 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         self.bob = self.create_superuser(username="bob", password="password")
         self.dummy_request = get_dummy_request()
         self.dummy_request.user = self.bob
+        workflow = Workflow.objects.first()
+        workflow_pages = {5, 6}
+        locked_pages = {6, 9}
+        scheduled_pages = {9, 12}
         # make a bunch of page edits (all to EventPages, so that calls to specific() don't add
         # an unpredictable number of queries)
-        pages_to_edit = Page.objects.filter(id__in=[4, 5, 6, 9, 12, 13]).specific()
+        pages_to_edit = list(
+            Page.objects.filter(id__in=[4, 5, 6, 9, 12, 13]).order_by("pk").specific()
+        )
         for page in pages_to_edit:
-            page.save_revision(user=self.bob, log_action=True)
+            revision = page.save_revision(user=self.bob, log_action=True)
+            if page.pk in workflow_pages:
+                workflow.start(page, self.bob)
+            if page.pk in locked_pages:
+                page.locked = True
+                page.locked_by = self.bob
+                page.locked_at = timezone.now()
+                page.save()
+            if page.pk in scheduled_pages:
+                revision.approved_go_live_at = timezone.now()
+                revision.save()
 
     def test_panel_query_count(self):
         panel = RecentEditsPanel()
@@ -167,6 +183,19 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
             # Rendering RecentEditsPanel should not generate N+1 queries -
             # i.e. any number less than 6 would be reasonable here
             html = panel.render_html(parent_context)
-
         # check that the panel is still actually returning results
         self.assertIn("Ameristralia Day", html)
+        soup = self.get_soup(html)
+        self.assertEqual(len(soup.select('svg use[href="#icon-lock"]')), 2)
+        expected_statuses = [
+            "live + draft",
+            "live + scheduled",
+            "live + scheduled",
+            "in moderation",
+            "in moderation",
+        ]
+        statuses = [
+            "".join(e.find_all(string=True, recursive=False)).strip()
+            for e in soup.select(".w-status")
+        ]
+        self.assertEqual(statuses, expected_statuses)
