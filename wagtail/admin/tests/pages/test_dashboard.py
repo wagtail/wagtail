@@ -1,13 +1,19 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.views.home import LockedPagesPanel, RecentEditsPanel
+from wagtail.admin.views.home import (
+    LockedPagesPanel,
+    RecentEditsPanel,
+    UserObjectsInWorkflowModerationPanel,
+)
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Workflow
-from wagtail.test.testapp.models import SimplePage
+from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -223,4 +229,76 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         soup = self.get_soup(html)
         expected_titles = {"Ameristralia Day", "Steal underpants", "Saint Patrick"}
         titles = {e.get_text(strip=True) for e in soup.select(".title-wrapper a")}
+        self.assertEqual(titles, expected_titles)
+
+
+class UserObjectsInWorkflowModerationQueryCount(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.superuser = self.create_superuser(username="admin", password="password")
+        self.bob = self.create_user(username="bob", password="password")
+        self.someone_else = self.create_user(
+            username="someoneelse", password="password"
+        )
+        editors = Group.objects.get(name="Editors")
+        editors.user_set.add(self.bob, self.someone_else)
+
+        workflow = Workflow.objects.first()
+        WorkflowContentType.objects.create(
+            workflow=workflow,
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+        )
+        GroupPagePermission.objects.create(
+            group=editors, page=Page.get_first_root_node(), permission_type="change"
+        )
+        editors.permissions.add(
+            Permission.objects.get(codename="change_fullfeaturedsnippet")
+        )
+
+        # Pages owned by bob, but workflow started by someone else
+        Page.objects.filter(id__in=[9, 12]).update(owner=self.bob)
+        for page in Page.objects.filter(id__in=[9, 12]).specific():
+            page.save_revision()
+            workflow.start(page, self.someone_else)
+            # Lock it to test the lock indicator
+            page.locked = True
+            page.locked_by = self.superuser
+            page.locked_at = timezone.now()
+            page.save()
+
+        # Page workflow started by bob
+        for page in Page.objects.filter(id__in=[4, 13]).specific():
+            page.save_revision()
+            workflow.start(page, self.bob)
+
+        # Snippet workflow started by bob
+        for i in range(1, 3):
+            obj = FullFeaturedSnippet.objects.create(text=f"Some obj {i}")
+            obj.save_revision()
+            workflow.start(obj, self.bob)
+
+        self.dummy_request = get_dummy_request()
+        self.dummy_request.user = self.bob
+
+    def test_panel_query_count(self):
+        panel = UserObjectsInWorkflowModerationPanel()
+        parent_context = {"request": self.dummy_request}
+        # Warm up the cache
+        html = panel.render_html(parent_context)
+
+        with self.assertNumQueries(6):
+            html = panel.render_html(parent_context)
+
+        soup = self.get_soup(html)
+        self.assertEqual(len(soup.select('svg use[href="#icon-lock"]')), 2)
+        expected_titles = [
+            "Some obj 2",
+            "Some obj 1",
+            "Saint Patrick (single event)",
+            "Christmas",
+            "Steal underpants",
+            "Ameristralia Day",
+        ]
+        titles = [e.get_text(strip=True) for e in soup.select(".title-wrapper a")]
         self.assertEqual(titles, expected_titles)
