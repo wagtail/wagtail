@@ -186,7 +186,7 @@ class TestRecentEditsQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(5):
             # Rendering RecentEditsPanel should not generate N+1 queries -
             # i.e. any number less than 6 would be reasonable here
             html = panel.render_html(parent_context)

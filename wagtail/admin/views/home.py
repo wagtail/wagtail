@@ -269,6 +269,7 @@ class RecentEditsPanel(Component):
         pages_mapping = (
             Page.objects.specific()
             .prefetch_workflow_states()
+            .annotate_approved_schedule()
             .in_bulk([log["page_id"] for log in last_edits_dates])
         )
         # Compile a list of (latest edit timestamp, page object) tuples
