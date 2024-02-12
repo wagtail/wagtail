@@ -170,6 +170,23 @@ class WorkflowObjectsToModeratePanel(Component):
                 "revision__content_object__latest_revision",
             )
             .order_by("-started_at")
+            .annotate(
+                # Same as Django's get_previous_by_FOO (with FOO=created_at),
+                # but done as an annotation to avoid N+1 queries
+                previous_revision_id=Revision.objects.filter(
+                    base_content_type_id=OuterRef("revision__base_content_type_id"),
+                    object_id=OuterRef("revision__object_id"),
+                )
+                .filter(
+                    Q(
+                        created_at=OuterRef("revision__created_at"),
+                        pk__lt=OuterRef("revision__pk"),
+                    )
+                    | Q(created_at__lt=OuterRef("revision__created_at"))
+                )
+                .order_by("-created_at", "-pk")
+                .values_list("pk", flat=True)[:1]
+            )
         )
 
         for state in states:
@@ -197,16 +214,11 @@ class WorkflowObjectsToModeratePanel(Component):
             if not getattr(obj, "is_previewable", False):
                 workflow_preview_url_name = None
 
-            try:
-                previous_revision = state.revision.get_previous()
-            except Revision.DoesNotExist:
-                previous_revision = None
-
             context["states"].append(
                 {
                     "obj": obj,
                     "revision": state.revision,
-                    "previous_revision": previous_revision,
+                    "previous_revision_id": state.previous_revision_id,
                     "live_revision_id": obj.live_revision_id,
                     "task_state": state,
                     "actions": actions,
