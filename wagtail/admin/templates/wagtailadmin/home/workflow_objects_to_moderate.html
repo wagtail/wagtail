@@ -57,8 +57,8 @@
                                                 {% if state.live_revision_id %}
                                                     <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
                                                 {% endif %}
-                                                {% if state.previous_revision %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision.id revision.id %}">{% trans "Compare with previous version" %}</a>
+                                                {% if state.previous_revision_id %}
+                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision_id revision.id %}">{% trans "Compare with previous version" %}</a>
                                                 {% endif %}
                                             {% enddropdown %}
                                         </li>
