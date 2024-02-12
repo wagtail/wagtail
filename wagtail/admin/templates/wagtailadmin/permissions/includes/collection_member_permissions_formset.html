@@ -26,7 +26,7 @@
                 {% for codename, short_label, long_label in formset.permission_types %}
                     <th title="{{ long_label }}">{{ short_label }}</th>
                 {% endfor %}
-                <th aria-hidden="true"></th>
+                <th aria-hidden="true">{% comment "" %} added for visual alignment only {% endcomment %}</th>
             </tr>
         </thead>
         <tbody id="id_{{ formset.prefix }}-FORMS">
