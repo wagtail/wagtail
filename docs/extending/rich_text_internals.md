@@ -125,7 +125,7 @@ You can create custom rewrite handlers to support your own new `linktype` and `e
         Optional. The classmethod ``get_many`` method works similarly to ``get_instance`` but instead takes a list of attribute dictionaries and returns a list of Django model instances.
 ```
 
-Below is an example custom rewrite handler that implements some of these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like ``<a linktype="user" username="wagtail">`` to valid HTML like ``<a href="mailto:hello@wagtail.org">``. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
+Below is an example custom rewrite handler that implements some of these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like `<a linktype="user" username="wagtail">` to valid HTML like `<a href="mailto:hello@wagtail.org">`. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
 
 ```python
 from django.contrib.auth import get_user_model
