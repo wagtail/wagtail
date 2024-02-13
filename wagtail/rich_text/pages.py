@@ -1,3 +1,6 @@
+from typing import List
+
+from django.db.models import Model
 from django.utils.html import escape
 
 from wagtail.models import Page
@@ -12,7 +15,7 @@ class PageLinkHandler(LinkHandler):
         return Page
 
     @classmethod
-    def get_many(cls, attrs_list):
+    def get_many(cls, attrs_list: List[dict]) -> List[Model]:
         # Override LinkHandler.get_many to reduce database queries through the
         # use of PageQuerySet.specific() instead of QuerySet.in_bulk().
         instance_ids = [attrs.get("id") for attrs in attrs_list]
@@ -21,11 +24,11 @@ class PageLinkHandler(LinkHandler):
         return [pages_by_str_id.get(str(id_)) for id_ in instance_ids]
 
     @classmethod
-    def expand_db_attributes(cls, attrs):
+    def expand_db_attributes(cls, attrs: dict) -> str:
         return cls.expand_db_attributes_many([attrs])[0]
 
     @classmethod
-    def expand_db_attributes_many(cls, attrs_list):
+    def expand_db_attributes_many(cls, attrs_list: List[dict]) -> List[str]:
         return [
             '<a href="%s">' % escape(page.localized.specific.url) if page else "<a>"
             for page in cls.get_many(attrs_list)
