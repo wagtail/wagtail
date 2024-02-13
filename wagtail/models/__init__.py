@@ -1299,34 +1299,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    def _process_sibling(self, nodes, parent):
-        """
-        Create child nodes according to the node_order_by attribute.
-        """
-
-        newpositions = []
-        siblings_so_far = self.get_siblings()
-        for i, node in enumerate(nodes):
-            pos = self._prepare_pos_var_for_add_sibling("sorted-sibling")
-            node.depth = self.depth
-            siblings = self.get_sorted_pos_queryset(siblings_so_far, node)
-            try:
-                newpos = siblings.all()[0]._get_lastpos_in_path()
-            except IndexError:
-                newpos = None
-                pos = "last-sibling"
-            newpositions.append(newpos)
-            _, newpath = self.reorder_nodes_before_add_or_move(
-                pos, newpos, self.depth, self, siblings, None, False
-            )
-
-            parent.numchild += 1
-            node.path = newpath
-            # Add node to siblings_so_far. Make node a queryset to union with siblings_so_far
-            siblings_so_far = siblings_so_far.union(siblings)
-
-        return nodes
-
     def _process_leaf(self, nodes):
         """
         Process children to add to a leaf node
@@ -1347,8 +1319,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 )
             self.numchild += 1
             node._cached_parent_obj = self
-
-        self.save()
 
         return
 
@@ -1371,8 +1341,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self.numchild += 1
             node._cached_parent_obj = self
 
-        self.save()
-
         return
 
     def _process_child_nodes(self, nodes):
@@ -1382,24 +1350,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         the page to the database using their inbuilt tree functionality.
         """
 
-        if self.node_order_by and not self.is_leaf():
-            return self.get_last_child()._process_sibling(nodes, self)
-
         if self.is_leaf():
             return self._process_leaf(nodes)
 
         return self._process_unordered_children(nodes)
 
-    def _check_unique(self, children, existing_pages=None):
-        if not existing_pages:
-            existing_pages = []
+    def _check_unique(self, children):
         # Extract slugs from the children
         # Children is a list of Page objects
         slugs = [
-            child.slug
-            for child in children + list(existing_pages)
-            if hasattr(child, "slug") and child.slug
+            child.slug for child in children if hasattr(child, "slug") and child.slug
         ]
+        # Add the slugs of the current children
+        slugs.extend(self.get_children().values_list("slug", flat=True))
+
         if len(slugs) != len(set(slugs)):
             raise ValidationError(
                 {
@@ -1422,8 +1386,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 slugs.append(candidate_slug)
 
             if child.locale_id is None:
-                child.locale = self.get_default_locale()
+                child.locale = self.locale
         return
+
+    def _save_to_db(self, children):
+        """
+        Load the pages into the database and save the parent page in the database
+        """
+
+        pages = Page.objects.bulk_create(children)
+        self.save()
+
+        return pages
 
     @transaction.atomic
     def bulk_add_children(self, children):
@@ -1441,19 +1415,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     already in the database.\
                     bulk_add_children can only be used to add new pages, not to update existing pages"
                 )
-        # Get the list of existing children to check for duplicate slugs
-        existing_pages = self.get_children()
 
         try:
-            self._check_unique(children, existing_pages)
+            self._check_unique(children)
         except ValidationError as e:
             raise e
 
-        # Process the child nodes
-        self._process_child_nodes(children)
+        try:
+            # Process the child nodes
+            self._process_child_nodes(children)
+            # Load the pages into the database and save the parent page in the database
+            pages = self._save_to_db(children)
 
-        # Load the pages into the database
-        pages = Page.objects.bulk_create(children)
+        except Exception as e:
+            raise ValidationError(
+                "An error occurred while processing the child nodes and \
+                saving the pages to the database. Please check the child nodes and try again.",
+                e,
+            )
 
         return pages
 
