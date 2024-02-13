@@ -1,4 +1,5 @@
 import itertools
+from collections import defaultdict
 
 from django import template
 
@@ -68,9 +69,16 @@ def format_permissions(permission_bound_field):
         "unlock": False,
         "custom": False,
     }
+    # Batch the permission query for all content types, then group by content type
+    # (instead of querying permissions for each content type separately)
+    content_perms_by_ct_id = defaultdict(list)
+    permissions = permissions.filter(content_type_id__in=content_type_ids)
+    for permission in permissions:
+        content_perms_by_ct_id[permission.content_type_id].append(permission)
 
-    for content_type_id in content_type_ids:
-        content_perms = permissions.filter(content_type_id=content_type_id)
+    # Iterate using the sorted content_type_ids
+    for ct_id in content_type_ids:
+        content_perms = content_perms_by_ct_id[ct_id]
         content_perms_dict = {}
         custom_perms = []
 
