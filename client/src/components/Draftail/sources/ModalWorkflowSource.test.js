@@ -44,7 +44,13 @@ describe('ModalWorkflowSource', () => {
   });
 
   describe('#getChooserConfig', () => {
-    const imageSource = new ImageModalWorkflowSource();
+    const imageSource = new ImageModalWorkflowSource({
+      entityType: {
+        chooserUrls: {
+          imageChooser: '/admin/images/chooser/',
+        },
+      },
+    });
     it('IMAGE without entity', () => {
       expect(imageSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
@@ -67,7 +73,13 @@ describe('ModalWorkflowSource', () => {
       });
     });
 
-    const embedSource = new EmbedModalWorkflowSource();
+    const embedSource = new EmbedModalWorkflowSource({
+      entityType: {
+        chooserUrls: {
+          embedsChooser: '/admin/embeds/chooser/',
+        },
+      },
+    });
     it('EMBED without entity', () => {
       expect(embedSource.getChooserConfig(null, '')).toMatchObject({
         url: '/admin/embeds/chooser/',
@@ -85,7 +97,13 @@ describe('ModalWorkflowSource', () => {
       });
     });
 
-    const documentSource = new DocumentModalWorkflowSource();
+    const documentSource = new DocumentModalWorkflowSource({
+      entityType: {
+        chooserUrls: {
+          documentChooser: '/admin/documents/chooser/',
+        },
+      },
+    });
     it('DOCUMENT', () => {
       expect(documentSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/documents/chooser/',
@@ -95,7 +113,17 @@ describe('ModalWorkflowSource', () => {
       });
     });
 
-    const linkSource = new LinkModalWorkflowSource();
+    const linkSource = new LinkModalWorkflowSource({
+      entityType: {
+        chooserUrls: {
+          pageChooser: '/admin/choose-page/',
+          emailLinkChooser: '/admin/choose-email-link/',
+          externalLinkChooser: '/admin/choose-external-link/',
+          anchorLinkChooser: '/admin/choose-anchor-link/',
+          phoneLinkChooser: 'admin/choose-phone-link/',
+        },
+      },
+    });
     describe('LINK', () => {
       it('no entity', () => {
         expect(linkSource.getChooserConfig(null, '')).toMatchSnapshot();
