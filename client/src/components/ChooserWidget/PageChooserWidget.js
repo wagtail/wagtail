@@ -34,6 +34,7 @@ export class PageChooser extends Chooser {
       matchSubclass: this.opts.matchSubclass,
       canChooseRoot: this.opts.canChooseRoot,
       userPerms: this.opts.userPerms,
+      parentId: this.opts.parentId,
     };
     if (this.state && this.state.parentId) {
       opts.parentId = this.state.parentId;
