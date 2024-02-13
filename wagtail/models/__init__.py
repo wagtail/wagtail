@@ -1427,7 +1427,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Load the pages into the database and save the parent page in the database
             pages = self._save_to_db(children)
 
-        except Exception as e:
+        except ValidationError as e:
             raise ValidationError(
                 "An error occurred while processing the child nodes and \
                 saving the pages to the database. Please check the child nodes and try again.",
