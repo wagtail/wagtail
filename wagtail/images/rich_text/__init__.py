@@ -1,3 +1,5 @@
+from typing import List
+
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.rich_text import EmbedHandler
@@ -13,11 +15,11 @@ class ImageEmbedHandler(EmbedHandler):
         return get_image_model()
 
     @classmethod
-    def expand_db_attributes(cls, attrs):
+    def expand_db_attributes(cls, attrs: dict) -> str:
         return cls.expand_db_attributes_many([attrs])[0]
 
     @classmethod
-    def expand_db_attributes_many(cls, attrs_list):
+    def expand_db_attributes_many(cls, attrs_list: List[dict]) -> List[str]:
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use on the front-end.

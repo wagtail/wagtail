@@ -5,13 +5,14 @@ Utility classes for rewriting elements of HTML-like strings
 import re
 from collections import defaultdict
 from itertools import chain
+from typing import Callable, Tuple
 
 FIND_A_TAG = re.compile(r"<a(\b[^>]*)>")
 FIND_EMBED_TAG = re.compile(r"<embed(\b[^>]*)/>")
 FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
 
 
-def extract_attrs(attr_string):
+def extract_attrs(attr_string: str) -> dict:
     """
     helper method to extract tag attributes, as a dict of un-escaped strings
     """
@@ -43,7 +44,7 @@ class TagRewriter:
         # Note: return an empty list for cases when you don't want any replacements made
         raise NotImplementedError
 
-    def __call__(self, html):
+    def __call__(self, html: str) -> str:
         matches_by_tag_type, attrs_by_tag_type = self.extract_tags(html)
 
         replacements = [
@@ -65,7 +66,7 @@ class TagRewriter:
 
         return html
 
-    def extract_tags(self, html):
+    def extract_tags(self, html: str) -> Tuple[dict, dict]:
         """Helper method to extract and group HTML tags and their attributes.
 
         Returns the full list of regex matches grouped by tag type as well as
@@ -86,7 +87,7 @@ class TagRewriter:
 
         return matches_by_tag_type, attrs_by_tag_type
 
-    def convert_rule_to_bulk_rule(self, rule):
+    def convert_rule_to_bulk_rule(self, rule: Callable) -> Callable:
         def bulk_rule(args):
             return list(map(rule, args))
 
