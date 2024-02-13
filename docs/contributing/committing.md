@@ -74,8 +74,8 @@ To easily identify the most relevant changes to users, items are grouped togethe
 
 -   Major features (no prefix) - things that will inspire users to upgrade to a new release
 -   Minor enhancements (no prefix) - other improvements to the developer or end user experience
--   Bug fixes (prefixed with "Fix:") - things that address broken behaviour from previous releases
--   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganisations, tutorials, recipes and so on
+-   Bug fixes (prefixed with "Fix:") - things that address broken behavior from previous releases
+-   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganizations, tutorials, recipes and so on
 -   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect to developers or end users
 
 The name of the contributor should be added at the end of the summary, in brackets.
@@ -131,7 +131,7 @@ git branch -d pr/xxxx
 
 ## When you have made a mistake
 
-It's ok! Everyone makes mistakes. If you realise that recently merged changes
+It's ok! Everyone makes mistakes. If you realize that recently merged changes
 have a negative impact, create a new pull request with a revert of the changes
 and merge it without waiting for a review. The PR will serve as additional
 documentation for the changes and will run through the CI tests.
