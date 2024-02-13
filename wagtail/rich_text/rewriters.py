@@ -40,6 +40,7 @@ class TagRewriter:
         raise NotImplementedError
 
     def get_tag_replacements(self, tag_type, attrs_list):
+        # Note: return an empty list for cases when you don't want any replacements made
         raise NotImplementedError
 
     def __call__(self, html):
