@@ -3666,10 +3666,10 @@ class GroupApprovalTask(Task):
         return checks_cache[self.pk]
 
     def user_can_access_editor(self, obj, user):
-        return self._user_in_groups(user) or user.is_superuser
+        return user.is_superuser or self._user_in_groups(user)
 
     def locked_for_user(self, obj, user):
-        return not (self._user_in_groups(user) or user.is_superuser)
+        return not (user.is_superuser or self._user_in_groups(user))
 
     def user_can_lock(self, obj, user):
         return self._user_in_groups(user)
@@ -3678,7 +3678,7 @@ class GroupApprovalTask(Task):
         return False
 
     def get_actions(self, obj, user):
-        if self._user_in_groups(user) or user.is_superuser:
+        if user.is_superuser or self._user_in_groups(user):
             return [
                 ("reject", _("Request changes"), True),
                 ("approve", _("Approve"), False),
@@ -3688,7 +3688,7 @@ class GroupApprovalTask(Task):
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if self._user_in_groups(user) or user.is_superuser:
+        if user.is_superuser or self._user_in_groups(user):
             return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
