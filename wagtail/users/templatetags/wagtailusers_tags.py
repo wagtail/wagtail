@@ -1,5 +1,4 @@
 import itertools
-import re
 
 from django import template
 
@@ -85,7 +84,10 @@ def format_permissions(permission_bound_field):
             checkbox = checkboxes_by_id[perm.id]
             # identify the main categories of permission, and assign to
             # the relevant dict key, else bung in the 'custom_perms' list
-            permission_action = perm.codename.split("_")[0]
+            permission_action = perm.codename.split("_", maxsplit=1)
+            permission_action = permission_action[permission_action[0].lower() == "can"]
+            permission_action = permission_action.rsplit(maxsplit=1)[0]
+
             if permission_action in main_permission_names:
                 if permission_action in extra_perms_exist:
                     extra_perms_exist[permission_action] = True
@@ -98,9 +100,7 @@ def format_permissions(permission_bound_field):
                 custom_perms.append(
                     {
                         "perm": perm,
-                        "name": re.sub(
-                            f"{perm.content_type.name}$", "", perm.name, flags=re.I
-                        ).strip(),
+                        "name": f"Can {permission_action}",
                         "selected": checkbox.data["selected"],
                     }
                 )
