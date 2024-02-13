@@ -9,9 +9,12 @@ Changelog
  * Reduce memory usage when rebuilding search indexes (Jake Howard)
  * Support creating images in .ico format (Jake Howard)
  * Add the ability to disable the usage of a shared password for enhanced security for the private pages and collections (documents) feature (Salvo Polizzi, Jake Howard)
+ * Add system checks to ensure that `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT` are correctly configured (Rohit Sharma, Coen van der Kamp)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
+ * Fix: Ensure re-ordering buttons work correctly when using a nested InlinePanel (Adrien Hamraoui)
+ * Fix: Resolve inconsistent use of model `verbose_name` in group edit view when listing custom permissions (Neeraj Yetheendran, Omkar Jadhav)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update multiple pages in the reference sections and multiple page names to their US spelling instead of UK spelling (Victoria Poromon)
@@ -22,6 +25,7 @@ Changelog
  * Maintenance: Rename the React `Button` that only renders links (a element) to `Link` and remove unused prop & behavior that was non-compliant for aria role usage (Advik Kabra)
  * Maintenance: Set up an `wagtail.models.AbstractWorkflow` model to support future customisations around workflows (Hossein)
  * Maintenance: Improve `classnames` template tag to handle nested lists of strings, use template tag for admin `body` element (LB (Ben) Johnston)
+ * Maintenance: Merge `UploadedDocument` and `UploadedImage` into new `UploadedFile` model for easier shared code usage (Advik Kabra, Karl Hobley)
 
 
 6.0 (07.02.2024)

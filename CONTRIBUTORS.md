@@ -798,6 +798,7 @@
 * Hossein
 * Andre Delorme
 * arshyia3000
+* Adrien Hamraoui
 
 ## Translators
 
