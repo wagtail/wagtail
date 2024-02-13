@@ -173,16 +173,21 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig(entity) {
     let url;
     let urlParams;
+    const { imageChooser } = {
+      ...this.props.entityType?.chooserUrls,
+      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
+      ...global.chooserUrls,
+    };
 
     if (entity) {
       const data = entity.getData();
-      url = `${global.chooserUrls.imageChooser}${data.id}/select_format/`;
+      url = `${imageChooser}${data.id}/select_format/`;
       urlParams = {
         format: data.format,
         alt_text: data.alt,
       };
     } else {
-      url = `${global.chooserUrls.imageChooser}?select_format=true`;
+      url = `${imageChooser}?select_format=true`;
       urlParams = {};
     }
     return {
@@ -207,13 +212,18 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
 
 class EmbedModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig(entity) {
+    const { embedsChooser } = {
+      ...this.props.entityType?.chooserUrls,
+      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
+      ...global.chooserUrls,
+    };
     const urlParams = {};
 
     if (entity) {
       urlParams.url = entity.getData().url;
     }
     return {
-      url: global.chooserUrls.embedsChooser,
+      url: embedsChooser,
       urlParams,
       onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
@@ -237,7 +247,13 @@ class EmbedModalWorkflowSource extends ModalWorkflowSource {
 
 class LinkModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig(entity, selectedText) {
-    let url = global.chooserUrls.pageChooser;
+    const chooserUrls = {
+      ...this.props.entityType?.chooserUrls,
+      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
+      ...global.chooserUrls,
+    };
+    let url = chooserUrls.pageChooser;
+
     const urlParams = {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
@@ -252,21 +268,21 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
 
       if (data.id) {
         if (data.parentId !== null) {
-          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+          url = `${chooserUrls.pageChooser}${data.parentId}/`;
         } else {
-          url = global.chooserUrls.pageChooser;
+          url = chooserUrls.pageChooser;
         }
       } else if (data.url.startsWith('mailto:')) {
-        url = global.chooserUrls.emailLinkChooser;
+        url = chooserUrls.emailLinkChooser;
         urlParams.link_url = data.url.replace('mailto:', '');
       } else if (data.url.startsWith('tel:')) {
-        url = global.chooserUrls.phoneLinkChooser;
+        url = chooserUrls.phoneLinkChooser;
         urlParams.link_url = data.url.replace('tel:', '');
       } else if (data.url.startsWith('#')) {
-        url = global.chooserUrls.anchorLinkChooser;
+        url = chooserUrls.anchorLinkChooser;
         urlParams.link_url = data.url.replace('#', '');
       } else {
-        url = global.chooserUrls.externalLinkChooser;
+        url = chooserUrls.externalLinkChooser;
         urlParams.link_url = data.url;
       }
     }
@@ -298,8 +314,14 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
 
 class DocumentModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig() {
+    const { documentChooser } = {
+      ...this.props.entityType?.chooserUrls,
+      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
+      ...global.chooserUrls,
+    };
+
     return {
-      url: global.chooserUrls.documentChooser,
+      url: documentChooser,
       urlParams: {},
       onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
