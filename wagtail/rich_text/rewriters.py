@@ -181,21 +181,6 @@ class LinkRewriter(TagRewriter):
         # Replace unrecognised link types with an empty link.
         return rule(attrs_list) if rule else ["<a>"] * len(attrs_list)
 
-    def unsupported_tag_type_rule(self, attrs):
-        return "<a>"
-
-    def get_rule(self, tag_type):
-        if tag_type:
-            try:
-                return self.rules[tag_type]
-            except KeyError:
-                if tag_type not in ["email", "external", "anchor"]:
-                    return self.unsupported_tag_type_rule
-
-        # We want to leave links untouched if they either provide no linktype
-        # or if the linktypes they provide don't have a registered rule.
-        return None
-
 
 class MultiRuleRewriter:
     """Rewrites HTML by applying a sequence of rewriter functions"""
