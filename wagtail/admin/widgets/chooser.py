@@ -299,14 +299,19 @@ class AdminPageChooser(BaseChooser):
     def get_js_init_options(self, id_, name, value_data):
         opts = super().get_js_init_options(id_, name, value_data)
         value_data = value_data or {}
+        page_id = None
 
-        # the parentId is set to the current instances id, if the current page instance
-        # exists i.e. EditView, else set to the parent page id since the current
-        # instance doesn't exist yet. i.e CreateView
-        page_id = self.form_instance.instance.id or self.form_instance.parent_page.id
+        if self.form_instance:
+            # the parentId is set to the current instances id, if the current page instance
+            # exists i.e. EditView, else set to the parent page id since the current
+            # instance doesn't exist yet. i.e CreateView, and to None if no parent page
+            if self.form_instance.instance.id is not None:
+                page_id = self.form_instance.instance.id
+            elif self.form_instance.parent_page is not None:
+                page_id = self.form_instance.parent_page.id
 
         parent_id = value_data.get("parent_id")
-        if parent_id is not None:
+        if parent_id is not None or page_id is not None:
             opts["parentId"] = parent_id or page_id
         return opts
 

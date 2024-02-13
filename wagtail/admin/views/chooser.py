@@ -295,9 +295,6 @@ class BrowseView(View):
                     active_locale_id = selected_locale.pk
                 else:
                     active_locale_id = Locale.get_active().pk
-                    selected_locale = get_object_or_404(
-                        Locale, language_code=active_locale_id
-                    )
 
                 # we are at the Root level, so get the locales from the current pages
                 choose_url = reverse("wagtailadmin_choose_page")
