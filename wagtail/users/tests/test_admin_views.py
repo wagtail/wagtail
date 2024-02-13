@@ -1415,6 +1415,12 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(113):
+            self.get()
+
     def test_create_group(self):
         response = self.post({"name": "test group"})
 
@@ -1689,6 +1695,12 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
         self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
+
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(130):
+            self.get()
 
     def test_nonexistant_group_redirect(self):
         self.assertEqual(self.get(group_id=100000).status_code, 404)
