@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -262,11 +262,11 @@ msgstr "Ledsen, inga grupper matchar \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Det finns inga grupper konfigurerade. Varför inte <a href="
-"\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
+"Det finns inga grupper konfigurerade. Varför inte <a "
+"href=\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Är du säker på att du vill radera denna användare?"
@@ -286,6 +286,26 @@ msgstr "Radera användare"
 msgid "Select all users in listing"
 msgstr "Välj alla användare i lista"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Gruppen %(group_name)s har inga användare konfigurerade. Varför inte <a "
+"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Det finns inga användare konfigurerade. Varför inte <a "
+"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
+
 msgid "Username"
 msgstr "Användarnamn"
 
@@ -303,32 +323,6 @@ msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det finns %(counter)s träff"
-msgstr[1] "Det finns %(counter)s träffar"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Gruppen %(group_name)s har inga användare konfigurerade. Varför inte <a href="
-"\"%(wagtailusers_add_url)s\">skapa några</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
-msgstr ""
-"Det finns inga användare konfigurerade. Varför inte <a href="
-"\"%(wagtailusers_add_url)s\">skapa några</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

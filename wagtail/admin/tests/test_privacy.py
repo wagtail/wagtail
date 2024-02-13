@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.models import Page, PageViewRestriction
@@ -172,7 +172,9 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "password", "This field is required.")
+        self.assertFormError(
+            response.context["form"], "password", "This field is required."
+        )
 
     def test_unset_password_restriction(self):
         """
@@ -203,10 +205,44 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         history_response = self.client.get(history_url)
 
         # Check that the expected log message is present
-        expected_log_message = "Removed the &#x27;Private, accessible with the following password&#x27; view restriction. The page is public."
+        expected_log_message = "Removed the &#x27;Private, accessible with a shared password&#x27; view restriction. The page is public."
         self.assertContains(
             history_response,
             expected_log_message,
+        )
+
+    def test_set_shared_password_page(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+        )
+
+        input_el = self.get_soup(response.content).select_one("[data-field-input]")
+        self.assertEqual(response.status_code, 200)
+
+        # check that input option for password is visible
+        self.assertIn("password", response.context["form"].fields)
+
+        # check that the option for password is visible
+        self.assertIsNotNone(input_el)
+
+    @override_settings(WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE=False)
+    def test_unset_shared_password_page(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # check that input option for password is not visible
+        self.assertNotIn("password", response.context["form"].fields)
+        self.assertFalse(
+            response.context["form"]
+            .fields["restriction_type"]
+            .valid_value(PageViewRestriction.PASSWORD)
+        )
+
+        # check that the option for password is not visible
+        self.assertNotContains(
+            response, '<div class="w-field__input" data-field-input>'
         )
 
     def test_get_private_groups(self):
@@ -287,7 +323,7 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, "form", "groups", "Please select at least one group."
+            response.context["form"], "groups", "Please select at least one group."
         )
 
     def test_unset_group_restriction(self):

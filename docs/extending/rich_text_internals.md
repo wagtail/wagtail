@@ -15,7 +15,7 @@ The components involved in Wagtail's rich text handling are described below.
 
 ## Data format
 
-Rich text data (as handled by [RichTextField](rich_text_field), and `RichTextBlock` within [StreamField](../topics/streamfield.rst)) is stored in the database in a format that is similar, but not identical, to HTML. For example, a link to a page might be stored as:
+Rich text data (as handled by [RichTextField](rich_text_field), and `RichTextBlock` within [StreamField](../topics/streamfield)) is stored in the database in a format that is similar, but not identical, to HTML. For example, a link to a page might be stored as:
 
 ```html
 <p><a linktype="page" id="3">Contact us</a> for more information.</p>
@@ -52,7 +52,7 @@ Again, the `embedtype` attribute identifies a rule that shall be used to rewrite
 A number of additional constraints apply to `<a linktype="...">` and `<embed embedtype="..." />` tags, to allow the conversion to be performed efficiently via string replacement:
 
 -   The tag name and attributes must be lower-case
--   Attribute values must be quoted with double-quotes
+-   Attribute values must be quoted with double quotes
 -   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
 -   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
@@ -205,9 +205,9 @@ It is possible to create your own rich text editor implementation. At minimum, a
 
 Typically, a rich text widget also receives a `features` list, passed from either `RichTextField` / `RichTextBlock` or the `features` option in `WAGTAILADMIN_RICH_TEXT_EDITORS`, which defines the features available in that instance of the editor (see [rich text features](rich_text_features)). To opt in to supporting features, set the attribute `accepts_features = True` on your widget class; the widget constructor will then receive the feature list as a keyword argument `features`.
 
-There is a standard set of recognised feature identifiers as listed under [rich text features](rich_text_features), but this is not a definitive list; feature identifiers are only defined by convention, and it is up to each editor widget to determine which features it will recognise, and adapt its behaviour accordingly. Individual editor widgets might implement fewer or more features than the default set, either as built-in functionality or through a plugin mechanism if the editor widget has one.
+There is a standard set of recognized feature identifiers as listed under [rich text features](rich_text_features), but this is not a definitive list; feature identifiers are only defined by convention, and it is up to each editor widget to determine which features it will recognize, and adapt its behavior accordingly. Individual editor widgets might implement fewer or more features than the default set, either as built-in functionality or through a plugin mechanism if the editor widget has one.
 
-For example, a third-party Wagtail extension might introduce `table` as a new rich text feature, and provide implementations for the Draftail editor (which provides a plugin mechanism). In this case, the third-party extension will not be aware of your custom editor widget, and so the widget will not know how to handle the `table` feature identifier. Editor widgets should silently ignore any feature identifiers that they do not recognise.
+For example, a third-party Wagtail extension might introduce `table` as a new rich text feature, and provide implementations for the Draftail editor (which provides a plugin mechanism). In this case, the third-party extension will not be aware of your custom editor widget, and so the widget will not know how to handle the `table` feature identifier. Editor widgets should silently ignore any feature identifiers that they do not recognize.
 
 The `default_features` attribute of the feature registry is a list of feature identifiers to be used whenever an explicit feature list has not been given in `RichTextField` / `RichTextBlock` or `WAGTAILADMIN_RICH_TEXT_EDITORS`. This list can be modified within the `register_rich_text_features` hook to make new features enabled by default, and retrieved by calling `get_default_features()`.
 
@@ -241,7 +241,7 @@ class CustomRichTextArea(widgets.TextArea):
 ```{eval-rst}
 .. method:: FeatureRegistry.register_editor_plugin(editor_name, feature_name, plugin_definition)
 
-Rich text editors often provide a plugin mechanism to allow extending the editor with new functionality. The ``register_editor_plugin`` method provides a standardised way for ``register_rich_text_features`` hooks to define plugins to be pulled into the editor when a given rich text feature is enabled.
+Rich text editors often provide a plugin mechanism to allow extending the editor with new functionality. The ``register_editor_plugin`` method provides a standardized way for ``register_rich_text_features`` hooks to define plugins to be pulled into the editor when a given rich text feature is enabled.
 
 ``register_editor_plugin`` is passed an editor name (a string uniquely identifying the editor widget - Wagtail uses the identifier ``draftail`` for the built-in editor), a feature identifier, and a plugin definition object. This object is specific to the editor widget and can be any arbitrary value, but will typically include a :doc:`Django form media <django:topics/forms/media>` definition referencing the plugin's JavaScript code - which will then be merged into the editor widget's own media definition - along with any relevant configuration options to be passed when instantiating the editor.
 
@@ -262,7 +262,7 @@ Wagtail provides two utility classes, `wagtail.admin.rich_text.converters.conten
 
 Both classes accept a `features` list as an argument to their constructor and implement two methods, `from_database_format(data)` which converts Wagtail rich text data to the editor's format, and `to_database_format(data)` which converts editor data to Wagtail rich text format.
 
-As with editor plugins, the behaviour of a converter class can vary according to the feature list passed to it. In particular, it can apply whitelisting rules to ensure that the output only contains HTML elements corresponding to the currently active feature set. The feature registry provides a `register_converter_rule` method to allow `register_rich_text_features` hooks to define conversion rules that will be activated when a given feature is enabled.
+As with editor plugins, the behavior of a converter class can vary according to the feature list passed to it. In particular, it can apply whitelisting rules to ensure that the output only contains HTML elements corresponding to the currently active feature set. The feature registry provides a `register_converter_rule` method to allow `register_rich_text_features` hooks to define conversion rules that will be activated when a given feature is enabled.
 
 ```{eval-rst}
 .. method:: FeatureRegistry.register_converter_rule(converter_name, feature_name, rule_definition)

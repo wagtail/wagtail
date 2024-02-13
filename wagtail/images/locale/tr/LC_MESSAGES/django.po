@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -237,47 +237,31 @@ msgstr "Dosya bulunamadı"
 msgid "Usage"
 msgstr "Kullanım"
 
-msgid "Images"
-msgstr "Resimler"
-
-msgid "pixels"
-msgstr "piksel"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen resim yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona resim yüklemediniz. Neden <a href="
-"\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona resim yüklemediniz. Neden <a "
+"href=\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Resim yüklemediniz. Neden <a href=\"%(wagtailimages_add_image_url)s\">şimdi "
 "bir tane yüklemiyorsunuz</a>?"
 
-msgid "Generating URL"
-msgstr "URL oluşturuluyor"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Önizleme"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Ekran boyutundan büyük olan resimler buradaki önizlemede daha küçük "
-"görüntülenir, böylece ekranı kaplar."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Birden fazla resim ekle"
@@ -335,8 +319,8 @@ msgstr "Başka resim seç"
 msgid "Edit this image"
 msgstr "Resmi düzenle"
 
-msgid "Search images"
-msgstr "Resimlerde ara"
+msgid "Images"
+msgstr "Resimler"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

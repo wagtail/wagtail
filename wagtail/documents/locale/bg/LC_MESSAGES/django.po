@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,26 +60,17 @@ msgstr "Запази"
 msgid "Delete document"
 msgstr "Изтрий документ"
 
-msgid "Documents"
-msgstr "Документи"
-
-msgid "Title"
-msgstr "Заглавие"
-
-msgid "File"
-msgstr "Файл"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Няма съвпадение на документи с <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Не сте качили никакви документи. Защо не <a href="
-"\"%(wagtaildocs_add_document_url)s\">качите един сега</a>?"
+"Не сте качили никакви документи. Защо не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">качите един сега</a>?"
 
 msgid "Tags"
 msgstr "Тагове"
@@ -87,11 +78,20 @@ msgstr "Тагове"
 msgid "Delete"
 msgstr "Изтрий"
 
+msgid "File"
+msgstr "Файл"
+
 msgid "Choose a document"
 msgstr "Изберете документ"
 
 msgid "Choose another document"
 msgstr "Избери друг документ"
+
+msgid "Documents"
+msgstr "Документи"
+
+msgid "Title"
+msgstr "Заглавие"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

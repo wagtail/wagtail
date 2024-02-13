@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -134,18 +134,6 @@ msgstr "Soubor nenalezen"
 msgid "Usage"
 msgstr "Použití"
 
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Title"
-msgstr "Název"
-
-msgid "File"
-msgstr "Soubor"
-
-msgid "Created"
-msgstr "Vytvořeno"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -153,19 +141,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "V kolekci nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
 "href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a href="
-"\"%(wagtaildocs_add_document_url)s\">zde</a>."
+"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
+"href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"
@@ -212,6 +200,12 @@ msgstr "Tagy"
 msgid "Delete"
 msgstr "Smazat"
 
+msgid "File"
+msgstr "Soubor"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
 msgid "Choose a document"
 msgstr "Zvolit dokument"
 
@@ -221,8 +215,11 @@ msgstr "Zvolit jiný dokument"
 msgid "Edit this document"
 msgstr "Upravit tento dokument"
 
-msgid "Search documents"
-msgstr "Hledat v dokumentech"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Název"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

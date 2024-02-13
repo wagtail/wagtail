@@ -79,14 +79,17 @@
                         {% endif %}
 
                         {% if filters %}
-                            {% fragment as filters_icon %}{% icon name="sliders" title=_("Show filters") %}{% endfragment %}
-                            {% dialog_toggle classname="w-filter-button" dialog_id="filters-dialog" text=filters_icon %}
-
-                            {% dialog theme="floating" id="filters-dialog" title=_("Filters") dialog_root_selector="[data-search-form]" %}
-                                {% for field in filters.form %}
-                                    {% formattedfield field %}
-                                {% endfor %}
-                            {% enddialog %}
+                            <div
+                                id="filters-drilldown"
+                                class="w-drilldown"
+                                data-controller="w-drilldown"
+                                data-action="w-swap:success@document->w-drilldown#updateParams w-dropdown:hide->w-drilldown#delayedClose w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
+                                data-w-drilldown-count-attr-value="data-w-active-filter-name"
+                                data-w-drilldown-w-action-outlet="[data-w-active-filter-name][data-controller='w-action']"
+                                data-w-drilldown-w-dropdown-outlet="#filters-drilldown [data-controller='w-dropdown']"
+                            >
+                                {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters only %}
+                            </div>
                         {% endif %}
 
                         {% comment %}

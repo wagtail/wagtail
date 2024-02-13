@@ -5,14 +5,15 @@
 # Translators:
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -21,17 +22,21 @@ msgstr ""
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "default"
+msgstr "ค่าเริ่มต้น"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s สำหรับ %(site)s"
+
 msgid "Site"
 msgstr "เว็บไซด์"
 
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
 msgid "Saving…"
-msgstr "กำลังเก็บ"
+msgstr "กำลังบันทึก..."
 
 msgid "Save"
-msgstr "เก็บรักษา"
+msgstr "บันทึก"
 
 msgid "Settings"
 msgstr "ตั้งค่า"
@@ -41,3 +46,7 @@ msgstr "การตั้งค่าไม่สามารถเปิดไ
 
 msgid "The setting could not be saved due to errors."
 msgstr "การตั้งค่าไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s ถูกอัปเดต"

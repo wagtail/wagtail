@@ -35,6 +35,7 @@ class PersonViewSet(ModelViewSet):
     form_fields = ["first_name", "last_name"]
     icon = "user"
     add_to_admin_menu = True
+    copy_view_enabled = False
     inspect_view_enabled = True
 
 
@@ -54,7 +55,7 @@ def register_viewset():
     return person_viewset
 ```
 
-The viewset can be further customised by overriding other attributes and methods.
+The viewset can be further customized by overriding other attributes and methods.
 
 ### Icon
 
@@ -68,9 +69,9 @@ The {attr}`~.ViewSet.url_prefix` and {attr}`~.ViewSet.url_namespace` properties 
 
 ### Menu item
 
-By default, registering a `ModelViewSet` will not register a main menu item. To add a menu item, set {attr}`~.ViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the "Settings" menu, you can set {attr}`~.ViewSet.add_to_settings_menu` to `True`. Unless {attr}`~.ViewSet.menu_icon` is specified, the menu will use the same {attr}`~.ViewSet.icon` used for the views. The {attr}`~.ViewSet.menu_url` property can be overridden to customise the menu item's link, which defaults to the listing view for the model.
+By default, registering a `ModelViewSet` will not register a main menu item. To add a menu item, set {attr}`~.ViewSet.add_to_admin_menu` to `True`. Alternatively, if you want to add the menu item inside the "Settings" menu, you can set {attr}`~.ViewSet.add_to_settings_menu` to `True`. Unless {attr}`~.ViewSet.menu_icon` is specified, the menu will use the same {attr}`~.ViewSet.icon` used for the views. The {attr}`~.ViewSet.menu_url` property can be overridden to customize the menu item's link, which defaults to the listing view for the model.
 
-Unless specified, the menu item will be labelled after the model's verbose name. You can customise the menu item's label, name, and order by setting the {attr}`~.ViewSet.menu_label`, {attr}`~.ViewSet.menu_name`, and {attr}`~.ViewSet.menu_order` attributes respectively. If you would like to customise the `MenuItem` instance completely, you could override the {meth}`~.ViewSet.get_menu_item` method.
+Unless specified, the menu item will be labeled after the model's verbose name. You can customize the menu item's label, name, and order by setting the {attr}`~.ViewSet.menu_label`, {attr}`~.ViewSet.menu_name`, and {attr}`~.ViewSet.menu_order` attributes respectively. If you would like to customize the `MenuItem` instance completely, you could override the {meth}`~.ViewSet.get_menu_item` method.
 
 You can group multiple `ModelViewSet`s' menu items inside a single top-level menu item using the {class}`~wagtail.admin.viewsets.model.ModelViewSetGroup` class. It is similar to `ViewSetGroup`, except it takes the {attr}`~django.db.models.Options.app_label` of the first viewset's model as the default {attr}`~.ViewSetGroup.menu_label`. Refer to [the examples for `ViewSetGroup`](using_base_viewsetgroup) for more details.
 
@@ -78,13 +79,13 @@ You can group multiple `ModelViewSet`s' menu items inside a single top-level men
 
 ### Listing view
 
-The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customise the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to specify the default ordering of the listing view.
+The {attr}`~ModelViewSet.list_display` attribute can be set to specify the columns shown on the listing view. To customize the number of items to be displayed per page, you can set the {attr}`~ModelViewSet.list_per_page` attribute. Additionally, the {attr}`~ModelViewSet.ordering` attribute can be used to override the `default_ordering` configured in the listing view.
 
 You can add the ability to filter the listing view by defining a {attr}`~ModelViewSet.list_filter` attribute and specifying the list of fields to filter. Wagtail uses the django-filter package under the hood, and this attribute will be passed as django-filter's `FilterSet.Meta.fields` attribute. This means you can also pass a dictionary that maps the field name to a list of lookups.
 
-If you would like to make further customisations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~ModelViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
+If you would like to make further customizations to the filtering mechanism, you can also use a custom `wagtail.admin.filters.WagtailFilterSet` subclass by overriding the {attr}`~ModelViewSet.filterset_class` attribute. The `list_filter` attribute is ignored if `filterset_class` is set. For more details, refer to [django-filter's documentation](https://django-filter.readthedocs.io/en/stable/guide/usage.html#the-filter).
 
-You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customise the file name of the exported spreadsheet.
+You can add the ability to export the listing view to a spreadsheet by setting the {attr}`~ModelViewSet.list_export` attribute to specify the columns to be exported. The {attr}`~ModelViewSet.export_filename` attribute can be used to customize the file name of the exported spreadsheet.
 
 (modelviewset_create_edit)=
 
@@ -92,7 +93,19 @@ You can add the ability to export the listing view to a spreadsheet by setting t
 
 You can define a `panels` or `edit_handler` attribute on the `ModelViewSet` or your Django model to use Wagtail's panels mechanism. For more details, see [](forms_panels_overview).
 
-If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.get_edit_handler` method is not overridden, the form will be rendered as a plain Django form. You can customise the form by setting the {attr}`~ModelViewSet.form_fields` attribute to specify the fields to be shown on the form. Alternatively, you can set the {attr}`~ModelViewSet.exclude_form_fields` attribute to specify the fields to be excluded from the form. If panels are not used, you must define `form_fields` or `exclude_form_fields`, unless {meth}`~ModelViewSet.get_form_class` is overridden.
+If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.get_edit_handler` method is not overridden, the form will be rendered as a plain Django form. You can customize the form by setting the {attr}`~ModelViewSet.form_fields` attribute to specify the fields to be shown on the form. Alternatively, you can set the {attr}`~ModelViewSet.exclude_form_fields` attribute to specify the fields to be excluded from the form. If panels are not used, you must define `form_fields` or `exclude_form_fields`, unless {meth}`~ModelViewSet.get_form_class` is overridden.
+
+(modelviewset_copy)=
+
+### Copy view
+
+```{versionadded} 6.0
+
+```
+
+The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
+
+The view's form will be generated in the same way as create or edit forms. To use a custom form, override the `copy_view_class` and modify the `form_class` property on that class.
 
 (modelviewset_inspect)=
 
@@ -102,7 +115,7 @@ The inspect view is disabled by default, as it's not often useful for most model
 
 When inspect view is enabled, an 'Inspect' button will automatically appear for each row on the listing view, which takes you to a view that shows a list of field values for that particular instance.
 
-By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customise what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
+By default, all 'concrete' fields (where the field value is stored as a column in the database table for your model) will be shown. You can customize what values are displayed by specifying the {attr}`~ModelViewSet.inspect_view_fields` or the {attr}`~ModelViewSet.inspect_view_fields_exclude` attributes on your `ModelViewSet` class.
 
 (modelviewset_templates)=
 
@@ -116,25 +129,21 @@ If {attr}`~ModelViewSet.template_prefix` is set, Wagtail will look for the views
 
 To override the template used by the `IndexView` for example, you could create a new `index.html` template and put it in one of those locations. For example, given `custom/campaign` as the `template_prefix` and a `Shirt` model in a `merch` app, you could add your custom template as `templates/custom/campaign/merch/shirt/index.html`.
 
-For some common views, Wagtail also allows you to override the template used by overriding the `{view_name}_template_name` property on the viewset. The following is a list of customisation points for the views:
+For some common views, Wagtail also allows you to override the template used by overriding the `{view_name}_template_name` property on the viewset. The following is a list of customization points for the views:
 
 -   `IndexView`: `index.html` or {attr}`~ModelViewSet.index_template_name`
-    -   For the results fragment used in AJAX responses (e.g. when searching), customise `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
+    -   For the results fragment used in AJAX responses (e.g. when searching), customize `index_results.html` or {attr}`~ModelViewSet.index_results_template_name`
 -   `CreateView`: `create.html` or {attr}`~ModelViewSet.create_template_name`
 -   `EditView`: `edit.html` or {attr}`~ModelViewSet.edit_template_name`
 -   `DeleteView`: `delete.html` or {attr}`~ModelViewSet.delete_template_name`
 -   `HistoryView`: `history.html` or {attr}`~ModelViewSet.history_template_name`
 -   `InspectView`: `inspect.html` or {attr}`~ModelViewSet.inspect_template_name`
 
-### Other customisations
+### Other customizations
 
 By default, the model registered with a `ModelViewSet` will also be registered to the [reference index](managing_the_reference_index). You can turn off this behavior by setting {attr}`~ModelViewSet.add_to_reference_index` to `False`.
 
-Various additional attributes are available to customise the viewset - see the {class}`ModelViewSet` documentation.
-
-```{versionadded} 5.2
-The ability to customise the menu item, listing view, inspect view, templates, and reference indexing were added.
-```
+Various additional attributes are available to customize the viewset - see the {class}`ModelViewSet` documentation.
 
 (chooserviewset)=
 
@@ -198,7 +207,7 @@ PersonChooserBlock = person_chooser_viewset.get_block_class(
 
 Chooser viewsets provide a mechanism for limiting the options displayed in the chooser according to another input field on the calling page. For example, suppose the person model has a country field - we can then set up a page model with a country dropdown and a person chooser, where an editor first selects a country from the dropdown and then opens the person chooser to be presented with a list of people from that country.
 
-To set this up, define a `url_filter_parameters` attribute on the ChooserViewSet. This specifies a list of URL parameters that will be recognised for filtering the results - whenever these are passed in the URL, a `filter` clause on the correspondingly-named field will be applied to the queryset. These parameters should also be listed in the `preserve_url_parameters` attribute, so that they are preserved in the URL when navigating through the chooser (such as when following pagination links). The following definition will allow the person chooser to be filtered by country:
+To set this up, define a `url_filter_parameters` attribute on the ChooserViewSet. This specifies a list of URL parameters that will be recognized for filtering the results - whenever these are passed in the URL, a `filter` clause on the correspondingly-named field will be applied to the queryset. These parameters should also be listed in the `preserve_url_parameters` attribute, so that they are preserved in the URL when navigating through the chooser (such as when following pagination links). The following definition will allow the person chooser to be filtered by country:
 
 ```python
 class PersonChooserViewSet(ChooserViewSet):

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -296,20 +296,6 @@ msgstr "Velg et format"
 msgid "Insert image"
 msgstr "Sett inn bilde"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Bilde <span class=\"w-sr-only\">oprettet i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Bilder <span class=\"w-sr-only\">oprettet i "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Endre bildefil:"
 
@@ -374,9 +360,6 @@ msgstr "Fil ikke funnet"
 msgid "Usage"
 msgstr "Bruk"
 
-msgid "Images"
-msgstr "Bilder"
-
 msgid "Sort by"
 msgstr "Sorter etter"
 
@@ -393,52 +376,30 @@ msgid "Select all images in listing"
 msgstr "Velg alle bildene i listen"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
-
-msgid "Select image"
-msgstr "Velg bilde"
-
-msgid "pixels"
-msgstr "piksler"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
-"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
-
-msgid "Generating URL"
-msgstr "Genererer URL"
-
-msgid "URL"
-msgstr "URL"
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a "
+"href=\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
 
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Merk at bilder som genereres større enn skjermen vil fremstå mindre når de "
-"forhåndsvises her, så de har plass på skjermen."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Legg til flere bilder"
@@ -565,8 +526,8 @@ msgstr "Filstørrelse: (lav til høy)"
 msgid "File size: (high to low)"
 msgstr "Filstørrelse: (høy til lav)"
 
-msgid "Search images"
-msgstr "Søk i bilder"
+msgid "Images"
+msgstr "Bilder"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

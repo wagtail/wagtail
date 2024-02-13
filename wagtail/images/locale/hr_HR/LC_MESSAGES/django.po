@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -19,8 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -262,21 +262,8 @@ msgstr "Datoteka nije pronađena"
 msgid "Usage"
 msgstr "Upotreba"
 
-msgid "Images"
-msgstr "Slike"
-
 msgid "Popular Tags:"
 msgstr "Popularne Oznake:"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s rezultata"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
-
-msgid "pixels"
-msgstr "piksela"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -285,35 +272,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate slika u ovoj zbirci. Zašto ne <a href="
-"\"%(wagtailimages_add_image_url)s\">dodate jednu</a>?"
+"Nemate slika u ovoj zbirci. Zašto ne <a "
+"href=\"%(wagtailimages_add_image_url)s\">dodate jednu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Nemate slika. Zašto ne <a href=\"%(wagtailimages_add_image_url)s\">dodate "
 "jednu</a>?"
 
-msgid "Generating URL"
-msgstr "Generiranje URL-a"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "Pregled"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Generirane slike veće od zaslona će ovdje biti prikazane u manjim "
-"dimenzijama kako bi stale na zaslon."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Dodaj više slika"
@@ -377,8 +354,8 @@ msgstr "Odaberi sliku"
 msgid "Edit this image"
 msgstr "Uredi ovu sliku"
 
-msgid "Search images"
-msgstr "Pretraži slike"
+msgid "Images"
+msgstr "Slike"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

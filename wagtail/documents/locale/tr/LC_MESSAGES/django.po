@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,34 +128,25 @@ msgstr "Dosya bulunamadı"
 msgid "Usage"
 msgstr "Kullanım"
 
-msgid "Documents"
-msgstr "Belgeler"
-
-msgid "Title"
-msgstr "Başlık"
-
-msgid "File"
-msgstr "Dosya"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona belge yüklemediniz. Neden <a href="
-"\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Hiç belge yüklemediniz. Neden <a href=\"%(wagtaildocs_add_document_url)s"
-"\">bir tane yüklemiyorsunuz</a>?"
+"Hiç belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 msgid "Add multiple documents"
 msgstr "Birden fazla belge akle"
@@ -195,6 +186,9 @@ msgstr "Bir belge izni ekle"
 msgid "Delete"
 msgstr "Sil"
 
+msgid "File"
+msgstr "Dosya"
+
 msgid "Choose a document"
 msgstr "Belge seç"
 
@@ -204,8 +198,11 @@ msgstr "Başka bir belge seçin"
 msgid "Edit this document"
 msgstr "Belgeyi düzenle"
 
-msgid "Search documents"
-msgstr "Belgelerde ara"
+msgid "Documents"
+msgstr "Belgeler"
+
+msgid "Title"
+msgstr "Başlık"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

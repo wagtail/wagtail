@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -19,9 +19,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail forms"
 msgstr "Formularze Wagtail"
@@ -173,18 +173,6 @@ msgstr[3] "Czy na pewno chcesz usunąć te zgłoszenia formularza?"
 msgid "Delete"
 msgstr "Usuń"
 
-msgid "Forms"
-msgstr "Formularze"
-
-msgid "Pages"
-msgstr "Strony"
-
-msgid "Title"
-msgstr "Tytuł"
-
-msgid "Origin"
-msgstr "Źródło"
-
 msgid "Delete selected submissions"
 msgstr "Usuń wybrane zgłoszenia"
 
@@ -193,9 +181,6 @@ msgstr "Wszystkich zgłoszeń"
 
 msgid "Latest submission"
 msgstr "Ostatnie zgłoszenie"
-
-msgid "No form pages have been created."
-msgstr "Nie utworzono żadnej strony formularza"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -210,6 +195,18 @@ msgstr "Filtr"
 
 msgid "Apply filters"
 msgstr "Zastosuj filtry"
+
+msgid "Forms"
+msgstr "Formularze"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Origin"
+msgstr "Źródło"
+
+msgid "Pages"
+msgstr "Strony"
 
 #, python-format
 msgid "One submission has been deleted."

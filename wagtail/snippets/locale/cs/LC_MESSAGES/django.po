@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Martin Rejmon, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -112,31 +112,8 @@ msgstr "Nahradit aktuální koncept"
 msgid "Save draft"
 msgstr "Uložit návrh"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Nový %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Nový"
-
 msgid "Actions"
 msgstr "Akce"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Úryvky %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Přidat %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Žádné %(snippet_type_name_plural)s zatím nebyly vytvořeny. Pojďme <a href="
-"\"%(wagtailsnippets_create_url)s\">nějaký vytvořit</a>?"
 
 msgid "Live version"
 msgstr "Publikovaná verze"
@@ -170,12 +147,6 @@ msgstr "Úryvky"
 
 msgid "Name"
 msgstr "Jméno"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Úryvek nemohl být vytvořen kvůli chybám."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Úryvek nemohl být uložen kvůli chybám."
 
 msgid "Action"
 msgstr "Akce"

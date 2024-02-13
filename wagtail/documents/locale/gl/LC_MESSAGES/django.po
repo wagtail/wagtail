@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -205,29 +205,8 @@ msgstr "Arquivo non atopado"
 msgid "Usage"
 msgstr "Uso"
 
-msgid "Documents"
-msgstr "Documentos"
-
 msgid "Select all documents in listing"
 msgstr "Seleccionar tódolos documentos no listado"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Arquivo"
-
-msgid "Created"
-msgstr "Creado"
-
-msgid "Select document"
-msgstr "Seleccionar documento"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Hai %(counter)s coincidencia"
-msgstr[1] "Hai %(counter)s coincidencias"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -235,19 +214,19 @@ msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non subiches ningún documento nesta colección. ¿Por que non <a href="
-"\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
+"Non subiches ningún documento nesta colección. ¿Por que non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non subiches documentos. ¿Por qué non <a href="
-"\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
+"Non subiches documentos. ¿Por qué non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">subir un agora</a>?"
 
 #, python-format
 msgid ""
@@ -342,6 +321,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "Eliminouse %(num_parent_objects)d documento"
 msgstr[1] "Elimináronse %(num_parent_objects)d documentos"
 
+msgid "File"
+msgstr "Arquivo"
+
+msgid "Created"
+msgstr "Creado"
+
 msgid "Choose a document"
 msgstr "Seleccionar un documento"
 
@@ -351,8 +336,11 @@ msgstr "Elixir outro documento"
 msgid "Edit this document"
 msgstr "Editar este documento"
 
-msgid "Search documents"
-msgstr "Procurar documentos"
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

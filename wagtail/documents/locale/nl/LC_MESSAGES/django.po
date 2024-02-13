@@ -4,16 +4,16 @@
 #
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Storm Heg <storm@stormbase.digital>, 2021-2023
+# Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -215,29 +215,8 @@ msgstr "Bestand niet gevonden"
 msgid "Usage"
 msgstr "Gebruik"
 
-msgid "Documents"
-msgstr "Documenten"
-
 msgid "Select all documents in listing"
 msgstr "Selecteer alle documenten in lijst"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created"
-msgstr "Aangemaakt"
-
-msgid "Select document"
-msgstr "Selecteer document"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -247,19 +226,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a href="
-"\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen documenten aan deze collectie toegevoegd. Waarom <a "
+"href=\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen documenten toegevoegd. Waarom <a href="
-"\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen documenten toegevoegd. Waarom <a "
+"href=\"%(wagtaildocs_add_document_url)s\">voeg je er niet een toe</a>?"
 
 #, python-format
 msgid ""
@@ -269,11 +248,11 @@ msgid_plural ""
 "<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> document <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">aangemaakt in "
+"%(site_name)s</span> "
 msgstr[1] ""
-"<span>%(total)s</span> documenten <span class=\"w-sr-only\">aangemaakt "
-"in%(site_name)s</span>    "
+"<span>%(total)s</span> Documenten <span class=\"w-sr-only\">aangemaakt in "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"
@@ -354,6 +333,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d document is verwijderd"
 msgstr[1] "%(num_parent_objects)d documenten zijn verwijderd"
 
+msgid "File"
+msgstr "File"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
 msgid "Choose a document"
 msgstr "Kies een document"
 
@@ -363,8 +348,11 @@ msgstr "Kies een ander document"
 msgid "Edit this document"
 msgstr "Wijzig document"
 
-msgid "Search documents"
-msgstr "Zoek documenten"
+msgid "Documents"
+msgstr "Documenten"
+
+msgid "Title"
+msgstr "Titel"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

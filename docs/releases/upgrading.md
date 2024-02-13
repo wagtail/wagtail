@@ -47,7 +47,7 @@ To upgrade:
 -   Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
 -   Test that your project is working as expected.
 
-Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behaviour on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run `./manage.py collectstatic` to make the updated static files available to the web server. In production, we recommend enabling [ManifestStaticFilesStorage](https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage) in the `STATICFILES_STORAGE` setting - this ensures that different versions of files are assigned distinct URLs.
+Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behaviour on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run `./manage.py collectstatic` to make the updated static files available to the web server. In production, we recommend enabling [ManifestStaticFilesStorage](https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage) in the `STORAGES["staticfiles"]` setting - this ensures that different versions of files are assigned distinct URLs.
 
 (compatible_django_python_versions)=
 
@@ -59,8 +59,9 @@ The compatible versions of Django and Python for each Wagtail release are:
 
 | Wagtail release | Compatible Django versions | Compatible Python versions |
 | --------------- | -------------------------- | -------------------------- |
+| 6.1             | 4.2, 5.0                   | 3.8, 3.9, 3.10, 3.11, 3.12 |
 | 6.0             | 4.2, 5.0                   | 3.8, 3.9, 3.10, 3.11, 3.12 |
-| 5.2 LTS         | 3.2, 4.1, 4.2, 5.0*        | 3.8, 3.9, 3.10, 3.11, 3.12 |
+| 5.2 LTS         | 3.2, 4.1, 4.2, 5.0[^*]     | 3.8, 3.9, 3.10, 3.11, 3.12 |
 | 5.1             | 3.2, 4.1, 4.2              | 3.8, 3.9, 3.10, 3.11       |
 | 5.0             | 3.2, 4.1, 4.2              | 3.7, 3.8, 3.9, 3.10, 3.11  |
 | 4.2             | 3.2, 4.0, 4.1              | 3.7, 3.8, 3.9, 3.10, 3.11  |
@@ -107,4 +108,4 @@ The compatible versions of Django and Python for each Wagtail release are:
 | 0.2             | 1.6                        | 2.7                        |
 | 0.1             | 1.6                        | 2.7                        |
 
-* Added in a patch release
+[^*]: Added in a patch release

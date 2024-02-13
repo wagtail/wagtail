@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -93,29 +93,6 @@ msgstr "Gantikan konsep saat ini"
 msgid "Save draft"
 msgstr "Simpan konsep"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s Baru"
-
-msgid "New"
-msgstr "Baru"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Potongan %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Tambah %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Tidak ada %(snippet_type_name_plural)s yang dibuat. Mengapa tidak <a href="
-"\"%(wagtailsnippets_create_url)s\">menambahnya</a>?"
-
 msgid "Live version"
 msgstr "Versi aktif"
 
@@ -139,12 +116,6 @@ msgstr "Potongan"
 
 msgid "Name"
 msgstr "Nama"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Potongan tidak dapat dibuat karena suatu kesalahan."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Potongan tidak dapat disimpan karena suatu kesalahan."
 
 msgid "Date"
 msgstr "Tanggal"

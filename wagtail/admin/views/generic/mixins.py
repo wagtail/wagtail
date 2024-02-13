@@ -473,7 +473,9 @@ class CreateEditViewOptionalFeaturesMixin:
         and returns the new object. Override this to implement custom save logic.
         """
         if self.draftstate_enabled:
-            instance = self.form.save(commit=False)
+            instance = self.form.save(
+                commit=self.view_name == "edit" and not self.object.live
+            )
 
             # If DraftStateMixin is applied, only save to the database in CreateView,
             # and make sure the live field is set to False.
@@ -739,7 +741,7 @@ class RevisionsRevertMixin:
         return self.revision.as_object()
 
     def save_instance(self):
-        commit = not issubclass(self.model, DraftStateMixin)
+        commit = not issubclass(self.model, DraftStateMixin) or not self.object.live
         instance = self.form.save(commit=commit)
 
         self.has_content_changes = self.form.has_changed()

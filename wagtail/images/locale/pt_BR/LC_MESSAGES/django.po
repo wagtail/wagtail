@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -327,27 +327,11 @@ msgstr "Arquivo não encontrado"
 msgid "Usage"
 msgstr "Uso"
 
-msgid "Images"
-msgstr "Imagens"
-
 msgid "Popular Tags:"
 msgstr "Tags populares:"
 
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da lista"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Existe %(counter)s correspondência"
-msgstr[1] "Existem %(counter)s correspondências"
-msgstr[2] "Existem %(counter)s correspondências"
-
-msgid "Select image"
-msgstr "Selecionar imagem"
-
-msgid "pixels"
-msgstr "pixels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -356,35 +340,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem nessa coleção. Por que não <a href="
-"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem nessa coleção. Por que não <a "
+"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem. Por que não <a href="
-"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
-
-msgid "Generating URL"
-msgstr "Gerando URL"
-
-msgid "URL"
-msgstr "URL"
+"Você não enviou nenhuma imagem. Por que não <a "
+"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 msgid "Preview"
 msgstr "Pré-visualizar"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Perceba que as imagens geradas maiores que a tela aparecerão menores quando "
-"visualizadas aqui, então elas se encaixam na tela."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Adicionar múltiplas imagens"
@@ -488,8 +462,8 @@ msgstr "Escolha outra imagem"
 msgid "Edit this image"
 msgstr "Editar esta imagem"
 
-msgid "Search images"
-msgstr "Buscar imagens"
+msgid "Images"
+msgstr "Imagens"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

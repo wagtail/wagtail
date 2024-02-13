@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2015\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -103,15 +103,15 @@ msgstr "Tài khoản"
 msgid "Add user"
 msgstr "Thêm người dùng"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Xin lỗi, không tìm thấy user phù hợp với \"<em>%(query_string)s</em>\""
+
 msgid "Username"
 msgstr "Username"
 
 msgid "Status"
 msgstr "Trạng thái"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Xin lỗi, không tìm thấy user phù hợp với \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Nhóm"

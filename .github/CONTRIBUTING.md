@@ -32,9 +32,9 @@ We welcome code reviews from everyone. There's always a list of pull requests ta
 
 We welcome help with triaging issues and pull requests. You can help by:
 
-- Adding more details or your own perspective to bug reports or feature requests.
-- Attempting to reproduce issues tagged [status:Unconfirmed](https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Astatus%3AUnconfirmed) and sharing your findings.
-- Reviewing or otherwise offering your feedback on pull requests.
+-   Adding more details or your own perspective to bug reports or feature requests.
+-   Attempting to reproduce issues tagged [status:Unconfirmed](https://github.com/wagtail/wagtail/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Astatus%3AUnconfirmed) and sharing your findings.
+-   Reviewing or otherwise offering your feedback on pull requests.
 
 View our [issue tracking guidelines](https://docs.wagtail.org/en/latest/contributing/issue_tracking.html) for more information.
 

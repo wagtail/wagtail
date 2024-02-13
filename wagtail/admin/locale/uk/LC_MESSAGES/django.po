@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2024\n"
@@ -83,6 +83,9 @@ msgstr "Дата початку"
 
 msgid "Date to"
 msgstr "Дата кінця"
+
+msgid "Locale"
+msgstr "Локаль"
 
 msgid "All"
 msgstr "Усі"
@@ -576,11 +579,11 @@ msgstr "Ім'я"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
-"\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a "
+"href=\"%(add_collection_url)s\">створити одну</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -619,9 +622,6 @@ msgstr "Ви все ще хочете опублікувати цю %(model_name
 
 msgid "Cancel"
 msgstr "Скасувати"
-
-msgid "No log entries found."
-msgstr "Записи в журналі не знайдені. "
 
 msgid "Update"
 msgstr "Оновити"
@@ -700,27 +700,6 @@ msgstr "Чернетка"
 msgid "Live"
 msgstr "Наживо"
 
-msgid "Pages awaiting moderation"
-msgstr "Сторінки очікують на модерацію"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Edited"
-msgstr "Відредаговано"
-
-msgid "Preview this page"
-msgstr "Попередній перегляд"
-
-msgid "Approve"
-msgstr "Підтвердити"
-
-msgid "Reject"
-msgstr "Відхилити"
-
-msgid "Preview"
-msgstr "Попередній перегляд"
-
 msgid "Your most recent edits"
 msgstr "Останні зміни, зроблені вами"
 
@@ -750,6 +729,9 @@ msgstr "В очікуванні огляду"
 
 msgid "Tasks"
 msgstr "Завдання"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
 
 msgid "Compare with live version"
 msgstr "Порівняти із версією наживо"
@@ -802,17 +784,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Сторінку \"%(title)s\" було відхилено"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Сторінку \"%(page)s\" відправлено на модерацію редактором%(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Ви можете попередньо передивитись сторінку тут:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Сторінка \"%(page)s\" направлена на модерацію"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -838,6 +809,9 @@ msgid ""
 msgstr ""
 "Сторінку \"%(title)s\" було передано на затвердження на етапі модерації "
 "\"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Ви можете попередньо передивитись сторінку тут:"
 
 #, python-format
 msgid ""
@@ -1158,16 +1132,8 @@ msgstr "Копіювати"
 msgid "Copy this page"
 msgstr "Копіювати цю сторінку"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Створити %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Ця сторінка має незбережені зміни"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Редагування %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Ця сторінка псевдонім іншої сторінки. "
@@ -1200,9 +1166,8 @@ msgstr "Версія наживо"
 msgid "Current draft"
 msgstr "Поточна чернетка"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Перегляд %(title)s"
+msgid "No log entries found."
+msgstr "Записи в журналі не знайдені. "
 
 msgid "Select all pages in listing"
 msgstr "Обрати всі сторінки у списку"
@@ -1235,10 +1200,6 @@ msgstr "Сортувати"
 
 msgid "Enable ordering of child pages"
 msgstr "Увімкнути впорядковування дочірніх сторінок"
-
-#, python-format
-msgid "Search within '%(title)s'"
-msgstr "Шукати в '%(title)s'"
 
 msgid "Search the whole site"
 msgstr "Шукати по всьому сайту"
@@ -1300,18 +1261,18 @@ msgstr "Пересунути вгору"
 msgid "Move down"
 msgstr "Пересунути вниз"
 
-msgid "Set publishing schedule"
-msgstr "Задати графік публікації"
-
 msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Графік публікації почне працювати лише після того, як ви натиснете кнопку "
 "\"Опублікувати\""
+
+msgid "Set publishing schedule"
+msgstr "Задати графік публікації"
 
 msgid "Save schedule"
 msgstr "Зберегти графік"
@@ -1322,6 +1283,9 @@ msgstr "Дозволи на керування колекцією"
 msgid "Add a collection permission"
 msgstr "Додати дозвіл для колекції"
 
+msgid "Type"
+msgstr "Тип"
+
 msgid "No pages found."
 msgstr "Сторінок не знайдено."
 
@@ -1330,6 +1294,9 @@ msgstr "Жодна сторінка не відповідає критеріям
 
 msgid "Updated"
 msgstr "Оновлено"
+
+msgid "Pages"
+msgstr "Сторінки"
 
 msgid "Locking status"
 msgstr "Статус блокування"
@@ -1384,14 +1351,17 @@ msgstr "Завантажити XLSX"
 msgid "Download CSV"
 msgstr "Завантажити CSV"
 
-msgid "Add comment"
-msgstr "Додати коментар"
-
 msgid "Filter"
 msgstr "Фільтр"
 
 msgid "Apply filters"
 msgstr "Застосувати фільтри"
+
+msgid "Add comment"
+msgstr "Додати коментар"
+
+msgid "Back"
+msgstr "Назад"
 
 msgid "History"
 msgstr "Історія змін"
@@ -1517,6 +1487,9 @@ msgstr "Хронологія"
 msgid "Initial Revision"
 msgstr "Початкова Ревізія"
 
+msgid "Edited"
+msgstr "Відредаговано"
+
 msgid "with comment:"
 msgstr "з коментарем:"
 
@@ -1575,8 +1548,9 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1626,8 +1600,8 @@ msgstr "Крок %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
-"\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a "
+"href=\"%(add_url)s\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -1748,9 +1722,6 @@ msgstr[3] "Використано %(count)s разів"
 msgid "Comments"
 msgstr "Коментарі"
 
-msgid "Select page"
-msgstr "Обрати сторінку"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1778,9 +1749,6 @@ msgstr "Ім'я та електронна адреса"
 
 msgid "Profile picture"
 msgstr "Зображення профілю користувача"
-
-msgid "Locale"
-msgstr "Локаль"
 
 msgid "Theme preferences"
 msgstr "Налаштування теми"
@@ -1860,6 +1828,10 @@ msgstr "Більше опцій для '%(title)s'"
 msgid "Editing"
 msgstr "Редагування"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' видалено."
+
 msgid "Inspecting"
 msgstr "Перегляд"
 
@@ -1872,9 +1844,6 @@ msgstr "Останнє"
 #, python-format
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' знято з публікації"
-
-msgid "Usage of"
-msgstr "Використання"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -2058,8 +2027,9 @@ msgstr "Цю сторінку не можна створити через пом
 msgid "Page '%(page_title)s' deleted."
 msgstr "Сторінку '%(page_title)s' видалено."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Ця сторінка очікує на модерацію"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Редагування %(page_type)s"
 
 #, python-format
 msgid ""
@@ -2125,30 +2095,15 @@ msgstr "Приховати дії коментування"
 msgid "Page history"
 msgstr "Історія змін"
 
-msgid "Search pages…"
-msgstr "Пошук сторінок..."
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Yes"
+msgstr "Так"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Сторінку '%(page_title)s' розблоковано."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Сторінка '%(page_title)s' не перебуває в очікуванні модерації."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Сторінку '%(page_title)s' опубліковано."
-
-msgid "Failed to send approval notifications"
-msgstr "Надсилання сповіщення про схвалення зазнало невдачі"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Публікацію сторінки '%(page_title)s' відхилено."
-
-msgid "Failed to send rejection notifications"
-msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
 
 #, python-format
 msgid ""
@@ -2176,6 +2131,10 @@ msgstr "Сторінку '%(page_title)s' знято з публікації."
 
 msgid "Pages using"
 msgstr "Сторінки використовують"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Сторінка '%(page_title)s' не перебуває в очікуванні модерації."
 
 #, python-format
 msgid ""
@@ -2282,9 +2241,6 @@ msgstr "Завдання '%(object)s' вимкнено."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Завдання \"%(task_name)s\" увімкнено."
 
-msgid "Pages"
-msgstr "Сторінки"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Попередньо переглянути чернетку для '%(title)s'"
@@ -2359,9 +2315,6 @@ msgstr "Звіти"
 
 msgid "Help"
 msgstr "Допомога"
-
-msgid "Yes"
-msgstr "Так"
 
 msgid "Choose an item"
 msgstr "Оберіть елемент"

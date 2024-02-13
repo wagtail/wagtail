@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,32 +22,48 @@ msgstr ""
 msgid "Wagtail table block"
 msgstr ""
 
-#: blocks.py:70
+#: blocks.py:73
 msgid "Row header"
 msgstr ""
 
-#: blocks.py:72
-msgid "Display the first row as a header."
+#: blocks.py:74
+msgid "Table headers"
 msgstr ""
 
-#: blocks.py:74
+#: blocks.py:75
+msgid "Display the first row as a header"
+msgstr ""
+
+#: blocks.py:77
+msgid "Display the first column as a header"
+msgstr ""
+
+#: blocks.py:79
 msgid "Column header"
 msgstr ""
 
-#: blocks.py:76
-msgid "Display the first column as a header."
+#: blocks.py:81
+msgid "Display the first row AND first column as headers"
 msgstr ""
 
-#: blocks.py:78
+#: blocks.py:83
+msgid "No headers"
+msgstr ""
+
+#: blocks.py:85
+msgid "Which cells should be displayed as headers?"
+msgstr ""
+
+#: blocks.py:87
 msgid "Table caption"
 msgstr ""
 
-#: blocks.py:80
+#: blocks.py:89
 msgid ""
 "A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
+"screen reader users."
 msgstr ""
 
-#: blocks.py:82
+#: blocks.py:91
 msgid "Table"
 msgstr ""

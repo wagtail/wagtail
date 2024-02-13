@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -171,14 +171,11 @@ msgstr "<em>%(query_string)s</em>に一致するリダイレクトはありま�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "リダイレクトはありません。 <a href=\"%(wagtailredirects_add_redirect_url)s\">"
 "新しく作成</a>しますか？"
-
-msgid "Search redirects"
-msgstr "リダイレクトを検索"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
@@ -200,6 +197,9 @@ msgstr "リダイレクト： '%(redirect_title)s'が追加されました。"
 
 msgid "The redirect could not be created due to errors."
 msgstr "リダイレクトはエラーにより作成されませんでした。"
+
+msgid "Search redirects"
+msgstr "リダイレクトを検索"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

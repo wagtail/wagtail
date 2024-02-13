@@ -1,9 +1,5 @@
 # Create contact page
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 Having a contact page on your portfolio site will help you connect with potential clients, employers, or other professionals who are interested in your skills.
 
 In this section of the tutorial, you'll add a contact page to your portfolio site using Wagtail forms.
@@ -119,7 +115,7 @@ Now, migrate your database by running `python manage.py makemigrations` and then
 
 To add contact information to your portfolio site, follow these steps:
 
-1. Create a **Form page** as a child page of **Home** by following these steps:  
+1. Create a **Form page** as a child page of **Home** by following these steps:
 
     a. Restart your server.  
     b. Go to your admin interface.  
@@ -127,7 +123,7 @@ To add contact information to your portfolio site, follow these steps:
     d. Click `Home`.  
     e. Click the `...` icon at the top of the resulting page.  
     f. Click `add child page`.  
-    g. Click `Form page`.  
+    g. Click `Form page`.
 
 2. Add the necessary data.
 3. Publish your `Form Page`.

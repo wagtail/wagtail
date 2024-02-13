@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -115,36 +115,8 @@ msgstr "替换当前的草稿"
 msgid "Save draft"
 msgstr "保存草稿"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "新建  %(snippet_type_name)s "
-
-msgid "New"
-msgstr "新增"
-
 msgid "Actions"
 msgstr "动作"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "片段 %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "增加 %(snippet_type_name)s"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "总共有 %(counter)s 条匹配"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"没有 %(snippet_type_name_plural)s 被创建。 为何不 <a href="
-"\"%(wagtailsnippets_create_url)s\">添加一个</a> ？"
 
 msgid "Live version"
 msgstr "发布版本"
@@ -181,12 +153,6 @@ msgstr "名字"
 
 msgid "Instances"
 msgstr "实例"
-
-msgid "The snippet could not be created due to errors."
-msgstr "无法创建片段，出现错误。"
-
-msgid "The snippet could not be saved due to errors."
-msgstr "无法保存片段，出现错误。"
 
 msgid "Action"
 msgstr "行为"

@@ -1,9 +1,9 @@
 # Settings
 
 The `wagtail.contrib.settings` module allows you to define models that hold
-settings which are either common across all site records, or specific to each site.
+settings which are either common across all site records or specific to each site.
 
-Settings are editable by administrators within the Wagtail admin, and can be
+Settings are editable by administrators within the Wagtail admin and can be
 accessed in code as well as in templates.
 
 ## Installation
@@ -84,7 +84,7 @@ class SiteSpecificImportantPages(BaseSiteSetting):
     ]
 ```
 
-You can also customise the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
+You can also customize the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
@@ -295,7 +295,7 @@ Or, alternately, using the `set` tag:
 
 For models with foreign key relationships to other objects (for example pages),
 which are very often needed to output values in templates, you can set
-the `select_related` attribute on your model to have Wagtail utilise
+the `select_related` attribute on your model to have Wagtail utilize
 Django's [QuerySet.select_related()](https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related)
 method to fetch the settings object and related objects in a single query.
 With this, the initial query is more complex, but you will be able to

@@ -70,7 +70,7 @@ class Index(IndexView):
     """
 
     template_name = "wagtailusers/users/index.html"
-    results_template_name = "wagtailusers/users/results.html"
+    results_template_name = "wagtailusers/users/index_results.html"
     any_permission_required = ["add", "change", "delete"]
     permission_policy = ModelPermissionPolicy(User)
     model = User
@@ -84,7 +84,7 @@ class Index(IndexView):
     paginate_by = 20
     is_searchable = True
     page_title = gettext_lazy("Users")
-
+    show_other_searches = True
     model_fields = [f.name for f in User._meta.get_fields()]
 
     def setup(self, request, *args, **kwargs):

@@ -3,25 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023-2024
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Публікаваць"
@@ -73,6 +73,9 @@ msgstr "З"
 
 msgid "Date to"
 msgstr "Да"
+
+msgid "Locale"
+msgstr "Лакаль"
 
 msgid "All"
 msgstr "Усе"
@@ -212,6 +215,9 @@ msgstr ""
 "Вы не можаце зрабіць копію старонкі ў сябе, калі выбрана опцыя \"капіраванне "
 "падстаронак\""
 
+msgid "Search…"
+msgstr "Пошук..."
+
 msgid "Visibility"
 msgstr "Бачнасць"
 
@@ -220,6 +226,9 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
+
+msgid "Task"
+msgstr "Задача"
 
 msgid "Content"
 msgstr "Змест"
@@ -349,6 +358,10 @@ msgid "Add a phone link"
 msgstr "Дадайце спасылку на тэлефон"
 
 #, python-format
+msgid "Select %(title)s"
+msgstr "Выбраць %(title)s"
+
+#, python-format
 msgid "Explore subpages of '%(title)s'"
 msgstr "Агляд падстаронак для '%(title)s'"
 
@@ -398,11 +411,11 @@ msgstr "Імя"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
-"\">створым адну</a>?"
+"Калекцыі яшчэ не былі створаны. Давай <a "
+"href=\"%(add_collection_url)s\">створым адну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
@@ -471,27 +484,6 @@ msgstr "Чарнавік"
 msgid "Live"
 msgstr "Размешчана"
 
-msgid "Pages awaiting moderation"
-msgstr "Старонкі, якія чакаюць мадэрацыі"
-
-msgid "Type"
-msgstr "Тып"
-
-msgid "Edited"
-msgstr "Зменена"
-
-msgid "Preview this page"
-msgstr "Папярэдні прагляд старонкі"
-
-msgid "Approve"
-msgstr "Пацвярдзіць"
-
-msgid "Reject"
-msgstr "Адхіліць"
-
-msgid "Preview"
-msgstr "Папярэдні прагляд"
-
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
 
@@ -506,6 +498,9 @@ msgstr "Агульная інфармацыя"
 
 msgid "Close"
 msgstr "Зачыніць"
+
+msgid "Preview"
+msgstr "Папярэдні прагляд"
 
 msgid "Compare with live version"
 msgstr "Параўнаць з апублікаванай версіяй"
@@ -548,16 +543,8 @@ msgstr "Вы можаце рэдактаваць старонку вось ту�
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Старонка \"%(title)s\" была адхілена"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Старонка \"%(page)s\" адпраўлена на мадэрацыю %(editor)s."
-
 msgid "You can preview the page here:"
 msgstr "Вы можаце праглядзець старонку вось тут:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Старонка \"%(page)s\" адпраўленна на мадэрацыю"
 
 msgid "Page privacy"
 msgstr "Прыватнасць старонкі"
@@ -567,6 +554,9 @@ msgstr "Гэтая старонка была зачынена бацькоўск
 
 msgid "Publishing…"
 msgstr "Апублікаваць..."
+
+msgid "Publish this version"
+msgstr "Публікаваць гэтую версію"
 
 msgid "Saving…"
 msgstr "Захаваць..."
@@ -652,16 +642,11 @@ msgstr "Скапіяваць"
 msgid "Copy this page"
 msgstr "Скапіяваць гэтую старонку"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Новы %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "На гэтай старонцы засталіся незахаваных часткі."
 
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Рэдагаванне %(page_type)s: %(title)s"
+msgid "Action"
+msgstr "Дзеянне"
 
 msgid "User"
 msgstr "Карыстальнік"
@@ -677,10 +662,6 @@ msgstr "Апублікаваная версія"
 
 msgid "Current draft"
 msgstr "Чарнавік"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Агляд %(title)s"
 
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
@@ -751,6 +732,9 @@ msgstr "Падвінуць наверх"
 msgid "Move down"
 msgstr "Падвінусь уніз"
 
+msgid "Type"
+msgstr "Тып"
+
 msgid "No pages found."
 msgstr "Старонкі не знойдзены."
 
@@ -759,6 +743,9 @@ msgstr "Няма старонак задавальняюць крытэры сп
 
 msgid "Updated"
 msgstr "Абноўлена"
+
+msgid "Pages"
+msgstr "Старонкі"
 
 msgid "Locking status"
 msgstr "Статус блакавання"
@@ -785,11 +772,14 @@ msgstr "Спампаваць XLSX"
 msgid "Download CSV"
 msgstr "Спампаваць CSV"
 
+msgid "Filter"
+msgstr "Фільтр"
+
 msgid "Add comment"
 msgstr "Дадаць каментар"
 
-msgid "Filter"
-msgstr "Фільтр"
+msgid "Back"
+msgstr "Назад"
 
 msgid "History"
 msgstr "Гісторыя"
@@ -856,6 +846,9 @@ msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
 msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
 msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
 
+msgid "Edited"
+msgstr "Зменена"
+
 msgid "with comment:"
 msgstr "з каментарамі:"
 
@@ -915,9 +908,6 @@ msgstr "Імя і электронная пошта"
 msgid "Profile picture"
 msgstr "Малюнак профілю"
 
-msgid "Locale"
-msgstr "Лакаль"
-
 msgid "Password"
 msgstr "Пароль"
 
@@ -970,9 +960,6 @@ msgstr "Ранні"
 msgid "Latest"
 msgstr "Апошні"
 
-msgid "Usage of"
-msgstr "Выкарыстанне"
-
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Рэдактаваць гэта %(object)s"
@@ -1018,9 +1005,6 @@ msgstr "Гэтая старонка не можа быць створана з-�
 msgid "Page '%(page_title)s' deleted."
 msgstr "Старонка '%(page_title)s' выдаленая."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Старонка '%(page_title)s' абноўлена."
@@ -1043,27 +1027,15 @@ msgstr "Старонка не можа быць захавана, таму шт�
 msgid "The page could not be saved due to validation errors"
 msgstr "Старонка не можа быць захавана з-за памылак пры праверцы"
 
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Yes"
+msgstr "Так"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Старонка '%(page_title)s' адмыкнутая."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Старонка '%(page_title)s' у цяперашні час на мадэрацыі."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Старонка '%(page_title)s' апублікавана."
-
-msgid "Failed to send approval notifications"
-msgstr "Не атрымалася адправіць апавяшчэння аб пацвярджэнні"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Публікацыя старонкі '%(page_title)s' адхілена."
-
-msgid "Failed to send rejection notifications"
-msgstr "Не атрымалася адправіць апавяшчэння аб адхіленні"
 
 #, python-format
 msgid ""
@@ -1084,6 +1056,10 @@ msgstr "Старонка '%(page_title)s' знята з публікацыі."
 msgid "Pages using"
 msgstr "Старонак выкарыстоўваецца"
 
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Старонка '%(page_title)s' у цяперашні час на мадэрацыі."
+
 msgid "Date/Time"
 msgstr "Дата/час"
 
@@ -1095,9 +1071,6 @@ msgstr "Адключан"
 
 msgid "Enable"
 msgstr "Уключан"
-
-msgid "Pages"
-msgstr "Старонкі"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -1159,9 +1132,6 @@ msgstr "Код"
 
 msgid "Reports"
 msgstr "Справаздачы"
-
-msgid "Yes"
-msgstr "Так"
 
 msgid "Choose an item"
 msgstr "Выбраць элемент"

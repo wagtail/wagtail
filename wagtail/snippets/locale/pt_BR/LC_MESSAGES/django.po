@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<sottomaiormacedotec@gmail.com>, 2021\n"
@@ -113,38 +113,8 @@ msgstr "Substituir rascunho atual"
 msgid "Save draft"
 msgstr "Salvar rascunho"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Adicionar  %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Adicionar"
-
 msgid "Actions"
 msgstr "Ações"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragmentos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Adicionar %(snippet_type_name)s"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Existe %(counter)s correspondência"
-msgstr[1] "Existem %(counter)s correspondências"
-msgstr[2] "Existem %(counter)s correspondências"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a href="
-"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
 
 msgid "Live version"
 msgstr "Versão publicada"
@@ -178,12 +148,6 @@ msgstr "Fragmentos"
 
 msgid "Name"
 msgstr "Nome"
-
-msgid "The snippet could not be created due to errors."
-msgstr "O fragmento não pôde ser criado por conter erros."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "O snippet não pode ser salvo por conter erros."
 
 msgid "Action"
 msgstr "Ação"

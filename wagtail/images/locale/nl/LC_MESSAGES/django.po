@@ -10,16 +10,16 @@
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Storm Heg <storm@stormbase.digital>, 2021-2023
+# Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -318,11 +318,11 @@ msgid_plural ""
 "<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> afbeelding <span class=\"w-sr-only\">aangemaakt "
-"ijn %(site_name)s</span>"
+"<span>%(total)s</span> Afbeelding <span class=\"w-sr-only\">aangemaakt in "
+"%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> afbeeldingen <span class=\"w-sr-only"
-"\">aangemaakt in %(site_name)s</span>"
+"<span>%(total)s</span> Afbeeldingen <span class=\"w-sr-only\">aangemaakt in "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -388,9 +388,6 @@ msgstr "Bestand niet gevonden"
 msgid "Usage"
 msgstr "Gebruik"
 
-msgid "Images"
-msgstr "Afbeeldingen"
-
 msgid "Sort by"
 msgstr "Sorteer op"
 
@@ -407,52 +404,42 @@ msgid "Select all images in listing"
 msgstr "Selecteer alle afbeeldingen in lijst"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
-msgid "Select image"
-msgstr "Selecteer afbeelding"
-
-msgid "pixels"
-msgstr "pixels"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Sorry, geen afbeelding overeenkomst \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a href="
-"\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
+"Er zijn nog geen afbeeldingen toegevoegd aan deze collectie. Waarom <a "
+"href=\"%(wagtailimages_add_image_url)s\">uploadt u er niet nu een</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a href="
-"\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
-
-msgid "Generating URL"
-msgstr "Bezig met URL genereren"
-
-msgid "URL"
-msgstr "URL"
+"Er zijn nog geen afbeeldingen toegevoegd. Waarom <a "
+"href=\"%(wagtailimages_add_image_url)s\">uploadt je er niet nu een</a>?"
 
 msgid "Preview"
 msgstr "Voorbeeld"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Let op afbeeldingen groter dan het scherm worden kleiner vertoond in een "
-"preview zodat deze op het scherm passen."
+msgid "URL"
+msgstr "URL"
+
+msgid "Image URL"
+msgstr "Afbeelding URL"
+
+msgid "Copy URL"
+msgstr "Kopieer URL"
+
+msgid "Copied to clipboard"
+msgstr "Gekopieerd naar klembord"
+
+msgid "Copying to clipboard failed"
+msgstr "Kopiëren naar klembord mislukt"
 
 msgid "Add multiple images"
 msgstr "Voeg meerdere afbeeldingen toe"
@@ -578,8 +565,8 @@ msgstr "Bestandsgrootte: (klein naar groot)"
 msgid "File size: (high to low)"
 msgstr "Bestandsgrootte: (groot naar klein)"
 
-msgid "Search images"
-msgstr "Zoek afbeeldingen"
+msgid "Images"
+msgstr "Afbeeldingen"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

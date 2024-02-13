@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -83,6 +83,9 @@ msgstr "Datum od"
 
 msgid "Date to"
 msgstr "Datum do"
+
+msgid "Locale"
+msgstr "Místní nastavení (locale)"
 
 msgid "All"
 msgstr "Vše"
@@ -515,11 +518,11 @@ msgstr "Jméno"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a href="
-"\"%(add_collection_url)s\">zde</a>."
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a "
+"href=\"%(add_collection_url)s\">zde</a>."
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -539,9 +542,6 @@ msgstr "Ne, nerušit publikaci"
 
 msgid "Cancel"
 msgstr "Storno"
-
-msgid "No log entries found."
-msgstr "Nenalezeny žádné záznamy v logu."
 
 msgid "Update"
 msgstr "Uložit"
@@ -595,27 +595,6 @@ msgstr "Koncept"
 msgid "Live"
 msgstr "Publikováno"
 
-msgid "Pages awaiting moderation"
-msgstr "Stránky čekající na schválení"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Edited"
-msgstr "Upraveno"
-
-msgid "Preview this page"
-msgstr "Prohlédnout navrhovaný vzhled stránky"
-
-msgid "Approve"
-msgstr "Schválit"
-
-msgid "Reject"
-msgstr "Zamítnout"
-
-msgid "Preview"
-msgstr "Náhled"
-
 msgid "Your most recent edits"
 msgstr "Vaše poslední úpravy"
 
@@ -645,6 +624,9 @@ msgstr "Očekává se vaše revize"
 
 msgid "Tasks"
 msgstr "Úkoly"
+
+msgid "Preview"
+msgstr "Náhled"
 
 msgid "Compare with live version"
 msgstr "Porovnat s publikovánou verzí"
@@ -697,17 +679,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Stránka \"%(title)s\" byla zamítnuta"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "%(editor)s odeslal(a) ke schválení stránku \"%(page)s\"."
-
-msgid "You can preview the page here:"
-msgstr "Náhled stránky můžete zobrazit zde:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Stránka \"%(page)s\" byla odeslána ke schválení"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "Stránka \"%(title)s\" byla schválena během posouzení \"%(task)s\"."
@@ -731,6 +702,9 @@ msgid ""
 "\"%(task)s\"."
 msgstr ""
 "Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Náhled stránky můžete zobrazit zde:"
 
 #, python-format
 msgid ""
@@ -966,16 +940,8 @@ msgstr "Kopírovat"
 msgid "Copy this page"
 msgstr "Kopírovat tuto stránku"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nový %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Upravit %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Tato stránka je aliasem od jiné stránky."
@@ -1005,9 +971,8 @@ msgstr "Publikovaná verze"
 msgid "Current draft"
 msgstr "Aktuální koncept"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Obsah pod %(title)s"
+msgid "No log entries found."
+msgstr "Nenalezeny žádné záznamy v logu."
 
 msgid "Configure a site now."
 msgstr "Nyní zkonfigurujte web"
@@ -1091,6 +1056,9 @@ msgstr "Posunout dolů"
 msgid "Last published"
 msgstr "Naposledy publikováno"
 
+msgid "Type"
+msgstr "Typ"
+
 msgid "No pages found."
 msgstr "Nebyla nalezena žádná stránka."
 
@@ -1099,6 +1067,9 @@ msgstr "Žádná stránka neodpovídá parametrům výkazu."
 
 msgid "Updated"
 msgstr "Uloženo"
+
+msgid "Pages"
+msgstr "Stránky"
 
 msgid "Locking status"
 msgstr "Stav uzamčení"
@@ -1146,14 +1117,17 @@ msgstr "Stáhnout XLSX"
 msgid "Download CSV"
 msgstr "Stáhnout CSV"
 
-msgid "Add comment"
-msgstr "Přidat komentář"
-
 msgid "Filter"
 msgstr "Filtr"
 
 msgid "Apply filters"
 msgstr "Použít filtry"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Back"
+msgstr "Zpět"
 
 msgid "History"
 msgstr "Historie"
@@ -1244,6 +1218,9 @@ msgstr "Časová osa"
 msgid "Initial Revision"
 msgstr "První revize"
 
+msgid "Edited"
+msgstr "Upraveno"
+
 msgid "with comment:"
 msgstr "s komentářem:"
 
@@ -1299,12 +1276,14 @@ msgstr "Vytvořit"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Postupy se uplatní i pro podstránky. Vyberete-li nyní nadřazenou stránku, i "
-"její podřízené stránky použijí tento postup. Zobrazit <a href="
-"\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento postup."
+"její podřízené stránky použijí tento postup. Zobrazit <a "
+"href=\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento "
+"postup."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Tento postup není povolen. Nelze ho proto přiřazovat ke stránkám."
@@ -1477,9 +1456,6 @@ msgstr "Jméno a email"
 msgid "Profile picture"
 msgstr "Profilový obrázek"
 
-msgid "Locale"
-msgstr "Místní nastavení (locale)"
-
 msgid "Password"
 msgstr "Heslo"
 
@@ -1547,6 +1523,10 @@ msgstr "Zrušit '%(title)s'"
 msgid "Editing"
 msgstr "Úprava"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' zrušeno."
+
 msgid "Inspecting"
 msgstr "Prohlíží se.."
 
@@ -1555,9 +1535,6 @@ msgstr "Nejstarší"
 
 msgid "Latest"
 msgstr "Nejnovější"
-
-msgid "Usage of"
-msgstr "Použití"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1607,8 +1584,9 @@ msgstr "Stránku nelze vytvořit, zkontrolujte správné vyplnění polí"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Stránka '%(page_title)s' byla smazána."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Stránka nyní čeká na schválení"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Upravuje se %(page_type)s"
 
 #, python-format
 msgid ""
@@ -1671,27 +1649,15 @@ msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 msgid "Page history"
 msgstr "Historie stránky"
 
+msgid "Site"
+msgstr "Web"
+
+msgid "Yes"
+msgstr "Ano"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Stránka '%(page_title)s' je nyní odemknuta."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Stránka '%(page_title)s' nyní nečeká na schválení."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Stránka '%(page_title)s' byla publikována."
-
-msgid "Failed to send approval notifications"
-msgstr "Selhalo odeslání souhlasných notifikací"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Publikace stránky '%(page_title)s' byla zamítnuta."
-
-msgid "Failed to send rejection notifications"
-msgstr "Selhalo odeslání zamítavých notifikací"
 
 #, python-format
 msgid ""
@@ -1718,6 +1684,10 @@ msgstr "Stránce '%(page_title)s' byla zrušena publikace."
 
 msgid "Pages using"
 msgstr "Stránky typu"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stránka '%(page_title)s' nyní nečeká na schválení."
 
 #, python-format
 msgid ""
@@ -1824,9 +1794,6 @@ msgstr "Úloha '%(object)s' byla zakázána."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Úloha '%(task_name)s' byla povolena."
 
-msgid "Pages"
-msgstr "Stránky"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Prohlédnout koncept stránky '%(title)s'"
@@ -1894,9 +1861,6 @@ msgstr "Výkazy"
 
 msgid "Help"
 msgstr "Nápověda"
-
-msgid "Yes"
-msgstr "Ano"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

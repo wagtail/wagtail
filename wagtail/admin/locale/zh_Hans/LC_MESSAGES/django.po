@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -91,6 +91,9 @@ msgstr "起始日期"
 
 msgid "Date to"
 msgstr "结束日期"
+
+msgid "Locale"
+msgstr "区域"
 
 msgid "All"
 msgstr "所有"
@@ -471,6 +474,9 @@ msgstr "返回"
 msgid "Bulk actions"
 msgstr "批量动作"
 
+msgid "Select"
+msgstr "选择"
+
 msgid "Select row"
 msgstr "选择行"
 
@@ -526,15 +532,15 @@ msgstr "转换为内部链接"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"您输入的URL，<a target=\"_blank\" rel=\"noreferrer\" href=\"%(submitted_url)s"
-"\">%(submitted_url)s</a>，看起来与内部页面%(page)s匹配，该页面的URL为<a "
-"target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
-"%(internal_url)s</a>。"
+"您输入的URL，<a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>，看起来与内部页面%(page)s匹"
+"配，该页面的URL为<a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>。"
 
 #, python-format
 msgid ""
@@ -614,8 +620,8 @@ msgstr "名字"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
@@ -660,9 +666,6 @@ msgstr ""
 
 msgid "Cancel"
 msgstr "取消"
-
-msgid "No log entries found."
-msgstr "未找到日志记录"
 
 msgid "Update"
 msgstr "更新"
@@ -716,27 +719,6 @@ msgstr "草稿"
 msgid "Live"
 msgstr "发布"
 
-msgid "Pages awaiting moderation"
-msgstr "页面等待审核中"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "Edited"
-msgstr "已编辑"
-
-msgid "Preview this page"
-msgstr "预览此页面"
-
-msgid "Approve"
-msgstr "通过"
-
-msgid "Reject"
-msgstr "拒绝"
-
-msgid "Preview"
-msgstr "预览"
-
 msgid "Your most recent edits"
 msgstr "最近编辑"
 
@@ -778,6 +760,9 @@ msgstr "任务"
 
 msgid "Task submitted by"
 msgstr "任务提交者"
+
+msgid "Preview"
+msgstr "预览"
 
 msgid "Compare with live version"
 msgstr "与发布版本进行比较"
@@ -830,17 +815,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "页面\"%(title)s\"被驳回"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "页面“%(page)s”已被“%(editor)s”审核"
-
-msgid "You can preview the page here:"
-msgstr "可以在此预览页面："
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "页面\"%(page)s\"已提交审核"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”获得批准。"
@@ -867,6 +841,9 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”提交审批。"
+
+msgid "You can preview the page here:"
+msgstr "可以在此预览页面："
 
 #, python-format
 msgid ""
@@ -1186,16 +1163,8 @@ msgstr "复制"
 msgid "Copy this page"
 msgstr "复制此页"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "新%(page_type)s页面类型"
-
 msgid "This page has unsaved changes."
 msgstr "页面还没保存"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "编辑 %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "这个页面是另一个页面的别名。"
@@ -1228,9 +1197,8 @@ msgstr "发布版本"
 msgid "Current draft"
 msgstr "当前草稿"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "浏览 %(title)s"
+msgid "No log entries found."
+msgstr "未找到日志记录"
 
 msgid "Select all pages in listing"
 msgstr "选择列表中的所有页面"
@@ -1332,6 +1300,9 @@ msgstr "最后发布"
 msgid "Last published by"
 msgstr "最后发布者"
 
+msgid "Type"
+msgstr "类型"
+
 msgid "No pages found."
 msgstr "找不到页面。"
 
@@ -1340,6 +1311,9 @@ msgstr "没有页面符合此报告的条件。"
 
 msgid "Updated"
 msgstr "已更新"
+
+msgid "Pages"
+msgstr "页面"
 
 msgid "Locking status"
 msgstr "锁定状态"
@@ -1400,21 +1374,20 @@ msgstr "下载XLSX"
 msgid "Download CSV"
 msgstr "下载CSV"
 
-msgid "Add comment"
-msgstr "添加评论"
-
 msgid "Filter"
 msgstr "过滤器"
 
 msgid "Apply filters"
 msgstr "应用过滤器"
 
+msgid "Add comment"
+msgstr "添加评论"
+
+msgid "Back"
+msgstr "返回"
+
 msgid "History"
 msgstr "历史"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "正在编辑 %(page_type)s %(title)s"
 
 msgid "Root"
 msgstr "根"
@@ -1464,6 +1437,9 @@ msgstr "边栏面板开关"
 
 msgid "Side panel width"
 msgstr "边栏宽度"
+
+msgid "Issues found"
+msgstr "发现的问题"
 
 msgid "Comment notifications"
 msgstr "评论通知"
@@ -1568,6 +1544,9 @@ msgstr "时间轴"
 msgid "Initial Revision"
 msgstr "初版"
 
+msgid "Edited"
+msgstr "已编辑"
+
 msgid "with comment:"
 msgstr "有评论："
 
@@ -1595,9 +1574,6 @@ msgstr "跳到主要内容"
 
 msgid "View Wagtail quick actions"
 msgstr "查看Wagtail快捷动作"
-
-msgid "Issues found"
-msgstr "发现的问题"
 
 msgid "Warnings"
 msgstr "警告"
@@ -1632,8 +1608,9 @@ msgstr "创建"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "工作流也应用于子页面。如果在此处选择父页面，则其子页面也将使用此工作流。请参"
 "见您的工作流应用的<a href=\"%(workflow_pages_url)s\">页面列表</a>。"
@@ -1798,9 +1775,6 @@ msgstr "评论"
 msgid "Toggle preview"
 msgstr "预览开关"
 
-msgid "Select page"
-msgstr "选择页面"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1825,9 +1799,6 @@ msgstr "姓名和电子邮件"
 msgid "Profile picture"
 msgstr "资料图片"
 
-msgid "Locale"
-msgstr "区域"
-
 msgid "Password"
 msgstr "密码"
 
@@ -1836,9 +1807,6 @@ msgstr "您的帐号设置已经修改成功。"
 
 msgid "You have been successfully logged out."
 msgstr "注销成功"
-
-msgid "Select"
-msgstr "选择"
 
 msgid "Collections"
 msgstr "集合"
@@ -1885,10 +1853,6 @@ msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' 已创建。"
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "搜索 %(model_name)s"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "编辑“%(title)s”"
 
@@ -1902,6 +1866,10 @@ msgstr "删除“%(title)s”"
 msgid "Editing"
 msgstr "正在编辑"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' 已删除。"
+
 msgid "Inspecting"
 msgstr "正在检查"
 
@@ -1914,9 +1882,6 @@ msgstr "最近的"
 #, python-format
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' 未发布."
-
-msgid "Usage of"
-msgstr "使用情况"
 
 msgid "Field"
 msgstr "字段"
@@ -2054,8 +2019,9 @@ msgstr "验证错误，页面无法创建。"
 msgid "Page '%(page_title)s' deleted."
 msgstr "页面'%(page_title)s'已删除"
 
-msgid "This page is currently awaiting moderation"
-msgstr "页面等待审核中"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "编辑 %(page_type)s"
 
 #, python-format
 msgid ""
@@ -2115,27 +2081,18 @@ msgstr "隐藏评论动作"
 msgid "Page history"
 msgstr "页面历史"
 
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Site"
+msgstr "站点"
+
+msgid "Yes"
+msgstr "是"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "页面 '%(page_title)s'已解锁。"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "页面 '%(page_title)s'目前不在等待审核。"
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "页面'%(page_title)s'已发布"
-
-msgid "Failed to send approval notifications"
-msgstr "发送批准通知失败。"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "页面 '%(page_title)s'审核失败"
-
-msgid "Failed to send rejection notifications"
-msgstr "发送拒绝通知失败。"
 
 #, python-format
 msgid ""
@@ -2161,6 +2118,10 @@ msgstr "页面'%(page_title)s'已取消发布。"
 
 msgid "Pages using"
 msgstr "页面使用"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "页面 '%(page_title)s'目前不在等待审核。"
 
 #, python-format
 msgid ""
@@ -2286,9 +2247,6 @@ msgstr "任务 '%(task_name)s' 已启用。"
 msgid "Choose another"
 msgstr "选择另一个"
 
-msgid "Pages"
-msgstr "页面"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "预览“%(title)s”的草稿版本"
@@ -2370,9 +2328,6 @@ msgstr "编辑指南"
 
 msgid "Help"
 msgstr "帮助"
-
-msgid "Yes"
-msgstr "是"
 
 msgid "Choose an item"
 msgstr "选择一项"

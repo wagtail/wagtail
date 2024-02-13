@@ -9,8 +9,10 @@ import { CloneController } from './CloneController';
 import { CountController } from './CountController';
 import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
+import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
 import { InitController } from './InitController';
+import { LinkController } from './LinkController';
 import { OrderableController } from './OrderableController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
@@ -39,8 +41,10 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: CountController, identifier: 'w-count' },
   { controllerConstructor: DialogController, identifier: 'w-dialog' },
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
+  { controllerConstructor: DrilldownController, identifier: 'w-drilldown' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: InitController, identifier: 'w-init' },
+  { controllerConstructor: LinkController, identifier: 'w-link' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },

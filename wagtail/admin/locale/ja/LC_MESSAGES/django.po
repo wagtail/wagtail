@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -442,8 +442,8 @@ msgstr "名前"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>し"
 "ますか？"
@@ -515,27 +515,6 @@ msgstr "下書き"
 msgid "Live"
 msgstr "公開"
 
-msgid "Pages awaiting moderation"
-msgstr "承認待ちのページ"
-
-msgid "Type"
-msgstr "タイプ"
-
-msgid "Edited"
-msgstr "編集"
-
-msgid "Preview this page"
-msgstr "このページをプレビューする"
-
-msgid "Approve"
-msgstr "承認"
-
-msgid "Reject"
-msgstr "拒否"
-
-msgid "Preview"
-msgstr "プレビュー"
-
 msgid "Your most recent edits"
 msgstr "最近の編集"
 
@@ -565,6 +544,9 @@ msgstr "あなたのレビューの待機中"
 
 msgid "Tasks"
 msgstr "タスク"
+
+msgid "Preview"
+msgstr "プレビュー"
 
 msgid "Compare with live version"
 msgstr "ライブ版と比較する"
@@ -613,16 +595,8 @@ msgstr "このページを編集："
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "ページ：%(title)s は承認されませんでした"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "ページ：%(page)s は現在%(editor)sによる承認待ちです。"
-
 msgid "You can preview the page here:"
 msgstr "ページをプレビュー："
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "ページ：%(page)s は現在承認待ちです。"
 
 msgid "New comments"
 msgstr "新しいコメント"
@@ -754,16 +728,8 @@ msgstr "複製"
 msgid "Copy this page"
 msgstr "このページを複製"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "新規の%(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "このページは変更が保存されなかった"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "%(page_type)s: %(title)sを編集"
 
 msgid "Edit original page"
 msgstr "元ページを編集"
@@ -786,10 +752,6 @@ msgstr "ライブ版"
 
 msgid "Current draft"
 msgstr "現在の下書き"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "%(title)sを閲覧"
 
 msgid "Configure a site now."
 msgstr "サイトを設定する"
@@ -863,8 +825,14 @@ msgstr "下に移動"
 msgid "Add a collection permission"
 msgstr "コレクションの権限を追加"
 
+msgid "Type"
+msgstr "タイプ"
+
 msgid "Updated"
 msgstr "更新"
+
+msgid "Pages"
+msgstr "ページ"
 
 msgid "Locked"
 msgstr "ロックあり"
@@ -900,14 +868,14 @@ msgstr "XLSXファイルをダウンロード"
 msgid "Download CSV"
 msgstr "CSVをダウンロードする"
 
-msgid "Add comment"
-msgstr "コメントを追加"
-
 msgid "Filter"
 msgstr "フィルター"
 
 msgid "Apply filters"
 msgstr "フィルターを適用"
+
+msgid "Add comment"
+msgstr "コメントを追加"
 
 msgid "History"
 msgstr "履歴"
@@ -962,6 +930,9 @@ msgstr[0] "%(usage_count)s回使用"
 
 msgid "Workflow history"
 msgstr "ワークフローの履歴"
+
+msgid "Edited"
+msgstr "編集"
 
 #, python-format
 msgid "Workflow history for %(title)s"
@@ -1065,9 +1036,6 @@ msgstr "最も早い"
 msgid "Latest"
 msgstr "最新"
 
-msgid "Usage of"
-msgstr "使用"
-
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "%(object)sを編集"
@@ -1123,9 +1091,6 @@ msgstr "このページはエラーにより作成できませんでした。"
 msgid "Page '%(page_title)s' deleted."
 msgstr "ページ：'%(page_title)s' が削除されました。"
 
-msgid "This page is currently awaiting moderation"
-msgstr "このページは現在承認待ちです。"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "ページ：'%(page_title)s' の更新が完了しました。"
@@ -1151,27 +1116,15 @@ msgstr "このページはエラーにより保存できませんでした。"
 msgid "Page history"
 msgstr "ページの履歴"
 
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Site"
+msgstr "サイト"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "ページ：'%(page_title)s' のロックが解除されました。"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "ページ：'%(page_title)s' は現在承認待ちではありません。"
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "ページ：'%(page_title)s' が公開されました。"
-
-msgid "Failed to send approval notifications"
-msgstr "承認通信を送信できない"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "ページ：'%(page_title)s' の公開が拒否されました。"
-
-msgid "Failed to send rejection notifications"
-msgstr "拒否通信を送信できない"
 
 #, python-format
 msgid ""
@@ -1191,6 +1144,10 @@ msgstr "ページ：'%(page_title)s' が非公開に設定されました。"
 
 msgid "Pages using"
 msgstr "ページタイプ"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "ページ：'%(page_title)s' は現在承認待ちではありません。"
 
 msgid "Site history"
 msgstr "サイトの履歴"
@@ -1234,9 +1191,6 @@ msgstr "ワークフローの新規タスク"
 
 msgid "Editing workflow task"
 msgstr "ワークフローのタスクを編集"
-
-msgid "Pages"
-msgstr "ページ"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

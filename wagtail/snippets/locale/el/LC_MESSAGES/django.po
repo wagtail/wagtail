@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,31 +108,8 @@ msgstr "Αντικατάσταση του τρέχοντος draft"
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Δημιουργία %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Δημιουργία"
-
 msgid "Actions"
 msgstr "Ενέργειες"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippets %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Προσθήκη %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Δεν υπάρχουν %(snippet_type_name_plural)s. Θέλετε να <a href="
-"\"%(wagtailsnippets_create_url)s\">προσθέσετε μερικά</a>;"
 
 msgid "Live version"
 msgstr "Τρέχουσα έκδοση"
@@ -154,12 +131,6 @@ msgstr "Snippets"
 
 msgid "Name"
 msgstr "Όνομα"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του snippet."
 
 msgid "Action"
 msgstr "Ενέργεια"

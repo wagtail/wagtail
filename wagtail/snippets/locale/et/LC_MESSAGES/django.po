@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -105,31 +105,8 @@ msgstr "Asenda praegune mustand"
 msgid "Save draft"
 msgstr "Salvesta mustand"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Uus %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Uus"
-
 msgid "Actions"
 msgstr "Toimingud"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s jupid."
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Lisa %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Mitte ühtegi %(snippet_type_name_plural)s pole loodud. Lisa <a href="
-"\"%(wagtailsnippets_create_url)s\">üks</a>?"
 
 msgid "Live version"
 msgstr "Reaalajas versioon"
@@ -163,12 +140,6 @@ msgstr "Jupid"
 
 msgid "Name"
 msgstr "Nimi"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Seda juppi ei saanud vigade tõttu luua. "
-
-msgid "The snippet could not be saved due to errors."
-msgstr " Seda juppi ei saanud vigade tõttu salvestada."
 
 msgid "Action"
 msgstr "Tegevus"

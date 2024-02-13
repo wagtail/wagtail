@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -117,34 +117,25 @@ msgstr "File tidak ditemukan"
 msgid "Usage"
 msgstr "Pemakaian"
 
-msgid "Documents"
-msgstr "Dokumen"
-
-msgid "Title"
-msgstr "Judul"
-
-msgid "File"
-msgstr "Berkas"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Anda sama sekali belum mengunggah dokumen dalam koleksi ini. Mengapa tidak "
 "<a href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a href="
-"\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a "
+"href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
 
 msgid "Add multiple documents"
 msgstr "Tambah beberapa dokumen"
@@ -176,6 +167,9 @@ msgstr "Tambahkan izin dokumen"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "File"
+msgstr "Berkas"
+
 msgid "Choose a document"
 msgstr "Pilih Dokumen"
 
@@ -185,8 +179,11 @@ msgstr "Pilih dokumen lain"
 msgid "Edit this document"
 msgstr "Ubah dokumen ini"
 
-msgid "Search documents"
-msgstr "Cari dokumen"
+msgid "Documents"
+msgstr "Dokumen"
+
+msgid "Title"
+msgstr "Judul"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

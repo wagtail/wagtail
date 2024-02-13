@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   background-color: theme('colors.secondary.400');
-  font-family: $font-sans;
+  font-family: theme('fontFamily.sans');
   color: theme('colors.white.DEFAULT');
 }
 

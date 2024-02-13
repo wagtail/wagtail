@@ -50,9 +50,9 @@
     background-color: transparent;
 
     &:hover {
-      background-color: theme('colors.surface-page');
-      border-color: currentColor;
-      color: theme('colors.surface-button-default');
+      background-color: theme('colors.surface-button-outline-hover');
+      border-color: theme('colors.border-button-outline-hover');
+      color: theme('colors.text-button-outline-hover');
     }
   }
 
@@ -345,7 +345,7 @@
   &:focus-visible {
     .icon {
       color: theme('colors.surface-page');
-      background-color: theme('colors.text-button-outline-default');
+      background-color: theme('colors.text-button-outline-hover');
     }
   }
 }

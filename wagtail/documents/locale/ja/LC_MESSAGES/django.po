@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -124,37 +124,25 @@ msgstr "ファイルは見つかりませんでした"
 msgid "Usage"
 msgstr "使用法"
 
-msgid "Documents"
-msgstr "ドキュメント"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "File"
-msgstr "ファイル"
-
-msgid "Created"
-msgstr "作成"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "\"<em>%(query_string)s</em>\" に一致するドキュメントはありません"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"まだこのコレクションにはドキュメントがアップロードされていません。<a href="
-"\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
+"まだこのコレクションにはドキュメントがアップロードされていません。<a "
+"href=\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"まだドキュメントがアップロードされていません。<a href="
-"\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
+"まだドキュメントがアップロードされていません。<a "
+"href=\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
 
 msgid "Add multiple documents"
 msgstr "複数のドキュメントを追加"
@@ -198,6 +186,12 @@ msgstr "タグ"
 msgid "Delete"
 msgstr "削除"
 
+msgid "File"
+msgstr "ファイル"
+
+msgid "Created"
+msgstr "作成"
+
 msgid "Choose a document"
 msgstr "ドキュメントを選択"
 
@@ -207,8 +201,11 @@ msgstr "別のドキュメントを選択"
 msgid "Edit this document"
 msgstr "ドキュメントを編集"
 
-msgid "Search documents"
-msgstr "ドキュメントを検索"
+msgid "Documents"
+msgstr "ドキュメント"
+
+msgid "Title"
+msgstr "タイトル"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

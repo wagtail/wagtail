@@ -1,9 +1,5 @@
 # Tutorial
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 ```{toctree}
 ---
 maxdepth: 2
@@ -26,16 +22,12 @@ In this tutorial, you'll transform your blog site into a fully deployable portfo
 
 You'll learn the following in this tutorial:
 
-- How to add pagination to your Wagtail website
-- How to use Wagtail StreamField
-- How to use Wagtail documents
-- How to use snippets across multiple web pages
-- How to use Wagtail forms
-- How to implement the search feature in a Wagtail website
-- How to deploy a Wagtail website
+-   How to add pagination to your Wagtail website
+-   How to use Wagtail StreamField
+-   How to use Wagtail documents
+-   How to use snippets across multiple web pages
+-   How to use Wagtail forms
+-   How to implement the search feature in a Wagtail website
+-   How to deploy a Wagtail website
 
 Now, let's dive in.
-
-## Warning: brand new documentation, feedback welcome
-
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).

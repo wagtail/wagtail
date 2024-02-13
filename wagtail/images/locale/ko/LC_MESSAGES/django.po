@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -238,19 +238,8 @@ msgstr "파일을 찾을 수 없습니다"
 msgid "Usage"
 msgstr "사용"
 
-msgid "Images"
-msgstr "이미지"
-
 msgid "Popular Tags:"
 msgstr "인기있는 태그:"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s만큼 일치"
-
-msgid "pixels"
-msgstr "픽셀"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -259,35 +248,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a href="
-"\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a "
+"href=\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">"
 "업로드</a> 해 보는 건 어떠세요?"
 
-msgid "Generating URL"
-msgstr "URL 생성"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Preview"
 msgstr "프리뷰"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"여기 프리뷰에서는 화면 사이즈보다 크게 생성된 이미지는 화면 사이즈에 맞게 작"
-"게 보여지게 됩니다."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "복수 이미지 추가"
@@ -359,8 +338,8 @@ msgstr "다른 이미지 선택"
 msgid "Edit this image"
 msgstr "이 이미지 수정"
 
-msgid "Search images"
-msgstr "이미지 검색"
+msgid "Images"
+msgstr "이미지"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

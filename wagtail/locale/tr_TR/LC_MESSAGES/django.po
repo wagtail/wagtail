@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -179,9 +179,6 @@ msgstr "sayfa"
 msgid "pages"
 msgstr "sayfalar"
 
-msgid "submitted for moderation"
-msgstr "kontrol için gönderildi"
-
 msgid "created at"
 msgstr "oluşturulma zamanı"
 
@@ -199,9 +196,6 @@ msgstr "grup"
 
 msgid "permission"
 msgstr "izin"
-
-msgid "permission type"
-msgstr "izin türü"
 
 msgid "group page permission"
 msgstr "grup sayfası izni"

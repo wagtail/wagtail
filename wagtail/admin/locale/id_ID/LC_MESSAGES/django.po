@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -203,8 +203,8 @@ msgid ""
 "This slug is already in use within the context of its parent page "
 "\"%(parent_page_title)s\""
 msgstr ""
-"Slug ini telah digunakan dalam konteks halaman induk \"%(parent_page_title)s"
-"\""
+"Slug ini telah digunakan dalam konteks halaman induk "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -365,11 +365,11 @@ msgstr "Nama"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
-"\">membuat sebuah koleksi</a>?"
+"Belum ada koleksi. Bagaimana kalau <a "
+"href=\"%(add_collection_url)s\">membuat sebuah koleksi</a>?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
@@ -423,27 +423,6 @@ msgstr "Konsep"
 msgid "Live"
 msgstr "Terpublikasi"
 
-msgid "Pages awaiting moderation"
-msgstr "Halaman yang sedang menunggu moderasi"
-
-msgid "Type"
-msgstr "Tipe"
-
-msgid "Edited"
-msgstr "Telah diubah"
-
-msgid "Preview this page"
-msgstr "Pratinjau halaman ini"
-
-msgid "Approve"
-msgstr "Menyetujui"
-
-msgid "Reject"
-msgstr "Tolak"
-
-msgid "Preview"
-msgstr "Pratinjau"
-
 msgid "Your most recent edits"
 msgstr "Perubahan terakhir yang anda lakukan"
 
@@ -464,6 +443,9 @@ msgstr "Tutup"
 
 msgid "Awaiting your review"
 msgstr "Menunggu tinjauan anda"
+
+msgid "Preview"
+msgstr "Pratinjau"
 
 msgid "Compare with live version"
 msgstr "Bandingkan dengan versi aktif"
@@ -506,16 +488,8 @@ msgstr "Anda dapat mengubah halaman tersebut disini:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Halaman \"%(title)s\" ditolak"
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Halaman \"%(page)s\" telah dikirim oleh %(editor)s untuk dimoderasi."
-
 msgid "You can preview the page here:"
 msgstr "Anda dapat meninjau halaman tersebut disini:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Halaman \"%(page)s\" telah dikirim untuk dimoderasi"
 
 msgid "Page privacy"
 msgstr "Privasi halaman"
@@ -609,16 +583,8 @@ msgstr "Salin"
 msgid "Copy this page"
 msgstr "Salin halaman ini"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "%(page_type)s baru"
-
 msgid "This page has unsaved changes."
 msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Mengubah %(page_type)s: %(title)s"
 
 msgid "Comment"
 msgstr "Komentar"
@@ -628,10 +594,6 @@ msgstr "Versi aktif"
 
 msgid "Current draft"
 msgstr "Konsep saat ini"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Menjelajah %(title)s"
 
 msgid "Configure a site now."
 msgstr "Atur sebuah situs sekarang."
@@ -693,8 +655,14 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
+msgid "Type"
+msgstr "Tipe"
+
 msgid "Updated"
 msgstr "Telah diubah"
+
+msgid "Pages"
+msgstr "Halaman"
 
 msgid "Locked"
 msgstr "Terkunci"
@@ -760,6 +728,9 @@ msgstr "Pemakaian"
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Digunakan %(usage_count)s kali"
+
+msgid "Edited"
+msgstr "Telah diubah"
 
 msgid "Add a child page"
 msgstr "Tambah turunan halaman"
@@ -841,9 +812,6 @@ msgstr "Paling awal"
 msgid "Latest"
 msgstr "Paling akhir"
 
-msgid "Usage of"
-msgstr "Penggunaan dari"
-
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Ubah %(object)s ini"
@@ -890,9 +858,6 @@ msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 msgid "Page '%(page_title)s' deleted."
 msgstr "Halaman '%(page_title)s' dihapus."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Halaman ini menunggu proses moderasi"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Halaman '%(page_title)s' telah diperbarui."
@@ -920,24 +885,6 @@ msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Halaman '%(page_title)s' sekarang tidak dikunci."
 
 #, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Halaman '%(page_title)s' tidak dalam proses moderasi."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Halaman '%(page_title)s' telah dipublikasi."
-
-msgid "Failed to send approval notifications"
-msgstr "Gagal mengirim notifikasi persetujuan"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Publikasi halaman '%(page_title)s' ditolak."
-
-msgid "Failed to send rejection notifications"
-msgstr "Gagal mengirim notifikasi penolakan"
-
-#, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Halaman '%(page_title)s' telah dipindah."
 
@@ -948,14 +895,15 @@ msgstr "Halaman '%(page_title)s' ditarik dari publikasi."
 msgid "Pages using"
 msgstr "Halaman yang menggunakan"
 
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Halaman '%(page_title)s' tidak dalam proses moderasi."
+
 msgid "Show"
 msgstr "Tampilkan"
 
 msgid "Awaiting my review"
 msgstr "Menunggu ulasan saya"
-
-msgid "Pages"
-msgstr "Halaman"
 
 msgid "Bulleted list"
 msgstr "Daftar Bullet"

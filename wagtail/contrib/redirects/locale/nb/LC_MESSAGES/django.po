@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -213,14 +213,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
-
-msgid "Search redirects"
-msgstr "Videresendinger for søk"
+"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
@@ -242,6 +239,9 @@ msgstr "Videresendingen \"%(redirect_title)s\" er lagt til."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Videresendingen kunne ikke opprettes grunnet feil."
+
+msgid "Search redirects"
+msgstr "Videresendinger for søk"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

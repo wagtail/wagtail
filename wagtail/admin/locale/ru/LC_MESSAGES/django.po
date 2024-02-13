@@ -9,9 +9,9 @@
 # Alexey Sveshnikov, 2022
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2023
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei Satsevich, 2023-2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017
 # Daniil <fleepd@gmail.com>, 2015
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
@@ -44,18 +44,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -107,6 +107,9 @@ msgstr "С"
 
 msgid "Date to"
 msgstr "До"
+
+msgid "Locale"
+msgstr "Локализация"
 
 msgid "All"
 msgstr "Все"
@@ -287,6 +290,9 @@ msgstr "Слаг '%(page_slug)s' уже используется на родит
 
 msgid "Select a new parent for this page."
 msgstr "Выбрать нового родителя для этой страницы"
+
+msgid "Search…"
+msgstr "Поиск..."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -517,6 +523,9 @@ msgstr "Обратно"
 msgid "Bulk actions"
 msgstr "Массовые действия"
 
+msgid "Select"
+msgstr "Выбрать"
+
 msgid "Select row"
 msgstr "Выбрать строку"
 
@@ -586,15 +595,15 @@ msgstr "Преобразовать во внутреннюю ссылку"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Введенный вами URL, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, похоже, совпадает с внутренней "
-"страницей %(page)s, которая имеет URL <a target=\"_blank\" rel=\"noreferrer"
-"\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"Введенный вами URL, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, похоже, совпадает с "
+"внутренней страницей %(page)s, которая имеет URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -645,7 +654,7 @@ msgid "Save"
 msgstr "Сохранить"
 
 msgid "Change privacy"
-msgstr "Изменить конфиденциальность"
+msgstr "Изменить приватность"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -678,11 +687,11 @@ msgstr "Имя"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
-"\">добавить одну</a>?"
+"Коллекции еще не были созданы. Почему бы не <a "
+"href=\"%(add_collection_url)s\">добавить одну</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -725,8 +734,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
 "%(model_name)sв настоящее время находится на <strong>%(task)s</strong> в "
 "<strong>%(workflow)s</strong>."
@@ -742,12 +751,17 @@ msgstr "Вы все еще хотите опубликовать %(model_name)s?
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "No log entries found."
-msgstr "Записи в журнале не найдены."
-
 #, python-format
 msgid "No %(model_name)s match your query."
-msgstr "По запросу %(model_name)s нет совпадений."
+msgstr "%(model_name)sне соответствует вашему запросу."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Нет %(model_name)s для отображения. Почему бы не <a "
+"href=\"%(add_url)s\">добавить одну</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -830,31 +844,6 @@ msgstr "Черновик"
 msgid "Live"
 msgstr "Опубликовано"
 
-msgid "Pages awaiting moderation"
-msgstr "Страницы ожидающие модерации"
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Edited"
-msgstr "Редактировано"
-
-msgid "Preview this page"
-msgstr "Предпросмотр этой страницы"
-
-msgid "Approve"
-msgstr "Одобрить"
-
-msgid "Reject"
-msgstr "Отклонить"
-
-msgid "Preview"
-msgstr "Предпросмотр"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "%(name)s"
-
 msgid "Your most recent edits"
 msgstr "Ваши последние правки"
 
@@ -875,16 +864,16 @@ msgid_plural ""
 "<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>Страница <span class=\"w-sr-only\"> создана в "
+"<span>%(total)s</span>Страница <span class=\"w-sr-only\">создана на "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span>страниц <span class=\"w-sr-only\">создано в "
+"<span>%(total)s</span>Страниц <span class=\"w-sr-only\">создано на "
 "%(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span>Страниц <span class=\"w-sr-only\">создано в "
+"<span>%(total)s</span>Страниц <span class=\"w-sr-only\">создано на "
 "%(site_name)s</span>"
 msgstr[3] ""
-"<span>%(total)s</span> Страниц <span class=\"w-sr-only\">создано в "
+"<span>%(total)s</span>Страницы <span class=\"w-sr-only\">созданные на "
 "%(site_name)s</span>"
 
 #, python-format
@@ -921,15 +910,15 @@ msgstr "Что изменилось в Wagtail %(version)s !"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
 "Не волнуйтесь, мы поможем вам. Посмотрите на <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">руководство по редактору Wagtail</a>, чтобы узнать, что изменилось, и "
-"узнать о некоторых интересных новых функциях!"
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">руководство по редактору Wagtail</a>, чтобы узнать, что "
+"изменилось, и узнать о некоторых интересных новых функциях!"
 
 msgid "Awaiting your review"
 msgstr "В ожидании вашего отзыва"
@@ -939,6 +928,9 @@ msgstr "Задачи"
 
 msgid "Task submitted by"
 msgstr "Задание отправлено"
+
+msgid "Preview"
+msgstr "Предпросмотр"
 
 msgid "Compare with live version"
 msgstr "Сравнить с опубликованной версией"
@@ -991,18 +983,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Страница \"%(title)s\" была отклонена"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr ""
-"Страница \"%(page)s\" была отправлена на модерацию пользователем %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Вы можете предварительно просмотреть страницу здесь:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Страница \"%(page)s\" была отправлена на модерацию"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -1052,6 +1032,9 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr "Страница \"%(title)s\" была отправлена на модерацию \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Вы можете предварительно просмотреть страницу здесь:"
 
 #, python-format
 msgid ""
@@ -1128,21 +1111,21 @@ msgstr "%(editor)s обновил комментарии к \"%(title)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
-"Страница \"%(title)s\"  утверждена в рамках рабочего процесса \"%(workflow)s"
-"\"."
+"Страница \"%(title)s\"  утверждена в рамках рабочего процесса "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
-"\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
 msgstr ""
 "%(model_name)s \"%(title)s\" одобрено в рабочем процессе \"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
 msgstr ""
-"Страница \"%(title)s\" утверждена в рамках рабочего процесса \"%(workflow)s"
-"\"."
+"Страница \"%(title)s\" утверждена в рамках рабочего процесса "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1504,17 +1487,17 @@ msgid_plural ""
 "It will also delete %(translation_count)s translations and their combined "
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
-"При этом будет удалён %(translation_count)s перевод и объединенная"
-"%(translation_descendant_count)s переведенная дочерняя страница."
+"При этом будет удалён %(translation_count)s перевод и "
+"объединенная%(translation_descendant_count)s переведенная дочерняя страница."
 msgstr[1] ""
-"При этом будут удалёны %(translation_count)s перевода и объединенные"
-"%(translation_descendant_count)sдочерние переводы."
+"При этом будут удалёны %(translation_count)s перевода и "
+"объединенные%(translation_descendant_count)sдочерние переводы."
 msgstr[2] ""
 "При этом будут удалёны  %(translation_count)s переводов и объединенные "
 "%(translation_descendant_count)s дочерние переводы."
 msgstr[3] ""
-"При этом будет удалён %(translation_count)s перевод и объединенные"
-"%(translation_descendant_count)s дочерние переводы."
+"При этом будет удалён %(translation_count)s перевод и "
+"объединенные%(translation_descendant_count)s дочерние переводы."
 
 #, python-format
 msgid "It will also delete %(translation_count)s translation."
@@ -1745,8 +1728,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Эта страница на стадии <strong>%(task)s</strong> в рабочем процессе <strong>"
-"%(workflow)s</strong>."
+"Эта страница на стадии <strong>%(task)s</strong> в рабочем процессе "
+"<strong>%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Публикация этой страницы отменит текущий рабочий процесс."
@@ -1764,16 +1747,8 @@ msgstr "Копировать"
 msgid "Copy this page"
 msgstr "Копировать эту страницу"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Добавление %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Редактирование %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Эта страница псевдоним другой страницы."
@@ -1806,9 +1781,8 @@ msgstr "Опубликованная версия"
 msgid "Current draft"
 msgstr "Черновик"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Обзор %(title)s"
+msgid "No log entries found."
+msgstr "Записи в журнале не найдены."
 
 msgid "Select all pages in listing"
 msgstr "Выбрать все страницы из списка"
@@ -1872,6 +1846,10 @@ msgstr "Добавить дочернюю страницу к '%(title)s'"
 msgid "Drag"
 msgstr "Перетянуть"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s из %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Отключить упорядочение дочерних страниц"
 
@@ -1882,24 +1860,34 @@ msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s across entire site."
-msgstr "%(start_index)s-%(end_index)s из %(result_count)s по всему сайту."
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s из %(items_count)s по всему сайту."
+
+msgid "No results across entire site."
+msgstr "Нет результатов на всём сайте."
 
 #, python-format
-msgid "Search within '%(title)s'"
-msgstr "Поиск в пределах '%(title)s'"
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Искать в '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s within '%(title)s'."
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s из %(result_count)s в пределах '%(title)s'."
+"%(start_index)s-%(end_index)s из %(items_count)s в '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr "Нет результатов в '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Поиск по всему сайту"
 
 #, python-format
-msgid "%(start_index)s-%(end_index)s of %(result_count)s"
-msgstr "%(start_index)s-%(end_index)s из %(result_count)s"
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s из %(items_count)s "
 
 msgid "Sites menu"
 msgstr "Список сайтов"
@@ -1966,9 +1954,6 @@ msgstr "Двигать наверх"
 msgid "Move down"
 msgstr "Двигать вниз"
 
-msgid "Set publishing schedule"
-msgstr "Установить график публикации"
-
 #, python-format
 msgid "Choose when this %(model_name)s should go live and/or expire"
 msgstr "Выберите, когда этот %(model_name)s начнёт действовать и/или истечёт"
@@ -1978,8 +1963,8 @@ msgstr ""
 "Выберите, когда эта страница должна стать активной и/или снятой с публикации"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Этот график публикации вступит в силу только после выбора опции "
 "\"Опубликовать\"."
@@ -1989,6 +1974,9 @@ msgstr "Любой, у кого есть права на редактирова�
 
 msgid "But only those with publishing permissions can make them effective."
 msgstr "Но применить их могут только те, у кого есть разрешение на публикацию."
+
+msgid "Set publishing schedule"
+msgstr "Установить график публикации"
 
 msgid "Save schedule"
 msgstr "Сохранить расписание"
@@ -2005,6 +1993,9 @@ msgstr "Последняя публикация"
 msgid "Last published by"
 msgstr "Последняя публикация от"
 
+msgid "Type"
+msgstr "Тип"
+
 msgid "No pages found."
 msgstr "Страницы не найдены."
 
@@ -2013,6 +2004,21 @@ msgstr "Нет страниц удовлетворяющих критерию о
 
 msgid "Updated"
 msgstr "Обновлено"
+
+msgid "App"
+msgstr "Приложение"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Last edited page"
+msgstr "Последняя отредактированная страница"
+
+msgid "Last edit"
+msgstr "Последнее редактирование"
+
+msgid "No page types found."
+msgstr "Типы страниц не найдены."
 
 msgid "Locking status"
 msgstr "Статус блокировки"
@@ -2065,6 +2071,9 @@ msgstr "По рабочему процессу"
 msgid "Completed at"
 msgstr "Завершен в"
 
+msgid "Clear"
+msgstr "Очистить"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
@@ -2084,25 +2093,26 @@ msgstr "Скачать XLSX"
 msgid "Download CSV"
 msgstr "Скачать CSV"
 
-msgid "Add comment"
-msgstr "Добавить комментарий"
-
 msgid "Filter"
 msgstr "Фильтр"
 
 msgid "Apply filters"
 msgstr "Применить фильтры"
 
+msgid "Add comment"
+msgstr "Добавить комментарий"
+
+msgid "Show filters"
+msgstr "Показать фильтры"
+
+msgid "Filter by"
+msgstr "Фильтр по"
+
+msgid "Back"
+msgstr "Назад"
+
 msgid "History"
 msgstr "История"
-
-#, python-format
-msgid "New: %(model_name)s"
-msgstr "Новый: %(model_name)s"
-
-#, python-format
-msgid "Editing %(page_type)s %(title)s"
-msgstr "Редактирование %(page_type)s %(title)s"
 
 msgid "Root"
 msgstr "Главная"
@@ -2155,6 +2165,9 @@ msgstr "Переключить боковую панель"
 
 msgid "Side panel width"
 msgstr "Ширина боковой панели"
+
+msgid "Issues found"
+msgstr "Найдены проблемы"
 
 msgid "Comment notifications"
 msgstr "Уведомления о комментариях"
@@ -2325,6 +2338,9 @@ msgstr "Хронология"
 msgid "Initial Revision"
 msgstr "Начальная Ревизия"
 
+msgid "Edited"
+msgstr "Редактировано"
+
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
 msgstr "%(action)s <b>%(who)s</b> в <b>%(at)s</b>"
@@ -2365,9 +2381,9 @@ msgstr "%(model_name)sеще не отправлен на модерацию"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "Для использования CMS требуется JavaScript, но в настоящее время он отключен."
 "<br />Вот <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
@@ -2379,9 +2395,6 @@ msgstr "Пропустить главный контент"
 
 msgid "View Wagtail quick actions"
 msgstr "Просмотр быстрых действий"
-
-msgid "Issues found"
-msgstr "Найдены проблемы"
 
 msgid "Accessibility"
 msgstr "Доступность"
@@ -2433,8 +2446,9 @@ msgstr "Создать"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Рабочий процесс релевантен также и для страниц-потомков. Если вы выберете "
 "здесь страницу, то ее потомки также будут использовать этот рабочий процесс. "
@@ -2508,15 +2522,15 @@ msgstr "Шаг %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Рабочие процессы еще не созданы. Почему бы не <a href=\"%(add_url)s"
-"\">создать что-нибудь</a>?"
+"Рабочие процессы еще не созданы. Почему бы не <a "
+"href=\"%(add_url)s\">создать что-нибудь</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Нет ни одного включенного рабочего процесса. Почему бы не <a href="
-"\"%(add_url)s\">включить один из них</a>?"
+"Нет ни одного включенного рабочего процесса. Почему бы не <a "
+"href=\"%(add_url)s\">включить один из них</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Выберите, какую задачу вы хотели бы создать."
@@ -2564,15 +2578,15 @@ msgstr "Показать отключенные задачи"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ни одной задачи еще не создано. Почему бы не <a href=\"%(add_url)s"
-"\">добавить какую-нибудь</a>?"
+"Ни одной задачи еще не создано. Почему бы не <a "
+"href=\"%(add_url)s\">добавить какую-нибудь</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ни одной задачи еще не включено. Почему бы не <a href=\"%(add_url)s"
-"\">включить какую-нибудь</a>?"
+"Ни одной задачи еще не включено. Почему бы не <a "
+"href=\"%(add_url)s\">включить какую-нибудь</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -2662,15 +2676,21 @@ msgstr "Переключить статус"
 msgid "Referenced %(count)s time"
 msgid_plural "Referenced %(count)s times"
 msgstr[0] "Ссылается  %(count)s раз"
-msgstr[1] "Ссылаются %(count)s раз"
-msgstr[2] "Ссылаются %(count)sраз"
-msgstr[3] "Ссылается %(count)sраз"
+msgstr[1] "Ссылаются %(count)s раза"
+msgstr[2] "Ссылаются %(count)s раз"
+msgstr[3] "Ссылается %(count)s раз"
 
 msgid "Toggle comments"
 msgstr "Переключить комментарии"
 
 msgid "Comments"
 msgstr "Комментарии"
+
+msgid "Toggle checks"
+msgstr "Переключение проверок  "
+
+msgid "Checks"
+msgstr "Проверки "
 
 msgid "Toggle preview"
 msgstr "Переключить предварительный просмотр"
@@ -2682,9 +2702,6 @@ msgstr "Сортировка по %(label)s в порядке возрастан
 #, python-format
 msgid "Sort by '%(label)s' in descending order."
 msgstr "Сортировка по '%(label)s' в порядке убывания."
-
-msgid "Select page"
-msgstr "Выбрать страницу"
 
 #, python-format
 msgid ""
@@ -2755,9 +2772,6 @@ msgstr "Имя и электронная почта"
 msgid "Profile picture"
 msgstr "Изображение профиля"
 
-msgid "Locale"
-msgstr "Локализация"
-
 msgid "Theme preferences"
 msgstr "Предпочтения по теме"
 
@@ -2769,9 +2783,6 @@ msgstr "Настройки вашей учетной записи были ус�
 
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
-
-msgid "Select"
-msgstr "Выбрать"
 
 msgid "Collections"
 msgstr "Коллекции"
@@ -2805,10 +2816,6 @@ msgstr "Вы уверены что хотите удалить эту колле
 
 msgid "Home"
 msgstr "Главная"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Редактировать %(model_name)s"
 
 msgid "Workflow progress"
 msgstr "Прогресс рабочего процесса"
@@ -2871,11 +2878,11 @@ msgstr "Рабочий процесс над %(model_name)s '%(object)s' был 
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
-"Вы просматриваете предыдущую версию этой %(model_name)s от <b>"
-"%(created_at)s</b> пользователя %(user)s"
+"Вы просматриваете предыдущую версию этой %(model_name)s от "
+"<b>%(created_at)s</b> пользователя %(user)s"
 
 #, python-format
 msgid ""
@@ -2897,12 +2904,12 @@ msgstr ""
 "публикации."
 
 #, python-format
-msgid "Search %(model_name)s"
-msgstr "Поиск %(model_name)s"
-
-#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Редактировать '%(title)s'"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Копировать '%(title)s'"
 
 msgid "Inspect"
 msgstr "Просмотр"
@@ -2919,8 +2926,28 @@ msgstr "Удалить '%(title)s'"
 msgid "More options for '%(title)s'"
 msgstr "Дополнительные опции для '%(title)s'"
 
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Добавить %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "Не удалось создать %(model_name)s из-за ошибок."
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Новый: %(model_name)s"
+
 msgid "Editing"
 msgstr "Редактирование"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Не удалось сохранить %(model_name)s из-за ошибок."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' удалена."
 
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
@@ -2946,9 +2973,6 @@ msgstr "Версия %(revision_id)s объекта \"%(object)s\" не запл
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "версия %(revision_id)s объекта \"%(object)s\""
-
-msgid "Usage of"
-msgstr "Использование"
 
 msgid "If you confirm deletion"
 msgstr "Если вы подтверждаете удаление"
@@ -3153,8 +3177,9 @@ msgstr "Эта страница не может быть создана из-з�
 msgid "Page '%(page_title)s' deleted."
 msgstr "Страница '%(page_title)s' удалена."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Эта страница в данный момент ожидает модерации"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Редактирование %(page_type)s"
 
 #, python-format
 msgid ""
@@ -3220,38 +3245,47 @@ msgstr "Скрыть действия комментирования"
 msgid "Page history"
 msgstr "Страница истории"
 
-msgid "Search pages…"
-msgstr "Поиск страниц..."
+msgid "Page type"
+msgstr "Тип страницы"
+
+msgid "Date updated"
+msgstr "Дата обновления"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Edited by"
+msgstr "Отредактировано"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Has child pages"
+msgstr "Имеет дочерние страницы"
+
+msgid "Any"
+msgstr "Любой"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "Exploring"
+msgstr "Исследование"
 
 msgid ""
-"Press enter to select an item, use up and down arrows to move the item, "
-"press enter to complete the move or escape to cancel the current move."
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
 msgstr ""
-"Нажмите Enter, чтобы выбрать элемент, используйте стрелки вверх и вниз, "
-"чтобы переместить его, после чего нажмите Enter, чтобы завершить перемещение "
-"или Escape, чтобы отменить."
+"Наведите курсор на кнопку перетаскивания и нажмите стрелки вверх или вниз, "
+"чтобы переместить элемент, затем нажмите Enter, чтобы применить изменение."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' был успешно перемещен."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Страница '%(page_title)s' разблокирована."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Страница '%(page_title)s' в настоящее время не ожидает модерации."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Страница '%(page_title)s' опубликована."
-
-msgid "Failed to send approval notifications"
-msgstr "Не удалось отправить уведомления об утверждении"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Публикация страницы '%(page_title)s' отклонена."
-
-msgid "Failed to send rejection notifications"
-msgstr "Не удалось отправить уведомления об отклонении"
 
 #, python-format
 msgid ""
@@ -3279,6 +3313,10 @@ msgstr "Страница '%(page_title)s' снята с публикации."
 
 msgid "Pages using"
 msgstr "Страницы, использующие"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Страница '%(page_title)s' в настоящее время не ожидает модерации."
 
 #, python-format
 msgid ""
@@ -3311,6 +3349,9 @@ msgstr "Дата/Время"
 
 msgid "Locked pages"
 msgstr "Заблокированные страницы"
+
+msgid "Page types usage"
+msgstr "Использование типов страниц"
 
 msgid "Show"
 msgstr "Показать"
@@ -3460,9 +3501,6 @@ msgstr "Задача '%(task_name)s' включена."
 msgid "Choose another"
 msgstr "Выбрать другой"
 
-msgid "Pages"
-msgstr "Страницы"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Предпросмотр черновой версии '%(title)s'"
@@ -3544,9 +3582,6 @@ msgstr "Руководство редактора"
 
 msgid "Help"
 msgstr "Помощь"
-
-msgid "Yes"
-msgstr "Да"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

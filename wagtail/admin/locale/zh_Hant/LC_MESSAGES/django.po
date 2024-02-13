@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -72,6 +72,9 @@ msgstr "起始日期"
 
 msgid "Date to"
 msgstr "結束日期"
+
+msgid "Locale"
+msgstr "語系"
 
 msgid "All"
 msgstr "全部"
@@ -490,8 +493,8 @@ msgstr "名稱"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
 
@@ -513,9 +516,6 @@ msgstr "否，不取消發佈"
 
 msgid "Cancel"
 msgstr "取消"
-
-msgid "No log entries found."
-msgstr "沒有發現任何記錄"
 
 msgid "Update"
 msgstr "更新"
@@ -566,27 +566,6 @@ msgstr "草稿"
 msgid "Live"
 msgstr "上線"
 
-msgid "Pages awaiting moderation"
-msgstr "等待頁面審核中"
-
-msgid "Type"
-msgstr "類型"
-
-msgid "Edited"
-msgstr "已編輯"
-
-msgid "Preview this page"
-msgstr "預覽頁面"
-
-msgid "Approve"
-msgstr "通過"
-
-msgid "Reject"
-msgstr "駁回"
-
-msgid "Preview"
-msgstr "預覽"
-
 msgid "Your most recent edits"
 msgstr "最近編輯"
 
@@ -613,6 +592,9 @@ msgstr "待審中"
 
 msgid "Tasks"
 msgstr "作業"
+
+msgid "Preview"
+msgstr "預覽"
 
 msgid "Compare with live version"
 msgstr "與線上版本進行比較"
@@ -665,17 +647,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "頁面\"%(title)s\"被駁回"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "頁面 “%(page)s” 已由 “%(editor)s” 提交審核"
-
-msgid "You can preview the page here:"
-msgstr "在此預覽頁面："
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "頁面\"%(page)s\"已提交審核"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
@@ -698,6 +669,9 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+msgid "You can preview the page here:"
+msgstr "在此預覽頁面："
 
 #, python-format
 msgid ""
@@ -945,16 +919,8 @@ msgstr "複製"
 msgid "Copy this page"
 msgstr "複製此頁"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "新%(page_type)s頁面類型"
-
 msgid "This page has unsaved changes."
 msgstr "此頁面有未儲存的變更"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "編輯 %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "此頁面為其它頁面之別名"
@@ -984,9 +950,8 @@ msgstr "線上版本"
 msgid "Current draft"
 msgstr "當前草稿"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "瀏覽 %(title)s"
+msgid "No log entries found."
+msgstr "沒有發現任何記錄"
 
 msgid "Select all pages in listing"
 msgstr "選擇列表中的所有頁面"
@@ -1072,8 +1037,14 @@ msgstr "儲存排程"
 msgid "Last published"
 msgstr "最後發佈"
 
+msgid "Type"
+msgstr "類型"
+
 msgid "Updated"
 msgstr "已更新"
+
+msgid "Pages"
+msgstr "頁面"
 
 msgid "Locking status"
 msgstr "鎖定狀態"
@@ -1112,14 +1083,14 @@ msgstr "下載 XLSX"
 msgid "Download CSV"
 msgstr "下載 CSV"
 
-msgid "Add comment"
-msgstr "新增評論"
-
 msgid "Filter"
 msgstr "過濾"
 
 msgid "Apply filters"
 msgstr "套用過濾"
+
+msgid "Add comment"
+msgstr "新增評論"
 
 msgid "History"
 msgstr "歷史"
@@ -1207,6 +1178,9 @@ msgstr "時間軸"
 
 msgid "Initial Revision"
 msgstr "初始版本"
+
+msgid "Edited"
+msgstr "已編輯"
 
 msgid "with comment:"
 msgstr "意見："
@@ -1358,17 +1332,11 @@ msgstr "評論"
 msgid "Toggle preview"
 msgstr "切換預覽"
 
-msgid "Select page"
-msgstr "選擇頁面"
-
 msgid "Notifications"
 msgstr "通知"
 
 msgid "Name and Email"
 msgstr "姓名與電子郵件"
-
-msgid "Locale"
-msgstr "語系"
 
 msgid "Password"
 msgstr "密碼"
@@ -1434,6 +1402,10 @@ msgstr "刪除 '%(title)s'"
 msgid "Editing"
 msgstr "正在編輯"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' 已刪除。"
+
 msgid "Inspecting"
 msgstr "正在檢查"
 
@@ -1442,9 +1414,6 @@ msgstr "最早的"
 
 msgid "Latest"
 msgstr "最近的"
-
-msgid "Usage of"
-msgstr "使用情況"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1496,8 +1465,9 @@ msgstr "驗證錯誤，頁面無法創建。"
 msgid "Page '%(page_title)s' deleted."
 msgstr "頁面'%(page_title)s'已刪除"
 
-msgid "This page is currently awaiting moderation"
-msgstr "頁面等待審核中"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "編輯 %(page_type)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
@@ -1535,27 +1505,15 @@ msgstr "隠藏論論動作"
 msgid "Page history"
 msgstr "頁面歷史"
 
+msgid "Site"
+msgstr "網站"
+
+msgid "Yes"
+msgstr "是"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "頁面 '%(page_title)s'已解鎖。"
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "頁面 '%(page_title)s'目前不在等待審核。"
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "頁面'%(page_title)s'已發佈"
-
-msgid "Failed to send approval notifications"
-msgstr "發送批準通知失敗。"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "頁面 '%(page_title)s'審核失敗"
-
-msgid "Failed to send rejection notifications"
-msgstr "發送駁回通知失敗。"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1567,6 +1525,10 @@ msgstr "頁面'%(page_title)s'已取消發佈。"
 
 msgid "Pages using"
 msgstr "頁面使用"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "頁面 '%(page_title)s'目前不在等待審核。"
 
 msgid "Site history"
 msgstr "網站歷史"
@@ -1665,9 +1627,6 @@ msgstr "已啟用作業 '%(task_name)s'"
 msgid "Choose another"
 msgstr "選擇其他"
 
-msgid "Pages"
-msgstr "頁面"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "預覽草稿版本 '%(title)s'"
@@ -1730,9 +1689,6 @@ msgstr "報表"
 
 msgid "Editor Guide"
 msgstr "編輯指南"
-
-msgid "Yes"
-msgstr "是"
 
 msgid "Choose an item"
 msgstr "選擇一項"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -163,14 +163,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"생성된 프로모션 결과가 없습니다. 지금 프로모션 결과를 <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">추가 해 보시는건 어떨까요?"
-
-msgid "Search promoted results"
-msgstr "프로모션 결과 검색"
+"생성된 프로모션 결과가 없습니다. 지금 프로모션 결과를 <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">추가 해 보시는건 어떨까요?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

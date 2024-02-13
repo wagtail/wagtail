@@ -3,23 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2024
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
+"Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Апублікаваць"
@@ -60,6 +61,9 @@ msgstr "%(label)s і Апублікаваць"
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"
 
+msgid "Delete selected snippets"
+msgstr "Выдаліць выбраныя фрагменты"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Выдаліць %(snippet_type_name)s"
@@ -92,48 +96,23 @@ msgstr "Не, не выдаляць"
 msgid "Publishing…"
 msgstr "Апублікаваць..."
 
+msgid "Publish this version"
+msgstr "Публікаваць гэтую версію"
+
 msgid "Saving…"
 msgstr "Захаванне..."
 
 msgid "Replace current draft"
 msgstr "Замяніць гэты чарнавік"
 
+msgid "Replace current revision"
+msgstr "Замяняць цяперашнюю рэвізію"
+
 msgid "Save draft"
 msgstr "Захаваць чарнавік"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Новы %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Новы"
-
 msgid "Actions"
 msgstr "Дзеянні"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Фрагменты %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Дадаць %(snippet_type_name)s"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Ёсць %(counter)s супадзенне"
-msgstr[1] "Ёсць %(counter)s супадзенняў"
-msgstr[2] "Ёсць %(counter)s супадзенняў"
-msgstr[3] "Ёсць %(counter)s супадзенняў"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"%(snippet_type_name_plural)s яшчэ не былі створаны. Давай <a href="
-"\"%(wagtailsnippets_create_url)s\">дададзім адзін</a>?"
 
 msgid "Live version"
 msgstr "Апублікаваная версія"
@@ -159,11 +138,8 @@ msgstr "Фрагменты"
 msgid "Name"
 msgstr "Імя"
 
-msgid "The snippet could not be created due to errors."
-msgstr "Фрагмент кода не можа быць створана з-за памылкі."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Фрагмент кода не можа быць захавана з-за памылкі."
+msgid "Action"
+msgstr "Дзеянне"
 
 msgid "Date"
 msgstr "Дата"

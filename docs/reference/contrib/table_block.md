@@ -1,6 +1,6 @@
 # TableBlock
 
-The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://handsontable.com/) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
+The TableBlock module provides an HTML table block type for StreamField. This module uses [handsontable 6.2.2](https://github.com/handsontable/handsontable/tree/6.2.2) (distributed under the MIT license) to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
 
 ![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](../../_static/images/screen40_table_block.png)
 
@@ -99,7 +99,7 @@ Every key in the `table_options` dictionary maps to a [handsontable](https://han
 -   [contextMenu](https://handsontable.com/docs/6.2.2/Options.html#contextMenu) - Enables or disables the Handsontable right-click menu. By default this is set to `True`. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 -   [editor](https://handsontable.com/docs/6.2.2/Options.html#editor) - Defines the editor used for table cells. The default setting is text.
 -   [stretchH](https://handsontable.com/docs/6.2.2/Options.html#stretchH) - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
--   [height](https://handsontable.com/docs/6.2.2/Options.html#height) - The default height of the grid. By default TableBlock sets the height to `108` for the optimal appearance of new tables in the editor. This is optimised for tables with `startRows` set to `3`. If you change the number of `startRows` in the configuration, you might need to change the `height` setting to improve the default appearance in the editor.
+-   [height](https://handsontable.com/docs/6.2.2/Options.html#height) - The default height of the grid. By default TableBlock sets the height to `108` for the optimal appearance of new tables in the editor. This is optimized for tables with `startRows` set to `3`. If you change the number of `startRows` in the configuration, you might need to change the `height` setting to improve the default appearance in the editor.
 -   [language](https://handsontable.com/docs/6.2.2/Options.html#language) - The default language setting. By default TableBlock tries to get the language from `django.utils.translation.get_language`. If needed, this setting can be overridden here.
 -   [renderer](https://handsontable.com/docs/6.2.2/Options.html#renderer) - The default setting Handsontable uses to render the content of table cells.
 -   [autoColumnSize](https://handsontable.com/docs/6.2.2/Options.html#autoColumnSize) - Enables or disables the `autoColumnSize` plugin. The TableBlock default setting is `False`.
@@ -156,7 +156,7 @@ new_table_options = {
         'redo',
         '---------',
         'copy',
-        'cut'
+        'cut',
         '---------',
         'alignment',
     ],

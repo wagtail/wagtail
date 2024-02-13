@@ -5,7 +5,10 @@ from wagtail.admin.views.bulk_action.registry import bulk_action_registry as reg
 
 
 def index(request, app_label, model_name, action):
-    model = apps.get_model(app_label, model_name)
+    try:
+        model = apps.get_model(app_label, model_name)
+    except LookupError:
+        raise Http404
     action_class = registry.get_bulk_action_class(app_label, model_name, action)
     if action_class is not None:
         return action_class(request, model).dispatch(request)

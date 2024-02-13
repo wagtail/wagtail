@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -104,29 +104,6 @@ msgstr "Одоогийн нооргийг дарж хуулах"
 msgid "Save draft"
 msgstr "Ноорог хадгалах"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Шинэ %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Шинэ"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "%(snippet_type_name_plural)s хэсгүүд"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr " %(snippet_type_name)sнэмэх"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Үгүй %(snippet_type_name_plural)s үүссэн байна. Яагаад <a href="
-"\"%(wagtailsnippets_create_url)s\">нэмж</a> болохгүй гэж?"
-
 msgid "Live version"
 msgstr "Нийтлэгдсэн хувилбар"
 
@@ -150,12 +127,6 @@ msgstr "Хэсэг"
 
 msgid "Name"
 msgstr "Нэр"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Хэсэг дээрх алдаанаас болж хадгалагдсангүй."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
 
 msgid "Action"
 msgstr "Үйлдэл"

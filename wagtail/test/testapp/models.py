@@ -556,7 +556,7 @@ class FormPage(AbstractEmailForm):
 
     # This is redundant (SubmissionsListView is the default view class), but importing
     # SubmissionsListView in this models.py helps us to confirm that this recipe
-    # https://docs.wagtail.org/en/stable/reference/contrib/forms/customisation.html#customise-form-submissions-listing-in-wagtail-admin
+    # https://docs.wagtail.org/en/stable/reference/contrib/forms/customization.html#customise-form-submissions-listing-in-wagtail-admin
     # works without triggering circular dependency issues -
     # see https://github.com/wagtail/wagtail/issues/6265
     submissions_list_view_class = SubmissionsListView
@@ -1919,6 +1919,15 @@ class TableBlockStreamPage(Page):
     table = StreamField([("table", TableBlock())])
 
     content_panels = [FieldPanel("table")]
+
+
+class ModelWithVerboseName(ClusterableModel):
+    class Meta:
+        verbose_name = "Custom verbose name"
+        verbose_name_plural = "Custom verbose names"
+
+
+register_snippet(ModelWithVerboseName)
 
 
 class UserProfile(models.Model):

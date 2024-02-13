@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -99,36 +99,27 @@ msgstr "Veľkosť súboru"
 msgid "File not found"
 msgstr "Súbor nebol nájdený"
 
-msgid "Documents"
-msgstr "Dokumenty"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
-"%(query_string)s</em>\""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste do kolekcie nenahrali žiadne dokumenty. Prečo nenahrať <a href="
-"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste do kolekcie nenahrali žiadne dokumenty. Prečo nenahrať <a "
+"href=\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a href="
-"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a "
+"href=\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
 
 msgid "Add multiple documents"
 msgstr "Pridať viaceré dokumenty"
@@ -164,6 +155,9 @@ msgstr "Tagy"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "File"
+msgstr "Súbor"
+
 msgid "Choose a document"
 msgstr "Zvoliť dokument"
 
@@ -173,8 +167,11 @@ msgstr "Zvoliť ďalší dokument"
 msgid "Edit this document"
 msgstr "Upraviť tento dokument"
 
-msgid "Search documents"
-msgstr "Hľadať dokumenty"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

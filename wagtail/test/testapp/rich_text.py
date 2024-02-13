@@ -1,22 +1,32 @@
-import json
-
 from django.forms import Media, widgets
+from django.utils.safestring import mark_safe
 
-from wagtail.utils.widgets import WidgetWithScript
 
+class CustomRichTextArea(widgets.Textarea):
+    def render(self, name, value, attrs=None, renderer=None):
+        # mock rendering for individual custom widget
 
-class CustomRichTextArea(WidgetWithScript, widgets.Textarea):
-    def render_js_init(self, id_, name, value):
-        return f"customEditorInitScript({json.dumps(id_)});"
+        return mark_safe(
+            '<template data-controller="custom-editor" data-id="{0}">{1}</template>'.format(
+                attrs["id"],
+                super().render(name, value, attrs),
+            )
+        )
 
     @property
     def media(self):
         return Media(js=["vendor/custom_editor.js"])
 
 
-class LegacyRichTextArea(WidgetWithScript, widgets.Textarea):
-    def render_js_init(self, id_, name, value):
-        return f"legacyEditorInitScript({json.dumps(id_)});"
+class LegacyRichTextArea(widgets.Textarea):
+    def render(self, name, value, attrs=None, renderer=None):
+        # mock rendering for individual custom widget
+        return mark_safe(
+            '<template data-controller="legacy-editor" data-id="{0}">{1}</template>'.format(
+                attrs["id"],
+                super().render(name, value, attrs),
+            )
+        )
 
     @property
     def media(self):

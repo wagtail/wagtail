@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -279,11 +279,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nincs csoport hozzáadva. Miért nem <a href="
-"\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
+"Nincs csoport hozzáadva. Miért nem <a "
+"href=\"%(wagtailusers_create_group_url)s\">ad hozzá egyet</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Biztosan törli ezt a felhasználót?"
@@ -302,6 +302,28 @@ msgstr "Felhasználó törlése"
 
 msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sajnáljuk, de egyetlen felhasználó sem felel meg a következő feltételeknek: "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a "
+"href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nincs felhasználó létrehozva. Miért nem <a "
+"href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
 
 msgid "Username"
 msgstr "Felhasználónév"
@@ -323,34 +345,6 @@ msgstr "Aktív"
 
 msgid "Inactive"
 msgstr "Kikapcsolt"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Sajnáljuk, de egyetlen felhasználó sem felel meg a következő feltételeknek: "
-"\"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a href="
-"\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
-msgstr ""
-"Nincs felhasználó létrehozva. Miért nem <a href=\"%(wagtailusers_add_url)s"
-"\">ad hozzá egyet</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

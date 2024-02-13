@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -192,30 +192,8 @@ msgstr "Ficheiro não encontrado"
 msgid "Usage"
 msgstr "Utilização"
 
-msgid "Documents"
-msgstr "Documentos"
-
 msgid "Select all documents in listing"
 msgstr "Selecionar todos os documentos da listagem"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Ficheiro"
-
-msgid "Created"
-msgstr "Criado"
-
-msgid "Select document"
-msgstr "Selecionar documento"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrado %(counter)s resultado"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -223,19 +201,19 @@ msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhum documento nesta coleção. Que tal <a href="
-"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+"Ainda não carregou nenhum documento nesta coleção. Que tal <a "
+"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Ainda não carregou nenhum documento. Que tal <a href="
-"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+"Ainda não carregou nenhum documento. Que tal <a "
+"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
 
 msgid "Add multiple documents"
 msgstr "Adicionar múltiplos documentos"
@@ -319,6 +297,12 @@ msgstr[0] "%(num_parent_objects)ddocumento foi apagado"
 msgstr[1] "%(num_parent_objects)ddocumentos foram apagados"
 msgstr[2] "%(num_parent_objects)ddocumentos foram apagados"
 
+msgid "File"
+msgstr "Ficheiro"
+
+msgid "Created"
+msgstr "Criado"
+
 msgid "Choose a document"
 msgstr "Escolher um documento"
 
@@ -328,8 +312,11 @@ msgstr "Escolher outro documento"
 msgid "Edit this document"
 msgstr "Alterar este documento"
 
-msgid "Search documents"
-msgstr "Pesquisar documentos"
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

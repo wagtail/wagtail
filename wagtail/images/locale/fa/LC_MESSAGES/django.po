@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -243,53 +243,31 @@ msgstr "اندازه فایل"
 msgid "File not found"
 msgstr "فایل پیدا نشد"
 
-msgid "Images"
-msgstr "عکس‌ها"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s مورد همخوانی دارد"
-msgstr[1] "%(counter)s مورد همخوانی دارد"
-
-msgid "pixels"
-msgstr "پیکسل ها"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه هیچ تصویری با «<em>%(query_string)s</em>» پیدا نشد"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز به این مجموعه تصویری آپلود نشده. می‌توانید یکی را الان <a href="
-"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
+"هنوز به این مجموعه تصویری آپلود نشده. می‌توانید یکی را الان <a "
+"href=\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز تصویر آپلود نکرده اید. می‌توانید یکی را الان <a href="
-"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
-
-msgid "Generating URL"
-msgstr "ایجاد نشانی"
-
-msgid "URL"
-msgstr "URL"
+"هنوز تصویر آپلود نکرده اید. می‌توانید یکی را الان <a "
+"href=\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
 
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"توجه داشته باشید تصاویر بزرگتر از اندازه صفحه در هنگام پیش نمایش کوچکتر به "
-"نظر می‌رسند. بنابر این عرض آن ها با عرض صفحه تنظیم می‌شود."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "افزودن چند تصویر"
@@ -359,8 +337,8 @@ msgstr "تصویر دیگری انتخاب کنید"
 msgid "Edit this image"
 msgstr "ویرایش این تصویر"
 
-msgid "Search images"
-msgstr "جستجوی تصاویر"
+msgid "Images"
+msgstr "عکس‌ها"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

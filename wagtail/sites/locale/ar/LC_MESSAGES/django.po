@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,12 +53,12 @@ msgstr "اضف موقع"
 msgid "Site '%(object)s' created."
 msgstr "تم إنشاء الموقع '%(object)s'."
 
+msgid "The site could not be saved due to errors."
+msgstr "لا يمكن حفظ الموقع بسبب الأخطاء."
+
 #, python-format
 msgid "Site '%(object)s' updated."
 msgstr "تم تحديث الموقع '%(object)s'."
-
-msgid "The site could not be saved due to errors."
-msgstr "لا يمكن حفظ الموقع بسبب الأخطاء."
 
 msgid "Delete site"
 msgstr "احذف موقع"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -302,23 +302,6 @@ msgstr "Alege un format"
 msgid "Insert image"
 msgstr "Inserează imagine"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> imagine <span class=\"w-sr-only\">creată în "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
 
@@ -384,9 +367,6 @@ msgstr "Fișierul nu a fost găsit"
 msgid "Usage"
 msgstr "Utilizare"
 
-msgid "Images"
-msgstr "Imagini"
-
 msgid "Sort by"
 msgstr "Sortează după"
 
@@ -403,55 +383,31 @@ msgid "Select all images in listing"
 msgstr "Selectează toate imaginile din listă"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Există %(counter)s potrivire"
-msgstr[1] "Sunt %(counter)s potriviri"
-msgstr[2] "Sunt %(counter)s potriviri"
-
-msgid "Select image"
-msgstr "Selectează imagine"
-
-msgid "pixels"
-msgstr "pixeli"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
-"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a "
+"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine. De să nu <a href="
-"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
-
-msgid "Generating URL"
-msgstr "Generarea URL"
-
-msgid "URL"
-msgstr "Adresă de internet"
+"Nu ați încărcat nici o imagine. De să nu <a "
+"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 msgid "Preview"
 msgstr "Examinare"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Rețineți că imaginile care sunt generate mai mari decât dimensiunile "
-"ecranului vor apărea mai mici când sunt previzualizate aici pentru a se "
-"încadra."
+msgid "URL"
+msgstr "Adresă de internet"
 
 msgid "Add multiple images"
 msgstr "Adaugă mai multe imagini"
@@ -582,8 +538,8 @@ msgstr "Mărime fișier: (de la mică la mare)"
 msgid "File size: (high to low)"
 msgstr "Mărime fișier: (de la mare la mică)"
 
-msgid "Search images"
-msgstr "Caută imagini"
+msgid "Images"
+msgstr "Imagini"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

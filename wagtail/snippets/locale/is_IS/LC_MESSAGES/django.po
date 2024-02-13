@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2022-2023\n"
@@ -115,13 +115,13 @@ msgstr "Því miður eru engin snifsi sem passa við \"<em>%(search_query)s</em>
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 "Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noreferrer\">búa til eitt núna</a>?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">búa til eitt núna</a>?"
 
 msgid "Publishing…"
 msgstr "Set í birtingu..."
@@ -141,49 +141,11 @@ msgstr "Skipta út núverandi útgáfu"
 msgid "Save draft"
 msgstr "Vista drög"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Nýtt %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Nýtt"
-
 msgid "Actions"
 msgstr "Aðgerðir"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Breyti %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snifsi %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Nýtt %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Velja öll snifsi í lista"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] " Það er %(counter)s niðurstaða        "
-msgstr[1] " Það eru %(counter)s niðurstöður        "
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr ""
-"Því miður eru engin %(snippet_type_name_plural)s sem passa við leitina þína"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Engin %(snippet_type_name_plural)s hafa verið búin til. Af hverju ekki <a "
-"href=\"%(wagtailsnippets_create_url)s\">búa eitt til núna</a>?"
 
 msgid "Live version"
 msgstr "Útgáfa í birtingu"
@@ -224,12 +186,6 @@ msgstr "Færslur"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
 
 msgid "Action"
 msgstr "Aðgerð"

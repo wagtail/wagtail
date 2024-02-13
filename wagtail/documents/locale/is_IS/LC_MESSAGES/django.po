@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -201,29 +201,8 @@ msgstr "Skrá fannst ekki"
 msgid "Usage"
 msgstr "Notkun"
 
-msgid "Documents"
-msgstr "Skrár"
-
 msgid "Select all documents in listing"
 msgstr "Velja öll skjöl"
-
-msgid "Title"
-msgstr "Titill"
-
-msgid "File"
-msgstr "Skrá"
-
-msgid "Created"
-msgstr "Búið til"
-
-msgid "Select document"
-msgstr "Velja skjal"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] "Það eru %(counter)s niðurstöður"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -231,33 +210,19 @@ msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Skjal <span class=\"w-sr-only\">búið til í "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Skjöl <span class=\"w-sr-only\">búin til í "
-"%(site_name)s</span>"
+"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 msgid "Add multiple documents"
 msgstr "Bæta við mörgum skrám"
@@ -337,6 +302,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d skjali hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d skjölum hefur verið eytt"
 
+msgid "File"
+msgstr "Skrá"
+
+msgid "Created"
+msgstr "Búið til"
+
 msgid "Choose a document"
 msgstr "Veldu skrá"
 
@@ -346,8 +317,11 @@ msgstr "Veldu aðra skrá"
 msgid "Edit this document"
 msgstr "Breyta þessari skrá"
 
-msgid "Search documents"
-msgstr "Leita að skrám"
+msgid "Documents"
+msgstr "Skrár"
+
+msgid "Title"
+msgstr "Titill"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

@@ -1,5 +1,9 @@
 @use 'sass:math';
 
+// grid settings
+$grid-columns: 12;
+$grid-gutter-width: 3%;
+
 // Utility variable - you should never need to modify this
 $padding: math.div($grid-gutter-width, 2);
 
@@ -25,28 +29,6 @@ $padding: math.div($grid-gutter-width, 2);
   width: 100% * math.div($x, $grid-columns);
   padding-inline-end: $padding;
   padding-inline-start: $padding;
-}
-
-@mixin table-column($x, $padding: $padding, $grid-columns: $grid-columns) {
-  width: 100% * math.div($x, $grid-columns);
-}
-
-// Push adds left padding
-@mixin push($offset: 1, $grid-columns: $grid-columns) {
-  margin-inline-start: 100% * math.div($offset, $grid-columns);
-}
-
-@mixin push-padding($offset: 1, $grid-columns: $grid-columns) {
-  padding-inline-start: 100% * math.div($offset, $grid-columns);
-}
-
-// Pull adds right padding
-@mixin pull($offset: 1, $grid-columns: $grid-columns) {
-  margin-inline-end: 100% * math.div($offset, $grid-columns);
-}
-
-@mixin pull-padding($offset: 1, $grid-columns: $grid-columns) {
-  padding-inline-end: 100% * math.div($offset, $grid-columns);
 }
 
 // only used in places where padding not applied to same elements as row or row-flush

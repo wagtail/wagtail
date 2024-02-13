@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,11 +170,11 @@ msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a href="
-"\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
+"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
+"href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "이 사용자를 확실히 삭제하시겠습니까?"
@@ -190,6 +190,10 @@ msgstr "사용자 추가"
 
 msgid "Delete user"
 msgstr "사용자 삭제"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
 
 msgid "Username"
 msgstr "사용자명"
@@ -208,15 +212,6 @@ msgstr "활성화"
 
 msgid "Inactive"
 msgstr "비활성화"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s만큼 일치"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
 
 msgid "Groups"
 msgstr "그룹"

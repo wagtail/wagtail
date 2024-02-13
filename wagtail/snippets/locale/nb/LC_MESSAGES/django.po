@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -114,13 +114,13 @@ msgstr "Beklager, ingen snutter matcher \"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"Du har ikke opprettet %(snippet_type_name)s snutter. Hvorfor ikke <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">opprette en nå?</a>?"
+"Du har ikke opprettet %(snippet_type_name)s snutter. Hvorfor ikke <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">opprette en nå?</a>?"
 
 msgid "Publishing…"
 msgstr "Publiserer..."
@@ -140,48 +140,11 @@ msgstr "Erstatt nåværende revisjon"
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Ny %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Ny"
-
 msgid "Actions"
 msgstr "Handlinger"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Redigerer %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snutter %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Legg til %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Velg alle snutter i listen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr "Beklager, ingen %(snippet_type_name_plural)s matcher din forespørsel"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Ingen %(snippet_type_name_plural)s har blitt opprettet. Hvorfor ikke <a href="
-"\"%(wagtailsnippets_create_url)s\">legge til en</a>?"
 
 msgid "Live version"
 msgstr "Publisert versjon"
@@ -222,12 +185,6 @@ msgstr "Forekomster"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Flere alternativer for '%(title)s'"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Snutten kunne ikke opprettes grunnet feil."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Snutten kunne ikke lagres grunnet feil."
 
 msgid "Action"
 msgstr "Handling"

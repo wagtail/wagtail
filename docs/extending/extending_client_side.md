@@ -1,15 +1,15 @@
 (extending_client_side)=
 
-# Extending client-side behaviour
+# Extending client-side behavior
 
-Many kinds of common customisations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customise, you may need to employ React, Stimulus, or plain (vanilla) JS.
+Many kinds of common customizations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customize, you may need to employ React, Stimulus, or plain (vanilla) JS.
 
 [React](https://reactjs.org/) is used for more complex parts of Wagtail, such as the sidebar, commenting system, and the Draftail rich-text editor.
 For basic JavaScript-driven interaction, Wagtail is migrating towards [Stimulus](https://stimulus.hotwired.dev/).
 
-You don't need to know or use these libraries to add your custom behaviour to elements, and in many cases, simple JavaScript will work fine, but Stimulus is the recommended approach for more complex use cases.
+You don't need to know or use these libraries to add your custom behavior to elements, and in many cases, simple JavaScript will work fine, but Stimulus is the recommended approach for more complex use cases.
 
-You don't need to have Node.js tooling running for your custom Wagtail installation for many customisations built on these libraries, but in some cases, such as building packages, it may make more complex development easier.
+You don't need to have Node.js tooling running for your custom Wagtail installation for many customizations built on these libraries, but in some cases, such as building packages, it may make more complex development easier.
 
 ```{note}
 Avoid using jQuery and undocumented jQuery plugins, as they will be removed in a future version of Wagtail.
@@ -33,13 +33,13 @@ These will ensure the added files are used in the admin after the core JavaScrip
 
 ## Extending with DOM events
 
-When approaching client-side customisations or adopting new components, try to keep the implementation simple first, you may not need any knowledge of Stimulus, React, JavaScript Modules or a build system to achieve your goals.
+When approaching client-side customizations or adopting new components, try to keep the implementation simple first, you may not need any knowledge of Stimulus, React, JavaScript Modules, or a build system to achieve your goals.
 
-The simplest way to attach behaviour to the browser is via [DOM Events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and plain (vanilla) JavaScript.
+The simplest way to attach behavior to the browser is via [DOM Events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and plain (vanilla) JavaScript.
 
 ### Wagtail's custom DOM events
 
-Wagtail supports some custom behaviour via listening or dispatching custom DOM events.
+Wagtail supports some custom behavior via listening or dispatching custom DOM events.
 
 -   See [Images title generation on upload](images_title_generation_on_upload).
 -   See [Documents title generation on upload](docs_title_generation_on_upload).
@@ -51,7 +51,7 @@ Wagtail supports some custom behaviour via listening or dispatching custom DOM e
 
 Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to provide lightweight client-side interactivity or custom JavaScript widgets within the admin interface.
 
-The key benefit of using Stimulus is that your code can avoid the need for manual initialisation when widgets appear dynamically, such as within modals, `InlinePanel`, or `StreamField` panels.
+The key benefit of using Stimulus is that your code can avoid the need for manual initialization when widgets appear dynamically, such as within modals, `InlinePanel`, or `StreamField` panels.
 
 The [Stimulus handbook](https://stimulus.hotwired.dev/handbook/introduction) is the best source on how to work with and understand Stimulus.
 
@@ -205,6 +205,128 @@ def editor_js():
 
 You should be able to see that on your Blog Pages, the introduction field will now have a small `output` element showing the count and max words being used.
 
+(extending_client_side_stimulus_widget)=
+
+#### A more complex widget example
+
+For more complex widgets we can now integrate additional libraries whenever the widget appears in the rendered HTML, either on initial load or dynamically without the need for any inline `script` elements.
+
+In this example, we will build a color picker widget using the [Coloris](https://coloris.js.org/) JavaScript library with support for custom widget options.
+
+First, let's start with the HTML, building on the [Django widgets](inv:django#ref/forms/widgets) system that Wagtail supports for `FieldPanel` and `FieldBlock`. Using the `build_attrs` method, we build up the appropriate Stimulus data attributes to support common data structures being passed into the controller.
+
+Observe that we are using `json.dumps` for complex values (a list of strings in this case), Django will automatically escape these values when rendered to avoid common causes of insecure client-side code.
+
+```py
+# myapp/widgets.py
+import json
+
+from django.forms import Media, TextInput
+
+from django.utils.translation import gettext as _
+
+class ColorWidget(TextInput):
+    """
+    See https://coloris.js.org/
+    """
+
+    def __init__(self, attrs=None, swatches=[], theme='large'):
+        self.swatches = swatches
+        self.theme = theme
+        super().__init__(attrs=attrs);
+
+    def build_attrs(self, *args, **kwargs):
+        attrs = super().build_attrs(*args, **kwargs)
+        attrs['data-controller'] = 'color'
+        attrs['data-color-theme-value'] = self.theme
+        attrs['data-color-swatches-value'] = json.dumps(swatches)
+        return attrs
+
+    @property
+    def media(self):
+        return Media(
+            js=[
+                # load the UI library
+                "https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js",
+                # load controller JS
+                "js/color-controller.js",
+            ],
+            css={"all": ["https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"]},
+        )
+```
+
+For the Stimulus controller, we pass the values through to the JavaScript library, including a reference to the controlled element via `this.element.id`.
+
+```javascript
+// myapp/static/js/color-controller.js
+
+class ColorController extends window.StimulusModule.Controller {
+    static values = { swatches: Array, theme: String };
+
+    connect() {
+        // create
+        Coloris({ el: `#${this.element.id}` });
+
+        // set options after initial creation
+        setTimeout(() => {
+            Coloris({ swatches: this.swatchesValue, theme: this.themeValue });
+        });
+    }
+}
+
+window.wagtail.app.register('color', ColorController);
+```
+
+Now we can use this widget in any `FieldPanel` or any `FieldBlock` for StreamFields, it will automatically instantiate the JavaScript to the field's element.
+
+```py
+# blocks.py
+
+# ... other imports
+from django import forms
+from wagtail.blocks import FieldBlock
+
+from .widgets import ColorWidget
+
+
+class ColorBlock(FieldBlock):
+    def __init__(self, *args, **kwargs):
+        swatches = kwargs.pop('swatches', [])
+        theme = kwargs.pop('theme', 'large')
+        self.field = forms.CharField(widget=ColorWidget(swatches=swatches, theme=theme))
+        super().__init__(*args, **kwargs)
+```
+
+```py
+# models.py
+
+# ... other imports
+from django import forms
+from wagtail.admin.panels import FieldPanel
+
+from .blocks import ColorBlock
+from .widgets import ColorWidget
+
+
+BREAD_COLOR_PALETTE = ["#CFAC89", "#C68C5F", "#C47647", "#98644F", "#42332E"]
+
+class BreadPage(Page):
+    body = StreamField([
+        # ...
+        ('color', ColorBlock(swatches=BREAD_COLOR_PALETTE)),
+        # ...
+    ], use_json_field=True)
+    color = models.CharField(blank=True, max_length=50)
+
+    # ... other fields
+
+    content_panels = Page.content_panels + [
+        # ... other panels
+        FieldPanel("body"),
+        FieldPanel("color", widget=ColorWidget(swatches=BREAD_COLOR_PALETTE)),
+    ]
+```
+
 #### Using a build system
 
 You will need ensure your build output is ES6/ES2015 or higher. You can use the exposed global module at `window.StimulusModule` or provide your own using the npm module `@hotwired/stimulus`.
@@ -224,7 +346,7 @@ You may want to avoid bundling Stimulus with your JavaScript output and treat th
 
 ## Extending with React
 
-To customise or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
+To customize or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
 
 To make this easier, Wagtail exposes its React-related dependencies as global variables within the admin. Here are the available packages:
 

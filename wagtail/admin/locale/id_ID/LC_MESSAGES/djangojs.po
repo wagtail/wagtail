@@ -35,9 +35,6 @@ msgstr "Ubah"
 msgid "Edit '%(title)s'"
 msgstr "Ubah '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Ubah akun Anda"
-
 msgid "Horizontal line"
 msgstr "Garis horizontal"
 

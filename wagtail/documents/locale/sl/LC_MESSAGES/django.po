@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenti"
@@ -229,31 +229,8 @@ msgstr "Datoteka ne obstaja"
 msgid "Usage"
 msgstr "Uporaba"
 
-msgid "Documents"
-msgstr "Dokumenti"
-
 msgid "Select all documents in listing"
 msgstr "Izberite vse dokumente na seznamu"
-
-msgid "Title"
-msgstr "Naziv"
-
-msgid "File"
-msgstr "Datoteka"
-
-msgid "Created"
-msgstr "Ustvarjeno"
-
-msgid "Select document"
-msgstr "Izberite dokument"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s zadetek"
-msgstr[1] "%(counter)s zadetka"
-msgstr[2] "%(counter)s zadetkov"
-msgstr[3] "%(counter)s zadetkov"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -261,19 +238,19 @@ msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a href="
-"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Naložen ni še noben dokument. Zakaj ga ne bi <a href="
-"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"Naložen ni še noben dokument. Zakaj ga ne bi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
@@ -351,6 +328,12 @@ msgstr[1] "%(num_parent_objects)d  dokumenta sta bila izbrisana"
 msgstr[2] "%(num_parent_objects)d dokumentov je bilo izbrisanih"
 msgstr[3] "%(num_parent_objects)d dokumentov je bilo izbrisanih"
 
+msgid "File"
+msgstr "Datoteka"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
 msgid "Choose a document"
 msgstr "Izberite dokument"
 
@@ -360,8 +343,11 @@ msgstr "Izberite drug dokument"
 msgid "Edit this document"
 msgstr "Uredi dokument"
 
-msgid "Search documents"
-msgstr "Iskanje po dokumentih"
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Naziv"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

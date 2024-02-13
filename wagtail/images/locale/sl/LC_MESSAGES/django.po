@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -323,26 +323,6 @@ msgstr "Izberite obliko zapisa"
 msgid "Insert image"
 msgstr "Vstavi sliko"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> slika <span class=\"w-sr-only\">je bila "
-"ustvarjena v %(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> sliki <span class=\"w-sr-only\">sta bili "
-"ustvarjeni v %(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> slik <span class=\"w-sr-only\">ustvarjenih v "
-"%(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> slik <span class=\"w-sr-only\">ustvarjenih v "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Spremeni datoteko slike:"
 
@@ -408,9 +388,6 @@ msgstr "Datoteka ne obstaja"
 msgid "Usage"
 msgstr "Uporaba"
 
-msgid "Images"
-msgstr "Slike"
-
 msgid "Sort by"
 msgstr "Razvrsti po"
 
@@ -427,54 +404,30 @@ msgid "Select all images in listing"
 msgstr "Izberite vse slike na seznamu"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s zadetek"
-msgstr[1] "%(counter)s zadetka"
-msgstr[2] "%(counter)s zadetkov"
-msgstr[3] "%(counter)s zadetkov"
-
-msgid "Select image"
-msgstr "Izberi sliko"
-
-msgid "pixels"
-msgstr "pikslov"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni slike, ki bi ustrezala \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V to zbirko niste naložili nobene slike. Zakaj ne bi <a href="
-"\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
+"V to zbirko niste naložili nobene slike. Zakaj ne bi <a "
+"href=\"%(wagtailimages_add_image_url)s\">enega naložili zdaj</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Naložili niste nobene datoteke. Zakaj je <a href="
-"\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
-
-msgid "Generating URL"
-msgstr "Generiranje URL"
-
-msgid "URL"
-msgstr "URL"
+"Naložili niste nobene datoteke. Zakaj je <a "
+"href=\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
 
 msgid "Preview"
 msgstr "Predogled"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Upoštevajte, da so slike, ustvarjene večje od zaslona, v predogledu "
-"prikazane pomanjšane, da so lahko prikazane v celoti."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Dodaj več slik"
@@ -606,8 +559,8 @@ msgstr "Velikost datoteke: (od majhne do velike)"
 msgid "File size: (high to low)"
 msgstr "Velikost datoteke: (od velike proti majhni)"
 
-msgid "Search images"
-msgstr "Iskanje po slikah"
+msgid "Images"
+msgstr "Slike"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

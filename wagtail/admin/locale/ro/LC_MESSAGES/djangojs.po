@@ -86,9 +86,6 @@ msgstr "Editează"
 msgid "Edit '%(title)s'"
 msgstr "Editează '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Editează contul utilizator"
-
 msgid "Enter your comments..."
 msgstr "Introduceți comentariile Dvs"
 

@@ -1,6 +1,6 @@
 # Settings
 
-Wagtail makes use of the following settings, in addition to [Django's core settings](django:ref/settings)`:
+Wagtail makes use of the following settings, in addition to [Django's core settings](inv:django#ref/settings)`:
 
 ## Sites
 
@@ -70,17 +70,17 @@ WAGTAILSEARCH_HITS_MAX_AGE = 14
 
 Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for [promoted search results](editors_picks). Queries older than this will be removed by the [](searchpromotions_garbage_collect) command.
 
-## Internationalisation
+## Internationalization
 
-Wagtail supports internationalisation of content by maintaining separate trees of pages for each language.
+Wagtail supports the internationalization of content by maintaining separate trees of pages for each language.
 
-For a guide on how to enable internationalisation on your site, see the [configuration guide](enabling_internationalisation).
+For a guide on how to enable internationalization on your site, see the [configuration guide](enabling_internationalisation).
 
 ### `WAGTAIL_I18N_ENABLED`
 
 (boolean, default `False`)
 
-When set to `True`, Wagtail's internationalisation features will be enabled:
+When set to `True`, Wagtail's internationalization features will be enabled:
 
 ```python
 WAGTAIL_I18N_ENABLED = True
@@ -107,7 +107,7 @@ Each item in the list is a 2-tuple containing a language code and a display name
 The language code can either be a language code on its own (such as `en`, `fr`), or it can include a region code (such as `en-gb`, `fr-fr`).
 You can mix the two formats if you only need to localize in some regions but not others.
 
-This setting follows the same structure of Django's `LANGUAGES` setting, so they can both be set to the same value:
+This setting follows the same structure as Django's `LANGUAGES` setting, so they can both be set to the same value:
 
 ```python
 LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
@@ -145,8 +145,8 @@ Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES`` must also ex
 
 ## Embeds
 
-Wagtail supports generating embed code from URLs to content on an external providers such as Youtube or Twitter. By default, Wagtail will fetch the embed code directly from the relevant provider's site using the oEmbed protocol.
-Wagtail has a builtin list of the most common providers.
+Wagtail supports generating embed code from URLs to content on external providers such as YouTube or X (formerly Twitter). By default, Wagtail will fetch the embed code directly from the relevant provider's site using the oEmbed protocol.
+Wagtail has a built-in list of the most common providers.
 
 The embeds fetching can be fully configured using the `WAGTAILEMBEDS_FINDERS` setting. This is fully documented in [](configuring_embed_finders).
 
@@ -188,10 +188,10 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 }
 ```
 
-Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
+Customize the behavior of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognized:
 
 -   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
--   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).
+-   `OPTIONS`: Configuration options to pass to the widget. Recognized options are widget-specific, but `DraftailRichTextArea` accepts a `features` list indicating the active rich text features (see [](rich_text_features)).
 
 If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
 
@@ -203,7 +203,9 @@ If a `'default'` editor is not specified, rich text fields that do not specify a
 WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
 ```
 
-Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
+Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
+
+(wagtail_date_time_formats)=
 
 ### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
 
@@ -213,7 +215,7 @@ WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
 WAGTAIL_TIME_FORMAT = '%H:%M'
 ```
 
-Specifies the date, time and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior), and must be one of the recognised formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
+Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) and must be one of the recognized formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
 
 ## Page editing
 
@@ -243,7 +245,7 @@ WAGTAIL_AUTO_UPDATE_PREVIEW = True
 ```
 
 When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
-This behaviour is enabled by default.
+This behavior is enabled by default.
 
 To completely disable the preview panel, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model `preview_modes = []`.
 
@@ -253,7 +255,7 @@ To completely disable the preview panel, set [preview modes](wagtail.models.Page
 WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 ```
 
-The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
+The interval (in milliseconds) is to check for changes made in the page editor before updating the preview. The default value is `500`.
 
 (wagtailadmin_global_edit_lock)=
 
@@ -394,11 +396,11 @@ WAGTAILDOCS_SERVE_METHOD = 'redirect'
 
 Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see [Collection Privacy settings](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings)) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
 
-For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
+For this reason, Wagtail provides several serving methods that trade some of the strictness of the permission check for performance:
 
 -   `'direct'` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (for example using [wagtail-bakery](https://github.com/wagtail/wagtail-bakery) or [Gatsby](https://www.gatsbyjs.org/)).
--   `'redirect'` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user is able to guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
--   `'serve_view'` - links to documents point to a Django view which both checks the user's permission, and serves the document. Serving will be handled by [django-sendfile](https://github.com/johnsensible/django-sendfile), if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to _disallow_ serving documents directly from their location under `MEDIA_ROOT`, as this would provide a way to bypass the permission check.
+-   `'redirect'` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user can guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
+-   `'serve_view'` - links to documents point to a Django view which both checks the user's permission and serves the document. Serving will be handled by [django-sendfile](https://github.com/johnsensible/django-sendfile), if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to _disallow_ serving documents directly from their location under `MEDIA_ROOT`, as this would provide a way to bypass the permission check.
 
 If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
 
@@ -470,7 +472,7 @@ This specifies whether password fields are shown when creating or editing users 
 WAGTAILUSERS_PASSWORD_REQUIRED = True
 ```
 
-This specifies whether password is a required field when creating a new user. True by default; ignored if `WAGTAILUSERS_PASSWORD_ENABLED` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password; in order to log in, they will have to reset their password (if `WAGTAIL_PASSWORD_RESET_ENABLED` is True) or use an alternative authentication system such as LDAP (if one is set up).
+This specifies whether password is a required field when creating a new user. True by default; ignored if `WAGTAILUSERS_PASSWORD_ENABLED` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password; to log in, they will have to reset their password (if `WAGTAIL_PASSWORD_RESET_ENABLED` is True) or use an alternative authentication system such as LDAP (if one is set up).
 
 ### `WAGTAIL_EMAIL_MANAGEMENT_ENABLED`
 
@@ -528,13 +530,15 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 
 Allows the default `LoginForm` to be extended with extra fields.
 
+(wagtailadmin_login_url)=
+
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python
 WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
 ```
 
-This specifies the URL to redirect to when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
+This specifies the URL to redirect when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
 
 ## User preferences
 
@@ -552,12 +556,12 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 ### `WAGTAIL_USER_TIME_ZONES`
 
-Logged-in users can choose their current time zone for the admin interface in the account settings. If is no time zone selected by the user, then `TIME_ZONE` will be used.
+Logged-in users can choose their current time zone for the admin interface in the account settings. If there is no time zone selected by the user, then `TIME_ZONE` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
 
 The list of time zones is by default the common_timezones list from pytz.
 It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
-If there is zero or one time zone permitted, the account settings form will be hidden.
+If there is zero or one-time zone permitted, the account settings form will be hidden.
 
 ```python
 WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
@@ -618,7 +622,7 @@ WAGTAIL_ENABLE_UPDATE_CHECK = True
 
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
-If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
+If admins should only be informed of new long-term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
 
 (wagtail_enable_whats_new_banner)=
 
@@ -628,7 +632,7 @@ If admins should only be informed of new long term support (LTS) versions, then 
 WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
 ```
 
-For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users are able to dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
+For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users can dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
 ## Frontend authentication
 
@@ -650,7 +654,7 @@ As above, but for password restrictions on documents. For more details, see the 
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
-The basic login page can be customised with a custom template.
+The basic login page can be customized with a custom template.
 
 ```python
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
@@ -665,6 +669,26 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 ```
 
 For more details, see the [](login_page) documentation.
+
+### `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`
+
+If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+```
+
+See [](private_pages) for more details.
+
+### `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`
+
+If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
+
+```python
+WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+```
+
+See [](private_pages) for more details.
 
 ## Tags
 
@@ -753,7 +777,7 @@ For full documentation on frontend cache invalidation, including these settings,
   }
 ```
 
-See documentation linked above for full options available.
+See the documentation linked above for the full options available.
 
 ```{note}
 ``WAGTAILFRONTENDCACHE_LOCATION`` is no longer the preferred way to set the cache location, instead set the ``LOCATION`` within the ``WAGTAILFRONTENDCACHE`` item.
@@ -765,7 +789,7 @@ See documentation linked above for full options available.
 WAGTAILFRONTENDCACHE_LANGUAGES = [l[0] for l in settings.LANGUAGES]
 ```
 
-Default is an empty list, must be a list of languages to also purge the urls for each language of a purging url. This setting needs `settings.USE_I18N` to be `True` to work.
+Default is an empty list, there must be a list of languages to also purge the urls for each language of a purging url. This setting needs `settings.USE_I18N` to be `True` to work.
 
 ## Redirects
 
@@ -775,7 +799,7 @@ Default is an empty list, must be a list of languages to also purge the urls for
 WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
 ```
 
-By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the built-in cache to store the file instead.
+By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases, you can use the built-in cache to store the file instead.
 
 ```python
 WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'

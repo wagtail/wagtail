@@ -76,7 +76,7 @@ Or:
 
 ## Custom validation
 
-As with other blocks, validation logic on `TypedTableBlock` can be customised by overriding the `clean` method (see [](streamfield_validation)). Raising a `ValidationError` exception from this method will attach the error message to the table as a whole. To attach errors to individual cells, the exception class `wagtail.contrib.typed_table_block.blocks.TypedTableBlockValidationError` can be used - in addition to the standard `non_block_errors` argument, this accepts a `cell_errors` argument consisting of a nested dict structure where the outer keys are row indexes and the inner keys are column indexes. For example:
+As with other blocks, validation logic on `TypedTableBlock` can be customized by overriding the `clean` method (see [](streamfield_validation)). Raising a `ValidationError` exception from this method will attach the error message to the table as a whole. To attach errors to individual cells, the exception class `wagtail.contrib.typed_table_block.blocks.TypedTableBlockValidationError` can be used - in addition to the standard `non_block_errors` argument, this accepts a `cell_errors` argument consisting of a nested dict structure where the outer keys are row indexes and the inner keys are column indexes. For example:
 
 ```python
 from django.core.exceptions import ValidationError

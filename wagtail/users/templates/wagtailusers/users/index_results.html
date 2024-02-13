@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    {% include "wagtailusers/users/list.html" %}
+{% endblock %}
+
+{% block no_results_message %}
+    {% if is_searching %}
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+    {% else %}
+        {% if group %}
+            {% with group.name as group_name %}
+                <p>{% blocktrans trimmed with wagtailusers_add_url=add_url %}The {{ group_name }} group has no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+            {% endwith %}
+        {% else %}
+            <p>{% blocktrans trimmed with wagtailusers_add_url=add_url %}There are no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

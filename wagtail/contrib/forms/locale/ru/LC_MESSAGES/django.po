@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Eugene <eugene.mechanism@gmail.com>, 2017
@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,9 +27,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail forms"
 msgstr "Формы Wagtail"
@@ -181,18 +181,6 @@ msgstr[3] "Вы уверены, что хотите удалить эти зап
 msgid "Delete"
 msgstr "Удалить"
 
-msgid "Forms"
-msgstr "Формы"
-
-msgid "Pages"
-msgstr "Страницы"
-
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "Origin"
-msgstr "Происхождение"
-
 msgid "Delete selected submissions"
 msgstr "Удалить выбранные"
 
@@ -201,9 +189,6 @@ msgstr "Всего добавлений"
 
 msgid "Latest submission"
 msgstr "Последнее добавление"
-
-msgid "No form pages have been created."
-msgstr "Страниц с формами не было создано."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -218,6 +203,18 @@ msgstr "Фильтр"
 
 msgid "Apply filters"
 msgstr "Применить фильтры"
+
+msgid "Forms"
+msgstr "Формы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Origin"
+msgstr "Происхождение"
+
+msgid "Pages"
+msgstr "Страницы"
 
 #, python-format
 msgid "One submission has been deleted."

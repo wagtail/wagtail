@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -313,26 +313,6 @@ msgstr "Оберіть формат"
 msgid "Insert image"
 msgstr "Вставити зображення"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Зображення <span class=\"w-sr-only\">створено в "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Зображення <span class=\"w-sr-only\">створено в "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Зображень <span class=\"w-sr-only\">створено в "
-"%(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> Зображень <span class=\"w-sr-only\">створено в "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Поміняти файл зображення:"
 
@@ -398,9 +378,6 @@ msgstr "Файл не знайдено"
 msgid "Usage"
 msgstr "Використання"
 
-msgid "Images"
-msgstr "Зображення"
-
 msgid "Sort by"
 msgstr "Сотрувати за"
 
@@ -414,54 +391,30 @@ msgid "Select all images in listing"
 msgstr "Обрати всі зображення у списку"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Знайдено %(counter)s співпадіння"
-msgstr[1] "Знайдено %(counter)s співпадінь"
-msgstr[2] "Знайдено %(counter)s співпадінь"
-msgstr[3] "Знайдено %(counter)s співпадінь"
-
-msgid "Select image"
-msgstr "Обрати зображення"
-
-msgid "pixels"
-msgstr "пікселів"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жодне зображення не відповідає \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення до колекції. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення до колекції. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
-
-msgid "Generating URL"
-msgstr "Генерація URL"
-
-msgid "URL"
-msgstr "URL"
+"Ви не завантажили жодного зображення. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 msgid "Preview"
 msgstr "Попередній перегляд"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Зауважте, що зображення, сгенеровані більшими за розмір екрану, будуть "
-"показані тут у меншому розмірі: вони будуть пристосовані до розміру екрану"
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Додати декілька зображень"
@@ -593,8 +546,8 @@ msgstr "Розмір файлу: (від менших до більших)"
 msgid "File size: (high to low)"
 msgstr "Розмір файлу: (від більших до менших)"
 
-msgid "Search images"
-msgstr "Пошук зображень"
+msgid "Images"
+msgstr "Зображення"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

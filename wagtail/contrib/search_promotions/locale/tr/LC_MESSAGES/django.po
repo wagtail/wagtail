@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -135,14 +135,11 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen sonuç yok"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
-
-msgid "Search promoted results"
-msgstr "Arama tanıtım sonuçları"
+"Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

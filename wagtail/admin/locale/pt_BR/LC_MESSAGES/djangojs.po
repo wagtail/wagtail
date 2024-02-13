@@ -3,7 +3,6 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2022
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022
-# Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2022
 # Éder Brito <britoederr@gmail.com>, 2022
 # Gladson <gladsonbrito@gmail.com>, 2022
 # Iuri L. Machado, 2022
@@ -82,9 +81,6 @@ msgstr "Editar"
 
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Edite sua conta"
 
 msgid "Enter your comments..."
 msgstr "Escreva seus comentários..."

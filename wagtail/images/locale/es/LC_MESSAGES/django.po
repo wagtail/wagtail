@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -317,23 +317,6 @@ msgstr "Selecciona un formato"
 msgid "Insert image"
 msgstr "Insertar imagen"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Imagen <span class=\"w-sr-only\">creada en "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Imágenes <span class=\"w-sr-only\">creadas en "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Imágenes <span class=\"w-sr-only\">creadas en "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Cambiar archivo de imagen:"
 
@@ -399,9 +382,6 @@ msgstr "Archivo no encotrado"
 msgid "Usage"
 msgstr "Uso"
 
-msgid "Images"
-msgstr "Imágenes"
-
 msgid "Sort by"
 msgstr "Ordenar por"
 
@@ -418,56 +398,32 @@ msgid "Select all images in listing"
 msgstr "Seleccionar todas las imágenes de la lista"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Hay %(counter)s coincidencia"
-msgstr[1] "Hay %(counter)s coincidencias"
-msgstr[2] "Hay %(counter)s coincidencias"
-
-msgid "Select image"
-msgstr "Seleccionar imagen"
-
-msgid "pixels"
-msgstr "pixeles"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Lo sentimos, no hay coincidencias en las imágenes \"<em>%(query_string)s</em>"
-"\""
+"Lo sentimos, no hay coincidencias en las imágenes \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No ha cargado imágenes en esta colección. Por qué no <a href="
-"\"%(wagtailimages_add_image_url)s\"> carga una ahora</a>?"
+"No ha cargado imágenes en esta colección. Por qué no <a "
+"href=\"%(wagtailimages_add_image_url)s\"> carga una ahora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"No ha cargado imágenes. Por qué no <a href=\"%(wagtailimages_add_image_url)s"
-"\"> carga una ahora</a>?"
-
-msgid "Generating URL"
-msgstr "Generar URL"
-
-msgid "URL"
-msgstr "URL"
+"No ha cargado imágenes. Por qué no <a "
+"href=\"%(wagtailimages_add_image_url)s\"> carga una ahora</a>?"
 
 msgid "Preview"
 msgstr "Previsualizar"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Notar que las imágenes que sean más grandes que la pantalla aparecerán más "
-"pequeñas cuando sean previsualizadas, con el objetivo de que quepan en la "
-"pantalla."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Agregar multiples imágenes"
@@ -600,8 +556,8 @@ msgstr "Tamaño de archivo: (de menor a mayor)"
 msgid "File size: (high to low)"
 msgstr "Tamaño de archivo: (de mayor a menor)"
 
-msgid "Search images"
-msgstr "Buscar imágenes"
+msgid "Images"
+msgstr "Imágenes"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

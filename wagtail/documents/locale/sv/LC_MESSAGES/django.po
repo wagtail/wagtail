@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -205,29 +205,8 @@ msgstr "Filen hittades inte"
 msgid "Usage"
 msgstr "Användning"
 
-msgid "Documents"
-msgstr "Dokument"
-
 msgid "Select all documents in listing"
 msgstr "Välj alla dokument i listan"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created"
-msgstr "Skapades"
-
-msgid "Select document"
-msgstr "Välj dokument"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det finns %(counter)s träff"
-msgstr[1] "Det finns %(counter)s träffar"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -235,33 +214,19 @@ msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har inte laddat upp några dokument. Varför inte <a href="
-"\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> dokument <span class=\"w-sr-only\">skapade i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> dokument <span class=\"w-sr-only\">skapade i "
-"%(site_name)s</span>"
+"Du har inte laddat upp några dokument. Varför inte <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 msgid "Add multiple documents"
 msgstr "Lägg till flera dokument"
@@ -342,6 +307,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokument har raderats"
 msgstr[1] "%(num_parent_objects)d dokument har raderats"
 
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Skapades"
+
 msgid "Choose a document"
 msgstr "Välj ett dokument"
 
@@ -351,8 +322,11 @@ msgstr "Välj ett annat dokument"
 msgid "Edit this document"
 msgstr "Redigera detta dokument"
 
-msgid "Search documents"
-msgstr "Sök dokument"
+msgid "Documents"
+msgstr "Dokument"
+
+msgid "Title"
+msgstr "Titel"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

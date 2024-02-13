@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,14 +141,11 @@ msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق 
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"لم يتم إنشاء نتائج ترويجية. لماذا لا <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
-
-msgid "Search promoted results"
-msgstr "بحث النتائج التي تم الترويج لها"
+"لم يتم إنشاء نتائج ترويجية. لماذا لا <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

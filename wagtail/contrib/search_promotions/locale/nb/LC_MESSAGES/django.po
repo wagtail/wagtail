@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -143,14 +143,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
-
-msgid "Search promoted results"
-msgstr "Søk i forfremmede resultater"
+"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

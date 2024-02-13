@@ -55,6 +55,14 @@ module.exports = {
     'import/resolver': { node: { extensions: ['.js', '.ts', '.tsx'] } },
   },
   overrides: [
+    // Rules that needs to be adjusted for TypeScript only files
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/no-shadow': 'error',
+        'no-shadow': 'off',
+      },
+    },
     // Rules that we are ignoring currently due to legacy code in React components only
     {
       files: ['client/src/components/**'],
@@ -62,7 +70,6 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/interactive-supports-focus': 'off',
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
-        'jsx-a11y/role-supports-aria-props': 'off',
         'no-restricted-syntax': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react-hooks/rules-of-hooks': 'off',
@@ -152,7 +159,6 @@ module.exports = {
     // Files that use jquery via a global
     {
       files: [
-        'docs/_static/**',
         'wagtail/contrib/search_promotions/static_src/wagtailsearchpromotions/js/query-chooser-modal.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/queries/chooser_field.js',
@@ -161,7 +167,6 @@ module.exports = {
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
         'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
         'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
-        'wagtail/snippets/static_src/wagtailsnippets/js/snippet-multiple-select.js',
         'wagtail/users/static_src/wagtailusers/js/group-form.js',
       ],
       globals: { $: 'readonly', jQuery: 'readonly' },
@@ -172,7 +177,6 @@ module.exports = {
       globals: {
         buildExpandingFormset: 'readonly',
         escapeHtml: 'readonly',
-        jsonData: 'readonly',
         ModalWorkflow: 'readonly',
         DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS: 'writable',
         EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS: 'writable',
@@ -197,16 +201,10 @@ module.exports = {
         'consistent-return': 'off',
         'func-names': 'off',
         'id-length': 'off',
-        'indent': 'off',
-        'key-spacing': 'off',
-        'new-cap': 'off',
-        'newline-per-chained-call': 'off',
         'no-param-reassign': 'off',
         'no-underscore-dangle': 'off',
         'object-shorthand': 'off',
         'prefer-arrow-callback': 'off',
-        'quote-props': 'off',
-        'space-before-function-paren': 'off',
         'vars-on-top': 'off',
       },
     },

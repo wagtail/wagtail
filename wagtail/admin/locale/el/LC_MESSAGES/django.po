@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -430,11 +430,11 @@ msgstr "Όνομα"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
-"\">προσθέσετε μία</a>;"
+"Δεν υπάρχουν συλλογές. Θέλετε να <a "
+"href=\"%(add_collection_url)s\">προσθέσετε μία</a>;"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
@@ -500,27 +500,6 @@ msgstr "Draft"
 msgid "Live"
 msgstr "Live"
 
-msgid "Pages awaiting moderation"
-msgstr "Σελίδες προς έλεγχο"
-
-msgid "Type"
-msgstr "Τύπος"
-
-msgid "Edited"
-msgstr "Διορθωμένη"
-
-msgid "Preview this page"
-msgstr "Προεπισκόπιση σελίδας"
-
-msgid "Approve"
-msgstr "Έγκριση"
-
-msgid "Reject"
-msgstr "Απόρριψη"
-
-msgid "Preview"
-msgstr "Προεπισκόπηση"
-
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
 
@@ -550,6 +529,9 @@ msgstr "Αναμονή ανασκόπησης"
 
 msgid "Tasks"
 msgstr "Εργασίες"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
 
 msgid "Compare with live version"
 msgstr "Σύγκριση με την live έκδοση"
@@ -596,18 +578,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr ""
-"Η σελίδα \"%(page)s\" έχει υποβληθεί για έλεγχο από τον/την %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Μπορείτε να τη δείτε εδώ:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε στο στάδιο ανασκόπησης \"%(task)s\"."
@@ -633,6 +603,9 @@ msgid ""
 msgstr ""
 "Η σελίδα \"%(title)s\" υποβλήθηκε για έγκριση στο στάδιο ανασκόπισης "
 "\"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Μπορείτε να τη δείτε εδώ:"
 
 #, python-format
 msgid ""
@@ -791,16 +764,8 @@ msgstr "Αντιγραφή"
 msgid "Copy this page"
 msgstr "Αντιγραφή αυτής της σελίδας"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Νέα %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Επεξεργασία %(page_type)s: %(title)s"
 
 msgid "Action"
 msgstr "Ενέργεια"
@@ -819,10 +784,6 @@ msgstr "Τρέχουσα έκδοση"
 
 msgid "Current draft"
 msgstr "Τρέχον σχέδιο"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Εξερεύνηση %(title)s"
 
 msgid "Select all pages in listing"
 msgstr "Επιλογή όλων των σελίδων της λίστας"
@@ -883,8 +844,14 @@ msgstr "Μετακίνηση πάνω"
 msgid "Move down"
 msgstr "Μετακίνηση κάτω"
 
+msgid "Type"
+msgstr "Τύπος"
+
 msgid "Updated"
 msgstr "Ενημερωθηκε"
+
+msgid "Pages"
+msgstr "Σελίδες"
 
 msgid "Locked"
 msgstr "Κλειδωμένο"
@@ -940,6 +907,9 @@ msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 msgid "Workflow history"
 msgstr "Ιστορικό ροής εργασιών"
 
+msgid "Edited"
+msgstr "Διορθωμένη"
+
 msgid "Add a child page"
 msgstr "Προσθέστε μια υποσελίδα"
 
@@ -973,9 +943,6 @@ msgstr "πριν από %(time_period)s"
 
 msgid "Log out"
 msgstr "Αποσύνδεση"
-
-msgid "Select page"
-msgstr "Επιλογή σελίδας"
 
 msgid "Profile"
 msgstr "Προφίλ"
@@ -1050,6 +1017,10 @@ msgstr "Διαγραφή '%(title)s'"
 msgid "Editing"
 msgstr "Διόρθωση"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' διαγράφηκε."
+
 msgid "Inspecting"
 msgstr "Επισκόπηση"
 
@@ -1058,9 +1029,6 @@ msgstr "Πιο πρόσφατες"
 
 msgid "Latest"
 msgstr "Τελευταίες"
-
-msgid "Usage of"
-msgstr "Χρήση του "
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1172,9 +1140,6 @@ msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμ�
 msgid "Page '%(page_title)s' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '%(page_title)s'."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Η σελίδα είναι προς έλεγχο"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Η σελίδα '%(page_title)s' ενημερώθηκε."
@@ -1200,27 +1165,18 @@ msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας
 msgid "Page history"
 msgstr "Ιστορικό σελίδας"
 
+msgid "Owner"
+msgstr "Ιδιοκτήτης"
+
+msgid "Site"
+msgstr "Ιστότοπος"
+
+msgid "Yes"
+msgstr "Ναι"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Η σελίδα '%(page_title)s' είναι τώρα ξεκλειδωμένη."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Η σελίδα '%(page_title)s' δεν είναι για έλεγχο."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Η σελίδα '%(page_title)s' δημοσιεύθηκε."
-
-msgid "Failed to send approval notifications"
-msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Η δημοσίευση της σελίδας '%(page_title)s' απορρίφθηκε."
-
-msgid "Failed to send rejection notifications"
-msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1233,14 +1189,12 @@ msgstr "Έγινε αποδημοσίευση της '%(page_title)s'."
 msgid "Pages using"
 msgstr "Οι σελίδες που το χρησιμοποιούν"
 
-msgid "Pages"
-msgstr "Σελίδες"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Η σελίδα '%(page_title)s' δεν είναι για έλεγχο."
 
 msgid "Reports"
 msgstr "Αναφορές"
-
-msgid "Yes"
-msgstr "Ναι"
 
 msgid "Choose an item"
 msgstr "Επιλέξατε αντικείμενο"

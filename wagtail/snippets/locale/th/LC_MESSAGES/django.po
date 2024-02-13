@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -20,13 +21,21 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
-msgstr "จัดพิมพ์,ตีพิมพ์"
+msgstr "เผยแพร่"
 
 msgid "Submit for moderation"
 msgstr "เสนอให้ตรวจ/ส่งให้ตรวจ"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "ส่งไปยัง %(task_name)s อีกครั้ง"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "ส่งไปยัง %(workflow_name)s"
+
 msgid "Unpublish"
-msgstr "ยกเลิกประกาศ"
+msgstr "ยกเลิกการเผยแพร่"
 
 msgid "Delete"
 msgstr "ลบ,ลบทิ้ง"
@@ -36,6 +45,10 @@ msgstr "เซฟ,เก็บข้อมูล"
 
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s และเผยแพร่"
 
 msgid "Wagtail snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อยของWagtail"
@@ -64,42 +77,22 @@ msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
 msgid "Publishing…"
-msgstr "กำลังพิมพ์"
+msgstr "กำลังเผยแพร่"
+
+msgid "Publish this version"
+msgstr "เผยแพร่เวอร์ชั่นนี้"
 
 msgid "Saving…"
 msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
 
 msgid "Replace current draft"
-msgstr "เปลี่ยนข้อความที่เก็บเอาไว้ทำใหม่อันล่าสุด"
+msgstr "แทนที่ฉบับร่างล่าสุด"
 
 msgid "Save draft"
-msgstr "เซฟข้อความที่เก็บเอาไว้ทำใหม่"
-
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "ใหม่ %(snippet_type_name)s"
-
-msgid "New"
-msgstr "ใหม่"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "เพิ่ม %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a href="
-"\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
+msgstr "บันทึกฉบับร่าง"
 
 msgid "Live version"
-msgstr "รุ่นถ่ายทอดสด"
+msgstr "เวอร์ชันที่กำลังเผยพร่"
 
 msgid "Current draft"
 msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
@@ -111,7 +104,7 @@ msgid "Edit"
 msgstr "แก้ไข"
 
 msgid "Cancel scheduled publish"
-msgstr "ยกเลิกการจัดพิมพ์ตาราง"
+msgstr "ยกเลิกกำหนดการเผยแพร่"
 
 msgid "Choose"
 msgstr "เลือก"
@@ -121,12 +114,6 @@ msgstr "เกร็ดเล็กเกร็ดน้อย"
 
 msgid "Name"
 msgstr "ชื่อ"
-
-msgid "The snippet could not be created due to errors."
-msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
-
-msgid "The snippet could not be saved due to errors."
-msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 msgid "Date"
 msgstr "วันที่"

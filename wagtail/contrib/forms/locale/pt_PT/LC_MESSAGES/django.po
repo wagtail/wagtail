@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -159,18 +159,6 @@ msgstr "Apagar dados do formulário"
 msgid "Delete"
 msgstr "Apagar"
 
-msgid "Forms"
-msgstr "Formulários"
-
-msgid "Pages"
-msgstr "Páginas"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "Origin"
-msgstr "Origem"
-
 msgid "Delete selected submissions"
 msgstr "Apagar entradas selecionadas"
 
@@ -179,9 +167,6 @@ msgstr "Total de envios"
 
 msgid "Latest submission"
 msgstr "Último envio"
-
-msgid "No form pages have been created."
-msgstr "Não existem páginas de formulário."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -196,6 +181,18 @@ msgstr "Filtrar"
 
 msgid "Apply filters"
 msgstr "Aplicar filtros"
+
+msgid "Forms"
+msgstr "Formulários"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Origem"
+
+msgid "Pages"
+msgstr "Páginas"
 
 #, python-format
 msgid "One submission has been deleted."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -175,8 +175,8 @@ msgstr "對不起，沒有符合“%(query)s”的群組"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
 
@@ -195,6 +195,10 @@ msgstr "新增使用者"
 msgid "Delete user"
 msgstr "刪除使用者"
 
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的使用者"
+
 msgid "Username"
 msgstr "使用者名"
 
@@ -212,15 +216,6 @@ msgstr "有效"
 
 msgid "Inactive"
 msgstr "無效"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "共有 %(counter)s 項符合"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的使用者"
 
 msgid "Groups"
 msgstr "群組"

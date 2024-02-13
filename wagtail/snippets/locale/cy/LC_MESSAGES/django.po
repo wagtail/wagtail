@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -94,31 +94,8 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Saving…"
 msgstr "Cadw…"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s newydd"
-
-msgid "New"
-msgstr "Newydd"
-
 msgid "Actions"
 msgstr "Gweithredoedd"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Pytiau %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Ychwanegu %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Nid oes %(snippet_type_name_plural)s wedi cael eu greu. Pam ddim <a href="
-"\"%(wagtailsnippets_create_url)s\">creu un</a>?"
 
 msgid "Preview"
 msgstr "Rhagolwg"
@@ -134,12 +111,6 @@ msgstr "Pytiau"
 
 msgid "Name"
 msgstr "Enw"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Ni fu modd creu'r pyt oherwydd gwallau."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Nid oedd modd cadw'r pyt oherwydd gwallau."
 
 msgid "Action"
 msgstr "Gweithred"

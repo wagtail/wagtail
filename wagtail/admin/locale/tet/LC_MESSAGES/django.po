@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -353,8 +353,8 @@ msgstr "Naran"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
 "ida</a>?"
@@ -413,27 +413,6 @@ msgstr "Esbosu"
 msgid "Live"
 msgstr "Ativu"
 
-msgid "Pages awaiting moderation"
-msgstr "Pajina sira hein ba moderasaun"
-
-msgid "Type"
-msgstr "Tipu"
-
-msgid "Edited"
-msgstr "Hadia tiha ona"
-
-msgid "Preview this page"
-msgstr "Haree pajina nee"
-
-msgid "Approve"
-msgstr "Aprova"
-
-msgid "Reject"
-msgstr "Rejeita"
-
-msgid "Preview"
-msgstr "Haree"
-
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
 
@@ -448,6 +427,9 @@ msgstr "Sumariu Situs"
 
 msgid "Close"
 msgstr "Taka"
+
+msgid "Preview"
+msgstr "Haree"
 
 msgid "Sign in"
 msgstr "Tama"
@@ -487,16 +469,8 @@ msgstr "Ita-boot bele hadia pájina neʼe:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Pájina \"%(title)s\" rejeita ona "
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Pajina \"%(page)s\" submete ona ba moderasaun husi%(editor)s."
-
 msgid "You can preview the page here:"
 msgstr "Ita-boot bele prevee pájina neʼe:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Pajina \"%(page)s\" submete ona ba moderasaun"
 
 msgid "Page privacy"
 msgstr "Pájina privasidade"
@@ -587,26 +561,14 @@ msgstr "Kópia "
 msgid "Copy this page"
 msgstr "Kópia pájina ne'e   "
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Foun %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Pajina ne'e iha sasan troka la salva ona."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Hadia hela %(page_type)s:%(title)s"
 
 msgid "Live version"
 msgstr "revisaun publiku"
 
 msgid "Current draft"
 msgstr "Esbosu agora dadaun"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Explora %(title)s"
 
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
@@ -674,8 +636,14 @@ msgstr "Muda ba leten"
 msgid "Move down"
 msgstr "Muda ba kraik"
 
+msgid "Type"
+msgstr "Tipu"
+
 msgid "Updated"
 msgstr "Atualiza ona"
+
+msgid "Pages"
+msgstr "Pajina sira"
 
 msgid "Locked"
 msgstr "Xavi tiha ona"
@@ -737,6 +705,9 @@ msgstr "Uza"
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Uza dala %(usage_count)s"
+
+msgid "Edited"
+msgstr "Hadia tiha ona"
 
 msgid "Add a child page"
 msgstr "Hatama pajina oan"
@@ -814,14 +785,15 @@ msgstr "Inspeksaun"
 msgid "Editing"
 msgstr "Hadia hela"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' hamoos ona."
+
 msgid "Inspecting"
 msgstr "Inspeksaun tiha ona"
 
 msgid "Latest"
 msgstr " Mak tardi liu"
-
-msgid "Usage of"
-msgstr "uza iha nee"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -837,8 +809,8 @@ msgstr "Haree iha situ"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Pajina '%(page_title)s' hammos ona."
 
+msgid "Site"
+msgstr "situs"
+
 msgid "Pages using"
 msgstr "Pájina ne'ebé uza"
-
-msgid "Pages"
-msgstr "Pajina sira"

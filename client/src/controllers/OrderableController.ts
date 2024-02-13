@@ -1,7 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import Sortable from 'sortablejs';
 
-// eslint-disable-next-line no-shadow
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -92,6 +91,7 @@ export class OrderableController extends Controller<HTMLElement> {
       }) => {
         this.element.classList.remove(...this.activeClasses);
         if (oldIndex === newIndex) return;
+        this.order = this.sortable.toArray();
         this.submit({ ...this.getItemData(item), newIndex });
       },
     };
@@ -215,6 +215,12 @@ export class OrderableController extends Controller<HTMLElement> {
         .catch((error) => {
           throw error;
         });
+    }
+  }
+
+  disconnect() {
+    if (this.sortable) {
+      this.sortable.destroy();
     }
   }
 }

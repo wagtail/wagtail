@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: bayside kent, 2022\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,31 +115,8 @@ msgstr "現在の下書きを置き換える"
 msgid "Save draft"
 msgstr "下書きを保存"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "新しい %(snippet_type_name)s"
-
-msgid "New"
-msgstr "新規"
-
 msgid "Actions"
 msgstr "操作"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "スニペット%(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)sを追加"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"まだ%(snippet_type_name_plural)sは作成されていません。 <a href="
-"\"%(wagtailsnippets_create_url)s\">新しく追加</a>しますか？"
 
 msgid "Live version"
 msgstr "ライブ版"
@@ -167,12 +144,6 @@ msgstr "スニペット"
 
 msgid "Name"
 msgstr "名前"
-
-msgid "The snippet could not be created due to errors."
-msgstr "このスニペットはエラーにより作成されませんでした。"
-
-msgid "The snippet could not be saved due to errors."
-msgstr "このスニペットはエラーにより保存されませんでした。"
 
 msgid "Action"
 msgstr "アクション"

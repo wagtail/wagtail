@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -210,65 +210,30 @@ msgstr "Tiedostoa ei löydy"
 msgid "Usage"
 msgstr "Käyttö"
 
-msgid "Documents"
-msgstr "Dokumentit"
-
 msgid "Select all documents in listing"
 msgstr "Valitse listauksen kaikki dokumentit"
-
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "File"
-msgstr "Tiedosto"
-
-msgid "Created"
-msgstr "Luotu"
-
-msgid "Select document"
-msgstr "Valitse dokumentti"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</em>"
-"\""
+"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a href="
-"\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a href="
-"\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> dokumentti <span class=\"w-sr-only\">luotu "
-"sivustolla %(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> dokumenttia <span class=\"w-sr-only\">luotu "
-"sivustolla %(site_name)s</span>"
+"Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a "
+"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Add multiple documents"
 msgstr "Lisää useampi dokumentti"
@@ -350,6 +315,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokumentti on poistettu"
 msgstr[1] "%(num_parent_objects)d dokumenttia on poistettu"
 
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Created"
+msgstr "Luotu"
+
 msgid "Choose a document"
 msgstr "Valitse dokumentti"
 
@@ -359,8 +330,11 @@ msgstr "Valitse toinen dokumentti"
 msgid "Edit this document"
 msgstr "Muokkaa tätä dokumenttia"
 
-msgid "Search documents"
-msgstr "Hae dokumentteja"
+msgid "Documents"
+msgstr "Dokumentit"
+
+msgid "Title"
+msgstr "Otsikko"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

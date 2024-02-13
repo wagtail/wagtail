@@ -192,13 +192,11 @@ def file_overwrite_check(app_configs, **kwargs):
 
     if DJANGO_VERSION >= (5, 1):
         file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
-    elif DJANGO_VERSION >= (4, 2):
+    else:
         try:
             file_storage = getattr(settings, "STORAGES")["default"]["BACKEND"]
         except AttributeError:
             file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
-    else:
-        file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
 
     errors = []
 
@@ -235,5 +233,56 @@ def file_overwrite_check(app_configs, **kwargs):
                 id="wagtailadmin.W004",
             )
         )
+
+    return errors
+
+
+@register("datetime_format")
+def datetime_format_check(app_configs, **kwargs):
+    """
+    If L10N is enabled, check if WAGTAIL_* formats are compatible with Django input formats.
+    See https://docs.djangoproject.com/en/stable/topics/i18n/formatting/#creating-custom-format-files
+    See https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-date-format-wagtail-datetime-format-wagtail-time-format
+    """
+
+    from django.conf import settings
+    from django.utils import formats, translation
+
+    errors = []
+
+    if not getattr(settings, "USE_L10N", False):
+        return errors
+
+    formats.FORMAT_SETTINGS = formats.FORMAT_SETTINGS.union(
+        [
+            "WAGTAIL_DATE_FORMAT",
+            "WAGTAIL_DATETIME_FORMAT",
+            "WAGTAIL_TIME_FORMAT",
+        ]
+    )
+
+    for code, label in settings.LANGUAGES:
+        with translation.override(code):
+            for wagtail_format, django_formats in [
+                ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
+                ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
+                ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
+            ]:
+                wagtail_format_value = getattr(settings, wagtail_format, None)
+                django_formats_value = getattr(settings, django_formats, None)
+
+                if wagtail_format_value is None:
+                    # Skip the iteration if wagtail_format is not present
+                    continue
+
+                input_format = formats.get_format_lazy(wagtail_format_value)
+                input_formats = formats.get_format_lazy(django_formats_value)
+                if str(input_format) not in str(input_formats):
+                    errors.append(
+                        Error(
+                            "Configuration error",
+                            hint=f"{wagtail_format} {input_format} must be in {django_formats} for language {label} ({code}).",
+                        )
+                    )
 
     return errors

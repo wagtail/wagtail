@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2022-2023
+# Roger Pons <rogerpons@gmail.com>, 2017,2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -155,8 +155,8 @@ msgstr "Últims documents"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Ho sentim, no s'han trobat documents que coincideixin amb \"<em>"
-"%(search_query)s</em>\""
+"Ho sentim, no s'han trobat documents que coincideixin amb "
+"\"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "No heu pujat cap document a aquest col·lecció."
@@ -208,29 +208,8 @@ msgstr "No s'ha trobat el fitxer"
 msgid "Usage"
 msgstr "Ús"
 
-msgid "Documents"
-msgstr "Documents"
-
 msgid "Select all documents in listing"
 msgstr "Seleccionar tots els documents del llistat"
-
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-msgid "Created"
-msgstr "Creada"
-
-msgid "Select document"
-msgstr "Seleccionar document"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "S'ha trobat %(counter)s coincidència"
-msgstr[1] "S'ha trobat %(counter)s coincidències"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -238,19 +217,19 @@ msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"No heu pujat cap document a aquesta col·lecció. Per què no en  <a href="
-"\"%(wagtaildocs_add_document_url)s\">pugeu un ara</a>?"
+"No heu pujat cap document a aquesta col·lecció. Per què no en  <a "
+"href=\"%(wagtaildocs_add_document_url)s\">pugeu un ara</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"No has pujat cap document. Per què no <a href="
-"%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
+"No has pujat cap document. Per què no <a "
+"href=%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
 
 #, python-format
 msgid ""
@@ -347,6 +326,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "S'ha esborrat %(num_parent_objects)d document"
 msgstr[1] "S'han esborrat %(num_parent_objects)d documents"
 
+msgid "File"
+msgstr "Arxiu"
+
+msgid "Created"
+msgstr "Creada"
+
 msgid "Choose a document"
 msgstr "Escull un document"
 
@@ -356,8 +341,11 @@ msgstr "Escull un altre document"
 msgid "Edit this document"
 msgstr "Editar aquest document"
 
-msgid "Search documents"
-msgstr "Cercar documents"
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Title"
+msgstr "Títol"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -170,11 +170,11 @@ msgstr "Deskulpa, laiha grupu sira apar \"1%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Laiha grupu sira maka konfigura. Tamba sa labele<a href="
-"\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
+"Laiha grupu sira maka konfigura. Tamba sa labele<a "
+"href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos usuariu nee?"
@@ -190,6 +190,10 @@ msgstr "Hatama usuariu"
 
 msgid "Delete user"
 msgstr "Hamoos usuariu"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
 
 msgid "Username"
 msgstr "Naran Usuariu"
@@ -208,10 +212,6 @@ msgstr "Ativu"
 
 msgid "Inactive"
 msgstr "La ativu"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupu sira"

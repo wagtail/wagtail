@@ -2,39 +2,37 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block after_label %}
-    {% with start_index=page_obj.start_index end_index=page_obj.end_index result_count=page_obj.paginator.count %}
-        {% if is_searching or is_filtering %}
-            {% if is_searching_whole_tree %}
-                {% if result_count %}
-                    {% blocktranslate trimmed %}
-                        {{ start_index }}-{{ end_index }} of {{ result_count }} across entire site.
-                    {% endblocktranslate %}
-                {% else %}
-                    {% blocktranslate trimmed %}
-                        No results across entire site.
-                    {% endblocktranslate %}
-                {% endif %}
-                <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">
-                    {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}Search within '{{ title }}'{% endblocktranslate %}
-                </a>
+    {% if is_searching or is_filtering %}
+        {% if is_searching_whole_tree %}
+            {% if items_count %}
+                {% blocktranslate trimmed %}
+                    {{ start_index }}-{{ end_index }} of {{ items_count }} across entire site.
+                {% endblocktranslate %}
             {% else %}
-                {% if result_count %}
-                    {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
-                        {{ start_index }}-{{ end_index }} of {{ result_count }} within '{{ title }}'.
-                    {% endblocktranslate %}
-                {% else %}
-                    {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
-                        No results within '{{ title }}'.
-                    {% endblocktranslate %}
-                {% endif %}
-                <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
-                    {% translate "Search the whole site" %}
-                </a>
+                {% blocktranslate trimmed %}
+                    No results across entire site.
+                {% endblocktranslate %}
             {% endif %}
+            <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">
+                {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}Search in '<span class="w-title-ellipsis">{{ title }}</span>'{% endblocktranslate %}
+            </a>
         {% else %}
-            {% blocktranslate trimmed %}
-                {{ start_index }}-{{ end_index }} of {{ result_count }}
-            {% endblocktranslate %}
+            {% if items_count %}
+                {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
+                    {{ start_index }}-{{ end_index }} of {{ items_count }} in '<span class="w-title-ellipsis">{{ title }}</span>'.
+                {% endblocktranslate %}
+            {% else %}
+                {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
+                    No results in '<span class="w-title-ellipsis">{{ title }}</span>'.
+                {% endblocktranslate %}
+            {% endif %}
+            <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
+                {% translate "Search the whole site" %}
+            </a>
         {% endif %}
-    {% endwith %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            {{ start_index }}-{{ end_index }} of {{ items_count }}
+        {% endblocktranslate %}
+    {% endif %}
 {% endblock %}

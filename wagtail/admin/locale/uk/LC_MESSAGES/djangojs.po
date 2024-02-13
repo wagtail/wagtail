@@ -64,9 +64,6 @@ msgstr "Редагувати"
 msgid "Edit '%(title)s'"
 msgstr "Редагувати '%(title)s'"
 
-msgid "Edit your account"
-msgstr "Редагувати ваш аккаунт"
-
 msgid "Expand all"
 msgstr "Розгорнути усе"
 

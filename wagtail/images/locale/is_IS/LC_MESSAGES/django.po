@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2021-2023\n"
@@ -294,20 +294,6 @@ msgstr "Veldu snið"
 msgid "Insert image"
 msgstr "Setja inn mynd"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Mynd <span class=\"w-sr-only\">búin til í "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Myndir <span class=\"w-sr-only\">búnar til í "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
 
@@ -373,9 +359,6 @@ msgstr "Skrá fannst ekki"
 msgid "Usage"
 msgstr "Notkun"
 
-msgid "Images"
-msgstr "Myndir"
-
 msgid "Sort by"
 msgstr "Raða eftir"
 
@@ -392,52 +375,30 @@ msgid "Select all images in listing"
 msgstr "Velja allar myndir"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] "Það eru %(counter)s niðurstöður"
-
-msgid "Select image"
-msgstr "Velja mynd"
-
-msgid "pixels"
-msgstr "pixlar"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Því miður passa engar myndir við \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a href="
-"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a "
+"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a href="
-"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
-
-msgid "Generating URL"
-msgstr "Bý til slóð"
-
-msgid "URL"
-msgstr "Slóð"
+"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a "
+"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 msgid "Preview"
 msgstr "Forskoðun"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Athugið að myndir sem búnar eru til stærri en skjárinn verða minni þegar þær "
-"eru skoðaðar hér til að passa á skjáinn."
+msgid "URL"
+msgstr "Slóð"
 
 msgid "Add multiple images"
 msgstr "Bæta við mörgum myndum"
@@ -562,8 +523,8 @@ msgstr "Skráarstærð: (litlar fyrst)"
 msgid "File size: (high to low)"
 msgstr "Skráarstærð: (stórar fyrst)"
 
-msgid "Search images"
-msgstr "Leita að myndum"
+msgid "Images"
+msgstr "Myndir"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

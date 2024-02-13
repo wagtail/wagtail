@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -226,21 +226,8 @@ msgstr "الملف غير موجود"
 msgid "Usage"
 msgstr "استعمال"
 
-msgid "Images"
-msgstr "صور"
-
 msgid "Popular Tags:"
 msgstr "الوسوم الشائعة:"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -248,35 +235,25 @@ msgstr "عذرًا ، لا توجد صور تطابق \"<em>%(query_string)s</em
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a href="
-"\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a "
+"href=\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "لم تحمِّل أي صور. لماذا لا <a href=\"%(wagtailimages_add_image_url)s\">تحمل "
 "واحد الآن</a>؟"
 
-msgid "Generating URL"
-msgstr "توليد URL"
-
-msgid "URL"
-msgstr "الرابط"
-
 msgid "Preview"
 msgstr "نظر مقدم"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"إعلم أن الصور المنشاة في صيغة أكبر من الشاشة سوف تظهر أصغر إذا تعرض في صيغة "
-"مقدمة هنا حتى توافق حجم الشاشة.  "
+msgid "URL"
+msgstr "الرابط"
 
 msgid "Add multiple images"
 msgstr "أضف صور غديدة"
@@ -334,8 +311,8 @@ msgstr "اختر صورة أخرى"
 msgid "Edit this image"
 msgstr "حرر هذه الصورة"
 
-msgid "Search images"
-msgstr "ابعث صور"
+msgid "Images"
+msgstr "صور"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

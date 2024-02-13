@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -128,57 +128,25 @@ msgstr "Byla nerasta"
 msgid "Usage"
 msgstr "Panaudojimas"
 
-msgid "Documents"
-msgstr "Dokumentai"
-
-msgid "Title"
-msgstr "Pavadinimas"
-
-msgid "File"
-msgstr "Byla"
-
-msgid "Created"
-msgstr "Sukurtas"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkeltas joks dokumentas į šią kolekciją. Kodėl gi <a href="
-"\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
+"Nėra įkeltas joks dokumentas į šią kolekciją. Kodėl gi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkeltas joks dokumentas. Kodėl gi <a href="
-"\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Dokumentas <span class=\"w-sr-only\">, sukurtas "
-"%(site_name)s tinklalapyje</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Dokumentai <span class=\"w-sr-only\">, sukurti "
-"%(site_name)s tinklalapyje</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Dokumentas <span class=\"w-sr-only\">, sukurtas "
-"%(site_name)s tinklalapyje</span>"
-msgstr[3] ""
-"<span>%(total)s</span> Dokumentų <span class=\"w-sr-only\">, sukurtų "
-"%(site_name)s tinklalapyje</span>"
+"Nėra įkeltas joks dokumentas. Kodėl gi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
 
 msgid "Add multiple documents"
 msgstr "Pridėti daug dokumentų"
@@ -213,6 +181,12 @@ msgstr "Pridėti į kolekciją"
 msgid "Delete"
 msgstr "Ištrinti"
 
+msgid "File"
+msgstr "Byla"
+
+msgid "Created"
+msgstr "Sukurtas"
+
 msgid "Choose a document"
 msgstr "Pasirinkti dokumentą"
 
@@ -222,8 +196,11 @@ msgstr "Pasirinkti kitą dokumentą"
 msgid "Edit this document"
 msgstr "Redaguoti šį dokumentą"
 
-msgid "Search documents"
-msgstr "Ieškoti dokumentų"
+msgid "Documents"
+msgstr "Dokumentai"
+
+msgid "Title"
+msgstr "Pavadinimas"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

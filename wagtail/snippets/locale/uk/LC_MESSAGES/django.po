@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2023-2024\n"
@@ -113,39 +113,8 @@ msgstr "Замінити поточну чернетку"
 msgid "Save draft"
 msgstr "Зберегти чернетку"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Новий %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Новий"
-
 msgid "Actions"
 msgstr "Дії"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Уривки %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Додати %(snippet_type_name)s"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Знайдено %(counter)s співпадіння"
-msgstr[1] "Знайдено %(counter)s співпадіння"
-msgstr[2] "Знайдено %(counter)s співпадінь"
-msgstr[3] "Знайдено %(counter)s співпадінь"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"%(snippet_type_name_plural)s ще не були створені. Чому б не <a href="
-"\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
 
 msgid "Live version"
 msgstr "Версія наживо"
@@ -183,12 +152,6 @@ msgstr "Ім'я"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Більше опцій для '%(title)s'"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Цей уривок не може бути створено через помилки."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Цей уривок не може бути збережено через помилки."
 
 msgid "Action"
 msgstr "Дія"

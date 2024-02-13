@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -110,41 +110,8 @@ msgstr "استبدال المسودة الحالية"
 msgid "Save draft"
 msgstr "احفظ المسوّد"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "جديد %(snippet_type_name)s"
-
-msgid "New"
-msgstr "جديد"
-
 msgid "Actions"
 msgstr "النشاطات"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "قصاصات %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "اضف %(snippet_type_name)s"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
-"\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
 
 msgid "Live version"
 msgstr "نسخة حية"
@@ -169,12 +136,6 @@ msgstr "قصاصات"
 
 msgid "Name"
 msgstr "اسم"
-
-msgid "The snippet could not be created due to errors."
-msgstr "لم تنشئ القصااصة بسبب أخطاء"
-
-msgid "The snippet could not be saved due to errors."
-msgstr "لم تحفظ القصااصة بسبب أخطاء"
 
 msgid "Date"
 msgstr "تاريخ"

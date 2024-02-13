@@ -2,7 +2,9 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
+from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.admin.userbar import AccessibilityItem
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 
 
@@ -302,6 +304,32 @@ class CommentsSidePanel(BaseSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["form"] = parent_context.get("form")
+        return context
+
+
+class ChecksSidePanel(BaseSidePanel):
+    class SidePanelToggle(BaseSidePanel.SidePanelToggle):
+        aria_label = gettext_lazy("Toggle checks")
+        icon_name = "glasses"
+
+    name = "checks"
+    title = gettext_lazy("Checks")
+    template_name = "wagtailadmin/shared/side_panels/checks.html"
+    order = 350
+
+    def get_axe_configuration(self):
+        # Retrieve the Axe configuration from the userbar.
+        userbar_items = [AccessibilityItem()]
+        for fn in hooks.get_hooks("construct_wagtail_userbar"):
+            fn(self.request, userbar_items)
+
+        for item in userbar_items:
+            if isinstance(item, AccessibilityItem):
+                return item.get_axe_configuration(self.request)
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["axe_configuration"] = self.get_axe_configuration()
         return context
 
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "default"
 msgstr "privzeto"
@@ -31,15 +31,8 @@ msgstr "privzeto"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s za %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Urejam %(instance)s"
-
 msgid "Site"
 msgstr "Spletno mesto"
-
-msgid "Editing"
-msgstr "Urejanje"
 
 msgid "Saving…"
 msgstr "Shranjevanje ..."
@@ -53,9 +46,9 @@ msgstr "Nastavitve"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Te nastavitve ni bilo mogoče odpreti, ker stran ni določena."
 
+msgid "The setting could not be saved due to errors."
+msgstr "Nastavitve zaradi napak ni bilo možno shraniti."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s posodobljeno."
-
-msgid "The setting could not be saved due to errors."
-msgstr "Nastavitve zaradi napak ni bilo možno shraniti."

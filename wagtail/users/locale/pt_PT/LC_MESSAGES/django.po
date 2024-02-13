@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -272,11 +272,11 @@ msgstr "Desculpe, nenhum grupo corresponde a \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Ainda não foi configurado nenhum grupo. Que tal <a href="
-"\"%(wagtailusers_create_group_url)s\">criar um</a>?"
+"Ainda não foi configurado nenhum grupo. Que tal <a "
+"href=\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Tem a certeza que quer apagar este utilizador?"
@@ -295,6 +295,27 @@ msgstr "Apagar utilizador"
 
 msgid "Select all users in listing"
 msgstr "Selecionar todos os utilizadores da listagem"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Desculpe, nenhum utilizador corresponde a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"O grupo %(group_name)s ainda não tem utilizadores configurados. Que tal <a "
+"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Ainda não existem utilizadores configurados. Que tal <a "
+"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 msgid "Username"
 msgstr "Utilizador"
@@ -316,34 +337,6 @@ msgstr "Ativo"
 
 msgid "Inactive"
 msgstr "Inativo"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrado %(counter)s resultado"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Desculpe, nenhum utilizador corresponde a \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"O grupo %(group_name)s ainda não tem utilizadores configurados. Que tal <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
-msgstr ""
-"Ainda não existem utilizadores configurados. Que tal <a href="
-"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

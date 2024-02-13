@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -82,31 +82,8 @@ msgstr "Troka rakunnu ida neebe agora"
 msgid "Save draft"
 msgstr "Salva hanesan esbosu"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Foun %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Foun"
-
 msgid "Actions"
 msgstr "Asaun sira"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Snippet sira %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Hatama %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Seidauk kria %(snippet_type_name_plural)s. <a href="
-"\"%(wagtailsnippets_create_url)s\">Kria agora</a>?"
 
 msgid "Live version"
 msgstr "revisaun publiku"
@@ -131,12 +108,6 @@ msgstr "Snippet sira"
 
 msgid "Name"
 msgstr "Naran"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Snippet labele kria tanba erru."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Snippet labele rai tanba erru."
 
 msgid "Date"
 msgstr "Data"

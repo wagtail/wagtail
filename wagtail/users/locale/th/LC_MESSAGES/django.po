@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jon Combe <jon@naremit.com>, 2019
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +141,7 @@ msgid "Change"
 msgstr "เปลี่ยน"
 
 msgid "Publish"
-msgstr "จัดพิมพ์,ตีพิมพ์"
+msgstr "เผยแพร่"
 
 msgid "Lock"
 msgstr "ล็อค"
@@ -163,11 +164,11 @@ msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงก�
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a href=\"%(wagtailusers_create_group_url)s"
-"\">เพิ่มสักอัน</a>?"
+"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a "
+"href=\"%(wagtailusers_create_group_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งผู้ใช้นี้?"
@@ -183,6 +184,10 @@ msgstr "เพิ่มผู้ใช้"
 
 msgid "Delete user"
 msgstr "ลบทิ้งผู้ใช้นี้"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
@@ -201,10 +206,6 @@ msgstr "กำลังใช้งานอยู่,กำลังเปิ�
 
 msgid "Inactive"
 msgstr "ไม่ได้ใช้งาน"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "หลายกลุ่ม"

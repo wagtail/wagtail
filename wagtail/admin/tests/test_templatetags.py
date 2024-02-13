@@ -189,6 +189,7 @@ class TestTimesinceTags(SimpleTestCase):
             timesince,
         )
 
+    @override_settings(USE_TZ=False)
     def test_human_readable_date(self):
         now = timezone.now()
         template = """
@@ -204,6 +205,25 @@ class TestTimesinceTags(SimpleTestCase):
         )
         self.assertIn("1\xa0hour ago", html)
         self.assertIn('data-w-tooltip-placement-value="top"', html)
+        self.assertIn('data-w-tooltip-content-value="July 1, 2020, 10:50 a.m."', html)
+
+    @override_settings(USE_TZ=False)
+    def test_human_readable_date_with_date_object(self):
+        today = timezone.now().date()
+        template = """
+            {% load wagtailadmin_tags %}
+            {% human_readable_date date %}
+        """
+
+        html = Template(template).render(Context({"date": today}))
+        self.assertIn("12\xa0hours ago", html)
+
+        html = Template(template).render(
+            Context({"date": today - timedelta(days=1, hours=1)})
+        )
+        self.assertIn("1\xa0day ago", html)
+        self.assertIn('data-w-tooltip-placement-value="top"', html)
+        self.assertIn('data-w-tooltip-content-value="June 30, 2020"', html)
 
     def test_human_readable_date_with_args(self):
         now = timezone.now()
@@ -453,6 +473,28 @@ class ClassnamesTagTest(SimpleTestCase):
 
         expected = """
             <p class="w-header w-header--merged w-header--hasform wagtail">Hello!</p>
+        """
+
+        actual = Template(template).render(context)
+
+        self.assertEqual(expected.strip(), actual.strip())
+
+    def test_with_nested_lists(self):
+        context = Context(
+            {
+                "nested": ["button-add", "button-base "],
+                "has_falsey": ["", False, [], {}],
+                "simple": " wagtail ",
+            }
+        )
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <button class="{% classnames nested "add-second " has_falsey simple %}">Hello!</button>
+        """
+
+        expected = """
+            <button class="button-add button-base add-second wagtail">Hello!</button>
         """
 
         actual = Template(template).render(context)

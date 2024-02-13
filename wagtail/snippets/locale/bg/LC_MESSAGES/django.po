@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -44,29 +44,6 @@ msgstr "Да, изтрий го"
 msgid "Save draft"
 msgstr "Запази като чернова"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Нов %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Ново"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Откъси от код %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Добави %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Няма създадени %(snippet_type_name_plural)s. Защо не <a href="
-"\"%(wagtailsnippets_create_url)s\">добавите един сега</a>?"
-
 msgid "Preview"
 msgstr "Преглед"
 
@@ -81,12 +58,6 @@ msgstr "Откъси от код"
 
 msgid "Name"
 msgstr "Име"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Този код-откъс не беше създаден поради грешки."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Откъса от док не можеше да бъде запазен поради грешки."
 
 msgid "Date"
 msgstr "Дата"

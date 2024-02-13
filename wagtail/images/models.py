@@ -300,6 +300,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         self.file.seek(0)
 
     def get_upload_to(self, filename):
+        """
+        Generates a file path in the "original_images" folder.
+        Ensuring ASCII characters and limiting length to prevent filesystem issues during uploads.
+        """
+
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)
 
@@ -1028,6 +1033,8 @@ class Filter:
                 return willow.save_as_avif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
+            elif output_format == "ico":
+                return willow.save_as_ico(output)
             raise UnknownOutputImageFormatError(
                 f"Unknown output image format '{output_format}'"
             )
@@ -1264,6 +1271,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
         return self.img_tag()
 
     def get_upload_to(self, filename):
+        """
+        Generates a file path within the "images" folder by combining the folder name and the validated filename.
+        """
         folder_name = "images"
         filename = self.file.field.storage.get_valid_name(filename)
         return os.path.join(folder_name, filename)
@@ -1321,23 +1331,3 @@ class Rendition(AbstractRendition):
 
     class Meta:
         unique_together = (("image", "filter_spec", "focal_point_key"),)
-
-
-class UploadedImage(models.Model):
-    """
-    Temporary storage for images uploaded through the multiple image uploader, when validation rules (e.g.
-    required metadata fields) prevent creating an Image object from the image file alone. In this case,
-    the image file is stored against this model, to be turned into an Image object once the full form
-    has been filled in.
-    """
-
-    file = models.ImageField(upload_to="uploaded_images", max_length=200)
-    uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("uploaded by user"),
-        null=True,
-        blank=True,
-        editable=False,
-        on_delete=models.SET_NULL,
-    )
-    uploaded_by_user.wagtail_reference_index_ignore = True

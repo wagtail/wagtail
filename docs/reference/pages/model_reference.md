@@ -202,6 +202,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: get_parent
 
+    .. automethod:: get_children
+
     .. automethod:: get_ancestors
 
     .. automethod:: get_descendants
@@ -309,7 +311,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: is_creatable
 
-        Controls if this page can be created through the Wagtail administration. Defaults to ``True``, and is not inherited by subclasses. This is useful when using :ref:`multi-table inheritance <django:multi-table-inheritance>`, to stop the base model from being created as an actual page.
+        Controls if this page can be created through the Wagtail administration. Defaults to ``True``, and is not inherited by subclasses. This is useful when using :ref:`multi-table inheritance <django:meta-and-multi-table-inheritance>`, to stop the base model from being created as an actual page.
 
     .. attribute:: max_count
 
@@ -333,8 +335,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: base_form_class
 
-        The form class used as a base for editing Pages of this type in the Wagtail page editor.
-        This attribute can be set on a model to customise the Page editor form.
+        The form class is used as a base for editing Pages of this type in the Wagtail page editor.
+        This attribute can be set on a model to customize the Page editor form.
         Forms must be a subclass of :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
@@ -368,7 +370,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 
         (text)
 
-        This is the hostname of the site, excluding the scheme, port and path.
+        This is the hostname of the site, excluding the scheme, port, and path.
 
         For example: ``www.mysite.com``
 
@@ -437,15 +439,15 @@ Wagtail will initially set up one `Locale` to act as the default language for al
 This first locale will automatically pick the value from `WAGTAIL_CONTENT_LANGUAGES` that most closely matches the site primary language code defined in `LANGUAGE_CODE`.
 If the primary language code is changed later, Wagtail will **not** automatically create a new `Locale` record or update an existing one.
 
-Before internationalisation is enabled, all pages use this primary `Locale` record.
-This is to satisfy the database constraints, and makes it easier to switch internationalisation on at a later date.
+Before internationalization is enabled, all pages use this primary `Locale` record.
+This is to satisfy the database constraints and make it easier to switch internationalization on at a later date.
 
 ### Changing `WAGTAIL_CONTENT_LANGUAGES`
 
 Languages can be added or removed from `WAGTAIL_CONTENT_LANGUAGES` over time.
 
 Before removing an option from `WAGTAIL_CONTENT_LANGUAGES`, it's important that the `Locale`
-record is updated to a use a different content language or is deleted.
+record is updated to use a different content language or is deleted.
 Any `Locale` instances that have invalid content languages are automatically filtered out from all
 database queries making them unable to be edited or viewed.
 
@@ -500,12 +502,12 @@ Pages already include this mixin, so there is no need to add it.
         This is shared with all translations of that instance so can be used for querying translations.
 ```
 
-The `translation_key` and `locale` fields have a unique key constraint to prevent the object being translated into a language more than once.
+The `translation_key` and `locale` fields have a unique key constraint to prevent the object from being translated into a language more than once.
 
 ```{note}
 This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
 
-If your model defines a [`Meta` class](django:ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
+If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
 ```
 
 ```{versionchanged} 6.0
@@ -570,7 +572,7 @@ Pages already include this mixin, so there is no need to add it.
 
         (foreign key to :class:`~wagtail.models.Revision`)
 
-        This points to the latest revision created for the object. This reference is stored in the database for performance optimisation.
+        This points to the latest revision created for the object. This reference is stored in the database for performance optimization.
 ```
 
 ### Methods and properties
@@ -868,7 +870,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ## `Workflow`
 
-Workflows represent sequences of tasks which must be approved for an action to be performed on an object - typically publication.
+Workflows represent sequences of tasks that must be approved for an action to be performed on an object - typically publication.
 
 ### Database fields
 
@@ -997,7 +999,7 @@ Workflow states represent the status of a started workflow on an object.
 
 ## `Task`
 
-Tasks represent stages in a workflow which must be approved for the workflow to complete successfully.
+Tasks represent stages in a workflow that must be approved for the workflow to complete successfully.
 
 ### Database fields
 
@@ -1116,19 +1118,19 @@ Task states store state information about the progress of a task on a particular
 
         (date/time)
 
-        When this task state was cancelled, rejected, or approved.
+        When this task state was canceled, rejected, or approved.
 
     .. attribute:: finished_by
 
         (foreign key to user model)
 
-        The user who completed (cancelled, rejected, approved) the task.
+        The user who completed (canceled, rejected, approved) the task.
 
     .. attribute:: comment
 
         (text)
 
-        A text comment, typically added by a user when the task is completed.
+        A text comment is typically added by a user when the task is completed.
 ```
 
 ### Methods and properties
@@ -1264,7 +1266,7 @@ An abstract base class that represents a record of an action performed on an obj
         (dict)
 
         The JSON representation of any additional details for each action.
-        For example source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+        For example, source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
 
     .. attribute:: timestamp
 
@@ -1276,7 +1278,7 @@ An abstract base class that represents a record of an action performed on an obj
 
         (boolean)
 
-        A boolean that can set to ``True`` when the content has changed.
+        A boolean that can be set to ``True`` when the content has changed.
 
     .. attribute:: deleted
 

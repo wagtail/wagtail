@@ -60,10 +60,6 @@ To retrieve a list of promoted search results for a particular search query, you
 </ul>
 ```
 
-```{versionadded} 5.2
-    Support for `external_link_url` and `external_link_text` were added.
-```
-
 ### Managing stored search queries
 
 The `searchpromotions` module keeps a log of search queries as well as the number of daily hits through the `Query` and `QueryDailyHits` models.

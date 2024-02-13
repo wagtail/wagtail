@@ -175,7 +175,7 @@ class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
         self.assertContains(response, "testuser")
         # response should contain not page furniture
         self.assertNotContains(response, "Add a user")
@@ -283,7 +283,7 @@ class TestUserIndexResultsView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/results.html")
+        self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
         self.assertContains(response, "testuser")
         # response should not contain page furniture
         self.assertNotContains(response, "Add a user")
@@ -1566,6 +1566,35 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
+
+    def test_view_permission_if_model_has_verbose(self):
+        """
+        Tests for bug #10982
+        https://github.com/wagtail/wagtail/issues/10982
+
+        Ensures Model Name or Verbose Name is stripped from Custom Permissions before being displayed
+        A Model "ModelWithVerboseName" is added to wagtail.test.testapp.models with verbose_name = "Custom Verbose Name"
+
+        """
+        response = self.get()
+
+        self.assertContains(response, "Can view", msg_prefix="No Can view permission")
+        self.assertNotContains(
+            response,
+            "Can view model with verbose name",
+            msg_prefix=" Model Name not stripped from Can view permission",
+        )
+        self.assertNotContains(
+            response,
+            "Can view custom verbose name",
+            msg_prefix="Verbose Name of ModelWithVerboseName not stripped from Can view permission",
+        )
+        pattern = r'Can\sview\s\[.*?"'
+        self.assertNotRegex(
+            response.content.decode(),
+            pattern,
+            msg="Model Name not stripped from custom permissions",
+        )
 
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

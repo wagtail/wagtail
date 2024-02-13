@@ -2,7 +2,7 @@
 
 # Custom document model
 
-An alternate `Document` model can be used to add custom behaviour and
+An alternate `Document` model can be used to add custom behavior and
 additional fields.
 
 You need to complete the following steps in your project to do this:

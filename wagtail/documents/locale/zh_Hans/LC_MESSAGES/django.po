@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -192,28 +192,8 @@ msgstr "未找到文件"
 msgid "Usage"
 msgstr "使用情况"
 
-msgid "Documents"
-msgstr "文档"
-
 msgid "Select all documents in listing"
 msgstr "选择列表中的所有文档"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Created"
-msgstr "创建时间"
-
-msgid "Select document"
-msgstr "选择文档"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "总共有 %(counter)s 条匹配"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -221,16 +201,16 @@ msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有文档。为何不 <a href=\"%(wagtaildocs_add_document_url)s\">上传"
 "一份</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
 "a> ？"
@@ -310,6 +290,12 @@ msgid "%(num_parent_objects)d document has been deleted"
 msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个文档"
 
+msgid "File"
+msgstr "文件"
+
+msgid "Created"
+msgstr "创建时间"
+
 msgid "Choose a document"
 msgstr "选择一个文档"
 
@@ -319,8 +305,11 @@ msgstr "选择另一个文档"
 msgid "Edit this document"
 msgstr "编辑此文档"
 
-msgid "Search documents"
-msgstr "搜索文档"
+msgid "Documents"
+msgstr "文档"
+
+msgid "Title"
+msgstr "标题"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

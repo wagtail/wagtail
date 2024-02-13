@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Halit Çelik, 2023\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -410,11 +410,11 @@ msgstr "İsim"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
-"\">eklemiyorsun</a>?"
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
+"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -480,27 +480,6 @@ msgstr "Taslak"
 msgid "Live"
 msgstr "Yayında"
 
-msgid "Pages awaiting moderation"
-msgstr "Denetlenmeyi bekleyen sayfalar"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Edited"
-msgstr "Düzenlendi"
-
-msgid "Preview this page"
-msgstr "Bu sayfayı önizle"
-
-msgid "Approve"
-msgstr "Onayla"
-
-msgid "Reject"
-msgstr "Reddet"
-
-msgid "Preview"
-msgstr "Önizleme"
-
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
 
@@ -515,6 +494,9 @@ msgstr "Site özeti"
 
 msgid "Close"
 msgstr "Kapat"
+
+msgid "Preview"
+msgstr "Önizleme"
 
 msgid "Compare with live version"
 msgstr "Canlı sürümüyle karşılaştır"
@@ -557,17 +539,8 @@ msgstr "Sayfayı burada düzenleyebilirsiniz:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "\"%(title)s\" sayfası reddedildi."
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr ""
-"\"%(page)s\" sayfası, %(editor)s tarafından kontrol edilmek üzere gönderildi."
-
 msgid "You can preview the page here:"
 msgstr "Sayfayı buradan önizleyebilirsiniz:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "\"%(page)s\" sayfası, kontrol edilmek üzere gönderildi"
 
 msgid "Page privacy"
 msgstr "Sayfa gizliliği"
@@ -662,26 +635,14 @@ msgstr "Kopyala"
 msgid "Copy this page"
 msgstr "Bu sayfayı kopyala"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Yeni %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Bu sayfadaki düzenlemeler kaydedilmedi."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "%(page_type)s: %(title)s düzenleniyor"
 
 msgid "Live version"
 msgstr "Canlı sürüm"
 
 msgid "Current draft"
 msgstr "Şimdiki taslak"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "%(title)s araştırılıyor"
 
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
@@ -753,6 +714,9 @@ msgstr "Yukarı taşı"
 msgid "Move down"
 msgstr "Aşağı taşı"
 
+msgid "Type"
+msgstr "Tip"
+
 msgid "No pages found."
 msgstr "Sayfa bulunamadı."
 
@@ -761,6 +725,9 @@ msgstr "Rapor kriterine göre eşleşen sayfa bulunmamaktadır."
 
 msgid "Updated"
 msgstr "Güncellendi"
+
+msgid "Pages"
+msgstr "Sayfalar"
 
 msgid "Locking status"
 msgstr "Kilitli durum"
@@ -836,6 +803,9 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s kez kullanıldı"
 msgstr[1] "%(usage_count)s kez kullanıldı"
+
+msgid "Edited"
+msgstr "Düzenlendi"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
@@ -932,6 +902,10 @@ msgstr "Denetle"
 msgid "Editing"
 msgstr "Düzenleniyor"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' silindi."
+
 msgid "Inspecting"
 msgstr "İnceleniyor"
 
@@ -940,9 +914,6 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
-
-msgid "Usage of"
-msgstr "Kullanımı"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -989,9 +960,6 @@ msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Sayfa '%(page_title)s' silindi."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Bu sayfa kontrol edilmek üzere bekliyor"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Sayfa '%(page_title)s' güncellendi."
@@ -1014,27 +982,12 @@ msgstr "Sayfa kilitli olduğu için kaydedilemedi"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
 
+msgid "Site"
+msgstr "Site"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sayfa '%(page_title)s' şuan kilitli değil."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Sayfa '%(page_title)s' yayınlandı."
-
-msgid "Failed to send approval notifications"
-msgstr "Onay bildirimleri gönderilemedi"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "'%(page_title)s' sayfasının yayınlanması reddedildi."
-
-msgid "Failed to send rejection notifications"
-msgstr "Red bildirimleri gönderilemedi"
 
 #, python-format
 msgid ""
@@ -1055,11 +1008,12 @@ msgstr "Sayfa '%(page_title)s' yayından kaldırıldı."
 msgid "Pages using"
 msgstr "Kullanan sayfalar"
 
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Sayfa '%(page_title)s' şuan kontrol edilmek üzere beklemiyor."
+
 msgid "Show"
 msgstr "Göster"
-
-msgid "Pages"
-msgstr "Sayfalar"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

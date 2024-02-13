@@ -2,7 +2,7 @@
 
 # Custom image models
 
-The `Image` model can be customised, allowing additional fields to be added
+The `Image` model can be customized, allowing additional fields to be added
 to images.
 
 To do this, you need to add two models to your project:
@@ -67,3 +67,26 @@ work as before but would need to be updated in order to see any new images.
 
 .. autofunction:: get_image_model_string
 ```
+
+(custom_image_model_upload_location)=
+
+## Overriding the upload location
+
+The following methods can be overridden on your custom `Image` or `Rendition` models to customize how the original and rendition image files get stored.
+
+```{eval-rst}
+.. automodule:: wagtail.images.models
+    :noindex:
+
+.. class:: AbstractImage
+    :noindex:
+
+    .. automethod:: get_upload_to
+
+.. class:: AbstractRendition
+    :noindex:
+
+    .. automethod:: get_upload_to
+```
+
+Refer to the Django [`FileField.upload_to`](https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.FileField.upload_to) function to further understand how the function works.

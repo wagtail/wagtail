@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: shengsheng gz <gzshengsheng@139.com>, 2018\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -93,23 +93,14 @@ msgstr "文件大小"
 msgid "File not found"
 msgstr "未找到文件"
 
-msgid "Documents"
-msgstr "文档"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上"
 "传一份</a>?"
@@ -126,14 +117,20 @@ msgstr "标签"
 msgid "Delete"
 msgstr "删除"
 
+msgid "File"
+msgstr "文件"
+
 msgid "Choose a document"
 msgstr "选择一个文档"
 
 msgid "Choose another document"
 msgstr "选择另外一份文档"
 
-msgid "Search documents"
-msgstr "查找文档"
+msgid "Documents"
+msgstr "文档"
+
+msgid "Title"
+msgstr "标题"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

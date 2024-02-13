@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -104,11 +104,11 @@ msgstr "Pievienot atļauju lapai"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nav izveidotas grupas. <a href=\"%(wagtailusers_create_group_url)s"
-"\">Pievienot jaunu grupu?</a>"
+"Nav izveidotas grupas. <a "
+"href=\"%(wagtailusers_create_group_url)s\">Pievienot jaunu grupu?</a>"
 
 msgid "Account"
 msgstr "Konts"
@@ -118,6 +118,10 @@ msgstr "Lomas"
 
 msgid "Add user"
 msgstr "Pievienot lietotāju"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Nav lietotāju, kas atbilst \"<em>%(query_string)s</em>\""
 
 msgid "Username"
 msgstr "Lietotājvārds"
@@ -133,10 +137,6 @@ msgstr "Aktīvs"
 
 msgid "Inactive"
 msgstr "Nav aktīvs"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Nav lietotāju, kas atbilst \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupas"

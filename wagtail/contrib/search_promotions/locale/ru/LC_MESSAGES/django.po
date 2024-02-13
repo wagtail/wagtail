@@ -4,8 +4,8 @@
 #
 # Translators:
 # Andrei Satsevich, 2023
-# Andrey <talkerbox@live.com>, 2016
-# Andrey <talkerbox@live.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # sergeybe <sergeybe@gmail.com>, 2020
@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,9 +26,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Поисковое продвижение Wagtail"
@@ -218,19 +218,16 @@ msgstr[3] "Есть %(counter)s совпадений"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Извините, нет продвигаемых результатов, совпадающих с \"<em>"
-"%(query_string)s</em>\""
+"Извините, нет продвигаемых результатов, совпадающих с "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Продвигаемых поисковых запросов пока не создано. Почему бы не <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">добавить один</a>?"
-
-msgid "Search promoted results"
-msgstr "Продвигаемые результаты"
+"Продвигаемых поисковых запросов пока не создано. Почему бы не <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">добавить один</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -121,37 +121,25 @@ msgstr "Faili ei leitud"
 msgid "Usage"
 msgstr "Kasutamine"
 
-msgid "Documents"
-msgstr "Dokumendid"
-
-msgid "Title"
-msgstr "Pealkiri"
-
-msgid "File"
-msgstr "Fail"
-
-msgid "Created"
-msgstr "Loodud"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Te pole sellesse kogusse ühtegi dokumenti üles laadinud. Miks mitte laadida "
 "<a href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a href="
-"\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
+"Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a "
+"href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
 
 msgid "Add multiple documents"
 msgstr "Lisage mitu dokumenti"
@@ -192,6 +180,12 @@ msgstr "Lisage dokumendi luba"
 msgid "Delete"
 msgstr "Kustuta"
 
+msgid "File"
+msgstr "Fail"
+
+msgid "Created"
+msgstr "Loodud"
+
 msgid "Choose a document"
 msgstr "Valige dokument"
 
@@ -201,8 +195,11 @@ msgstr "Valige mõni muu dokument"
 msgid "Edit this document"
 msgstr "Muutke seda dokumenti"
 
-msgid "Search documents"
-msgstr "Dokumentide otsimine"
+msgid "Documents"
+msgstr "Dokumendid"
+
+msgid "Title"
+msgstr "Pealkiri"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

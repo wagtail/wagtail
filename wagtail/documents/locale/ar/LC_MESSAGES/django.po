@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Oumayma el bez, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -139,47 +139,25 @@ msgstr "الملف غير موجود"
 msgid "Usage"
 msgstr "استعمال"
 
-msgid "Documents"
-msgstr "وثائق"
-
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-msgid "Created"
-msgstr "تم إنشاؤه"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
-"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
-"\">تحمل واحد الآن</a>؟"
+"لم تحمِّل أي مستندات. لماذا لا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"
@@ -219,6 +197,12 @@ msgstr "إضافة إذن وثيقة"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "File"
+msgstr "ملف"
+
+msgid "Created"
+msgstr "تم إنشاؤه"
+
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -228,8 +212,11 @@ msgstr "اختر وثيقة أخقى"
 msgid "Edit this document"
 msgstr "تحرير هذه الوثيقة"
 
-msgid "Search documents"
-msgstr "ابحث وثائق"
+msgid "Documents"
+msgstr "وثائق"
+
+msgid "Title"
+msgstr "عنوان"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Timo Tuominen, 2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -135,44 +135,11 @@ msgstr "Korvaa nykyinen versio"
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Uusi %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Uusi"
-
 msgid "Actions"
 msgstr "Toimet"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Muokataan %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Pätkät %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Lisää %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Valitse kaikki listauksen pätkät"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Yhtään %(snippet_type_name_plural)s ei ole luotu. Mikset vaikka <a href="
-"\"%(wagtailsnippets_create_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Live version"
 msgstr "Esillä oleva versio"
@@ -206,12 +173,6 @@ msgstr "Pätkät"
 
 msgid "Name"
 msgstr "Nimi"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Pätkää ei voitu luoda virheiden vuoksi."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
 
 msgid "Action"
 msgstr "Toiminto"

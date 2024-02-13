@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -448,8 +448,8 @@ msgstr "اسم"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
@@ -515,27 +515,6 @@ msgstr "مسودة"
 msgid "Live"
 msgstr "مباشر"
 
-msgid "Pages awaiting moderation"
-msgstr "صفحات في انتظار الاشراف عليها"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "Edited"
-msgstr "محررة"
-
-msgid "Preview this page"
-msgstr "مراجعة هذة الصفحة"
-
-msgid "Approve"
-msgstr "موافق"
-
-msgid "Reject"
-msgstr "مرفوض"
-
-msgid "Preview"
-msgstr "نظر مقدم"
-
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
 
@@ -550,6 +529,9 @@ msgstr "ملحص الموقع"
 
 msgid "Close"
 msgstr "اغلاق"
+
+msgid "Preview"
+msgstr "نظر مقدم"
 
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
@@ -592,16 +574,8 @@ msgstr "يمكن تنقيح الصفحة هنا"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "الصفحة \"%(title)s\" تم رفضها."
 
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "تم إرسال الصفحة \"%(page)s\" للإشراف عليها من قبل \"%(editor)s\""
-
 msgid "You can preview the page here:"
 msgstr "يمكن النظر المقدم في الصفحة هنا"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "تم تقديم الصفحة \"%(page)s\" للإشراف"
 
 msgid "Page privacy"
 msgstr "خصوصية الصفحة"
@@ -729,16 +703,8 @@ msgstr "انسخ"
 msgid "Copy this page"
 msgstr "انسخ هذه الصفحة"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "جديد %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "قيد التعديل %(page_type)s :%(title)s"
 
 msgid "User"
 msgstr "مستعمل"
@@ -751,10 +717,6 @@ msgstr "نسخة حية"
 
 msgid "Current draft"
 msgstr "المسودة الحالية"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "استكشف %(title)s"
 
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
@@ -822,11 +784,17 @@ msgstr "تقدم إلى فوق "
 msgid "Move down"
 msgstr "تقدم إلى تحت"
 
+msgid "Type"
+msgstr "نوع"
+
 msgid "No pages found."
 msgstr "لم يتم العثور على صفحات."
 
 msgid "Updated"
 msgstr "مجدد"
+
+msgid "Pages"
+msgstr "صفحات"
 
 msgid "Locked"
 msgstr "مغلق"
@@ -893,6 +861,9 @@ msgstr[2] "تم استخدامه %(usage_count)s مرة"
 msgstr[3] "تم استخدامه %(usage_count)s مرة"
 msgstr[4] "تم استخدامه %(usage_count)s مرة"
 msgstr[5] "تم استخدامه %(usage_count)s مرة"
+
+msgid "Edited"
+msgstr "محررة"
 
 msgid "Add a child page"
 msgstr "إضافة صفحة فرعية"
@@ -979,6 +950,10 @@ msgstr "فحص"
 msgid "Editing"
 msgstr "جاري التعديل"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "تم حذف '%(object)s' '%(model_name)s'."
+
 msgid "Inspecting"
 msgstr "يتم الفحص"
 
@@ -987,9 +962,6 @@ msgstr "السابقة"
 
 msgid "Latest"
 msgstr "اللاحقة"
-
-msgid "Usage of"
-msgstr "استعمال"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1035,9 +1007,6 @@ msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق �
 msgid "Page '%(page_title)s' deleted."
 msgstr "الصفحة '%(page_title)s' محذوفة."
 
-msgid "This page is currently awaiting moderation"
-msgstr "هذه الصفحة تنتظر حاليا المراقب"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "تم تحديث الصفحة '%(page_title)s'."
@@ -1060,27 +1029,15 @@ msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
 msgid "The page could not be saved due to validation errors"
 msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
 
+msgid "Owner"
+msgstr "صاحب"
+
+msgid "Site"
+msgstr "موقع"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "الصفحة '%(page_title)s' غير مقفلة الآن."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "الصفحة '%(page_title)s' لا تنتظر حاليا للاشراف عليها."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "الصفحة '%(page_title)s' المنشورة."
-
-msgid "Failed to send approval notifications"
-msgstr "فشل إرسال إشعارات الموافقة"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "الصفحة '%(page_title)s' مرفوضة للنشر."
-
-msgid "Failed to send rejection notifications"
-msgstr "فشل إرسال إشعارات الرفض"
 
 #, python-format
 msgid "Page '%(page_title)s' moved."
@@ -1093,6 +1050,10 @@ msgstr "الصفحة '%(page_title)s' غير منشورة."
 msgid "Pages using"
 msgstr "صفحات تستعمل"
 
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "الصفحة '%(page_title)s' لا تنتظر حاليا للاشراف عليها."
+
 msgid "ID"
 msgstr "المُعَرِّفْ"
 
@@ -1101,9 +1062,6 @@ msgstr "التاريخ/التوقيت"
 
 msgid "Locked pages"
 msgstr "الصفحات المقفلة"
-
-msgid "Pages"
-msgstr "صفحات"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

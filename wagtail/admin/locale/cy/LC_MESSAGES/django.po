@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -334,12 +334,6 @@ msgstr "Drafft"
 msgid "Live"
 msgstr "Yn fyw"
 
-msgid "Type"
-msgstr "Math"
-
-msgid "Preview"
-msgstr "Rhagolwg"
-
 msgid "Status"
 msgstr "Statws"
 
@@ -348,6 +342,9 @@ msgstr "Dyddiad"
 
 msgid "Close"
 msgstr "Cau"
+
+msgid "Preview"
+msgstr "Rhagolwg"
 
 msgid "Saving…"
 msgstr "Cadw…"
@@ -382,6 +379,12 @@ msgstr "Symyd i fyny"
 msgid "Move down"
 msgstr "Symyd i lawr"
 
+msgid "Type"
+msgstr "Math"
+
+msgid "Pages"
+msgstr "Tudalennau"
+
 msgid "Workflow"
 msgstr "Llif gwaith"
 
@@ -402,6 +405,9 @@ msgstr "Lawrlwythwch CSV"
 
 msgid "Filter"
 msgstr "Hidlydd"
+
+msgid "Back"
+msgstr "Yn ol"
 
 msgid "History"
 msgstr "Hanes"
@@ -461,11 +467,12 @@ msgstr "Dileu '%(title)s'"
 msgid "Editing"
 msgstr "Golygu"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' wedi'i ddileu."
+
 msgid "Inspecting"
 msgstr "Arolygu"
-
-msgid "Usage of"
-msgstr "Defnydd o"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -473,6 +480,9 @@ msgstr "Golygu %(object)s"
 
 msgid "View live"
 msgstr "Gweld in fyw"
+
+msgid "Site"
+msgstr "Safle"
 
 msgid "Show"
 msgstr "Dangos"
@@ -485,9 +495,6 @@ msgstr "Analluogi"
 
 msgid "Enable"
 msgstr "Galluogi"
-
-msgid "Pages"
-msgstr "Tudalennau"
 
 msgid "Clear choice"
 msgstr "Dewis clir"

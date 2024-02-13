@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -300,20 +300,6 @@ msgstr "Valitse muoto"
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> kuva <span class=\"w-sr-only\">luotu sivustolle "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> kuvaa <span class=\"w-sr-only\">luotu sivustolle "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Vaihda kuvatiedosto:"
 
@@ -379,9 +365,6 @@ msgstr "Tiedostoa ei löydy"
 msgid "Usage"
 msgstr "Käyttö"
 
-msgid "Images"
-msgstr "Kuvat"
-
 msgid "Sort by"
 msgstr "Järjestys"
 
@@ -398,53 +381,31 @@ msgid "Select all images in listing"
 msgstr "Valitse listauksen kaikki kuvat"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
-
-msgid "Select image"
-msgstr "Valitse kuva"
-
-msgid "pixels"
-msgstr "kuvapistettä"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Pahoittelut, yksikään kuva ei täsmää hakuun \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
-"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
-
-msgid "Generating URL"
-msgstr "Generoidaan osoitetta"
-
-msgid "URL"
-msgstr "URL"
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Preview"
 msgstr "Esikatsele"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Huomioithan että generoidut kuvat, jotka ovat näyttöä suurempia, näyttävät "
-"pienemmiltä esikatselussa jotta ne mahtuisivat näytölle."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"
@@ -569,8 +530,8 @@ msgstr "Tiedostokoko: (pienimmästä suurimpaan)"
 msgid "File size: (high to low)"
 msgstr "Tiedostokoko: (suurimmasta pienimpään)"
 
-msgid "Search images"
-msgstr "Hae kuvia"
+msgid "Images"
+msgstr "Kuvat"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

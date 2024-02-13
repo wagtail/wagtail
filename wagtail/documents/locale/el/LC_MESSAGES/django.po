@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,18 +131,6 @@ msgstr "Το αρχείο δεν βρέθηκε"
 msgid "Usage"
 msgstr "Χρήση"
 
-msgid "Documents"
-msgstr "Έγγραφα"
-
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-msgid "Created"
-msgstr "Δημιουργήθηκε"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -150,19 +138,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει έγγραφα στη συλλογή. Θέλετε να <a href="
-"\"%(wagtaildocs_add_document_url)s\">ανεβάσετε ένα</a>;"
+"Δεν έχετε ανεβάσει έγγραφα στη συλλογή. Θέλετε να <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ανεβάσετε ένα</a>;"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν υπάρχουν έγγραφα. Θέλετε να <a href=\"%(wagtaildocs_add_document_url)s"
-"\">ανεβάσετε μερικά</a>;"
+"Δεν υπάρχουν έγγραφα. Θέλετε να <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ανεβάσετε μερικά</a>;"
 
 msgid "Add multiple documents"
 msgstr "Προσθήκη πολλαπλών εγγράφων"
@@ -197,6 +185,12 @@ msgstr "Ετικέτες"
 msgid "Delete"
 msgstr "Διαγραφή"
 
+msgid "File"
+msgstr "Αρχείο"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
 
@@ -206,8 +200,11 @@ msgstr "Επιλογή άλλου εγγράφου"
 msgid "Edit this document"
 msgstr "Επεξεργασία αυτού του εγγράφου"
 
-msgid "Search documents"
-msgstr "Αναζήτηση εγγράφων"
+msgid "Documents"
+msgstr "Έγγραφα"
+
+msgid "Title"
+msgstr "Τίτλος"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

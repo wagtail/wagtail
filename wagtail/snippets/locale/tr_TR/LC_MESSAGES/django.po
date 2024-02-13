@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -90,31 +90,8 @@ msgstr "Şimdiki taslağın yerine koy"
 msgid "Save draft"
 msgstr "Taslağı kaydet"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Yeni %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Yeni"
-
 msgid "Actions"
 msgstr "Eylemler"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Kod parçacıkları %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s ekle"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a href="
-"\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "Live version"
 msgstr "Canlı sürüm"
@@ -139,12 +116,6 @@ msgstr "Kod parçacıkları (Snippets)"
 
 msgid "Name"
 msgstr "Ad"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Hata nedeniyle kod parçacığı oluşturulamadı."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Hata nedeniyle kod parçacığı kaydedilemedi."
 
 msgid "Date"
 msgstr "Tarih"

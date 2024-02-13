@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -209,14 +209,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
-
-msgid "Search promoted results"
-msgstr "Caută rezultate promovate"
+"Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

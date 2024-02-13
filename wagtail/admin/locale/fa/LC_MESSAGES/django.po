@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022-2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,6 +67,9 @@ msgstr "تاریخ از"
 
 msgid "Date to"
 msgstr "تاریخ به"
+
+msgid "Locale"
+msgstr "محلی"
 
 msgid "All"
 msgstr "همه"
@@ -490,15 +493,15 @@ msgstr "تبدیل به لینک داخلی"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس <a "
-"target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
-"%(internal_url)s</a>  همخوانی دارد."
+"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس "
+"<a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>  همخوانی دارد."
 
 #, python-format
 msgid ""
@@ -578,8 +581,8 @@ msgstr "نام"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "مجموعه ای ایجاد نشد. چرا یکی <a href=\"%(add_collection_url)s\">ایجاد</a> "
 "نمیکنید؟"
@@ -680,27 +683,6 @@ msgstr "پیشنویس"
 msgid "Live"
 msgstr "منتشر شده"
 
-msgid "Pages awaiting moderation"
-msgstr "صفحه های نیازمند نظارت"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "Edited"
-msgstr "تصحیح شده"
-
-msgid "Preview this page"
-msgstr "پیشنمایش این صفحه"
-
-msgid "Approve"
-msgstr "تایید"
-
-msgid "Reject"
-msgstr "رد"
-
-msgid "Preview"
-msgstr "نمایش"
-
 msgid "Your most recent edits"
 msgstr "ویرایش‌های اخیر شما"
 
@@ -712,20 +694,6 @@ msgstr "تاریخ"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> صفحه در <span class=\"w-sr-only\">%(site_name)s "
-"ساخته شده اند</span>"
-msgstr[1] ""
-"<span>%(total)s</span> صفحه در <span class=\"w-sr-only\">%(site_name)s "
-"ساخته شده اند</span>"
 
 #, python-format
 msgid ""
@@ -751,18 +719,21 @@ msgstr "چیز هایی در وگتیل %(version)s عوض شده اند!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
+"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
 "ویرایشگر وگتیل</a> کلیک کنید تا ته توی تغییرات و ویژگی های جدید و هیجان "
 "انگیز را در بیارید!"
 
 msgid "Awaiting your review"
 msgstr "در انتظار بازنگری شما"
+
+msgid "Preview"
+msgstr "نمایش"
 
 msgid "Compare with live version"
 msgstr "مقایسه با نسخه منتشر شده"
@@ -815,19 +786,11 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "صفحه «%(title)s» رد شد"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "صفحه «%(page)s» برای نظارت توسط %(editor)s فرستاده شد."
+msgid "You can edit the %(model_name)s here:"
+msgstr "میتوانید %(model_name)s را اینجا ویرایش کنید:"
 
 msgid "You can preview the page here:"
 msgstr "از اینجا می‌توانید صفحه را پیش نمایش کنید:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "صفحه «%(page)s» برای نظارت فرستاده شد"
-
-#, python-format
-msgid "You can edit the %(model_name)s here:"
-msgstr "میتوانید %(model_name)s را اینجا ویرایش کنید:"
 
 #, python-format
 msgid "You can preview the %(model_name)s here:"
@@ -1009,26 +972,14 @@ msgstr "کپی"
 msgid "Copy this page"
 msgstr "کپی این صفحه"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "%(page_type)s جدید"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "ویرایش %(page_type)s: %(title)s"
 
 msgid "Live version"
 msgstr "نسخه منتشر شده"
 
 msgid "Current draft"
 msgstr "پیشنویس فعلی"
-
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "درحال کاوش %(title)s"
 
 msgid "Configure a site now."
 msgstr "پیکربندی یک سایت"
@@ -1108,6 +1059,9 @@ msgstr "حرکت به پایین"
 msgid "Add a collection permission"
 msgstr "افزودن مجوز مجموعه"
 
+msgid "Type"
+msgstr "نوع"
+
 msgid "No pages found."
 msgstr "صفحه‌ای یافت نشد"
 
@@ -1116,6 +1070,9 @@ msgstr "هیچ صفحه‌ای با نیازهای این گزارش همخوا�
 
 msgid "Updated"
 msgstr "بروزرسانی شده"
+
+msgid "Pages"
+msgstr "صفحه ها"
 
 msgid "Locking status"
 msgstr "وضعیت قفل"
@@ -1151,11 +1108,11 @@ msgstr "دانلود XLSX"
 msgid "Download CSV"
 msgstr "دانلود CSV"
 
-msgid "Add comment"
-msgstr "افزودن نظر"
-
 msgid "Filter"
 msgstr "فیلتر"
+
+msgid "Add comment"
+msgstr "افزودن نظر"
 
 msgid "Root"
 msgstr "ریشه"
@@ -1232,6 +1189,9 @@ msgstr "جدول زمانی"
 
 msgid "Initial Revision"
 msgstr "اولین بازبینی"
+
+msgid "Edited"
+msgstr "تصحیح شده"
 
 #, python-format
 msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
@@ -1319,9 +1279,6 @@ msgstr "نام و ایمیل"
 msgid "Profile picture"
 msgstr "تصویر پروفایل"
 
-msgid "Locale"
-msgstr "محلی"
-
 msgid "Password"
 msgstr "رمزعبور"
 
@@ -1405,8 +1362,8 @@ msgstr "%(model_name)s '%(object)s' ایجاد و منتشر شد."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 "شما در حال دیدن بازبینی قبلی %(model_name)s در <b>%(created_at)s</b> توسط "
 "%(user)s هستید"
@@ -1428,10 +1385,6 @@ msgid ""
 "for publishing."
 msgstr ""
 "نسخه %(timestamp)s از %(model_name)s '%(object)s' برای انتشار زمانبندی شد."
-
-#, python-format
-msgid "Search %(model_name)s"
-msgstr "جستجوی %(model_name)s"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1463,9 +1416,6 @@ msgstr "نسخه %(revision_id)s از \"%(object)s\" از زمانبندی خا�
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "نسخه %(revision_id)s از \"%(object)s\""
-
-msgid "Usage of"
-msgstr "استفاده از"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1614,9 +1564,6 @@ msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
 msgid "Page '%(page_title)s' deleted."
 msgstr "صفحه '%(page_title)s' حذف شد."
 
-msgid "This page is currently awaiting moderation"
-msgstr "این در انتظار نظارت است"
-
 #, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
@@ -1671,27 +1618,15 @@ msgstr "مخفی کردت اعمال مربوط به نظر دهی"
 msgid "Page history"
 msgstr "تاریخچه‌ی صفحه"
 
+msgid "Site"
+msgstr "سایت"
+
+msgid "Yes"
+msgstr "بله"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "صفحه '%(page_title)s' باز شده است."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "صفحه '%(page_title)s' در انتظار نظارت است."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "صفحه '%(page_title)s' انتشار یافت."
-
-msgid "Failed to send approval notifications"
-msgstr "فرستادن آگاهسازی تایید ناموفق بود"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "صفحه '%(page_title)s' برای انتشار رد شد."
-
-msgid "Failed to send rejection notifications"
-msgstr "فرستادن آگاهسازی رد انتشار ناموفق بود"
 
 #, python-format
 msgid ""
@@ -1720,6 +1655,10 @@ msgstr "صفحه '%(page_title)s' لغو انتشار شد."
 msgid "Pages using"
 msgstr "صفحه های"
 
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "صفحه '%(page_title)s' در انتظار نظارت است."
+
 msgid "Aging pages"
 msgstr "صفحات سالخورده"
 
@@ -1737,9 +1676,6 @@ msgstr "منتظر بازنگری من"
 
 msgid "Requested By"
 msgstr "درخواست شده توسط"
-
-msgid "Pages"
-msgstr "صفحه ها"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -1783,9 +1719,6 @@ msgstr "چه خبر از وگتیل %(version)s"
 
 msgid "Editor Guide"
 msgstr "راهنمای ویرایشگر"
-
-msgid "Yes"
-msgstr "بله"
 
 msgid "Choose an item"
 msgstr "آیتمی را انتخاب کنید"

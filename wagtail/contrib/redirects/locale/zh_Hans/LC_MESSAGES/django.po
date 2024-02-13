@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -200,14 +200,11 @@ msgstr "对不起，没有重定向符合\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"还没有创建过重定向呢。为何不 <a href=\"%(wagtailredirects_add_redirect_url)s"
-"\">创建一个</a>?"
-
-msgid "Search redirects"
-msgstr "搜索重定向"
+"还没有创建过重定向呢。为何不 <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">创建一个</a>?"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
@@ -229,6 +226,9 @@ msgstr "重定向 '%(redirect_title)s'已增加"
 
 msgid "The redirect could not be created due to errors."
 msgstr "重定向无法创建。出现错误。"
+
+msgid "Search redirects"
+msgstr "搜索重定向"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

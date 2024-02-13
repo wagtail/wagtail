@@ -28,7 +28,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -38,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Florian Vogt <flori@vorlif.org>, 2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -409,9 +409,6 @@ msgstr "Datei nicht gefunden"
 msgid "Usage"
 msgstr "Verwendung"
 
-msgid "Images"
-msgstr "Bilder"
-
 msgid "Sort by"
 msgstr "Sortieren nach"
 
@@ -428,54 +425,43 @@ msgid "Select all images in listing"
 msgstr "Alle Bilder in der Aufzählung auswählen"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
-msgid "Select image"
-msgstr "Bild auswählen"
-
-msgid "pixels"
-msgstr "Pixel"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Es gibt leider keine Bilder zum Suchbegriff „<em>%(query_string)s</em>“"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Bilder in dieser Sammlung hochgeladen. Warum nicht "
 "jetzt <a href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a href="
-"\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
-
-msgid "Generating URL"
-msgstr "URL wird erzeugt"
-
-msgid "URL"
-msgstr "URL"
+"Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a "
+"href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 msgid "Preview"
 msgstr "Vorschau"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Bitte beachten Sie, dass Bilder, die größer als der Bildschirm generiert "
-"werden, in der Vorschau kleiner erscheinen, sodass sie auf den Bildschirm "
-"passen."
+msgid "URL"
+msgstr "URL"
+
+msgid "Image URL"
+msgstr "Bild-URL"
+
+msgid "Copy URL"
+msgstr "URL kopieren"
+
+msgid "Copied to clipboard"
+msgstr "In Zwischenablage kopiert"
+
+msgid "Copying to clipboard failed"
+msgstr "Fehler beim Kopieren in die Zwischenablage"
 
 msgid "Add multiple images"
 msgstr "Mehrere Bilder hinzufügen"
@@ -601,8 +587,8 @@ msgstr "Dateigröße: (niedrig bis hoch)"
 msgid "File size: (high to low)"
 msgstr "Dateigröße: (hoch bis niedrig)"
 
-msgid "Search images"
-msgstr "Nach Bildern suchen"
+msgid "Images"
+msgstr "Bilder"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -183,28 +183,8 @@ msgstr "파일을 찾을 수 없습니다"
 msgid "Usage"
 msgstr "사용"
 
-msgid "Documents"
-msgstr "문서"
-
 msgid "Select all documents in listing"
 msgstr "목록에 모든 문서를 선택"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "File"
-msgstr "파일"
-
-msgid "Created"
-msgstr "생성일"
-
-msgid "Select document"
-msgstr "문서 선택"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s만큼 일치"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -212,30 +192,19 @@ msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 �
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a href="
-"\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a "
+"href=\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"업로드된 문서가 없습니다. 지금 문서를 <a href="
-"\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span>문서가 <span class=\"w-sr-only\">%(site_name)s안"
-"에 생성됨</span>"
+"업로드된 문서가 없습니다. 지금 문서를 <a "
+"href=\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
 
 msgid "Add multiple documents"
 msgstr "여러 개의 문서 추가"
@@ -312,6 +281,12 @@ msgid "%(num_parent_objects)d document has been deleted"
 msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d문서가 삭제됨"
 
+msgid "File"
+msgstr "파일"
+
+msgid "Created"
+msgstr "생성일"
+
 msgid "Choose a document"
 msgstr "문서 선택"
 
@@ -321,8 +296,11 @@ msgstr "다른 문서 선택"
 msgid "Edit this document"
 msgstr "이 문서 수정"
 
-msgid "Search documents"
-msgstr "문서 검색"
+msgid "Documents"
+msgstr "문서"
+
+msgid "Title"
+msgstr "제목"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

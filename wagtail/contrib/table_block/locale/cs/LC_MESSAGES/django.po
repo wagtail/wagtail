@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,24 +29,11 @@ msgstr "Wagtail tabulkový blok"
 msgid "Row header"
 msgstr "Záhlaví řádku"
 
-msgid "Display the first row as a header."
-msgstr "Zobraz první řádek jako záhlaví."
-
 msgid "Column header"
 msgstr "Záhlaví sloupce"
 
-msgid "Display the first column as a header."
-msgstr "Zobraz první sloupec jako záhlaví."
-
 msgid "Table caption"
 msgstr "Titulek tabulky"
-
-msgid ""
-"A heading that identifies the overall topic of the table, and is useful for "
-"screen reader users"
-msgstr ""
-"Hlavička, která popisuje obecně účel tabulky. Je užitečná pro uživatele se "
-"čtečkami textu obrazovky"
 
 msgid "Table"
 msgstr "Tabulka"

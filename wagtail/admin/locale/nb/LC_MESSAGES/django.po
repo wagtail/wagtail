@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -531,15 +531,15 @@ msgstr "Konverter til intern lenke"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med den "
-"interne siden %(page)s, som har URL-en <a target=\"_blank\" rel=\"noreferrer"
-"\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med "
+"den interne siden %(page)s, som har URL-en <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -622,11 +622,11 @@ msgstr "Navn"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ingen samlinger har blitt opprettet. Hvorfor ikke <a href="
-"\"%(add_collection_url)s\">legg til en</a>?"
+"Ingen samlinger har blitt opprettet. Hvorfor ikke <a "
+"href=\"%(add_collection_url)s\">legg til en</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -661,8 +661,8 @@ msgstr "Publiser %(model_name)s"
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
 "Denne %(model_name)s er for øyeblikket ved <strong>%(task)s</strong> i "
 "<strong>%(workflow)s</strong>."
@@ -677,17 +677,6 @@ msgstr "Vil du fortsatt publisere denne %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Avbryt"
-
-msgid "No log entries found."
-msgstr "Ingen loggoppføringer funnet."
-
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "Ingen %(model_name)s matcher forespørselen din."
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Det er ingen %(model_name)s å vise."
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -762,31 +751,6 @@ msgstr "Kladd"
 msgid "Live"
 msgstr "Publisert"
 
-msgid "Pages awaiting moderation"
-msgstr "Sider som venter på godkjenning"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Edited"
-msgstr "Redigert"
-
-msgid "Preview this page"
-msgstr "Forhåndsvis denne siden"
-
-msgid "Approve"
-msgstr "Godkjenn"
-
-msgid "Reject"
-msgstr "Avslå"
-
-msgid "Preview"
-msgstr "Forhåndsvis"
-
-#, python-format
-msgid "by %(name)s"
-msgstr "av %(name)s"
-
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
 
@@ -798,20 +762,6 @@ msgstr "Dato"
 
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Side <span class=\"w-sr-only\">opprettet i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Sider <span class=\"w-sr-only\">opprettet i "
-"%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -844,13 +794,13 @@ msgstr "Endringer har skjedd i Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
 "Editor Guide</a> for å få en oversikt over hva som har endret seg og noen "
 "spennende nye funksjoner!"
 
@@ -862,6 +812,9 @@ msgstr "Oppgaver"
 
 msgid "Task submitted by"
 msgstr "Oppgave sendt inn av"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
 
 msgid "Compare with live version"
 msgstr "Sammenlign med publisert versjon"
@@ -914,17 +867,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "Siden \"%(title)s\" har blitt avvist"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning av %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Du kan forhåndsvise siden her:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "Siden \"%(page)s\" har blitt sendt til godkjenning"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -961,8 +903,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet %(task)s"
-"\"."
+"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet "
+"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -971,6 +913,9 @@ msgstr "Siden \"%(title)s\" har blitt avvist under \"%(task)s\"."
 #, python-format
 msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "%(model_name)s \"%(title)s\" har blitt avslått under \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Du kan forhåndsvise siden her:"
 
 msgid "Page privacy"
 msgstr "Sidevern"
@@ -1065,16 +1010,8 @@ msgstr "Kopier"
 msgid "Copy this page"
 msgstr "Kopier denne siden"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Ny %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Denne siden har endringer som ikke er lagret."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "Redigerer %(page_type)s: %(title)s"
 
 msgid "Action"
 msgstr "Handling"
@@ -1088,9 +1025,8 @@ msgstr "Publisert versjon"
 msgid "Current draft"
 msgstr "Nåværende kladd"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "Utforsker %(title)s"
+msgid "No log entries found."
+msgstr "Ingen loggoppføringer funnet."
 
 msgid "Configure a site now."
 msgstr "Konfigurer et nettsted nå."
@@ -1167,6 +1103,9 @@ msgstr "Flytt opp"
 msgid "Move down"
 msgstr "Flytt ned"
 
+msgid "Type"
+msgstr "Type"
+
 msgid "No pages found."
 msgstr "Ingen sider funnet."
 
@@ -1175,6 +1114,9 @@ msgstr "Ingen sider passer med denne rapportens kriterier."
 
 msgid "Updated"
 msgstr "Oppdatert"
+
+msgid "Pages"
+msgstr "Sider"
 
 msgid "Locking status"
 msgstr "Låsestatus"
@@ -1187,6 +1129,9 @@ msgstr "Ingen låste sider funnet."
 
 msgid "Edit this item"
 msgstr "Endre dette elementet"
+
+msgid "Clear"
+msgstr "Tøm"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1251,6 +1196,9 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Brukt %(usage_count)s gang"
 msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "Edited"
+msgstr "Redigert"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"
@@ -1333,10 +1281,6 @@ msgid "Home"
 msgstr "Hjem"
 
 #, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Rediger denne %(model_name)s"
-
-#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s «%(object)s» oppdatert."
 
@@ -1358,6 +1302,10 @@ msgstr "Flere alternativer for '%(title)s'"
 msgid "Editing"
 msgstr "Redigerer"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s «%(object)s» slettet."
+
 msgid "Inspecting"
 msgstr "Inspiserer"
 
@@ -1366,9 +1314,6 @@ msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Siste"
-
-msgid "Usage of"
-msgstr "Bruk av"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1414,9 +1359,6 @@ msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 msgid "Page '%(page_title)s' deleted."
 msgstr "Siden \"%(page_title)s\" er slettet."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Denne siden påventer godkjenning"
-
 #, python-format
 msgid "Page '%(page_title)s' has been updated."
 msgstr "Siden \"%(page_title)s\" er oppdatert."
@@ -1439,27 +1381,15 @@ msgstr "Siden kunne ikke lagres fordi den er låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
 
+msgid "Owner"
+msgstr "Eier"
+
+msgid "Site"
+msgstr "Nettsted"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Siden \"%(page_title)s\" er nå ulåst."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "Siden \"%(page_title)s\" påventer ikke godkjenning."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Siden \"%(page_title)s\" er publisert."
-
-msgid "Failed to send approval notifications"
-msgstr "Klarte ikke å sende varsel om godkjenninger"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Siden \"%(page_title)s\" ble avvist for publikasjon."
-
-msgid "Failed to send rejection notifications"
-msgstr "Klarte ikke å sende varsel om avvisninger"
 
 #, python-format
 msgid ""
@@ -1480,8 +1410,9 @@ msgstr "Siden \"%(page_title)s\" er avpublisert."
 msgid "Pages using"
 msgstr "Sider som bruker"
 
-msgid "Pages"
-msgstr "Sider"
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Siden \"%(page_title)s\" påventer ikke godkjenning."
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

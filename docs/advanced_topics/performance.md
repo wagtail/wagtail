@@ -4,7 +4,7 @@
 
 Wagtail is designed for speed, both in the editor interface and on the front-end, but if you want even better performance or you need to handle very high volumes of traffic, here are some tips on eking out the most from your installation.
 
-We have tried to minimise external dependencies for a working installation of Wagtail, in order to make it as simple as possible to get going. However, a number of default settings can be configured for better performance:
+We have tried to minimize external dependencies for a working installation of Wagtail, in order to make it as simple as possible to get going. However, a number of default settings can be configured for better performance:
 
 ## Cache
 
@@ -74,7 +74,7 @@ To fully resolve the URL of a page, Wagtail requires information from a few diff
 
 The methods used to get the URL of a `Page` such as `Page.get_url` and `Page.get_full_url` optionally accept extra arguments for `request` and `current_site`. Passing these arguments enable much of underlying site-level URL information to be reused for the current request. In situations such as navigation menu generation, plus any links that appear in page content, providing `request` or `current_site` can result in a drastic reduction in the number of cache or database queries your site will generate for a given page load.
 
-When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags, the request is automatically passed in, so no further optimisation is needed.
+When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags, the request is automatically passed in, so no further optimization is needed.
 
 ## Search
 
@@ -100,7 +100,7 @@ Wagtail supports automatic cache invalidation for Varnish/Squid. See [](frontend
 
 For some images, it may be beneficial to lazy load images, so the rest of the page can continue to load. It can be configured site-wide [](adding_default_attributes_to_images) or per-image [](image_tag_alt). For more details you can read about the [`loading='lazy'` attribute](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading#images_and_iframes) and the [`'decoding='async'` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-decoding) or this [web.dev article on lazy loading images](https://web.dev/lazy-loading-images/).
 
-This optimisation is already handled for you for images in the admin site.
+This optimization is already handled for you for images in the admin site.
 
 ## Template fragment caching
 
@@ -135,4 +135,4 @@ Manually updating a page might not result in a change to its cache key, unless t
 
 ## Django
 
-Wagtail is built on Django. Many of the [performance tips](django:topics/performance) set out by Django are also applicable to Wagtail.
+Wagtail is built on Django. Many of the [performance tips](inv:django#topics/performance) set out by Django are also applicable to Wagtail.

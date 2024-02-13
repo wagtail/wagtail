@@ -477,6 +477,15 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
             '<label for="id_country_code_2"><input type="radio" name="country_code" value="PH" id="id_country_code_2" checked>Philippines</label>',
             html=True,
         )
+        # Should render the active filters even when there are no results
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNotNone(active_filters)
+        clear = active_filters.select_one(".w-pill__remove")
+        self.assertIsNotNone(clear)
+        url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+        self.assertEqual(url, self.get_url("list_results"))
+        self.assertNotIn("country_code=PH", params)
 
     def test_filtered_with_results(self):
         self.create_test_snippets()
@@ -488,6 +497,15 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
             '<label for="id_country_code_1"><input type="radio" name="country_code" value="ID" id="id_country_code_1" checked>Indonesia</label>',
             html=True,
         )
+        # Should render the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNotNone(active_filters)
+        clear = active_filters.select_one(".w-pill__remove")
+        self.assertIsNotNone(clear)
+        url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+        self.assertEqual(url, self.get_url("list_results"))
+        self.assertNotIn("country_code=ID", params)
 
 
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):

@@ -1,12 +1,8 @@
 # Create a portfolio page
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 A portfolio page is a web page that has your resume or Curriculum Vitae (CV). The page will give potential employers a chance to review your work experience.
 
-This tutorial shows you how to add a portfolio page to your portfolio site using the Wagtail StreamField. 
+This tutorial shows you how to add a portfolio page to your portfolio site using the Wagtail StreamField.
 
 First, let's explain what StreamField is.
 
@@ -14,7 +10,7 @@ First, let's explain what StreamField is.
 
 StreamField is a feature that was created to balance the need for developers to have well-structured data and the need for content creators to have editorial flexibility in how they create and organize their content.
 
-In traditional content management systems, there's often a compromise between structured content and giving editors the freedom to create flexible layouts. Typically, Rich Text fields are used to give content creators the tools they need to make flexible and versatile content. Rich Text fields can provide a WYSIWYG editor for formatting. However, Rich Text fields have limitations. 
+In traditional content management systems, there's often a compromise between structured content and giving editors the freedom to create flexible layouts. Typically, Rich Text fields are used to give content creators the tools they need to make flexible and versatile content. Rich Text fields can provide a WYSIWYG editor for formatting. However, Rich Text fields have limitations.
 
 One of the limitations of Rich Text fields is the loss of semantic value. Semantic value in content denotes the underlying meaning or information conveyed by the structure and markup of content. When content lacks semantic value, it becomes more difficult to determine its intended meaning or purpose. For example, when editors use Rich Text fields to style text or insert multimedia, the content might not be semantically marked as such.
 
@@ -124,7 +120,6 @@ The first child block, `heading_text`, uses `CharBlock` for specifying the headi
 
 Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines a set of child block types that you would like to include in all of the StreamField sections across a project. This class gives you a baseline collection of common blocks that you can reuse and customize for all the different page types where you use StreamField. For example, you will definitely want editors to be able to add images and paragraph text to all their pages, but you might want to create a special pull quote block that is only used on blog pages.
 
-
 ```python
 class BaseStreamBlock(StreamBlock):
     heading_block = HeadingBlock()
@@ -144,7 +139,7 @@ Also, you defined a `Meta` class within your `ImageBlock` and `HeadingBlock` blo
 Wagtail provides built-in templates to render each block. However, you can override the built-in template with a custom template.
 ```
 
-Finally, you must add the custom templates that you defined in the `Meta` classes of your `ImageBlock` and `HeadingBlock` blocks. 
+Finally, you must add the custom templates that you defined in the `Meta` classes of your `ImageBlock` and `HeadingBlock` blocks.
 
 To add the custom template of your `ImageBlock`, create a `base/templates/base/blocks/image_block.html` file and add the following to it:
 
@@ -190,7 +185,7 @@ class PortfolioStreamBlock(BaseStreamBlock):
 
 The preceding code defines a custom block named `PortfolioStreamBlock`, which inherits from `BaseStreamBlock`. The pass statement indicates a starting point. Later in the tutorial, you'll add custom block definitions and configurations to the `PortfolioStreamBlock`.
 
-Now add the following to your 
+Now add the following to your
 `portfolio/models.py` file:
 
 ```python
@@ -241,7 +236,7 @@ Now migrate your database by running `python manage.py makemigrations` and then 
 To add more custom blocks to your `PortfolioPage`'s body, modify your `portfolio/blocks.py` file:
 
 ```python
-# import CharBlock, ListBlock, PageChooserBlock, PageChooserBlock, RichTextBlock, and StructBlock: 
+# import CharBlock, ListBlock, PageChooserBlock, PageChooserBlock, RichTextBlock, and StructBlock:
 from wagtail.blocks import (
     CharBlock,
     ListBlock,
@@ -284,7 +279,7 @@ class PortfolioStreamBlock(BaseStreamBlock):
 
 In the preceding code, `CardBlock` has three child blocks, `heading`, `text` and `image`. You are already familiar with the field block types used by the child pages.
 
-However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that you can use for multiple sub-blocks of the same type.  You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
+However, in your `FeaturedPostsBlock`, one of the child blocks, `posts`, uses `ListBlock`. `ListBlock` is a structural block type that you can use for multiple sub-blocks of the same type. You used it with `PageChooserBlock` to select only the Blog Page type pages. To better understand structural block types, read the [Structural block types documentation](streamfield_staticblock).
 
 Furthermore, `icon = "form"` and `icon = "folder-open-inverse"` define custom block icons to set your blocks apart in the admin interface. For more information about block icons, read the [documentation on block icons](block_icons).
 
@@ -334,7 +329,7 @@ Finally, migrate your changes by running `python manage.py makemigrations` and t
 
 To add your resume to your portfolio site, follow these steps:
 
-1. Create a **Portfolio Page** as a child page of **Home** by following these steps:  
+1. Create a **Portfolio Page** as a child page of **Home** by following these steps:
 
     a. Restart your server.  
     b. Go to your admin interface.  
@@ -342,27 +337,27 @@ To add your resume to your portfolio site, follow these steps:
     d. Click `Home`.  
     e. Click the `...` icon at the top of the resulting page.  
     f. Click `add child page`.  
-    g. Click `Portfolio Page`.  
+    g. Click `Portfolio Page`.
 
 2. Add your resume data by following these steps:  
-    a. Use "Resume" as your page title.  
-    b. Click **+** to expand your body section.  
-    c. Click **Paragraph block**.   
-    d. Copy and paste the following text in your new **Paragraph block**:  
+   a. Use "Resume" as your page title.  
+   b. Click **+** to expand your body section.  
+   c. Click **Paragraph block**.  
+   d. Copy and paste the following text in your new **Paragraph block**:
 
     ```text
     I'm a Wagtail Developer with a proven track record of developing and maintaining complex web applications. I have experience writing custom code to extend Wagtail applications, collaborating with other developers, and integrating third-party services and APIs.
-    ```  
+    ```
 
     e. Click **+** below your preceding Paragraph block, and then click **Paragraph block** to add a new Paragraph Block.  
-    f.  Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
-    g. Use "Work Experience" as your Heading 2.   
+    f. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
+    g. Use "Work Experience" as your Heading 2.  
     h. Type "/" below your Heading 2 and click **H3 Heading 3**.  
-    i. Use the following as your Heading 3:  
+    i. Use the following as your Heading 3:
 
     ```
     Wagtail developer at Birdwatchers Inc, United Kingdom
-    ```  
+    ```
 
     j. Type the following after your Heading 3:
 
@@ -373,21 +368,21 @@ To add your resume to your portfolio site, follow these steps:
     - Wrote custom code to extend Wagtail applications, resulting in a 30% reduction in development time and a 15% increase in overall code quality.
     - Collaborated with other developers, designers, and stakeholders to integrate third-party services and APIs, resulting in a 40% increase in application functionality and user satisfaction.
     - Wrote technical documentation and participated in code reviews, providing feedback to other developers and improving overall code quality by 20%.
-    ```  
+    ```
 
     ```{note}
     By starting your sentences with "-", you're writing out your work experience as a Bulletted list. You can achieve the same result by typing "/" in the input field of your Paragraph block and then clicking **Bulleted list**.
     ```
-    
+
     k. Click **+** below your Work experience.  
     l. Click **Paragraph block** to add another Paragraph block.  
     m. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
     n. Use "Skills" as the Heading 2 of your new Paragraph block.  
-    o. Copy and paste the following after your Heading 2:  
+    o. Copy and paste the following after your Heading 2:
 
     ```text
     Python, Django, Wagtail, HTML, CSS, Markdown, Open-source management, Trello, Git, GitHub
-    ```  
+    ```
 
 3. Publish your `Portfolio Page`.
 

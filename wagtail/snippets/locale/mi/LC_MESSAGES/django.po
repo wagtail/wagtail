@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -89,31 +89,8 @@ msgstr "Kao, kaua e muku"
 msgid "Saving…"
 msgstr "pupuru ana..."
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Hou %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Hou"
-
 msgid "Actions"
 msgstr "Hohenga"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Pitopito kōrero %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Tāpiri %(snippet_type_name)s"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a href="
-"\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
 
 msgid "Preview"
 msgstr "Titiro"
@@ -129,12 +106,6 @@ msgstr "Pitopito kōrero"
 
 msgid "Name"
 msgstr "Ingoa"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Ehara tēnei pitopito kōrero e taea ki te hangaia, he raruraru "
-
-msgid "The snippet could not be saved due to errors."
-msgstr "Ehara ka taea te puritia kī te pitopito kōrero nei, he raruraru "
 
 msgid "Date"
 msgstr "Rā"

@@ -1,7 +1,7 @@
 #
 # Translators:
-# Stefano Marchetto <airbatum@gmail.com>, 2022
 # Alessio Di Stasio <aledista@gmail.com>, 2022
+# Stefano Marchetto <airbatum@gmail.com>, 2022
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
@@ -65,9 +65,6 @@ msgstr "Modifica"
 
 msgid "Edit '%(title)s'"
 msgstr "Modifica '%(title)s'"
-
-msgid "Edit your account"
-msgstr "Modifica il tuo account"
 
 msgid "Enter your comments..."
 msgstr "Inserisci i tuoi commenti..."

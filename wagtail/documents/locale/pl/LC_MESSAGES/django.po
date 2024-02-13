@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,9 +25,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Dokumenty Wagtail"
@@ -231,31 +231,8 @@ msgstr "Plik nie został odnaleziony"
 msgid "Usage"
 msgstr "Użycie"
 
-msgid "Documents"
-msgstr "Dokumenty"
-
 msgid "Select all documents in listing"
 msgstr "Wybierz wszystkie dokumenty na liście"
-
-msgid "Title"
-msgstr "Tytuł"
-
-msgid "File"
-msgstr "Plik"
-
-msgid "Created"
-msgstr "Utworzone"
-
-msgid "Select document"
-msgstr "Wybierz dokument"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Jest %(counter)s dopasowanie"
-msgstr[1] "Jest %(counter)s dopasowań"
-msgstr[2] "Jest %(counter)s dopasowań"
-msgstr[3] "Jest %(counter)s dopasowań"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -264,39 +241,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nie przesłano żadnych dokumentów do tej kolekcji. Dlaczego nie <a href="
-"\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
+"Nie przesłano żadnych dokumentów do tej kolekcji. Dlaczego nie <a "
+"href=\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nie przesłano żadnych dokumentów. Czemu nie  <a href="
-"\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">utworzony w "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Dokumentów <span class=\"w-sr-only\">utworzonych "
-"w %(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Dokumentów <span class=\"w-sr-only\">utworzonych "
-"w %(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> Dokumentów<span class=\"w-sr-only\">utworzonych "
-"w %(site_name)s</span>"
+"Nie przesłano żadnych dokumentów. Czemu nie  <a "
+"href=\"%(wagtaildocs_add_document_url)s\">dodać jednego teraz</a>?"
 
 msgid "Add multiple documents"
 msgstr "Dodaj wiele dokumentów"
@@ -387,6 +344,12 @@ msgstr[1] "%(num_parent_objects)d dokumentów zostało usunięte"
 msgstr[2] "%(num_parent_objects)d dokumentów zostało usunięte"
 msgstr[3] "%(num_parent_objects)d dokumentów zostało usunięte"
 
+msgid "File"
+msgstr "Plik"
+
+msgid "Created"
+msgstr "Utworzone"
+
 msgid "Choose a document"
 msgstr "Wybierz dokument"
 
@@ -396,8 +359,11 @@ msgstr "Wybierz inny dokument"
 msgid "Edit this document"
 msgstr "Edytuj ten dokument"
 
-msgid "Search documents"
-msgstr "Szukaj dokumentów"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Tytuł"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

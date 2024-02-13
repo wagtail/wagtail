@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -165,14 +165,11 @@ msgstr "Ledsen, inga premierade resultat matchar \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Inga premierade resultat har skapats. Varför inte <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
-
-msgid "Search promoted results"
-msgstr "Premierade sökresultat"
+"Inga premierade resultat har skapats. Varför inte <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

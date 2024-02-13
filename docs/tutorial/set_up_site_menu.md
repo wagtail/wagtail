@@ -1,9 +1,5 @@
 # Set up site menu for linking to the homepage and other pages
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 This section of the tutorial will teach you how to create a site menu to link to your homepage and other pages as you add them. The site menu will appear across all pages of your portfolio website, just like your footer.
 
 Start by creating a template tag in your `base/templatetags/navigation_tags.py` file:
@@ -25,7 +21,7 @@ def get_site_root(context):
     return Site.find_for_request(context["request"]).root_page
 ```
 
-In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your `HomePage` in this case. 
+In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your `HomePage` in this case.
 
 Now, create `mysite/templates/includes/header.html` file and add the following to it:
 
@@ -45,7 +41,7 @@ Now, create `mysite/templates/includes/header.html` file and add the following t
 </header>
 ```
 
-In the preceding template you loaded the `wagtailcore_tags` and `navigation_tags`. 
+In the preceding template you loaded the `wagtailcore_tags` and `navigation_tags`.
 With these tags, you can generate navigation menus for your Wagtail project.
 
 `{% get_site_root as site_root %}` retrieves your HomePage and assigns it to the variable `site_root`.
@@ -68,7 +64,7 @@ Finally, add your `header` template to your `base` template by modifying your `m
     {% include "includes/footer.html" %}
 
     {# Global javascript #}
-        
+
     <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
     {% block extra_js %}
@@ -84,10 +80,12 @@ Now, if you restart your server and reload your homepage, you'll see your site m
 ## Add pages to your site menu
 
 You can add any top-level, like your Home page, Blog index page, Portfolio page, and Form page to the site menu by doing the following:
+
 1. Go to your admin interface.
 2. Go to any top-level page.
 3. Click **Promote**.
 4. Check the **Show in menus** checkbox.
 
 In the next section of this tutorial, we'll show you how to style your site and improve its user experience.
+
 <!-- Provide a diagram to illustrate the checking of the Show in Menu checkbox -->

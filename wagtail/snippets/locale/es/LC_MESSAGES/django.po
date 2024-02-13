@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Enrique Sánchez-Reboto García, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -124,13 +124,13 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"No has creado ningún fragmento %(snippet_type_name)s. ¿Por qué no <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">crear uno ahora</a>?"
+"No has creado ningún fragmento %(snippet_type_name)s. ¿Por qué no <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">crear uno ahora</a>?"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -150,50 +150,11 @@ msgstr "Reemplazar versión actual"
 msgid "Save draft"
 msgstr "Guardar borrador"
 
-#, python-format
-msgid "New  %(snippet_type_name)s"
-msgstr "Nuevo %(snippet_type_name)s"
-
-msgid "New"
-msgstr "Nuevo"
-
 msgid "Actions"
 msgstr "Acciones"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "Editando %(snippet_type_name)s - %(object)s"
-
-#, python-format
-msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragmentos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Add %(snippet_type_name)s"
-msgstr "Añadir %(snippet_type_name)s"
-
 msgid "Select all snippets in listing"
 msgstr "Seleccionar todos los fragmentos del listado"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Hay %(counter)s coincidencia"
-msgstr[1] "Hay %(counter)s coincidencias"
-msgstr[2] "Hay %(counter)s coincidencias"
-
-#, python-format
-msgid "Sorry, no %(snippet_type_name_plural)s match your query"
-msgstr ""
-"Lo sentimos, ningún %(snippet_type_name_plural)s coincide con tu petición"
-
-#, python-format
-msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
-msgstr ""
-"Ningún %(snippet_type_name_plural)s ha sido creado. ¿Por qué no <a href="
-"\"%(wagtailsnippets_create_url)s\">añadir uno</a>?"
 
 msgid "Live version"
 msgstr "Versión en vivo"
@@ -230,12 +191,6 @@ msgstr "Nombre"
 
 msgid "Instances"
 msgstr "Instancias"
-
-msgid "The snippet could not be created due to errors."
-msgstr "El fragmento no pudo ser creado debido a errores."
-
-msgid "The snippet could not be saved due to errors."
-msgstr "El fragmento no puedo ser guardado debido a errores."
 
 msgid "Action"
 msgstr "Acción"

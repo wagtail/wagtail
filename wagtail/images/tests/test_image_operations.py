@@ -683,6 +683,16 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, "webp")
 
+    def test_ico(self):
+        fil = Filter(spec="width-400|format-ico")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "ico")
+
     def test_webp_lossless(self):
         fil = Filter(spec="width-400|format-webp-lossless")
         image = Image.objects.create(

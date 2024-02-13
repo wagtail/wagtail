@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -116,34 +116,25 @@ msgstr "ไม่พบไฟล์ที่หา,ไม่พบแฟ้ม�
 msgid "Usage"
 msgstr "การใช้"
 
-msgid "Documents"
-msgstr "เอกสาร"
-
-msgid "Title"
-msgstr "หัวเรื่อง,หัวข้อ"
-
-msgid "File"
-msgstr "ไฟล์,แฟ้ม"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดเอกสารอันไหนเลยในชุดนี้ ทำไม่คุณไม่ <a href="
-"\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดเอกสารอันไหนเลยในชุดนี้ ทำไม่คุณไม่ <a "
+"href=\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย ทำไมคุณไม่ <a href="
-"\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
+"คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย ทำไมคุณไม่ <a "
+"href=\"%(wagtaildocs_add_document_url)s\">อัพโหลดสักอันตอนนี้</a>?"
 
 msgid "Add multiple documents"
 msgstr "เพิ่มเติมเอกสารแบบไม่จำกัด"
@@ -183,6 +174,9 @@ msgstr "เพิ่มเติมการให้อนุญาตเอก
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "File"
+msgstr "ไฟล์,แฟ้ม"
+
 msgid "Choose a document"
 msgstr "เลือกเอกสาร"
 
@@ -192,8 +186,11 @@ msgstr "เลือกเอกสารอันอื่น"
 msgid "Edit this document"
 msgstr "แก้ไขเอกสารนี้"
 
-msgid "Search documents"
-msgstr "ค้นหาเอกสาร"
+msgid "Documents"
+msgstr "เอกสาร"
+
+msgid "Title"
+msgstr "หัวเรื่อง,หัวข้อ"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

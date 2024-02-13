@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -150,6 +150,10 @@ msgstr "ใหม่"
 msgid "Latest images"
 msgstr "รูปภาพล่าสุด"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "เลือก %(title)s"
+
 msgid "Choose a format"
 msgstr "เลือกรูปแบบ"
 
@@ -210,44 +214,31 @@ msgstr "ไม่พบไฟล์นี้"
 msgid "Usage"
 msgstr "การใช้"
 
-msgid "Images"
-msgstr "รูปภาพ"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย,ไม่มีรูปภาพที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a href="
-"\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a "
+"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a href=\"%(wagtailimages_add_image_url)s"
-"\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
-
-msgid "Generating URL"
-msgstr "ที่ก่อให้เกิด URL"
-
-msgid "URL"
-msgstr "URL"
+"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a "
+"href=\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
 
 msgid "Preview"
 msgstr "ภาพตัวอย่าง"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,"
-"มันจะได้อยู่ในหน้าจอ"
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "แก้ไขหลายรูปภาพ"
@@ -302,8 +293,8 @@ msgstr "เลือกรูปภาพ"
 msgid "Edit this image"
 msgstr "แก้ไขรูปภาพนี้"
 
-msgid "Search images"
-msgstr "ค้นหารูปภาพ"
+msgid "Images"
+msgstr "รูปภาพ"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

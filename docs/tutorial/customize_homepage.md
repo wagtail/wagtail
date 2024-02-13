@@ -1,9 +1,5 @@
 # Customize your home page
 
-```{warning}
-We’ve just released this new tutorial. Do you want to provide feedback? Please complete our [2023 tutorial feedback form](https://wagtail.org/gsod-2023-feedback/).
-```
-
 Heads’up! Make sure you have completed [Your first Wagtail site](../getting_started/tutorial.md) before going through this extended tutorial.
 
 When building your portfolio website, the first step is to set up and personalize your homepage. The homepage is your chance to make an excellent first impression and convey the core message of your portfolio. So your homepage should include the following features:
@@ -79,7 +75,7 @@ You might already be familiar with the different parts of your `HomePage` model.
 
 Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` or `hero_cta_link` fields on your Homepage will be set to null, but the rest of the data will be preserved. Read the [Django documentation on the `on_delete` attribute](django.db.models.ForeignKey.on_delete) for more details.
 
-By default, Django creates a reverse relation between the models when you have a `ForeignKey` field within your model. Django also generates a name for this reverse relation using the model name and the `_set` suffix. You can use the default name of the reverse relation to access the model with the `ForeignKey` field from the referenced model.  
+By default, Django creates a reverse relation between the models when you have a `ForeignKey` field within your model. Django also generates a name for this reverse relation using the model name and the `_set` suffix. You can use the default name of the reverse relation to access the model with the `ForeignKey` field from the referenced model.
 
 You can override this default naming behavior and provide a custom name for the reverse relationship by using the `related_name` attribute. For example, if you want to access your `HomePage` from `wagtailimages.Image`, you can use the value you provided for your `related_name` attribute.
 
@@ -103,7 +99,7 @@ To add content to your homepage through the admin interface, follow these steps:
 
 1. Log in to your [admin interface](http://127.0.0.1:8000/admin/), with your admin username and password.
 2. Click Pages.
-3. Click the **pencil**  icon beside **Home**.
+3. Click the **pencil** icon beside **Home**.
 4. Choose an image, choose a page, and add data to the input fields.
 
 ```{note}
@@ -142,6 +138,6 @@ In your Homepage template, notice the use of `firstof` in line 13. It's helpful 
 
 Congratulations! You've completed the first stage of your Portfolio website 🎉🎉🎉.
 
-<!-- 
+<!--
 Ask Thibaud if the Resume page is downloadable.
 -->

@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Малявання Wagtail "
@@ -107,6 +107,10 @@ msgstr "Не, не выдаляць"
 msgid "New"
 msgstr "Новы"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Выбраць %(title)s"
+
 msgid "Choose a format"
 msgstr "Выбраць фармат"
 
@@ -125,6 +129,9 @@ msgstr "Рэдагаванне"
 msgid "Delete image"
 msgstr "Выдаліць выяву"
 
+msgid "(optional)"
+msgstr "(не абавязкова)"
+
 msgid "Filesize"
 msgstr "Памер файла"
 
@@ -134,22 +141,11 @@ msgstr "Файл не знойдзены"
 msgid "Usage"
 msgstr "Выкарыстоўванне"
 
-msgid "Images"
-msgstr "Малявання"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Ёсць %(counter)s супадзенне"
-msgstr[1] "Ёсць %(counter)s супадзенняў"
-msgstr[2] "Ёсць %(counter)s супадзенняў"
-msgstr[3] "Ёсць %(counter)s супадзенняў"
+msgid "Preview"
+msgstr "Папярэдні прагляд"
 
 msgid "URL"
 msgstr "URL"
-
-msgid "Preview"
-msgstr "Папярэдні прагляд"
 
 msgid "Add images"
 msgstr "Дабавіць адлюстравання"
@@ -180,6 +176,9 @@ msgstr "Выбраць малюнак"
 
 msgid "Edit this image"
 msgstr "Адрэдагаваць гэты малюнак"
+
+msgid "Images"
+msgstr "Малявання"
 
 msgid "Change image"
 msgstr "Змяніць малюнак"

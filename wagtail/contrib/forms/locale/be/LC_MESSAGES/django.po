@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail forms"
 msgstr "Формы Wagtail"
@@ -147,18 +147,6 @@ msgstr "Выдаліць дадзеныя формы"
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "Forms"
-msgstr "Формы"
-
-msgid "Pages"
-msgstr "Старонкі"
-
-msgid "Title"
-msgstr "Загаловак"
-
-msgid "Origin"
-msgstr "Паходжанне"
-
 msgid "Delete selected submissions"
 msgstr "Выдаліць абраныя"
 
@@ -167,9 +155,6 @@ msgstr "Усяго даданняў"
 
 msgid "Latest submission"
 msgstr "Апошняе даданне"
-
-msgid "No form pages have been created."
-msgstr "Старонак з формамі не было створана."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -181,6 +166,18 @@ msgstr "Форма '%(title)s' яшчэ не запаўнялася."
 
 msgid "Filter"
 msgstr "Фільтр"
+
+msgid "Forms"
+msgstr "Формы"
+
+msgid "Title"
+msgstr "Загаловак"
+
+msgid "Origin"
+msgstr "Паходжанне"
+
+msgid "Pages"
+msgstr "Старонкі"
 
 #, python-format
 msgid "One submission has been deleted."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -174,20 +174,17 @@ msgstr "Uza"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ita seidauk hatama tiha imajen balu. Tamba sa la<a href="
-"\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
-
-msgid "Generating URL"
-msgstr "Gerandu URL"
-
-msgid "URL"
-msgstr "URL"
+"Ita seidauk hatama tiha imajen balu. Tamba sa la<a "
+"href=\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
 
 msgid "Preview"
 msgstr "Pré-visualizasaun"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Server Error"
 msgstr "Servidor erru"
@@ -206,9 +203,6 @@ msgstr "Hili imagen ida"
 
 msgid "Edit this image"
 msgstr "Hadia imajen ne'e"
-
-msgid "Search images"
-msgstr "Buka imajen"
 
 msgid "Edit again"
 msgstr "Hadia fali"

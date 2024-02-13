@@ -31,6 +31,15 @@
   }
 }
 
+.tippy-box[data-theme='drilldown'] {
+  @apply w-rounded w-bg-surface-page w-shadow-md;
+  width: 300px;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
 .tippy-box[data-theme='dropdown-button'] {
   @apply w-rounded-none w-w-full w-bg-transparent;
 

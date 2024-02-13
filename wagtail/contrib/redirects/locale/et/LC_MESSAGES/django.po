@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,14 +170,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ümbersuunamisi pole loodud. Miks mitte <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
-
-msgid "Search redirects"
-msgstr "Otsingu ümbersuunamised"
+"Ümbersuunamisi pole loodud. Miks mitte <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
@@ -199,6 +196,9 @@ msgstr "Ümbersuunamine'%(redirect_title)s' on lisatud."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Ümbersuunamist ei saanud vigade tõttu luua."
+
+msgid "Search redirects"
+msgstr "Otsingu ümbersuunamised"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

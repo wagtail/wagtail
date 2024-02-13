@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020,2023\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,15 +27,8 @@ msgstr "per defecte"
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s per %(site)s"
 
-#, python-format
-msgid "Editing %(instance)s"
-msgstr "Editant %(instance)s"
-
 msgid "Site"
 msgstr "Lloc web"
-
-msgid "Editing"
-msgstr "Editant"
 
 msgid "Saving…"
 msgstr "Desant…"
@@ -51,9 +44,9 @@ msgstr ""
 "No es pot obrir aquest paràmetre de configuració perquè no hi ha cap lloc "
 "web definit."
 
+msgid "The setting could not be saved due to errors."
+msgstr "El paràmetre de configuració no pot ser desat per causa d'errors."
+
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)sactualitzat/da."
-
-msgid "The setting could not be saved due to errors."
-msgstr "El paràmetre de configuració no pot ser desat per causa d'errors."

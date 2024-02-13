@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -232,14 +232,8 @@ msgstr "Faili ei leitud"
 msgid "Usage"
 msgstr "Kasutamine"
 
-msgid "Images"
-msgstr "Kujutised"
-
 msgid "Popular Tags:"
 msgstr "Populaarsed sildid:"
-
-msgid "pixels"
-msgstr "pikslit"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -247,35 +241,25 @@ msgstr "Vabandust, ükski pilt ei vasta \"<em>%(query_string)s</em>\" päringule
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a href="
-"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Te pole ühtegi pilti üles laadinud. Miks mitte <a href="
-"\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
-
-msgid "Generating URL"
-msgstr "URL-i loomine"
-
-msgid "URL"
-msgstr "URL"
+"Te pole ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
 
 msgid "Preview"
 msgstr "Eelvaade"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Pange tähele, et ekraanist suuremana loodud pildid tunduvad siin eelvaates "
-"väiksemad, nii et need sobivad ekraanile."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Lisage mitu pilti"
@@ -331,8 +315,8 @@ msgstr "Valige pilt"
 msgid "Edit this image"
 msgstr "Muutke seda pilti"
 
-msgid "Search images"
-msgstr "Piltide otsimine"
+msgid "Images"
+msgstr "Kujutised"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

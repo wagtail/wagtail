@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -205,9 +205,6 @@ msgstr "Το αρχείο δεν βρέθηκε"
 msgid "Usage"
 msgstr "Χρήση"
 
-msgid "Images"
-msgstr "Εικόνες"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -215,36 +212,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a href="
-"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
+"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a href="
-"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
-
-msgid "Generating URL"
-msgstr "Δημιουργία URL"
-
-msgid "URL"
-msgstr "URL"
+"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
 
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Σημειώστε ότι οι εικόνες που δημιουργούνται μεγαλύτερες από την οθόνη θα "
-"εμφανιστουν μικρότερες κατά την προεπισκόπηση εδώ, έτσι ώστε να χωρέσει στην "
-"οθόνη."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Προσθήκη πολλαπλών εικόνων"
@@ -308,8 +294,8 @@ msgstr "Επιλογή άλλης εικόνας"
 msgid "Edit this image"
 msgstr "Επεξεργασία αυτής της εικόνας"
 
-msgid "Search images"
-msgstr "Αναζήτηση εικόνων"
+msgid "Images"
+msgstr "Εικόνες"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

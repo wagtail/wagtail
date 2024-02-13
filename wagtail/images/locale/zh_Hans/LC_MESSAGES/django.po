@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -319,9 +319,6 @@ msgstr "未找到文件"
 msgid "Usage"
 msgstr "使用情况"
 
-msgid "Images"
-msgstr "图片"
-
 msgid "Popular Tags:"
 msgstr "热门标签"
 
@@ -329,49 +326,29 @@ msgid "Select all images in listing"
 msgstr "选择列表中的所有图片"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "总共有 %(counter)s 条匹配"
-
-msgid "Select image"
-msgstr "选择图片"
-
-msgid "pixels"
-msgstr "像素"
-
-#, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图片。"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有图片。为何不 <a href=\"%(wagtailimages_add_image_url)s\">上传一"
 "个</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "还没上传图片呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
-
-msgid "Generating URL"
-msgstr "生成URL"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "Preview"
 msgstr "预览"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"备注：生成的图片大于屏幕时，在预览时可能显示会小一些。因为是适应屏幕的。"
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "添加多个图片"
@@ -476,8 +453,8 @@ msgstr "标题: (A -> Z)"
 msgid "Title: (Z -> A)"
 msgstr "标题: (Z -> A)"
 
-msgid "Search images"
-msgstr "搜索图片"
+msgid "Images"
+msgstr "图片"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

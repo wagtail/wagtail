@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -133,14 +133,11 @@ msgstr "<em>%(query_string)s</em>に一致する提案はありません。"
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"まだ検索結果への提案がありません。<a href="
-"\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
-
-msgid "Search promoted results"
-msgstr "提案を検索"
+"まだ検索結果への提案がありません。<a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

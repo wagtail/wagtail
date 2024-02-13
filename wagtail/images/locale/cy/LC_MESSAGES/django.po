@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -322,20 +322,11 @@ msgstr "Ffeil heb ei chanfod"
 msgid "Usage"
 msgstr "Defnydd"
 
-msgid "Images"
-msgstr "Delweddau"
-
 msgid "Popular Tags:"
 msgstr "Tagiau poblogaidd:"
 
 msgid "Select all images in listing"
 msgstr "Dewiswch yr holl lluniau yn y rhestr"
-
-msgid "Select image"
-msgstr "Dewis llun"
-
-msgid "pixels"
-msgstr "picsel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -344,35 +335,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a href="
-"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
+"Nid ydych wedi uwchlwytho unrhyw lluniau yn y casgliad hwn. Pam ddim <a "
+"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a href="
-"\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
-
-msgid "Generating URL"
-msgstr "Cynhyrchu URL"
-
-msgid "URL"
-msgstr "URL"
+"Nid ydych wedi uwchlwytho unrhyw luniau. Pam ddim <a "
+"href=\"%(wagtailimages_add_image_url)s\">uwchlwytho un rwan</a>?"
 
 msgid "Preview"
 msgstr "Rhagolwg"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Sylwch y bydd lluniau a gynhyrchir yn fwy na'r sgrin yn ymddangos yn llai "
-"pan gânt eu rhagolwg yma, felly maen nhw'n ffitio'r sgrin."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Ychwanegu lluniau lluosog"
@@ -477,8 +458,8 @@ msgstr "Dewis delwedd"
 msgid "Edit this image"
 msgstr "Golygu'r llun hon"
 
-msgid "Search images"
-msgstr "Chwilio delweddau"
+msgid "Images"
+msgstr "Delweddau"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

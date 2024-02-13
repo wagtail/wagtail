@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -204,26 +204,6 @@ msgstr "Pasirinkti formatą"
 msgid "Insert image"
 msgstr "Įterpti paveiksliuką"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Paveikslėlis <span class=\"w-sr-only\">, "
-"sukurtas %(site_name)s tinklalapyje</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Paveikslėliai <span class=\"w-sr-only\">, "
-"sukurti %(site_name)s tinklalapyje</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Paveikslėlis <span class=\"w-sr-only\">, "
-"sukurtas %(site_name)s tinklalapyje</span>"
-msgstr[3] ""
-"<span>%(total)s</span> Paveikslėlių <span class=\"w-sr-only\">, sukurtų "
-"%(site_name)s tinklalapyje</span>"
-
 msgid "Change image file:"
 msgstr "Keisti paveiksliuko bylą:"
 
@@ -280,14 +260,8 @@ msgstr "Byla nerasta"
 msgid "Usage"
 msgstr "Panaudojimas"
 
-msgid "Images"
-msgstr "Paveiksliukai"
-
 msgid "Popular Tags:"
 msgstr "Populiarios žymenos:"
-
-msgid "pixels"
-msgstr "taškai"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -296,35 +270,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a href="
-"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
+"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a "
+"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai. Kodėl gi <a href="
-"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
-
-msgid "Generating URL"
-msgstr "Generuojamas URL"
-
-msgid "URL"
-msgstr "URL"
+"Nėra įkelti jokie paveiksliukai. Kodėl gi <a "
+"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 msgid "Preview"
 msgstr "Peržiūrėti"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Pastaba. Paveiksliukai, sugeneruoti didesni nei ekranas, peržiūrimi čia bus "
-"atvaizduojami mažesni, kad tilptų į ekraną."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Pridėti daug paveiksliukų"
@@ -390,8 +354,8 @@ msgstr "Pasirinkti kitą paveiksliuką"
 msgid "Edit this image"
 msgstr "Redaguoti šį paveiksliuką"
 
-msgid "Search images"
-msgstr "Ieškoti paveiksliukų"
+msgid "Images"
+msgstr "Paveiksliukai"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

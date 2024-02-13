@@ -1,6 +1,6 @@
 # Signals
 
-Wagtail's [](revision_model_ref) and [](page_model_ref) implement [Signals](django:topics/signals) from `django.dispatch`.
+Wagtail's [](revision_model_ref) and [](page_model_ref) implement [Signals](inv:django#topics/signals) from `django.dispatch`.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
 For example, you could use signals to send publish notifications to a messaging service, or `POST` messages to another app that's consuming the API, such as a static site generator.
@@ -60,7 +60,7 @@ page_published.connect(receiver, sender=BlogPostPage)
 
 Wagtail provides access to a list of registered page types through the `get_page_models()` function in `wagtail.models`.
 
-Read the [Django documentation](django:topics/signals) for more information about specifying senders.
+Read the [Django documentation](inv:django#topics/signals) for more information about specifying senders.
 
 ## `page_unpublished`
 
@@ -152,11 +152,11 @@ This signal is emitted from a `WorkflowState` when a page's workflow completes s
 
 ## workflow_cancelled
 
-This signal is emitted from a `WorkflowState` when a page's workflow is cancelled
+This signal is emitted from a `WorkflowState` when a page's workflow is canceled
 
 -   `sender` - `WorkflowState`
 -   `instance` - The specific `WorkflowState` instance.
--   `user` - The user who cancelled the workflow
+-   `user` - The user who canceled the workflow
 -   `kwargs` - Any other arguments passed to `workflow_cancelled.send()`
 
 ## task_submitted
@@ -188,9 +188,9 @@ This signal is emitted from a `TaskState` when a page's task is approved
 
 ## task_cancelled
 
-This signal is emitted from a `TaskState` when a page's task is cancelled.
+This signal is emitted from a `TaskState` when a page's task is canceled.
 
 -   `sender` - `TaskState`
 -   `instance` - The specific `TaskState` instance.
--   `user` - The user who cancelled the task
+-   `user` - The user who canceled the task
 -   `kwargs` - Any other arguments passed to `task_cancelled.send()`

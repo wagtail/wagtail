@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Wagtail forms"
 msgstr "Wagtail formulari"
@@ -172,18 +172,6 @@ msgstr[2] "Jeste li sigurni da želite izbrisati ove podnesene obrasce?"
 msgid "Delete"
 msgstr "Izbriši"
 
-msgid "Forms"
-msgstr "Formulari"
-
-msgid "Pages"
-msgstr "Stranice"
-
-msgid "Title"
-msgstr "Naslov"
-
-msgid "Origin"
-msgstr "Ishodište"
-
 msgid "Delete selected submissions"
 msgstr "Izbriši odabrane unose"
 
@@ -192,9 +180,6 @@ msgstr "Ukupno unosa"
 
 msgid "Latest submission"
 msgstr "Najnoviji unosi"
-
-msgid "No form pages have been created."
-msgstr "Nema stranica s formularima."
 
 #, python-format
 msgid "Submissions of %(form_title)s"
@@ -209,6 +194,18 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Primjeni filtere"
+
+msgid "Forms"
+msgstr "Formulari"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Origin"
+msgstr "Ishodište"
+
+msgid "Pages"
+msgstr "Stranice"
 
 #, python-format
 msgid "One submission has been deleted."

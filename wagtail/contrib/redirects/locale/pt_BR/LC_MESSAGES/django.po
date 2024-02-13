@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -225,14 +225,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Não há redirecionamentos criados. Por que não foi <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
-
-msgid "Search redirects"
-msgstr "Pesquisar redirecionamentos"
+"Não há redirecionamentos criados. Por que não foi <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
@@ -254,6 +251,9 @@ msgstr "Redirecionamento %(redirect_title)s adicionado."
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pode ser criado devido a erros."
+
+msgid "Search redirects"
+msgstr "Pesquisar redirecionamentos"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"

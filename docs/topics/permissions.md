@@ -2,7 +2,7 @@
 
 # Permissions
 
-Wagtail adapts and extends [the Django permission system](https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization) to cater for the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
+Wagtail adapts and extends [the Django permission system](https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization) to cater to the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
 ```{note}
 Whilst Wagtail supports a number of user roles and permissions, the Wagtail Admin should still be restricted to trusted users.
@@ -21,9 +21,9 @@ MegaCorp/
         Germany
 ```
 
-then a group with 'edit' permissions on the 'Offices' page would automatically receive the ability to edit the 'UK', 'France' and 'Germany' pages. Permissions can be set globally for the entire tree by assigning them on the 'root' page - since all pages must exist underneath the root node, and the root cannot be deleted, this permission will cover all pages that exist now and in future.
+then a group with 'edit' permissions on the 'Offices' page would automatically receive the ability to edit the 'UK', 'France', and 'Germany' pages. Permissions can be set globally for the entire tree by assigning them on the 'root' page - since all pages must exist underneath the root node, and the root cannot be deleted, this permission will cover all pages that exist now and in the future.
 
-Whenever a user creates a page through the Wagtail admin, that user is designated as the owner of that page. Any user with 'add' permission has the ability to edit pages they own, as well as adding new ones. This is in recognition of the fact that creating pages is typically an iterative process involving creating a number of draft versions - giving a user the ability to create a draft but not letting them subsequently edit it would not be very useful. Ability to edit a page also implies the ability to delete it; unlike Django's standard permission model, there is no distinct 'delete' permission.
+Whenever a user creates a page through the Wagtail admin, that user is designated as the owner of that page. Any user with 'add' permission has the ability to edit pages they own, as well as add new ones. This is in recognition of the fact that creating pages is typically an iterative process involving creating a number of draft versions - giving a user the ability to create a draft but not letting them subsequently edit it would not be very useful. The ability to edit a page also implies the ability to delete it; unlike Django's standard permission model, there is no distinct 'delete' permission.
 
 The full set of available permission types is as follows:
 
@@ -41,7 +41,7 @@ Drafts can be viewed only if the user has either Edit or Publish permission.
 
 The permission rules for images and documents work on a similar basis to pages. Images and documents are considered to be 'owned' by the user who uploaded them; a user with 'add' permission also has the ability to edit items they own; and deletion is considered equivalent to editing rather than having a specific permission type.
 
-Access to specific sets of images and documents can be controlled by setting up _collections_. By default all images and documents belong to the 'root' collection, but users with appropriate permissions can create new collections the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images in the root collection can edit all images; permissions set on other collections only apply to that collection and any of its sub-collections.
+Access to specific sets of images and documents can be controlled by setting up _collections_. By default, all images and documents belong to the 'root' collection, but users with appropriate permissions can create new collections in the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images in the root collection can edit all images; permissions set on other collections only apply to that collection and any of its sub-collections.
 
 The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only visible to specific groups.
 
@@ -52,8 +52,8 @@ The 'choose' permission for images and documents determines which collections ar
 Permission for managing collections themselves can be attached at any point in the collection tree. The available collection management permissions are as follows:
 
 -   **Add** - grants the ability to create new collections underneath this collection.
--   **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and to change the privacy settings for documents within this collection.
--   **Delete** - grants the ability to delete collections that were added below this collection. _Note:_ a collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
+-   **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and change the privacy settings for documents within this collection.
+-   **Delete** - grants the ability to delete collections that were added below this collection. _Note:_ A collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
 
 ```{note}
 Users are not allowed to move or delete the collection that is used to assign them permission to manage collections.
@@ -64,15 +64,15 @@ Users are not allowed to move or delete the collection that is used to assign th
 See Django's documentation on [custom permissions](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#custom-permissions) for details on how to set permissions up.
 
 ```{note}
-Custom permissions starting with `add_`, `change_` or `delete_` are not currently supported in Wagtail as these will conflict with standard model permissions.
+Custom permissions starting with `add_`, `change_`, or `delete_` are not currently supported in Wagtail as these will conflict with standard model permissions.
 ```
 
 ## Displaying custom permissions in the admin
 
-Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
+Most permissions will automatically show up in the Wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
 
 ## `FieldPanel` and `PanelGroup` permissions
 
 Permissions can be used to restrict access to fields within the editor interface. See `permission` on [FieldPanel](field_panel).
 
-Permissions can be used to restrict groups of panels via the `permission` keyword argument on `PanelGroup` classes (`TabbedInterface`, `ObjectList`, `FieldRowPanel`, `MultiFieldPanel`). See how `PanelGroup` usage can be customised [](forms_panels_overview).
+Permissions can be used to restrict groups of panels via the `permission` keyword argument on `PanelGroup` classes (`TabbedInterface`, `ObjectList`, `FieldRowPanel`, `MultiFieldPanel`). See how `PanelGroup` usage can be customized [](forms_panels_overview).

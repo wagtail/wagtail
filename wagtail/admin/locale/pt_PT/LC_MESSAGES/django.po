@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rui Martins <rmartins16@gmail.com>, 2019\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -86,6 +86,9 @@ msgstr "Data desde"
 
 msgid "Date to"
 msgstr "Data até"
+
+msgid "Locale"
+msgstr "Região"
 
 msgid "All"
 msgstr "Todos"
@@ -516,15 +519,15 @@ msgstr "Converter para ligação interna"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"O URL que inseriu, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, parece corresponder à página "
-"interna%(page)s, que tem o URL <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>."
+"O URL que inseriu, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, parece corresponder à "
+"página interna%(page)s, que tem o URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 msgid "Use external link"
 msgstr "Usar ligação externa"
@@ -590,11 +593,11 @@ msgstr "Nome"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foram criadas coleções. Que tal <a href=\"%(add_collection_url)s"
-"\">adicionar uma</a>?"
+"Ainda não foram criadas coleções. Que tal <a "
+"href=\"%(add_collection_url)s\">adicionar uma</a>?"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
@@ -614,9 +617,6 @@ msgstr "Não. Não despublicar"
 
 msgid "Cancel"
 msgstr "Cancelar"
-
-msgid "No log entries found."
-msgstr "Nenhuma entrada de diário encontrada."
 
 msgid "Update"
 msgstr "Atualizar"
@@ -669,27 +669,6 @@ msgstr "Rascunho"
 msgid "Live"
 msgstr "Publicada"
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas a aguardar moderação"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Edited"
-msgstr "Alterado"
-
-msgid "Preview this page"
-msgstr "Visualizar rascunho desta página"
-
-msgid "Approve"
-msgstr "Aprovar"
-
-msgid "Reject"
-msgstr "Rejeitar"
-
-msgid "Preview"
-msgstr "Visualizar"
-
 msgid "Your most recent edits"
 msgstr "As suas últimas alterações"
 
@@ -701,23 +680,6 @@ msgstr "Data"
 
 msgid "Site summary"
 msgstr "Resumo do site"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Imagem <span class=\"w-sr-only\">criada em "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Imagens <span class=\"w-sr-only\">criadas em "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Imagens <span class=\"w-sr-only\">criadas em "
-"%(site_name)s</span>"
 
 msgid "Task started"
 msgstr "Tarefa iniciada"
@@ -739,6 +701,9 @@ msgstr "Tarefas"
 
 msgid "Task submitted by"
 msgstr "Tarefa enviada por"
+
+msgid "Preview"
+msgstr "Visualizar"
 
 msgid "Compare with live version"
 msgstr "Comparar com a versão publicada"
@@ -791,17 +756,6 @@ msgid "The page \"%(title)s\" has been rejected"
 msgstr "A página \"%(title)s\" foi rejeitada"
 
 #, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "A página \"%(page)s\" foi enviada para moderação por %(editor)s."
-
-msgid "You can preview the page here:"
-msgstr "Pode visualizar a página aqui:"
-
-#, python-format
-msgid "The page \"%(page)s\" has been submitted for moderation"
-msgstr "A página \"%(page)s\" foi enviada para moderação"
-
-#, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr ""
@@ -828,6 +782,9 @@ msgid ""
 msgstr ""
 "A página \"%(title)s\" foi enviada para aprovação na etapa de moderação "
 "\"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Pode visualizar a página aqui:"
 
 #, python-format
 msgid ""
@@ -1172,16 +1129,8 @@ msgstr "Copiar"
 msgid "Copy this page"
 msgstr "Copiar esta página"
 
-#, python-format
-msgid "New %(page_type)s"
-msgstr "Nova %(page_type)s"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações por gravar."
-
-#, python-format
-msgid "Editing %(page_type)s: %(title)s"
-msgstr "A alterar %(page_type)s: %(title)s"
 
 msgid "This page is an alias of another page."
 msgstr "Esta página é um atalho para outra página."
@@ -1214,9 +1163,8 @@ msgstr "Versão publicada"
 msgid "Current draft"
 msgstr "Rascunho atual"
 
-#, python-format
-msgid "Exploring %(title)s"
-msgstr "A explorar %(title)s"
+msgid "No log entries found."
+msgstr "Nenhuma entrada de diário encontrada."
 
 msgid "Select all pages in listing"
 msgstr "Selecionar todas as páginas da listagem"
@@ -1312,6 +1260,9 @@ msgstr "Última publicação"
 msgid "Last published by"
 msgstr "Última publicação por"
 
+msgid "Type"
+msgstr "Tipo"
+
 msgid "No pages found."
 msgstr "Nenhuma página encontrada."
 
@@ -1320,6 +1271,9 @@ msgstr "Nenhuma página preenche os critérios deste relatório"
 
 msgid "Updated"
 msgstr "Atualizada"
+
+msgid "Pages"
+msgstr "Páginas"
 
 msgid "Locking status"
 msgstr "Estado de bloqueio"
@@ -1367,14 +1321,17 @@ msgstr "Descarregar XLSX"
 msgid "Download CSV"
 msgstr "Descarregar CSV"
 
-msgid "Add comment"
-msgstr "Adicionar comentário"
-
 msgid "Filter"
 msgstr "Filtrar"
 
 msgid "Apply filters"
 msgstr "Aplicar filtros"
+
+msgid "Add comment"
+msgstr "Adicionar comentário"
+
+msgid "Back"
+msgstr "Voltar"
 
 msgid "History"
 msgstr "Histórico"
@@ -1450,6 +1407,9 @@ msgstr "Cronologia"
 msgid "Initial Revision"
 msgstr "Versão inicial"
 
+msgid "Edited"
+msgstr "Alterado"
+
 msgid "with comment:"
 msgstr "com comentário:"
 
@@ -1508,8 +1468,9 @@ msgstr "Criar"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Os fluxos de trabalho também se aplicam a páginas-filha. Se selecionar a "
 "página-mãe aqui, todas as suas páginas-filha irão herdar o mesmo fluxo de "
@@ -1560,15 +1521,15 @@ msgstr "Passo %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foi criado nenhum fluxo de trabalho. Que tal <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Ainda não foi criado nenhum fluxo de trabalho. Que tal <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Não existem fluxos de trabalho ativos. Que tal <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Não existem fluxos de trabalho ativos. Que tal <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que gostaria de criar."
@@ -1608,8 +1569,8 @@ msgstr "Mostrar tarefas desativadas"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foi criada nenhuma tarefa. Que tal <a href=\"%(add_url)s"
-"\">adicionar uma</a>?"
+"Ainda não foi criada nenhuma tarefa. Que tal <a "
+"href=\"%(add_url)s\">adicionar uma</a>?"
 
 #, python-format
 msgid ""
@@ -1673,9 +1634,6 @@ msgstr "Comentários"
 msgid "Toggle preview"
 msgstr "Mudar visualização"
 
-msgid "Select page"
-msgstr "Selecionar página"
-
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1702,9 +1660,6 @@ msgstr "Nome e Email"
 
 msgid "Profile picture"
 msgstr "Foto de perfil"
-
-msgid "Locale"
-msgstr "Região"
 
 msgid "Password"
 msgstr "Senha"
@@ -1773,6 +1728,10 @@ msgstr "Apagar '%(title)s'"
 msgid "Editing"
 msgstr "A alterar"
 
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' apagado."
+
 msgid "Inspecting"
 msgstr "A inspecionar"
 
@@ -1781,9 +1740,6 @@ msgstr "Mais antigos"
 
 msgid "Latest"
 msgstr "Mais recentes"
-
-msgid "Usage of"
-msgstr "Utilização de"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1945,8 +1901,9 @@ msgstr "Esta página não pôde ser criada devido a erros de validação"
 msgid "Page '%(page_title)s' deleted."
 msgstr "Página '%(page_title)s' apagada."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Esta página aguarda moderação"
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "A alterar %(page_type)s"
 
 #, python-format
 msgid ""
@@ -2012,27 +1969,18 @@ msgstr "Esconder ações de comentário"
 msgid "Page history"
 msgstr "Histórico de página"
 
+msgid "Owner"
+msgstr "Dono"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Yes"
+msgstr "Sim"
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "A página '%(page_title)s' foi destrancada."
-
-#, python-format
-msgid "The page '%(page_title)s' is not currently awaiting moderation."
-msgstr "A página '%(page_title)s' não está a aguardar moderação."
-
-#, python-format
-msgid "Page '%(page_title)s' published."
-msgstr "Página '%(page_title)s' publicada."
-
-msgid "Failed to send approval notifications"
-msgstr "Não foi possível enviar as notificações de aprovação"
-
-#, python-format
-msgid "Page '%(page_title)s' rejected for publication."
-msgstr "Página '%(page_title)s' rejeitada para publicação."
-
-msgid "Failed to send rejection notifications"
-msgstr "Não foi possível enviar as notificações de rejeição"
 
 #, python-format
 msgid ""
@@ -2060,6 +2008,10 @@ msgstr "Página '%(page_title)s' despublicada."
 
 msgid "Pages using"
 msgstr "Páginas que usam"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "A página '%(page_title)s' não está a aguardar moderação."
 
 #, python-format
 msgid ""
@@ -2175,9 +2127,6 @@ msgstr "Tarefa '%(object)s' desativada."
 msgid "Task '%(task_name)s' enabled."
 msgstr "Tarefa '%(task_name)s' ativada."
 
-msgid "Pages"
-msgstr "Páginas"
-
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Visualizar a versão de rascunho de '%(title)s'"
@@ -2249,9 +2198,6 @@ msgstr "Código"
 
 msgid "Reports"
 msgstr "Relatórios"
-
-msgid "Yes"
-msgstr "Sim"
 
 msgid "Choose an item"
 msgstr "Escolher um item"

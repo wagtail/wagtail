@@ -393,6 +393,15 @@ class DownloadColumn(Column):
         return context
 
 
+class RelatedObjectsColumn(Column):
+    """Outputs a list of objects related to the object through a one-to-many relationship"""
+
+    cell_template_name = "wagtailadmin/tables/related_objects_cell.html"
+
+    def get_value(self, instance):
+        return getattr(instance, self.accessor).all()
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = "listing"
@@ -413,8 +422,10 @@ class Table(Component):
         ordering=None,
         classname=None,
         attrs=None,
+        caption=None,
     ):
         self.columns = OrderedDict([(column.name, column) for column in columns])
+        self.caption = caption
         self.data = data
         if template_name:
             self.template_name = template_name
@@ -423,6 +434,9 @@ class Table(Component):
         if classname is not None:
             self.classname = classname
         self.base_attrs = attrs or {}
+
+    def get_caption(self):
+        return self.caption
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)

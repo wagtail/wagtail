@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -217,30 +217,8 @@ msgstr "Fișierul nu a fost găsit"
 msgid "Usage"
 msgstr "Utilizare"
 
-msgid "Documents"
-msgstr "Documente"
-
 msgid "Select all documents in listing"
 msgstr "Selectează toate documentele din listă"
-
-msgid "Title"
-msgstr "Titlu"
-
-msgid "File"
-msgstr "Fișier"
-
-msgid "Created"
-msgstr "Creat la"
-
-msgid "Select document"
-msgstr "Selecteaă document"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Există %(counter)s potrivire"
-msgstr[1] "Sunt %(counter)s potriviri"
-msgstr[2] "Sunt %(counter)s potriviri"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -250,36 +228,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document în această colecție. De ce să nu <a href="
-"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+"Nu ați încărcat nici un document în această colecție. De ce să nu <a "
+"href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document. De ce să nu <a href="
-"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> document <span class=\"w-sr-only\">creat în "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> documente <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> documente <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
+"Nu ați încărcat nici un document. De ce să nu <a "
+"href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
@@ -364,6 +325,12 @@ msgstr[0] "%(num_parent_objects)d document a fost șters"
 msgstr[1] "%(num_parent_objects)d documente au fost șterse"
 msgstr[2] "%(num_parent_objects)d documente au fost șterse"
 
+msgid "File"
+msgstr "Fișier"
+
+msgid "Created"
+msgstr "Creat la"
+
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -373,8 +340,11 @@ msgstr "Alege alt document"
 msgid "Edit this document"
 msgstr "Editează acest document"
 
-msgid "Search documents"
-msgstr "Caută documente"
+msgid "Documents"
+msgstr "Documente"
+
+msgid "Title"
+msgstr "Titlu"
 
 #, python-format
 msgid "Document '%(document_title)s' added."

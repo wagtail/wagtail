@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jan Feřtek, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -254,9 +254,6 @@ msgstr "Soubor nenalezen"
 msgid "Usage"
 msgstr "Použití"
 
-msgid "Images"
-msgstr "Obrázky"
-
 msgid "Sort by"
 msgstr "Řadit podle"
 
@@ -266,9 +263,6 @@ msgstr "Počet položek na stránce"
 msgid "Popular Tags:"
 msgstr "Oblíbené štítky"
 
-msgid "pixels"
-msgstr "pixely"
-
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -276,35 +270,25 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
-"\"%(wagtailimages_add_image_url)s\">zde</a>."
+"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
+"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
-"\"%(wagtailimages_add_image_url)s\">zde</a>."
-
-msgid "Generating URL"
-msgstr "Generuji URL"
-
-msgid "URL"
-msgstr "URL"
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
+"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 msgid "Preview"
 msgstr "Náhled"
 
-msgid ""
-"Note that images generated larger than the screen will appear smaller when "
-"previewed here, so they fit the screen."
-msgstr ""
-"Mějte na paměti, že obrázky větší než velikost obrazovky budou v náhledu "
-"zmenšeny tak, aby se na obrazovku vešly."
+msgid "URL"
+msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
@@ -384,8 +368,8 @@ msgstr "Velikost souboru (vzestupně)"
 msgid "File size: (high to low)"
 msgstr "Velikost souboru (sestupně)"
 
-msgid "Search images"
-msgstr "Hledat obrázky"
+msgid "Images"
+msgstr "Obrázky"
 
 #, python-format
 msgid "Image '%(image_title)s' updated."

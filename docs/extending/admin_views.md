@@ -102,7 +102,7 @@ Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` ap
 {% endblock %}
 ```
 
-Here we are overriding three of the blocks defined in the base template: `titletag` (which sets the content of the HTML `<title>` tag), `extra_css` (which allows us to provide additional CSS styles specific to this page), and `content` (for the main content area of the page). We're also including the standard header bar component, and setting a title and icon. For a list of the recognised icon identifiers, see the [style guide](styleguide).
+Here we are overriding three of the blocks defined in the base template: `titletag` (which sets the content of the HTML `<title>` tag), `extra_css` (which allows us to provide additional CSS styles specific to this page), and `content` (for the main content area of the page). We're also including the standard header bar component, and setting a title and icon. For a list of the recognized icon identifiers, see the [style guide](styleguide).
 
 Revisiting `/admin/calendar/` will now show the calendar within the Wagtail admin page furniture.
 
@@ -192,7 +192,7 @@ The calendar will now be visible at the URL `/admin/calendar/month/`.
 
 ![A single calender month](../_static/images/adminviews_calendarmonth.png)
 
-Finally we can alter our `wagtail_hooks.py` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, `Menu` and `SubmenuMenuItem`.
+Finally, we can alter our `wagtail_hooks.py` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, `Menu` and `SubmenuMenuItem`.
 
 ```{code-block} python
 :emphasize-lines: 3,20-25
@@ -254,7 +254,7 @@ class CalendarViewSet(ViewSet):
             # This can be accessed at `/admin/calendar/`
             # and reverse-resolved with the name `calendar:index`.
             # This first URL will be used for the menu item, but it can be
-            # customised by overriding the `menu_url` property.
+            # customized by overriding the `menu_url` property.
             path('', index, name='index'),
 
             # This can be accessed at `/admin/calendar/month/`
@@ -275,11 +275,7 @@ def register_viewset():
 
 Compared to the previous example with the two separate hooks, this will result in a single menu item "Calendar" that takes you to the `/admin/calendar/` URL. The second URL will not have its own menu item, but it will still be accessible at `/admin/calendar/month/`. This is useful for grouping related views together, that may not necessarily need their own menu items.
 
-For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSet` documentation.
-
-```{versionadded} 5.2
-Support for registering a menu item in the base `ViewSet` class was added.
-```
+For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSet` documentation.
 
 (using_base_viewsetgroup)=
 
@@ -311,8 +307,4 @@ def register_viewset():
 
 This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
 
-For further customisations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
-
-```{versionadded} 5.2
-The `ViewSetGroup` class was added.
-```
+For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.

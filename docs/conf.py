@@ -139,6 +139,12 @@ intersphinx_mapping = {
     )
 }
 
+myst_url_schemes = {
+    "https": None,
+    "http": None,
+    "mailto": None,
+}
+
 # -- Options for HTML output ----------------------------------------------
 
 # Theme options are theme-specific and customise the look and feel of a theme

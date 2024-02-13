@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 23:14+0100\n"
+"POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -208,29 +208,8 @@ msgstr "Fájl nem található"
 msgid "Usage"
 msgstr "Használat"
 
-msgid "Documents"
-msgstr "Dokumentumok"
-
 msgid "Select all documents in listing"
 msgstr "Összes dokumentum kiválasztása a listában"
-
-msgid "Title"
-msgstr "Cím"
-
-msgid "File"
-msgstr "Fájl"
-
-msgid "Created"
-msgstr "Létrehozva"
-
-msgid "Select document"
-msgstr "Dokumentum kíválasztása"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -238,33 +217,19 @@ msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Még nem töltött fel dokumentumot ebbe a gyűjteménybe. Miért nem <a href="
-"\"%(wagtaildocs_add_document_url)s\">tölt fel egyet most</a>?"
+"Még nem töltött fel dokumentumot ebbe a gyűjteménybe. Miért nem <a "
+"href=\"%(wagtaildocs_add_document_url)s\">tölt fel egyet most</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Még nem töltött fel dokumentumot. Nem szeretne <a href="
-"\"%(wagtaildocs_add_document_url)s\">feltölteni egyet</a>?"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> dokumentum <span class=\"w-sr-only\">létrehozva "
-"itt: %(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> dokumentum <span class=\"w-sr-only\">létrehozva "
-"itt: %(site_name)s</span>"
+"Még nem töltött fel dokumentumot. Nem szeretne <a "
+"href=\"%(wagtaildocs_add_document_url)s\">feltölteni egyet</a>?"
 
 msgid "Add multiple documents"
 msgstr "Több dokumentum hozzáadása"
@@ -347,6 +312,12 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokumentum törölve"
 msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 
+msgid "File"
+msgstr "Fájl"
+
+msgid "Created"
+msgstr "Létrehozva"
+
 msgid "Choose a document"
 msgstr "dokumentum kiválasztása"
 
@@ -356,8 +327,11 @@ msgstr "Válasszon másik dokumentumot"
 msgid "Edit this document"
 msgstr "Dokumentum szerkesztése"
 
-msgid "Search documents"
-msgstr "Keresés a dokumentumokban"
+msgid "Documents"
+msgstr "Dokumentumok"
+
+msgid "Title"
+msgstr "Cím"
 
 #, python-format
 msgid "Document '%(document_title)s' added."
