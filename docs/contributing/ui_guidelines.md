@@ -22,7 +22,7 @@ We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](h
 
 -   Write [valid](https://validator.w3.org/nu/), [semantic](https://html5doctor.com/element-index/) HTML.
 -   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular, [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
--   Use IDs for semantics only, classes for styling, `data-` attributes for JavaScript behaviour.
+-   Use IDs for semantics only, classes for styling, `data-` attributes for JavaScript behavior.
 -   Order attributes with `id` first, then `class`, then any `data-` or other attributes with Stimulus `data-controller` first.
 -   For comments, use [Django template syntax](https://docs.djangoproject.com/en/stable/ref/templates/language/#comments) instead of HTML.
 
@@ -33,7 +33,7 @@ We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://s
 -   We follow [BEM](https://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large amount of utilities created with [Tailwind](https://tailwindcss.com/).
 -   Familiarise yourself with our [stylelint-config-wagtail](https://github.com/wagtail/stylelint-config-wagtail) configuration, which details our preferred code style.
 -   Use `rems` for `font-size`, because they offer absolute control over text. Additionally, unit-less `line-height` is preferred because it does not inherit a percentage value of its parent element, but instead is based on a multiplier of the `font-size`.
--   Always use variables for design tokens such as colours or font sizes, rather than hard-coding specific values.
+-   Always use variables for design tokens such as colors or font sizes, rather than hard-coding specific values.
 -   We use the `w-` prefix for all styles intended to be reusable by Wagtail site implementers.
 
 ### Stylesheets
@@ -100,7 +100,7 @@ We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://esli
 
 ## Stimulus
 
-Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a lightweight framework to attach interactive behaviour to DOM elements via `data-` attributes.
+Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a lightweight framework to attach interactive behavior to DOM elements via `data-` attributes.
 
 ### Why Stimulus
 
@@ -122,17 +122,17 @@ First think of how to name the controller. Keep it concise, one or two words ide
 
 1. Start with the HTML templates, build as much of the UI as you can in HTML alone. Ensure it is accessible and follows the CSS guidelines.
 2. Create the controller file in our `client/src/controllers` folder, along with its tests (see [](testing)) and Storybook stories.
-3. For initialisation, consider which [controller lifecycle methods](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#methods) to use, if any (`connect`, `initialize`).
+3. For initialization, consider which [controller lifecycle methods](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#methods) to use, if any (`connect`, `initialize`).
 4. If relevant, also consider how to handle the controlled element being removed from the DOM [`disconnect` lifecycle method](https://stimulus.hotwired.dev/reference/lifecycle-callbacks#disconnection).
 5. Document controller classes and methods with [JSDoc annotations](https://jsdoc.app/index.html).
 6. Use [values](https://stimulus.hotwired.dev/reference/values) to provide options and also reactive state, avoiding instance properties if possible. Prefer falsey or empty defaults and avoid too much usage of the Object type when using values.
-7. Build the behaviour around small, discrete, methods and use [Stimulus actions](https://stimulus.hotwired.dev/reference/actions) declared in HTML to drive when they are called.
+7. Build the behavior around small, discrete, methods and use [Stimulus actions](https://stimulus.hotwired.dev/reference/actions) declared in HTML to drive when they are called.
 
 ### Helpful tips
 
 -   Prefer controllers that do a small amount of 'work' that is collected together, instead of lots of large or specific controllers.
--   Lean towards dispatching events for key behaviour in the UI interaction as this provides a great way for custom code to hook into this without an explicit API, but be sure to document these.
--   Multiple controllers can be attached to one DOM element for composing behaviour, where practical split out behaviour to separate controllers.
+-   Lean towards dispatching events for key behavior in the UI interaction as this provides a great way for custom code to hook into this without an explicit API, but be sure to document these.
+-   Multiple controllers can be attached to one DOM element for composing behavior, where practical split out behavior to separate controllers.
 -   Consider when to document controller usage for non-contributors.
 -   When writing unit tests, note that DOM updates triggered by data attribute changes are completed async (next `microtick`) so will require a await Promise or similar to check for the changes in JSDom.
 -   Avoid hard-coding a controller's identifier, instead reference it with `this.identifier` if adjusting attributes. This way the controller can be used easily with a changed identifier or extended by other classes in the future.
