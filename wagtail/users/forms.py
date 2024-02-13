@@ -297,7 +297,9 @@ class PagePermissionsForm(forms.Form):
             content_type__app_label="wagtailcore",
             content_type__model="page",
             codename__in=PAGE_PERMISSION_CODENAMES,
-        ).order_by("codename"),
+        )
+        .select_related("content_type")
+        .order_by("codename"),
         # Use codename as the field to use for the option values rather than pk,
         # to minimise the changes needed since we moved to the Permission model
         # and to ease testing.
