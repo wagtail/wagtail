@@ -45,8 +45,8 @@ export class SwapController extends Controller<
   static values = {
     icon: { default: '', type: String },
     loading: { default: false, type: Boolean },
-    src: { default: '', type: String },
     reflect: { default: false, type: Boolean },
+    src: { default: '', type: String },
     target: { default: '#listing-results', type: String },
     wait: { default: 200, type: Number },
   };
@@ -58,8 +58,8 @@ export class SwapController extends Controller<
 
   declare iconValue: string;
   declare loadingValue: boolean;
-  declare srcValue: string;
   declare reflectValue: boolean;
+  declare srcValue: string;
   declare targetValue: string;
   declare waitValue: number;
 
