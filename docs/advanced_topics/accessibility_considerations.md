@@ -211,7 +211,7 @@ def replace_userbar_accessibility_item(request, items):
 
 ### wagtail-accessibility
 
-[wagtail-accessibility](https://github.com/neon-jungle/wagtail-accessibility) is a third-party package which adds [tota11y](https://khan.github.io/tota11y/) to Wagtail previews.
+[wagtail-accessibility](https://github.com/neon-jungle/wagtail-accessibility) is a third-party package which adds [tota11y](https://blog.khanacademy.org/tota11y-an-accessibility-visualization-toolkit/) to Wagtail previews.
 This makes it easy for authors to run basic accessibility checks – validating the page’s heading outline, or link text.
 
 ### help_text and HelpPanel
@@ -220,7 +220,7 @@ Occasional Wagtail users may not be aware of your site’s content guidelines, o
 
 ### Readability
 
-Readability is fundamental to accessibility. One of the ways to improve text content is to have a clear target for reading level / reading age, which can be assessed with [wagtail-readinglevel](https://github.com/vixdigital/wagtail-readinglevel) as a score displayed in rich text fields.
+Readability is fundamental to accessibility. One of the ways to improve text content is to have a clear target for reading level / reading age, which can be assessed with [wagtail-readinglevel](https://github.com/torchbox-forks/wagtail-readinglevel) as a score displayed in rich text fields.
 
 (accessibility_resources)=
 

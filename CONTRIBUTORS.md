@@ -800,6 +800,7 @@
 * arshyia3000
 * Adrien Hamraoui
 * Maikel Martens
+* EK303
 
 ## Translators
 
