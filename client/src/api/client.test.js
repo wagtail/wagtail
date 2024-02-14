@@ -3,7 +3,7 @@ import client from './client';
 describe('client API', () => {
   it('should succeed fetching', (done) => {
     const response = '{"meta":{"total_count":1},"items":[]}';
-    fetch.mockResponseSuccess(response);
+    fetch.mockResponseSuccessJSON(response);
 
     client.get('/example/url').then((result) => {
       expect(result).toMatchSnapshot();
