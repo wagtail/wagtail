@@ -10,6 +10,7 @@ Changelog
  * Support creating images in .ico format (Jake Howard)
  * Add the ability to disable the usage of a shared password for enhanced security for the private pages and collections (documents) feature (Salvo Polizzi, Jake Howard)
  * Add system checks to ensure that `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT` are correctly configured (Rohit Sharma, Coen van der Kamp)
+ * Allow custom permissions with the same prefix as built-in permissions (Sage Abdullah)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)

@@ -135,7 +135,12 @@ def format_permissions(permission_bound_field):
             # identify the main categories of permission, and assign to
             # the relevant dict key, else bung in the 'custom_perms' list
             permission_action = perm.codename.split("_")[0]
-            if permission_action in main_permission_names:
+            is_known = (
+                permission_action in main_permission_names
+                and perm.codename == f"{permission_action}_{perm.content_type.model}"
+            )
+
+            if is_known:
                 if permission_action in extra_perms_exist:
                     extra_perms_exist[permission_action] = True
                 content_perms_dict[permission_action] = {
