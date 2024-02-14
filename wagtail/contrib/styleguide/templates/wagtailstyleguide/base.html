@@ -469,8 +469,8 @@
 
         <p>Tabs can also indicate errors:</p>
 
-        <div class="w-tabs">
-            <div class="w-tabs__list" role="tablist">
+        <div class="w-tabs" data-tabs>
+            <div role="tablist" class="w-tabs__list">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' errors_count='5' %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
             </div>
