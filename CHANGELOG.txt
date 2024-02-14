@@ -13,6 +13,7 @@ Changelog
  * Fix: Ensure JavaScript for common widgets such as `InlinePanel` is included by default in `ModelViewSet`'s create and edit views (Sage Abdullah)
  * Fix: Reinstate styles for customizations of `extra_footer_actions` block in page create/edit templates (LB (Ben) Johnston, Sage Abdullah)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
+ * Docs: Update broken and incorrect links throughout the documentation (EK303)
 
 
 6.0.1 (15.02.2024)
