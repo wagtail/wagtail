@@ -1,5 +1,13 @@
 import { Controller } from '@hotwired/stimulus';
 
+/**
+ * Adds the ability for the controlled element to reflect the URL's query parameters
+ * from an event or the current URL into the window.location so that dynamic updates
+ * to listings can be available on refreshing or other internal links.
+ *
+ * @example - Reflecting the URL's query parameters
+ * <a href="/?q=1" data-controller="w-link" data-w-link-reflect-keys-value="['q']"></a>
+ */
 export class LinkController extends Controller<HTMLElement> {
   static values = {
     attrName: { default: 'href', type: String },
@@ -7,8 +15,11 @@ export class LinkController extends Controller<HTMLElement> {
     reflectKeys: { default: ['__all__'], type: Array },
   };
 
+  /** Attribute on the controlled element containing the URL string. */
   declare attrNameValue: string;
+  /** URL param keys that will be kept in the current location's URL. */
   declare preserveKeysValue: string[];
+  /** URL param keys to be added to the location URL from the source URL. */
   declare reflectKeysValue: string[];
 
   get url() {
@@ -59,14 +70,16 @@ export class LinkController extends Controller<HTMLElement> {
     this.element.setAttribute(this.attrNameValue, currentUrl.toString());
   }
 
-  setParams(e?: CustomEvent<{ requestUrl?: string }>) {
-    if (!e) {
+  setParams(event?: CustomEvent<{ requestUrl?: string }>) {
+    if (!event) {
       this.setParamsFromURL(new URL(window.location.href));
       return;
     }
 
-    if (!e.detail?.requestUrl) return;
+    if (!event.detail?.requestUrl) return;
 
-    this.setParamsFromURL(new URL(e.detail.requestUrl, window.location.href));
+    this.setParamsFromURL(
+      new URL(event.detail.requestUrl, window.location.href),
+    );
   }
 }
