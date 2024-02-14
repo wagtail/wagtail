@@ -183,13 +183,7 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -390,12 +384,7 @@ describe('SwapController', () => {
       const onErrorEvent = jest.fn();
       document.addEventListener('w-swap:error', onErrorEvent);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: false,
-          status: 500,
-        }),
-      );
+      fetch.mockResponseFailure();
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -478,13 +467,7 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -543,13 +526,7 @@ describe('SwapController', () => {
 
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -609,13 +586,7 @@ describe('SwapController', () => {
       beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
     });
 
     it('should allow for actions to call the replace method directly, defaulting to the form action url', async () => {
@@ -994,13 +965,7 @@ describe('SwapController', () => {
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -1066,13 +1031,7 @@ describe('SwapController', () => {
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -1148,13 +1107,7 @@ describe('SwapController', () => {
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -1226,13 +1179,7 @@ describe('SwapController', () => {
 
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
