@@ -1921,15 +1921,6 @@ class TableBlockStreamPage(Page):
     content_panels = [FieldPanel("table")]
 
 
-class ModelWithVerboseName(ClusterableModel):
-    class Meta:
-        verbose_name = "Custom verbose name"
-        verbose_name_plural = "Custom verbose names"
-
-
-register_snippet(ModelWithVerboseName)
-
-
 class UserProfile(models.Model):
     # Wagtail's schema must be able to coexist alongside a custom UserProfile model
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
