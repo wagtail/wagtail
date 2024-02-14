@@ -66,7 +66,7 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 
 ### 3. Before contributing code
 
-Firstly, it is important to be able to understand how to **build with** Wagtail before you can understand how to contribute **to** Wagtail. Take the time to do the full [Wagtail getting started tutorial](../getting_started/index) without focusing yet on how to contribute code but instead how to use Wagtail to build your own basic demo website. This will require you to have Python and other dependencies installed on your machine and may not be easy the first time, but keep at it and ask questions if you get stuck.
+Firstly, it is important to be able to understand how to **build with** Wagtail before you can understand how to contribute **to** Wagtail. Take the time to do the full [Wagtail getting started tutorial](../getting_started/index) without focusing yet on how to contribute code but instead on how to use Wagtail to build your own basic demo website. This will require you to have Python and other dependencies installed on your machine and may not be easy the first time, but keep at it and ask questions if you get stuck.
 
 Remember that there are many other ways to contribute, such as answering questions in StackOverflow or `#support`, contributing to one of the [other packages](https://github.com/wagtail/) or even the [Wagtail user guide](https://guide.wagtail.org/en-latest/contributing/). Sometimes, it's best to get started with a non-code contribution to get a feel for Wagtail's code or the CMS interface.
 
@@ -80,7 +80,7 @@ Take the time to **read** the issue and links before adding new comments or ques
 
 ```
 - [ ] Do the Wagtail tutorial
-- [ ] Look at the Wagtail organisation on GitHub, take note of any interesting projects
+- [ ] Look at the Wagtail organization on GitHub, take note of any interesting projects
 - [ ] Read through the Issue Tracking section in the docs
 - [ ] Give a go at a non-code contribution
 ```
@@ -268,7 +268,7 @@ You can add a comment if you want to the pull request that you have updated, but
 
 ### 8. Next steps
 
-When you take time to contribute out of your own personal time, or even that from your paid employer, it can be very frustrating when a pull request does not get reviewed. It is best to temper your expectations with this process and remember that many people on the other side of this are also volunteers or have limited time to prioritise.
+When you take time to contribute out of your own personal time, or even that from your paid employer, it can be very frustrating when a pull request does not get reviewed. It is best to temper your expectations with this process and remember that many people on the other side of this are also volunteers or have limited time to prioritize.
 
 It is best to celebrate your accomplishment at this point even if your pull request never gets merged. It's good to balance that with an eagerness about getting your amazing fix in place to help people who use the project. Balancing this tension is hard, but the unhelpful thing to do is give up and never contribute or decide that you won’t respond to feedback because it came too late.
 
@@ -321,7 +321,7 @@ Unless you are updating the documentation or only making visual style changes, y
 
 If you are new to writing tests in Django, start by reading the [Django documentation on testing](inv:django#topics/testing/overview). Re-read the [Wagtail documentation notes on testing](testing) and have a look at [existing tests](https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Awagtail%2Fwagtail+path%3A**%2Ftests%2F**).
 
-Note that the JavaScript testing is not as robust as the Python testing, if possible at least attempt to add some basic JS tests to new behaviour.
+Note that the JavaScript testing is not as robust as the Python testing, if possible at least attempt to add some basic JS tests to new behavior.
 
 ### Where can I get help with my pull request (PR)?
 
@@ -344,7 +344,7 @@ Here are some links for using Gitpod with the Wagtail packages:
 
 ### How can I be assigned an issue to contribute to
 
-We only use GitHub's issue assignment feature to members of the Wagtail core team for when tasks are being planned as part of core roadmap features or when being used for a specific internship program. If an issue is not assigned to anyone, feel free to work on it, there is no need to ask to be assigned the issue.
+We only use GitHub's issue assignment feature for members of the Wagtail core team when tasks are being planned as part of core roadmap features or when being used for a specific internship program. If an issue is not assigned to anyone, feel free to work on it, there is no need to ask to be assigned the issue.
 
 Instead, review the issue, understand it and if you feel you can contribute you can just raise a Pull Request, or add a comment that you are taking a look at this. There are no strict claiming or reserving rules in place, anyone is free to work on any issue, but try to avoid double effort if someone has already got a Pull Request underway.
 

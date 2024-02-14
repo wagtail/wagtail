@@ -16,7 +16,7 @@ urlpatterns = [
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),
     path("multiple/<int:doc_id>/", multiple.EditView.as_view(), name="edit_multiple"),
     path(
-        "multiple/create_from_uploaded_document/<int:uploaded_document_id>/",
+        "multiple/create_from_uploaded_document/<int:uploaded_file_id>/",
         multiple.CreateFromUploadedDocumentView.as_view(),
         name="create_multiple_from_uploaded_document",
     ),
@@ -26,7 +26,7 @@ urlpatterns = [
         name="delete_multiple",
     ),
     path(
-        "multiple/delete_upload/<int:uploaded_document_id>/",
+        "multiple/delete_upload/<int:uploaded_file_id>/",
         multiple.DeleteUploadView.as_view(),
         name="delete_upload_multiple",
     ),
