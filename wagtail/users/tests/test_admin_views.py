@@ -1533,6 +1533,13 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             | Q(codename__startswith="publish")
         ).delete()
 
+        # A custom permission that happens to also start with "change"
+        Permission.objects.filter(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        ).delete()
+
         response = self.get()
 
         self.assertInHTML("Custom permissions", response.content.decode(), count=0)
@@ -1590,6 +1597,45 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertNotContains(response, "Can bulk update ADVANCED permission model")
         self.assertNotContains(response, "Cause chaos for advanced permission model")
         self.assertNotContains(response, "Manage custom permission model")
+
+    def test_permission_with_same_action(self):
+        """
+        https://github.com/wagtail/wagtail/issues/11650
+        Ensure that permissions with the same action (part before the first _ in
+        the codename) are not hidden.
+        """
+        response = self.get()
+        soup = self.get_soup(response.content)
+        main_change_permission = Permission.objects.get(
+            codename="change_custompermissionmodel",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        )
+        custom_change_permission = Permission.objects.get(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        )
+
+        # Main change permission is in the dedicated column, so it's directly
+        # inside a <td>, not inside a <fieldset>"
+        self.assertIsNotNone(
+            soup.select_one(f'td > input[value="{main_change_permission.pk}"]')
+        )
+        self.assertIsNone(
+            soup.select_one(f'td > fieldset input[value="{main_change_permission.pk}"]')
+        )
+
+        # Custom "change_text" permission is in the custom permissions column,
+        # so it's inside a <fieldset> and not directly inside a <td>
+        self.assertIsNone(
+            soup.select_one(f'td > input[value="{custom_change_permission.pk}"]')
+        )
+        self.assertIsNotNone(
+            soup.select_one(
+                f'td > fieldset input[value="{custom_change_permission.pk}"]'
+            )
+        )
 
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
