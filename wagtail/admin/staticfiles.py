@@ -1,4 +1,5 @@
 import hashlib
+import os
 
 from django.conf import STATICFILES_STORAGE_ALIAS, settings
 from django.contrib.staticfiles.storage import HashedFilesMixin
@@ -35,20 +36,31 @@ else:
     VERSION_HASH = None
 
 
-def versioned_static(path):
-    """
-    Wrapper for Django's static file finder to append a cache-busting query parameter
-    that updates on each Wagtail version
-    """
-    # An absolute path is returned unchanged (either a full URL, or processed already)
-    if path.startswith(("http://", "https://", "/")):
-        return path
+if os.environ.get("WAGTAIL_FAIL_ON_VERSIONED_STATIC", "0") == "1":
 
-    base_url = static(path)
+    def versioned_static(path):
+        raise Exception(
+            "`versioned_static` was called during application startup. This is not valid "
+            "as it will cause failures if collectstatic has not yet completed (e.g. during "
+            "the collectstatic command itself). Ensure that any media definitions declared "
+            "via `class Media` are converted to a `media` property."
+        )
+else:
 
-    # if URL already contains a querystring, don't add our own, to avoid interfering
-    # with existing mechanisms
-    if VERSION_HASH is None or "?" in base_url:
-        return base_url
-    else:
-        return base_url + "?v=" + VERSION_HASH
+    def versioned_static(path):
+        """
+        Wrapper for Django's static file finder to append a cache-busting query parameter
+        that updates on each Wagtail version
+        """
+        # An absolute path is returned unchanged (either a full URL, or processed already)
+        if path.startswith(("http://", "https://", "/")):
+            return path
+
+        base_url = static(path)
+
+        # if URL already contains a querystring, don't add our own, to avoid interfering
+        # with existing mechanisms
+        if VERSION_HASH is None or "?" in base_url:
+            return base_url
+        else:
+            return base_url + "?v=" + VERSION_HASH
