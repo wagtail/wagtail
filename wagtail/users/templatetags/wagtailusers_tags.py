@@ -1,13 +1,53 @@
 import itertools
-import re
 from collections import defaultdict
 
 from django import template
+from django.contrib.auth import get_permission_codename
+from django.contrib.auth.models import Permission
+from django.utils.text import camel_case_to_spaces
 
 from wagtail import hooks
 from wagtail.users.permission_order import CONTENT_TYPE_ORDER
 
 register = template.Library()
+
+
+def normalize_permission_label(permission: Permission):
+    """
+    Strip model name from the end of the label, e.g. "Can deliver pizza" for a
+    Pizza model becomes "Can deliver". For permissions in the model's
+    Meta.default_permissions with default labels, also replace underscores
+    with spaces.
+
+    This is used to display custom model permissions in the admin.
+
+    See https://github.com/wagtail/wagtail/issues/10982.
+    """
+    label = permission.name
+    content_type = permission.content_type
+    model = content_type.model_class()
+    verbose_name = default_verbose_name = content_type.name
+
+    if model:
+        default_verbose_name = camel_case_to_spaces(model._meta.object_name)
+
+        # If it's in default_permissions and the label matches Django's default
+        # label, remove the model name from the end of the label and replace
+        # underscores with spaces.
+        for action in model._meta.default_permissions:
+            default_codename = get_permission_codename(action, model._meta)
+            is_default = permission.codename == default_codename
+            if is_default and permission.name.startswith(f"Can {action}"):
+                return f"Can {action.replace('_', ' ')}"
+
+    # For all other cases (including custom permissions), try to remove the
+    # verbose name from the end of the label. This only works if the label
+    # matches the current verbose name or Django's default verbose name.
+    for name in (default_verbose_name, verbose_name):
+        if label.lower().endswith(name.lower()):
+            return label[: -len(name)].strip()
+
+    return label
 
 
 @register.inclusion_tag("wagtailusers/groups/includes/formatted_permissions.html")
@@ -103,12 +143,12 @@ def format_permissions(permission_bound_field):
                 }
             else:
                 extra_perms_exist["custom"] = True
+                perm_name = normalize_permission_label(perm)
+
                 custom_perms.append(
                     {
                         "perm": perm,
-                        "name": re.sub(
-                            f"{perm.content_type.name}$", "", perm.name, flags=re.I
-                        ).strip(),
+                        "name": perm_name,
                         "selected": checkbox.data["selected"],
                     }
                 )

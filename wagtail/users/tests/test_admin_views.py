@@ -1573,6 +1573,21 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
 
+    def test_strip_model_name_from_custom_permissions(self):
+        """
+        https://github.com/wagtail/wagtail/issues/10982
+        Ensure model name or verbose name is stripped from permissions' labels
+        for consistency with built-in permissions.
+        """
+        response = self.get()
+
+        self.assertContains(response, "Can start trouble")
+        self.assertContains(response, "Cause chaos for")
+        self.assertContains(response, "Change text")
+        self.assertContains(response, "Manage")
+        self.assertNotContains(response, "Cause chaos for advanced permission model")
+        self.assertNotContains(response, "Manage custom permission model")
+
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
@@ -2041,7 +2056,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     perm.content_type.model,
                 )
                 for perm_set in object_perms
-                for perm in [next(v for v in flatten(perm_set) if "perm" in v)["perm"]]
+                for perm in [
+                    next(
+                        v
+                        for v in flatten(perm_set)
+                        if isinstance(v, dict) and "perm" in v
+                    )["perm"]
+                ]
             ]
 
         # Set order on two objects, should appear first and second

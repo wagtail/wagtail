@@ -2256,3 +2256,24 @@ class CustomPermissionTester(PagePermissionTester):
 class CustomPermissionPage(Page):
     def permissions_for_user(self, user):
         return CustomPermissionTester(user, self)
+
+
+class CustomPermissionModel(models.Model):
+    text = models.TextField(default="Tailwag")
+
+    class Meta:
+        verbose_name = "ADVANCED permission model"
+        verbose_name_plural = "ADVANCED permission models"
+        permissions = [
+            # Starts with can_ and "Can "
+            ("can_start_trouble", "Can start trouble"),
+            # Doesn't start with can_ and "Can "
+            ("cause_chaos", "Cause chaos for advanced permission model"),
+            # Starts with an action similar to a built-in permission "change_"
+            ("change_text", "Change text"),
+            # Without any _ and the label ends with the default verbose_name
+            ("control", "Manage custom permission model"),
+        ]
+
+
+register_snippet(CustomPermissionModel)
