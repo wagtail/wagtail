@@ -18,6 +18,7 @@ Changelog
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
+ * Docs: Update broken and incorrect links throughout the documentation (EK303)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
