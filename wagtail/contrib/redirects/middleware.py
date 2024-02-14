@@ -1,4 +1,4 @@
-import glob
+import fnmatch
 import os
 from urllib.parse import urlparse
 
@@ -25,18 +25,20 @@ def _get_redirect(request, path):
             old_path__endswith="*"
         )
 
-        for redirect in wildcard_redirects:
+        for redirect in wildcard_redirects.iterator():
             wildcard_path = redirect.old_path.rstrip("*")
-            wildcard_redirects_prefix = models.Redirect.get_for_site(site).filter(
-                old_path__startswith=wildcard_path
-            )
+            wildcard_redirects_prefix = [
+                r for r in wildcard_redirects if r.old_path.startswith(wildcard_path)
+            ]
             redirect_paths = [r.old_path for r in wildcard_redirects_prefix]
             matched_paths = []
 
             for rp in redirect_paths:
                 rp = os.path.normpath(rp)
-                matched_paths.extend(glob.glob(os.path.join(rp + "*"), recursive=True))
-            matched_paths = [path.replace("\\", "/") for path in matched_paths]
+                matched_paths.extend(fnmatch.filter([rp], "*"))
+            matched_paths = [
+                path.replace("\\", "/").rstrip("*") for path in matched_paths
+            ]
 
             for matched_path in matched_paths:
                 if path.startswith(matched_path):
