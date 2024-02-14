@@ -1,6 +1,42 @@
-/* eslint-disable no-shadow */
 import { Controller } from '@hotwired/stimulus';
 import { debounce } from '../utils/debounce';
+
+/**
+ * Returns a promise that will resolve after either the animation, translation
+ * or the max delay of time is reached.
+ *
+ * If maxDelay is provided as zero or a falsey value, the promise resolve immediately.
+ */
+const afterTransition = (element: HTMLElement, { maxDelay = 300 } = {}) => {
+  /**
+   * Allow the passing of an initial value to the resolved promise.
+   * If nothings is passed, the event will be passed to the promise.
+   */
+  let initValue: any;
+  const promise = new Promise<AnimationEvent | TransitionEvent | undefined>(
+    (resolve) => {
+      if (!maxDelay) {
+        resolve(initValue);
+        return;
+      }
+      let timer: number | undefined;
+      const finish = (event: AnimationEvent | TransitionEvent | undefined) => {
+        if (event && event.target !== element) return;
+        window.clearTimeout(timer);
+        element.removeEventListener('transitionend', finish);
+        element.removeEventListener('animationend', finish);
+        resolve(initValue || event);
+      };
+      element.addEventListener('animationend', finish);
+      element.addEventListener('transitionend', finish);
+      timer = window.setTimeout(finish, maxDelay);
+    },
+  );
+  return (init: any) => {
+    initValue = typeof init === 'function' ? init() : init;
+    return promise;
+  };
+};
 
 interface IndexedEventTarget extends EventTarget {
   index: number;
@@ -11,31 +47,39 @@ interface TabLink extends HTMLAnchorElement {
 }
 
 /**
- * @example - creating a simple tabs interface
- *<div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="" data-w-tabs-selected-class="animate-in">
- *    <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
- *        <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
- *           data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
- *            Tab 1
- *        </a>
- *        <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
- *           data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
- *            Tab 2
- *        </a>
- *    </div>
- *    <div class="tab-content tab-content--comments-enabled">
- *        <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
- *            tab-1
- *        </section>
- *        <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
- *            tab-2
- *        </section>
- *    </div>
- *</div>
+ * Adds the ability for the controlled elements to behave as selectable tabs.
+ *
+ * All tabs and tab content must be nested in an element within the scope of the controller.
+ * All tab buttons need the role="tab" attr and an href with the tab content ID with the target 'label'.
+ * Tab contents need to have the role="tabpanel" attribute and and ID attribute that matches the href of the tab link with the target 'panel'.
+ * Tab buttons should also be wrapped in an element with the role="tablist" attribute.
+ * Use the target 'trigger' on an Anchor link and set the href to the #ID of the tab you would like to trigger.
+ *
+ * @example
+ * ```html
+ *      <div data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+ *         <div role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+ *           <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" data-w-tabs-target="label">
+ *             Tab 1
+ *           </a>
+ *           <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+ *             Tab 2
+ *           </a>
+ *          </div>
+ *          <div class="tab-content tab-content--comments-enabled">
+ *           <section id="tab-tab-1" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+ *             Tab 1 content
+ *           </section>
+ *           <section id="tab-tab-2" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+ *             Tab 2 content
+ *           </section>
+ *          </div>
+ *      </div>
+ * ```
  */
 
 export class TabsController extends Controller<HTMLDivElement> {
-  static targets = ['list', 'trigger', 'label', 'panel'];
+  static targets = ['label', 'panel', 'trigger'];
 
   static classes = ['selected'];
 
@@ -46,17 +90,22 @@ export class TabsController extends Controller<HTMLDivElement> {
     animate: { default: true, type: Boolean },
   };
 
-  declare readonly selectedClasses: string;
-
-  declare listTarget: HTMLDivElement;
-  declare triggerTargets: HTMLAnchorElement[];
-  declare labelTargets: HTMLAnchorElement[];
-  declare panelTargets: HTMLElement[];
-
-  declare syncURLHashValue: boolean;
+  /** ID of the currently selected tab. */
   declare selectedValue: string;
-  declare transitionValue: number;
-  declare animateValue: boolean;
+  /** If true, animation will run when a new tab is selected. */
+  declare readonly animateValue: boolean;
+  /** Tab elements, with role='tab', allowing switching between tabs. */
+  declare readonly labelTargets: HTMLAnchorElement[];
+  /** Tab content panels, with role='tabpanel', showing the content for each tab. */
+  declare readonly panelTargets: HTMLElement[];
+  /** Other elements within the controller's scope that may trigger a specific tab. */
+  declare readonly triggerTargets: HTMLAnchorElement[];
+  /** Classes to set on the tab panel content when selected. */
+  declare readonly selectedClasses: string[];
+  /** If true, the selected tab will sync with the URL hash. */
+  declare readonly syncURLHashValue: boolean;
+  /** The time in milliseconds for the tab content to transition in and out. */
+  declare readonly transitionValue: number;
 
   connect() {
     this.validate();
@@ -74,7 +123,7 @@ export class TabsController extends Controller<HTMLDivElement> {
         button.getAttribute('aria-controls') === this.selectedValue,
     );
 
-    if (this.selectedClasses !== '' && activeTab) {
+    if (this.selectedClasses.length && activeTab) {
       activeTab.setAttribute('aria-selected', 'true');
       activeTab.removeAttribute('tabindex');
     }
@@ -84,8 +133,6 @@ export class TabsController extends Controller<HTMLDivElement> {
       tab.hidden = true;
     });
 
-    // console.log(this.selectedValue ? "hello": "bye!", "selected")
-    // console.log(activeTab)
     if (window.location.hash && !this.syncURLHashValue) {
       this.setTabByURLHash();
     } else if (activeTab) {
@@ -119,7 +166,7 @@ export class TabsController extends Controller<HTMLDivElement> {
 
       this.dispatch('switch', {
         detail: { tab: tab?.getAttribute('href')?.replace('#', '') },
-        target: this.listTarget,
+        target: tab,
       });
 
       this.dispatch('selected', {
@@ -202,20 +249,28 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   animateIn(tabContent: HTMLElement) {
-    debounce(() => {
-      tabContent.classList.add(...this.selectedClasses);
-    }, this.transitionValue || null)().then(() => {
-      // Wait for hidden attribute to be applied then fade in
+    const selectedClasses = this.selectedClasses;
+    afterTransition(
+      tabContent,
+      // If there are no classes to add, we can skip the delay before hiding.
+      selectedClasses.length
+        ? { maxDelay: this.transitionValue }
+        : { maxDelay: 0 },
+    )(tabContent.classList.add(...selectedClasses)).then(() => {
       // eslint-disable-next-line no-param-reassign
       tabContent.hidden = false;
     });
   }
 
   animateOut(tabContent: HTMLElement) {
-    debounce(() => {
-      tabContent.classList.remove(...this.selectedClasses);
-    }, this.transitionValue || null)().then(() => {
-      // Wait element to transition out and then hide with hidden
+    const selectedClasses = this.selectedClasses;
+    afterTransition(
+      tabContent,
+      // If there are no classes to add, we can skip the delay before hiding.
+      selectedClasses.length
+        ? { maxDelay: this.transitionValue }
+        : { maxDelay: 0 },
+    )(tabContent.classList.remove(...selectedClasses)).then(() => {
       // eslint-disable-next-line no-param-reassign
       tabContent.hidden = true;
     });
@@ -289,6 +344,7 @@ export class TabsController extends Controller<HTMLDivElement> {
   validate() {
     this.labelTargets.forEach((label, idx) => {
       const panel = this.panelTargets[idx];
+
       if (label.getAttribute('role') !== 'tab') {
         // eslint-disable-next-line no-console
         console.warn(
@@ -296,6 +352,7 @@ export class TabsController extends Controller<HTMLDivElement> {
           "this element does not have role='tab' aria attribute",
         );
       }
+
       if (panel.getAttribute('role') !== 'tabpanel') {
         // eslint-disable-next-line no-console
         console.warn(
@@ -303,17 +360,25 @@ export class TabsController extends Controller<HTMLDivElement> {
           "this element does not have role='tabpanel' aria attribute",
         );
       }
+
       if (panel.getAttribute('aria-labelledby') !== label.id) {
         // eslint-disable-next-line no-console
         console.warn(panel, 'this element does not have aria-labelledby');
       }
-      if (this.listTarget.getAttribute('role') !== 'tablist') {
-        // eslint-disable-next-line no-console
-        console.warn(
-          this.listTarget,
-          "this element does not have role='tablist' aria attribute",
-        );
-      }
     });
+
+    if (
+      this.labelTargets.every(
+        (target) =>
+          (target.parentElement as HTMLElement).getAttribute('role') !==
+          'tablist',
+      )
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        this.labelTargets,
+        "One or more tab (label) targets are not direct descendants of an element with role='tablist'.",
+      );
+    }
   }
 }

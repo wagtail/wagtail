@@ -17,11 +17,38 @@ describe('TabsController', () => {
   let app;
   const oldWindowLocation = window.location;
 
-  const setup = async (html) => {
+  const setup = async (
+    html = `
+      <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+        <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+          <a id="tab-label-tab-1" href="#tab-tab-1"role="tab" tabindex="-1" data-w-tabs-target="label">
+            Cheese
+          </a>
+          <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+            Chocolate
+          </a>
+          <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+            Coffee
+          </a>
+        </div>
+        <div class="tab-content tab-content--comments-enabled">
+          <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+            All about cheese
+          </section>
+          <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+            All about chocolate
+          </section>
+          <section id="tab-tab-3" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
+            All about coffee
+          </section>
+        </div>
+      </div>
+  `,
+    identifier = 'w-tabs',
+  ) => {
     document.body.innerHTML = `<main>${html}</main>`;
-
     app = Application.start();
-    app.register('w-tabs', TabsController);
+    app.register(identifier, TabsController);
     await Promise.resolve();
   };
 
@@ -42,150 +69,100 @@ describe('TabsController', () => {
     jest.clearAllMocks();
   });
 
-  describe('checks ARIA attributes', () => {
-    beforeEach(async () => {
-      await setup(`
-        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="" data-w-tabs-selected-class="animate-in">
-            <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
-                <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 1
-                </a>
-                <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 2
-                </a>
-            </div>
-            <div class="tab-content tab-content--comments-enabled">
-                <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
-                    tab-1
-                </section>
-                <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
-                    tab-2
-                </section>
-            </div>
-        </div>
-      `);
+  describe('Basic behavior', () => {
+    it('initial load of controller', async () => {
+      await setup();
+      const tabsReady = jest.spyOn(document, 'dispatchEvent');
     });
 
-    it('should have aria-selected set to the first tab on connect', () => {
-      const label = document.getElementById('tab-label-tab-1');
+    it('selecting a tab on click', async () => {
+      await setup();
 
-      expect(label.getAttribute('aria-selected')).toBe('true');
-      expect(label.tabIndex).toBe(0); // Ensure first tab is focusable
-    });
-
-    it('should set aria-selected to the appropriate tab when a tab is clicked', async () => {
       const tab2Label = document.getElementById('tab-label-tab-2');
-      const tab2Panel = document.getElementById('tab-tab-2');
       const tab1Label = document.getElementById('tab-label-tab-1');
       const tab1Panel = document.getElementById('tab-tab-1');
+      const tab2Panel = document.getElementById('tab-tab-2');
 
-      tab2Label.dispatchEvent(new MouseEvent('click'));
+      tab2Label.click();
       await jest.runAllTimersAsync();
 
       expect(tab1Label.getAttribute('aria-selected')).toBe('false');
       expect(tab2Label.getAttribute('aria-selected')).toBe('true');
       expect(tab1Panel.hidden).toBeTruthy();
+      expect(tab2Panel.classList.length).toBeGreaterThan(0);
+      expect(tab2Panel.className).toContain('animate-in');
+    });
+
+    describe('selecting tab with keyboard', () => {
+      it('should switch to right tab on right arrow key presss', async () => {
+        await setup();
+
+        const tab1Label = document.getElementById('tab-label-tab-1');
+        const tab2Label = document.getElementById('tab-label-tab-2');
+
+        tab1Label.focus();
+        simulateKeydown('ArrowRight');
+        await jest.runAllTimersAsync();
+
+        expect(tab2Label.getAttribute('aria-selected')).toBe('true');
+      });
+
+      it('should switch to left tab on left arrow key presss', async () => {
+        await setup();
+
+        const tab1Label = document.getElementById('tab-label-tab-1');
+        const tab2Label = document.getElementById('tab-label-tab-2');
+
+        tab2Label.focus();
+        simulateKeydown('ArrowLeft');
+        await jest.runAllTimersAsync();
+
+        expect(tab1Label.getAttribute('aria-selected')).toBe('true');
+      });
+
+      it('should focus first tab on home key press', async () => {
+        await setup();
+
+        const tab1Label = document.getElementById('tab-label-tab-1');
+        const tab2Label = document.getElementById('tab-label-tab-2');
+
+        tab2Label.focus();
+        simulateKeydown('Home');
+        await jest.runAllTimersAsync();
+
+        expect(tab1Label).toBe(document.activeElement);
+      });
+
+      it('should focus first tab on end key press', async () => {
+        await setup();
+
+        const tab1Label = document.getElementById('tab-label-tab-1');
+        const tab3Label = document.getElementById('tab-label-tab-3');
+
+        tab1Label.focus();
+        simulateKeydown('End');
+        await jest.runAllTimersAsync();
+
+        expect(tab3Label).toBe(document.activeElement);
+      });
     });
   });
 
-  it('should set correct classes according', async () => {
-    const tab2Label = document.getElementById('tab-label-tab-2');
-    const tab2Panel = document.getElementById('tab-tab-2');
-    const tab1Label = document.getElementById('tab-label-tab-1');
-    const tab1Panel = document.getElementById('tab-tab-1');
-    const selectedClass = document
-      .querySelector('[class="w-tabs"]')
-      .getAttribute('data-w-tabs-selected-class');
+  describe('Loading with an activated tab', () => {
+    it('Loading with first tab selected on initial load', async () => {
+      window.location.hash = '';
 
-    tab2Label.dispatchEvent(new MouseEvent('click'));
-    await jest.runAllTimersAsync();
+      await setup();
 
-    expect(tab1Label.getAttribute('aria-selected')).toBe('false');
-    expect(tab2Label.getAttribute('aria-selected')).toBe('true');
-    expect(tab2Panel.className).toContain(selectedClass);
-    expect(tab1Panel.hidden).toBeTruthy();
-  });
-
-  describe('browser based', () => {
-    it('should have tab select when active value is given', async () => {
-      await setup(`
-        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="tab-tab-2" data-w-tabs-selected-class="animate-in">
-            <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
-                <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 1
-                </a>
-                <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 2
-                </a>
-            </div>
-            <div class="tab-content tab-content--comments-enabled">
-                <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
-                    tab-1
-                </section>
-                <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
-                    tab-2
-                </section>
-            </div>
-        </div>
-      `);
-      const tab2Label = document.querySelector('#tab-label-tab-2');
-      const tab2Panel = document.querySelector('#tab-tab-2');
-      const tab1Panel = document.querySelector('#tab-tab-1');
-
-      await jest.runAllTimersAsync();
-      expect(window.location.hash).toBe('#tab-tab-2');
-      expect(tab2Label.getAttribute('aria-selected')).toBe('true');
-      expect(tab2Panel.hidden).toBeFalsy();
-      expect(tab1Panel.hidden).toBeTruthy();
+      const label = document.getElementById('tab-label-tab-1');
+      expect(label.getAttribute('aria-selected')).toBe('true');
+      expect(label.tabIndex).toBe(0); // Ensure first tab is focusable
     });
 
-    it('should have active tab to second tab', async () => {
-      window.location.hash = '#tab-tab-2';
-
+    it('loading with a different selected tab', async () => {
       await setup(`
-        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="" data-w-tabs-selected-class="animate-in">
-            <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
-                <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 1
-                </a>
-                <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
-                  data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
-                    Tab 2
-                </a>
-            </div>
-            <div class="tab-content tab-content--comments-enabled">
-                <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
-                    tab-1
-                </section>
-                <section id="tab-tab-2" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
-                    tab-2
-                </section>
-            </div>
-        </div>
-      `);
-
-      await jest.runAllTimersAsync();
-      const tab2Label = document.querySelector('#tab-label-tab-2');
-      const tab2Panel = document.querySelector('#tab-tab-2');
-      const tab1Panel = document.querySelector('#tab-tab-1');
-
-      expect(window.location.hash).toBe('#tab-tab-2');
-      expect(tab2Label.getAttribute('aria-selected')).toBe('true');
-      expect(tab2Panel.hidden).toBeFalsy();
-      expect(tab1Panel.hidden).toBeTruthy();
-    });
-  });
-
-  describe('checks keyboard navigations', () => {
-    beforeEach(async () => {
-      await setup(`
-        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" role="tablist" data-w-tabs-target="list">
+      <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="tab-tab-2" data-w-tabs-selected-class="animate-in">
+          <div class="w-tabs__list" role="tablist">
               <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
                 data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
                   Tab 1
@@ -203,54 +180,193 @@ describe('TabsController', () => {
                   tab-2
               </section>
           </div>
+      </div>
+    `);
+      const tab2Label = document.querySelector('#tab-label-tab-2');
+      const tab2Panel = document.querySelector('#tab-tab-2');
+      const tab1Panel = document.querySelector('#tab-tab-1');
+
+      await jest.runAllTimersAsync();
+      expect(window.location.hash).toBe('#tab-tab-2');
+      expect(tab2Label.getAttribute('aria-selected')).toBe('true');
+      expect(tab2Panel.hidden).toBeFalsy();
+      expect(tab1Panel.hidden).toBeTruthy();
+    });
+
+    it('Loading with a tab selected by the URL', async () => {
+      window.location.hash = '#tab-tab-2';
+      await setup();
+      await jest.runAllTimersAsync();
+      const tab2Label = document.querySelector('#tab-label-tab-2');
+      const tab2Panel = document.querySelector('#tab-tab-2');
+      const tab1Panel = document.querySelector('#tab-tab-1');
+
+      expect(window.location.hash).toBe('#tab-tab-2');
+      expect(tab2Label.getAttribute('aria-selected')).toBe('true');
+      expect(tab2Panel.hidden).toBeFalsy();
+      expect(tab1Panel.hidden).toBeTruthy();
+    });
+  });
+
+  describe('Validating of malformed aria attributes', () => {
+    beforeEach(() => {
+      jest.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      // eslint-disable-next-line no-console
+      console.warn.mockRestore();
+    });
+
+    it('warns about role="tablist" aria attributes', async () => {
+      await setup(`
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+          <div class="w-tabs__list" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+              Cheese
+            </a>
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+              Chocolate
+            </a>
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+              Coffee
+            </a>
+          </div>
+          <div class="tab-content tab-content--comments-enabled">
+            <section id="tab-tab-1" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+              All about cheese
+            </section>
+            <section id="tab-tab-2" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+              All about chocolate
+            </section>
+            <section id="tab-tab-3" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
+              All about coffee
+            </section>
+          </div>
         </div>
       `);
-    });
-    describe('arrow keys', () => {
-      it('should switch to right tab on right arrow key presss', async () => {
-        const tab1Label = document.getElementById('tab-label-tab-1');
-        const tab2Label = document.getElementById('tab-label-tab-2');
-
-        tab1Label.focus();
-        simulateKeydown('ArrowRight');
-        await jest.runAllTimersAsync();
-
-        expect(tab2Label.getAttribute('aria-selected')).toBe('true');
-      });
-      it('should switch to left tab on left arrow key presss', async () => {
-        const tab1Label = document.getElementById('tab-label-tab-1');
-        const tab2Label = document.getElementById('tab-label-tab-2');
-
-        tab2Label.focus();
-        simulateKeydown('ArrowLeft');
-        await jest.runAllTimersAsync();
-
-        expect(tab1Label.getAttribute('aria-selected')).toBe('true');
-      });
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalled();
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledWith(
+        [...document.querySelector('.w-tabs__list').children],
+        "One or more tab (label) targets are not direct descendants of an element with role='tablist'.",
+      );
     });
 
-    describe('home and end keys', () => {
-      it('should focus first tab on home key press', async () => {
-        const tab1Label = document.getElementById('tab-label-tab-1');
-        const tab2Label = document.getElementById('tab-label-tab-2');
+    it('warns about role="tab" aria attributes', async () => {
+      await setup(`
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+              Cheese
+            </a>
+            <a id="tab-label-tab-2" href="#tab-tab-2" data-w-tabs-target="label">
+              Chocolate
+            </a>
+            <a id="tab-label-tab-3" href="#tab-tab-3" data-w-tabs-target="label">
+              Coffee
+            </a>
+          </div>
+          <div class="tab-content tab-content--comments-enabled">
+            <section id="tab-tab-1" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+              All about cheese
+            </section>
+            <section id="tab-tab-2" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+              All about chocolate
+            </section>
+            <section id="tab-tab-3" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
+              All about coffee
+            </section>
+          </div>
+        </div>
+      `);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledTimes(2);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenNthCalledWith(
+        1,
+        document.getElementById('tab-label-tab-2'),
+        "this element does not have role='tab' aria attribute",
+      );
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenNthCalledWith(
+        2,
+        document.getElementById('tab-label-tab-3'),
+        "this element does not have role='tab' aria attribute",
+      );
+    });
 
-        tab2Label.focus();
-        simulateKeydown('Home');
-        await jest.runAllTimersAsync();
+    it('warns about role="tabpanel" aria attributes', async () => {
+      await setup(`
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+              Cheese
+            </a>
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+              Chocolate
+            </a>
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+              Coffee
+            </a>
+          </div>
+          <div class="tab-content tab-content--comments-enabled">
+            <section id="tab-tab-1" class="w-tabs__panel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+              All about cheese
+            </section>
+            <section id="tab-tab-2" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+              All about chocolate
+            </section>
+            <section id="tab-tab-3" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-3" data-w-tabs-target="panel">
+              All about coffee
+            </section>
+          </div>
+        </div>
+      `);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalled();
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledWith(
+        document.getElementById('tab-tab-1'),
+        "this element does not have role='tabpanel' aria attribute",
+      );
+    });
 
-        expect(tab1Label).toBe(document.activeElement);
-      });
-
-      it('should focus first tab on end key press', async () => {
-        const tab1Label = document.getElementById('tab-label-tab-1');
-        const tab2Label = document.getElementById('tab-label-tab-2');
-
-        tab1Label.focus();
-        simulateKeydown('End');
-        await jest.runAllTimersAsync();
-
-        expect(tab2Label).toBe(document.activeElement);
-      });
+    it('warns about aria-labelledby', async () => {
+      await setup(`
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+              Cheese
+            </a>
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+              Chocolate
+            </a>
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+              Coffee
+            </a>
+          </div>
+          <div class="tab-content tab-content--comments-enabled">
+            <section id="tab-tab-1" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+              All about cheese
+            </section>
+            <section id="tab-tab-2" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+              All about chocolate
+            </section>
+            <section id="tab-tab-3" class="w-tabs__panel" role="tabpanel" data-w-tabs-target="panel">
+              All about coffee
+            </section>
+          </div>
+        </div>
+      `);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalled();
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledWith(
+        document.getElementById('tab-tab-3'),
+        'this element does not have aria-labelledby',
+      );
     });
   });
 });
