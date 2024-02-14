@@ -57,7 +57,7 @@ We welcome contributions to all aspects of Wagtail. If you would like to improve
 -   Support others with answers to questions on the [Wagtail StackOverflow topic](https://stackoverflow.com/questions/tagged/wagtail) or in Slack `#support`.
 -   Write a review of [Wagtail on G2](https://www.g2.com/products/wagtail/reviews).
 -   Provide some thoughtful feedback on the [Wagtail discussions](https://github.com/wagtail/wagtail/discussions).
--   Submit (or write) a tutorial or great package to the [This Week in Wagtail newsletter](https://wagtail.org/this-week-in-wagtail/), [Awesome Wagtail](https://github.com/springload/awesome-wagtail) or [](../advanced_topics/third_party_tutorials).
+-   Submit (or write) a tutorial or great package to the [This Week in Wagtail newsletter](https://wagtail.org/newsletter/), [Awesome Wagtail](https://github.com/springload/awesome-wagtail) or [](../advanced_topics/third_party_tutorials).
 
 ## Developing packages for Wagtail
 

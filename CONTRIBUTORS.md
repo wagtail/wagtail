@@ -791,6 +791,7 @@
 * Osaf AliSayed
 * mirusu400
 * Maikel Martens
+* EK303
 
 ## Translators
 
