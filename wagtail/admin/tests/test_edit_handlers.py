@@ -567,14 +567,17 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
 
         result = tabbed_interface.render_html()
 
+        soup = self.get_soup(result)
+
         # result should contain tab buttons
+
         self.assertIn(
-            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-            result,
+            '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+            str(soup.find("a", {"id": "tab-label-event_details"})),
         )
         self.assertIn(
-            '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-            result,
+            '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+            str(soup.find("a", {"id": "tab-label-speakers"})),
         )
 
         # result should contain tab panels
@@ -630,26 +633,29 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
             self.assertIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-secret" id="tab-label-secret" role="tab"',
+                str(soup.find("a", {"id": "tab-label-secret"})),
             )
             self.assertIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-custom_setting" id="tab-label-custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-custom_setting"})),
             )
             self.assertIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other_custom_setting" ',
-                result,
+                'data-w-tabs-target="trigger" href="#tab-other_custom_setting" id="tab-label-other_custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-other_custom_setting"})),
             )
 
         with self.subTest("Not superuser permissions"):
@@ -664,26 +670,27 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
-            )
-            self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
-            )
-            self.assertNotIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
-            self.assertNotIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-secret"}),
+            )
+            self.assertIn(
+                'data-w-tabs-target="trigger" href="#tab-custom_setting" id="tab-label-custom_setting" role="tab"',
+                str(soup.find("a", {"id": "tab-label-custom_setting"})),
+            )
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-other_custom_setting"}),
             )
 
         with self.subTest("Non superuser"):
@@ -697,26 +704,26 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 form=form,
                 request=self.request,
             )
+
             result = tabbed_interface.render_html()
+            soup = self.get_soup(result)
+
             self.assertIn(
-                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab shiny" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-event_details" id="tab-label-event_details" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-event_details"})),
             )
             self.assertIn(
-                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-                result,
+                '<a aria-selected="false" class="w-tabs__tab" data-action="w-tabs#select:prevent" data-w-tabs-target="trigger" href="#tab-speakers" id="tab-label-speakers" role="tab" tabindex="-1">',
+                str(soup.find("a", {"id": "tab-label-speakers"})),
             )
-            self.assertNotIn(
-                '<a id="tab-label-secret" href="#tab-secret" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-secret"}),
             )
-            self.assertNotIn(
-                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-other_custom_setting"}),
             )
-            self.assertNotIn(
-                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
-                result,
+            self.assertIsNone(
+                soup.find("a", {"id": "tab-label-custom_setting"}),
             )
 
 
