@@ -57,24 +57,20 @@ interface TabLink extends HTMLAnchorElement {
  *
  * @example
  * ```html
- *      <div data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
- *         <div role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
- *           <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" data-w-tabs-target="label">
- *             Tab 1
- *           </a>
- *           <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
- *             Tab 2
- *           </a>
- *          </div>
- *          <div class="tab-content tab-content--comments-enabled">
- *           <section id="tab-tab-1" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
- *             Tab 1 content
- *           </section>
- *           <section id="tab-tab-2" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
- *             Tab 2 content
- *           </section>
- *          </div>
- *      </div>
+ * <div data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+ *   <div role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+ *     <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" data-w-tabs-target="label">Tab 1</a>
+ *     <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">Tab 2</a>
+ *  </div>
+ *    <div class="tab-content tab-content--comments-enabled">
+ *     <section id="tab-tab-1" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+ *       Tab 1 content
+ *     </section>
+ *     <section id="tab-tab-2" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+ *       Tab 2 content
+ *     </section>
+ *   </div>
+ * </div>
  * ```
  */
 
