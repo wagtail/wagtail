@@ -28,7 +28,7 @@ Changelog
  * Maintenance: Merge `UploadedDocument` and `UploadedImage` into new `UploadedFile` model for easier shared code usage (Advik Kabra, Karl Hobley)
 
 
-6.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0.1 (15.02.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
