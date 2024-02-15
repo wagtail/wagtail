@@ -29,7 +29,7 @@ Changelog
 
 
 6.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
  * Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
 
