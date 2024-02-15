@@ -1,7 +1,6 @@
 from .settings import *  # noqa: F403
 
 # Settings meant to run the test suite with Django’s development server, for integration tests.
-DEBUG = True
 
 DATABASES["default"]["NAME"] = "ui_tests.db"  # noqa: F405
 

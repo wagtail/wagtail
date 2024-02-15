@@ -3,7 +3,7 @@ import os
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
-DEBUG = False
+DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
 WAGTAILADMIN_BASE_URL = "http://testserver"
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, "tests", "test-static")
