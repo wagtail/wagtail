@@ -47,4 +47,4 @@ If SQLite is subsequently upgraded to a version with ``fts5`` support, existing 
   ./manage.py migrate
   ./manage.py update_index
 
-Additionally, since the database search backend now needs to run a query on initialisation to check for the presence of this table, calling ``wagtail.search.backends.get_search_backend`` during application startup may now fail with a "Models aren't loaded yet" error. Code that does this should be updated to only call ``get_search_backend`` at the point when a search query is to be performed.
+Additionally, since the database search backend now needs to run a query on initialization to check for the presence of this table, calling ``wagtail.search.backends.get_search_backend`` during application startup may now fail with a "Models aren't loaded yet" error. Code that does this should be updated to only call ``get_search_backend`` at the point when a search query is to be performed.

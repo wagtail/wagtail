@@ -15,14 +15,14 @@ What's new
 Accessibility targets and improvements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail now has official accessibility support targets: we are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard which underpins many national accessibility laws.
+Wagtail now has official accessibility support targets: we are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard that underpins many national accessibility laws.
 
 Wagtail isn't fully compliant just yet, but we have made many changes to the admin interface to get there. We thank the UK Government (in particular the CMS team at the Department for International Trade), who commissioned many of these improvements.
 
-Here are changes which should make Wagtail more usable for all users regardless of abilities:
+Here are changes that should make Wagtail more usable for all users regardless of abilities:
 
 * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
-* Improved text colour contrast across the whole admin (Beth Menzies, Katie Locke)
+* Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
 * Added consistent focus outline styles across the whole admin (Thibaud Colas)
 * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
 
@@ -31,13 +31,13 @@ This release also contains many big improvements for screen reader users:
 * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
 * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
 * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
-* Removed buggy tab order customisations in the CMS admin (Jordan Bauer)
+* Removed buggy tab order customizations in the CMS admin (Jordan Bauer)
 * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
 * Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
 * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
 * Fixed focus not moving to the pages explorer menu when open (Helen Chapman)
 
-We’ve also had a look at how controls are labelled across the UI for screen reader users:
+We’ve also had a look at how controls are labeled across the UI for screen reader users:
 
 * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
 * Add more contextual information for screen readers in the explorer menu's links (Helen Chapman)
@@ -52,7 +52,7 @@ We’ve also had a look at how controls are labelled across the UI for screen re
 * Add screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
 * Add screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
 
-Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn't one already.
+Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn't one already.
 
 
 Other features
@@ -63,9 +63,9 @@ Other features
 * Added support for specifying cell alignment on TableBlock (Samuel Mendes)
 * Added more informative error when a non-image object is passed to the ``image`` template tag (Deniz Dogan)
 * Added ButtonHelper examples in the modelAdmin primer page within documentation (Kalob Taulien)
-* Multiple clarifications, grammar and typo fixes throughout documentation (Dan Swain)
+* Multiple clarifications, grammar, and typo fixes throughout documentation (Dan Swain)
 * Use correct URL in API example in documentation (Michael Bunsen)
-* Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
+* Move datetime widget initializer JS into the widget's form media instead of page editor media (Matt Westcott)
 * Add form field prefixes for input forms in chooser modals (Matt Westcott)
 * Removed version number from the logo link's title. The version can now be found under the Settings menu (Thibaud Colas)
 * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
@@ -73,8 +73,8 @@ Other features
 * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
 * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
 * Improve performance of Pages for Moderation panel (Fidel Ramos)
-* Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behaviour (Karl Hobley)
-* Added ``Page.with_content_json()``, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
+* Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customize copy behavior (Karl Hobley)
+* Added ``Page.with_content_json()``, allowing revision content loading behavior to be customized on a per-model basis (Karl Hobley)
 * Added ``construct_settings_menu`` hook (Jordan Bauer, Quadric)
 * Fixed compatibility of date / time choosers with wagtail-react-streamfield (Mike Hearn)
 * Performance optimization of several admin functions, including breadcrumbs, home and index pages (Fidel Ramos)
@@ -99,7 +99,7 @@ Bug fixes
 * ``Page.copy()`` no longer copies child objects when the accessor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
 * Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
 * Added missing ``is_stored_locally`` method to ``AbstractDocument`` (jonny5532)
-* Query model no longer removes punctuation as part of string normalisation (William Blackie)
+* Query model no longer removes punctuation as part of string normalization (William Blackie)
 * Make login test helper work with user models with non-default username fields (Andrew Miller)
 * Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
 
