@@ -10,7 +10,7 @@ Thank you for your interest in improving Wagtail!
 
 ## Issues
 
-The easiest way to contribute to Wagtail is to tell us how to improve it! First, check to see if your bug or feature request has already been submitted at [github.com/wagtail/wagtail/issues](https://github.com/wagtail/wagtail/issues). If it has, and you have some supporting information which may help us deal with it, comment on the existing issue. If not, please [create a new one](https://github.com/wagtail/wagtail/issues/new), providing as much relevant context as possible. For example, if you're experiencing problems with installation, detail your environment and the steps you've already taken. If something isn't displaying correctly, tell us what browser you're using, and include a screenshot if possible.
+The easiest way to contribute to Wagtail is to tell us how to improve it! First, check to see if your bug or feature request has already been submitted at [github.com/wagtail/wagtail/issues](https://github.com/wagtail/wagtail/issues). If it has, and you have some supporting information that may help us deal with it, comment on the existing issue. If not, please [create a new one](https://github.com/wagtail/wagtail/issues/new), providing as much relevant context as possible. For example, if you're experiencing problems with installation, detail your environment and the steps you've already taken. If something isn't displaying correctly, tell us what browser you're using, and include a screenshot if possible.
 
 If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](security).
 
@@ -24,7 +24,7 @@ issue_tracking
 
 If you are just getting started with development and have never contributed to an open-source project, we recommend you read the [Your first contribution guide](first_contribution_guide). If you're a confident Python or Django developer, [fork it](https://github.com/wagtail/wagtail/) and read the [developing docs](developing_for_wagtail) to get stuck in!
 
-We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the [issue list](https://github.com/wagtail/wagtail/issues?q=is%3Aopen), or email us directly on [hello@wagtail.org](mailto:hello@wagtail.org) if you'd like us to suggest something!
+We welcome all contributions, whether they solve problems that are specific to you or they address existing issues. If you're stuck for ideas, pick something from the [issue list](https://github.com/wagtail/wagtail/issues?q=is%3Aopen), or email us directly at [hello@wagtail.org](mailto:hello@wagtail.org) if you'd like us to suggest something!
 
 For large-scale changes, we'd generally recommend breaking them down into smaller pull requests that achieve a single well-defined task and can be reviewed individually. If this isn't possible, we recommend opening a pull request on the [Wagtail RFCs](https://github.com/wagtail/rfcs/) repository, so that there's a chance for the community to discuss the change before it gets implemented.
 
@@ -37,7 +37,7 @@ developing
 
 ## Translations
 
-Wagtail has internationalisation support so if you are fluent in a non-English language you can contribute by localising the interface.
+Wagtail has internationalization support so if you are fluent in a non-English language you can contribute by localizing the interface.
 
 Translation work should be submitted through [Transifex](https://explore.transifex.com/torchbox/wagtail/), for information on how to get started see [](contributing_translations).
 
@@ -48,8 +48,8 @@ Translation work should be submitted through [Transifex](https://explore.transif
 We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. Here are some other ways to contribute if you are getting started or have been using Wagtail for a long time but are unable to contribute code.
 
 -   Contribute to one of the other [core Wagtail projects](https://github.com/orgs/wagtail/repositories) in GitHub.
--   Contribute to one of the community maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
--   Contribute user facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
+-   Contribute to one of the community-maintained packages on [Wagtail Nest](https://github.com/wagtail-nest/).
+-   Contribute user-facing documentation (including translations) on the [Wagtail guide](https://guide.wagtail.org/en-latest/contributing/).
 
 ### Non-code contributions
 

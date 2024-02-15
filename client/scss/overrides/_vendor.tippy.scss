@@ -32,7 +32,7 @@
 }
 
 .tippy-box[data-theme='drilldown'] {
-  @apply w-rounded w-bg-surface-page w-shadow-md;
+  @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
   width: 300px;
 
   .tippy-content {

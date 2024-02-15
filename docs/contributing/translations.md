@@ -5,12 +5,12 @@
 Wagtail uses [Transifex](https://www.transifex.com/) to translate the content for the admin interface. Our goal is to ensure that Wagtail can be used by those who speak many different languages. Translation of admin content is a great way to contribute without needing to know how to write code.
 
 ```{note}
-For translations and internationalisation of content made with Wagtail see [](internationalisation).
+For translations and internationalization of content made with Wagtail see [](internationalisation).
 ```
 
 ## Translation workflow
 
-Wagtail is localised (translated) using Django's [translation system](inv:django#topics/i18n/translation) and the translations are provided to and managed by [Transifex](https://www.transifex.com/), a web platform that helps organisations coordinate translation projects.
+Wagtail is localized (translated) using Django's [translation system](inv:django#topics/i18n/translation) and the translations are provided to and managed by [Transifex](https://www.transifex.com/), a web platform that helps organizations coordinate translation projects.
 
 Translations from Transifex are only integrated into the repository at the time of a new release. When a release is close to being ready there will be a RC (Release Candidate) for the upcoming version and the translations will be exported to Transifex.
 
@@ -26,7 +26,7 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 -   Click on start for free
 -   Fill in your Username, Email and Password
 -   Agree to the terms and conditions
--   Click on free trial or join an existing organisation
+-   Click on free trial or join an existing organization
 -   Join [Wagtail](https://app.transifex.com/torchbox/wagtail/dashboard/) and see the list of languages on the dashboard
 -   Request access to become a member of the language team you want to work with on Slack (mention your Transifex username)
 -   A view resources button appears when you hover over the ready to use part on the right side of the page
@@ -40,7 +40,7 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 
 In code, strings can be marked for translation with using Django's [translation system](inv:django#topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate`, `translate`, and `_(" ")` in templates.
 
-In both Python and templates, make sure to always use named placeholder. In addition, in Python, only use the printf style formatting. This is to ensure compatibility with Transifex and help translators in their work.
+In both Python and templates, make sure to always use a named placeholder. In addition, in Python, only use the printf style formatting. This is to ensure compatibility with Transifex and help translators in their work.
 
 ### Translations within Python
 

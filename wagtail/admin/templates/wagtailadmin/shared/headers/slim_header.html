@@ -71,6 +71,7 @@
                         data-action="change->w-swap#submitLazy input->w-swap#submitLazy"
                         data-w-swap-src-value="{{ search_url }}"
                         data-w-swap-target-value="#listing-results"
+                        data-w-swap-reflect-value="true"
                     >
                         {% if search_form %}
                             {% for field in search_form %}
@@ -83,9 +84,9 @@
                                 id="filters-drilldown"
                                 class="w-drilldown"
                                 data-controller="w-drilldown"
-                                data-action="w-swap:success@document->w-drilldown#updateParams w-dropdown:hide->w-drilldown#delayedClose w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
-                                data-w-drilldown-count-attr-value="data-w-active-filter-name"
-                                data-w-drilldown-w-action-outlet="[data-w-active-filter-name][data-controller='w-action']"
+                                data-action="w-swap:success@document->w-drilldown#updateCount w-dropdown:hide->w-drilldown#delayedClose w-dropdown:clickaway->w-drilldown#preventOutletClickaway"
+                                data-w-drilldown-count-attr-value="data-w-active-filter-id"
+                                data-w-drilldown-w-action-outlet="[data-w-active-filter-id][data-controller='w-action']"
                                 data-w-drilldown-w-dropdown-outlet="#filters-drilldown [data-controller='w-dropdown']"
                             >
                                 {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters only %}
