@@ -1,3 +1,4 @@
+import itertools
 import uuid
 from collections.abc import Mapping, MutableSequence
 
@@ -9,6 +10,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.exceptions import BlockNormalizationError
 from wagtail.telepath import Adapter, register
 
 from .base import (
@@ -226,6 +228,27 @@ class ListBlock(Block):
     def normalize(self, value):
         if isinstance(value, ListValue):
             return value
+
+        # Squint a little and see if it looks like a list
+        try:
+            items, _items = itertools.tee(value, 2)
+        except TypeError:
+            raise BlockNormalizationError(
+                f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
+            )
+        try:
+            head = next(_items)
+        except StopIteration:
+            return ListValue(self, values=[])
+
+        if isinstance(head, dict) and head.get("type") == "item":
+            # It looks like the json-ish representation
+            return ListValue(
+                self, values=[self.child_block.normalize(x["value"]) for x in value]
+            )
+
+        # It looks like a list of values - the old ListBlock representation, or supplied
+        # directly by the user as a shorthand.
         return ListValue(self, values=[self.child_block.normalize(x) for x in value])
 
     def _item_is_in_block_format(self, item):

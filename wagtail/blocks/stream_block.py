@@ -101,7 +101,7 @@ class BaseStreamBlock(Block):
         """
         return StreamValue(self, self.meta.default)
 
-    def empty_stream_value(self, raw_text=None):
+    def empty_value(self, raw_text=None):
         return StreamValue(self, [], raw_text=raw_text)
 
     def sorted_child_blocks(self):
@@ -311,7 +311,7 @@ class BaseStreamBlock(Block):
 
     def normalize(self, value):
         if value is None or value == "":
-            return self.empty_stream_value()
+            return self.empty_value()
         elif isinstance(value, StreamValue):
             return value
         elif isinstance(value, str):
@@ -323,13 +323,13 @@ class BaseStreamBlock(Block):
                 # was left intact in the migration. Return an empty stream instead
                 # (but keep the raw text available as an attribute, so that it can be
                 # used to migrate that data to StreamField)
-                return self.empty_stream_value(self, [], raw_text=value)
+                return self.empty_value(self, [], raw_text=value)
 
             if unpacked_value is None:
                 # we get here if value is the literal string 'null'. This should probably
                 # never happen if the rest of the (de)serialization code is working properly,
                 # but better to handle it just in case...
-                return self.empty_stream_value()
+                return self.empty_value()
 
             return self.to_python(unpacked_value)
         elif value and isinstance(value, list) and isinstance(value[0], dict):
