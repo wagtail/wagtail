@@ -24,16 +24,16 @@ New rich text editor
 Wagtail's rich text editor has now been replaced with `Draftail <https://github.com/springload/draftail>`_, a new editor based on `Draft.js <https://draftjs.org/>`_, fixing numerous bugs and providing an improved editing experience, better support for current browsers, and more consistent HTML output. This feature was developed by Thibaud Colas, Loïc Teixeira and Matt Westcott.
 
 
-Reorganised modules
+Reorganized modules
 ~~~~~~~~~~~~~~~~~~~
 
-The modules that make up Wagtail have been renamed and reorganised, to avoid the repetition in names like ``wagtail.wagtailcore.models`` (originally an artefact of app naming limitations in Django 1.6) and to improve consistency. While this will require some up-front work to upgrade existing Wagtail sites, we believe that this will be a long-term improvement to the developer experience, improving readability of code and reducing errors. This change was implemented by Karl Hobley and Matt Westcott.
+The modules that make up Wagtail have been renamed and reorganized, to avoid the repetition in names like ``wagtail.wagtailcore.models`` (originally an artifact of app naming limitations in Django 1.6) and to improve consistency. While this will require some up-front work to upgrade existing Wagtail sites, we believe that this will be a long-term improvement to the developer experience, improving readability of code and reducing errors. This change was implemented by Karl Hobley and Matt Westcott.
 
 
 Scheduled page revisions
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The behaviour of scheduled publishing has been revised so that pages are no longer unpublished at the point of setting a future go-live date, making it possible to schedule updates to an existing published page. This feature was developed by Patrick Woods.
+The behavior of scheduled publishing has been revised so that pages are no longer unpublished at the point of setting a future go-live date, making it possible to schedule updates to an existing published page. This feature was developed by Patrick Woods.
 
 
 Other features
@@ -47,7 +47,7 @@ Other features
 * Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
 * Added usage count to snippets (Kees Hink)
 * Moved usage count to the sidebar on the edit page (Kees Hink)
-* Explorer menu now reflects customisations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+* Explorer menu now reflects customizations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
 * "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
 * Added hooks ``before_create_user``, ``after_create_user``, ``before_delete_user``, ``after_delete_user``, ``before_edit_user``, ``after_edit_user`` (Jon Carmack)
 * Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
@@ -55,18 +55,18 @@ Other features
 * Optimised preview data storage (Bertrand Bordage)
 * Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
 * Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
-* The value type returned from a ``StructBlock`` can now be customised. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
+* The value type returned from a ``StructBlock`` can now be customized. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
 * Added ``bgcolor`` image operation (Karl Hobley)
 * Added ``WAGTAILADMIN_USER_LOGIN_FORM`` setting for overriding the admin login form (Mike Dingjan)
 * Snippets now support custom primary keys (Sævar Öfjörð Magnússon)
 * Upgraded jQuery to version 3.2.1 (Janneke Janssen)
 * Update autoprefixer configuration to better match browser support targets (Janneke Janssen)
 * Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
-* Remove Hallo editor ``.richtext`` CSS class in favour of more explicit extension points (Thibaud Colas)
+* Remove Hallo editor ``.richtext`` CSS class in favor of more explicit extension points (Thibaud Colas)
 * Updated documentation styling (LB (Ben Johnston))
 * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
 * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
-* Form submission csv exports now have the export date in the filename and can be customised (Johan Arensman)
+* Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
 * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben Johnston))
 * Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
 * Added a basic Dockerfile to the project template (Tom Dyson)
@@ -91,7 +91,7 @@ Bug fixes
 * Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
 * Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
 * PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
-* ``FormSubmissionsPanel`` now recognises custom form submission classes (LB (Ben Johnston))
+* ``FormSubmissionsPanel`` now recognizes custom form submission classes (LB (Ben Johnston))
 * Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
 * Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
 * Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
@@ -131,7 +131,7 @@ Before upgrading to Django 2.0, you are advised to review the `release notes <ht
 Wagtail module path updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Many of the module paths within Wagtail have been reorganised to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.core.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
+Many of the module paths within Wagtail have been reorganized to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.core.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
 
 .. code-block:: console
 
@@ -205,10 +205,10 @@ However, note that this only applies to dotted module paths beginning with ``wag
 * Template tag library names, e.g. ``{% load wagtailcore_tags %}``
 
 
-Hallo.js customisations are unavailable on the Draftail rich text editor
+Hallo.js customizations are unavailable on the Draftail rich text editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Draftail rich text editor has a substantially different API from Hallo.js, including the use of a non-HTML format for its internal data representation; as a result, functionality added through Hallo.js plugins will be unavailable. If your project is dependent on Hallo.js-specific behaviour, you can revert to the original Hallo-based editor by adding the following to your settings:
+The Draftail rich text editor has a substantially different API from Hallo.js, including the use of a non-HTML format for its internal data representation; as a result, functionality added through Hallo.js plugins will be unavailable. If your project is dependent on Hallo.js-specific behavior, you can revert to the original Hallo-based editor by adding the following to your settings:
 
 .. code-block:: python
 
@@ -313,7 +313,7 @@ The ``generate_signature`` function in ``wagtail.images.views.serve``, used to b
 Deprecated search view
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail has always included a bundled view for frontend search. However, this view isn't easy to customise so
+Wagtail has always included a bundled view for frontend search. However, this view isn't easy to customize so
 defining this view per project is usually preferred. If you have used this bundled view (check for an import
 from  ``wagtail.wagtailsearch.urls`` in your project's ``urls.py``), you will need to replace this with your
 own implementation.

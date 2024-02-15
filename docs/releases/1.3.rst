@@ -39,7 +39,7 @@ Fields on related objects can now be indexed in Elasticsearch using the new ``in
         ]
 
     # Search books where their author was born after 1950
-    # Both the book title and the authors name will be searched
+    # Both the book title and the author's name will be searched
     >>> Book.objects.filter(author__date_of_birth__gt=date(1950, 1, 1)).search("Hello")
 
 See: :ref:`wagtailsearch_index_relatedfields`
@@ -93,7 +93,7 @@ Bug fixes
 * ``MenuItem`` ``url`` parameter can now take a lazy URL (Adon Metcalfe, rayrayndwiga)
 * Added missing translation tag to InlinePanel 'Add' button (jnns)
 * Added missing translation tag to 'Signing in...' button text (Eugene MechanisM)
-* Restored correct highlighting behaviour of rich text toolbar buttons
+* Restored correct highlighting behavior of rich text toolbar buttons
 * Rendering a missing image through ImageChooserBlock no longer breaks the whole page (Christian Peters)
 * Filtering by popular tag in the image chooser now works when using the database search backend
 

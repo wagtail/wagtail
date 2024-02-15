@@ -15,7 +15,7 @@ What's changed
 StreamField - a field type for freeform content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialised types such as maps and charts to be mixed in any order. See :ref:`streamfield_topic`.
+StreamField provides an editing model for freeform content such as blog posts and news stories, allowing diverse content types such as text, images, headings, video and more specialized types such as maps and charts to be mixed in any order. See :ref:`streamfield_topic`.
 
 
 Wagtail API - A RESTful API for your Wagtail site
@@ -61,7 +61,7 @@ Core
 
 * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
 * Increased the maximum length of a page slug from 50 to 255 characters
-* Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
+* Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customizing link / embed handling within rich text fields
 * Page URL paths can now be longer than 255 characters
 
 
@@ -106,7 +106,7 @@ Admin
 * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
 * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
 * Date / time pickers now consistently use times without seconds, to prevent JavaScript behaviour glitches when focusing / unfocusing fields
-* Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
+* Added hook ``construct_homepage_summary_items`` for customizing the site summary panel on the admin homepage
 * Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
 * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
 
@@ -204,7 +204,7 @@ In previous versions of Wagtail, page types that used the :class:`~wagtail.contr
 
 Wagtail 1.0 introduces a new syntax where each view function is annotated with a ``@route`` decorator - see :ref:`routable_page_mixin`.
 
-The old ``subpage_urls`` convention will continue to work on Django versions prior to 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
+The old ``subpage_urls`` convention will continue to work on Django versions before 1.8, but this is now deprecated; all existing ``RoutablePage`` definitions should be updated to the decorator-based convention.
 
 Upgrading from the external ``wagtailapi`` module.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -276,7 +276,7 @@ Celery no longer automatically used for sending notification emails
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, Wagtail would try to use Celery whenever the ``djcelery`` module was
-installed, even if Celery wasn't actually set up. This could cause a very hard
+installed, even if Celery wasn't set up. This could cause a very hard
 to track down problem where notification emails would not be sent so this
 functionality has now been removed.
 
@@ -299,7 +299,7 @@ To improve compatibility with third-party form widgets, pages within the Wagtail
 EditHandler internal API has changed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-While it is not an official Wagtail API, it has been possible for Wagtail site implementers to define their own ``EditHandler`` subclasses for use in panel definitions, to customise the behaviour of the page / snippet editing forms. If you have made use of this facility, you will need to update your custom EditHandlers, as this mechanism has been refactored (to allow EditHandler classes to keep a persistent reference to their corresponding model). If you have only used Wagtail's built-in panel types (``FieldPanel``, ``InlinePanel``, ``PageChooserPanel`` and so on), you are unaffected by this change.
+While it is not an official Wagtail API, it has been possible for Wagtail site implementers to define their own ``EditHandler`` subclasses for use in panel definitions, to customize the behavior of the page / snippet editing forms. If you have made use of this facility, you will need to update your custom EditHandlers, as this mechanism has been refactored (to allow EditHandler classes to keep a persistent reference to their corresponding model). If you have only used Wagtail's built-in panel types (``FieldPanel``, ``InlinePanel``, ``PageChooserPanel`` and so on), you are unaffected by this change.
 
 Previously, functions like ``FieldPanel`` acted as 'factory' functions, where a call such as ``FieldPanel('title')`` constructed and returned an ``EditHandler`` subclass tailored to work on a 'title' field. These functions now return an object with a ``bind_to_model`` method instead; the EditHandler subclass can be obtained by calling this with the model class as a parameter. As a guide to updating your custom EditHandler code, you may wish to refer to `the relevant change to the Wagtail codebase <https://github.com/wagtail/wagtail/commit/121c01c7f7db6087a985fa8dc9957bc78b9f6a6a>`_.
 
@@ -324,7 +324,7 @@ Previously, the ``document_served`` signal (which is fired whenever a user downl
 Custom image models must specify an ``admin_form_fields`` list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously, the forms for creating and editing images followed Django's default behaviour of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behaviour is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example:
+Previously, the forms for creating and editing images followed Django's default behavior of showing all fields defined on the model; this would include any custom fields specific to your project that you defined by subclassing ``AbstractImage`` and setting ``WAGTAILIMAGES_IMAGE_MODEL``. This behavior is risky as it may lead to fields being unintentionally exposed to the user, and so Django has deprecated this, for removal in Django 1.8. Accordingly, if you create your own custom subclass of ``AbstractImage``, you must now provide an ``admin_form_fields`` property, listing the fields that should appear on the image creation / editing form - for example:
 
 .. code-block:: python
 

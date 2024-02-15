@@ -20,4 +20,4 @@ Bug fixes
  * Fix issue where bulk actions would not work for object IDs greater than 999 when ``USE_THOUSAND_SEPARATOR`` (Dennis McGregor)
  * Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
  * Prevent error on creating automatic redirects for sites with non-standard ports (Matt Westcott)
- * Restore ability to customise admin UI colours via CSS (LB (Ben Johnston))
+ * Restore ability to customize admin UI colors via CSS (LB (Ben Johnston))

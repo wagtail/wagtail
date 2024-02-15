@@ -31,7 +31,7 @@ Other features
 
 * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
 * Combine flake8 configurations (Sergey Fedoseev)
-* Improve diffing behaviour for text fields (Aliosha Padovani)
+* Improve diffing behavior for text fields (Aliosha Padovani)
 * Improve contrast of disabled inputs (Nick Smith)
 * Added ``get_document_model_string`` function (Andrey Smirnov)
 * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
@@ -40,7 +40,7 @@ Other features
 * Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
 * Cleaned up Django docs URLs in documentation (Pete Andrew)
 * Add StreamFieldPanel to available panel types in documentation (Dan Swain)
-* Add ``{{ block.super }}`` example to ModelAdmin customisation in documentation (Dan Swain)
+* Add ``{{ block.super }}`` example to ModelAdmin customization in documentation (Dan Swain)
 * Add ability to filter image index by a tag (Benedikt Willi)
 * Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
 * Added cache control headers when serving documents (Johannes Vogel)
@@ -62,8 +62,8 @@ Bug fixes
 * Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
 * Added ``verbose_name_plural`` to form submission model (Janneke Janssen)
 * Prevent ``update_index`` failures and incorrect front-end rendering on blank ``TableBlock`` (Carlo Ascani)
-* Dropdown initialisation on the search page after AJAX call (Eric Sherman)
-* Make sure all modal chooser search results correspond to the latest search by cancelling previous requests (Esper Kuijs)
+* Dropdown initialization on the search page after AJAX call (Eric Sherman)
+* Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
 
 
 Upgrade considerations
@@ -78,14 +78,14 @@ Django 2.0 is no longer supported as of this release; please upgrade to Django 2
 Edit locking behaviour changed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The behaviour of the page locking feature in the admin interface has been changed.
+The behavior of the page locking feature in the admin interface has been changed.
 In past versions, the page lock would apply to all users including the user who
 locked the page. Now, the user who locked the page can still edit it but all other
 users cannot.
 
 Pages that were locked before this release will continue to be locked in the same
 way as before, so this only applies to newly locked pages. If you would like to
-restore the previous behaviour, you can set the
+restore the previous behavior, you can set the
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` setting to ``True``.
 
 
@@ -95,7 +95,7 @@ Responsive HTML for embeds no longer added by default
 In previous versions of Wagtail, embedded media elements were given
 a class name of ``responsive-object`` and an inline ``padding-bottom`` style to assist
 in styling them responsively. These are no longer added by default. To restore the previous
-behaviour, add ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` to your project settings.
+behavior, add ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` to your project settings.
 
 
 API endpoint classes have moved
