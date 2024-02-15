@@ -2,6 +2,7 @@ import json
 from datetime import date, datetime, timedelta
 from io import StringIO
 
+from django.contrib.auth.models import Permission
 from django.core import management
 from django.test import TestCase
 from django.urls import reverse
@@ -230,7 +231,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["queries"].number, 2)
+        self.assertEqual(response.context["page_obj"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_search_picks()
@@ -259,7 +260,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         self.client.get(url)
 
         # Number of queries with the current number of search picks
-        with self.assertNumQueries(69):
+        with self.assertNumQueries(11):
             self.client.get(url)
 
         # Add more SearchPromotions and QueryDailyHits to some of the queries
@@ -283,7 +284,8 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
             QueryDailyHits.objects.bulk_create(hits)
 
         # Number of queries after the addition of more search picks and hits
-        with self.assertNumQueries(134):
+        # should remain the same (no N+1 queries)
+        with self.assertNumQueries(11):
             self.client.get(url)
 
     def test_results_are_ordered_alphabetically(self):
@@ -303,6 +305,36 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
 
         # "aargh snake" should be the first result alphabetically
         self.assertEqual(response.context["queries"][0].query_string, "aaargh snake")
+
+    def test_multiple_searchpromotions(self):
+        today = date.today()
+        for i in range(10):
+            Query.get("root page").add_hit(date=today - timedelta(days=i))
+        SearchPromotion.objects.create(
+            query=Query.get("root page"),
+            page_id=1,
+            sort_order=0,
+            description="First search pick",
+        )
+        SearchPromotion.objects.create(
+            query=Query.get("root page"),
+            page_id=2,
+            sort_order=0,
+            description="Second search pick",
+        )
+        response = self.client.get(reverse("wagtailsearchpromotions:index"))
+
+        self.assertContains(response, "<td>10</td>", html=True)
+        self.assertEqual(Query.get("root page").hits, 10)
+
+        soup = self.get_soup(response.content)
+        root_page_edit_url = reverse("wagtailadmin_pages:edit", args=(1,))
+        homepage_edit_url = reverse("wagtailadmin_pages:edit", args=(2,))
+        root_page_edit_link = soup.select_one(f'a[href="{root_page_edit_url}"]')
+        homepage_edit_link = soup.select_one(f'a[href="{homepage_edit_url}"]')
+        self.assertIsNotNone(root_page_edit_link)
+        self.assertIsNotNone(homepage_edit_link)
+        self.assertEqual(Query.get("root page").editors_picks.count(), 2)
 
     def test_results_ordering(self):
         self.make_search_picks()
@@ -344,29 +376,29 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         # ordered by querystring (reversed)
         response = self.client.get(url + "?ordering=-query_string")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["queries"][0].query_string, "zyzzyvas")
+        self.assertEqual(response.context["page_obj"][0].query_string, "zyzzyvas")
 
         # last page, still ordered by query string (reversed)
         response = self.client.get(url + "?ordering=-query_string&p=3")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["queries"][-1].query_string, "aardwolf")
+        self.assertEqual(response.context["page_obj"][-1].query_string, "aardwolf")
 
         # ordered by querystring (not reversed)
         response = self.client.get(url + "?ordering=query_string")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["queries"][0].query_string, "aardwolf")
+        self.assertEqual(response.context["page_obj"][0].query_string, "aardwolf")
 
         # ordered by sum of daily hits (reversed)
         response = self.client.get(url + "?ordering=-views")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["queries"][0].query_string, "optimal")
-        self.assertEqual(response.context["queries"][1].query_string, "suboptimal")
+        self.assertEqual(response.context["page_obj"][0].query_string, "optimal")
+        self.assertEqual(response.context["page_obj"][1].query_string, "suboptimal")
 
         # ordered by sum of daily hits, last page (not reversed)
         response = self.client.get(url + "?ordering=views&p=3")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["queries"][-1].query_string, "optimal")
-        self.assertEqual(response.context["queries"][-2].query_string, "suboptimal")
+        self.assertEqual(response.context["page_obj"][-1].query_string, "optimal")
+        self.assertEqual(response.context["page_obj"][-2].query_string, "suboptimal")
 
 
 class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
@@ -882,3 +914,29 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], Query.get("unpopular query"))
         self.assertEqual(popular_queries[1], Query.get("popular query"))
         self.assertEqual(popular_queries[2], Query.get("little popular query"))
+
+
+class TestSearchPromotionPermission(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailsearchpromotions:index"), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No Permissions created
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
