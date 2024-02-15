@@ -4356,18 +4356,15 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
-    def test_normalize_base_case(self):
-        """Test normalize when trivially recursive, or already a StreamValue"""
-        block = blocks.StreamBlock(
+
+class TestNormalizeStreamBlock(SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.simple_block = blocks.StreamBlock(
             [("number", blocks.IntegerBlock()), ("text", blocks.TextBlock())]
         )
-        value = [("number", 1), ("text", "ichiban")]
-        stream_value = blocks.StreamValue(block, value)
-        self.assertEqual(stream_value, block.normalize(value))
-        self.assertEqual(stream_value, block.normalize(stream_value))
-
-    def test_normalize_recursive(self):
-        block = blocks.StreamBlock(
+        cls.recursive_block = blocks.StreamBlock(
             [
                 (
                     "inner_stream",
@@ -4375,6 +4372,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                         [
                             ("number", blocks.IntegerBlock()),
                             ("text", blocks.TextBlock()),
+                            ("inner_list", blocks.ListBlock(blocks.IntegerBlock)),
                         ]
                     ),
                 ),
@@ -4382,28 +4380,86 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 ("list", blocks.ListBlock(blocks.IntegerBlock)),
             ]
         )
-        value = [
-            ("struct", {"bool": True}),
-            (
-                "inner_stream",
-                [
-                    ("number", 1),
-                    ("text", "one"),
-                ],
-            ),
-            ("list", [0, 1, 1, 2, 3, 5]),
-        ]
-        normalized = block.normalize(value)
-        # the StructBlock child
-        self.assertIsInstance(normalized[0].value, blocks.StructValue)
-        self.assertIsInstance(normalized[0].value["bool"], bool)
-        # the nested StreamBlock child
-        self.assertIsInstance(normalized[1].value, blocks.StreamValue)
-        self.assertIsInstance(normalized[1].value[0].value, int)
-        self.assertIsInstance(normalized[1].value[1].value, str)
-        # the ListBlock child
-        self.assertIsInstance(normalized[2].value, blocks.list_block.ListValue)
-        self.assertIsInstance(normalized[2].value[0], int)
+
+    def test_normalize_base_case(self):
+        """
+        Test normalize when trivially recursive, or already a StreamValue
+        """
+        value = [("number", 1), ("text", "ichiban")]
+        stream_value = blocks.StreamValue(self.simple_block, value)
+        self.assertEqual(stream_value, self.simple_block.normalize(value))
+        self.assertEqual(stream_value, self.simple_block.normalize(stream_value))
+
+    def test_normalize_recursive(self):
+        """
+        A stream block is normalized iff all of its sub-blocks are normalized.
+        """
+        values = (
+            # A smart, "list of tuples" representation
+            [
+                ("struct", {"bool": True}),
+                (
+                    "inner_stream",
+                    [
+                        ("number", 1),
+                        ("text", "one"),
+                        ("inner_list", [0, 1, 1, 2, 3, 5]),
+                    ],
+                ),
+                ("list", [0, 1, 1, 2, 3, 5]),
+            ],
+            # A json-ish representation - the serialized format
+            [
+                {"type": "struct", "value": {"bool": True}},
+                {
+                    "type": "inner_stream",
+                    "value": [
+                        {"type": "number", "value": 1},
+                        {"type": "text", "value": "one"},
+                        {
+                            "type": "inner_list",
+                            "value": [
+                                # Unlike StreamBlock, ListBlock requires that its items
+                                # have IDs, to distinguish the new serialization format
+                                # from the old.
+                                {"type": "item", "value": 0, "id": 1},
+                                {"type": "item", "value": 1, "id": 2},
+                                {"type": "item", "value": 2, "id": 3},
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "type": "list",
+                    "value": [
+                        {"type": "item", "value": 0, "id": 1},
+                        {"type": "item", "value": 1, "id": 2},
+                        {"type": "item", "value": 2, "id": 3},
+                    ],
+                },
+            ],
+        )
+
+        for value in values:
+            with self.subTest(value=value):
+                # Normalize the value.
+                normalized = self.recursive_block.normalize(value)
+                # Then check all of the sub-blocks have been normalized:
+                # the StructBlock child
+                self.assertIsInstance(normalized[0].value, blocks.StructValue)
+                self.assertIsInstance(normalized[0].value["bool"], bool)
+                # the nested StreamBlock child
+                self.assertIsInstance(normalized[1].value, blocks.StreamValue)
+                self.assertIsInstance(normalized[1].value[0].value, int)
+                self.assertIsInstance(normalized[1].value[1].value, str)
+                # the ListBlock child
+                self.assertIsInstance(normalized[2].value[0], int)
+                self.assertIsInstance(normalized[2].value, blocks.list_block.ListValue)
+                # the inner ListBlock nested in the nested streamblock
+                self.assertIsInstance(normalized[1].value[2].value[0], int)
+                self.assertIsInstance(
+                    normalized[1].value[2].value, blocks.list_block.ListValue
+                )
 
 
 class TestStructBlockWithFixtures(TestCase):
