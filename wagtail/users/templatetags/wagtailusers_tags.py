@@ -4,9 +4,11 @@ from collections import defaultdict
 from django import template
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.utils.text import camel_case_to_spaces
 
 from wagtail import hooks
+from wagtail.admin.models import Admin
 from wagtail.users.permission_order import CONTENT_TYPE_ORDER
 
 register = template.Library()
@@ -97,9 +99,6 @@ def format_permissions(permission_bound_field):
         for checkbox in permission_bound_field
     }
 
-    object_perms = []
-    other_perms = []
-
     # Permissions that are known by Wagtail, to be shown under their own columns.
     # Other permissions will be shown under the "custom permissions" column.
     main_permission_names = ["add", "change", "delete", "publish", "lock", "unlock"]
@@ -118,16 +117,28 @@ def format_permissions(permission_bound_field):
     for permission in permissions:
         content_perms_by_ct_id[permission.content_type_id].append(permission)
 
+    # Permissions that use Wagtail's Admin content type, to be displayed
+    # under the "Other permissions" section alongside the
+    # "Can access Wagtail admin" permission.
+    admin_content_type = ContentType.objects.get_for_model(Admin)
+    admin_permissions = content_perms_by_ct_id.pop(admin_content_type.id, [])
+    other_perms = [(perm, checkboxes_by_id[perm.id]) for perm in admin_permissions]
+
+    # We're done with the admin content type, so remove it from the list of content types
+    # but make sure the sorted order is preserved.
+    content_type_ids = [
+        ct_id for ct_id in content_type_ids if ct_id != admin_content_type.pk
+    ]
+
+    # Permissions for all other content types, to be displayed under the
+    # "Object permissions" section.
+    object_perms = []
+
     # Iterate using the sorted content_type_ids
     for ct_id in content_type_ids:
         content_perms = content_perms_by_ct_id[ct_id]
         content_perms_dict = {}
         custom_perms = []
-
-        if content_perms[0].content_type.name == "admin":
-            perm = content_perms[0]
-            other_perms.append((perm, checkboxes_by_id[perm.id]))
-            continue
 
         for perm in content_perms:
             content_perms_dict["object"] = perm.content_type.name
