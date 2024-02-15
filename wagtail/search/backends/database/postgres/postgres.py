@@ -227,12 +227,16 @@ class Index:
         ).exclude(object_id__in=existing_pks)
         stale_entries.delete()
 
-    def delete_stale_entries(self):
-        for model in get_indexed_models():
-            # We don’t need to delete stale entries for non-root models,
-            # since we already delete them by deleting roots.
-            if not model._meta.parents:
+    def delete_stale_entries(self, models=None):
+        if models:
+            for model in models:
                 self.delete_stale_model_entries(model)
+        else:
+            for model in get_indexed_models():
+                # We don’t need to delete stale entries for non-root models,
+                # since we already delete them by deleting roots.
+                if not model._meta.parents:
+                    self.delete_stale_model_entries(model)
 
     def add_item(self, obj):
         self.add_items(obj._meta.model, [obj])
@@ -698,8 +702,8 @@ class PostgresSearchRebuilder:
     def __init__(self, index):
         self.index = index
 
-    def start(self):
-        self.index.delete_stale_entries()
+    def start(self, models=None):
+        self.index.delete_stale_entries(models)
         return self.index
 
     def finish(self):

@@ -70,9 +70,9 @@ class Command(BaseCommand):
             self.write("Backend '%s' doesn't require rebuilding" % backend_name)
             return
 
-        models_grouped_by_index = group_models_by_index(
-            backend, get_indexed_models()
-        ).items()
+        indexed_models = getattr(self, "only_models", get_indexed_models())
+        models_grouped_by_index = group_models_by_index(backend, indexed_models).items()
+
         if not models_grouped_by_index:
             self.write(backend_name + ": No indices to rebuild")
 
@@ -81,7 +81,11 @@ class Command(BaseCommand):
 
             # Start rebuild
             rebuilder = backend.rebuilder_class(index)
-            index = rebuilder.start()
+
+            if getattr(self, "only_models", None):
+                index = rebuilder.start(models)
+            else:
+                index = rebuilder.start()
 
             # Add models
             for model in models:
@@ -138,6 +142,14 @@ class Command(BaseCommand):
             type=int,
             help="Set number of records to be fetched at once for inserting into the index",
         )
+        parser.add_argument(
+            "--only",
+            action="store",
+            dest="only_models",
+            default=None,
+            type=str,
+            help="Only update indexes on certain models. (comma separated, '?' to get list of options)",
+        )
 
     def handle(self, **options):
         self.verbosity = options["verbosity"]
@@ -153,6 +165,19 @@ class Command(BaseCommand):
             # index the 'default' backend only
             backend_names = ["default"]
 
+        if options["only_models"]:
+            all_models = {model._meta.label: model for model in get_indexed_models()}
+            if options["only_models"] == "?":
+                self.stdout.write(",".join(all_models.keys()))
+                return
+            self.only_models = []
+            for model_label in options["only_models"].split(","):
+                model = all_models.get(model_label, None)
+                if model:
+                    self.only_models.append(model)
+                else:
+                    self.stderr.write(f"{model_label} is not a valid model name")
+                    return
         # Update backends
         for backend_name in backend_names:
             self.update_backend(
