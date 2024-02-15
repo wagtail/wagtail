@@ -158,7 +158,11 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         for obj in self.fields.values():
             if isinstance(obj, models.ModelChoiceField):
                 try:
-                    obj.widget.form_instance = self
+                    obj.widget.page_instance = (
+                        self.instance
+                        if self.instance.id is not None
+                        else self.parent_page
+                    )
                 except AttributeError:
                     # Then propably it isn't a page chooser
                     pass

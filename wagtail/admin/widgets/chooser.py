@@ -224,7 +224,7 @@ class AdminPageChooser(BaseChooser):
     icon = "doc-empty-inverse"
     classname = "page-chooser"
     js_constructor = "PageChooser"
-    form_instance = None
+    page_instance = None
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -299,20 +299,9 @@ class AdminPageChooser(BaseChooser):
     def get_js_init_options(self, id_, name, value_data):
         opts = super().get_js_init_options(id_, name, value_data)
         value_data = value_data or {}
-        page_id = None
-
-        if self.form_instance:
-            # the parentId is set to the current instances id, if the current page instance
-            # exists i.e. EditView, else set to the parent page id since the current
-            # instance doesn't exist yet. i.e CreateView, and to None if no parent page
-            if self.form_instance.instance.id is not None:
-                page_id = self.form_instance.instance.id
-            elif self.form_instance.parent_page is not None:
-                page_id = self.form_instance.parent_page.id
-
         parent_id = value_data.get("parent_id")
-        if parent_id is not None or page_id is not None:
-            opts["parentId"] = parent_id or page_id
+        if parent_id is not None or self.page_instance is not None:
+            opts["parentId"] = parent_id or self.page_instance.id
         return opts
 
     @property
