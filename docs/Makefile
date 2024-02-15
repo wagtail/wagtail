@@ -184,7 +184,7 @@ pseudoxml:
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
+# Override SPHINXOPTS as `sphinx-autobuild` does not have `--keep-going` option
+livehtml: SPHINXOPTS = -W -n
 livehtml:
 	sphinx-autobuild --port 4000 --host 0.0.0.0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-
-
