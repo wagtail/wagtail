@@ -260,7 +260,7 @@ class TestElasticsearch7SearchQuery(TestCase):
                     {"match": {"content_type": "searchtests.Book"}},
                     {
                         "bool": {
-                            "mustNot": {
+                            "must_not": {
                                 "term": {"publication_date_filter": "2017-10-18"}
                             }
                         }
@@ -411,7 +411,7 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": [
                     {"match": {"content_type": "searchtests.Book"}},
-                    {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
+                    {"bool": {"must_not": {"exists": {"field": "title_filter"}}}},
                 ],
                 "must": {
                     "multi_match": {
@@ -437,7 +437,7 @@ class TestElasticsearch7SearchQuery(TestCase):
             "bool": {
                 "filter": [
                     {"match": {"content_type": "searchtests.Book"}},
-                    {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
+                    {"bool": {"must_not": {"exists": {"field": "title_filter"}}}},
                 ],
                 "must": {
                     "multi_match": {

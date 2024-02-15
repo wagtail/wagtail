@@ -16,6 +16,7 @@ from wagtail.search.backends.base import (
     BaseSearchQueryCompiler,
     BaseSearchResults,
     FilterFieldError,
+    SearchFieldError,
     get_model_root,
 )
 from wagtail.search.index import (
@@ -452,41 +453,92 @@ class Elasticsearch7Index:
 class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
     mapping_class = Elasticsearch7Mapping
     DEFAULT_OPERATOR = "or"
+    DEFAULT_BOOST = 1.0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.mapping = self.mapping_class(self.queryset.model)
-        self.remapped_fields = self._remap_fields(self.fields)
+
+        self.cached_fields = {}
+        self.cached_boosts = None
+        self.searchable_fields = None
 
     def _remap_fields(self, fields):
         """Convert field names into index column names and add boosts."""
+        remapped_fields = self._remap_field_values(fields)
 
-        remapped_fields = []
-        if fields:
-            searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
+        if remapped_fields is not None:
+            return remapped_fields
+
+        return self._map_all_fields()
+
+    def _remap_field_values(self, fields):
+        """Map the values in `fields` to their indexed value."""
+        if fields is not None:
+
+            if not fields:
+                raise ValueError(
+                    '"fields" cannot be an empty list.'
+                    + 'Set "fields=None" to search all fields.'
+                )
+
+            remapped_fields = []
+
+            if self.searchable_fields is None:
+                self._searchable_field_map()
+
             for field_name in fields:
-                field = searchable_fields.get(field_name)
-                if field:
-                    field_name = self.mapping.get_field_column_name(field)
-                    remapped_fields.append(Field(field_name, field.boost or 1))
-        else:
-            remapped_fields.append(Field(self.mapping.all_field_name))
+                if field_name not in self.searchable_fields:
+                    raise SearchFieldError(
+                        'Cannot search with field "'
+                        + field_name
+                        + "\". Please add index.SearchField('"
+                        + field_name
+                        + "') to "
+                        + self.queryset.model.__name__
+                        + ".search_fields.",
+                        field_name=field_name,
+                    )
 
-            models = get_indexed_models()
-            unique_boosts = set()
-            for model in models:
-                if not issubclass(model, self.queryset.model):
-                    continue
-                for field in model.get_searchable_search_fields():
-                    if field.boost:
-                        unique_boosts.add(float(field.boost))
+                if field_name not in self.cached_fields:
+                    field = self.searchable_fields[field_name]
+                    mapped_field = self.mapping.get_field_column_name(field)
+                    boost = field.boost if isinstance(field, SearchField) else None
+                    self.cached_fields[field_name] = Field(mapped_field, boost or 1)
 
-            remapped_fields.extend(
-                [
-                    Field(self.mapping.get_boost_field_name(boost), boost)
-                    for boost in unique_boosts
-                ]
-            )
+                remapped_fields.append(self.cached_fields[field_name])
+
+            return remapped_fields
+
+        return None
+
+    def _searchable_field_map(self):
+        self.searchable_fields = {f.field_name: f for f in self.get_searchable_fields()}
+
+    def _map_all_fields(self):
+        """Use _all_fields and boosts when fields are not specified."""
+        if self.cached_boosts is not None:
+            return self.cached_boosts
+
+        remapped_fields = [Field(self.mapping.all_field_name)]
+
+        models = get_indexed_models()
+        unique_boosts = set()
+        for model in models:
+            if not issubclass(model, self.queryset.model):
+                continue
+            for field in model.get_searchable_search_fields():
+                if field.boost:
+                    unique_boosts.add(float(field.boost))
+
+        remapped_fields.extend(
+            [
+                Field(self.mapping.get_boost_field_name(boost), boost)
+                for boost in unique_boosts
+            ]
+        )
+
+        self.cached_boosts = remapped_fields
 
         return remapped_fields
 
@@ -515,7 +567,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
             if value:
-                query = {"bool": {"mustNot": query}}
+                query = {"bool": {"must_not": query}}
 
             return query
 
@@ -575,22 +627,40 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 }
 
             if negated:
-                filter_out = {"bool": {"mustNot": filter_out}}
+                filter_out = {"bool": {"must_not": filter_out}}
 
             return filter_out
 
-    def _compile_plaintext_query(self, query, fields, boost=1.0):
+    def get_mapped_fields(self, query, fields=None):
+        """Check a query's `fields` value before using `self.fields`."""
+        remapped_fields = self._remap_field_values(query.fields)
+        if remapped_fields is None:
+            remapped_fields = self._remap_fields(fields)
+        return remapped_fields
+
+    def _all_query(self, boost=DEFAULT_BOOST):
+        inner_query = {"boost": boost} if boost != self.DEFAULT_BOOST else {}
+        return {"match_all": inner_query}
+
+    def _empty_query(self, boost=DEFAULT_BOOST):
+        return {"bool": {"must_not": self._all_query(boost)}}
+
+    def _compile_plaintext_query(self, query, fields, boost=DEFAULT_BOOST):
         match_query = {"query": query.query_string}
 
-        if query.operator != "or":
+        if query.operator != self.DEFAULT_OPERATOR:
             match_query["operator"] = query.operator
 
+        fields = self.get_mapped_fields(query, fields)
+
+        if len(fields) == 0:
+            return self._empty_query(boost)
         if len(fields) == 1:
-            if boost != 1.0 or fields[0].boost != 1.0:
+            if boost != self.DEFAULT_BOOST or fields[0].boost != self.DEFAULT_BOOST:
                 match_query["boost"] = boost * fields[0].boost
             return {"match": {fields[0].field_name: match_query}}
         else:
-            if boost != 1.0:
+            if boost != self.DEFAULT_BOOST:
                 match_query["boost"] = boost
             match_query["fields"] = [field.field_name_with_boost for field in fields]
 
@@ -601,8 +671,13 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             "query": query.query_string,
             "fuzziness": "AUTO",
         }
+
+        fields = self.get_mapped_fields(query, fields)
+
+        if len(fields) == 0:
+            return self._empty_query()
         if len(fields) == 1:
-            if fields[0].boost != 1.0:
+            if fields[0].boost != self.DEFAULT_BOOST:
                 match_query["boost"] = fields[0].boost
             return {"match": {fields[0].field_name: match_query}}
         else:
@@ -610,8 +685,12 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             return {"multi_match": match_query}
 
     def _compile_phrase_query(self, query, fields):
+        fields = self.get_mapped_fields(query, fields)
+
+        if len(fields) == 0:
+            return self._empty_query()
         if len(fields) == 1:
-            if fields[0].boost != 1.0:
+            if fields[0].boost != self.DEFAULT_BOOST:
                 return {
                     "match_phrase": {
                         fields[0].field_name: {
@@ -631,20 +710,15 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 }
             }
 
-    def _compile_query(self, query, field, boost=1.0):
+    def _compile_query(self, query, fields, boost=DEFAULT_BOOST):
         if isinstance(query, MatchAll):
-            match_all_query = {}
-
-            if boost != 1.0:
-                match_all_query["boost"] = boost
-
-            return {"match_all": match_all_query}
+            return self._all_query(boost)
 
         elif isinstance(query, And):
             return {
                 "bool": {
                     "must": [
-                        self._compile_query(child_query, field, boost)
+                        self._compile_query(child_query, fields, boost)
                         for child_query in query.subqueries
                     ]
                 }
@@ -654,7 +728,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             return {
                 "bool": {
                     "should": [
-                        self._compile_query(child_query, field, boost)
+                        self._compile_query(child_query, fields, boost)
                         for child_query in query.subqueries
                     ]
                 }
@@ -662,20 +736,20 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(query, Not):
             return {
-                "bool": {"mustNot": self._compile_query(query.subquery, field, boost)}
+                "bool": {"must_not": self._compile_query(query.subquery, fields, boost)}
             }
 
         elif isinstance(query, PlainText):
-            return self._compile_plaintext_query(query, [field], boost)
+            return self._compile_plaintext_query(query, fields, boost)
 
         elif isinstance(query, Fuzzy):
-            return self._compile_fuzzy_query(query, [field])
+            return self._compile_fuzzy_query(query, fields)
 
         elif isinstance(query, Phrase):
-            return self._compile_phrase_query(query, [field])
+            return self._compile_phrase_query(query, fields)
 
         elif isinstance(query, Boost):
-            return self._compile_query(query.subquery, field, boost * query.boost)
+            return self._compile_query(query.subquery, fields, boost * query.boost)
 
         else:
             raise NotImplementedError(
@@ -684,55 +758,33 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             )
 
     def get_inner_query(self):
-        if self.remapped_fields:
-            fields = self.remapped_fields
-        else:
-            fields = [self.mapping.all_field_name]
+        fields = self.fields
+        query = self.query
 
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
-            return {"bool": {"mustNot": {"match_all": {}}}}
-
-        # Handle MatchAll and PlainText separately as they were supported
-        # before "search query classes" was implemented and we'd like to
-        # keep the query the same as before
-        if isinstance(self.query, MatchAll):
-            return {"match_all": {}}
-
-        elif isinstance(self.query, PlainText):
-            return self._compile_plaintext_query(self.query, fields)
-
-        elif isinstance(self.query, Phrase):
-            return self._compile_phrase_query(self.query, fields)
-
-        elif isinstance(self.query, Fuzzy):
-            return self._compile_fuzzy_query(self.query, fields)
-
-        elif isinstance(self.query, Not):
-            return {
-                "bool": {
-                    "mustNot": [
-                        self._compile_query(self.query.subquery, field)
-                        for field in fields
-                    ]
+        if fields is not None and len(fields) > 1:
+            if isinstance(query, Not):
+                return {
+                    "bool": {
+                        "must_not": [
+                            self._compile_query(query.subquery, [field])
+                            for field in fields
+                        ]
+                    }
                 }
-            }
 
-        else:
-            return self._join_and_compile_queries(self.query, fields)
+            if isinstance(query, And) or isinstance(query, Or):
+                # Compile a query for each field then combine with disjunction
+                # max (or operator which takes the max score out of each of the
+                # field queries)
+                return {
+                    "dis_max": {
+                        "queries": [
+                            self._compile_query(query, [field]) for field in fields
+                        ]
+                    }
+                }
 
-    def _join_and_compile_queries(self, query, fields, boost=1.0):
-        if len(fields) == 1:
-            return self._compile_query(query, fields[0], boost)
-        else:
-            # Compile a query for each field then combine with disjunction
-            # max (or operator which takes the max score out of each of the
-            # field queries)
-            field_queries = []
-            for field in fields:
-                field_queries.append(self._compile_query(query, field, boost))
-
-            return {"dis_max": {"queries": field_queries}}
+        return self._compile_query(query, fields)
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
@@ -997,37 +1049,17 @@ class Elasticsearch7SearchResults(BaseSearchResults):
 
 
 class ElasticsearchAutocompleteQueryCompilerImpl:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def _searchable_field_map(self):
+        self.searchable_fields = {
+            f.field_name: f
+            for f in self.queryset.model.get_autocomplete_search_fields()
+        }
 
-        # Convert field names into index column names
-        # Note: this overrides Elasticsearch7SearchQueryCompiler by using autocomplete fields instead of searchable fields
-        if self.fields:
-            fields = []
-            autocomplete_fields = {
-                f.field_name: f
-                for f in self.queryset.model.get_autocomplete_search_fields()
-            }
-            for field_name in self.fields:
-                if field_name in autocomplete_fields:
-                    field_name = self.mapping.get_field_column_name(
-                        autocomplete_fields[field_name]
-                    )
-
-                fields.append(field_name)
-
-            self.remapped_fields = fields
-        else:
-            self.remapped_fields = None
+    def _map_all_fields(self):
+        return [Field(self.mapping.edgengrams_field_name)]
 
     def get_inner_query(self):
-        fields = self.remapped_fields or [self.mapping.edgengrams_field_name]
-        fields = [Field(field) for field in fields]
-        if len(fields) == 0:
-            # No fields. Return a query that'll match nothing
-            return {"bool": {"mustNot": {"match_all": {}}}}
-
-        return self._compile_plaintext_query(self.query, fields)
+        return self._compile_plaintext_query(self.query, self.fields)
 
 
 class Elasticsearch7AutocompleteQueryCompiler(

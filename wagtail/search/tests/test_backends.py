@@ -162,6 +162,11 @@ class BackendTests(WagtailTestUtils):
 
         self.assertIsInstance(results[0], models.Book)
 
+    def test_search_child_class_field_from_parent_with_field(self):
+        # When `field` is specified, searching a child class is no longer possible
+        with self.assertRaises(FieldError):
+            list(self.backend.search("Westeros", models.Book, fields=["setting"]))
+
     def test_search_on_individual_field(self):
         # The following query shouldn't search the Novel.setting field so none
         # of the Novels set in "Westeros" should be returned
@@ -230,6 +235,10 @@ class BackendTests(WagtailTestUtils):
         # There should be no index entries for UnindexedBook
         results = self.backend.search(MATCH_ALL, models.UnindexedBook)
         self.assertEqual(len(results), 0)
+
+    def test_search_no_fields(self):
+        with self.assertRaises(ValueError):
+            list(self.backend.search("Hobbit", models.Book, fields=[]))
 
     # AUTOCOMPLETE TESTS
 
