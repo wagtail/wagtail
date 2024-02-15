@@ -5,7 +5,8 @@ Changelog
 6.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
+ * Fix: Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
+ * Fix: Prevent failure on `collectstatic` when `ManifestStaticFilesStorage` is in use (Matt Westcott)
 
 
 6.0 (07.02.2024)
