@@ -208,7 +208,7 @@ To completely customize the login form, override the `login_form` block. This bl
 
 ## Customizing or removing settings panels
 
-Some panels on the admin menu may want to be modified or even completely removed. For example, you may wish to disable modification of user accounts in the wagtail CMS interface. To modify the built-in panels, you can override their properties during django [app startup](https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready). As an example, in your `apps.py`:
+Some panels on the admin menu may want to be modified or even completely removed. For example, you may wish to modfiy the form a user can edit regarding fields on their user account, or even disable modification of user accounts in the wagtail CMS interface entirely. To modify the built-in panels, you can override their properties during django [app startup](https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready). As an example, in your `apps.py`:
 
 ```python
 from django.apps import AppConfig
