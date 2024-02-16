@@ -206,6 +206,28 @@ To completely customize the login form, override the `login_form` block. This bl
 {% endblock %}
 ```
 
+## Customizing or removing settings panels
+
+Some panels on the admin menu may want to be modified or even completely removed. For example, you may wish to disable modification of user accounts in the wagtail CMS interface. To modify the built-in panels, you can override their properties during django [app startup](https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready). As an example, in your `apps.py`:
+
+```python
+from django.apps import AppConfig
+
+from .forms import MyCustomForm
+
+class MyApp(AppConfig):
+    def ready(self) -> None:
+        from wagtail.admin.views.account import NameEmailSettingsPanel
+
+        # customize the form class
+        NameEmailSettingsPanel.form_class = MyCustomForm
+
+        # or disable the panel entirely
+        NameEmailSettingsPanel.is_active = lambda self: False
+
+        return super().ready()
+```
+
 ## Extending the password reset request form
 
 To add extra controls to the password reset form, create a template file `dashboard/templates/wagtailadmin/account/password_reset/form.html`.
