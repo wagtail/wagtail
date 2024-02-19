@@ -19,7 +19,7 @@ New interface for choosing image focal point
     :width: 332px
     :height: 353px
 
-When editing images, users can now specify a 'focal point' region that cropped versions of the image will be centred on. Previously the focal point could only be set automatically, through image feature detection.
+When editing images, users can now specify a 'focal point' region that cropped versions of the image will be centered on. Previously the focal point could only be set automatically, through image feature detection.
 
 
 Groups and Sites administration interfaces
@@ -28,7 +28,7 @@ Groups and Sites administration interfaces
 .. figure:: ../_static/images/releasenotes_0_7_editor-management.png
     :width: 696px
 
-The main navigation menu has been reorganised, placing site configuration options in a 'Settings' submenu. This includes two new items, which were previously only available through the Django admin backend: 'Groups', for setting up user groups with a specific set of permissions, and 'Sites', for managing the list of sites served by this Wagtail instance.
+The main navigation menu has been reorganized, placing site configuration options in a 'Settings' submenu. This includes two new items, which were previously only available through the Django admin backend: 'Groups', for setting up user groups with a specific set of permissions, and 'Sites', for managing the list of sites served by this Wagtail instance.
 
 
 Page locking
@@ -37,7 +37,7 @@ Page locking
 .. figure:: ../_static/images/releasenotes_0_7_page-locking.png
     :width: 696px
 
-Moderators and administrators now have the ability to lock a page, preventing further edits from being made to that page until it is unlocked again.
+Moderators and administrators now can lock a page, preventing further edits from being made to that page until it is unlocked again.
 
 
 Minor features
@@ -100,7 +100,7 @@ The page locking mechanism adds a ``locked`` field to wagtailcore.Page, defaulti
 Update to ``focal_point_key`` field on custom Rendition models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``focal_point_key`` field on wagtailimages.Rendition has been changed to ``null=False``, to fix an issue with duplicate renditions being created. If you have defined a custom Rendition model in your project (by extending the ``wagtailimages.AbstractRendition`` class), you will need to apply a migration to make the corresponding change on your custom model. Unfortunately neither South nor Django 1.7's migration system are able to generate this automatically - you will need to customise the migration produced by ``./manage.py schemamigration`` / ``./manage.py makemigrations``, using the wagtailimages migration as a guide:
+The ``focal_point_key`` field on wagtailimages.Rendition has been changed to ``null=False``, to fix an issue with duplicate renditions being created. If you have defined a custom Rendition model in your project (by extending the ``wagtailimages.AbstractRendition`` class), you will need to apply a migration to make the corresponding change on your custom model. Unfortunately, neither South nor Django 1.7's migration system can generate this automatically - you will need to customize the migration produced by ``./manage.py schemamigration`` / ``./manage.py makemigrations``, using the wagtailimages migration as a guide:
 
 - https://github.com/wagtail/wagtail/blob/stable/0.7.x/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
 - https://github.com/wagtail/wagtail/blob/stable/0.7.x/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)

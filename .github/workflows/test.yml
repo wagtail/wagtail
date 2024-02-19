@@ -64,6 +64,7 @@ jobs:
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
+          WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
           coverage run --parallel-mode --source wagtail runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
@@ -132,6 +133,7 @@ jobs:
           ${{ matrix.install_extras }}
       - name: Test
         run: |
+          WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
           coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
@@ -185,6 +187,7 @@ jobs:
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
+          WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
           coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.mysql

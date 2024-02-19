@@ -18,6 +18,7 @@ Changelog
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
+ * Docs: Update broken and incorrect links throughout the documentation (EK303)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
@@ -26,6 +27,14 @@ Changelog
  * Maintenance: Set up an `wagtail.models.AbstractWorkflow` model to support future customisations around workflows (Hossein)
  * Maintenance: Improve `classnames` template tag to handle nested lists of strings, use template tag for admin `body` element (LB (Ben) Johnston)
  * Maintenance: Merge `UploadedDocument` and `UploadedImage` into new `UploadedFile` model for easier shared code usage (Advik Kabra, Karl Hobley)
+
+
+6.0.1 (15.02.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure `BooleanRadioSelect` uses the same styles as `RadioSelect` (Thibaud Colas)
+ * Fix: Prevent failure on `collectstatic` when `ManifestStaticFilesStorage` is in use (Matt Westcott)
+ * Fix: Prevent error on submitting an empty search in the admin under Elasticsearch (Maikel Martens)
 
 
 6.0 (07.02.2024)

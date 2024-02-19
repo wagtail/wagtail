@@ -2,11 +2,23 @@
 global.fetch = jest.fn();
 global.Headers = jest.fn();
 
-// Helper to mock a success response.
-fetch.mockResponseSuccess = (body) => {
+// Helper to mock a success JSON response.
+fetch.mockResponseSuccessJSON = (body) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
       json: () => Promise.resolve(JSON.parse(body)),
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+    }),
+  );
+};
+
+// Helper to mock a success text response.
+fetch.mockResponseSuccessText = (body) => {
+  fetch.mockImplementationOnce(() =>
+    Promise.resolve({
+      text: () => Promise.resolve(body),
       ok: true,
       status: 200,
       statusText: 'OK',
