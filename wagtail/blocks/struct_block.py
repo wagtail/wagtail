@@ -241,9 +241,6 @@ class BaseStructBlock(Block):
     def normalize(self, value):
         if isinstance(value, self.meta.value_class):
             return value
-        elif isinstance(value, StructValue):
-            # We might have been passed a StructValue rather than a specific StructValue subclass
-            return self._to_struct_value(value.items())
 
         return self._to_struct_value(
             {k: self.child_blocks[k].normalize(v) for k, v in value.items()}
