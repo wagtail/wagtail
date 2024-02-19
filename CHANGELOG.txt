@@ -16,6 +16,7 @@ Changelog
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
  * Docs: Update broken and incorrect links throughout the documentation (EK303)
  * Docs: Fix formatting of `--purge-only` in `wagtail_update_image_renditions` management command section (Pranith Beeram)
+ * Docs: Update template components documentation to better explain the usage of the Laces library (Tibor Leupold)
 
 
 6.0.1 (15.02.2024)
