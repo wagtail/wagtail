@@ -213,7 +213,8 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
             """A CharBlock with a deliberately perverse JSON (de)serialisation format
-            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't"""
+            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't
+            """
 
             def to_python(self, jsonish_value):
                 # decode as base64 on the way out of the JSON serialisation
@@ -3074,21 +3075,55 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             blocks.list_block.ListValue(block, [0, 1, 1, 2, 3]),
         )
 
+    def test_normalize_empty(self):
+        block = blocks.ListBlock(blocks.IntegerBlock())
+        self.assert_eq_list_values(
+            blocks.list_block.ListValue(block, []), block.normalize([])
+        )
+
+    def test_normalize_serialized_format(self):
+        block = blocks.ListBlock(blocks.IntegerBlock())
+        value = [
+            # Unlike StreamBlock, ListBlock requires that its items
+            # have IDs, to distinguish the new serialization format
+            # from the old.
+            {"type": "item", "value": 0, "id": 1},
+            {"type": "item", "value": 1, "id": 2},
+            {"type": "item", "value": 2, "id": 3},
+        ]
+        normalized = block.normalize(value)
+        self.assert_eq_list_values(
+            normalized, blocks.list_block.ListValue(block, [0, 1, 2])
+        )
+
     def test_recursive_normalize(self):
         """
-        ListBlock.normalize should recursively normalize all values passed to it, and return a ListValue
+        ListBlock.normalize should recursively normalize all values passed to
+        it, and return a ListValue
         """
         inner_list_block = blocks.ListBlock(blocks.IntegerBlock())
         block = blocks.ListBlock(inner_list_block)
-        value = [[0, 0, 1], [0, 1, 0], [1, 0, 0]]
+        values = [
+            [[1, 2, 3]],
+            [
+                {
+                    "type": "item",
+                    "id": 0,
+                    "value": [
+                        {"type": "item", "value": 1, "id": 1},
+                        {"type": "item", "value": 2, "id": 2},
+                        {"type": "item", "value": 3, "id": 3},
+                    ],
+                }
+            ],
+            [blocks.list_block.ListValue(block, [1, 2, 3])],
+        ]
 
-        normalized = block.normalize(value)
-        self.assertIsInstance(normalized, blocks.list_block.ListValue)
-        for child in normalized:
-            with self.subTest(child=child):
-                self.assertIsInstance(child, blocks.list_block.ListValue)
-                for inner_child in child:
-                    self.assertIsInstance(inner_child, int)
+        expected = blocks.list_block.ListValue(block, [1, 2, 3])
+        for value in values:
+            normalized = block.normalize(value)
+            self.assertIsInstance(normalized, blocks.list_block.ListValue)
+            self.assert_eq_list_values(normalized[0], expected)
 
 
 class TestListBlockWithFixtures(TestCase):

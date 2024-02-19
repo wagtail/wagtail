@@ -239,17 +239,20 @@ class ListBlock(Block):
         try:
             head = next(_items)
         except StopIteration:
-            return ListValue(self, values=[])
+            return self.empty_value()
 
-        if isinstance(head, dict) and head.get("type") == "item":
+        if self._item_is_in_block_format(head):
             # It looks like the json-ish representation
             return ListValue(
-                self, values=[self.child_block.normalize(x["value"]) for x in value]
+                self, values=[self.child_block.normalize(x["value"]) for x in items]
             )
 
         # It looks like a list of values - the old ListBlock representation, or supplied
         # directly by the user as a shorthand.
-        return ListValue(self, values=[self.child_block.normalize(x) for x in value])
+        return ListValue(self, values=[self.child_block.normalize(x) for x in items])
+
+    def empty_value(self):
+        return ListValue(self, values=[])
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows
