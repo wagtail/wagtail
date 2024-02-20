@@ -71,6 +71,7 @@ class TestServeView(TestCase):
         
         with mock.patch(
             "wagtail.models.Page.find_for_request",
+            wraps=Page.find_for_request,
         ) as method:
             serve(request, '/')
         method.assert_called_once_with(request, '/')
