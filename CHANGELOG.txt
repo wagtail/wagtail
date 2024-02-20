@@ -27,6 +27,7 @@ Changelog
  * Maintenance: Set up an `wagtail.models.AbstractWorkflow` model to support future customisations around workflows (Hossein)
  * Maintenance: Improve `classnames` template tag to handle nested lists of strings, use template tag for admin `body` element (LB (Ben) Johnston)
  * Maintenance: Merge `UploadedDocument` and `UploadedImage` into new `UploadedFile` model for easier shared code usage (Advik Kabra, Karl Hobley)
+ * Maintenance: Optimize queries in dashboard panels (Sage Abdullah)
 
 
 6.0.1 (15.02.2024)
