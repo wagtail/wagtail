@@ -3061,25 +3061,19 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.ListBlock(blocks.IntegerBlock)
         normalized = block.normalize([0, 1, 1, 2, 3])
         self.assertIsInstance(normalized, blocks.list_block.ListValue)
-        self.assert_eq_list_values(
-            normalized,
-            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3]),
-        )
+        self.assert_eq_list_values(normalized, [0, 1, 1, 2, 3])
 
         normalized = block.normalize(
             blocks.list_block.ListValue(block, [0, 1, 1, 2, 3])
         )
         self.assertIsInstance(normalized, blocks.list_block.ListValue)
-        self.assert_eq_list_values(
-            normalized,
-            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3]),
-        )
+        self.assert_eq_list_values(normalized, [0, 1, 1, 2, 3])
 
     def test_normalize_empty(self):
         block = blocks.ListBlock(blocks.IntegerBlock())
-        self.assert_eq_list_values(
-            blocks.list_block.ListValue(block, []), block.normalize([])
-        )
+        normalized = block.normalize([])
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(normalized, [])
 
     def test_normalize_serialized_format(self):
         block = blocks.ListBlock(blocks.IntegerBlock())
@@ -3092,9 +3086,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             {"type": "item", "value": 2, "id": 3},
         ]
         normalized = block.normalize(value)
-        self.assert_eq_list_values(
-            normalized, blocks.list_block.ListValue(block, [0, 1, 2])
-        )
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(normalized, [0, 1, 2])
 
     def test_recursive_normalize(self):
         """
@@ -3119,11 +3112,10 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             [blocks.list_block.ListValue(block, [1, 2, 3])],
         ]
 
-        expected = blocks.list_block.ListValue(block, [1, 2, 3])
         for value in values:
             normalized = block.normalize(value)
             self.assertIsInstance(normalized, blocks.list_block.ListValue)
-            self.assert_eq_list_values(normalized[0], expected)
+            self.assert_eq_list_values(normalized[0], [1, 2, 3])
 
 
 class TestListBlockWithFixtures(TestCase):
