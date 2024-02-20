@@ -223,8 +223,6 @@ class StatusSidePanel(BaseSidePanel):
         if self.translations:
             context["translations_total"] = len(self.translations) + 1
             context["parent_locale"] = self.object.parent_locale
-            context["translation_status"] = self.object.get_translation_status_display()
-            context["translation_timestamp"] = self.object.translation_timestamp
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["base_model_name"] = context["model_name"]
         context["history_url"] = self.history_url
