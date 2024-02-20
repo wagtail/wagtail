@@ -86,9 +86,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
                             if hasattr(result, "status_code"):
                                 return result
 
-                        translated_object = self.object.copy_for_translation(
-                            locale
-                        )
+                        translated_object = self.object.copy_for_translation(locale)
                         translated_object.save()  # pragma: no cover
 
                         for fn in hooks.get_hooks("after_translate_object"):
