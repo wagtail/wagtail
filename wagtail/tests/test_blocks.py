@@ -2531,6 +2531,12 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         )
 
     def test_normalize_incorrect_value_class(self):
+        """
+        If StructBlock.normalize is passed a StructValue instance that doesn't
+        match the StructBlock's `value_class', it should convert the value
+        to the correct class.
+        """
+
         class CustomStructValue(blocks.StructValue):
             pass
 
@@ -2541,7 +2547,7 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
                 value_class = CustomStructValue
 
         block = CustomStructBlock()
-        # Not an instance of CustomStructValue
+        # Not an instance of CustomStructValue, which CustomStructBlock uses.
         value = blocks.StructValue(block, {"text": "The quick brown fox"})
         self.assertIsInstance(block.normalize(value), CustomStructValue)
 
@@ -4428,6 +4434,15 @@ class TestNormalizeStreamBlock(SimpleTestCase):
                 ("list", blocks.ListBlock(blocks.IntegerBlock)),
             ]
         )
+
+    def test_normalize_empty_stream(self):
+        values = [[], "", None]
+        for value in values:
+            with self.subTest(value=value):
+                self.assertEqual(
+                    self.simple_block.normalize(value),
+                    blocks.StreamValue(self.simple_block, []),
+                )
 
     def test_normalize_base_case(self):
         """
