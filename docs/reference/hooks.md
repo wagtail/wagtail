@@ -745,6 +745,44 @@ The request and the page that was just converted are passed in as arguments to t
 
 The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
+(before_translate_page)=
+
+### `before_translate_page`
+
+Do something with a `Page` object before it will be copied for translation.
+
+The request, the page that will be copied for translation, the locale object and a boolean flag to include the subtree will be passed in as arguments to the hook.
+
+```python
+from wagtail import hooks
+
+@hooks.register('before_translate_page')
+def before_translate_page(request, page, locale, include_subtree):
+    if not request.user.has_perm('wagtail_localize.translate_page', page):
+        return HttpResponse("You do not have permission to translate this page", status=403)
+```
+
+The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+(after_translate_page)=
+
+### `after_translate_page`
+
+Do something with a `Page` object after it has been copied for translation.
+
+The request and the page that was just converted are passed in as arguments to the hook.
+
+```python
+from wagtail import hooks
+    
+@hooks.register('after_translate_page')
+def after_translate_page(request, page, locale, include_subtree):
+    # Send the page to a translation service to be translated
+    TranslationService.trigger_translation(page, locale, include_subtree)
+```
+
+The function does not have to return anything, but if an object with a `status_code` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
 (construct_translated_pages_to_cascade_actions)=
 
 ### `construct_translated_pages_to_cascade_actions`
@@ -1207,6 +1245,41 @@ def before_snippet_delete(request, instances):
             instance.delete()
 
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+```
+
+(before_translate_object)=
+
+### `before_translate_object`
+
+Called before a snippet is translated. 
+
+The callable passed into the hook will receive the the request object, model instance, and the target locale. 
+
+```python
+from wagtail import hooks
+
+@hooks.register('before_translate_object')
+def before_translate_object(request, instance, locale):
+    if not request.user.has_perm('wagtail_localize.translate_object', instance):
+        return HttpResponse("You do not have permission to translate this snippet", status=403)
+```
+If the callable returns an object with a `status_code`, that response will be returned immediately to the user.
+
+(after_translate_object)=
+
+### `after_translate_object`
+
+Called after a snippet is translated.
+
+The callable passed into the hook will receive the the request object, model instance, and the target locale. 
+
+```python
+from wagtail import hooks
+
+@hooks.register('after_translate_object')
+def after_translate_object(request, instance, translated_object):
+    # Send the snippet to a translation service to be translated
+    TranslationService.trigger_translation(translated_object, translated_object.locale)
 ```
 
 (register_snippet_action_menu_item)=
