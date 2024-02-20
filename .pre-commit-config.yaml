@@ -27,8 +27,8 @@ repos:
         additional_dependencies:
           # Keep in sync with package.json
           - eslint@8.56.0
-          - '@typescript-eslint/eslint-plugin@6.2.1'
-          - '@typescript-eslint/parser@6.2.1'
+          - '@typescript-eslint/eslint-plugin@6.21.0'
+          - '@typescript-eslint/parser@6.21.0'
           - '@wagtail/eslint-config-wagtail@0.4.0'
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
     rev: v15.11.0
