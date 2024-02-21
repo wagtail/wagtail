@@ -210,6 +210,20 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = "8000"
         self.unrecognised_hostname = "unknown.site.com"
 
+    def test_find_for_request(self):
+        request = HttpRequest()
+        request.path = "/"
+        request.META["HTTP_HOST"] = self.events_site.hostname
+        request.META["SERVER_PORT"] = self.events_site.port
+        Site.find_for_request(request)
+        self.assertFalse(hasattr(request, '_wagtail_page_for_request'))
+        with self.assertNumQueries(2):
+            # page lookup & locale lookup
+            Page.find_for_request(request, request.path)
+        self.assertTrue(hasattr(request, '_wagtail_page_for_request'))
+        with self.assertNumQueries(0):
+            Page.find_for_request(request, request.path)
+
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
         request = HttpRequest()
