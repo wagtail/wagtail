@@ -89,7 +89,11 @@ class TestServeView(TestCase):
                 "prepend": "wagtail.test.middleware.SimplePageViewInterceptorMiddleware"
             }
         ):
-            self.assertContains(self.client.get('/simple/'), 'Simple')
+            response_a = self.client.get('/simple/')
+            self.assertContains(response_a, 'Simple')
+            self.assertNotContains(response_a, 'Intercepted')
             page.content = "Bye"
             page.save_revision().publish()
-            self.assertContains(self.client.get('/simple/'), 'Intercepted')
+            response_b = self.client.get('/simple/')
+            self.assertNotContains(response_b, 'Simple')
+            self.assertContains(response_b, 'Intercepted')
