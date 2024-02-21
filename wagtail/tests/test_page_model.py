@@ -223,6 +223,9 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(0):
             # subsequent lookups should be cached on the request
             Page.find_for_request(request, request.path)
+        m = Mock()
+        request._wagtail_page_for_request = m
+        self.assertEqual(Page.find_for_request(request, request.path), m)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
