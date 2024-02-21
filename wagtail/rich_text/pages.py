@@ -19,7 +19,7 @@ class PageLinkHandler(LinkHandler):
         # Override LinkHandler.get_many to reduce database queries through the
         # use of PageQuerySet.specific() instead of QuerySet.in_bulk().
         instance_ids = [attrs.get("id") for attrs in attrs_list]
-        qs = Page.objects.filter(id__in=instance_ids).specific_deferred()
+        qs = Page.objects.filter(id__in=instance_ids).defer_streamfields().specific()
         pages_by_str_id = {str(page.id): page for page in qs}
         return [pages_by_str_id.get(str(id_)) for id_ in instance_ids]
 
