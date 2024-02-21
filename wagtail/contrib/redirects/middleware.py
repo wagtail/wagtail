@@ -1,5 +1,4 @@
 import fnmatch
-import os
 from urllib.parse import urlparse
 
 from django import http
