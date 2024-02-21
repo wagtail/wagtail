@@ -215,13 +215,13 @@ class TestSiteRouting(TestCase):
         request.path = "/"
         request.META["HTTP_HOST"] = self.events_site.hostname
         request.META["SERVER_PORT"] = self.events_site.port
-        Site.find_for_request(request)
         self.assertFalse(hasattr(request, '_wagtail_page_for_request'))
-        with self.assertNumQueries(2):
-            # page lookup & locale lookup
+        with self.assertNumQueries(3):
+            # expect queries for site, page & locale
             Page.find_for_request(request, request.path)
         self.assertTrue(hasattr(request, '_wagtail_page_for_request'))
         with self.assertNumQueries(0):
+            # subsequent lookups should be cached on the request
             Page.find_for_request(request, request.path)
 
     def test_valid_headers_route_to_specific_site(self):
