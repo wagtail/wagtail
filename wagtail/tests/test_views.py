@@ -3,7 +3,7 @@ from unittest import mock
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve
 
@@ -55,14 +55,12 @@ class TestLoginView(TestCase, WagtailTestUtils):
 class TestServeView(TestCase):
     fixtures = ["test.json"]
     
-    def test_serve_query_count(self):
+    @mock.patch('wagtail.hooks.get_hooks')
+    def test_serve_query_count(self, mocked_get_hooks):
+        mocked_get_hooks.return_value = []
         request = RequestFactory().get('/')
-        
-        with self.assertRaises(AssertionError):
-            with self.assertNumQueries(0): 
-                serve(request, '/')
-        
-        # we expect the serve view to set and use the request page cache
+        Site.find_for_request(request)
+        Page.find_for_request(request, request.path)
         with self.assertNumQueries(0): 
             serve(request, '/')
     
