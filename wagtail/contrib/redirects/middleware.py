@@ -3,6 +3,7 @@ import os
 from urllib.parse import urlparse
 
 from django import http
+from django.db.models.functions import Length
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
 
@@ -20,29 +21,15 @@ def _get_redirect(request, path):
     try:
         return models.Redirect.get_for_site(site).get(old_path=path)
     except models.Redirect.DoesNotExist:
-        # Check for wildcard redirects
-        wildcard_redirects = models.Redirect.get_for_site(site).filter(
-            old_path__endswith="*"
+        wildcard_redirects = (
+            models.Redirect.get_for_site(site)
+            .filter(old_path__contains="*")
+            .order_by(Length("old_path"))
         )
 
         for redirect in wildcard_redirects.iterator():
-            wildcard_path = redirect.old_path.rstrip("*")
-            wildcard_redirects_prefix = [
-                r for r in wildcard_redirects if r.old_path.startswith(wildcard_path)
-            ]
-            redirect_paths = [r.old_path for r in wildcard_redirects_prefix]
-            matched_paths = []
-
-            for rp in redirect_paths:
-                rp = os.path.normpath(rp)
-                matched_paths.extend(fnmatch.filter([rp], "*"))
-            matched_paths = [
-                path.replace("\\", "/").rstrip("*") for path in matched_paths
-            ]
-
-            for matched_path in matched_paths:
-                if path.startswith(matched_path):
-                    return redirect
+            if fnmatch.fnmatchcase(path, redirect.old_path):
+                return redirect
         return None
     except models.Redirect.MultipleObjectsReturned:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
