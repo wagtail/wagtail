@@ -12,7 +12,7 @@ When building your portfolio website, the first step is to set up and personaliz
 
 In this section, you'll learn how to add features **1** through **4** to your homepage. You'll add your resume or CV later in the tutorial.
 
-Now, modify your `home/models` file to include the following:
+Now, modify your `home/models.py` file to include the following:
 
 ```python
 from django.db import models
