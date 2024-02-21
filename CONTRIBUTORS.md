@@ -801,6 +801,7 @@
 * Adrien Hamraoui
 * Maikel Martens
 * EK303
+* Damian
 
 ## Translators
 
