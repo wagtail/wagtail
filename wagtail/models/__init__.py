@@ -990,7 +990,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             site = Site.find_for_request(request)
             if not site:
                 raise Http404
-            
+
             path_components = [component for component in path.split("/") if component]
             request._wagtail_page_for_request = site.root_page.localized.specific.route(
                 request, path_components

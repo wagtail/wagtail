@@ -55,7 +55,7 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
 class TestServeView(TestCase):
     fixtures = ["test.json"]
-    
+
     @mock.patch('wagtail.hooks.get_hooks')
     def test_serve_query_count(self, mocked_get_hooks):
         mocked_get_hooks.return_value = []
@@ -63,20 +63,20 @@ class TestServeView(TestCase):
         Site.find_for_request(request)
         page, args, kwargs = Page.find_for_request(request, request.path)
         with mock.patch.object(page, 'serve', wraps=page.serve) as m:
-            with self.assertNumQueries(0): 
+            with self.assertNumQueries(0):
                 serve(request, '/')
             m.assert_called_once_with(request, *args, **kwargs)
-    
+
     def test_serve_calls_page_find_for_request(self):
         request = RequestFactory().get('/')
-        
+
         with mock.patch(
             "wagtail.models.Page.find_for_request",
             wraps=Page.find_for_request,
         ) as method:
             serve(request, '/')
         method.assert_called_once_with(request, '/')
-    
+
     def test_process_view_by_page(self):
         site = Site.objects.get()
         page = site.root_page.add_child(

@@ -22,8 +22,8 @@ class BlockDodgyUserAgentMiddleware(MiddlewareMixin):
 
 
 class SimplePageViewInterceptorMiddleware(MiddlewareMixin):
-  def process_view(self, request, view_func, view_args, view_kwargs):
+    def process_view(self, request, view_func, view_args, view_kwargs):
         if serve == view_func:
-          page, args, kwargs = Page.find_for_request(request, *view_args, **view_kwargs)
-          if page.content == 'Bye':
-              return HttpResponse('Intercepted')
+            page, args, kwargs = Page.find_for_request(request, *view_args, **view_kwargs)
+            if page.content == 'Bye':
+                return HttpResponse('Intercepted')
