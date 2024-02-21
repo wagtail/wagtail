@@ -4,6 +4,7 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.models import Page, Site
+from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve
 
@@ -75,3 +76,20 @@ class TestServeView(TestCase):
         ) as method:
             serve(request, '/')
         method.assert_called_once_with(request, '/')
+    
+    def test_process_view_by_page(self):
+        site = Site.objects.get()
+        page = site.root_page.add_child(
+            instance=SimplePage(
+                title="Simple page", slug="simple", content="Simple"
+            )
+        )
+        with self.modify_settings(
+            MIDDLEWARE={
+                "prepend": "wagtail.test.middleware.SimplePageViewInterceptorMiddleware"
+            }
+        ):
+            self.assertContains(self.client.get('/simple/'), 'Simple')
+            page.content = "Bye"
+            page.save_revision().publish()
+            self.assertContains(self.client.get('/simple/'), 'Intercepted')
