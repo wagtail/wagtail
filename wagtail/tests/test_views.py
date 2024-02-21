@@ -60,9 +60,11 @@ class TestServeView(TestCase):
         mocked_get_hooks.return_value = []
         request = RequestFactory().get('/')
         Site.find_for_request(request)
-        Page.find_for_request(request, request.path)
-        with self.assertNumQueries(0): 
-            serve(request, '/')
+        page, args, kwargs = Page.find_for_request(request, request.path)
+        with mock.patch.object(page, 'serve', wraps=page.serve) as m:
+            with self.assertNumQueries(0): 
+                serve(request, '/')
+            m.assert_called_once_with(request, *args, **kwargs)
     
     def test_serve_calls_page_find_for_request(self):
         request = RequestFactory().get('/')
