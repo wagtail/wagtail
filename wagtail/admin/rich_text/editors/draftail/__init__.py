@@ -62,7 +62,11 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
         self.converter = ContentstateConverter(self.features)
 
-        default_attrs = {"data-draftail-input": True}
+        default_attrs = {
+            "data-draftail-input": True,
+            "data-controller": "w-init",
+            "data-w-init-event-value": "w-draftail:init",
+        }
         attrs = kwargs.get("attrs")
         if attrs:
             default_attrs.update(attrs)
@@ -82,8 +86,9 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context["widget"]["options_json"] = json.dumps(
-            self.options, cls=LazyStringEncoder
+        context["widget"]["attrs"]["data-w-init-detail-value"] = json.dumps(
+            self.options,
+            cls=LazyStringEncoder,
         )
         return context
 
