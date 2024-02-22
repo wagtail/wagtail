@@ -466,7 +466,7 @@ shoudio = {
     "endpoint": "https://shoudio.com/api/oembed",
     "urls": [
         r"^https?://shoudio\.com/.+$",
-        r"^https?://shoud\.io/.+$",
+        r"^https?://should\.io/.+$",
     ],
 }
 

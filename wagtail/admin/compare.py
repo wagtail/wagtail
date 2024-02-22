@@ -511,7 +511,7 @@ class ChildRelationComparison:
             # Relations don't have a verbose_name
             if self.label:
                 # If the panel has a label, we set it instead.
-                # See InlinePanel.get_comparision for usage
+                # See InlinePanel.get_comparison for usage
                 verbose_name = self.label
             else:
                 verbose_name = self.field.name.replace("_", " ")

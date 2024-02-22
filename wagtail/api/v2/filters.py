@@ -221,7 +221,7 @@ class AncestorOfFilter(BaseFilterBackend):
 
 class DescendantOfFilter(BaseFilterBackend):
     """
-    Implements the ?decendant_of filter which limits the set of pages to a
+    Implements the ?descendant_of filter which limits the set of pages to a
     particular branch of the page tree.
     """
 

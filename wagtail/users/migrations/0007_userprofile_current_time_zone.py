@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailusers", "0006_userprofile_prefered_language"),
+        ("wagtailusers", "0006_userprofile_preferred_language"),
     ]
 
     operations = [

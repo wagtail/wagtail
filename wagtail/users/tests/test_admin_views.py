@@ -852,7 +852,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/users/%s/" % self.test_user.pk
         self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         invalid_id = (
             "99999999-9999-9999-9999-999999999999"
             if settings.AUTH_USER_MODEL == "emailuser.EmailUser"
@@ -1691,7 +1691,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         with self.assertNumQueries(31):
             self.get()
 
-    def test_nonexistant_group_redirect(self):
+    def test_nonexistent_group_redirect(self):
         self.assertEqual(self.get(group_id=100000).status_code, 404)
 
     def test_group_edit(self):

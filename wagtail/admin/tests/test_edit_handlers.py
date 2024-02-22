@@ -189,7 +189,7 @@ class TestGetFormForModel(TestCase):
         self.assertIn("speakers", form.formsets)
         self.assertNotIn("related_links", form.formsets)
 
-    def test_get_form_for_model_with_widget_overides_by_class(self):
+    def test_get_form_for_model_with_widget_overrides_by_class(self):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
@@ -201,7 +201,7 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields["date_from"]), forms.DateField)
         self.assertEqual(type(form.fields["date_from"].widget), forms.PasswordInput)
 
-    def test_get_form_for_model_with_widget_overides_by_instance(self):
+    def test_get_form_for_model_with_widget_overrides_by_instance(self):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,

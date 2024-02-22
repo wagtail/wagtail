@@ -144,7 +144,7 @@ class Block(metaclass=BaseBlock):
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
         model definition type (e.g. something like StructValue which incorporates a
-        pointer back to the block definion object).
+        pointer back to the block definition object).
         """
         return self.meta.default
 
@@ -215,7 +215,7 @@ class Block(metaclass=BaseBlock):
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
 
-        value contains the current value of the block, allowing overriden methods to
+        value contains the current value of the block, allowing overridden methods to
         select the proper template based on the actual block value.
         """
         return getattr(self.meta, "template", None)
