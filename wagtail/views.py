@@ -17,7 +17,7 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split("/") if component]
-    page, args, kwargs = get_page_for_path(site, path_components)
+    page, args, kwargs = get_page_for_path(site, path_components, request)
 
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)
@@ -26,7 +26,7 @@ def serve(request, path):
 
     return page.serve(request, *args, **kwargs)
 
-def get_page_for_path(site, path_components):
+def get_page_for_path(site, path_components, request):
     """
     Get the page and its arguments for the given path components.
     """
