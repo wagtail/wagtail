@@ -802,6 +802,7 @@
 * Maikel Martens
 * EK303
 * Damian Borneman
+* Viktor Szépe
 
 ## Translators
 
