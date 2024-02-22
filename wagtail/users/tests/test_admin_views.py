@@ -1581,10 +1581,13 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         """
         response = self.get()
 
+        self.assertContains(response, "Can bulk update")
         self.assertContains(response, "Can start trouble")
         self.assertContains(response, "Cause chaos for")
         self.assertContains(response, "Change text")
         self.assertContains(response, "Manage")
+        self.assertNotContains(response, "Can bulk_update")
+        self.assertNotContains(response, "Can bulk update ADVANCED permission model")
         self.assertNotContains(response, "Cause chaos for advanced permission model")
         self.assertNotContains(response, "Manage custom permission model")
 

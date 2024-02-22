@@ -2264,6 +2264,17 @@ class CustomPermissionModel(models.Model):
     class Meta:
         verbose_name = "ADVANCED permission model"
         verbose_name_plural = "ADVANCED permission models"
+
+        # Django's default_permissions are ("add", "change", "delete", "view").
+        # Django will generate permissions for each of these actions with the
+        # format f"{action}_{model_name}" and the label "Can {action} {verbose_name}".
+        # This means if the action is "bulk_update", the codename will be
+        # "bulk_update_custompermissionmodel" and the label will be
+        # "Can bulk_update ADVANCED permission model".
+        # See https://github.com/django/django/blob/stable/5.0.x/django/contrib/auth/management/__init__.py#L22-L35
+        default_permissions = ("add", "change", "delete", "view", "bulk_update")
+
+        # Permissions with completely custom codenames and labels
         permissions = [
             # Starts with can_ and "Can "
             ("can_start_trouble", "Can start trouble"),

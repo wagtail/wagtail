@@ -32,8 +32,9 @@ def normalize_permission_label(permission: Permission):
         default_verbose_name = camel_case_to_spaces(model._meta.object_name)
 
         # If it's in default_permissions and the label matches Django's default
-        # label, remove the model name from the end of the label and replace
-        # underscores with spaces.
+        # label, remove the model name from the end of the label. Also replace
+        # underscores with spaces, as Django uses the action internal name as-is
+        # for the permission label, which means it tends to be in snake_case.
         for action in model._meta.default_permissions:
             default_codename = get_permission_codename(action, model._meta)
             is_default = permission.codename == default_codename
