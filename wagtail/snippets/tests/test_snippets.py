@@ -1598,13 +1598,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
 
-    def test_non_existant_model(self):
+    def test_non_existent_model(self):
         response = self.client.get(
             f"/admin/snippets/tests/foo/edit/{quote(self.test_snippet.pk)}/"
         )
         self.assertEqual(response.status_code, 404)
 
-    def test_nonexistant_id(self):
+    def test_nonexistent_id(self):
         response = self.client.get(
             reverse("wagtailsnippets_tests_advert:edit", args=[999999])
         )
