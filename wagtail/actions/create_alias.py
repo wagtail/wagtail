@@ -7,24 +7,13 @@ from wagtail.log_actions import log
 from wagtail.models.copying import _copy, _copy_m2m_relations
 from wagtail.models.i18n import TranslatableMixin
 
-logger = logging.getLogger("wagtail")
-
+logger = logging.getLogger(__name__)
 
 class CreatePageAliasIntegrityError(RuntimeError):
-    """
-    Raised when creating an alias of a page cannot be performed for data integrity reasons.
-    """
-
-    pass
-
+    """Raised when creating an alias of a page cannot be performed for data integrity reasons."""
 
 class CreatePageAliasPermissionError(PermissionDenied):
-    """
-    Raised when creating an alias of a page cannot be performed due to insufficient permissions.
-    """
-
-    pass
-
+    """Raised when creating an alias of a page cannot be performed due to insufficient permissions."""
 
 class CreatePageAliasAction:
     """
@@ -46,7 +35,7 @@ class CreatePageAliasAction:
     :type update_locale: Locale, optional
     :param user: The user who is performing this action. This user would be assigned as the owner of the new page and appear in the audit log
     :type user: User, optional
-    :param log_action: Override the log action with a custom one. or pass None to skip logging, defaults to 'wagtail.create_alias'
+    :param log_action: Override the log action with a custom one or pass None to skip logging, defaults to 'wagtail.create_alias'
     :type log_action: string or None, optional
     :param reset_translation_key: Generate new translation_keys for the page and any translatable child objects, defaults to False
     :type reset_translation_key: boolean, optional
@@ -76,6 +65,7 @@ class CreatePageAliasAction:
         self._mpnode_attrs = _mpnode_attrs
 
     def check(self, skip_permission_checks=False):
+        """Check if alias creation is permissible."""
         parent = self.parent or self.page.get_parent()
         if self.recursive and (
             parent == self.page or parent.is_descendant_of(self.page)
@@ -106,6 +96,7 @@ class CreatePageAliasAction:
         reset_translation_key,
         _mpnode_attrs,
     ):
+        """Create an alias of the given page."""
         specific_page = page.specific
 
         # FIXME: Switch to the same fields that are excluded from copy
@@ -252,8 +243,8 @@ class CreatePageAliasAction:
         return alias
 
     def execute(self, skip_permission_checks=False):
+        """Execute alias creation."""
         self.check(skip_permission_checks=skip_permission_checks)
-
         return self._create_alias(
             self.page,
             recursive=self.recursive,
