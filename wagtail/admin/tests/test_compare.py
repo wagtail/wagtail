@@ -1228,7 +1228,7 @@ class TestChildRelationComparison(TestCase):
     def test_has_changed(self):
         # Father Christmas renamed to Santa Claus. And Father Ted added.
         # Father Christmas should be mapped to Father Ted because they
-        # are most alike. Santa claus should be displayed as "new"
+        # are most alike. Santa Claus should be displayed as "new"
         event_page = EventPage(title="Event page", slug="event")
         event_page.speakers.add(
             EventPageSpeaker(
