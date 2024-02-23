@@ -11,6 +11,7 @@
     - `search_url` - URL to the search view, should respond with a partial template for the results
     - `search_form` - form to be rendered for search
     - `filters` - filters to be rendered
+    - `icon_name` - name of the icon to be used in the header
 
     When including this template, use the `only` parameter whenever possible to
     ensure that the above variables are indeed the only ones needed for this
@@ -40,7 +41,7 @@
 
                         {% block breadcrumbs %}
                             {% if breadcrumbs_items %}
-                                {% breadcrumbs breadcrumbs_items %}
+                                {% breadcrumbs breadcrumbs_items icon_name=icon_name %}
                             {% endif %}
                         {% endblock %}
 
