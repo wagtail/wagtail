@@ -2407,19 +2407,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(response, "Unpublish")
 
-        # Should use the latest draft content for the title
-        self.assertContains(
-            response,
-            """
-            <h2 class="w-header__title" id="header-title">
-                <svg class="icon icon-snippet w-header__glyph" aria-hidden="true">
-                    <use href="#icon-snippet"></use>
-                </svg>
-                Draft-enabled Bar, In Draft
-            </h2>
-            """,
-            html=True,
-        )
+        soup = self.get_soup(response.content)
+        h2 = soup.select_one("#header-title")
+        self.assertIsNotNone(h2)
+        icon = h2.select_one("svg use")
+        self.assertIsNotNone(icon)
+        self.assertEqual(icon["href"], "#icon-snippet")
+        self.assertEqual(h2.text.strip(), "Draft-enabled Bar, In Draft")
 
         # Should use the latest draft content for the form
         self.assertTagInHTML(
