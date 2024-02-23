@@ -302,7 +302,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
     def test_search_form_rendered(self):
         response = self.get()
         html = response.content.decode()
-        search_url = reverse("wagtailimages:index")
+        search_url = reverse("wagtailimages:index_results")
 
         # Search form in the header should be rendered.
         self.assertTagInHTML(
