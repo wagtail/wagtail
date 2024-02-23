@@ -67,8 +67,13 @@ register.filter("naturaltime", naturaltime)
 
 
 @register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
-def breadcrumbs(items, is_expanded=False, classname=None):
-    return {"items": items, "is_expanded": is_expanded, "classname": classname}
+def breadcrumbs(items, is_expanded=False, classname=None, icon_name=None):
+    return {
+        "items": items,
+        "is_expanded": is_expanded,
+        "classname": classname,
+        "icon_name": icon_name,
+    }
 
 
 @register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
