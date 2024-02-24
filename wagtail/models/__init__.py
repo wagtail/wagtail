@@ -2859,7 +2859,7 @@ class BulkPageManager():
         max_length = self.parent.__class__._meta.get_field("path").max_length
         for step,node in enumerate(nodes):
             node.depth = self.parent.depth + 1
-            node.path = self.parent.__class__._get_path(self.path, node.depth, step+1)
+            node.path = self.parent.__class__._get_path(self.parent.path, node.depth, step+1)
             if len(node.path) > max_length:
                 # Revert in-memory changes
                 for n in nodes[:step+1]:
@@ -2872,8 +2872,8 @@ class BulkPageManager():
                       increasing the path.max_length property \
                     and UPDATE your database"
                 )
-            self.numchild += 1
-            node._cached_parent_obj = self
+            self.parent.numchild += 1
+            node._cached_parent_obj = self.parent
 
         return
     
@@ -2899,7 +2899,7 @@ class BulkPageManager():
                     and UPDATE your database"
                 )
             self.parent.numchild += 1
-            node._cached_parent_obj = self
+            node._cached_parent_obj = self.parent
 
         return
     
