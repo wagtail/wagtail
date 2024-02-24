@@ -792,6 +792,7 @@
 * mirusu400
 * Maikel Martens
 * EK303
+* Pranith Beeram
 
 ## Translators
 

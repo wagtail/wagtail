@@ -15,6 +15,7 @@ Changelog
  * Fix: Prevent crash when loading an empty table block in the editor (Sage Abdullah)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
  * Docs: Update broken and incorrect links throughout the documentation (EK303)
+ * Docs: Fix formatting of `--purge-only` in `wagtail_update_image_renditions` management command section (Pranith Beeram)
 
 
 6.0.1 (15.02.2024)
