@@ -22,6 +22,7 @@ Changelog
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
  * Docs: Update broken and incorrect links throughout the documentation (EK303)
+ * Docs: Fix formatting of `--purge-only` in `wagtail_update_image_renditions` management command section (Pranith)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
