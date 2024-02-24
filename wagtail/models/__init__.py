@@ -1372,8 +1372,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ]
         # Add the slugs of the current children
         slugs.extend(self.get_children().values_list("slug", flat=True))
-
-        if len(slugs) != len(set(slugs)):
+        length = len(slugs)
+        slugs = set(slugs)
+        if length != len(slugs):
             raise ValidationError(
                 {
                     "slug": _(
@@ -1392,7 +1393,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     suffix += 1
                     candidate_slug = "%s-%d" % (candidate_slug, suffix)
                 child.slug = candidate_slug
-                slugs.append(candidate_slug)
+                slugs.add(candidate_slug)
 
             if child.locale_id is None:
                 child.locale = self.locale
@@ -1403,7 +1404,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Load the pages into the database and save the parent page in the database
         """
 
-        pages = Page.objects.bulk_create(children)
+        pages = type(self).objects.bulk_create(children)
         self.save()
 
         return pages
@@ -2843,6 +2844,159 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for codename, _, name in PAGE_PERMISSION_TYPES
             if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
+
+class BulkPageManager():
+
+    def __init__(self, parent) -> None:
+        self.parent = parent
+
+    def _process_leaf(self, nodes):
+        """
+        Process children to add to a leaf node
+        """
+        # Get number of children
+
+        max_length = self.parent.__class__._meta.get_field("path").max_length
+        for step,node in enumerate(nodes):
+            node.depth = self.parent.depth + 1
+            node.path = self.parent.__class__._get_path(self.path, node.depth, step+1)
+            if len(node.path) > max_length:
+                # Revert in-memory changes
+                for n in nodes[:step+1]:
+                    # Delete the path
+                    del n.path, n.depth
+                self.parent.numchild -= step
+
+                raise ValidationError(
+                    "The new node is too deep in the tree, try \
+                      increasing the path.max_length property \
+                    and UPDATE your database"
+                )
+            self.numchild += 1
+            node._cached_parent_obj = self
+
+        return
+    
+    def _process_unordered_children(self, nodes):
+        """
+        Create child nodes without any specific order.
+        """
+        last_child = self.parent.get_last_child()
+        max_length = self.parent.__class__._meta.get_field("path").max_length
+        for index,node in enumerate(nodes):
+            node.depth = self.parent.depth + 1
+            node.path = last_child._inc_path()
+            last_child = node
+            if len(node.path) > max_length:
+                # Revert in-memory changes
+                for n in nodes[:index]:
+                    # Delete the path
+                    del n.path, n.depth
+                self.parent.numchild -= index
+                raise ValidationError(
+                    "The new node is too deep in the tree, try \
+                      increasing the path.max_length property \
+                    and UPDATE your database"
+                )
+            self.parent.numchild += 1
+            node._cached_parent_obj = self
+
+        return
+    
+    def _process_child_nodes(self, nodes):
+        """
+        Process the child nodes of this page, setting their paths and depths
+        as appropriate and also updating the parent's numchild. This is performed by the treebeard library when saving
+        the page to the database using their inbuilt tree functionality.
+        """
+
+        if self.parent.is_leaf():
+            return self._process_leaf(nodes)
+
+        return self._process_unordered_children(nodes)
+
+    def _check_unique(self, children):
+        # Extract slugs from the children
+        # Children is a list of Page objects
+        slugs = [
+            child.slug for child in children if getattr(child, "slug", None)
+        ]
+        # Add the slugs of the current children
+        slugs.extend(self.parent.get_children().values_list("slug", flat=True))
+        length = len(slugs)
+        slugs = set(slugs)
+        if length != len(slugs):
+            raise ValidationError(
+                {
+                    "slug": _(
+                        "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
+                    )
+                    % {
+                        "parent_url_path": self.parent.url_path,
+                    }
+                }
+            )
+        for child in children:
+            if not getattr(child, "slug", None):
+                candidate_slug = slugify(child.title, allow_unicode=True)
+                suffix = 1
+                while candidate_slug in slugs:
+                    suffix += 1
+                    candidate_slug = "%s-%d" % (candidate_slug, suffix)
+                child.slug = candidate_slug
+                slugs.add(candidate_slug)
+
+            if child.locale_id is None:
+                child.locale = self.parent.locale
+        return
+
+    def _save_to_db(self, children):
+        """
+        Load the pages into the database and save the parent page in the database
+        """
+
+        pages = type(self.parent).objects.bulk_create(children)
+        self.parent.save()
+
+        return pages
+
+    @transaction.atomic
+    def bulk_add_children(self, children):
+        """
+        Add multiple pages as children of this page.
+
+        This calls bulk_create on the Page model, so it bypasses the save method and does not
+        """
+
+        # Check if the children are in adding state
+        for child in children:
+            if not child._state.adding:
+                raise ValueError(
+                    "Attempted to add a tree node that is \
+                    already in the database.\
+                    bulk_add_children can only be used to add new pages, not to update existing pages"
+                )
+
+        try:
+            self._check_unique(children)
+        except ValidationError as e:
+            raise e
+
+        try:
+            # Process the child nodes
+            self._process_child_nodes(children)
+            # Load the pages into the database and save the parent page in the database
+            pages = self._save_to_db(children)
+
+        except ValidationError as e:
+            raise ValidationError(
+                "An error occurred while processing the child nodes and \
+                saving the pages to the database. Please check the child nodes and try again.",
+                e,
+            )
+
+        return pages
+
 
 
 class Orderable(models.Model):
