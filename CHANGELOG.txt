@@ -31,6 +31,7 @@ Changelog
  * Maintenance: Merge `UploadedDocument` and `UploadedImage` into new `UploadedFile` model for easier shared code usage (Advik Kabra, Karl Hobley)
  * Maintenance: Optimize queries in dashboard panels (Sage Abdullah)
  * Maintenance: Optimize queries in group create/edit view (Sage Abdullah)
+ * Maintenance: Move modal-workflow.js script usage to base admin template instead of ad-hoc imports (Elhussein Almasri)
 
 
 6.0.1 (15.02.2024)
