@@ -1305,13 +1305,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         # Get number of children
 
-        step = 1
         max_length = self.__class__._meta.get_field("path").max_length
-        for node in nodes:
+        for step,node in enumerate(nodes):
             node.depth = self.depth + 1
-            node.path = self.__class__._get_path(self.path, node.depth, step)
-            step += 1
+            node.path = self.__class__._get_path(self.path, node.depth, step+1)
             if len(node.path) > max_length:
+                # Revert in-memory changes
+                for n in nodes[:step+1]:
+                    # Delete the path
+                    del n.path, n.depth
+                self.numchild -= step
+
                 raise ValidationError(
                     "The new node is too deep in the tree, try \
                       increasing the path.max_length property \
@@ -1328,11 +1332,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         last_child = self.get_last_child()
         max_length = self.__class__._meta.get_field("path").max_length
-        for node in nodes:
+        for index,node in enumerate(nodes):
             node.depth = self.depth + 1
             node.path = last_child._inc_path()
             last_child = node
             if len(node.path) > max_length:
+                # Revert in-memory changes
+                for n in nodes[:index]:
+                    # Delete the path
+                    del n.path, n.depth
+                self.numchild -= index
                 raise ValidationError(
                     "The new node is too deep in the tree, try \
                       increasing the path.max_length property \
@@ -1371,7 +1380,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         "Duplicate slugs in use within the parent page at '%(parent_url_path)s'"
                     )
                     % {
-                        "parent_url_path": self.path,
+                        "parent_url_path": self.url_path,
                     }
                 }
             )
