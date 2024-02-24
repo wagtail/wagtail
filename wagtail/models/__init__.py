@@ -1359,7 +1359,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Extract slugs from the children
         # Children is a list of Page objects
         slugs = [
-            child.slug for child in children if hasattr(child, "slug") and child.slug
+            child.slug for child in children if getattr(child, "slug", None)
         ]
         # Add the slugs of the current children
         slugs.extend(self.get_children().values_list("slug", flat=True))
