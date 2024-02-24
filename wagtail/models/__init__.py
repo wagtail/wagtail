@@ -1376,7 +1376,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 }
             )
         for child in children:
-            if not hasattr(child, "slug") or not child.slug:
+            if not getattr(child, "slug", None):
                 candidate_slug = slugify(child.title, allow_unicode=True)
                 suffix = 1
                 while candidate_slug in slugs:
