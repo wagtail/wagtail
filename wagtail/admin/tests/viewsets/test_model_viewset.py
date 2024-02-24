@@ -14,6 +14,7 @@ from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
 from wagtail.test.testapp.models import (
@@ -1463,6 +1464,11 @@ class TestEditHandler(WagtailTestUtils, TestCase):
             rendered_heading = panel.select_one("[data-panel-heading-text]")
             self.assertIsNotNone(rendered_heading)
             self.assertEqual(rendered_heading.text.strip(), expected_heading)
+
+        # Ensure modal-workflow.js is included, as it's needed by choosers
+        modal_workflow_js = versioned_static("wagtailadmin/js/modal-workflow.js")
+        modal_workflow_script = soup.select_one(f'script[src="{modal_workflow_js}"]')
+        self.assertIsNotNone(modal_workflow_script)
 
 
 class TestDefaultMessages(WagtailTestUtils, TestCase):

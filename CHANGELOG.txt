@@ -9,6 +9,7 @@ Changelog
  * Fix: Resolve issue local development of docs when running `make livehtml` (Sage Abdullah)
  * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
  * Fix: Ensure `get_add_url()` is always used to re-render the add button when the listing is refreshed in viewsets (Sage Abdullah)
+ * Fix: Move modal-workflow.js script usage to base admin template instead of ad-hoc imports so that choosers work in ModelViewSets (Elhussein Almasri)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
 
 
