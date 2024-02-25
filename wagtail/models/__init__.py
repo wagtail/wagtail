@@ -1306,12 +1306,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Get number of children
 
         max_length = self.__class__._meta.get_field("path").max_length
-        for step,node in enumerate(nodes):
+        for step, node in enumerate(nodes):
             node.depth = self.depth + 1
-            node.path = self.__class__._get_path(self.path, node.depth, step+1)
+            node.path = self.__class__._get_path(self.path, node.depth, step + 1)
             if len(node.path) > max_length:
                 # Revert in-memory changes
-                for n in nodes[:step+1]:
+                for n in nodes[: step + 1]:
                     # Delete the path
                     del n.path, n.depth
                 self.numchild -= step
@@ -1332,7 +1332,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         last_child = self.get_last_child()
         max_length = self.__class__._meta.get_field("path").max_length
-        for index,node in enumerate(nodes):
+        for index, node in enumerate(nodes):
             node.depth = self.depth + 1
             node.path = last_child._inc_path()
             last_child = node
@@ -1367,9 +1367,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def _check_unique(self, children):
         # Extract slugs from the children
         # Children is a list of Page objects
-        slugs = [
-            child.slug for child in children if getattr(child, "slug", None)
-        ]
+        slugs = [child.slug for child in children if getattr(child, "slug", None)]
         # Add the slugs of the current children
         slugs.extend(self.get_children().values_list("slug", flat=True))
         length = len(slugs)
@@ -2845,8 +2843,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
 
-class BulkPageManager():
 
+class BulkPageManager:
     def __init__(self, parent) -> None:
         self.parent = parent
 
@@ -2857,12 +2855,14 @@ class BulkPageManager():
         # Get number of children
 
         max_length = self.parent.__class__._meta.get_field("path").max_length
-        for step,node in enumerate(nodes):
+        for step, node in enumerate(nodes):
             node.depth = self.parent.depth + 1
-            node.path = self.parent.__class__._get_path(self.parent.path, node.depth, step+1)
+            node.path = self.parent.__class__._get_path(
+                self.parent.path, node.depth, step + 1
+            )
             if len(node.path) > max_length:
                 # Revert in-memory changes
-                for n in nodes[:step+1]:
+                for n in nodes[: step + 1]:
                     # Delete the path
                     del n.path, n.depth
                 self.parent.numchild -= step
@@ -2876,14 +2876,14 @@ class BulkPageManager():
             node._cached_parent_obj = self.parent
 
         return
-    
+
     def _process_unordered_children(self, nodes):
         """
         Create child nodes without any specific order.
         """
         last_child = self.parent.get_last_child()
         max_length = self.parent.__class__._meta.get_field("path").max_length
-        for index,node in enumerate(nodes):
+        for index, node in enumerate(nodes):
             node.depth = self.parent.depth + 1
             node.path = last_child._inc_path()
             last_child = node
@@ -2902,7 +2902,7 @@ class BulkPageManager():
             node._cached_parent_obj = self.parent
 
         return
-    
+
     def _process_child_nodes(self, nodes):
         """
         Process the child nodes of this page, setting their paths and depths
@@ -2918,9 +2918,7 @@ class BulkPageManager():
     def _check_unique(self, children):
         # Extract slugs from the children
         # Children is a list of Page objects
-        slugs = [
-            child.slug for child in children if getattr(child, "slug", None)
-        ]
+        slugs = [child.slug for child in children if getattr(child, "slug", None)]
         # Add the slugs of the current children
         slugs.extend(self.parent.get_children().values_list("slug", flat=True))
         length = len(slugs)
@@ -2996,7 +2994,6 @@ class BulkPageManager():
             )
 
         return pages
-
 
 
 class Orderable(models.Model):
