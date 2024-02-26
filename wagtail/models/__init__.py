@@ -1332,16 +1332,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         last_child = self.get_last_child()
         max_length = self.__class__._meta.get_field("path").max_length
-        for index, node in enumerate(nodes):
+        for list_index, node in enumerate(nodes):
             node.depth = self.depth + 1
             node.path = last_child._inc_path()
             last_child = node
             if len(node.path) > max_length:
                 # Revert in-memory changes
-                for n in nodes[:index]:
+                for n in nodes[:list_index]:
                     # Delete the path
                     del n.path, n.depth
-                self.numchild -= index
+                self.numchild -= list_index
                 raise ValidationError(
                     "The new node is too deep in the tree, try \
                       increasing the path.max_length property \
@@ -2883,16 +2883,16 @@ class BulkPageManager:
         """
         last_child = self.parent.get_last_child()
         max_length = self.parent.__class__._meta.get_field("path").max_length
-        for index, node in enumerate(nodes):
+        for list_index, node in enumerate(nodes):
             node.depth = self.parent.depth + 1
             node.path = last_child._inc_path()
             last_child = node
             if len(node.path) > max_length:
                 # Revert in-memory changes
-                for n in nodes[:index]:
+                for n in nodes[:list_index]:
                     # Delete the path
                     del n.path, n.depth
-                self.parent.numchild -= index
+                self.parent.numchild -= list_index
                 raise ValidationError(
                     "The new node is too deep in the tree, try \
                       increasing the path.max_length property \
