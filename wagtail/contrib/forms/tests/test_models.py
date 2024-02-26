@@ -770,6 +770,32 @@ class TestCleanedDataEmails(TestCase):
         self.assertEqual(len(mail.outbox), 3)
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
+    @override_settings(USE_I18N=True, LANGUAGE_CODE="de")
+    def test_date_localization(self):
+        self.client.post(
+            "/contact-us/",
+            {
+                "date": "2017-12-31",
+            },
+        )
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Date: 31.12.2017", mail.outbox[0].body)
+
+    @override_settings(USE_I18N=True, LANGUAGE_CODE="de")
+    def test_datetime_localization(self):
+        self.client.post(
+            "/contact-us/",
+            {
+                "datetime": "1910-12-21 21:19:12",
+            },
+        )
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Datetime: 21.12.1910 21:19", mail.outbox[0].body)
+
 
 class TestIssue798(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
