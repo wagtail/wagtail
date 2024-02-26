@@ -59,6 +59,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(active_filter.get_text(separator=" ", strip=True), text)
         self.assertIsNotNone(clear_button)
         self.assertNotIn(param, clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
     def test_explore(self):
         explore_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
