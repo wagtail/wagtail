@@ -406,7 +406,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         url = reverse("wagtailimages:add_multiple")
         self.assertContains(
             response,
-            f'<a href="{url}?q=Baker&amp;collection_id={child_collection[0].pk}"',
+            f'<a href="{url}?collection_id={child_collection[0].pk}"',
         )
 
     def test_tag_filtering_with_search_term(self):

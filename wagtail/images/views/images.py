@@ -109,10 +109,10 @@ class IndexView(generic.IndexView):
         return queryset
 
     def get_add_url(self):
-        # Pass the query string so that the collection filter is preserved
+        # Pass the collection filter to prefill the add form's collection field
         return set_query_params(
             super().get_add_url(),
-            self.request.GET.copy(),
+            {"collection_id": self.request.GET.get("collection_id")},
         )
 
     def get_next_url(self):
