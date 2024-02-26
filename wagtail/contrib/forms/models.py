@@ -1,7 +1,6 @@
 import datetime
 import os
 
-from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
@@ -365,9 +364,9 @@ class EmailFormMixin(models.Model):
 
             # Format dates and datetime(s) with SHORT_DATE(TIME)_FORMAT
             if isinstance(value, datetime.datetime):
-                value = date_format(value, settings.SHORT_DATETIME_FORMAT)
+                value = date_format(value, "SHORT_DATETIME_FORMAT")
             elif isinstance(value, datetime.date):
-                value = date_format(value, settings.SHORT_DATE_FORMAT)
+                value = date_format(value, "SHORT_DATE_FORMAT")
 
             content.append(f"{field.label}: {value}")
 

@@ -805,6 +805,7 @@
 * Viktor Szépe
 * Pranith Beeram
 * Maranda Provance
+* Mark Niehues
 
 ## Translators
 
