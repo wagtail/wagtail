@@ -412,13 +412,46 @@ Custom storage classes should subclass `django.core.files.storage.Storage`. See 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ['png', 'jpg']
+WAGTAILIMAGES_EXTENSIONS = ['avif', 'svg']
 ```
 
 A list of allowed image extensions that will be validated during image uploading.
 If this isn't supplied, all of AVIF, GIF, JPG, JPEG, PNG, WEBP are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
+
+### `WAGTAILIMAGES_JPEG_QUALITY`
+
+```python
+WAGTAILIMAGES_JPEG_QUALITY = 75
+```
+
+Change the global default for JPEG image encoding quality (default: 85).
+
+### `WAGTAILIMAGES_WEBP_QUALITY`
+
+```python
+WAGTAILIMAGES_WEBP_QUALITY = 70
+```
+
+Change the global default for WebP image encoding quality (default: 80).
+
+### `WAGTAILIMAGES_AVIF_QUALITY`
+
+```python
+WAGTAILIMAGES_AVIF_QUALITY = 65
+```
+
+Change the global default for AVIF image encoding quality (default: 80).
+
+### `WAGTAILIMAGES_HEIC_QUALITY`
+
+```python
+WAGTAILIMAGES_HEIC_QUALITY = 60
+```
+
+Change the global default for HEIC image encoding quality (default: 80).
+
 
 ## Documents
 
