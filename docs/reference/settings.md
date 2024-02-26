@@ -321,7 +321,7 @@ This setting enables feature detection once OpenCV is installed, see all details
 ### `WAGTAILIMAGES_INDEX_PAGE_SIZE`
 
 ```python
-WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 30
 ```
 
 Specifies the number of images per page shown on the main Images listing in the Wagtail admin.

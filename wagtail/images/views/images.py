@@ -31,7 +31,6 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 Image = get_image_model()
 
-INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
@@ -44,7 +43,6 @@ class ImagesFilterSet(BaseMediaFilterSet):
 
 
 class IndexView(generic.IndexView):
-    ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": gettext_lazy("Newest"),
         "created_at": gettext_lazy("Oldest"),
@@ -72,17 +70,7 @@ class IndexView(generic.IndexView):
     results_template_name = "wagtailimages/images/index_results.html"
 
     def get_paginate_by(self, queryset):
-        entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
-        try:
-            entries_per_page = int(entries_per_page)
-        except ValueError:
-            entries_per_page = INDEX_PAGE_SIZE
-        if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
-            entries_per_page = INDEX_PAGE_SIZE
-
-        self.entries_per_page = entries_per_page
-
-        return entries_per_page
+        return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
@@ -137,10 +125,8 @@ class IndexView(generic.IndexView):
         context.update(
             {
                 "next": self.get_next_url(),
-                "entries_per_page": self.entries_per_page,
                 "current_tag": self.current_tag,
                 "current_collection": self.current_collection,
-                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }

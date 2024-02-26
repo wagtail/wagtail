@@ -29,18 +29,6 @@
                 <input type="hidden" name="tag" value="{{ current_tag }}" />
             {% endif %}
 
-            {% field_row max_content=True %}
-
-                {% trans "Entries per page" as entries_per_page_label %}
-                {% rawformattedfield label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
-                    <select id="entries_per_page" name="entries_per_page" data-controller="w-submit" data-action="change->w-submit#submit">
-                        {% for value in ENTRIES_PER_PAGE_CHOICES %}
-                            <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
-                        {% endfor %}
-                    </select>
-                {% endrawformattedfield %}
-            {% endfield_row %}
-
             {% if popular_tags %}
                 <fieldset class="tagfilter">
                     <legend>{% trans 'Popular Tags:' %}</legend>

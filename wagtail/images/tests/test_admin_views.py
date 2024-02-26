@@ -86,12 +86,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
 
-    def test_per_page(self):
-        response = self.get({"entries_per_page": 60})
-        self.assertContains(
-            response, '<option value="60" selected="selected">60</option>', html=True
-        )
-
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
@@ -152,41 +146,40 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(context["page_obj"].object_list[0], self.puppy_image)
         self.assertEqual(context["page_obj"].object_list[1], self.kitten_image)
 
+    @override_settings(WAGTAILIMAGES_INDEX_PAGE_SIZE=15)
     def test_default_entries_per_page(self):
-        for i in range(1, 33):
-            self.image = Image.objects.create(
+        images = [
+            Image(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
             )
+            for i in range(1, 33)
+        ]
+        Image.objects.bulk_create(images)
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
         object_list = response.context["page_obj"].object_list
-        # The default number of images shown is 30
-        self.assertEqual(len(object_list), 30)
-
-        response = self.get({"entries_per_page": 10})
-        self.assertEqual(response.status_code, 200)
-
-        object_list = response.context["page_obj"].object_list
-        self.assertEqual(len(object_list), 10)
+        # The number of images shown is 15
+        self.assertEqual(len(object_list), 15)
 
     def test_default_entries_per_page_uses_default(self):
-        for i in range(1, 33):
-            self.image = Image.objects.create(
+        images = [
+            Image(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
             )
+            for i in range(1, 33)
+        ]
+        Image.objects.bulk_create(images)
 
         default_num_entries_per_page = 30
-        invalid_num_entries_values = [66, "a"]
-        for value in invalid_num_entries_values:
-            response = self.get({"entries_per_page": value})
-            self.assertEqual(response.status_code, 200)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
 
-            object_list = response.context["page_obj"].object_list
-            self.assertEqual(len(object_list), default_num_entries_per_page)
+        object_list = response.context["page_obj"].object_list
+        self.assertEqual(len(object_list), default_num_entries_per_page)
 
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()
