@@ -46,12 +46,12 @@ class ImagesFilterSet(BaseMediaFilterSet):
 class IndexView(generic.IndexView):
     ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
-        "-created_at": _("Newest"),
-        "created_at": _("Oldest"),
-        "title": _("Title: (A -> Z)"),
-        "-title": _("Title: (Z -> A)"),
-        "file_size": _("File size: (low to high)"),
-        "-file_size": _("File size: (high to low)"),
+        "-created_at": gettext_lazy("Newest"),
+        "created_at": gettext_lazy("Oldest"),
+        "title": gettext_lazy("Title: (A -> Z)"),
+        "-title": gettext_lazy("Title: (Z -> A)"),
+        "file_size": gettext_lazy("File size: (low to high)"),
+        "-file_size": gettext_lazy("File size: (high to low)"),
     }
     default_ordering = "-created_at"
     context_object_name = "images"
