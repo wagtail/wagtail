@@ -103,19 +103,21 @@ class HeaderButton(Button):
         classname="",
         icon_name=None,
         attrs={},
+        icon_only=False,
         **kwargs,
     ):
         classname = f"{classname} w-header-button".strip()
         attrs = attrs.copy()
-        attrs.update(
-            {
-                "data-controller": "w-tooltip",
-                "data-w-tooltip-content-value": label,
-                "aria-label": label,
-            }
-        )
+        if icon_only:
+            classname = f"{classname} w-header-button--icon-only"
+            controller = f"{attrs.get('data-controller', '')} w-tooltip".strip()
+            attrs["data-controller"] = controller
+            attrs["data-w-tooltip-content-value"] = label
+            attrs["aria-label"] = label
+            label = ""
+
         super().__init__(
-            label="",
+            label=label,
             url=url,
             classname=classname,
             icon_name=icon_name,
