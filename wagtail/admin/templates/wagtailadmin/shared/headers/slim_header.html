@@ -100,6 +100,10 @@
                             </div>
                         {% endif %}
 
+                        {% block extra_form_fields %}
+                            {# Add any extra form fields here #}
+                        {% endblock %}
+
                         {% comment %}
                             Add an initial disabled & hidden submit button so that
                             pressing 'Enter' will not submit form. Reload is not

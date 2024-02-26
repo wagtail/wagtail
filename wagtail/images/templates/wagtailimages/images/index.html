@@ -9,6 +9,19 @@
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
+{% block slim_header %}
+    {% fragment as extra_form_fields %}
+        {% rawformattedfield label_text=_("Sort by") id_for_label="order_images_by" sr_only_label=True %}
+            <select id="order_images_by" name="ordering">
+                {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                    <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                {% endfor %}
+            </select>
+        {% endrawformattedfield %}
+    {% endfragment %}
+    {% include "wagtailimages/images/image_listing_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon extra_form_fields=extra_form_fields only %}
+{% endblock %}
+
 {% block listing %}
     <div>
         <form class="image-search nice-padding" action="{{ index_url }}" method="GET" novalidate>
@@ -17,14 +30,6 @@
             {% endif %}
 
             {% field_row max_content=True %}
-                {% trans "Sort by" as sort_by %}
-                {% rawformattedfield label_text=sort_by id_for_label="order_images_by" %}
-                    <select id="order_images_by" name="ordering" data-controller="w-submit" data-action="change->w-submit#submit">
-                        {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
-                            <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
-                        {% endfor %}
-                    </select>
-                {% endrawformattedfield %}
 
                 {% trans "Entries per page" as entries_per_page_label %}
                 {% rawformattedfield label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
