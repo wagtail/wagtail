@@ -2,6 +2,7 @@ import django_filters
 from django import forms
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
@@ -191,3 +192,37 @@ class UserModelMultipleChoiceField(django_filters.fields.ModelMultipleChoiceFiel
 
 class MultipleUserFilter(django_filters.ModelMultipleChoiceFilter):
     field_class = UserModelMultipleChoiceField
+
+
+class CollectionChoiceIterator(django_filters.fields.ModelChoiceIterator):
+    @cached_property
+    def min_depth(self):
+        return self.queryset.get_min_depth()
+
+    def choice(self, obj):
+        return (obj.pk, obj.get_indented_name(self.min_depth, html=True))
+
+
+class CollectionChoiceField(django_filters.fields.ModelChoiceField):
+    iterator = CollectionChoiceIterator
+
+
+class CollectionFilter(django_filters.ModelChoiceFilter):
+    field_class = CollectionChoiceField
+
+
+class BaseMediaFilterSet(WagtailFilterSet):
+    permission_policy = None
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        collections_qs = self.permission_policy.collections_user_has_any_permission_for(
+            request.user, ["add", "change"]
+        )
+        # Add collection filter only if there are multiple collections
+        if collections_qs.count() > 1:
+            self.filters["collection_id"] = CollectionFilter(
+                field_name="collection_id",
+                label=_("Collection"),
+                queryset=collections_qs,
+            )

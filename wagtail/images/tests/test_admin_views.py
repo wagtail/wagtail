@@ -194,8 +194,16 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         root_collection.add_child(name="Good plans")
 
         response = self.get()
+        soup = self.get_soup(response.content)
+        collection_options = soup.select(
+            'select[name="collection_id"] option[value]:not(option[value=""])'
+        )
+
         self.assertEqual(
-            [collection.name for collection in response.context["collections"]],
+            [
+                collection.get_text(strip=True).lstrip("↳ ")
+                for collection in collection_options
+            ],
             ["Root", "Evil plans", "Good plans"],
         )
 

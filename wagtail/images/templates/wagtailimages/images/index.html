@@ -17,10 +17,6 @@
             {% endif %}
 
             {% field_row max_content=True %}
-                {% if collections %}
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                {% endif %}
-
                 {% trans "Sort by" as sort_by %}
                 {% rawformattedfield label_text=sort_by id_for_label="order_images_by" %}
                     <select id="order_images_by" name="ordering" data-controller="w-submit" data-action="change->w-submit#submit">
