@@ -217,12 +217,18 @@ class PopularTagsFilter(django_filters.MultipleChoiceFilter):
     # because the queryset has been sliced, which means ModelMultipleChoiceFilter
     # cannot do further queries to validate the selected tags.
 
-    def __init__(self, *args, noop=False, **kwargs):
+    def __init__(self, *args, use_subquery=False, **kwargs):
         super().__init__(*args, **kwargs)
-        self.noop = noop
+        self.use_subquery = use_subquery
 
-    def is_noop(self, qs, value):
-        return self.noop or super().is_noop(qs, value)
+    def filter(self, qs, value):
+        filtered = super().filter(qs, value)
+        if not self.use_subquery:
+            return filtered
+
+        # Workaround for https://github.com/wagtail/wagtail/issues/6616
+        pks = filtered.values_list("pk", flat=True)
+        return qs.filter(pk__in=pks)
 
 
 class BaseMediaFilterSet(WagtailFilterSet):
@@ -251,6 +257,6 @@ class BaseMediaFilterSet(WagtailFilterSet):
                 field_name="tags__name",
                 choices=[(tag.name, tag.name) for tag in popular_tags],
                 widget=forms.CheckboxSelectMultiple,
-                noop=is_searching,
+                use_subquery=is_searching,
                 help_text=_("Filter by up to ten most popular tags."),
             )

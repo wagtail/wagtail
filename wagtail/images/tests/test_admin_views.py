@@ -482,10 +482,10 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         )
         image_two_tags.tags.add("one", "two")
 
-        # The tag gets ignored, if a valid search term is present, so this will find all
-        # images, as all of them contain "test" in their titles.
+        # The tag shouldn't be ignored, so the result should be the images
+        # that have the "one" tag and "test" in the title.
         response = self.get({"tag": "one", "q": "test"})
-        self.assertEqual(response.context["page_obj"].paginator.count, 3)
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
