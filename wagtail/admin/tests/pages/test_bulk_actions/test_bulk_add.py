@@ -1,10 +1,9 @@
-from django.contrib.auth.models import Permission
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from wagtail.models import Page, BulkPageManager
+
+from wagtail.models import BulkPageManager, Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
-
 
 # Test normal flow
 # Test auto generate slug
@@ -42,7 +41,9 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
             )
 
     def test_bulk_add_for_leaf_page(self):
-        root_page = SimplePage(title="Root page", slug="root-page", content="Test content")
+        root_page = SimplePage(
+            title="Root page", slug="root-page", content="Test content"
+        )
         self.root_page.add_child(instance=root_page)
         root_page = Page.objects.get(title="Root page")
 
