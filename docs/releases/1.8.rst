@@ -28,7 +28,7 @@ See: :ref:`private_pages`
 Restrictions on bulk-deletion of pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously, any user with edit permission over a page and its descendants was able to delete them all as a single action, which led to the risk of accidental deletions. To guard against this, the permission rules have been revised so that a user with basic permissions can only delete pages that have no children; in order to delete a whole subtree, they must individually delete each child page first. A new "bulk delete" permission type has been added which allows a user to delete pages with children, as before; superusers receive this permission implicitly, and so there is no change of behaviour for them.
+Previously, any user with edit permission over a page and its descendants was able to delete them all as a single action, which led to the risk of accidental deletions. To guard against this, the permission rules have been revised so that a user with basic permissions can only delete pages that have no children; to delete a whole subtree, they must individually delete each child page first. A new "bulk delete" permission type has been added which allows a user to delete pages with children, as before; superusers receive this permission implicitly, and so there is no change of behavior for them.
 
 This feature was developed by Matt Westcott.
 
@@ -134,7 +134,7 @@ The ``get_image_model`` function should now be imported from ``wagtail.wagtailim
 Non-administrators now need 'bulk delete' permission to delete pages with children
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As a precaution against accidental data loss, this release introduces a new "bulk delete" permission on pages, which can be set through the Settings -> Groups area. Non-administrator users must have this permission in order to delete pages that have children; a user without this permission would have to delete each child individually before deleting the parent. By default, no groups are assigned this new permission. If you wish to restore the previous behaviour, and don't want to configure permissions manually through the admin interface, you can do so with a data migration. Create an empty migration using ``./manage.py makemigrations myapp --empty --name assign_bulk_delete_permission`` (replacing ``myapp`` with the name of one of your project's apps) and edit the migration file to contain the following:
+As a precaution against accidental data loss, this release introduces a new "bulk delete" permission on pages, which can be set through the Settings -> Groups area. Non-administrator users must have this permission to delete pages that have children; a user without this permission would have to delete each child individually before deleting the parent. By default, no groups are assigned this new permission. If you wish to restore the previous behavior and don't want to configure permissions manually through the admin interface, you can do so with a data migration. Create an empty migration using ``./manage.py makemigrations myapp --empty --name assign_bulk_delete_permission`` (replacing ``myapp`` with the name of one of your project's apps) and edit the migration file to contain the following:
 
 .. code-block:: python
 
@@ -186,12 +186,12 @@ The ``wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend`` module h
         },
     }
 
-For details of how to obtain the zone identifier, see `the Cloudflare API documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_.
+For details of how to obtain the zone identifier, see `the Cloudflare API documentation <https://developers.cloudflare.com/api/>`_.
 
 Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For the Elasticsearch backend, all extra keys defined in ``WAGTAILSEARCH_BACKENDS`` are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behaviour is still supported, but deprecated.
+For the Elasticsearch backend, all extra keys defined in ``WAGTAILSEARCH_BACKENDS`` are passed directly to the Elasticsearch constructor. All these keys now should be moved inside the new ``OPTIONS`` dictionary. The old behavior is still supported but deprecated.
 
 For example, the following configuration changes the connection class that the Elasticsearch connector_ uses:
 

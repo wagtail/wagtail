@@ -557,7 +557,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         values (images) reflecting the supplied ``filters`` and the focal point
         values from this object.
 
-        Filters for which an existing rendition cannot be found are ommitted
+        Filters for which an existing rendition cannot be found are omitted
         from the return value. If none of the requested renditions have been
         created before, the return value will be an empty dict.
         """
@@ -1331,23 +1331,3 @@ class Rendition(AbstractRendition):
 
     class Meta:
         unique_together = (("image", "filter_spec", "focal_point_key"),)
-
-
-class UploadedImage(models.Model):
-    """
-    Temporary storage for images uploaded through the multiple image uploader, when validation rules (e.g.
-    required metadata fields) prevent creating an Image object from the image file alone. In this case,
-    the image file is stored against this model, to be turned into an Image object once the full form
-    has been filled in.
-    """
-
-    file = models.ImageField(upload_to="uploaded_images", max_length=200)
-    uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("uploaded by user"),
-        null=True,
-        blank=True,
-        editable=False,
-        on_delete=models.SET_NULL,
-    )
-    uploaded_by_user.wagtail_reference_index_ignore = True

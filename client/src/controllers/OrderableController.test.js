@@ -142,7 +142,7 @@ describe('OrderableController', () => {
         'orderable',
       ]);
 
-      fetch.mockResponseSuccess('');
+      fetch.mockResponseSuccessJSON('');
 
       // emulate a drag end (with change)
 
@@ -250,7 +250,7 @@ describe('OrderableController', () => {
 
       expect(global.fetch).not.toHaveBeenCalled();
 
-      fetch.mockResponseSuccess('');
+      fetch.mockResponseSuccessJSON('');
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...ENTER)));
 

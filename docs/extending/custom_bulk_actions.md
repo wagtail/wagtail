@@ -136,7 +136,7 @@ def check_perm(self, obj):
     return obj.has_perm('some_perm')  # returns True or False
 ```
 
-The success message shown on the admin can be customised by overriding the `get_success_message` method.
+The success message shown on the admin can be customized by overriding the `get_success_message` method.
 
 ```python
 def get_success_message(self, num_parent_objects, num_child_objects):

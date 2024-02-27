@@ -19,7 +19,7 @@ Bug fixes
 ~~~~~~~~~
 
 * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
-* Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+* Password reset form no longer indicates whether the email is recognized, as per standard Django behavior (Bertrand Bordage)
 * ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
 * Editing setting object with no site configured no longer crashes (Harm Zeinstra)
 * Creating a new object with inlines while mandatory fields are empty no longer crashes (Bertrand Bordage)

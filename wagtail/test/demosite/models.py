@@ -471,7 +471,7 @@ class EventPage(Page):
 
     def get_event_index(self):
         # Find closest ancestor which is an event index
-        return EventIndexPage.objects.ancester_of(self).last()
+        return EventIndexPage.objects.ancestor_of(self).last()
 
 
 class EventPageCarouselItem(Orderable, AbstractCarouselItem):

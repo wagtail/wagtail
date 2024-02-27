@@ -52,8 +52,10 @@ export class InlinePanel extends ExpandingFormset {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
     const currentChild = $('#' + childId);
-    const $up = currentChild.find('[data-inline-panel-child-move-up]');
-    const $down = currentChild.find('[data-inline-panel-child-move-down]');
+    const $up = currentChild.find('[data-inline-panel-child-move-up]:first ');
+    const $down = currentChild.find(
+      '[data-inline-panel-child-move-down]:first ',
+    );
 
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
@@ -148,8 +150,14 @@ export class InlinePanel extends ExpandingFormset {
       forms.each(function updateButtonStates(i) {
         const isFirst = i === 0;
         const isLast = i === forms.length - 1;
-        $('[data-inline-panel-child-move-up]', this).prop('disabled', isFirst);
-        $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
+        $('[data-inline-panel-child-move-up]:first', this).prop(
+          'disabled',
+          isFirst,
+        );
+        $('[data-inline-panel-child-move-down]:first', this).prop(
+          'disabled',
+          isLast,
+        );
       });
     }
   }

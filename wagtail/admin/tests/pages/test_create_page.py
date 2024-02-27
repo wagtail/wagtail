@@ -1806,7 +1806,7 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
-    def test_commment_notifications_switched_on_by_default(self):
+    def test_comment_notifications_switched_on_by_default(self):
         response = self.client.get(
             reverse(
                 "wagtailadmin_pages:add",
@@ -1890,7 +1890,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
-    def test_commments_enabled_by_default(self):
+    def test_comments_enabled_by_default(self):
         response = self.client.get(
             reverse(
                 "wagtailadmin_pages:add",
@@ -1907,7 +1907,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("w-comments:init", form["data-w-init-event-value"])
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
-    def test_commments_disabled(self):
+    def test_comments_disabled(self):
         response = self.client.get(
             reverse(
                 "wagtailadmin_pages:add",

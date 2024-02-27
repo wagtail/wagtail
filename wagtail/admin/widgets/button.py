@@ -111,7 +111,7 @@ class HeaderButton(Button):
             {
                 "data-controller": "w-tooltip w-link",
                 "data-w-tooltip-content-value": label,
-                "data-action": "w-swap:success@document->w-link#setParamsFromSwapRequest",
+                "data-action": "w-swap:reflect@document->w-link#setParams",
                 "aria-label": label,
             }
         )

@@ -100,16 +100,6 @@ from .audit_log import (  # noqa: F401
     LogEntryQuerySet,
     ModelLogEntry,
 )
-from .collections import (  # noqa: F401
-    BaseCollectionManager,
-    Collection,
-    CollectionManager,
-    CollectionMember,
-    CollectionViewRestriction,
-    GroupCollectionPermission,
-    GroupCollectionPermissionManager,
-    get_root_collection_id,
-)
 from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
 from .i18n import (  # noqa: F401
     BootstrapTranslatableMixin,
@@ -119,6 +109,17 @@ from .i18n import (  # noqa: F401
     TranslatableMixin,
     bootstrap_translatable_model,
     get_translatable_models,
+)
+from .media import (  # noqa: F401
+    BaseCollectionManager,
+    Collection,
+    CollectionManager,
+    CollectionMember,
+    CollectionViewRestriction,
+    GroupCollectionPermission,
+    GroupCollectionPermissionManager,
+    UploadedFile,
+    get_root_collection_id,
 )
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
@@ -3647,24 +3648,37 @@ class GroupApprovalTask(Task):
 
         return super().start(workflow_state, user=user)
 
+    def _user_in_groups(self, user):
+        # Cache the check whether "this user is in any of this
+        # GroupApprovalTask's groups" on the user object, in case we do it
+        # against the same user and task multiple times in a request.
+        # Use a dict to map the task id to the check result, in case we also
+        # check against different GroupApprovalTasks for the same user.
+        cache_attr = "_group_approval_task_checks"
+        if not (checks_cache := getattr(user, cache_attr, {})):
+            setattr(user, cache_attr, checks_cache)
+
+        if self.pk not in checks_cache:
+            checks_cache[self.pk] = self.groups.filter(
+                id__in=user.groups.all()
+            ).exists()
+
+        return checks_cache[self.pk]
+
     def user_can_access_editor(self, obj, user):
-        return (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return user.is_superuser or self._user_in_groups(user)
 
     def locked_for_user(self, obj, user):
-        return not (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return not (user.is_superuser or self._user_in_groups(user))
 
     def user_can_lock(self, obj, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self._user_in_groups(user)
 
     def user_can_unlock(self, obj, user):
         return False
 
     def get_actions(self, obj, user):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
+        if user.is_superuser or self._user_in_groups(user):
             return [
                 ("reject", _("Request changes"), True),
                 ("approve", _("Approve"), False),
@@ -3674,10 +3688,8 @@ class GroupApprovalTask(Task):
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
-            return TaskState.objects.filter(
-                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
-            )
+        if user.is_superuser or self._user_in_groups(user):
+            return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
 
@@ -4122,10 +4134,10 @@ class WorkflowState(models.Model):
 
 class BaseTaskStateManager(models.Manager):
     def reviewable_by(self, user):
-        tasks = Task.objects.filter(active=True)
+        tasks = Task.objects.filter(active=True).specific()
         states = TaskState.objects.none()
         for task in tasks:
-            states = states | task.specific.get_task_states_user_can_moderate(user=user)
+            states = states | task.get_task_states_user_can_moderate(user=user)
         return states
 
 

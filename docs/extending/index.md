@@ -16,7 +16,7 @@ adding_reports
 custom_tasks
 audit_log
 custom_account_settings
-customising_group_views
+customizing_group_views
 custom_image_filters
 extending_client_side
 rich_text_internals

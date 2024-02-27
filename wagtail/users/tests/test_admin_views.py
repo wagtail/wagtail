@@ -852,7 +852,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/users/%s/" % self.test_user.pk
         self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         invalid_id = (
             "99999999-9999-9999-9999-999999999999"
             if settings.AUTH_USER_MODEL == "emailuser.EmailUser"
@@ -1415,6 +1415,12 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(20):
+            self.get()
+
     def test_create_group(self):
         response = self.post({"name": "test group"})
 
@@ -1527,6 +1533,13 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             | Q(codename__startswith="publish")
         ).delete()
 
+        # A custom permission that happens to also start with "change"
+        Permission.objects.filter(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        ).delete()
+
         response = self.get()
 
         self.assertInHTML("Custom permissions", response.content.decode(), count=0)
@@ -1566,6 +1579,63 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
+
+    def test_strip_model_name_from_custom_permissions(self):
+        """
+        https://github.com/wagtail/wagtail/issues/10982
+        Ensure model name or verbose name is stripped from permissions' labels
+        for consistency with built-in permissions.
+        """
+        response = self.get()
+
+        self.assertContains(response, "Can bulk update")
+        self.assertContains(response, "Can start trouble")
+        self.assertContains(response, "Cause chaos for")
+        self.assertContains(response, "Change text")
+        self.assertContains(response, "Manage")
+        self.assertNotContains(response, "Can bulk_update")
+        self.assertNotContains(response, "Can bulk update ADVANCED permission model")
+        self.assertNotContains(response, "Cause chaos for advanced permission model")
+        self.assertNotContains(response, "Manage custom permission model")
+
+    def test_permission_with_same_action(self):
+        """
+        https://github.com/wagtail/wagtail/issues/11650
+        Ensure that permissions with the same action (part before the first _ in
+        the codename) are not hidden.
+        """
+        response = self.get()
+        soup = self.get_soup(response.content)
+        main_change_permission = Permission.objects.get(
+            codename="change_custompermissionmodel",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        )
+        custom_change_permission = Permission.objects.get(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        )
+
+        # Main change permission is in the dedicated column, so it's directly
+        # inside a <td>, not inside a <fieldset>"
+        self.assertIsNotNone(
+            soup.select_one(f'td > input[value="{main_change_permission.pk}"]')
+        )
+        self.assertIsNone(
+            soup.select_one(f'td > fieldset input[value="{main_change_permission.pk}"]')
+        )
+
+        # Custom "change_text" permission is in the custom permissions column,
+        # so it's inside a <fieldset> and not directly inside a <td>
+        self.assertIsNone(
+            soup.select_one(f'td > input[value="{custom_change_permission.pk}"]')
+        )
+        self.assertIsNotNone(
+            soup.select_one(
+                f'td > fieldset input[value="{custom_change_permission.pk}"]'
+            )
+        )
 
 
 class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -1661,7 +1731,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
         self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
 
-    def test_nonexistant_group_redirect(self):
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(31):
+            self.get()
+
+    def test_nonexistent_group_redirect(self):
         self.assertEqual(self.get(group_id=100000).status_code, 404)
 
     def test_group_edit(self):
@@ -2029,7 +2105,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     perm.content_type.model,
                 )
                 for perm_set in object_perms
-                for perm in [next(v for v in flatten(perm_set) if "perm" in v)["perm"]]
+                for perm in [
+                    next(
+                        v
+                        for v in flatten(perm_set)
+                        if isinstance(v, dict) and "perm" in v
+                    )["perm"]
+                ]
             ]
 
         # Set order on two objects, should appear first and second

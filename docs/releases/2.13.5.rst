@@ -22,13 +22,13 @@ Bug fixes
 Upgrade considerations
 ======================
 
-Customising relation name for admin comments
+Customizing relation name for admin comments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The admin commenting feature introduced in Wagtail 2.13 added a relation named ``comments`` to the Page and User
 models. This can cause conflicts with third-party apps that implement commenting functionality, and so this will be
 renamed to ``wagtail_admin_comments`` in Wagtail 2.15. Developers who are affected by this issue, and have thus been
-unable to upgrade to Wagtail 2.13 or above, can now "opt in" to the Wagtail 2.15 behaviour by adding the following
+unable to upgrade to Wagtail 2.13 or above, can now "opt in" to the Wagtail 2.15 behavior by adding the following
 line to their project settings:
 
 .. code-block:: python

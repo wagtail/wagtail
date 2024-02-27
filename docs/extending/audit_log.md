@@ -7,7 +7,7 @@ Wagtail provides a mechanism to log actions performed on its objects. Common act
 The Wagtail admin uses the action log entries to provide a site-wide and page-specific history of changes. It uses a
 registry of 'actions' that provide additional context for the logged action.
 
-The audit log-driven Page history replaces the revisions list page, but provides a filter for revision-specific entries.
+The audit log-driven Page history replaces the revisions list page but provides a filter for revision-specific entries.
 
 ```{note}
 The audit log does not replace revisions.
@@ -21,7 +21,7 @@ The `wagtail.log_actions.log` function can be used to add logging to your own co
    Adds an entry to the audit log.
 
    :param instance: The model instance that the action is performed on
-   :param action: The code name for the action being performed. This can be one of the names listed below, or a custom action defined through the :ref:`register_log_actions` hook.
+   :param action: The code name for the action being performed. This can be one of the names listed below or a custom action defined through the :ref:`register_log_actions` hook.
    :param user: Optional - the user initiating the action. For actions logged within an admin view, this defaults to the logged-in user.
    :param uuid: Optional - log entries given the same UUID indicates that they occurred as part of the same user action (for example a page being immediately published on creation).
    :param title: The string representation, of the instance being logged. By default, Wagtail will attempt to use the instance's ``str`` representation or ``get_admin_display_title`` for page objects.
@@ -62,7 +62,7 @@ When adding logging, you need to log the action or actions that happen to the ob
 | `wagtail.publish`                 | The page was published                                                           |
 | `wagtail.publish.schedule`        | The draft is scheduled for publishing                                            |
 | `wagtail.publish.scheduled`       | Draft published via `publish_scheduled` management command                       |
-| `wagtail.schedule.cancel`         | Draft scheduled for publishing cancelled via "Cancel scheduled publish"          |
+| `wagtail.schedule.cancel`         | Draft scheduled for publishing canceled via "Cancel scheduled publish"           |
 | `wagtail.unpublish`               | The page was unpublished                                                         |
 | `wagtail.unpublish.scheduled`     | Page unpublished via `publish_scheduled` management command                      |
 | `wagtail.lock`                    | Page was locked                                                                  |
@@ -80,7 +80,7 @@ When adding logging, you need to log the action or actions that happen to the ob
 | `wagtail.workflow.approve`        | The draft was approved at a Workflow Task                                        |
 | `wagtail.workflow.reject`         | The draft was rejected, and changes were requested at a Workflow Task            |
 | `wagtail.workflow.resume`         | The draft was resubmitted to the workflow                                        |
-| `wagtail.workflow.cancel`         | The workflow was cancelled                                                       |
+| `wagtail.workflow.cancel`         | The workflow was canceled                                                        |
 
 ## Log context
 

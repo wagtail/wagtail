@@ -1,15 +1,15 @@
 (extending_client_side)=
 
-# Extending client-side behaviour
+# Extending client-side behavior
 
-Many kinds of common customisations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customise, you may need to employ React, Stimulus, or plain (vanilla) JS.
+Many kinds of common customizations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customize, you may need to employ React, Stimulus, or plain (vanilla) JS.
 
 [React](https://reactjs.org/) is used for more complex parts of Wagtail, such as the sidebar, commenting system, and the Draftail rich-text editor.
 For basic JavaScript-driven interaction, Wagtail is migrating towards [Stimulus](https://stimulus.hotwired.dev/).
 
-You don't need to know or use these libraries to add your custom behaviour to elements, and in many cases, simple JavaScript will work fine, but Stimulus is the recommended approach for more complex use cases.
+You don't need to know or use these libraries to add your custom behavior to elements, and in many cases, simple JavaScript will work fine, but Stimulus is the recommended approach for more complex use cases.
 
-You don't need to have Node.js tooling running for your custom Wagtail installation for many customisations built on these libraries, but in some cases, such as building packages, it may make more complex development easier.
+You don't need to have Node.js tooling running for your custom Wagtail installation for many customizations built on these libraries, but in some cases, such as building packages, it may make more complex development easier.
 
 ```{note}
 Avoid using jQuery and undocumented jQuery plugins, as they will be removed in a future version of Wagtail.
@@ -33,13 +33,13 @@ These will ensure the added files are used in the admin after the core JavaScrip
 
 ## Extending with DOM events
 
-When approaching client-side customisations or adopting new components, try to keep the implementation simple first, you may not need any knowledge of Stimulus, React, JavaScript Modules or a build system to achieve your goals.
+When approaching client-side customizations or adopting new components, try to keep the implementation simple first, you may not need any knowledge of Stimulus, React, JavaScript Modules, or a build system to achieve your goals.
 
-The simplest way to attach behaviour to the browser is via [DOM Events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and plain (vanilla) JavaScript.
+The simplest way to attach behavior to the browser is via [DOM Events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and plain (vanilla) JavaScript.
 
 ### Wagtail's custom DOM events
 
-Wagtail supports some custom behaviour via listening or dispatching custom DOM events.
+Wagtail supports some custom behavior via listening or dispatching custom DOM events.
 
 -   See [Images title generation on upload](images_title_generation_on_upload).
 -   See [Documents title generation on upload](docs_title_generation_on_upload).
@@ -51,7 +51,7 @@ Wagtail supports some custom behaviour via listening or dispatching custom DOM e
 
 Wagtail uses [Stimulus](https://stimulus.hotwired.dev/) as a way to provide lightweight client-side interactivity or custom JavaScript widgets within the admin interface.
 
-The key benefit of using Stimulus is that your code can avoid the need for manual initialisation when widgets appear dynamically, such as within modals, `InlinePanel`, or `StreamField` panels.
+The key benefit of using Stimulus is that your code can avoid the need for manual initialization when widgets appear dynamically, such as within modals, `InlinePanel`, or `StreamField` panels.
 
 The [Stimulus handbook](https://stimulus.hotwired.dev/handbook/introduction) is the best source on how to work with and understand Stimulus.
 
@@ -211,7 +211,7 @@ You should be able to see that on your Blog Pages, the introduction field will n
 
 For more complex widgets we can now integrate additional libraries whenever the widget appears in the rendered HTML, either on initial load or dynamically without the need for any inline `script` elements.
 
-In this example we will build a color picker widget using the [Coloris](https://coloris.js.org/) JavaScript library with support for custom widget options.
+In this example, we will build a color picker widget using the [Coloris](https://coloris.js.org/) JavaScript library with support for custom widget options.
 
 First, let's start with the HTML, building on the [Django widgets](inv:django#ref/forms/widgets) system that Wagtail supports for `FieldPanel` and `FieldBlock`. Using the `build_attrs` method, we build up the appropriate Stimulus data attributes to support common data structures being passed into the controller.
 
@@ -346,7 +346,7 @@ You may want to avoid bundling Stimulus with your JavaScript output and treat th
 
 ## Extending with React
 
-To customise or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
+To customize or extend the [React](https://reactjs.org/) components, you may need to use React too, as well as other related libraries.
 
 To make this easier, Wagtail exposes its React-related dependencies as global variables within the admin. Here are the available packages:
 

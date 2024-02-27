@@ -13,5 +13,5 @@ maxdepth: 2
 registering
 rendering
 features
-customising
+customizing
 ```

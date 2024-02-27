@@ -15,7 +15,7 @@ What's new
 New ``HelpPanel``
 ~~~~~~~~~~~~~~~~~
 
-A new panel type ``HelpPanel`` allows to easily add HTML within an edit form.
+A new panel type ``HelpPanel`` allows you to easily add HTML within an edit form.
 This new feature was developed by Kevin Chung.
 
 
@@ -65,7 +65,7 @@ Other features
 * Set `ALLOWED_HOSTS` in the project template to allow any host in development (Tom Dyson)
 * Expose reusable client-side code to build Draftail extensions (Thibaud Colas)
 * Added ``WAGTAILFRONTENDCACHE_LANGUAGES`` setting to specify the languages whose URLs are to be purged when using ``i18n_patterns`` (PyMan Claudio Marinozzi)
-* Added ``extra_footer_actions`` template blocks for customising the add/edit page views (Arthur Holzner)
+* Added ``extra_footer_actions`` template blocks for customizing the add/edit page views (Arthur Holzner)
 
 Bug fixes
 ~~~~~~~~~
@@ -75,7 +75,7 @@ Bug fixes
 * Move image editor action buttons to the bottom of the form on mobile (Julian Gallo)
 * StreamField icons are now correctly sorted into groups on the 'append' menu (Tim Heap)
 * Draftail now supports features specified via the ``WAGTAILADMIN_RICH_TEXT_EDITORS`` setting (Todd Dembrey)
-* Password reset form no longer indicates whether the email is recognised, as per standard Django behaviour (Bertrand Bordage)
+* Password reset form no longer indicates whether the email is recognized, as per standard Django behavior (Bertrand Bordage)
 * ``UserAttributeSimilarityValidator`` is now correctly enforced on user creation / editing forms (Tim Heap)
 * Focal area removal not working in IE11 and MS Edge (Thibaud Colas)
 * Rewrite password change feedback message to be more user-friendly (Casper Timmers)
@@ -88,12 +88,12 @@ Bug fixes
 * Localization of image and apps verbose names
 * Draftail editor no longer crashes after deleting image/embed using DEL key (Thibaud Colas)
 * Breadcrumb navigation now respects custom ``get_admin_display_title`` methods (Arthur Holzner, Wietze Helmantel, Matt Westcott)
-* Inconsistent order of heading features when adding h1, h5 or h6 as default feature for Hallo RichText editor (Loic Teixeira)
+* Inconsistent order of heading features when adding h1, h5, or h6 as default feature for Hallo RichText editor (Loic Teixeira)
 * Add invalid password reset link error message (Coen van der Kamp)
 * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
 * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
 * Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
-* Background colour overflow within the Wagtail documentation (Sergey Fedoseev)
+* Background color overflow within the Wagtail documentation (Sergey Fedoseev)
 * Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
 * Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
 * Generate URL for the current site when multiple sites share the same root page (Codie Roelf)

@@ -76,25 +76,6 @@ export class DrilldownController extends Controller<HTMLElement> {
     });
   }
 
-  updateParams(e: Event) {
-    const swapEvent = e as CustomEvent<{ requestUrl: string }>;
-    if ((e.target as HTMLElement)?.id === 'listing-results') {
-      const params = new URLSearchParams(
-        swapEvent.detail?.requestUrl.split('?')[1],
-      );
-      const filteredParams = new URLSearchParams();
-      params.forEach((value, key) => {
-        if (value.trim() !== '' && !key.startsWith('_w_')) {
-          // Check if the value is not empty after trimming white space
-          filteredParams.append(key, value);
-        }
-      });
-      const queryString = `?${filteredParams.toString()}`;
-      window.history.replaceState(null, '', queryString);
-    }
-    this.updateCount();
-  }
-
   open(e: MouseEvent) {
     const toggle = (e.target as HTMLElement)?.closest(
       'button',

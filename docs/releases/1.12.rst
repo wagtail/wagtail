@@ -50,7 +50,7 @@ Bug fixes
 * Hide the userbar from printed page representation (Eugene Morozov)
 * Prevent the page editor footer content from collapsing into two lines unnecessarily (Jack Paine)
 * StructBlock values no longer render HTML templates as their ``str`` representation, to prevent infinite loops in debugging / logging tools (Matt Westcott)
-* Removed deprecated jQuery ``load`` call from TableBlock initialisation (Jack Paine)
+* Removed deprecated jQuery ``load`` call from TableBlock initialization (Jack Paine)
 * Position of options in mobile nav-menu (Jack Paine)
 * Center page editor footer regardless of screen width (Jack Paine)
 * Change the design of the navbar toggle icon so that it no longer obstructs page headers (Jack Paine)
@@ -62,7 +62,7 @@ Upgrade considerations
 StreamField now defaults to ``blank=False``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-StreamField now respects the ``blank`` field setting; when this is false, at least one block must be supplied for the field to pass validation. To match the behaviour of other model fields, ``blank`` defaults to ``False``; if you wish to allow a StreamField to be left empty, you must now add ``blank=True`` to the field.
+StreamField now respects the ``blank`` field setting; when this is false, at least one block must be supplied for the field to pass validation. To match the behavior of other model fields, ``blank`` defaults to ``False``; if you wish to allow a StreamField to be left empty, you must now add ``blank=True`` to the field.
 
 When passing an explicit ``StreamBlock`` as the top-level block of a StreamField definition, note that the StreamField's ``blank`` keyword argument always takes precedence over the block's ``required`` property, including when it is left as the default value of ``blank=False``. Consequently, setting ``required=False`` on a top-level ``StreamBlock`` has no effect.
 
@@ -70,19 +70,19 @@ When passing an explicit ``StreamBlock`` as the top-level block of a StreamField
 Old configuration settings for embeds are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favour of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
+The configuration settings ``WAGTAILEMBEDS_EMBED_FINDER`` and ``WAGTAILEMBEDS_EMBEDLY_KEY`` have been deprecated in favor of the new ``WAGTAILEMBEDS_FINDERS`` setting. Please see :ref:`configuring_embed_finders` for the new configuration to use.
 
 
 Registering custom hallo.js plugins directly is deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ability to enable / disable ``hallo.js`` plugins by calling ``registerHalloPlugin`` or modifying the ``halloPlugins`` list has been deprecated, and will be removed in Wagtail 1.14. The recommended way of customising the hallo.js editor is now through :ref:`rich text features <rich_text_features>`.
+The ability to enable / disable ``hallo.js`` plugins by calling ``registerHalloPlugin`` or modifying the ``halloPlugins`` list has been deprecated, and will be removed in Wagtail 1.14. The recommended way of customizing the hallo.js editor is now through :ref:`rich text features <rich_text_features>`.
 
 
 Custom ``get_admin_display_title`` methods should use ``draft_title``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This release introduces a new ``draft_title`` field on page models, so that page titles as used across the admin interface will correctly reflect any changes that exist in draft. If any of your page models override the ``get_admin_display_title`` method, to customise the display of page titles in the admin, it is recommended that you now update these to base their output on ``draft_title`` rather than ``title``. Alternatively, to preserve backwards compatibility, you can invoke ``super`` on the method, for example:
+This release introduces a new ``draft_title`` field on page models, so that page titles as used across the admin interface will correctly reflect any changes that exist in draft. If any of your page models override the ``get_admin_display_title`` method, to customize the display of page titles in the admin, it is recommended that you now update these to base their output on ``draft_title`` rather than ``title``. Alternatively, to preserve backwards compatibility, you can invoke ``super`` on the method, for example:
 
 .. code-block:: python
 

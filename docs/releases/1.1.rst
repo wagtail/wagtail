@@ -38,7 +38,7 @@ We hope to support more REST framework features, such as a browsable API, in fut
 Permissions fixes in the admin interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A number of inconsistencies around permissions in the admin interface were fixed in this release:
+Several inconsistencies around permissions in the admin interface were fixed in this release:
 
 * Removed all permissions for "User profile" (not used)
 * Removed "delete" permission for Images and documents (not used)

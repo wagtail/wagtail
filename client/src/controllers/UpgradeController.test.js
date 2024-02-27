@@ -44,7 +44,7 @@ describe('UpgradeController', () => {
 
     expect(global.fetch).not.toHaveBeenCalled();
 
-    fetch.mockResponseSuccess(JSON.stringify(data));
+    fetch.mockResponseSuccessJSON(JSON.stringify(data));
 
     // start application
     application = Application.start();
@@ -92,7 +92,7 @@ describe('UpgradeController', () => {
       },
     };
 
-    fetch.mockResponseSuccess(JSON.stringify(data));
+    fetch.mockResponseSuccessJSON(JSON.stringify(data));
 
     expect(global.fetch).not.toHaveBeenCalled();
 

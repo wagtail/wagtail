@@ -810,7 +810,7 @@ class TestRedirectsEditView(WagtailTestUtils, TestCase):
         expected_url = "/admin/redirects/%d/" % self.redirect.id
         self.assertEqual(url_finder.get_edit_url(self.redirect), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_edit(self):
@@ -914,7 +914,7 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailredirects/confirm_delete.html")
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_delete(self):

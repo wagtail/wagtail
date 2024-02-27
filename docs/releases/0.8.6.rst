@@ -40,4 +40,4 @@ This release fixes a bug with page deletion introduced in 0.8, where deleting a 
 
 This will output a list of any orphaned pages found, and request confirmation before deleting them.
 
-Since this now makes ``fixtree`` an interactive command, a ``./manage.py fixtree --noinput`` option has been added to restore the previous non-interactive behaviour. With this option enabled, deleting orphaned pages is always skipped.
+Since this now makes ``fixtree`` an interactive command, a ``./manage.py fixtree --noinput`` option has been added to restore the previous non-interactive behavior. With this option enabled, deleting orphaned pages is always skipped.

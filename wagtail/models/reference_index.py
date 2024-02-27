@@ -160,7 +160,7 @@ class ReferenceIndex(models.Model):
     # linked by a ParentalKey.
     tracked_models = set()
 
-    # Ths set of models that can appear as the 'from' object in the reference index.
+    # The set of models that can appear as the 'from' object in the reference index.
     # This only includes those registered with `register_model`, and NOT child models linked
     # by ParentalKey (object references on those are recorded under the parent).
     indexed_models = set()

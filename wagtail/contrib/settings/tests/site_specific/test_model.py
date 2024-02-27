@@ -74,7 +74,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
     def test_importantpages_object_is_pickleable(self):
         obj = self._create_importantpagessitesetting_object()
         # Triggers creation of the InvokeViaAttributeShortcut instance,
-        # and also gives us a value we can use for comparisson
+        # and also gives us a value we can use for comparison
         signup_page_url = obj.page_url.sign_up_page
 
         # Attempt to pickle ImportantPages instance
@@ -82,7 +82,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             pickled = pickle.dumps(obj, -1)
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
-                f"An error occured when attempting to pickle {obj!r}: {e}"
+                f"An error occurred when attempting to pickle {obj!r}: {e}"
             )
 
         # Now unpickle the pickled ImportantPages
@@ -90,7 +90,7 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             unpickled = pickle.loads(pickled)
         except Exception as e:  # noqa: BLE001
             raise AssertionError(
-                f"An error occured when attempting to unpickle {obj!r}: {e}"
+                f"An error occurred when attempting to unpickle {obj!r}: {e}"
             )
 
         # Using 'page_url' should create a new InvokeViaAttributeShortcut

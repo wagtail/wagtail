@@ -4,7 +4,7 @@
 
 Wagtail comes with [various image operations](image_tag). To add custom image operation, add `register_image_operations` hook to your `wagtail_hooks.py` file.
 
-In this example, the `willow.image` is a Pillow Image instance. If you use another image library, or like to support multiple image libraries, you need to update the filter code accordingly. See the [Willow documentation](https://willow.readthedocs.io/en/latest/index.html) for more information.
+In this example, the `willow.image` is a Pillow Image instance. If you use another image library, or like to support multiple image libraries, you need to update the filter code accordingly. See the [Willow documentation](https://willow.wagtail.org/stable/) for more information.
 
 ```python
 from PIL import ImageFilter

@@ -208,7 +208,7 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/sites/edit/%d/" % self.localhost.id
         self.assertEqual(url_finder.get_edit_url(self.localhost), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_edit(self):
@@ -357,7 +357,7 @@ class TestSiteDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_posting_deletes_site(self):

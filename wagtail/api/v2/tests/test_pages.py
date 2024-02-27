@@ -197,7 +197,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
         self.assertTrue(blog_page_seen, msg="No blog pages were found in the items")
         self.assertTrue(event_page_seen, msg="No event pages were found in the items")
 
-    def test_non_existant_type_gives_error(self):
+    def test_non_existent_type_gives_error(self):
         response = self.get_response(type="demosite.IDontExist")
         content = json.loads(response.content.decode("UTF-8"))
 

@@ -73,7 +73,7 @@ def get_test_image_file_svg(
 
 
 def get_test_bad_image():
-    # Create an image with a missing file, by deserializing fom a python object
+    # Create an image with a missing file, by deserializing from a python object
     # (which bypasses FileField's attempt to read the file)
     return list(
         serializers.deserialize(

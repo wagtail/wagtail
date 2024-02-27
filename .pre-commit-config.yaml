@@ -10,13 +10,13 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v3.1.0
     hooks:
       - id: prettier
         types_or: [css, scss, javascript, ts, tsx, json, yaml]
         additional_dependencies:
           # Keep in sync with package.json
-          - prettier@3.2.5
+          - prettier@3.1.0
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.56.0
     hooks:

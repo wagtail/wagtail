@@ -798,6 +798,11 @@
 * Hossein
 * Andre Delorme
 * arshyia3000
+* Adrien Hamraoui
+* Maikel Martens
+* EK303
+* Damian Borneman
+* Viktor Szépe
 
 ## Translators
 

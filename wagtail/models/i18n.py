@@ -378,7 +378,7 @@ def bootstrap_translatable_model(model, locale):
     This function populates the "translation_key", and "locale" fields on model instances that were created
     before wagtail-localize was added to the site.
 
-    This can be called from a data migration, or instead you could use the "boostrap_translatable_models"
+    This can be called from a data migration, or instead you could use the "bootstrap_translatable_models"
     management command.
     """
     for instance in (

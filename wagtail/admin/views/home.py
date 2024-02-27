@@ -161,17 +161,34 @@ class WorkflowObjectsToModeratePanel(Component):
             TaskState.objects.reviewable_by(request.user)
             .select_related(
                 "revision",
-                "task",
                 "revision__user",
                 "workflow_state",
+                "workflow_state__workflow",
             )
             .prefetch_related(
                 "revision__content_object",
                 "revision__content_object__latest_revision",
-                "revision__content_object__live_revision",
             )
             .order_by("-started_at")
+            .annotate(
+                # Same as Django's get_previous_by_FOO (with FOO=created_at),
+                # but done as an annotation to avoid N+1 queries
+                previous_revision_id=Revision.objects.filter(
+                    base_content_type_id=OuterRef("revision__base_content_type_id"),
+                    object_id=OuterRef("revision__object_id"),
+                )
+                .filter(
+                    Q(
+                        created_at=OuterRef("revision__created_at"),
+                        pk__lt=OuterRef("revision__pk"),
+                    )
+                    | Q(created_at__lt=OuterRef("revision__created_at"))
+                )
+                .order_by("-created_at", "-pk")
+                .values_list("pk", flat=True)[:1]
+            )
         )
+
         for state in states:
             obj = state.revision.content_object
             # Skip task states where the revision's GenericForeignKey points to
@@ -197,17 +214,12 @@ class WorkflowObjectsToModeratePanel(Component):
             if not getattr(obj, "is_previewable", False):
                 workflow_preview_url_name = None
 
-            try:
-                previous_revision = state.revision.get_previous()
-            except Revision.DoesNotExist:
-                previous_revision = None
-
             context["states"].append(
                 {
                     "obj": obj,
                     "revision": state.revision,
-                    "previous_revision": previous_revision,
-                    "live_revision": obj.live_revision,
+                    "previous_revision_id": state.previous_revision_id,
+                    "live_revision_id": obj.live_revision_id,
                     "task_state": state,
                     "actions": actions,
                     "workflow_tasks": workflow_tasks,
@@ -233,7 +245,9 @@ class LockedPagesPanel(Component):
                 "locked_pages": Page.objects.filter(
                     locked=True,
                     locked_by=request.user,
-                ),
+                )
+                .order_by("-locked_at", "-latest_revision_created_at", "-pk")
+                .specific(defer=True),
                 "can_remove_locks": page_permission_policy.user_has_permission(
                     request.user, "unlock"
                 ),
@@ -264,8 +278,11 @@ class RecentEditsPanel(Component):
             .order_by("-latest_date")[:edit_count]
         )
         # Retrieve the page objects for those IDs
-        pages_mapping = Page.objects.specific().in_bulk(
-            [log["page_id"] for log in last_edits_dates]
+        pages_mapping = (
+            Page.objects.specific()
+            .prefetch_workflow_states()
+            .annotate_approved_schedule()
+            .in_bulk([log["page_id"] for log in last_edits_dates])
         )
         # Compile a list of (latest edit timestamp, page object) tuples
         last_edits = []

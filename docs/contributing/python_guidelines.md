@@ -33,7 +33,7 @@ else:
 
 Always compare against the version using greater-or-equals (`>=`), so that code for newer versions of Django is first.
 
-Do not use a `try ... except` when seeing if an object has an attribute or method introduced in a newer versions of Django, as it does not clearly express why the `try ... except` is used. An explicit check against the Django version makes the intention of the code very clear.
+Do not use a `try ... except` when seeing if an object has an attribute or method introduced in newer versions of Django, as it does not clearly express why the `try ... except` is used. An explicit check against the Django version makes the intention of the code very clear.
 
 ```python
 # Do not do this

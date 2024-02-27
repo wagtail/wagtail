@@ -13,7 +13,7 @@ during the sitemap generation you will have to use the views from the
 provided by Django (`django.contrib.sitemaps.views`).
 
 The usage of these views is otherwise identical, which means that
-customisation and caching of the sitemaps are done using the default Django
+customization and caching of the sitemaps are done using the default Django
 patterns. See the Django documentation for in-depth information.
 ```
 
@@ -85,7 +85,7 @@ Find out more about [working with Sites](site_model_ref).
 ### URLs
 
 The `Page` class defines a `get_sitemap_urls` method which you can
-override to customise sitemaps per `Page` instance. This method must accept
+override to customize sitemaps per `Page` instance. This method must accept
 a request object and return a list of dictionaries, one dictionary per URL
 entry in the sitemap. You can exclude pages from the sitemap by returning an
 empty list.

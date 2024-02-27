@@ -183,13 +183,7 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -390,12 +384,7 @@ describe('SwapController', () => {
       const onErrorEvent = jest.fn();
       document.addEventListener('w-swap:error', onErrorEvent);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: false,
-          status: 500,
-        }),
-      );
+      fetch.mockResponseFailure();
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -478,13 +467,7 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -543,13 +526,7 @@ describe('SwapController', () => {
 
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -609,13 +586,7 @@ describe('SwapController', () => {
       beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
     });
 
     it('should allow for actions to call the replace method directly, defaulting to the form action url', async () => {
@@ -718,6 +689,138 @@ describe('SwapController', () => {
       expect(window.location.search).toEqual('');
     });
 
+    it('should reflect the query params of the request URL if reflect-value is true', async () => {
+      const expectedRequestUrl = '/path/to-src-value/?foo=bar&abc=&xyz=123';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      const reflectEventHandler = new Promise((resolve) => {
+        document.addEventListener('w-swap:reflect', resolve);
+      });
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('data-w-swap-reflect-value', 'true');
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const reflectEvent = await reflectEventHandler;
+
+      // should dispatch reflect event
+      expect(reflectEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should update the current URL to have the query params from requestUrl
+      // (except for those that are empty)
+      // as the reflect-value attribute is set to true
+      expect(window.location.search).toEqual('?foo=bar&xyz=123');
+    });
+
+    it('should allow for blocking the reflection of query params with event handlers', async () => {
+      const expectedRequestUrl = '/path/to-src-value/?foo=bar&abc=&xyz=123';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      const reflectEventHandler = jest.fn((event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('w-swap:reflect', reflectEventHandler);
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('data-w-swap-reflect-value', 'true');
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch reflect event
+      expect(reflectEventHandler).toHaveBeenCalledTimes(1);
+      expect(reflectEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is set to false
+      expect(window.location.search).toEqual('');
+
+      document.removeEventListener('w-swap:reflect', reflectEventHandler);
+    });
+
     it('should support replace with a url value provided via the Custom event detail', async () => {
       const expectedRequestUrl = '/path/to/url-in-event-detail/?q=alpha';
 
@@ -767,6 +870,7 @@ describe('SwapController', () => {
       await flushPromises();
 
       // should NOT update the current URL
+      // as the reflect-value attribute is not set
       expect(window.location.search).toEqual('');
     });
 
@@ -861,13 +965,7 @@ describe('SwapController', () => {
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();
@@ -914,7 +1012,160 @@ describe('SwapController', () => {
       await flushPromises();
 
       // should NOT update the current URL
+      // as the reflect-value attribute is not set
       expect(window.location.search).toEqual('');
+    });
+
+    it('should reflect the query params of the request URL if reflect-value is true', async () => {
+      const formElement = document.querySelector('form');
+      formElement.setAttribute('data-w-swap-reflect-value', 'true');
+
+      const input = document.getElementById('search');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      document.querySelector('[name="type"]').value = '';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should update the current URL to have the query params from requestUrl
+      // (except for those that are empty)
+      // as the reflect-value attribute is set to true
+      expect(window.location.search).toEqual(
+        '?q=alpha&other=something+on+other',
+      );
+    });
+
+    it('should allow for blocking the reflection of query params with event handlers', async () => {
+      const formElement = document.querySelector('form');
+      formElement.setAttribute('data-w-swap-reflect-value', 'true');
+
+      const reflectEventHandler = jest.fn((event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener('w-swap:reflect', reflectEventHandler);
+
+      const input = document.getElementById('search');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      document.querySelector('[name="type"]').value = '';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch reflect event
+      expect(reflectEventHandler).toHaveBeenCalledTimes(1);
+      expect(reflectEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+      });
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl:
+          '/path/to/form/action/?q=alpha&type=&other=something+on+other',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is set to false
+      expect(window.location.search).toEqual('');
+
+      document.removeEventListener('w-swap:reflect', reflectEventHandler);
     });
 
     it('should allow for blocking the request with custom events', async () => {
@@ -928,13 +1179,7 @@ describe('SwapController', () => {
 
       document.addEventListener('w-swap:begin', beginEventHandler);
 
-      fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-          ok: true,
-          status: 200,
-          text: () => Promise.resolve(results),
-        }),
-      );
+      fetch.mockResponseSuccessText(results);
 
       expect(window.location.search).toEqual('');
       expect(handleError).not.toHaveBeenCalled();

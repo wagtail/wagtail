@@ -12,12 +12,12 @@ Wagtail 1.5 release notes
 What's new
 ==========
 
-Reorganised page explorer actions
+Reorganized page explorer actions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/images/releasenotes_1_5_explorermenu.png
 
-The action buttons on the page explorer have been reorganised to reduce clutter, and lesser-used actions have been moved to a "More" dropdown. A new hook :ref:`register_page_listing_buttons` has been added for adding custom action buttons to the page explorer.
+The action buttons on the page explorer have been reorganized to reduce clutter, and lesser-used actions have been moved to a "More" dropdown. A new hook :ref:`register_page_listing_buttons` has been added for adding custom action buttons to the page explorer.
 
 ModelAdmin
 ~~~~~~~~~~
@@ -88,7 +88,7 @@ Minor features
 * Spinner was added to Save button on site settings (Liam Brenner)
 * Added success message after logout from Admin (Liam Brenner)
 * Added ``get_upload_to`` method to ``AbstractRendition`` which, when overridden, allows control over where image renditions are stored (Rob Moggach and Matt Westcott)
-* Added a mechanism to customise the add / edit user forms for custom user models - see :doc:`/advanced_topics/customisation/custom_user_models` (Nigel Fletton)
+* Added a mechanism to customize the add / edit user forms for custom user models - see :doc:`/advanced_topics/customisation/custom_user_models` (Nigel Fletton)
 * Added internal provision for swapping in alternative rich text editors (Karl Hobley)
 
 Bug fixes
@@ -166,7 +166,7 @@ Previously, if you used the Elasticsearch backend, configured with the URLS prop
 
 Elasticsearch would not be configured to verify SSL certificates for HTTPS URLs. This has been changed so that SSL certificates are verified for HTTPS connections by default.
 
-If you need the old behaviour back, where SSL certificates are not verified for your HTTPS connection, you can configure the Elasticsearch backend with the ``HOSTS`` option, like so:
+If you need the old behavior back, where SSL certificates are not verified for your HTTPS connection, you can configure the Elasticsearch backend with the ``HOSTS`` option, like so:
 
 .. code-block:: python
 
@@ -189,4 +189,4 @@ Project template now imports ``settings.dev`` explicitly
 
 In previous releases, the project template's ``settings/__init__.py`` file was set up to import the development settings (``settings/dev.py``), so that these would be picked up as the default (i.e. whenever a settings module was not specified explicitly). However, in some setups this meant that the development settings were being inadvertently imported in production mode.
 
-For this reason, the import in ``settings/__init__.py`` has now been removed, and commands must now specify ``myproject.settings.dev`` or ``myproject.settings.production`` as appropriate; the supporting scripts (such as ``manage.py``) have been updated accordingly. As this is a change to the project template, existing projects are not affected; however, if you have any common scripts or configuration files that rely on importing ``myproject.settings`` as the settings module, these will need to be updated in order to work on projects created under Wagtail 1.5.
+For this reason, the import in ``settings/__init__.py`` has now been removed, and commands must now specify ``myproject.settings.dev`` or ``myproject.settings.production`` as appropriate; the supporting scripts (such as ``manage.py``) have been updated accordingly. As this is a change to the project template, existing projects are not affected; however, if you have any common scripts or configuration files that rely on importing ``myproject.settings`` as the settings module, these will need to be updated to work on projects created under Wagtail 1.5.

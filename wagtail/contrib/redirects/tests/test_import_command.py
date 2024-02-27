@@ -241,7 +241,7 @@ class TestImportCommand(TestCase):
         "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
         return_value="Y",
     )
-    def test_successfull_ask_imports_redirect(self, get_input):
+    def test_successful_ask_imports_redirect(self, get_input):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
         invalid_file.write("from,to\n")
         invalid_file.write("/alpha,http://omega.test/")

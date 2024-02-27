@@ -1026,8 +1026,15 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
             return {"bool": {"mustNot": {"match_all": {}}}}
-
-        return self._compile_plaintext_query(self.query, fields)
+        elif isinstance(self.query, PlainText):
+            return self._compile_plaintext_query(self.query, fields)
+        elif isinstance(self.query, MatchAll):
+            return {"match_all": {}}
+        else:
+            raise NotImplementedError(
+                "`%s` is not supported for autocomplete queries."
+                % self.query.__class__.__name__
+            )
 
 
 class Elasticsearch7AutocompleteQueryCompiler(

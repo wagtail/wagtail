@@ -21,7 +21,7 @@
             {% if child.show_panel_furniture %}
                 <section
                     id="tab-{{ identifier }}"
-                    class="w-tabs__panel {{ child.classes|join:" " }}"
+                    class="{% classnames "w-tabs__panel" child.classes %}"
                     role="tabpanel"
                     aria-labelledby="tab-label-{{ identifier }}"
                     hidden

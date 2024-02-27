@@ -13,7 +13,7 @@ Most normal bugs in Wagtail are reported as [GitHub issues](https://github.com/w
 Instead, if you believe you've found something in Wagtail which has security implications, please send a description of the issue via email to <security@wagtail.org>.
 Mail sent to that address reaches a subset of the core team, who can forward security issues to other core team members for broader discussion if needed.
 
-Once you've submitted an issue via email, you should receive an acknowledgement from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
+Once you've submitted an issue via email, you should receive an acknowledgment from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
 
 If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0xbed227b4daf93ff9`, and this public key is available from most commonly-used keyservers.
 
@@ -57,4 +57,4 @@ In various places Wagtail provides the option to export data in CSV format, and 
 
 Since the CSV format has no concept of formulae or macros, there is also no agreed-upon convention for escaping data to prevent it from being interpreted in that way; commonly-suggested approaches such as prefixing the field with a quote character would corrupt legitimate data (such as phone numbers beginning with '+') when interpreted by software correctly following the CSV specification.
 
-Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimises the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
+Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimizes the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.

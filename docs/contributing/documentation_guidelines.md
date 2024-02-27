@@ -215,7 +215,7 @@ The reference can be linked to, with an optional label, using the Markdown link 
 
 </details>
 
-You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html#targets-and-cross-referencing).
+You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
 
 #### Intersphinx links (external docs)
 
@@ -422,11 +422,11 @@ Avoid documentation source comments in committed documentation.
 
 ### Figure
 
-reStructuredText figures (`.. figure::`) only offer very marginal improvements over vanilla images. If your figure has a caption, add it as an italicised paragraph underneath the image.
+reStructuredText figures (`.. figure::`) only offer very marginal improvements over vanilla images. If your figure has a caption, add it as an italicized paragraph underneath the image.
 
 ### Other reStructuredText syntax and Sphinx directives
 
-We generally want to favour Markdown over reStructuredText, to make it as simple as possible for newcomers to make documentation contributions to Wagtail. Always prefer Markdown, unless the document’s formatting highly depends on reStructuredText syntax.
+We generally want to favor Markdown over reStructuredText, to make it as simple as possible for newcomers to make documentation contributions to Wagtail. Always prefer Markdown, unless the document’s formatting highly depends on reStructuredText syntax.
 
 If you want to use a specific Sphinx directive, consult with core contributors to see whether its usage is justified, and document its expected usage on this page.
 

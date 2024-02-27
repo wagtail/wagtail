@@ -16,7 +16,7 @@ New features
 ~~~~~~~~~~~~
 
  * Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
- * Added support for customising group management views. See :ref:`customising_group_views`. (Jan Seifert)
+ * Added support for customising group management views. See :ref:`customizing_group_views`. (Jan Seifert)
  * Added ``full_url`` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
  * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
@@ -27,7 +27,7 @@ New features
  * Add Google Data Studio to the list of oEmbed providers (Petr Dlouhý)
  * Allow ListBlock to raise validation errors that are not attached to an individual child block (Matt Westcott)
  * Use ``DATETIME_FORMAT`` for localization in templates (Andrew Stone)
- * Added documentation on multi-site, multi instance and multi tenancy setups (Coen Van Der Kamp)
+ * Added documentation on multi-site, multi-instance and multi-tenancy setups (Coen Van Der Kamp)
  * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
  * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
 

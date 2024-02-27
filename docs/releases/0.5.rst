@@ -96,7 +96,7 @@ Upgrade considerations
 Urlconf entries for ``/admin/images/``, ``/admin/embeds/`` etc need to be removed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you created a Wagtail project prior to the release of Wagtail 0.3, it is likely to contain the following entries in its ``urls.py``:
+If you created a Wagtail project before the release of Wagtail 0.3, it is likely to contain the following entries in its ``urls.py``:
 
 .. code-block:: python
 
@@ -113,7 +113,7 @@ If you created a Wagtail project prior to the release of Wagtail 0.3, it is like
 
 These entries (and the corresponding ``from wagtail.wagtail* import ...`` lines) need to be removed from ``urls.py``. (The entry for ``/admin/`` should be left in, however.)
 
-Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in future. Leaving these entries in place will now cause an ``ImproperlyConfigured`` exception to be thrown.
+Since Wagtail 0.3, the wagtailadmin module automatically takes care of registering these URL subpaths, so these entries are redundant, and these urlconf modules are not guaranteed to remain stable and backwards-compatible in the future. Leaving these entries in place will now cause an ``ImproperlyConfigured`` exception to be thrown.
 
 
 New fields on Image and Rendition models

@@ -6,10 +6,17 @@ import {
   RunOptions,
 } from 'axe-core';
 
+const toSelector = (str: string | string[]) =>
+  Array.isArray(str) ? str.join(' ') : str;
+
 const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
   if (!nodeResultA || !nodeResultB) return 0;
-  const nodeA = document.querySelector<HTMLElement>(nodeResultA.target[0]);
-  const nodeB = document.querySelector<HTMLElement>(nodeResultB.target[0]);
+  const nodeA = document.querySelector<HTMLElement>(
+    toSelector(nodeResultA.target[0]),
+  );
+  const nodeB = document.querySelector<HTMLElement>(
+    toSelector(nodeResultB.target[0]),
+  );
   if (!nodeA || !nodeB) return 0;
   // Method works with bitwise https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
   // eslint-disable-next-line no-bitwise
@@ -117,10 +124,11 @@ export const renderA11yResults = (
           '[data-a11y-result-selector-text]',
         ) as HTMLSpanElement;
         // Special-case when displaying accessibility results within the admin interface.
-        const selectorName =
+        const selectorName = toSelector(
           node.target[0] === '#preview-iframe'
             ? node.target[1]
-            : node.target[0];
+            : node.target[0],
+        );
         // Remove unnecessary details before displaying selectors to the user
         currentA11ySelectorText.textContent = selectorName.replace(
           /\[data-block-key="\w{5}"\]/,

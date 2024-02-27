@@ -28,7 +28,7 @@ Run `python manage.py migrate` to create the necessary permissions.
 
 In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
 
-## Page tree synchronisation
+## Page tree synchronization
 
 Depending on your use case, it may be useful to keep the page trees in sync between different locales.
 

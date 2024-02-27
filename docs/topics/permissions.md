@@ -63,8 +63,8 @@ Users are not allowed to move or delete the collection that is used to assign th
 
 See Django's documentation on [custom permissions](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#custom-permissions) for details on how to set permissions up.
 
-```{note}
-Custom permissions starting with `add_`, `change_`, or `delete_` are not currently supported in Wagtail as these will conflict with standard model permissions.
+```{versionadded} 6.1
+The ability to have custom permissions with codenames starting with `add_`, `change_`, or `delete_` was added.
 ```
 
 ## Displaying custom permissions in the admin

@@ -23,7 +23,7 @@ Added Django 2.1 support
 Wagtail is now compatible with Django 2.1.  Compatibility fixes were contributed by Ryan Verner and Matt Westcott.
 
 
-Improved colour contrast
+Improved color contrast
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Colour contrast within the admin interface has been improved, and now complies with WCAG 2 level AA. This was completed by Coen van der Kamp and Naomi Morduch Toubman based on earlier work from Edd Baldry, Naa Marteki Reed and Ben Enright.
@@ -34,7 +34,7 @@ Other features
 
 * Added 'scale' image filter (Oliver Wilkerson)
 * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
-* EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
+* EmbedBlock now validates against recognized embed providers on save (Bertrand Bordage)
 * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
 * Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
 * Image chooser panels now show alt text as title (Samir Shah)
@@ -50,7 +50,7 @@ Bug fixes
 * before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
 * Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
 * Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
-* Restored localisation in date/time pickers (David Moore, Thibaud Colas)
+* Restored localization in date/time pickers (David Moore, Thibaud Colas)
 * Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
 * Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
 * Split up ``wagtail.admin.forms`` to make it less prone to circular imports (Matt Westcott)
@@ -63,7 +63,7 @@ Bug fixes
 Upgrade considerations
 ======================
 
-``wagtail.admin.forms`` reorganised
+``wagtail.admin.forms`` reorganized
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``wagtail.admin.forms`` module has been split up into submodules to make it less prone to producing circular imports, particularly when a custom user model is in use. The following (undocumented) definitions have now been moved to new locations:

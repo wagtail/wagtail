@@ -479,6 +479,28 @@ class ClassnamesTagTest(SimpleTestCase):
 
         self.assertEqual(expected.strip(), actual.strip())
 
+    def test_with_nested_lists(self):
+        context = Context(
+            {
+                "nested": ["button-add", "button-base "],
+                "has_falsey": ["", False, [], {}],
+                "simple": " wagtail ",
+            }
+        )
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <button class="{% classnames nested "add-second " has_falsey simple %}">Hello!</button>
+        """
+
+        expected = """
+            <button class="button-add button-base add-second wagtail">Hello!</button>
+        """
+
+        actual = Template(template).render(context)
+
+        self.assertEqual(expected.strip(), actual.strip())
+
 
 class IconTagTest(SimpleTestCase):
     def test_basic(self):

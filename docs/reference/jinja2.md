@@ -111,7 +111,7 @@ Or resize an image and retrieve the renditions for more bespoke use:
 ### `picture()`
 
 Resize or convert an image, rendering a `<picture>` tag including multiple `source` formats with `srcset` for multiple sizes, and a fallback `<img>` tag.
-Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image-formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+Browsers will select the [first supported image format](https://web.dev/learn/design/picture-element/#image_formats), and pick a size based on [responsive image rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
 `picture` can render an image in multiple formats:
 
@@ -197,7 +197,7 @@ Allows to pass template context (by default) to the StreamField template.
 See [StreamField template rendering](streamfield_template_rendering) for more information.
 
 ```{note}
-The ``{% include_block %}`` tag is designed to closely follow the syntax and behaviour
+The ``{% include_block %}`` tag is designed to closely follow the syntax and behavior
 of Jinja's ``{% include %}``, so it does not implement the Django version's feature of
 only passing specified variables into the context.
 ```

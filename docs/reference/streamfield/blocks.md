@@ -50,7 +50,7 @@ All block definitions accept the following optional keyword arguments:
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
-    -   The group used to categorise this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+    -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
 (field_block_types)=
 
@@ -194,7 +194,7 @@ All block definitions accept the following optional keyword arguments:
 
     A date picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
+    :param format: Date format. This must be one of the recognized formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
@@ -215,9 +215,9 @@ All block definitions accept the following optional keyword arguments:
 .. autoclass:: wagtail.blocks.DateTimeBlock
     :show-inheritance:
 
-    A combined date / time picker. The following keyword arguments are accepted in addition to the standard ones:
+    A combined date/time picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date/time format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
+    :param format: Date/time format. This must be one of the recognized formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
@@ -334,7 +334,7 @@ All block definitions accept the following optional keyword arguments:
 
     :param required: If true (the default), the field cannot be left blank.
     :param page_type: Restrict choices to one or more specific page types; by default, any page type may be selected. Can be specified as a page model class, model name (as a string), or a list or tuple of these.
-    :param can_choose_root: Defaults to false. If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
+    :param can_choose_root: Defaults to false. If true, the editor can choose the tree root as a page. Normally this would be undesirable since the tree root is never a usable page, but in some specialized cases, it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
 
 
 .. autoclass:: wagtail.documents.blocks.DocumentChooserBlock
@@ -381,9 +381,9 @@ All block definitions accept the following optional keyword arguments:
 .. autoclass:: wagtail.blocks.StaticBlock
     :show-inheritance:
 
-    A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags. The following additional keyword argument is accepted:
+    A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content that is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags. The following additional keyword argument is accepted:
 
-    :param admin_text: A text string to display in the admin when this block is used. By default, some default text (which contains the ``label`` keyword argument if you pass it) will be displayed in the editor interface, so that the block doesn't look empty, but this can be customised by passing ``admin_text``:
+    :param admin_text: A text string to display in the admin when this block is used. By default, some default text (which contains the ``label`` keyword argument if you pass it) will be displayed in the editor interface, so that the block doesn't look empty, but this can be customized by passing ``admin_text``:
 
     .. code-block:: python
 
@@ -459,7 +459,7 @@ All block definitions accept the following optional keyword arguments:
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
-     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
+     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customized by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
 
 
 .. autoclass:: wagtail.blocks.ListBlock
@@ -494,7 +494,7 @@ All block definitions accept the following optional keyword arguments:
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
     :param min_num: Minimum number of sub-blocks that the list must have.
     :param max_num: Maximum number of sub-blocks that the list may have.
-    :param search_index: If false (default true) , the content of this block will not be indexed for searching.
+    :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param collapsed: When true, all sub-blocks are initially collapsed.
 
 
@@ -547,7 +547,7 @@ All block definitions accept the following optional keyword arguments:
 
     ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
 
-    :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
+    :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case, the StreamField's ``blank`` property is respected instead.
     :param min_num: Minimum number of sub-blocks that the stream must have.
     :param max_num: Maximum number of sub-blocks that the stream may have.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.

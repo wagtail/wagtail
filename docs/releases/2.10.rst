@@ -45,7 +45,7 @@ Accessibility and usability
 This release contains a number of improvements to the accessibility and general usability of the Wagtail admin, fixing long-standing issues. Some of the changes come from our January 2020 sprint in Bristol, and some from our brand new `accessibility team <https://github.com/wagtail/wagtail/wiki/Accessibility-team>`_:
 
 * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
-* Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
+* Add SVG icons to resolve accessibility and customization issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
 * Switch userbar and header H1s to use SVG icons (Coen van der Kamp)
 * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
 * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
@@ -83,7 +83,7 @@ Other features
 * Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
 * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
 * Replace ``gulp-sass`` with ``gulp-dart-sass`` to improve core development across different platforms (Thibaud Colas)
-* Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :doc:`/reference/contrib/legacy_richtext`. (Coen van der Kamp, Dan Braghis)
+* Remove markup around rich text rendering by default, provide a way to use old behavior via ``wagtail.contrib.legacy.richtext``. See :doc:`/reference/contrib/legacy_richtext`. (Coen van der Kamp, Dan Braghis)
 * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
 * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
 * Allow omitting the default editor from ``WAGTAILADMIN_RICH_TEXT_EDITORS`` (Gassan Gousseinov)

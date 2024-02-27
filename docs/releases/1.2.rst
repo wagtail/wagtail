@@ -50,7 +50,7 @@ See: :ref:`wagtailsearch_searching`
 ``max_num`` and ``min_num`` parameters on inline panels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Inline panels now accept the optional parameters ``max_num`` and ``min_num``, to specify the maximum / minimum number of child items that must exist in order for the page to be valid.
+Inline panels now accept the optional parameters ``max_num`` and ``min_num``, to specify the maximum / minimum number of child items that must exist for the page to be valid.
 
 See: :ref:`inline_panels`
 
@@ -76,21 +76,21 @@ Wagtail now supports Python 3.5 when run in conjunction with Django 1.8.6 or lat
 Minor features
 ~~~~~~~~~~~~~~
 
-* WagtailRedirectMiddleware can now ignore the query string if there is no redirect that exactly matches it
+* WagtailRedirectMiddleware can now ignore the query string if no redirect exactly matches it
 * Order of URL parameters now ignored by redirect middleware
 * Added SQL Server compatibility to image migration
 * Added ``class`` attributes to Wagtail rich text editor buttons to aid custom styling
 * Simplified body_class in default homepage template
 * page_published signal now called with the revision object that was published
-* Added a favicon to the admin interface, customisable by overriding the ``branding_favicon`` block (see :ref:`custom_branding`).
+* Added a favicon to the admin interface, customizable by overriding the ``branding_favicon`` block (see :ref:`custom_branding`).
 * Added spinner animations to long-running form submissions
 * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY
 * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)
 * The ``first_published_at`` and ``latest_revision_created_at`` fields on page models are now available as filter fields on search queries
-* Wagtail admin now standardises on a single thumbnail image size, to reduce the overhead of creating multiple renditions
+* Wagtail admin now standardizes on a single thumbnail image size, to reduce the overhead of creating multiple renditions
 * Rich text fields now strip out HTML comments
 * Page editor form now sets ``enctype="multipart/form-data"`` as appropriate, allowing FileField to be used on page models (Petr Vacha)
-* Explorer navigation menu on a completely empty page tree now takes you to the root level, rather than doing nothing
+* Explorer navigation menu on an empty page tree now takes you to the root level, rather than doing nothing
 * Added animation and fixed display issues when focusing a rich text field (Alex Gleason)
 * Added a system check to warn if Pillow is compiled without JPEG / PNG support
 * Page chooser now prevents users from selecting the root node where this would be invalid
@@ -132,7 +132,7 @@ Previously, the manager methods behaved as *exclusive* by default; that is, they
 
     >>> event_1 = EventPage.objects.get(title='Event 1')
     >>> EventPage.objects.sibling_of(event_1)
-    [<EventPage: Event 2>]  # OLD behaviour: Event 1 is not considered a sibling of itself
+    [<EventPage: Event 2>]  # OLD behavior: Event 1 is not considered a sibling of itself
 
 
 This has now been changed to be *inclusive* by default; that is, the page is counted as a sibling of itself:
@@ -141,7 +141,7 @@ This has now been changed to be *inclusive* by default; that is, the page is cou
 
     >>> event_1 = EventPage.objects.get(title='Event 1')
     >>> EventPage.objects.sibling_of(event_1)
-    [<EventPage: Event 1>, <EventPage: Event 2>]  # NEW behaviour: Event 1 is considered a sibling of itself
+    [<EventPage: Event 1>, <EventPage: Event 2>]  # NEW behavior: Event 1 is considered a sibling of itself
 
 
 If the call to ``sibling_of`` or ``not_sibling_of`` is chained after another QuerySet method - such as ``all()``, ``filter()`` or ``live()`` - behaviour is unchanged; this behaves as *inclusive*, as it did in previous versions:
@@ -153,7 +153,7 @@ If the call to ``sibling_of`` or ``not_sibling_of`` is chained after another Que
     [<EventPage: Event 1>, <EventPage: Event 2>]  # OLD and NEW behaviour
 
 
-If your project includes queries that rely on the old (exclusive) behaviour, this behaviour can be restored by adding the keyword argument ``inclusive=False``:
+If your project includes queries that rely on the old (exclusive) behavior, this behavior can be restored by adding the keyword argument ``inclusive=False``:
 
 .. code-block:: python
 
@@ -165,7 +165,7 @@ If your project includes queries that rely on the old (exclusive) behaviour, thi
 ``Image.search`` and ``Document.search`` methods are deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``Image.search`` and ``Document.search`` methods have been deprecated in favour of the new QuerySet-based search mechanism - see :ref:`wagtailsearch_images_documents_custom_models`. Code using the old ``search`` methods should be updated to search on QuerySets instead; for example:
+The ``Image.search`` and ``Document.search`` methods have been deprecated in favor of the new QuerySet-based search mechanism - see :ref:`wagtailsearch_images_documents_custom_models`. Code using the old ``search`` methods should be updated to search on QuerySets instead; for example:
 
 .. code-block:: python
 
@@ -189,6 +189,6 @@ If you have the Wagtail API (``wagtail.contrib.wagtailapi``) enabled, you must n
 
 If you have any application code that makes direct updates to page data, at the model or database level, be aware that the way these edits are reflected in the page editor has changed.
 
-Previously, the ``get_latest_revision_as_page`` method - used by the page editor to return the current page revision for editing - always retrieved data from the page's revision history. Now, it will only do so if the page has unpublished changes (i.e. the page is in ``live + draft`` state) - pages which have received no draft edits since being published will return the page's live data instead.
+Previously, the ``get_latest_revision_as_page`` method - used by the page editor to return the current page revision for editing - always retrieved data from the page's revision history. Now, it will only do so if the page has unpublished changes (i.e. the page is in ``live + draft`` state) - pages that have received no draft edits since being published will return the page's live data instead.
 
-As a result, any changes made directly to a live page object will be immediately reflected in the editor without needing to update the latest revision record (but note, the old behaviour is still used for pages in ``live + draft`` state).
+As a result, any changes made directly to a live page object will be immediately reflected in the editor without needing to update the latest revision record (but note, the old behavior is still used for pages in ``live + draft`` state).

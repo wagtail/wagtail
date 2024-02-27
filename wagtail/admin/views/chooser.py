@@ -342,7 +342,7 @@ class BrowseView(View):
                         }
                     )
 
-            # finally, filter the browseable pages on the selected locale
+            # finally, filter the browsable pages on the selected locale
             if selected_locale:
                 pages = pages.filter(locale=selected_locale)
 
@@ -355,7 +355,7 @@ class BrowseView(View):
         except InvalidPage:
             raise Http404
 
-        # Annotate each page with can_choose/can_decend flags
+        # Annotate each page with can_choose/can_descend flags
         for page in pages:
             page.can_choose = can_choose_page(
                 page,

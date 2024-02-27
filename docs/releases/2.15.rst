@@ -29,7 +29,7 @@ This feature was developed by Aldán Creo as part of Google Summer of Code.
 Bulk actions
 ~~~~~~~~~~~~
 
-Bulk actions are now available for Page, User, Image and Document models in the Wagtail Admin, allowing users to perform actions like publication or deletion on groups of objects at once.
+Bulk actions are now available for Page, User, Image, and Document models in the Wagtail Admin, allowing users to perform actions like publication or deletion on groups of objects at once.
 
 This feature was developed by Shohan Dutta Roy, mentored by Dan Braghis, Jacob Topp-Mugglestone, and Storm Heg.
 
@@ -37,13 +37,13 @@ This feature was developed by Shohan Dutta Roy, mentored by Dan Braghis, Jacob T
 Audit logging for all models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types, and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
 
 Collection management permissions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Permission for managing collections can now be assigned to individual subtrees of the collection hierarchy, allowing sub-teams within a site to control how their images and documents are organised. For more information, see :ref:`collection_management_permissions`. This feature was developed by Cynthia Kiser.
+Permission for managing collections can now be assigned to individual subtrees of the collection hierarchy, allowing sub-teams within a site to control how their images and documents are organized. For more information, see :ref:`collection_management_permissions`. This feature was developed by Cynthia Kiser.
 
 
 Typed table block
@@ -58,9 +58,9 @@ As part of a broad push to improve the accessibility of the administration inter
 
 Individual fixes were implemented by a large number of first-time and seasoned contributors:
 
- * Comments icon now matches link colour (Dmitrii Faiazov, LB (Ben Johnston))
+ * Comments icon now matches link color (Dmitrii Faiazov, LB (Ben Johnston))
  * Sidebar logo is now visible in high contrast mode (Dmitrii Faiazov, LB (Ben Johnston))
- * Icons in links and buttons now use the appropriate “active control” colour (Dmitrii Faiazov, LB (Ben Johnston))
+ * Icons in links and buttons now use the appropriate “active control” color (Dmitrii Faiazov, LB (Ben Johnston))
  * Comments dropdown now has a border (Shariq Jamil, LB (Ben Johnston))
  * Make StreamField block chooser menu buttons appear as buttons (Dmitrii Faiazov, LB (Ben Johnston))
  * Add a separator to identify the search forms (Dmitrii Faiazov, LB (Ben Johnston))
@@ -99,17 +99,17 @@ Other features
  * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Added ``ExcelDateFormatter`` to ``wagtail.admin.views.mixins`` so that dates in Excel exports will appear in the locale's ``SHORT_DATETIME_FORMAT`` (Andrew Stone)
  * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
- * Add ``label_format`` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
+ * Add ``label_format`` attribute to customize the label shown for a collapsed StructBlock (Matt Westcott)
  * User Group permissions editing in the admin will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
  * Create ``ImageFileMixin`` to extract shared file handling methods from ``AbstractImage`` and ``AbstractRendition`` (Fabien Le Frapper)
  * Add ``before_delete_page`` and ``register_permissions`` examples to Hooks documentation (Jane Liu, Daniel Fairhead)
- * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
+ * Add clarity to modeladmin template override behavior in the documentation (Joe Howard, Dan Swain)
  * Add section about CSV exports to security documentation (Matt Westcott)
  * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
  * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
  * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
- * The title field on Image and Document uploads will now default to the filename without the file extension and this behaviour can be customised (LB Johnston)
+ * The title field on Image and Document uploads will now default to the filename without the file extension and this behavior can be customized (LB Johnston)
  * Add support for Python 3.10 (Matt Westcott)
  * Introduce, ``autocomplete``, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
  * Use SVG icons in modeladmin headers and StreamField buttons/headers (Jérôme Lebleu)
@@ -263,7 +263,7 @@ should now be rewritten as:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Audit logging is now supported on all model types, not just pages, and so the ``PageLogEntry.objects.log_action``
-method for logging actions performed on pages is deprecated in favour of the general-purpose ``log`` function. Code that
+method for logging actions performed on pages is deprecated in favor of the general-purpose ``log`` function. Code that
 calls ``PageLogEntry.objects.log_action`` should now import the ``log`` function from ``wagtail.core.log_actions`` and
 call this instead (all arguments are unchanged).
 
@@ -273,7 +273,7 @@ Additionally, for logging actions on non-Page models, it is generally no longer 
 Removed support for Internet Explorer (IE11)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If this affects you or your organisation, consider which alternative browsers you may be able to use.
+If this affects you or your organization, consider which alternative browsers you may be able to use.
 Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://learn.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
 
 
@@ -281,9 +281,9 @@ Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for I
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before the ``autocomplete()`` method was introduced, the search method also did partial matching.
-This behaviour is will be deprecated in a future release and you should either switch to the new
+This behavior is will be deprecated in a future release and you should either switch to the new
 ``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the
-new behaviour. The partial matching in ``search()`` will be completely removed in a future release.
+new behavior. The partial matching in ``search()`` will be completely removed in a future release.
 See: :ref:`wagtailsearch_searching_pages`
 
 
@@ -294,7 +294,7 @@ The ``related_name`` of the relation linking the Page and User models to admin c
 changed from ``comments`` to ``wagtail_admin_comments``, to avoid conflicts with third-party apps
 that implement commenting. If you have any code that references the ``comments`` relation
 (including fixture files), this should be updated to refer to ``wagtail_admin_comments`` instead.
-If this is not feasible, the previous behaviour can be restored by adding
+If this is not feasible, the previous behavior can be restored by adding
 ``WAGTAIL_COMMENTS_RELATION_NAME = 'comments'`` to your project's settings.
 
 Reusable library code that needs to preserve backwards compatibility with previous Wagtail versions

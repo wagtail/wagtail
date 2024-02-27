@@ -134,7 +134,7 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
     # For bulk-creating redirects in batches
     batch = BatchRedirectCreator(max_size=2000, ignore_conflicts=True)
 
-    # Treat the page that was updated / moved separately to it's decendants,
+    # Treat the page that was updated / moved separately to it's descendants,
     # because there may be changes to fields other than `slug` or `url_path`
     # that impact the URL.
     old_urls = _page_urls_for_sites(page_old, sites, cache_target=page)

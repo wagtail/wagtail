@@ -40,10 +40,10 @@ Accessing parent context from StreamField block ``get_context`` methods
 The ``get_context`` method on StreamField blocks now receives a ``parent_context`` keyword argument, consisting of the dict of variables passed in from the calling template. For example, this makes it possible to perform pagination logic within ``get_context``, retrieving the current page number from ``parent_context['request'].GET``. See :ref:`get_context on StreamField blocks <streamfield_get_context>`. This feature was developed by Mikael Svensson and Peter Baumgartner.
 
 
-Welcome message customisation for multi-tenanted installations
+Welcome message customization for multi-tenanted installations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The welcome message on the admin dashboard has been updated to be more suitable for multi-tenanted installations. Users whose page permissions lie within a single site will now see that site name in the welcome message, rather than the installation-wide ``WAGTAIL_SITE_NAME``. As before, this message can be customised, and additional template variables have been provided for this purpose - see :ref:`custom_branding`. This feature was developed by Jeffrey Chau.
+The welcome message on the admin dashboard has been updated to be more suitable for multi-tenanted installations. Users whose page permissions lie within a single site will now see that site name in the welcome message, rather than the installation-wide ``WAGTAIL_SITE_NAME``. As before, this message can be customized, and additional template variables have been provided for this purpose - see :ref:`custom_branding`. This feature was developed by Jeffrey Chau.
 
 
 Other features
@@ -55,7 +55,7 @@ Other features
 * View live / draft links in the admin now consistently open in a new window (Marco Fucci)
 * ``ChoiceBlock`` now omits the blank option if the block is required and has a default value (Andreas Nüßlein)
 * The ``add_subpage`` view now maintains a ``next`` URL parameter to specify where to redirect to after completing page creation (Robert Rollins)
-* The ``wagtailforms`` module now allows to define custom form submission model, add custom data to CSV export and some other customisations. See :doc:`/reference/contrib/forms/customisation` (Mikalai Radchuk)
+* The ``wagtailforms`` module now allows to define custom form submission model, add custom data to CSV export and some other customisations. See :doc:`/reference/contrib/forms/customization` (Mikalai Radchuk)
 * The Webpack configuration is now in a subfolder to declutter the project root, and uses environment-specific configurations for smaller bundles in production and easier debugging in development (Janneke Janssen, Thibaud Colas)
 * Added page titles to title text on action buttons in the explorer, for improved accessibility (Matt Westcott)
 
