@@ -6,6 +6,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_languages, get_content_type_label
@@ -211,10 +212,25 @@ class CollectionFilter(django_filters.ModelChoiceFilter):
     field_class = CollectionChoiceField
 
 
+class PopularTagsFilter(django_filters.MultipleChoiceFilter):
+    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
+    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
+    # cannot do further queries to validate the selected tags.
+
+    def __init__(self, *args, noop=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.noop = noop
+
+    def is_noop(self, qs, value):
+        return self.noop or super().is_noop(qs, value)
+
+
 class BaseMediaFilterSet(WagtailFilterSet):
     permission_policy = None
 
-    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+    def __init__(
+        self, data=None, queryset=None, *, request=None, prefix=None, is_searching=None
+    ):
         super().__init__(data, queryset, request=request, prefix=prefix)
         collections_qs = self.permission_policy.collections_user_has_any_permission_for(
             request.user, ["add", "change"]
@@ -225,4 +241,16 @@ class BaseMediaFilterSet(WagtailFilterSet):
                 field_name="collection_id",
                 label=_("Collection"),
                 queryset=collections_qs,
+            )
+
+        popular_tags = popular_tags_for_model(self._meta.model)
+
+        if popular_tags:
+            self.filters["tag"] = PopularTagsFilter(
+                label=_("Tag"),
+                field_name="tags__name",
+                choices=[(tag.name, tag.name) for tag in popular_tags],
+                widget=forms.CheckboxSelectMultiple,
+                noop=is_searching,
+                help_text=_("Filter by up to ten most popular tags."),
             )

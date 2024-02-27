@@ -235,13 +235,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
-        current_tag = response.context["current_tag"]
-        self.assertIsNone(current_tag)
+        soup = self.get_soup(response.content)
+        current_tags = soup.select("input[name=tag][checked]")
+        self.assertFalse(current_tags)
 
-        tags = response.context["popular_tags"]
-        self.assertTrue(
-            [tag.name for tag in tags] == ["one", "two"]
-            or [tag.name for tag in tags] == ["two", "one"]
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [tags.get_text(strip=True) for tags in tags],
+            ["one", "two"],
         )
 
     def test_tag_filtering(self):
@@ -262,10 +263,16 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         )
         image_two_tags.tags.add("one", "two")
 
+        image_unrelated_tag = Image.objects.create(
+            title="Test image with a different tag",
+            file=get_test_image_file(),
+        )
+        image_unrelated_tag.tags.add("unrelated")
+
         # no filtering
         response = self.get()
-        # three images created above plus the two untagged ones created in setUp()
-        self.assertEqual(response.context["page_obj"].paginator.count, 5)
+        # four images created above plus the two untagged ones created in setUp()
+        self.assertEqual(response.context["page_obj"].paginator.count, 6)
 
         # filter all images with tag 'one'
         response = self.get({"tag": "one"})
@@ -274,6 +281,30 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         # filter all images with tag 'two'
         response = self.get({"tag": "two"})
         self.assertEqual(response.context["page_obj"].paginator.count, 1)
+
+        # filter all images with tag 'one' or 'unrelated'
+        response = self.get({"tag": ["one", "unrelated"]})
+        self.assertEqual(response.context["page_obj"].paginator.count, 3)
+
+        soup = self.get_soup(response.content)
+
+        # Should check the 'one' and 'unrelated' tags checkboxes
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [
+                tag.get_text(strip=True)
+                for tag in tags
+                if tag.select_one("input[checked]") is not None
+            ],
+            ["one", "unrelated"],
+        )
+
+        # Should render the active filter pills separately for each tag
+        active_filters = soup.select('[data-w-active-filter-id="id_tag"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            ["Tag: one", "Tag: unrelated"],
+        )
 
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 130):

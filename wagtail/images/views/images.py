@@ -16,7 +16,6 @@ from django.views import View
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
-from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
@@ -91,26 +90,17 @@ class IndexView(generic.IndexView):
         # Upon validation, the cleaned data is a Collection instance
         return self.filters and self.filters.form.cleaned_data.get("collection_id")
 
-    def filter_queryset(self, queryset):
-        queryset = super().filter_queryset(queryset)
-        # Filter by tag
-        self.current_tag = self.request.GET.get("tag")
-        # Combining search with tag filter is not yet supported, see
-        # https://github.com/wagtail/wagtail/issues/6616
-        if self.current_tag and not self.search_query:
-            try:
-                queryset = queryset.filter(tags__name=self.current_tag)
-            except AttributeError:
-                self.current_tag = None
-
-        return queryset
-
     def get_add_url(self):
         # Pass the collection filter to prefill the add form's collection field
         return set_query_params(
             super().get_add_url(),
             {"collection_id": self.current_collection and self.current_collection.pk},
         )
+
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["is_searching"] = self.is_searching
+        return kwargs
 
     def get_next_url(self):
         next_url = self.index_url
@@ -125,21 +115,12 @@ class IndexView(generic.IndexView):
         context.update(
             {
                 "next": self.get_next_url(),
-                "current_tag": self.current_tag,
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
         )
 
-        if self.results_only:
-            return context
-
-        context.update(
-            {
-                "popular_tags": popular_tags_for_model(get_image_model()),
-            }
-        )
         return context
 
 
