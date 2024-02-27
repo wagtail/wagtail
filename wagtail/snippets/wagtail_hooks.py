@@ -28,14 +28,11 @@ def register_admin_urls():
 
 class SnippetsMenuItem(MenuItem):
     @cached_property
-    def _all_have_menu_items(self):
-        return all(
-            model.snippet_viewset.get_menu_item_is_registered()
-            for model in get_snippet_models()
-        )
+    def _snippets_in_index_view(self):
+        return snippet_views.get_snippet_models_for_index_view()
 
     def is_shown(self, request):
-        return not self._all_have_menu_items and user_can_edit_snippets(request.user)
+        return user_can_edit_snippets(request.user, self._snippets_in_index_view)
 
 
 @hooks.register("register_admin_menu_item")
