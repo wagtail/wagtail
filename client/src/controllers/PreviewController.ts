@@ -79,7 +79,7 @@ const runAccessibilityChecks = async (
  * update the preview iframe if the form is valid.
  */
 export class PreviewController extends Controller<HTMLElement> {
-  static classes = ['unavailable', 'hasErrors', 'selectedSize'];
+  static classes = ['hasErrors', 'selectedSize'];
 
   static targets = ['size', 'newTab', 'spinner', 'mode', 'iframe'];
 
@@ -97,7 +97,6 @@ export class PreviewController extends Controller<HTMLElement> {
 
   static outlets = ['w-progress'];
 
-  declare readonly unavailableClass: string;
   declare readonly hasErrorsClass: string;
   declare readonly selectedSizeClass: string;
 
@@ -130,6 +129,7 @@ export class PreviewController extends Controller<HTMLElement> {
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
   updateInterval: ReturnType<typeof setInterval> | null = null;
   cleared = false;
+  available = true;
   updatePromise: Promise<boolean> | null = null;
   formPayload = '';
 
@@ -145,18 +145,27 @@ export class PreviewController extends Controller<HTMLElement> {
     );
   }
 
+  get activeSizeInput(): HTMLInputElement {
+    return (
+      this.sizeTargets.find((input) => input.checked) || this.defaultSizeInput
+    );
+  }
+
   /**
    * Sets the simulated device width of the preview iframe.
-   * @param width The width of the preview device. If falsy, the default size will be used.
+   * @param width The width of the preview device. If falsy:
+   * - the default size will be used if the preview is currently unavailable,
+   * - otherwise, the currently selected device size is used.
    */
   setPreviewWidth(width?: string) {
-    const isUnavailable = this.element.classList.contains(
-      this.unavailableClass,
-    );
-
     let deviceWidth = width;
-    // Reset to default size if width is falsy or preview is unavailable
-    if (!width || isUnavailable) {
+    if (!width) {
+      // Restore width using the currently active device size input
+      deviceWidth = this.activeSizeInput.dataset.deviceWidth;
+    }
+
+    if (!this.available) {
+      // Ensure the 'Preview not available' message is not scaled down
       deviceWidth = this.defaultSizeInput.dataset.deviceWidth;
     }
 
@@ -221,7 +230,14 @@ export class PreviewController extends Controller<HTMLElement> {
     if (this.hasWProgressOutlet) {
       this.wProgressOutlet.loadingValue = false;
     }
+    if (!this.cleared) {
+      this.cleared = true;
+    }
     this.updatePromise = null;
+
+    // Ensure the width is set to the default size if the preview is unavailable,
+    // or the currently selected device size if the preview is available.
+    this.setPreviewWidth();
   }
 
   /**
@@ -297,6 +313,10 @@ export class PreviewController extends Controller<HTMLElement> {
         [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
       },
       method: 'DELETE',
+    }).then((response) => {
+      this.available = false;
+      this.reloadIframe();
+      return response;
     });
   }
 
@@ -327,22 +347,12 @@ export class PreviewController extends Controller<HTMLElement> {
         const data = await response.json();
 
         this.element.classList.toggle(this.hasErrorsClass, !data.is_valid);
-        this.element.classList.toggle(
-          this.unavailableClass,
-          !data.is_available,
-        );
-
-        if (!data.is_available) {
-          // Ensure the 'Preview not available' message is not scaled down
-          this.setPreviewWidth();
-        }
+        this.available = data.is_available;
 
         if (data.is_valid) {
           this.reloadIframe();
         } else if (!this.cleared) {
-          this.clearPreviewData();
-          this.cleared = true;
-          this.reloadIframe();
+          this.updatePromise = this.clearPreviewData().then(() => false);
         } else {
           // Finish the process when the data is invalid to prepare for the next update
           // and avoid elements like the loading spinner to be shown indefinitely
