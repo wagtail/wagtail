@@ -114,6 +114,7 @@ export class PreviewController extends Controller<HTMLElement> {
   // Instance variables with initial values set in connect()
   declare editForm: HTMLFormElement;
   declare sidePanelContainer: HTMLDivElement;
+  declare checksSidePanel: HTMLDivElement | null;
 
   // Instance variables with initial values set here
   spinnerTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -427,10 +428,6 @@ export class PreviewController extends Controller<HTMLElement> {
   initAutoUpdate() {
     let updateInterval: ReturnType<typeof setInterval>;
 
-    const checksSidePanel = document.querySelector(
-      '[data-side-panel="checks"]',
-    );
-
     // Apply debounce to the setPreviewData method
     this.setPreviewData = debounce(
       this.setPreviewData.bind(this),
@@ -451,7 +448,7 @@ export class PreviewController extends Controller<HTMLElement> {
     });
 
     // Use the same processing as the preview panel.
-    checksSidePanel?.addEventListener('show', () => {
+    this.checksSidePanel?.addEventListener('show', () => {
       this.checkAndUpdatePreview();
       updateInterval = setInterval(
         this.checkAndUpdatePreview.bind(this),
@@ -463,7 +460,7 @@ export class PreviewController extends Controller<HTMLElement> {
     this.sidePanelContainer.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
-    checksSidePanel?.addEventListener('hide', () => {
+    this.checksSidePanel?.addEventListener('hide', () => {
       clearInterval(updateInterval);
     });
   }
@@ -486,10 +483,6 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   connect() {
-    const checksSidePanel = document.querySelector(
-      '[data-side-panel="checks"]',
-    );
-
     if (!this.urlValue) {
       throw new Error(
         `The preview panel controller requires the data-${this.identifier}-base-url-value attribute to be set`,
@@ -510,6 +503,8 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
+    this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
+
     if (this.autoUpdateValue) {
       this.initAutoUpdate();
     } else {
@@ -518,7 +513,7 @@ export class PreviewController extends Controller<HTMLElement> {
       this.sidePanelContainer.addEventListener('show', () => {
         this.setPreviewData();
       });
-      checksSidePanel?.addEventListener('show', () => {
+      this.checksSidePanel?.addEventListener('show', () => {
         this.setPreviewData();
       });
     }
