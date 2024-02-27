@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.test import TestCase, override_settings
+from django.urls import reverse_lazy
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.models import Embed
@@ -9,6 +10,7 @@ from wagtail.embeds.rich_text.editor_html import (
     MediaEmbedHandler as EditorHtmlMediaEmbedHandler,
 )
 from wagtail.rich_text import expand_db_html
+from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -142,4 +144,16 @@ class TestFrontendMediaEmbedHandler(TestCase):
         self.assertIn("test html", result)
         get_embed.assert_called_with(
             "https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25", None, None
+        )
+
+
+class TestEntityFeatureChooserUrls(TestCase):
+    def test_chooser_urls_exist(self):
+        features = FeatureRegistry()
+        embed = features.get_editor_plugin("draftail", "embed")
+
+        self.assertIsNotNone(embed.data.get("chooserUrls"))
+        self.assertEqual(
+            embed.data["chooserUrls"]["embedsChooser"],
+            reverse_lazy("wagtailembeds:chooser"),
         )

@@ -1,10 +1,12 @@
 from django.test import TestCase
+from django.urls import reverse_lazy
 
 from wagtail.fields import RichTextField
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
 from wagtail.images.rich_text.editor_html import (
     ImageEmbedHandler as EditorHtmlImageEmbedHandler,
 )
+from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
@@ -139,4 +141,16 @@ class TestExtractReferencesWithImage(WagtailTestUtils, TestCase):
                 )
             ),
             [(Image, "52", "", "")],
+        )
+
+
+class TestEntityFeatureChooserUrls(TestCase):
+    def test_chooser_urls_exist(self):
+        features = FeatureRegistry()
+        image = features.get_editor_plugin("draftail", "image")
+
+        self.assertIsNotNone(image.data.get("chooserUrls"))
+        self.assertEqual(
+            image.data["chooserUrls"]["imageChooser"],
+            reverse_lazy("wagtailimages_chooser:choose"),
         )

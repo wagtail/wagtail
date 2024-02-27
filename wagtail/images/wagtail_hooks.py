@@ -1,5 +1,4 @@
-from django.urls import include, path, reverse
-from django.utils.html import format_html
+from django.urls import include, path, reverse, reverse_lazy
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
 
@@ -58,18 +57,6 @@ def register_images_menu_item():
     )
 
 
-@hooks.register("insert_editor_js")
-def editor_js():
-    return format_html(
-        """
-        <script>
-            window.chooserUrls.imageChooser = '{0}';
-        </script>
-        """,
-        reverse("wagtailimages_chooser:choose"),
-    )
-
-
 @hooks.register("register_rich_text_features")
 def register_image_feature(features):
     # define a handler for converting <embed embedtype="image"> tags into frontend HTML
@@ -96,6 +83,9 @@ def register_image_feature(features):
                 # Keep only images which are from Wagtail.
                 "allowlist": {
                     "id": True,
+                },
+                "chooserUrls": {
+                    "imageChooser": reverse_lazy("wagtailimages_chooser:choose")
                 },
             },
             js=[
