@@ -12,6 +12,7 @@ Changelog
  * Add system checks to ensure that `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT` are correctly configured (Rohit Sharma, Coen van der Kamp)
  * Allow custom permissions with the same prefix as built-in permissions (Sage Abdullah)
  * Allow displaying permissions linked to the Admin model's content type (Sage Abdullah)
+ * Add support for Draftail's JavaScript to use chooserUrls provided by entity options & for the Draftail widget to encode lazy URLs/ translations (Elhussein Almasri)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
@@ -32,6 +33,7 @@ Changelog
  * Maintenance: Optimize queries in dashboard panels (Sage Abdullah)
  * Maintenance: Optimize queries in group create/edit view (Sage Abdullah)
  * Maintenance: Move modal-workflow.js script usage to base admin template instead of ad-hoc imports (Elhussein Almasri)
+ * Maintenance: Update all Draftail chooserUrls to be passed in via the Entity options instead of using `window.chooserUrls` globals, removing the need for inline scripts (Elhussein Almasri)
 
 
 6.0.1 (15.02.2024)
