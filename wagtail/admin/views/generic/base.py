@@ -201,7 +201,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     @cached_property
     def filters(self):
         if self.filterset_class:
-            filterset = self.filterset_class(self.request.GET, request=self.request)
+            filterset = self.filterset_class(**self.get_filterset_kwargs())
             # Don't use the filterset if it has no fields
             if filterset.form.fields:
                 return filterset
@@ -212,6 +212,12 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         return (
             self.filters and self.filters.is_valid() and self.filters.form.has_changed()
         )
+
+    def get_filterset_kwargs(self):
+        return {
+            "data": self.request.GET,
+            "request": self.request,
+        }
 
     def filter_queryset(self, queryset):
         if self.filters and self.filters.is_valid():
