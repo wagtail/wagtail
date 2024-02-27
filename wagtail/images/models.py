@@ -344,6 +344,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
     ]
 
     def __str__(self):

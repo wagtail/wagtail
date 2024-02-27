@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
@@ -45,12 +46,10 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2020, 1, 1),
         )
         self.puppy_image = Image.objects.create(
             title="a cute puppy",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2022, 2, 2),
         )
 
     def get(self, params={}):
@@ -350,13 +349,17 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2020, 1, 1),
         )
         self.puppy_image = Image.objects.create(
             title="a cute puppy",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2022, 2, 2),
         )
+        # The created_at field uses auto_now_add, so changing it needs to be
+        # done after the image is created.
+        self.kitten_image.created_at = local_datetime(2020, 1, 1)
+        self.kitten_image.save()
+        self.puppy_image.created_at = local_datetime(2022, 2, 2)
+        self.puppy_image.save()
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailimages:index"), params)
@@ -409,6 +412,26 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
             response,
             f'<a href="{url}?collection_id={child_collection[0].pk}"',
         )
+
+    def test_search_and_order_by_created_at(self):
+        old_image = Image.objects.create(
+            title="decades old cute tortoise",
+            file=get_test_image_file(size=(1, 1)),
+        )
+        old_image.created_at = local_datetime(2000, 1, 1)
+        old_image.save()
+        response = self.get({"q": "cute", "ordering": "created_at"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "cute")
+        self.assertEqual(
+            list(response.context["page_obj"].object_list),
+            [old_image, self.kitten_image, self.puppy_image],
+        )
+        soup = self.get_soup(response.content)
+        option = soup.select_one('select[name="ordering"] option[selected]')
+        self.assertIsNotNone(option)
+        self.assertEqual(option["value"], "created_at")
+        self.assertEqual(option.get_text(strip=True), "Oldest")
 
     def test_tag_filtering_with_search_term(self):
         Image.objects.create(
