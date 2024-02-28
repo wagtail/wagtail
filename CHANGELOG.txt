@@ -36,6 +36,8 @@ Changelog
  * Maintenance: Optimize queries in group create/edit view (Sage Abdullah)
  * Maintenance: Move modal-workflow.js script usage to base admin template instead of ad-hoc imports (Elhussein Almasri)
  * Maintenance: Update all Draftail chooserUrls to be passed in via the Entity options instead of using `window.chooserUrls` globals, removing the need for inline scripts (Elhussein Almasri)
+ * Maintenance: Enhance `w-init` (InitController) to support a `detail` value to be dispatched on events (Chiemezuo Akujobi)
+ * Maintenance: Remove usage of inline scripts and instead use event dispatching to instantiate standalone Draftail editor instances (Chiemezuo Akujobi)
 
 
 6.0.1 (15.02.2024)
