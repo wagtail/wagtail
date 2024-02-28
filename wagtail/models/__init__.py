@@ -1434,6 +1434,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    objects = PageManager()
     bulk_manager = BulkPageManager()
 
     def __init__(self, *args, **kwargs):
