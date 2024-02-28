@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from wagtail.models import BulkPageManager, Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -22,12 +22,11 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
         self.child_pages.extend(
             [SimplePage(title=f"Page {i}", slug=f"page-{i}") for i in range(100)]
         )
-        self.manager = BulkPageManager(self.root_page)
 
     def test_bulk_add_children(self):
         # Test normal flow
         # Create a list of pages to add
-        self.manager.bulk_add_children(self.child_pages)
+        Page.bulk_manager.bulk_add_children(self.child_pages, self.root_page)
 
         # Check that the pages were added
         self.assertEqual(self.root_page.get_children().count(), 200)
@@ -48,8 +47,7 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
         root_page = Page.objects.get(title="Root page")
 
         # Add child pages to a leaf page
-        manager = BulkPageManager(root_page)
-        manager.bulk_add_children(self.child_pages)
+        Page.bulk_manager.bulk_add_children(self.child_pages, root_page)
 
         # Check if the pages were added
         self.assertEqual(root_page.get_children().count(), 200)
@@ -62,7 +60,10 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
 
         # Check if error message is raised
         self.assertRaises(
-            ValidationError, self.manager.bulk_add_children, self.child_pages
+            ValidationError,
+            Page.bulk_manager.bulk_add_children,
+            self.child_pages,
+            self.root_page,
         )
 
     def test_slug_conflict_with_another_slug_of_a_page_about_to_be_added(self):
@@ -71,5 +72,8 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
 
         # Check if error message is raised
         self.assertRaises(
-            ValidationError, self.manager.bulk_add_children, self.child_pages
+            ValidationError,
+            Page.bulk_manager.bulk_add_children,
+            self.child_pages,
+            self.root_page,
         )
