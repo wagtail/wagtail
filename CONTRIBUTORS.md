@@ -803,7 +803,7 @@
 * EK303
 * Damian Borneman
 * Viktor Szépe
-* Pranith
+* Pranith Beeram
 
 ## Translators
 
