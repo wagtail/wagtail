@@ -68,6 +68,7 @@ class IndexView(generic.IndexView):
     model = get_document_model()
     add_item_label = gettext_lazy("Add a document")
     show_other_searches = True
+    _show_breadcrumbs = True
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
@@ -130,10 +131,10 @@ class IndexView(generic.IndexView):
         return next_url
 
     def get_add_url(self):
-        # Pass the query string so that the collection filter is preserved
+        # Pass the collection filter to prefill the add form's collection field
         return set_query_params(
             super().get_add_url(),
-            self.request.GET.copy(),
+            {"collection_id": self.current_collection and self.current_collection.pk},
         )
 
     def get_edit_url(self, instance):
