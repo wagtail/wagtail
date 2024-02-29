@@ -340,6 +340,24 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
         self.assertContains(response, "There are 50 matches")
 
+    def test_tag_filtering_with_search_term(self):
+        models.Document.objects.create(title="Test document with no tags")
+
+        document_one_tag = models.Document.objects.create(
+            title="Test document with one tag"
+        )
+        document_one_tag.tags.add("one")
+
+        document_two_tags = models.Document.objects.create(
+            title="Test document with two tags"
+        )
+        document_two_tags.tags.add("one", "two")
+
+        # The tag shouldn't be ignored, so the result should be the documents
+        # that have the "one" tag and "test" in the title.
+        response = self.get({"tag": "one", "q": "test"})
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
+
 
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
     def setUp(self):
