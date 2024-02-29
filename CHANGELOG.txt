@@ -20,6 +20,7 @@ Changelog
  * Fix: Ensure re-ordering buttons work correctly when using a nested InlinePanel (Adrien Hamraoui)
  * Fix: Consistently remove model's `verbose_name` in group edit view when listing custom permissions (Sage Abdullah, Neeraj Yetheendran, Omkar Jadhav)
  * Fix: Resolve issue local development of docs when running `make livehtml` (Sage Abdullah)
+ * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)

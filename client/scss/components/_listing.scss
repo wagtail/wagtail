@@ -635,9 +635,15 @@ table.listing {
       }
     }
 
-    // If no bulk actions are present, and nice padding is not applied,
-    // apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &, .report &):not(
+    // If either:
+    // - no nice padding is applied,
+    // - we're not in a report listing,
+    // - we're not in the editor view,
+    // and:
+    // - no bulk actions are present,
+    // - we're not in the "custom ordering" mode,
+    // then apply the same 80px padding via the first column's left padding.
+    &:not(.nice-padding &, .report &, .editor-view &):not(
         :has(.bulk-actions-filter-checkbox, .ord)
       ) {
       th:first-child,
