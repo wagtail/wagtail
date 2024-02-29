@@ -146,6 +146,11 @@ class IndexView(generic.IndexView):
             {"next": self.get_next_url()},
         )
 
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["is_searching"] = self.is_searching
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_collection"] = self.current_collection
