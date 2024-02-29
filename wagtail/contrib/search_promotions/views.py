@@ -38,6 +38,7 @@ class IndexView(generic.IndexView):
     index_results_url_name = "wagtailsearchpromotions:index_results"
     _show_breadcrumbs = True
     search_fields = ["query_string"]
+    default_ordering = "query_string"
     add_url_name = "wagtailsearchpromotions:add"
     add_item_label = gettext_lazy("Add new promoted result")
     columns = [

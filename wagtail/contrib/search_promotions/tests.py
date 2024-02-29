@@ -296,6 +296,13 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
             sort_order=0,
             description="ooh, it's a snake",
         )
+        # Add another one to make sure it's not ordered descending by pk
+        SearchPromotion.objects.create(
+            query=Query.get("beloved snake"),
+            page_id=1,
+            sort_order=0,
+            description="beloved snake goes ssSSSS",
+        )
 
         response = self.client.get(reverse("wagtailsearchpromotions:index"))
 
@@ -305,6 +312,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
 
         # "aargh snake" should be the first result alphabetically
         self.assertEqual(response.context["queries"][0].query_string, "aaargh snake")
+        self.assertEqual(response.context["queries"][1].query_string, "beloved snake")
 
     def test_multiple_searchpromotions(self):
         today = date.today()
