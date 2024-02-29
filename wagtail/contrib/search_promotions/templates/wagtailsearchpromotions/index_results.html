@@ -3,8 +3,9 @@
 {% block no_results_message %}
     {% if is_searching %}
         <p role="alert">{% blocktrans trimmed %}Sorry, no promoted results match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% elif add_url %}
+        <p>{% blocktrans trimmed with wagtailsearchpromotions_add_url=add_url %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailsearchpromotions:add' as wagtailsearchpromotions_add_url %}
-        <p>{% blocktrans trimmed %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}No promoted results have been created.{% endblocktrans %}</p>
     {% endif %}
 {% endblock %}

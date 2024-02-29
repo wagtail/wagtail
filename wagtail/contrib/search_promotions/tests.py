@@ -173,7 +173,7 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
 
 class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_simple(self):
         response = self.client.get(reverse("wagtailsearchpromotions:index"))
@@ -407,6 +407,45 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["page_obj"][-1].query_string, "optimal")
         self.assertEqual(response.context["page_obj"][-2].query_string, "suboptimal")
+
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:index"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="change_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
+
+        soup = self.get_soup(response.content)
+        add_url = reverse("wagtailsearchpromotions:add")
+        # Should not render add link
+        self.assertIsNone(soup.select_one(f'a[href="{add_url}"]'))
 
 
 class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
@@ -922,29 +961,3 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], Query.get("unpopular query"))
         self.assertEqual(popular_queries[1], Query.get("popular query"))
         self.assertEqual(popular_queries[2], Query.get("little popular query"))
-
-
-class TestSearchPromotionPermission(WagtailTestUtils, TestCase):
-    def setUp(self):
-        self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailsearchpromotions:index"), params)
-
-    def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-
-    def test_get_with_no_permission(self):
-        self.user.is_superuser = False
-        self.user.save()
-        self.user.user_permissions.add(
-            Permission.objects.get(
-                content_type__app_label="wagtailadmin", codename="access_admin"
-            )
-        )
-        # No Permissions created
-
-        response = self.get()
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
