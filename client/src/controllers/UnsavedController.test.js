@@ -112,6 +112,96 @@ describe('UnsavedController', () => {
       expect(events['w-unsaved:add']).toHaveLength(1);
       expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
     });
+
+    it('should allow checking for when an input is removed', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      await setup();
+
+      // setup should not fire any event
+      expect(events['w-unsaved:add']).toHaveLength(0);
+
+      const input = document.getElementById('name');
+
+      input.remove();
+
+      await jest.runAllTimersAsync();
+
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+    });
+
+    it('should ignore when non-inputs are added', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0); // Ensure no initial events
+
+      await setup();
+
+      expect(events['w-unsaved:add']).toHaveLength(0); // Verify no events after setup
+
+      // Act (simulate the addition of a paragraph)
+      const paragraph = document.createElement('p');
+      paragraph.id = 'paraName';
+      paragraph.textContent = 'This is a new paragraph'; // Add some content for clarity
+      document.getElementsByTagName('form')[0].appendChild(paragraph); // paragraph is added
+
+      await jest.runAllTimersAsync();
+
+      // Assert (verify no events were fired)
+      expect(events['w-unsaved:add']).toHaveLength(0);
+    });
+
+    it('should fire an event when a textarea is added', async () => {
+      expect(events['w-unsaved:add']).toHaveLength(0); // Ensure no initial events
+
+      await setup();
+
+      expect(events['w-unsaved:add']).toHaveLength(0); // Verify no events after setup
+
+      // Act (simulate adding a textarea with value)
+      const textarea = document.createElement('textarea');
+      textarea.value = 'Some initial content';
+      textarea.id = 'taName';
+      document.getElementsByTagName('form')[0].appendChild(textarea);
+
+      await jest.runAllTimersAsync(); // Allow any timers to trigger
+
+      // Assert (verify event was fired)
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+    });
+
+    it('should fire an event when a nested input (select) is added', async () => {
+      // Arrange
+      expect(events['w-unsaved:add']).toHaveLength(0); // Ensure no initial events
+
+      await setup();
+
+      expect(events['w-unsaved:add']).toHaveLength(0); // Verify no events after setup
+
+      // Act
+      const div = document.createElement('div');
+      const select = document.createElement('select');
+      select.id = 'mySelect';
+
+      const option1 = document.createElement('option');
+      option1.value = 'option1';
+      option1.textContent = 'Option 1';
+      select.appendChild(option1);
+
+      const option2 = document.createElement('option');
+      option2.value = 'option2';
+      option2.textContent = 'Option 2';
+      select.appendChild(option2);
+
+      div.appendChild(select);
+      document.body.getElementsByTagName('form')[0].appendChild(div);
+
+      await jest.runAllTimersAsync();
+
+      // Assert
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+    });
   });
 
   describe('showing a confirmation message when exiting the browser tab', () => {
