@@ -1,5 +1,6 @@
 import datetime
 import re
+from decimal import Decimal
 from uuid import UUID
 
 from django import forms
