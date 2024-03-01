@@ -252,6 +252,40 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 404)
 
+    def test_num_queries(self):
+        url = reverse("wagtailsearchpromotions:index")
+        self.make_search_picks()
+        # Warm up the cache
+        self.client.get(url)
+
+        # Number of queries with the current number of search picks
+        with self.assertNumQueries(69):
+            self.client.get(url)
+
+        # Add more SearchPromotions and QueryDailyHits to some of the queries
+        today = date.today()
+        for i in range(20):
+            query = Query.get("query " + str(i))
+            promos = [
+                SearchPromotion(
+                    query=query,
+                    page_id=j % 2 + 1,
+                    sort_order=j,
+                    description=f"Search pick {j}",
+                )
+                for j in range(5)
+            ]
+            hits = [
+                QueryDailyHits(query=query, date=today - timedelta(days=j), hits=j)
+                for j in range(5)
+            ]
+            SearchPromotion.objects.bulk_create(promos)
+            QueryDailyHits.objects.bulk_create(hits)
+
+        # Number of queries after the addition of more search picks and hits
+        with self.assertNumQueries(134):
+            self.client.get(url)
+
     def test_results_are_ordered_alphabetically(self):
         self.make_search_picks()
         SearchPromotion.objects.create(
