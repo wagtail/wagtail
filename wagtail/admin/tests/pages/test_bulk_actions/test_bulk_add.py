@@ -26,7 +26,7 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
     def test_bulk_add_children(self):
         # Test normal flow
         # Create a list of pages to add
-        Page.bulk_manager.bulk_add_children(self.child_pages, self.root_page)
+        Page.objects.bulk_add_children(self.child_pages, self.root_page)
 
         # Check that the pages were added
         self.assertEqual(self.root_page.get_children().count(), 200)
@@ -47,7 +47,7 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
         root_page = Page.objects.get(title="Root page")
 
         # Add child pages to a leaf page
-        Page.bulk_manager.bulk_add_children(self.child_pages, root_page)
+        Page.objects.bulk_add_children(self.child_pages, root_page)
 
         # Check if the pages were added
         self.assertEqual(root_page.get_children().count(), 200)
@@ -61,7 +61,7 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
         # Check if error message is raised
         self.assertRaises(
             ValidationError,
-            Page.bulk_manager.bulk_add_children,
+            Page.objects.bulk_add_children,
             self.child_pages,
             self.root_page,
         )
@@ -73,7 +73,7 @@ class TestBulkAdd(WagtailTestUtils, TestCase):
         # Check if error message is raised
         self.assertRaises(
             ValidationError,
-            Page.bulk_manager.bulk_add_children,
+            Page.objects.bulk_add_children,
             self.child_pages,
             self.root_page,
         )
