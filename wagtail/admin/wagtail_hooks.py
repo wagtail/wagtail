@@ -998,6 +998,28 @@ def register_editors_guide_menu_item():
     )
 
 
+@hooks.register("register_help_menu_item")
+def register_keyboard_shortcuts_menu_item():
+    """
+    Triggers the keyboard shortcuts dialog to open when clicked
+    while preventing the default link click action.
+    """
+
+    return MenuItem(
+        _("Shortcuts"),
+        icon_name="regex",
+        order=1200,
+        attrs={
+            "role": "button",  # Ensure screen readers announce this as a button
+            "data-a11y-dialog-show": "keyboard-shortcuts-dialog",
+            "data-action": "w-action#noop:prevent:stop",
+            "data-controller": "w-action",
+        },
+        name="keyboard-shortcuts-trigger",
+        url="#",
+    )
+
+
 @hooks.register("register_admin_menu_item")
 def register_help_menu():
     return DismissibleSubmenuMenuItem(
