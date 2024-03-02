@@ -6,80 +6,81 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.auth import any_permission_required, permission_required
+from wagtail.admin.auth import permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.ui.tables import Column, RelatedObjectsColumn, TitleColumn
+from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
-from wagtail.contrib.search_promotions.models import Query
+from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 from wagtail.log_actions import log
+from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.search.utils import normalise_query_string
 
 
-@any_permission_required(
-    "wagtailsearchpromotions.add_searchpromotion",
-    "wagtailsearchpromotions.change_searchpromotion",
-    "wagtailsearchpromotions.delete_searchpromotion",
-)
-@vary_on_headers("X-Requested-With")
-def index(request):
-    # Ordering
-    valid_ordering = ["query_string", "-query_string", "views", "-views"]
-    ordering = valid_ordering[0]
+class SearchPromotionColumn(RelatedObjectsColumn):
+    cell_template_name = "wagtailsearchpromotions/search_promotion_column.html"
 
-    if "ordering" in request.GET and request.GET["ordering"] in valid_ordering:
-        ordering = request.GET["ordering"]
 
-    # Query
-    queries = Query.objects.filter(editors_picks__isnull=False).distinct()
+class IndexView(generic.IndexView):
+    model = Query
+    template_name = "wagtailsearchpromotions/index.html"
+    results_template_name = "wagtailsearchpromotions/index_results.html"
+    context_object_name = "queries"
+    page_title = gettext_lazy("Search Terms")
+    header_icon = "pick"
+    paginate_by = 20
+    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    index_url_name = "wagtailsearchpromotions:index"
+    index_results_url_name = "wagtailsearchpromotions:index_results"
+    _show_breadcrumbs = True
+    search_fields = ["query_string"]
+    default_ordering = "query_string"
+    add_url_name = "wagtailsearchpromotions:add"
+    add_item_label = gettext_lazy("Add new promoted result")
+    columns = [
+        TitleColumn(
+            "query_string",
+            label=gettext_lazy("Search term(s)"),
+            width="40%",
+            url_name="wagtailsearchpromotions:edit",
+            sort_key="query_string",
+        ),
+        SearchPromotionColumn(
+            "editors_picks",
+            label=gettext_lazy("Promoted results"),
+            width="40%",
+        ),
+        Column(
+            "views",
+            label=gettext_lazy("Views (past week)"),
+            width="20%",
+            sort_key="views",
+        ),
+    ]
 
-    if "views" in ordering:
-        queries = queries.annotate(views=functions.Coalesce(Sum("daily_hits__hits"), 0))
+    def get_base_queryset(self):
+        # Use a subquery to filter out the Query objects that do not have a
+        # SearchPromotion instead of using .filter(editors_picks__isnull=False).
+        # The latter would use a JOIN which would result in duplicate rows before
+        # the sum is calculated, causing the sum to be incorrect.
+        has_promotions = SearchPromotion.objects.values_list("query_id", flat=True)
+        queryset = self.model.objects.filter(pk__in=has_promotions)
 
-    queries = queries.order_by(ordering)
+        # Prevent N+1 queries by annotating the sum instead of using the
+        # Query.hits property and prefetching the related editors_picks.
+        queryset = queryset.annotate(
+            views=functions.Coalesce(Sum("daily_hits__hits"), 0)
+        ).prefetch_related("editors_picks", "editors_picks__page")
+        return queryset
 
-    # Search
-    is_searching = False
-    query_string = request.GET.get("q", "")
-
-    if query_string:
-        queries = queries.filter(query_string__icontains=query_string)
-        is_searching = True
-
-    # Paginate
-    paginator = Paginator(queries, per_page=20)
-    try:
-        queries = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
-
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return TemplateResponse(
-            request,
-            "wagtailsearchpromotions/results.html",
-            {
-                "is_searching": is_searching,
-                "ordering": ordering,
-                "queries": queries,
-                "query_string": query_string,
-            },
-        )
-    else:
-        return TemplateResponse(
-            request,
-            "wagtailsearchpromotions/index.html",
-            {
-                "is_searching": is_searching,
-                "ordering": ordering,
-                "queries": queries,
-                "query_string": query_string,
-                "search_form": SearchForm(
-                    data={"q": query_string} if query_string else None,
-                ),
-            },
-        )
+    def get_breadcrumbs_items(self):
+        breadcrumbs = super().get_breadcrumbs_items()
+        breadcrumbs[-1]["label"] = _("Promoted search results")
+        return breadcrumbs
 
 
 def save_searchpicks(query, new_query, searchpicks_formset):

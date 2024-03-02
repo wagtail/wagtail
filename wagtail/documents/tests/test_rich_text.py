@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse_lazy
 
 from wagtail.documents import get_document_model
 from wagtail.documents.rich_text import (
@@ -8,6 +9,7 @@ from wagtail.documents.rich_text.editor_html import (
     DocumentLinkHandler as EditorHtmlDocumentLinkHandler,
 )
 from wagtail.fields import RichTextField
+from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -59,4 +61,16 @@ class TestFrontendDocumentLinkHandler(TestCase):
                 )
             ),
             [(get_document_model(), "1", "", "")],
+        )
+
+
+class TestEntityFeatureChooserUrls(TestCase):
+    def test_chooser_urls_exist(self):
+        features = FeatureRegistry()
+        document = features.get_editor_plugin("draftail", "document-link")
+
+        self.assertIsNotNone(document.data.get("chooserUrls"))
+        self.assertEqual(
+            document.data["chooserUrls"]["documentChooser"],
+            reverse_lazy("wagtaildocs_chooser:choose"),
         )

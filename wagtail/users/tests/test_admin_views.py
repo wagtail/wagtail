@@ -5,6 +5,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
@@ -14,6 +15,7 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import Admin
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.models import (
     Collection,
@@ -1635,6 +1637,45 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             soup.select_one(
                 f'td > fieldset input[value="{custom_change_permission.pk}"]'
             )
+        )
+
+    def test_custom_other_permissions_with_wagtail_admin_content_type(self):
+        """
+        https://github.com/wagtail/wagtail/issues/8086
+        Allow custom permissions using Wagtail's Admin content type to be
+        displayed in the "Other permissions" section.
+        """
+        admin_ct = ContentType.objects.get_for_model(Admin)
+        custom_permission = Permission.objects.create(
+            codename="roadmap_sync",
+            name="Can sync roadmap items from GitHub",
+            content_type=admin_ct,
+        )
+
+        with self.register_hook(
+            "register_permissions",
+            lambda: Permission.objects.filter(
+                codename="roadmap_sync", content_type=admin_ct
+            ),
+        ):
+            response = self.get()
+
+        soup = self.get_soup(response.content)
+
+        other_permissions = soup.select_one("#other-permissions-section")
+        self.assertIsNotNone(other_permissions)
+
+        custom_checkbox = other_permissions.select_one(
+            f'input[value="{custom_permission.pk}"]'
+        )
+        self.assertIsNotNone(custom_checkbox)
+
+        custom_label = other_permissions.select_one(
+            f'label[for="{custom_checkbox.attrs.get("id")}"]'
+        )
+        self.assertIsNotNone(custom_label)
+        self.assertEqual(
+            custom_label.get_text(strip=True), "Can sync roadmap items from GitHub"
         )
 
 

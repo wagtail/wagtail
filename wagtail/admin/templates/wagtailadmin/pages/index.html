@@ -23,8 +23,6 @@
 {% block extra_js %}
     {{ block.super }}
 
-    {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
-    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 
     {% comment %}

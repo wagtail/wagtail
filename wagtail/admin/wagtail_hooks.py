@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext
@@ -742,6 +742,21 @@ def register_core_features(features):
                 "allowlist": {
                     # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
                     "href": "^(http:|https:|undefined$)",
+                },
+                "chooserUrls": {
+                    "pageChooser": reverse_lazy("wagtailadmin_choose_page"),
+                    "externalLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_external_link"
+                    ),
+                    "emailLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_email_link"
+                    ),
+                    "phoneLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_phone_link"
+                    ),
+                    "anchorLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_anchor_link"
+                    ),
                 },
             },
             js=[

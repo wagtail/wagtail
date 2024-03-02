@@ -56,7 +56,6 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/create.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
     def test_create(self):
@@ -201,7 +200,6 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/edit.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
         url_finder = AdminURLFinder(self.user)
@@ -396,7 +394,6 @@ class TestLimitedPermissions(WagtailTestUtils, TestCase):
     def test_get_create_view(self):
         response = self.client.get(reverse("wagtailsites:add"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/create.html")
 
     def test_create(self):
         response = self.client.post(
@@ -418,7 +415,6 @@ class TestLimitedPermissions(WagtailTestUtils, TestCase):
         edit_url = reverse("wagtailsites:edit", args=(self.localhost.id,))
         response = self.client.get(edit_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/edit.html")
 
     def test_edit(self):
         edit_url = reverse("wagtailsites:edit", args=(self.localhost.id,))

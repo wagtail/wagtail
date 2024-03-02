@@ -122,6 +122,8 @@ Optionally, we can also define styles for the blocks with the `Draftail-block--h
 
 That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
+(creating_new_draftail_editor_entities)=
+
 ### Creating new entities
 
 ```{warning}

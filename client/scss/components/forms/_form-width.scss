@@ -4,22 +4,25 @@
 
 @include media-breakpoint-up(md) {
   .minimap-open {
-    .tab-content {
-      width: theme('width.[4/5]');
+    .w-form-width {
+      max-width: theme('width.[4/5]');
     }
   }
 
   .side-panel-open {
-    .tab-content {
+    .w-form-width {
       // Account for dynamic width of the side panel when open.
-      width: max(theme('width.[1/3]'), calc(100% - var(--side-panel-width)));
+      max-width: max(
+        theme('width.[1/3]'),
+        calc(100% - var(--side-panel-width))
+      );
     }
   }
 
   .side-panel-open.minimap-open {
-    .tab-content {
+    .w-form-width {
       // Account for additional space taken up by the minimap.
-      width: max(
+      max-width: max(
         theme('width.[2/5]'),
         calc(100% - var(--side-panel-width) - 15rem)
       );
