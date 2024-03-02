@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 from urllib.parse import urljoin
 from warnings import warn
 
@@ -1294,6 +1295,59 @@ def workflow_status_with_date(workflow_state):
         return _("Sent to %(task_name)s %(started_at)s") % translation_context
 
     return _("%(status_display)s %(task_name)s %(started_at)s") % translation_context
+
+
+@register.inclusion_tag(
+    "wagtailadmin/shared/keyboard_shortcuts_dialog.html",
+    takes_context=True,
+)
+def keyboard_shortcuts_dialog(context):
+    """
+    Renders the keyboard shortcuts dialog content with the
+    appropriate shortcuts for the user's platform.
+    Note: Shortcut keys are intentionally not translated.
+    """
+
+    user_agent = context["request"].headers.get("User-Agent", "")
+    is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
+    modifier = "⌘" if is_mac else "Ctrl"
+
+    return {
+        "shortcuts": {
+            ("actions-common", _("Common actions")): [
+                (_("Copy"), f"{modifier} + c"),
+                (_("Cut"), f"{modifier} + x"),
+                (_("Paste"), f"{modifier} + v"),
+                (
+                    _("Paste and match style")
+                    if is_mac
+                    else _("Paste without formatting"),
+                    f"{modifier} + Shift + v",
+                ),
+                (_("Undo"), f"{modifier} + z"),
+                (
+                    _("Redo"),
+                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                ),
+            ],
+            ("actions-model", _("Actions")): [
+                (_("Save changes"), f"{modifier} + s"),
+                (_("Preview"), f"{modifier} + p"),
+            ],
+            ("rich-text-content", _("Text content")): [
+                (_("Insert or edit a link"), f"{modifier} + k")
+            ],
+            ("rich-text-formatting", _("Text formatting")): [
+                (_("Bold"), f"{modifier} + b"),
+                (_("Italic"), f"{modifier} + i"),
+                (_("Underline"), f"{modifier} + u"),
+                (_("Monospace (code)"), f"{modifier} + j"),
+                (_("Strike-through"), f"{modifier} + x"),
+                (_("Superscript"), f"{modifier} + ."),
+                (_("Subscript"), f"{modifier} + ,"),
+            ],
+        }
+    }
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
