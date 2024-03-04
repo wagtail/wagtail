@@ -571,8 +571,11 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         )
 
         response = self.client.get(history_url)
-        self.assertContains(response, "Preview")
-        self.assertContains(response, preview_url)
+        soup = self.get_soup(response.content)
+
+        preview_link = soup.find("a", {"href": preview_url})
+        self.assertEqual(len(preview_link), 1)
+        self.assertEqual("Preview", preview_link.text)
 
 
 class TestDisablePreviewButton(WagtailTestUtils, TestCase):
@@ -635,5 +638,10 @@ class TestDisablePreviewButton(WagtailTestUtils, TestCase):
             "wagtailadmin_pages:revisions_view",
             args=(stream_page.id, latest_revision.id),
         )
-        self.assertNotContains(response, "Preview")
+
         self.assertNotContains(response, preview_url)
+
+        soup = self.get_soup(response.content)
+
+        preview_link = soup.find("a", {"href": preview_url})
+        self.assertIsNone(preview_link)
