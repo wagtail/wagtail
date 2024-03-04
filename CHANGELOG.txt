@@ -47,6 +47,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure that modal tabs width are not impacted by side panel opening (LB (Ben) Johnston)
+ * Fix: Resolve issue local development of docs when running `make livehtml` (Sage Abdullah)
+ * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
 
 
 6.0.1 (15.02.2024)
