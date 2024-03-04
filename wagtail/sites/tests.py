@@ -25,6 +25,21 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response.content,
         )
 
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(10):
+            self.get()
+
+        sites = [
+            Site(hostname=f"host {i}", port=f"800{i}", root_page_id=2)
+            for i in range(10)
+        ]
+        Site.objects.bulk_create(sites)
+
+        with self.assertNumQueries(20):
+            self.get()
+
 
 class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
