@@ -8,7 +8,8 @@ from collections import OrderedDict, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
-from tempfile import SpooledTemporaryFile
+from shutil import copyfileobj
+from tempfile import SpooledTemporaryFile, mkstemp
 from typing import Any, Dict, Iterable, List, Optional, Union
 
 import willow
@@ -18,7 +19,6 @@ from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
 from django.core.files import File
-from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
 from django.db.models import Q
@@ -651,17 +651,22 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
-        with self.open_file() as file:
-            original_image_bytes = file.read()
+        _, tempfile = mkstemp()
+
+        with open(tempfile, "wb") as f:
+            with self.open_file() as file:
+                copyfileobj(file, f)
 
         to_create = []
 
         def _generate_single_rendition(filter):
             # Using ContentFile here ensures we generate all renditions. Simply
             # passing self.file required several page reloads to generate all
-            image_file = self.generate_rendition_file(
-                filter, source=ContentFile(original_image_bytes, name=self.file.name)
-            )
+            with open(tempfile, "rb") as f:
+                image_file = self.generate_rendition_file(
+                    filter, source=File(f, name=self.file.name)
+                )
+
             to_create.append(
                 Rendition(
                     image=self,
@@ -671,8 +676,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 )
             )
 
-        with ThreadPoolExecutor() as executor:
-            executor.map(_generate_single_rendition, filters)
+        try:
+            with ThreadPoolExecutor() as executor:
+                executor.map(_generate_single_rendition, filters)
+        finally:
+            # Remove the temporary file once we're done
+            os.remove(tempfile)
 
         # Rendition generation can take a while. So, if other processes have created
         # identical renditions in the meantime, we should find them to avoid clashes.
