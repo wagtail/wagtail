@@ -106,3 +106,7 @@ $logo-size: 110px;
     padding: 40px 0;
   }
 }
+
+.sidebar-wagtail-branding__icon-wrapper{
+  border:1px solid theme('colors.border-field-default');
+}
