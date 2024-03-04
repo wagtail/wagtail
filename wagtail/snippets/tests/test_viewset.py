@@ -719,10 +719,12 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         # One from the country code column, another from the custom foo column
         self.assertContains(response, sort_country_code_url, count=2)
 
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+
+        headings = soup.select("#listing-results table th")
 
         # The bulk actions column plus 6 columns defined in FullFeaturedSnippetViewSet
-        self.assertTagInHTML("<th>", html, count=7, allow_extra_attrs=True)
+        self.assertEqual(len(headings), 7)
 
     def test_falsy_value(self):
         # https://github.com/wagtail/wagtail/issues/10765
