@@ -994,7 +994,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         )
         response = self.client.get(self.url)
         soup = self.get_soup(response.content)
-        rows = soup.select("tbody tr")
+        rows = soup.select("#listing-results tbody tr")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(rows), 2)
 
@@ -1084,7 +1084,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
         h1 = soup.select_one("h1")
         self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
-        tds = soup.select("tbody tr td")
+        tds = soup.select("#listing-results tbody tr td")
         self.assertEqual(len(tds), 3)
         self.assertEqual(tds[0].text.strip(), str(self.tbx))
         self.assertEqual(tds[1].text.strip(), "Various on delete model")
@@ -1132,7 +1132,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
         h1 = soup.select_one("h1")
         self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
-        tds = soup.select("tbody tr td")
+        tds = soup.select("#listing-results tbody tr td")
         self.assertEqual(len(tds), 3)
         self.assertEqual(tds[0].text.strip(), "(Private various on delete model)")
         self.assertEqual(tds[1].text.strip(), "Various on delete model")
@@ -1154,7 +1154,7 @@ class TestUsageView(WagtailTestUtils, TestCase):
         h1 = soup.select_one("h1")
         self.assertEqual(h1.text.strip(), f"Usage: {self.object}")
 
-        tds = soup.select("tbody tr td")
+        tds = soup.select("#listing-results tbody tr td")
         self.assertEqual(len(tds), 3)
         self.assertEqual(tds[0].text.strip(), str(self.tbx))
         self.assertEqual(tds[1].text.strip(), "Various on delete model")
