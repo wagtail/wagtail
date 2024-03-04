@@ -597,14 +597,16 @@ class CreateView(
         return context
 
     def get_side_panels(self):
-        side_panels = [
-            StatusSidePanel(
-                self.form.instance,
-                self.request,
-                locale=self.locale,
-                translations=self.translations,
+        side_panels = []
+        if self.locale:
+            side_panels.append(
+                StatusSidePanel(
+                    self.form.instance,
+                    self.request,
+                    locale=self.locale,
+                    translations=self.translations,
+                )
             )
-        ]
         return MediaContainer(side_panels)
 
     def get_translations(self):
