@@ -28,7 +28,7 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(9):
             self.get()
 
         sites = [
@@ -37,7 +37,7 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         ]
         Site.objects.bulk_create(sites)
 
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(9):
             self.get()
 
 
