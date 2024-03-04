@@ -149,15 +149,12 @@ class WagtailImageField(ImageField):
             return None
 
         # Get the file content ready for Willow
-        if hasattr(data, "temporary_file_path"):
-            # Django's `TemporaryUploadedFile` is enough of a file to satisfy Willow
+        if hasattr(data, "read"):
+            # Django's `UploadedFile` is enough of a file to satisfy Willow
             # Willow doesn't support opening images by path https://github.com/wagtail/Willow/issues/108
             file = data
         else:
-            if hasattr(data, "read"):
-                file = BytesIO(data.read())
-            else:
-                file = BytesIO(data["content"])
+            file = BytesIO(data["content"])
 
         try:
             # Annotate the python representation of the FileField with the image
