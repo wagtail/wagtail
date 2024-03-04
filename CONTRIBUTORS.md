@@ -804,6 +804,7 @@
 * Damian Borneman
 * Viktor Szépe
 * Pranith Beeram
+* Maranda Provance
 
 ## Translators
 
