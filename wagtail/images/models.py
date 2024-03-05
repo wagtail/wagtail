@@ -651,13 +651,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
-        _, tempfile = mkstemp()
-
-        with open(tempfile, "wb") as f:
-            with self.open_file() as file:
-                copyfileobj(file, f)
-
         to_create = []
+
+        _fd, tempfile = mkstemp()
 
         def _generate_single_rendition(filter):
             # Using ContentFile here ensures we generate all renditions. Simply
@@ -677,6 +673,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             )
 
         try:
+            with open(tempfile, "wb") as f, self.open_file() as image_file:
+                copyfileobj(image_file, f)
+
             with ThreadPoolExecutor() as executor:
                 executor.map(_generate_single_rendition, filters)
         finally:
