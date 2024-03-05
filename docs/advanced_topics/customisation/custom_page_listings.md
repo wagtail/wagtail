@@ -21,8 +21,8 @@ class BlogPageListingViewSet(PageListingViewSet):
     model = BlogPage
 
 
-blog_page_listing_viewset = BlogPageListingViewSet('blog_pages')
-@hooks.register('register_admin_viewset')
+blog_page_listing_viewset = BlogPageListingViewSet("blog_pages")
+@hooks.register("register_admin_viewset")
 def register_blog_page_listing_viewset():
     return blog_page_listing_viewset
 ```
