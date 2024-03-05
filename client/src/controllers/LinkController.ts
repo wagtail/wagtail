@@ -1,12 +1,28 @@
 import { Controller } from '@hotwired/stimulus';
 
 /**
- * Adds the ability for the controlled element to reflect the URL's query parameters
- * from an event or the current URL into the window.location so that dynamic updates
- * to listings can be available on refreshing or other internal links.
+ * Adds the ability for the controlled element to reflect the query parameters
+ * of an event's URL or the current URL in window.location to its own URL. This
+ * allows the element's URL to be dynamically updated in response to a
+ * client-side update e.g. listings refresh.
  *
- * @example - Reflecting the URL's query parameters
- * <a href="/?q=1" data-controller="w-link" data-w-link-reflect-keys-value="['q']"></a>
+ * @example - Reflecting the query parameters from the current URL
+ * ```html
+ * <a
+ *   href="add/"
+ *   data-controller="w-link"
+ *   data-w-link-reflect-keys-value='["collection_id"]'
+ *   data-action="w-swap:reflect@document->w-link#setParams"
+ * >
+ *   Add
+ * </a>
+ * ```
+ *
+ * If the `window.location` URL contains a query parameter `collection_id` at
+ * the time the controller is connected (or when there is `w-swap:reflect`
+ * event), the new URL's parameters (that are specified in reflect-keys-value)
+ * will be reflected to the `href` attribute of the element, e.g.
+ * `"add/?collection_id=1"`.
  */
 export class LinkController extends Controller<HTMLElement> {
   static values = {
@@ -17,9 +33,13 @@ export class LinkController extends Controller<HTMLElement> {
 
   /** Attribute on the controlled element containing the URL string. */
   declare attrNameValue: string;
-  /** URL param keys that will be kept in the current location's URL. */
+  /** URL param keys in the element's URL that will never be updated. */
   declare preserveKeysValue: string[];
-  /** URL param keys to be added to the location URL from the source URL. */
+  /**
+   * URL param keys to be updated in the element's URL from the source URL.
+   * If unset before the controller is connected, this will be set to the keys
+   * in the current URL's parameters.
+   */
   declare reflectKeysValue: string[];
 
   get url() {
@@ -31,6 +51,14 @@ export class LinkController extends Controller<HTMLElement> {
 
   connect() {
     this.setParams();
+  }
+
+  reflectKeysValueChanged(_: string[], oldValue?: string[]) {
+    // If reflectKeys is unset before the controller is connected,
+    // we'll be reflecting all keys that are present in the URL.
+    if (oldValue === undefined) {
+      this.reflectKeysValue = Array.from(new Set(this.url.searchParams.keys()));
+    }
   }
 
   get reflectAll() {

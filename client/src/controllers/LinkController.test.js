@@ -22,6 +22,28 @@ describe('LinkController', () => {
   });
 
   describe('basic behaviour on connect', () => {
+    it('should set the default reflect-keys using the params available in the URL', async () => {
+      document.body.innerHTML = `
+        <a
+          id="link"
+          href="/admin/something/?color=black&color=blue&which=is&who="
+          data-controller="w-link"
+        >
+          Reflective link
+        </a>
+      `;
+
+      // Trigger next browser render cycle
+      await Promise.resolve();
+
+      // The default reflect-keys-value is set to the params available in the URL
+      expect(
+        document
+          .getElementById('link')
+          .getAttribute('data-w-link-reflect-keys-value'),
+      ).toEqual(JSON.stringify(['color', 'which', 'who']));
+    });
+
     it('should be able to reflect all params', async () => {
       setWindowLocation(
         'http://localhost:8000/admin/pages/?foo=bar&foo=baz&hello=&world=ok',

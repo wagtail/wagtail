@@ -334,7 +334,6 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
-                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
                 )
             )
         return buttons
