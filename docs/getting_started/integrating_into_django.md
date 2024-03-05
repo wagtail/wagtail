@@ -67,7 +67,7 @@ If this setting is not present, Wagtail will fall back to `request.site.root_url
 Add a `WAGTAILDOCS_EXTENSIONS` setting to specify the file types that Wagtail will allow to be uploaded as documents. This can be omitted to allow all file types, but this may present a security risk if untrusted users are allowed to upload documents - see [](user_uploaded_files).
 
 ```python
-WAGTAILDOCS_EXTENSIONS = ['7z', 'bz2', 'csv', 'docx', 'gz', 'key', 'odt', 'pdf', 'pptx', 'rar', 'rtf', 'tar', 'txt', 'xlsx', 'zip']
+WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
 ```
 
 Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
