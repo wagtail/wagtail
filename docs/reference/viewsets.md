@@ -218,3 +218,14 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSetGroup
 
 ```
+
+## PageListingViewSet
+
+```{eval-rst}
+.. autoclass:: wagtail.admin.viewsets.pages.PageListingViewSet
+
+   .. autoattribute:: model
+   .. autoattribute:: index_view_class
+   .. autoattribute:: columns
+   .. autoattribute:: filterset_class
+```

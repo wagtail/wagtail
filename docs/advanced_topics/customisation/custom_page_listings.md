@@ -1,8 +1,9 @@
+(custom_page_listings)=
 # Custom page listings
 
 Normally, editors navigate through the Wagtail admin interface by following the structure of the page tree. However, this can make it slow to locate a specific page for editing, especially on large sites where pages are organised into a deep hierarchy.
 
-Custom page listings are a way to present a flat list of all pages of a given type, accessed from a menu item in the Wagtail admin menu, with the ability for editors to search and filter this list to find the pages they are interested in.
+Custom page listings are a way to present a flat list of all pages of a given type, accessed from a menu item in the Wagtail admin menu, with the ability for editors to search and filter this list to find the pages they are interested in. To define a custom page listing, create a subclass of {class}`~wagtail.admin.viewsets.pages.PageListingViewSet` and register it using the [`register_admin_viewset`](register_admin_viewset) hook.
 
 For example, if your site implemented the page type `BlogPage`, you could provide a "Blog pages" listing in the Wagtail admin by adding the following definitions to a `wagtail_hooks.py` file within the app:
 
