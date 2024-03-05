@@ -22,7 +22,7 @@ describe('LinkController', () => {
   });
 
   describe('basic behaviour on connect', () => {
-    it('should reflect all params by default', async () => {
+    it('should be able to reflect all params', async () => {
       setWindowLocation(
         'http://localhost:8000/admin/pages/?foo=bar&foo=baz&hello=&world=ok',
       );
@@ -35,6 +35,7 @@ describe('LinkController', () => {
           id="link"
           href="/admin/something/"
           data-controller="w-link"
+          data-w-link-reflect-keys-value='["__all__"]'
         >
           Reflective link
         </a>
@@ -100,6 +101,7 @@ describe('LinkController', () => {
           href="/admin/something/?export=xlsx&export=csv&foo=fii&number=1&a=b"
           data-controller="w-link"
           data-w-link-preserve-keys-value='["export", "foo"]'
+          data-w-link-reflect-keys-value='["__all__"]'
         >
           Reflective link with preserve-keys-value
         </a>
@@ -165,7 +167,7 @@ describe('LinkController', () => {
   });
 
   describe('handling an event with requestUrl in the detail', () => {
-    it('should reflect all params by default', async () => {
+    it('should be able to reflect all params', async () => {
       expect(window.location.href).toEqual('http://localhost/');
 
       document.body.innerHTML = `
@@ -174,6 +176,7 @@ describe('LinkController', () => {
           href="/admin/something/"
           data-controller="w-link"
           data-action="w-swap:reflect@document->w-link#setParams"
+          data-w-link-reflect-keys-value='["__all__"]'
         >
           Reflective link
         </a>
@@ -240,6 +243,7 @@ describe('LinkController', () => {
           href="/admin/something/?export=xlsx&export=csv&foo=fii&number=1&a=b"
           data-controller="w-link"
           data-w-link-preserve-keys-value='["export", "foo"]'
+          data-w-link-reflect-keys-value='["__all__"]'
           data-action="w-swap:reflect@document->w-link#setParams"
         >
           Reflective link with preserve-keys-value

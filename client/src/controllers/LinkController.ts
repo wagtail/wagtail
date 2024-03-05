@@ -12,7 +12,7 @@ export class LinkController extends Controller<HTMLElement> {
   static values = {
     attrName: { default: 'href', type: String },
     preserveKeys: { default: [], type: Array },
-    reflectKeys: { default: ['__all__'], type: Array },
+    reflectKeys: { default: [], type: Array },
   };
 
   /** Attribute on the controlled element containing the URL string. */

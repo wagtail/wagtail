@@ -352,6 +352,7 @@ class IndexView(
                     attrs={
                         "data-controller": "w-link",
                         "data-w-link-preserve-keys-value": '["export"]',
+                        "data-w-link-reflect-keys-value": '["__all__"]',
                     },
                 )
             )
@@ -364,6 +365,7 @@ class IndexView(
                     attrs={
                         "data-controller": "w-link",
                         "data-w-link-preserve-keys-value": '["export"]',
+                        "data-w-link-reflect-keys-value": '["__all__"]',
                     },
                 )
             )
