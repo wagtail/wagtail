@@ -67,6 +67,7 @@ class IndexView(generic.IndexView):
     _show_breadcrumbs = True
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
+    columns = []
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
