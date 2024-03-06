@@ -227,7 +227,7 @@ class PopularTagsFilter(django_filters.MultipleChoiceFilter):
             return filtered
 
         # Workaround for https://github.com/wagtail/wagtail/issues/6616
-        pks = filtered.values_list("pk", flat=True)
+        pks = list(filtered.values_list("pk", flat=True))
         return qs.filter(pk__in=pks)
 
 
