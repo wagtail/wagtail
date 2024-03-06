@@ -139,32 +139,34 @@ class AddSearchPromotion(generic.CreateView):
         return reverse("wagtailsearchpromotions:index")
 
     def form_valid(self, form):
-        query = form.save()
-
-        searchpicks_formset = forms.SearchPromotionsFormSet(
-            self.request.POST, instance=query
-        )
+        context = self.get_context_data()
+        searchpicks_formset = context["searchpicks_formset"]
 
         if searchpicks_formset.is_valid():
-            save_searchpicks(query, query, searchpicks_formset)
+            self.object = form.save()
+
+            searchpicks_formset.instance = self.object
+            searchpicks_formset.save()
 
             for search_pick in searchpicks_formset.new_objects:
                 log(search_pick, "wagtail.create")
 
-            self.success_message = self.success_message % {"query": query}
-            self.success_url = reverse(self.index_url_name)
-            return super().form_valid(form)
-        else:
-            self.error_message = " ".join(
-                error for error in searchpicks_formset.non_form_errors()
+            messages.success(
+                self.request,
+                _("Editor's picks for '%(query)s' created.") % {"query": self.object},
+                buttons=[
+                    messages.button(
+                        reverse("wagtailsearchpromotions:edit", args=(self.object.id,)),
+                        _("Edit"),
+                    )
+                ],
             )
-            return self.form_invalid(form)
 
-    def get_success_message(self, cleaned_data):
-        return self.success_message
+            return redirect("wagtailsearchpromotions:index")
 
-    def get_success_url(self):
-        return self.success_url
+        else:
+            self.object = form.instance
+            return self.render_to_response(self.get_context_data(form=form))
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
