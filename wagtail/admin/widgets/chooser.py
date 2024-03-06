@@ -302,7 +302,7 @@ class AdminPageChooser(BaseChooser):
         parent_id = value_data.get("parent_id")
         if parent_id is not None:
             opts["parentId"] = parent_id
-            
+
         if self.page_instance is not None:
             opts["instanceId"] = self.page_instance.id
         return opts
