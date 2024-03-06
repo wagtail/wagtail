@@ -138,20 +138,6 @@ class AddSearchPromotion(generic.CreateView):
     def get_success_url(self):
         return reverse("wagtailsearchpromotions:index")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context["searchpicks_formset"] = forms.SearchPromotionsFormSet(
-                self.request.POST
-            )
-        else:
-            context["searchpicks_formset"] = forms.SearchPromotionsFormSet()
-
-        context["form_media"] = (
-            self.get_form().media + context["searchpicks_formset"].media
-        )
-        return context
-
     def form_valid(self, form):
         query = form.save()
 
@@ -173,6 +159,29 @@ class AddSearchPromotion(generic.CreateView):
                 error for error in searchpicks_formset.non_form_errors()
             )
             return self.form_invalid(form)
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message
+
+    def get_success_url(self):
+        return self.success_url
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context["searchpicks_formset"] = forms.SearchPromotionsFormSet(
+                self.request.POST
+            )
+        else:
+            context["searchpicks_formset"] = forms.SearchPromotionsFormSet()
+
+        context["form_media"] = (
+            self.get_form().media + context["searchpicks_formset"].media
+        )
+        return context
 
 
 @permission_required("wagtailsearchpromotions.change_searchpromotion")
