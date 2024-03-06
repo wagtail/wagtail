@@ -300,8 +300,11 @@ class AdminPageChooser(BaseChooser):
         opts = super().get_js_init_options(id_, name, value_data)
         value_data = value_data or {}
         parent_id = value_data.get("parent_id")
-        if parent_id is not None or self.page_instance is not None:
-            opts["parentId"] = parent_id or self.page_instance.id
+        if parent_id is not None:
+            opts["parentId"] = parent_id
+            
+        if self.page_instance is not None:
+            opts["instanceId"] = self.page_instance.id
         return opts
 
     @property

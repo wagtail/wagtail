@@ -292,10 +292,12 @@ class BrowseView(View):
                     selected_locale = get_object_or_404(
                         Locale, language_code=request.GET["locale"]
                     )
-                    active_locale_id = selected_locale.pk
+                elif request.GET.get("instance_id"):
+                    page_instance = Page.objects.get(id=request.GET["instance_id"])
+                    selected_locale = page_instance.locale
                 else:
-                    active_locale_id = Locale.get_active().pk
-                    selected_locale = get_object_or_404(Locale, id=active_locale_id)
+                    selected_locale = Locale.get_active()
+                active_locale_id = selected_locale.pk
 
                 # we are at the Root level, so get the locales from the current pages
                 choose_url = reverse("wagtailadmin_choose_page")
