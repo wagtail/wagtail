@@ -138,39 +138,6 @@ class AddSearchPromotion(generic.CreateView):
     def get_success_url(self):
         return reverse("wagtailsearchpromotions:index")
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        searchpicks_formset = context["searchpicks_formset"]
-
-        if searchpicks_formset.is_valid():
-            self.object = form.save()
-
-            searchpicks_formset.instance = self.object
-            searchpicks_formset.save()
-
-            for search_pick in searchpicks_formset.new_objects:
-                log(search_pick, "wagtail.create")
-
-            messages.success(
-                self.request,
-                _("Editor's picks for '%(query)s' created.") % {"query": self.object},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailsearchpromotions:edit", args=(self.object.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-
-            return redirect("wagtailsearchpromotions:index")
-
-        else:
-            self.object = form.instance
-            return self.render_to_response(self.get_context_data(form=form))
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
@@ -184,6 +151,28 @@ class AddSearchPromotion(generic.CreateView):
             self.get_form().media + context["searchpicks_formset"].media
         )
         return context
+
+    def form_valid(self, form):
+        query = form.save()
+
+        searchpicks_formset = forms.SearchPromotionsFormSet(
+            self.request.POST, instance=query
+        )
+
+        if searchpicks_formset.is_valid():
+            save_searchpicks(query, query, searchpicks_formset)
+
+            for search_pick in searchpicks_formset.new_objects:
+                log(search_pick, "wagtail.create")
+
+            self.success_message = self.success_message % {"query": query}
+            self.success_url = reverse(self.index_url_name)
+            return super().form_valid(form)
+        else:
+            self.error_message = " ".join(
+                error for error in searchpicks_formset.non_form_errors()
+            )
+            return self.form_invalid(form)
 
 
 @permission_required("wagtailsearchpromotions.change_searchpromotion")
