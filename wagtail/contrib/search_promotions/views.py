@@ -175,63 +175,63 @@ class AddSearchPromotion(generic.CreateView):
             return self.form_invalid(form)
 
 
-@permission_required("wagtailsearchpromotions.change_searchpromotion")
-def edit(request, query_id):
-    query = get_object_or_404(Query, id=query_id)
+class EditSearchPromotion(generic.EditView):
+    model = Query
+    form_class = forms.QueryForm
+    template_name = "wagtailsearchpromotions/edit.html"
+    context_object_name = "query"
+    add_url_name = "wagtailsearchpromotions:add"
+    index_url_name = "wagtailsearchpromotions:index"
+    edit_url_name = "wagtailsearchpromotions:edit"
+    success_message = _("Editor's picks for '%(query)s' updated.")
+    error_message = _("Recommendations have not been saved due to errors")
 
-    if request.method == "POST":
-        # Get query
-        query_form = forms.QueryForm(request.POST)
-        # and the recommendations
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, id=self.kwargs["query_id"])
+
+    def get_success_url(self):
+        return reverse("wagtailsearchpromotions:index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context["searchpicks_formset"] = forms.SearchPromotionsFormSet(
+                self.request.POST, instance=self.object
+            )
+        else:
+            context["searchpicks_formset"] = forms.SearchPromotionsFormSet(
+                instance=self.object
+            )
+
+        context["form_media"] = (
+            self.get_form().media + context["searchpicks_formset"].media
+        )
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+
         searchpicks_formset = forms.SearchPromotionsFormSet(
-            request.POST, instance=query
+            self.request.POST, instance=self.object
         )
 
-        if query_form.is_valid():
-            new_query = Query.get(query_form["query_string"].value())
+        if searchpicks_formset.is_valid():
+            save_searchpicks(self.object, self.object, searchpicks_formset)
 
-            # Save search picks
-            if save_searchpicks(query, new_query, searchpicks_formset):
-                messages.success(
-                    request,
-                    _("Editor's picks for '%(query)s' updated.") % {"query": new_query},
-                    buttons=[
-                        messages.button(
-                            reverse("wagtailsearchpromotions:edit", args=(query.id,)),
-                            _("Edit"),
-                        )
-                    ],
-                )
-                return redirect("wagtailsearchpromotions:index")
-            else:
-                if len(searchpicks_formset.non_form_errors()):
-                    messages.error(
-                        request,
-                        " ".join(
-                            error for error in searchpicks_formset.non_form_errors()
-                        ),
-                    )
-                    # formset level error (e.g. no forms submitted)
-                else:
-                    messages.error(
-                        request, _("Recommendations have not been saved due to errors")
-                    )
-                    # specific errors will be displayed within form fields
+            for search_pick in searchpicks_formset.new_objects:
+                log(search_pick, "wagtail.create")
 
-    else:
-        query_form = forms.QueryForm(initial={"query_string": query.query_string})
-        searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
+            messages.success(
+                self.request, self.success_message % {"query": self.object}
+            )
+            return redirect(reverse("wagtailsearchpromotions:index"))
+        else:
+            messages.error(self.request, self.error_message)
+            return self.render_to_response(self.get_context_data(form=form))
 
-    return TemplateResponse(
-        request,
-        "wagtailsearchpromotions/edit.html",
-        {
-            "query_form": query_form,
-            "searchpicks_formset": searchpicks_formset,
-            "query": query,
-            "form_media": query_form.media + searchpicks_formset.media,
-        },
-    )
+    def form_invalid(self, form):
+        messages.error(self.request, self.error_message)
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 @permission_required("wagtailsearchpromotions.delete_searchpromotion")
