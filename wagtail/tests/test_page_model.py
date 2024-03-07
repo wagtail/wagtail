@@ -3932,6 +3932,7 @@ class TestPageCacheKey(TestCase):
         self.page.save()
         self.assertNotEqual(self.page.cache_key, original_cache_key)
 
+
 class TestPageCachedParentObjExists(TestCase):
     fixtures = ["test.json"]
 
