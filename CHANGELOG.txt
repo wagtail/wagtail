@@ -24,6 +24,7 @@ Changelog
  * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
  * Fix: Ensure form builder emails that have date or datetime fields correctly localize dates based on the configured `LANGUAGE_CODE` (Mark Niehues)
  * Fix: Ensure the Stimulus `UnsavedController` checks for nested removal/additions of inputs so that the unsaved warning shows in more valid cases when editing a page (Karthik Ayangar)
+ * Fix: Ensure `get_add_url()` is always used to re-render the add button when the listing is refreshed in viewsets (Sage Abdullah)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)

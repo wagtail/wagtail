@@ -442,5 +442,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             and self.filters
             and self.results_only
         )
+        context["render_buttons_fragment"] = (
+            context.get("header_buttons") and self.results_only
+        )
 
         return context

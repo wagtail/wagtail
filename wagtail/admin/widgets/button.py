@@ -109,9 +109,8 @@ class HeaderButton(Button):
         attrs = attrs.copy()
         attrs.update(
             {
-                "data-controller": "w-tooltip w-link",
+                "data-controller": "w-tooltip",
                 "data-w-tooltip-content-value": label,
-                "data-action": "w-swap:reflect@document->w-link#setParams",
                 "aria-label": label,
             }
         )
