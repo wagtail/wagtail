@@ -455,7 +455,6 @@ class TestRouting(TestCase):
         with self.assertNumQueries(0):
             parent = found_page.get_parent(update=False)
             self.assertEqual(parent, events_page)
-        
 
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
