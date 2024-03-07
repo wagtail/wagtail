@@ -53,6 +53,7 @@ Changelog
  * Fix: Ensure that modal tabs width are not impacted by side panel opening (LB (Ben) Johnston)
  * Fix: Resolve issue local development of docs when running `make livehtml` (Sage Abdullah)
  * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
+ * Fix: Ensure filter query parameters added in `IndexView.get_add_url()` is reflected in the "add" button URL when updating the listing (Sage Abdullah)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
 
 
