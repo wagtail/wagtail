@@ -404,6 +404,10 @@ For this reason, Wagtail provides several serving methods that trade some of the
 
 If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
 
+```{warning}
+Allowing direct access to document URLs within `MEDIA_ROOT` may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
+```
+
 (wagtaildocs_content_types)=
 
 ### `WAGTAILDOCS_CONTENT_TYPES`
@@ -436,9 +440,11 @@ WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
 ```
 
 A list of allowed document extensions that will be validated during document uploading.
-If this isn't supplied all document extensions are allowed.
-Warning: this doesn't always ensure that the uploaded file is valid as files can
-be renamed to have an extension no matter what data they contain.
+If this isn't supplied all document extensions are allowed. This doesn't ensure that the uploaded file is valid, as files can be renamed to have an extension no matter what data they contain.
+
+```{warning}
+Allowing all file types may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
+```
 
 ## User Management
 
