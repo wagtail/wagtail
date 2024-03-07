@@ -806,6 +806,7 @@
 * Pranith Beeram
 * Maranda Provance
 * Mark Niehues
+* Georgios Roumeliotis
 
 ## Translators
 
