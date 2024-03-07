@@ -449,7 +449,7 @@ class TestRouting(TestCase):
         request = get_dummy_request(path="/events/christmas/")
         (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
         self.assertEqual(found_page, christmas_page)
-        
+
         # parent cache should be set
         events_page = Page.objects.get(url_path="/home/events/").specific
         with self.assertNumQueries(0):
@@ -3940,7 +3940,7 @@ class TestPageCachedParentObjExists(TestCase):
         # Test if _cached_parent_obj is set after using page.get_parent()
         # This is treebeard specific, we don't know if their API will change.
         homepage = Page.objects.get(url_path="/home/")
-        
+
         subpage = SimplePage(title="Subpage", content="hello")
         homepage.add_child(instance=subpage)
         retrieved_page = Page.objects.get(id=subpage.id)
@@ -3948,4 +3948,3 @@ class TestPageCachedParentObjExists(TestCase):
 
         # Check if _cached_parent_obj is set (and exists)
         self.assertEqual(retrieved_page._cached_parent_obj.pk, homepage.pk)
-
