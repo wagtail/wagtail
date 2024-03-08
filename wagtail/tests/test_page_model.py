@@ -3929,9 +3929,11 @@ class TestPageCachedParentObjExists(TestCase):
         # This is treebeard specific, we don't know if their API will change.
         homepage = Page.objects.get(url_path="/home/")
         homepage._cached_parent_obj = "_cached_parent_obj_exists"
-        homepage.get_parent(update=False)
+
+        # This should set _cached_parent_obj to None
+        parent = homepage.get_parent(update=False)
         self.assertEqual(
-            homepage._cached_parent_obj,
+            parent,
             "_cached_parent_obj_exists",
             "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
         )
