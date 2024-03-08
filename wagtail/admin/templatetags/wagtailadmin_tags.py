@@ -88,6 +88,7 @@ def page_breadcrumbs(
     querystring_value="",
     trailing_breadcrumb_title=None,
     classname=None,
+    icon_name=None,
 ):
     user = context["request"].user
 
@@ -121,6 +122,7 @@ def page_breadcrumbs(
         "items": items,
         "is_expanded": is_expanded,
         "classname": classname,
+        "icon_name": icon_name,
     }
 
 
