@@ -22,6 +22,7 @@ from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -614,33 +615,17 @@ class StatusTagTest(SimpleTestCase):
         self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
-class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
+class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCase):
+    base_breadcrumb_items = []
     template = """
         {% load wagtailadmin_tags %}
         {% breadcrumbs items %}
     """
 
-    def assertItemsRendered(self, items, soup):
-        rendered_items = soup.select("ol > li")
-        arrows = soup.select("ol > li > svg")
-        self.assertEqual(len(rendered_items), len(items))
-        self.assertEqual(len(arrows), len(items) - 1)
-
-        for item, rendered_item in zip(items, rendered_items):
-            if item.get("url"):
-                element = rendered_item.select_one("a")
-                self.assertIsNotNone(element)
-                self.assertEqual(element["href"], item["url"])
-            else:
-                element = rendered_item.select_one("div")
-                self.assertIsNotNone(element)
-            self.assertEqual(element.text.strip(), item["label"])
-
     def test_single_item(self):
         items = [{"label": "Something", "url": "/admin/something/"}]
         rendered = Template(self.template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
     def test_trailing_no_url(self):
         items = [
@@ -649,8 +634,7 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "New: Person"},
         ]
         rendered = Template(self.template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
     def test_not_is_expanded(self):
         items = [
@@ -659,9 +643,9 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
         ]
         rendered = Template(self.template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         controller = soup.select_one('[data-controller="w-breadcrumbs"]')
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNotNone(controller)
@@ -678,9 +662,9 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
         ]
         rendered = Template(template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         controller = soup.select_one('[data-controller="w-breadcrumbs"]')
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNone(controller)
@@ -693,9 +677,9 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
         """
         items = [{"label": "Home", "url": "/admin/"}]
         rendered = Template(template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         div = soup.select_one("div.w-breadcrumbs")
         self.assertIsNotNone(div)
         self.assertIn("my-class", div["class"])
