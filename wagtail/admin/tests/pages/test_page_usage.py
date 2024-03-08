@@ -58,6 +58,14 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
+        # There should be exactly one edit link, rendered as a header button
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        soup = self.get_soup(response.content)
+        edit_links = soup.select(f"a[href='{edit_url}']")
+        self.assertEqual(len(edit_links), 1)
+        edit_link = edit_links[0]
+        self.assertIn("w-header-button", edit_link.attrs.get("class"))
+
     def test_has_private_usage(self):
         PageChooserModel.objects.create(page=self.page)
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
