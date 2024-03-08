@@ -39,7 +39,8 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         return object
 
     def get_edit_url(self):
-        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_usage_url(self, instance):
         if self.usage_url_name:
@@ -60,10 +61,11 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                     "label": capfirst(self.object._meta.verbose_name_plural),
                 }
             )
-        if self.edit_url_name:
+        edit_url = self.get_edit_url()
+        if edit_url:
             items.append(
                 {
-                    "url": self.get_edit_url(),
+                    "url": edit_url,
                     "label": get_latest_str(self.object),
                 }
             )
@@ -78,13 +80,17 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
 
     @cached_property
     def header_buttons(self):
-        return [
-            HeaderButton(
-                label=_("Edit"),
-                url=self.get_edit_url(),
-                icon_name="edit",
-            ),
-        ]
+        edit_url = self.get_edit_url()
+        buttons = []
+        if edit_url:
+            buttons.append(
+                HeaderButton(
+                    label=_("Edit"),
+                    url=edit_url,
+                    icon_name="edit",
+                )
+            )
+        return buttons
 
     def get_queryset(self):
         return ReferenceIndex.get_references_to(self.object).group_by_source_object()
