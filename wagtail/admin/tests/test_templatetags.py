@@ -703,6 +703,24 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
         self.assertIsNotNone(div)
         self.assertIn("my-class", div["class"])
 
+    def test_icon_name(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% breadcrumbs items icon_name="site" %}
+        """
+        items = [
+            {"label": "Home", "url": "/admin/"},
+            {"label": "Something", "url": "/admin/something/"},
+        ]
+        rendered = Template(template).render(Context({"items": items}))
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+        soup = self.get_soup(rendered)
+        invalid_icons = soup.select("ol li:not(:last-child) svg use[href='#icon-site']")
+        self.assertEqual(len(invalid_icons), 0)
+        icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
+
 
 class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -876,3 +894,25 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         div = soup.select_one("div.w-breadcrumbs")
         self.assertIsNotNone(div)
         self.assertIn("my-class", div["class"])
+
+    def test_icon_name(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' icon_name='site' %}
+        """
+        page = Page.objects.get(id=3)
+        items = [
+            {"label": "Root", "url": "/admin/pages/1/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+        soup = self.get_soup(rendered)
+        invalid_icons = soup.select("ol li:not(:last-child) svg use[href='#icon-site']")
+        self.assertEqual(len(invalid_icons), 0)
+        icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
