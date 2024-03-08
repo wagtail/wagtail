@@ -40,6 +40,7 @@ from wagtail.admin.utils import (
     get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
+from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
 from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
     accepts_kwarg,
@@ -55,7 +56,6 @@ from wagtail.models import (
     Page,
     PageViewRestriction,
 )
-from wagtail.permissions import page_permission_policy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -91,25 +91,14 @@ def page_breadcrumbs(
 ):
     user = context["request"].user
 
-    # find the closest common ancestor of the pages that this user has direct explore permission
-    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = page_permission_policy.explorable_root_instance(user)
-    if not cca:
-        return {"items": Page.objects.none()}
-
-    pages = (
-        page.get_ancestors(inclusive=include_self)
-        .descendant_of(cca, inclusive=True)
-        .specific()
+    items = get_breadcrumbs_items_for_page(
+        page,
+        user,
+        url_name,
+        url_root_name,
+        include_self,
+        querystring_value,
     )
-
-    items = []
-    for page in pages:
-        if page.is_root() and url_root_name:
-            url = reverse(url_root_name)
-        else:
-            url = reverse(url_name, args=(page.id,))
-        items.append({"url": url + querystring_value, "label": get_latest_str(page)})
 
     if trailing_breadcrumb_title:
         items.append({"label": trailing_breadcrumb_title})
