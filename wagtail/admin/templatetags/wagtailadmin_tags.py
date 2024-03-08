@@ -70,7 +70,7 @@ register.filter("naturaltime", naturaltime)
 def breadcrumbs(items, is_expanded=False, classname=None, icon_name=None):
     return {
         "items": items,
-        "is_expanded": is_expanded,
+        "is_expanded": is_expanded or len(items) == 1,
         "classname": classname,
         "icon_name": icon_name,
     }
