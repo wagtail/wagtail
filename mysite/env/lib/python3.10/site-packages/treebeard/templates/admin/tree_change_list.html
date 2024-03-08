@@ -1,0 +1,24 @@
+{# Used for MP and NS trees #}
+{% extends "admin/change_list.html" %}
+{% load admin_list admin_tree static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'treebeard/treebeard-admin.css' %}" />
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    <script data-csrftoken="{{ csrf_token }}" src="{% static 'treebeard/treebeard-admin.js' %}"></script>
+{% endblock %}
+
+{% block result_list %}
+    {% if action_form and actions_on_top and cl.full_result_count %}
+        {% admin_actions %}
+    {% endif %}
+    {% result_tree cl request %}
+    {% if action_form and actions_on_bottom and cl.full_result_count %}
+        {% admin_actions %}
+    {% endif %}
+{% endblock %}

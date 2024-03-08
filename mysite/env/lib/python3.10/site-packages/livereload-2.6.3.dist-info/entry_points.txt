@@ -1,0 +1,2 @@
+[console_scripts]
+livereload = livereload.cli:main

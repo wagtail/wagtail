@@ -1,0 +1,2 @@
+(()=>{function e(e,{isInitial:t=!1}={}){const a="dark",o="light",l="wagtail-theme";let c,n,r;try{r=localStorage.getItem(l)}catch(e){console.warn("Unable to read theme from localStorage",e)}if(c=r?r===o?o:a:window.matchMedia("(prefers-color-scheme:dark)").matches?a:o,n=t?c===a?a:o:c===a?o:a,document.body.classList.toggle("theme-dark",n===a),r||e)try{localStorage.setItem(l,n)}catch(e){console.warn("Unable to store theme in localStorage",e)}}e(null,{isInitial:!0}),document.addEventListener("theme:toggle-theme-mode",e,{passive:!0})})();
+//# sourceMappingURL=blocking.js.map

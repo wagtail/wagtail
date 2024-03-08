@@ -1,0 +1,2 @@
+sphinx_wagtail_theme
+tests

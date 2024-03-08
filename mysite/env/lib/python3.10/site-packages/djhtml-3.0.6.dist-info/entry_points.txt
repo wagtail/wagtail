@@ -1,0 +1,5 @@
+[console_scripts]
+djcss = djhtml.__main__:main
+djhtml = djhtml.__main__:main
+djjs = djhtml.__main__:main
+djtxt = djhtml.__main__:main

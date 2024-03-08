@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: django-taggit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-14 11:39+0900\n"
+"PO-Revision-Date: 2014-04-23 08:05+0900\n"
+"Last-Translator: Tatsuo Ikeda <jp.ne.co.jp@gmail.com>\n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: taggit/apps.py:7
+msgid "Taggit"
+msgstr ""
+
+#: taggit/forms.py:31
+msgid "Please provide a comma-separated list of tags."
+msgstr "複数タグはカンマ区切りのリストを入れてください。"
+
+#: taggit/managers.py:432
+msgid "Tags"
+msgstr "タグ一覧"
+
+#: taggit/managers.py:433
+msgid "A comma-separated list of tags."
+msgstr "複数タグはカンマ区切りのリスト。"
+
+#: taggit/models.py:19
+msgctxt "A tag name"
+msgid "name"
+msgstr "名称"
+
+#: taggit/models.py:22
+msgctxt "A tag slug"
+msgid "slug"
+msgstr "スラッグ"
+
+#: taggit/models.py:82
+msgid "tag"
+msgstr "タグ"
+
+#: taggit/models.py:83
+msgid "tags"
+msgstr ""
+
+#: taggit/models.py:89
+#, python-format
+msgid "%(object)s tagged with %(tag)s"
+msgstr "%(object)s tagged with %(tag)s"
+
+#: taggit/models.py:134
+msgid "content type"
+msgstr "コンテンツタイプ"
+
+#: taggit/models.py:165 taggit/models.py:172
+msgid "object ID"
+msgstr "オブジェクト ID"
+
+#: taggit/models.py:180
+msgid "tagged item"
+msgstr "タグ付け済みのアイテム"
+
+#: taggit/models.py:181
+msgid "tagged items"
+msgstr "タグ付け済みのアイテム一覧"
+
+#: taggit/serializers.py:40
+#, python-brace-format
+msgid "Expected a list of items but got type \"{input_type}\"."
+msgstr ""
+
+#: taggit/serializers.py:43
+msgid ""
+"Invalid json list. A tag list submitted in string form must be valid json."
+msgstr ""
+
+#: taggit/serializers.py:46
+msgid "All list items must be of string type."
+msgstr ""

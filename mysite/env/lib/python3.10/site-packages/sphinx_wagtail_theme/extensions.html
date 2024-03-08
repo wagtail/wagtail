@@ -1,0 +1,41 @@
+{#
+    extensions.html
+    ~~~~~~~~~~~~
+
+    Like normal page PLUS javascript form for extension selection
+
+    :copyright: Copyright 2007-2016 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- extends "layout.html" %}
+{%- block scripts2 %}
+<script type="text/javascript" src="extensions.js"></script>
+<script type="text/javascript" src="extensions-search.js"></script>
+{% endblock -%}
+{% block body %}
+  {{ body }}
+<form action="extensions.html" name="filter" id="extension_filter_form">
+    <div class="b-form-row">
+        <label style="">Search for extensions by key:</label>
+        <div class="b-form-inputs">
+            <input type="text" name="extension_filter" id="extension_filter"/>
+        </div>
+    </div>
+</form>
+<p id="search_results">Type at least three characters in the search field.</p>
+<div id="extension_list"></div>
+{#
+    <div class="section">
+        <h2>
+            About this list
+        </h2>
+        <p>
+            Only extensions having OpenOffice manuals are currently listed here.
+            The handling of ReST-based documentation for extensions is not yet handled.
+            The Documentation Team is aware of this problem and working actively
+            to enable this feature as soon as possible.
+        </p>
+        <p>Extensions without manuals do not appear here.</p>
+    </div>
+#}
+{% endblock %}

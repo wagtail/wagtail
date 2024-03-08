@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: face
+Version: 22.0.0
+Summary: A command-line application framework (and CLI parser). Friendly for users, full-featured for developers.
+Home-page: https://github.com/mahmoud/face
+Author: Mahmoud Hashemi
+Author-email: mahmoud@hatnote.com
+License: BSD
+Platform: any
+Classifier: Topic :: Utilities
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+License-File: LICENSE
+Requires-Dist: boltons (>=20.0.0)
+
+A command-line interface parser and framework, friendly for users,
+full-featured for developers.

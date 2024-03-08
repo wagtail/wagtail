@@ -1,0 +1,32 @@
+{%- extends "layout.html" %}
+{% set title = _('Search') %}
+{% block body %}
+
+    <noscript>
+        <div id="fallback" class="admonition warning">
+            <p class="last">
+                {% trans %}Please activate JavaScript to enable the search
+                functionality.{% endtrans %}
+            </p>
+        </div>
+    </noscript>
+    {% if search_performed %}
+        <h2>{{ _('Search Results') }}</h2>
+        {% if not search_results %}
+            <p>{{ _('Your search did not match any documents. Please make sure that all words are spelled correctly and that you\'ve selected enough categories.') }}</p>
+        {% endif %}
+    {% endif %}
+    <div id="search-results">
+        {% if search_results %}
+            <ul>
+                {% for href, caption, context in search_results %}
+                    <li>
+                        <a href="{{ pathto(item.href) }}">{{ caption }}</a>
+                        <div class="context">{{ context|e }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+{% endblock %}

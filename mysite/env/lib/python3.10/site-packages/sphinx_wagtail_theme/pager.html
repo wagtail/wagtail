@@ -1,0 +1,14 @@
+{% if next or prev -%}
+<nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    {%- if prev %}
+    <a class="float-left" href="{{ prev.link|e }}" title="{{ _('Previous') }}">
+        <span aria-hidden="true">←&nbsp;</span>{{ prev.title }}
+    </a>
+    {%- endif %}
+    {%- if next %}
+    <a class="float-right" href="{{ next.link|e }}" title="{{ _('Next') }}">
+        {{ next.title }} <span aria-hidden="true">&nbsp;→</span>
+    </a>
+    {%- endif %}
+</nav>
+{%- endif %}

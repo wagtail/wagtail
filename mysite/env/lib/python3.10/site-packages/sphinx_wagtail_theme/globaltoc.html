@@ -1,0 +1,10 @@
+<div class="site-toc">
+    <nav class="toc mt-3" aria-label="{{ _('Main menu') }}">
+        {{ toctree(includehidden=False, collapse=False, maxdepth=8, titles_only=True) }}
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">{{ _('Toggle menu contents') }}</span>
+        </button>
+    </template>
+</div>

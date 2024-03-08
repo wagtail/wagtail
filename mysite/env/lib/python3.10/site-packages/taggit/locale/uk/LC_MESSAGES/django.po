@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Django Taggit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-14 11:44+0900\n"
+"PO-Revision-Date: 2010-06-11 11:30+0700\n"
+"Last-Translator: Igor 'idle sign' Starikov <idlesign@yandex.ru>\n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: taggit/apps.py:7
+msgid "Taggit"
+msgstr "Мітка"
+
+#: taggit/forms.py:31
+msgid "Please provide a comma-separated list of tags."
+msgstr "Вкажіть мітки через кому."
+
+#: taggit/managers.py:432
+msgid "Tags"
+msgstr "Мітка"
+
+#: taggit/managers.py:433
+msgid "A comma-separated list of tags."
+msgstr "Список міток через кому."
+
+#: taggit/models.py:19
+msgctxt "A tag name"
+msgid "name"
+msgstr "Назва"
+
+#: taggit/models.py:22
+msgctxt "A tag slug"
+msgid "slug"
+msgstr "Слаг"
+
+#: taggit/models.py:82
+msgid "tag"
+msgstr "Мітка"
+
+#: taggit/models.py:83
+msgid "tags"
+msgstr ""
+
+#: taggit/models.py:89
+#, python-format
+msgid "%(object)s tagged with %(tag)s"
+msgstr "елемент «%(object)s» з міткою «%(tag)s»"
+
+#: taggit/models.py:134
+msgid "content type"
+msgstr "Тип вмісту"
+
+#: taggit/models.py:165 taggit/models.py:172
+msgid "object ID"
+msgstr "ID об'єкта"
+
+#: taggit/models.py:180
+msgid "tagged item"
+msgstr "Елемент з міткою"
+
+#: taggit/models.py:181
+msgid "tagged items"
+msgstr "Елементи з міткою"
+
+#: taggit/serializers.py:40
+#, python-brace-format
+msgid "Expected a list of items but got type \"{input_type}\"."
+msgstr ""
+
+#: taggit/serializers.py:43
+msgid ""
+"Invalid json list. A tag list submitted in string form must be valid json."
+msgstr ""
+
+#: taggit/serializers.py:46
+msgid "All list items must be of string type."
+msgstr ""

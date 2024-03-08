@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: pbr
+Version: 6.0.0
+Summary: Python Build Reasonableness
+Home-page: https://docs.openstack.org/pbr/latest/
+Author: OpenStack
+Author-email: openstack-discuss@lists.openstack.org
+License: UNKNOWN
+Project-URL: Bug Tracker, https://bugs.launchpad.net/pbr/
+Project-URL: Documentation, https://docs.openstack.org/pbr/
+Project-URL: Source Code, https://opendev.org/openstack/pbr
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Environment :: OpenStack
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=2.6
+Description-Content-Type: text/x-rst; charset=UTF-8
+
+Python Build Reasonableness
+
+
