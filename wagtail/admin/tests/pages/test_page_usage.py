@@ -8,9 +8,13 @@ from wagtail.test.testapp.models import (
     SimplePage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestPageUsage(WagtailTestUtils, TestCase):
+class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    # We don't show the "Home" breadcrumb item in page views
+    base_breadcrumb_items = []
+
     def setUp(self):
         self.user = self.login()
         self.root_page = Page.objects.get(id=2)
@@ -24,7 +28,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         page.save_revision().publish()
         self.page = SimplePage.objects.get(id=page.id)
 
-    def test_no_usage(self):
+    def test_simple(self):
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
         response = self.client.get(usage_url)
 
@@ -32,6 +36,27 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertContains(response, "Usage")
         self.assertContains(response, "Hello world!")
+
+        items = [
+            {
+                "url": reverse("wagtailadmin_explore_root"),
+                "label": "Root",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+                "label": "Welcome to your new Wagtail site!",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.page.id,)),
+                "label": "Hello world! (simple page)",
+            },
+            {
+                "url": "",
+                "label": "Usage",
+                "sublabel": "Hello world! (simple page)",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_has_private_usage(self):
         PageChooserModel.objects.create(page=self.page)
