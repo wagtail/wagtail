@@ -442,20 +442,6 @@ class TestRouting(TestCase):
         (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
         self.assertEqual(found_page, christmas_page)
 
-    def test_cached_parent_obj_set(self):
-        homepage = Page.objects.get(url_path="/home/")
-        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
-
-        request = get_dummy_request(path="/events/christmas/")
-        (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
-        self.assertEqual(found_page, christmas_page)
-
-        # parent cache should be set
-        events_page = Page.objects.get(url_path="/home/events/").specific
-        with self.assertNumQueries(0):
-            parent = found_page.get_parent(update=False)
-            self.assertEqual(parent, events_page)
-
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
@@ -3937,14 +3923,15 @@ class TestPageCachedParentObjExists(TestCase):
     fixtures = ["test.json"]
 
     def test_cached_parent_obj_exists(self):
+        # https://github.com/wagtail/wagtail/pull/11737
+
         # Test if _cached_parent_obj is set after using page.get_parent()
         # This is treebeard specific, we don't know if their API will change.
         homepage = Page.objects.get(url_path="/home/")
-
-        subpage = SimplePage(title="Subpage", content="hello")
-        homepage.add_child(instance=subpage)
-        retrieved_page = Page.objects.get(id=subpage.id)
-        retrieved_page.get_parent(update=True)
-
-        # Check if _cached_parent_obj is set (and exists)
-        self.assertEqual(retrieved_page._cached_parent_obj.pk, homepage.pk)
+        homepage._cached_parent_obj = "_cached_parent_obj_exists"
+        homepage.get_parent(update=False)
+        self.assertEqual(
+            homepage._cached_parent_obj,
+            "_cached_parent_obj_exists",
+            "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
+        )
