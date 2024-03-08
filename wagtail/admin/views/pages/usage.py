@@ -75,6 +75,7 @@ class UsageView(generic.UsageView):
     model = Page
     pk_url_kwarg = "page_id"
     header_icon = "doc-empty-inverse"
+    usage_url_name = "wagtailadmin_pages:usage"
 
     def dispatch(self, request, *args, **kwargs):
         if not self.object.permissions_for_user(request.user).can_edit():
