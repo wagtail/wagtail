@@ -78,6 +78,7 @@ class UsageView(generic.UsageView):
     pk_url_kwarg = "page_id"
     header_icon = "doc-empty-inverse"
     usage_url_name = "wagtailadmin_pages:usage"
+    edit_url_name = "wagtailadmin_pages:edit"
     _show_breadcrumbs = True
 
     def dispatch(self, request, *args, **kwargs):
@@ -88,3 +89,11 @@ class UsageView(generic.UsageView):
     @cached_property
     def breadcrumbs_items(self):
         return get_breadcrumbs_items_for_page(self.object, self.request.user)
+
+    def get_breadcrumbs_items(self):
+        # The generic UsageView will add an edit link for the current object as
+        # the second-to-last item, but we don't want that because we want to
+        # link to the explore view instead for consistency with how page
+        # breadcrumbs work elsewhere. So we only take the last item, which is
+        # the "self" (Usage) item.
+        return self.breadcrumbs_items + [super().get_breadcrumbs_items()[-1]]
