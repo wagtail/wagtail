@@ -626,6 +626,12 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
         items = [{"label": "Something", "url": "/admin/something/"}]
         rendered = Template(self.template).render(Context({"items": items}))
         self.assertBreadcrumbsItemsRendered(items, rendered)
+        # Without specifying is_expanded=False, the breadcrumbs should not be
+        # collapsible anyway, so it is not controlled by Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
 
     def test_trailing_no_url(self):
         items = [
@@ -650,6 +656,12 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNotNone(controller)
         self.assertIsNotNone(toggle_button)
+        # If is_expanded=False (the default), the breadcrumbs should be
+        # collapsible via Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertEqual(breadcrumbs.get("data-controller"), "w-breadcrumbs")
 
     def test_is_expanded(self):
         template = """
@@ -669,6 +681,12 @@ class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCas
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNone(controller)
         self.assertIsNone(toggle_button)
+        # If is_expanded=True, the breadcrumbs should not be collapsible, so it
+        # is not controlled by Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
 
     def test_classname(self):
         template = """
