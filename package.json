@@ -119,6 +119,7 @@
     "focus-trap-react": "^8.11.3",
     "immer": "^9.0.21",
     "js-cookie": "^3.0.5",
+    "mousetrap": "^1.6.5",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
