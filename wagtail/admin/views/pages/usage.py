@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import Column, DateColumn
@@ -15,6 +16,7 @@ from wagtail.admin.ui.tables.pages import (
 )
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
 from wagtail.models import Page
 
 
@@ -76,8 +78,13 @@ class UsageView(generic.UsageView):
     pk_url_kwarg = "page_id"
     header_icon = "doc-empty-inverse"
     usage_url_name = "wagtailadmin_pages:usage"
+    _show_breadcrumbs = True
 
     def dispatch(self, request, *args, **kwargs):
         if not self.object.permissions_for_user(request.user).can_edit():
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    @cached_property
+    def breadcrumbs_items(self):
+        return get_breadcrumbs_items_for_page(self.object, self.request.user)
