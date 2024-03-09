@@ -4,19 +4,13 @@ import Mousetrap from 'mousetrap';
 export default class extends Controller {
   static values = { key: String };
 
-  declare keyValue: string;
-
   handleKey(event: Event) {
     event.preventDefault();
     this.element.click();
   }
 
-  connect() {
-    Mousetrap.bind(this.keyValue, this.handleKey.bind(this));
-  }
-
-  disconnect() {
-    Mousetrap.unbind(this.keyValue);
+  initialize(): void {
+    this.handleKey = this.handleKey.bind(this);
   }
 
   keyValueChanged(key, previousKey) {
