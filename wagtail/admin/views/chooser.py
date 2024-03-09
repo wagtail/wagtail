@@ -93,7 +93,7 @@ def can_choose_page(
 
             if user_perm == "move_to":
                 return page_to_move.permissions_for_user(user).can_move_to(page)
-    if user_perm == "copy_to":
+    if user_perm in {"add_subpage", "copy_to"}:
         return page.permissions_for_user(user).can_add_subpage()
 
     return True
