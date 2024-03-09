@@ -1,5 +1,6 @@
 from django.urls import path
 
+from wagtail.admin.views.pages.choose_parent import ChooseParentView
 from wagtail.admin.views.pages.listing import IndexView
 from wagtail.models import Page
 
@@ -16,6 +17,8 @@ class PageListingViewSet(ViewSet):
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
     index_view_class = IndexView
+    #: The view that is used to choose the parent when creating a new page of this content type
+    choose_parent_view_class = ChooseParentView
     #: Required; the page model class that this viewset will work with.
     model = Page
     #: A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
@@ -29,9 +32,16 @@ class PageListingViewSet(ViewSet):
         return {
             "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
+            "choose_parent_url_name": self.get_url_name("choose_parent"),
             "model": self.model,
             "columns": self.columns,
             "filterset_class": self.filterset_class,
+            **kwargs,
+        }
+
+    def get_chooseparent_view_kwargs(self, **kwargs):
+        return {
+            "model": self.model,
             **kwargs,
         }
 
@@ -47,8 +57,15 @@ class PageListingViewSet(ViewSet):
             self.index_view_class, **self.get_index_view_kwargs(), results_only=True
         )
 
+    @property
+    def choose_parent_view(self):
+        return self.construct_view(
+            self.choose_parent_view_class, **self.get_chooseparent_view_kwargs()
+        )
+
     def get_urlpatterns(self):
         return [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
+            path("choose_parent", self.choose_parent_view, name="choose_parent"),
         ]

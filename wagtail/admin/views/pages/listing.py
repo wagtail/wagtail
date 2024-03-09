@@ -143,6 +143,7 @@ class IndexView(generic.IndexView):
     filterset_class = PageFilterSet
     index_url_name = None
     index_results_url_name = None
+    choose_parent_url_name = None
     default_ordering = "-latest_revision_created_at"
     model = Page
     _show_breadcrumbs = True
@@ -278,6 +279,9 @@ class IndexView(generic.IndexView):
 
     def get_index_results_url(self):
         return reverse(self.index_results_url_name)
+    
+    def get_chooseparent_url(self):
+        return reverse(self.choose_parent_url_name)
 
     def get_breadcrumbs_items(self):
         return self.breadcrumbs_items + [{"url": "", "label": self.get_page_title()}]
@@ -289,6 +293,9 @@ class IndexView(generic.IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if self.choose_parent_url_name:
+            context["choose_parent_url"] = self.get_chooseparent_url()
 
         context.update(
             {
