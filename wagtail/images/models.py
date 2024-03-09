@@ -17,6 +17,7 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -128,8 +129,27 @@ def get_rendition_storage():
     """
     storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
     if isinstance(storage, str):
-        module = import_string(storage)
-        storage = module()
+        try:
+            from django.core.files.storage import InvalidStorageError, storages
+
+            try:
+                # First see if the string is a storage alias
+                storage = storages[storage]
+            except InvalidStorageError:
+                # Otherwise treat the string as a dotted path
+                try:
+                    module = import_string(storage)
+                    storage = module()
+                except ImportError:
+                    raise ImproperlyConfigured(
+                        "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
+                    )
+
+        except ImportError:
+            # DJANGO_VERSION < 4.2
+            module = import_string(storage)
+            storage = module()
+
     return storage
 
 
