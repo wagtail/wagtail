@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -1155,8 +1155,18 @@ class TaskState(SpecificMixin, models.Model):
         verbose_name_plural = _("Task states")
 
 
-class WorkflowMixin:
+class WorkflowMixin(models.Model):
     """A mixin that allows a model to have workflows."""
+
+    _workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+
+    class Meta:
+        abstract = True
 
     @classmethod
     def check(cls, **kwargs):
