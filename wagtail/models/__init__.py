@@ -282,7 +282,7 @@ class RevisionMixin(models.Model):
         "latest_revision",
     ]
 
-    @property
+    @cached_property
     def revisions(self):
         """
         Returns revisions that belong to the object.
@@ -982,7 +982,7 @@ class WorkflowMixin:
         """Returns the active workflow assigned to the object."""
         return self.get_default_workflow()
 
-    @property
+    @cached_property
     def workflow_states(self):
         """
         Returns workflow states that belong to the object.
@@ -1299,7 +1299,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    @property
+    @cached_property
     def revisions(self):
         # Always use the specific page instance when querying for revisions as
         # they are always saved with the specific content_type.
