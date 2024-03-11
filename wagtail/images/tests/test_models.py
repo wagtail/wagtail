@@ -1,5 +1,6 @@
 import unittest
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files import File
