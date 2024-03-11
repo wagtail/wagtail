@@ -301,10 +301,7 @@ class RevisionMixin(models.Model):
         ``related_query_name`` of the ``GenericRelation`` and add custom logic
         (e.g. to always use the specific instance in ``Page``).
         """
-        return Revision.objects.filter(
-            content_type=self.get_content_type(),
-            object_id=self.pk,
-        )
+        return Revision.objects.for_instance(self)
 
     def get_base_content_type(self):
         parents = self._meta.get_parent_list()
@@ -2732,12 +2729,23 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def for_instance(self, instance):
-        return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
-            object_id=str(instance.pk),
-        )
+        """
+        Filters to only Revisions for the given instance
+        """
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return self.filter(
+                base_content_type=instance.get_base_content_type(),
+                object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return self.filter(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk),
+            )
 
 
 RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
