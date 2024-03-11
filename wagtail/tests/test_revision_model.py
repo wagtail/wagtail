@@ -200,15 +200,15 @@ class TestRevisableModel(TestCase):
     def test_revision_cascade_on_object_delete(self):
         page = self.create_page()
         full_featured_snippet = FullFeaturedSnippet.objects.create(text="foo")
+        # The RevisionMixin should provide a default `GenericRelation` so that
+        # revisions are deleted when the object is deleted, even if the
+        # model does not explicitly define a `GenericRelation` to `Revision`.
         cases = [
-            # Tuple of (instance, cascades)
-            # For models that define a GenericRelation to Revision, the revision
-            # should be deleted when the instance is deleted.
-            (page, True),
-            (full_featured_snippet, True),
-            (self.instance, False),  # No GenericRelation to Revision
+            page,
+            full_featured_snippet,
+            self.instance,  # No explicit GenericRelation to Revision
         ]
-        for instance, cascades in cases:
+        for instance in cases:
             with self.subTest(instance=instance):
                 revision = instance.save_revision()
                 query = {
@@ -217,4 +217,4 @@ class TestRevisableModel(TestCase):
                 }
                 self.assertEqual(Revision.objects.filter(**query).first(), revision)
                 instance.delete()
-                self.assertIs(Revision.objects.filter(**query).exists(), not cascades)
+                self.assertIs(Revision.objects.filter(**query).exists(), False)
