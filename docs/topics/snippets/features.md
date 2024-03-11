@@ -115,7 +115,15 @@ class Advert(index.Indexed, models.Model):
 
 If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
 
-In addition to inheriting the mixin, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model as the {attr}`~wagtail.models.RevisionMixin.revisions` attribute so that you can do related queries. Defining the `GenericRelation` is also necessary to ensure that `Revision` instances are automatically deleted when the snippet instance is deleted. If you need to customize how the revisions are fetched (for example, to handle the content type to use for models with multi-table inheritance), you can define the `revisions` as a property.
+The mixin defines a `revisions` property that gives you a queryset of all revisions for the snippet instance. It also comes with a default {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model so that the revisions are properly cleaned up when the snippet instance is deleted.
+
+The default `GenericRelation` does not have a {attr}`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`, so it does not give you the ability to query and filter from the `Revision` model back to the snippet model. If you would like this feature, you can define your own `GenericRelation` with a custom `related_query_name`.
+
+For more details, see the default `GenericRelation` {attr}`~wagtail.models.RevisionMixin._revisions` and the property {attr}`~wagtail.models.RevisionMixin.revisions`.
+
+```{versionadded} 6.5
+The default `GenericRelation` {attr}`~wagtail.models.RevisionMixin._revisions` was added.
+```
 
 For example, the `Advert` snippet could be made revisable as follows:
 
@@ -139,8 +147,9 @@ class Advert(RevisionMixin, models.Model):
 
     @property
     def revisions(self):
-        # Some custom logic here if necessary
-        return self._revisions
+        # Some custom logic here if necessary, e.g. to handle multi-table inheritance.
+        # The mixin already handles inheritance, so this is optional.
+        return self._revisions.all()
 ```
 
 If your snippet model defines relations using Django's {class}`~django.db.models.ManyToManyField`, you need to change the model class to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model` and replace the `ManyToManyField` with `ParentalManyToManyField`. Inline models should continue to use `ParentalKey` instead of `ForeignKey`. This is necessary in order to allow the relations to be stored in the revisions. See the [](tutorial_categories) section of the tutorial for more details. For example:

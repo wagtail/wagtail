@@ -673,6 +673,8 @@ Pages already include this mixin, so there is no need to add it.
 .. class:: RevisionMixin
     :no-index:
 
+    .. autoattribute:: _revisions
+
     .. autoattribute:: revisions
 
     .. automethod:: save_revision

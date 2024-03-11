@@ -258,20 +258,27 @@ class RevisionMixin(models.Model):
         editable=False,
     )
 
-    # With MTI models, accessing a GenericRelation may not give you the correct
-    # results if its content_type_field doesn't match the instance's type. For
-    # example, accessing this GenericRelation, which uses the specific type,
-    # from an instance of the base class. This is a known quirk in Django:
-    # https://code.djangoproject.com/ticket/31269
-    # To work around this, we define a `revisions` property that queries the
-    # Revision model directly. We still define a default GenericRelation anyway,
-    # so that revisions are deleted when the object is deleted.
     _revisions = GenericRelation(
         "wagtailcore.Revision",
         content_type_field="content_type",
         object_id_field="object_id",
         for_concrete_model=False,
     )
+    """
+    A default ``GenericRelation`` for the purpose of automatically deleting
+    revisions when the object is deleted. This is not used to query the object's
+    revisions. Instead, the :meth:`revisions` property is used for that purpose.
+    As such, this default relation is considered private.
+
+    This ``GenericRelation`` does not have a
+    :attr:`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`,
+    so it cannot be used for reverse-related queries from ``Revision`` back to
+    this model. If the feature is desired, subclasses can define their own
+    ``GenericRelation`` to ``Revision`` with a custom ``related_query_name``.
+
+    .. versionadded:: 6.5
+        The default ``GenericRelation`` :attr:`~wagtail.models.RevisionMixin._revisions` was added.
+    """
 
     # An array of additional field names that will not be included when the object is copied.
     default_exclude_fields_in_copy = [
@@ -281,17 +288,13 @@ class RevisionMixin(models.Model):
     @property
     def revisions(self):
         """
-        Returns revisions that belong to the object. This is done by querying
-        the ``Revision`` model directly rather than using a ``GenericRelation``,
-        to avoid issues with the content type not matching the instance's type
-        for models with multi-table inheritance.
-
-        Subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.Revision` and override this property to return
-        that ``GenericRelation``. This allows subclasses to customize the
-        ``related_query_name`` of the ``GenericRelation`` and add custom logic
-        (e.g. to always use the specific instance in ``Page``).
+        Returns revisions that belong to the object. For non-page models, this
+        is done by querying the :class:`~wagtail.models.Revision` model directly
+        rather than using a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation`, to avoid
+        `a known limitation <https://code.djangoproject.com/ticket/31269>`_ in
+        Django for models with multi-table inheritance where the relation's
+        content type may not match the instance's type.
         """
         return Revision.objects.for_instance(self)
 
