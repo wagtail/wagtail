@@ -340,7 +340,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
-    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
 
     # Add GenericRelation to allow WorkflowState.objects.filter(page=...) queries.
     # There is no need to override the workflow_states property, as the default

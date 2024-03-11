@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
@@ -258,6 +258,21 @@ class RevisionMixin(models.Model):
         editable=False,
     )
 
+    # With MTI models, accessing a GenericRelation may not give you the correct
+    # results if its content_type_field doesn't match the instance's type. For
+    # example, accessing this GenericRelation, which uses the specific type,
+    # from an instance of the base class. This is a known quirk in Django:
+    # https://code.djangoproject.com/ticket/31269
+    # To work around this, we define a `revisions` property that queries the
+    # Revision model directly. We still define a default GenericRelation anyway,
+    # so that revisions are deleted when the object is deleted.
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+
     # An array of additional field names that will not be included when the object is copied.
     default_exclude_fields_in_copy = [
         "latest_revision",
@@ -266,7 +281,10 @@ class RevisionMixin(models.Model):
     @property
     def revisions(self):
         """
-        Returns revisions that belong to the object.
+        Returns revisions that belong to the object. This is done by querying
+        the ``Revision`` model directly rather than using a ``GenericRelation``,
+        to avoid issues with the content type not matching the instance's type
+        for models with multi-table inheritance.
 
         Subclasses should define a
         :class:`~django.contrib.contenttypes.fields.GenericRelation` to
