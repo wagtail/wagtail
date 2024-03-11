@@ -1657,7 +1657,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         clean=True,
     ):
         # Raise error if this is not the specific version of the page
-        if not isinstance(self, self.specific_class):
+        if not self.is_specific:
             raise RuntimeError(
                 "page.save_revision() must be called on the specific version of the page. "
                 "Call page.specific.save_revision() instead."
@@ -2410,7 +2410,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             and self.specific_class.permissions_for_user
             != type(self).permissions_for_user
         )
-        if is_overridden and not isinstance(self, self.specific_class):
+        if is_overridden and not self.is_specific:
             return self.specific_deferred.permissions_for_user(user)
         return PagePermissionTester(user, self)
 
