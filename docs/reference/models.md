@@ -685,6 +685,8 @@ For a non-page model to be revisionable in the admin, it must also be [registere
 .. class:: RevisionMixin
     :no-index:
 
+    .. autoattribute:: _revisions
+
     .. autoattribute:: revisions
 
     .. automethod:: save_revision
