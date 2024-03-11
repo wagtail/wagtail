@@ -15,6 +15,7 @@ Changelog
  * Add support for Draftail's JavaScript to use chooserUrls provided by entity options & for the Draftail widget to encode lazy URLs/ translations (Elhussein Almasri)
  * Reimplement search promotions `IndexView` using the `generic.IndexView` (Rohit Sharma, Sage Abdullah, Storm Heg)
  * Add `PageListingViewSet` for custom per-page-type page listings (Matt Westcott)
+ * Implement new universal listings design for image listing view (Sage Abdullah)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
