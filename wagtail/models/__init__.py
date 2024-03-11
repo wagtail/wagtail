@@ -911,8 +911,18 @@ class LockableMixin(models.Model):
             return BasicLock(self)
 
 
-class WorkflowMixin:
+class WorkflowMixin(models.Model):
     """A mixin that allows a model to have workflows."""
+
+    _workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+
+    class Meta:
+        abstract = True
 
     @classmethod
     def check(cls, **kwargs):
@@ -1203,7 +1213,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for_concrete_model=False,
     )
 
-    # Add GenericRelation to allow WorkflowState.objects.filter(page=...) queries.
+    # Override WorkflowMixin's GenericRelation to specify related_query_name
+    # so we can do WorkflowState.objects.filter(page=...) queries.
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
