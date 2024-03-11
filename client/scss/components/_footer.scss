@@ -85,12 +85,31 @@
   width: 100%;
 
   @include media-breakpoint-up(sm) {
-    width: 250px;
+    width: theme('spacing.64');
   }
 
   &--primary {
+    // Support basic layout support for items added via `extra_footer_actions`
+
+    align-items: stretch;
+    display: grid;
+    gap: theme('spacing.2');
+    grid-auto-flow: column;
+
+    > * {
+      // Reset the margin on any .button sibling elements
+      height: auto;
+      margin-inline-start: initial;
+    }
+
     @include media-breakpoint-up(sm) {
-      width: 310px;
+      min-width: theme('spacing.80');
+      width: max-content;
+
+      > *:first-child {
+        // Ensure the first child (the dropdown action usually) is always wide
+        min-width: theme('spacing.56');
+      }
     }
   }
 }
