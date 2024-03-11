@@ -807,6 +807,7 @@
 * Maranda Provance
 * Mark Niehues
 * Georgios Roumeliotis
+* David Buxton
 
 ## Translators
 

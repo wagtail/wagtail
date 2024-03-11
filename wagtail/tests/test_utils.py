@@ -479,6 +479,12 @@ class TestGetDummyRequest(TestCase):
         request = get_dummy_request(site=site)
         self.assertEqual(request.get_host(), "other.example.com:8888")
 
+    def test_server_name_for_wildcard_allowed_hosts(self):
+        # Django's test runner adds "testserver" at the end of ALLOWED_HOSTS.
+        with self.settings(ALLOWED_HOSTS=["*", "testserver"]):
+            request = get_dummy_request()
+            self.assertEqual(request.get_host(), "example.com")
+
 
 class TestDeepUpdate(TestCase):
     def test_deep_update(self):
