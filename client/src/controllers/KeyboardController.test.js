@@ -44,37 +44,21 @@ describe('KeyboardController', () => {
     jest.clearAllMocks();
   });
 
-  describe('simulate keydown event', () => {
-    beforeEach(async () => {
-      await setup(`
-            <button
-              id="btn"
-              class="button no"
-              data-controller="w-kbd"
-              data-w-kbd-key-value="mod+j"
-            >
-              Enable
-            </button>`);
-    });
+  describe('basic keyboard shortcut usage', () => {
+    it('should call the click event when the `j` key is pressed after being registered', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
 
-    it('should call the click event', async () => {
-      const button = document.getElementById('btn');
-      button.addEventListener('click', () => {});
-      const clickMock = jest.fn();
-      HTMLButtonElement.prototype.click = clickMock;
+      await setup(
+        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
+      );
 
-      expect(app.controllers.length).toBe(1);
-      expect(button.getAttribute('data-w-kbd-key-value')).toBe('mod+j');
-      expect(app.controllers[0].element).toBe(button);
+      // Simulate the keydown event & check that the default was prevented
+      expect(simulateKey({ keyCode: 'j' })).toHaveProperty('keypress', false);
 
-      const keyDownEvent = new KeyboardEvent('keydown', {
-        key: 'j',
-        ctrlKey: true,
-      });
-      const isDispatched = document.dispatchEvent(keyDownEvent);
-
-      expect(isDispatched).toBe(true);
-      expect(clickMock).toHaveBeenCalled();
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+      expect(buttonClickMock.mock.contexts).toEqual([
+        document.getElementById('btn'),
+      ]);
     });
   });
 });
