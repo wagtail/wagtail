@@ -36,15 +36,7 @@ describe('KeyboardController', () => {
   };
 
   beforeAll(() => {
-    delete window.location;
-
-    window.location = Object.defineProperties(
-      {},
-      {
-        ...Object.getOwnPropertyDescriptors(oldWindowLocation),
-        assign: { configurable: true, value: jest.fn() },
-      },
-    );
+    HTMLButtonElement.prototype.click = buttonClickMock;
   });
 
   afterEach(() => {
