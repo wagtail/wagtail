@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import Mousetrap from 'mousetrap';
 
 export class KeyboardController extends Controller<HTMLButtonElement> {
-  static values = { key: String };
+  static values = { key: { default: '', type: String } };
 
   handleKey(event: Event) {
     event.preventDefault();
