@@ -24,7 +24,7 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
 
   keyValueChanged(key, previousKey) {
     if (previousKey && previousKey !== key) {
-      Mousetrap.unbind(previousKey, this.handleKey);
+      Mousetrap.unbind(previousKey);
     }
 
     Mousetrap.bind(key, this.handleKey);
