@@ -14,7 +14,7 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
   static values = { key: { default: '', type: String } };
 
   handleKey(event: Event) {
-    event.preventDefault();
+    if (event.preventDefault) event.preventDefault();
     this.element.click();
   }
 
