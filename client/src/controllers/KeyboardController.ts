@@ -9,7 +9,7 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
     this.element.click();
   }
 
-  initialize(): void {
+  initialize() {
     this.handleKey = this.handleKey.bind(this);
   }
 
