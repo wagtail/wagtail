@@ -3,7 +3,28 @@ import { KeyboardController } from './KeyboardController';
 
 describe('KeyboardController', () => {
   let app;
-  const oldWindowLocation = window.location;
+  const buttonClickMock = jest.fn();
+
+  /**
+   * Simulates a keydown, keypress, and keyup event for the provided key.
+   */
+  const simulateKey = (
+    { keyCode, which = keyCode.charCodeAt(0) },
+    target = document.body,
+  ) =>
+    Object.fromEntries(
+      ['keydown', 'keypress', 'keyup'].map((type) => [
+        type,
+        target.dispatchEvent(
+          new KeyboardEvent(type, {
+            bubbles: true,
+            cancelable: true,
+            keyCode,
+            which,
+          }),
+        ),
+      ]),
+    );
 
   const setup = async (html) => {
     document.body.innerHTML = `<main>${html}</main>`;
