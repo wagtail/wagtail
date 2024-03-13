@@ -108,6 +108,12 @@ class TagRewriter:
 
 
 class EmbedRewriter(TagRewriter):
+    """
+    Rewrites <embed embedtype="foo" /> tags within rich text into the HTML
+    fragment given by the embed rule for 'foo'. Each embed rule is a function
+    that takes a dict of attributes and returns the HTML fragment.
+    """
+
     def get_opening_tag_regex(self):
         return FIND_EMBED_TAG
 
@@ -133,6 +139,12 @@ class EmbedRewriter(TagRewriter):
 
 
 class LinkRewriter(TagRewriter):
+    """
+    Rewrites <a linktype="foo"> tags within rich text into the HTML fragment
+    given by the rule for 'foo'. Each link rule is a function that takes a dict
+    of attributes and returns the HTML fragment for the opening tag (only).
+    """
+
     def get_opening_tag_regex(self):
         return FIND_A_TAG
 
