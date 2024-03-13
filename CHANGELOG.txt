@@ -50,6 +50,7 @@ Changelog
  * Maintenance: Update all Draftail chooserUrls to be passed in via the Entity options instead of using `window.chooserUrls` globals, removing the need for inline scripts (Elhussein Almasri)
  * Maintenance: Enhance `w-init` (InitController) to support a `detail` value to be dispatched on events (Chiemezuo Akujobi)
  * Maintenance: Remove usage of inline scripts and instead use event dispatching to instantiate standalone Draftail editor instances (Chiemezuo Akujobi)
+ * Maintenance: Refactor `page_breadcrumbs` tag to use shared `breadcrumbs.html` template (Sage Abdullah)
 
 
 6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
