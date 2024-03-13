@@ -9,7 +9,7 @@ describe('KeyboardController', () => {
    * Simulates a keydown, keypress, and keyup event for the provided key.
    */
   const simulateKey = (
-    { keyCode, which = keyCode.charCodeAt(0) },
+    { keyCode, which = keyCode.charCodeAt(0), ctrlKey = false },
     target = document.body,
   ) =>
     Object.fromEntries(
@@ -21,6 +21,7 @@ describe('KeyboardController', () => {
             cancelable: true,
             keyCode,
             which,
+            ctrlKey,
           }),
         ),
       ]),
@@ -54,6 +55,22 @@ describe('KeyboardController', () => {
 
       // Simulate the keydown event & check that the default was prevented
       expect(simulateKey({ keyCode: 'j' })).toHaveProperty('keypress', false);
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+      expect(buttonClickMock.mock.contexts).toEqual([
+        document.getElementById('btn'),
+      ]);
+    });
+
+    it('should call the click event when `ctrl+j` is pressed after being registered', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(
+        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="ctrl+j">Go</button>`,
+      );
+
+      // // Simulate the keydown event
+      simulateKey({ keyCode: 'j', which: 74, ctrlKey: true });
 
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
       expect(buttonClickMock.mock.contexts).toEqual([
