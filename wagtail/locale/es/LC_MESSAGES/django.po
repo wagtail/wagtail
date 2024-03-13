@@ -83,7 +83,7 @@ msgid "Wagtail frontend cache"
 msgstr "Cache frontal Wagtail"
 
 msgid "Wagtail routablepage"
-msgstr "Página enrutable Wagtal"
+msgstr "Página enrutable Wagtail"
 
 msgid "Wagtail sitemaps"
 msgstr "Mapas de sitio Wagtail"
