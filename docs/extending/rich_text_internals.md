@@ -118,11 +118,16 @@ You can create custom rewrite handlers to support your own new `linktype` and `e
 
         For example, ``PageLinkHandler.get_instance`` might receive ``{'id': 123}`` and return the instance of the Wagtail ``Page`` class with ID 123.
 
+        This method should raise an exception if the provided attributes cannot be used to retrieve a
+        Django model instance, for example if the provided ``id`` attribute is invalid.
+
         If left undefined, a default implementation of this method will query the ``id`` model field on the class returned by ``get_model`` using the provided ``id`` attribute; this can be overridden in your own handlers should you want to use some other model field.
 
     .. method:: get_many(attrs_list)
 
         Optional. The classmethod ``get_many`` method works similarly to ``get_instance`` but instead takes a list of attribute dictionaries and returns a list of Django model instances.
+
+        Any instances that cannot be retrieved will be represented by ``None`` in the returned list.
 ```
 
 Below is an example custom rewrite handler that implements some of these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like `<a linktype="user" username="wagtail">` to valid HTML like `<a href="mailto:hello@wagtail.org">`. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
