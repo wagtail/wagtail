@@ -20,6 +20,9 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
 
   initialize() {
     this.handleKey = this.handleKey.bind(this);
+    if (!this.keyValue && this.element.ariaKeyShortcuts) {
+        this.keyValue = this.element.ariaKeyShortcuts;
+    }
   }
 
   keyValueChanged(key, previousKey) {
