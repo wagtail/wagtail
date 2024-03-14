@@ -4262,6 +4262,23 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
 
+    def test_num_queries(self):
+        snippet = self.revisable_snippet
+
+        # Warm up the cache
+        self.get(snippet)
+
+        with self.assertNumQueries(21):
+            self.get(snippet)
+
+        for i in range(20):
+            revision = snippet.save_revision(user=self.user, log_action=True)
+            if i % 5 == 0:
+                revision.publish(user=self.user, log_action=True)
+
+        with self.assertNumQueries(39):
+            self.get(snippet)
+
 
 class TestSnippetRevisions(WagtailTestUtils, TestCase):
     @property
