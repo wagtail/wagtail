@@ -3,41 +3,41 @@
 {% wagtail_config as settings %}
 
 <div
-    class="preview-panel"
+    class="w-preview"
     data-controller="w-preview"
-    data-w-preview-has-errors-class="preview-panel--has-errors"
-    data-w-preview-selected-size-class="preview-panel__size-button--selected"
+    data-w-preview-has-errors-class="w-preview--has-errors"
+    data-w-preview-selected-size-class="w-preview__size-button--selected"
     data-w-preview-url-value="{{ preview_url }}"
     data-w-preview-auto-update-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW|yesno:'true,false' }}"
     data-w-preview-auto-update-interval-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL }}"
     data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
 >
-    <div class="preview-panel__sizes">
-        <label class="preview-panel__size-button">
+    <div class="w-preview__sizes">
+        <label class="w-preview__size-button">
             {% icon name="mobile-alt" %}
             <input type="radio" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
         </label>
-        <label class="preview-panel__size-button">
+        <label class="w-preview__size-button">
             {% icon name="tablet-alt" %}
             <input type="radio" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
         </label>
-        <label class="preview-panel__size-button">
+        <label class="w-preview__size-button">
             {% icon name="desktop" %}
             <input type="radio" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
         </label>
 
-        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
     {% if settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
-        <div class="preview-panel__spinner" data-w-preview-target="spinner" hidden>
+        <div class="w-preview__spinner" data-w-preview-target="spinner" hidden>
             {% icon name="spinner" classname="default" %}
             <span class="w-sr-only">{% trans 'Loading'%}</span>
         </div>
     {% else %}
         <button
             type="button"
-            class="button button-small button-secondary button-longrunning button--icon preview-panel__refresh-button"
+            class="button button-small button-secondary button-longrunning button--icon w-preview__refresh-button"
             data-controller="w-progress"
             data-action="click->w-preview#setPreviewDataWithAlert click->w-progress#activate"
             data-w-progress-active-value="{% trans 'Refreshing…' %}"
@@ -50,22 +50,22 @@
         </button>
     {% endif %}
 
-    <div class="preview-panel__area">
-        <div class="preview-panel__controls{% if has_multiple_modes %} preview-panel__controls--multiple{% endif %}">
-            <div id="preview-panel-error-banner" class="preview-panel__error-banner">
+    <div class="w-preview__area">
+        <div class="w-preview__controls{% if has_multiple_modes %} w-preview__controls--multiple{% endif %}">
+            <div id="w-preview-error-banner" class="w-preview__error-banner">
                 {% icon name='warning' classname='default' %}
                 <div>
-                    <h3 class="preview-panel__error-title">
+                    <h3 class="w-preview__error-title">
                         {% trans 'Preview is out of date' %}
                     </h3>
-                    <p class="preview-panel__error-details">
+                    <p class="w-preview__error-details">
                         {% trans 'Correct the validation errors to resume preview (saving will highlight errors)' %}
                     </p>
                 </div>
             </div>
             {% if has_multiple_modes %}
-                {% rawformattedfield label_text=_("Preview mode") id_for_label="id_preview_mode" classname="preview-panel__modes" %}
-                    <select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-w-preview-target="mode" data-action="w-preview#setPreviewMode">
+                {% rawformattedfield label_text=_("Preview mode") id_for_label="id_preview_mode" classname="w-preview__modes" %}
+                    <select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-w-preview-target="mode" data-action="w-preview#setPreviewMode">
                         {% for internal_name, display_name in object.preview_modes %}
                             <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>
                         {% endfor %}
@@ -74,14 +74,14 @@
             {% endif %}
         </div>
 
-        <div class="preview-panel__wrapper">
+        <div class="w-preview__wrapper">
             <iframe
                 id="w-preview-iframe"
                 title="{% trans 'Preview' %}"
-                class="preview-panel__iframe"
+                class="w-preview__iframe"
                 data-w-preview-target="iframe"
                 data-action="load->w-preview#replaceIframe"
-                aria-describedby="preview-panel-error-banner"
+                aria-describedby="w-preview-error-banner"
             >
                 <div>
                      {# Add placeholder element to support styling content when iframe has loaded #}
