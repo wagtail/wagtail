@@ -1017,11 +1017,11 @@ class TestHistoryView(WagtailTestUtils, TestCase):
 
         # Should only show the created and edited options for the filter
         soup = self.get_soup(response.content)
-        options = soup.select('select[name="action"] option')
-        self.assertEqual(len(options), 3)
+        options = soup.select('input[name="action"][type="checkbox"]')
+        self.assertEqual(len(options), 2)
         self.assertEqual(
             {option.attrs.get("value") for option in options},
-            {"", "wagtail.create", "wagtail.edit"},
+            {"wagtail.create", "wagtail.edit"},
         )
         # Should not show the heading when not searching
         heading = soup.select_one('h2[role="alert"]')
@@ -1048,6 +1048,13 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         # Should display the heading when there are results
         heading = soup.select_one('h2[role="alert"]')
         self.assertEqual(heading.string.strip(), "There is 1 match")
+
+        response = self.client.get(
+            self.url,
+            {"action": ["wagtail.create", "wagtail.edit"]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 2)
 
     def test_user_filter(self):
         # A user who absolutely has no permissions to the model
