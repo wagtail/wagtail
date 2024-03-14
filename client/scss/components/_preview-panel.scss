@@ -1,4 +1,4 @@
-.preview-panel {
+.w-preview {
   --w-preview-background-color: var(--w-color-white);
   --preview-width-ratio: min(
     1,
@@ -138,7 +138,7 @@
 
     // Show the border only if there's an error,
     // but always show it if there are multiple preview modes
-    .preview-panel--has-errors &:not(&--multiple),
+    .w-preview--has-errors &:not(&--multiple),
     &--multiple {
       @apply w-border-border-furniture w-border-t;
       padding-top: 1rem;

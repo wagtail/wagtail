@@ -460,7 +460,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
         )
 
         # Should show the new tab button with the default mode set
@@ -469,7 +469,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should not show the preview mode selection
         self.assertNotContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
         )
 
     def test_show_preview_panel_on_create_with_multiple_modes(self):
@@ -488,7 +488,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
         )
 
         # Should show the new tab button with the default mode set and correctly quoted
@@ -497,7 +497,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # should show the preview mode selection
         self.assertContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
         )
         self.assertContains(response, '<option value="original">Original</option>')
 
@@ -522,7 +522,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
         )
 
         # Should show the new tab button with the default mode set
@@ -531,7 +531,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should not show the preview mode selection
         self.assertNotContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
         )
 
     def test_show_preview_panel_on_edit_with_multiple_modes(self):
@@ -550,7 +550,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the iframe
         self.assertContains(
             response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="preview-panel-error-banner">',
+            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
         )
 
         # Should show the new tab button with the default mode set and correctly quoted
@@ -559,7 +559,7 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # should show the preview mode selection
         self.assertContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
         )
         self.assertContains(response, '<option value="original">Original</option>')
 
