@@ -1079,11 +1079,11 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
 
         # Should only show the current user and the previously_has_power user
-        options = soup.select('select[name="user"] option')
-        self.assertEqual(len(options), 3)
+        options = soup.select('input[name="user"][type="checkbox"]')
+        self.assertEqual(len(options), 2)
         self.assertEqual(
             {option.attrs.get("value") for option in options},
-            {"", str(self.user.pk), str(previously_has_power.pk)},
+            {str(self.user.pk), str(previously_has_power.pk)},
         )
 
         response = self.client.get(self.url, {"user": str(self.user.pk)})
@@ -1093,6 +1093,14 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         response = self.client.get(self.url, {"user": str(previously_has_power.pk)})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["object_list"]), 1)
+
+        # Should allow filtering by multiple users
+        response = self.client.get(
+            self.url,
+            {"user": [str(self.user.pk), str(previously_has_power.pk)]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 3)
 
     def test_filtered_no_results(self):
         response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})
