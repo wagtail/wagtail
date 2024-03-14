@@ -8,7 +8,6 @@
 * Jacob Topp-Mugglestone (Torchbox)
 * Kalob Taulien
 * LB Johnston
-* Loïc Teixeira (Springload)
 * Matthew Westcott (Torchbox)
 * Meagen Voss (Torchbox)
 * Naomi Morduch Toubman
@@ -33,6 +32,7 @@
 * Josh Barr
 * Karl Hobley
 * Lisa Adams
+* Loïc Teixeira
 * Martin Sandström
 * Michael van Tellingen
 * Mikalai Radchuk
