@@ -4268,7 +4268,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # Warm up the cache
         self.get(snippet)
 
-        with self.assertNumQueries(21):
+        with self.assertNumQueries(19):
             self.get(snippet)
 
         for i in range(20):
@@ -4276,7 +4276,8 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
             if i % 5 == 0:
                 revision.publish(user=self.user, log_action=True)
 
-        with self.assertNumQueries(39):
+        # Should have the same number of queries as before (no N+1 queries)
+        with self.assertNumQueries(19):
             self.get(snippet)
 
 
