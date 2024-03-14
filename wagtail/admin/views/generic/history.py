@@ -3,6 +3,7 @@ from datetime import timedelta
 import django_filters
 from django.contrib.admin.utils import quote, unquote
 from django.core.paginator import Paginator
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -10,7 +11,11 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy
 from django.views.generic import TemplateView
 
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleUserFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic.base import (
     BaseListingView,
@@ -41,9 +46,9 @@ class HistoryReportFilterSet(WagtailFilterSet):
         label=gettext_lazy("Action"),
         # choices are set dynamically in __init__()
     )
-    user = django_filters.ModelChoiceFilter(
+    user = MultipleUserFilter(
         label=gettext_lazy("User"),
-        field_name="user",
+        widget=CheckboxSelectMultiple,
         # queryset is set dynamically in __init__()
     )
     timestamp = django_filters.DateFromToRangeFilter(
