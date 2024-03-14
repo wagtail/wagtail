@@ -283,12 +283,13 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                         )
                     )
             elif isinstance(filter_def, MultipleChoiceFilter):
+                choices = {str(id): label for id, label in filter_def.field.choices}
                 for item in value:
                     filters.append(
                         ActiveFilter(
                             bound_field.auto_id,
                             filter_def.label,
-                            item,
+                            choices.get(str(item), str(item)),
                             self.get_url_without_filter_param_value(field_name, item),
                         )
                     )

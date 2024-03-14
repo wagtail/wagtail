@@ -42,8 +42,9 @@ def get_actions_for_filter(queryset):
 
 
 class HistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(
+    action = django_filters.MultipleChoiceFilter(
         label=gettext_lazy("Action"),
+        widget=CheckboxSelectMultiple,
         # choices are set dynamically in __init__()
     )
     user = MultipleUserFilter(
