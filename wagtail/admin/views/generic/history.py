@@ -25,6 +25,7 @@ from wagtail.models import (
     DraftStateMixin,
     ModelLogEntry,
     Revision,
+    RevisionMixin,
     TaskState,
     WorkflowState,
 )
@@ -144,8 +145,12 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
 
     def get_queryset(self):
         queryset = log_registry.get_logs_for_instance(self.object).select_related(
-            "revision", "user", "user__wagtail_userprofile"
+            "user", "user__wagtail_userprofile"
         )
+        if isinstance(self.object, RevisionMixin):
+            queryset = queryset.select_related("revision").annotate(
+                previous_revision_id=Revision.objects.previous_revision_id_subquery(),
+            )
         queryset = self.filter_queryset(queryset)
         return queryset
 
