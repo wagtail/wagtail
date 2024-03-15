@@ -85,7 +85,9 @@ class Index(IndexView):
             width="30%",
         ),
         RedirectPageColumn(
-            "redirect_page", label=gettext_lazy("To"), width="15%",
+            "redirect_page",
+            label=gettext_lazy("To"),
+            width="15%",
         ),
         TypeColumn(
             "get_is_permanent_display",
