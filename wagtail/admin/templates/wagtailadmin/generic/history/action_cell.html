@@ -1,0 +1,45 @@
+{% load i18n wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <div class="w-flex w-items-center w-justify-between">
+        <div class="w-flex w-items-center w-gap-2">
+            {{ value }}
+
+            {% if draftstate_enabled %}
+                {% if instance.action == 'wagtail.publish' and instance.revision_id == object.live_revision_id %}
+                    {% status _('Live version') classname="w-status--primary" %}
+                {% elif instance.content_changed and instance.revision_id == object.latest_revision_id %}
+                    {% status _('Current draft') classname="w-status--primary" %}
+                {% endif %}
+            {% endif %}
+        </div>
+
+        {% if urls %}
+            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                {% if urls.revisions_view %}
+                    <a href="{{ urls.revisions_view }}">{% trans 'Preview' %}</a>
+                {% endif %}
+
+                {% if urls.edit %}
+                    <a href="{{ urls.edit }}">{% trans 'Edit' %}</a>
+                {% endif %}
+
+                {% if urls.revisions_revert %}
+                    <a href="{{ urls.revisions_revert }}">{% trans 'Review this version' %}</a>
+                {% endif %}
+
+                {% if urls.revisions_compare_previous %}
+                    <a href="{{ urls.revisions_compare_previous }}">{% trans 'Compare with previous version' %}</a>
+                {% endif %}
+
+                {% if urls.revisions_compare_current %}
+                    <a href="{{ urls.revisions_compare_current }}">{% trans 'Compare with current version' %}</a>
+                {% endif %}
+
+                {% if urls.revisions_unschedule %}
+                    <a href="{{ url.revisions_unschedule }}">{% trans 'Cancel scheduled publish' %}</a>
+                {% endif %}
+            {% enddropdown %}
+        {% endif %}
+    </div>
+</td>

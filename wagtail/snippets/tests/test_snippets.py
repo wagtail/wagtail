@@ -4158,7 +4158,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<td class="title">Created</td>', html=True)
+        self.assertContains(response, "<td>Created</td>", html=True)
         self.assertContains(
             response,
             'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
@@ -4190,7 +4190,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         edit_url = self.get_url(self.non_revisable_snippet, "edit")
         self.assertNotContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
         )
 
     def test_should_show_actions_on_revisable_snippet(self):
@@ -4213,14 +4213,14 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # The latest revision should have an "Edit" action instead of "Review"
         self.assertContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
             count=1,
         )
 
         # Any other revision should have a "Review" action
         self.assertContains(
             response,
-            f'<a href="{revert_url}" class="button button-small button-secondary">Review this version</a>',
+            f'<a href="{revert_url}">Review this version</a>',
             count=1,
         )
 
