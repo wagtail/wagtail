@@ -1,0 +1,8 @@
+{% load i18n wagtailadmin_tags %}
+<td>
+    {% if redirects.redirect_page %}
+        <a href="{% url 'wagtailredirects:edit' redirects.id %}" class="nolink">{{ redirects.redirect_page }}</a>
+    {% else %}
+        {{ redirects.redirect_link }}
+    {% endif %}
+</td>
