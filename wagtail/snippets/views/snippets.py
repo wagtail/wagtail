@@ -90,7 +90,7 @@ class ModelIndexView(generic.BaseListingView):
         return [
             {
                 "name": capfirst(model._meta.verbose_name_plural),
-                "count": model.objects.all().count(),
+                "count": model._default_manager.all().count(),
                 "model": model,
             }
             for model in get_snippet_models()
