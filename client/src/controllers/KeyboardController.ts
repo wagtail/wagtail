@@ -19,18 +19,15 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
   }
 
   initialize() {
-
     this.handleKey = this.handleKey.bind(this);
     if (!this.keyValue && this.element.ariaKeyShortcuts) {
-        this.keyValue = this.element.ariaKeyShortcuts;
+      this.keyValue = this.element.ariaKeyShortcuts;
     }
-    
   }
-  
 
   /**
-  * When a key is set or changed, bind the handler to the keyboard shortcut. This will override the shortcut, if already set, https://craig.is/killing/mice#:~:text=if%20you%20bind%20the%20same,original%20callback%20you%20had%20specified.
-  */
+   * When a key is set or changed, bind the handler to the keyboard shortcut. This will override the shortcut, if already set, https://craig.is/killing/mice#:~:text=if%20you%20bind%20the%20same,original%20callback%20you%20had%20specified.
+   */
 
   keyValueChanged(key, previousKey) {
     if (previousKey && previousKey !== key) {
