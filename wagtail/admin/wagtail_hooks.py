@@ -1007,7 +1007,7 @@ def register_keyboard_shortcuts_menu_item():
 
     return MenuItem(
         _("Shortcuts"),
-        icon_name="regex",
+        icon_name="keyboard",
         order=1200,
         attrs={
             "role": "button",  # Ensure screen readers announce this as a button
