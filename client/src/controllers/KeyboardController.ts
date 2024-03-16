@@ -24,9 +24,7 @@ export class KeyboardController extends Controller<HTMLButtonElement> {
     if (!this.keyValue && this.element.ariaKeyShortcuts) {
         this.keyValue = this.element.ariaKeyShortcuts;
     }
-    if (!this.keyValue && this.element.ariaKeyShortcuts) {
-        this.keyValue = this.element.ariaKeyShortcuts;
-    }
+    
   }
   
 
