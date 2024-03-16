@@ -18,6 +18,7 @@ Changelog
  * Implement new universal listings design for image listing view (Sage Abdullah)
  * Implement new universal listings design for document listing view (Sage Abdullah)
  * Implement new universal listings design for site and locale listing views (Sage Abdullah)
+ * Add simple admin keyboard shortcuts overview dialog, available in the help sub-menu (Karthik Ayangar)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
