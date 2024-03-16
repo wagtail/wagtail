@@ -7,7 +7,7 @@
         context variables from the view. As a result, we can't reuse the include from the generic
         template and have to copy it here without the `only` keyword.
     {% endcomment %}
-    {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url buttons=header_buttons %}
 {% endblock %}
 
 {% block actions %}

@@ -12,6 +12,8 @@
 
 .w-dropdown__content {
   @apply w-flex w-flex-col w-justify-start w-py-2;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .w-dropdown__content :where(a, button) {

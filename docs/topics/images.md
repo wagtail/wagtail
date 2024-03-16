@@ -549,6 +549,8 @@ The `image` tag's `preserve-svg` positional argument may be used to restrict the
 
 In this example, any of the image objects that are SVGs will only have the `fill-400x400` operation applied to them, while raster images will have both the `fill-400x400` and `format-webp` operations applied. If the `preserve-svg` argument is not used in this example, an error will be raised when attempting to convert SVG images to webp, as this is not possible without a rasterization library.
 
+(svg_security_considerations)=
+
 ### Security considerations
 
 Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.

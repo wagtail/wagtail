@@ -34,20 +34,37 @@ Alternatively, Wagtail can be configured to store uploaded images and documents 
 this is done through the [`STORAGES["default"]`](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STORAGES)
 setting in conjunction with an add-on package such as [django-storages](https://django-storages.readthedocs.io/).
 
+#### Security
+
+Any system that allows user-uploaded files is a potential security risk. For example, a user with the ability to upload HTML files could potentially launch a [cross-site scripting attack](https://owasp.org/www-community/attacks/xss/) against a user viewing that file. This may not be a concern if all users with access to the Wagtail admin are fully trusted - for example, a personal site where you are the only editor. With this in mind, Wagtail aims to provide a secure configuration by default, but developers may choose a more permissive setup if they understand the risks, as detailed below.
+
+#### Images
+
 When using `FileSystemStorage`, image urls are constructed starting from the path specified by the `MEDIA_URL`.
-In most cases, you should configure your web server to serve image files directly (without passing through Django/Wagtail).
+In most cases, you should configure your web server to serve image files directly from the `images` subdirectory of `MEDIA_ROOT` (without passing through Django/Wagtail).
+If [](svg_images) are enabled, it is possible for a user to upload an SVG file containing scripts that execute when the file is viewed directly; if this is a concern, several approaches for avoiding this are detailed under [](svg_security_considerations).
+
 When using one of the cloud storage backends, images urls go directly to the cloud storage file url.
 If you would like to serve your images from a separate asset server or CDN, you can [configure the image serve view](image_serve_view_redirect_action) to redirect instead.
 
+#### Documents
+
 Document serving is controlled by the [WAGTAILDOCS_SERVE_METHOD](wagtaildocs_serve_method) method.
-When using `FileSystemStorage`, documents are stored in a `documents` subdirectory within your site's `MEDIA_ROOT`.
-If all your documents are public, you can set the `WAGTAILDOCS_SERVE_METHOD` to `direct` and configure your web server to serve the files itself.
-However, if you use Wagtail's [Collection Privacy settings](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings) to restrict access to some or all of your documents, you may or may not want to configure your web server to serve the documents directly.
-The default setting is `redirect` which allows Wagtail to perform any configured privacy checks before offloading serving the actual document to your web server or CDN.
-This means that Wagtail constructs document links that pass through Wagtail, but the final url in the user's browser is served directly by your web server.
-If a user bookmarks this url, they will be able to access the file without passing through Wagtail's privacy checks.
-If this is not acceptable, you may want to set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and configure your web server so it will not serve document files itself.
-If you are serving documents from the cloud and need to enforce privacy settings, you should make sure the documents are not publicly accessible using the cloud service's file url.
+When using `FileSystemStorage`, documents are stored in a `documents` subdirectory within your site's `MEDIA_ROOT`. In this case, `WAGTAILDOCS_SERVE_METHOD` defaults to `serve_view`, where Wagtail serves the document through a Django view that enforces privacy checks. This has the following implications:
+
+* **You should block direct access to the `documents` subdirectory of `MEDIA_ROOT` within your web server configuration.** This prevents users from bypassing [collection privacy settings](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings) by accessing documents at their direct URL.
+* Documents are served as downloads rather than displayed in the browser (unless specified explicitly via [](wagtaildocs_inline_content_types)) - this ensures that if the document is a type that can contain scripts (such as HTML or SVG), the browser is prevented from executing them.
+* However, since the document is served through the Django application server, this may consume more server resources than serving the document directly from the web server.
+
+The alternative serve methods `'direct'` and `'redirect'` work by serving the documents directly from `MEDIA_ROOT`. This means it is not possible to block direct access to the `documents` subdirectory, and so users may bypass permission checks by accessing the direct URL. Also, in the case that users with access to the Wagtail admin are not fully trusted, you will need to take additional steps to prevent the execution of scripts in documents:
+
+* The `WAGTAILDOCS_EXTENSIONS` setting may be used to restrict uploaded documents to an "allow list" of safe types.
+* The web server can be configured to return a `Content-Security-Policy: default-src 'none'` header for files within the `documents` subdirectory, which will prevent the execution of scripts in those files.
+* The web server can be configured to return a `Content-Disposition: attachment` header for files within the `documents` subdirectory, which will force the browser to download the file rather than displaying it inline.
+
+If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case, users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, the impact of cross-site scripting attacks is reduced, as the document is served from a different domain to the main site.
+
+If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url.
 
 #### Cloud storage
 

@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -25,9 +26,9 @@ from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
-from wagtail.models import Collection
 
 permission_checker = PermissionPolicyChecker(permission_policy)
+Document = get_document_model()
 
 
 class BulkActionsColumn(BulkActionsCheckboxColumn):
@@ -49,6 +50,14 @@ class DocumentTable(Table):
         return context
 
 
+class DocumentsFilterSet(BaseMediaFilterSet):
+    permission_policy = permission_policy
+
+    class Meta:
+        model = Document
+        fields = []
+
+
 class IndexView(generic.IndexView):
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
@@ -65,9 +74,11 @@ class IndexView(generic.IndexView):
     results_template_name = "wagtaildocs/documents/index_results.html"
     default_ordering = "title"
     table_class = DocumentTable
+    filterset_class = DocumentsFilterSet
     model = get_document_model()
     add_item_label = gettext_lazy("Add a document")
     show_other_searches = True
+    _show_breadcrumbs = True
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)
@@ -75,17 +86,10 @@ class IndexView(generic.IndexView):
             self.request.user, ["change", "delete"]
         ).select_related("collection")
 
-    def filter_queryset(self, queryset):
-        self.current_collection = None
-        collection_id = self.request.GET.get("collection_id")
-        if collection_id:
-            try:
-                self.current_collection = Collection.objects.get(id=collection_id)
-                queryset = queryset.filter(collection=self.current_collection)
-            except (ValueError, Collection.DoesNotExist):
-                pass
-
-        return queryset
+    @cached_property
+    def current_collection(self):
+        # Upon validation, the cleaned data is a Collection instance
+        return self.filters and self.filters.form.cleaned_data.get("collection_id")
 
     @cached_property
     def columns(self):
@@ -106,7 +110,7 @@ class IndexView(generic.IndexView):
                 width="16%",
             ),
         ]
-        if self.collections:
+        if self.filters and "collection_id" in self.filters.filters:
             columns.insert(
                 3,
                 Column("collection", label=_("Collection"), accessor="collection.name"),
@@ -130,10 +134,10 @@ class IndexView(generic.IndexView):
         return next_url
 
     def get_add_url(self):
-        # Pass the query string so that the collection filter is preserved
+        # Pass the collection filter to prefill the add form's collection field
         return set_query_params(
             super().get_add_url(),
-            self.request.GET.copy(),
+            {"collection_id": self.current_collection and self.current_collection.pk},
         )
 
     def get_edit_url(self, instance):
@@ -142,15 +146,14 @@ class IndexView(generic.IndexView):
             {"next": self.get_next_url()},
         )
 
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["is_searching"] = self.is_searching
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "collections": self.collections,
-                "current_collection": self.current_collection,
-            }
-        )
+        context["current_collection"] = self.current_collection
         return context
 
 

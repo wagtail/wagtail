@@ -180,7 +180,8 @@
     .w-field__input {
       @apply w-mt-0;
 
-      > input {
+      > input,
+      > select {
         @apply w-text-16;
         min-height: theme('spacing.10');
       }
