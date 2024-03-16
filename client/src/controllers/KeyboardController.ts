@@ -12,6 +12,7 @@ import Mousetrap from 'mousetrap';
  */
 export class KeyboardController extends Controller<HTMLButtonElement> {
   static values = { key: { default: '', type: String } };
+  declare keyValue: string;
 
   handleKey(event: Event) {
     if (event.preventDefault) event.preventDefault();
