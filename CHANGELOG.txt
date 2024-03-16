@@ -54,6 +54,7 @@ Changelog
  * Maintenance: Enhance `w-init` (InitController) to support a `detail` value to be dispatched on events (Chiemezuo Akujobi)
  * Maintenance: Remove usage of inline scripts and instead use event dispatching to instantiate standalone Draftail editor instances (Chiemezuo Akujobi)
  * Maintenance: Refactor `page_breadcrumbs` tag to use shared `breadcrumbs.html` template (Sage Abdullah)
+ * Maintenance: Add `keyboard` icon to admin icon set (Rohit Sharma)
 
 
 6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
