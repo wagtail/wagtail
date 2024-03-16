@@ -10,7 +10,9 @@ import Mousetrap from 'mousetrap';
  * <button type="button" data-controller="w-kbd" data-w-kbd-key="[">Trigger me with the <kbd>[</kbd> key.</button>
  * ```
  */
-export class KeyboardController extends Controller<HTMLButtonElement | HTMLAnchorElement> {
+export class KeyboardController extends Controller<
+  HTMLButtonElement | HTMLAnchorElement
+> {
   static values = { key: { default: '', type: String } };
   declare keyValue: string;
 
