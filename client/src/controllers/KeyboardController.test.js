@@ -9,7 +9,7 @@ describe('KeyboardController', () => {
    * Simulates a keydown, keypress, and keyup event for the provided key.
    */
   const simulateKey = (
-    { key, which = key.charCodeAt(0), ctrlKey = false, metaKey = false},
+    { key, which = key.charCodeAt(0), ctrlKey = false, metaKey = false },
     target = document.body,
   ) =>
     Object.fromEntries(
@@ -106,10 +106,6 @@ describe('KeyboardController', () => {
       simulateKey({ key: 'j', which: 74, metaKey: true });
       simulateKey({ key: 'j', which: 74, ctrlKey: true });
       expect(buttonClickMock).toHaveBeenCalledTimes(3);
-      // expect(buttonClickMock.mock.contexts).toEqual([
-      //   document.getElementById('btn'),
-      // ]);
     });
-
   });
 });
