@@ -279,7 +279,7 @@ class IndexView(generic.IndexView):
 
     def get_index_results_url(self):
         return reverse(self.index_results_url_name)
-    
+
     def get_chooseparent_url(self):
         return reverse(self.choose_parent_url_name)
 
