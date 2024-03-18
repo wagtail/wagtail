@@ -1,76 +1,107 @@
 import { Application } from '@hotwired/stimulus';
-import { BlockController } from './BlockController'; // Replace with your controller path
+import { BlockController } from './BlockController';
+
+const render = jest.fn();
+const unpack = jest.fn(() => ({ render }));
+window.telepath = { unpack };
 
 describe('BlockController', () => {
-  let application;
+  const eventNames = ['w-block:ready'];
 
-  const setup = async (html) => {
-    document.body.innerHTML = html;
-    application = new Application();
-    application.register('w-block', BlockController);
+  const events = {};
 
-    await Promise.resolve(); // Ensure Stimulus is initialized
-  };
-
-  afterEach(() => {
-    document.body.innerHTML = ''; // Clean up the HTML after each test
+  eventNames.forEach((name) => {
+    document.addEventListener(name, (event) => {
+      events[name].push(event);
+    });
   });
 
-  it('executes afterLoad method and renders block widget', async () => {
-    const html = `
-      <div id="testBlock" data-block></div>
-    `;
+  let application;
+  let errors = [];
 
-    await setup(html);
+  const setup = (html, { identifier = 'w-block' } = {}) => {
+    document.body.innerHTML = `<main>${html}</main>`;
 
-    // Mocking the necessary data attributes
-    const body = document.querySelector('#testBlock');
-    body.dataset.wBlockDataValue = JSON.stringify({ data: 'testData' });
-    body.dataset.wBlockInitialValue = JSON.stringify({ value: 'testValue' });
-    body.dataset.wBlockErrorValue = JSON.stringify({ error: 'testError' });
+    application = new Application();
 
-    // Mocking window.telepath
-    const mockTelepath = {
-      unpack: jest.fn().mockReturnValue({
-        render: jest.fn(),
-      }),
+    application.register(identifier, BlockController);
+
+    application.handleError = (error, message) => {
+      errors.push({ error, message });
     };
-    Object.defineProperty(window, 'telepath', {
-      value: mockTelepath,
+
+    application.start();
+
+    return Promise.resolve();
+  };
+
+  beforeEach(() => {
+    application?.stop();
+    document.body.innerHTML = '';
+    errors = [];
+    eventNames.forEach((name) => {
+      events[name] = [];
     });
-
-    // Call the static afterLoad method
-    BlockController.afterLoad();
-
-    // Expectations
-    expect(window.initBlockWidget).toBeDefined(); // Ensure initBlockWidget is defined
-    expect(window.initBlockWidget).toBeInstanceOf(Function); // Ensure initBlockWidget is a function
-
-    // Call the mocked initBlockWidget function
-    window.initBlockWidget('testBlock');
-
-    // Expectations for rendering the block widget
-    expect(document.querySelector('#testBlock')).not.toBeNull(); // Ensure the block element still exists
-    expect(mockTelepath.unpack).toHaveBeenCalledTimes(1); // Ensure telepath.unpack is called once
-    expect(mockTelepath.unpack).toHaveBeenCalledWith({ data: 'testData' }); // Expect the correct data to be passed to telepath.unpack
-    expect(mockTelepath.unpack().render).toHaveBeenCalledTimes(1); // Ensure render method is called once
-    expect(mockTelepath.unpack().render).toHaveBeenCalledWith(
-      body,
-      'testBlock',
-      { value: 'testValue' }, // Expect the correct value to be passed to render
-      { error: 'testError' }, // Expect the correct error to be passed to render
-    );
+    jest.clearAllMocks();
   });
 
   it('does nothing if block element is not found', async () => {
-    // Call the static afterLoad method
-    BlockController.afterLoad();
+    await setup('<div></div>');
 
-    // Call the mocked initBlockWidget function with an invalid id
-    window.initBlockWidget('invalidBlockId');
+    expect(errors).toHaveLength(0);
 
-    // Expectations
-    expect(document.querySelector('#invalidBlockId')).toBeNull(); // Ensure the block element doesn't exist
-    // Add more expectations as needed
+    expect(unpack).not.toHaveBeenCalled();
+
+    expect(events['w-block:ready']).toHaveLength(0);
+  });
+
+  it('should render block if element is controlled', async () => {
+    const data = { name: 'John Doe' };
+
+    await setup(
+      `<div id="my-element" data-controller="w-block" data-w-block-data-value='${JSON.stringify({ name: 'John Doe' })}'></div>`,
+    );
+
+    expect(errors).toHaveLength(0);
+    expect(unpack).toHaveBeenCalledWith(data);
+    expect(render).toHaveBeenCalledWith(
+      document.getElementById('my-element'),
+      'my-element',
+      [],
+      {},
+    );
+    expect(events['w-block:ready']).toHaveLength(1);
+  });
+
+  it('should call the unpacked render function with provided initial & error data', async () => {
+    const initialData = ['Hello', 'World'];
+    const errorData = { message: 'Something went wrong' };
+
+    await setup(
+      `<div id="my-element" data-controller="w-block" data-w-block-initial-value='${JSON.stringify(initialData)}' data-w-block-error-value='${JSON.stringify(errorData)}' data-w-block-data-value='{"name":"John Doe"}'></div>`,
+    );
+
+    expect(errors).toHaveLength(0);
+    expect(unpack).toHaveBeenCalledWith({ name: 'John Doe' });
+    expect(render).toHaveBeenCalledWith(
+      document.getElementById('my-element'),
+      'my-element',
+      initialData,
+      errorData,
+    );
+    expect(events['w-block:ready']).toHaveLength(1);
+  });
+
+  it('should throw an error if used on an element without an id', async () => {
+    await setup('<div data-controller="w-block"></div>');
+
+    expect(errors).toHaveLength(1);
+  });
+
+  it('should throw an error if Telepath is not available in the window global', async () => {
+    delete window.telepath;
+    await setup('<div id="my-element" data-controller="w-block"></div>');
+
+    expect(errors).toHaveLength(1);
   });
 });

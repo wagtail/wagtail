@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import { object } from 'prop-types';
 
 declare global {
   interface Window {
@@ -13,45 +12,39 @@ declare global {
  *
  * @example
  * <div
- * id="{id}"
- * data-block
- * data-controller="w-block"
- * data-w-block-data-value="{block_json}"
- * data-w-block-initial-value="{value_json}"
- * data-w-block-error-value="{error_json}">
+ *  id="some-id"
+ *  data-controller="w-block"
+ *  data-w-block-data-value='{"some":"json"}'
+ * >
  * </div>
  */
-
 export class BlockController extends Controller<HTMLElement> {
-  /**
-   * initial - Initial value for the block
-   * data - Unpacked Telepath data
-   * error - Block error (optional)
-   */
   static values = {
-    initial: { type: object, default: undefined },
-    data: { type: object, default: undefined },
-    error: { type: object, default: undefined },
+    initial: { type: Array, default: [] },
+    error: { type: Object, default: {} },
+    data: { type: Object, default: {} },
   };
 
-  /** Packed Telepath data. */
-  declare dataValue: object;
-  declare errorValue: object;
-  declare initialValue: object;
+  /** Initial value. */
+  declare initialValue: Array<string>;
+  /** Optional error value. */
+  declare errorValue: Object;
+  /** Block data value to unpack with Telepath. */
+  declare dataValue: Object;
 
   connect() {
-    const telepath = window.telepath;
-    if (!telepath) {
-      throw new Error("Telepath doesn't exit");
-    }
-    const output = telepath.unpack(this.dataValue);
     const element = this.element;
-    if (!element.id) {
-      // Throw an error here saying that the element needs an id. I think... Only of the block render code needs an id.
-      throw new Error('Block element needs an id');
-    }
     const id = element.id;
-    output.render(this.element, id, this.initialValue, this.errorValue);
+
+    if (!id) throw new Error('Block element needs an id');
+
+    const telepath = window.telepath;
+
+    if (!telepath) throw new Error("Telepath doesn't exit");
+
+    const output = telepath.unpack(this.dataValue);
+    output.render(element, id, this.initialValue, this.errorValue);
+
     this.dispatch('ready', { detail: { ...output }, cancelable: false });
   }
 
@@ -68,13 +61,11 @@ export class BlockController extends Controller<HTMLElement> {
         return;
       }
 
-      const blockDefData = JSON.parse(body.dataset.wBlockDataValue as string);
+      const blockDefData = JSON.parse(body.dataset.data as string);
       if (window.telepath) {
         const blockDef = window.telepath.unpack(blockDefData);
-        const blockValue = JSON.parse(
-          body.dataset.wBlockInitialValue as string,
-        );
-        const blockError = JSON.parse(body.dataset.wBlockErrorValue as string);
+        const blockValue = JSON.parse(body.dataset.value as string);
+        const blockError = JSON.parse(body.dataset.error as string);
 
         blockDef.render(body, id, blockValue, blockError);
       }
