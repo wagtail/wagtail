@@ -564,14 +564,11 @@ class BlockWidget(forms.Widget):
             error = errors.as_data()[0]
             error_json = json.dumps(get_error_json_data(error))
         else:
-            error_json = "null"
+            error_json = json.dumps(None)
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
-                <script>
-                    initBlockWidget('{id}');
-                </script>
+                <div id="{id}" data-block data-controller="w-block" data-w-block-data-value="{block_json}" data-w-block-arguments-value="[{value_json},{error_json}]"></div>
             """,
             id=name,
             block_json=self.block_json,
