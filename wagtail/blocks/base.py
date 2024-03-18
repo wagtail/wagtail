@@ -568,10 +568,7 @@ class BlockWidget(forms.Widget):
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
-                <script>
-                    initBlockWidget('{id}');
-                </script>
+                <div id="{id}" data-block data-controller="w-block" data-w-block-data-value="{block_json}" data-w-block-initial-value="{value_json}" data-w-block-error-value="{error_json}"></div>
             """,
             id=name,
             block_json=self.block_json,
