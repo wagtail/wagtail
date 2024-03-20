@@ -2,12 +2,11 @@ import django_filters
 from django import forms
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy
 
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.views.generic import history
 from wagtail.models import Page, PageLogEntry
+from wagtail.permissions import page_permission_policy
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):
@@ -49,13 +48,21 @@ class WorkflowHistoryDetailView(
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 
-@method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
 class PageHistoryView(history.HistoryView):
     template_name = "wagtailadmin/pages/history.html"
     page_title = gettext_lazy("Page history")
     filterset_class = PageHistoryFilterSet
     model = Page
     pk_url_kwarg = "page_id"
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
 
     def get_object(self):
         self.page = get_object_or_404(Page, id=self.pk).specific
