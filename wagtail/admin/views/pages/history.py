@@ -2,11 +2,12 @@ import django_filters
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic import history
-from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
+from wagtail.admin.views.pages.utils import (
+    GenericPageBreadcrumbsMixin,
+)
 from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
 from wagtail.permissions import page_permission_policy
@@ -56,7 +57,7 @@ class WorkflowHistoryDetailView(
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 
-class PageHistoryView(history.HistoryView):
+class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     template_name = "wagtailadmin/pages/history.html"
     filterset_class = PageHistoryFilterSet
     model = Page
@@ -77,7 +78,6 @@ class PageHistoryView(history.HistoryView):
     revisions_revert_url_name = "wagtailadmin_pages:revisions_revert"
     revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
     revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
-    _show_breadcrumbs = True
 
     def get_object(self):
         return get_object_or_404(Page, id=self.pk).specific
@@ -90,15 +90,3 @@ class PageHistoryView(history.HistoryView):
 
     def get_base_queryset(self):
         return self._annotate_queryset(PageLogEntry.objects.filter(page=self.object))
-
-    @cached_property
-    def breadcrumbs_items(self):
-        return get_breadcrumbs_items_for_page(self.object, self.request.user)
-
-    def get_breadcrumbs_items(self):
-        # The generic HistoryView will add an edit link for the current object as
-        # the second-to-last item, but we don't want that because we want to
-        # link to the explore view instead for consistency with how page
-        # breadcrumbs work elsewhere. So we only take the last item, which is
-        # the "self" (History) item.
-        return self.breadcrumbs_items + [super().get_breadcrumbs_items()[-1]]
