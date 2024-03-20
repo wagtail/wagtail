@@ -14,31 +14,11 @@
             {% endif %}
         </div>
 
-        {% if urls %}
+        {% if actions %}
             {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
-                {% if urls.revisions_view %}
-                    <a href="{{ urls.revisions_view }}">{% trans 'Preview' %}</a>
-                {% endif %}
-
-                {% if urls.edit %}
-                    <a href="{{ urls.edit }}">{% trans 'Edit' %}</a>
-                {% endif %}
-
-                {% if urls.revisions_revert %}
-                    <a href="{{ urls.revisions_revert }}">{% trans 'Review this version' %}</a>
-                {% endif %}
-
-                {% if urls.revisions_compare_previous %}
-                    <a href="{{ urls.revisions_compare_previous }}">{% trans 'Compare with previous version' %}</a>
-                {% endif %}
-
-                {% if urls.revisions_compare_current %}
-                    <a href="{{ urls.revisions_compare_current }}">{% trans 'Compare with current version' %}</a>
-                {% endif %}
-
-                {% if urls.revisions_unschedule %}
-                    <a href="{{ url.revisions_unschedule }}">{% trans 'Cancel scheduled publish' %}</a>
-                {% endif %}
+                {% for action in actions %}
+                    <a href="{{ action.url }}">{{ action.label }}</a>
+                {% endfor %}
             {% enddropdown %}
         {% endif %}
     </div>

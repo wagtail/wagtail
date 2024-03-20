@@ -76,8 +76,8 @@ class ActionColumn(Column):
             return "wagtailadmin/generic/history/action_cell.html"
         return super().cell_template_name
 
-    def get_urls(self, instance, parent_context):
-        urls = {}
+    def get_actions(self, instance, parent_context):
+        actions = []
 
         # Do not show the revision actions if the log entry:
         # - has no revision attached
@@ -90,28 +90,30 @@ class ActionColumn(Column):
             or not instance.content_changed
             or instance.action == "wagtail.publish"
         ):
-            return urls
+            return actions
 
         if (
             isinstance(self.object, PreviewableMixin)
             and self.object.is_previewable()
             and (url_name := self.url_names.get("revisions_view"))
         ):
-            urls["revisions_view"] = reverse(
-                url_name, args=(quote(self.object.pk), instance.revision_id)
-            )
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Preview")}
+            actions.append(action)
 
         if instance.revision_id == self.object.latest_revision_id:
             if url_name := self.url_names.get("edit"):
-                urls["edit"] = reverse(url_name, args=(quote(self.object.pk),))
+                url = reverse(url_name, args=(quote(self.object.pk),))
+                action = {"url": url, "label": gettext("Edit")}
+                actions.append(action)
         elif url_name := self.url_names.get("revisions_revert"):
-            urls["revisions_revert"] = reverse(
-                url_name, args=(quote(self.object.pk), instance.revision_id)
-            )
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Review this version")}
+            actions.append(action)
 
         if url_name := self.url_names.get("revisions_compare"):
             if instance.previous_revision_id:
-                urls["revisions_compare_previous"] = reverse(
+                url = reverse(
                     url_name,
                     args=(
                         quote(self.object.pk),
@@ -119,29 +121,32 @@ class ActionColumn(Column):
                         instance.revision_id,
                     ),
                 )
+                action = {"url": url, "label": gettext("Compare with previous version")}
+                actions.append(action)
             if instance.revision_id != self.object.latest_revision_id:
-                urls["revisions_compare_current"] = reverse(
+                url = reverse(
                     url_name,
                     args=(quote(self.object.pk), instance.revision_id, "latest"),
                 )
+                action = {"url": url, "label": gettext("Compare with current version")}
+                actions.append(action)
 
         if (
             (url_name := self.url_names.get("revisions_unschedule"))
             and instance.revision.approved_go_live_at
             and self.user_can_unschedule
         ):
-            urls["revisions_unschedule"] = reverse(
-                url_name,
-                args=(quote(self.object.pk), instance.revision_id),
-            )
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Cancel scheduled publish")}
+            actions.append(action)
 
-        return urls
+        return actions
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["object"] = self.object
         context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
-        context["urls"] = self.get_urls(instance, parent_context)
+        context["actions"] = self.get_actions(instance, parent_context)
         return context
 
 
