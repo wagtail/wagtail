@@ -268,6 +268,18 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
 
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
+    def test_get_history_renders_comment(self):
+        self.workflow_state.current_task_state.reject(comment="Can be better")
+        # Ensure the comment in the log entry is rendered in the History view.
+        # This is the main History view and not the Workflow History view, but
+        # we test it here so we can reuse the workflow setup.
+        response = self.client.get(self.get_url("history", (quote(self.object.pk),)))
+        self.assertContains(
+            response,
+            "<div>Comment: <em>Can be better</em></div>",
+            html=True,
+        )
+
 
 class TestConfirmWorkflowCancellation(BaseWorkflowsTestCase):
     def setUp(self):
