@@ -3,55 +3,24 @@ from django import forms
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.generic import history
-from wagtail.admin.views.reports import ReportView
-from wagtail.log_actions import registry as log_action_registry
 from wagtail.models import Page, PageLogEntry
 
 
-def get_actions_for_filter():
-    # Only return those actions used by page log entries.
-    actions = set(PageLogEntry.objects.all().get_actions())
-    return [
-        action for action in log_action_registry.get_choices() if action[0] in actions
-    ]
-
-
-class PageHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(
-        label=_("Action"),
-        # choices are set dynamically in __init__()
-    )
+class PageHistoryFilterSet(history.HistoryFilterSet):
     hide_commenting_actions = django_filters.BooleanFilter(
-        label=_("Hide commenting actions"),
+        label=gettext_lazy("Hide commenting actions"),
         method="filter_hide_commenting_actions",
         widget=forms.CheckboxInput,
-    )
-    user = django_filters.ModelChoiceFilter(
-        label=_("User"),
-        field_name="user",
-        queryset=lambda request: PageLogEntry.objects.all().get_users(),
-    )
-    timestamp = django_filters.DateFromToRangeFilter(
-        label=_("Date"), widget=DateRangePickerWidget
     )
 
     def filter_hide_commenting_actions(self, queryset, name, value):
         if value:
             queryset = queryset.exclude(action__startswith="wagtail.comments")
         return queryset
-
-    class Meta:
-        model = PageLogEntry
-        fields = ["action", "user", "timestamp", "hide_commenting_actions"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.filters["action"].extra["choices"] = get_actions_for_filter()
 
 
 class PageWorkflowHistoryViewMixin:
@@ -80,18 +49,17 @@ class WorkflowHistoryDetailView(
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 
-class PageHistoryView(ReportView):
+@method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
+class PageHistoryView(history.HistoryView):
     template_name = "wagtailadmin/pages/history.html"
-    title = _("Page history")
-    header_icon = "history"
-    paginate_by = 20
-    filterset_class = PageHistoryReportFilterSet
+    page_title = gettext_lazy("Page history")
+    filterset_class = PageHistoryFilterSet
+    model = Page
+    pk_url_kwarg = "page_id"
 
-    @method_decorator(user_passes_test(user_has_any_page_permission))
-    def dispatch(self, request, *args, **kwargs):
-        self.page = get_object_or_404(Page, id=kwargs.pop("page_id")).specific
-
-        return super().dispatch(request, *args, **kwargs)
+    def get_object(self):
+        self.page = get_object_or_404(Page, id=self.pk).specific
+        return self.page
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
@@ -101,7 +69,10 @@ class PageHistoryView(ReportView):
 
         return context
 
-    def get_queryset(self):
+    def user_can_unschedule(self):
+        return self.object.permissions_for_user(self.request.user).can_unschedule()
+
+    def get_base_queryset(self):
         return PageLogEntry.objects.filter(page=self.page).select_related(
             "revision", "user", "user__wagtail_userprofile"
         )

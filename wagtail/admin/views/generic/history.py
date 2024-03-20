@@ -165,7 +165,7 @@ class ActionColumn(Column):
         return context
 
 
-class HistoryView(PermissionCheckedMixin, BaseListingView):
+class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
     results_template_name = "wagtailadmin/generic/history_results.html"
@@ -196,16 +196,11 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
                     "revisions_compare": self.revisions_compare_url_name,
                     "revisions_unschedule": self.revisions_unschedule_url_name,
                 },
-                user_can_unschedule=self.user_has_permission("publish"),
+                user_can_unschedule=self.user_can_unschedule(),
             ),
             UserColumn("user", blank_display_name="system"),
             DateColumn("timestamp", label=gettext_lazy("Date")),
         ]
-
-    def setup(self, request, *args, pk, **kwargs):
-        self.pk = pk
-        self.object = self.get_object()
-        super().setup(request, *args, **kwargs)
 
     def get_object(self):
         object = get_object_or_404(self.model, pk=unquote(self.pk))
@@ -260,6 +255,9 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
 
     def get_index_results_url(self):
         return self.get_history_results_url(self.object)
+
+    def user_can_unschedule(self):
+        return self.user_has_permission("publish")
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
