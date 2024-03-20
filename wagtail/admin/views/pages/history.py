@@ -1,27 +1,33 @@
 import django_filters
-from django import forms
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic import history
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
+from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
 from wagtail.permissions import page_permission_policy
 
 
 class PageHistoryFilterSet(history.HistoryFilterSet):
-    hide_commenting_actions = django_filters.BooleanFilter(
-        label=gettext_lazy("Hide commenting actions"),
-        method="filter_hide_commenting_actions",
-        widget=forms.CheckboxInput,
+    is_commenting_action = django_filters.BooleanFilter(
+        label=gettext_lazy("Is commenting action"),
+        method="filter_is_commenting_action",
+        widget=BooleanRadioSelect,
     )
 
-    def filter_hide_commenting_actions(self, queryset, name, value):
-        if value:
-            queryset = queryset.exclude(action__startswith="wagtail.comments")
-        return queryset
+    def filter_is_commenting_action(self, queryset, name, value):
+        if value is None:
+            return queryset
+
+        q = Q(action__startswith="wagtail.comments")
+        if value is False:
+            q = ~q
+
+        return queryset.filter(q)
 
 
 class PageWorkflowHistoryViewMixin:
