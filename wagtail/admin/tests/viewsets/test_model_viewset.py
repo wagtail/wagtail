@@ -1140,6 +1140,19 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         history_link = header.find("a", attrs={"href": self.url})
         self.assertIsNotNone(history_link)
 
+    def test_deleted_user(self):
+        to_be_deleted = self.create_user("to_be_deleted")
+        user_id = to_be_deleted.pk
+        log(
+            instance=self.object,
+            action="wagtail.edit",
+            content_changed=True,
+            user=to_be_deleted,
+        )
+        to_be_deleted.delete()
+        response = self.client.get(self.url)
+        self.assertContains(response, f"user {user_id} (deleted)")
+
 
 class TestUsageView(WagtailTestUtils, TestCase):
     @classmethod

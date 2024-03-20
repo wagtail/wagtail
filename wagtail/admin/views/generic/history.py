@@ -165,6 +165,20 @@ class ActionColumn(Column):
         return context
 
 
+class LogEntryUserColumn(UserColumn):
+    def __init__(self, name, **kwargs):
+        # Instead of accepting a blank_display_name arg, we'll make use of the
+        # BaseLogEntry.user_display_name property which also handles the display
+        # name for a deleted user (as the BaseLogEntry still stores the ID).
+        super().__init__(name, blank_display_name=None, **kwargs)
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        if not context["display_name"]:
+            context["display_name"] = instance.user_display_name
+        return context
+
+
 class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
@@ -198,7 +212,7 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                 },
                 user_can_unschedule=self.user_can_unschedule(),
             ),
-            UserColumn("user", blank_display_name="system"),
+            LogEntryUserColumn("user"),
             DateColumn("timestamp", label=gettext_lazy("Date")),
         ]
 
