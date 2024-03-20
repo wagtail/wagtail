@@ -1309,7 +1309,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to copy this page"}
         )
 
     def test_recursively_copy_into_self(self):
@@ -1347,7 +1347,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to copy this page"}
         )
 
     def test_without_publish_permissions_at_destination_with_keep_live(self):
@@ -1374,7 +1374,12 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content,
+            {
+                "detail": (
+                    "You do not have permission to publish a page at the destination"
+                )
+            },
         )
 
     def test_respects_page_creation_rules(self):
@@ -1384,7 +1389,7 @@ class TestCopyPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to copy this page"}
         )
 
     def test_copy_page_slug_in_use(self):
@@ -1511,7 +1516,7 @@ class TestDeletePageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to delete this page"}
         )
 
         # Page is still there
@@ -1559,7 +1564,7 @@ class TestPublishPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to publish this page"}
         )
 
     def test_publish_alias_page(self):
@@ -1649,7 +1654,7 @@ class TestUnpublishPageAction(AdminAPITestCase, TestCase):
         self.assertEqual(response.status_code, 403)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to unpublish this page"}
         )
 
 
@@ -1681,7 +1686,13 @@ class TestMovePageAction(AdminAPITestCase, TestCase):
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content,
+            {
+                "detail": (
+                    "You do not have permission to move the page to the "
+                    "target specified."
+                ),
+            },
         )
 
     def test_move_page_without_destination_page_id(self):
@@ -1884,7 +1895,12 @@ class TestCreatePageAliasAction(AdminAPITestCase, TestCase):
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content,
+            {
+                "detail": (
+                    "You do not have permission to publish a page at the destination"
+                ),
+            },
         )
 
 
@@ -1941,7 +1957,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase, TestCase):
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(
-            content, {"detail": "You do not have permission to perform this action."}
+            content, {"detail": "You do not have permission to edit this page"}
         )
 
     def test_revert_to_page_revision_without_revision_id(self):
