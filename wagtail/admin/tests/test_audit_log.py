@@ -180,6 +180,73 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ["Action: Edit", "Action: Lock"],
         )
 
+    def test_is_commenting_action_filters(self):
+        self.login(user=self.editor)
+        self._update_page(self.hello_page)
+
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+        )
+
+        log(
+            instance=self.hello_page,
+            action="wagtail.comments.create",
+            user=self.editor,
+            revision=self.hello_page.latest_revision,
+            data={
+                "comment": {
+                    "id": 123,
+                    "contentpath": "content",
+                    "text": "A comment that was added",
+                }
+            },
+        )
+
+        log(
+            instance=self.hello_page,
+            action="wagtail.comments.edit",
+            user=self.editor,
+            revision=self.hello_page.latest_revision,
+            data={
+                "comment": {
+                    "id": 123,
+                    "contentpath": "content",
+                    "text": "A comment that was edited",
+                }
+            },
+        )
+
+        # Without the filter applied
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Draft saved", count=2)
+        self.assertContains(response, "Locked")
+        self.assertContains(response, "Unlocked")
+        self.assertContains(response, "Page scheduled for publishing")
+        self.assertContains(response, "Published")
+
+        # Filter to only commenting actions
+        response = self.client.get(history_url + "?is_commenting_action=true")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "A comment that was added")
+        self.assertContains(response, "A comment that was edited")
+        self.assertNotContains(response, "Draft saved")
+        self.assertNotContains(response, "Locked")
+        self.assertNotContains(response, "Unlocked")
+        self.assertNotContains(response, "Page scheduled for publishing")
+        self.assertNotContains(response, "Published")
+
+        # Filter to only non-commenting actions
+        response = self.client.get(history_url + "?is_commenting_action=false")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "A comment that was added")
+        self.assertNotContains(response, "A comment that was edited")
+        self.assertContains(response, "Draft saved")
+        self.assertContains(response, "Locked")
+        self.assertContains(response, "Unlocked")
+        self.assertContains(response, "Page scheduled for publishing")
+        self.assertContains(response, "Published")
+
     def test_site_history(self):
         self._update_page(self.hello_page)
         self.about_page.save_revision(user=self.administrator, log_action=True)
