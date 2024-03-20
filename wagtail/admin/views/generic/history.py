@@ -69,12 +69,28 @@ class ActionColumn(Column):
         self.object = object
         self.url_names = url_names
         self.user_can_unschedule = user_can_unschedule
+        self.revision_enabled = isinstance(object, RevisionMixin)
+        self.draftstate_enabled = isinstance(object, DraftStateMixin)
 
     @cached_property
     def cell_template_name(self):
-        if isinstance(self.object, RevisionMixin):
+        if self.revision_enabled:
             return "wagtailadmin/generic/history/action_cell.html"
         return super().cell_template_name
+
+    def get_status(self, instance, parent_context):
+        if self.draftstate_enabled:
+            if (
+                instance.action == "wagtail.publish"
+                and instance.revision_id == self.object.live_revision_id
+            ):
+                return gettext("Live version")
+            elif (
+                instance.content_changed
+                and instance.revision_id == self.object.latest_revision_id
+            ):
+                return gettext("Current draft")
+        return None
 
     def get_actions(self, instance, parent_context):
         actions = []
@@ -85,7 +101,7 @@ class ActionColumn(Column):
         # - is a "publish" action
         #   (because we want to show the options on the "edit" action instead)
         if (
-            not isinstance(self.object, RevisionMixin)
+            not self.revision_enabled
             or not instance.revision_id
             or not instance.content_changed
             or instance.action == "wagtail.publish"
@@ -144,8 +160,7 @@ class ActionColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["object"] = self.object
-        context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
+        context["status"] = self.get_status(instance, parent_context)
         context["actions"] = self.get_actions(instance, parent_context)
         return context
 

@@ -5,12 +5,8 @@
         <div class="w-flex w-items-center w-gap-2">
             {{ value }}
 
-            {% if draftstate_enabled %}
-                {% if instance.action == 'wagtail.publish' and instance.revision_id == object.live_revision_id %}
-                    {% status _('Live version') classname="w-status--primary" %}
-                {% elif instance.content_changed and instance.revision_id == object.latest_revision_id %}
-                    {% status _('Current draft') classname="w-status--primary" %}
-                {% endif %}
+            {% if status %}
+                {% status status classname="w-status--primary" %}
             {% endif %}
         </div>
 
