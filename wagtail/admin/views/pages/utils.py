@@ -26,7 +26,7 @@ def get_breadcrumbs_items_for_page(
     pages = (
         page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
-        .specific()
+        .specific(defer=True)
     )
 
     items = []
