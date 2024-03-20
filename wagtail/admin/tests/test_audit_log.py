@@ -464,7 +464,7 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         with self.assertNumQueries(18):
             self.client.get(history_url)
 
-        # With even more log entries
+        # With even more log entries, should remain the same (no N+1 queries)
         log(
             instance=self.hello_page,
             action="wagtail.comments.create",
@@ -493,5 +493,5 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             },
         )
         self._update_page(self.hello_page)
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(18):
             self.client.get(history_url)
