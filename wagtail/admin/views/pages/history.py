@@ -90,3 +90,6 @@ class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
 
     def get_base_queryset(self):
         return self._annotate_queryset(PageLogEntry.objects.filter(page=self.object))
+
+    def _annotate_queryset(self, queryset):
+        return super()._annotate_queryset(queryset).select_related("page")
