@@ -2,11 +2,17 @@
 
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     <div class="w-flex w-items-center w-justify-between">
-        <div class="w-flex w-items-center w-gap-2">
-            {{ value }}
+        <div>
+            <div class="w-flex w-items-center w-gap-2">
+                {{ value }}
 
-            {% if status %}
-                {% status status classname="w-status--primary" %}
+                {% if status %}
+                    {% status status classname="w-status--primary" %}
+                {% endif %}
+            </div>
+
+            {% if instance.comment %}
+                <div>{% trans "Comment" %}: <em>{{ instance.comment }}</em></div>
             {% endif %}
         </div>
 
