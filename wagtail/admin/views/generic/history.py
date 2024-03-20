@@ -212,8 +212,8 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                 },
                 user_can_unschedule=self.user_can_unschedule(),
             ),
-            LogEntryUserColumn("user"),
-            DateColumn("timestamp", label=gettext_lazy("Date")),
+            LogEntryUserColumn("user", width="25%"),
+            DateColumn("timestamp", label=gettext_lazy("Date"), width="15%"),
         ]
 
     def get_object(self):
