@@ -226,21 +226,30 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         return str(self.object)
 
     def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {
-                "url": self.get_edit_url(self.object),
-                "label": str(self.object),
-            },
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        edit_url = self.get_edit_url(self.object)
+        if edit_url:
+            items.append(
+                {
+                    "url": edit_url,
+                    "label": str(self.object),
+                }
+            )
+        items.append(
             {
                 "url": "",
                 "label": gettext("History"),
                 "sublabel": self.get_page_subtitle(),
-            },
-        ]
+            }
+        )
+        return self.breadcrumbs_items + items
 
     @cached_property
     def header_buttons(self):
