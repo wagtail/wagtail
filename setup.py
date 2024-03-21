@@ -42,7 +42,6 @@ install_requires = [
 testing_extras = [
     # Required for running the tests
     "python-dateutil>=2.7",
-    "pytz>=2014.7",
     "Jinja2>=3.0,<3.2",
     "boto3>=1.28,<2",
     "freezegun>=0.3.8",
