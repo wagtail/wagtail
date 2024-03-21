@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.log_actions import log
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -328,3 +329,54 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
             response,
             f"Revision {revision.id} from {render_timestamp(revision.created_at)} unscheduled from publishing at {render_timestamp(go_live_at)}.",
         )
+
+    def test_num_queries(self):
+        self.login(user=self.editor)
+
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+        )
+
+        # Warm up the cache
+        self.client.get(history_url)
+
+        # Initial load, without any log entries
+        with self.assertNumQueries(16):
+            self.client.get(history_url)
+
+        # With some log entries
+        self._update_page(self.hello_page)
+        with self.assertNumQueries(21):
+            self.client.get(history_url)
+
+        # With even more log entries
+        log(
+            instance=self.hello_page,
+            action="wagtail.comments.create",
+            user=self.editor,
+            revision=self.hello_page.latest_revision,
+            data={
+                "comment": {
+                    "id": 123,
+                    "contentpath": "content",
+                    "text": "A comment that was added",
+                }
+            },
+        )
+
+        log(
+            instance=self.hello_page,
+            action="wagtail.comments.edit",
+            user=self.editor,
+            revision=self.hello_page.latest_revision,
+            data={
+                "comment": {
+                    "id": 123,
+                    "contentpath": "content",
+                    "text": "A comment that was edited",
+                }
+            },
+        )
+        self._update_page(self.hello_page)
+        with self.assertNumQueries(26):
+            self.client.get(history_url)
