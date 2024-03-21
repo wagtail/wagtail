@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 import django_filters
-from django.contrib.admin.utils import quote, unquote
+from django.contrib.admin.utils import quote
 from django.core.paginator import Paginator
 from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
@@ -17,6 +17,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
+from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic.base import (
     BaseListingView,
     BaseObjectMixin,
@@ -216,14 +217,14 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             DateColumn("timestamp", label=gettext_lazy("Date"), width="15%"),
         ]
 
-    def get_object(self):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
-        if isinstance(object, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
+    def get_base_object_queryset(self):
+        queryset = super().get_base_object_queryset()
+        if issubclass(queryset.model, RevisionMixin):
+            return queryset.select_related("latest_revision")
+        return queryset
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         items = []
@@ -239,7 +240,7 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             items.append(
                 {
                     "url": edit_url,
-                    "label": str(self.object),
+                    "label": get_latest_str(self.object),
                 }
             )
         items.append(
