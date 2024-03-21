@@ -214,8 +214,8 @@ class TestSiteRouting(TestCase):
     def test_find_for_request(self):
         request = get_dummy_request(site=self.events_site)
         self.assertFalse(hasattr(request, '_wagtail_page_for_request'))
-        with self.assertNumQueries(3):
-            # expect queries for site, page & locale
+        with self.assertNumQueries(2):
+            # expect queries for site & page
             Page.find_for_request(request, request.path)
         self.assertTrue(hasattr(request, '_wagtail_page_for_request'))
         with self.assertNumQueries(0):
