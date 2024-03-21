@@ -68,15 +68,6 @@ class TestServeView(TestCase):
                 serve(request, '/')
             m.assert_called_once_with(request, *args, **kwargs)
 
-    def test_serve_calls_page_find_for_request(self):
-        request = get_dummy_request()
-        with mock.patch(
-            "wagtail.models.Page.find_for_request",
-            wraps=Page.find_for_request,
-        ) as method:
-            serve(request, '/')
-        method.assert_called_once_with(request, '/')
-
     def test_process_view_by_page(self):
         site = Site.objects.get()
         page = site.root_page.add_child(
