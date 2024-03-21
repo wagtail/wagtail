@@ -10,7 +10,7 @@ from wagtail.models import Page, PageViewRestriction
 
 
 def serve(request, path):
-    page, args, kwargs = Page.find_for_request(request, path)
+    page, args, kwargs = Page.route_for_request(request, path)
 
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)

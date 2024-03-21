@@ -62,7 +62,7 @@ class TestServeView(TestCase):
         mocked_get_hooks.return_value = []
         request = get_dummy_request()
         Site.find_for_request(request)
-        page, args, kwargs = Page.find_for_request(request, request.path)
+        page, args, kwargs = Page.route_for_request(request, request.path)
         with mock.patch.object(page, 'serve', wraps=page.serve) as m:
             with self.assertNumQueries(0):
                 serve(request, '/')
