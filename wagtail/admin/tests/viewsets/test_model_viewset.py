@@ -1132,6 +1132,19 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         self.assertEqual(results.text.strip(), "There are no log entries to display.")
         self.assertIsNone(table)
 
+        # Should hide the action and user filters as there are no choices for
+        # these filters (since the choices are based on the current queryset)
+        action_inputs = soup.select('input[name="action"]')
+        self.assertEqual(len(action_inputs), 0)
+        user_inputs = soup.select('input[name="user"]')
+        self.assertEqual(len(user_inputs), 0)
+
+        # Should still render the timestamp filter as it is always available
+        timestamp_before_input = soup.select_one('input[name="timestamp_before"]')
+        self.assertIsNotNone(timestamp_before_input)
+        timestamp_after_input = soup.select_one('input[name="timestamp_after"]')
+        self.assertIsNotNone(timestamp_after_input)
+
     def test_edit_view_links_to_history_view(self):
         edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
         response = self.client.get(edit_url)
