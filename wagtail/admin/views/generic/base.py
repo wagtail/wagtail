@@ -121,13 +121,16 @@ class BaseObjectMixin:
     def get_pk(self):
         return unquote(str(self.kwargs[self.pk_url_kwarg]))
 
+    def get_base_object_queryset(self):
+        return self.model._default_manager.all()
+
     def get_object(self):
         if not self.model:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.base.BaseObjectMixin must provide a "
                 "model attribute or a get_object method"
             )
-        return get_object_or_404(self.model, pk=self.pk)
+        return get_object_or_404(self.get_base_object_queryset(), pk=self.pk)
 
 
 class BaseOperationView(BaseObjectMixin, View):
