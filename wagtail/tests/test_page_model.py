@@ -15,6 +15,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.coreutils import get_dummy_request
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
@@ -211,10 +212,7 @@ class TestSiteRouting(TestCase):
         self.unrecognised_hostname = "unknown.site.com"
 
     def test_find_for_request(self):
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
-        request.META["SERVER_PORT"] = self.events_site.port
+        request = get_dummy_request(site=self.events_site)
         self.assertFalse(hasattr(request, '_wagtail_page_for_request'))
         with self.assertNumQueries(3):
             # expect queries for site, page & locale
