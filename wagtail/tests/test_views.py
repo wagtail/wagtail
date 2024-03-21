@@ -82,7 +82,7 @@ class TestServeView(TestCase):
         ):
             response_a = self.client.get('/simple/')
             self.assertEqual(response_a.content, b'\n\n\n\n<!DOCTYPE HTML>\n<html lang="en" dir="ltr">\n    <head>\n        <title>Simple page</title>\n    </head>\n    <body>\n        \n        <h1>Simple page</h1>\n        \n    <h2>Simple page</h2>\n\n    </body>\n</html>\n')
-            page.content = "Bye"
+            page.content = "Intercept me"
             page.save_revision().publish()
             response_b = self.client.get('/simple/')
             self.assertEqual(response_b.content, b'Intercepted')
