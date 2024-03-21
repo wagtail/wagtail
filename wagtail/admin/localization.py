@@ -1,4 +1,4 @@
-import pytz
+import zoneinfo
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
 from django.utils.translation import gettext as _
@@ -106,4 +106,6 @@ def get_available_admin_time_zones():
     if not settings.USE_TZ:
         return []
 
-    return getattr(settings, "WAGTAIL_USER_TIME_ZONES", pytz.common_timezones)
+    return getattr(
+        settings, "WAGTAIL_USER_TIME_ZONES", sorted(zoneinfo.available_timezones())
+    )

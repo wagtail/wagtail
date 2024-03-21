@@ -589,7 +589,7 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 Logged-in users can choose their current time zone for the admin interface in the account settings. If there is no time zone selected by the user, then `TIME_ZONE` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
 
-The list of time zones is by default the common_timezones list from pytz.
+By default, this uses the set of timezones returned by `zoneinfo.available_timezones()`.
 It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
 If there is zero or one-time zone permitted, the account settings form will be hidden.
 
