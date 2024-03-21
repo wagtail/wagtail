@@ -229,6 +229,12 @@ class TestSiteRouting(TestCase):
         self.assertEqual((result[0], result[1], result[2]), (self.events_site.root_page.specific, [], {}))
         self.assertTrue(hasattr(request, '_wagtail_page_for_request'))
         self.assertIs(request._wagtail_page_for_request, result)
+    
+    def test_route_for_request_cached(self):
+        request = get_dummy_request(site=self.events_site)
+        m = Mock()
+        request._wagtail_page_for_request = m
+        self.assertEqual(Page.route_for_request(request, request.path), m)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
