@@ -1,8 +1,9 @@
 from unittest import mock
 
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Site
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -59,7 +60,7 @@ class TestServeView(TestCase):
     @mock.patch('wagtail.hooks.get_hooks')
     def test_serve_query_count(self, mocked_get_hooks):
         mocked_get_hooks.return_value = []
-        request = RequestFactory().get('/')
+        request = get_dummy_request()
         Site.find_for_request(request)
         page, args, kwargs = Page.find_for_request(request, request.path)
         with mock.patch.object(page, 'serve', wraps=page.serve) as m:
@@ -68,8 +69,7 @@ class TestServeView(TestCase):
             m.assert_called_once_with(request, *args, **kwargs)
 
     def test_serve_calls_page_find_for_request(self):
-        request = RequestFactory().get('/')
-
+        request = get_dummy_request()
         with mock.patch(
             "wagtail.models.Page.find_for_request",
             wraps=Page.find_for_request,
