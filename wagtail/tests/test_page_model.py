@@ -211,7 +211,7 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = "8000"
         self.unrecognised_hostname = "unknown.site.com"
 
-    def test_find_for_request(self):
+    def test_route_for_request_query_count(self):
         request = get_dummy_request(site=self.events_site)
         self.assertFalse(hasattr(request, '_wagtail_page_for_request'))
         with self.assertNumQueries(2):
