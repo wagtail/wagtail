@@ -235,6 +235,11 @@ class TestSiteRouting(TestCase):
         m = Mock()
         request._wagtail_page_for_request = m
         self.assertEqual(Page.route_for_request(request, request.path), m)
+    
+    def test_route_for_request_404(self):
+        request = get_dummy_request(path='does-not-exist', site=self.events_site)
+        with self.assertRaises(Http404):
+            Page.route_for_request(request, request.path)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
