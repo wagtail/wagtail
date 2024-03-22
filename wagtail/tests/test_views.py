@@ -75,19 +75,23 @@ class TestServeView(TestCase):
                 title="Simple page", slug="simple", content="Simple"
             )
         )
-        with self.modify_settings(
-            MIDDLEWARE={
-                "prepend": "wagtail.test.middleware.SimplePageViewInterceptorMiddleware"
-            }
-        ):
-            with self.assertNumQueries(expected_query_count):
-                response_a = self.client.get('/simple/')
-            self.assertEqual(response_a.content, b'\n\n\n\n<!DOCTYPE HTML>\n<html lang="en" dir="ltr">\n    <head>\n        <title>Simple page</title>\n    </head>\n    <body>\n        \n        <h1>Simple page</h1>\n        \n    <h2>Simple page</h2>\n\n    </body>\n</html>\n')
-            page.content = "Intercept me"
-            page.save_revision().publish()
-            with self.assertNumQueries(expected_query_count):
-                # verify the same number of queries are used when the
-                # middleware activates to demonstrate Page.route_for_request()
-                # prevents extra database queries for serving pages
-                response_b = self.client.get('/simple/')
-            self.assertEqual(response_b.content, b'Intercepted')
+        with mock.patch.object(Page, 'route_for_request', wraps=Page.route_for_request) as m:
+            with self.modify_settings(
+                MIDDLEWARE={
+                    "prepend": "wagtail.test.middleware.SimplePageViewInterceptorMiddleware"
+                }
+            ):
+                with self.assertNumQueries(expected_query_count):
+                    response_a = self.client.get('/simple/')
+                self.assertEqual(response_a.content, b'\n\n\n\n<!DOCTYPE HTML>\n<html lang="en" dir="ltr">\n    <head>\n        <title>Simple page</title>\n    </head>\n    <body>\n        \n        <h1>Simple page</h1>\n        \n    <h2>Simple page</h2>\n\n    </body>\n</html>\n')
+                self.assertEqual(m.call_count, 2)
+                page.content = "Intercept me"
+                page.save_revision().publish()
+                m.reset_mock()
+                with self.assertNumQueries(expected_query_count):
+                    # verify the same number of queries are used when the
+                    # middleware activates to demonstrate Page.route_for_request()
+                    # prevents extra database queries for serving pages
+                    response_b = self.client.get('/simple/')
+                self.assertEqual(response_b.content, b'Intercepted')
+                self.assertEqual(m.call_count, 1)
