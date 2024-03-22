@@ -68,6 +68,7 @@ class TestServeView(TestCase):
                 serve(request, '/')
             m.assert_called_once_with(request, *args, **kwargs)
 
+    @mock.patch('wagtail.hooks.get_hooks', mock.Mock(return_value=[]))
     def test_process_view_by_page(self):
         site = Site.objects.get()
         page = site.root_page.add_child(
@@ -80,9 +81,14 @@ class TestServeView(TestCase):
                 "prepend": "wagtail.test.middleware.SimplePageViewInterceptorMiddleware"
             }
         ):
-            response_a = self.client.get('/simple/')
+            with self.assertNumQueries(4):
+                response_a = self.client.get('/simple/')
             self.assertEqual(response_a.content, b'\n\n\n\n<!DOCTYPE HTML>\n<html lang="en" dir="ltr">\n    <head>\n        <title>Simple page</title>\n    </head>\n    <body>\n        \n        <h1>Simple page</h1>\n        \n    <h2>Simple page</h2>\n\n    </body>\n</html>\n')
             page.content = "Intercept me"
             page.save_revision().publish()
-            response_b = self.client.get('/simple/')
+            with self.assertNumQueries(4):
+                # verify the same number of queries are used when the
+                # middleware activates to demonstrate Page.route_for_request()
+                # prevents extra database queries for serving pages
+                response_b = self.client.get('/simple/')
             self.assertEqual(response_b.content, b'Intercepted')
