@@ -1,31 +1,13 @@
-{% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags%}
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n wagtailadmin_tags %}
 
-{% block titletag %}Choose a parent page{% endblock %}
-
-{% block extra_css %}
-    {{ block.super }}
-    {{ form.media.css }}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
-{% endblock %}
-
-{% block content %}
-    {% block header %}
-        {% include "wagtailadmin/shared/header.html" with title=_("Create a new ") subtitle=model_name icon="doc-empty-inverse" %}
-    {% endblock %}
-
-    <div class="nice-padding">
-        <h2>{% blocktrans trimmed %}Choose a parent page{% endblocktrans %}</h2>
+{% block main_content %}
         <form action="" method="post" novalidate>
             {% csrf_token %}
 
-            {% include "wagtailadmin/shared/field.html" with field=form.parent_page %}
+            {% for field in form %}
+                {% formattedfield field %}
+            {% endfor %}
             <button class="button" type="submit">{% trans 'Continue' %}</button>
         </form>
-    </div>
 {% endblock %}

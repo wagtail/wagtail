@@ -230,6 +230,9 @@ class MoveForm(forms.Form):
 
 class PageChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
+        if obj.is_root():
+            return obj.get_admin_display_title()
+
         bits = []
         for ancestor in (
             obj.get_ancestors(inclusive=True).exclude(depth=1).specific(defer=True)

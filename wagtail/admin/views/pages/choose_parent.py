@@ -1,16 +1,22 @@
 from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
+from django.urls import reverse
+from django.utils.text import capfirst
+from django.utils.translation import gettext as _
 from django.views import View
 
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 
 
 class ChooseParentView(WagtailAdminTemplateMixin, View):
     template_name = "wagtailadmin/pages/choose_parent.html"
     model = Page
+    index_url_name = None
+    _show_breadcrumbs = True
 
     def get_valid_parent_pages(self, user):
         """
@@ -34,12 +40,9 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
             pages_where_user_can_add = Page.objects.all()
         else:
             pages_where_user_can_add = Page.objects.none()
-
-            from wagtail.permission_policies.pages import PagePermissionPolicy
-
             perms = {
                 perm
-                for perm in PagePermissionPolicy().get_cached_permissions_for_user(user)
+                for perm in page_permission_policy.get_cached_permissions_for_user(user)
                 if perm.permission.codename == "add_page"
             }
             for perm in perms:
@@ -55,6 +58,25 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
     def get_form(self, request):
         parents = self.get_valid_parent_pages(request.user)
         return ParentChooserForm(parents, request.POST or None)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": _("Choose parent: %(model_name)s")
+                % {"model_name": capfirst(self.model._meta.verbose_name)},
+            }
+        )
+
+        return self.breadcrumbs_items + items
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)
@@ -81,5 +103,4 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["model_name"] = self.model._meta.verbose_name
         return context

@@ -1,7 +1,0 @@
-{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
-{% load wagtailadmin_tags i18n %}
-
-{% block actions %}
-    {% trans 'Create new page' as create_page_str %}
-    <a href="{{ choose_parent_url }}" class="w-header-button" data-controller="w-tooltip" data-w-tooltip-content-value="{{ create_page_str }}" aria-label="{{ create_page_str }}">{% icon name="plus" %}</a>
-{% endblock %}

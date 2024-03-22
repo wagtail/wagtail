@@ -143,7 +143,6 @@ class IndexView(generic.IndexView):
     filterset_class = PageFilterSet
     index_url_name = None
     index_results_url_name = None
-    choose_parent_url_name = None
     default_ordering = "-latest_revision_created_at"
     model = Page
     _show_breadcrumbs = True
@@ -293,9 +292,6 @@ class IndexView(generic.IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        if self.choose_parent_url_name:
-            context["choose_parent_url"] = self.get_chooseparent_url()
 
         context.update(
             {

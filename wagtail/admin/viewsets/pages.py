@@ -32,15 +32,16 @@ class PageListingViewSet(ViewSet):
         return {
             "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
-            "choose_parent_url_name": self.get_url_name("choose_parent"),
+            "add_url_name": self.get_url_name("choose_parent"),
             "model": self.model,
             "columns": self.columns,
             "filterset_class": self.filterset_class,
             **kwargs,
         }
 
-    def get_chooseparent_view_kwargs(self, **kwargs):
+    def get_choose_parent_view_kwargs(self, **kwargs):
         return {
+            "index_url_name": self.get_url_name("index"),
             "model": self.model,
             **kwargs,
         }
@@ -60,7 +61,7 @@ class PageListingViewSet(ViewSet):
     @property
     def choose_parent_view(self):
         return self.construct_view(
-            self.choose_parent_view_class, **self.get_chooseparent_view_kwargs()
+            self.choose_parent_view_class, **self.get_choose_parent_view_kwargs()
         )
 
     def get_urlpatterns(self):
