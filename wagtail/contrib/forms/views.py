@@ -156,6 +156,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     """Lists submissions for the provided form page"""
 
     template_name = "wagtailforms/submissions_index.html"
+    results_template_name = "wagtailforms/list_submissions.html"
     context_object_name = "submissions"
     form_page = None
     default_ordering = ("-submit_time",)
@@ -165,8 +166,14 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
         "submit_time",
     )  # used to validate ordering in URL
     page_title = gettext_lazy("Form data")
+    header_icon = "form"
     paginate_by = 20
     filterset_class = SubmissionsListFilterSet
+    forms_index_url_name = "wagtailforms:index"
+    index_url_name = "wagtailforms:list_submissions"
+    index_results_url_name = "wagtailforms:list_submissions_results"
+    _show_breadcrumbs = True
+    show_export_buttons = True
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -243,6 +250,28 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
             (field, item.get_data().get(field)) for field in self.list_export
         )
         return row_dict
+
+    def get_index_url(self):
+        return reverse(self.index_url_name, args=(self.form_page.id,))
+
+    def get_index_results_url(self):
+        return reverse(self.index_results_url_name, args=(self.form_page.id,))
+
+    def get_page_subtitle(self):
+        return self.form_page.get_admin_display_title()
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.forms_index_url_name),
+                "label": gettext("Forms"),
+            },
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            },
+        ]
 
     def get_context_data(self, **kwargs):
         """Return context for view"""
