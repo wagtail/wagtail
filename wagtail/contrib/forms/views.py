@@ -7,13 +7,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy, ngettext
 from django.views.generic import TemplateView
+from django_filters import DateFromToRangeFilter
 
 from wagtail.admin import messages
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.models import Page
 
@@ -143,6 +144,14 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
+class SubmissionsListFilterSet(WagtailFilterSet):
+    date = DateFromToRangeFilter(
+        label=gettext_lazy("Submission date"),
+        field_name="submit_time",
+        widget=DateRangePickerWidget,
+    )
+
+
 class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     """Lists submissions for the provided form page"""
 
@@ -156,8 +165,8 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
         "submit_time",
     )  # used to validate ordering in URL
     page_title = gettext_lazy("Form data")
-    select_date_form = None
     paginate_by = 20
+    filterset_class = SubmissionsListFilterSet
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -175,14 +184,20 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_queryset(self):
-        """Return queryset of form submissions with filter and order_by applied"""
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["queryset"] = self.get_base_queryset()
+        return kwargs
+
+    def get_base_queryset(self):
+        """Return queryset of form submissions"""
         submission_class = self.form_page.get_submission_class()
         queryset = submission_class._default_manager.filter(page=self.form_page)
+        return queryset
 
-        filtering = self.get_filtering()
-        if filtering and isinstance(filtering, dict):
-            queryset = queryset.filter(**filtering)
+    def get_queryset(self):
+        queryset = self.get_base_queryset()
+        queryset = self.filter_queryset(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -220,25 +235,6 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
         """Return the field or fields to use for ordering the queryset"""
         ordering = self.get_validated_ordering()
         return [values[0] + name for name, values in ordering.items()]
-
-    def get_filtering(self):
-        """Return filering as a dict for submissions queryset"""
-        self.select_date_form = SelectDateForm(self.request.GET)
-        result = {}
-        if self.select_date_form.is_valid():
-            date_from = self.select_date_form.cleaned_data.get("date_from")
-            date_to = self.select_date_form.cleaned_data.get("date_to")
-            if date_to:
-                # careful: date_to must be increased by 1 day
-                # as submit_time is a time so will always be greater
-                date_to += datetime.timedelta(days=1)
-                if date_from:
-                    result["submit_time__range"] = [date_from, date_to]
-                else:
-                    result["submit_time__lte"] = date_to
-            elif date_from:
-                result["submit_time__gte"] = date_from
-        return result
 
     def get_filename(self):
         """Returns the base filename for the generated spreadsheet data file"""
@@ -301,7 +297,6 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
             context.update(
                 {
                     "form_page": self.form_page,
-                    "select_date_form": self.select_date_form,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
                 }
