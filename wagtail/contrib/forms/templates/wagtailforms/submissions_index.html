@@ -1,24 +1,3 @@
 {% extends "wagtailadmin/generic/listing.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
-{% block content %}
-    {% fragment as form_actions %}
-        {% include view.export_buttons_template_name %}
-    {% endfragment %}
-
-    {% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}
-
-    <div class="report filterable">
-        <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-pb-6">
-            {% if submissions %}
-                <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
-                    {% include "wagtailforms/list_submissions.html" %}
-                    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
-                </form>
-            {% else %}
-                <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
-            {% endif %}
-        </div>
-        {% include "wagtailadmin/shared/filters.html" with filters=filters only %}
-    </div>
-{% endblock %}

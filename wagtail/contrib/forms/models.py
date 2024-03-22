@@ -263,10 +263,11 @@ class FormMixin:
         """
         Returns list submissions view for admin.
 
-        `list_submissions_view_class` can bse set to provide custom view class.
+        `list_submissions_view_class` can be set to provide custom view class.
         Your class must be inherited from SubmissionsListView.
         """
-        view = self.get_submissions_list_view_class().as_view()
+        results_only = kwargs.pop("results_only", False)
+        view = self.get_submissions_list_view_class().as_view(results_only=results_only)
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
