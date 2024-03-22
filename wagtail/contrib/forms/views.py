@@ -6,11 +6,12 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy, ngettext
-from django.views.generic import ListView, TemplateView
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
@@ -142,7 +143,7 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
-class SubmissionsListView(SpreadsheetExportMixin, ListView):
+class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     """Lists submissions for the provided form page"""
 
     template_name = "wagtailforms/submissions_index.html"
@@ -157,7 +158,6 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
     page_title = gettext_lazy("Form data")
     select_date_form = None
     paginate_by = 20
-    page_kwarg = "p"
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -267,7 +267,6 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
         data_fields = self.form_page.get_data_fields()
         data_rows = []
         context["submissions"] = submissions
-        context["page_title"] = self.page_title
         if not self.is_export:
             # Build data_rows as list of dicts containing model_id and fields
             for submission in submissions:
