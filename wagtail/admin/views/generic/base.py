@@ -309,13 +309,17 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             elif isinstance(filter_def, DateFromToRangeFilter):
                 start_date_display = date_format(value.start) if value.start else ""
                 end_date_display = date_format(value.stop) if value.stop else ""
+                widget = filter_def.field.widget
                 filters.append(
                     ActiveFilter(
                         bound_field.auto_id,
                         filter_def.label,
                         "%s - %s" % (start_date_display, end_date_display),
                         self.get_url_without_filter_param(
-                            [f"{field_name}_before", f"{field_name}_after"]
+                            [
+                                widget.suffixed(field_name, suffix)
+                                for suffix in widget.suffixes
+                            ]
                         ),
                     )
                 )

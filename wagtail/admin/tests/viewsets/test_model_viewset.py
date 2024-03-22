@@ -1110,7 +1110,7 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["object_list"]), 3)
 
     def test_filtered_no_results(self):
-        response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})
+        response = self.client.get(self.url, {"timestamp_to": "2020-01-01"})
         soup = self.get_soup(response.content)
         results = soup.select_one("#listing-results")
         table = soup.select_one("#listing-results table")
