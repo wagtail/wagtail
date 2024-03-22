@@ -2,12 +2,12 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block main_content %}
-        <form action="" method="post" novalidate>
-            {% csrf_token %}
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
 
-            {% for field in form %}
-                {% formattedfield field %}
-            {% endfor %}
-            <button class="button" type="submit">{% trans 'Continue' %}</button>
-        </form>
+        {% for field in form %}
+            {% formattedfield field %}
+        {% endfor %}
+        <button class="button" type="submit">{% trans 'Continue' %}</button>
+    </form>
 {% endblock %}
