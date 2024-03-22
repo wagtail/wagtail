@@ -68,7 +68,7 @@ class TestServeView(TestCase):
             m.assert_called_once_with(request, *args, **kwargs)
 
     def test_process_view_by_page_query_count(self):
-        expected_query_count = 4
+        expected_query_count = 3
         site = Site.objects.get()
         page = site.root_page.add_child(
             instance=SimplePage(
