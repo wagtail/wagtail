@@ -70,8 +70,6 @@ class FormPagesListView(generic.IndexView):
     is_searchable = False
 
     def get_breadcrumbs_items(self):
-        if not self.model:
-            return self.breadcrumbs_items
         return self.breadcrumbs_items + [
             {"url": "", "label": self.page_title, "sublabel": gettext("Pages")},
         ]
