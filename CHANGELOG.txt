@@ -15,6 +15,10 @@ Changelog
  * Add support for Draftail's JavaScript to use chooserUrls provided by entity options & for the Draftail widget to encode lazy URLs/ translations (Elhussein Almasri)
  * Reimplement search promotions `IndexView` using the `generic.IndexView` (Rohit Sharma, Sage Abdullah, Storm Heg)
  * Add `PageListingViewSet` for custom per-page-type page listings (Matt Westcott)
+ * Implement new universal listings design for image listing view (Sage Abdullah)
+ * Implement new universal listings design for document listing view (Sage Abdullah)
+ * Implement new universal listings design for site and locale listing views (Sage Abdullah)
+ * Add simple admin keyboard shortcuts overview dialog, available in the help sub-menu (Karthik Ayangar, Rohit Sharma)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
@@ -24,6 +28,8 @@ Changelog
  * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
  * Fix: Ensure form builder emails that have date or datetime fields correctly localize dates based on the configured `LANGUAGE_CODE` (Mark Niehues)
  * Fix: Ensure the Stimulus `UnsavedController` checks for nested removal/additions of inputs so that the unsaved warning shows in more valid cases when editing a page (Karthik Ayangar)
+ * Fix: Ensure `get_add_url()` is always used to re-render the add button when the listing is refreshed in viewsets (Sage Abdullah)
+ * Fix: Ensure dropdown content cannot get higher than the viewport and add scrolling within content if needed (Chiemezuo Akujobi)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
@@ -32,6 +38,7 @@ Changelog
  * Docs: Update template components documentation to better explain the usage of the Laces library (Tibor Leupold)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
  * Docs: Document risk of XSS attacks on document upload (Matt Westcott, with thanks to Georgios Roumeliotis of TwelveSec for the original report)
+ * Docs: Add clarity to how custom StreamField validation works (Tibor Leupold)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
@@ -46,6 +53,8 @@ Changelog
  * Maintenance: Update all Draftail chooserUrls to be passed in via the Entity options instead of using `window.chooserUrls` globals, removing the need for inline scripts (Elhussein Almasri)
  * Maintenance: Enhance `w-init` (InitController) to support a `detail` value to be dispatched on events (Chiemezuo Akujobi)
  * Maintenance: Remove usage of inline scripts and instead use event dispatching to instantiate standalone Draftail editor instances (Chiemezuo Akujobi)
+ * Maintenance: Refactor `page_breadcrumbs` tag to use shared `breadcrumbs.html` template (Sage Abdullah)
+ * Maintenance: Add `keyboard` icon to admin icon set (Rohit Sharma)
 
 
 6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -54,6 +63,7 @@ Changelog
  * Fix: Ensure that modal tabs width are not impacted by side panel opening (LB (Ben) Johnston)
  * Fix: Resolve issue local development of docs when running `make livehtml` (Sage Abdullah)
  * Fix: Resolve issue with unwanted padding in chooser modal listings (Sage Abdullah)
+ * Fix: Ensure `get_add_url()` is always used to re-render the add button when the listing is refreshed in viewsets (Sage Abdullah)
  * Docs: Update Sphinx theme to `6.3.0` with a fix for the missing favicon (Sage Abdullah)
 
 
@@ -117,6 +127,7 @@ Changelog
  * Add API support for a redirects (contrib) endpoint (Rohit Sharma, Jaap Roes, Andreas Donig)
  * Add the default ability for all `SnippetViewSet` & `ModelViewSet` to support being copied (Shlomo Markowitz)
  * Support dynamic Wagtail guide links in the admin that are based on the running version of Wagtail (Tidiane Dia)
+ * Added `AbstractGroupApprovalTask` to simplify customizing behavior of custom `Task` models (John-Scott Atlakson)
  * Fix: Update system check for overwriting storage backends to recognize the `STORAGES` setting introduced in Django 4.2 (phijma-leukeleu)
  * Fix: Prevent password change form from raising a validation error when browser autocomplete fills in the "Old password" field (Chiemezuo Akujobi)
  * Fix: Ensure that the legacy dropdown options, when closed, do not get accidentally clicked by other interactions on wide viewports (CheesyPhoenix, Christer Jensen)

@@ -21,6 +21,14 @@ class LinkBlock(StructBlock):
         return result
 ```
 
+```{note}
+The validation of the blocks in the `StreamField` happens through the form field (`wagtail.blocks.base.BlockField`), not the model field (`wagtail.fields.StreamField`).
+
+This means that calling validation methods on your page instance (such as `my_page.full_clean()`) won't catch invalid blocks in the `StreamField` data.
+
+This should only be relevant when the data in the `StreamField` is added programmatically, through other paths than the form field.
+```
+
 ## Controlling where error messages are rendered
 
 In the above example, an exception of type `ValidationError` is raised, which causes the error to be attached and rendered against the StructBlock as a whole. For more control over where the error appears, the exception class `wagtail.blocks.StructBlockValidationError` can be raised instead. The constructor for this class accepts the following arguments:

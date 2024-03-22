@@ -1,4 +1,4 @@
-# UI Guidelines
+# UI guidelines
 
 Wagtail’s user interface is built with:
 

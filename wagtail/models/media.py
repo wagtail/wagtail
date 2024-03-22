@@ -14,13 +14,16 @@ from .view_restrictions import BaseViewRestriction
 
 
 class CollectionQuerySet(TreeQuerySet):
+    def get_min_depth(self):
+        return self.aggregate(models.Min("depth"))["depth__min"] or 2
+
     def get_indented_choices(self):
         """
         Return a list of (id, label) tuples for use as a list of choices in a collection chooser
         dropdown, where the label is formatted with get_indented_name to provide a tree layout.
         The indent level is chosen to place the minimum-depth collection at indent 0.
         """
-        min_depth = self.aggregate(models.Min("depth"))["depth__min"] or 2
+        min_depth = self.get_min_depth()
         return [
             (collection.pk, collection.get_indented_name(min_depth, html=True))
             for collection in self

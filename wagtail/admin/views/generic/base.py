@@ -16,6 +16,7 @@ from django_filters.filters import (
     DateFromToRangeFilter,
     ModelChoiceFilter,
     ModelMultipleChoiceFilter,
+    MultipleChoiceFilter,
 )
 
 from wagtail.admin import messages
@@ -201,7 +202,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     @cached_property
     def filters(self):
         if self.filterset_class:
-            filterset = self.filterset_class(self.request.GET, request=self.request)
+            filterset = self.filterset_class(**self.get_filterset_kwargs())
             # Don't use the filterset if it has no fields
             if filterset.form.fields:
                 return filterset
@@ -212,6 +213,12 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         return (
             self.filters and self.filters.is_valid() and self.filters.form.has_changed()
         )
+
+    def get_filterset_kwargs(self):
+        return {
+            "data": self.request.GET,
+            "request": self.request,
+        }
 
     def filter_queryset(self, queryset):
         if self.filters and self.filters.is_valid():
@@ -273,6 +280,16 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                             self.get_url_without_filter_param_value(
                                 field_name, item.pk
                             ),
+                        )
+                    )
+            elif isinstance(filter_def, MultipleChoiceFilter):
+                for item in value:
+                    filters.append(
+                        ActiveFilter(
+                            bound_field.auto_id,
+                            filter_def.label,
+                            item,
+                            self.get_url_without_filter_param_value(field_name, item),
                         )
                     )
             elif isinstance(filter_def, ModelChoiceFilter):
@@ -441,6 +458,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             self.request.GET.get("_w_filter_fragment")
             and self.filters
             and self.results_only
+        )
+        context["render_buttons_fragment"] = (
+            context.get("header_buttons") and self.results_only
         )
 
         return context

@@ -46,7 +46,7 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
     const complete = () => {
       if (completed) return;
       if (this.resetValue) target.innerHTML = '';
-      target.append(this.templateElement);
+      target.append(...this.templateFragment.childNodes);
       this.dispatch('appended', { cancelable: false, detail: { target } });
       completed = true;
       if (this.keepValue) return;
@@ -88,22 +88,20 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
   }
 
   /**
-   * Resolve a valid HTMLElement from the controlled element's children.
+   * Returns a fresh copy of the DocumentFragment from the controlled element.
    */
-  get templateElement() {
-    const templateElement =
-      this.element.content.firstElementChild?.cloneNode(true);
-
-    if (!(templateElement instanceof HTMLElement)) {
-      throw new Error('Invalid template content.');
-    }
+  get templateFragment() {
+    const content = this.element.content;
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode (returns the same type)
+    // https://github.com/microsoft/TypeScript/issues/283 (TypeScript will return as Node, incorrectly)
+    const templateFragment = content.cloneNode(true) as typeof content;
 
     // HACK:
     // cloneNode doesn't run scripts, so we need to create new script elements
     // and copy the attributes and innerHTML over. This is necessary when we're
     // teleporting a template that contains legacy init code, e.g. initDateChooser.
     // Only do this for inline scripts, as that's what we're expecting.
-    templateElement
+    templateFragment
       .querySelectorAll('script:not([src], [type])')
       .forEach((script) => {
         const newScript = document.createElement('script');
@@ -114,6 +112,6 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
         script.replaceWith(newScript);
       });
 
-    return templateElement;
+    return templateFragment;
   }
 }

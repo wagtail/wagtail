@@ -3616,7 +3616,7 @@ class Workflow(AbstractWorkflow):
     pass
 
 
-class GroupApprovalTask(Task):
+class AbstractGroupApprovalTask(Task):
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("groups"),
@@ -3698,8 +3698,13 @@ class GroupApprovalTask(Task):
         return _("Members of the chosen Wagtail Groups can approve this task")
 
     class Meta:
+        abstract = True
         verbose_name = _("Group approval task")
         verbose_name_plural = _("Group approval tasks")
+
+
+class GroupApprovalTask(AbstractGroupApprovalTask):
+    pass
 
 
 class WorkflowStateQuerySet(models.QuerySet):

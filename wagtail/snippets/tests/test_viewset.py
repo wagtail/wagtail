@@ -1536,3 +1536,35 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         soup = self.get_soup(response.content)
         links = soup.find_all("a", attrs={"href": add_url})
         self.assertEqual(len(links), 1)
+
+    def test_index_results_view_get_add_url_teleports_to_header(self):
+        response = self.client.get(self.get_url("list_results"))
+        add_url = self.get_url("add") + "?customised=param"
+        soup = self.get_soup(response.content)
+        template = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-slim-header-buttons",
+            },
+        )
+        self.assertIsNotNone(template)
+        links = template.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 1)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_index_results_view_get_add_url_teleports_to_header_with_i18n(self):
+        Locale.objects.create(language_code="fr")
+        response = self.client.get(self.get_url("list_results") + "?locale=fr")
+        add_url = self.get_url("add") + "?locale=fr&customised=param"
+        soup = self.get_soup(response.content)
+        template = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-slim-header-buttons",
+            },
+        )
+        self.assertIsNotNone(template)
+        links = template.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 1)
