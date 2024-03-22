@@ -41,7 +41,6 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
-    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -336,29 +335,6 @@ class IndexView(
                     icon_name="plus",
                 )
             )
-        return buttons
-
-    @cached_property
-    def header_more_buttons(self):
-        buttons = []
-        if self.list_export:
-            buttons.append(
-                Button(
-                    _("Download XLSX"),
-                    url=self.xlsx_export_url,
-                    icon_name="download",
-                    priority=90,
-                )
-            )
-            buttons.append(
-                Button(
-                    _("Download CSV"),
-                    url=self.csv_export_url,
-                    icon_name="download",
-                    priority=100,
-                )
-            )
-
         return buttons
 
     def get_list_more_buttons(self, instance):

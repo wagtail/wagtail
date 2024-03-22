@@ -94,7 +94,6 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         if self._show_breadcrumbs:
             context["breadcrumbs_items"] = self.get_breadcrumbs_items()
             context["header_buttons"] = self.get_header_buttons()
-            context["header_more_buttons"] = self.get_header_more_buttons()
         return context
 
     def get_template_names(self):
