@@ -1,29 +1,6 @@
 {% extends "wagtailadmin/generic/listing.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
-{% block extra_js %}
-    {{ block.super }}
-
-    <script>
-        $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
-            months: wagtailConfig.STRINGS.MONTHS,
-            dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
-            dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
-        }
-        $.datetimepicker.setLocale('wagtail_custom_locale');
-
-        $(function() {
-            $('#id_date_from').datetimepicker({
-                timepicker: false,
-                format: 'Y-m-d',
-            });
-            $('#id_date_to').datetimepicker({
-                timepicker: false,
-                format: 'Y-m-d',
-            });
-        });
-    </script>
-{% endblock %}
 {% block content %}
     {% fragment as form_actions %}
         {% include view.export_buttons_template_name %}
@@ -42,23 +19,6 @@
                 <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
             {% endif %}
         </div>
-        <div class="filterable__filters">
-            <h2>{% trans 'Filter' %}</h2>
-            <form action="" method="get" novalidate>
-                <button
-                    class="button button-longrunning"
-                    type="submit"
-                    data-controller="w-progress"
-                    data-action="w-progress#activate"
-                >
-                    {% icon name="spinner" %}{% trans 'Apply filters' %}
-                </button>
-                {% for field in select_date_form %}
-                    <li>
-                        {% formattedfield field %}
-                    </li>
-                {% endfor %}
-            </form>
-        </div>
+        {% include "wagtailadmin/shared/filters.html" with filters=filters only %}
     </div>
 {% endblock %}
