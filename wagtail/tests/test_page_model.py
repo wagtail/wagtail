@@ -234,7 +234,8 @@ class TestSiteRouting(TestCase):
         request = get_dummy_request(site=self.events_site)
         m = Mock()
         request._wagtail_route_for_request = m
-        self.assertEqual(Page.route_for_request(request, request.path), m)
+        with self.assertNumQueries(0):
+            self.assertEqual(Page.route_for_request(request, request.path), m)
     
     def test_route_for_request_404(self):
         request = get_dummy_request(path='does-not-exist', site=self.events_site)
