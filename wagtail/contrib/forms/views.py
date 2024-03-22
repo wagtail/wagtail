@@ -158,7 +158,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     template_name = "wagtailforms/submissions_index.html"
     context_object_name = "submissions"
     form_page = None
-    ordering = ("-submit_time",)
+    default_ordering = ("-submit_time",)
     ordering_csv = ("submit_time",)  # keep legacy CSV ordering
     orderable_fields = (
         "id",
@@ -195,18 +195,6 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
         queryset = submission_class._default_manager.filter(page=self.form_page)
         return queryset
 
-    def get_queryset(self):
-        queryset = self.get_base_queryset()
-        queryset = self.filter_queryset(queryset)
-
-        ordering = self.get_ordering()
-        if ordering:
-            if isinstance(ordering, str):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
-
-        return queryset
-
     def get_validated_ordering(self):
         """Return a dict of field names with ordering labels if ordering is valid"""
         orderable_fields = self.orderable_fields or ()
@@ -215,7 +203,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
             #  Revert to CSV order_by submit_time ascending for backwards compatibility
             default_ordering = self.ordering_csv or ()
         else:
-            default_ordering = self.ordering or ()
+            default_ordering = self.default_ordering or ()
         if isinstance(default_ordering, str):
             default_ordering = (default_ordering,)
         ordering_strs = self.request.GET.getlist("order_by") or list(default_ordering)
