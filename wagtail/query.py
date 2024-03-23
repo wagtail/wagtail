@@ -532,32 +532,56 @@ class SpecificIterable(BaseIterable):
                         k: v for k, v in data.items() if k in annotation_aliases
                     }
 
-            pks_and_types = [[v["pk"], v["content_type"]] for v in values]
+            pks_and_types = [(v["pk"], v["content_type"]) for v in values]
             pks_by_type = defaultdict(list)
             for pk, content_type in pks_and_types:
                 pks_by_type[content_type].append(pk)
 
             # Content types are cached by ID, so this will not run any queries.
             content_types = {
-                pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types
+                id: ContentType.objects.get_for_id(id) for id in pks_by_type.keys()
             }
 
+            proxy_ctype_ids = set()
+            for ctype in list(content_types.values()):
+                model_class = ctype.model_class()
+                if model_class and model_class._meta.proxy:
+                    # Remember this is a proxy type
+                    proxy_ctype_ids.add(ctype.id)
+                    # Find and store the concrete 'parent' type
+                    concrete_ctype = ContentType.objects.get_for_model(model_class)
+                    content_types[concrete_ctype.id] = concrete_ctype
+                    # Reshuffle pks_and_types so that proxy page instances with
+                    # shared parent models are fetched in the same query
+                    pks = pks_by_type.pop(ctype.id, [])
+                    pks_by_type[concrete_ctype.pk].extend(pks)
+
             # Get the specific instances of all items, one model class at a time.
-            items_by_type = {}
+            items_by_type = defaultdict(dict)
             missing_pks = []
 
-            for content_type, pks in pks_by_type.items():
+            for ctype_id, pks in pks_by_type.items():
+                content_type = content_types[ctype_id]
                 # look up model class for this content type, falling back on the original
                 # model (i.e. Page) if the more specific one is missing
-                model = content_types[content_type].model_class() or qs.model
+                model = content_type.model_class() or qs.model
                 items = model.objects.filter(pk__in=pks)
 
                 if qs._defer_streamfields and hasattr(items, "defer_streamfields"):
                     items = items.defer_streamfields()
 
-                items_for_type = {item.pk: item for item in items}
-                items_by_type[content_type] = items_for_type
-                missing_pks.extend(pk for pk in pks if pk not in items_for_type)
+                found_pks = set()
+                for item in items:
+                    found_pks.add(item.pk)
+                    # NOTE: Using the item's 'content_type_id' value allows us to detect
+                    # proxy model instances that should be 'upcasted' (for free)
+                    items_by_type[item.content_type_id][item.pk] = (
+                        item.specific
+                        if item.content_type_id in proxy_ctype_ids
+                        else item
+                    )
+
+                missing_pks.extend(pk for pk in pks if pk not in found_pks)
 
             # Fetch generic items to supplement missing items
             if missing_pks:
@@ -581,9 +605,9 @@ class SpecificIterable(BaseIterable):
                 generic_items = {}
 
             # Yield all items in the order they occurred in the original query.
-            for pk, content_type in pks_and_types:
+            for pk, ctype_id in pks_and_types:
                 try:
-                    item = items_by_type[content_type][pk]
+                    item = items_by_type[ctype_id][pk]
                 except KeyError:
                     item = generic_items[pk]
                 if annotation_aliases:
