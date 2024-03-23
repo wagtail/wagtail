@@ -564,7 +564,7 @@ class BlockWidget(forms.Widget):
             error = errors.as_data()[0]
             error_json = json.dumps(get_error_json_data(error))
         else:
-            error_json = "null"
+            error_json = json.dumps({})
 
         return format_html(
             """

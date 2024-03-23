@@ -28,9 +28,9 @@ export class BlockController extends Controller<HTMLElement> {
   /** Initial value. */
   declare initialValue: Array<string>;
   /** Optional error value. */
-  declare errorValue: Object;
+  declare errorValue: object;
   /** Block data value to unpack with Telepath. */
-  declare dataValue: Object;
+  declare dataValue: object;
 
   connect() {
     const element = this.element;
