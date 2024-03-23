@@ -536,3 +536,18 @@ class EventPage(Page):
 
     objects = EventPageManager()
 ```
+
+### Support for proxy page models
+
+```{versionadded} 7.0```
+
+[Proxy models](https://docs.djangoproject.com/en/stable/topics/db/models/#proxy-models) are a way to model polymorphism in Django; where multiple variations of a model share the same fields (defined on a concrete 'parent' model) but differ in other ways. For example, they might implement one or more model methods differently, or set different values on the class to affect certain behaviours (e.g. `template_name`, `search_fields`, `content_panels`).
+
+Because Wagtail stores a reference to the `ContentType` for every page it creates, then uses it to recall the page as an instance of that type, proxy models work in exactly the same way as concrete ones. Wagtail simply stores the `ContentType` for the proxy model, and returns an instance of that model when requested.
+
+Unless you are using the `Page` model as the concrete parent, at least one 'join' will be required at the database level to retrieve your pages, so the usual benefit of proxy model use is somewhat diminished. However, proxy page models come with some additional benefits:
+
+1. Using `Page.specific` on an instance of the concrete parent model will assemble the proxy model instance entirely in Python code, without querying the database.
+2. Where proxy model instances are detected in a queryset `PageQuerySet.specific()` will reduce the number of queries it makes to fetch specific pages, instead preferring to 'upgrade' proxy model instances in Python as the queryset is evaluated.
+
+To top it all off, the `PageManager` will automatically detect when a queryset has been requested from a proxy model, and filter it to only include pages of that type. This differs from the (often unexpected) default behaviour for proxy model managers, which is to return **all entries** from the parent model table, regardless of which model was used to save the data originally.

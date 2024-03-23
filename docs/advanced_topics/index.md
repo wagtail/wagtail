@@ -13,6 +13,7 @@ deploying
 performance
 i18n
 privacy
+proxy_models
 customisation/index
 third_party_tutorials
 testing
