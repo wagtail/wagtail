@@ -58,6 +58,7 @@ Changelog
  * Maintenance: Add `keyboard` icon to admin icon set (Rohit Sharma)
  * Maintenance: Remove dead code in the minimap when elements are not found (LB (Ben) Johnston)
  * Maintenance: Ensure untrusted data sources are logged correctly in the Stimulus `SwapController` (LB (Ben) Johnston)
+ * Maintenance: Update Wagtail logo in admin sidebar & favicon plus documentation to the latest version (Osaf AliSayed, Albina Starykova, LB (Ben) Johnston)
 
 
 6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
