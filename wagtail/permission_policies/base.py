@@ -233,7 +233,9 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
 
     @cached_property
     def _content_type(self):
-        return ContentType.objects.get_for_model(self.auth_model)
+        return ContentType.objects.get_for_model(
+            self.auth_model, for_concrete_model=False
+        )
 
     def _get_permission_codenames(self, actions):
         return {get_permission_codename(action, self.model._meta) for action in actions}
