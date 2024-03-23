@@ -300,19 +300,21 @@ class RevisionMixin(models.Model):
         )
 
     def get_base_content_type(self):
-        parents = self._meta.get_parent_list()
-        # Get the last non-abstract parent in the MRO as the base_content_type.
-        # Note: for_concrete_model=False means that the model can be a proxy model.
-        if parents:
-            return ContentType.objects.get_for_model(
-                parents[-1], for_concrete_model=False
-            )
-        # This model doesn't inherit from a non-abstract model,
-        # use it as the base_content_type.
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+        try:
+            # Get the last concrete parent in the MRO
+            base_concrete_model = self._meta.get_parent_list()[-1]
+        except IndexError:
+            # This model has no concrete parents, so return the
+            # content type for this model
+            return ContentType.objects.get_for_model(self)
+        else:
+            return ContentType.objects.get_for_model(base_concrete_model)
 
     def get_content_type(self):
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+        # If a revision is published for a proxy model, those changes are applied to the concrete
+        # instance AND any proxy representations of it too. With that in mind, the correct
+        # behaviour is to store the ContentType of the concrete model for each revision.
+        return ContentType.objects.get_for_model(self)
 
     def get_latest_revision(self):
         return self.latest_revision
@@ -1291,7 +1293,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not self.content_type_id:
                 # set content type to correctly represent the model class
                 # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self)
+                self.content_type = ContentType.objects.get_for_model(
+                    self, for_concrete_model=False
+                )
             if "show_in_menus" not in kwargs:
                 # if the value is not set on submit refer to the model setting
                 self.show_in_menus = self.show_in_menus_default
@@ -1312,7 +1316,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return get_default_page_content_type()
 
     def get_content_type(self):
-        return self.content_type
+        # Aways return a concrete model type to use in revisions
+        return ContentType.objects.get_for_model(self.specific_class)
 
     @classmethod
     def get_streamfield_names(cls):
@@ -2131,7 +2136,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def get_indexed_objects(cls):
-        content_type = ContentType.objects.get_for_model(cls)
+        content_type = ContentType.objects.get_for_model(cls, for_concrete_model=False)
         return super().get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):
@@ -2719,10 +2724,14 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def for_instance(self, instance):
+        try:
+            # Utilise RevisionMixin.get_content_type() where available
+            content_type = instance.get_content_type()
+        except AttributeError:
+            # For proxy model instances, use the concrete model ContentType
+            content_type = ContentType.objects.get_for_model(instance)
         return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
+            content_type=content_type,
             object_id=str(instance.pk),
         )
 
@@ -3402,7 +3411,9 @@ class Task(SpecificMixin, models.Model):
             if not self.content_type_id:
                 # set content type to correctly represent the model class
                 # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self)
+                self.content_type = ContentType.objects.get_for_model(
+                    self, for_concrete_model=False
+                )
 
     def __str__(self):
         return self.name
@@ -4242,7 +4253,9 @@ class TaskState(SpecificMixin, models.Model):
             if not self.content_type_id:
                 # set content type to correctly represent the model class
                 # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self)
+                self.content_type = ContentType.objects.get_for_model(
+                    self, for_concrete_model=False
+                )
 
     def __str__(self):
         return _("Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s") % {
