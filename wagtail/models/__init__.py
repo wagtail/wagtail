@@ -196,7 +196,15 @@ def get_streamfield_names(model_class):
 
 class BasePageManager(models.Manager):
     def get_queryset(self):
-        return self._queryset_class(self.model).order_by("path")
+        qs = self._queryset_class(self.model).order_by("path")
+        if self.model._meta.proxy:
+            # Because we store a `content_type` for every page, and proxy models have a
+            # unique `content_type`, we can automatically filter querysets requested from
+            # proxy models, so that they only include page saved from that model. Without
+            # this, all pages that share the concrete parent type would be included;
+            # which is generally less useful.
+            return qs.type(self.model)
+        return qs
 
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
