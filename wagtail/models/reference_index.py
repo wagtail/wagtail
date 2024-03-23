@@ -188,13 +188,9 @@ class ReferenceIndex(models.Model):
         """
         parents = model_or_object._meta.get_parent_list()
         if parents:
-            return ContentType.objects.get_for_model(
-                parents[-1], for_concrete_model=False
-            )
+            return ContentType.objects.get_for_model(parents[-1])
         else:
-            return ContentType.objects.get_for_model(
-                model_or_object, for_concrete_model=False
-            )
+            return ContentType.objects.get_for_model(model_or_object)
 
     @classmethod
     def model_is_indexable(cls, model, allow_child_models=False):
