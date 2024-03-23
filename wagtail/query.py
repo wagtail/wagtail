@@ -228,7 +228,9 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
         all_subclasses = {
             model for model in apps.get_models() if issubclass(model, types)
         }
-        content_types = ContentType.objects.get_for_models(*all_subclasses)
+        content_types = ContentType.objects.get_for_models(
+            *all_subclasses, for_concrete_models=False
+        )
         return Q(content_type__in=list(content_types.values()))
 
     def type(self, *types):
@@ -245,7 +247,9 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
         return self.exclude(self.type_q(*types))
 
     def exact_type_q(self, *types):
-        content_types = ContentType.objects.get_for_models(*types)
+        content_types = ContentType.objects.get_for_models(
+            *types, for_concrete_models=False
+        )
         return Q(content_type__in=list(content_types.values()))
 
     def exact_type(self, *types):
