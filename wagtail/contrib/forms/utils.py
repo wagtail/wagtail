@@ -26,7 +26,9 @@ def get_form_types():
         ]
 
         _FORM_CONTENT_TYPES = list(
-            ContentType.objects.get_for_models(*form_models).values()
+            ContentType.objects.get_for_models(
+                *form_models, for_concrete_models=False
+            ).values()
         )
     return _FORM_CONTENT_TYPES
 
