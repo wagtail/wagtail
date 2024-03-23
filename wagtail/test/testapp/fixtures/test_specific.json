@@ -204,7 +204,7 @@
     "fields": {
       "title": "Other events",
       "draft_title": "Other events",
-      "numchild": 1,
+      "numchild": 5,
       "show_in_menus": true,
       "live": true,
       "depth": 3,
@@ -249,7 +249,114 @@
       "cost": "free"
     }
   },
-
+  {
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Conquer Everest (2022)",
+      "draft_title": "Conquer Everest (2022)",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "extremechallengeeventpage"],
+      "path": "0001000100050002",
+      "url_path": "/home/other/conquer-everest-2022/",
+      "slug": "conquer-everest-2022"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2022-12-01",
+      "audience": "public",
+      "location": "Mount Everest",
+      "body": "<p>Only the bravest need apply</p>",
+      "cost": "astronomical"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Brecon Beacons Ultra (2022)",
+      "draft_title": "Brecon Beacons Ultra (2022)",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "extremechallengeeventpage"],
+      "path": "0001000100050003",
+      "url_path": "/home/other/brecon-beacons-ultra-2022/",
+      "slug": "brecon-beacons-ultra-2022"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2022-11-12",
+      "audience": "public",
+      "location": "Breacon Beacons",
+      "body": "<p>Find your limits</p>",
+      "cost": "reasonable"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Festive Feasters (2023)",
+      "draft_title": "Festive Feasters (2023)",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "foodieeventpage"],
+      "path": "0001000100050004",
+      "url_path": "/home/other/festive-feasters-2023/",
+      "slug": "festive-feasters-2023"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2023-12-04",
+      "audience": "public",
+      "location": "Cosby Village Hall",
+      "body": "<p>The festive feast to end all festive feasts</p>",
+      "cost": "considerable"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Vegan BBQ Bonanza (Spring '24)",
+      "draft_title": "Vegan BBQ Bonanza (Spring '24)",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "foodieeventpage"],
+      "path": "0001000100050005",
+      "url_path": "/home/other/vegan-bbq-bonanza-spring-2024/",
+      "slug": "vegan-bbq-bonanza-spring-2024"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2024-04-15",
+      "audience": "public",
+      "location": "LCB Depot",
+      "body": "<p>The UK's biggest vegan food event comes to Leicester!</p>",
+      "cost": "affordable"
+    }
+  },
   {
     "pk": 1,
     "model": "wagtailcore.site",

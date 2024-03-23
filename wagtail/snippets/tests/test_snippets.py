@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.test.utils import override_settings
@@ -64,6 +65,7 @@ from wagtail.test.testapp.models import (
     DraftStateModel,
     FullFeaturedSnippet,
     MultiPreviewModesModel,
+    ProxyAdvert,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
@@ -73,6 +75,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.users.forms import GroupForm
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import render_timestamp
 
@@ -746,6 +749,37 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
         self.assertNotContains(response, 'role="tablist"', html=True)
+
+    def test_create_proxy_model_instance(self):
+        response = self.get(model=ProxyAdvert)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertNotContains(response, 'role="tablist"', html=True)
+
+    def test_create_proxy_model_requires_sufficient_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+
+        # The 'access_admin' and 'add_advert' permissions alone should not be
+        # enough to create a ProxyAdvert
+        self.user.user_permissions.add(
+            *Permission.objects.filter(
+                Q(content_type__app_label="wagtailadmin", codename="access_admin")
+                | Q(content_type__app_label="tests", codename="add_advert")
+            )
+        )
+
+        response = self.get(model=ProxyAdvert)
+        self.assertEqual(response.status_code, 302)
+
+        # Granting the 'add_proxyadvert' permission should do the trick
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="tests", codename="add_proxyadvert"
+            )
+        )
+        response = self.get(model=ProxyAdvert)
+        self.assertEqual(response.status_code, 200)
 
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
@@ -1543,6 +1577,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
+        self.proxy_edit_url = (
+            f"/admin/snippets/tests/proxyadvert/edit/{quote(self.test_snippet.pk)}/"
+        )
         ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Advert),
             label="Test Advert",
@@ -1598,7 +1635,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
 
-    def test_non_existent_model(self):
+    def test_edit_proxy_model_instance(self):
+        response = self.client.get(self.proxy_edit_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertNotContains(response, 'role="tablist"', html=True)
+
+    def test_non_existant_model(self):
         response = self.client.get(
             f"/admin/snippets/tests/foo/edit/{quote(self.test_snippet.pk)}/"
         )
@@ -1632,6 +1675,30 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertContains(response, "The advert could not be saved due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
+
+    def test_edit_proxy_model_permission_required(self):
+        self.user.is_superuser = False
+        self.user.save()
+
+        # The 'access_admin' and 'change_advert' permissions alone should not be
+        # enough to edit a ProxyAdvert
+        self.user.user_permissions.add(
+            *Permission.objects.filter(
+                Q(content_type__app_label="wagtailadmin", codename="access_admin")
+                | Q(content_type__app_label="tests", codename="change_advert")
+            )
+        )
+        response = self.client.get(self.proxy_edit_url)
+        self.assertEqual(response.status_code, 302)
+
+        # Granting the 'change_proxyadvert' permission should do the trick
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="tests", codename="change_proxyadvert"
+            )
+        )
+        response = self.client.get(self.proxy_edit_url)
+        self.assertEqual(response.status_code, 200)
 
     def test_edit(self):
         response = self.post(
@@ -3814,6 +3881,14 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)
         self.user = self.login()
+        self.delete_url = reverse(
+            "wagtailsnippets_tests_advert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
+        self.proxy_delete_url = reverse(
+            "wagtailsnippets_tests_proxyadvert:delete",
+            args=[quote(self.test_snippet.pk)],
+        )
 
     def test_delete_get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -3824,23 +3899,20 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         )
         self.user.save()
 
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_advert:delete",
-                args=[quote(self.test_snippet.pk)],
-            )
-        )
+        response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get(self):
-        delete_url = reverse(
-            "wagtailsnippets_tests_advert:delete",
-            args=[quote(self.test_snippet.pk)],
-        )
-        response = self.client.get(delete_url)
+        response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Yes, delete")
-        self.assertContains(response, delete_url)
+        self.assertContains(response, self.delete_url)
+
+    def test_delete_proxy_model_instance(self):
+        response = self.client.get(self.proxy_delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Yes, delete")
+        self.assertContains(response, self.proxy_delete_url)
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_delete_get_with_i18n_enabled(self):
@@ -3926,6 +3998,29 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
 
         # Check that the snippet is still here
         self.assertTrue(Advert.objects.filter(pk=self.test_snippet.pk).exists())
+
+    def test_delete_proxy_model_permission_required(self):
+        self.user.is_superuser = False
+        self.user.save()
+
+        # The 'access_admin' and 'delete_advert' permissions alone should not
+        # be sufficient to delete a ProxyAdvert
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        response = self.client.get(self.proxy_delete_url)
+        self.assertEqual(response.status_code, 302)
+
+        # Granting the 'delete_proxyadvert' permission should do the trick
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="tests", codename="delete_proxyadvert"
+            )
+        )
+        response = self.client.get(self.proxy_delete_url)
+        self.assertEqual(response.status_code, 200)
 
     def test_usage_link(self):
         output = StringIO()
@@ -5129,6 +5224,32 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertEqual(response.context["header_icon"], "snippet")
+
+
+class TestSnippetPermissionRegistration(TestCase):
+    def test_concrete_and_proxy_model_permissions_registered(self):
+        form = GroupForm()
+
+        registered_advert_perm_codenames = set(
+            form.fields["permissions"]
+            .queryset.filter(content_type__model__in=["advert", "proxyadvert"])
+            .values_list("codename", flat=True)
+            .distinct()
+        )
+
+        self.assertEqual(
+            registered_advert_perm_codenames,
+            {
+                "add_advert",
+                "add_proxyadvert",
+                "change_advert",
+                "change_proxyadvert",
+                "delete_advert",
+                "delete_proxyadvert",
+                "view_advert",
+                "view_proxyadvert",
+            },
+        )
 
 
 class TestSnippetEditHandlers(WagtailTestUtils, TestCase):

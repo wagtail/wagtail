@@ -48,6 +48,7 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     EventPageSpeaker,
+    FoodieEventPage,
     GenericSnippetPage,
     ManyToManyBlogPage,
     MTIBasePage,
@@ -1196,6 +1197,31 @@ class TestPageGetSpecific(TestCase):
         for attr in ("foo", "bar", "baz"):
             with self.subTest(attribute=attr):
                 self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_concrete_to_proxy_instance_handling(self):
+        # Create a proxy event page to test with
+        home = Page.objects.get(url_path="/home/")
+        proxy_event = FoodieEventPage(
+            title="Steak night",
+            slug="steak-night",
+            date_from=datetime.date(2015, 1, 1),
+            audience="public",
+            location="Soulville Steakhouse, Nottingham",
+            cost="reasonable",
+        )
+        home.add_child(instance=proxy_event)
+
+        # Reaching the FoodieEventPage from the generic Page
+        # instance requires one database query
+        generic_page = Page.objects.get(id=proxy_event.id)
+        with self.assertNumQueries(1):
+            self.assertIsInstance(generic_page.get_specific(), FoodieEventPage)
+
+        # Reaching the FoodieEventPage from the EventPage
+        # instance shouldn't require any database queries
+        event_page = EventPage.objects.get(id=proxy_event.id)
+        with self.assertNumQueries(0):
+            self.assertIsInstance(event_page.get_specific(), FoodieEventPage)
 
     def test_specific_cached_property(self):
         # invoking several times to demonstrate that field values
