@@ -18,6 +18,7 @@ Changelog
  * Consistently use `capfirst` for title-casing model verbose names (Sébastien Corbin)
  * Add support for Python 3.13 (Matt Westcott)
  * Fire `copy_for_translation_done` signal when copying translatable models as well as pages (Coen van der Kamp)
+ * Add support for an image `description` field across all images, to better support accessible image descriptions (Chiemezuo Akujobi)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
