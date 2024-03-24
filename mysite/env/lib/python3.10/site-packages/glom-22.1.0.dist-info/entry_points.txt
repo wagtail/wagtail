@@ -1,3 +1,0 @@
-[console_scripts]
-glom = glom.cli:console_main
-

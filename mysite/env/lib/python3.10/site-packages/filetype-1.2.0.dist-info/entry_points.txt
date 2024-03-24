@@ -1,3 +1,0 @@
-[console_scripts]
-filetype = filetype.__main__:main
-
