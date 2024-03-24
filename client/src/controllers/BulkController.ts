@@ -1,6 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
 
-type ToggleAllOptions = {
+type ToggleOptions = {
+  /** Only toggle those within the provided group(s), a space separated set of strings. */
+  group?: string;
+};
+
+type ToggleAllOptions = ToggleOptions & {
   /** Override check all behaviour to either force check or uncheck all */
   force?: boolean;
 };
@@ -32,6 +37,43 @@ type ToggleAllOptions = {
  *     <input data-action="w-bulk#toggle" data-w-bulk-target="item" type="checkbox" />
  *   </div>
  * </div>
+ *
+ * @example - Using groups to allow toggles to be controlled separately or together
+ * <table data-controller="w-bulk">
+ *   <thead>
+ *     <tr>
+ *       <th>Name</th>
+ *       <th>Add</th>
+ *       <th>Change</th>
+ *     </tr>
+ *   </thead>
+ *   <tbody>
+ *     <tr>
+ *       <td>Item 1</td>
+ *       <td><input data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add" type="checkbox"/></td>
+ *       <td><input data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="change" type="checkbox"/></td>
+ *     </tr>
+ *     <tr>
+ *       <td>Item 2</td>
+ *       <td><input data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add" type="checkbox"/></td>
+ *       <td><input data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="change" type="checkbox"/></td>
+ *     </tr>
+ *   </tbody>
+ *   <tfoot>
+ *     <th scope="row">
+ *       Check all (Add & Change)
+ *       <input data-action="w-bulk#toggleAll" data-w-bulk-target="all" type="checkbox"/>
+ *     </th>
+ *     <td>
+ *       Check all (Add)
+ *       <input data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="add" type="checkbox"/>
+ *     </td>
+ *     <td>
+ *       Check all (Change)
+ *       <input data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="change" type="checkbox"/>
+ *     </td>
+ *    </tfoot>
+ * </table>
  *
  */
 export class BulkController extends Controller<HTMLElement> {
@@ -71,9 +113,21 @@ export class BulkController extends Controller<HTMLElement> {
    * Returns all valid targets (i.e. not disabled).
    */
   getValidTargets(
+    group: string | null = null,
     targets: HTMLInputElement[] = this.itemTargets,
+    paramAttr = `data-${this.identifier}-group-param`,
   ): HTMLInputElement[] {
-    return targets.filter(({ disabled }) => !disabled);
+    const activeTargets = targets.filter(({ disabled }) => !disabled);
+
+    if (!group) return activeTargets;
+
+    const groups = group.split(' ');
+    return activeTargets.filter((target) => {
+      const targetGroups = new Set(
+        (target.getAttribute(paramAttr) || '').split(' '),
+      );
+      return groups.some(targetGroups.has.bind(targetGroups));
+    });
   }
 
   /**
@@ -99,8 +153,9 @@ export class BulkController extends Controller<HTMLElement> {
    * If the shift key is pressed, toggle all the items between the last clicked
    * item and the current item.
    */
-  toggle(event?: Event) {
-    const activeItems = this.getValidTargets();
+  toggle(event?: CustomEvent<ToggleOptions> & { params?: ToggleOptions }) {
+    const { group = null } = { ...event?.detail, ...event?.params };
+    const activeItems = this.getValidTargets(group);
     const lastChanged = this.lastChanged;
 
     if (this.shiftActive && lastChanged instanceof HTMLElement) {
@@ -134,7 +189,7 @@ export class BulkController extends Controller<HTMLElement> {
     const isAnyChecked = totalCheckedItems > 0;
     const isAllChecked = totalCheckedItems === activeItems.length;
 
-    this.getValidTargets(this.allTargets).forEach((target) => {
+    this.getValidTargets(group, this.allTargets).forEach((target) => {
       // eslint-disable-next-line no-param-reassign
       target.checked = isAllChecked;
     });
@@ -157,7 +212,7 @@ export class BulkController extends Controller<HTMLElement> {
   toggleAll(
     event: CustomEvent<ToggleAllOptions> & { params?: ToggleAllOptions },
   ) {
-    const { force = null } = {
+    const { force = null, group = null } = {
       ...event.detail,
       ...event.params,
     };
@@ -177,7 +232,7 @@ export class BulkController extends Controller<HTMLElement> {
       isChecked = !checkbox?.checked;
     }
 
-    this.getValidTargets().forEach((target) => {
+    this.getValidTargets(group).forEach((target) => {
       if (target.checked !== isChecked) {
         // eslint-disable-next-line no-param-reassign
         target.checked = isChecked;
@@ -185,7 +240,7 @@ export class BulkController extends Controller<HTMLElement> {
       }
     });
 
-    this.toggle();
+    this.toggle(event);
   }
 
   disconnect() {
