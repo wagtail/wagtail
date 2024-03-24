@@ -123,5 +123,4 @@ describe('KeyboardController', () => {
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
     });
   });
-
 });
