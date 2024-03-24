@@ -108,4 +108,20 @@ describe('KeyboardController', () => {
       expect(buttonClickMock).toHaveBeenCalledTimes(3);
     });
   });
+
+  describe('aria keyshortcuts usage', () => {
+    it('should take the aria-keyshortcut attribute if the data-w-kbd-key-value is not set', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(
+        `<button id="btn" data-controller="w-kbd" aria-keyshortcut="j">Go</button>`,
+      );
+
+      // Simulate the keydown event
+      simulateKey({ key: 'j' });
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
 });
