@@ -97,6 +97,7 @@ describe('KeyboardController', () => {
 
     it('should call the click event when `mod+j` is pressed after being registered', async () => {
       expect(buttonClickMock).not.toHaveBeenCalled();
+      //clear the body
 
       await setup(
         `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="mod+j">Go</button>`,
@@ -106,6 +107,9 @@ describe('KeyboardController', () => {
       simulateKey({ key: 'j', which: 74, metaKey: true });
       simulateKey({ key: 'j', which: 74, ctrlKey: true });
       expect(buttonClickMock).toHaveBeenCalledTimes(3);
+      expect([buttonClickMock.mock.contexts[2]]).toEqual([
+        document.getElementById('btn'),
+      ]);
     });
   });
 
