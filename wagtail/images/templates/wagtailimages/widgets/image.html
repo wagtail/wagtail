@@ -1,0 +1,5 @@
+{% load wagtailimages_tags %}
+
+<figure>
+    {% image self.image fill-600x338 loading="lazy" alt=self.alt_text%}
+</figure>

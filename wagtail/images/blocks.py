@@ -2,7 +2,7 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 
 from wagtail.admin.compare import BlockComparison
-from wagtail.blocks import ChooserBlock
+from wagtail.blocks import ChooserBlock, StructBlock, CharBlock
 
 from .shortcuts import get_rendition_or_not_found
 
@@ -51,3 +51,11 @@ class ImageChooserBlockComparison(BlockComparison):
                 "image_b": self.val_b,
             },
         )
+
+class ImageBlock(StructBlock):
+    image = ImageChooserBlock(required=True)
+    alt_text = CharBlock(required=True)
+
+    class Meta:
+        icon = 'image'
+        template = 'wagtailimages/widgets/image.html'
