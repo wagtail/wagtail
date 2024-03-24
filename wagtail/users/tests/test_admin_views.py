@@ -2088,11 +2088,20 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         response = self.get()
 
-        self.assertTagInHTML(
-            '<input type="checkbox" name="permissions" value="%s" checked>'
-            % custom_permission.id,
-            response.content.decode(),
+        soup = self.get_soup(response.content)
+        checkbox = soup.find_all(
+            "input",
+            attrs={
+                "name": "permissions",
+                "checked": True,
+                "value": custom_permission.id,
+                "data-action": "w-bulk#toggle",
+                "data-w-bulk-group-param": "custom",
+                "data-w-bulk-target": "item",
+            },
         )
+
+        self.assertEqual(len(checkbox), 1)
 
     def test_show_publish_permissions(self):
         response = self.get()
@@ -2194,6 +2203,32 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             sorted(object_positions[2:]),
             msg="Default object permission order is incorrect",
         )
+
+    def test_data_attributes_for_bulk_selection(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", "listing")
+        self.assertIn(table["data-controller"], "w-bulk")
+
+        # confirm there is a single select all checkbox for all items
+        toggle_all = table.select('tfoot th input[data-w-bulk-target="all"]')
+        self.assertEqual(len(toggle_all), 1)
+        self.assertEqual(toggle_all[0]["data-action"], "w-bulk#toggleAll")
+
+        # confirm there is one 'add' select all checkbox
+        toggle_all_add = table.select(
+            'tfoot td input[data-w-bulk-target="all"][data-w-bulk-group-param="add"]'
+        )
+        self.assertEqual(len(toggle_all_add), 1)
+        self.assertEqual(toggle_all_add[0]["data-action"], "w-bulk#toggleAll")
+
+        # confirm that the individual object permissions have the correct attributes
+        toggle_add_items = table.select(
+            'tbody td input[data-w-bulk-target="item"][data-w-bulk-group-param="add"]'
+        )
+        self.assertGreaterEqual(len(toggle_add_items), 30)
+        self.assertEqual(toggle_add_items[0]["data-action"], "w-bulk#toggle")
 
 
 class TestGroupViewSet(TestCase):

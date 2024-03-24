@@ -9,7 +9,7 @@ $logo-size: 110px;
   }
 
   to {
-    transform: rotate(7deg);
+    transform: rotate(20deg) translate(30%, -25%) scale(1.1);
   }
 }
 
@@ -56,7 +56,6 @@ $logo-size: 110px;
         animation-iteration-count: infinite;
       }
 
-      // TODO: Fix legacy specificity issues
       [data-part='eye--open'] {
         display: none !important;
       }

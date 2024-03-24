@@ -303,7 +303,7 @@ export class SwapController extends Controller<
           target,
         });
         // eslint-disable-next-line no-console
-        console.error(`Error fetching ${requestUrl}`, error);
+        console.error('Error fetching %s', requestUrl, error);
       })
       .finally(() => {
         if (signal === this.abortController?.signal) {
