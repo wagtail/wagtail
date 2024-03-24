@@ -293,6 +293,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     objects = ImageQuerySet.as_manager()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.is_decorative = False
+        self.contextual_alt_text = None
+
     def _set_file_hash(self):
         with self.open_file() as f:
             self.file_hash = hash_filelike(f)
@@ -1218,7 +1223,10 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @property
     def alt(self):
-        return self.image.default_alt_text
+        if self.image.is_decorative:
+            return ""
+        else:
+            return self.image.contextual_alt_text
 
     @property
     def attrs(self):
