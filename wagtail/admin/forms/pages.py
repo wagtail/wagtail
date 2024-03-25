@@ -228,29 +228,17 @@ class MoveForm(forms.Form):
         )
 
 
-class PageChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        if obj.is_root():
-            return obj.get_admin_display_title()
-
-        bits = []
-        for ancestor in (
-            obj.get_ancestors(inclusive=True).exclude(depth=1).specific(defer=True)
-        ):
-            bits.append(ancestor.get_admin_display_title())
-        return " | ".join(bits)
-
-
 class ParentChooserForm(forms.Form):
-    parent_page = PageChoiceField(
-        label=_("Parent page"),
-        required=True,
-        empty_label=None,
-        queryset=Page.objects.none(),
-        widget=forms.RadioSelect(),
-    )
-
-    def __init__(self, valid_parents_qs, *args, **kwargs):
-        self.valid_parents_qs = valid_parents_qs
+    def __init__(self, child_page_type, *args, **kwargs):
+        self.child_page_type = child_page_type
         super().__init__(*args, **kwargs)
-        self.fields["parent_page"].queryset = self.valid_parents_qs
+        self.fields["parent_page"] = forms.ModelChoiceField(
+            queryset=Page.objects.all(),
+            widget=widgets.AdminPageChooser(
+                target_models=self.child_page_type.allowed_parent_page_models(),
+                can_choose_root=True,
+                user_perms="add_subpage",
+            ),
+            label=_("Parent page"),
+            help_text=_("The new page will be a child of this given parent page."),
+        )
