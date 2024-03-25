@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
-from django.views import View
+from django.views.generic import FormView
 
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
@@ -12,7 +12,7 @@ from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 
 
-class ChooseParentView(WagtailAdminTemplateMixin, View):
+class ChooseParentView(WagtailAdminTemplateMixin, FormView):
     template_name = "wagtailadmin/pages/choose_parent.html"
     model = Page
     index_url_name = None
@@ -55,9 +55,9 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
         # Combine them
         return allowed_parent_pages & pages_where_user_can_add
 
-    def get_form(self, request):
-        parents = self.get_valid_parent_pages(request.user)
-        return ParentChooserForm(parents, request.POST or None)
+    def get_form(self):
+        parents = self.get_valid_parent_pages(self.request.user)
+        return ParentChooserForm(parents, self.request.POST or None)
 
     def get_breadcrumbs_items(self):
         items = []
@@ -78,17 +78,6 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
 
         return self.breadcrumbs_items + items
 
-    def get(self, request, *args, **kwargs):
-        form = self.get_form(request)
-        context = self.get_context_data(form=form)
-        return self.render_to_response(context)
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form(request)
-        if form.is_valid():
-            return self.form_valid(form)
-        return self.form_invalid(form)
-
     def form_valid(self, form):
         opts = self.model._meta
 
@@ -96,11 +85,3 @@ class ChooseParentView(WagtailAdminTemplateMixin, View):
         return redirect(
             "wagtailadmin_pages:add", opts.app_label, opts.model_name, parent_id
         )
-
-    def form_invalid(self, form):
-        context = self.get_context_data(form=form)
-        return self.render_to_response(context)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
