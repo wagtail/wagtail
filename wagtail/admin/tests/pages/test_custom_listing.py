@@ -34,7 +34,7 @@ class TestCustomListing(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/pages/choose_parent.html")
 
     def test_parent_chooser_redirect(self):
-        parent_page = Page.objects.get()
+        parent_page = Page.objects.first()
         form_data = {
             "parent_page": parent_page.pk,
         }
@@ -45,5 +45,17 @@ class TestCustomListing(TestCase, WagtailTestUtils):
             response,
             reverse(
                 "wagtailadmin_pages:add", args=("tests", "eventpage", parent_page.pk)
+            ),
+        )
+
+        # Test another parent to make sure everything is working as needed
+        another_parent = parent_page.get_first_child()
+        form_data["parent_page"] = another_parent.pk
+        
+        response = self.client.post("/admin/event_pages/choose_parent/", form_data)
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailadmin_pages:add", args=("tests", "eventpage", another_parent.pk)
             ),
         )
