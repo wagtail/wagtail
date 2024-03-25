@@ -2,8 +2,10 @@ from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.views.generic import FormView
 
 from wagtail.admin.forms.pages import ParentChooserForm
@@ -16,7 +18,8 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
     template_name = "wagtailadmin/pages/choose_parent.html"
     model = Page
     index_url_name = None
-    _show_breadcrumbs = True
+    page_title = gettext_lazy("Choose parent")
+    submit_button_label = gettext_lazy("Continue")
 
     def get_valid_parent_pages(self, user):
         """
@@ -59,24 +62,38 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         parents = self.get_valid_parent_pages(self.request.user)
         return ParentChooserForm(parents, self.request.POST or None)
 
+    def get_index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
     def get_breadcrumbs_items(self):
         items = []
-        if self.index_url_name:
+        index_url = self.get_index_url()
+        if index_url:
             items.append(
                 {
-                    "url": reverse(self.index_url_name),
+                    "url": index_url,
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
         items.append(
             {
                 "url": "",
-                "label": _("Choose parent: %(model_name)s")
-                % {"model_name": capfirst(self.model._meta.verbose_name)},
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
             }
         )
 
         return self.breadcrumbs_items + items
+
+    def get_page_subtitle(self):
+        return self.model.get_verbose_name()
+
+    @cached_property
+    def submit_button_label(self):
+        return _("Create a new %(model_name)s") % {
+            "model_name": self.model._meta.verbose_name,
+        }
 
     def form_valid(self, form):
         opts = self.model._meta
@@ -85,3 +102,8 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         return redirect(
             "wagtailadmin_pages:add", opts.app_label, opts.model_name, parent_id
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["submit_button_label"] = self.submit_button_label
+        return context

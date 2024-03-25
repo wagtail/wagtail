@@ -28,23 +28,28 @@ class PageListingViewSet(ViewSet):
     #: This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = IndexView.filterset_class
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "_show_breadcrumbs": True,
+                "header_icon": self.icon,
+                "model": self.model,
+                "index_url_name": self.get_url_name("index"),
+                "add_url_name": self.get_url_name("choose_parent"),
+                **kwargs,
+            }
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return {
-            "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
-            "add_url_name": self.get_url_name("choose_parent"),
-            "model": self.model,
             "columns": self.columns,
             "filterset_class": self.filterset_class,
             **kwargs,
         }
 
     def get_choose_parent_view_kwargs(self, **kwargs):
-        return {
-            "index_url_name": self.get_url_name("index"),
-            "model": self.model,
-            **kwargs,
-        }
+        return kwargs
 
     @property
     def index_view(self):
