@@ -51,7 +51,7 @@ class TestCustomListing(TestCase, WagtailTestUtils):
         # Test another parent to make sure everything is working as needed
         another_parent = parent_page.get_first_child()
         form_data["parent_page"] = another_parent.pk
-        
+
         response = self.client.post("/admin/event_pages/choose_parent/", form_data)
         self.assertRedirects(
             response,
