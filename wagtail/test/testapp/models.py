@@ -427,6 +427,16 @@ class EventPage(Page):
         ]
 
 
+class ExtremeChallengeEventPage(EventPage):
+    class Meta:
+        proxy = True
+
+
+class FoodieEventPage(EventPage):
+    class Meta:
+        proxy = True
+
+
 class HeadCountRelatedModelUsingPK(models.Model):
     """Related model that uses a custom primary key (pk) not id"""
 
@@ -1009,6 +1019,14 @@ class AdvertWithTabbedInterface(models.Model):
 
 
 register_snippet(AdvertWithTabbedInterface)
+
+
+class ProxyAdvert(Advert):
+    class Meta:
+        proxy = True
+
+
+register_snippet(ProxyAdvert)
 
 
 # Models with RevisionMixin

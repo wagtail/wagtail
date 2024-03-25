@@ -12,6 +12,8 @@ from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (
     EventPage,
+    ExtremeChallengeEventPage,
+    FoodieEventPage,
     SimplePage,
     SingleEventPage,
     StreamPage,
@@ -796,18 +798,22 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
 
     The fixture sets up a page structure like:
 
-    =========== =========================================
-    Type        Path
-    =========== =========================================
-    Page        /
-    Page        /home/
-    SimplePage  /home/about-us/
-    EventIndex  /home/events/
-    EventPage   /home/events/christmas/
-    EventPage   /home/events/someone-elses-event/
-    EventPage   /home/events/tentative-unpublished-event/
-    SimplePage  /home/other/
-    EventPage   /home/other/special-event/
+    ========================== =========================================
+    Type                       Path
+    ========================== =========================================
+    Page                       /
+    Page                       /home/
+    SimplePage                 /home/about-us/
+    EventIndex                 /home/events/
+    EventPage                  /home/events/christmas/
+    EventPage                  /home/events/someone-elses-event/
+    EventPage                  /home/events/tentative-unpublished-event/
+    SimplePage                 /home/other/
+    EventPage                  /home/other/special-event/
+    ExtremeChallengeEventPage  /home/other/conquer-everest-2022/
+    ExtremeChallengeEventPage  /home/other/brecon-beacons-ultra-2022/
+    FoodieEventPage            /home/other/festive-feasters-2023/
+    FoodieEventPage            /home/other/vegan-bbq-bonanza-spring-2024/
     =========== =========================================
     """
 
@@ -832,7 +838,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 7)
+        self.assertEqual(len(pages), 11)
 
         for page in pages:
             # An instance of the specific page type should be returned,
@@ -851,7 +857,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # 'someone-elses-event' and the tentative event are unpublished.
 
         with self.assertNumQueries(0):
-            qs = Page.objects.live().order_by("-url_path")[:3].specific()
+            qs = Page.objects.filter(id__in=(4, 11, 12)).specific()
 
         with self.assertNumQueries(3):
             # Metadata, EventIndex and EventPage
@@ -862,9 +868,9 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         self.assertEqual(
             pages,
             [
-                Page.objects.get(url_path="/home/other/special-event/").specific,
-                Page.objects.get(url_path="/home/other/").specific,
                 Page.objects.get(url_path="/home/events/christmas/").specific,
+                Page.objects.get(url_path="/home/other/").specific,
+                Page.objects.get(url_path="/home/other/special-event/").specific,
             ],
         )
 
@@ -895,12 +901,12 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         with self.assertNumQueries(5):
             pages = list(self.live_pages)
 
-            self.assertEqual(len(pages), 7)
+            self.assertEqual(len(pages), 11)
 
         with self.assertNumQueries(5):
             pages = list(self.live_pages_with_annotations)
 
-            self.assertEqual(len(pages), 7)
+            self.assertEqual(len(pages), 11)
 
     def test_specific_query_with_annotation(self):
         # Ensure annotations are reapplied to specific() page queries
@@ -988,6 +994,32 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
                 ],
             )
 
+    def test_proxy_instance_specific_fetch_cost(self):
+        other_events = Page.objects.get(url_path="/home/other/")
+        expected_types = [
+            EventPage,
+            ExtremeChallengeEventPage,
+            ExtremeChallengeEventPage,
+            FoodieEventPage,
+            FoodieEventPage,
+        ]
+
+        # When starting from Page.objects:
+        # There should be one query to fetch Page pks and content types
+        # Plus one more to fetch ALL events, regardless of there being 3 types
+        with self.assertNumQueries(2):
+            events = tuple(Page.objects.descendant_of(other_events).specific())
+            # We should have specific event types (not just EventPages)
+            self.assertEqual([(event.__class__) for event in events], expected_types)
+
+        # When starting from EventPage.objects:
+        # There should be one query to fetch EventPage pks and content types
+        # Plus one more to fetch ALL events, regardless of there being 3 types
+        with self.assertNumQueries(2):
+            events = tuple(EventPage.objects.descendant_of(other_events).specific())
+            # We should have specific event types (not just EventPages)
+            self.assertEqual([(event.__class__) for event in events], expected_types)
+
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
         root = Page.objects.get(url_path="/home/")
@@ -1008,7 +1040,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 8)
+        self.assertEqual(len(pages), 12)
 
         for page in pages:
             # An instance of the specific page type should be returned,
@@ -1036,7 +1068,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # set benchmark without iterator()
         with self.assertNumQueries(5):
             benchmark_result = list(queryset.all())
-            self.assertEqual(len(benchmark_result), 7)
+            self.assertEqual(len(benchmark_result), 11)
 
         # the default chunk size for iterator() is much higher than 7, so all
         # items should fetched with the same number of queries
@@ -1047,12 +1079,12 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # specifying a smaller chunk_size for iterator() should force the
         # results to be processed in multiple batches, increasing the number
         # of queries
-        with self.assertNumQueries(7):
-            result_2 = list(queryset.all().iterator(chunk_size=5))
+        with self.assertNumQueries(6):
+            result_2 = list(queryset.all().iterator(chunk_size=6))
             self.assertEqual(result_2, benchmark_result)
 
         # repeat with a smaller chunk size for good measure
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(8):
             # The number of queries is actually lower, because
             # each chunk contains fewer 'unique' page types
             result_3 = list(queryset.all().iterator(chunk_size=2))
@@ -1064,7 +1096,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # set benchmark without iterator()
         with self.assertNumQueries(4):
             benchmark_result = list(queryset.all())
-            self.assertEqual(len(benchmark_result), 5)
+            self.assertEqual(len(benchmark_result), 9)
 
         # using plain iterator() with the same sliced queryset should produce
         # an identical result with the same number of queries
@@ -1075,7 +1107,7 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         # if the iterator() chunk size is smaller than the slice,
         # SpecificIterable should still apply chunking whilst maintaining
         # the slice starting point
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(10):
             result_2 = list(queryset.all().iterator(chunk_size=1))
             self.assertEqual(result_2, benchmark_result)
 
@@ -1206,7 +1238,7 @@ class TestFirstCommonAncestor(TestCase):
         self.root_page.add_child(instance=stream_page)
 
     def test_bookkeeping(self):
-        self.assertEqual(self.all_events.count(), 4)
+        self.assertEqual(self.all_events.count(), 8)
         self.assertEqual(self.regular_events.count(), 3)
 
     def test_event_pages(self):

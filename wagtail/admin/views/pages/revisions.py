@@ -45,7 +45,7 @@ def revisions_revert(request, page_id, revision_id):
 
     scheduled_page = page.get_scheduled_revision_as_object()
 
-    content_type = ContentType.objects.get_for_model(page)
+    content_type = ContentType.objects.get_for_model(page, for_concrete_model=False)
     page_class = content_type.model_class()
 
     if getattr(settings, "WAGTAIL_I18N_ENABLED", False):

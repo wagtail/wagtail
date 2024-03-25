@@ -58,7 +58,10 @@ class SpecificMixin:
             # self is already an instance of the most specific class.
             return self
 
-        if deferred:
+        if deferred or (
+            model_class._meta.proxy
+            and isinstance(self, model_class._meta.concrete_model)
+        ):
             # Generate a tuple of values in the order expected by __init__(),
             # with missing values substituted with DEFERRED ()
             values = tuple(

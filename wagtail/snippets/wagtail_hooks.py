@@ -51,7 +51,9 @@ def register_snippets_menu_item():
 
 @hooks.register("register_permissions")
 def register_permissions():
-    content_types = ContentType.objects.get_for_models(*get_snippet_models()).values()
+    content_types = ContentType.objects.get_for_models(
+        *get_snippet_models(), for_concrete_models=False
+    ).values()
     return Permission.objects.filter(content_type__in=content_types)
 
 
