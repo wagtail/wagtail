@@ -4,6 +4,7 @@ from django.db import connection
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.search.query import Phrase
 from wagtail.search.tests.test_backends import BackendTests
 from wagtail.test.search import models
 
@@ -172,3 +173,52 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
             [r.title for r in results],
             ["JavaScript: The good parts", "JavaScript: The Definitive Guide"],
         )
+
+
+@unittest.skipUnless(
+    connection.vendor == "postgresql", "The current database is not PostgreSQL"
+)
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        "default": {
+            "BACKEND": "wagtail.search.backends.database.postgres.postgres",
+            "SEARCH_CONFIG": "dutch",
+        }
+    }
+)
+class TestPostgresLanguageTextSearch(TestCase):
+    backend_path = "wagtail.search.backends.database.postgres.postgres"
+
+    def setUp(self):
+        # get search backend by backend_path
+        BackendTests.setUp(self)
+
+        book = models.Book.objects.create(
+            title="Nu is beter dan nooit",
+            publication_date="1999-05-01",
+            number_of_pages=333,
+        )
+        self.backend.add(book)
+        self.book = book
+
+    def test_search_language_plain_text(self):
+        results = self.backend.search("Nu is beter dan nooit", models.Book)
+        self.assertEqual(list(results), [self.book])
+
+        results = self.backend.search("is beter", models.Book)
+        self.assertEqual(list(results), [self.book])
+
+        # search deals even with variations
+        results = self.backend.search("zijn beter", models.Book)
+        self.assertEqual(list(results), [self.book])
+
+        # search deals even when there are minor typos
+        results = self.backend.search("zij beter dan", models.Book)
+        self.assertEqual(list(results), [self.book])
+
+    def test_search_language_phrase_text(self):
+        results = self.backend.search(Phrase("Nu is beter"), models.Book)
+        self.assertEqual(list(results), [self.book])
+
+        results = self.backend.search(Phrase("Nu zijn beter"), models.Book)
+        self.assertEqual(list(results), [self.book])
