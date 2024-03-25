@@ -17,7 +17,7 @@ class PageListingViewSet(ViewSet):
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
     index_view_class = IndexView
-    #: The view that is used to choose the parent when creating a new page of this content type
+    #: The view class to use for choosing the parent page when creating a new page of this page type.
     choose_parent_view_class = ChooseParentView
     #: Required; the page model class that this viewset will work with.
     model = Page
@@ -73,5 +73,5 @@ class PageListingViewSet(ViewSet):
         return [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
-            path("choose_parent", self.choose_parent_view, name="choose_parent"),
+            path("choose_parent/", self.choose_parent_view, name="choose_parent"),
         ]
