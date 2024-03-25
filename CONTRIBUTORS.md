@@ -810,6 +810,7 @@
 * David Buxton
 * Abdelrahman Hamada
 * Divdeploy
+* Ihar Marhitych
 
 ## Translators
 
