@@ -20,15 +20,12 @@ declare global {
  */
 export class BlockController extends Controller<HTMLElement> {
   static values = {
-    initial: { type: Array, default: [] },
-    error: { type: Object, default: {} },
+    arguments: { type: Array, default: [] },
     data: { type: Object, default: {} },
   };
 
-  /** Initial value. */
-  declare initialValue: Array<string>;
-  /** Optional error value. */
-  declare errorValue: object;
+  /** Array of Initial value(s), Error value ... */
+  declare argumentsValue: Array<string>;
   /** Block data value to unpack with Telepath. */
   declare dataValue: object;
 
@@ -43,7 +40,7 @@ export class BlockController extends Controller<HTMLElement> {
     if (!telepath) throw new Error("Telepath doesn't exit");
 
     const output = telepath.unpack(this.dataValue);
-    output.render(element, id, this.initialValue, this.errorValue);
+    output.render(element, id, ...this.argumentsValue);
 
     this.dispatch('ready', { detail: { ...output }, cancelable: false });
   }

@@ -67,8 +67,6 @@ describe('BlockController', () => {
     expect(render).toHaveBeenCalledWith(
       document.getElementById('my-element'),
       'my-element',
-      [],
-      {},
     );
     expect(events['w-block:ready']).toHaveLength(1);
   });
@@ -76,9 +74,10 @@ describe('BlockController', () => {
   it('should call the unpacked render function with provided initial & error data', async () => {
     const initialData = ['Hello', 'World'];
     const errorData = { message: 'Something went wrong' };
+    const argumentsValue = [initialData, errorData];
 
     await setup(
-      `<div id="my-element" data-controller="w-block" data-w-block-initial-value='${JSON.stringify(initialData)}' data-w-block-error-value='${JSON.stringify(errorData)}' data-w-block-data-value='{"name":"John Doe"}'></div>`,
+      `<div id="my-element" data-controller="w-block" data-w-block-arguments-value='${JSON.stringify(argumentsValue)}' data-w-block-data-value='{"name":"John Doe"}'></div>`,
     );
 
     expect(errors).toHaveLength(0);
