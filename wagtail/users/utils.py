@@ -1,7 +1,9 @@
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+
 from django.conf import settings
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
-from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import safe_md5
 
