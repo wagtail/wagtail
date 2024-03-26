@@ -1449,6 +1449,10 @@ class TestEditHandler(WagtailTestUtils, TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/panel.html")
+        # Many features from the Panels API are powered by client-side JS in
+        # _editor_js.html. We need to make sure that this template is included
+        # in the response for now.
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_editor_js.html", count=1)
 
         soup = self.get_soup(response.content)
 
