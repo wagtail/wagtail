@@ -34,6 +34,7 @@ Changelog
  * Fix: Ensure dropdown content cannot get higher than the viewport and add scrolling within content if needed (Chiemezuo Akujobi)
  * Fix: Prevent snippets model index view from crashing when a model does not have an `objects` manager (Jhonatan Lopes)
  * Fix: Fix `get_dummy_request`'s resulting host name when running tests with `ALLOWED_HOSTS = ["*"]` (David Buxton)
+ * Fix: Ensure JavaScript for common widgets such as `InlinePanel` is included by default when editing and creating Snippets (Sage Abdullah)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
