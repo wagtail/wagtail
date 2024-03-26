@@ -107,6 +107,16 @@ ul.listing {
 
   &.full-width {
     margin-bottom: -3em; // this negates the padding added to the bottom of .content
+
+    thead {
+      position: sticky;
+      top: 140px;
+      @include media-breakpoint-up(sm) {
+        top: 70px;
+      }
+      background-color: theme('colors.surface-page');
+      z-index: 3;
+    }
   }
 
   .table-headers {
