@@ -1,4 +1,4 @@
-from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+from urllib.parse import parse_qs, urlparse, urlunparse
 
 from django.conf import settings
 from django.utils.http import urlencode
