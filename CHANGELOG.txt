@@ -20,6 +20,7 @@ Changelog
  * Implement new universal listings design for site and locale listing views (Sage Abdullah)
  * Add simple admin keyboard shortcuts overview dialog, available in the help sub-menu (Karthik Ayangar, Rohit Sharma)
  * Add ability to bulk toggle permissions in the user group editing view, including shift+click for multiple selections (LB (Ben) Johnston, Kalob Taulien)
+ * Update the minimum version of `djangorestframework` to 3.15.1 (Sage Abdullah)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
