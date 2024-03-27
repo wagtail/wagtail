@@ -55,7 +55,7 @@ class TestCollectionsIndexViewAsSuperuser(
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
 
         # Initially there should be no collections listed
         # (Root should not be shown)
@@ -67,10 +67,12 @@ class TestCollectionsIndexViewAsSuperuser(
         # Now the listing should contain our collection
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Collections"}], response.content
+        )
 
     def test_ordering(self):
         root_collection = Collection.get_first_root_node()
