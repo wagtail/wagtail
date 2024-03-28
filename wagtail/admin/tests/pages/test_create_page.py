@@ -1495,6 +1495,12 @@ class TestInlineStreamField(WagtailTestUtils, TestCase):
 
         # response should include HTML declarations for streamfield child blocks
         self.assertContains(response, '<div id="sections-__prefix__-body" data-block')
+        soup = self.get_soup(response.content)
+        blockDiv = soup.find("div", {"data-controller": "w-block"})
+        self.assertIsNotNone(blockDiv)
+        # block div should contain this attributes
+        self.assertTrue(blockDiv.has_attr("data-w-block-arguments-value"))
+        self.assertTrue(blockDiv.has_attr("data-w-block-data-value"))
 
 
 class TestIssue2994(WagtailTestUtils, TestCase):

@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 declare global {
   interface Window {
-    initBlockWidget?: (id: string) => void; // Declare the initBlockWidget function as optional on the Window interface
+    initBlockWidget?: (id: string) => void;
     telepath: any;
   }
 }
