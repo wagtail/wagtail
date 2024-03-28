@@ -1,3 +1,6 @@
+import operator
+from functools import reduce
+
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
@@ -11,6 +14,8 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
@@ -47,6 +52,13 @@ def get_user_edit_form():
 
 def get_users_filter_query(q, model_fields):
     conditions = Q()
+    custom_fields_lookups = {}
+
+    if hasattr(User, "search_fields"):
+        custom_fields_lookups = [
+            "%s__icontains" % str(search_field.field_name)
+            for search_field in User.search_fields
+        ]
 
     for term in q.split():
         if "username" in model_fields:
@@ -61,6 +73,11 @@ def get_users_filter_query(q, model_fields):
         if "email" in model_fields:
             conditions |= Q(email__icontains=term)
 
+        if len(custom_fields_lookups) > 0:
+            or_queries = [
+                Q(**{custom_field: term}) for custom_field in custom_fields_lookups
+            ]
+            conditions |= reduce(operator.or_, or_queries)
     return conditions
 
 
@@ -103,11 +120,7 @@ class Index(IndexView):
 
     def get_queryset(self):
         model_fields = set(self.model_fields)
-        if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, model_fields)
-            users = User.objects.filter(self.group_filter & conditions)
-        else:
-            users = User.objects.filter(self.group_filter)
+        users = User.objects.all()
 
         if self.locale:
             users = users.filter(locale=self.locale)
@@ -120,6 +133,18 @@ class Index(IndexView):
 
         if self.ordering == "username":
             users = users.order_by(User.USERNAME_FIELD)
+
+        if self.is_searching:
+            # Filtering by related fields is not supported in search backend yet
+            # https://docs.wagtail.org/en/stable/topics/search/indexing.html#filtering-on-index-relatedfields
+            if class_is_indexed(User) and not self.group:
+                search_backend = get_search_backend(self.search_backend_name)
+                users = search_backend.search(self.search_query, User.objects.filter())
+            else:
+                conditions = get_users_filter_query(self.search_query, model_fields)
+                users = User.objects.filter(self.group_filter & conditions)
+        else:
+            users = users.filter(self.group_filter)
 
         return users
 
