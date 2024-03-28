@@ -181,6 +181,26 @@ export class InlinePanel extends ExpandingFormset {
     return forms.length;
   }
 
+  getFirstchild() {
+    const forms = $('> [data-inline-panel-child]', this.formsElt);
+    return forms.first()[0];
+  }
+
+  isFirstChildEmpty() {
+    let empty = false;
+    const forms = $('> [data-inline-panel-child]', this.formsElt);
+    const title = forms
+      .first()[0]
+      .querySelector('.chosen')
+      .querySelector(`[id$="title"]`);
+    const firsChild = forms.first()[0];
+
+    if (title.textContent === '' && !firsChild.classList.contains('deleted')) {
+      empty = true;
+    }
+    return empty;
+  }
+
   updateAddButtonState() {
     if (this.opts.maxForms) {
       const addButton = $('#' + this.opts.formsetPrefix + '-ADD');
