@@ -842,10 +842,10 @@ class Filter:
     but could potentially involve colour processing, etc.
     """
 
-    spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
-    pipe_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.\|]+$")
-    expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},]+$")
-    pipe_expanding_spec_pattern = re.compile(r"^[A-Za-z0-9_\-\.{},\|]+$")
+    spec_pattern = re.compile(r"^[-.\w]+$")
+    pipe_spec_pattern = re.compile(r"^[-.|\w]+$")
+    expanding_spec_pattern = re.compile(r"^[-.,{}\w]+$")
+    pipe_expanding_spec_pattern = re.compile(r"^[-.,{}|\w]+$")
 
     def __init__(self, spec=None):
         # The spec pattern is operation1-var1-var2|operation2-var1
