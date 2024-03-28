@@ -2,7 +2,13 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Orderable,
+    Page,
+    RevisionMixin,
+    TranslatableMixin,
+)
 
 
 class TestPage(Page):
@@ -53,4 +59,11 @@ class ClusterableTestModelTranslatableChild(TranslatableMixin, Orderable):
     field = models.TextField()
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
+
+
+class TestDraftModel(DraftStateMixin, RevisionMixin, TranslatableMixin):
+    title = models.CharField(max_length=255)
+
+    class Meta(DraftStateMixin.Meta, RevisionMixin.Meta, TranslatableMixin.Meta):
         pass
