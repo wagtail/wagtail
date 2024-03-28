@@ -703,6 +703,11 @@ class RichTextBlock(FieldBlock):
         # the JSONish representation
         return value.source
 
+    def normalize(self, value):
+        if isinstance(value, RichText):
+            return value
+        return RichText(value)
+
     @cached_property
     def field(self):
         from wagtail.admin.rich_text import get_rich_text_editor_widget

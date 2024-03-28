@@ -7,3 +7,12 @@ class PageClassNotFoundError(ImportError):
     """
 
     pass
+
+
+class BlockNormalizationError(TypeError):
+    """
+    Raised by a block's `normalize' method when attempting to normalize a value
+    of an incorrect type.
+    """
+
+    pass

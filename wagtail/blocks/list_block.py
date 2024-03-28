@@ -1,3 +1,4 @@
+import itertools
 import uuid
 from collections.abc import Mapping, MutableSequence
 
@@ -9,6 +10,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.exceptions import BlockNormalizationError
 from wagtail.telepath import Adapter, register
 
 from .base import (
@@ -183,8 +185,7 @@ class ListBlock(Block):
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
-        if not isinstance(value, ListValue):
-            value = ListValue(self, values=value)
+        value = self.normalize(value)
 
         result = []
         block_errors = {}
@@ -223,6 +224,35 @@ class ListBlock(Block):
             )
 
         return ListValue(self, bound_blocks=result)
+
+    def normalize(self, value):
+        if isinstance(value, ListValue):
+            return value
+
+        # Squint a little and see if it looks like a list
+        try:
+            items, _items = itertools.tee(value, 2)
+        except TypeError:
+            raise BlockNormalizationError(
+                f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
+            )
+        try:
+            head = next(_items)
+        except StopIteration:
+            return self.empty_value()
+
+        if self._item_is_in_block_format(head):
+            # It looks like the json-ish representation
+            return ListValue(
+                self, values=[self.child_block.normalize(x["value"]) for x in items]
+            )
+
+        # It looks like a list of values - the old ListBlock representation, or supplied
+        # directly by the user as a shorthand.
+        return ListValue(self, values=[self.child_block.normalize(x) for x in items])
+
+    def empty_value(self):
+        return ListValue(self, values=[])
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows
