@@ -1,4 +1,5 @@
-from django.core.exceptions import ObjectDoesNotExist
+from typing import List
+
 from django.utils.html import escape
 
 from wagtail.documents import get_document_model
@@ -15,12 +16,15 @@ class DocumentLinkHandler(LinkHandler):
         return get_document_model()
 
     @classmethod
-    def expand_db_attributes(cls, attrs):
-        try:
-            doc = cls.get_instance(attrs)
-            return '<a href="%s">' % escape(doc.url)
-        except (ObjectDoesNotExist, KeyError):
-            return "<a>"
+    def expand_db_attributes(cls, attrs: dict) -> str:
+        return cls.expand_db_attributes_many([attrs])[0]
+
+    @classmethod
+    def expand_db_attributes_many(cls, attrs_list: List[dict]) -> List[str]:
+        return [
+            '<a href="%s">' % escape(doc.url) if doc else "<a>"
+            for doc in cls.get_many(attrs_list)
+        ]
 
     @classmethod
     def extract_references(cls, attrs):

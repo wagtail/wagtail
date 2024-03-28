@@ -3,13 +3,16 @@ Utility classes for rewriting elements of HTML-like strings
 """
 
 import re
+from collections import defaultdict
+from itertools import chain
+from typing import Callable, Tuple
 
 FIND_A_TAG = re.compile(r"<a(\b[^>]*)>")
 FIND_EMBED_TAG = re.compile(r"<embed(\b[^>]*)/>")
 FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
 
 
-def extract_attrs(attr_string):
+def extract_attrs(attr_string: str) -> dict:
     """
     helper method to extract tag attributes, as a dict of un-escaped strings
     """
@@ -25,101 +28,170 @@ def extract_attrs(attr_string):
     return attributes
 
 
-class EmbedRewriter:
-    """
-    Rewrites <embed embedtype="foo" /> tags within rich text into the HTML fragment given by the
-    embed rule for 'foo'. Each embed rule is a function that takes a dict of attributes and
-    returns the HTML fragment.
-    """
-
-    def __init__(self, embed_rules, reference_extractors=None):
-        self.embed_rules = embed_rules
+class TagRewriter:
+    def __init__(self, rules=None, bulk_rules=None, reference_extractors=None):
+        self.rules = rules or {}
+        self.bulk_rules = bulk_rules or {}
         self.reference_extractors = reference_extractors or {}
 
-    def replace_tag(self, match):
-        attrs = extract_attrs(match.group(1))
-        try:
-            rule = self.embed_rules[attrs["embedtype"]]
-        except KeyError:
-            # silently drop any tags with an unrecognised or missing embedtype attribute
-            return ""
-        return rule(attrs)
+    def get_opening_tag_regex(self):
+        raise NotImplementedError
 
-    def __call__(self, html):
-        return FIND_EMBED_TAG.sub(self.replace_tag, html)
+    def get_tag_type_from_attrs(self, attrs):
+        raise NotImplementedError
+
+    def get_tag_replacements(self, tag_type, attrs_list):
+        # Note: return an empty list for cases when you don't want any replacements made
+        raise NotImplementedError
+
+    def __call__(self, html: str) -> str:
+        matches_by_tag_type, attrs_by_tag_type = self.extract_tags(html)
+
+        replacements = [
+            self.get_tag_replacements(tag_type, attrs_list)
+            for tag_type, attrs_list in attrs_by_tag_type.items()
+        ]
+
+        offset = 0
+        for match, replacement in zip(
+            chain(*matches_by_tag_type.values()), chain(*replacements)
+        ):
+            html = (
+                html[: match.start() + offset]
+                + replacement
+                + html[match.end() + offset :]
+            )
+
+            offset += len(replacement) - match.end() + match.start()
+
+        return html
+
+    def extract_tags(self, html: str) -> Tuple[dict, dict]:
+        """Helper method to extract and group HTML tags and their attributes.
+
+        Returns the full list of regex matches grouped by tag type as well as
+        the tag attribute dictionaries grouped by tag type.
+        """
+        matches_by_tag_type = defaultdict(list)
+        attrs_by_tag_type = defaultdict(list)
+
+        # Regex used to match <tag ...> tags in the HTML.
+        re_pattern = self.get_opening_tag_regex()
+
+        for match in re_pattern.finditer(html):
+            attrs = extract_attrs(match.group(1))
+            tag_type = self.get_tag_type_from_attrs(attrs)
+
+            matches_by_tag_type[tag_type].append(match)
+            attrs_by_tag_type[tag_type].append(attrs)
+
+        return matches_by_tag_type, attrs_by_tag_type
+
+    def convert_rule_to_bulk_rule(self, rule: Callable) -> Callable:
+        def bulk_rule(args):
+            return list(map(rule, args))
+
+        return bulk_rule
 
     def extract_references(self, html):
-        for match in FIND_EMBED_TAG.findall(html):
+        re_pattern = self.get_opening_tag_regex()
+        for match in re_pattern.findall(html):
             attrs = extract_attrs(match)
-            if (
-                "embedtype" not in attrs
-                or attrs["embedtype"] not in self.reference_extractors
-            ):
+            tag_type = self.get_tag_type_from_attrs(attrs)
+
+            if tag_type not in self.reference_extractors:
                 continue
 
-            yield from self.reference_extractors[attrs["embedtype"]](attrs)
+            yield from self.reference_extractors[tag_type](attrs)
+
+        return []
 
 
-class LinkRewriter:
+class EmbedRewriter(TagRewriter):
     """
-    Rewrites <a linktype="foo"> tags within rich text into the HTML fragment given by the
-    rule for 'foo'. Each link rule is a function that takes a dict of attributes and
-    returns the HTML fragment for the opening tag (only).
+    Rewrites <embed embedtype="foo" /> tags within rich text into the HTML
+    fragment given by the embed rule for 'foo'. Each embed rule is a function
+    that takes a dict of attributes and returns the HTML fragment.
     """
 
-    def __init__(self, link_rules, reference_extractors=None):
-        self.link_rules = link_rules
-        self.reference_extractors = reference_extractors or {}
+    def get_opening_tag_regex(self):
+        return FIND_EMBED_TAG
 
-    def replace_tag(self, match):
-        attrs = extract_attrs(match.group(1))
+    def get_tag_type_from_attrs(self, attrs):
+        return attrs.get("embedtype")
+
+    def get_tag_replacements(self, tag_type, attrs_list):
         try:
-            link_type = attrs["linktype"]
+            rule = self.bulk_rules[tag_type]
         except KeyError:
-            link_type = None
+            rule = None
+
+        if not rule:
+            try:
+                rule = self.rules[tag_type]
+            except KeyError:
+                pass
+            else:
+                rule = self.convert_rule_to_bulk_rule(rule)
+
+        # Silently drop any tags with an unrecognised or missing embedtype attribute.
+        return rule(attrs_list) if rule else [""] * len(attrs_list)
+
+
+class LinkRewriter(TagRewriter):
+    """
+    Rewrites <a linktype="foo"> tags within rich text into the HTML fragment
+    given by the rule for 'foo'. Each link rule is a function that takes a dict
+    of attributes and returns the HTML fragment for the opening tag (only).
+    """
+
+    def get_opening_tag_regex(self):
+        return FIND_A_TAG
+
+    def get_tag_type_from_attrs(self, attrs):
+        try:
+            return attrs["linktype"]
+        except KeyError:
             href = attrs.get("href", None)
             if href:
                 # From href attribute we try to detect only the linktypes that we
                 # currently support (`external` & `email`, `page` has a default handler)
                 # from the link chooser.
                 if href.startswith(("http:", "https:")):
-                    link_type = "external"
+                    return "external"
                 elif href.startswith("mailto:"):
-                    link_type = "email"
+                    return "email"
                 elif href.startswith("#"):
-                    link_type = "anchor"
+                    return "anchor"
 
-            if not link_type:
-                # otherwise return ordinary links without a linktype unchanged
-                return match.group(0)
+    def get_tag_replacements(self, tag_type, attrs_list):
+        if not tag_type:
+            # We want to leave links without a linktype attribute unchanged,
+            # for example <a name="important-anchor">, so we return an empty
+            # list here so that no tag replacements are made.
+            return []
 
         try:
-            rule = self.link_rules[link_type]
+            rule = self.bulk_rules[tag_type]
         except KeyError:
-            if link_type in ["email", "external", "anchor"]:
-                # If no rule is registered for supported types
-                # return ordinary links without a linktype unchanged
-                return match.group(0)
-            # unrecognised link type
-            return "<a>"
+            rule = None
 
-        return rule(attrs)
+        if not rule:
+            try:
+                rule = self.rules[tag_type]
+            except KeyError:
+                if tag_type in ["email", "external", "anchor"]:
+                    # We also want to leave links with certain known linktype
+                    # attributes alone even if there are no richtext rules
+                    # registered for those types, for example
+                    # <a href="https://wagtail.org">, so we return an empty
+                    # list here so that no tag replacements are made.
+                    return []
+            else:
+                rule = self.convert_rule_to_bulk_rule(rule)
 
-    def __call__(self, html):
-        return FIND_A_TAG.sub(self.replace_tag, html)
-
-    def extract_references(self, html):
-        for match in FIND_A_TAG.findall(html):
-            attrs = extract_attrs(match)
-            if (
-                "linktype" not in attrs
-                or attrs["linktype"] not in self.reference_extractors
-            ):
-                continue
-
-            yield from self.reference_extractors[attrs["linktype"]](attrs)
-
-        return []
+        # Replace unrecognised link types with an empty link.
+        return rule(attrs_list) if rule else ["<a>"] * len(attrs_list)
 
 
 class MultiRuleRewriter:

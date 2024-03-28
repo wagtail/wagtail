@@ -6,7 +6,10 @@ from django.test.utils import override_settings
 from django.urls import reverse, reverse_lazy
 
 from wagtail.admin.rich_text import DraftailRichTextArea, get_rich_text_editor_widget
-from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
+from wagtail.admin.rich_text.converters.editor_html import (
+    EditorHTMLConverter,
+    PageLinkHandler,
+)
 from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.blocks import RichTextBlock
 from wagtail.models import Page, get_page_models
@@ -505,6 +508,17 @@ class TestPageLinkHandler(WagtailTestUtils, TestCase):
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">'
+            % events_page_id,
+        )
+
+    def test_editorhtmlconverter_from_database_format(self):
+        events_page_id = Page.objects.get(url_path="/home/events/").pk
+        db_html = '<a linktype="page" id="%d">foo</a>' % events_page_id
+        converter = EditorHTMLConverter(features=["link"])
+        editor_html = converter.from_database_format(db_html)
+        self.assertEqual(
+            editor_html,
+            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">foo</a>'
             % events_page_id,
         )
 
