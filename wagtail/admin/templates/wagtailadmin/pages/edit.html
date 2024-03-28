@@ -28,6 +28,7 @@
         >
             {% csrf_token %}
 
+            <input type="hidden" name="page_revision_id" value="{{ latest_revision.id }}">
             <input type="hidden" name="next" value="{{ next }}">
             {{ edit_handler.render_form_content }}
 
