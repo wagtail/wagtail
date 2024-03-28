@@ -3917,3 +3917,21 @@ class TestPageCacheKey(TestCase):
         self.page.slug = "something-else"
         self.page.save()
         self.assertNotEqual(self.page.cache_key, original_cache_key)
+
+
+class TestPageCachedParentObjExists(TestCase):
+    fixtures = ["test.json"]
+
+    def test_cached_parent_obj_exists(self):
+        # https://github.com/wagtail/wagtail/pull/11737
+
+        # Test if _cached_parent_obj is set after using page.get_parent()
+        # This is treebeard specific, we don't know if their API will change.
+        homepage = Page.objects.get(url_path="/home/")
+        homepage._cached_parent_obj = "_cached_parent_obj_exists"
+        parent = homepage.get_parent(update=False)
+        self.assertEqual(
+            parent,
+            "_cached_parent_obj_exists",
+            "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
+        )
