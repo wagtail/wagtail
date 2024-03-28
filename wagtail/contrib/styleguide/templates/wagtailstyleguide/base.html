@@ -442,19 +442,43 @@
     {% panel id="editor" heading="Page editor" %}
         <h3>Tabs</h3>
 
-        <div class="w-tabs" data-tabs>
-            <div role="tablist" class="w-tabs__list">
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+            <div role="tablist" class="w-tabs__list" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-1' title='Tab 1' %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-2' title='Tab 2' %}
             </div>
+            <div class="tab-content">
+                <section id="tab-tab-1" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
+                    Tab 1 content
+                </section>
+                <section id="tab-tab-2" role="tabpanel" aria-labelledby="tab-label-tab-2" data-w-tabs-target="panel">
+                    Tab 2 content
+                </section>
+            </div>
         </div>
 
-        <p>Tabs can also indicate errors:</p>
-
-        <div class="w-tabs" data-tabs>
-            <div role="tablist" class="w-tabs__list">
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' errors_count='5' %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
+        <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
+            <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' %}
+            </div>
+            <div class="tab-content">
+                <section id="tab-tab-errors-1" role="tabpanel" aria-labelledby="tab-errors-1" data-w-tabs-target="panel">
+                    <p>Tabs can also indicate errors:</p>
+                    Tab 1 content
+                    <ul><li class="error-message">Single error</li></ul>
+                </section>
+                <section id="tab-tab-errors-2" role="tabpanel" aria-labelledby="tab-errors-2" data-w-tabs-target="panel">
+                    <p>Tabs can also indicate errors:</p>
+                    Tab 2 content
+                    <ul>
+                        <li class="error-message">Error A</li>
+                        <li class="error-message">Error B</li>
+                        <li class="error-message">Error C</li>
+                        <li class="error-message">Error D</li>
+                        <li class="error-message">Error E</li>
+                    </ul>
+                </section>
             </div>
         </div>
     {% endpanel %}
@@ -516,6 +540,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Source</th>
                             <th scope="col">File path</th>
+
                         </tr>
                     </thead>
                     <tbody>
