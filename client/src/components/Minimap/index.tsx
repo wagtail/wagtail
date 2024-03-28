@@ -60,7 +60,7 @@ const createMinimapLink = (
  */
 const renderMinimap = (container: HTMLElement) => {
   let anchorsContainer: HTMLElement = document.body;
-  const tabs = document.querySelector('[data-tabs]');
+  const tabs = document.querySelector('[data-controller~="w-tabs"]');
 
   // Render the minimap based on the active tab when there are tabs.
   if (tabs) {
@@ -119,7 +119,8 @@ export const initMinimap = (
 
   const updateMinimap = debounce(renderMinimap.bind(null, container), 100);
 
-  document.addEventListener('wagtail:tab-changed', updateMinimap);
+  document.addEventListener('w-tabs:changed', updateMinimap);
+  document.addEventListener('w-tabs:ready', updateMinimap);
   document.addEventListener('wagtail:panel-init', updateMinimap);
 
   // Make sure the positioning of the minimap is always correct.
