@@ -121,4 +121,9 @@ urlpatterns = [
         name="workflow_history_detail",
     ),
     path("<int:page_id>/history/", history.PageHistoryView.as_view(), name="history"),
+    path(
+        "<int:page_id>/history/results/",
+        history.PageHistoryView.as_view(results_only=True),
+        name="history_results",
+    ),
 ]

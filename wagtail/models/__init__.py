@@ -2727,7 +2727,31 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
+class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
+    def previous_revision_id_subquery(self, revision_fk_name="revision"):
+        """
+        Returns a Subquery that can be used to annotate a queryset with the ID
+        of the previous revision, based on the revision_fk_name field. Useful
+        to avoid N+1 queries when generating comparison links between revisions.
+
+        The logic is similar to Revision.get_previous().pk.
+        """
+        fk = revision_fk_name
+        return Subquery(
+            Revision.objects.filter(
+                base_content_type_id=OuterRef(f"{fk}__base_content_type_id"),
+                object_id=OuterRef(f"{fk}__object_id"),
+            )
+            .filter(
+                Q(
+                    created_at=OuterRef(f"{fk}__created_at"),
+                    pk__lt=OuterRef(f"{fk}__pk"),
+                )
+                | Q(created_at__lt=OuterRef(f"{fk}__created_at"))
+            )
+            .order_by("-created_at", "-pk")
+            .values_list("pk", flat=True)[:1]
+        )
 
 
 class PageRevisionsManager(RevisionsManager):
