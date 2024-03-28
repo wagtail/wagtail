@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
-
+from wagtail.search.index import SearchableContent
 from .base import (
     Block,
     BoundBlock,
@@ -138,14 +138,21 @@ class ListValue(MutableSequence):
 
 
 class ListBlock(Block):
-    def __init__(self, child_block, search_index=True, **kwargs):
+    def __init__(self, child_block, search_index=True, search_boost=1, **kwargs):
         super().__init__(**kwargs)
         self.search_index = search_index
+        self.search_boost = search_boost
+
         if isinstance(child_block, type):
             # child_block was passed as a class, so convert it to a block instance
             self.child_block = child_block()
         else:
             self.child_block = child_block
+
+        self.unique_boosts = set()
+        if hasattr(self.child_block, "unique_boosts"):
+            # set unique_boosts with the child block's unique boosts
+            self.unique_boosts = self.child_block.unique_boosts
 
         if not hasattr(self.meta, "default"):
             # Default to a list consisting of one empty (i.e. default-valued) child item
@@ -345,9 +352,13 @@ class ListBlock(Block):
     def get_searchable_content(self, value):
         if not self.search_index:
             return []
-        content = []
+        content = SearchableContent()
         for child_value in value:
-            content.extend(self.child_block.get_searchable_content(child_value))
+            child_content = self.child_block.get_searchable_content(child_value)
+            # Multiply boost values of child_content by self.search_boost
+            child_content.multiply_boosts(self.search_boost)
+            # Merge the child content into the parent content
+            content.merge_content(child_content)
 
         return content
 

@@ -12,7 +12,7 @@ from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
 from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.test.utils.form_data import rich_text
-
+from wagtail.search.index import SearchableContent
 
 class TestPageLinktypeHandler(TestCase):
     fixtures = ["test.json"]
@@ -247,7 +247,7 @@ class TestRichTextField(TestCase):
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)
         result = body_field.get_searchable_content(value)
-        self.assertEqual(result, ["Merry Christmas from Wagtail! & co."])
+        self.assertEqual(result, SearchableContent({1: ["Merry Christmas from Wagtail! & co."]}))
 
     def test_get_searchable_content_whitespace(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
@@ -257,7 +257,7 @@ class TestRichTextField(TestCase):
         body_field = christmas_page._meta.get_field("body")
         value = body_field.value_from_object(christmas_page)
         result = body_field.get_searchable_content(value)
-        self.assertEqual(result, ["buttery mashed potatoes"])
+        self.assertEqual(result, SearchableContent({1: ["buttery mashed potatoes"]}))
 
     def test_max_length_validation(self):
         EventIndexForm = modelform_factory(model=EventIndex, fields=["intro"])

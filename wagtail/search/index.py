@@ -9,6 +9,7 @@ from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, Relat
 from modelcluster.fields import ParentalManyToManyField
 
 from wagtail.search.backends import get_search_backends_with_name
+from wagtail import __version__
 
 logger = logging.getLogger("wagtail.search.index")
 
@@ -266,6 +267,9 @@ class BaseField:
             value = field.value_from_object(obj)
             if hasattr(field, "get_searchable_content"):
                 value = field.get_searchable_content(value)
+                if __version__ < 6:
+                    value = value.as_list()
+
             elif isinstance(field, TaggableManager):
                 # As of django-taggit 1.0, value_from_object returns a list of Tag objects,
                 # which matches what we want
@@ -296,6 +300,7 @@ class SearchField(BaseField):
     def __init__(self, field_name, boost=None, **kwargs):
         super().__init__(field_name, **kwargs)
         self.boost = boost
+        self.unique_boosts = kwargs.pop("unique_boosts", [boost])
 
 
 class AutocompleteField(BaseField):
@@ -356,3 +361,91 @@ class RelatedFields:
                 queryset = queryset.prefetch_related(self.field_name)
 
         return queryset
+
+
+# '''
+# Implementation of the `SearchableContent` class
+
+# - `add_content`: Adds content with a specified boost value.
+# - `merge_content`: Merges the content of another `SearchableContent` object.
+# - `multiply_boosts`: Multiplies all boost values by a given multiplier.
+# - `get_unique_boosts`: Gets the set of unique boost values.
+# - `as_dict`: Returns the content as a dictionary.
+
+# We will use this class for `get_searchable_content` in the `StreamBlock` or other relevant blocks.
+# '''
+class SearchableContent:
+    def __init__(self, data=None):
+        # Initialize with an empty dictionary or provided data
+        self.data = data or {}
+
+    def add_content(self, boost, content):
+        """
+        Add content to the SearchableContent object with the specified boost value.
+        """
+        if boost not in self.data:
+            self.data[boost] = []
+
+        self.data[boost].append(content)
+
+    def merge_content(self, other):
+        """
+        Merge the content of another SearchableContent object into this object.
+        """
+        for boost, content_list in other.data.items():
+            if boost not in self.data:
+                self.data[boost] = []
+            self.data[boost].extend(content_list)
+
+    def multiply_boosts(self, multiplier):
+        """
+        Multiply all boost values in the SearchableContent object by the given multiplier.
+        """
+        for boost in list(self.data.keys()):
+            new_boost = boost * multiplier
+            self.data[new_boost] = self.data.pop(boost)
+
+    def get_unique_boosts(self):
+        """
+        Get the set of unique boost values present in the SearchableContent object.
+        """
+        return set(self.data.keys())
+
+    def as_dict(self):
+        """
+        Get the content as a dictionary.
+        """
+        return self.data.copy()
+
+    def as_list(self):
+        """
+        Get a single list containing all content from different boost values.
+        """
+        combined_content = []
+        for content_list in self.data.values():
+            combined_content.extend(content_list)
+        return combined_content
+
+    def __str__(self):
+        """
+        Return a string representation of the SearchableContent object.
+        """
+        return f"SearchableContent(data={self.data})"
+
+    def __eq__(self, other):
+        """
+        Compare two SearchableContent objects for equality.
+        """
+        return isinstance(other, SearchableContent) and self.data == other.data
+
+    def __ne__(self, other):
+        """
+        Compare two SearchableContent objects for inequality.
+        """
+        return not self.__eq__(other)
+
+    def __json__(self):
+        """
+        Convert the SearchableContent object to a JSON-serializable dictionary.
+        """
+        return {str(key): value for key, value in self.data.items()}

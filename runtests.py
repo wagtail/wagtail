@@ -83,7 +83,7 @@ def runtests():
 
         argv = [sys.argv[0], "test", "-v2"] + benchmarks + rest
     else:
-        argv = [sys.argv[0], "test"] + rest
+        argv = [sys.argv[0], "test", "-v2"] + rest
 
     try:
         execute_from_command_line(argv)
