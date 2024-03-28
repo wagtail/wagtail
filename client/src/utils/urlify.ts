@@ -541,7 +541,7 @@ const downcoder = new Downcoder();
  * This util and the mapping is a direct port of Django's urlify.js util, without the need for a full Regex implementation.
  * @see https://github.com/django/django/blob/main/django/contrib/admin/static/admin/js/urlify.js
  */
-function URLify(str, numChars, allowUnicode = false) {
+function URLify(str: string, numChars?: number, allowUnicode = false) {
   let s = str;
   // changes, e.g., "Petty theft" to "petty-theft"
   if (!allowUnicode) {
