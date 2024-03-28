@@ -72,6 +72,7 @@ documentation_extras = [
     "pyenchant>=3.1.1,<4",
     "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=1.5.2",
+    "sphinx-autodoc2==0.4.2",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.3.0",
     "myst_parser==2.0.0",
