@@ -11,10 +11,13 @@ from django.utils import timezone
 from django.utils.dateformat import Formatter
 from django.utils.encoding import force_str
 from django.utils.formats import get_format
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
+from django.utils.translation import gettext as _
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
 
+from wagtail.admin.widgets.button import Button
 from wagtail.coreutils import multigetattr
 
 
@@ -301,3 +304,30 @@ class SpreadsheetExportMixin:
     @property
     def csv_export_url(self):
         return self.get_export_url("csv")
+
+    @cached_property
+    def show_export_buttons(self):
+        return bool(self.list_export)
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = super().header_more_buttons.copy()
+        if self.show_export_buttons:
+            buttons.append(
+                Button(
+                    _("Download XLSX"),
+                    url=self.xlsx_export_url,
+                    icon_name="download",
+                    priority=90,
+                )
+            )
+            buttons.append(
+                Button(
+                    _("Download CSV"),
+                    url=self.csv_export_url,
+                    icon_name="download",
+                    priority=100,
+                )
+            )
+
+        return buttons

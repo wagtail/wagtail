@@ -6,13 +6,15 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy, ngettext
-from django.views.generic import ListView, TemplateView
+from django.views.generic import TemplateView
+from django_filters import DateFromToRangeFilter
 
 from wagtail.admin import messages
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.models import Page
 
@@ -70,8 +72,6 @@ class FormPagesListView(generic.IndexView):
     is_searchable = False
 
     def get_breadcrumbs_items(self):
-        if not self.model:
-            return self.breadcrumbs_items
         return self.breadcrumbs_items + [
             {"url": "", "label": self.page_title, "sublabel": gettext("Pages")},
         ]
@@ -144,22 +144,36 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
-class SubmissionsListView(SpreadsheetExportMixin, ListView):
+class SubmissionsListFilterSet(WagtailFilterSet):
+    date = DateFromToRangeFilter(
+        label=gettext_lazy("Submission date"),
+        field_name="submit_time",
+        widget=DateRangePickerWidget,
+    )
+
+
+class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     """Lists submissions for the provided form page"""
 
     template_name = "wagtailforms/submissions_index.html"
+    results_template_name = "wagtailforms/list_submissions.html"
     context_object_name = "submissions"
     form_page = None
-    ordering = ("-submit_time",)
+    default_ordering = ("-submit_time",)
     ordering_csv = ("submit_time",)  # keep legacy CSV ordering
     orderable_fields = (
         "id",
         "submit_time",
     )  # used to validate ordering in URL
     page_title = gettext_lazy("Form data")
-    select_date_form = None
+    header_icon = "form"
     paginate_by = 20
-    page_kwarg = "p"
+    filterset_class = SubmissionsListFilterSet
+    forms_index_url_name = "wagtailforms:index"
+    index_url_name = "wagtailforms:list_submissions"
+    index_results_url_name = "wagtailforms:list_submissions_results"
+    _show_breadcrumbs = True
+    show_export_buttons = True
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -177,28 +191,16 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_queryset(self):
-        """Return queryset of form submissions with filter and order_by applied"""
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["queryset"] = self.get_base_queryset()
+        return kwargs
+
+    def get_base_queryset(self):
+        """Return queryset of form submissions"""
         submission_class = self.form_page.get_submission_class()
         queryset = submission_class._default_manager.filter(page=self.form_page)
-
-        filtering = self.get_filtering()
-        if filtering and isinstance(filtering, dict):
-            queryset = queryset.filter(**filtering)
-
-        ordering = self.get_ordering()
-        if ordering:
-            if isinstance(ordering, str):
-                ordering = (ordering,)
-            queryset = queryset.order_by(*ordering)
-
         return queryset
-
-    def get_paginate_by(self, queryset):
-        """Get the number of items to paginate by, or ``None`` for no pagination"""
-        if self.is_export:
-            return None
-        return self.paginate_by
 
     def get_validated_ordering(self):
         """Return a dict of field names with ordering labels if ordering is valid"""
@@ -208,7 +210,7 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
             #  Revert to CSV order_by submit_time ascending for backwards compatibility
             default_ordering = self.ordering_csv or ()
         else:
-            default_ordering = self.ordering or ()
+            default_ordering = self.default_ordering or ()
         if isinstance(default_ordering, str):
             default_ordering = (default_ordering,)
         ordering_strs = self.request.GET.getlist("order_by") or list(default_ordering)
@@ -228,25 +230,6 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
         """Return the field or fields to use for ordering the queryset"""
         ordering = self.get_validated_ordering()
         return [values[0] + name for name, values in ordering.items()]
-
-    def get_filtering(self):
-        """Return filering as a dict for submissions queryset"""
-        self.select_date_form = SelectDateForm(self.request.GET)
-        result = {}
-        if self.select_date_form.is_valid():
-            date_from = self.select_date_form.cleaned_data.get("date_from")
-            date_to = self.select_date_form.cleaned_data.get("date_to")
-            if date_to:
-                # careful: date_to must be increased by 1 day
-                # as submit_time is a time so will always be greater
-                date_to += datetime.timedelta(days=1)
-                if date_from:
-                    result["submit_time__range"] = [date_from, date_to]
-                else:
-                    result["submit_time__lte"] = date_to
-            elif date_from:
-                result["submit_time__gte"] = date_from
-        return result
 
     def get_filename(self):
         """Returns the base filename for the generated spreadsheet data file"""
@@ -268,6 +251,28 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
         )
         return row_dict
 
+    def get_index_url(self):
+        return reverse(self.index_url_name, args=(self.form_page.id,))
+
+    def get_index_results_url(self):
+        return reverse(self.index_results_url_name, args=(self.form_page.id,))
+
+    def get_page_subtitle(self):
+        return self.form_page.get_admin_display_title()
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.forms_index_url_name),
+                "label": gettext("Forms"),
+            },
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            },
+        ]
+
     def get_context_data(self, **kwargs):
         """Return context for view"""
         context = super().get_context_data(**kwargs)
@@ -275,7 +280,6 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
         data_fields = self.form_page.get_data_fields()
         data_rows = []
         context["submissions"] = submissions
-        context["page_title"] = self.page_title
         if not self.is_export:
             # Build data_rows as list of dicts containing model_id and fields
             for submission in submissions:
@@ -310,7 +314,6 @@ class SubmissionsListView(SpreadsheetExportMixin, ListView):
             context.update(
                 {
                     "form_page": self.form_page,
-                    "select_date_form": self.select_date_form,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
                 }

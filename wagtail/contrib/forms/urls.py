@@ -16,6 +16,12 @@ urlpatterns = [
         "submissions/<int:page_id>/", get_submissions_list_view, name="list_submissions"
     ),
     path(
+        "submissions/<int:page_id>/results/",
+        get_submissions_list_view,
+        {"results_only": True},
+        name="list_submissions_results",
+    ),
+    path(
         "submissions/<int:page_id>/delete/",
         DeleteSubmissionsView.as_view(),
         name="delete_submissions",
