@@ -449,7 +449,7 @@ class TestPageWorkflows(WagtailTestUtils, TestCase):
         self.assertIsNone(self.object.locked_at)
         self.assertIsNone(self.object.locked_by)
 
-    def test_workflow_state_cascade_on_object_delete(self, cascades=True):
+    def test_workflow_state_cascade_on_object_delete(self):
         data = self.start_workflow()
         query = {
             "base_content_type": self.object.get_base_content_type(),
@@ -460,7 +460,7 @@ class TestPageWorkflows(WagtailTestUtils, TestCase):
             data["workflow_state"],
         )
         self.object.delete()
-        self.assertIs(WorkflowState.objects.filter(**query).exists(), not cascades)
+        self.assertIs(WorkflowState.objects.filter(**query).exists(), False)
 
 
 class TestSnippetWorkflows(TestPageWorkflows):
@@ -493,9 +493,6 @@ class TestSnippetWorkflowsNotLockable(TestSnippetWorkflows):
         self.assertEqual(workflow_state.content_object, self.object)
         self.assertEqual(workflow_state.status, "in_progress")
 
-    def test_workflow_state_cascade_on_object_delete(self):
-        # We expect the cascade to not happen as the model does not define
-        # a GenericRelation to WorkflowState. However, workflows should still
-        # work as expected.
-        # See https://github.com/wagtail/wagtail/issues/11300 for more details.
-        return super().test_workflow_state_cascade_on_object_delete(cascades=False)
+    # The ModeratedModel does not explicitly define a `GenericRelation` to
+    # `WorkflowState`, but the `WorkflowState` should still be deleted when the
+    # object is deleted (test_workflow_state_cascade_on_object_delete passes).

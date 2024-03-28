@@ -119,6 +119,10 @@ class SpecificMixin:
         return self.cached_content_type.model_class()
 
     @property
+    def is_specific(self):
+        return self.specific_class is not None and isinstance(self, self.specific_class)
+
+    @property
     def cached_content_type(self):
         """
         Return this object's ``content_type`` value from the ``ContentType``
