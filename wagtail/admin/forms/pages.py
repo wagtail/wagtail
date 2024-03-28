@@ -226,3 +226,19 @@ class MoveForm(forms.Form):
             label=_("New parent page"),
             help_text=_("Select a new parent for this page."),
         )
+
+
+class ParentChooserForm(forms.Form):
+    def __init__(self, child_page_type, *args, **kwargs):
+        self.child_page_type = child_page_type
+        super().__init__(*args, **kwargs)
+        self.fields["parent_page"] = forms.ModelChoiceField(
+            queryset=Page.objects.all(),
+            widget=widgets.AdminPageChooser(
+                target_models=self.child_page_type.allowed_parent_page_models(),
+                can_choose_root=True,
+                user_perms="add_subpage",
+            ),
+            label=_("Parent page"),
+            help_text=_("The new page will be a child of this given parent page."),
+        )
