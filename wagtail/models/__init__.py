@@ -1283,6 +1283,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    @staticmethod
+    def route_for_request(request, path):
+        """
+        Find the page object for this HTTP request object. The page, args, and
+        kwargs will be cached via request._wagtail_route_for_request
+        """
+        if not getattr(request, '_wagtail_route_for_request', None):
+            # we need a valid Site object corresponding to this request in order to proceed
+            site = Site.find_for_request(request)
+            if not site:
+                raise Http404
+
+            path_components = [component for component in path.split("/") if component]
+            request._wagtail_route_for_request = site.root_page.localized.specific.route(
+                request, path_components
+            )
+        return request._wagtail_route_for_request
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.id:
