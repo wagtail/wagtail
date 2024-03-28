@@ -7,7 +7,7 @@
 {% endif %}
 
 {% comment %} Do not attach JavaScript behaviour (data-tabs) below if there are no actual tabs used {% endcomment %}
-<div class="w-tabs">
+<div class="w-tabs" data-controller="w-tabs">
     {% if creation_form %}
         <div class="w-tabs__wrapper w-overflow-hidden">
             <div role="tablist" class="w-tabs__list w-w-full" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
