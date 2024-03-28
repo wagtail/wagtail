@@ -23,6 +23,13 @@ class TestPageLinktypeHandler(TestCase):
         )
         self.assertEqual(result, '<a href="/events/christmas/">')
 
+    @override_settings(ROOT_URLCONF="wagtail.test.headless_urls")
+    def test_expand_db_attributes_headless(self):
+        result = PageLinkHandler.expand_db_attributes(
+            {"id": Page.objects.get(url_path="/home/events/christmas/").id}
+        )
+        self.assertEqual(result, '<a href="/events/christmas/">')
+
     def test_expand_db_attributes_page_does_not_exist(self):
         result = PageLinkHandler.expand_db_attributes({"id": 0})
         self.assertEqual(result, "<a>")
