@@ -20,14 +20,14 @@ describe('TabsController', () => {
   const setup = async (
     html = `
       <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
-        <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
-          <a id="tab-label-tab-1" href="#tab-tab-1"role="tab" tabindex="-1" data-w-tabs-target="label">
+        <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+          <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label" data-action="w-tabs#select:prevent">
             Cheese
           </a>
-          <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+          <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
             Chocolate
           </a>
-          <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+          <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
             Coffee
           </a>
         </div>
@@ -48,7 +48,7 @@ describe('TabsController', () => {
   ) => {
     document.body.innerHTML = `<main>${html}</main>`;
     app = Application.start();
-    app.register(identifier, TabsController);
+    `app.register(identifier, TabsController);`
     await Promise.resolve();
   };
 
@@ -162,13 +162,11 @@ describe('TabsController', () => {
     it('loading with a different selected tab', async () => {
       await setup(`
       <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-value="tab-tab-2" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" role="tablist">
-              <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1"
-                data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
+          <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+              <a id="tab-label-tab-1" href="#tab-tab-1" class="w-tabs__tab" role="tab" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
                   Tab 1
               </a>
-              <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab"
-                data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast" data-w-tabs-target="label">
+              <a id="tab-label-tab-2" href="#tab-tab-2" class="w-tabs__tab" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
                   Tab 2
               </a>
           </div>
@@ -221,14 +219,14 @@ describe('TabsController', () => {
     it('warns about role="tablist" aria attributes', async () => {
       await setup(`
         <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
-            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+          <div class="w-tabs__list" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label" data-action="w-tabs#select:prevent">
               Cheese
             </a>
-            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label" data-action="w-tabs#select:prevent">
               Chocolate
             </a>
-            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label" data-action="w-tabs#select:prevent">
               Coffee
             </a>
           </div>
@@ -250,21 +248,21 @@ describe('TabsController', () => {
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenCalledWith(
         [...document.querySelector('.w-tabs__list').children],
-        "One or more tab (label) targets are not direct descendants of an element with role='tablist'.",
+        "One or more tab (label) targets are not direct descendants of an element with `role='tablist'`.",
       );
     });
 
     it('warns about role="tab" aria attributes', async () => {
       await setup(`
         <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
-            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+          <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Cheese
             </a>
-            <a id="tab-label-tab-2" href="#tab-tab-2" data-w-tabs-target="label">
+            <a id="tab-label-tab-2" href="#tab-tab-2" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Chocolate
             </a>
-            <a id="tab-label-tab-3" href="#tab-tab-3" data-w-tabs-target="label">
+            <a id="tab-label-tab-3" href="#tab-tab-3" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Coffee
             </a>
           </div>
@@ -287,27 +285,27 @@ describe('TabsController', () => {
       expect(console.warn).toHaveBeenNthCalledWith(
         1,
         document.getElementById('tab-label-tab-2'),
-        "this element does not have role='tab' aria attribute",
+        "Tab nav elements must have the `role='tab'` attribute set",
       );
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenNthCalledWith(
         2,
         document.getElementById('tab-label-tab-3'),
-        "this element does not have role='tab' aria attribute",
+        "Tab nav elements must have the `role='tab'` attribute set",
       );
     });
 
     it('warns about role="tabpanel" aria attributes', async () => {
       await setup(`
         <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
-            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+          <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Cheese
             </a>
-            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Chocolate
             </a>
-            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Coffee
             </a>
           </div>
@@ -329,21 +327,21 @@ describe('TabsController', () => {
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenCalledWith(
         document.getElementById('tab-tab-1'),
-        "this element does not have role='tabpanel' aria attribute",
+        "Tab panel elements must have the `role='tabpanel'` attribute set.",
       );
     });
 
     it('warns about aria-labelledby', async () => {
       await setup(`
         <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
-          <div class="w-tabs__list" role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
-            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-w-tabs-target="label">
+          <div class="w-tabs__list" role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+            <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Cheese
             </a>
-            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Chocolate
             </a>
-            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-w-tabs-target="label">
+            <a id="tab-label-tab-3" href="#tab-tab-3" role="tab" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
               Coffee
             </a>
           </div>
@@ -365,7 +363,7 @@ describe('TabsController', () => {
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenCalledWith(
         document.getElementById('tab-tab-3'),
-        'this element does not have aria-labelledby',
+        'Tab panel element must have `aria-labelledby` set to the id of the tab nav element.',
       );
     });
   });

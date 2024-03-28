@@ -58,9 +58,9 @@ interface TabLink extends HTMLAnchorElement {
  * @example
  * ```html
  * <div data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
- *   <div role="tablist" data-action="click->w-tabs#handleTabChange:prevent keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
- *     <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" data-w-tabs-target="label">Tab 1</a>
- *     <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label">Tab 2</a>
+ *   <div role="tablist" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
+ *     <a id="tab-label-tab-1" href="#tab-tab-1" role="tab" data-w-tabs-target="label" data-action="w-tabs#select:prevent">Tab 1</a>
+ *     <a id="tab-label-tab-2" href="#tab-tab-2" role="tab" data-w-tabs-target="label" data-action="w-tabs#select:prevent">Tab 2</a>
  *  </div>
  *    <div class="tab-content tab-content--comments-enabled">
  *     <section id="tab-tab-1" role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
@@ -90,7 +90,7 @@ export class TabsController extends Controller<HTMLDivElement> {
   declare selectedValue: string;
   /** If true, animation will run when a new tab is selected. */
   declare readonly animateValue: boolean;
-  /** Tab elements, with role='tab', allowing switching between tabs. */
+  /** Tab elements, with role='tab', allowing selection of tabs. */
   declare readonly labelTargets: HTMLAnchorElement[];
   /** Tab content panels, with role='tabpanel', showing the content for each tab. */
   declare readonly panelTargets: HTMLElement[];
@@ -108,7 +108,7 @@ export class TabsController extends Controller<HTMLDivElement> {
 
     debounce(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, this.transitionValue * 2);
+    }, this.transitionValue * 2)();
 
     this.setAriaControls(this.labelTargets);
     this.setTabLabelIndex();
@@ -160,14 +160,10 @@ export class TabsController extends Controller<HTMLDivElement> {
         tabContent.hidden = false;
       }
 
-      this.dispatch('switch', {
-        detail: { tab: tab?.getAttribute('href')?.replace('#', '') },
-        target: tab,
-      });
-
       this.dispatch('selected', {
         cancelable: false,
         detail: { selected: currentValue },
+        target: tab,
       });
 
       if (!this.syncURLHashValue) {
@@ -176,18 +172,7 @@ export class TabsController extends Controller<HTMLDivElement> {
     }
   }
 
-  handleTriggerLinks(event: MouseEvent) {
-    const href = (event.target as HTMLAnchorElement).getAttribute(
-      'href',
-    ) as string;
-    const tab = this.getTabLabelByHref(href);
-    if (tab) {
-      this.selectedValue = href.replace('#', '');
-      tab.focus();
-    }
-  }
-
-  handleTabChange(event: MouseEvent) {
+  select(event: MouseEvent) {
     const tabId = (event.target as HTMLElement).getAttribute(
       'aria-controls',
     ) as string;
@@ -278,9 +263,9 @@ export class TabsController extends Controller<HTMLDivElement> {
     }
 
     const tabContent = this.getTabPanelByHref(tabId);
-    if (!tabContent) {
-      return;
-    }
+
+    if (!tabContent) return;
+
     if (this.animateValue) {
       this.animateOut(tabContent);
     } else {
@@ -288,9 +273,9 @@ export class TabsController extends Controller<HTMLDivElement> {
     }
 
     const tab = this.getTabLabelByHref(tabId);
-    if (!tab) {
-      return;
-    }
+
+    if (!tab) return;
+
     tab.setAttribute('aria-selected', 'false');
     tab.setAttribute('tabindex', '-1');
   }
@@ -298,9 +283,9 @@ export class TabsController extends Controller<HTMLDivElement> {
   selectNext(event: Event) {
     const tabIndex = (event.target as IndexedEventTarget).index;
     const tab = this.labelTargets[tabIndex + 1];
-    if (!tab) {
-      return;
-    }
+
+    if (!tab) return;
+
     this.selectedValue = tab.getAttribute('aria-controls') as string;
     tab.focus();
   }
@@ -308,9 +293,9 @@ export class TabsController extends Controller<HTMLDivElement> {
   selectPrevious(event: Event) {
     const tabIndex = (event.target as IndexedEventTarget).index;
     const tab = this.labelTargets[tabIndex + -1];
-    if (!tab) {
-      return;
-    }
+
+    if (!tab) return;
+
     this.selectedValue = tab.getAttribute('aria-controls') as string;
     tab.focus();
   }
@@ -338,14 +323,17 @@ export class TabsController extends Controller<HTMLDivElement> {
   }
 
   validate() {
-    this.labelTargets.forEach((label, idx) => {
-      const panel = this.panelTargets[idx];
+    const labels = this.labelTargets;
+    const panels = this.panelTargets;
+
+    labels.forEach((label, index) => {
+      const panel = panels[index];
 
       if (label.getAttribute('role') !== 'tab') {
         // eslint-disable-next-line no-console
         console.warn(
           label,
-          "this element does not have role='tab' aria attribute",
+          "Tab nav elements must have the `role='tab'` attribute set",
         );
       }
 
@@ -353,18 +341,18 @@ export class TabsController extends Controller<HTMLDivElement> {
         // eslint-disable-next-line no-console
         console.warn(
           panel,
-          "this element does not have role='tabpanel' aria attribute",
+          "Tab panel elements must have the `role='tabpanel'` attribute set.",
         );
       }
 
       if (panel.getAttribute('aria-labelledby') !== label.id) {
         // eslint-disable-next-line no-console
-        console.warn(panel, 'this element does not have aria-labelledby');
+        console.warn(panel, 'Tab panel element must have `aria-labelledby` set to the id of the tab nav element.');
       }
     });
 
     if (
-      this.labelTargets.every(
+      labels.every(
         (target) =>
           (target.parentElement as HTMLElement).getAttribute('role') !==
           'tablist',
@@ -372,8 +360,8 @@ export class TabsController extends Controller<HTMLDivElement> {
     ) {
       // eslint-disable-next-line no-console
       console.warn(
-        this.labelTargets,
-        "One or more tab (label) targets are not direct descendants of an element with role='tablist'.",
+        labels,
+        "One or more tab (label) targets are not direct descendants of an element with `role='tablist'`.",
       );
     }
   }

@@ -25,15 +25,15 @@
     </p>
 
 
-    <div class="w-tabs" data-tabs>
+    <div class="w-tabs" data-controller="w-tabs">
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list ">
+            <div role="tablist" class="w-tabs__list " data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="tasks" title=_("Tasks") %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id="timeline" title=_("Timeline") %}
             </div>
         </div>
         <div class="tab-content">
-            <section id="tab-tasks" role="tabpanel" data-tab="tasks" aria-labelledby="tab-label-tasks" hidden>
+            <section id="tab-tasks" role="tabpanel" aria-labelledby="tab-label-tasks" data-w-tabs-target="panel" hidden>
                 <table class="workflow-progress-table workflow-progress-table--tasks">
                     <colgroup width="20%"></colgroup>
                     {% for task in tasks %}
@@ -93,7 +93,7 @@
                 </table>
             </section>
 
-            <section id="tab-timeline" role="tabpanel" data-tab="timeline" aria-labelledby="tab-label-timeline" hidden>
+            <section id="tab-timeline" role="tabpanel" aria-labelledby="tab-label-timeline" data-w-tabs-target="panel" hidden>
                 <table class="workflow-progress-table workflow-progress-table--timeline">
                     <colgroup width="20%"></colgroup>
                     <colgroup width="80%"></colgroup>
