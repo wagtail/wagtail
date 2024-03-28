@@ -508,8 +508,7 @@ class Downcoder {
   constructor() {
     const map = {};
 
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < ALL_DOWNCODE_MAPS.length; i++) {
+    for (let i = 0; i < ALL_DOWNCODE_MAPS.length; i += 1) {
       const lookup = ALL_DOWNCODE_MAPS[i];
       for (const c in lookup) {
         if (lookup.hasOwnProperty(c)) {
