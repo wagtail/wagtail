@@ -3,13 +3,10 @@ from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
+from warnings import warn
 
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
@@ -30,7 +27,9 @@ from wagtail.documents.views.bulk_actions import (
 )
 from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.wagtail_hooks import require_wagtail_login
+
 
 
 @hooks.register("register_admin_urls")
@@ -178,14 +177,26 @@ def check_view_restrictions(document, request):
                     "wagtaildocs_authenticate_with_password", args=[restriction.id]
                 )
 
-                password_required_template = getattr(
+                if hasattr(settings, "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE"):
+                    warn(
+                    "The `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    category=RemovedInWagtail70Warning,
+                    )
+
+                PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = getattr(
                     settings,
-                    "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
-                    "wagtaildocs/password_required.html",
-                )
+                    "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
+                    getattr(settings, "PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE", "wagtaildocs/password_required.html")
+                    )
+
+                # password_required_template = getattr(
+                #     settings,
+                #     "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
+                #     "wagtaildocs/password_required.html",
+                # )
 
                 context = {"form": form, "action_url": action_url}
-                return TemplateResponse(request, password_required_template, context)
+                return TemplateResponse(request, PASSWORD_DOCUMENT_PASSWORD_REQUIRED_TEMPLATE, context)
 
             elif restriction.restriction_type in [
                 BaseViewRestriction.LOGIN,

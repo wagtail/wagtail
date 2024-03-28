@@ -5,6 +5,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import etag
+from warnings import warn
 
 from wagtail import hooks
 from wagtail.documents import get_document_model
@@ -12,6 +13,7 @@ from wagtail.documents.models import document_served
 from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import CollectionViewRestriction
 from wagtail.utils import sendfile_streaming_backend
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.sendfile import sendfile
 
 
@@ -133,11 +135,27 @@ def authenticate_with_password(request, restriction_id):
         "wagtaildocs_authenticate_with_password", args=[restriction.id]
     )
 
-    password_required_template = getattr(
+    if hasattr(settings, "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE"):
+        warn(
+        "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
+        category=RemovedInWagtail70Warning,
+        )
+
+
+
+    PASSWORD_REQUIRED_TEMPLATE = getattr(
         settings,
-        "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
-        "wagtaildocs/password_required.html",
-    )
+        "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+        getattr(settings, "PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/login.html")
+        )
+
+
+
+    # password_required_template = getattr(
+    #     settings,
+    #     "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
+    #     "wagtaildocs/password_required.html",
+    # )
 
     context = {"form": form, "action_url": action_url}
-    return TemplateResponse(request, password_required_template, context)
+    return TemplateResponse(request, PASSWORD_REQUIRED_TEMPLATE, context)
