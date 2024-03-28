@@ -343,3 +343,22 @@ class TestLocking(WagtailTestUtils, TestCase):
         self.assertFalse(page.locked)
         self.assertIsNone(page.locked_by)
         self.assertIsNone(page.locked_at)
+
+    def test_unlock_page_skip_validation_errors(self):
+        # Lock the page
+        self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
+        self.child_page.title = 100
+        # Does not raise ValidationError
+        response = self.client.post(
+            reverse("wagtailadmin_pages:unlock", args=(self.child_page.id,))
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+        )
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
