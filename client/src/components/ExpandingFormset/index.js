@@ -1,5 +1,11 @@
 import $ from 'jquery';
 
+/**
+ * Usage of this class directly is deprecated for admin core code use.
+ * Class still needs to be in place for legacy support (see `window.buildExpandingFormset`)
+ * and it's being extended by InlinePanel & MultipleChooserPanel.
+ * @deprecated
+ */
 export class ExpandingFormset {
   constructor(prefix, opts = {}) {
     this.opts = opts;
