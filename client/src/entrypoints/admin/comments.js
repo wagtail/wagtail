@@ -275,19 +275,13 @@ window.comments = (() => {
       .forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
-    const tabNavElement = formElement.querySelector(
-      '[data-tabs] [role="tablist"]',
-    );
-    if (tabNavElement) {
-      commentApp.setCurrentTab(
-        tabNavElement
-          .querySelector('[role="tab"][aria-selected="true"]')
-          .getAttribute('href')
-          .replace('#', ''),
+    const tabs = formElement.querySelector('[data-controller~="w-tabs"]');
+    if (tabs) {
+      const initialTab = tabs.getAttribute('data-w-tabs-active-panel-id-value');
+      commentApp.setCurrentTab(initialTab);
+      tabs.addEventListener('w-tabs:changed', ({ detail: { current } }) =>
+        setTimeout(() => commentApp.setCurrentTab(current)),
       );
-      tabNavElement.addEventListener('switch', (e) => {
-        commentApp.setCurrentTab(e.detail.tab);
-      });
     }
 
     // Show comments app
