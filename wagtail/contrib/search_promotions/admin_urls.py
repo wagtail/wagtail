@@ -6,8 +6,8 @@ app_name = "wagtailsearchpromotions"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("results/", views.IndexView.as_view(results_only=True), name="index_results"),
-    path("add/", views.add, name="add"),
-    path("<int:query_id>/", views.edit, name="edit"),
+    path("add/", views.AddSearchPromotion.as_view(), name="add"),
+    path("<int:query_id>/", views.EditSearchPromotion.as_view(), name="edit"),
     path("<int:query_id>/delete/", views.delete, name="delete"),
     path("queries/chooser/", views.chooser, name="chooser"),
     path(
