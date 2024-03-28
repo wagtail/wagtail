@@ -1,12 +1,6 @@
 import { urlify } from './urlify';
 
 describe('urlify', () => {
-  beforeAll(() => {
-    // load window.URLify
-    require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
-      .default;
-  });
-
   describe('urlify with unicode slugs disabled (default)', () => {
     it('should return a correct slug which is escaped by urlify', () => {
       expect(urlify('This & That')).toBe('this-that');
