@@ -7,21 +7,21 @@
 
         <table class="listing" data-controller="w-bulk">
             <colgroup>
+                <col class="w-w-1/4" />
                 <col />
-                <col width="10%" />
-                <col width="10%" />
-                <col width="10%" />
+                <col />
+                <col />
                 {% if extra_perms_exist.publish %}
-                    <col width="10%" />
+                    <col />
                 {% endif %}
                 {% if extra_perms_exist.lock %}
-                    <col width="10%" />
+                    <col />
                 {% endif %}
                 {% if extra_perms_exist.unlock %}
-                    <col width="10%" />
+                    <col />
                 {% endif %}
                 {% if extra_perms_exist.custom %}
-                    <col width="25%" />
+                    <col class="w-w-1/4" />
                 {% endif %}
             </colgroup>
             <thead>
