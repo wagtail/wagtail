@@ -1,0 +1,1327 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"PO-Revision-Date: 2021-09-27 17:40\n"
+"Last-Translator: translate.py\n"
+"Language-Team: The Unicode Consortium CLDR <https://github.com/unicode-org/cldr-json>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Africa/Abidjan"
+msgstr "Afrika/Abidjan"
+
+msgid "Africa/Accra"
+msgstr "Afrika/Accra"
+
+msgid "Africa/Addis_Ababa"
+msgstr "Afrika/Addis Abeba"
+
+msgid "Africa/Algiers"
+msgstr "Afrika/Alžir"
+
+msgid "Africa/Asmara"
+msgstr "Afrika/Nairobi"
+
+msgid "Africa/Bamako"
+msgstr "Afrika/Bamako"
+
+msgid "Africa/Bangui"
+msgstr "Afrika/Bangui"
+
+msgid "Africa/Banjul"
+msgstr "Afrika/Banjul"
+
+msgid "Africa/Bissau"
+msgstr "Afrika/Bissau"
+
+msgid "Africa/Blantyre"
+msgstr "Afrika/Blantyre"
+
+msgid "Africa/Brazzaville"
+msgstr "Afrika/Brazzaville"
+
+msgid "Africa/Bujumbura"
+msgstr "Afrika/Bujumbura"
+
+msgid "Africa/Cairo"
+msgstr "Afrika/Kairo"
+
+msgid "Africa/Casablanca"
+msgstr "Afrika/Casablanca"
+
+msgid "Africa/Ceuta"
+msgstr "Afrika/Ceuta"
+
+msgid "Africa/Conakry"
+msgstr "Afrika/Conakry"
+
+msgid "Africa/Dakar"
+msgstr "Afrika/Dakar"
+
+msgid "Africa/Dar_es_Salaam"
+msgstr "Afrika/Dar es Salaam"
+
+msgid "Africa/Djibouti"
+msgstr "Afrika/Džibuti"
+
+msgid "Africa/Douala"
+msgstr "Afrika/Douala"
+
+msgid "Africa/El_Aaiun"
+msgstr "Afrika/El Aaiun"
+
+msgid "Africa/Freetown"
+msgstr "Afrika/Freetown"
+
+msgid "Africa/Gaborone"
+msgstr "Afrika/Gaborone"
+
+msgid "Africa/Harare"
+msgstr "Afrika/Harare"
+
+msgid "Africa/Johannesburg"
+msgstr "Afrika/Johannesburg"
+
+msgid "Africa/Juba"
+msgstr "Afrika/Juba"
+
+msgid "Africa/Kampala"
+msgstr "Afrika/Kampala"
+
+msgid "Africa/Khartoum"
+msgstr "Afrika/Khartoum"
+
+msgid "Africa/Kigali"
+msgstr "Afrika/Kigali"
+
+msgid "Africa/Kinshasa"
+msgstr "Afrika/Kinshasa"
+
+msgid "Africa/Lagos"
+msgstr "Afrika/Lagos"
+
+msgid "Africa/Libreville"
+msgstr "Afrika/Libreville"
+
+msgid "Africa/Lome"
+msgstr "Afrika/Lomé"
+
+msgid "Africa/Luanda"
+msgstr "Afrika/Luanda"
+
+msgid "Africa/Lubumbashi"
+msgstr "Afrika/Lubumbashi"
+
+msgid "Africa/Lusaka"
+msgstr "Afrika/Lusaka"
+
+msgid "Africa/Malabo"
+msgstr "Afrika/Malabo"
+
+msgid "Africa/Maputo"
+msgstr "Afrika/Maputo"
+
+msgid "Africa/Maseru"
+msgstr "Afrika/Maseru"
+
+msgid "Africa/Mbabane"
+msgstr "Afrika/Mbabane"
+
+msgid "Africa/Mogadishu"
+msgstr "Afrika/Mogadishu"
+
+msgid "Africa/Monrovia"
+msgstr "Afrika/Monrovia"
+
+msgid "Africa/Nairobi"
+msgstr "Afrika/Nairobi"
+
+msgid "Africa/Ndjamena"
+msgstr "Afrika/Ndjamena"
+
+msgid "Africa/Niamey"
+msgstr "Afrika/Niamey"
+
+msgid "Africa/Nouakchott"
+msgstr "Afrika/Nouakchott"
+
+msgid "Africa/Ouagadougou"
+msgstr "Afrika/Ouagadougou"
+
+msgid "Africa/Porto-Novo"
+msgstr "Afrika/Porto-Novo"
+
+msgid "Africa/Sao_Tome"
+msgstr "Afrika/São Tomé"
+
+msgid "Africa/Tripoli"
+msgstr "Afrika/Tripoli"
+
+msgid "Africa/Tunis"
+msgstr "Afrika/Tunis"
+
+msgid "Africa/Windhoek"
+msgstr "Afrika/Windhoek"
+
+msgid "America/Adak"
+msgstr "Amerike/Adak"
+
+msgid "America/Anchorage"
+msgstr "Amerike/Anchorage"
+
+msgid "America/Anguilla"
+msgstr "Amerike/Angvila"
+
+msgid "America/Antigua"
+msgstr "Amerike/Antigua"
+
+msgid "America/Araguaina"
+msgstr "Amerike/Araguaina"
+
+msgid "America/Argentina/Buenos_Aires"
+msgstr "Amerike/Buenos Aires"
+
+msgid "America/Argentina/Catamarca"
+msgstr "Amerike/Catamarca"
+
+msgid "America/Argentina/Cordoba"
+msgstr "Amerike/Cordoba"
+
+msgid "America/Argentina/Jujuy"
+msgstr "Amerike/Jujuy"
+
+msgid "America/Argentina/La_Rioja"
+msgstr "Amerike/Argentina/La Rioja"
+
+msgid "America/Argentina/Mendoza"
+msgstr "Amerike/Mendoza"
+
+msgid "America/Argentina/Rio_Gallegos"
+msgstr "Amerike/Argentina/Rio Gallegos"
+
+msgid "America/Argentina/Salta"
+msgstr "Amerike/Argentina/Salta"
+
+msgid "America/Argentina/San_Juan"
+msgstr "Amerike/Argentina/San Juan"
+
+msgid "America/Argentina/San_Luis"
+msgstr "Amerike/Argentina/San Luis"
+
+msgid "America/Argentina/Tucuman"
+msgstr "Amerike/Argentina/Tucuman"
+
+msgid "America/Argentina/Ushuaia"
+msgstr "Amerike/Argentina/Ushuaia"
+
+msgid "America/Aruba"
+msgstr "Amerike/Aruba"
+
+msgid "America/Asuncion"
+msgstr "Amerike/Asunción"
+
+msgid "America/Atikokan"
+msgstr "Amerike/Atikokan"
+
+msgid "America/Bahia"
+msgstr "Amerike/Bahia"
+
+msgid "America/Bahia_Banderas"
+msgstr "Amerike/Bahia Banderas"
+
+msgid "America/Barbados"
+msgstr "Amerike/Barbados"
+
+msgid "America/Belem"
+msgstr "Amerike/Belem"
+
+msgid "America/Belize"
+msgstr "Amerike/Belize"
+
+msgid "America/Blanc-Sablon"
+msgstr "Amerike/Blanc-Sablon"
+
+msgid "America/Boa_Vista"
+msgstr "Amerike/Boa Vista"
+
+msgid "America/Bogota"
+msgstr "Amerike/Bogota"
+
+msgid "America/Boise"
+msgstr "Amerike/Boise"
+
+msgid "America/Cambridge_Bay"
+msgstr "Amerike/Cambridge Bay"
+
+msgid "America/Campo_Grande"
+msgstr "Amerike/Campo Grande"
+
+msgid "America/Cancun"
+msgstr "Amerike/Cancun"
+
+msgid "America/Caracas"
+msgstr "Amerike/Caracas"
+
+msgid "America/Cayenne"
+msgstr "Amerike/Cayenne"
+
+msgid "America/Cayman"
+msgstr "Amerike/Cayman"
+
+msgid "America/Chicago"
+msgstr "Amerike/Chicago"
+
+msgid "America/Chihuahua"
+msgstr "Amerike/Chihuahua"
+
+msgid "America/Costa_Rica"
+msgstr "Amerike/Kostarika"
+
+msgid "America/Creston"
+msgstr "Amerike/Creston"
+
+msgid "America/Cuiaba"
+msgstr "Amerike/Cuiaba"
+
+msgid "America/Curacao"
+msgstr "Amerike/Curaçao"
+
+msgid "America/Danmarkshavn"
+msgstr "Amerike/Danmarkshavn"
+
+msgid "America/Dawson"
+msgstr "Amerike/Dawson"
+
+msgid "America/Dawson_Creek"
+msgstr "Amerike/Dawson Creek"
+
+msgid "America/Denver"
+msgstr "Amerike/Denver"
+
+msgid "America/Detroit"
+msgstr "Amerike/Detroit"
+
+msgid "America/Dominica"
+msgstr "Amerike/Dominika"
+
+msgid "America/Edmonton"
+msgstr "Amerike/Edmonton"
+
+msgid "America/Eirunepe"
+msgstr "Amerike/Eirunepe"
+
+msgid "America/El_Salvador"
+msgstr "Amerike/Salvador"
+
+msgid "America/Fort_Nelson"
+msgstr "Amerike/Fort Nelson"
+
+msgid "America/Fortaleza"
+msgstr "Amerike/Fortaleza"
+
+msgid "America/Glace_Bay"
+msgstr "Amerike/Glace Bay"
+
+msgid "America/Goose_Bay"
+msgstr "Amerike/Goose Bay"
+
+msgid "America/Grand_Turk"
+msgstr "Amerike/Grand Turk"
+
+msgid "America/Grenada"
+msgstr "Amerike/Grenada"
+
+msgid "America/Guadeloupe"
+msgstr "Amerike/Guadalupe"
+
+msgid "America/Guatemala"
+msgstr "Amerike/Gvatemala"
+
+msgid "America/Guayaquil"
+msgstr "Amerike/Guayaquil"
+
+msgid "America/Guyana"
+msgstr "Amerike/Gvajana"
+
+msgid "America/Halifax"
+msgstr "Amerike/Halifax"
+
+msgid "America/Havana"
+msgstr "Amerike/Havana"
+
+msgid "America/Hermosillo"
+msgstr "Amerike/Hermosillo"
+
+msgid "America/Indiana/Indianapolis"
+msgstr "Amerike/Indianapolis"
+
+msgid "America/Indiana/Knox"
+msgstr "Amerike/Knox, Indiana"
+
+msgid "America/Indiana/Marengo"
+msgstr "Amerike/Marengo, Indiana"
+
+msgid "America/Indiana/Petersburg"
+msgstr "Amerike/Petersburg, Indiana"
+
+msgid "America/Indiana/Tell_City"
+msgstr "Amerike/Tell City, Indiana"
+
+msgid "America/Indiana/Vevay"
+msgstr "Amerike/Vevay, Indiana"
+
+msgid "America/Indiana/Vincennes"
+msgstr "Amerike/Vincennes, Indiana"
+
+msgid "America/Indiana/Winamac"
+msgstr "Amerike/Winamac, Indiana"
+
+msgid "America/Inuvik"
+msgstr "Amerike/Inuvik"
+
+msgid "America/Iqaluit"
+msgstr "Amerike/Iqaluit"
+
+msgid "America/Jamaica"
+msgstr "Amerike/Jamajka"
+
+msgid "America/Juneau"
+msgstr "Amerike/Juneau"
+
+msgid "America/Kentucky/Louisville"
+msgstr "Amerike/Louisville"
+
+msgid "America/Kentucky/Monticello"
+msgstr "Amerike/Monticello, Kentucky"
+
+msgid "America/Kralendijk"
+msgstr "Amerike/Kralendijk"
+
+msgid "America/La_Paz"
+msgstr "Amerike/La Paz"
+
+msgid "America/Lima"
+msgstr "Amerike/Lima"
+
+msgid "America/Los_Angeles"
+msgstr "Amerike/Los Angeles"
+
+msgid "America/Lower_Princes"
+msgstr "Amerike/Lower Prince’s Quarter"
+
+msgid "America/Maceio"
+msgstr "Amerike/Maceio"
+
+msgid "America/Managua"
+msgstr "Amerike/Managua"
+
+msgid "America/Manaus"
+msgstr "Amerike/Manaus"
+
+msgid "America/Marigot"
+msgstr "Amerike/Marigot"
+
+msgid "America/Martinique"
+msgstr "Amerike/Martinique"
+
+msgid "America/Matamoros"
+msgstr "Amerike/Matamoros"
+
+msgid "America/Mazatlan"
+msgstr "Amerike/Mazatlan"
+
+msgid "America/Menominee"
+msgstr "Amerike/Menominee"
+
+msgid "America/Merida"
+msgstr "Amerike/Merida"
+
+msgid "America/Metlakatla"
+msgstr "Amerike/Metlakatla"
+
+msgid "America/Mexico_City"
+msgstr "Amerike/Ciudad de México"
+
+msgid "America/Miquelon"
+msgstr "Amerike/Miquelon"
+
+msgid "America/Moncton"
+msgstr "Amerike/Moncton"
+
+msgid "America/Monterrey"
+msgstr "Amerike/Monterrey"
+
+msgid "America/Montevideo"
+msgstr "Amerike/Montevideo"
+
+msgid "America/Montserrat"
+msgstr "Amerike/Montserrat"
+
+msgid "America/Nassau"
+msgstr "Amerike/Nassau"
+
+msgid "America/New_York"
+msgstr "Amerike/New York"
+
+msgid "America/Nipigon"
+msgstr "Amerike/Nipigon"
+
+msgid "America/Nome"
+msgstr "Amerike/Nome"
+
+msgid "America/Noronha"
+msgstr "Amerike/Noronha"
+
+msgid "America/North_Dakota/Beulah"
+msgstr "Amerike/Beulah, Sjeverna Dakota"
+
+msgid "America/North_Dakota/Center"
+msgstr "Amerike/Center, Sjeverna Dakota"
+
+msgid "America/North_Dakota/New_Salem"
+msgstr "Amerike/New Salem, Sjeverna Dakota"
+
+msgid "America/Nuuk"
+msgstr "Amerike/Nuuk"
+
+msgid "America/Ojinaga"
+msgstr "Amerike/Ojinaga"
+
+msgid "America/Panama"
+msgstr "Amerike/Panama"
+
+msgid "America/Pangnirtung"
+msgstr "Amerike/Pangnirtung"
+
+msgid "America/Paramaribo"
+msgstr "Amerike/Paramaribo"
+
+msgid "America/Phoenix"
+msgstr "Amerike/Phoenix"
+
+msgid "America/Port-au-Prince"
+msgstr "Amerike/Port-au-Prince"
+
+msgid "America/Port_of_Spain"
+msgstr "Amerike/Port of Spain"
+
+msgid "America/Porto_Velho"
+msgstr "Amerike/Porto Velho"
+
+msgid "America/Puerto_Rico"
+msgstr "Amerike/Portoriko"
+
+msgid "America/Punta_Arenas"
+msgstr "Amerike/Punta Arenas"
+
+msgid "America/Rainy_River"
+msgstr "Amerike/Rainy River"
+
+msgid "America/Rankin_Inlet"
+msgstr "Amerike/Rankin Inlet"
+
+msgid "America/Recife"
+msgstr "Amerike/Recife"
+
+msgid "America/Regina"
+msgstr "Amerike/Regina"
+
+msgid "America/Resolute"
+msgstr "Amerike/Resolute"
+
+msgid "America/Rio_Branco"
+msgstr "Amerike/Rio Branco"
+
+msgid "America/Santarem"
+msgstr "Amerike/Santarem"
+
+msgid "America/Santiago"
+msgstr "Amerike/Santiago"
+
+msgid "America/Santo_Domingo"
+msgstr "Amerike/Santo Domingo"
+
+msgid "America/Sao_Paulo"
+msgstr "Amerike/Sao Paulo"
+
+msgid "America/Scoresbysund"
+msgstr "Amerike/Ittoqqortoormiit"
+
+msgid "America/Sitka"
+msgstr "Amerike/Sitka"
+
+msgid "America/St_Barthelemy"
+msgstr "Amerike/Saint Barthélemy"
+
+msgid "America/St_Johns"
+msgstr "Amerike/St. John’s"
+
+msgid "America/St_Kitts"
+msgstr "Amerike/St. Kitts"
+
+msgid "America/St_Lucia"
+msgstr "Amerike/St. Lucia"
+
+msgid "America/St_Thomas"
+msgstr "Amerike/St. Thomas"
+
+msgid "America/St_Vincent"
+msgstr "Amerike/St. Vincent"
+
+msgid "America/Swift_Current"
+msgstr "Amerike/Swift Current"
+
+msgid "America/Tegucigalpa"
+msgstr "Amerike/Tegucigalpa"
+
+msgid "America/Thule"
+msgstr "Amerike/Thule"
+
+msgid "America/Thunder_Bay"
+msgstr "Amerike/Thunder Bay"
+
+msgid "America/Tijuana"
+msgstr "Amerike/Tijuana"
+
+msgid "America/Toronto"
+msgstr "Amerike/Toronto"
+
+msgid "America/Tortola"
+msgstr "Amerike/Tortola"
+
+msgid "America/Vancouver"
+msgstr "Amerike/Vancouver"
+
+msgid "America/Whitehorse"
+msgstr "Amerike/Whitehorse"
+
+msgid "America/Winnipeg"
+msgstr "Amerike/Winnipeg"
+
+msgid "America/Yakutat"
+msgstr "Amerike/Yakutat"
+
+msgid "America/Yellowknife"
+msgstr "Amerike/Yellowknife"
+
+msgid "Antarctica/Casey"
+msgstr "Antarktika/Casey"
+
+msgid "Antarctica/Davis"
+msgstr "Antarktika/Davis"
+
+msgid "Antarctica/DumontDUrville"
+msgstr "Antarktika/Dumont d’Urville"
+
+msgid "Antarctica/Macquarie"
+msgstr "Antarktika/Macquarie"
+
+msgid "Antarctica/Mawson"
+msgstr "Antarktika/Mawson"
+
+msgid "Antarctica/McMurdo"
+msgstr "Antarktika/McMurdo"
+
+msgid "Antarctica/Palmer"
+msgstr "Antarktika/Palmer"
+
+msgid "Antarctica/Rothera"
+msgstr "Antarktika/Rothera"
+
+msgid "Antarctica/Syowa"
+msgstr "Antarktika/Syowa"
+
+msgid "Antarctica/Troll"
+msgstr "Antarktika/Troll"
+
+msgid "Antarctica/Vostok"
+msgstr "Antarktika/Vostok"
+
+msgid "Arctic/Longyearbyen"
+msgstr "Arctic/Longyearbyen"
+
+msgid "Asia/Aden"
+msgstr "Azija/Aden"
+
+msgid "Asia/Almaty"
+msgstr "Azija/Alma Ata"
+
+msgid "Asia/Amman"
+msgstr "Azija/Amman"
+
+msgid "Asia/Anadyr"
+msgstr "Azija/Anadir"
+
+msgid "Asia/Aqtau"
+msgstr "Azija/Aktau"
+
+msgid "Asia/Aqtobe"
+msgstr "Azija/Aktobe"
+
+msgid "Asia/Ashgabat"
+msgstr "Azija/Ašgabat"
+
+msgid "Asia/Atyrau"
+msgstr "Azija/Atyrau"
+
+msgid "Asia/Baghdad"
+msgstr "Azija/Bagdad"
+
+msgid "Asia/Bahrain"
+msgstr "Azija/Bahrein"
+
+msgid "Asia/Baku"
+msgstr "Azija/Baku"
+
+msgid "Asia/Bangkok"
+msgstr "Azija/Bangkok"
+
+msgid "Asia/Barnaul"
+msgstr "Azija/Barnaul"
+
+msgid "Asia/Beirut"
+msgstr "Azija/Beirut"
+
+msgid "Asia/Bishkek"
+msgstr "Azija/Biškek"
+
+msgid "Asia/Brunei"
+msgstr "Azija/Brunej"
+
+msgid "Asia/Chita"
+msgstr "Azija/Čita"
+
+msgid "Asia/Choibalsan"
+msgstr "Azija/Choibalsan"
+
+msgid "Asia/Colombo"
+msgstr "Azija/Colombo"
+
+msgid "Asia/Damascus"
+msgstr "Azija/Damask"
+
+msgid "Asia/Dhaka"
+msgstr "Azija/Dhaka"
+
+msgid "Asia/Dili"
+msgstr "Azija/Dili"
+
+msgid "Asia/Dubai"
+msgstr "Azija/Dubai"
+
+msgid "Asia/Dushanbe"
+msgstr "Azija/Dušanbe"
+
+msgid "Asia/Famagusta"
+msgstr "Azija/Famagusta"
+
+msgid "Asia/Gaza"
+msgstr "Azija/Gaza"
+
+msgid "Asia/Hebron"
+msgstr "Azija/Hebron"
+
+msgid "Asia/Ho_Chi_Minh"
+msgstr "Azija/Ho Ši Min"
+
+msgid "Asia/Hong_Kong"
+msgstr "Azija/Hong Kong"
+
+msgid "Asia/Hovd"
+msgstr "Azija/Hovd"
+
+msgid "Asia/Irkutsk"
+msgstr "Azija/Irkutsk"
+
+msgid "Asia/Jakarta"
+msgstr "Azija/Džakarta"
+
+msgid "Asia/Jayapura"
+msgstr "Azija/Jayapura"
+
+msgid "Asia/Jerusalem"
+msgstr "Azija/Jeruzalem"
+
+msgid "Asia/Kabul"
+msgstr "Azija/Kabul"
+
+msgid "Asia/Kamchatka"
+msgstr "Azija/Kamčatka"
+
+msgid "Asia/Karachi"
+msgstr "Azija/Karachi"
+
+msgid "Asia/Kathmandu"
+msgstr "Azija/Kathmandu"
+
+msgid "Asia/Khandyga"
+msgstr "Azija/Handiga"
+
+msgid "Asia/Kolkata"
+msgstr "Azija/Kolkata"
+
+msgid "Asia/Krasnoyarsk"
+msgstr "Azija/Krasnojarsk"
+
+msgid "Asia/Kuala_Lumpur"
+msgstr "Azija/Kuala Lumpur"
+
+msgid "Asia/Kuching"
+msgstr "Azija/Kuching"
+
+msgid "Asia/Kuwait"
+msgstr "Azija/Kuvajt"
+
+msgid "Asia/Macau"
+msgstr "Azija/Makao"
+
+msgid "Asia/Magadan"
+msgstr "Azija/Magadan"
+
+msgid "Asia/Makassar"
+msgstr "Azija/Makassar"
+
+msgid "Asia/Manila"
+msgstr "Azija/Manila"
+
+msgid "Asia/Muscat"
+msgstr "Azija/Muscat"
+
+msgid "Asia/Nicosia"
+msgstr "Azija/Nikozija"
+
+msgid "Asia/Novokuznetsk"
+msgstr "Azija/Novokuznjeck"
+
+msgid "Asia/Novosibirsk"
+msgstr "Azija/Novosibirsk"
+
+msgid "Asia/Omsk"
+msgstr "Azija/Omsk"
+
+msgid "Asia/Oral"
+msgstr "Azija/Oral"
+
+msgid "Asia/Phnom_Penh"
+msgstr "Azija/Phnom Penh"
+
+msgid "Asia/Pontianak"
+msgstr "Azija/Pontianak"
+
+msgid "Asia/Pyongyang"
+msgstr "Azija/Pjongjang"
+
+msgid "Asia/Qatar"
+msgstr "Azija/Katar"
+
+msgid "Asia/Qostanay"
+msgstr "Azija/Kostanay"
+
+msgid "Asia/Qyzylorda"
+msgstr "Azija/Kizilorda"
+
+msgid "Asia/Riyadh"
+msgstr "Azija/Rijad"
+
+msgid "Asia/Sakhalin"
+msgstr "Azija/Sahalin"
+
+msgid "Asia/Samarkand"
+msgstr "Azija/Samarkand"
+
+msgid "Asia/Seoul"
+msgstr "Azija/Seoul"
+
+msgid "Asia/Shanghai"
+msgstr "Azija/Šangaj"
+
+msgid "Asia/Singapore"
+msgstr "Azija/Singapur"
+
+msgid "Asia/Srednekolymsk"
+msgstr "Azija/Srednekolimsk"
+
+msgid "Asia/Taipei"
+msgstr "Azija/Taipei"
+
+msgid "Asia/Tashkent"
+msgstr "Azija/Taškent"
+
+msgid "Asia/Tbilisi"
+msgstr "Azija/Tbilisi"
+
+msgid "Asia/Tehran"
+msgstr "Azija/Teheran"
+
+msgid "Asia/Thimphu"
+msgstr "Azija/Thimphu"
+
+msgid "Asia/Tokyo"
+msgstr "Azija/Tokyo"
+
+msgid "Asia/Tomsk"
+msgstr "Azija/Tomsk"
+
+msgid "Asia/Ulaanbaatar"
+msgstr "Azija/Ulan Bator"
+
+msgid "Asia/Urumqi"
+msgstr "Azija/Urumqi"
+
+msgid "Asia/Ust-Nera"
+msgstr "Azija/Ust-Nera"
+
+msgid "Asia/Vientiane"
+msgstr "Azija/Vientiane"
+
+msgid "Asia/Vladivostok"
+msgstr "Azija/Vladivostok"
+
+msgid "Asia/Yakutsk"
+msgstr "Azija/Jakutsk"
+
+msgid "Asia/Yangon"
+msgstr "Azija/Rangoon"
+
+msgid "Asia/Yekaterinburg"
+msgstr "Azija/Jekaterinburg"
+
+msgid "Asia/Yerevan"
+msgstr "Azija/Erevan"
+
+msgid "Atlantic/Azores"
+msgstr "Atlantic/Azorski otoci"
+
+msgid "Atlantic/Bermuda"
+msgstr "Atlantic/Bermuda"
+
+msgid "Atlantic/Canary"
+msgstr "Atlantic/Kanari"
+
+msgid "Atlantic/Cape_Verde"
+msgstr "Atlantic/Cape Verde"
+
+msgid "Atlantic/Faroe"
+msgstr "Atlantic/Ferojski otoci"
+
+msgid "Atlantic/Madeira"
+msgstr "Atlantic/Madeira"
+
+msgid "Atlantic/Reykjavik"
+msgstr "Atlantic/Reykjavik"
+
+msgid "Atlantic/South_Georgia"
+msgstr "Atlantic/Južna Georgija"
+
+msgid "Atlantic/St_Helena"
+msgstr "Atlantic/St. Helena"
+
+msgid "Atlantic/Stanley"
+msgstr "Atlantic/Stanley"
+
+msgid "Australia/Adelaide"
+msgstr "Australija/Adelaide"
+
+msgid "Australia/Brisbane"
+msgstr "Australija/Brisbane"
+
+msgid "Australia/Broken_Hill"
+msgstr "Australija/Broken Hill"
+
+msgid "Australia/Darwin"
+msgstr "Australija/Darwin"
+
+msgid "Australia/Eucla"
+msgstr "Australija/Eucla"
+
+msgid "Australia/Hobart"
+msgstr "Australija/Hobart"
+
+msgid "Australia/Lindeman"
+msgstr "Australija/Lindeman"
+
+msgid "Australia/Lord_Howe"
+msgstr "Australija/Lord Howe"
+
+msgid "Australia/Melbourne"
+msgstr "Australija/Melbourne"
+
+msgid "Australia/Perth"
+msgstr "Australija/Perth"
+
+msgid "Australia/Sydney"
+msgstr "Australija/Sydney"
+
+msgid "Canada/Atlantic"
+msgstr "Kanada/atlantsko vrijeme"
+
+msgid "Canada/Central"
+msgstr "Kanada/središnje vrijeme"
+
+msgid "Canada/Eastern"
+msgstr "Kanada/istočno vrijeme"
+
+msgid "Canada/Mountain"
+msgstr "Kanada/planinsko vrijeme"
+
+msgid "Canada/Newfoundland"
+msgstr "Kanada/newfoundlandsko vrijeme"
+
+msgid "Canada/Pacific"
+msgstr "Kanada/pacifičko vrijeme"
+
+msgid "Europe/Amsterdam"
+msgstr "Europa/Amsterdam"
+
+msgid "Europe/Andorra"
+msgstr "Europa/Andora"
+
+msgid "Europe/Astrakhan"
+msgstr "Europa/Astrahan"
+
+msgid "Europe/Athens"
+msgstr "Europa/Atena"
+
+msgid "Europe/Belgrade"
+msgstr "Europa/Beograd"
+
+msgid "Europe/Berlin"
+msgstr "Europa/Berlin"
+
+msgid "Europe/Bratislava"
+msgstr "Europa/Bratislava"
+
+msgid "Europe/Brussels"
+msgstr "Europa/Bruxelles"
+
+msgid "Europe/Bucharest"
+msgstr "Europa/Bukurešt"
+
+msgid "Europe/Budapest"
+msgstr "Europa/Budimpešta"
+
+msgid "Europe/Busingen"
+msgstr "Europa/Busingen"
+
+msgid "Europe/Chisinau"
+msgstr "Europa/Kišinjev"
+
+msgid "Europe/Copenhagen"
+msgstr "Europa/Kopenhagen"
+
+msgid "Europe/Dublin"
+msgstr "Europa/Dublin"
+
+msgid "Europe/Gibraltar"
+msgstr "Europa/Gibraltar"
+
+msgid "Europe/Guernsey"
+msgstr "Europa/Guernsey"
+
+msgid "Europe/Helsinki"
+msgstr "Europa/Helsinki"
+
+msgid "Europe/Isle_of_Man"
+msgstr "Europa/Otok Man"
+
+msgid "Europe/Istanbul"
+msgstr "Europa/Istanbul"
+
+msgid "Europe/Jersey"
+msgstr "Europa/Jersey"
+
+msgid "Europe/Kaliningrad"
+msgstr "Europa/Kalinjingrad"
+
+msgid "Europe/Kiev"
+msgstr "Europa/Kijev"
+
+msgid "Europe/Kirov"
+msgstr "Europa/Kirov"
+
+msgid "Europe/Lisbon"
+msgstr "Europa/Lisabon"
+
+msgid "Europe/Ljubljana"
+msgstr "Europa/Ljubljana"
+
+msgid "Europe/London"
+msgstr "Europa/London"
+
+msgid "Europe/Luxembourg"
+msgstr "Europa/Luksemburg"
+
+msgid "Europe/Madrid"
+msgstr "Europa/Madrid"
+
+msgid "Europe/Malta"
+msgstr "Europa/Malta"
+
+msgid "Europe/Mariehamn"
+msgstr "Europa/Mariehamn"
+
+msgid "Europe/Minsk"
+msgstr "Europa/Minsk"
+
+msgid "Europe/Monaco"
+msgstr "Europa/Monako"
+
+msgid "Europe/Moscow"
+msgstr "Europa/Moskva"
+
+msgid "Europe/Oslo"
+msgstr "Europa/Oslo"
+
+msgid "Europe/Paris"
+msgstr "Europa/Pariz"
+
+msgid "Europe/Podgorica"
+msgstr "Europa/Podgorica"
+
+msgid "Europe/Prague"
+msgstr "Europa/Prag"
+
+msgid "Europe/Riga"
+msgstr "Europa/Riga"
+
+msgid "Europe/Rome"
+msgstr "Europa/Rim"
+
+msgid "Europe/Samara"
+msgstr "Europa/Samara"
+
+msgid "Europe/San_Marino"
+msgstr "Europa/San Marino"
+
+msgid "Europe/Sarajevo"
+msgstr "Europa/Sarajevo"
+
+msgid "Europe/Saratov"
+msgstr "Europa/Saratov"
+
+msgid "Europe/Simferopol"
+msgstr "Europa/Simferopolj"
+
+msgid "Europe/Skopje"
+msgstr "Europa/Skoplje"
+
+msgid "Europe/Sofia"
+msgstr "Europa/Sofija"
+
+msgid "Europe/Stockholm"
+msgstr "Europa/Stockholm"
+
+msgid "Europe/Tallinn"
+msgstr "Europa/Tallinn"
+
+msgid "Europe/Tirane"
+msgstr "Europa/Tirana"
+
+msgid "Europe/Ulyanovsk"
+msgstr "Europa/Uljanovsk"
+
+msgid "Europe/Uzhgorod"
+msgstr "Europa/Užgorod"
+
+msgid "Europe/Vaduz"
+msgstr "Europa/Vaduz"
+
+msgid "Europe/Vatican"
+msgstr "Europa/Vatikan"
+
+msgid "Europe/Vienna"
+msgstr "Europa/Beč"
+
+msgid "Europe/Vilnius"
+msgstr "Europa/Vilnius"
+
+msgid "Europe/Volgograd"
+msgstr "Europa/Volgograd"
+
+msgid "Europe/Warsaw"
+msgstr "Europa/Varšava"
+
+msgid "Europe/Zagreb"
+msgstr "Europa/Zagreb"
+
+msgid "Europe/Zaporozhye"
+msgstr "Europa/Zaporožje"
+
+msgid "Europe/Zurich"
+msgstr "Europa/Zürich"
+
+msgid "GMT"
+msgstr "GMT/univerzalno vrijeme"
+
+msgid "Indian/Antananarivo"
+msgstr "Indian/Antananarivo"
+
+msgid "Indian/Chagos"
+msgstr "Indian/Chagos"
+
+msgid "Indian/Christmas"
+msgstr "Indian/Christmas"
+
+msgid "Indian/Cocos"
+msgstr "Indian/Cocos"
+
+msgid "Indian/Comoro"
+msgstr "Indian/Comoro"
+
+msgid "Indian/Kerguelen"
+msgstr "Indian/Kerguelen"
+
+msgid "Indian/Mahe"
+msgstr "Indian/Mahe"
+
+msgid "Indian/Maldives"
+msgstr "Indian/Maldivi"
+
+msgid "Indian/Mauritius"
+msgstr "Indian/Mauricijus"
+
+msgid "Indian/Mayotte"
+msgstr "Indian/Mayotte"
+
+msgid "Indian/Reunion"
+msgstr "Indian/Réunion"
+
+msgid "Pacific/Apia"
+msgstr "Pacific/Apia"
+
+msgid "Pacific/Auckland"
+msgstr "Pacific/Auckland"
+
+msgid "Pacific/Bougainville"
+msgstr "Pacific/Bougainville"
+
+msgid "Pacific/Chatham"
+msgstr "Pacific/Chatham"
+
+msgid "Pacific/Chuuk"
+msgstr "Pacific/Chuuk"
+
+msgid "Pacific/Easter"
+msgstr "Pacific/Easter"
+
+msgid "Pacific/Efate"
+msgstr "Pacific/Efate"
+
+msgid "Pacific/Enderbury"
+msgstr "Pacific/Enderbury"
+
+msgid "Pacific/Fakaofo"
+msgstr "Pacific/Fakaofo"
+
+msgid "Pacific/Fiji"
+msgstr "Pacific/Fidži"
+
+msgid "Pacific/Funafuti"
+msgstr "Pacific/Funafuti"
+
+msgid "Pacific/Galapagos"
+msgstr "Pacific/Galapagos"
+
+msgid "Pacific/Gambier"
+msgstr "Pacific/Gambier"
+
+msgid "Pacific/Guadalcanal"
+msgstr "Pacific/Guadalcanal"
+
+msgid "Pacific/Guam"
+msgstr "Pacific/Guam"
+
+msgid "Pacific/Honolulu"
+msgstr "Pacific/Honolulu"
+
+msgid "Pacific/Kiritimati"
+msgstr "Pacific/Kiritimati"
+
+msgid "Pacific/Kosrae"
+msgstr "Pacific/Kosrae"
+
+msgid "Pacific/Kwajalein"
+msgstr "Pacific/Kwajalein"
+
+msgid "Pacific/Majuro"
+msgstr "Pacific/Majuro"
+
+msgid "Pacific/Marquesas"
+msgstr "Pacific/Markižansko otočje"
+
+msgid "Pacific/Midway"
+msgstr "Pacific/Midway"
+
+msgid "Pacific/Nauru"
+msgstr "Pacific/Nauru"
+
+msgid "Pacific/Niue"
+msgstr "Pacific/Niue"
+
+msgid "Pacific/Norfolk"
+msgstr "Pacific/Norfolk"
+
+msgid "Pacific/Noumea"
+msgstr "Pacific/Noumea"
+
+msgid "Pacific/Pago_Pago"
+msgstr "Pacific/Pago Pago"
+
+msgid "Pacific/Palau"
+msgstr "Pacific/Palau"
+
+msgid "Pacific/Pitcairn"
+msgstr "Pacific/Pitcairn"
+
+msgid "Pacific/Pohnpei"
+msgstr "Pacific/Pohnpei"
+
+msgid "Pacific/Port_Moresby"
+msgstr "Pacific/Port Moresby"
+
+msgid "Pacific/Rarotonga"
+msgstr "Pacific/Rarotonga"
+
+msgid "Pacific/Saipan"
+msgstr "Pacific/Saipan"
+
+msgid "Pacific/Tahiti"
+msgstr "Pacific/Tahiti"
+
+msgid "Pacific/Tarawa"
+msgstr "Pacific/Tarawa"
+
+msgid "Pacific/Tongatapu"
+msgstr "Pacific/Tongatapu"
+
+msgid "Pacific/Wake"
+msgstr "Pacific/Wake"
+
+msgid "Pacific/Wallis"
+msgstr "Pacific/Wallis"
+
+msgid "US/Alaska"
+msgstr "SAD/aljaško vrijeme"
+
+msgid "US/Arizona"
+msgstr "SAD/Arizona"
+
+msgid "US/Central"
+msgstr "SAD/središnje vrijeme"
+
+msgid "US/Eastern"
+msgstr "SAD/istočno vrijeme"
+
+msgid "US/Hawaii"
+msgstr "SAD/havajsko-aleutsko vrijeme"
+
+msgid "US/Mountain"
+msgstr "SAD/planinsko vrijeme"
+
+msgid "US/Pacific"
+msgstr "SAD/pacifičko vrijeme"
+
+msgid "UTC"
+msgstr "UTC/koordinirano svjetsko vrijeme"

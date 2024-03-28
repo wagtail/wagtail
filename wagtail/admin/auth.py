@@ -1,7 +1,6 @@
 import types
 from functools import wraps
 
-import l18n
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
@@ -141,7 +140,6 @@ def require_admin_access(view_func):
                     preferred_language = (
                         user.wagtail_userprofile.get_preferred_language()
                     )
-                    l18n.set_language(preferred_language)
                     time_zone = user.wagtail_userprofile.get_current_time_zone()
                 else:
                     time_zone = settings.TIME_ZONE
