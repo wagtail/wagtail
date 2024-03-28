@@ -1,17 +1,16 @@
 import { ChooserModal } from '../../includes/chooserModal';
 import { Chooser, ChooserFactory } from '.';
-
-/* global wagtailConfig */
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
 class SnippetChooserModal extends ChooserModal {
   getURLParams(opts) {
     const params = super.getURLParams(opts);
-    if (wagtailConfig.ACTIVE_CONTENT_LOCALE) {
+    if (WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE) {
       // The user is editing a piece of translated content.
       // Pass the locale along as a request parameter. If this
       // snippet is also translatable, the results will be
       // pre-filtered by this locale.
-      params.locale = wagtailConfig.ACTIVE_CONTENT_LOCALE;
+      params.locale = WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE;
     }
     return params;
   }

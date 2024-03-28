@@ -5,6 +5,7 @@ import { Icon, Portal } from '../..';
 import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
 import { initStimulus } from '../../includes/initStimulus';
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
 /** Expose a global to allow for customisations and packages to build with Stimulus. */
 window.StimulusModule = StimulusModule;
@@ -31,6 +32,9 @@ wagtail.components = { Icon, Portal };
 window.wagtail = wagtail;
 
 window.escapeHtml = escapeHtml;
+
+/** Expose a global for undocumented third-party usage. */
+window.wagtailConfig = WAGTAIL_CONFIG;
 
 $(() => {
   /* Dropzones */
