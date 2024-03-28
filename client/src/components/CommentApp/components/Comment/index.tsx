@@ -629,8 +629,12 @@ export default class CommentComponent extends React.Component<CommentProps> {
                 }),
               );
             },
+            // Allow delay for side panel to open & comment card to fade in with animation.
+            checkCanFocusTrap: () =>
+              new Promise((resolve) => {
+                setTimeout(resolve, 250);
+              }),
             initialFocus: '[data-focus-target="true"]',
-            delayFocus: false,
           } as any
         } // For some reason, the types for FocusTrap props don't yet include preventScroll.
         active={this.props.isFocused && this.props.forceFocus}
