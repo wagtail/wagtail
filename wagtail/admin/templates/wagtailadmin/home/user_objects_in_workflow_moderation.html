@@ -17,15 +17,11 @@
             <tbody>
                 {% for workflow_state in workflow_states %}
                     {% with obj=workflow_state.content_object %}
-                        {% is_page obj as is_page %}
-                        {% if is_page %}
-                            {% page_permissions obj as page_perms %}
-                        {% endif %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% admin_edit_url obj as edit_url %}
-                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                    {% if edit_url %}
                                         <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
                                     {% else %}
                                         {% latest_str obj %}

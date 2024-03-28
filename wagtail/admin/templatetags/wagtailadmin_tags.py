@@ -54,6 +54,7 @@ from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
     CollectionViewRestriction,
     Locale,
+    ModelPermissionTester,
     Page,
     PageViewRestriction,
 )
@@ -158,13 +159,26 @@ def widgettype(bound_field):
 
 
 @register.simple_tag(takes_context=True)
+def permissions_tester(context, object):
+    """
+    Usage: {% permissions_tester object as permissions %}
+    Sets the variable 'permissions' to a ModelPermissionTester/PagePermissionTester
+    object that can be queried to find out what actions the current logged-in user
+    can perform on the given object.
+    """
+    if isinstance(object, Page):
+        return object.permissions_for_user(context["request"].user)
+    return ModelPermissionTester(context["request"].user, object)
+
+
+@register.simple_tag(takes_context=True)
 def page_permissions(context, page):
     """
     Usage: {% page_permissions page as page_perms %}
     Sets the variable 'page_perms' to a PagePermissionTester object that can be queried to find out
     what actions the current logged-in user can perform on the given page.
     """
-    return page.permissions_for_user(context["request"].user)
+    return permissions_tester(context, page)
 
 
 @register.simple_tag
