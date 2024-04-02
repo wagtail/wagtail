@@ -96,9 +96,12 @@
     gap: theme('spacing.2');
     grid-auto-flow: column;
 
-    > * {
-      // Reset the margin on any .button sibling elements
-      height: auto;
+    .button {
+      // There are default .button styles that would:
+      // - set height responsively
+      // - add a margin when there is a .button sibling
+      // Unset these styles in favor of a fixed height and the grid gap
+      height: $text-input-height;
       margin-inline-start: initial;
     }
 
@@ -122,6 +125,7 @@
 
   .icon {
     width: theme('spacing.4');
+    height: theme('spacing.4');
     margin-inline-end: theme('spacing.2');
     flex-shrink: 0;
   }
