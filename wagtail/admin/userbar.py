@@ -28,6 +28,22 @@ class AdminItem(BaseItem):
 class AccessibilityItem(BaseItem):
     """A userbar item that runs the accessibility checker."""
 
+    # Behaves as a static class attribute
+    _dialog_position = "right"
+
+    def __init__(self, dialog_position=None):
+        # Overwrite dialog_position class attribute if new value is provided
+        if dialog_position:
+            self.dialog_position = dialog_position
+
+    @property
+    def dialog_position(self):
+        return type(self)._dialog_position
+
+    @dialog_position.setter
+    def dialog_position(self, val):
+        type(self)._dialog_position = val
+
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
@@ -149,6 +165,7 @@ class AccessibilityItem(BaseItem):
     def get_context_data(self, request):
         return {
             **super().get_context_data(request),
+            "dialog_position": self.dialog_position,
             "axe_configuration": self.get_axe_configuration(request),
         }
 

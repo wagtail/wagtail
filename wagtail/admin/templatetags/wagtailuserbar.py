@@ -50,6 +50,12 @@ def wagtailuserbar(context, position="bottom-right"):
     # Render the userbar differently within the preview panel.
     in_preview_panel = getattr(request, "in_preview_panel", False)
 
+    # Render accessibility checker dialog on left or right side of the screen
+    if position in ["bottom-left", "top-left"]:
+        dialog_position = "left"
+    else:
+        dialog_position = "right"
+
     # Render the userbar using the user's preferred admin language
     userprofile = UserProfile.get_for_user(user)
     with translation.override(userprofile.get_preferred_language()):
@@ -62,7 +68,7 @@ def wagtailuserbar(context, position="bottom-right"):
 
         if in_preview_panel:
             items = [
-                AccessibilityItem(),
+                AccessibilityItem(dialog_position),
             ]
         elif page and page.id:
             if revision_id:
@@ -71,7 +77,7 @@ def wagtailuserbar(context, position="bottom-right"):
                     AdminItem(),
                     ExplorePageItem(revision.content_object),
                     EditPageItem(revision.content_object),
-                    AccessibilityItem(),
+                    AccessibilityItem(dialog_position),
                 ]
             else:
                 # Not a revision
@@ -80,13 +86,13 @@ def wagtailuserbar(context, position="bottom-right"):
                     ExplorePageItem(page),
                     EditPageItem(page),
                     AddPageItem(page),
-                    AccessibilityItem(),
+                    AccessibilityItem(dialog_position),
                 ]
         else:
             # Not a page.
             items = [
                 AdminItem(),
-                AccessibilityItem(),
+                AccessibilityItem(dialog_position),
             ]
 
         for fn in hooks.get_hooks("construct_wagtail_userbar"):

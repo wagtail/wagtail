@@ -165,6 +165,18 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         self.assertIn("<aside hidden>", content)
 
+    def test_userbar_dialog_position_left(self):
+        template = Template(
+            "{% load wagtailuserbar %}{% wagtailuserbar 'bottom-left' %}"
+        )
+        content = template.render(Context({"request": self.dummy_request(self.user)}))
+        self.assertIn("w-dialog--userbar-left", content)
+
+    def test_userbar_dialog_position_right(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar 'top-right' %}")
+        content = template.render(Context({"request": self.dummy_request(self.user)}))
+        self.assertIn("w-dialog--userbar-right", content)
+
 
 class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
     def setUp(self):
