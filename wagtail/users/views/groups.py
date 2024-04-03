@@ -157,7 +157,6 @@ class GroupViewSet(ModelViewSet):
     model = Group
     ordering = ["name"]
     add_to_reference_index = False
-    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
