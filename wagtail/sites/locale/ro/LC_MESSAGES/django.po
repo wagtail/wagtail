@@ -4,13 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014-2016,2019
+# Madalin Popa, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
-"Last-Translator: Dan Braghis, 2014-2016,2019\n"
+"Last-Translator: Madalin Popa, 2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "2:1));\n"
 
 msgid "Wagtail sites"
-msgstr "Situri Wagtail"
+msgstr "Site-uri Wagtail"
 
 msgid "Choose a root page"
 msgstr "Alege o pagină de bază"

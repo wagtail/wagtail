@@ -8,7 +8,7 @@
 # Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2023
+# Martin Sandström <martin@marteinn.se>, 2020-2024
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -246,6 +246,9 @@ msgstr "Sluggen '%(page_slug)s' används redan inom föräldersidan"
 
 msgid "Select a new parent for this page."
 msgstr "Välj ny föräldersida"
+
+msgid "Search…"
+msgstr "Sök…"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -641,6 +644,9 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Ledsen, det finns inga matchningar på \"<em>%(search_query)s</em>\""
 
+msgid "There are no results."
+msgstr "Det finns inga träffar."
+
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
@@ -692,6 +698,10 @@ msgstr "Vill du fortfarande publicera denna %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Ingen %(model_name)s matchade din sökning."
 
 msgid "Update"
 msgstr "Uppdatera"
@@ -1340,7 +1350,7 @@ msgid "Date / Time"
 msgstr "Datum / Tid"
 
 msgid "Comment"
-msgstr "Kommentar"
+msgstr "Kommentera"
 
 msgid "Live version"
 msgstr "Publicerad version"
@@ -1420,6 +1430,20 @@ msgstr "Sortera"
 
 msgid "Enable ordering of child pages"
 msgstr "Aktivera sortering av undersidor"
+
+msgid "No results across entire site."
+msgstr "Det finns inga träffar på sajten."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Sök i '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr "Inga träffar i '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
+msgid "Search the whole site"
+msgstr "Sök hela sajten"
 
 msgid "Sites menu"
 msgstr "Sajtmeny"
@@ -1520,6 +1544,12 @@ msgstr "Uppdaterad"
 msgid "Pages"
 msgstr "Sidor"
 
+msgid "Last edited page"
+msgstr "Senast redigerad sida"
+
+msgid "Last edit"
+msgstr "Senast redigerad"
+
 msgid "Locking status"
 msgstr "Låsstatus"
 
@@ -1601,6 +1631,9 @@ msgstr "Filtrera"
 
 msgid "Add comment"
 msgstr "Lägg till kommentar"
+
+msgid "Show filters"
+msgstr "Visa filter"
 
 msgid "Back"
 msgstr "Tillbaka"
@@ -1745,6 +1778,9 @@ msgstr "Förhandsgranskning är utdaterad"
 msgid "Preview mode"
 msgstr "Förhandsgranskningsläge"
 
+msgid "First published"
+msgstr "Först publicerad"
+
 msgid "Edit / Review"
 msgstr "Redigera / Granska"
 
@@ -1758,6 +1794,10 @@ msgstr "Begärdes av <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Påbörjades vid <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Status %(status)s"
 
 msgid "Timeline"
 msgstr "Tidslinje"
@@ -1889,6 +1929,9 @@ msgstr "Används på följande aktiva arbetsflöden"
 
 msgid "Not used"
 msgstr "Används ej"
+
+msgid "Disabled"
+msgstr "Inaktiverad"
 
 #, python-format
 msgid "+%(counter)s more"
@@ -2025,6 +2068,9 @@ msgstr "Visa full historik"
 msgid "More"
 msgstr "Mer"
 
+msgid "More bulk actions"
+msgstr "Fler massåtgärder"
+
 msgid "0 minutes"
 msgstr "0 minuter"
 
@@ -2106,6 +2152,9 @@ msgstr "Namn och e-post"
 msgid "Profile picture"
 msgstr "Profilbild"
 
+msgid "Theme preferences"
+msgstr "Temainställningar"
+
 msgid "Password"
 msgstr "Lösenord"
 
@@ -2152,6 +2201,10 @@ msgid "Workflow progress"
 msgstr "Arbetsflöde framsteg"
 
 #, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' är nu olåst."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' updated."
 msgstr "%(model_name)s '%(object)s' uppdaterad."
 
@@ -2182,12 +2235,24 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Kopiera '%(title)s'"
+
 msgid "Inspect"
 msgstr "Inspektera"
 
 #, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspektera '%(title)s'"
+
+#, python-format
 msgid "Delete '%(title)s'"
 msgstr "Radera '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Lägg till %(model_name)s"
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -2220,6 +2285,9 @@ msgstr "Version %(revision_id)s av \"%(object)s\" avschemalagd."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revision %(revision_id)s av \"%(object)s\""
+
+msgid "If you confirm deletion"
+msgstr "Om du bekräftar radering"
 
 msgid "Field"
 msgstr "Fält"
@@ -2447,6 +2515,12 @@ msgstr "Göm kommenteringshandlingar"
 
 msgid "Page history"
 msgstr "Sidhistorik"
+
+msgid "Page type"
+msgstr "Sidtyp"
+
+msgid "Owner"
+msgstr "Ägare"
 
 msgid "Site"
 msgstr "Sajt"

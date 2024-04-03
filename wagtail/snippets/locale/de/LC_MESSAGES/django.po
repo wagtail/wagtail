@@ -239,11 +239,11 @@ msgstr "Home"
 
 #, python-format
 msgid "Choose %(object)s"
-msgstr "Auswählen %(object)s"
+msgstr "%(object)s auswählen"
 
 #, python-format
 msgid "Choose another %(object)s"
-msgstr "Andere/n/s %(object)s auswählen"
+msgstr "Anderes %(object)s-Objekt auswählen"
 
 #, python-format
 msgid "Edit this %(object)s"

@@ -416,6 +416,18 @@ msgstr "Previsualització"
 msgid "URL"
 msgstr "URL"
 
+msgid "Image URL"
+msgstr "URL d'imatge"
+
+msgid "Copy URL"
+msgstr "Copiar URL"
+
+msgid "Copied to clipboard"
+msgstr "S'ha copiat al porta-retalls"
+
+msgid "Copying to clipboard failed"
+msgstr "Ha fallat la còpia al porta-retalls"
+
 msgid "Add multiple images"
 msgstr "Afegir diverses imatges"
 
