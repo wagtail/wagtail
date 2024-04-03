@@ -18,6 +18,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import Admin
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.log_actions import log
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -1796,6 +1797,12 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, page_chooser_js)
         self.assertContains(response, group_form_js)
 
+        soup = self.get_soup(response.content)
+        header = soup.select_one(".w-slim-header")
+        history_url = reverse("wagtailusers_groups:history", args=(self.test_group.pk,))
+        history_link = header.find("a", attrs={"href": history_url})
+        self.assertIsNotNone(history_link)
+
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
         self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
@@ -1803,7 +1810,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(31):
+        with self.assertNumQueries(32):
             self.get()
 
     def test_nonexistent_group_redirect(self):
@@ -1818,6 +1825,23 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Check that the group was edited
         group = Group.objects.get(pk=self.test_group.pk)
         self.assertEqual(group.name, "test group edited")
+
+        # On next load of the edit view,
+        # should render the status panel with the last updated time
+        response = self.get()
+        self.assertContains(response, "test group edited")
+        soup = self.get_soup(response.content)
+        status_panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(status_panel)
+        last_updated = status_panel.select_one(".w-help-text")
+        self.assertIsNotNone(last_updated)
+        self.assertRegex(
+            last_updated.get_text(strip=True),
+            f"[0-9][0-9]:[0-9][0-9] by {self.user.get_username()}",
+        )
+        history_url = reverse("wagtailusers_groups:history", args=(self.test_group.pk,))
+        history_link = status_panel.select_one(f'a[href="{history_url}"]')
+        self.assertIsNotNone(history_link)
 
     def test_group_edit_validation_error(self):
         # Leave "name" field blank. This should give a validation error
@@ -2257,6 +2281,26 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.assertGreaterEqual(len(toggle_add_items), 30)
         self.assertEqual(toggle_add_items[0]["data-action"], "w-bulk#toggle")
+
+
+class TestGroupHistoryView(WagtailTestUtils, TestCase):
+    # More thorough tests are in test_model_viewset
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_group = Group.objects.create(name="test group")
+        cls.url = reverse("wagtailusers_groups:history", args=(cls.test_group.pk,))
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_simple(self):
+        log(self.test_group, "wagtail.create", user=self.user)
+        log(self.test_group, "wagtail.edit", user=self.user)
+        response = self.client.get(self.url)
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        self.assertContains(response, "Created")
+        self.assertContains(response, "Edited")
 
 
 class TestGroupViewSet(TestCase):
