@@ -1342,7 +1342,9 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
         # response should contain page furniture, including the "Add a group" button
         self.assertContains(response, "Add a group")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Groups"}], response.content
+        )
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -1415,7 +1417,13 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/groups/", "label": "Groups"},
+                {"url": "", "label": "New: Group"},
+            ],
+            response.content,
+        )
 
     def test_num_queries(self):
         # Warm up the cache
@@ -1766,7 +1774,16 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/groups/edit.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/groups/",
+                    "label": "Groups",
+                },
+                {"url": "", "label": str(self.test_group)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
