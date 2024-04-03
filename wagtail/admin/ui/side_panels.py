@@ -230,7 +230,7 @@ class StatusSidePanel(BaseSidePanel):
         context["last_updated_info"] = self.last_updated_info
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
-        if self.object.pk:
+        if self.object.pk and self.usage_url:
             context.update(self.get_usage_context())
         return context
 
