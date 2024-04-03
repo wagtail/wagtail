@@ -126,6 +126,15 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         )
         self.assertEqual(response.status_code, 404)
 
+    def test_register_with_icon(self):
+        edit_url = reverse("wagtailsettings:edit", args=("tests", "IconGenericSetting"))
+        edit_response = self.client.get(edit_url, follow=True)
+
+        self.assertContains(
+            edit_response,
+            """<svg class="icon icon-icon-setting-tag w-header__glyph" aria-hidden="true"><use href="#icon-icon-setting-tag"></use></svg>""",
+        )
+
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")

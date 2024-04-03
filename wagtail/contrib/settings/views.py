@@ -80,7 +80,6 @@ def redirect_to_relevant_instance(request, app_name, model_name):
 
 class EditView(generic.EditView):
     template_name = "wagtailsettings/edit.html"
-    header_icon = "cogs"
     error_message = gettext_lazy("The setting could not be saved due to errors.")
 
     def setup(self, request, app_name, model_name, *args, **kwargs):
@@ -129,11 +128,14 @@ class EditView(generic.EditView):
 
         media = form.media + edit_handler.media
 
+        header_icon = registry._model_icons.get(self.model)
+
         context.update(
             {
                 "edit_handler": edit_handler,
                 "site_switcher": site_switcher,
                 "media": media,
+                "header_icon": header_icon,
             }
         )
 
