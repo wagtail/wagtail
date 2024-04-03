@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.models import (
     Collection,
     CollectionViewRestriction,
@@ -175,7 +176,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
-class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
+class BaseGroupCollectionMemberPermissionFormSet(BaseFormSetMixin, forms.BaseFormSet):
     """
     A base formset class for managing GroupCollectionPermissions for a
     model with CollectionMember behaviour. Subclasses should provide attributes:
@@ -220,14 +221,6 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             )
 
         super().__init__(data, files, initial=initial_data, prefix=prefix)
-        for form in self.forms:
-            form.fields["DELETE"].widget = forms.HiddenInput()
-
-    @property
-    def empty_form(self):
-        empty_form = super().empty_form
-        empty_form.fields["DELETE"].widget = forms.HiddenInput()
-        return empty_form
 
     def clean(self):
         """Checks that no two forms refer to the same collection object"""
