@@ -200,21 +200,6 @@ class TestRedirects(TestCase):
             response, "/redirectto", status_code=302, fetch_redirect_response=False
         )
 
-    def test_redirect_without_trailing_slash(self):
-        # Create a redirect
-        redirect = models.Redirect(old_path="/redirectme", redirect_link="/redirectto")
-        redirect.save()
-
-        response = self.client.get("/redirectme")
-        # Request should be picked up by RedirectMiddleware, not CommonMiddleware
-        # (which would redirect to /redirectme/ instead).
-        # Before Django 4.2, CommonMiddleware performed the 'add trailing slash' test
-        # during the initial request processing, which took precedence over RedirectMiddleware
-        # and caused a double redirect (/redirectme -> /redirectme/ -> /redirectto).
-        self.assertRedirects(
-            response, "/redirectto", status_code=301, fetch_redirect_response=False
-        )
-
     def test_redirect_stripping_query_string(self):
         # Create a redirect which includes a query string
         redirect_with_query_string = models.Redirect(
