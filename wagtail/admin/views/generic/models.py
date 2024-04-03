@@ -753,7 +753,11 @@ class EditView(
         return MediaContainer(side_panels)
 
     def get_last_updated_info(self):
-        return log_registry.get_logs_for_instance(self.object).first()
+        return (
+            log_registry.get_logs_for_instance(self.object)
+            .select_related("user")
+            .first()
+        )
 
     def get_edit_url(self):
         if not self.edit_url_name:
