@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -36,14 +36,36 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Molimo navedite barem jednu preporuku za ovaj pojam."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Potrebno je unijeti tekst vanjske poveznice ako uneste URL vanjske poveznice."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Potrebno je preporučiti stranicu ILI vanjsku poveznicu."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Molimo odaberite samo stranicu ILI vanjsku poveznicu."
+
 msgid "Query Daily Hits"
 msgstr "Dnevni pregledi za upit"
 
 msgid "page"
 msgstr "stranica"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Odaberite unutarnju stranicu za promociju"
+
+msgid "External link URL"
+msgstr "URL vanjske poveznice"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Ili iskoristite vanjsku poveznicu za promociju"
+
 msgid "description"
 msgstr "opis"
+
+msgid "Applies to internal page or external link"
+msgstr "Za unutarnju stranicu ili vanjsku poveznicu"
 
 msgid "search promotion"
 msgstr "Promocija pretraživanja"
@@ -53,6 +75,17 @@ msgstr "Dodaj promociju"
 
 msgid "Add search pick"
 msgstr "Dodaj promovirani rezultat"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p> Promovirani rezultati pretraživanja su način za preporuku određenih "
+"stranica ili vanjskih poveznica koje se možda neće priordno pojaviti pri "
+"vrhu u rezultatima pretraživanja. Npr. preporuka glavne stranice za donacije "
+"korisniku koji pretražuje manje učestao pojam \"<em>darivanje</em>\".</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -96,8 +129,14 @@ msgstr "Pomakni gore"
 msgid "Move down"
 msgstr "Pomakni dolje"
 
+msgid "Recommended search result"
+msgstr "Preporučeni rezultat pretraživanja"
+
 msgid "Promoted search results"
 msgstr "Promovirani rezultati pretraživanja"
+
+msgid "Add a recommended result"
+msgstr "Dodaj preporučeni rezultat"
 
 msgid "Search Terms"
 msgstr "Pojmovi za pretraživanje"

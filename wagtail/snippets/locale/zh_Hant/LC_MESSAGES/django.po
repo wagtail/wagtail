@@ -56,6 +56,10 @@ msgstr "儲存"
 msgid "Locked"
 msgstr "已鎖定"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s並發布"
+
 msgid "Wagtail snippets"
 msgstr "Wagtail 片段"
 

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020
-# Dino Aljević <dino8890@protonmail.com>, 2020-2023
+# Dino Aljević <dino8890@protonmail.com>, 2020-2024
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -374,6 +374,9 @@ msgstr[0] "%(num_parent_objects)d korisnik je izbrisan"
 msgstr[1] "%(num_parent_objects)d korisnika je izbrisano"
 msgstr[2] "%(num_parent_objects)d korisnika je izbrisano"
 
+msgid "Mark as active"
+msgstr "Označi kao aktivnog"
+
 msgid "Change the active state for selected users"
 msgstr "Promijeni aktivno stanje odabranim korisnicima"
 
@@ -438,3 +441,11 @@ msgstr "Korisnik '%(object)s' je izbrisan."
 
 msgid "Edit"
 msgstr "Uredi"
+
+#, python-format
+msgid "Edit user '%(name)s'"
+msgstr "Uredi korisnika '%(name)s'"
+
+#, python-format
+msgid "Delete user '%(name)s'"
+msgstr "Izbriši korisnika '%(name)s'"

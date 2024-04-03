@@ -6,7 +6,7 @@
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -253,6 +253,9 @@ msgstr "Ključ '%(page_slug)s'  je že v uporabi na nadrejeni strani"
 
 msgid "Select a new parent for this page."
 msgstr "Izberite novega starša za to stran."
+
+msgid "Search…"
+msgstr "Iskanje…"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -528,6 +531,26 @@ msgstr "Izberite"
 msgid "Choose a page"
 msgstr "Izberite stran"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Samo strani tipa \"%(type)s\" lahko izberete za to polje. Rezultati iskanja "
+"bodo izključili strani drugih tipov."
+msgstr[1] ""
+"Samo naslednje vrste strani je mogoče izbrati za to polje: %(type)s. "
+"Rezultati iskanja bodo izključili strani drugih vrst."
+msgstr[2] ""
+"Samo naslednje vrste strani je mogoče izbrati za to polje: %(type)s. "
+"Rezultati iskanja bodo izključili strani drugih vrst."
+msgstr[3] ""
+"Samo naslednje vrste strani je mogoče izbrati za to polje: %(type)s. "
+"Rezultati iskanja bodo izključili strani drugih vrst."
+
 msgid "Confirm selection"
 msgstr "Potrdite izbiro"
 
@@ -663,6 +686,14 @@ msgid "Publish %(model_name)s"
 msgstr "Objavi %(model_name)s"
 
 #, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Ta %(model_name)s je bil označen kot potrebna sprememb pri <strong>%(task)s</"
+"strong> v <strong>%(workflow)s</strong>."
+
+#, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
 msgstr "Objava tega %(model_name)s bo preklica trenutni potek dela."
 
@@ -672,6 +703,14 @@ msgstr "Bi še vedno želeli objaviti ta %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Prekliči"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Noben %(model_name)s ne ustreza vaši poizvedbi."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Ni %(model_name)s za prikaz."
 
 msgid "Update"
 msgstr "Posodbi"
@@ -1353,6 +1392,10 @@ msgstr "Dodaj podrejeno stran v '%(title)s'"
 msgid "Drag"
 msgstr "Povleci"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Element %(index)s od %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Izklopi sortiranje podrejenih strani"
 
@@ -1361,6 +1404,17 @@ msgstr "Razvrsti"
 
 msgid "Enable ordering of child pages"
 msgstr "Vklopi sortiranje podrejenih strani"
+
+msgid "No results across entire site."
+msgstr "Na celotnem spletnem mestu ni rezultatov."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Išči v '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr "Ni rezultatov v '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 
 msgid "Search the whole site"
 msgstr "Iskanje po celotnem spletnem mestu"
@@ -1478,8 +1532,20 @@ msgstr "Nobena stran ne ustreza merilom tega poročila."
 msgid "Updated"
 msgstr "Posodobljeno"
 
+msgid "App"
+msgstr "Aplikacija"
+
 msgid "Pages"
 msgstr "Strani"
+
+msgid "Last edited page"
+msgstr "Nazadnje urejena stran"
+
+msgid "Last edit"
+msgstr "Zadnje urejanje"
+
+msgid "No page types found."
+msgstr "Najdena ni bila nobena vrsta strani."
 
 msgid "Locking status"
 msgstr "Status zaklepanja"
@@ -1562,6 +1628,12 @@ msgstr "Uporabi filter"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"
+
+msgid "Show filters"
+msgstr "Prikaži filtre"
+
+msgid "Filter by"
+msgstr "Filtriraj po"
 
 msgid "Back"
 msgstr "Nazaj"
@@ -2089,6 +2161,12 @@ msgstr "Preklopi komentarje"
 msgid "Comments"
 msgstr "Komentrarji"
 
+msgid "Toggle checks"
+msgstr "Preklopi preverjanja"
+
+msgid "Checks"
+msgstr "Preverjanja"
+
 msgid "Toggle preview"
 msgstr "Preklopi predogled"
 
@@ -2237,6 +2315,14 @@ msgstr "%(model_name)s '%(object)s' ustvarjen in objavjen."
 
 #, python-format
 msgid ""
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
+msgstr ""
+"Gledate prejšnjo različico tega %(model_name)s od <b>%(created_at)s</b> "
+"avtorja %(user)s"
+
+#, python-format
+msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
 msgstr ""
@@ -2245,6 +2331,10 @@ msgstr ""
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Kopiraj '%(title)s'"
 
 msgid "Inspect"
 msgstr "Preglejte"
@@ -2260,6 +2350,14 @@ msgstr "Izbriši '%(title)s'"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Več možnosti za '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Dodaj %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s ni bilo mogoče ustvariti zaradi napak."
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -2439,11 +2537,32 @@ msgstr "Skrij dejanja komentiranja"
 msgid "Page history"
 msgstr "Zgodovina strani"
 
+msgid "Page type"
+msgstr "Vrsta strani"
+
+msgid "Date updated"
+msgstr "Datum posodobljen"
+
+msgid "Owner"
+msgstr "Lastnik"
+
+msgid "Edited by"
+msgstr "Uredil"
+
 msgid "Site"
 msgstr "Spletno mesto"
 
+msgid "Has child pages"
+msgstr "Ima podrejene strani"
+
+msgid "Any"
+msgstr "Katerikoli"
+
 msgid "Yes"
 msgstr "Da"
+
+msgid "Exploring"
+msgstr "Raziskovanje"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2549,6 +2668,30 @@ msgstr "Onemogoči potek dela"
 #, python-format
 msgid "Workflow '%(object)s' disabled."
 msgstr "Potek dela '%(object)s' onemogočen."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Ta delovni tok je v teku na %(states_in_progress)d strani/odseku. "
+"Onemogočanje tega delovnega toka bo preklicalo moderiranje na tej strani/"
+"odseku."
+msgstr[1] ""
+"Ta delovni tok je v teku na %(states_in_progress)d straneh/odsekih. "
+"Onemogočanje tega delovnega toka bo preklicalo moderiranje na teh straneh/"
+"odsekih."
+msgstr[2] ""
+"Ta delovni tok je v teku na %(states_in_progress)d straneh/odsekih. "
+"Onemogočanje tega delovnega toka bo preklicalo moderiranje na teh straneh/"
+"odsekih."
+msgstr[3] ""
+"Ta delovni tok je v teku na %(states_in_progress)d straneh/odsekih. "
+"Onemogočanje tega delovnega toka bo preklicalo moderiranje na teh straneh/"
+"odsekih."
 
 #, python-format
 msgid "Workflow '%(workflow_name)s' enabled."
