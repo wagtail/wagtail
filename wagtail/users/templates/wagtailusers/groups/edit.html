@@ -1,11 +1,5 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load wagtailusers_tags wagtailadmin_tags i18n %}
-
-{% block extra_css %}
-    {{ block.super }}
-
-    {{ form_media.css }}
-{% endblock %}
 
 {% block main_header %}
     {% trans "View users in this group" as users_str %}

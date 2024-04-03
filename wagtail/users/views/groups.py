@@ -64,11 +64,9 @@ class PermissionPanelFormsMixin:
 
         context = super().get_context_data(**kwargs)
 
-        # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context["form"].media
+        # Add js/css media from the formsets to the existing media
         for panel in context["permission_panels"]:
-            form_media += panel.media
-        context["form_media"] = form_media
+            context["media"] += panel.media
 
         return context
 
@@ -94,9 +92,6 @@ class IndexView(generic.IndexView):
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '%(object)s' created.")
-
-    def get_page_subtitle(self):
-        return ""
 
     def post(self, request, *args, **kwargs):
         """

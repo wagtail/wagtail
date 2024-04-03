@@ -16,6 +16,7 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import Admin
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.models import (
     Collection,
@@ -1424,6 +1425,11 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ],
             response.content,
         )
+        # Should contain the JS from the form and the template include
+        page_chooser_js = versioned_static("wagtailadmin/js/page-chooser.js")
+        group_form_js = versioned_static("wagtailusers/js/group-form.js")
+        self.assertContains(response, page_chooser_js)
+        self.assertContains(response, group_form_js)
 
     def test_num_queries(self):
         # Warm up the cache
@@ -1784,6 +1790,11 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ],
             response.content,
         )
+        # Should contain the JS from the form and the template include
+        page_chooser_js = versioned_static("wagtailadmin/js/page-chooser.js")
+        group_form_js = versioned_static("wagtailusers/js/group-form.js")
+        self.assertContains(response, page_chooser_js)
+        self.assertContains(response, group_form_js)
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
