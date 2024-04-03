@@ -66,7 +66,7 @@ Changelog
  * Maintenance: Update Wagtail logo in admin sidebar & favicon plus documentation to the latest version (Osaf AliSayed, Albina Starykova, LB (Ben) Johnston)
 
 
-6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0.2 (03.04.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure that modal tabs width are not impacted by side panel opening (LB (Ben) Johnston)
