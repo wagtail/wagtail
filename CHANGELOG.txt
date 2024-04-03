@@ -64,6 +64,7 @@ Changelog
  * Maintenance: Remove dead code in the minimap when elements are not found (LB (Ben) Johnston)
  * Maintenance: Ensure untrusted data sources are logged correctly in the Stimulus `SwapController` (LB (Ben) Johnston)
  * Maintenance: Update Wagtail logo in admin sidebar & favicon plus documentation to the latest version (Osaf AliSayed, Albina Starykova, LB (Ben) Johnston)
+ * Maintenance: Remove usage of inline scripts and instead use a new Stimulus controller (`w-block`/`BlockController`) to instantiate `StreamField` blocks (Karthik Ayangar)
 
 
 6.0.2 (03.04.2024)
