@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0.2 (03.04.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure that modal tabs width are not impacted by side panel opening (LB (Ben) Johnston)
