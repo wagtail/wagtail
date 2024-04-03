@@ -161,7 +161,6 @@ class GroupViewSet(ModelViewSet):
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
-                "history_url_name": None,
                 "usage_url_name": None,
                 **kwargs,
             }
