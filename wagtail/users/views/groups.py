@@ -1,11 +1,14 @@
 from django.contrib.auth.models import Group
-from django.urls import re_path
+from django.urls import re_path, reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
 from wagtail.users.views.users import Index
 
@@ -108,6 +111,16 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
     error_message = _("The group could not be saved due to errors.")
     delete_item_label = _("Delete group")
     context_object_name = "group"
+
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("View users in this group"),
+                url=reverse("wagtailusers_groups:users", args=[self.object.pk]),
+                icon_name="user",
+            )
+        ]
 
     def post(self, request, *args, **kwargs):
         """
