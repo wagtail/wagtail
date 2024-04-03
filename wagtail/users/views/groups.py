@@ -45,11 +45,32 @@ class PermissionPanelFormsMixin:
             for cls in get_permission_panel_classes()
         ]
 
+    def process_form(self):
+        form = self.get_form()
+        permission_panels = self.get_permission_panel_forms()
+        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+            response = self.form_valid(form)
+
+            for panel in permission_panels:
+                panel.save()
+
+            return response
+        else:
+            return self.form_invalid(form)
+
     def get_context_data(self, **kwargs):
         if "permission_panels" not in kwargs:
             kwargs["permission_panels"] = self.get_permission_panel_forms()
 
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+
+        # add a 'form_media' variable for the collected js/css media from the form and all formsets
+        form_media = context["form"].media
+        for panel in context["permission_panels"]:
+            form_media += panel.media
+        context["form_media"] = form_media
+
+        return context
 
 
 class IndexView(generic.IndexView):
@@ -84,29 +105,7 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
         """
         # Create an object now so that the permission panel forms have something to link them against
         self.object = Group()
-
-        form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            response = self.form_valid(form)
-
-            for panel in permission_panels:
-                panel.save()
-
-            return response
-        else:
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context["form"].media
-        for panel in context["permission_panels"]:
-            form_media += panel.media
-        context["form_media"] = form_media
-
-        return context
+        return self.process_form()
 
 
 class EditView(PermissionPanelFormsMixin, generic.EditView):
@@ -121,29 +120,7 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
         POST variables and then check if it's valid.
         """
         self.object = self.get_object()
-
-        form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            response = self.form_valid(form)
-
-            for panel in permission_panels:
-                panel.save()
-
-            return response
-        else:
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context["form"].media
-        for panel in context["permission_panels"]:
-            form_media += panel.media
-        context["form_media"] = form_media
-
-        return context
+        return self.process_form()
 
 
 class DeleteView(generic.DeleteView):
