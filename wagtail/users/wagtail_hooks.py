@@ -14,17 +14,14 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import get_user_display_name
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.users.utils import user_can_delete_user
 from wagtail.users.views.bulk_actions import (
     AssignRoleBulkAction,
     DeleteBulkAction,
     SetActiveStateBulkAction,
 )
 from wagtail.users.views.users import UserViewSet
-from wagtail.users.widgets import UserListingButton
 
 
 def get_group_viewset_cls(app_config):
@@ -137,31 +134,6 @@ def register_users_search_area():
         icon_name="user",
         order=600,
     )
-
-
-@hooks.register("register_user_listing_buttons")
-def user_listing_buttons(context, user):
-    yield UserListingButton(
-        _("Edit"),
-        reverse("wagtailusers_users:edit", args=[user.pk]),
-        classname="button-secondary",
-        attrs={
-            "aria-label": _("Edit user '%(name)s'")
-            % {"name": get_user_display_name(user)}
-        },
-        priority=10,
-    )
-    if user_can_delete_user(context.request.user, user):
-        yield UserListingButton(
-            _("Delete"),
-            reverse("wagtailusers_users:delete", args=[user.pk]),
-            classname="no",
-            attrs={
-                "aria-label": _("Delete user '%(name)s'")
-                % {"name": get_user_display_name(user)}
-            },
-            priority=20,
-        )
 
 
 User = get_user_model()

@@ -4,11 +4,13 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.template import RequestContext
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail import hooks
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -19,6 +21,10 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.button import (
+    BaseDropdownMenuButton,
+    ButtonWithDropdown,
+)
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.forms import UserCreationForm, UserEditForm
@@ -156,6 +162,38 @@ class Index(IndexView):
             return reverse("wagtailusers_groups:users_results", args=[self.group.pk])
         else:
             return reverse("wagtailusers_users:index_results")
+
+    def get_delete_url(self, instance):
+        if user_can_delete_user(self.request.user, instance):
+            return super().get_delete_url(instance)
+
+    def get_list_buttons(self, instance):
+        more_buttons = self.get_list_more_buttons(instance)
+        list_buttons = []
+
+        for hook in hooks.get_hooks("register_user_listing_buttons"):
+            hook_buttons = hook(RequestContext(self.request), instance)
+            for button in hook_buttons:
+                if isinstance(button, BaseDropdownMenuButton):
+                    # If the button is a dropdown menu, add it to the top-level
+                    # because we do not support nested dropdowns
+                    list_buttons.append(button)
+                else:
+                    # Otherwise, add it to the default "More" dropdown
+                    more_buttons.append(button)
+
+        list_buttons.append(
+            ButtonWithDropdown(
+                buttons=sorted(more_buttons),
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
+        )
+
+        return sorted(list_buttons)
 
     def get_valid_orderings(self):
         return ["name", "username"]
