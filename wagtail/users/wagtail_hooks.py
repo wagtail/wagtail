@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
-from django.urls import include, path, reverse
+from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
@@ -17,21 +17,14 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import get_user_display_name
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
 from wagtail.users.views.bulk_actions import (
     AssignRoleBulkAction,
     DeleteBulkAction,
     SetActiveStateBulkAction,
 )
+from wagtail.users.views.users import UserViewSet
 from wagtail.users.widgets import UserListingButton
-
-
-@hooks.register("register_admin_urls")
-def register_admin_urls():
-    return [
-        path("users/", include(users, namespace="wagtailusers_users")),
-    ]
 
 
 def get_group_viewset_cls(app_config):
@@ -50,7 +43,10 @@ def get_group_viewset_cls(app_config):
 def register_viewset():
     app_config = apps.get_app_config("wagtailusers")
     group_viewset_cls = get_group_viewset_cls(app_config)
-    return group_viewset_cls("wagtailusers_groups", url_prefix="groups")
+    return [
+        UserViewSet("wagtailusers_users", url_prefix="users"),
+        group_viewset_cls("wagtailusers_groups", url_prefix="groups"),
+    ]
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /

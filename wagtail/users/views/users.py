@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.forms import UserCreationForm, UserEditForm
@@ -274,3 +275,32 @@ class Delete(DeleteView):
             self.request,
             self.object,
         )
+
+
+class UserViewSet(ModelViewSet):
+    icon = "user"
+    model = User
+    ordering = ["name"]
+    add_to_reference_index = False
+
+    index_view_class = Index
+    add_view_class = Create
+    edit_view_class = Edit
+    delete_view_class = Delete
+
+    template_prefix = "wagtailusers/users/"
+    _show_breadcrumbs = False
+
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "history_url_name": None,
+                "usage_url_name": None,
+                **kwargs,
+            }
+        )
+
+    def get_form_class(self, for_update=False):
+        if for_update:
+            return get_user_edit_form()
+        return get_user_creation_form()

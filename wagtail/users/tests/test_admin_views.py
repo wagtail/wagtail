@@ -33,6 +33,7 @@ from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.users.wagtail_hooks import get_group_viewset_cls
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
@@ -251,7 +252,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get({"ordering": "email"})
         self.assertNotEqual(response.context_data["ordering"], "email")
         # name is default ordering in `IndexView`.
-        self.assertEqual(response.context_data["ordering"], "name")
+        self.assertEqual(response.context_data["ordering"], ["name"])
         response = self.get({"ordering": "username"})
         self.assertEqual(response.context_data["ordering"], "username")
 
@@ -853,8 +854,24 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsNotRendered(response.content)
 
         url_finder = AdminURLFinder(self.current_user)
-        expected_url = "/admin/users/%s/" % self.test_user.pk
+        expected_url = f"/admin/users/edit/{self.test_user.pk}/"
         self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
+
+    def test_legacy_url_redirect(self):
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            (
+                "UserViewSet's `/<pk>/` edit view URL pattern has been "
+                "deprecated in favour of /edit/<pk>/."
+            ),
+        ):
+            response = self.client.get(f"/admin/users/{self.test_user.pk}/")
+
+        self.assertRedirects(
+            response,
+            f"/admin/users/edit/{self.test_user.pk}/",
+            status_code=301,
+        )
 
     def test_nonexistent_redirect(self):
         invalid_id = (
