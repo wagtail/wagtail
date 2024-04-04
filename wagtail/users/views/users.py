@@ -289,7 +289,6 @@ class UserViewSet(ModelViewSet):
     delete_view_class = Delete
 
     template_prefix = "wagtailusers/users/"
-    _show_breadcrumbs = False
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(

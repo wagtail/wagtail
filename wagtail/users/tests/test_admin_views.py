@@ -12,6 +12,7 @@ from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.text import capfirst
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -208,7 +209,10 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "testuser")
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
+            response.content,
+        )
 
     @unittest.skipIf(
         settings.AUTH_USER_MODEL == "emailuser.EmailUser", "Negative UUID not possible"
@@ -270,7 +274,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             self.get()
 
 
-class TestUserIndexResultsView(WagtailTestUtils, TestCase):
+class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # create a user that should be visible in the listing
         self.test_user = self.create_user(
@@ -291,7 +295,7 @@ class TestUserIndexResultsView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
         self.assertContains(response, "testuser")
         # response should not contain page furniture
-        self.assertNotContains(response, "Add a user")
+        self.assertBreadcrumbsNotRendered(response.content)
 
 
 class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -312,7 +316,16 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/users/",
+                    "label": capfirst(User._meta.verbose_name_plural),
+                },
+                {"url": "", "label": f"New: {capfirst(User._meta.verbose_name)}"},
+            ],
+            response.content,
+        )
 
     def test_create(self):
         response = self.post(
@@ -851,7 +864,16 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
         self.assertContains(response, "Password")
         self.assertContains(response, "Password confirmation")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": "/admin/users/",
+                    "label": capfirst(User._meta.verbose_name_plural),
+                },
+                {"url": "", "label": str(self.test_user)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.current_user)
         expected_url = f"/admin/users/edit/{self.test_user.pk}/"
