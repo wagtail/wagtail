@@ -1,10 +1,6 @@
 {% extends "wagtailadmin/generic/index_results.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block results %}
-    {% include "wagtailusers/users/list.html" %}
-{% endblock %}
-
 {% block no_results_message %}
     {% if is_searching %}
         <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>

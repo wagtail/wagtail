@@ -233,7 +233,7 @@ class IndexView(
             query |= Q(**{field + "__icontains": self.search_query})
         return queryset.filter(query)
 
-    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+    def _get_title_column_class(self, column_class):
         if not issubclass(column_class, ButtonsColumnMixin):
 
             def get_buttons(column, instance, *args, **kwargs):
@@ -244,6 +244,10 @@ class IndexView(
                 (ButtonsColumnMixin, column_class),
                 {"get_buttons": get_buttons},
             )
+        return column_class
+
+    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        column_class = self._get_title_column_class(column_class)
         if not self.model:
             return column_class(
                 "name",

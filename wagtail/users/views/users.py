@@ -5,9 +5,18 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    StatusTagColumn,
+    TitleColumn,
+)
+from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
@@ -65,6 +74,10 @@ def get_users_filter_query(q, model_fields):
     return conditions
 
 
+class UserColumn(TitleColumn):
+    cell_template_name = "wagtailusers/users/user_cell.html"
+
+
 class Index(IndexView):
     """
     Lists the users for management within the admin.
@@ -87,6 +100,51 @@ class Index(IndexView):
     page_title = gettext_lazy("Users")
     show_other_searches = True
     model_fields = [f.name for f in User._meta.get_fields()]
+
+    @cached_property
+    def columns(self):
+        _UserColumn = self._get_title_column_class(UserColumn)
+        return [
+            BulkActionsCheckboxColumn("bulk_actions", obj_type="user"),
+            _UserColumn(
+                "name",
+                accessor=lambda u: get_user_display_name(u),
+                label=gettext_lazy("Name"),
+                sort_key="name",
+                get_url=self.get_edit_url,
+                classname="name",
+            ),
+            Column(
+                "username",
+                accessor="get_username",
+                label=gettext_lazy("Username"),
+                sort_key="username",
+                classname="username",
+            ),
+            Column(
+                "is_superuser",
+                accessor=lambda u: gettext_lazy("Admin") if u.is_superuser else None,
+                label=gettext_lazy("Access level"),
+                sort_key="is_superuser",
+                classname="level",
+            ),
+            StatusTagColumn(
+                "is_active",
+                accessor=lambda u: gettext_lazy("Active")
+                if u.is_active
+                else gettext_lazy("Inactive"),
+                primary=lambda u: u.is_active,
+                label=gettext_lazy("Status"),
+                sort_key="is_active",
+                classname="status",
+            ),
+            DateColumn(
+                "last_login",
+                label=gettext_lazy("Last login"),
+                sort_key="last_login",
+                classname="last-login",
+            ),
+        ]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
