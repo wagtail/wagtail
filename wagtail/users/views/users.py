@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
@@ -26,9 +28,11 @@ from wagtail.admin.widgets.button import (
     ButtonWithDropdown,
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.coreutils import accepts_kwarg
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.loading import get_custom_form
 
 User = get_user_model()
@@ -172,7 +176,17 @@ class Index(IndexView):
         list_buttons = []
 
         for hook in hooks.get_hooks("register_user_listing_buttons"):
-            hook_buttons = hook(RequestContext(self.request), instance)
+            if accepts_kwarg(hook, "request_user"):
+                hook_buttons = hook(user=instance, request_user=self.request.user)
+            else:
+                # old-style hook that accepts a context argument instead of request_user
+                hook_buttons = hook(RequestContext(self.request), instance)
+                warn(
+                    "`register_user_listing_buttons` hook functions should accept a `request_user` argument instead of `context` -"
+                    f" {hook.__module__}.{hook.__name__} needs to be updated",
+                    category=RemovedInWagtail70Warning,
+                )
+
             for button in hook_buttons:
                 if isinstance(button, BaseDropdownMenuButton):
                     # If the button is a dropdown menu, add it to the top-level

@@ -1,5 +1,5 @@
-import itertools
 from collections import defaultdict
+from warnings import warn
 
 from django import template
 from django.contrib.auth import get_permission_codename
@@ -9,7 +9,9 @@ from django.utils.text import camel_case_to_spaces
 
 from wagtail import hooks
 from wagtail.admin.models import Admin
+from wagtail.coreutils import accepts_kwarg
 from wagtail.users.permission_order import CONTENT_TYPE_ORDER
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -185,8 +187,24 @@ def format_permissions(permission_bound_field):
 
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def user_listing_buttons(context, user):
-    button_hooks = hooks.get_hooks("register_user_listing_buttons")
-    buttons = sorted(
-        itertools.chain.from_iterable(hook(context, user) for hook in button_hooks)
+    warn(
+        "`user_listing_buttons` template tag is deprecated.",
+        category=RemovedInWagtail70Warning,
     )
-    return {"user": user, "buttons": buttons}
+
+    buttons = []
+
+    for hook in hooks.get_hooks("register_user_listing_buttons"):
+        if accepts_kwarg(hook, "request_user"):
+            buttons.extend(hook(user=user, request_user=context.get("request").user))
+        else:
+            # old-style hook that accepts a context argument instead of request_user
+            buttons.extend(hook(context, user))
+            warn(
+                "`register_user_listing_buttons` hook functions should accept a "
+                "`request_user` argument instead of `context` - "
+                f"{hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail70Warning,
+            )
+
+    return {"user": user, "buttons": sorted(buttons)}
