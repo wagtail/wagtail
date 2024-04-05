@@ -255,11 +255,7 @@ class Index(IndexView):
         return sorted(list_buttons)
 
     def get_base_queryset(self):
-        if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, self.model_fields)
-            users = User.objects.filter(self.group_filter & conditions)
-        else:
-            users = User.objects.filter(self.group_filter)
+        users = User._default_manager.filter(self.group_filter)
 
         if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")
@@ -272,6 +268,12 @@ class Index(IndexView):
         if self.ordering == "-name":
             return queryset.order_by("-last_name", "-first_name")
         return super().order_queryset(queryset)
+
+    def search_queryset(self, queryset):
+        if self.is_searching:
+            conditions = get_users_filter_query(self.search_query, self.model_fields)
+            return queryset.filter(conditions)
+        return queryset
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context_data = super().get_context_data(
