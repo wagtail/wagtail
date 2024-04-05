@@ -357,6 +357,9 @@ class Edit(EditView):
     def get_delete_url(self):
         return reverse(self.delete_url_name, args=(self.object.pk,))
 
+    def get_page_subtitle(self):
+        return get_user_display_name(self.object)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["can_delete"] = self.can_delete

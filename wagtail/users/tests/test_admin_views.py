@@ -958,7 +958,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     "url": "/admin/users/",
                     "label": capfirst(User._meta.verbose_name_plural),
                 },
-                {"url": "", "label": str(self.test_user)},
+                {"url": "", "label": "Original User"},
             ],
             response.content,
         )

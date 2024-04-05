@@ -722,7 +722,7 @@ class EditView(
         return super().get_object(queryset)
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         if not self.model:
@@ -735,7 +735,7 @@ class EditView(
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
-        items.append({"url": "", "label": get_latest_str(self.object)})
+        items.append({"url": "", "label": self.get_page_subtitle()})
         return self.breadcrumbs_items + items
 
     def get_side_panels(self):
