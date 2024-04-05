@@ -15,6 +15,7 @@ class BaseSidePanel(Component):
         icon_name = ""
         has_counter = True
         counter_classname = ""
+        keyboard_shortcut = None
 
         def __init__(self, panel):
             self.panel = panel
@@ -338,6 +339,7 @@ class PreviewSidePanel(BaseSidePanel):
         aria_label = gettext_lazy("Toggle preview")
         icon_name = "mobile-alt"
         has_counter = False
+        keyboard_shortcut = "mod+p"
 
     name = "preview"
     title = gettext_lazy("Preview")
