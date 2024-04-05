@@ -809,6 +809,7 @@
 * Georgios Roumeliotis
 * David Buxton
 * Abdelrahman Hamada
+* Divdeploy
 
 ## Translators
 
