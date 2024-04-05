@@ -18,6 +18,7 @@ Changelog
  * Implement new universal listings design for image listing view (Sage Abdullah)
  * Implement new universal listings design for document listing view (Sage Abdullah)
  * Implement new universal listings design for site and locale listing views (Sage Abdullah)
+ * Implement new universal listings design for page and snippet history view (Sage Abdullah)
  * Add simple admin keyboard shortcuts overview dialog, available in the help sub-menu (Karthik Ayangar, Rohit Sharma)
  * Add ability to bulk toggle permissions in the user group editing view, including shift+click for multiple selections (LB (Ben) Johnston, Kalob Taulien)
  * Update the minimum version of `djangorestframework` to 3.15.1 (Sage Abdullah)
