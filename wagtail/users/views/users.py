@@ -359,7 +359,6 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.pop("action_url")
         context["can_delete"] = self.can_delete
         return context
 
