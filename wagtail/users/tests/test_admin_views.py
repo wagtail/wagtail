@@ -122,74 +122,22 @@ class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
 
     def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/index.html")
-        self.assertContains(response, "testuser")
-        # response should contain page furniture, including the "Add a user" button
-        self.assertContains(response, "Add a user")
-        self.assertBreadcrumbsNotRendered(response.content)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Accessing the list of users in a group via "
+            f"/admin/groups/{self.test_group.pk}/users/ is deprecated, use "
+            f"/admin/users/?group={self.test_group.pk} instead.",
+        ):
+            response = self.get()
+
+        self.assertRedirects(
+            response,
+            reverse("wagtailusers_users:index") + f"?group={self.test_group.pk}",
+        )
 
     def test_inexisting_group(self):
         response = self.get(group_id=9999)
         self.assertEqual(response.status_code, 404)
-
-    def test_search(self):
-        response = self.get({"q": "Hello"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
-
-    def test_search_query_one_field(self):
-        response = self.get({"q": "first name"})
-        self.assertEqual(response.status_code, 200)
-        results = response.context["users"]
-        self.assertIn(self.test_user, results)
-
-    def test_search_query_multiple_fields(self):
-        response = self.get({"q": "first name last name"})
-        self.assertEqual(response.status_code, 200)
-        results = response.context["users"]
-        self.assertIn(self.test_user, results)
-
-    def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
-
-
-class TestGroupUsersResultsView(WagtailTestUtils, TestCase):
-    def setUp(self):
-        # create a user that should be visible in the listing
-        self.test_user = self.create_user(
-            username="testuser",
-            email="testuser@email.com",
-            password="password",
-            first_name="First Name",
-            last_name="Last Name",
-        )
-        self.test_group = Group.objects.create(name="Test Group")
-        self.test_user.groups.add(self.test_group)
-        self.login()
-
-    def get(self, params={}, group_id=None):
-        return self.client.get(
-            reverse(
-                "wagtailusers_groups:users_results",
-                args=(group_id or self.test_group.pk,),
-            ),
-            params,
-        )
-
-    def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/index_results.html")
-        self.assertContains(response, "testuser")
-        # response should contain not page furniture
-        self.assertNotContains(response, "Add a user")
 
 
 class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

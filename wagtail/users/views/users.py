@@ -7,7 +7,6 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
-from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -201,17 +200,6 @@ class Index(IndexView):
     def model_fields(self):
         return {f.name for f in User._meta.get_fields()}
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.group = get_object_or_404(Group, id=args[0]) if args else None
-        self.group_filter = Q(groups=self.group) if self.group else Q()
-
-    def get_index_results_url(self):
-        if self.group:
-            return reverse("wagtailusers_groups:users_results", args=[self.group.pk])
-        else:
-            return reverse("wagtailusers_users:index_results")
-
     def get_delete_url(self, instance):
         if user_can_delete_user(self.request.user, instance):
             return super().get_delete_url(instance)
@@ -255,7 +243,7 @@ class Index(IndexView):
         return sorted(list_buttons)
 
     def get_base_queryset(self):
-        users = User._default_manager.filter(self.group_filter)
+        users = User._default_manager.all()
 
         if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")
@@ -274,13 +262,6 @@ class Index(IndexView):
             conditions = get_users_filter_query(self.search_query, self.model_fields)
             return queryset.filter(conditions)
         return queryset
-
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        context_data = super().get_context_data(
-            *args, object_list=object_list, **kwargs
-        )
-        context_data["group"] = self.group
-        return context_data
 
 
 class Create(CreateView):
