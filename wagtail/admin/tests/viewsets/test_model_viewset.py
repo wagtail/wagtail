@@ -1140,9 +1140,9 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         self.assertEqual(len(user_inputs), 0)
 
         # Should still render the timestamp filter as it is always available
-        timestamp_before_input = soup.select_one('input[name="timestamp_before"]')
+        timestamp_before_input = soup.select_one('input[name="timestamp_to"]')
         self.assertIsNotNone(timestamp_before_input)
-        timestamp_after_input = soup.select_one('input[name="timestamp_after"]')
+        timestamp_after_input = soup.select_one('input[name="timestamp_from"]')
         self.assertIsNotNone(timestamp_after_input)
 
     def test_edit_view_links_to_history_view(self):
