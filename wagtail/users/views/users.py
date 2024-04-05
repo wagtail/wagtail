@@ -1,9 +1,10 @@
 from warnings import warn
 
+import django_filters
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
@@ -13,6 +14,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -23,6 +25,7 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
     BaseDropdownMenuButton,
     ButtonWithDropdown,
@@ -88,6 +91,35 @@ class UserColumn(TitleColumn):
     cell_template_name = "wagtailusers/users/user_cell.html"
 
 
+class UserFilterSet(WagtailFilterSet):
+    is_superuser = django_filters.BooleanFilter(
+        label=gettext_lazy("Administrator"),
+        widget=BooleanRadioSelect,
+    )
+    last_login = django_filters.DateFromToRangeFilter(
+        label=gettext_lazy("Last login"),
+        widget=DateRangePickerWidget,
+    )
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        try:
+            self._meta.model._meta.get_field("is_active")
+        except FieldDoesNotExist:
+            pass
+        else:
+            self.filters["is_active"] = django_filters.BooleanFilter(
+                field_name="is_active",
+                label=gettext_lazy("Active"),
+                widget=BooleanRadioSelect,
+            )
+            self.filters.move_to_end("is_active", last=False)
+
+    class Meta:
+        model = User
+        fields = []
+
+
 class Index(IndexView):
     """
     Lists the users for management within the admin.
@@ -99,7 +131,7 @@ class Index(IndexView):
     permission_policy = ModelPermissionPolicy(User)
     model = User
     header_icon = "user"
-    add_item_label = _("Add a user")
+    add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
     index_url_name = "wagtailusers_users:index"
     add_url_name = "wagtailusers_users:add"
@@ -107,6 +139,7 @@ class Index(IndexView):
     default_ordering = "name"
     paginate_by = 20
     is_searchable = True
+    filterset_class = UserFilterSet
     page_title = gettext_lazy("Users")
     show_other_searches = True
 
@@ -220,9 +253,6 @@ class Index(IndexView):
             users = User.objects.filter(self.group_filter & conditions)
         else:
             users = User.objects.filter(self.group_filter)
-
-        if self.locale:
-            users = users.filter(locale=self.locale)
 
         if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")

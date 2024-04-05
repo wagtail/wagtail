@@ -13,6 +13,7 @@ from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext, Template
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import capfirst
 
 from wagtail import hooks
@@ -281,6 +282,53 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     response.context_data["object_list"].query.order_by,
                     order_by,
                 )
+
+    def test_filters(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["object_list"],
+            [self.test_user, self.user],
+        )
+
+        response = self.get({"is_superuser": True})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.user])
+
+        response = self.get({"is_superuser": False})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.test_user])
+
+        self.test_user.is_active = False
+        self.test_user.save()
+
+        response = self.get({"is_active": True})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.user])
+
+        response = self.get({"is_active": False})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.test_user])
+
+        today = timezone.now().date()
+        tomorrow = today + timezone.timedelta(days=1)
+        yesterday = today - timezone.timedelta(days=1)
+
+        response = self.get({"last_login_from": str(today)})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.user])
+
+        response = self.get({"last_login_from": str(tomorrow)})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [])
+
+        response = self.get({"last_login_to": str(today)})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.user])
+
+        response = self.get({"last_login_to": str(yesterday)})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [])
 
     def test_num_queries(self):
         # Warm up

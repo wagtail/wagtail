@@ -2,8 +2,8 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block no_results_message %}
-    {% if is_searching %}
-        <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+    {% if is_searching or is_filtering %}
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match your query{% endblocktrans %}</h2>
     {% else %}
         {% if group %}
             {% with group.name as group_name %}
