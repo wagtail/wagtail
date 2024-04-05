@@ -254,15 +254,33 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
 
-    def test_valid_ordering(self):
+    def test_ordering(self):
         # checking that only valid ordering used, in case of `IndexView` the valid
-        # ordering fields are "name" and "username".
-        response = self.get({"ordering": "email"})
-        self.assertNotEqual(response.context_data["ordering"], "email")
-        # name is default ordering in `IndexView`.
-        self.assertEqual(response.context_data["ordering"], ["name"])
-        response = self.get({"ordering": "username"})
-        self.assertEqual(response.context_data["ordering"], "username")
+        # ordering fields are:
+        # - `name`: maps to `User.last_name` and `User.first_name` fields if available
+        # - `User.USERNAME_FIELD`: dynamically maps to User.USERNAME_FIELD
+        # - `is_superuser`: maps to User.is_superuser (from PermissionsMixin)
+        # - `is_active`: maps to User.is_active if available
+        # - `last_login`: maps to User.last_login (from AbstractBaseUser)
+        cases = {
+            "name": ("last_name", "first_name"),
+            "-name": ("-last_name", "-first_name"),
+            User.USERNAME_FIELD: (User.USERNAME_FIELD,),
+            f"-{User.USERNAME_FIELD}": (f"-{User.USERNAME_FIELD}",),
+            "is_superuser": ("is_superuser",),
+            "-is_superuser": ("-is_superuser",),
+            "is_active": ("is_active",),
+            "-is_active": ("-is_active",),
+            "last_login": ("last_login",),
+            "-last_login": ("-last_login",),
+        }
+        for param, order_by in cases.items():
+            with self.subTest(param=param):
+                response = self.get({"ordering": param})
+                self.assertEqual(
+                    response.context_data["object_list"].query.order_by,
+                    order_by,
+                )
 
     def test_num_queries(self):
         # Warm up

@@ -109,7 +109,6 @@ class Index(IndexView):
     is_searchable = True
     page_title = gettext_lazy("Users")
     show_other_searches = True
-    model_fields = [f.name for f in User._meta.get_fields()]
 
     @cached_property
     def columns(self):
@@ -120,15 +119,17 @@ class Index(IndexView):
                 "name",
                 accessor=lambda u: get_user_display_name(u),
                 label=gettext_lazy("Name"),
-                sort_key="name",
+                sort_key="name"
+                if self.model_fields.issuperset({"first_name", "last_name"})
+                else None,
                 get_url=self.get_edit_url,
                 classname="name",
             ),
             Column(
-                "username",
+                self.model.USERNAME_FIELD,
                 accessor="get_username",
                 label=gettext_lazy("Username"),
-                sort_key="username",
+                sort_key=self.model.USERNAME_FIELD,
                 classname="username",
             ),
             Column(
@@ -145,7 +146,7 @@ class Index(IndexView):
                 else gettext_lazy("Inactive"),
                 primary=lambda u: u.is_active,
                 label=gettext_lazy("Status"),
-                sort_key="is_active",
+                sort_key="is_active" if "is_active" in self.model_fields else None,
                 classname="status",
             ),
             DateColumn(
@@ -155,6 +156,10 @@ class Index(IndexView):
                 classname="last-login",
             ),
         ]
+
+    @cached_property
+    def model_fields(self):
+        return {f.name for f in User._meta.get_fields()}
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -209,13 +214,9 @@ class Index(IndexView):
 
         return sorted(list_buttons)
 
-    def get_valid_orderings(self):
-        return ["name", "username"]
-
-    def get_queryset(self):
-        model_fields = set(self.model_fields)
+    def get_base_queryset(self):
         if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, model_fields)
+            conditions = get_users_filter_query(self.search_query, self.model_fields)
             users = User.objects.filter(self.group_filter & conditions)
         else:
             users = User.objects.filter(self.group_filter)
@@ -223,22 +224,22 @@ class Index(IndexView):
         if self.locale:
             users = users.filter(locale=self.locale)
 
-        if "wagtail_userprofile" in model_fields:
+        if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")
 
-        if "last_name" in model_fields and "first_name" in model_fields:
-            users = users.order_by("last_name", "first_name")
-
-        if self.ordering == "username":
-            users = users.order_by(User.USERNAME_FIELD)
-
         return users
+
+    def order_queryset(self, queryset):
+        if self.ordering == "name":
+            return queryset.order_by("last_name", "first_name")
+        if self.ordering == "-name":
+            return queryset.order_by("-last_name", "-first_name")
+        return super().order_queryset(queryset)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context_data = super().get_context_data(
             *args, object_list=object_list, **kwargs
         )
-        context_data["ordering"] = self.ordering
         context_data["group"] = self.group
 
         context_data.update(
@@ -390,7 +391,7 @@ class Delete(DeleteView):
 class UserViewSet(ModelViewSet):
     icon = "user"
     model = User
-    ordering = ["name"]
+    ordering = "name"
     add_to_reference_index = False
 
     index_view_class = Index
