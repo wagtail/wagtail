@@ -241,13 +241,6 @@ class Index(IndexView):
             *args, object_list=object_list, **kwargs
         )
         context_data["group"] = self.group
-
-        context_data.update(
-            {
-                "app_label": User._meta.app_label,
-                "model_name": User._meta.model_name,
-            }
-        )
         return context_data
 
 
