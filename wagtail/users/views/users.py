@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.urls import reverse
@@ -99,6 +100,12 @@ class UserFilterSet(WagtailFilterSet):
     last_login = django_filters.DateFromToRangeFilter(
         label=gettext_lazy("Last login"),
         widget=DateRangePickerWidget,
+    )
+    group = django_filters.ModelMultipleChoiceFilter(
+        field_name="groups",
+        queryset=Group.objects.filter(user__isnull=False).distinct(),
+        label=gettext_lazy("Group"),
+        widget=CheckboxSelectMultiple,
     )
 
     def __init__(self, data=None, queryset=None, *, request=None, prefix=None):

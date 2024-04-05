@@ -330,11 +330,27 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertCountEqual(response.context["object_list"], [])
 
+        musicians = Group.objects.create(name="Musicians")
+        songwriters = Group.objects.create(name="Songwriters")
+        self.test_user.groups.add(musicians)
+        self.user.groups.add(songwriters)
+
+        response = self.get({"group": musicians.pk})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(response.context["object_list"], [self.test_user])
+
+        response = self.get({"group": [musicians.pk, songwriters.pk]})
+        self.assertEqual(response.status_code, 200)
+        self.assertCountEqual(
+            response.context["object_list"],
+            [self.test_user, self.user],
+        )
+
     def test_num_queries(self):
         # Warm up
         self.get()
 
-        num_queries = 9
+        num_queries = 10
         with self.assertNumQueries(num_queries):
             self.get()
 
