@@ -18,7 +18,6 @@ Now, go to your `base/models.py` file and add the following lines of code:
 
 ```python
 from django.db import models
-from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
