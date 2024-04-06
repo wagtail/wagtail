@@ -120,7 +120,7 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
-    def test_non_existant_model(self):
+    def test_non_existent_model(self):
         response = self.client.get(
             reverse("wagtailsettings:edit", args=["test", "foo", 1])
         )

@@ -1,10 +1,8 @@
 {% extends "wagtailadmin/generic/index.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block bodyclass %}page-explorer {% if ordering == 'ord' %}w-overflow-visible{% endif %}{% endblock %}
 
 {% block header %}
-    {% page_permissions parent_page as parent_page_perms %}
-    {% include 'wagtailadmin/pages/page_listing_header.html' with title=header_title search_url=index_results_url page_perms=parent_page_perms %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with title=header_title search_url=index_results_url %}
 {% endblock %}
 
 {% block listing %}
@@ -23,8 +21,6 @@
 {% block extra_js %}
     {{ block.super }}
 
-    {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
-    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 
     {% comment %}

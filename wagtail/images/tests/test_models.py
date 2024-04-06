@@ -668,7 +668,7 @@ class TestRenditions(TestCase):
         self._test_get_renditions_performance(1)
 
         # ATTEMPT 3
-        # If the existing renditions are prefetched, no futher queries should
+        # If the existing renditions are prefetched, no further queries should
         # be needed, whether that's with prefetch_related("renditions") or
         # prefetch_renditions()
         self._test_get_renditions_performance(0, prefetch_all=True)

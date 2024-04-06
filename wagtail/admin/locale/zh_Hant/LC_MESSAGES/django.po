@@ -11,13 +11,14 @@
 # Ocin Leung, 2020
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
+# Yunchi Pang <yunchipang@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
+"Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +55,10 @@ msgstr "儲存草稿"
 
 msgid "Page locked"
 msgstr "頁面已鎖定"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s並發布"
 
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
@@ -129,6 +134,11 @@ msgstr "集合"
 msgid "Parent"
 msgstr "上一級"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr "選取層級。注意：一個集合無法成為其本身的子集合或是任何子階級。"
+
 msgid "Please select another parent"
 msgstr "請選擇其它上級"
 
@@ -202,6 +212,9 @@ msgstr[0] "正在複製的 %(count)s 個頁面已是發佈狀態，你要發佈�
 
 msgid "Alias"
 msgstr "別名"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "維持新頁面於最新更改狀態"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -1331,6 +1344,9 @@ msgstr "評論"
 
 msgid "Toggle preview"
 msgstr "切換預覽"
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "不正確的標題層級。請避免跳級。"
 
 msgid "Notifications"
 msgstr "通知"

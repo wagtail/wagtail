@@ -325,12 +325,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: theme('spacing.7');
+  gap: theme('spacing.1');
   height: theme('spacing.slim-header');
   appearance: none;
   color: theme('colors.text-button-outline-default');
   padding: 0;
   cursor: pointer;
+
+  &--icon-only {
+    width: theme('spacing.7');
+  }
 
   .icon {
     width: theme('spacing.4');

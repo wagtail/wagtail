@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020-2023
+# Dino Aljević <dino8890@protonmail.com>, 2020-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2023\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -240,6 +240,23 @@ msgid ""
 msgstr ""
 "Nemate dokumenata. Zašto ne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">je stvoren u "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Dodaj više dokumenata"

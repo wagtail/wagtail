@@ -19,7 +19,7 @@
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Lautaro Bringas, 2023
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016,2024
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oluwadamilare Ogunbanjo, 2022
@@ -35,7 +35,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Lautaro Bringas, 2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -2017,10 +2017,10 @@ msgid ""
 "target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
 "in your web browser</a>."
 msgstr ""
-"Se necesita JavaScript para usar Wagtal, pero está deshabilitado.<br /> Aquí "
-"están las <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
-"rel=\"noreferrer\">instrucciones para habilitar JavaScript en tu navegador</"
-"a>-"
+"Se necesita JavaScript para usar Wagtail, pero está deshabilitado.<br /> "
+"Aquí están las <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instrucciones para habilitar JavaScript "
+"en tu navegador</a>-"
 
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"

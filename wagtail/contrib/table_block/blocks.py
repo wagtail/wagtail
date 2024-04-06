@@ -130,9 +130,9 @@ class TableBlock(FieldBlock):
         """
         If value came from a table block stored before Wagtail 6.0, we need to set an appropriate
         value for the header choice. I would really like to have this default to "" and force the
-        editor to reaffirm they don't want any headers, but that woud be a breaking change.
+        editor to reaffirm they don't want any headers, but that would be a breaking change.
         """
-        if not value.get("table_header_choice", ""):
+        if value and not value.get("table_header_choice", ""):
             if value.get("first_row_is_table_header", False) and value.get(
                 "first_col_is_header", False
             ):

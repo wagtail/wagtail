@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.template.response import TemplateResponse
-from django.urls import include, path, reverse
-from django.utils.html import format_html
+from django.urls import include, path, reverse, reverse_lazy
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
 
@@ -64,18 +63,6 @@ def register_documents_menu_item():
     )
 
 
-@hooks.register("insert_editor_js")
-def editor_js():
-    return format_html(
-        """
-        <script>
-            window.chooserUrls.documentChooser = '{0}';
-        </script>
-        """,
-        reverse("wagtaildocs_chooser:choose"),
-    )
-
-
 @hooks.register("register_rich_text_features")
 def register_document_feature(features):
     features.register_link_type(DocumentLinkHandler)
@@ -88,6 +75,9 @@ def register_document_feature(features):
                 "type": "DOCUMENT",
                 "icon": "doc-full-inverse",
                 "description": gettext("Document"),
+                "chooserUrls": {
+                    "documentChooser": reverse_lazy("wagtaildocs_chooser:choose")
+                },
             },
             js=["wagtaildocs/js/document-chooser-modal.js"],
         ),

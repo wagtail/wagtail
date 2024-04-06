@@ -8,9 +8,13 @@ from wagtail.test.testapp.models import (
     SimplePage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestPageUsage(WagtailTestUtils, TestCase):
+class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    # We don't show the "Home" breadcrumb item in page views
+    base_breadcrumb_items = []
+
     def setUp(self):
         self.user = self.login()
         self.root_page = Page.objects.get(id=2)
@@ -24,7 +28,7 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         page.save_revision().publish()
         self.page = SimplePage.objects.get(id=page.id)
 
-    def test_no_usage(self):
+    def test_simple(self):
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
         response = self.client.get(usage_url)
 
@@ -32,6 +36,35 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
         self.assertContains(response, "Usage")
         self.assertContains(response, "Hello world!")
+
+        items = [
+            {
+                "url": reverse("wagtailadmin_explore_root"),
+                "label": "Root",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+                "label": "Welcome to your new Wagtail site!",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.page.id,)),
+                "label": "Hello world! (simple page)",
+            },
+            {
+                "url": "",
+                "label": "Usage",
+                "sublabel": "Hello world! (simple page)",
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+        # There should be exactly one edit link, rendered as a header button
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
+        soup = self.get_soup(response.content)
+        edit_links = soup.select(f"a[href='{edit_url}']")
+        self.assertEqual(len(edit_links), 1)
+        edit_link = edit_links[0]
+        self.assertIn("w-header-button", edit_link.attrs.get("class"))
 
     def test_has_private_usage(self):
         PageChooserModel.objects.create(page=self.page)
@@ -72,3 +105,16 @@ class TestPageUsage(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, "Thank you redirect page")
         self.assertContains(response, "<td>Form page with redirect</td>", html=True)
+
+    def test_pagination(self):
+        for _ in range(50):
+            PageChooserModel.objects.create(page=self.page)
+
+        usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
+        response = self.client.get(f"{usage_url}?p=2")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
+        self.assertContains(response, "Page 2 of 3.")
+        self.assertContains(response, f"{usage_url}?p=1")
+        self.assertContains(response, f"{usage_url}?p=3")

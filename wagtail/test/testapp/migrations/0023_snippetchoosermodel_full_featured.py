@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to="tests.fullfeaturedsnippet",
+                verbose_name="Chosen snippet",
             ),
         ),
     ]

@@ -517,7 +517,9 @@ class TestAdminURLAppendSlash(WagtailTestUtils, TestCase):
 
             # Check that correct page is returned after CommonMiddleware redirect
             self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+            self.assertTemplateUsed(
+                response, "wagtailadmin/pages/explorable_index.html"
+            )
             self.assertEqual(Page.objects.get(id=1), response.context["parent_page"])
             self.assertIn(self.root_page, response.context["pages"])
 

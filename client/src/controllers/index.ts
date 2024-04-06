@@ -3,6 +3,7 @@ import type { Definition } from '@hotwired/stimulus';
 // Order controller imports alphabetically.
 import { ActionController } from './ActionController';
 import { AutosizeController } from './AutosizeController';
+import { BlockController } from './BlockController';
 import { BulkController } from './BulkController';
 import { ClipboardController } from './ClipboardController';
 import { CloneController } from './CloneController';
@@ -34,6 +35,7 @@ export const coreControllerDefinitions: Definition[] = [
   // Keep this list in alphabetical order
   { controllerConstructor: ActionController, identifier: 'w-action' },
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
+  { controllerConstructor: BlockController, identifier: 'w-block' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
   { controllerConstructor: ClipboardController, identifier: 'w-clipboard' },
   { controllerConstructor: CloneController, identifier: 'w-clone' },

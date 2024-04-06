@@ -24,7 +24,7 @@ install_requires = [
     "django-permissionedforms>=0.1,<1.0",
     "django-taggit>=4.0,<5.1",
     "django-treebeard>=4.5.1,<5.0",
-    "djangorestframework>=3.11.1,<4.0",
+    "djangorestframework>=3.15.1,<4.0",
     "django-filter>=23.3,<24",
     "draftjs_exporter>=2.1.5,<6.0",
     "Pillow>=9.1.0,<11.0.0",
@@ -73,7 +73,7 @@ documentation_extras = [
     "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==6.2.0",
+    "sphinx-wagtail-theme==6.3.0",
     "myst_parser==2.0.0",
     "sphinx_copybutton>=0.5,<1.0",
 ]

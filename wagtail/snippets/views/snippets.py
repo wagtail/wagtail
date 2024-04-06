@@ -20,10 +20,8 @@ from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
-    DateColumn,
     LiveStatusTagColumn,
     TitleColumn,
-    UserColumn,
 )
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
@@ -90,7 +88,7 @@ class ModelIndexView(generic.BaseListingView):
         return [
             {
                 "name": capfirst(model._meta.verbose_name_plural),
-                "count": model.objects.all().count(),
+                "count": model._default_manager.all().count(),
                 "model": model,
             }
             for model in get_snippet_models()
@@ -363,45 +361,8 @@ class UsageView(generic.UsageView):
     view_name = "usage"
 
 
-class ActionColumn(Column):
-    cell_template_name = "wagtailsnippets/snippets/revisions/_actions.html"
-
-    def __init__(self, *args, object=None, view=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.object = object
-        self.view = view
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context["revision_enabled"] = isinstance(self.object, RevisionMixin)
-        context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
-        context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
-        context["can_publish"] = self.view.user_has_permission("publish")
-        context["object"] = self.object
-        context["view"] = self.view
-        return context
-
-
 class HistoryView(history.HistoryView):
     view_name = "history"
-    revisions_view_url_name = None
-    revisions_revert_url_name = None
-    revisions_compare_url_name = None
-    revisions_unschedule_url_name = None
-
-    @cached_property
-    def columns(self):
-        return [
-            ActionColumn(
-                "message",
-                object=self.object,
-                view=self,
-                classname="title",
-                label=_("Action"),
-            ),
-            UserColumn("user", blank_display_name="system"),
-            DateColumn("timestamp", label=_("Date")),
-        ]
 
 
 class InspectView(generic.InspectView):

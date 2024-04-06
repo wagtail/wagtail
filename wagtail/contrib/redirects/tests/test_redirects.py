@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -198,6 +199,24 @@ class TestRedirects(TestCase):
         # Check that we were redirected temporarily
         self.assertRedirects(
             response, "/redirectto", status_code=302, fetch_redirect_response=False
+        )
+
+    def test_redirect_without_trailing_slash(self):
+        # Create a redirect
+        redirect = models.Redirect(old_path="/redirectme", redirect_link="/redirectto")
+        redirect.save()
+
+        # confirm that CommonMiddleware's append-slash behaviour is enabled
+        self.assertTrue(settings.APPEND_SLASH)
+
+        response = self.client.get("/redirectme")
+        # Request should be picked up by RedirectMiddleware, not CommonMiddleware
+        # (which would redirect to /redirectme/ instead).
+        # Before Django 4.2, CommonMiddleware performed the 'add trailing slash' test
+        # during the initial request processing, which took precedence over RedirectMiddleware
+        # and caused a double redirect (/redirectme -> /redirectme/ -> /redirectto).
+        self.assertRedirects(
+            response, "/redirectto", status_code=301, fetch_redirect_response=False
         )
 
     def test_redirect_stripping_query_string(self):
@@ -810,7 +829,7 @@ class TestRedirectsEditView(WagtailTestUtils, TestCase):
         expected_url = "/admin/redirects/%d/" % self.redirect.id
         self.assertEqual(url_finder.get_edit_url(self.redirect), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_edit(self):
@@ -914,7 +933,7 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailredirects/confirm_delete.html")
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_delete(self):

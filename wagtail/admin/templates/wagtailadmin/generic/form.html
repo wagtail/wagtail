@@ -4,8 +4,9 @@
 
 {% block main_header %}
     {% if breadcrumbs_items %}
-        <div class="w-header nice-padding w-mt-8">
-            <h2 class="w-header__title" id="header-title">
+        <div class="nice-padding w-mt-8">
+            <h2 class="w-relative w-h1" id="header-title">
+                {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
                 {{ page_subtitle }}
             </h2>
         </div>
@@ -44,6 +45,7 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}
 
 {% block extra_css %}

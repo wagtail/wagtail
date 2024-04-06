@@ -85,12 +85,34 @@
   width: 100%;
 
   @include media-breakpoint-up(sm) {
-    width: 250px;
+    width: theme('spacing.64');
   }
 
   &--primary {
+    // Support basic layout support for items added via `extra_footer_actions`
+
+    align-items: stretch;
+    display: grid;
+    gap: theme('spacing.2');
+    grid-auto-flow: column;
+
+    .button {
+      // There are default .button styles that would:
+      // - set height responsively
+      // - add a margin when there is a .button sibling
+      // Unset these styles in favor of a fixed height and the grid gap
+      height: $text-input-height;
+      margin-inline-start: initial;
+    }
+
     @include media-breakpoint-up(sm) {
-      width: 310px;
+      min-width: theme('spacing.80');
+      width: max-content;
+
+      > *:first-child {
+        // Ensure the first child (the dropdown action usually) is always wide
+        min-width: theme('spacing.56');
+      }
     }
   }
 }
@@ -103,6 +125,7 @@
 
   .icon {
     width: theme('spacing.4');
+    height: theme('spacing.4');
     margin-inline-end: theme('spacing.2');
     flex-shrink: 0;
   }

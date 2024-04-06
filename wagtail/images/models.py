@@ -344,6 +344,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
+        index.FilterField("id"),
     ]
 
     def __str__(self):
@@ -557,7 +559,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         values (images) reflecting the supplied ``filters`` and the focal point
         values from this object.
 
-        Filters for which an existing rendition cannot be found are ommitted
+        Filters for which an existing rendition cannot be found are omitted
         from the return value. If none of the requested renditions have been
         created before, the return value will be an empty dict.
         """

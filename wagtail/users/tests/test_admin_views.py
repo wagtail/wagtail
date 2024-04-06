@@ -5,6 +5,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
@@ -14,6 +15,7 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.models import Admin
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.models import (
     Collection,
@@ -852,7 +854,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/users/%s/" % self.test_user.pk
         self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         invalid_id = (
             "99999999-9999-9999-9999-999999999999"
             if settings.AUTH_USER_MODEL == "emailuser.EmailUser"
@@ -1415,6 +1417,12 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/groups/create.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(20):
+            self.get()
+
     def test_create_group(self):
         response = self.post({"name": "test group"})
 
@@ -1527,6 +1535,13 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             | Q(codename__startswith="publish")
         ).delete()
 
+        # A custom permission that happens to also start with "change"
+        Permission.objects.filter(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
+        ).delete()
+
         response = self.get()
 
         self.assertInHTML("Custom permissions", response.content.decode(), count=0)
@@ -1567,33 +1582,100 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Should not show inputs for publish permissions on models without DraftStateMixin
         self.assertNotInHTML("Can publish advert", html)
 
-    def test_view_permission_if_model_has_verbose(self):
+    def test_strip_model_name_from_custom_permissions(self):
         """
-        Tests for bug #10982
         https://github.com/wagtail/wagtail/issues/10982
-
-        Ensures Model Name or Verbose Name is stripped from Custom Permissions before being displayed
-        A Model "ModelWithVerboseName" is added to wagtail.test.testapp.models with verbose_name = "Custom Verbose Name"
-
+        Ensure model name or verbose name is stripped from permissions' labels
+        for consistency with built-in permissions.
         """
         response = self.get()
 
-        self.assertContains(response, "Can view", msg_prefix="No Can view permission")
-        self.assertNotContains(
-            response,
-            "Can view model with verbose name",
-            msg_prefix=" Model Name not stripped from Can view permission",
+        self.assertContains(response, "Can bulk update")
+        self.assertContains(response, "Can start trouble")
+        self.assertContains(response, "Cause chaos for")
+        self.assertContains(response, "Change text")
+        self.assertContains(response, "Manage")
+        self.assertNotContains(response, "Can bulk_update")
+        self.assertNotContains(response, "Can bulk update ADVANCED permission model")
+        self.assertNotContains(response, "Cause chaos for advanced permission model")
+        self.assertNotContains(response, "Manage custom permission model")
+
+    def test_permission_with_same_action(self):
+        """
+        https://github.com/wagtail/wagtail/issues/11650
+        Ensure that permissions with the same action (part before the first _ in
+        the codename) are not hidden.
+        """
+        response = self.get()
+        soup = self.get_soup(response.content)
+        main_change_permission = Permission.objects.get(
+            codename="change_custompermissionmodel",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
         )
-        self.assertNotContains(
-            response,
-            "Can view custom verbose name",
-            msg_prefix="Verbose Name of ModelWithVerboseName not stripped from Can view permission",
+        custom_change_permission = Permission.objects.get(
+            codename="change_text",
+            content_type__app_label="tests",
+            content_type__model="custompermissionmodel",
         )
-        pattern = r'Can\sview\s\[.*?"'
-        self.assertNotRegex(
-            response.content.decode(),
-            pattern,
-            msg="Model Name not stripped from custom permissions",
+
+        # Main change permission is in the dedicated column, so it's directly
+        # inside a <td>, not inside a <fieldset>"
+        self.assertIsNotNone(
+            soup.select_one(f'td > input[value="{main_change_permission.pk}"]')
+        )
+        self.assertIsNone(
+            soup.select_one(f'td > fieldset input[value="{main_change_permission.pk}"]')
+        )
+
+        # Custom "change_text" permission is in the custom permissions column,
+        # so it's inside a <fieldset> and not directly inside a <td>
+        self.assertIsNone(
+            soup.select_one(f'td > input[value="{custom_change_permission.pk}"]')
+        )
+        self.assertIsNotNone(
+            soup.select_one(
+                f'td > fieldset input[value="{custom_change_permission.pk}"]'
+            )
+        )
+
+    def test_custom_other_permissions_with_wagtail_admin_content_type(self):
+        """
+        https://github.com/wagtail/wagtail/issues/8086
+        Allow custom permissions using Wagtail's Admin content type to be
+        displayed in the "Other permissions" section.
+        """
+        admin_ct = ContentType.objects.get_for_model(Admin)
+        custom_permission = Permission.objects.create(
+            codename="roadmap_sync",
+            name="Can sync roadmap items from GitHub",
+            content_type=admin_ct,
+        )
+
+        with self.register_hook(
+            "register_permissions",
+            lambda: Permission.objects.filter(
+                codename="roadmap_sync", content_type=admin_ct
+            ),
+        ):
+            response = self.get()
+
+        soup = self.get_soup(response.content)
+
+        other_permissions = soup.select_one("#other-permissions-section")
+        self.assertIsNotNone(other_permissions)
+
+        custom_checkbox = other_permissions.select_one(
+            f'input[value="{custom_permission.pk}"]'
+        )
+        self.assertIsNotNone(custom_checkbox)
+
+        custom_label = other_permissions.select_one(
+            f'label[for="{custom_checkbox.attrs.get("id")}"]'
+        )
+        self.assertIsNotNone(custom_label)
+        self.assertEqual(
+            custom_label.get_text(strip=True), "Can sync roadmap items from GitHub"
         )
 
 
@@ -1690,7 +1772,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         expected_url = "/admin/groups/edit/%d/" % self.test_group.id
         self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
 
-    def test_nonexistant_group_redirect(self):
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(31):
+            self.get()
+
+    def test_nonexistent_group_redirect(self):
         self.assertEqual(self.get(group_id=100000).status_code, 404)
 
     def test_group_edit(self):
@@ -2000,11 +2088,20 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         response = self.get()
 
-        self.assertTagInHTML(
-            '<input type="checkbox" name="permissions" value="%s" checked>'
-            % custom_permission.id,
-            response.content.decode(),
+        soup = self.get_soup(response.content)
+        checkbox = soup.find_all(
+            "input",
+            attrs={
+                "name": "permissions",
+                "checked": True,
+                "value": custom_permission.id,
+                "data-action": "w-bulk#toggle",
+                "data-w-bulk-group-param": "custom",
+                "data-w-bulk-target": "item",
+            },
         )
+
+        self.assertEqual(len(checkbox), 1)
 
     def test_show_publish_permissions(self):
         response = self.get()
@@ -2058,7 +2155,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     perm.content_type.model,
                 )
                 for perm_set in object_perms
-                for perm in [next(v for v in flatten(perm_set) if "perm" in v)["perm"]]
+                for perm in [
+                    next(
+                        v
+                        for v in flatten(perm_set)
+                        if isinstance(v, dict) and "perm" in v
+                    )["perm"]
+                ]
             ]
 
         # Set order on two objects, should appear first and second
@@ -2100,6 +2203,32 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             sorted(object_positions[2:]),
             msg="Default object permission order is incorrect",
         )
+
+    def test_data_attributes_for_bulk_selection(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", "listing")
+        self.assertIn(table["data-controller"], "w-bulk")
+
+        # confirm there is a single select all checkbox for all items
+        toggle_all = table.select('tfoot th input[data-w-bulk-target="all"]')
+        self.assertEqual(len(toggle_all), 1)
+        self.assertEqual(toggle_all[0]["data-action"], "w-bulk#toggleAll")
+
+        # confirm there is one 'add' select all checkbox
+        toggle_all_add = table.select(
+            'tfoot td input[data-w-bulk-target="all"][data-w-bulk-group-param="add"]'
+        )
+        self.assertEqual(len(toggle_all_add), 1)
+        self.assertEqual(toggle_all_add[0]["data-action"], "w-bulk#toggleAll")
+
+        # confirm that the individual object permissions have the correct attributes
+        toggle_add_items = table.select(
+            'tbody td input[data-w-bulk-target="item"][data-w-bulk-group-param="add"]'
+        )
+        self.assertGreaterEqual(len(toggle_add_items), 30)
+        self.assertEqual(toggle_add_items[0]["data-action"], "w-bulk#toggle")
 
 
 class TestGroupViewSet(TestCase):

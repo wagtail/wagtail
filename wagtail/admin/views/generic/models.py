@@ -9,6 +9,7 @@ from django.core.exceptions import (
 )
 from django.db import models, transaction
 from django.db.models import Q
+from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -41,7 +42,6 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
-    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -256,7 +256,32 @@ class IndexView(
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
-        label, attr = label_for_field(field_name, self.model, return_attr=True)
+        lookups = (
+            [field_name]
+            if hasattr(self.model, field_name)
+            else field_name.split(LOOKUP_SEP)
+        )
+        *relations, field = lookups
+        model_class = self.model
+
+        # Iterate over the relation list to try to get the last model
+        # where the field exists
+        foreign_field_name = ""
+        for model in relations:
+            foreign_field = model_class._meta.get_field(model)
+            foreign_field_name = foreign_field.verbose_name
+            model_class = foreign_field.related_model
+
+        label, attr = label_for_field(field, model_class, return_attr=True)
+
+        # For some languages, it may be more appropriate to put the field label
+        # before the related model name
+        if foreign_field_name:
+            label = _("%(related_model_name)s %(field_label)s") % {
+                "related_model_name": foreign_field_name,
+                "field_label": label,
+            }
+
         sort_key = getattr(attr, "admin_order_field", None)
 
         # attr is None if the field is an actual database field,
@@ -264,8 +289,12 @@ class IndexView(
         if attr is None:
             sort_key = field_name
 
+        accessor = field_name
+        # Build the dotted relation if needed, for use in multigetattr
+        if relations:
+            accessor = ".".join(lookups)
         return column_class(
-            field_name,
+            accessor,
             label=capfirst(label),
             sort_key=sort_key,
             **kwargs,
@@ -334,40 +363,8 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
-                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
                 )
             )
-        return buttons
-
-    @cached_property
-    def header_more_buttons(self):
-        buttons = []
-        if self.list_export:
-            buttons.append(
-                Button(
-                    _("Download XLSX"),
-                    url=self.xlsx_export_url,
-                    icon_name="download",
-                    priority=90,
-                    attrs={
-                        "data-controller": "w-link",
-                        "data-w-link-preserve-keys-value": '["export"]',
-                    },
-                )
-            )
-            buttons.append(
-                Button(
-                    _("Download CSV"),
-                    url=self.csv_export_url,
-                    icon_name="download",
-                    priority=100,
-                    attrs={
-                        "data-controller": "w-link",
-                        "data-w-link-preserve-keys-value": '["export"]',
-                    },
-                )
-            )
-
         return buttons
 
     def get_list_more_buttons(self, instance):
@@ -606,14 +603,16 @@ class CreateView(
         return context
 
     def get_side_panels(self):
-        side_panels = [
-            StatusSidePanel(
-                self.form.instance,
-                self.request,
-                locale=self.locale,
-                translations=self.translations,
+        side_panels = []
+        if self.locale:
+            side_panels.append(
+                StatusSidePanel(
+                    self.form.instance,
+                    self.request,
+                    locale=self.locale,
+                    translations=self.translations,
+                )
             )
-        ]
         return MediaContainer(side_panels)
 
     def get_translations(self):

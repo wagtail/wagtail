@@ -162,5 +162,5 @@ This does not remove unused rendition images, this can be done by clearing the f
 
 Options:
 
--   **--purge-only** :
+-  `--purge-only` :
     This argument will purge all image renditions without regenerating them. They will be regenerated when next requested.

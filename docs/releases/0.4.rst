@@ -82,7 +82,7 @@ Core
 * Added ``get_next_siblings`` and ``get_prev_siblings`` to ``Page``
 * Added ``page_published`` signal
 * Added ``copy`` method to ``Page`` to allow copying of pages
-* Added ``construct_whitelister_element_rules`` hook for customising the HTML whitelist used when saving ``RichText`` fields
+* Added ``construct_whitelister_element_rules`` hook for customizing the HTML whitelist used when saving ``RichText`` fields
 * Support for setting a ``subpage_types`` property on ``Page`` models, to define which page types are allowed as subpages
 
 
@@ -103,7 +103,7 @@ Search
 ------
 
 * Added a new way to configure searchable/filterable fields on models
-* Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
+* Added ``get_indexed_objects`` allowing developers to customize which objects get added to the search index
 * Major refactor of Elasticsearch backend
 * Use ``match`` instead of ``query_string`` queries
 * Fields are now indexed in Elasticsearch with their correct type

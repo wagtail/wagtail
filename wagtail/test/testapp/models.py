@@ -1011,6 +1011,17 @@ class AdvertWithTabbedInterface(models.Model):
 register_snippet(AdvertWithTabbedInterface)
 
 
+class CustomManager(models.Manager):
+    pass
+
+
+class ModelWithCustomManager(models.Model):
+    instances = CustomManager()
+
+
+register_snippet(ModelWithCustomManager)
+
+
 # Models with RevisionMixin
 class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
@@ -1423,7 +1434,11 @@ class EventPageChooserModel(models.Model):
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text="help text", on_delete=models.CASCADE)
     full_featured = models.ForeignKey(
-        FullFeaturedSnippet, on_delete=models.CASCADE, null=True, blank=True
+        FullFeaturedSnippet,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Chosen snippet",
     )
 
     panels = [
@@ -1921,15 +1936,6 @@ class TableBlockStreamPage(Page):
     content_panels = [FieldPanel("table")]
 
 
-class ModelWithVerboseName(ClusterableModel):
-    class Meta:
-        verbose_name = "Custom verbose name"
-        verbose_name_plural = "Custom verbose names"
-
-
-register_snippet(ModelWithVerboseName)
-
-
 class UserProfile(models.Model):
     # Wagtail's schema must be able to coexist alongside a custom UserProfile model
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -2265,3 +2271,35 @@ class CustomPermissionTester(PagePermissionTester):
 class CustomPermissionPage(Page):
     def permissions_for_user(self, user):
         return CustomPermissionTester(user, self)
+
+
+class CustomPermissionModel(models.Model):
+    text = models.TextField(default="Tailwag")
+
+    class Meta:
+        verbose_name = "ADVANCED permission model"
+        verbose_name_plural = "ADVANCED permission models"
+
+        # Django's default_permissions are ("add", "change", "delete", "view").
+        # Django will generate permissions for each of these actions with the
+        # format f"{action}_{model_name}" and the label "Can {action} {verbose_name}".
+        # This means if the action is "bulk_update", the codename will be
+        # "bulk_update_custompermissionmodel" and the label will be
+        # "Can bulk_update ADVANCED permission model".
+        # See https://github.com/django/django/blob/stable/5.0.x/django/contrib/auth/management/__init__.py#L22-L35
+        default_permissions = ("add", "change", "delete", "view", "bulk_update")
+
+        # Permissions with completely custom codenames and labels
+        permissions = [
+            # Starts with can_ and "Can "
+            ("can_start_trouble", "Can start trouble"),
+            # Doesn't start with can_ and "Can "
+            ("cause_chaos", "Cause chaos for advanced permission model"),
+            # Starts with an action similar to a built-in permission "change_"
+            ("change_text", "Change text"),
+            # Without any _ and the label ends with the default verbose_name
+            ("control", "Manage custom permission model"),
+        ]
+
+
+register_snippet(CustomPermissionModel)

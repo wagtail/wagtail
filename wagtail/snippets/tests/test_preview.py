@@ -471,8 +471,13 @@ class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
         preview_url = self.get_url(
             "revisions_view", args=(self.snippet.pk, latest_revision.id)
         )
-        self.assertNotContains(response, "Preview")
+
         self.assertNotContains(response, preview_url)
+
+        soup = self.get_soup(response.content)
+
+        preview_link = soup.find("a", {"href": preview_url})
+        self.assertIsNone(preview_link)
 
 
 class TestDisablePreviewWithoutMixin(TestDisablePreviewWithEmptyModes):

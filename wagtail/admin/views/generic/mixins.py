@@ -101,10 +101,13 @@ class BeforeAfterHookMixin(HookResponseMixin):
 
 
 class LocaleMixin:
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.locale = self.get_locale()
-        self.translations = self.get_translations() if self.locale else []
+    @cached_property
+    def locale(self):
+        return self.get_locale()
+
+    @cached_property
+    def translations(self):
+        return self.get_translations() if self.locale else []
 
     def get_locale(self):
         if not getattr(self, "model", None):

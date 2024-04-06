@@ -47,3 +47,65 @@ describe('draftail', () => {
     ).toEqual(['DOCUMENT', 'LINK', 'IMAGE', 'EMBED', 'undefined']);
   });
 });
+
+describe('Calling initEditor via event dispatching', () => {
+  const initEditor = window.draftail.initEditor;
+
+  beforeAll(() => {
+    /* eslint-disable no-console */
+    // mock console.error to ensure it does not bubble to the logs
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+  });
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it.only('should support creating a new editor with event dispatching', async () => {
+    expect(window.draftail.initEditor).not.toHaveBeenCalled();
+
+    document.body.innerHTML = '<main><input id="editor"></main>';
+
+    document.getElementById('editor').dispatchEvent(
+      new CustomEvent('w-draftail:init', {
+        bubbles: true,
+        cancelable: false,
+        detail: { some: 'detail' },
+      }),
+    );
+
+    expect(console.error).toHaveBeenCalledTimes(0);
+    expect(window.draftail.initEditor).toHaveBeenCalledTimes(1);
+    expect(window.draftail.initEditor).toHaveBeenLastCalledWith(
+      '#editor',
+      { some: 'detail' },
+      null,
+    );
+  });
+
+  it('should not call initEditor & show an error in the console if the event has been dispatched incorrectly', async () => {
+    expect(window.draftail.initEditor).not.toHaveBeenCalled();
+
+    document.dispatchEvent(
+      new CustomEvent('w-draftail:init', {
+        bubbles: true,
+        cancelable: false,
+        detail: { some: 'detail' },
+      }),
+    );
+
+    expect(console.error).toHaveBeenCalledTimes(1);
+    expect(console.error).toHaveBeenCalledWith(
+      '`w-draftail:init` event must have a target with an id.',
+    );
+
+    expect(window.draftail.initEditor).not.toHaveBeenCalled();
+  });
+
+  afterAll(() => {
+    console.error.mockRestore();
+    window.draftail.initEditor.mockRestore();
+    /* eslint-enable no-console */
+  });
+});

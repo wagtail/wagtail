@@ -30,7 +30,7 @@ global.wagtailConfig = {
     },
     {
       code: 'fr',
-      display_nam: 'French',
+      display_name: 'French',
     },
   ],
   ACTIVE_LOCALE: 'en',
@@ -45,16 +45,6 @@ document.body.appendChild(script);
 global.wagtailVersion = '1.6a1';
 
 global.wagtail = {};
-
-global.chooserUrls = {
-  documentChooser: '/admin/documents/chooser/',
-  emailLinkChooser: '/admin/choose-email-link/',
-  anchorLinkChooser: '/admin/choose-anchor-link',
-  embedsChooser: '/admin/embeds/chooser/',
-  externalLinkChooser: '/admin/choose-external-link/',
-  imageChooser: '/admin/images/chooser/',
-  pageChooser: '/admin/choose-page/',
-};
 
 /* use dummy content for onload handlers just so that we can verify that we've chosen the right one */
 global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };

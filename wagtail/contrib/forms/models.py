@@ -1,7 +1,6 @@
 import datetime
 import os
 
-from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
@@ -264,10 +263,11 @@ class FormMixin:
         """
         Returns list submissions view for admin.
 
-        `list_submissions_view_class` can bse set to provide custom view class.
+        `list_submissions_view_class` can be set to provide custom view class.
         Your class must be inherited from SubmissionsListView.
         """
-        view = self.get_submissions_list_view_class().as_view()
+        results_only = kwargs.pop("results_only", False)
+        view = self.get_submissions_list_view_class().as_view(results_only=results_only)
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
@@ -365,9 +365,9 @@ class EmailFormMixin(models.Model):
 
             # Format dates and datetime(s) with SHORT_DATE(TIME)_FORMAT
             if isinstance(value, datetime.datetime):
-                value = date_format(value, settings.SHORT_DATETIME_FORMAT)
+                value = date_format(value, "SHORT_DATETIME_FORMAT")
             elif isinstance(value, datetime.date):
-                value = date_format(value, settings.SHORT_DATE_FORMAT)
+                value = date_format(value, "SHORT_DATE_FORMAT")
 
             content.append(f"{field.label}: {value}")
 

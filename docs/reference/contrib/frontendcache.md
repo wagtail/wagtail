@@ -41,7 +41,7 @@ Set `WAGTAILFRONTENDCACHE_LANGUAGES` to a list of languages (typically equal to 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
 -   [Varnish](https://varnish-cache.org/docs/3.0/tutorial/purging.html)
--   [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F)
+-   [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#how-can-i-purge-an-object-from-my-cache)
 
 (frontendcache_cloudflare)=
 
@@ -53,7 +53,7 @@ Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `
 
 This backend can be configured to use an account-wide API key, or an API token with restricted access.
 
-To use an account-wide API key, find the key [as described in the Cloudflare documentation](https://developers.cloudflare.com/api/get-started/keys/#view-your-api-key) and specify `EMAIL` and `API_KEY` parameters.
+To use an account-wide API key, find the key [as described in the Cloudflare documentation](https://developers.cloudflare.com/fundamentals/api/get-started/keys/#view-your-global-api-key) and specify `EMAIL` and `API_KEY` parameters.
 
 To use a limited API token, [create a token](https://developers.cloudflare.com/api/get-started/create-token/) configured with the 'Zone, Cache Purge' permission and specify the `BEARER_TOKEN` parameter.
 

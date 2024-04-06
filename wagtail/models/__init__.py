@@ -2727,7 +2727,31 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
+class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
+    def previous_revision_id_subquery(self, revision_fk_name="revision"):
+        """
+        Returns a Subquery that can be used to annotate a queryset with the ID
+        of the previous revision, based on the revision_fk_name field. Useful
+        to avoid N+1 queries when generating comparison links between revisions.
+
+        The logic is similar to Revision.get_previous().pk.
+        """
+        fk = revision_fk_name
+        return Subquery(
+            Revision.objects.filter(
+                base_content_type_id=OuterRef(f"{fk}__base_content_type_id"),
+                object_id=OuterRef(f"{fk}__object_id"),
+            )
+            .filter(
+                Q(
+                    created_at=OuterRef(f"{fk}__created_at"),
+                    pk__lt=OuterRef(f"{fk}__pk"),
+                )
+                | Q(created_at__lt=OuterRef(f"{fk}__created_at"))
+            )
+            .order_by("-created_at", "-pk")
+            .values_list("pk", flat=True)[:1]
+        )
 
 
 class PageRevisionsManager(RevisionsManager):
@@ -3616,7 +3640,7 @@ class Workflow(AbstractWorkflow):
     pass
 
 
-class GroupApprovalTask(Task):
+class AbstractGroupApprovalTask(Task):
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("groups"),
@@ -3648,24 +3672,37 @@ class GroupApprovalTask(Task):
 
         return super().start(workflow_state, user=user)
 
+    def _user_in_groups(self, user):
+        # Cache the check whether "this user is in any of this
+        # GroupApprovalTask's groups" on the user object, in case we do it
+        # against the same user and task multiple times in a request.
+        # Use a dict to map the task id to the check result, in case we also
+        # check against different GroupApprovalTasks for the same user.
+        cache_attr = "_group_approval_task_checks"
+        if not (checks_cache := getattr(user, cache_attr, {})):
+            setattr(user, cache_attr, checks_cache)
+
+        if self.pk not in checks_cache:
+            checks_cache[self.pk] = self.groups.filter(
+                id__in=user.groups.all()
+            ).exists()
+
+        return checks_cache[self.pk]
+
     def user_can_access_editor(self, obj, user):
-        return (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return user.is_superuser or self._user_in_groups(user)
 
     def locked_for_user(self, obj, user):
-        return not (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return not (user.is_superuser or self._user_in_groups(user))
 
     def user_can_lock(self, obj, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self._user_in_groups(user)
 
     def user_can_unlock(self, obj, user):
         return False
 
     def get_actions(self, obj, user):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
+        if user.is_superuser or self._user_in_groups(user):
             return [
                 ("reject", _("Request changes"), True),
                 ("approve", _("Approve"), False),
@@ -3675,10 +3712,8 @@ class GroupApprovalTask(Task):
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
-            return TaskState.objects.filter(
-                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
-            )
+        if user.is_superuser or self._user_in_groups(user):
+            return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
 
@@ -3687,8 +3722,13 @@ class GroupApprovalTask(Task):
         return _("Members of the chosen Wagtail Groups can approve this task")
 
     class Meta:
+        abstract = True
         verbose_name = _("Group approval task")
         verbose_name_plural = _("Group approval tasks")
+
+
+class GroupApprovalTask(AbstractGroupApprovalTask):
+    pass
 
 
 class WorkflowStateQuerySet(models.QuerySet):
@@ -4123,10 +4163,10 @@ class WorkflowState(models.Model):
 
 class BaseTaskStateManager(models.Manager):
     def reviewable_by(self, user):
-        tasks = Task.objects.filter(active=True)
+        tasks = Task.objects.filter(active=True).specific()
         states = TaskState.objects.none()
         for task in tasks:
-            states = states | task.specific.get_task_states_user_can_moderate(user=user)
+            states = states | task.get_task_states_user_can_moderate(user=user)
         return states
 
 

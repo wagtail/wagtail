@@ -215,7 +215,7 @@ The reference can be linked to, with an optional label, using the Markdown link 
 
 </details>
 
-You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html#targets-and-cross-referencing).
+You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
 
 #### Intersphinx links (external docs)
 

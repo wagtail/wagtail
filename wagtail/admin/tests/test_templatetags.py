@@ -19,9 +19,11 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
     timesince_simple,
 )
 from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
+from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Locale
+from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -614,33 +616,23 @@ class StatusTagTest(SimpleTestCase):
         self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
-class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
+class BreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, SimpleTestCase):
+    base_breadcrumb_items = []
     template = """
         {% load wagtailadmin_tags %}
         {% breadcrumbs items %}
     """
 
-    def assertItemsRendered(self, items, soup):
-        rendered_items = soup.select("ol > li")
-        arrows = soup.select("ol > li > svg")
-        self.assertEqual(len(rendered_items), len(items))
-        self.assertEqual(len(arrows), len(items) - 1)
-
-        for item, rendered_item in zip(items, rendered_items):
-            if item.get("url"):
-                element = rendered_item.select_one("a")
-                self.assertIsNotNone(element)
-                self.assertEqual(element["href"], item["url"])
-            else:
-                element = rendered_item.select_one("div")
-                self.assertIsNotNone(element)
-            self.assertEqual(element.text.strip(), item["label"])
-
     def test_single_item(self):
         items = [{"label": "Something", "url": "/admin/something/"}]
         rendered = Template(self.template).render(Context({"items": items}))
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+        # Without specifying is_expanded=False, the breadcrumbs should not be
+        # collapsible anyway, so it is not controlled by Stimulus
         soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
 
     def test_trailing_no_url(self):
         items = [
@@ -649,8 +641,7 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "New: Person"},
         ]
         rendered = Template(self.template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
     def test_not_is_expanded(self):
         items = [
@@ -659,13 +650,19 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
         ]
         rendered = Template(self.template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         controller = soup.select_one('[data-controller="w-breadcrumbs"]')
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNotNone(controller)
         self.assertIsNotNone(toggle_button)
+        # If is_expanded=False (the default), the breadcrumbs should be
+        # collapsible via Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertEqual(breadcrumbs.get("data-controller"), "w-breadcrumbs")
 
     def test_is_expanded(self):
         template = """
@@ -678,13 +675,19 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
             {"label": "Muddy Waters", "url": "/admin/snippets/people/1/edit/"},
         ]
         rendered = Template(template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         controller = soup.select_one('[data-controller="w-breadcrumbs"]')
         toggle_button = soup.select_one('button[data-w-breadcrumbs-target="toggle"]')
         self.assertIsNone(controller)
         self.assertIsNone(toggle_button)
+        # If is_expanded=True, the breadcrumbs should not be collapsible, so it
+        # is not controlled by Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
 
     def test_classname(self):
         template = """
@@ -693,9 +696,223 @@ class BreadcrumbsTagTest(WagtailTestUtils, SimpleTestCase):
         """
         items = [{"label": "Home", "url": "/admin/"}]
         rendered = Template(template).render(Context({"items": items}))
-        soup = self.get_soup(rendered)
-        self.assertItemsRendered(items, soup)
+        self.assertBreadcrumbsItemsRendered(items, rendered)
 
+        soup = self.get_soup(rendered)
         div = soup.select_one("div.w-breadcrumbs")
         self.assertIsNotNone(div)
         self.assertIn("my-class", div["class"])
+
+    def test_icon_name(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% breadcrumbs items icon_name="site" %}
+        """
+        items = [
+            {"label": "Home", "url": "/admin/"},
+            {"label": "Something", "url": "/admin/something/"},
+        ]
+        rendered = Template(template).render(Context({"items": items}))
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+        soup = self.get_soup(rendered)
+        invalid_icons = soup.select("ol li:not(:last-child) svg use[href='#icon-site']")
+        self.assertEqual(len(invalid_icons), 0)
+        icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
+
+
+class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+    base_breadcrumb_items = []
+
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+
+    def test_root_single_item(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+        """
+        page = Page.objects.get(id=1)
+        items = [{"label": "Root", "url": "/admin/pages/"}]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+        # Without specifying is_expanded=False, the breadcrumbs should not be
+        # collapsible anyway, so it is not controlled by Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
+
+    def test_url_name(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_choose_page_child' %}
+        """
+        page = Page.objects.get(id=15)
+        items = [
+            {
+                "label": "Root",
+                "url": "/admin/choose-page/1/",
+            },
+            {
+                "label": "Welcome to the Wagtail test site!",
+                "url": "/admin/choose-page/2/",
+            },
+            {
+                "label": "Events",
+                "url": "/admin/choose-page/3/",
+            },
+            {
+                "label": "Businessy events",
+                "url": "/admin/choose-page/15/",
+            },
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+    def test_not_include_self(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' include_self=False %}
+        """
+        page = Page.objects.get(id=15)
+        items = [
+            {"label": "Root", "url": "/admin/pages/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+    def test_not_is_expanded(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
+        """
+        page = Page.objects.get(id=15)
+        items = [
+            {"label": "Root", "url": "/admin/pages/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+            {"label": "Businessy events", "url": "/admin/pages/15/"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+        # If is_expanded=False, the breadcrumbs should be collapsible via Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertEqual(breadcrumbs.get("data-controller"), "w-breadcrumbs")
+
+    def test_is_expanded(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=True %}
+        """
+        page = Page.objects.get(id=15)
+        items = [
+            {"label": "Root", "url": "/admin/pages/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+            {"label": "Businessy events", "url": "/admin/pages/15/"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+        # If is_expanded=True, the breadcrumbs should not be collapsible, so it
+        # is not controlled by Stimulus
+        soup = self.get_soup(rendered)
+        breadcrumbs = soup.select_one(".w-breadcrumbs")
+        self.assertIsNotNone(breadcrumbs)
+        self.assertIsNone(breadcrumbs.get("data-controller"))
+
+    def test_querystring_value(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' querystring_value='?site=2&has_child_pages=true' %}
+        """
+        page = Page.objects.get(id=15)
+        params = "?site=2&has_child_pages=true"
+        items = [
+            {"label": "Root", "url": f"/admin/pages/{params}"},
+            {
+                "label": "Welcome to the Wagtail test site!",
+                "url": f"/admin/pages/2/{params}",
+            },
+            {"label": "Events", "url": f"/admin/pages/3/{params}"},
+            {"label": "Businessy events", "url": f"/admin/pages/15/{params}"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+    def test_trailing_breadcrumb_title(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' trailing_breadcrumb_title='New: Simple Page' %}
+        """
+        page = Page.objects.get(id=15)
+        items = [
+            {"label": "Root", "url": "/admin/pages/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+            {"label": "Businessy events", "url": "/admin/pages/15/"},
+            {"label": "New: Simple Page"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+    def test_classname(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_choose_page_child' classname='my-class' %}
+        """
+        page = Page.objects.get(id=1)
+        items = [{"label": "Root", "url": "/admin/choose-page/1/"}]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+        soup = self.get_soup(rendered)
+        div = soup.select_one("div.w-breadcrumbs")
+        self.assertIsNotNone(div)
+        self.assertIn("my-class", div["class"])
+
+    def test_icon_name(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% page_breadcrumbs page 'wagtailadmin_explore' icon_name='site' %}
+        """
+        page = Page.objects.get(id=3)
+        items = [
+            {"label": "Root", "url": "/admin/pages/1/"},
+            {"label": "Welcome to the Wagtail test site!", "url": "/admin/pages/2/"},
+            {"label": "Events", "url": "/admin/pages/3/"},
+        ]
+        rendered = Template(template).render(
+            Context({"page": page, "request": self.request})
+        )
+        self.assertBreadcrumbsItemsRendered(items, rendered)
+
+        soup = self.get_soup(rendered)
+        invalid_icons = soup.select("ol li:not(:last-child) svg use[href='#icon-site']")
+        self.assertEqual(len(invalid_icons), 0)
+        icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)

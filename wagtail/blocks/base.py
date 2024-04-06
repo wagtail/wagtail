@@ -144,7 +144,7 @@ class Block(metaclass=BaseBlock):
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
         model definition type (e.g. something like StructValue which incorporates a
-        pointer back to the block definion object).
+        pointer back to the block definition object).
         """
         return self.meta.default
 
@@ -215,7 +215,7 @@ class Block(metaclass=BaseBlock):
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
 
-        value contains the current value of the block, allowing overriden methods to
+        value contains the current value of the block, allowing overridden methods to
         select the proper template based on the actual block value.
         """
         return getattr(self.meta, "template", None)
@@ -564,14 +564,11 @@ class BlockWidget(forms.Widget):
             error = errors.as_data()[0]
             error_json = json.dumps(get_error_json_data(error))
         else:
-            error_json = "null"
+            error_json = json.dumps(None)
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
-                <script>
-                    initBlockWidget('{id}');
-                </script>
+                <div id="{id}" data-block data-controller="w-block" data-w-block-data-value="{block_json}" data-w-block-arguments-value="[{value_json},{error_json}]"></div>
             """,
             id=name,
             block_json=self.block_json,

@@ -12,14 +12,16 @@ from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel
-from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
+from wagtail.admin.ui.tables import BooleanColumn, Column, UpdatedAtColumn
 from wagtail.admin.views.generic import DeleteView, EditView, IndexView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
+from wagtail.admin.viewsets.pages import PageListingViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.test.testapp.models import (
     Advert,
+    EventPage,
     FeatureCompleteToy,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
@@ -49,7 +51,7 @@ def message_test(request):
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50
-    ordering = ("submit_time",)
+    default_ordering = ("submit_time",)
     ordering_csv = ("-submit_time",)
 
     def get_csv_filename(self):
@@ -295,3 +297,23 @@ animated_advert_chooser_viewset = AnimatedAdvertChooserViewSet(
 )
 
 AdvertChooserWidget = animated_advert_chooser_viewset.widget_class
+
+
+class EventPageFilterSet(PageListingViewSet.filterset_class):
+    class Meta:
+        model = EventPage
+        fields = ["audience"]
+
+
+class EventPageListingViewSet(PageListingViewSet):
+    model = EventPage
+    icon = "calendar"
+    menu_label = "Event pages"
+    add_to_admin_menu = True
+    columns = PageListingViewSet.columns + [
+        Column("audience", label="Audience", sort_key="audience"),
+    ]
+    filterset_class = EventPageFilterSet
+
+
+event_page_listing_viewset = EventPageListingViewSet("event_pages")

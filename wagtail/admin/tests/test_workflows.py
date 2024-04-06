@@ -3721,7 +3721,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                     notifier.get_recipient_users(workflow_state), {self.submitter}
                 )
 
-    def test_workflowstate_email_notifier_get_recipient_users__with_trigerring_user(
+    def test_workflowstate_email_notifier_get_recipient_users__with_triggering_user(
         self
     ):
         self.workflow.start(self.object, user=self.submitter)

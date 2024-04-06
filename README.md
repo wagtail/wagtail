@@ -28,6 +28,13 @@ Wagtail is an open source content management system built on Django, with a stro
 
 ![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail-screenshot-with-browser.png)
 
+### Join the Community at Wagtail Space! 🚀
+
+Wagtail Space is coming in June 2024! Don't miss your chance to meet other Wagtailers in person. The Call for Participation and registration for both Wagtail Space 2024 events is open. We'd love to have you give a talk, contribute to a sprint, or join us as an attendee in June.
+
+* [Wagtail Space NL](https://nl.wagtail.space/), Arnhem, The Netherlands. 2024-06-12 - 2024-06-14
+* [Wagtail Space US](https://us.wagtail.space/), Philadelphia, PA. 2024-06-20 to 2024-06-22
+
 ### 🔥 Features
 
 -   A fast, attractive interface for authors

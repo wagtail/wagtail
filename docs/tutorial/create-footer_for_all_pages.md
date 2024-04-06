@@ -138,7 +138,7 @@ Now, reload your [homepage](http://127.0.0.1:8000). You'll see your social media
 
 Having only your social media links in your portfolio footer isn't ideal. You can add other items, like site credits and copyright notices, to your footer. One way to do this is to use the Wagtail [snippet](../topics/snippets/index.md) feature to create an editable footer text in your admin interface and display it in your site's footer.
 
-To add a footer text snippet to your admin interface, modify your `base/model.py` file as follows:
+To add a footer text snippet to your admin interface, modify your `base/models.py` file as follows:
 
 ```python
 from django.db import models

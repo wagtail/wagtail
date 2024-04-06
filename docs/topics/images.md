@@ -366,7 +366,7 @@ For example, to use the `<picture>` tag:
 </picture>
 ```
 
-And to use the `<amp-img>` tag (based on the [Mountains example](https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image) from the AMP docs):
+And to use the `<amp-img>` tag (based on the [Mountains example](https://amp.dev/documentation/components/amp-img#specify-a-fallback-image) from the AMP docs):
 
 ```html+django
 {% image image width-550 format-webp as webp_image %}
@@ -548,6 +548,8 @@ The `image` tag's `preserve-svg` positional argument may be used to restrict the
 ```
 
 In this example, any of the image objects that are SVGs will only have the `fill-400x400` operation applied to them, while raster images will have both the `fill-400x400` and `format-webp` operations applied. If the `preserve-svg` argument is not used in this example, an error will be raised when attempting to convert SVG images to webp, as this is not possible without a rasterization library.
+
+(svg_security_considerations)=
 
 ### Security considerations
 
