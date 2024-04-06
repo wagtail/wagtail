@@ -10,6 +10,7 @@
     "noImplicitAny": false, // TODO: Enable once all existing code is typed
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
