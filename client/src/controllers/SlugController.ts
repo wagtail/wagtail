@@ -63,9 +63,9 @@ export class SlugController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
-    const unicodeSlugsEnabled = this.allowUnicodeValue;
+    const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-    const newValue = slugify(value.trim(), { unicodeSlugsEnabled });
+    const newValue = slugify(value.trim(), { allowUnicode });
 
     if (!ignoreUpdate) {
       this.element.value = newValue;
