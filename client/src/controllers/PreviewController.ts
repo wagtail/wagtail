@@ -204,12 +204,20 @@ export class PreviewController extends Controller<HTMLElement> {
     const deviceWidth = target.dataset.deviceWidth;
 
     this.setPreviewWidth(deviceWidth);
+    this.applySelectedSizeClass(device);
     try {
       localStorage.setItem(this.deviceLocalStorageKeyValue, device);
     } catch (e) {
       // Skip saving the device if localStorage fails.
     }
+  }
 
+  /**
+   * Applies the selected size class to the specified device input's label, and
+   * removes the class from all other device inputs' labels.
+   * @param device Selected device name
+   */
+  applySelectedSizeClass(device: string) {
     // Ensure only one selected class is applied
     this.sizeTargets.forEach((input) => {
       // The <input> is invisible and we're using a <label> parent to style it.
@@ -582,5 +590,9 @@ export class PreviewController extends Controller<HTMLElement> {
       this.sizeTargets.find((input) => input.value === lastDevice) ||
       this.defaultSizeInput;
     lastDeviceInput.click();
+    // If lastDeviceInput resolves to the defaultSizeInput, the click event will
+    // not trigger the togglePreviewSize method, so we need to apply the
+    // selected size class manually.
+    this.applySelectedSizeClass(lastDeviceInput.value);
   }
 }
