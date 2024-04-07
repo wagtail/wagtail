@@ -67,6 +67,8 @@ Changelog
  * Maintenance: Ensure untrusted data sources are logged correctly in the Stimulus `SwapController` (LB (Ben) Johnston)
  * Maintenance: Update Wagtail logo in admin sidebar & favicon plus documentation to the latest version (Osaf AliSayed, Albina Starykova, LB (Ben) Johnston)
  * Maintenance: Remove usage of inline scripts and instead use a new Stimulus controller (`w-block`/`BlockController`) to instantiate `StreamField` blocks (Karthik Ayangar)
+ * Maintenance: Update NPM Babel, TypeScript and Webpack packages (Neeraj Yetheendran)
+ * Maintenance: Replace ad-hoc JavaScript and vendor Mousetrap usage to a new Stimulus controller (`w-kbd`/`KeyboardController`) (Neeraj Yetheendran)
 
 
 6.0.2 (03.04.2024)
