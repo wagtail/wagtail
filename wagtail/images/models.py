@@ -707,7 +707,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filter_map[existing.filter_spec]
             return_value[filter] = existing
 
-            for new in to_create:
+            for new in list(to_create):
                 if (
                     new.filter_spec == existing.filter_spec
                     and new.focal_point_key == existing.focal_point_key
