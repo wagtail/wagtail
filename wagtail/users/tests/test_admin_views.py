@@ -309,6 +309,21 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         with self.assertNumQueries(num_queries):
             self.get()
 
+    def test_default_buttons(self):
+        response = self.get()
+        soup = self.get_soup(response.content)
+        dropdown_buttons = soup.select("li [data-controller='w-dropdown'] a")
+        expected_urls = [
+            reverse("wagtailusers_users:edit", args=(self.user.pk,)),
+            reverse("wagtailusers_users:copy", args=(self.user.pk,)),
+            # Should not link to delete page for the current user
+            reverse("wagtailusers_users:edit", args=(self.test_user.pk,)),
+            reverse("wagtailusers_users:copy", args=(self.test_user.pk,)),
+            reverse("wagtailusers_users:delete", args=(self.test_user.pk,)),
+        ]
+        urls = [button.attrs.get("href") for button in dropdown_buttons]
+        self.assertSequenceEqual(urls, expected_urls)
+
     def test_buttons_hook(self):
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
