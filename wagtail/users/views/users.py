@@ -8,7 +8,6 @@ from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
 from django.template import RequestContext
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -33,7 +32,6 @@ from wagtail.admin.widgets.button import (
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import accepts_kwarg
-from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -134,17 +132,8 @@ class Index(IndexView):
 
     template_name = "wagtailusers/users/index.html"
     results_template_name = "wagtailusers/users/index_results.html"
-    any_permission_required = ["add", "change", "delete"]
-    permission_policy = ModelPermissionPolicy(User)
-    model = User
-    header_icon = "user"
     add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
-    index_url_name = "wagtailusers_users:index"
-    add_url_name = "wagtailusers_users:add"
-    edit_url_name = "wagtailusers_users:edit"
-    default_ordering = "name"
-    paginate_by = 20
     is_searchable = True
     filterset_class = UserFilterSet
     page_title = gettext_lazy("Users")
@@ -270,15 +259,6 @@ class Create(CreateView):
     Provide the ability to create a user within the admin.
     """
 
-    permission_policy = ModelPermissionPolicy(User)
-    permission_required = "add"
-    model = User
-    form_class = get_user_creation_form()
-    template_name = "wagtailusers/users/create.html"
-    header_icon = "user"
-    add_url_name = "wagtailusers_users:add"
-    index_url_name = "wagtailusers_users:index"
-    edit_url_name = "wagtailusers_users:edit"
     success_message = gettext_lazy("User '%(object)s' created.")
     page_title = gettext_lazy("Add user")
 
@@ -295,25 +275,13 @@ class Create(CreateView):
             self.object,
         )
 
-    def get_add_url(self):
-        return None
-
 
 class Edit(EditView):
     """
     Provide the ability to edit a user within the admin.
     """
 
-    model = User
-    permission_policy = ModelPermissionPolicy(User)
-    form_class = get_user_edit_form()
-    header_icon = "user"
-    template_name = "wagtailusers/users/edit.html"
-    index_url_name = "wagtailusers_users:index"
-    edit_url_name = "wagtailusers_users:edit"
-    delete_url_name = "wagtailusers_users:delete"
     success_message = gettext_lazy("User '%(object)s' updated.")
-    context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
 
     def setup(self, request, *args, **kwargs):
@@ -352,12 +320,6 @@ class Edit(EditView):
             self.object,
         )
 
-    def get_edit_url(self):
-        return reverse(self.edit_url_name, args=(self.object.pk,))
-
-    def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.object.pk,))
-
     def get_page_subtitle(self):
         return get_user_display_name(self.object)
 
@@ -372,15 +334,7 @@ class Delete(DeleteView):
     Provide the ability to delete a user within the admin.
     """
 
-    permission_policy = ModelPermissionPolicy(User)
-    permission_required = "delete"
-    model = User
-    template_name = "wagtailusers/users/confirm_delete.html"
-    delete_url_name = "wagtailusers_users:delete"
-    edit_url_name = "wagtailusers_users:edit"
-    index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
-    context_object_name = "user"
     success_message = gettext_lazy("User '%(object)s' deleted.")
 
     def dispatch(self, request, *args, **kwargs):
