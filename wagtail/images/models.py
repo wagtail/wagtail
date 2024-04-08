@@ -18,7 +18,6 @@ from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
 from django.core.files import File
-from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
 from django.db.models import Q
