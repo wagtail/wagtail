@@ -1,3 +1,4 @@
+import concurrent.futures
 import hashlib
 import itertools
 import logging
@@ -5,7 +6,6 @@ import os.path
 import re
 import time
 from collections import OrderedDict, defaultdict
-from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
@@ -665,28 +665,22 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
+        # Read file contents into memory
         with self.open_file() as file:
             original_image_bytes = file.read()
 
         to_create = []
 
-        def _generate_single_rendition(filter):
-            # Using ContentFile here ensures we generate all renditions. Simply
-            # passing self.file required several page reloads to generate all
-            image_file = self.generate_rendition_file(
-                filter, source=ContentFile(original_image_bytes, name=self.file.name)
-            )
-            to_create.append(
-                Rendition(
-                    image=self,
-                    filter_spec=filter.spec,
-                    focal_point_key=filter.get_cache_key(self),
-                    file=image_file,
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            for future in concurrent.futures.as_completed(
+                executor.submit(
+                    self.generate_rendition_instance,
+                    filter,
+                    BytesIO(original_image_bytes),
                 )
-            )
-
-        with ThreadPoolExecutor() as executor:
-            executor.map(_generate_single_rendition, filters)
+                for filter in filters
+            ):
+                to_create.append(future.result())
 
         # Rendition generation can take a while. So, if other processes have created
         # identical renditions in the meantime, we should find them to avoid clashes.
