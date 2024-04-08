@@ -159,6 +159,7 @@ class Index(IndexView):
                 label=gettext_lazy("Username"),
                 sort_key=self.model.USERNAME_FIELD,
                 classname="username",
+                width="20%",
             ),
             Column(
                 "is_superuser",
@@ -166,6 +167,7 @@ class Index(IndexView):
                 label=gettext_lazy("Access level"),
                 sort_key="is_superuser",
                 classname="level",
+                width="10%",
             ),
             StatusTagColumn(
                 "is_active",
@@ -176,12 +178,14 @@ class Index(IndexView):
                 label=gettext_lazy("Status"),
                 sort_key="is_active" if "is_active" in self.model_fields else None,
                 classname="status",
+                width="10%",
             ),
             DateColumn(
                 "last_login",
                 label=gettext_lazy("Last login"),
                 sort_key="last_login",
                 classname="last-login",
+                width="15%",
             ),
         ]
 
