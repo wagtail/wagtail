@@ -6,7 +6,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
@@ -22,7 +22,6 @@ from wagtail.test.testapp.models import (
     SearchTestModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.testapp.views import FCToyAlt1ViewSet
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -1532,14 +1531,11 @@ class TestCopyView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_form_is_prefilled(self):
-        request = RequestFactory().get(self.url)
-        request.user = self.user
-        view = FCToyAlt1ViewSet().copy_view_class()
-        view.setup(request)
-        view.model = self.object.__class__
-        view.kwargs = {"pk": self.object.pk}
-
-        self.assertEqual(view.get_form_kwargs()["instance"], self.object)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        name_input = soup.select_one('input[name="name"]')
+        self.assertEqual(name_input.attrs.get("value"), "Test Toy")
 
 
 class TestEditHandler(WagtailTestUtils, TestCase):

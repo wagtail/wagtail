@@ -671,7 +671,7 @@ class CreateView(
 
 class CopyView(CreateView):
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+        return get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
 
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "instance": self.get_object()}
