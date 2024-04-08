@@ -1,5 +1,7 @@
 import json
-from datetime import timedelta
+import unittest
+from datetime import datetime, timedelta
+from datetime import timezone as dt_timezone
 from unittest import mock
 
 from django.conf import settings
@@ -117,44 +119,148 @@ class TestVersionedStatic(SimpleTestCase):
         self.assertEqual(result, "http://example.org/static/wagtailadmin/js/core.js")
 
 
-@freeze_time("2020-07-01 12:00:00")
 class TestTimesinceTags(SimpleTestCase):
+    # timezone matches TIME_ZONE = "Asia/Tokyo" in tests/settings.py
+    @freeze_time("2020-07-01 12:00:00+09:00")
     def test_timesince_simple(self):
-        now = timezone.now()
+        now = timezone.make_aware(
+            datetime(2020, 7, 1, 12, 0, 0)
+        )  # aware date in Asia/Tokyo
         ts = timesince_simple(now)
         self.assertEqual(ts, "just now")
 
-        ts = timesince_simple(now - timedelta(hours=1, minutes=10))
+        now = timezone.make_aware(
+            datetime(2020, 7, 1, 3, 0, 0), timezone=dt_timezone.utc
+        )  # aware date in UTC
+        ts = timesince_simple(now)
+        self.assertEqual(ts, "just now")
+
+        seventy_minutes_ago = timezone.make_aware(datetime(2020, 7, 1, 10, 50, 0))
+        ts = timesince_simple(seventy_minutes_ago)
         self.assertEqual(ts, "1\xa0hour ago")
 
-        ts = timesince_simple(now - timedelta(weeks=2, hours=1, minutes=10))
+        two_weeks_ago = timezone.make_aware(datetime(2020, 6, 17, 10, 50, 0))
+        ts = timesince_simple(two_weeks_ago)
         self.assertEqual(ts, "2\xa0weeks ago")
 
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 06:00:00+09:00")
     def test_timesince_last_update_today_shows_time(self):
-        dt = timezone.now() - timedelta(hours=1)
-        formatted_time = dt.astimezone(timezone.get_current_timezone()).strftime(
-            "%H:%M"
-        )
-
-        timesince = timesince_last_update(dt)
-        self.assertEqual(timesince, formatted_time)
+        one_hour_ago = timezone.make_aware(
+            datetime(2020, 7, 1, 5, 0, 0)
+        )  # aware date in Asia/Tokyo
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
 
         # Check prefix output
-        timesince = timesince_last_update(dt, show_time_prefix=True)
-        self.assertEqual(timesince, f"at {formatted_time}")
+        timesince = timesince_last_update(one_hour_ago, show_time_prefix=True)
+        self.assertEqual(timesince, "at 05:00")
 
         # Check user output
-        timesince = timesince_last_update(dt, user_display_name="Gary")
-        self.assertEqual(timesince, f"{formatted_time} by Gary")
+        timesince = timesince_last_update(one_hour_ago, user_display_name="Gary")
+        self.assertEqual(timesince, "05:00 by Gary")
 
         # Check user and prefix output
         timesince = timesince_last_update(
-            dt, show_time_prefix=True, user_display_name="Gary"
+            one_hour_ago, show_time_prefix=True, user_display_name="Gary"
         )
-        self.assertEqual(timesince, f"at {formatted_time} by Gary")
+        self.assertEqual(timesince, "at 05:00 by Gary")
 
+        one_hour_ago = timezone.make_aware(
+            datetime(2020, 6, 30, 20, 0, 0), timezone=dt_timezone.utc
+        )  # aware date in UTC
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 06:00:00")
+    def test_timesince_last_update_today_shows_time_without_tz(self):
+        one_hour_ago = datetime(2020, 7, 1, 5, 0, 0)
+        timesince = timesince_last_update(one_hour_ago)
+        self.assertEqual(timesince, "05:00")
+
+        # Check prefix output
+        timesince = timesince_last_update(one_hour_ago, show_time_prefix=True)
+        self.assertEqual(timesince, "at 05:00")
+
+        # Check user output
+        timesince = timesince_last_update(one_hour_ago, user_display_name="Gary")
+        self.assertEqual(timesince, "05:00 by Gary")
+
+        # Check user and prefix output
+        timesince = timesince_last_update(
+            one_hour_ago, show_time_prefix=True, user_display_name="Gary"
+        )
+        self.assertEqual(timesince, "at 05:00 by Gary")
+
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 06:00:00+09:00")
+    def test_timesince_last_update_before_midnight_shows_timeago(self):
+        """
+        If the last update was yesterday in local time, we show "x hours ago" even if it was less
+        than 24 hours ago (and even if it matches today's date in UTC)
+        """
+        eight_hours_ago = timezone.make_aware(
+            datetime(2020, 6, 30, 21, 50, 0)
+        )  # aware date in Asia/Tokyo
+        timesince = timesince_last_update(eight_hours_ago)
+        self.assertEqual(timesince, "8\xa0hours ago")
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 06:00:00")
+    def test_timesince_last_update_before_midnight_shows_timeago_without_tz(self):
+        """
+        If the last update was yesterday in local time, we show "x hours ago" even if it was less
+        than 24 hours ago
+        """
+        eight_hours_ago = datetime(2020, 6, 30, 21, 50, 0)
+        timesince = timesince_last_update(eight_hours_ago)
+        self.assertEqual(timesince, "8\xa0hours ago")
+
+    @unittest.skipIf(not settings.USE_TZ, "Test assumes timezone support is active")
+    @freeze_time("2020-07-01 12:00:00+09:00")
     def test_timesince_last_update_before_today_shows_timeago(self):
-        dt = timezone.now() - timedelta(weeks=1, days=2)
+        dt = timezone.make_aware(datetime(2020, 6, 22, 12, 0, 0))
+
+        # 1) use_shorthand=False
+
+        timesince = timesince_last_update(dt, use_shorthand=False)
+        self.assertEqual(timesince, "1\xa0week, 2\xa0days ago")
+        # The prefix is not used, if the date is older than the current day.
+        self.assertEqual(
+            timesince_last_update(dt, use_shorthand=False, show_time_prefix=True),
+            timesince,
+        )
+
+        # Check user output
+        timesince = timesince_last_update(
+            dt, use_shorthand=False, user_display_name="Gary"
+        )
+        self.assertEqual(timesince, "1\xa0week, 2\xa0days ago by Gary")
+        self.assertEqual(
+            timesince_last_update(
+                dt, use_shorthand=False, user_display_name="Gary", show_time_prefix=True
+            ),
+            timesince,
+        )
+
+        # 2) use_shorthand=True
+
+        timesince = timesince_last_update(dt)
+        self.assertEqual(timesince, "1\xa0week ago")
+        self.assertEqual(timesince_last_update(dt, show_time_prefix=True), timesince)
+
+        timesince = timesince_last_update(dt, user_display_name="Gary")
+        self.assertEqual(timesince, "1\xa0week ago by Gary")
+        self.assertEqual(
+            timesince_last_update(dt, user_display_name="Gary", show_time_prefix=True),
+            timesince,
+        )
+
+    @unittest.skipIf(settings.USE_TZ, "Test assumes timezone support is disabled")
+    @freeze_time("2020-07-01 12:00:00")
+    def test_timesince_last_update_before_today_shows_timeago_without_tz(self):
+        dt = timezone.make_aware(datetime(2020, 6, 22, 12, 0, 0))
 
         # 1) use_shorthand=False
 
@@ -192,6 +298,7 @@ class TestTimesinceTags(SimpleTestCase):
         )
 
     @override_settings(USE_TZ=False)
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date(self):
         now = timezone.now()
         template = """
@@ -210,6 +317,7 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn('data-w-tooltip-content-value="July 1, 2020, 10:50 a.m."', html)
 
     @override_settings(USE_TZ=False)
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date_with_date_object(self):
         today = timezone.now().date()
         template = """
@@ -227,6 +335,7 @@ class TestTimesinceTags(SimpleTestCase):
         self.assertIn('data-w-tooltip-placement-value="top"', html)
         self.assertIn('data-w-tooltip-content-value="June 30, 2020"', html)
 
+    @freeze_time("2020-07-01 12:00:00")
     def test_human_readable_date_with_args(self):
         now = timezone.now()
         template = """
