@@ -135,7 +135,6 @@ class Index(IndexView):
     add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
     is_searchable = True
-    filterset_class = UserFilterSet
     page_title = gettext_lazy("Users")
     show_other_searches = True
 
@@ -368,6 +367,7 @@ class UserViewSet(ModelViewSet):
     model = User
     ordering = "name"
     add_to_reference_index = False
+    filterset_class = UserFilterSet
 
     index_view_class = Index
     add_view_class = Create
