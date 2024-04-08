@@ -102,7 +102,7 @@ class UserFilterSet(WagtailFilterSet):
     )
     group = django_filters.ModelMultipleChoiceFilter(
         field_name="groups",
-        queryset=Group.objects.filter(user__isnull=False).distinct(),
+        queryset=Group.objects.all(),
         label=gettext_lazy("Group"),
         widget=CheckboxSelectMultiple,
     )
