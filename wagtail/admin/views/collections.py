@@ -51,6 +51,7 @@ class Create(CreateView):
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     header_icon = "folder-open-1"
+    _show_breadcrumbs = True
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -81,6 +82,7 @@ class Edit(EditView):
     delete_url_name = "wagtailadmin_collections:delete"
     context_object_name = "collection"
     header_icon = "folder-open-1"
+    _show_breadcrumbs = True
 
     def _user_may_move_collection(self, user, instance):
         """
