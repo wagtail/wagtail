@@ -727,6 +727,23 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return return_value
 
+    def generate_rendition_instance(
+        self, filter: "Filter", source: BytesIO
+    ) -> "AbstractRendition":
+        """
+        Use the supplied ``source`` image to create and return an
+        **unsaved** ``Rendition`` instance, with a ``file`` value reflecting
+        the supplied ``filter`` value and focal point values from this object.
+        """
+        return self.get_rendition_model()(
+            image=self,
+            filter_spec=filter.spec,
+            focal_point_key=filter.get_cache_key(self),
+            file=self.generate_rendition_file(
+                filter, source=File(source, name=self.file.name)
+            ),
+        )
+
     def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """
         Generates an in-memory image matching the supplied ``filter`` value
