@@ -207,7 +207,13 @@ class TestAddCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Tes
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.root_collection.name)
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Collections", "url": "/admin/collections/"},
+                {"label": "New: Collection", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         response = self.post(
@@ -326,7 +332,13 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Delete collection")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/collections/", "label": "Collections"},
+                {"url": "", "label": str(self.collection)},
+            ],
+            response.content,
+        )
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
