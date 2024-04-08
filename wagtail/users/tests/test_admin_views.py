@@ -3,6 +3,7 @@ import unittest.mock
 from django import forms
 from django.apps import apps
 from django.conf import settings
+from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -41,6 +42,7 @@ from wagtail.users.wagtail_hooks import get_group_viewset_cls
 from wagtail.users.widgets import UserListingButton
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
+add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm_codename = f"change_{AUTH_USER_MODEL_NAME.lower()}"
 
@@ -1400,6 +1402,61 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+
+class TestUserCopyView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_user = cls.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            first_name="Original",
+            last_name="User",
+            password="password",
+        )
+        cls.url = reverse("wagtailusers_users:copy", args=[quote(cls.test_user.pk)])
+
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_with_minimal_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename=add_user_perm_codename,
+            ),
+        )
+
+        # Form should be prefilled
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        first_name = soup.select_one('input[name="first_name"]')
+        self.assertEqual(first_name.attrs.get("value"), "Original")
+        last_name = soup.select_one('input[name="last_name"]')
+        self.assertEqual(last_name.attrs.get("value"), "User")
+        # Password fields should be empty
+        password1 = soup.select_one('input[name="password1"]')
+        password2 = soup.select_one('input[name="password2"]')
+        self.assertIsNone(password1.attrs.get("value"))
+        self.assertIsNone(password2.attrs.get("value"))
 
 
 class TestUserProfileCreation(WagtailTestUtils, TestCase):
