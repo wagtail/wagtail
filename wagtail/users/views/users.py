@@ -24,6 +24,7 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.views.generic.history import HistoryView
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
@@ -403,6 +404,11 @@ class Delete(DeleteView):
         )
 
 
+class History(HistoryView):
+    def get_page_subtitle(self):
+        return get_user_display_name(self.object)
+
+
 class UserViewSet(ModelViewSet):
     icon = "user"
     model = User
@@ -413,13 +419,13 @@ class UserViewSet(ModelViewSet):
     add_view_class = Create
     edit_view_class = Edit
     delete_view_class = Delete
+    history_view_class = History
 
     template_prefix = "wagtailusers/users/"
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
-                "history_url_name": None,
                 "usage_url_name": None,
                 **kwargs,
             }

@@ -963,6 +963,12 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response.content,
         )
 
+        soup = self.get_soup(response.content)
+        header = soup.select_one(".w-slim-header")
+        history_url = reverse("wagtailusers_users:history", args=(self.test_user.pk,))
+        history_link = header.find("a", attrs={"href": history_url})
+        self.assertIsNotNone(history_link)
+
         url_finder = AdminURLFinder(self.current_user)
         expected_url = f"/admin/users/edit/{self.test_user.pk}/"
         self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
@@ -1015,6 +1021,23 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             self.assertContains(response, "User &#x27;test@user.com&#x27; updated.")
         else:
             self.assertContains(response, "User &#x27;testuser&#x27; updated.")
+
+        # On next load of the edit view,
+        # should render the status panel with the last updated time
+        response = self.get()
+        self.assertContains(response, "Edited User")
+        soup = self.get_soup(response.content)
+        status_panel = soup.select_one('[data-side-panel="status"]')
+        self.assertIsNotNone(status_panel)
+        last_updated = status_panel.select_one(".w-help-text")
+        self.assertIsNotNone(last_updated)
+        self.assertRegex(
+            last_updated.get_text(strip=True),
+            f"[0-9][0-9]:[0-9][0-9] by {self.current_user.get_username()}",
+        )
+        history_url = reverse("wagtailusers_users:history", args=(self.test_user.pk,))
+        history_link = status_panel.select_one(f'a[href="{history_url}"]')
+        self.assertIsNotNone(history_link)
 
     def test_password_optional(self):
         """Leaving password fields blank should leave it unchanged"""
@@ -1455,6 +1478,32 @@ class TestUserEditViewForNonSuperuser(WagtailTestUtils, TestCase):
 
         # Check that the user did not escalate its is_superuser status
         self.assertIs(user.is_superuser, False)
+
+
+class TestUserHistoryView(WagtailTestUtils, TestCase):
+    # More thorough tests are in test_model_viewset
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_user = cls.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            first_name="Original",
+            last_name="User",
+            password="password",
+        )
+        cls.url = reverse("wagtailusers_users:history", args=(cls.test_user.pk,))
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_simple(self):
+        log(self.test_user, "wagtail.create", user=self.user)
+        log(self.test_user, "wagtail.edit", user=self.user)
+        response = self.client.get(self.url)
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        self.assertContains(response, "Created")
+        self.assertContains(response, "Edited")
 
 
 class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

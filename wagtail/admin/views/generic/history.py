@@ -245,18 +245,19 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                 }
             )
         edit_url = self.get_edit_url(self.object)
+        obj_name = self.get_page_subtitle()
         if edit_url:
             items.append(
                 {
                     "url": edit_url,
-                    "label": get_latest_str(self.object),
+                    "label": obj_name,
                 }
             )
         items.append(
             {
                 "url": "",
                 "label": gettext("History"),
-                "sublabel": self.get_page_subtitle(),
+                "sublabel": obj_name,
             }
         )
         return self.breadcrumbs_items + items
