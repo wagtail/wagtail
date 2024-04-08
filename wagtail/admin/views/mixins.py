@@ -6,6 +6,7 @@ from io import BytesIO
 
 from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import FieldDoesNotExist
+from django.db.models.constants import LOOKUP_SEP
 from django.http import FileResponse, StreamingHttpResponse
 from django.utils import timezone
 from django.utils.dateformat import Formatter
@@ -17,6 +18,7 @@ from django.utils.translation import gettext as _
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
 
+from wagtail.admin.ui.tables import Column
 from wagtail.admin.widgets.button import Button
 from wagtail.coreutils import multigetattr
 
@@ -177,9 +179,16 @@ class SpreadsheetExportMixin:
 
     def to_row_dict(self, item):
         """Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
-        row_dict = OrderedDict(
-            (field, multigetattr(item, field)) for field in self.list_export
-        )
+        row_dict = OrderedDict()
+        for field in self.list_export:
+            if isinstance(field, Column):
+                row_dict[field] = field.get_value(item)
+            else:
+                original_field = field
+                if LOOKUP_SEP in field and not hasattr(item, field):
+                    field = field.replace(LOOKUP_SEP, ".")
+                row_dict[original_field] = multigetattr(item, field)
+
         return row_dict
 
     def get_preprocess_function(self, field, value, export_format):
@@ -187,6 +196,11 @@ class SpreadsheetExportMixin:
 
         # Try to find a field specific function and return it
         format_dict = self.custom_field_preprocess.get(field, {})
+
+        # Column classes can be referred by their name in custom_field_preprocess
+        if isinstance(field, Column):
+            format_dict = self.export_headings.get(field.name, format_dict)
+
         if export_format in format_dict:
             return format_dict[export_format]
 
@@ -227,12 +241,32 @@ class SpreadsheetExportMixin:
     def get_heading(self, queryset, field):
         """Get the heading label for a given field for a spreadsheet generated from queryset"""
         heading_override = self.export_headings.get(field)
+        if isinstance(field, Column):
+            heading_override = self.export_headings.get(field.name, heading_override)
         if heading_override:
             return force_str(heading_override)
+
         try:
-            return capfirst(force_str(label_for_field(field, queryset.model)))
-        except (AttributeError, FieldDoesNotExist):
-            return force_str(field)
+            return field.label
+        except AttributeError:
+            try:
+                return capfirst(force_str(label_for_field(field, queryset.model)))
+            except (AttributeError, FieldDoesNotExist):
+                seperator = LOOKUP_SEP if LOOKUP_SEP in field else "."
+                *relation, field = field.split(seperator)
+                model_class = self.model
+                for model in relation:
+                    foreign_field = model_class._meta.get_field(model)
+                    model_class = foreign_field.related_model
+
+                label = label_for_field(field, model_class)
+
+                if foreign_field:
+                    label = _("%(related_model_name)s %(field_label)s") % {
+                        "related_model_name": foreign_field.verbose_name,
+                        "field_label": label,
+                    }
+                return capfirst(label)
 
     def stream_csv(self, queryset):
         """Generate a csv file line by line from queryset, to be used in a StreamingHTTPResponse"""
