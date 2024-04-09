@@ -484,7 +484,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
 class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.workflow = Workflow.objects.create(name="workflow_to_edit")
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
@@ -712,6 +712,52 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # Check that the assigned workflow is not changed
         link = WorkflowContentType.objects.get(content_type=self.snippet_content_type)
         self.assertEqual(link.workflow, other_workflow)
+
+    def test_render_enable_button_if_workflow_disabled(self):
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
 
     def test_pages_and_content_types_ignored_if_workflow_disabled(self):
         self.workflow.active = False
@@ -1025,7 +1071,7 @@ class TestSelectTaskTypeView(WagtailTestUtils, TestCase):
 class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.task = GroupApprovalTask.objects.create(name="test_task")
 
         self.editor = self.create_user(
@@ -1097,6 +1143,52 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_render_enable_button_if_task_disabled(self):
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
 
     def test_admin_url_finder(self):
         editor_url_finder = AdminURLFinder(self.editor)
@@ -3082,6 +3174,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.workflow.refresh_from_db()
         self.assertIs(self.workflow.active, True)
 
+    def test_enable_workflow_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, True)
+
+    def test_enable_workflow_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, False)
+
     def test_enable_task(self):
         self.login(self.superuser)
         self.task_1.active = False
@@ -3093,6 +3226,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, False)
 
 
 class TestDisableViewsWithSnippetWorkflows(TestDisableViews, BaseSnippetWorkflowTests):

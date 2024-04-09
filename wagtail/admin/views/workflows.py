@@ -300,7 +300,7 @@ class Edit(EditView):
         ) and self.object.active
         context["can_enable"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "create")
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
         context["media"] = bound_panel.media + form.media + pages_formset.media
         return context
@@ -408,7 +408,7 @@ def enable_workflow(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
     # Check permissions
-    if not workflow_permission_policy.user_has_permission(request.user, "create"):
+    if not workflow_permission_policy.user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive
@@ -648,7 +648,7 @@ class EditTask(EditView):
         ) and self.object.active
         context["can_enable"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "create")
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
 
         # TODO: add warning msg when there are pages/snippets currently on this task in a workflow, add interaction like resetting task state when saved
@@ -700,7 +700,7 @@ def enable_task(request, pk):
     task = get_object_or_404(Task, id=pk)
 
     # Check permissions
-    if not task_permission_policy.user_has_permission(request.user, "create"):
+    if not task_permission_policy.user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive
