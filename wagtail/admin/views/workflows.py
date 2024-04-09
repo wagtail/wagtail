@@ -173,6 +173,7 @@ class Create(CreateView):
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
     edit_handler = None
+    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -259,6 +260,7 @@ class Edit(EditView):
     header_icon = "tasks"
     edit_handler = None
     MAX_PAGES = 5
+    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -570,6 +572,7 @@ class CreateTask(CreateView):
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
     header_icon = "thumbtack"
+    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -631,6 +634,7 @@ class EditTask(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
+    _show_breadcrumbs = True
 
     @cached_property
     def model(self):

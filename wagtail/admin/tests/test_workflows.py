@@ -380,7 +380,13 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Workflows", "url": "/admin/workflows/list/"},
+                {"label": "New: Workflow", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         response = self.post(
@@ -603,7 +609,13 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/list/", "label": "Workflows"},
+                {"url": "", "label": str(self.workflow)},
+            ],
+            response.content,
+        )
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
@@ -1146,7 +1158,13 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Tasks", "url": "/admin/workflows/tasks/index/"},
+                {"label": "New: Simple task", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_get_with_non_task_model(self):
         response = self.get(
@@ -1264,7 +1282,13 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/tasks/index/", "label": "Tasks"},
+                {"url": "", "label": str(self.task)},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         self.assertEqual(self.task.groups.count(), 0)
