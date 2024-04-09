@@ -222,6 +222,32 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_ordering(self):
+        workflows = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Workflow.objects.create(name="workflow_1"),
+                Workflow.objects.create(name="workflow_3"),
+                Workflow.objects.create(name="workflow_2"),
+            ],
+            key=lambda workflow: workflow.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -962,6 +988,32 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_ordering(self):
+        tasks = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Task.objects.create(name="task_1"),
+                Task.objects.create(name="task_3"),
+                Task.objects.create(name="task_2"),
+            ],
+            key=lambda task: task.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
 
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

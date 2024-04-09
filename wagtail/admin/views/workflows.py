@@ -124,6 +124,7 @@ class Index(IndexView):
             label=_("Name"),
             url_name="wagtailadmin_workflows:edit",
             width="25%",
+            sort_key="name",
         ),
         WorkflowUsedByColumn(
             "usage",
@@ -133,6 +134,7 @@ class Index(IndexView):
         ),
         WorkflowTasksColumn("tasks", label=_("Tasks")),
     ]
+    default_ordering = "name"
     filterset_class = WorkflowFilterSet
     _show_breadcrumbs = True
 
@@ -495,13 +497,17 @@ class TaskIndex(IndexView):
     header_icon = "thumbtack"
     columns = [
         TaskTitleColumn(
-            "name", label=_("Name"), url_name="wagtailadmin_workflows:edit_task"
+            "name",
+            label=_("Name"),
+            url_name="wagtailadmin_workflows:edit_task",
+            sort_key="name",
         ),
         Column("type", label=_("Type"), accessor="get_verbose_name", width="25%"),
         TaskUsageColumn(
             "usage", label=_("Used on"), accessor="active_workflows", width="25%"
         ),
     ]
+    default_ordering = "name"
     filterset_class = TaskFilterSet
     _show_breadcrumbs = True
 
