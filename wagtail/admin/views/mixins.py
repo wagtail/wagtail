@@ -261,7 +261,7 @@ class SpreadsheetExportMixin:
                     model_class = queryset.model
                 except AttributeError:
                     return force_str(field)
-                
+
                 for model in relation:
                     foreign_field = model_class._meta.get_field(model)
                     model_class = foreign_field.related_model
