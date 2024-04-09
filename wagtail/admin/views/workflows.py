@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm,
     WorkflowContentTypeForm,
@@ -481,6 +481,20 @@ class TaskUsageColumn(Column):
 
 
 class TaskFilterSet(BaseWorkflowFilterSet):
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        task_types = get_task_types()
+        ct_ids = [
+            ct.id for ct in ContentType.objects.get_for_models(*task_types).values()
+        ]
+        if len(task_types) > 1:
+            self.filters["content_type"] = MultipleContentTypeFilter(
+                label=_("Type"),
+                widget=forms.CheckboxSelectMultiple,
+                queryset=lambda request: ContentType.objects.filter(pk__in=ct_ids),
+                field_name="content_type",
+            )
+
     class Meta:
         model = Task
         fields = []

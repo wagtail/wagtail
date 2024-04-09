@@ -1096,6 +1096,89 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "bar world task")
         self.assertNotContains(response, "foo task")
 
+    def test_task_type_filter(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+        group_approval_ct = ContentType.objects.get_for_model(GroupApprovalTask).pk
+
+        response = self.get(params={"content_type": [simple_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertNotContains(response, "complex task")
+
+        # Should display the active filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_content_type"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Type: Simple task",
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertFalse(group_approval_ct_box.has_attr("checked"))
+
+        # Should allow multiple content types to be selected
+        response = self.get(params={"content_type": [simple_ct, group_approval_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should display the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select('[data-w-active-filter-id="id_content_type"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            {"Type: Simple task", "Type: Group approval task"},
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertTrue(group_approval_ct_box.has_attr("checked"))
+
+    def test_task_type_filter_hidden_if_single_task_type(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+
+        with mock.patch(
+            "wagtail.admin.views.workflows.get_task_types"
+        ) as get_task_types:
+            get_task_types.return_value = [SimpleTask]
+            response = self.get({"content_type": [simple_ct]})
+
+        # Should not be filtered
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should not display the content type filter
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active_filters")
+        self.assertIsNone(active_filters)
+        content_type_filter = soup.select_one('input[name="content_type"]')
+        self.assertIsNone(content_type_filter)
+
     def test_pagination(self):
         Task.objects.bulk_create([Task(name=f"task_{i}") for i in range(1, 120)])
 
