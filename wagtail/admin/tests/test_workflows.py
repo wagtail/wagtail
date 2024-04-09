@@ -115,6 +115,28 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
+    def create_workflows(self):
+        home_page = Page.objects.get(depth=2)
+        workflows = [
+            Workflow.objects.create(name=f"test_workflow_{i}", active=True)
+            for i in range(5)
+        ]
+        task = SimpleTask.objects.create(name="test_task")
+        workflow_tasks = [
+            WorkflowTask(workflow=workflow, task=task) for workflow in workflows
+        ]
+        WorkflowTask.objects.bulk_create(workflow_tasks)
+        workflow_pages = [
+            WorkflowPage(
+                workflow=workflow,
+                page=home_page.add_child(
+                    instance=SimplePage(title="Simple", content="Very simple")
+                ),
+            )
+            for workflow in workflows
+        ]
+        WorkflowPage.objects.bulk_create(workflow_pages)
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
@@ -138,6 +160,15 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
         self.assertNotContains(response, "There are no enabled workflows.")
         self.assertContains(response, "test_workflow")
+
+    def test_num_queries(self):
+        self.create_workflows()
+        self.get()
+        with self.assertNumQueries(38):
+            self.get()
+        self.create_workflows()
+        with self.assertNumQueries(68):
+            self.get()
 
     def test_deactivated(self):
         Workflow.objects.create(name="test_workflow", active=False)
