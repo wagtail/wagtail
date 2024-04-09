@@ -138,6 +138,7 @@ class Index(IndexView):
     search_fields = ["name"]
     filterset_class = WorkflowFilterSet
     _show_breadcrumbs = True
+    paginate_by = 20
 
     def show_disabled(self):
         return self.filters.form.cleaned_data.get("show_disabled") == "true"
@@ -512,6 +513,7 @@ class TaskIndex(IndexView):
     search_fields = ["name"]
     filterset_class = TaskFilterSet
     _show_breadcrumbs = True
+    paginate_by = 50
 
     def show_disabled(self):
         return self.filters.form.cleaned_data.get("show_disabled") == "true"

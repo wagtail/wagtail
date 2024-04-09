@@ -164,10 +164,10 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_num_queries(self):
         self.create_workflows()
         self.get()
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(23):
             self.get()
         self.create_workflows()
-        with self.assertNumQueries(32):
+        with self.assertNumQueries(33):
             self.get()
 
     def test_deactivated(self):
@@ -273,6 +273,23 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertContains(response, "bar workflow")
         self.assertContains(response, "bar world workflow")
         self.assertNotContains(response, "foo workflow")
+
+    def test_pagination(self):
+        Workflow.objects.bulk_create(
+            [Workflow(name=f"workflow_{i}") for i in range(1, 50)]
+        )
+
+        url = reverse("wagtailadmin_workflows:index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 20)
+        self.assertContains(response, url + "?p=1")
+        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
@@ -1066,6 +1083,21 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "bar task")
         self.assertContains(response, "bar world task")
         self.assertNotContains(response, "foo task")
+
+    def test_pagination(self):
+        Task.objects.bulk_create([Task(name=f"task_{i}") for i in range(1, 120)])
+
+        url = reverse("wagtailadmin_workflows:task_index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 50)
+        self.assertContains(response, url + "?p=1")
+        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
