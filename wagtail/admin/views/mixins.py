@@ -185,7 +185,10 @@ class SpreadsheetExportMixin:
                 row_dict[field] = field.get_value(item)
             else:
                 original_field = field
-                if LOOKUP_SEP in field and not hasattr(item, field):
+                if "." not in field and not hasattr(item, field):
+                    # Then maybe it is a related field with LOOKUP_SEP, checking
+                    # if LOOKUP_SEP exists in field and working with that will fail
+                    # in some fields like "workflow_state.content_object.__str__"
                     field = field.replace(LOOKUP_SEP, ".")
                 row_dict[original_field] = multigetattr(item, field)
 
@@ -252,9 +255,13 @@ class SpreadsheetExportMixin:
             try:
                 return capfirst(force_str(label_for_field(field, queryset.model)))
             except (AttributeError, FieldDoesNotExist):
-                seperator = LOOKUP_SEP if LOOKUP_SEP in field else "."
+                seperator = LOOKUP_SEP if "." not in field else "."
                 *relation, field = field.split(seperator)
-                model_class = self.model
+                try:
+                    model_class = queryset.model
+                except AttributeError:
+                    return force_str(field)
+                
                 for model in relation:
                     foreign_field = model_class._meta.get_field(model)
                     model_class = foreign_field.related_model
