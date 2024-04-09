@@ -164,10 +164,10 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def test_num_queries(self):
         self.create_workflows()
         self.get()
-        with self.assertNumQueries(38):
+        with self.assertNumQueries(22):
             self.get()
         self.create_workflows()
-        with self.assertNumQueries(68):
+        with self.assertNumQueries(32):
             self.get()
 
     def test_deactivated(self):

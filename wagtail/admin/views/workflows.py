@@ -66,6 +66,13 @@ class WorkflowUsedByColumn(TitleColumn):
 
 class WorkflowTasksColumn(BaseColumn):
     cell_template_name = "wagtailadmin/workflows/includes/workflow_tasks_cell.html"
+    num_tasks = 5
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["tasks"] = instance.workflow_tasks.all()[: self.num_tasks]
+        context["extra_count"] = instance.workflow_tasks.count() - self.num_tasks
+        return context
 
 
 class WorkflowFilterSet(WagtailFilterSet):
@@ -134,7 +141,12 @@ class Index(IndexView):
             workflow=OuterRef("pk")
         ).values_list("pk", flat=True)
         queryset = queryset.annotate(content_types=Count(content_types))
-        return queryset
+        return queryset.prefetch_related(
+            "workflow_pages",
+            "workflow_pages__page",
+            "workflow_tasks",
+            "workflow_tasks__task",
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
