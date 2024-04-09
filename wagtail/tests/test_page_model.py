@@ -502,6 +502,20 @@ class TestRouting(TestCase):
                 christmas_page.get_url(request=request), "/events/christmas/"
             )
 
+    def test_cached_parent_obj_set(self):
+        homepage = Page.objects.get(url_path="/home/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        request = get_dummy_request(path="/events/christmas/")
+        (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
+        self.assertEqual(found_page, christmas_page)
+
+        # parent cache should be set
+        events_page = Page.objects.get(url_path="/home/events/").specific
+        with self.assertNumQueries(0):
+            parent = found_page.get_parent(update=False)
+            self.assertEqual(parent, events_page)
+
 
 @override_settings(
     ROOT_URLCONF="wagtail.test.urls_multilang",
