@@ -150,4 +150,42 @@ describe('PreviewController', () => {
     ).toBe(true);
     localStorage.removeItem('wagtail:preview-panel-device');
   });
+
+  it('should set the device size accordingly when the input changes', async () => {
+    localStorage.removeItem('wagtail:preview-panel-device');
+    application = Application.start();
+    application.register('w-preview', PreviewController);
+
+    const element = document.querySelector('[data-controller="w-preview"]');
+    await Promise.resolve();
+
+    // Initial size should be mobile, with the localStorage value unset
+    const selectedSizeInput = document.querySelector(
+      'input[name="preview-size"]:checked',
+    );
+    const selectedSizeLabel = selectedSizeInput.labels[0];
+    expect(selectedSizeInput.value).toEqual('mobile');
+    expect(
+      selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
+    ).toBe(true);
+    expect(localStorage.getItem('wagtail:preview-panel-device')).toBeNull();
+
+    const desktopSizeInput = document.querySelector(
+      'input[name="preview-size"][value="desktop"]',
+    );
+    desktopSizeInput.click();
+    await Promise.resolve();
+    const newSizeInput = document.querySelector(
+      'input[name="preview-size"]:checked',
+    );
+    expect(newSizeInput.value).toEqual('desktop');
+    const newSizeLabel = newSizeInput.labels[0];
+    expect(
+      newSizeLabel.classList.contains('w-preview__size-button--selected'),
+    ).toBe(true);
+    expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
+      'desktop',
+    );
+    localStorage.removeItem('wagtail:preview-panel-device');
+  });
 });
