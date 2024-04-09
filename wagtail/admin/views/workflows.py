@@ -26,7 +26,7 @@ from wagtail.admin.forms.workflows import (
     get_workflow_edit_handler,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.ui.tables import BaseColumn, Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
@@ -48,17 +48,48 @@ from wagtail.workflows import get_task_types
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
 
+class WorkflowTitleColumn(TitleColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_title_cell.html"
+
+
+class WorkflowUsedByColumn(TitleColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_used_by_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["workflow_enabled_models"] = get_workflow_enabled_models()
+        return context
+
+
+class WorkflowTasksColumn(BaseColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_tasks_cell.html"
+
+
 class Index(IndexView):
     permission_policy = workflow_permission_policy
     model = Workflow
     context_object_name = "workflows"
     template_name = "wagtailadmin/workflows/index.html"
+    results_template_name = "wagtailadmin/workflows/index_results.html"
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     index_url_name = "wagtailadmin_workflows:index"
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = "tasks"
+    columns = [
+        WorkflowTitleColumn(
+            "name",
+            label=_("Name"),
+            url_name="wagtailadmin_workflows:edit",
+        ),
+        WorkflowUsedByColumn(
+            "usage",
+            label=_("Used by"),
+            url_name="wagtailadmin_workflows:usage",
+        ),
+        WorkflowTasksColumn("tasks", label=_("Tasks")),
+    ]
 
     def show_disabled(self):
         return self.request.GET.get("show_disabled", "false") == "true"
@@ -76,7 +107,6 @@ class Index(IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["showing_disabled"] = self.show_disabled()
-        context["workflow_enabled_models"] = get_workflow_enabled_models()
         return context
 
 

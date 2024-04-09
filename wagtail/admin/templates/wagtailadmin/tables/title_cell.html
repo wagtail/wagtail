@@ -17,11 +17,13 @@
             {% endif %}
         {% endblock %}
     </div>
-    {% if buttons %}
-        <ul class="actions">
-            {% block buttons %}
-                {% include "wagtailadmin/shared/buttons.html" %}
-            {% endblock %}
-        </ul>
-    {% endif %}
+    {% block extra %}
+        {% if buttons %}
+            <ul class="actions">
+                {% block buttons %}
+                    {% include "wagtailadmin/shared/buttons.html" %}
+                {% endblock %}
+            </ul>
+        {% endif %}
+    {% endblock %}
 </td>
