@@ -5,6 +5,11 @@ from wagtail.admin.views import workflows
 app_name = "wagtailadmin_workflows"
 urlpatterns = [
     path("list/", workflows.Index.as_view(), name="index"),
+    path(
+        "list/results/",
+        workflows.Index.as_view(results_only=True),
+        name="index_results",
+    ),
     path("add/", workflows.Create.as_view(), name="add"),
     path("enable/<int:pk>/", workflows.enable_workflow, name="enable"),
     path("disable/<int:pk>/", workflows.Disable.as_view(), name="disable"),

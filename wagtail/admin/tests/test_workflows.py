@@ -122,7 +122,10 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -147,11 +150,30 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertContains(
             response, '<span class="w-status">Disabled</span>', html=True
         )
+        # Should display the "Show disabled" option as a filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Show disabled workflows: Yes",
+        )
+        show_disabled_yes = soup.select_one('input[name="show_disabled"][value="true"]')
+        self.assertIsNotNone(show_disabled_yes)
+        self.assertTrue(show_disabled_yes.has_attr("checked"))
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
         response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
+        # Should not display any active filters,
+        # and the "Show disabled" option should be set to "No" by default
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNone(active_filter)
+        show_disabled_no = soup.select_one('input[name="show_disabled"][value="false"]')
+        self.assertIsNotNone(show_disabled_no)
+        self.assertTrue(show_disabled_no.has_attr("checked"))
 
     def test_permissions(self):
         self.login(user=self.editor)

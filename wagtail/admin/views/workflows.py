@@ -1,3 +1,5 @@
+import django_filters
+from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -18,6 +20,7 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm,
     WorkflowContentTypeForm,
@@ -65,6 +68,34 @@ class WorkflowTasksColumn(BaseColumn):
     cell_template_name = "wagtailadmin/workflows/includes/workflow_tasks_cell.html"
 
 
+class WorkflowFilterSet(WagtailFilterSet):
+    show_disabled = django_filters.ChoiceFilter(
+        label=_("Show disabled workflows"),
+        method="filter_show_disabled",
+        choices=(("true", _("Yes")), ("false", _("No"))),
+        widget=forms.RadioSelect,
+        empty_label=None,
+        initial="false",
+    )
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        if data is not None:
+            if data.get("show_disabled") is None:
+                filter = self.base_filters["show_disabled"]
+                data = data.copy()
+                data["show_disabled"] = filter.extra["initial"]
+        super().__init__(data, queryset, request=request, prefix=prefix)
+
+    def filter_show_disabled(self, queryset, name, value):
+        if value == "true":
+            return queryset
+        return queryset.filter(active=True)
+
+    class Meta:
+        model = Workflow
+        fields = []
+
+
 class Index(IndexView):
     permission_policy = workflow_permission_policy
     model = Workflow
@@ -74,6 +105,7 @@ class Index(IndexView):
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     index_url_name = "wagtailadmin_workflows:index"
+    index_results_url_name = "wagtailadmin_workflows:index_results"
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = "tasks"
@@ -90,14 +122,14 @@ class Index(IndexView):
         ),
         WorkflowTasksColumn("tasks", label=_("Tasks")),
     ]
+    filterset_class = WorkflowFilterSet
+    _show_breadcrumbs = True
 
     def show_disabled(self):
-        return self.request.GET.get("show_disabled", "false") == "true"
+        return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if not self.show_disabled():
-            queryset = queryset.filter(active=True)
+    def get_base_queryset(self):
+        queryset = super().get_base_queryset()
         content_types = WorkflowContentType.objects.filter(
             workflow=OuterRef("pk")
         ).values_list("pk", flat=True)
