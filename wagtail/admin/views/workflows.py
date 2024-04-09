@@ -75,9 +75,9 @@ class WorkflowTasksColumn(BaseColumn):
         return context
 
 
-class WorkflowFilterSet(WagtailFilterSet):
+class BaseWorkflowFilterSet(WagtailFilterSet):
     show_disabled = django_filters.ChoiceFilter(
-        label=_("Show disabled workflows"),
+        label=_("Show disabled"),
         method="filter_show_disabled",
         choices=(("true", _("Yes")), ("false", _("No"))),
         widget=forms.RadioSelect,
@@ -98,6 +98,8 @@ class WorkflowFilterSet(WagtailFilterSet):
             return queryset
         return queryset.filter(active=True)
 
+
+class WorkflowFilterSet(BaseWorkflowFilterSet):
     class Meta:
         model = Workflow
         fields = []
@@ -470,14 +472,22 @@ class TaskUsageColumn(Column):
     cell_template_name = "wagtailadmin/workflows/includes/task_usage_cell.html"
 
 
+class TaskFilterSet(BaseWorkflowFilterSet):
+    class Meta:
+        model = Task
+        fields = []
+
+
 class TaskIndex(IndexView):
     permission_policy = task_permission_policy
     model = Task
     context_object_name = "tasks"
     template_name = "wagtailadmin/workflows/task_index.html"
+    results_template_name = "wagtailadmin/workflows/task_index_results.html"
     add_url_name = "wagtailadmin_workflows:select_task_type"
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
+    index_results_url_name = "wagtailadmin_workflows:task_index_results"
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = "thumbtack"
@@ -488,15 +498,14 @@ class TaskIndex(IndexView):
         Column("type", label=_("Type"), accessor="get_verbose_name"),
         TaskUsageColumn("usage", label=_("Used on"), accessor="active_workflows"),
     ]
+    filterset_class = TaskFilterSet
+    _show_breadcrumbs = True
 
     def show_disabled(self):
-        return self.request.GET.get("show_disabled", "false") == "true"
+        return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        if not self.show_disabled():
-            queryset = queryset.filter(active=True)
-        return queryset.specific()
+        return super().get_queryset().specific()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -28,6 +28,11 @@ urlpatterns = [
     ),
     path("tasks/select_type/", workflows.select_task_type, name="select_task_type"),
     path("tasks/index/", workflows.TaskIndex.as_view(), name="task_index"),
+    path(
+        "tasks/index/results/",
+        workflows.TaskIndex.as_view(results_only=True),
+        name="task_index_results",
+    ),
     path("tasks/edit/<int:pk>/", workflows.EditTask.as_view(), name="edit_task"),
     path(
         "tasks/disable/<int:pk>/", workflows.DisableTask.as_view(), name="disable_task"
