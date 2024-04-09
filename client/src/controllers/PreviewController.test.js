@@ -131,6 +131,7 @@ describe('PreviewController', () => {
 
   afterEach(() => {
     application.stop();
+    jest.clearAllMocks();
   });
 
   it('should load the last device size from localStorage', async () => {
@@ -187,5 +188,20 @@ describe('PreviewController', () => {
       'desktop',
     );
     localStorage.removeItem('wagtail:preview-panel-device');
+  });
+
+  it('should observe its own size so it can set the preview width accordingly', async () => {
+    expect(ResizeObserverMock).not.toHaveBeenCalled();
+    expect(resizeObserverMockObserve).not.toHaveBeenCalled();
+
+    application = Application.start();
+    application.register('w-preview', PreviewController);
+
+    await Promise.resolve();
+
+    const previewPanel = document.querySelector('.w-preview');
+
+    expect(ResizeObserverMock).toHaveBeenCalledWith(expect.any(Function));
+    expect(resizeObserverMockObserve).toHaveBeenCalledWith(previewPanel);
   });
 });
