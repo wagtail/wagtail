@@ -248,6 +248,32 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertSequenceEqual(response.context["object_list"], workflows[::-1])
         self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
 
+    def test_search(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
+    def test_search_results(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -1014,6 +1040,32 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertSequenceEqual(response.context["object_list"], tasks[::-1])
         self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
+    def test_search(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
+
+    def test_search_results(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:task_index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
 
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

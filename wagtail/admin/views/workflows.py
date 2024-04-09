@@ -135,6 +135,7 @@ class Index(IndexView):
         WorkflowTasksColumn("tasks", label=_("Tasks")),
     ]
     default_ordering = "name"
+    search_fields = ["name"]
     filterset_class = WorkflowFilterSet
     _show_breadcrumbs = True
 
@@ -508,6 +509,7 @@ class TaskIndex(IndexView):
         ),
     ]
     default_ordering = "name"
+    search_fields = ["name"]
     filterset_class = TaskFilterSet
     _show_breadcrumbs = True
 
