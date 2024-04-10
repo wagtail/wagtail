@@ -260,7 +260,11 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertCountEqual(response.context["object_list"], [self.test_user])
 
-        today = timezone.now().date()
+        now = timezone.now()
+        if timezone.is_aware(now):
+            today = timezone.localtime(now).date()
+        else:
+            today = now.date()
         tomorrow = today + timezone.timedelta(days=1)
         yesterday = today - timezone.timedelta(days=1)
 
