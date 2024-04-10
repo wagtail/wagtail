@@ -811,6 +811,7 @@
 * Abdelrahman Hamada
 * Divdeploy
 * Ihar Marhitych
+* Sebastian Muthwill
 
 ## Translators
 
