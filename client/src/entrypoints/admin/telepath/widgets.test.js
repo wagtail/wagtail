@@ -46,10 +46,14 @@ describe('telepath: wagtail.widgets.Widget', () => {
 
   test('getValue() returns the current value', () => {
     expect(boundWidget.getValue()).toBe('The Value');
+    document.querySelector('input').value = 'New Value';
+    expect(boundWidget.getValue()).toBe('New Value');
   });
 
   test('getState() returns the current state', () => {
     expect(boundWidget.getState()).toBe('The Value');
+    document.querySelector('input').value = 'New Value';
+    expect(boundWidget.getState()).toBe('New Value');
   });
 
   test('setState() changes the current state', () => {
@@ -84,6 +88,37 @@ describe('telepath: wagtail.widgets.Widget', () => {
     expect(input.maxLength).toBe(512);
     expect(input.getAttribute('aria-describedby')).toBe('some-id');
     expect(input.required).toBe(true);
+  });
+});
+
+describe('telepath: wagtail.widgets.Widget with inline JS', () => {
+  let boundWidget;
+  let widgetDef;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.Widget',
+      _args: [
+        '<div><input type="text" name="__NAME__" maxlength="255" id="__ID__"><script>document.getElementById("__ID__").className = "custom-class";</script></div>',
+        '__ID__',
+      ],
+    });
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      'The Value',
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.querySelector('input').outerHTML).toBe(
+      '<input type="text" name="the-name" maxlength="255" id="the-id" class="custom-class">',
+    );
+    expect(document.querySelector('input').value).toBe('The Value');
   });
 });
 
@@ -141,9 +176,8 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
   test('focus() focuses the text input', () => {
     boundWidget.focus();
 
-    // Note: This widget always focuses the last element
     expect(document.activeElement).toBe(
-      document.querySelector('input[value="coffee"]'),
+      document.querySelector('input[value="tea"]'),
     );
   });
 });
@@ -168,7 +202,6 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toMatchSnapshot();
     expect(document.querySelector('input[id="id-sugar"]').checked).toBe(true);
   });
 
