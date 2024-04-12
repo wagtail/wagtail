@@ -220,34 +220,37 @@ class TestSiteRouting(TestCase):
         with self.assertNumQueries(0):
             # subsequent lookups should be cached on the request
             Page.route_for_request(request, request.path)
-    
+
     def test_route_for_request_value(self):
         request = get_dummy_request(site=self.events_site)
-        self.assertFalse(hasattr(request, '_wagtail_route_for_request'))
+        self.assertFalse(hasattr(request, "_wagtail_route_for_request"))
         result = Page.route_for_request(request, request.path)
         self.assertTrue(isinstance(result, RouteResult))
-        self.assertEqual((result[0], result[1], result[2]), (self.events_site.root_page.specific, [], {}))
-        self.assertTrue(hasattr(request, '_wagtail_route_for_request'))
+        self.assertEqual(
+            (result[0], result[1], result[2]),
+            (self.events_site.root_page.specific, [], {}),
+        )
+        self.assertTrue(hasattr(request, "_wagtail_route_for_request"))
         self.assertIs(request._wagtail_route_for_request, result)
-    
+
     def test_route_for_request_cached(self):
         request = get_dummy_request(site=self.events_site)
         m = Mock()
         request._wagtail_route_for_request = m
         with self.assertNumQueries(0):
             self.assertEqual(Page.route_for_request(request, request.path), m)
-    
+
     def test_route_for_request_suppresses_404(self):
-        request = get_dummy_request(path='does-not-exist', site=self.events_site)
+        request = get_dummy_request(path="does-not-exist", site=self.events_site)
         self.assertIsNone(Page.route_for_request(request, request.path))
-    
+
     def test_find_for_request(self):
         request_200 = get_dummy_request(site=self.events_site)
         self.assertEqual(
             Page.find_for_request(request_200, request_200.path),
             self.events_site.root_page.specific,
         )
-        request_404 = get_dummy_request(path='does-not-exist', site=self.events_site)
+        request_404 = get_dummy_request(path="does-not-exist", site=self.events_site)
         self.assertEqual(
             Page.find_for_request(request_404, request_404.path),
             None,

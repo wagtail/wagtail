@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseForbidden, Http404
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.utils.deprecation import MiddlewareMixin
 
 from wagtail.models import Page
@@ -27,5 +27,5 @@ class SimplePageViewInterceptorMiddleware(MiddlewareMixin):
             page = Page.find_for_request(request, *view_args, **view_kwargs)
             if page is None:
                 raise Http404
-            elif page.content == 'Intercept me':
-                return HttpResponse('Intercepted')
+            elif page.content == "Intercept me":
+                return HttpResponse("Intercepted")
