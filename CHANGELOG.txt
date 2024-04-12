@@ -75,6 +75,7 @@ Changelog
  * Maintenance: Remove usage of inline scripts and instead use a new Stimulus controller (`w-block`/`BlockController`) to instantiate `StreamField` blocks (Karthik Ayangar)
  * Maintenance: Update NPM Babel, TypeScript and Webpack packages (Neeraj Yetheendran)
  * Maintenance: Replace ad-hoc JavaScript and vendor Mousetrap usage to a new Stimulus controller (`w-kbd`/`KeyboardController`) (Neeraj Yetheendran)
+ * Maintenance: Update django-filter to 24.x (Sebastian Muthwill)
 
 
 6.0.2 (03.04.2024)
