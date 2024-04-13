@@ -1,7 +1,6 @@
 from django.urls import path
 
 from wagtail.contrib.forms.views import (
-    DeleteSubmissionsView,
     FormPagesListView,
     get_submissions_list_view,
 )
@@ -20,10 +19,5 @@ urlpatterns = [
         get_submissions_list_view,
         {"results_only": True},
         name="list_submissions_results",
-    ),
-    path(
-        "submissions/<int:page_id>/delete/",
-        DeleteSubmissionsView.as_view(),
-        name="delete_submissions",
     ),
 ]
