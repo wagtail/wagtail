@@ -1,4 +1,3 @@
-import itertools
 import uuid
 from collections.abc import Mapping, MutableSequence
 
@@ -227,28 +226,14 @@ class ListBlock(Block):
     def normalize(self, value):
         if isinstance(value, ListValue):
             return value
-
-        # Squint a little and see if it looks like a list
-        try:
-            items, _items = itertools.tee(value, 2)
-        except TypeError as exc:
+        elif isinstance(value, list):
+            return ListValue(
+                self, values=[self.child_block.normalize(x) for x in value]
+            )
+        else:
             raise TypeError(
                 f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
-            ) from exc
-        try:
-            head = next(_items)
-        except StopIteration:
-            return self.empty_value()
-
-        if self._item_is_in_block_format(head):
-            # It looks like the json-ish representation
-            return ListValue(
-                self, values=[self.child_block.normalize(x["value"]) for x in items]
             )
-
-        # It looks like a list of values - the old ListBlock representation, or supplied
-        # directly by the user as a shorthand.
-        return ListValue(self, values=[self.child_block.normalize(x) for x in items])
 
     def empty_value(self):
         return ListValue(self, values=[])
