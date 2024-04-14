@@ -310,6 +310,18 @@ class BaseStreamBlock(Block):
     def normalize(self, value):
         if isinstance(value, StreamValue):
             return value
+
+        # See if it looks like the standard non-smart representation of a
+        # StreamField value: a list of (block_name, value) tuples
+        try:
+            [None for (x, y) in value]
+        except (TypeError, ValueError):
+            # Give up trying to make sense of the value
+            raise TypeError(
+                f"Cannot handle {value!r} (type {type(value)!r}) as a value of StreamBlock"
+            )
+
+        # Test succeeded, so return as a StreamValue-ified version of that value
         return StreamValue(
             self, [(k, self.child_blocks[k].normalize(v)) for k, v in value]
         )
