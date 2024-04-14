@@ -1,5 +1,4 @@
 import itertools
-import json
 import uuid
 from collections import OrderedDict, defaultdict
 from collections.abc import Mapping, MutableSequence
@@ -309,49 +308,11 @@ class BaseStreamBlock(Block):
             return value.get_prep_value()
 
     def normalize(self, value):
-        if value is None or value == "":
-            return self.empty_value()
-        elif isinstance(value, StreamValue):
+        if isinstance(value, StreamValue):
             return value
-        elif isinstance(value, str):
-            try:
-                unpacked_value = json.loads(value)
-            except ValueError:
-                # value is not valid JSON; most likely, this field was previously a
-                # rich text field before being migrated to StreamField, and the data
-                # was left intact in the migration. Return an empty stream instead
-                # (but keep the raw text available as an attribute, so that it can be
-                # used to migrate that data to StreamField)
-                return self.empty_value(self, [], raw_text=value)
-
-            if unpacked_value is None:
-                # we get here if value is the literal string 'null'. This should probably
-                # never happen if the rest of the (de)serialization code is working properly,
-                # but better to handle it just in case...
-                return self.empty_value()
-
-            return self.to_python(unpacked_value)
-        elif value and isinstance(value, list) and isinstance(value[0], dict):
-            # The value is already unpacked since JSONField-based StreamField should
-            # accept deserialised values (no need to call json.dumps() first).
-            # In addition, the value is not a list of (block_name, value) tuples
-            # handled in the `else` block.
-            return self.to_python(value)
-        else:
-            # See if it looks like the standard non-smart representation of a
-            # StreamField value: a list of (block_name, value) tuples
-            try:
-                [None for (x, y) in value]
-            except (TypeError, ValueError):
-                # Give up trying to make sense of the value
-                raise TypeError(
-                    f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
-                )
-
-            # Test succeeded, so return as a StreamValue-ified version of that value
-            return StreamValue(
-                self, [(k, self.child_blocks[k].normalize(v)) for k, v in value]
-            )
+        return StreamValue(
+            self, [(k, self.child_blocks[k].normalize(v)) for k, v in value]
+        )
 
     def get_form_state(self, value):
         if not value:
