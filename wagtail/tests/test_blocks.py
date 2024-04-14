@@ -2300,41 +2300,24 @@ class TestStructBlock(SimpleTestCase):
                 ("list_of_ints", blocks.ListBlock(blocks.IntegerBlock())),
             ]
         )
-        values = [
-            # A value in the human friendly format
-            {
-                "inner_stream": [("inner_char", "Hello, world"), ("inner_int", 42)],
-                "list_of_ints": [5, 6, 7, 8],
-            },
-            # A value in the serialized format
-            {
-                "inner_stream": [
-                    {"type": "inner_char", "value": "Hello, world"},
-                    {"type": "inner_int", "value": 42},
-                ],
-                "list_of_ints": [
-                    {"type": "item", "value": 5, "id": 1},
-                    {"type": "item", "value": 6, "id": 2},
-                    {"type": "item", "value": 7, "id": 3},
-                    {"type": "item", "value": 8, "id": 4},
-                ],
-            },
-        ]
-        for value in values:
-            with self.subTest(value=value):
-                normalized = block.normalize(value)
-                self.assertIsInstance(normalized, blocks.StructValue)
-                self.assertIsInstance(normalized["inner_stream"], blocks.StreamValue)
-                self.assertIsInstance(
-                    normalized["inner_stream"][0], blocks.StreamValue.StreamChild
-                )
-                self.assertIsInstance(
-                    normalized["inner_stream"][1], blocks.StreamValue.StreamChild
-                )
-                self.assertIsInstance(
-                    normalized["list_of_ints"], blocks.list_block.ListValue
-                )
-                self.assertIsInstance(normalized["list_of_ints"][0], int)
+
+        # A value in the human friendly format
+        value = {
+            "inner_stream": [("inner_char", "Hello, world"), ("inner_int", 42)],
+            "list_of_ints": [5, 6, 7, 8],
+        }
+
+        normalized = block.normalize(value)
+        self.assertIsInstance(normalized, blocks.StructValue)
+        self.assertIsInstance(normalized["inner_stream"], blocks.StreamValue)
+        self.assertIsInstance(
+            normalized["inner_stream"][0], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(
+            normalized["inner_stream"][1], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(normalized["list_of_ints"], blocks.list_block.ListValue)
+        self.assertIsInstance(normalized["list_of_ints"][0], int)
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
@@ -3102,40 +3085,15 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIsInstance(normalized, blocks.list_block.ListValue)
         self.assert_eq_list_values(normalized, [])
 
-    def test_normalize_serialized_format(self):
-        block = blocks.ListBlock(blocks.IntegerBlock())
-        value = [
-            # Unlike StreamBlock, ListBlock requires that its items
-            # have IDs, to distinguish the new serialization format
-            # from the old.
-            {"type": "item", "value": 0, "id": 1},
-            {"type": "item", "value": 1, "id": 2},
-            {"type": "item", "value": 2, "id": 3},
-        ]
-        normalized = block.normalize(value)
-        self.assertIsInstance(normalized, blocks.list_block.ListValue)
-        self.assert_eq_list_values(normalized, [0, 1, 2])
-
     def test_recursive_normalize(self):
         """
         ListBlock.normalize should recursively normalize all values passed to
-        it, and return a ListValue
+        it, and return a ListValue.
         """
         inner_list_block = blocks.ListBlock(blocks.IntegerBlock())
         block = blocks.ListBlock(inner_list_block)
         values = [
             [[1, 2, 3]],
-            [
-                {
-                    "type": "item",
-                    "id": 0,
-                    "value": [
-                        {"type": "item", "value": 1, "id": 1},
-                        {"type": "item", "value": 2, "id": 2},
-                        {"type": "item", "value": 3, "id": 3},
-                    ],
-                }
-            ],
             [blocks.list_block.ListValue(block, [1, 2, 3])],
         ]
 
