@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.contrib.forms.bulk_actions.form_bulk_action import FormSubmissionBulkAction
+from wagtail.contrib.forms.utils import get_forms_for_user
 
 
 class DeleteBulkAction(FormSubmissionBulkAction):
@@ -9,6 +10,9 @@ class DeleteBulkAction(FormSubmissionBulkAction):
     aria_label = _("Delete selected objects")
     action_type = "delete"
     template_name = "bulk_actions/confirm_bulk_delete.html"
+
+    def check_perm(self, obj):
+        return get_forms_for_user(self.request.user).exists()
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
