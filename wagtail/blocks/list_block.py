@@ -10,7 +10,6 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.exceptions import BlockNormalizationError
 from wagtail.telepath import Adapter, register
 
 from .base import (
@@ -230,12 +229,8 @@ class ListBlock(Block):
             return value
 
         # Squint a little and see if it looks like a list
-        try:
-            items, _items = itertools.tee(value, 2)
-        except TypeError:
-            raise BlockNormalizationError(
-                f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
-            )
+        items, _items = itertools.tee(value, 2)
+
         try:
             head = next(_items)
         except StopIteration:
