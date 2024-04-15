@@ -14,7 +14,6 @@ from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.exceptions import BlockNormalizationError
 from wagtail.telepath import Adapter, register
 
 from .base import (
@@ -343,11 +342,11 @@ class BaseStreamBlock(Block):
             # StreamField value: a list of (block_name, value) tuples
             try:
                 [None for (x, y) in value]
-            except (TypeError, ValueError):
+            except (TypeError, ValueError) as exc:
                 # Give up trying to make sense of the value
-                raise BlockNormalizationError(
+                raise TypeError(
                     f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
-                )
+                ) from exc
 
             # Test succeeded, so return as a StreamValue-ified version of that value
             return StreamValue(
