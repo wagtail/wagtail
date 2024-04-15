@@ -1206,7 +1206,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
         self.get()
 
-        with self.assertNumQueries(71):
+        with self.assertNumQueries(12):
             response = self.get()
         self.assertContains(response, "+2 more", count=20)
 
@@ -1219,7 +1219,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             ]
         )
 
-        with self.assertNumQueries(131):
+        with self.assertNumQueries(12):
             response = self.get()
         self.assertContains(response, "+2 more", count=40)
 

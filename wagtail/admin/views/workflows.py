@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count, OuterRef
+from django.db.models import Count, OuterRef, Prefetch
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -39,6 +39,7 @@ from wagtail.models import (
     Workflow,
     WorkflowContentType,
     WorkflowState,
+    WorkflowTask,
 )
 from wagtail.permissions import (
     page_permission_policy,
@@ -522,7 +523,7 @@ class TaskIndex(IndexView):
         ),
         Column("type", label=_("Type"), accessor="get_verbose_name", width="25%"),
         TaskUsageColumn(
-            "usage", label=_("Used on"), accessor="active_workflows", width="25%"
+            "usage", label=_("Used on"), accessor="_active_workflows", width="25%"
         ),
     ]
     default_ordering = "name"
@@ -535,7 +536,20 @@ class TaskIndex(IndexView):
         return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
     def get_queryset(self):
-        return super().get_queryset().specific()
+        return (
+            super()
+            .get_queryset()
+            .specific()
+            .prefetch_related(
+                Prefetch(
+                    "workflow_tasks",
+                    queryset=WorkflowTask.objects.filter(
+                        workflow__active=True
+                    ).select_related("workflow"),
+                    to_attr="_active_workflows",
+                )
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
