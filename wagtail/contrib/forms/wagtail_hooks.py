@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.forms import urls
-from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.contrib.forms.bulk_actions.delete import DeleteBulkAction
+from wagtail.contrib.forms.utils import get_forms_for_user
 
 
 @hooks.register("register_admin_urls")
@@ -30,6 +30,7 @@ def register_forms_menu_item():
         icon_name="form",
         order=700,
     )
+
 
 for action_class in [DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)

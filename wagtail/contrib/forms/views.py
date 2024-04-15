@@ -3,13 +3,11 @@ from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext, gettext_lazy, ngettext
-from django.views.generic import TemplateView
+from django.utils.translation import gettext, gettext_lazy
 from django_filters import DateFromToRangeFilter
 
-from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic

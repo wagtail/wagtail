@@ -17,7 +17,6 @@ class DeleteBulkAction(FormSubmissionBulkAction):
     @classmethod
     def execute_action(cls, objects, **kwargs):
         num_forms = 0
-        print(objects)
         for obj in objects:
             num_forms = num_forms + 1
             obj.delete()

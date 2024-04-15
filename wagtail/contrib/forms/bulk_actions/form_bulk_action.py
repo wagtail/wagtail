@@ -1,5 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.contrib.forms.models import FormSubmission
 
