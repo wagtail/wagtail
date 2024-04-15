@@ -1,5 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-<td>
+<td class="w-truncate w-max-w-0">
     {% if instance.redirect_page %}
         <a href="{% url 'wagtailadmin_pages:edit' instance.redirect_page.id %}" class="nolink">{{ instance.redirect_page }}</a>
     {% else %}

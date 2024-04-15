@@ -50,16 +50,15 @@ class IndexView(generic.IndexView):
     permission_policy = permission_policy
     model = Redirect
     header_icon = "redirect"
-    add_item_label = _("Add redirect")
+    add_item_label = gettext_lazy("Add redirect")
     context_object_name = "redirects"
     index_url_name = "wagtailredirects:index"
+    index_results_url_name = "wagtailredirects:index_results"
     add_url_name = "wagtailredirects:add"
     edit_url_name = "wagtailredirects:edit"
     delete_url_name = "wagtailredirects:delete"
-    index_results_url_name = "wagtailredirects:index_results"
     default_ordering = "old_path"
     paginate_by = 20
-    is_searchable = True
     page_title = gettext_lazy("Redirects")
     search_fields = ["old_path", "redirect_page__url_path", "redirect_link"]
     _show_breadcrumbs = True
@@ -67,7 +66,6 @@ class IndexView(generic.IndexView):
         TitleColumn(
             "old_path",
             label=gettext_lazy("From"),
-            width="35%",
             url_name="wagtailredirects:edit",
             sort_key="old_path",
         ),
@@ -75,17 +73,18 @@ class IndexView(generic.IndexView):
             "site",
             label=gettext_lazy("Site"),
             width="25%",
-            sort_key="site",
+            sort_key="site__site_name",
         ),
         RedirectTargetColumn(
             "redirect_page",
             label=gettext_lazy("To"),
-            width="20%",
+            width="30%",
         ),
         StatusTagColumn(
-            "get_is_permanent_display",
+            "is_permanent",
+            accessor="get_is_permanent_display",
             label=gettext_lazy("Type"),
-            width="15%",
+            width="10%",
             sort_key="is_permanent",
             primary=lambda r: r.is_permanent,
         ),
@@ -96,26 +95,20 @@ class IndexView(generic.IndexView):
 
     @cached_property
     def header_more_buttons(self):
-        buttons = []
-
-        buttons.append(
+        return [
             Button(
                 _("Import redirects"),
                 url=reverse("wagtailredirects:start_import"),
                 icon_name="doc-full-inverse",
                 priority=90,
-            )
-        )
-        buttons.append(
+            ),
             Button(
                 _("Export redirects"),
                 url=reverse("wagtailredirects:report"),
                 icon_name="download",
                 priority=100,
-            )
-        )
-
-        return buttons
+            ),
+        ]
 
 
 @permission_checker.require("change")
