@@ -1194,6 +1194,35 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get({"p": 4})
         self.assertEqual(response.status_code, 404)
 
+    def test_num_queries(self):
+        workflows = [Workflow.objects.create(name=f"workflow_{i}") for i in range(7)]
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(20)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+        self.get()
+
+        with self.assertNumQueries(71):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=20)
+
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(21, 41)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+
+        with self.assertNumQueries(131):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=40)
+
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
