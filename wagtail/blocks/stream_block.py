@@ -234,19 +234,58 @@ class BaseStreamBlock(Block):
         return StreamValue(self, cleaned_data)
 
     def to_python(self, value):
-        # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field
-        # (and possibly an 'id' too).
-        # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
-        # block types from the list
-        return StreamValue(
-            self,
-            [
-                child_data
-                for child_data in value
-                if child_data["type"] in self.child_blocks
-            ],
-            is_lazy=True,
-        )
+        if isinstance(value, StreamValue):
+            return value
+        elif isinstance(value, str) and value:
+            try:
+                value = json.loads(value)
+            except ValueError:
+                # value is not valid JSON; most likely, this field was previously a
+                # rich text field before being migrated to StreamField, and the data
+                # was left intact in the migration. Return an empty stream instead
+                # (but keep the raw text available as an attribute, so that it can be
+                # used to migrate that data to StreamField)
+                return self.empty_value(raw_text=value)
+
+        if not value:
+            return self.empty_value()
+
+        # ensure value is a list and not some other kind of iterable
+        value = list(value)
+
+        if isinstance(value[0], dict):
+            # value is in JSONish representation - a dict with 'type' and 'value' keys.
+            # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
+            # block types from the list
+            return StreamValue(
+                self,
+                [
+                    child_data
+                    for child_data in value
+                    if child_data["type"] in self.child_blocks
+                ],
+                is_lazy=True,
+            )
+        else:
+            # See if it looks like the standard non-smart representation of a
+            # StreamField value: a list of (block_name, value) tuples
+            try:
+                [None for (x, y) in value]
+            except (TypeError, ValueError) as exc:
+                # Give up trying to make sense of the value
+                raise TypeError(
+                    f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
+                ) from exc
+
+            # Test succeeded, so return as a StreamValue-ified version of that value
+            return StreamValue(
+                self,
+                [
+                    (k, self.child_blocks[k].normalize(v))
+                    for k, v in value
+                    if k in self.child_blocks
+                ],
+            )
 
     def bulk_to_python(self, values):
         # 'values' is a list of streams, each stream being a list of dicts with 'type', 'value' and
@@ -309,49 +348,7 @@ class BaseStreamBlock(Block):
             return value.get_prep_value()
 
     def normalize(self, value):
-        if value is None or value == "":
-            return self.empty_value()
-        elif isinstance(value, StreamValue):
-            return value
-        elif isinstance(value, str):
-            try:
-                unpacked_value = json.loads(value)
-            except ValueError:
-                # value is not valid JSON; most likely, this field was previously a
-                # rich text field before being migrated to StreamField, and the data
-                # was left intact in the migration. Return an empty stream instead
-                # (but keep the raw text available as an attribute, so that it can be
-                # used to migrate that data to StreamField)
-                return self.empty_value(self, [], raw_text=value)
-
-            if unpacked_value is None:
-                # we get here if value is the literal string 'null'. This should probably
-                # never happen if the rest of the (de)serialization code is working properly,
-                # but better to handle it just in case...
-                return self.empty_value()
-
-            return self.to_python(unpacked_value)
-        elif value and isinstance(value, list) and isinstance(value[0], dict):
-            # The value is already unpacked since JSONField-based StreamField should
-            # accept deserialised values (no need to call json.dumps() first).
-            # In addition, the value is not a list of (block_name, value) tuples
-            # handled in the `else` block.
-            return self.to_python(value)
-        else:
-            # See if it looks like the standard non-smart representation of a
-            # StreamField value: a list of (block_name, value) tuples
-            try:
-                [None for (x, y) in value]
-            except (TypeError, ValueError) as exc:
-                # Give up trying to make sense of the value
-                raise TypeError(
-                    f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
-                ) from exc
-
-            # Test succeeded, so return as a StreamValue-ified version of that value
-            return StreamValue(
-                self, [(k, self.child_blocks[k].normalize(v)) for k, v in value]
-            )
+        return self.to_python(value)
 
     def get_form_state(self, value):
         if not value:

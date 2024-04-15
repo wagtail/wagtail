@@ -161,10 +161,10 @@ class Block(metaclass=BaseBlock):
 
     def normalize(self, value):
         """
-        Ensure 'value' is an instance of the block's native type (e.g. ListValue for ListBlock,
-        StreamValue for StreamBlock). In many cases this will return the value unchanged - except
-        in the case of structural block types and block types with other custom representations
-        (e.g. EmbedBlock).
+        Given a value for any acceptable type for this block (e.g. string or RichText for a RichTextBlock;
+        dict or StructValue for a StructBlock), return a value of the block's native type (e.g. RichText
+        for RichTextBlock, StructValue for StructBlock). In simple cases this will return the value
+        unchanged.
         """
         return value
 
@@ -176,6 +176,9 @@ class Block(metaclass=BaseBlock):
         like the original value but provides a native HTML rendering when inserted into a template; or it
         might be something totally different (e.g. an image chooser will use the image ID as the clean
         value, and turn this back into an actual image object here).
+
+        For blocks that are usable at the top level of a StreamField, this must also accept any type accepted
+        by normalize. (This is because Django calls `Field.to_python` from `Field.clean`.)
         """
         return value
 
