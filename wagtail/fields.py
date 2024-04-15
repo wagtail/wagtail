@@ -131,15 +131,14 @@ class StreamField(models.Field):
         return name, path, args, kwargs
 
     def to_python(self, value):
-        value = self.stream_block.normalize(value)
+        result = self.stream_block.to_python(value)
 
         # The top-level StreamValue is passed a reference to the StreamField, to support
         # pickling. This is necessary because unpickling needs access to the StreamBlock
         # definition, which cannot itself be pickled; instead we store a pointer to the
         # field within the model, which gives us a path to retrieve the StreamBlock definition.
-
-        value._stream_field = self
-        return value
+        result._stream_field = self
+        return result
 
     def get_prep_value(self, value):
         if (
