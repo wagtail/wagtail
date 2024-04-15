@@ -55,6 +55,7 @@ Changelog
  * Docs: Document risk of XSS attacks on document upload (Matt Westcott, with thanks to Georgios Roumeliotis of TwelveSec for the original report)
  * Docs: Add clarity to how custom StreamField validation works (Tibor Leupold)
  * Docs: Add additional reference to the `wagtail_update_image_renditions` management command on the using images page (LB (Ben) Johnston)
+ * Docs: Correct information about line endings in Window development docs (Sage Abdullah)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
