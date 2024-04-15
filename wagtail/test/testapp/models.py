@@ -1626,6 +1626,36 @@ class DefaultStreamPage(Page):
     ]
 
 
+class ComplexDefaultStreamPage(Page):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            (
+                "books",
+                StreamBlock(
+                    [
+                        ("title", CharBlock()),
+                        ("author", CharBlock()),
+                    ]
+                ),
+            ),
+        ],
+        default=[
+            ("rich_text", "<p>My <i>lovely</i> books</p>"),
+            (
+                "books",
+                [("title", "The Great Gatsby"), ("author", "F. Scott Fitzgerald")],
+            ),
+        ],
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        FieldPanel("body"),
+    ]
+
+
 class MTIBasePage(Page):
     is_creatable = False
 
