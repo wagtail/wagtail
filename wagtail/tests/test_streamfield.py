@@ -16,6 +16,7 @@ from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
+    ComplexDefaultStreamPage,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
@@ -235,6 +236,25 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[0].value, "foo")
         self.assertEqual(fetched_body[1].block_type, "text")
         self.assertEqual(fetched_body[1].value, "bar")
+
+
+class TestComplexDefault(TestCase):
+    def setUp(self):
+        self.page = ComplexDefaultStreamPage(title="Test page")
+
+    def test_default_value(self):
+        self.assertEqual(self.page.body[0].block_type, "rich_text")
+        self.assertIsInstance(self.page.body[0].value, RichText)
+        self.assertEqual(
+            self.page.body[0].value.source, "<p>My <i>lovely</i> books</p>"
+        )
+        self.assertEqual(self.page.body[1].block_type, "books")
+        self.assertIsInstance(self.page.body[1].value, StreamValue)
+        self.assertEqual(len(self.page.body[1].value), 2)
+        self.assertEqual(self.page.body[1].value[0].block_type, "title")
+        self.assertEqual(self.page.body[1].value[0].value, "The Great Gatsby")
+        self.assertEqual(self.page.body[1].value[1].block_type, "author")
+        self.assertEqual(self.page.body[1].value[1].value, "F. Scott Fitzgerald")
 
 
 class TestStreamFieldRenderingBase(TestCase):
