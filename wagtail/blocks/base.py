@@ -143,10 +143,10 @@ class Block(metaclass=BaseBlock):
         Return this block's default value (conventionally found in self.meta.default),
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
-        model definition type (e.g. something like StructValue which incorporates a
+        model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.meta.default
+        return self.normalize(self.meta.default)
 
     def clean(self, value):
         """
