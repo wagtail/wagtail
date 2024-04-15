@@ -89,17 +89,6 @@ class BaseStreamBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-    def get_default(self):
-        """
-        Default values set on a StreamBlock should be a list of (type_name, value) tuples -
-        we can't use StreamValue directly, because that would require a reference back to
-        the StreamBlock that hasn't been built yet.
-
-        For consistency, then, we need to convert it to a StreamValue here for StreamBlock
-        to work with.
-        """
-        return StreamValue(self, self.meta.default)
-
     def empty_value(self, raw_text=None):
         return StreamValue(self, [], raw_text=raw_text)
 

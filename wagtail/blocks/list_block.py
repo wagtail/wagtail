@@ -151,10 +151,6 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
-    def get_default(self):
-        # wrap with list() so that each invocation of get_default returns a distinct instance
-        return ListValue(self, values=list(self.meta.default))
-
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
         child_blocks_with_indexes = []
