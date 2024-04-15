@@ -42,6 +42,22 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 class RedirectTargetColumn(Column):
     cell_template_name = "wagtailredirects/redirect_target_cell.html"
+    url_name = "wagtailadmin_pages:edit"
+
+    def get_value(self, instance):
+        if instance.redirect_page:
+            return instance.redirect_page.get_admin_display_title()
+        return instance.redirect_link
+
+    def get_url(self, instance):
+        if instance.redirect_page:
+            return reverse(self.url_name, args=[instance.redirect_page_id])
+        return None
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["url"] = self.get_url(instance)
+        return context
 
 
 class IndexView(generic.IndexView):
