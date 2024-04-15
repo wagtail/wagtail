@@ -237,6 +237,29 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[1].block_type, "text")
         self.assertEqual(fetched_body[1].value, "bar")
 
+    def test_complex_assignment(self):
+        page = StreamPage(title="Test page", body=[])
+        page.body = [
+            ("rich_text", "<h2>hello world</h2>"),
+            (
+                "books",
+                [
+                    ("title", "Great Expectations"),
+                    ("author", "Charles Dickens"),
+                ],
+            ),
+        ]
+        self.assertEqual(page.body[0].block_type, "rich_text")
+        self.assertIsInstance(page.body[0].value, RichText)
+        self.assertEqual(page.body[0].value.source, "<h2>hello world</h2>")
+        self.assertEqual(page.body[1].block_type, "books")
+        self.assertIsInstance(page.body[1].value, StreamValue)
+        self.assertEqual(len(page.body[1].value), 2)
+        self.assertEqual(page.body[1].value[0].block_type, "title")
+        self.assertEqual(page.body[1].value[0].value, "Great Expectations")
+        self.assertEqual(page.body[1].value[1].block_type, "author")
+        self.assertEqual(page.body[1].value[1].value, "Charles Dickens")
+
 
 class TestComplexDefault(TestCase):
     def setUp(self):
