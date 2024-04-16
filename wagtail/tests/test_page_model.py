@@ -1915,7 +1915,7 @@ class TestCopyPage(TestCase):
         exclude_field_related_manager = new_page.latest_revision.content[
             "related_manager"
         ]
-        
+
         self.assertEqual(page.title, new_page.title)
         self.assertNotEqual(page.id, new_page.id)
         self.assertNotEqual(page.path, new_page.path)
@@ -1923,7 +1923,7 @@ class TestCopyPage(TestCase):
         self.assertNotEqual(page.special_field, new_page.special_field)
         self.assertEqual(new_page.special_field, exclude_field)
         self.assertEqual(exclude_field_related_manager, [])
-        
+
     def test_page_with_generic_relation(self):
         """Test that a page with a GenericRelation will have that relation ignored when
         copying.
