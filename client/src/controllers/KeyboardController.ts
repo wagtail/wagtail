@@ -1,6 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 import Mousetrap from 'mousetrap';
 
+// import with side-effect to add global-bind plugin (see https://github.com/ccampbell/mousetrap/tree/master/plugins/global-bind)
+import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
+
 /**
  * Adds the ability to trigger a button click event using a
  * keyboard shortcut declared on the controlled element.
@@ -21,10 +24,15 @@ import Mousetrap from 'mousetrap';
 export class KeyboardController extends Controller<
   HTMLButtonElement | HTMLAnchorElement
 > {
-  static values = { key: { default: '', type: String } };
+  static values = {
+    key: { default: '', type: String },
+    scope: { default: '', type: String },
+  };
 
   /** Keyboard shortcut string. */
   declare keyValue: string;
+  /** Scope of the keyboard shortcut, defaults to the normal MouseTrap (non-input) scope. */
+  declare scopeValue: '' | 'global';
 
   initialize() {
     this.handleKey = this.handleKey.bind(this);
@@ -50,6 +58,10 @@ export class KeyboardController extends Controller<
       Mousetrap.unbind(previousKey);
     }
 
-    Mousetrap.bind(key, this.handleKey);
+    if (this.scopeValue === 'global') {
+      Mousetrap.bindGlobal(key, this.handleKey);
+    } else {
+      Mousetrap.bind(key, this.handleKey);
+    }
   }
 }
