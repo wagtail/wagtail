@@ -812,6 +812,7 @@
 * Divdeploy
 * Ihar Marhitych
 * Sebastian Muthwill
+* Drikus Roor
 
 ## Translators
 
