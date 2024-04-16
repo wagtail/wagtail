@@ -7,7 +7,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015,2017
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>, 2019\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgid "Wagtail search promotions"
 msgstr "Ricerca in evidenza Wagtail"
 
 msgid "Search term(s)/phrase"
-msgstr "Cerca termine(i)/frase"
+msgstr "Termine/i di ricerca/frase"
 
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
@@ -104,8 +104,14 @@ msgstr "Sposta su"
 msgid "Move down"
 msgstr "Sposta giù"
 
+msgid "Recommended search result"
+msgstr "Risultato di ricerca consigliato"
+
 msgid "Promoted search results"
 msgstr "Risultati di ricerca in evidenza"
+
+msgid "Add a recommended result"
+msgstr "Aggiungi un risultato consigliato"
 
 msgid "Search Terms"
 msgstr "Termini di ricerca"

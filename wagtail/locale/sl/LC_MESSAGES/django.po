@@ -6,7 +6,7 @@
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -106,6 +106,10 @@ msgid "<b>'{title}' is locked</b> by <b>you</b>."
 msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
 
 #, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaklenili</b> vi <b>{user}</b> ob <b>{datetime}</b>."
+
+#, python-brace-format
 msgid "<b>'{title}' is locked</b>."
 msgstr "<b>'{title}' je zaklenjen</b>."
 
@@ -114,6 +118,10 @@ msgstr "Zaklenjeno s vaše strani"
 
 msgid "Locked by another user"
 msgstr "Zaklenil drug uporabnik"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Ko je %(model_name)s zaklenjen, lahko spreminjate le vi"
 
 #, python-format
 msgid "Only %(user)s can make changes while the %(model_name)s is locked"
@@ -446,6 +454,11 @@ msgid ""
 msgstr ""
 "Morda je samo eden v teku ali pa je potrebno spremeniti stanje poteka dela "
 "na strani/delcih."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Delovni tok '%(workflow_name)s' na %(model_name)s '%(title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Ni začeto"
@@ -908,6 +921,14 @@ msgstr "Potek dela se je začel"
 msgid "Workflow: approve task"
 msgstr "Delovni proces: odobri opravilo"
 
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Odobreno na '%(task)s'. Naslednji korak '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Odobren '%(task)s'. '%(workflow)s' zaključeno."
+
 msgid "Workflow task approved"
 msgstr "Naloga poteka dela odobrena"
 
@@ -923,6 +944,10 @@ msgstr "Naloga poteka dela zavrnjena. Potek dela končan"
 
 msgid "Workflow: resume task"
 msgstr "Potek dela: nadaljuj nalogo"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Ponovno poslano '%(task)s'. Delovni tok je nadaljevan."
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr ""

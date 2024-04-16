@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2024
 #
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2021\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Caption"
+msgstr "Felirat"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Egy fejléc, amelyik a táblázat témáját írja le, és nagyon hasznos az "
+"olvasóprogramoknak."
 
 msgid "Add column"
 msgstr "Oszlop hozzáadása"

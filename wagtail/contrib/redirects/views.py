@@ -1,23 +1,23 @@
 import os
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
-from django.db.models import Q
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.encoding import force_str
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
-from django.utils.translation import ngettext
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
+from wagtail.admin.views import generic
 from wagtail.admin.views.reports import ReportView
+from wagtail.admin.widgets.button import Button
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import (
@@ -26,6 +26,7 @@ from wagtail.contrib.redirects.forms import (
     ImportForm,
     RedirectForm,
 )
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
@@ -39,62 +40,91 @@ from wagtail.log_actions import log
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-@permission_checker.require_any("add", "change", "delete")
-@vary_on_headers("X-Requested-With")
-def index(request):
-    query_string = request.GET.get("q", "")
-    ordering = request.GET.get("ordering", "old_path")
+class RedirectTargetColumn(Column):
+    cell_template_name = "wagtailredirects/redirect_target_cell.html"
+    url_name = "wagtailadmin_pages:edit"
 
-    redirects = models.Redirect.objects.prefetch_related("redirect_page", "site")
+    def get_value(self, instance):
+        if instance.redirect_page:
+            return instance.redirect_page.get_admin_display_title()
+        return instance.redirect_link
 
-    # Search
-    if query_string:
-        redirects = redirects.filter(
-            Q(old_path__icontains=query_string)
-            | Q(redirect_page__url_path__icontains=query_string)
-            | Q(redirect_link__icontains=query_string)
-        )
+    def get_url(self, instance):
+        if instance.redirect_page:
+            return reverse(self.url_name, args=[instance.redirect_page_id])
+        return None
 
-    # Ordering (A bit useless at the moment as only 'old_path' is allowed)
-    if ordering not in ["old_path"]:
-        ordering = "old_path"
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["url"] = self.get_url(instance)
+        return context
 
-    redirects = redirects.order_by(ordering)
 
-    # Pagination
-    paginator = Paginator(redirects, per_page=20)
-    try:
-        redirects = paginator.page(request.GET.get("p", 1))
-    except InvalidPage:
-        raise Http404
+class IndexView(generic.IndexView):
+    template_name = "wagtailredirects/index.html"
+    results_template_name = "wagtailredirects/index_results.html"
+    permission_policy = permission_policy
+    model = Redirect
+    header_icon = "redirect"
+    add_item_label = gettext_lazy("Add redirect")
+    context_object_name = "redirects"
+    index_url_name = "wagtailredirects:index"
+    index_results_url_name = "wagtailredirects:index_results"
+    add_url_name = "wagtailredirects:add"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    default_ordering = "old_path"
+    paginate_by = 20
+    page_title = gettext_lazy("Redirects")
+    search_fields = ["old_path", "redirect_page__url_path", "redirect_link"]
+    _show_breadcrumbs = True
+    columns = [
+        TitleColumn(
+            "old_path",
+            label=gettext_lazy("From"),
+            url_name="wagtailredirects:edit",
+            sort_key="old_path",
+        ),
+        Column(
+            "site",
+            label=gettext_lazy("Site"),
+            width="25%",
+            sort_key="site__site_name",
+        ),
+        RedirectTargetColumn(
+            "redirect_page",
+            label=gettext_lazy("To"),
+            width="30%",
+        ),
+        StatusTagColumn(
+            "is_permanent",
+            accessor="get_is_permanent_display",
+            label=gettext_lazy("Type"),
+            width="10%",
+            sort_key="is_permanent",
+            primary=lambda r: r.is_permanent,
+        ),
+    ]
 
-    # Render template
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return TemplateResponse(
-            request,
-            "wagtailredirects/results.html",
-            {
-                "ordering": ordering,
-                "redirects": redirects,
-                "query_string": query_string,
-            },
-        )
-    else:
-        return TemplateResponse(
-            request,
-            "wagtailredirects/index.html",
-            {
-                "ordering": ordering,
-                "redirects": redirects,
-                "query_string": query_string,
-                "search_form": SearchForm(
-                    data={"q": query_string} if query_string else None,
-                ),
-                "user_can_add": permission_policy.user_has_permission(
-                    request.user, "add"
-                ),
-            },
-        )
+    def get_base_queryset(self):
+        return super().get_base_queryset().select_related("redirect_page", "site")
+
+    @cached_property
+    def header_more_buttons(self):
+        return [
+            Button(
+                _("Import redirects"),
+                url=reverse("wagtailredirects:start_import"),
+                icon_name="doc-full-inverse",
+                priority=90,
+            ),
+            Button(
+                _("Export redirects"),
+                url=reverse("wagtailredirects:report"),
+                icon_name="download",
+                priority=100,
+            ),
+        ]
 
 
 @permission_checker.require("change")

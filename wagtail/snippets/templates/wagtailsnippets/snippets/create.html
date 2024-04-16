@@ -12,7 +12,7 @@
 
 {% block actions %}
     <footer class="footer">
-        <nav class="actions actions--primary footer__container w-grid" aria-label="{% trans 'Actions' %}">
+        <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
             {{ action_menu.render_html }}
         </nav>
     </footer>
@@ -20,7 +20,6 @@
 
 {% block extra_js %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
 
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page

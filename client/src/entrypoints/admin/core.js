@@ -4,6 +4,8 @@ import * as StimulusModule from '@hotwired/stimulus';
 import { Icon, Portal } from '../..';
 import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
+import { InlinePanel } from '../../components/InlinePanel';
+import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { initStimulus } from '../../includes/initStimulus';
 
 /** Expose a global to allow for customisations and packages to build with Stimulus. */
@@ -31,6 +33,10 @@ wagtail.components = { Icon, Portal };
 window.wagtail = wagtail;
 
 window.escapeHtml = escapeHtml;
+
+window.InlinePanel = InlinePanel;
+
+window.MultipleChooserPanel = MultipleChooserPanel;
 
 $(() => {
   /* Dropzones */

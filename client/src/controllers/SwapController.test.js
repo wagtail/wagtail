@@ -410,7 +410,8 @@ describe('SwapController', () => {
 
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenLastCalledWith(
-        'Error fetching /admin/images/results/?q=alpha',
+        'Error fetching %s',
+        '/admin/images/results/?q=alpha',
         expect.any(Error),
       );
 

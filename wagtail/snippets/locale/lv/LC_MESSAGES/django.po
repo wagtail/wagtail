@@ -26,6 +26,14 @@ msgstr "Publicēt"
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Atkārtoti iesniegt %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Iesniegt uz %(workflow_name)s"
+
 msgid "Restart workflow "
 msgstr "Restartēt darbplūsmu"
 
@@ -43,6 +51,10 @@ msgstr "Saglabāt"
 
 msgid "Locked"
 msgstr "Slēgts"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s un publicēt"
 
 msgid "Yes, delete"
 msgstr "Dzēst"

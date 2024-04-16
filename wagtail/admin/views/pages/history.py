@@ -1,57 +1,34 @@
 import django_filters
-from django import forms
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.generic import history
-from wagtail.admin.views.reports import ReportView
-from wagtail.log_actions import registry as log_action_registry
+from wagtail.admin.views.pages.utils import (
+    GenericPageBreadcrumbsMixin,
+)
+from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
+from wagtail.permissions import page_permission_policy
 
 
-def get_actions_for_filter():
-    # Only return those actions used by page log entries.
-    actions = set(PageLogEntry.objects.all().get_actions())
-    return [
-        action for action in log_action_registry.get_choices() if action[0] in actions
-    ]
-
-
-class PageHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(
-        label=_("Action"),
-        # choices are set dynamically in __init__()
-    )
-    hide_commenting_actions = django_filters.BooleanFilter(
-        label=_("Hide commenting actions"),
-        method="filter_hide_commenting_actions",
-        widget=forms.CheckboxInput,
-    )
-    user = django_filters.ModelChoiceFilter(
-        label=_("User"),
-        field_name="user",
-        queryset=lambda request: PageLogEntry.objects.all().get_users(),
-    )
-    timestamp = django_filters.DateFromToRangeFilter(
-        label=_("Date"), widget=DateRangePickerWidget
+class PageHistoryFilterSet(history.HistoryFilterSet):
+    is_commenting_action = django_filters.BooleanFilter(
+        label=gettext_lazy("Is commenting action"),
+        method="filter_is_commenting_action",
+        widget=BooleanRadioSelect,
     )
 
-    def filter_hide_commenting_actions(self, queryset, name, value):
-        if value:
-            queryset = queryset.exclude(action__startswith="wagtail.comments")
-        return queryset
+    def filter_is_commenting_action(self, queryset, name, value):
+        if value is None:
+            return queryset
 
-    class Meta:
-        model = PageLogEntry
-        fields = ["action", "user", "timestamp", "hide_commenting_actions"]
+        q = Q(action__startswith="wagtail.comments")
+        if value is False:
+            q = ~q
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.filters["action"].extra["choices"] = get_actions_for_filter()
+        return queryset.filter(q)
 
 
 class PageWorkflowHistoryViewMixin:
@@ -80,28 +57,39 @@ class WorkflowHistoryDetailView(
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 
-class PageHistoryView(ReportView):
+class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):
     template_name = "wagtailadmin/pages/history.html"
-    title = _("Page history")
-    header_icon = "history"
-    paginate_by = 20
-    filterset_class = PageHistoryReportFilterSet
+    filterset_class = PageHistoryFilterSet
+    model = Page
+    pk_url_kwarg = "page_id"
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
+    history_url_name = "wagtailadmin_pages:history"
+    history_results_url_name = "wagtailadmin_pages:history_results"
+    edit_url_name = "wagtailadmin_pages:edit"
+    revisions_view_url_name = "wagtailadmin_pages:revisions_view"
+    revisions_revert_url_name = "wagtailadmin_pages:revisions_revert"
+    revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
+    revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
 
-    @method_decorator(user_passes_test(user_has_any_page_permission))
-    def dispatch(self, request, *args, **kwargs):
-        self.page = get_object_or_404(Page, id=kwargs.pop("page_id")).specific
+    def get_object(self):
+        return get_object_or_404(Page, id=self.pk).specific
 
-        return super().dispatch(request, *args, **kwargs)
+    def get_page_subtitle(self):
+        return self.object.get_admin_display_title()
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        context = super().get_context_data(*args, object_list=object_list, **kwargs)
-        context["page"] = self.page
-        context["subtitle"] = self.page.get_admin_display_title()
-        context["page_latest_revision"] = self.page.get_latest_revision()
+    def user_can_unschedule(self):
+        return self.object.permissions_for_user(self.request.user).can_unschedule()
 
-        return context
+    def get_base_queryset(self):
+        return self._annotate_queryset(PageLogEntry.objects.filter(page=self.object))
 
-    def get_queryset(self):
-        return PageLogEntry.objects.filter(page=self.page).select_related(
-            "revision", "user", "user__wagtail_userprofile"
-        )
+    def _annotate_queryset(self, queryset):
+        return super()._annotate_queryset(queryset).select_related("page")

@@ -1011,6 +1011,17 @@ class AdvertWithTabbedInterface(models.Model):
 register_snippet(AdvertWithTabbedInterface)
 
 
+class CustomManager(models.Manager):
+    pass
+
+
+class ModelWithCustomManager(models.Model):
+    instances = CustomManager()
+
+
+register_snippet(ModelWithCustomManager)
+
+
 # Models with RevisionMixin
 class RevisableModel(RevisionMixin, models.Model):
     text = models.TextField()
@@ -1423,7 +1434,11 @@ class EventPageChooserModel(models.Model):
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text="help text", on_delete=models.CASCADE)
     full_featured = models.ForeignKey(
-        FullFeaturedSnippet, on_delete=models.CASCADE, null=True, blank=True
+        FullFeaturedSnippet,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Chosen snippet",
     )
 
     panels = [

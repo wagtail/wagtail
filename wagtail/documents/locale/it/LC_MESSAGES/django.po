@@ -7,7 +7,7 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021-2023
+# Marco Badan <marco.badan@gmail.com>, 2021-2024
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -246,6 +246,23 @@ msgid ""
 msgstr ""
 "Non hai caricato alcun documento. Perché non <a "
 "href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> documento <span class=\"w-sr-only\">creato in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> documenti <span class=\"w-sr-only\">creati in "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> documenti <span class=\"w-sr-only\">creati in "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"

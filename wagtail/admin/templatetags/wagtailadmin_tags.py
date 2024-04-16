@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 from urllib.parse import urljoin
 from warnings import warn
 
@@ -40,6 +41,7 @@ from wagtail.admin.utils import (
     get_valid_next_url_from_request,
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
+from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
 from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import (
     accepts_kwarg,
@@ -55,7 +57,6 @@ from wagtail.models import (
     Page,
     PageViewRestriction,
 )
-from wagtail.permissions import page_permission_policy
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -70,13 +71,13 @@ register.filter("naturaltime", naturaltime)
 def breadcrumbs(items, is_expanded=False, classname=None, icon_name=None):
     return {
         "items": items,
-        "is_expanded": is_expanded,
+        "is_expanded": is_expanded or len(items) == 1,
         "classname": classname,
         "icon_name": icon_name,
     }
 
 
-@register.inclusion_tag("wagtailadmin/shared/page_breadcrumbs.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html", takes_context=True)
 def page_breadcrumbs(
     context,
     page,
@@ -84,38 +85,33 @@ def page_breadcrumbs(
     url_root_name=None,
     include_self=True,
     is_expanded=False,
-    page_perms=None,
-    querystring_value=None,
+    querystring_value="",
     trailing_breadcrumb_title=None,
     classname=None,
+    icon_name=None,
 ):
     user = context["request"].user
 
-    # find the closest common ancestor of the pages that this user has direct explore permission
-    # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
-    cca = page_permission_policy.explorable_root_instance(user)
-    if not cca:
-        return {"items": Page.objects.none()}
-
-    items = (
-        page.get_ancestors(inclusive=include_self)
-        .descendant_of(cca, inclusive=True)
-        .specific()
+    items = get_breadcrumbs_items_for_page(
+        page,
+        user,
+        url_name,
+        url_root_name,
+        include_self,
+        querystring_value,
     )
+
+    if trailing_breadcrumb_title:
+        items.append({"label": trailing_breadcrumb_title})
 
     if len(items) == 1:
         is_expanded = True
 
     return {
         "items": items,
-        "current_page": page,
         "is_expanded": is_expanded,
-        "page_perms": page_perms,
-        "querystring_value": querystring_value or "",
-        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
-        "url_name": url_name,
-        "url_root_name": url_root_name,
         "classname": classname,
+        "icon_name": icon_name,
     }
 
 
@@ -765,7 +761,6 @@ def timesince_simple(d):
     1 week, 1 day ago -> 1 week ago
     0 minutes ago -> just now
     """
-    # Note: Duplicate code in timesince_last_update()
     time_period = timesince(d).split(",")[0]
     if time_period == avoid_wrapping(_("0 minutes")):
         return _("just now")
@@ -784,11 +779,25 @@ def timesince_last_update(
     """
     # translation usage below is intentionally verbose to be easier to work with translations
 
-    if last_update.date() == datetime.datetime.today().date():
+    current_datetime = timezone.now()
+    if timezone.is_aware(current_datetime):
+        # timezone support is enabled - make last_update timezone-aware and set to the user's
+        # timezone
+        current_datetime = timezone.localtime(current_datetime)
         if timezone.is_aware(last_update):
-            time_str = timezone.localtime(last_update).strftime("%H:%M")
+            local_datetime = timezone.localtime(last_update)
         else:
-            time_str = last_update.strftime("%H:%M")
+            local_datetime = timezone.make_aware(last_update)
+    else:
+        # timezone support is disabled - use naive datetimes
+        if timezone.is_aware(last_update):
+            local_datetime = timezone.make_naive(last_update)
+        else:
+            local_datetime = last_update
+
+    # Use an explicit timestamp if last_update is today as seen in the current user's time zone
+    if local_datetime.date() == current_datetime.date():
+        time_str = local_datetime.strftime("%H:%M")
 
         if show_time_prefix:
             if user_display_name:
@@ -808,17 +817,9 @@ def timesince_last_update(
                 return time_str
     else:
         if use_shorthand:
-            # Note: Duplicate code in timesince_simple()
-            time_period = timesince(last_update).split(",")[0]
-            if time_period == avoid_wrapping(_("0 minutes")):
-                if user_display_name:
-                    return _("just now by %(user_display_name)s") % {
-                        "user_display_name": user_display_name
-                    }
-                else:
-                    return _("just now")
+            time_period = timesince(local_datetime, now=current_datetime).split(",")[0]
         else:
-            time_period = timesince(last_update)
+            time_period = timesince(local_datetime, now=current_datetime)
 
         if user_display_name:
             return _("%(time_period)s ago by %(user_display_name)s") % {
@@ -1299,6 +1300,59 @@ def workflow_status_with_date(workflow_state):
         return _("Sent to %(task_name)s %(started_at)s") % translation_context
 
     return _("%(status_display)s %(task_name)s %(started_at)s") % translation_context
+
+
+@register.inclusion_tag(
+    "wagtailadmin/shared/keyboard_shortcuts_dialog.html",
+    takes_context=True,
+)
+def keyboard_shortcuts_dialog(context):
+    """
+    Renders the keyboard shortcuts dialog content with the
+    appropriate shortcuts for the user's platform.
+    Note: Shortcut keys are intentionally not translated.
+    """
+
+    user_agent = context["request"].headers.get("User-Agent", "")
+    is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
+    modifier = "⌘" if is_mac else "Ctrl"
+
+    return {
+        "shortcuts": {
+            ("actions-common", _("Common actions")): [
+                (_("Copy"), f"{modifier} + c"),
+                (_("Cut"), f"{modifier} + x"),
+                (_("Paste"), f"{modifier} + v"),
+                (
+                    _("Paste and match style")
+                    if is_mac
+                    else _("Paste without formatting"),
+                    f"{modifier} + Shift + v",
+                ),
+                (_("Undo"), f"{modifier} + z"),
+                (
+                    _("Redo"),
+                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                ),
+            ],
+            ("actions-model", _("Actions")): [
+                (_("Save changes"), f"{modifier} + s"),
+                (_("Preview"), f"{modifier} + p"),
+            ],
+            ("rich-text-content", _("Text content")): [
+                (_("Insert or edit a link"), f"{modifier} + k")
+            ],
+            ("rich-text-formatting", _("Text formatting")): [
+                (_("Bold"), f"{modifier} + b"),
+                (_("Italic"), f"{modifier} + i"),
+                (_("Underline"), f"{modifier} + u"),
+                (_("Monospace (code)"), f"{modifier} + j"),
+                (_("Strike-through"), f"{modifier} + x"),
+                (_("Superscript"), f"{modifier} + ."),
+                (_("Subscript"), f"{modifier} + ,"),
+            ],
+        }
+    }
 
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")

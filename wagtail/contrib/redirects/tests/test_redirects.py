@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -7,6 +8,7 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import Page, Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 @override_settings(
@@ -198,6 +200,24 @@ class TestRedirects(TestCase):
         # Check that we were redirected temporarily
         self.assertRedirects(
             response, "/redirectto", status_code=302, fetch_redirect_response=False
+        )
+
+    def test_redirect_without_trailing_slash(self):
+        # Create a redirect
+        redirect = models.Redirect(old_path="/redirectme", redirect_link="/redirectto")
+        redirect.save()
+
+        # confirm that CommonMiddleware's append-slash behaviour is enabled
+        self.assertTrue(settings.APPEND_SLASH)
+
+        response = self.client.get("/redirectme")
+        # Request should be picked up by RedirectMiddleware, not CommonMiddleware
+        # (which would redirect to /redirectme/ instead).
+        # Before Django 4.2, CommonMiddleware performed the 'add trailing slash' test
+        # during the initial request processing, which took precedence over RedirectMiddleware
+        # and caused a double redirect (/redirectme -> /redirectme/ -> /redirectto).
+        self.assertRedirects(
+            response, "/redirectto", status_code=301, fetch_redirect_response=False
         )
 
     def test_redirect_stripping_query_string(self):
@@ -572,7 +592,7 @@ class TestRedirects(TestCase):
         self.assertIs(redirect.is_permanent, True)
 
 
-class TestRedirectsIndexView(WagtailTestUtils, TestCase):
+class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -583,11 +603,24 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailredirects/index.html")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Redirects"}],
+            response.content,
+        )
 
     def test_search(self):
-        response = self.get({"q": "Hello"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        models.Redirect.objects.create(
+            old_path="/aaargh", redirect_link="http://torchbox.com/"
+        )
+        models.Redirect.objects.create(
+            old_path="/torchbox", redirect_link="http://aaargh.com/"
+        )
+        models.Redirect.objects.create(
+            old_path="/unrelated", redirect_link="http://unrelated.com/"
+        )
+        response = self.get({"q": "Aaargh"})
+        self.assertEqual(len(response.context["redirects"]), 2)
+        self.assertEqual(response.context["query_string"], "Aaargh")
 
     def test_search_results(self):
         models.Redirect.objects.create(
@@ -596,8 +629,15 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
         models.Redirect.objects.create(
             old_path="/torchbox", redirect_link="http://aaargh.com/"
         )
-        response = self.get({"q": "aaargh"})
+        models.Redirect.objects.create(
+            old_path="/unrelated", redirect_link="http://unrelated.com/"
+        )
+        response = self.client.get(
+            reverse("wagtailredirects:index_results"),
+            {"q": "Aaargh"},
+        )
         self.assertEqual(len(response.context["redirects"]), 2)
+        self.assertEqual(response.context["query_string"], "Aaargh")
 
     def test_pagination(self):
         # page numbers in range should be accepted
@@ -607,7 +647,7 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
 
-    def test_listing_order(self):
+    def test_default_ordering(self):
         for i in range(0, 10):
             models.Redirect.objects.create(
                 old_path="/redirect%d" % i, redirect_link="http://torchbox.com/"
@@ -620,6 +660,37 @@ class TestRedirectsIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["redirects"][0].old_path, "/aaargh")
+
+    def test_custom_orderings(self):
+        models.Redirect.objects.create(
+            old_path="/test", redirect_link="http://wagtail.org/"
+        )
+        valid_orderings = {
+            "old_path",
+            "-old_path",
+            "site__site_name",
+            "-site__site_name",
+            "is_permanent",
+            "-is_permanent",
+        }
+        for ordering in valid_orderings:
+            with self.subTest(ordering=ordering):
+                response = self.get({"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                soup = self.get_soup(response.content)
+                links = {
+                    reverse("wagtailredirects:index") + "?ordering=" + other
+                    for other in valid_orderings
+                    if not other.startswith("-")
+                    and other != ordering
+                    or other == f"-{ordering}"
+                }
+                for link in links:
+                    self.assertIsNotNone(soup.find("a", {"href": link}))
+                self.assertEqual(
+                    response.context["object_list"].query.order_by,
+                    (ordering,),
+                )
 
 
 class TestRedirectsAddView(WagtailTestUtils, TestCase):

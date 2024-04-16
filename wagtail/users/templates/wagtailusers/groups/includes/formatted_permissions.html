@@ -5,7 +5,7 @@
     <fieldset>
         <legend class="w-sr-only">{% trans "Object permissions" %}</legend>
 
-        <table class="listing">
+        <table class="listing" data-controller="w-bulk">
             <colgroup>
                 <col />
                 <col width="10%" />
@@ -96,7 +96,7 @@
                                     <fieldset class="w-p-0">
                                         <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
                                         {% for custom_perm in content_perms_dict.custom %}
-                                            {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="permissions" value=custom_perm.perm.id checked=custom_perm.selected text=custom_perm.name %}
+                                            {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="permissions" value=custom_perm.perm.id checked=custom_perm.selected text=custom_perm.name attrs=custom_perm.attrs %}
                                         {% endfor %}
                                     </fieldset>
                                 {% endif %}
@@ -105,6 +105,50 @@
                     </tr>
                 {% endfor %}
             </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="row">
+                        <input id="toggle-all" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all">
+                        <label for="toggle-all" >{% trans "Toggle all" %}</label>
+                    </th>
+                    <td>
+                        <label for="toggle-all-add" class="visuallyhidden">{% trans "Toggle all add permissions" %}</label>
+                        <input id="toggle-all-add" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="add">
+                    </td>
+                    <td>
+                        <label for="toggle-all-change" class="visuallyhidden">{% trans "Toggle all change permissions" %}</label>
+                        <input id="toggle-all-change" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="change">
+                    </td>
+                    <td>
+                        <label for="toggle-all-delete" class="visuallyhidden">{% trans "Toggle all delete permissions" %}</label>
+                        <input id="toggle-all-delete" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="delete">
+                    </td>
+                    {% if extra_perms_exist.publish %}
+                        <td>
+                            <label for="toggle-all-publish" class="visuallyhidden">{% trans "Toggle all publish permissions" %}</label>
+                            <input id="toggle-all-publish" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="publish">
+                        </td>
+                    {% endif %}
+                    {% if extra_perms_exist.lock %}
+                        <td>
+                            <label for="toggle-all-lock" class="visuallyhidden">{% trans "Toggle all lock permissions" %}</label>
+                            <input id="toggle-all-lock" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="lock">
+                        </td>
+                    {% endif %}
+                    {% if extra_perms_exist.unlock %}
+                        <td>
+                            <label for="toggle-all-unlock" class="visuallyhidden">{% trans "Toggle all unlock permissions" %}</label>
+                            <input id="toggle-all-unlock" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="unlock">
+                        </td>
+                    {% endif %}
+                    {% if extra_perms_exist.custom %}
+                        <td>
+                            <label for="toggle-all-custom" class="visuallyhidden">{% trans "Toggle all custom permissions" %}</label>
+                            <input id="toggle-all-custom" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="custom">
+                        </td>
+                    {% endif %}
+                </tr>
+            </tfoot>
         </table>
     </fieldset>
 {% endpanel %}

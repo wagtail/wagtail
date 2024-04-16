@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 from django.utils import translation
 
 from wagtail.fields import RichTextField
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 from wagtail.rich_text import RichText, RichTextMaxLengthValidator, expand_db_html
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
@@ -82,15 +82,33 @@ class TestExtractAttrs(TestCase):
 
 
 class TestExpandDbHtml(TestCase):
-    def test_expand_db_html_with_linktype(self):
-        html = '<a id="1" linktype="document">foo</a>'
-        result = expand_db_html(html)
-        self.assertEqual(result, "<a>foo</a>")
+    fixtures = ["test.json"]
 
     def test_expand_db_html_no_linktype(self):
         html = '<a id="1">foo</a>'
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
+
+    def test_invalid_linktype_set_to_empty_link(self):
+        html = '<a id="1" linktype="invalid">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, "<a>foo</a>")
+
+    def test_valid_linktype_and_reference(self):
+        html = '<a id="1" linktype="document">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, '<a href="/documents/1/test.pdf">foo</a>')
+
+    def test_valid_linktype_invalid_reference_set_to_empty_link(self):
+        html = '<a id="9999" linktype="document">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, "<a>foo</a>")
+
+    def test_no_embedtype_remove_tag(self):
+        self.assertEqual(expand_db_html('<embed id="1" />'), "")
+
+    def test_invalid_embedtype_remove_tag(self):
+        self.assertEqual(expand_db_html('<embed id="1" embedtype="invalid" />'), "")
 
     @patch("wagtail.embeds.embeds.get_embed")
     def test_expand_db_html_with_embed(self, get_embed):
@@ -100,6 +118,78 @@ class TestExpandDbHtml(TestCase):
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)
         self.assertIn("test html", result)
+
+    # Override CACHES so we don't generate any cache-related SQL queries
+    # for page site root paths (tests use DatabaseCache otherwise).
+    @override_settings(
+        CACHES={
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        }
+    )
+    def test_expand_db_html_database_queries_pages(self):
+        Site.clear_site_root_paths_cache()
+
+        with self.assertNumQueries(5):
+            expand_db_html(
+                """
+This rich text has 8 page links, and this test verifies that the code uses the
+minimal number of database queries (5) to expand them.
+
+All of these pages should be retrieved with 4 queries, one to do the base
+Page table lookup and then 1 each for the EventIndex, EventPage, and
+SimplePage tables.
+
+<a linktype="page" id="3">This links to an EventIndex page.</a>
+<a linktype="page" id="4">This links to an EventPage page.</a>
+<a linktype="page" id="5">This links to an EventPage page.</a>
+<a linktype="page" id="6">This links to an EventPage page.</a>
+<a linktype="page" id="9">This links to an EventPage page.</a>
+<a linktype="page" id="12">This links to an EventPage page.</a>
+<a linktype="page" id="7">This links to a SimplePage page.</a>
+<a linktype="page" id="11">This links to a SimplePage page.</a>
+
+Finally there's one additional query needed to do the Site root paths lookup.
+        """
+            )
+
+    def test_expand_db_html_database_queries_documents(self):
+        with self.assertNumQueries(1):
+            expand_db_html(
+                html="""
+This rich text has 2 document links, and this test verifies that the code uses
+the minimal number of database queries (1) to expand them.
+
+Both of these documents should be retrieved with 1 query:
+
+<a linktype="document" id="1">This links to a document.</a>
+<a linktype="document" id="2">This links to another document.</a>
+"""
+            )
+
+    # Disable rendition cache that might be populated by other tests.
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+            },
+        }
+    )
+    def test_expand_db_html_database_queries_images(self):
+        with self.assertNumQueries(3):
+            expand_db_html(
+                """
+This rich text has 2 image links, and this test verifies that the code uses the
+minimal number of database queries (3) to expand them.
+
+Both of these images should be retrieved with 3 queries, one to fetch the
+image objects in bulk and then one per image to fetch their renditions:
+
+This is an image: <embed embedtype="image" id="1" format="left" />
+This is another image: <embed embedtype="image" id="2" format="left" />
+        """
+            )
 
 
 class TestRichTextValue(TestCase):

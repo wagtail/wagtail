@@ -5,6 +5,7 @@
     <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
     {% sidebar_props %}
     <aside id="wagtail-sidebar" class="sidebar-loading" data-wagtail-sidebar aria-label="{% trans 'Sidebar' %}"></aside>
+    {% keyboard_shortcuts_dialog %}
     <main class="content-wrapper w-overflow-x-hidden" id="main">
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}

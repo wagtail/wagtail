@@ -91,7 +91,10 @@ ul.listing {
     }
   }
 
-  &:has(.bulk-actions-filter-checkbox) {
+  &:has(
+      td:first-child input[type='checkbox'],
+      th:first-child input[type='checkbox']
+    ) {
     td:first-child,
     th:first-child {
       // Bulk actions, use smaller width (48px) for smaller screens
@@ -229,7 +232,8 @@ ul.listing {
     .title-wrapper,
     h2 {
       @apply w-label-1;
-      display: inline;
+      display: inline-flex;
+      gap: theme('spacing.2');
       margin: 0;
       vertical-align: middle;
 
@@ -609,7 +613,10 @@ table.listing {
       padding-inline-start: 50px;
     }
 
-    &:has(.bulk-actions-filter-checkbox) {
+    &:has(
+        td:first-child input[type='checkbox'],
+        th:first-child input[type='checkbox']
+      ) {
       // Bulk actions, match the width of the header spacing up until
       // the page title (final breadcrumb item):
       // Breadcrumbs left padding: 20px
@@ -628,7 +635,11 @@ table.listing {
     // Remove left padding from the second column if either bulk action or
     // custom ordering is active, as the padding to match the breadcrumbs is
     // already handled by the first column.
-    &:has(.bulk-actions-filter-checkbox, .ord) {
+    &:has(
+        td:first-child input[type='checkbox'],
+        th:first-child input[type='checkbox'],
+        .ord
+      ) {
       th:nth-child(2),
       td:nth-child(2) {
         padding-inline-start: 0;
@@ -644,7 +655,11 @@ table.listing {
     // - we're not in the "custom ordering" mode,
     // then apply the same 80px padding via the first column's left padding.
     &:not(.nice-padding &, .report &, .editor-view &):not(
-        :has(.bulk-actions-filter-checkbox, .ord)
+        :has(
+            td:first-child input[type='checkbox'],
+            th:first-child input[type='checkbox'],
+            .ord
+          )
       ) {
       th:first-child,
       td:first-child {

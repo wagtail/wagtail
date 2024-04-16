@@ -1095,7 +1095,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
         # The status side panel should be rendered so that the
         # publishing schedule can be configured
@@ -1906,7 +1906,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
 
         # The status side panel should show "No publishing schedule set" info
@@ -4158,7 +4158,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<td class="title">Created</td>', html=True)
+        self.assertContains(response, "<td>Created</td>", html=True)
         self.assertContains(
             response,
             'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
@@ -4190,7 +4190,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         edit_url = self.get_url(self.non_revisable_snippet, "edit")
         self.assertNotContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
         )
 
     def test_should_show_actions_on_revisable_snippet(self):
@@ -4213,14 +4213,14 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # The latest revision should have an "Edit" action instead of "Review"
         self.assertContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
             count=1,
         )
 
         # Any other revision should have a "Review" action
         self.assertContains(
             response,
-            f'<a href="{revert_url}" class="button button-small button-secondary">Review this version</a>',
+            f'<a href="{revert_url}">Review this version</a>',
             count=1,
         )
 
@@ -4261,6 +4261,24 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
+
+    def test_num_queries(self):
+        snippet = self.revisable_snippet
+
+        # Warm up the cache
+        self.get(snippet)
+
+        with self.assertNumQueries(14):
+            self.get(snippet)
+
+        for i in range(20):
+            revision = snippet.save_revision(user=self.user, log_action=True)
+            if i % 5 == 0:
+                revision.publish(user=self.user, log_action=True)
+
+        # Should have the same number of queries as before (no N+1 queries)
+        with self.assertNumQueries(14):
+            self.get(snippet)
 
 
 class TestSnippetRevisions(WagtailTestUtils, TestCase):
@@ -4364,7 +4382,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
 
         # Should not show the Unpublish action menu item
@@ -4410,9 +4428,15 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         # Should show the preview panel
         preview_url = self.get_url("preview_on_edit")
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, f'data-action="{preview_url}"')
+
+        # Should have the preview side panel toggle button
+        soup = self.get_soup(response.content)
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
+        self.assertIsNotNone(toggle_button)
+        self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
+        self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
     def test_replace_revision(self):
         get_response = self.get()

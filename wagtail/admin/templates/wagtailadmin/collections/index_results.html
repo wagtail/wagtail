@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block no_results_message %}
+    <p>
+        {% blocktrans trimmed with add_collection_url=add_url %}
+            No collections have been created. Why not <a href="{{ add_collection_url }}">add one</a>?
+        {% endblocktrans %}
+    </p>
+{% endblock %}

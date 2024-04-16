@@ -18,7 +18,7 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     """
 
     template_name = "wagtailadmin/widgets/daterange_input.html"
-    suffixes = ["after", "before"]
+    suffixes = ["from", "to"]
 
     def __init__(self, attrs=None):
         widgets = (

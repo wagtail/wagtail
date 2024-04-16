@@ -643,7 +643,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-            {"latest_revision_created_at_after": "2015-01-01"},
+            {"latest_revision_created_at_from": "2015-01-01"},
         )
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
@@ -651,7 +651,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContainsActiveFilter(
             response,
             "Date updated: Jan. 1, 2015 -",
-            "latest_revision_created_at_after=2015-01-01",
+            "latest_revision_created_at_from=2015-01-01",
         )
 
     def test_filter_by_owner(self):
@@ -1271,7 +1271,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(47):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
