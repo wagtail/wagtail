@@ -9,7 +9,7 @@ class BoundWidget {
     parentCapabilities,
     options,
   ) {
-    var selector = ':is(input,select,textarea,button)[name="' + name + '"]';
+    const selector = `:is(input,select,textarea,button)[name="${name}"]`;
     // find, including element itself
     this.input = element.matches(selector)
       ? element
@@ -129,7 +129,7 @@ class BoundRadioSelect {
     this.element = element;
     this.name = name;
     this.idForLabel = idForLabel;
-    this.selector = 'input[name="' + name + '"]:checked';
+    this.selector = `input[name="${name}"]:checked`;
     this.setState(initialState);
   }
 
@@ -142,16 +142,14 @@ class BoundRadioSelect {
   }
 
   setState(state) {
-    const inputs = this.element.querySelectorAll(
-      'input[name="' + this.name + '"]',
-    );
+    const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
     for (let i = 0; i < inputs.length; i += 1) {
       inputs[i].checked = inputs[i].value === state;
     }
   }
 
   focus() {
-    this.element.querySelector('input[name="' + this.name + '"]')?.focus();
+    this.element.querySelector(`input[name="${this.name}"]`)?.focus();
   }
 }
 
