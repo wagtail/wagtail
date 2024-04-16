@@ -66,6 +66,15 @@ class Migration(migrations.Migration):
                         to="tests.gallerypage",
                     ),
                 ),
+                (
+                    "exclude_field",
+                    modelcluster.fields.ParentalKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_manager",
+                        to="tests.pagewithexcludedcopyfield",
+                    ),
+                ),
             ],
             options={
                 "ordering": ["sort_order"],
