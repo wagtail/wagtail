@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { runInlineScripts } from '../utils/runInlineScripts';
 
 /**
  * Allows the controlled element's content to be copied and appended
@@ -101,16 +102,7 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
     // and copy the attributes and innerHTML over. This is necessary when we're
     // teleporting a template that contains legacy init code, e.g. initDateChooser.
     // Only do this for inline scripts, as that's what we're expecting.
-    templateFragment
-      .querySelectorAll('script:not([src], [type])')
-      .forEach((script) => {
-        const newScript = document.createElement('script');
-        Array.from(script.attributes).forEach((key) =>
-          newScript.setAttribute(key.nodeName, key.nodeValue || ''),
-        );
-        newScript.innerHTML = script.innerHTML;
-        script.replaceWith(newScript);
-      });
+    runInlineScripts(templateFragment);
 
     return templateFragment;
   }

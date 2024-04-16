@@ -1,4 +1,5 @@
 import { gettext } from '../../../utils/gettext';
+import { runInlineScripts } from '../../../utils/runInlineScripts';
 
 class BoundWidget {
   constructor(
@@ -79,11 +80,7 @@ class Widget {
     placeholder.replaceWith(dom);
 
     /* execute any scripts in the new element */
-    dom.querySelectorAll('script').forEach((script) => {
-      const newScript = document.createElement('script');
-      newScript.text = script.text;
-      script.replaceWith(newScript);
-    });
+    runInlineScripts(dom);
 
     // Add any extra attributes we received to the HTML of the widget
     if (typeof options?.attributes === 'object') {
