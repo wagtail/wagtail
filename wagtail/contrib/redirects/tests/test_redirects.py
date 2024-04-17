@@ -1,6 +1,7 @@
 from io import BytesIO
 
 from django.conf import settings
+from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from openpyxl.reader.excel import load_workbook
@@ -1055,6 +1056,39 @@ class TestRedirectsEditView(WagtailTestUtils, TestCase):
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
+
+    def test_get_with_no_permission(self, redirect_id=None):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailredirects",
+                codename="change_redirect",
+            ),
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailredirects/edit.html")
 
 
 class TestRedirectsDeleteView(WagtailTestUtils, TestCase):

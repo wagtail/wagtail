@@ -136,49 +136,21 @@ class IndexView(generic.IndexView):
         return buttons
 
 
-@permission_checker.require("change")
-def edit(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+class EditView(generic.EditView):
+    model = Redirect
+    form_class = RedirectForm
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/edit.html"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    pk_url_kwarg = "redirect_id"
+    error_message = gettext_lazy("The redirect could not be saved due to errors.")
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", theredirect
-    ):
-        raise PermissionDenied
-
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES, instance=theredirect)
-        if form.is_valid():
-            with transaction.atomic():
-                form.save()
-                log(instance=theredirect, action="wagtail.edit")
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' updated.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(request, _("The redirect could not be saved due to errors."))
-    else:
-        form = RedirectForm(instance=theredirect)
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/edit.html",
-        {
-            "redirect": theredirect,
-            "form": form,
-            "user_can_delete": permission_policy.user_has_permission(
-                request.user, "delete"
-            ),
-        },
-    )
+    def get_success_message(self):
+        return _("Redirect '%(redirect_title)s' updated.") % {
+            "redirect_title": self.object.title
+        }
 
 
 @permission_checker.require("delete")
