@@ -39,7 +39,7 @@ import datetime
 from django.http import JsonResponse
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-from wagtail.contrib.routable_page.models import RoutablePageMixin, path
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path, re_path
 
 
 class EventIndexPage(RoutablePageMixin, Page):

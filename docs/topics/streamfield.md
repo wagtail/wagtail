@@ -514,8 +514,7 @@ my_page.body[0] = ('heading', "My story")
 del my_page.body[-1]
 
 # Append a rich text block to the stream
-from wagtail.rich_text import RichText
-my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever after.</p>")))
+my_page.body.append(('paragraph', "<p>And they all lived happily ever after.</p>"))
 
 # Save the updated data back to the database
 my_page.save()

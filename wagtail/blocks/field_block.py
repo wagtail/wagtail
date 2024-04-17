@@ -687,12 +687,6 @@ class RichTextBlock(FieldBlock):
         self.search_index = search_index
         super().__init__(**kwargs)
 
-    def get_default(self):
-        if isinstance(self.meta.default, RichText):
-            return self.meta.default
-        else:
-            return RichText(self.meta.default)
-
     def to_python(self, value):
         # convert a source-HTML string from the JSONish representation
         # to a RichText object
@@ -702,6 +696,11 @@ class RichTextBlock(FieldBlock):
         # convert a RichText object back to a source-HTML string to go into
         # the JSONish representation
         return value.source
+
+    def normalize(self, value):
+        if isinstance(value, RichText):
+            return value
+        return RichText(value)
 
     @cached_property
     def field(self):
@@ -757,9 +756,12 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return mark_safe(self.meta.default or "")
+        return self.normalize(self.meta.default or "")
 
     def to_python(self, value):
+        return mark_safe(value)
+
+    def normalize(self, value):
         return mark_safe(value)
 
     def get_prep_value(self, value):

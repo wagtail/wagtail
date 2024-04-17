@@ -1,4 +1,7 @@
+from warnings import warn
+
 from django.contrib.auth.models import Group
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import re_path, reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
@@ -6,11 +9,12 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.utils import set_query_params
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.users.views.users import Index
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 _permission_panel_classes = None
 
@@ -117,7 +121,10 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
         return [
             HeaderButton(
                 gettext("View users in this group"),
-                url=reverse("wagtailusers_groups:users", args=[self.object.pk]),
+                url=set_query_params(
+                    reverse("wagtailusers_users:index"),
+                    {"group": self.object.pk},
+                ),
                 icon_name="user",
             )
         ]
@@ -152,11 +159,21 @@ class GroupViewSet(ModelViewSet):
 
     @property
     def users_view(self):
-        return Index.as_view()
+        def view(request, pk):
+            legacy_url = reverse(self.get_url_name("users"), args=(pk,))
+            new_url = set_query_params(
+                reverse("wagtailusers_users:index"),
+                {"group": get_object_or_404(Group, pk=pk).pk},
+            )
 
-    @property
-    def users_results_view(self):
-        return Index.as_view(results_only=True)
+            warn(
+                f"Accessing the list of users in a group via {legacy_url} is "
+                f"deprecated, use {new_url} instead.",
+                RemovedInWagtail70Warning,
+            )
+            return redirect(new_url)
+
+        return view
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
@@ -172,7 +189,4 @@ class GroupViewSet(ModelViewSet):
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             re_path(r"(\d+)/users/$", self.users_view, name="users"),
-            re_path(
-                r"(\d+)/users/results/$", self.users_results_view, name="users_results"
-            ),
         ]

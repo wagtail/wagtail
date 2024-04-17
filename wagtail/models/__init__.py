@@ -9,11 +9,14 @@ should implement low-level generic functionality which is then imported by highe
 as Page.
 """
 
+from __future__ import annotations
+
 import functools
 import logging
 import posixpath
 import uuid
 from io import StringIO
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 from django import forms
@@ -125,6 +128,9 @@ from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -1282,6 +1288,43 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     content_panels = []
     promote_panels = []
     settings_panels = []
+
+    @staticmethod
+    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+        """
+        Find the page route for the given HTTP request object, and URL path. The route
+        result (`page`, `args`, and `kwargs`) will be cached via
+        `request._wagtail_route_for_request`.
+        """
+        if not hasattr(request, "_wagtail_route_for_request"):
+            try:
+                # we need a valid Site object for this request in order to proceed
+                if site := Site.find_for_request(request):
+                    path_components = [
+                        component for component in path.split("/") if component
+                    ]
+                    request._wagtail_route_for_request = (
+                        site.root_page.localized.specific.route(
+                            request, path_components
+                        )
+                    )
+                else:
+                    request._wagtail_route_for_request = None
+            except Http404:
+                # .route() can raise Http404
+                request._wagtail_route_for_request = None
+
+        return request._wagtail_route_for_request
+
+    @staticmethod
+    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+        """
+        Find the page for the given HTTP request object, and URL path. The full
+        page route will be cached via `request._wagtail_route_for_request`
+        """
+        result = Page.route_for_request(request, path)
+        if result is not None:
+            return result[0]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

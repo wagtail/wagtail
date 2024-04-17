@@ -131,6 +131,7 @@ def get_sprite_hash():
     global sprite_hash
     if not sprite_hash:
         content = str(home.sprite(None).content, "utf-8")
+        # SECRET_KEY is used to prevent exposing the Wagtail version
         sprite_hash = hashlib.sha1(
             (content + settings.SECRET_KEY).encode("utf-8")
         ).hexdigest()[:8]

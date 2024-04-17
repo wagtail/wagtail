@@ -226,6 +226,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. autoattribute:: model
    .. autoattribute:: index_view_class
+   .. autoattribute:: choose_parent_view_class
    .. autoattribute:: columns
    .. autoattribute:: filterset_class
 ```

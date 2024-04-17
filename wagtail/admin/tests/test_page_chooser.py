@@ -4,6 +4,7 @@ import urllib.parse as urlparse
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings
 from django.urls import reverse
+from django.utils.html import escape
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
@@ -1253,7 +1254,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         self.child_page_fr.save()
 
         switch_to_french_url = self.get_choose_page_url(
-            self.fr_locale, parent_page_id=self.child_page_fr.pk
+            parent_page_id=self.child_page_fr.pk
         )
         self.LOCALE_SELECTOR_HTML_FR = (
             f'<a href="{switch_to_french_url}" data-locale-selector-link>'
@@ -1266,20 +1267,12 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_choose_page_child", args=[parent_page_id])
         )
 
-    def get_choose_page_url(self, locale=None, parent_page_id=None, html=True):
+    def get_choose_page_url(self, parent_page_id=None, params=""):
         if parent_page_id is not None:
             url = reverse("wagtailadmin_choose_page_child", args=[parent_page_id])
         else:
             url = reverse("wagtailadmin_choose_page")
-
-        suffix = ""
-        if parent_page_id is None:
-            # the locale param should only be appended at the root level
-            if locale is None:
-                locale = self.fr_locale
-            separator = "&amp;" if html else "&"
-            suffix = f"{separator}locale={locale.language_code}"
-        return f"{url}?page_type=wagtailcore.page{suffix}"
+        return f"{url}?{params}"
 
     def test_locale_selector_present_in_root_view(self):
         response = self.client.get(reverse("wagtailadmin_choose_page"))
@@ -1287,7 +1280,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
 
         self.assertRegex(html, self.LOCALE_SELECTOR_HTML)
 
-        switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
+        switch_to_french_url = self.get_choose_page_url(params="locale=fr")
         fr_selector = f'<a href="{switch_to_french_url}" data-locale-selector-link>'
         self.assertIn(fr_selector, html)
 
@@ -1306,9 +1299,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         self.assertNotIn("data-locale-selector", html)
 
     def test_locale_selector_with_active_locale(self):
-        switch_to_french_url = self.get_choose_page_url(
-            locale=self.fr_locale, html=False
-        )
+        switch_to_french_url = self.get_choose_page_url(params="locale=fr")
         response = self.client.get(switch_to_french_url)
         html = response.json().get("html")
 
@@ -1319,9 +1310,7 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
             html,
             r"data-locale-selector[^<]+<button[^<]+<svg[^<]+<use[^<]+<\/use[^<]+<\/svg[^<]+French",
         )
-        switch_to_english_url = self.get_choose_page_url(
-            locale=Locale.objects.get(language_code="en")
-        )
+        switch_to_english_url = self.get_choose_page_url(params="locale=en")
         self.assertIn(
             f'<a href="{switch_to_english_url}" data-locale-selector-link>',
             html,
@@ -1332,3 +1321,27 @@ class TestPageChooserLocaleSelector(WagtailTestUtils, TestCase):
         response = self.get(self.child_page.pk)
         html = response.json().get("html")
         self.assertNotIn("data-locale-selector", html)
+
+    def test_query_params_preserved(self):
+        choose_url = reverse(
+            "wagtailadmin_choose_page_child", args=[self.child_page.pk]
+        )
+        params = "can_choose_root=false&user_perms=copy_to&match_subclass=true"
+        response = self.client.get(f"{choose_url}?{params}&p=1")
+        html = response.json().get("html")
+        self.assertIn("data-locale-selector", html)
+
+        switch_to_french_url = self.get_choose_page_url(
+            parent_page_id=self.child_page_fr.pk, params=params
+        )
+        self.assertIn(escape(switch_to_french_url), html)
+
+    def test_query_params_preserved_in_root_view(self):
+        choose_url = reverse("wagtailadmin_choose_page")
+        params = "can_choose_root=false&user_perms=copy_to&match_subclass=true"
+        response = self.client.get(f"{choose_url}?{params}&p=1")
+        html = response.json().get("html")
+        self.assertIn("data-locale-selector", html)
+
+        switch_to_french_url = self.get_choose_page_url(params=params + "&locale=fr")
+        self.assertIn(escape(switch_to_french_url), html)

@@ -151,10 +151,6 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
-    def get_default(self):
-        # wrap with list() so that each invocation of get_default returns a distinct instance
-        return ListValue(self, values=list(self.meta.default))
-
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
         child_blocks_with_indexes = []
@@ -183,8 +179,7 @@ class ListBlock(Block):
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
-        if not isinstance(value, ListValue):
-            value = ListValue(self, values=value)
+        value = self.normalize(value)
 
         result = []
         block_errors = {}
@@ -223,6 +218,21 @@ class ListBlock(Block):
             )
 
         return ListValue(self, bound_blocks=result)
+
+    def normalize(self, value):
+        if isinstance(value, ListValue):
+            return value
+        elif isinstance(value, list):
+            return ListValue(
+                self, values=[self.child_block.normalize(x) for x in value]
+            )
+        else:
+            raise TypeError(
+                f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
+            )
+
+    def empty_value(self):
+        return ListValue(self, values=[])
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows
