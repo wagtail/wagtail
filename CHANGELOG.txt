@@ -84,6 +84,8 @@ Changelog
  * Maintenance: Replace ad-hoc JavaScript and vendor Mousetrap usage to a new Stimulus controller (`w-kbd`/`KeyboardController`) (Neeraj Yetheendran)
  * Maintenance: Update django-filter to 24.x (Sebastian Muthwill)
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
+ * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
+ * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
 
 
 6.0.2 (03.04.2024)
