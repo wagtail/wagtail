@@ -23,7 +23,10 @@ class CollectionViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION", True):
+        if not getattr(settings, "WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS", {}).get(
+            "SHARED_PASSWORD",
+            True,
+        ):
             self.fields["restriction_type"].choices = [
                 choice
                 for choice in CollectionViewRestriction.RESTRICTION_CHOICES

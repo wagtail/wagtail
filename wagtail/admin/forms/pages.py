@@ -127,7 +127,9 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE", True):
+        if not getattr(settings, "WAGTAIL_PRIVATE_PAGE_OPTIONS", {}).get(
+            "SHARED_PASSWORD", True
+        ):
             self.fields["restriction_type"].choices = [
                 choice
                 for choice in PageViewRestriction.RESTRICTION_CHOICES

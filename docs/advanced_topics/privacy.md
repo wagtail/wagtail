@@ -12,10 +12,10 @@ Users with publish permission on a page can set it to be private by clicking the
 Shared passwords should not be used to protect sensitive content, as the password is shared between all users, and stored in plain text in the database. Where possible, it's recommended to require users log in to access private page content.
 ```
 
-You can disable shared password for pages using `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`.
+You can disable shared password for pages using `WAGTAIL_PRIVATE_PAGE_OPTIONS`.
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 Any existing shared password usage will remain active but will not be viewable by the user within the admin, these can be removed in the Django shell as follows.
@@ -33,10 +33,10 @@ for page in Page.objects.private():
 
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).
 
-You can also disable shared password for collections (which will impact document links) using `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`.
+You can also disable shared password for collections (which will impact document links) using `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`.
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 Any existing shared password usage will remain active but will not be viewable within the admin, these can be removed in the Django shell as follows.
