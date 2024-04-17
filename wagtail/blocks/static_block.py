@@ -30,7 +30,7 @@ class StaticBlock(Block):
     def value_from_datadict(self, data, files, prefix):
         return None
 
-    def normalize(self, *args, **kwargs):
+    def normalize(self, value):
         return None
 
     class Meta:
