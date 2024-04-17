@@ -30,6 +30,10 @@ export class MultipleChooserPanel extends InlinePanel {
         },
         { multiple: true },
       );
+      openModalButton.setAttribute(
+        'chooserids',
+        this.getChoiceSelectIds().join(','),
+      );
     });
   }
 
