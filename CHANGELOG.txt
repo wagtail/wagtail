@@ -32,6 +32,7 @@ Changelog
  * Add support for related fields in generic `IndexView.list_display` (Abdelrahman Hamada)
  * Improve page fetching logic and cache route results per request (Gordon Pendleton)
  * Optimise rewriting of links / embeds in rich text using bulk database lookups (Andy Chosak)
+ * Add normalization mechanism to StreamField so that assignments and defaults can be passed in a wider range of data types (Joshua Munn, Matt Westcott)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
