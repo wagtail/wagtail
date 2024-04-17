@@ -814,6 +814,7 @@
 * Sebastian Muthwill
 * Drikus Roor
 * Alex Baron
+* Saksham Misra
 
 ## Translators
 
