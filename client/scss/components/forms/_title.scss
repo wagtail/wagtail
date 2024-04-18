@@ -35,6 +35,10 @@
     padding-inline-start: theme('spacing[1.5]');
     margin-inline-start: calc(-1 * theme('spacing[1.5]'));
 
+    .w-density-snug & {
+      font-size: theme('fontSize.26');
+    }
+
     // Avoid calling attention to the field _unless_ it’s in one of those states.
     &:not(:hover, :focus, :placeholder-shown, [aria-invalid='true']) {
       // Hide w/ transparency to preserve border size and show it in forced-colors mode.

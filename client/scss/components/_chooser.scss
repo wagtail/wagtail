@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $preview-size: 2.625rem; // 42px
 
 .chooser {
@@ -61,8 +63,20 @@ $preview-size: 2.625rem; // 42px
 }
 
 .chooser__image {
-  max-width: 165px;
-  max-height: 125px;
+  $max-width: 165px;
+  $max-height: 125px;
+
+  // Adjust thumbnail size based on UI density, with safe minimums and maximums.
+  max-width: clamp(
+    math.div($max-width, 2),
+    calc($max-width * var(--w-density-factor)),
+    $max-width
+  );
+  max-height: clamp(
+    math.div($max-height, 2),
+    calc($max-height * var(--w-density-factor)),
+    $max-height
+  );
   height: auto;
   width: auto;
 }
