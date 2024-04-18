@@ -64,7 +64,9 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         edit_links = soup.select(f"a[href='{edit_url}']")
         self.assertEqual(len(edit_links), 1)
         edit_link = edit_links[0]
-        self.assertIn("w-header-button", edit_link.attrs.get("class"))
+        classes = edit_link.attrs.get("class")
+        self.assertIn("w-header-button", classes)
+        self.assertIn("button", classes)
 
     def test_has_private_usage(self):
         PageChooserModel.objects.create(page=self.page)
