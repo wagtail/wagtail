@@ -231,6 +231,7 @@ ul.listing {
       gap: theme('spacing.2');
       margin: 0;
       vertical-align: middle;
+      align-items: center;
 
       a {
         color: inherit;
@@ -241,11 +242,6 @@ ul.listing {
           color: theme('colors.text-link-default');
         }
       }
-    }
-
-    .icon-folder {
-      margin: 3px 0.3em 0 0;
-      vertical-align: top;
     }
   }
 
