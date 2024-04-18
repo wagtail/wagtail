@@ -80,14 +80,16 @@ class TestLoginView(WagtailTestUtils, TestCase):
     def test_language_code(self):
         response = self.client.get(reverse("wagtailadmin_login"))
         self.assertContains(
-            response, '<html lang="de" dir="ltr" class="w-theme-system">'
+            response,
+            '<html lang="de" dir="ltr" class="w-theme-system w-density-default">',
         )
 
     @override_settings(LANGUAGE_CODE="he")
     def test_bidi_language_changes_dir_attribute(self):
         response = self.client.get(reverse("wagtailadmin_login"))
         self.assertContains(
-            response, '<html lang="he" dir="rtl" class="w-theme-system">'
+            response,
+            '<html lang="he" dir="rtl" class="w-theme-system w-density-default">',
         )
 
     @override_settings(
