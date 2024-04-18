@@ -813,7 +813,7 @@
 * Ihar Marhitych
 * Sebastian Muthwill
 * Drikus Roor
-* Alex Baron
+* Alec Baron
 * Saksham Misra
 
 ## Translators
