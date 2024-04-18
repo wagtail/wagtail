@@ -124,7 +124,9 @@ For static colors, either set each color separately (for example `--w-color-prim
 
 ```
 
-## Custom user interface information density
+(custom_ui_information_density)=
+
+## Custom UI information density
 
 To customize information density of the admin user interface, inject a CSS file using the hook [](insert_global_admin_css). Set the `--w-density-factor` CSS variable to increase or reduce the UI density. The default value is `1`, the "snug" UI theming uses `0.5`. Here are example overrides:
 
