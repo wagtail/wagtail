@@ -335,7 +335,7 @@ msgstr "Sie können diesen Workflow nicht mehrfach derselben Seite zuweisen."
 msgid ""
 "Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
 msgstr ""
-"Schnipsel '%(content_type)s' wurde bereits Workflow '%(workflow_name)s' "
+"'%(content_type)s'-Objekt wurde bereits Workflow '%(workflow_name)s' "
 "zugewiesen."
 
 msgid "Give your workflow a name"
@@ -404,18 +404,18 @@ msgid "All users in listing selected"
 msgstr "Alle Benutzer der Auflistung ausgewählt"
 
 msgid "1 snippet selected"
-msgstr "1 Schnipsel ausgewählt"
+msgstr "1 Element ausgewählt"
 
 #, python-format
 msgid "%(objects)s snippets selected"
-msgstr "%(objects)s Schnipsel ausgewählt"
+msgstr "%(objects)s Elemente ausgewählt"
 
 #, python-format
 msgid "All %(objects)s snippets on this screen selected"
-msgstr "Alle %(objects)s Schnipsel auf dem Bildschirm ausgewählt"
+msgstr "Alle %(objects)s Elemente auf dem Bildschirm ausgewählt"
 
 msgid "All snippets in listing selected"
-msgstr "Alle Schnipsel der Auflistung ausgewählt"
+msgstr "Alle Elemente der Auflistung ausgewählt"
 
 msgid "1 item selected"
 msgstr "1 Element ausgewählt"

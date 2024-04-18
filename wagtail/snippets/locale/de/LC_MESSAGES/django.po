@@ -88,7 +88,7 @@ msgid "Wagtail snippets"
 msgstr "Wagtail Schnipsel"
 
 msgid "Delete selected snippets"
-msgstr "Ausgewählte Schnipsel löschen"
+msgstr "Ausgewählte Elemente löschen"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -116,8 +116,7 @@ msgstr[1] "%(usage_count)s mal benutzt"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr ""
-"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
-"wollen?"
+"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“-Objekt löschen wollen?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
@@ -144,7 +143,7 @@ msgstr "Nein, nicht löschen"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Es gibt leider keine Schnipsel zum Suchbegriff \"<em>%(search_query)s</em>\""
+"Es gibt leider keine Objekte zum Suchbegriff \"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
@@ -152,7 +151,7 @@ msgid ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
-"Sie haben keine „%(snippet_type_name)s“-Schnipsel erstellt. Warum nicht <a "
+"Sie haben keine „%(snippet_type_name)s“-Objekte erstellt. Warum nicht <a "
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">ein neues erstellen</a>?"
 
@@ -178,7 +177,7 @@ msgid "Actions"
 msgstr "Aktionen"
 
 msgid "Select all snippets in listing"
-msgstr "Alle Schnipsel in der Aufzählung auswählen"
+msgstr "Alle Elemente in der Aufzählung auswählen"
 
 msgid "Live version"
 msgstr "Live-Version"

@@ -260,6 +260,10 @@ msgstr "Novo"
 msgid "Latest images"
 msgstr "Últimas imagens"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "Selecionar %(title)s"
+
 msgid "Choose a format"
 msgstr "Escolher um formato"
 

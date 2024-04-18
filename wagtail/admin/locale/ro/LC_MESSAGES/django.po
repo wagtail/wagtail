@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Alex Morega, 2023
+# Alex Morega, 2023-2024
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2023
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Alex Morega, 2023\n"
+"Last-Translator: Alex Morega, 2023-2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -377,7 +377,7 @@ msgid "All items in listing selected"
 msgstr "Toate articolele din listă selectate"
 
 msgid "For search engines"
-msgstr "Pentru mașini de căutare"
+msgstr "Pentru motoare de căutare"
 
 msgid "For site menus"
 msgstr "Pentru meniuri"
