@@ -133,13 +133,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
 
         # Administrator (or user with add_site permission) should see the
         # sites link with its icon
-        self.assertContains(
-            response,
-            '<a href="/admin/sites/" title="Sites menu"><svg',
-        )
+        url = reverse("wagtailsites:index")
+        link = soup.select_one(f'td a[href="{url}"]')
+        self.assertIsNotNone(link)
+        icon = link.select_one("svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
 
     def test_ordering(self):
         response = self.client.get(
