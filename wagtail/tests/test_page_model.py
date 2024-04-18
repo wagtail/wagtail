@@ -547,6 +547,20 @@ class TestRouting(TestCase):
                 christmas_page.get_url(request=request), "/events/christmas/"
             )
 
+    def test_cached_parent_obj_set(self):
+        homepage = Page.objects.get(url_path="/home/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        request = get_dummy_request(path="/events/christmas/")
+        (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
+        self.assertEqual(found_page, christmas_page)
+
+        # parent cache should be set
+        events_page = Page.objects.get(url_path="/home/events/").specific
+        with self.assertNumQueries(0):
+            parent = found_page.get_parent(update=False)
+            self.assertEqual(parent, events_page)
+
 
 @override_settings(
     ROOT_URLCONF="wagtail.test.urls_multilang",
@@ -3962,3 +3976,21 @@ class TestPageCacheKey(TestCase):
         self.page.slug = "something-else"
         self.page.save()
         self.assertNotEqual(self.page.cache_key, original_cache_key)
+
+
+class TestPageCachedParentObjExists(TestCase):
+    fixtures = ["test.json"]
+
+    def test_cached_parent_obj_exists(self):
+        # https://github.com/wagtail/wagtail/pull/11737
+
+        # Test if _cached_parent_obj is set after using page.get_parent()
+        # This is treebeard specific, we don't know if their API will change.
+        homepage = Page.objects.get(url_path="/home/")
+        homepage._cached_parent_obj = "_cached_parent_obj_exists"
+        parent = homepage.get_parent(update=False)
+        self.assertEqual(
+            parent,
+            "_cached_parent_obj_exists",
+            "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
+        )

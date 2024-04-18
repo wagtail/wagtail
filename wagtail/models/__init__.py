@@ -1670,6 +1670,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             try:
                 subpage = self.get_children().get(slug=child_slug)
+                # Cache the parent page on the subpage to avoid another db query
+                # Treebeard's get_parent will use the `_cached_parent_obj` attribute if it exists
+                # And update = False
+                setattr(subpage, "_cached_parent_obj", self)
+
             except Page.DoesNotExist:
                 raise Http404
 
