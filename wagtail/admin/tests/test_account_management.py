@@ -231,6 +231,7 @@ class TestAccountSectionUtilsMixin:
             "locale-preferred_language": "es",
             "locale-current_time_zone": "Europe/London",
             "theme-theme": "dark",
+            "theme-density": "default",
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse("wagtailadmin_account"), post_data)
@@ -476,7 +477,10 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         # check that the updated language preference is now indicated in HTML header
         response = self.client.get(reverse("wagtailadmin_home"))
-        self.assertContains(response, '<html lang="es" dir="ltr" class="w-theme-dark">')
+        self.assertContains(
+            response,
+            '<html lang="es" dir="ltr" class="w-theme-dark w-density-default">',
+        )
 
     def test_unset_language_preferences(self):
         profile = UserProfile.get_for_user(self.user)
@@ -601,6 +605,21 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         profile.refresh_from_db()
 
         self.assertEqual(profile.theme, "light")
+
+    def test_change_density_post(self):
+        response = self.post_form(
+            {
+                "theme-density": "snug",
+            }
+        )
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse("wagtailadmin_account"))
+
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+
+        self.assertEqual(profile.density, "snug")
 
     def test_sensitive_post_parameters(self):
         request = RequestFactory().post("wagtailadmin_account", data={})
