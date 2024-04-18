@@ -10,10 +10,13 @@ declare global {
  * Returns the supplied string as a slug suitable for a URL using the vendor URLify util.
  * If the vendor util returns an empty string it will fall back to the slugify method.
  */
-export const urlify = (value: string, options = {}) => {
+export const urlify = (
+  value: string,
+  options: { unicodeSlugsEnabled?: boolean } = {},
+) => {
   // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
   // for creating a slug from the title, rather than sanitising a slug entered manually
-  const cleaned = window.URLify(value, 255);
+  const cleaned = window.URLify(value, 255, !!options.unicodeSlugsEnabled);
 
   // if the result is blank (e.g. because the title consisted entirely of stopwords),
   // fall through to the non-URLify method
