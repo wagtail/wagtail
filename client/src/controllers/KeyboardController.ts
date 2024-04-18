@@ -15,6 +15,16 @@ import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
  * <button type="button" data-controller="w-kbd" data-w-kbd-key="[">Trigger me with the <kbd>[</kbd> key.</button>
  * ```
  *
+ * @example - use `mod` for `ctrl` on Windows and `cmd` on MacOS
+ * ```html
+ * <button type="button" data-controller="w-kbd" data-w-kbd-key="mod+s">Trigger me with <kbd>ctrl+p</kbd> on Windows or <kbd>cmd+p</kbd> on MacOS.</button>
+ * ```
+ *
+ * @example - use 'global' scope to allow the shortcut to work even when an input is focused
+ * ```html
+ * <button type="button" data-controller="w-kbd" data-w-kbd-key="mod+s" data-w-kbd-scope-value="global">Trigger me globally.</button>
+ * ```
+ *
  * @example - use aria-keyshortcuts (when the key string is compatible with Mousetrap's syntax)
  * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts
  * ```html
