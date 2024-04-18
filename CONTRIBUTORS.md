@@ -815,6 +815,7 @@
 * Drikus Roor
 * Alec Baron
 * Saksham Misra
+* Nigel van Keulen
 
 ## Translators
 
