@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: action_menu.py:70
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:13
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
 msgid "Publish"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgid "Delete"
 msgstr ""
 
 #: action_menu.py:239
-#: templates/wagtailsnippets/snippets/action_menu/save.html:25
+#: templates/wagtailsnippets/snippets/action_menu/save.html:27
 msgid "Save"
 msgstr ""
 
@@ -145,27 +145,27 @@ msgid ""
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:9
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:11
 msgid "Publishing…"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:13
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
 msgid "Publish this version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/save.html:7
+#: templates/wagtailsnippets/snippets/action_menu/save.html:9
 msgid "Saving…"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/save.html:18
+#: templates/wagtailsnippets/snippets/action_menu/save.html:20
 msgid "Replace current draft"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/save.html:20
+#: templates/wagtailsnippets/snippets/action_menu/save.html:22
 msgid "Replace current revision"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/save.html:23
+#: templates/wagtailsnippets/snippets/action_menu/save.html:25
 msgid "Save draft"
 msgstr ""
 
@@ -178,79 +178,39 @@ msgstr ""
 msgid "Select all snippets in listing"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:9
-msgid "Live version"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:10
-msgid "Current draft"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:15
-msgid "Preview"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:18
-msgid "Edit"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:20
-msgid "Review this version"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:23
-msgid "Compare with previous version"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:26
-msgid "Compare with current version"
-msgstr ""
-
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:29
-msgid "Cancel scheduled publish"
-msgstr ""
-
 #: views/chooser.py:21
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:79 views/snippets.py:106 views/snippets.py:952
+#: views/snippets.py:77 views/snippets.py:104 views/snippets.py:913
 #: wagtail_hooks.py:44
 msgid "Snippets"
 msgstr ""
 
-#: views/snippets.py:119
+#: views/snippets.py:117
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:125
+#: views/snippets.py:123
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:216
+#: views/snippets.py:214
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:400
-msgid "Action"
-msgstr ""
-
-#: views/snippets.py:403
-msgid "Date"
-msgstr ""
-
-#: views/snippets.py:428
+#: views/snippets.py:389
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:434
+#: views/snippets.py:395
 #, python-format
 msgid "%(model_name)s history"
 msgstr ""
 
-#: views/snippets.py:951
+#: views/snippets.py:912
 msgid "Home"
 msgstr ""
 
