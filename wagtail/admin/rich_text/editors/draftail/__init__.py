@@ -19,7 +19,9 @@ class LazyStringEncoder(json.JSONEncoder):
     translations can be resolved when rendering the widget only.
     """
 
-    lazy_string_types = [type(reverse_lazy("")), type(gettext_lazy(""))]
+    # The string "Edit" here is arbitrary, chosen because it exists elsewhere in the
+    # translations dictionary and is likely to remain in the future.
+    lazy_string_types = [type(reverse_lazy("Edit")), type(gettext_lazy("Edit"))]
 
     def default(self, obj):
         if type(obj) in self.lazy_string_types:
