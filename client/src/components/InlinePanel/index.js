@@ -181,8 +181,21 @@ export class InlinePanel extends ExpandingFormset {
     return forms.length;
   }
 
-  getActiveForms() {
-    return $('> [data-inline-panel-child]', this.formsElt).not('.deleted');
+  getActiveFormsIndex() {
+    const choiceIds = [];
+    const forms = $('> [data-inline-panel-child]', this.formsElt).not(
+      '.deleted',
+    );
+    // eslint-disable-next-line func-names
+    forms.each(function () {
+      const id = $(this).attr('id');
+      const index = id.match(/\d+$/)[0];
+
+      if (index !== undefined && typeof parseInt(index, 10) === 'number') {
+        choiceIds.push(index);
+      }
+    });
+    return choiceIds;
   }
 
   updateAddButtonState() {

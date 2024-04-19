@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { InlinePanel } from '../InlinePanel';
 
 export class MultipleChooserPanel extends InlinePanel {
@@ -13,24 +12,24 @@ export class MultipleChooserPanel extends InlinePanel {
     );
 
     const getChoiceSelectIds = () => {
-      const forms = this.getActiveForms();
-      const choiceIds = [];
+      const chooserIds = [];
+      const formsIndexes = this.getActiveFormsIndex();
 
-      // eslint-disable-next-line func-names
-      forms.each(function () {
-        const inputValId = $(this)
-          .find('input[type="hidden"][choice-select-val-id]')
-          .val();
+      for (const formIndex of formsIndexes) {
+        const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+        const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+        const chooserWidget = this.chooserWidgetFactory.getById(chooserFieldId);
 
         if (
-          inputValId !== undefined &&
-          typeof parseInt(inputValId, 10) === 'number' &&
-          inputValId !== ''
+          chooserWidget !== null &&
+          chooserWidget.state !== null &&
+          chooserWidget.state.id !== null &&
+          typeof parseInt(chooserWidget.state.id, 10) === 'number'
         ) {
-          choiceIds.push(inputValId);
+          chooserIds.push(chooserWidget.state.id);
         }
-      });
-      return choiceIds;
+      }
+      return chooserIds;
     };
 
     const openModalButton = document.getElementById(
