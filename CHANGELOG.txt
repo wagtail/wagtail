@@ -9,6 +9,7 @@ Changelog
  * Refactor redirects edit view to use the generic `EditView` and breadcrumbs (Rohit Sharma)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
+ * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
 
 
 6.1 (xx.xx.xxxx) - IN DEVELOPMENT
