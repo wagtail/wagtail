@@ -16,7 +16,7 @@ from wagtail.admin.filters import (
     MultipleUserFilter,
     WagtailFilterSet,
 )
-from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
+from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic.base import (
     BaseListingView,
@@ -197,7 +197,6 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     is_searchable = False
     paginate_by = 20
     filterset_class = HistoryFilterSet
-    table_class = InlineActionsTable
     history_url_name = None
     history_results_url_name = None
     edit_url_name = None

@@ -223,6 +223,10 @@ ul.listing {
 
   .title {
     word-break: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: theme('spacing.2');
 
     .title-wrapper,
     h2 {
@@ -258,36 +262,6 @@ ul.listing {
       float: inline-start;
       padding: 0 0.5em 0 0;
       vertical-align: middle;
-    }
-  }
-
-  &--inline-actions td.title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    .title-wrapper {
-      margin-inline-end: 2.5em;
-    }
-
-    .w-status {
-      margin: 0;
-    }
-  }
-
-  &--inline-actions .actions {
-    display: inline-block;
-    margin-top: 0;
-    vertical-align: inherit;
-
-    li {
-      margin-bottom: 0;
-    }
-
-    .button {
-      vertical-align: inherit;
     }
   }
 
