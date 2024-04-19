@@ -518,7 +518,3 @@ class Table(Component):
         @cached_property
         def attrs(self):
             return self.table.get_row_attrs(self.instance)
-
-
-class InlineActionsTable(Table):
-    classname = "listing listing--inline-actions"
