@@ -19,6 +19,7 @@ from wagtail.contrib.frontend_cache.backends import (
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
     PurgeBatch,
@@ -336,13 +337,29 @@ class TestBackendConfiguration(TestCase):
                 },
             }
         )
-        backends.get("cloudfront").purge(
-            "http://www.wagtail.org/home/events/christmas/"
-        )
-        backends.get("cloudfront").purge("http://torchbox.com/blog/")
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
+        ):
+            backends.get("cloudfront").purge(
+                "http://www.wagtail.org/home/events/christmas/"
+            )
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
+        ):
+            backends.get("cloudfront").purge("http://torchbox.com/blog/")
 
         _create_invalidation.assert_called_once_with(
             "frontend", ["/home/events/christmas/"]
+        )
+
+        self.assertTrue(
+            backends.get("cloudfront").invalidates_hostname("www.wagtail.org")
+        )
+        self.assertFalse(
+            backends.get("cloudfront").invalidates_hostname("torchbox.com")
         )
 
     def test_multiple(self):
@@ -396,17 +413,11 @@ PURGED_URLS = []
 
 
 class MockBackend(BaseBackend):
-    def __init__(self, config):
-        pass
-
     def purge(self, url):
         PURGED_URLS.append(url)
 
 
 class MockCloudflareBackend(CloudflareBackend):
-    def __init__(self, config):
-        pass
-
     def _purge_urls(self, urls):
         if len(urls) > self.CHUNK_SIZE:
             raise Exception("Cloudflare backend is not chunking requests as expected")
@@ -465,11 +476,34 @@ class TestCachePurgingFunctions(TestCase):
             ],
         )
 
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "varnish": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAMES": ["example.com"],
+            },
+        }
+    )
+    def test_invalidate_specific_location(self):
+        with self.assertLogs(level="WARNING") as log_output:
+            purge_url_from_cache("http://localhost/foo")
+
+        self.assertEqual(PURGED_URLS, [])
+        self.assertIn(
+            "Unable to find purge backend for localhost",
+            log_output.output[0],
+        )
+
+        purge_url_from_cache("http://example.com/foo")
+        self.assertEqual(PURGED_URLS, ["http://example.com/foo"])
+
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
         "cloudflare": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockCloudflareBackend",
+            "ZONEID": "zone",
+            "BEARER_TOKEN": "token",
         },
     }
 )

@@ -68,6 +68,8 @@ Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFr
 
 Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
 
+If you have multiple frontends configured (eg Cloudflare for one site, CloudFront for another), it's recommended to set the [`HOSTNAMES`](frontendcache_multiple_backends) key to the list of hostnames the backend can purge, to prevent unnecessary extra purge requests.
+
 ## Page URLs
 
 To fully resolve the URL of a page, Wagtail requires information from a few different sources.
