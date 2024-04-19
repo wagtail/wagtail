@@ -97,6 +97,7 @@ export class Chooser {
 
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
+    this.input.setAttribute('choice-select-val-id', newState.id);
     this.input.dispatchEvent(new Event('change', { bubbles: true }));
     if (this.titleElement && this.titleStateKey) {
       this.titleElement.textContent = newState[this.titleStateKey];

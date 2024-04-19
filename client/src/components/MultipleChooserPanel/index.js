@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { InlinePanel } from '../InlinePanel';
 
 export class MultipleChooserPanel extends InlinePanel {
@@ -10,6 +11,27 @@ export class MultipleChooserPanel extends InlinePanel {
           .textContent,
       ),
     );
+
+    const getChoiceSelectIds = () => {
+      const forms = this.getActiveForms();
+      const choiceIds = [];
+
+      // eslint-disable-next-line func-names
+      forms.each(function () {
+        const inputValId = $(this)
+          .find('input[type="hidden"][choice-select-val-id]')
+          .val();
+
+        if (
+          inputValId !== undefined &&
+          typeof parseInt(inputValId, 10) === 'number' &&
+          inputValId !== ''
+        ) {
+          choiceIds.push(inputValId);
+        }
+      });
+      return choiceIds;
+    };
 
     const openModalButton = document.getElementById(
       `${opts.formsetPrefix}-OPEN_MODAL`,
@@ -30,10 +52,12 @@ export class MultipleChooserPanel extends InlinePanel {
         },
         { multiple: true },
       );
-      openModalButton.setAttribute(
-        'chooserids',
-        this.getChoiceSelectIds().join(','),
-      );
+      if (opts.allowDuplicates === 'True') {
+        openModalButton.setAttribute(
+          'chooserids',
+          getChoiceSelectIds().join(','),
+        );
+      }
     });
   }
 

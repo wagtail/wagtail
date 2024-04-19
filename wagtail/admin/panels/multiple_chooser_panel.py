@@ -6,18 +6,22 @@ from .inline_panel import InlinePanel
 
 
 class MultipleChooserPanel(InlinePanel):
-    def __init__(self, relation_name, chooser_field_name=None, **kwargs):
+    def __init__(
+        self, relation_name, chooser_field_name=None, allow_duplicates=True, **kwargs
+    ):
         if chooser_field_name is None:
             raise ImproperlyConfigured(
                 "MultipleChooserPanel must specify a chooser_field_name argument"
             )
 
         self.chooser_field_name = chooser_field_name
+        self.allow_duplicates = allow_duplicates
         super().__init__(relation_name, **kwargs)
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["chooser_field_name"] = self.chooser_field_name
+        kwargs["allow_duplicates"] = self.allow_duplicates
         return kwargs
 
     class BoundPanel(InlinePanel.BoundPanel):
@@ -38,6 +42,7 @@ class MultipleChooserPanel(InlinePanel):
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["chooser_field_name"] = self.panel.chooser_field_name
+            context["allow_duplicates"] = self.panel.allow_duplicates
             context[
                 "chooser_widget_definition"
             ] = self.chooser_widget_telepath_definition

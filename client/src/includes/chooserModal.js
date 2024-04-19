@@ -250,19 +250,24 @@ class ChooserModalOnloadHandlerFactory {
 
   disabledDuplicateCheckboxes(modal) {
     const openModalButton = modal.triggerElement;
-    const selectedObjectIds = openModalButton.hasAttribute('chooserids')
-      ? openModalButton.getAttribute('chooserids').split(',').map(Number)
-      : [];
-    // eslint-disable-next-line func-names
-    $('[data-multiple-choice-select]', modal.body).each(function () {
-      const value = $(this).val();
 
-      if (selectedObjectIds.includes(parseInt(value, 10))) {
-        $(this).prop('disabled', true);
-      } else {
-        $(this).prop('disabled', false);
-      }
-    });
+    if (openModalButton.hasAttribute('chooserids')) {
+      const selectedObjectIds = openModalButton
+        .getAttribute('chooserids')
+        .split(',')
+        .map(Number);
+
+      // eslint-disable-next-line func-names
+      $('[data-multiple-choice-select]', modal.body).each(function () {
+        const value = $(this).val();
+
+        if (selectedObjectIds.includes(parseInt(value, 10))) {
+          $(this).prop('disabled', true);
+        } else {
+          $(this).prop('disabled', false);
+        }
+      });
+    }
   }
 
   modalHasTabs(modal) {
