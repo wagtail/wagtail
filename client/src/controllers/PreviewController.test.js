@@ -160,6 +160,45 @@ describe('PreviewController', () => {
     windowSpy.mockRestore();
   });
 
+  const initializeOpenedPanel = async () => {
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    application = Application.start();
+    application.register('w-preview', PreviewController);
+    await Promise.resolve();
+
+    // Should not have fetched the preview URL
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+    // Open the side panel
+    const sidePanelContainer = document.querySelector(
+      '[data-side-panel="preview"]',
+    );
+    sidePanelContainer.dispatchEvent(new Event('show'));
+    await new Promise(requestAnimationFrame);
+
+    // Should send the preview data to the preview URL
+    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
+      body: expect.any(Object),
+      method: 'POST',
+    });
+
+    // At this point, there should only be one fetch call (when the panel is opened)
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    // Simulate the iframe loading
+    const newIframe = document.querySelector('iframe:last-of-type');
+    const mockScroll = jest.fn();
+    newIframe.contentWindow.scroll = mockScroll;
+    newIframe.dispatchEvent(new Event('load'));
+    expect(mockScroll).toHaveBeenCalled();
+
+    // Clear the fetch call history
+    jest.clearAllMocks();
+  };
+
   it('should load the last device size from localStorage', async () => {
     localStorage.setItem('wagtail:preview-panel-device', 'tablet');
     application = Application.start();
@@ -393,33 +432,7 @@ describe('PreviewController', () => {
   });
 
   it('should update the preview data when opening in a new tab', async () => {
-    expect(global.fetch).not.toHaveBeenCalled();
-
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-    await Promise.resolve();
-
-    // Should not have fetched the preview URL
-    expect(global.fetch).not.toHaveBeenCalled();
-
-    fetch.mockResponseSuccessJSON(validAvailableResponse);
-
-    // Open the side panel
-    const sidePanelContainer = document.querySelector(
-      '[data-side-panel="preview"]',
-    );
-    sidePanelContainer.dispatchEvent(new Event('show'));
-    await new Promise(requestAnimationFrame);
-
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
-    });
-
-    // At this point, there should only be one fetch call (when the panel is opened)
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-
+    await initializeOpenedPanel();
     fetch.mockResponseSuccessJSON(validAvailableResponse);
 
     // Open the preview in a new tab
@@ -441,6 +454,34 @@ describe('PreviewController', () => {
     // be used as the second argument to ensure the same tab is reused if it's
     // already open even when the URL is different, e.g. when the user changes
     // the preview mode
+    expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
+  });
+
+  it('should show an alert if the update request fails when opening in a new tab', async () => {
+    await initializeOpenedPanel();
+    fetch.mockResponseFailure();
+
+    // Open the preview in a new tab
+    const newTabLink = document.querySelector(
+      '[data-w-preview-target="newTab"]',
+    );
+    newTabLink.click();
+
+    // Should send the preview data to the preview URL
+    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
+      body: expect.any(Object),
+      method: 'POST',
+    });
+
+    mockWindow({ open: jest.fn(), alert: jest.fn() });
+    await new Promise(requestAnimationFrame);
+
+    // Should call window.alert() with the correct message
+    expect(window.alert).toHaveBeenCalledWith(
+      'Error while sending preview data.',
+    );
+
+    // Should still open the new tab anyway
     expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
   });
 });
