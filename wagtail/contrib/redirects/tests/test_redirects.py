@@ -1,6 +1,9 @@
+from io import BytesIO
+
 from django.conf import settings
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from openpyxl.reader.excel import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
@@ -592,7 +595,14 @@ class TestRedirects(TestCase):
         self.assertIs(redirect.is_permanent, True)
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.site = Site.objects.first()
+
     def setUp(self):
         self.login()
 
@@ -607,6 +617,7 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             [{"url": "", "label": "Redirects"}],
             response.content,
         )
+        self.assertContains(response, "No redirects have been created")
 
     def test_search(self):
         models.Redirect.objects.create(
@@ -691,6 +702,76 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
                     response.context["object_list"].query.order_by,
                     (ordering,),
                 )
+
+    def test_filtering_by_type(self):
+        temp_redirect = models.Redirect.add_redirect("/from", "/to", False)
+        perm_redirect = models.Redirect.add_redirect("/cat", "/dog", True)
+
+        response = self.get(params={"is_permanent": "True"})
+
+        self.assertContains(response, perm_redirect.old_path)
+        self.assertNotContains(response, temp_redirect.old_path)
+
+    def test_filtering_by_site(self):
+        site_redirect = models.Redirect.add_redirect("/cat", "/dog")
+        site_redirect.site = self.site
+        site_redirect.save()
+        nosite_redirect = models.Redirect.add_redirect("/from", "/to")
+
+        response = self.get(params={"site": self.site.pk})
+
+        self.assertContains(response, site_redirect.old_path)
+        self.assertNotContains(response, nosite_redirect.old_path)
+
+    def test_csv_export(self):
+        models.Redirect.add_redirect("/from", "/to", False)
+
+        # Session, User, UserProfile, Redirects
+        with self.assertNumQueries(4):
+            response = self.get(params={"export": "csv"})
+
+            csv_data = response.getvalue().decode().split("\n")
+
+        self.assertEqual(response.status_code, 200)
+        csv_header = csv_data[0]
+        csv_entries = csv_data[1:]
+        csv_entries = csv_entries[:-1]  # Drop empty last line
+
+        self.assertEqual(csv_header, "From,To,Type,Site\r")
+        self.assertEqual(len(csv_entries), 1)
+        self.assertEqual(csv_entries[0], "/from,/to,temporary,\r")
+
+    def test_xlsx_export(self):
+        models.Redirect.add_redirect("/from", "/to", True)
+
+        # Session, User, UserProfile, Redirects
+        with self.assertNumQueries(4):
+            response = self.get(params={"export": "xlsx"})
+            workbook_data = response.getvalue()
+
+        self.assertEqual(response.status_code, 200)
+
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+
+        self.assertEqual(cell_array[0], ["From", "To", "Type", "Site"])
+        self.assertEqual(len(cell_array), 2)
+        self.assertEqual(cell_array[1], ["/from", "/to", "permanent", None])
+
+    def test_num_queries_in_export(self):
+        page = Page.objects.get(id=2)
+        for i in range(3):
+            models.Redirect.add_redirect(f"/from{i}", "/to", False)
+            models.Redirect.add_redirect(f"/from-site{i}", "/to", False, site=self.site)
+            models.Redirect.add_redirect(f"/to-page{i}", page, False)
+
+        response = self.get(params={"export": "csv"})
+        # Session, User, UserProfile, Redirects, Site
+        with self.assertNumQueries(5):
+            response = self.get(params={"export": "csv"})
+            csv_data = response.getvalue().decode().strip().split("\n")
+
+        self.assertEqual(len(csv_data), 10)
 
 
 class TestRedirectsAddView(WagtailTestUtils, TestCase):

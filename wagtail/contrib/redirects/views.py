@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.db import transaction
@@ -16,7 +17,6 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
 from wagtail.admin.views import generic
-from wagtail.admin.views.reports import ReportView
 from wagtail.admin.widgets.button import Button
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
@@ -45,12 +45,12 @@ class RedirectTargetColumn(Column):
     url_name = "wagtailadmin_pages:edit"
 
     def get_value(self, instance):
-        if instance.redirect_page:
+        if instance.redirect_page_id:
             return instance.redirect_page.get_admin_display_title()
         return instance.redirect_link
 
     def get_url(self, instance):
-        if instance.redirect_page:
+        if instance.redirect_page_id:
             return reverse(self.url_name, args=[instance.redirect_page_id])
         return None
 
@@ -105,26 +105,35 @@ class IndexView(generic.IndexView):
             primary=lambda r: r.is_permanent,
         ),
     ]
+    filterset_class = RedirectsReportFilterSet
+    list_export = [
+        "old_path",
+        "link",
+        "get_is_permanent_display",
+        "site",
+    ]
+    export_headings = {
+        "old_path": _("From"),
+        "site": _("Site"),
+        "link": _("To"),
+        "get_is_permanent_display": _("Type"),
+    }
 
     def get_base_queryset(self):
         return super().get_base_queryset().select_related("redirect_page", "site")
 
     @cached_property
-    def header_more_buttons(self):
-        return [
+    def header_more_buttons(self) -> List[Button]:
+        buttons = super().header_more_buttons.copy()
+        buttons.append(
             Button(
                 _("Import redirects"),
                 url=reverse("wagtailredirects:start_import"),
                 icon_name="doc-full-inverse",
-                priority=90,
-            ),
-            Button(
-                _("Export redirects"),
-                url=reverse("wagtailredirects:report"),
-                icon_name="download",
-                priority=100,
-            ),
-        ]
+                priority=50,
+            )
+        )
+        return buttons
 
 
 @permission_checker.require("change")
@@ -444,31 +453,3 @@ def to_readable_errors(error):
     errors = [x.lstrip("* ") for x in errors]
     errors = ", ".join(errors)
     return errors
-
-
-class RedirectsReportView(ReportView):
-    header_icon = "redirect"
-    title = _("Export Redirects")
-    template_name = "wagtailredirects/reports/redirects_report.html"
-    filterset_class = RedirectsReportFilterSet
-
-    list_export = [
-        "old_path",
-        "link",
-        "get_is_permanent_display",
-        "site",
-    ]
-
-    export_headings = {
-        "old_path": _("From"),
-        "site": _("Site"),
-        "link": _("To"),
-        "get_is_permanent_display": _("Type"),
-    }
-
-    def get_queryset(self):
-        return (
-            models.Redirect.objects.all()
-            .order_by("old_path")
-            .select_related("site", "redirect_page")
-        )
