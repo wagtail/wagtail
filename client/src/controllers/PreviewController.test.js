@@ -10,6 +10,13 @@ jest.mock('../config/wagtailConfig.js', () => ({
 
 describe('PreviewController', () => {
   let application;
+  let windowSpy;
+  const originalWindow = { ...window };
+  const mockWindow = (props) =>
+    windowSpy.mockImplementation(() => ({
+      ...originalWindow,
+      ...props,
+    }));
   const resizeObserverMockObserve = jest.fn();
   const resizeObserverMockUnobserve = jest.fn();
   const resizeObserverMockDisconnect = jest.fn();
@@ -56,6 +63,8 @@ describe('PreviewController', () => {
   `;
 
   beforeEach(() => {
+    windowSpy = jest.spyOn(global, 'window', 'get');
+
     document.body.innerHTML = /* html */ `
       <form method="POST" data-edit-form>
         <input type="text" id="id_title" name="title" value="My Page" />
@@ -148,6 +157,7 @@ describe('PreviewController', () => {
   afterEach(() => {
     application.stop();
     jest.clearAllMocks();
+    windowSpy.mockRestore();
   });
 
   it('should load the last device size from localStorage', async () => {
@@ -380,5 +390,57 @@ describe('PreviewController', () => {
     // By the end, there should only be two fetch calls: one to send the invalid
     // preview data and one to clear the preview data
     expect(global.fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('should update the preview data when opening in a new tab', async () => {
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    application = Application.start();
+    application.register('w-preview', PreviewController);
+    await Promise.resolve();
+
+    // Should not have fetched the preview URL
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+    // Open the side panel
+    const sidePanelContainer = document.querySelector(
+      '[data-side-panel="preview"]',
+    );
+    sidePanelContainer.dispatchEvent(new Event('show'));
+    await new Promise(requestAnimationFrame);
+
+    // Should send the preview data to the preview URL
+    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
+      body: expect.any(Object),
+      method: 'POST',
+    });
+
+    // At this point, there should only be one fetch call (when the panel is opened)
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+    // Open the preview in a new tab
+    const newTabLink = document.querySelector(
+      '[data-w-preview-target="newTab"]',
+    );
+    newTabLink.click();
+
+    // Should send the preview data to the preview URL
+    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
+      body: expect.any(Object),
+      method: 'POST',
+    });
+
+    mockWindow({ open: jest.fn() });
+    await new Promise(requestAnimationFrame);
+
+    // Should call window.open() with the correct URL, and the base URL should
+    // be used as the second argument to ensure the same tab is reused if it's
+    // already open even when the URL is different, e.g. when the user changes
+    // the preview mode
+    expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
   });
 });
