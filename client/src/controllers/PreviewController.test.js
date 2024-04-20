@@ -484,4 +484,97 @@ describe('PreviewController', () => {
     // Should still open the new tab anyway
     expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
   });
+
+  it('should only show the spinner after 2s when refreshing the preview', async () => {
+    // Mock a 2s successful request
+    jest.useFakeTimers();
+    fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+    // Add the spinner to the preview panel
+    const element = document.querySelector('[data-controller="w-preview"]');
+    element.insertAdjacentHTML('beforeend', spinner);
+    const spinnerElement = element.querySelector(
+      '[data-w-preview-target="spinner"]',
+    );
+
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    application = Application.start();
+    application.register('w-preview', PreviewController);
+    await Promise.resolve();
+
+    // Should not have fetched the preview URL
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+    // Open the side panel
+    const sidePanelContainer = document.querySelector(
+      '[data-side-panel="preview"]',
+    );
+    sidePanelContainer.dispatchEvent(new Event('show'));
+    await Promise.resolve();
+
+    // Should send the preview data to the preview URL
+    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
+      body: expect.any(Object),
+      method: 'POST',
+    });
+
+    // Initially, the iframe src should be empty so it doesn't load the preview
+    // until after the request is complete
+    let iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(1);
+    expect(iframes[0].src).toEqual('');
+
+    // Should show the spinner after 2s
+    expect(spinnerElement.hidden).toBe(true);
+    jest.advanceTimersByTime(2000);
+    await Promise.resolve();
+    expect(spinnerElement.hidden).toBe(false);
+    await Promise.resolve();
+
+    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+
+    // Should create a new invisible iframe with the correct URL
+    iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(2);
+    const oldIframe = iframes[0];
+    const newIframe = iframes[1];
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.style.width).toEqual('0px');
+    expect(newIframe.style.height).toEqual('0px');
+    expect(newIframe.style.opacity).toEqual('0');
+    expect(newIframe.style.position).toEqual('absolute');
+    // The spinner should still be visible while the iframe is loading
+    expect(spinnerElement.hidden).toBe(false);
+
+    // Mock the iframe's scroll method
+    newIframe.contentWindow.scroll = jest.fn();
+
+    // Simulate the iframe loading
+    await Promise.resolve();
+    newIframe.dispatchEvent(new Event('load'));
+
+    // Should remove the old iframe and make the new one visible
+    iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(1);
+    expect(iframes[0]).toBe(newIframe);
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.getAttribute('style')).toBeNull();
+    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+      oldIframe.contentWindow.scrollX,
+      oldIframe.contentWindow.scrollY,
+    );
+    // The spinner should be hidden after the iframe loads
+    expect(spinnerElement.hidden).toBe(true);
+
+    // Should set the device width property to the selected size (the default)
+    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+      '375',
+    );
+
+    // By the end, there should only be one fetch call
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
 });
