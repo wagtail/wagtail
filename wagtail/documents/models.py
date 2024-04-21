@@ -5,6 +5,7 @@ from mimetypes import guess_type
 
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.dispatch import Signal
 from django.urls import reverse
@@ -71,7 +72,12 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         allowed_extensions = getattr(settings, "WAGTAILDOCS_EXTENSIONS", None)
         if allowed_extensions:
             validate = FileExtensionValidator(allowed_extensions)
-            validate(self.file)
+            try:
+                validate(self.file)
+            except ValidationError as e:
+                raise ValidationError(
+                    { "file": e.messages[0] }
+                )
 
     def is_stored_locally(self):
         """
