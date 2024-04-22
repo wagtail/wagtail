@@ -27,7 +27,7 @@ export function cleanForSlug(
   if (useURLify) {
     // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
     // for creating a slug from the title, rather than sanitising a slug entered manually
-    const cleaned = window.URLify(val, 255);
+    const cleaned = window.URLify(val, 255, unicodeSlugsEnabled);
 
     // if the result is blank (e.g. because the title consisted entirely of stopwords),
     // fall through to the non-URLify method
