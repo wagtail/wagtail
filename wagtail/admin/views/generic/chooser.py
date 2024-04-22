@@ -119,7 +119,7 @@ class BaseChooseView(
     of objects to choose from
     """
 
-    per_page = 10
+    items_per_page = 10
     ordering = None
     chosen_url_name = None
     chosen_multiple_url_name = None
@@ -242,7 +242,7 @@ class BaseChooseView(
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
-        paginator = Paginator(objects, per_page=self.per_page)
+        paginator = Paginator(objects, per_page=self.items_per_page)
         try:
             return paginator.page(request.GET.get("p", 1))
         except InvalidPage:

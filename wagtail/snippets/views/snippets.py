@@ -830,7 +830,7 @@ class SnippetViewSet(ModelViewSet):
             model=self.model,
             url_prefix=self.get_chooser_admin_base_path(),
             icon=self.icon,
-            items_per_page=self.chooser_per_page,
+            per_page=self.chooser_per_page,
         )
 
     @cached_property
