@@ -766,8 +766,9 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
             models.Redirect.add_redirect(f"/to-page{i}", page, False)
 
         response = self.get(params={"export": "csv"})
-        # Session, User, UserProfile, Redirects, Site
-        with self.assertNumQueries(5):
+        csv_data = response.getvalue().decode().strip().split("\n")
+        # Session, User, UserProfile, Redirects
+        with self.assertNumQueries(4):
             response = self.get(params={"export": "csv"})
             csv_data = response.getvalue().decode().strip().split("\n")
 
