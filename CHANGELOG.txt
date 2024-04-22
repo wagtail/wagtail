@@ -6,6 +6,7 @@ Changelog
 
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
  * Support a `HOSTNAMES` parameter on `WAGTAILFRONTENDCACHE` to define which hostnames a backend should respond to (Jake Howard, sponsored by Oxfam America)
+ * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
 
 
 6.1 (xx.xx.xxxx) - IN DEVELOPMENT
