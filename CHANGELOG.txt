@@ -80,6 +80,7 @@ Changelog
  * Docs: Correct information about line endings in Window development docs (Sage Abdullah)
  * Docs: Improve code snippets for "Create a footer for all pages" tutorial section (Drikus Roor)
  * Docs: Update list of third-party tutorials (LB (Ben) Johnston)
+ * Docs: Update "Integrating into Django" documentation to emphasise creating page models (Matt Westcott)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
