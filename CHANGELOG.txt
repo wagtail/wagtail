@@ -66,6 +66,7 @@ Changelog
  * Fix: Add `w-kbd-scope-value` with support for `global` so that specific keyboard shortcuts (e.g. ctrl+s/cmd+s) trigger consistently even when focused on fields (Neeraj Yetheendran)
  * Fix: Improve exception handling when generating image renditions concurrently (Andy Babic)
  * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
