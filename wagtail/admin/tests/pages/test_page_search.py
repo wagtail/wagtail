@@ -4,6 +4,7 @@ from django.contrib.auth.models import Permission
 from django.core import management
 from django.test import TransactionTestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, SimplePage, SingleEventPage
@@ -33,10 +34,29 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_search(self):
+        # Find root page
+        root_page = Page.objects.get(id=2)
+
+        # Create a page
+        new_page = root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Cauldron Lake",
+                slug="bright-falls",
+                content="It's not a lake, it's an ocean",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
         self.assertEqual(response.context["query_string"], "Hello")
+        next_url = urlencode({"next": reverse("wagtailadmin_pages:search")})
+        expected_new_page_copy_url = (
+            reverse("wagtailadmin_pages:copy", args=(new_page.pk,)) + f"?{next_url}"
+        )
+        self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
     def test_search_searchable_fields(self):
         # Find root page
@@ -62,6 +82,20 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "There is one matching page")
 
     def test_ajax(self):
+        # Find root page
+        root_page = Page.objects.get(id=2)
+
+        # Create a page
+        new_page = root_page.add_child(
+            instance=SimplePage(
+                title="Hello from Cauldron Lake",
+                slug="bright-falls",
+                content="It's not a lake, it's an ocean",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+
         response = self.get(
             {"q": "Hello"}, url_name="wagtailadmin_pages:search_results"
         )
@@ -69,6 +103,11 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertTemplateNotUsed(response, "wagtailadmin/pages/search.html")
         self.assertTemplateUsed(response, "wagtailadmin/pages/search_results.html")
         self.assertEqual(response.context["query_string"], "Hello")
+        next_url = urlencode({"next": reverse("wagtailadmin_pages:search")})
+        expected_new_page_copy_url = (
+            reverse("wagtailadmin_pages:copy", args=(new_page.pk,)) + f"?{next_url}"
+        )
+        self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
     def test_pagination(self):
         # page numbers in range should be accepted
