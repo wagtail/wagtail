@@ -4,7 +4,7 @@ Changelog
 6.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
 
 
 6.1 (xx.xx.xxxx) - IN DEVELOPMENT
