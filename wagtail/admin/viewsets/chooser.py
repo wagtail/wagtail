@@ -29,7 +29,7 @@ class ChooserViewSet(ViewSet):
     )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
     edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
 
-    items_per_page = 10  #: Number of results to show per page
+    per_page = 10  #: Number of results to show per page
 
     #: A list of URL query parameters that should be passed on unmodified as part of any links or
     #: form submissions within the chooser modal workflow.
@@ -107,7 +107,7 @@ class ChooserViewSet(ViewSet):
                 "chosen_multiple_url_name": self.get_url_name("chosen_multiple"),
                 "results_url_name": self.get_url_name("choose_results"),
                 "create_url_name": self.get_url_name("create"),
-                "items_per_page": self.items_per_page,
+                "per_page": self.per_page,
                 **kwargs,
             }
         )
