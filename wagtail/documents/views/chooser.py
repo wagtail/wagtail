@@ -58,7 +58,7 @@ class DocumentCreationFormMixin(CreationFormMixin):
 
 class BaseDocumentChooseView(BaseChooseView):
     results_template_name = "wagtaildocs/chooser/results.html"
-    items_per_page = 10
+    per_page = 10
     ordering = "-created_at"
     construct_queryset_hook_name = "construct_document_chooser_queryset"
 
