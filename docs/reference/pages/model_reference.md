@@ -514,10 +514,6 @@ This is currently enforced via {attr}`~django.db.models.Options.unique_together`
 If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
 ```
 
-```{versionchanged} 6.0
-The system check for `translation_key` and `locale` unique key constraint now allows a `UniqueConstraint` in `Meta.constraints` instead of `unique_together` in `Meta`.
-```
-
 ### Methods and properties
 
 ```{eval-rst}

@@ -32,11 +32,6 @@ body = StreamField([
 })
 ```
 
-```{versionchanged} 6.0
-
-The `use_json_field` argument is no longer required.
-```
-
 ## Block options
 
 All block definitions accept the following optional keyword arguments:
