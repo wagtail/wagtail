@@ -399,9 +399,9 @@ class TestPagination(BaseSnippetViewSetTests):
         choose_results_url = reverse(chooser_viewset.get_url_name("choose_results"))
         response = self.client.get(choose_url)
 
-        # Default is 25 per page
+        # Default is 10 per page
         self.assertEqual(Advert.objects.all().count(), 32)
-        self.assertContains(response, "Page 1 of 2")
+        self.assertContains(response, "Page 1 of 4")
         self.assertContains(response, "Next")
         self.assertContains(response, choose_results_url + "?p=2")
 
@@ -413,7 +413,7 @@ class TestPagination(BaseSnippetViewSetTests):
 
         # FullFeaturedSnippet is set to display 15 per page
         self.assertEqual(FullFeaturedSnippet.objects.all().count(), 32)
-        # self.assertContains(response, "Page 1 of 3")
+        self.assertContains(response, "Page 1 of 3")
         self.assertContains(response, "Next")
         self.assertContains(response, choose_results_url + "?p=2")
 

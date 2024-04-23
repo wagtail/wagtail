@@ -20,7 +20,7 @@ class BaseSnippetChooseView(BaseChooseView):
     filter_form_class = None
     page_title = _("Choose")
     results_template_name = "wagtailsnippets/chooser/results.html"
-    items_per_page = 25
+    per_page = 25
 
     @property
     def page_subtitle(self):
