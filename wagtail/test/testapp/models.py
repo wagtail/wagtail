@@ -1641,6 +1641,49 @@ class TestGenericSetting(BaseGenericSetting):
 
 
 @register_setting
+class TestPermissionedGenericSetting(BaseGenericSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email",
+            permission="tests.can_edit_sensitive_email_generic_setting",
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_generic_setting",
+                "Can edit sensitive email generic setting.",
+            ),
+        ]
+
+
+@register_setting
+class TestPermissionedSiteSetting(BaseSiteSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email", permission="tests.can_edit_sensitive_email_site_setting"
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_site_setting",
+                "Can edit sensitive email site setting.",
+            ),
+        ]
+
+
+@register_setting
 class ImportantPagesSiteSetting(BaseSiteSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL

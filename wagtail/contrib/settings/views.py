@@ -101,6 +101,10 @@ class EditView(generic.EditView):
     def get_form_class(self):
         return get_setting_edit_handler(self.model).get_form_class()
 
+    def get_form_kwargs(self):
+        # Pass the current user, which is needed for permission-restricted fields
+        return {**super().get_form_kwargs(), "for_user": self.request.user}
+
     def get_edit_url(self):
         return reverse(
             "wagtailsettings:edit",

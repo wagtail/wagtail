@@ -14,6 +14,7 @@ from wagtail.test.testapp.models import (
     IconSiteSetting,
     PanelSiteSettings,
     TabbedSiteSettings,
+    TestPermissionedSiteSetting,
     TestSiteSetting,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -106,15 +107,15 @@ class TestSiteSettingCreateView(BaseTestSiteSettingView):
 
 class TestSiteSettingEditView(BaseTestSiteSettingView):
     def setUp(self):
-        default_site = Site.objects.get(is_default_site=True)
+        self.default_site = Site.objects.get(is_default_site=True)
 
         self.test_setting = TestSiteSetting()
         self.test_setting.title = "Site title"
         self.test_setting.email = "initial@example.com"
-        self.test_setting.site = default_site
+        self.test_setting.site = self.default_site
         self.test_setting.save()
 
-        self.login()
+        self.user = self.login()
 
     def test_get_edit(self):
         response = self.get()
@@ -157,6 +158,38 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         url = reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
         response = self.client.get(url)
         self.assertRedirects(response, status_code=302, expected_url="/admin/")
+
+    def test_permission_restricted_field(self):
+        test_setting = TestPermissionedSiteSetting()
+        test_setting.sensitive_email = "test@example.com"
+        test_setting.site = self.default_site
+        test_setting.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+
+        self.assertTrue(self.user.is_superuser)
+        response = self.get(setting=TestPermissionedSiteSetting)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("sensitive_email", response.context["form"].fields)
+
+        self.user.is_superuser = False
+        self.user.save()
+
+        self.assertFalse(self.user.is_superuser)
+        response = self.get(setting=TestPermissionedSiteSetting)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("sensitive_email", list(response.context["form"].fields))
+
+        self.user.user_permissions.add(
+            Permission.objects.get(codename="can_edit_sensitive_email_site_setting")
+        )
+
+        response = self.get(setting=TestPermissionedSiteSetting)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("sensitive_email", list(response.context["form"].fields))
 
 
 @override_settings(
