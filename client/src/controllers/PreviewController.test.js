@@ -200,419 +200,447 @@ describe('PreviewController', () => {
     jest.clearAllMocks();
   };
 
-  it('should load the last device size from localStorage', async () => {
-    localStorage.setItem('wagtail:preview-panel-device', 'tablet');
-    application = Application.start();
-    application.register('w-preview', PreviewController);
+  describe('controlling the preview size', () => {
+    it('should load the last device size from localStorage', async () => {
+      localStorage.setItem('wagtail:preview-panel-device', 'tablet');
+      application = Application.start();
+      application.register('w-preview', PreviewController);
 
-    const element = document.querySelector('[data-controller="w-preview"]');
-    await Promise.resolve();
-    const selectedSizeInput = document.querySelector(
-      'input[name="preview-size"]:checked',
-    );
-    expect(selectedSizeInput.value).toEqual('tablet');
-    const selectedSizeLabel = selectedSizeInput.labels[0];
-    expect(
-      selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(true);
-  });
-
-  it('should set the device size accordingly when the input changes', async () => {
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-
-    const element = document.querySelector('[data-controller="w-preview"]');
-    await Promise.resolve();
-
-    // Initial size should be mobile, with the localStorage value unset
-    const selectedSizeInput = document.querySelector(
-      'input[name="preview-size"]:checked',
-    );
-    const selectedSizeLabel = selectedSizeInput.labels[0];
-    expect(selectedSizeInput.value).toEqual('mobile');
-    expect(
-      selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(true);
-    expect(localStorage.getItem('wagtail:preview-panel-device')).toBeNull();
-
-    const desktopSizeInput = document.querySelector(
-      'input[name="preview-size"][value="desktop"]',
-    );
-    desktopSizeInput.click();
-    await Promise.resolve();
-    const newSizeInput = document.querySelector(
-      'input[name="preview-size"]:checked',
-    );
-    expect(newSizeInput.value).toEqual('desktop');
-    const newSizeLabel = newSizeInput.labels[0];
-    expect(
-      newSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(true);
-    expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
-      'desktop',
-    );
-    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
-      '1280',
-    );
-  });
-
-  it('should observe its own size so it can set the preview width accordingly', async () => {
-    expect(ResizeObserverMock).not.toHaveBeenCalled();
-    expect(resizeObserverMockObserve).not.toHaveBeenCalled();
-
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-
-    await Promise.resolve();
-
-    const previewPanel = document.querySelector('.w-preview');
-
-    expect(ResizeObserverMock).toHaveBeenCalledWith(expect.any(Function));
-    expect(resizeObserverMockObserve).toHaveBeenCalledWith(previewPanel);
-  });
-
-  it('should initialize the preview when the side panel is opened', async () => {
-    expect(global.fetch).not.toHaveBeenCalled();
-
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-    await Promise.resolve();
-
-    // Should not have fetched the preview URL
-    expect(global.fetch).not.toHaveBeenCalled();
-
-    fetch.mockResponseSuccessJSON(validAvailableResponse);
-
-    // Open the side panel
-    const sidePanelContainer = document.querySelector(
-      '[data-side-panel="preview"]',
-    );
-    sidePanelContainer.dispatchEvent(new Event('show'));
-    await Promise.resolve();
-
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
+      const element = document.querySelector('[data-controller="w-preview"]');
+      await Promise.resolve();
+      const selectedSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(selectedSizeInput.value).toEqual('tablet');
+      const selectedSizeLabel = selectedSizeInput.labels[0];
+      expect(
+        selectedSizeLabel.classList.contains(
+          'w-preview__size-button--selected',
+        ),
+      ).toBe(true);
     });
 
-    // Initially, the iframe src should be empty so it doesn't load the preview
-    // until after the request is complete
-    let iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0].src).toEqual('');
+    it('should set the device size accordingly when the input changes', async () => {
+      application = Application.start();
+      application.register('w-preview', PreviewController);
 
-    await Promise.resolve();
+      const element = document.querySelector('[data-controller="w-preview"]');
+      await Promise.resolve();
 
-    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+      // Initial size should be mobile, with the localStorage value unset
+      const selectedSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      const selectedSizeLabel = selectedSizeInput.labels[0];
+      expect(selectedSizeInput.value).toEqual('mobile');
+      expect(
+        selectedSizeLabel.classList.contains(
+          'w-preview__size-button--selected',
+        ),
+      ).toBe(true);
+      expect(localStorage.getItem('wagtail:preview-panel-device')).toBeNull();
 
-    // Should create a new invisible iframe with the correct URL
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(2);
-    const oldIframe = iframes[0];
-    const newIframe = iframes[1];
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.style.width).toEqual('0px');
-    expect(newIframe.style.height).toEqual('0px');
-    expect(newIframe.style.opacity).toEqual('0');
-    expect(newIframe.style.position).toEqual('absolute');
+      const desktopSizeInput = document.querySelector(
+        'input[name="preview-size"][value="desktop"]',
+      );
+      desktopSizeInput.click();
+      await Promise.resolve();
+      const newSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(newSizeInput.value).toEqual('desktop');
+      const newSizeLabel = newSizeInput.labels[0];
+      expect(
+        newSizeLabel.classList.contains('w-preview__size-button--selected'),
+      ).toBe(true);
+      expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
+        'desktop',
+      );
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        '1280',
+      );
+    });
 
-    // Mock the iframe's scroll method
-    newIframe.contentWindow.scroll = jest.fn();
+    it('should observe its own size so it can set the preview width accordingly', async () => {
+      expect(ResizeObserverMock).not.toHaveBeenCalled();
+      expect(resizeObserverMockObserve).not.toHaveBeenCalled();
 
-    // Simulate the iframe loading
-    await Promise.resolve();
-    newIframe.dispatchEvent(new Event('load'));
+      application = Application.start();
+      application.register('w-preview', PreviewController);
 
-    // Should remove the old iframe and make the new one visible
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0]).toBe(newIframe);
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-      oldIframe.contentWindow.scrollX,
-      oldIframe.contentWindow.scrollY,
-    );
+      await Promise.resolve();
 
-    // Should set the device width property to the selected size (the default)
-    const element = document.querySelector('[data-controller="w-preview"]');
-    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
-      '375',
-    );
+      const previewPanel = document.querySelector('.w-preview');
 
-    // By the end, there should only be one fetch call
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(ResizeObserverMock).toHaveBeenCalledWith(expect.any(Function));
+      expect(resizeObserverMockObserve).toHaveBeenCalledWith(previewPanel);
+    });
   });
 
-  it('should clear the preview data if the data is invalid on initial load', async () => {
-    expect(global.fetch).not.toHaveBeenCalled();
+  describe('basic behaviour', () => {
+    it('should initialize the preview when the side panel is opened', async () => {
+      expect(global.fetch).not.toHaveBeenCalled();
 
-    // Set to a non-default preview size
-    localStorage.setItem('wagtail:preview-panel-device', 'desktop');
+      application = Application.start();
+      application.register('w-preview', PreviewController);
+      await Promise.resolve();
 
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-    await Promise.resolve();
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
 
-    const element = document.querySelector('[data-controller="w-preview"]');
-    const selectedSizeInput = document.querySelector(
-      'input[name="preview-size"]:checked',
-    );
-    expect(selectedSizeInput.value).toEqual('desktop');
-    const selectedSizeLabel = selectedSizeInput.labels[0];
-    expect(
-      selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(true);
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
 
-    // Should not have fetched the preview URL
-    expect(global.fetch).not.toHaveBeenCalled();
+      // Open the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      await Promise.resolve();
 
-    fetch.mockResponseSuccessJSON(invalidAvailableResponse);
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
 
-    // Open the side panel
-    const sidePanelContainer = document.querySelector(
-      '[data-side-panel="preview"]',
-    );
-    sidePanelContainer.dispatchEvent(new Event('show'));
-    await Promise.resolve();
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      let iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
 
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
+      await Promise.resolve();
+
+      const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+
+      // Should create a new invisible iframe with the correct URL
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(2);
+      const oldIframe = iframes[0];
+      const newIframe = iframes[1];
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.style.width).toEqual('0px');
+      expect(newIframe.style.height).toEqual('0px');
+      expect(newIframe.style.opacity).toEqual('0');
+      expect(newIframe.style.position).toEqual('absolute');
+
+      // Mock the iframe's scroll method
+      newIframe.contentWindow.scroll = jest.fn();
+
+      // Simulate the iframe loading
+      await Promise.resolve();
+      newIframe.dispatchEvent(new Event('load'));
+
+      // Should remove the old iframe and make the new one visible
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0]).toBe(newIframe);
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.getAttribute('style')).toBeNull();
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+        oldIframe.contentWindow.scrollX,
+        oldIframe.contentWindow.scrollY,
+      );
+
+      // Should set the device width property to the selected size (the default)
+      const element = document.querySelector('[data-controller="w-preview"]');
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        '375',
+      );
+
+      // By the end, there should only be one fetch call
+      expect(global.fetch).toHaveBeenCalledTimes(1);
     });
 
-    fetch.mockResponseSuccessJSON(`{ "success": true }`);
+    it('should clear the preview data if the data is invalid on initial load', async () => {
+      expect(global.fetch).not.toHaveBeenCalled();
 
-    await Promise.resolve();
+      // Set to a non-default preview size
+      localStorage.setItem('wagtail:preview-panel-device', 'desktop');
 
-    // Should send a request to clear the preview data
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      headers: {
-        'X-CSRFToken': 'test-token',
-      },
-      method: 'DELETE',
+      application = Application.start();
+      application.register('w-preview', PreviewController);
+      await Promise.resolve();
+
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const selectedSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(selectedSizeInput.value).toEqual('desktop');
+      const selectedSizeLabel = selectedSizeInput.labels[0];
+      expect(
+        selectedSizeLabel.classList.contains(
+          'w-preview__size-button--selected',
+        ),
+      ).toBe(true);
+
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(invalidAvailableResponse);
+
+      // Open the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      await Promise.resolve();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+
+      fetch.mockResponseSuccessJSON(`{ "success": true }`);
+
+      await Promise.resolve();
+
+      // Should send a request to clear the preview data
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          headers: {
+            'X-CSRFToken': 'test-token',
+          },
+          method: 'DELETE',
+        },
+      );
+
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      let iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
+
+      await Promise.resolve();
+
+      const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+
+      // Should create a new invisible iframe with the correct URL
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(2);
+      const oldIframe = iframes[0];
+      const newIframe = iframes[1];
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.style.width).toEqual('0px');
+      expect(newIframe.style.height).toEqual('0px');
+      expect(newIframe.style.opacity).toEqual('0');
+      expect(newIframe.style.position).toEqual('absolute');
+
+      // Mock the iframe's scroll method
+      newIframe.contentWindow.scroll = jest.fn();
+
+      // Simulate the iframe loading
+      await Promise.resolve();
+      newIframe.dispatchEvent(new Event('load'));
+
+      // Should remove the old iframe and make the new one visible
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0]).toBe(newIframe);
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.getAttribute('style')).toBeNull();
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+        oldIframe.contentWindow.scrollX,
+        oldIframe.contentWindow.scrollY,
+      );
+
+      // Should set the has-errors class on the controlled element
+      expect(element.classList).toContain('w-preview--has-errors');
+
+      // The "selected" preview size button should remain the same (desktop)
+      const currentSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(currentSizeInput.value).toEqual('desktop');
+      const currentSizeLabel = currentSizeInput.labels[0];
+      expect(
+        currentSizeLabel.classList.contains('w-preview__size-button--selected'),
+      ).toBe(true);
+      const defaultSizeInput = document.querySelector(
+        'input[name="preview-size"][data-default-size]',
+      );
+      expect(defaultSizeInput.value).toEqual('mobile');
+      const defaultSizeLabel = defaultSizeInput.labels[0];
+      expect(
+        defaultSizeLabel.classList.contains('w-preview__size-button--selected'),
+      ).toBe(false);
+
+      // However, the actual rendered size should be the default size
+      // (This is because the "Preview is unavailable" screen is actually the
+      // rendered preview response in the iframe instead of elements directly
+      // rendered in the controller's DOM. To ensure the screen is readable and
+      // not scaled down, the iframe is set to the default size.)
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        '375',
+      );
+
+      // By the end, there should only be two fetch calls: one to send the invalid
+      // preview data and one to clear the preview data
+      expect(global.fetch).toHaveBeenCalledTimes(2);
     });
 
-    // Initially, the iframe src should be empty so it doesn't load the preview
-    // until after the request is complete
-    let iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0].src).toEqual('');
+    it('should update the preview data when opening in a new tab', async () => {
+      await initializeOpenedPanel();
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
 
-    await Promise.resolve();
+      // Open the preview in a new tab
+      const newTabLink = document.querySelector(
+        '[data-w-preview-target="newTab"]',
+      );
+      newTabLink.click();
 
-    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
 
-    // Should create a new invisible iframe with the correct URL
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(2);
-    const oldIframe = iframes[0];
-    const newIframe = iframes[1];
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.style.width).toEqual('0px');
-    expect(newIframe.style.height).toEqual('0px');
-    expect(newIframe.style.opacity).toEqual('0');
-    expect(newIframe.style.position).toEqual('absolute');
+      mockWindow({ open: jest.fn() });
+      await new Promise(requestAnimationFrame);
 
-    // Mock the iframe's scroll method
-    newIframe.contentWindow.scroll = jest.fn();
-
-    // Simulate the iframe loading
-    await Promise.resolve();
-    newIframe.dispatchEvent(new Event('load'));
-
-    // Should remove the old iframe and make the new one visible
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0]).toBe(newIframe);
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-      oldIframe.contentWindow.scrollX,
-      oldIframe.contentWindow.scrollY,
-    );
-
-    // Should set the has-errors class on the controlled element
-    expect(element.classList).toContain('w-preview--has-errors');
-
-    // The "selected" preview size button should remain the same (desktop)
-    const currentSizeInput = document.querySelector(
-      'input[name="preview-size"]:checked',
-    );
-    expect(currentSizeInput.value).toEqual('desktop');
-    const currentSizeLabel = currentSizeInput.labels[0];
-    expect(
-      currentSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(true);
-    const defaultSizeInput = document.querySelector(
-      'input[name="preview-size"][data-default-size]',
-    );
-    expect(defaultSizeInput.value).toEqual('mobile');
-    const defaultSizeLabel = defaultSizeInput.labels[0];
-    expect(
-      defaultSizeLabel.classList.contains('w-preview__size-button--selected'),
-    ).toBe(false);
-
-    // However, the actual rendered size should be the default size
-    // (This is because the "Preview is unavailable" screen is actually the
-    // rendered preview response in the iframe instead of elements directly
-    // rendered in the controller's DOM. To ensure the screen is readable and
-    // not scaled down, the iframe is set to the default size.)
-    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
-      '375',
-    );
-
-    // By the end, there should only be two fetch calls: one to send the invalid
-    // preview data and one to clear the preview data
-    expect(global.fetch).toHaveBeenCalledTimes(2);
-  });
-
-  it('should update the preview data when opening in a new tab', async () => {
-    await initializeOpenedPanel();
-    fetch.mockResponseSuccessJSON(validAvailableResponse);
-
-    // Open the preview in a new tab
-    const newTabLink = document.querySelector(
-      '[data-w-preview-target="newTab"]',
-    );
-    newTabLink.click();
-
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
+      // Should call window.open() with the correct URL, and the base URL should
+      // be used as the second argument to ensure the same tab is reused if it's
+      // already open even when the URL is different, e.g. when the user changes
+      // the preview mode
+      expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
     });
 
-    mockWindow({ open: jest.fn() });
-    await new Promise(requestAnimationFrame);
+    it('should show an alert if the update request fails when opening in a new tab', async () => {
+      await initializeOpenedPanel();
+      fetch.mockResponseFailure();
 
-    // Should call window.open() with the correct URL, and the base URL should
-    // be used as the second argument to ensure the same tab is reused if it's
-    // already open even when the URL is different, e.g. when the user changes
-    // the preview mode
-    expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
-  });
+      // Open the preview in a new tab
+      const newTabLink = document.querySelector(
+        '[data-w-preview-target="newTab"]',
+      );
+      newTabLink.click();
 
-  it('should show an alert if the update request fails when opening in a new tab', async () => {
-    await initializeOpenedPanel();
-    fetch.mockResponseFailure();
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
 
-    // Open the preview in a new tab
-    const newTabLink = document.querySelector(
-      '[data-w-preview-target="newTab"]',
-    );
-    newTabLink.click();
+      mockWindow({ open: jest.fn(), alert: jest.fn() });
+      await new Promise(requestAnimationFrame);
 
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
+      // Should call window.alert() with the correct message
+      expect(window.alert).toHaveBeenCalledWith(
+        'Error while sending preview data.',
+      );
+
+      // Should still open the new tab anyway
+      expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
     });
 
-    mockWindow({ open: jest.fn(), alert: jest.fn() });
-    await new Promise(requestAnimationFrame);
+    it('should only show the spinner after 2s when refreshing the preview', async () => {
+      // Mock a 2s successful request
+      jest.useFakeTimers();
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
 
-    // Should call window.alert() with the correct message
-    expect(window.alert).toHaveBeenCalledWith(
-      'Error while sending preview data.',
-    );
+      // Add the spinner to the preview panel
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.insertAdjacentHTML('beforeend', spinner);
+      const spinnerElement = element.querySelector(
+        '[data-w-preview-target="spinner"]',
+      );
 
-    // Should still open the new tab anyway
-    expect(window.open).toHaveBeenCalledWith(`http://localhost${url}`, url);
-  });
+      expect(global.fetch).not.toHaveBeenCalled();
 
-  it('should only show the spinner after 2s when refreshing the preview', async () => {
-    // Mock a 2s successful request
-    jest.useFakeTimers();
-    fetch.mockResponseSuccessJSON(validAvailableResponse);
+      application = Application.start();
+      application.register('w-preview', PreviewController);
+      await Promise.resolve();
 
-    // Add the spinner to the preview panel
-    const element = document.querySelector('[data-controller="w-preview"]');
-    element.insertAdjacentHTML('beforeend', spinner);
-    const spinnerElement = element.querySelector(
-      '[data-w-preview-target="spinner"]',
-    );
+      // Should not have fetched the preview URL
+      expect(global.fetch).not.toHaveBeenCalled();
 
-    expect(global.fetch).not.toHaveBeenCalled();
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
 
-    application = Application.start();
-    application.register('w-preview', PreviewController);
-    await Promise.resolve();
+      // Open the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('show'));
+      await Promise.resolve();
 
-    // Should not have fetched the preview URL
-    expect(global.fetch).not.toHaveBeenCalled();
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
 
-    fetch.mockResponseSuccessJSON(validAvailableResponse);
+      // Initially, the iframe src should be empty so it doesn't load the preview
+      // until after the request is complete
+      let iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0].src).toEqual('');
 
-    // Open the side panel
-    const sidePanelContainer = document.querySelector(
-      '[data-side-panel="preview"]',
-    );
-    sidePanelContainer.dispatchEvent(new Event('show'));
-    await Promise.resolve();
+      // Should show the spinner after 2s
+      expect(spinnerElement.hidden).toBe(true);
+      jest.advanceTimersByTime(2000);
+      await Promise.resolve();
+      expect(spinnerElement.hidden).toBe(false);
+      await Promise.resolve();
 
-    // Should send the preview data to the preview URL
-    expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
-      body: expect.any(Object),
-      method: 'POST',
+      const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+
+      // Should create a new invisible iframe with the correct URL
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(2);
+      const oldIframe = iframes[0];
+      const newIframe = iframes[1];
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.style.width).toEqual('0px');
+      expect(newIframe.style.height).toEqual('0px');
+      expect(newIframe.style.opacity).toEqual('0');
+      expect(newIframe.style.position).toEqual('absolute');
+      // The spinner should still be visible while the iframe is loading
+      expect(spinnerElement.hidden).toBe(false);
+
+      // Mock the iframe's scroll method
+      newIframe.contentWindow.scroll = jest.fn();
+
+      // Simulate the iframe loading
+      await Promise.resolve();
+      newIframe.dispatchEvent(new Event('load'));
+
+      // Should remove the old iframe and make the new one visible
+      iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      expect(iframes[0]).toBe(newIframe);
+      expect(newIframe.src).toEqual(expectedUrl);
+      expect(newIframe.getAttribute('style')).toBeNull();
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+        oldIframe.contentWindow.scrollX,
+        oldIframe.contentWindow.scrollY,
+      );
+      // The spinner should be hidden after the iframe loads
+      expect(spinnerElement.hidden).toBe(true);
+
+      // Should set the device width property to the selected size (the default)
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        '375',
+      );
+
+      // By the end, there should only be one fetch call
+      expect(global.fetch).toHaveBeenCalledTimes(1);
     });
-
-    // Initially, the iframe src should be empty so it doesn't load the preview
-    // until after the request is complete
-    let iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0].src).toEqual('');
-
-    // Should show the spinner after 2s
-    expect(spinnerElement.hidden).toBe(true);
-    jest.advanceTimersByTime(2000);
-    await Promise.resolve();
-    expect(spinnerElement.hidden).toBe(false);
-    await Promise.resolve();
-
-    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
-
-    // Should create a new invisible iframe with the correct URL
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(2);
-    const oldIframe = iframes[0];
-    const newIframe = iframes[1];
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.style.width).toEqual('0px');
-    expect(newIframe.style.height).toEqual('0px');
-    expect(newIframe.style.opacity).toEqual('0');
-    expect(newIframe.style.position).toEqual('absolute');
-    // The spinner should still be visible while the iframe is loading
-    expect(spinnerElement.hidden).toBe(false);
-
-    // Mock the iframe's scroll method
-    newIframe.contentWindow.scroll = jest.fn();
-
-    // Simulate the iframe loading
-    await Promise.resolve();
-    newIframe.dispatchEvent(new Event('load'));
-
-    // Should remove the old iframe and make the new one visible
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0]).toBe(newIframe);
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-      oldIframe.contentWindow.scrollX,
-      oldIframe.contentWindow.scrollY,
-    );
-    // The spinner should be hidden after the iframe loads
-    expect(spinnerElement.hidden).toBe(true);
-
-    // Should set the device width property to the selected size (the default)
-    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
-      '375',
-    );
-
-    // By the end, there should only be one fetch call
-    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });
