@@ -158,6 +158,7 @@ describe('PreviewController', () => {
     application.stop();
     jest.clearAllMocks();
     windowSpy.mockRestore();
+    localStorage.removeItem('wagtail:preview-panel-device');
   });
 
   const initializeOpenedPanel = async () => {
@@ -214,11 +215,9 @@ describe('PreviewController', () => {
     expect(
       selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
     ).toBe(true);
-    localStorage.removeItem('wagtail:preview-panel-device');
   });
 
   it('should set the device size accordingly when the input changes', async () => {
-    localStorage.removeItem('wagtail:preview-panel-device');
     application = Application.start();
     application.register('w-preview', PreviewController);
 
@@ -252,7 +251,9 @@ describe('PreviewController', () => {
     expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
       'desktop',
     );
-    localStorage.removeItem('wagtail:preview-panel-device');
+    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+      '1280',
+    );
   });
 
   it('should observe its own size so it can set the preview width accordingly', async () => {
@@ -347,9 +348,22 @@ describe('PreviewController', () => {
   it('should clear the preview data if the data is invalid on initial load', async () => {
     expect(global.fetch).not.toHaveBeenCalled();
 
+    // Set to a non-default preview size
+    localStorage.setItem('wagtail:preview-panel-device', 'desktop');
+
     application = Application.start();
     application.register('w-preview', PreviewController);
     await Promise.resolve();
+
+    const element = document.querySelector('[data-controller="w-preview"]');
+    const selectedSizeInput = document.querySelector(
+      'input[name="preview-size"]:checked',
+    );
+    expect(selectedSizeInput.value).toEqual('desktop');
+    const selectedSizeLabel = selectedSizeInput.labels[0];
+    expect(
+      selectedSizeLabel.classList.contains('w-preview__size-button--selected'),
+    ).toBe(true);
 
     // Should not have fetched the preview URL
     expect(global.fetch).not.toHaveBeenCalled();
@@ -420,11 +434,35 @@ describe('PreviewController', () => {
       oldIframe.contentWindow.scrollY,
     );
 
-    // Should set the device width property to the selected size (the default)
-    const controlledElement = document.querySelector('.w-preview');
+    // Should set the has-errors class on the controlled element
+    expect(element.classList).toContain('w-preview--has-errors');
+
+    // The "selected" preview size button should remain the same (desktop)
+    const currentSizeInput = document.querySelector(
+      'input[name="preview-size"]:checked',
+    );
+    expect(currentSizeInput.value).toEqual('desktop');
+    const currentSizeLabel = currentSizeInput.labels[0];
     expect(
-      controlledElement.style.getPropertyValue('--preview-device-width'),
-    ).toEqual('375');
+      currentSizeLabel.classList.contains('w-preview__size-button--selected'),
+    ).toBe(true);
+    const defaultSizeInput = document.querySelector(
+      'input[name="preview-size"][data-default-size]',
+    );
+    expect(defaultSizeInput.value).toEqual('mobile');
+    const defaultSizeLabel = defaultSizeInput.labels[0];
+    expect(
+      defaultSizeLabel.classList.contains('w-preview__size-button--selected'),
+    ).toBe(false);
+
+    // However, the actual rendered size should be the default size
+    // (This is because the "Preview is unavailable" screen is actually the
+    // rendered preview response in the iframe instead of elements directly
+    // rendered in the controller's DOM. To ensure the screen is readable and
+    // not scaled down, the iframe is set to the default size.)
+    expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+      '375',
+    );
 
     // By the end, there should only be two fetch calls: one to send the invalid
     // preview data and one to clear the preview data
