@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
+ * Support a `HOSTNAMES` parameter on `WAGTAILFRONTENDCACHE` to define which hostnames a backend should respond to (Jake Howard, sponsored by Oxfam America)
 
 
 6.1 (xx.xx.xxxx) - IN DEVELOPMENT

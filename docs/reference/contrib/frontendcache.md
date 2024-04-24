@@ -105,6 +105,10 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
+```{versionchanged} 6.2
+Previous versions allowed passing a dict for `DISTRIBUTION_ID` to allow specifying different distribution IDs for different hostnames. This is now deprecated; instead, multiple distribution IDs should be defined as [multiple backends](frontendcache_multiple_backends), with a `HOSTNAMES` parameter to define the hostnames associated with each one.
+```
+
 Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html). The user will need a policy similar to:
 
 ```json
