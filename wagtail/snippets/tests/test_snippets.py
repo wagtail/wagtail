@@ -5121,7 +5121,7 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertBreadcrumbsItemsRendered(
             [
-                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+                # "Snippets" index link is omitted as RevisableModel has its own menu item
                 {"url": index_url, "label": "Revisable models"},
                 {"url": edit_url, "label": str(self.snippet)},
                 {"url": history_url, "label": "History"},

@@ -162,10 +162,6 @@ class TestEditViewNotLockable(TestEditView):
 
 
 class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
-    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
-        {"label": "Snippets", "url": "/admin/snippets/"},
-    ]
-
     def setUp(self):
         super().setUp()
         self.timestamps = [
