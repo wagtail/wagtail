@@ -848,14 +848,23 @@ class SnippetViewSet(ModelViewSet):
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
 
-    @cached_property
+    @property
     def breadcrumbs_items(self):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
-        return [
+        breadcrumbs = [
             {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
-            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
         ]
+
+        if (
+            getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False)
+            or not self.get_menu_item_is_registered()
+        ):
+            breadcrumbs.append(
+                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+            )
+
+        return breadcrumbs
 
     def get_queryset(self, request):
         """
