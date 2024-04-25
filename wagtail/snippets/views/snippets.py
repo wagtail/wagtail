@@ -307,11 +307,9 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.form, "show_schedule_publishing_toggle", False
                 ),
                 live_object=self.live_object,
-                scheduled_object=(
-                    self.live_object.get_scheduled_revision_as_object()
-                    if self.draftstate_enabled
-                    else None
-                ),
+                scheduled_object=self.live_object.get_scheduled_revision_as_object()
+                if self.draftstate_enabled
+                else None,
                 locale=self.locale,
                 translations=self.translations,
                 usage_url=self.get_usage_url(),
