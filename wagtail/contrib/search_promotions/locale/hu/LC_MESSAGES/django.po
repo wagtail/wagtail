@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
 "2019-2020,2022-2023\n"
@@ -141,63 +141,6 @@ msgstr "Kiemelt keresés találatok"
 msgid "Add a recommended result"
 msgstr "Javasolt keresési eredmény hozzáadása"
 
-msgid "Search Terms"
-msgstr "Keresési kifejezések"
-
-msgid "Add new promoted result"
-msgstr "Új kiemelt keresés találat hozzáadása"
-
-msgid "Search term(s)"
-msgstr "Keresési kifejezés(ek)"
-
-msgid "Order by search term alphabetically"
-msgstr "Rendezés keresési szó alapján ABC-sorrendben"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Rendezés keresési szó alapján fordított ABC-sorrendben"
-
-msgid "Promoted results"
-msgstr "Kiemelt találatok"
-
-msgid "Views (past week)"
-msgstr "Megtekintések (elmúlt héten)"
-
-msgid "Order by views (lowest first)"
-msgstr "Rendezés megtekintések alapján (kevesebb elöl)"
-
-msgid "Order by views (highest first)"
-msgstr "Rendezés megtekintések alapján (több elöl)"
-
-msgid "Edit this promotion"
-msgstr "Kiemelt keresés szerkesztése"
-
-msgid "External link"
-msgstr "Külső link"
-
-msgid "None"
-msgstr "Üres"
-
-msgid "Popular search terms"
-msgstr "Népszerű keresések"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Terms"
-msgstr "Kifejezések"
-
-msgid "No results found"
-msgstr "Nincs találat."
-
-msgid "Choose from popular search terms"
-msgstr "Válassz a népszerű keresések közül"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -211,6 +154,42 @@ msgid ""
 msgstr ""
 "Nincs kiemelt keresés hozzáadva. Miért nem <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">ad hozzá egyet</a>?"
+
+msgid "Popular search terms"
+msgstr "Népszerű keresések"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Terms"
+msgstr "Kifejezések"
+
+msgid "Views (past week)"
+msgstr "Megtekintések (elmúlt héten)"
+
+msgid "No results found"
+msgstr "Nincs találat."
+
+msgid "Choose from popular search terms"
+msgstr "Válassz a népszerű keresések közül"
+
+msgid "External link"
+msgstr "Külső link"
+
+msgid "None"
+msgstr "Üres"
+
+msgid "Search Terms"
+msgstr "Keresési kifejezések"
+
+msgid "Add new promoted result"
+msgstr "Új kiemelt keresés találat hozzáadása"
+
+msgid "Search term(s)"
+msgstr "Keresési kifejezés(ek)"
+
+msgid "Promoted results"
+msgstr "Kiemelt találatok"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -161,30 +161,6 @@ msgstr "Akcje"
 msgid "Select all snippets in listing"
 msgstr "Zaznacz wszystkie skrawki na liście"
 
-msgid "Live version"
-msgstr "Wersja Live"
-
-msgid "Current draft"
-msgstr "Aktualny szkic"
-
-msgid "Preview"
-msgstr "Podgląd"
-
-msgid "Edit"
-msgstr "Edytuj"
-
-msgid "Review this version"
-msgstr "Zweryfikuj tą wersję"
-
-msgid "Compare with previous version"
-msgstr "Porównaj z poprzednią wersją"
-
-msgid "Compare with current version"
-msgstr "Porównaj z obecną wersją"
-
-msgid "Cancel scheduled publish"
-msgstr "Anuluj zaplanowaną publikację"
-
 msgid "Choose"
 msgstr "Wybierz"
 
@@ -200,12 +176,6 @@ msgstr "Instancje"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Więcej opcji dla '%(title)s'"
-
-msgid "Action"
-msgstr "Akcja"
-
-msgid "Date"
-msgstr "Data"
 
 #, python-format
 msgid "Edit this %(model_name)s"

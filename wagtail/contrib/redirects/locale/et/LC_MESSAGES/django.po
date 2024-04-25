@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -157,12 +157,6 @@ msgstr "Viga"
 msgid "Continue"
 msgstr "Jätka"
 
-msgid "Site"
-msgstr "Sait"
-
-msgid "Edit this redirect"
-msgstr "Muutke seda ümbersuunamist"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -175,6 +169,12 @@ msgid ""
 msgstr ""
 "Ümbersuunamisi pole loodud. Miks mitte <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
+
+msgid "Site"
+msgstr "Sait"
+
+msgid "Edit this redirect"
+msgstr "Muutke seda ümbersuunamist"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

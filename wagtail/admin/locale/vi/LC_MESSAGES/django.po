@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
@@ -49,6 +49,9 @@ msgstr "Đến ngày"
 msgid "All"
 msgstr "Tất cả"
 
+msgid "Collection"
+msgstr "Bộ sưu tập"
+
 msgid "Current time zone"
 msgstr "Múi giờ hiện tại"
 
@@ -77,9 +80,6 @@ msgstr "URL"
 msgid "Search"
 msgstr "Tìm kiếm"
 
-msgid "Collection"
-msgstr "Bộ sưu tập"
-
 msgid "Add"
 msgstr "Thêm"
 
@@ -91,6 +91,9 @@ msgstr "Xoá"
 
 msgid "New title"
 msgstr "Tiêu đề mới"
+
+msgid "Parent page"
+msgstr "Trang cha"
 
 msgid "Please select at least one group."
 msgstr "Hãy lựa chọn ít nhất một nhóm."
@@ -155,9 +158,6 @@ msgstr "Công khai"
 msgid "Private"
 msgstr "Riêng tư"
 
-msgid "Name"
-msgstr "Tên"
-
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
@@ -166,6 +166,9 @@ msgstr "Không xoá"
 
 msgid "Cancel"
 msgstr "Hủy bỏ"
+
+msgid "Comment"
+msgstr "Bình luận"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -205,9 +208,6 @@ msgstr "Xóa %(title)s"
 msgid "Copy"
 msgstr "Sao chép"
 
-msgid "Comment"
-msgstr "Bình luận"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
@@ -217,6 +217,9 @@ msgstr "Trang"
 
 msgid "Locked"
 msgstr "Đã bị khóa"
+
+msgid "Name"
+msgstr "Tên"
 
 msgid "Download XLSX"
 msgstr "Tải XLSX"
@@ -249,6 +252,9 @@ msgstr "Mới"
 
 msgid "Published"
 msgstr "Đã xuất bản"
+
+msgid "Undo"
+msgstr "Hoàn tác"
 
 msgid "Password"
 msgstr "Mật khẩu"

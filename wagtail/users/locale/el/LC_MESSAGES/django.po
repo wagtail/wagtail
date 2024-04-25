@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -95,6 +95,9 @@ msgstr "απορριφθείσες ειδοποιήσεις"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασίας σας απορρίπτεται"
+
+msgid "Default"
+msgstr "Προεπιλογή"
 
 msgid "user profile"
 msgstr "προφίλ χρήστη"
@@ -183,19 +186,6 @@ msgstr "Προσθήκη χρήστη"
 msgid "Delete user"
 msgstr "Διαγραφή χρήστη."
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Λυπούμαστε, δε ταιριάζουν χρήστες με το \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Όνομα χρήστη"
-
-msgid "Status"
-msgstr "Κατάσταση"
-
-msgid "Admin"
-msgstr "Διαχειριστής"
-
 msgid "Active"
 msgstr "Ενεργός"
 
@@ -226,11 +216,23 @@ msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχεί
 msgid "Group '%(object)s' deleted."
 msgstr "Η ομαδα '%(object)s' διαγράφηκε."
 
+msgid "Group"
+msgstr "Ομάδα"
+
 msgid "Add a user"
 msgstr "Προσθήκη χρήστη"
 
 msgid "Users"
 msgstr "Χρήστες"
+
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+msgid "Admin"
+msgstr "Διαχειριστής"
+
+msgid "Status"
+msgstr "Κατάσταση"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -242,6 +244,3 @@ msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχεί
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Ο χρήστης '%(object)s' διαγράφηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"

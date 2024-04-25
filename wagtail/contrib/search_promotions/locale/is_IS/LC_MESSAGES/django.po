@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -137,63 +137,6 @@ msgstr "Meðmæltar leitar niðurstöður"
 msgid "Add a recommended result"
 msgstr "Bæta við meðmæltum leitarniðurstöðum"
 
-msgid "Search Terms"
-msgstr "Leitarfrasi"
-
-msgid "Add new promoted result"
-msgstr "Bæta við nýjum meðmæltum niðurstöðum"
-
-msgid "Search term(s)"
-msgstr "Leitarfrasi"
-
-msgid "Order by search term alphabetically"
-msgstr "Raða leitarniðurstöðum í stafrófsröð"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Raða leitarniðurstöðum í öfuga stafrófsröð"
-
-msgid "Promoted results"
-msgstr "Meðmæltar niðurstöður"
-
-msgid "Views (past week)"
-msgstr "Síðuflettingar (síðust vikuna)"
-
-msgid "Order by views (lowest first)"
-msgstr "Raða eftir flettingum (lægstur fjöldi efst)"
-
-msgid "Order by views (highest first)"
-msgstr "Raða eftir flettingum (hæstur fjöldi efst)"
-
-msgid "Edit this promotion"
-msgstr "Breyta þessum meðmælum"
-
-msgid "External link"
-msgstr "Ytri hlekkur"
-
-msgid "None"
-msgstr "Ekkert"
-
-msgid "Popular search terms"
-msgstr "Vinsælir leitarfrasar"
-
-msgid "Search"
-msgstr "Leita"
-
-msgid "Terms"
-msgstr "Leitarorð"
-
-msgid "No results found"
-msgstr "Engar niðurstöður fundust"
-
-msgid "Choose from popular search terms"
-msgstr "Veldu úr vinsælum leitarfrösum"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] " Það eru %(counter)s niðurstöður        "
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -207,6 +150,42 @@ msgid ""
 msgstr ""
 "Engin meðmæli hafa verið búin til. Hví ekki að <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">bæta við einum</a>?"
+
+msgid "Popular search terms"
+msgstr "Vinsælir leitarfrasar"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Terms"
+msgstr "Leitarorð"
+
+msgid "Views (past week)"
+msgstr "Síðuflettingar (síðust vikuna)"
+
+msgid "No results found"
+msgstr "Engar niðurstöður fundust"
+
+msgid "Choose from popular search terms"
+msgstr "Veldu úr vinsælum leitarfrösum"
+
+msgid "External link"
+msgstr "Ytri hlekkur"
+
+msgid "None"
+msgstr "Ekkert"
+
+msgid "Search Terms"
+msgstr "Leitarfrasi"
+
+msgid "Add new promoted result"
+msgstr "Bæta við nýjum meðmæltum niðurstöðum"
+
+msgid "Search term(s)"
+msgstr "Leitarfrasi"
+
+msgid "Promoted results"
+msgstr "Meðmæltar niðurstöður"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

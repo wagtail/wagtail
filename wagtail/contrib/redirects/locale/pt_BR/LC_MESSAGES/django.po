@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -199,25 +199,6 @@ msgstr "Erro"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Export redirects"
-msgstr "Exportar redirecionamentos"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Edite esse redirecionamento"
-
-msgid "No redirects found."
-msgstr "Nenhum redirecionamento foi encontrado."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Encontrados %(counter)s resultados"
-msgstr[1] "Encontrados %(counter)s resultados"
-msgstr[2] "Encontrados %(counter)s resultados"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -230,6 +211,18 @@ msgid ""
 msgstr ""
 "Não há redirecionamentos criados. Por que não foi <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Edit this redirect"
+msgstr "Edite esse redirecionamento"
+
+msgid "No redirects found."
+msgstr "Nenhum redirecionamento foi encontrado."
+
+msgid "Export redirects"
+msgstr "Exportar redirecionamentos"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

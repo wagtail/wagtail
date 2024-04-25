@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -102,6 +102,9 @@ msgstr "اختر منطقتك الزمنية الحالية"
 
 msgid "profile picture"
 msgstr "الصوره الشخصيه"
+
+msgid "Default"
+msgstr "عادي"
 
 msgid "user profile"
 msgstr "ملف تعريفي للمستخدم"
@@ -195,22 +198,6 @@ msgstr "أضف مستخدم"
 msgid "Delete user"
 msgstr "إحذف المستخدم"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "إسم المستخدم"
-
-msgid "Status"
-msgstr "الحالة"
-
-msgid "Last Login"
-msgstr "آخر تسجيل دخول"
-
-msgid "Admin"
-msgstr "إدارة"
-
 msgid "Active"
 msgstr "نشيط"
 
@@ -241,11 +228,23 @@ msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
 msgid "Group '%(object)s' deleted."
 msgstr "تم حذف المجموعة '%(object)s'."
 
+msgid "Group"
+msgstr "جماعة"
+
 msgid "Add a user"
 msgstr "أضف مستخدم"
 
 msgid "Users"
 msgstr "مستخدمين"
+
+msgid "Username"
+msgstr "إسم المستخدم"
+
+msgid "Admin"
+msgstr "إدارة"
+
+msgid "Status"
+msgstr "الحالة"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -257,6 +256,3 @@ msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "تم حذف المستخدم '%(object)s'."
-
-msgid "Edit"
-msgstr "تحرير"

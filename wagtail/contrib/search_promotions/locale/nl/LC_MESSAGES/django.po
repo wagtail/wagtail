@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>, "
 "2015,2018,2020,2023\n"
@@ -147,63 +147,6 @@ msgstr "Gepromoveerde zoekresultaten"
 msgid "Add a recommended result"
 msgstr "Voeg een aanbevolen resultaat toe"
 
-msgid "Search Terms"
-msgstr "Zoektermen"
-
-msgid "Add new promoted result"
-msgstr "Voeg een gepromoveerd resultaat toe"
-
-msgid "Search term(s)"
-msgstr "Zoekterm(en)"
-
-msgid "Order by search term alphabetically"
-msgstr "Sorteer op zoekterm van A-Z"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sorteer op zoekterm van Z-A"
-
-msgid "Promoted results"
-msgstr "Gepromoveerde resultaten"
-
-msgid "Views (past week)"
-msgstr "Weergaves (afgelopen week)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sorteer op aantal keer bekeken (laagste eerst)"
-
-msgid "Order by views (highest first)"
-msgstr "Sorteer op aantal keer bekeken (hoogste eerst)"
-
-msgid "Edit this promotion"
-msgstr "Wijzig deze zoekpromotie"
-
-msgid "External link"
-msgstr "Externe link"
-
-msgid "None"
-msgstr "Geen"
-
-msgid "Popular search terms"
-msgstr "Populaire zoektermen"
-
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Terms"
-msgstr "Termen"
-
-msgid "No results found"
-msgstr "Geen resultaten gevonden"
-
-msgid "Choose from popular search terms"
-msgstr "Kies uit populaire zoektermen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -217,6 +160,42 @@ msgid ""
 msgstr ""
 "Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
+
+msgid "Popular search terms"
+msgstr "Populaire zoektermen"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Terms"
+msgstr "Termen"
+
+msgid "Views (past week)"
+msgstr "Weergaves (afgelopen week)"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Choose from popular search terms"
+msgstr "Kies uit populaire zoektermen"
+
+msgid "External link"
+msgstr "Externe link"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Search Terms"
+msgstr "Zoektermen"
+
+msgid "Add new promoted result"
+msgstr "Voeg een gepromoveerd resultaat toe"
+
+msgid "Search term(s)"
+msgstr "Zoekterm(en)"
+
+msgid "Promoted results"
+msgstr "Gepromoveerde resultaten"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

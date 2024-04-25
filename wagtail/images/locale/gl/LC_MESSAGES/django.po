@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -378,15 +378,6 @@ msgstr "Uso"
 
 msgid "Sort by"
 msgstr "Ordenar por"
-
-msgid "Entries per page"
-msgstr "Entradas por páxina"
-
-msgid "Popular Tags:"
-msgstr "Etiquetas Populares:"
-
-msgid "Clear"
-msgstr "Limpar"
 
 msgid "Select all images in listing"
 msgstr "Seleccionar tódalas imaxes no listado"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -465,6 +465,9 @@ msgstr "Grupna dozvola zbirke"
 msgid "group collection permissions"
 msgstr "Grupne dozvole zbirke"
 
+msgid "uploaded by user"
+msgstr "Prenio korisnik"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s će također biti izbrisano"
@@ -523,17 +526,8 @@ msgstr ""
 msgid "Public"
 msgstr "Javno"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privatno, pristup prijavljenim korisnicima."
-
-msgid "Private, accessible with the following password"
-msgstr "Privatno, pristup sa sljedećom lozinkom"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privatno, pristup korisnicima u određenim grupama"
-
-msgid "password"
-msgstr "lozinka"
 
 msgid "view restriction"
 msgstr "ograničenje pogleda"

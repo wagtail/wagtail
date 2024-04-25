@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -191,24 +191,6 @@ msgstr "Error"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Export redirects"
-msgstr "Exportar redireccions"
-
-msgid "Site"
-msgstr "Lloc"
-
-msgid "Edit this redirect"
-msgstr "Edita aquesta redirecció"
-
-msgid "No redirects found."
-msgstr "No s'han trobat redireccions."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "S'ha trobat %(counter)s coincidència"
-msgstr[1] "S'ha trobat %(counter)s coincidències"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap redirecció coincideix amb \"<em>%(query_string)s</em>\""
@@ -220,6 +202,18 @@ msgid ""
 msgstr ""
 "No s'ha creat cap redirecció. Per què no <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">afegeixes una</a>?"
+
+msgid "Site"
+msgstr "Lloc"
+
+msgid "Edit this redirect"
+msgstr "Edita aquesta redirecció"
+
+msgid "No redirects found."
+msgstr "No s'han trobat redireccions."
+
+msgid "Export redirects"
+msgstr "Exportar redireccions"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

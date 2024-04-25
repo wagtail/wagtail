@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -454,6 +454,9 @@ msgstr "permesso di gruppo nella raccolta"
 msgid "group collection permissions"
 msgstr "Permessi di gruppo nella raccolta"
 
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
+
 msgid "hostname"
 msgstr "hostname"
 
@@ -507,17 +510,8 @@ msgstr ""
 msgid "Public"
 msgstr "Pubblico"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privata, accessibile a utenti loggati"
-
-msgid "Private, accessible with the following password"
-msgstr "Privata, accessibile con la seguente password"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privata accessibile a utenti di specifici gruppi"
-
-msgid "password"
-msgstr "password"
 
 msgid "view restriction"
 msgstr "limitazione visualizzazioni"

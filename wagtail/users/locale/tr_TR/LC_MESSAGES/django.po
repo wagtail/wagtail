@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -105,6 +105,9 @@ msgstr "Şimdiki zaman dilimizi seçin"
 
 msgid "profile picture"
 msgstr "profil resmi"
+
+msgid "Default"
+msgstr "Varsayılan"
 
 msgid "user profile"
 msgstr "kullanıcı profili"
@@ -198,22 +201,6 @@ msgstr "Kullanıcı ekle"
 msgid "Delete user"
 msgstr "Kullanıcıyı sil"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen kullanıcı yok"
-
-msgid "Username"
-msgstr "Kullanıcı adı"
-
-msgid "Status"
-msgstr "Durum"
-
-msgid "Last Login"
-msgstr "Son giriş"
-
-msgid "Admin"
-msgstr "Yönetici"
-
 msgid "Active"
 msgstr "Aktif"
 
@@ -244,11 +231,23 @@ msgstr "Hata nedeniyle grup kaydedilemedi."
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' grubu silindi."
 
+msgid "Group"
+msgstr "Grup"
+
 msgid "Add a user"
 msgstr "Kullanıcı ekle"
 
 msgid "Users"
 msgstr "Kullanıcılar"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "Admin"
+msgstr "Yönetici"
+
+msgid "Status"
+msgstr "Durum"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -260,6 +259,3 @@ msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "'%(object)s' kullanıcısı silindi."
-
-msgid "Edit"
-msgstr "Düzenle"

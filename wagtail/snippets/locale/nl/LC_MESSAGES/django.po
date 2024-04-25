@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -152,30 +152,6 @@ msgstr "Acties"
 msgid "Select all snippets in listing"
 msgstr "Selecteer alle snippets in lijst"
 
-msgid "Live version"
-msgstr "Live versie"
-
-msgid "Current draft"
-msgstr "Huidig concept"
-
-msgid "Preview"
-msgstr "Voorvertoning"
-
-msgid "Edit"
-msgstr "Wijzig"
-
-msgid "Review this version"
-msgstr "Beoordeel deze versie"
-
-msgid "Compare with previous version"
-msgstr "Vergelijk met vorige versie"
-
-msgid "Compare with current version"
-msgstr "Vergelijk met huidige versie"
-
-msgid "Cancel scheduled publish"
-msgstr "Annuleer geplande publicatie"
-
 msgid "Choose"
 msgstr "Kies"
 
@@ -191,12 +167,6 @@ msgstr "Instanties"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Meer opties voor '%(title)s'"
-
-msgid "Action"
-msgstr "Actie"
-
-msgid "Date"
-msgstr "Datum"
 
 #, python-format
 msgid "Edit this %(model_name)s"

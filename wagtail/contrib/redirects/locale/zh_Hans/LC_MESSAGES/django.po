@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -177,23 +177,6 @@ msgstr "错误"
 msgid "Continue"
 msgstr "继续"
 
-msgid "Export redirects"
-msgstr "导出重定向"
-
-msgid "Site"
-msgstr "站点"
-
-msgid "Edit this redirect"
-msgstr "编辑重定向"
-
-msgid "No redirects found."
-msgstr "没有找到重定向"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "总共有 %(counter)s 条匹配"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有重定向符合\"<em>%(query_string)s</em>\""
@@ -205,6 +188,18 @@ msgid ""
 msgstr ""
 "还没有创建过重定向呢。为何不 <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">创建一个</a>?"
+
+msgid "Site"
+msgstr "站点"
+
+msgid "Edit this redirect"
+msgstr "编辑重定向"
+
+msgid "No redirects found."
+msgstr "没有找到重定向"
+
+msgid "Export redirects"
+msgstr "导出重定向"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

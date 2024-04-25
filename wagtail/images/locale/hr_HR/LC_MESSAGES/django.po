@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -261,9 +261,6 @@ msgstr "Datoteka nije pronađena"
 
 msgid "Usage"
 msgstr "Upotreba"
-
-msgid "Popular Tags:"
-msgstr "Popularne Oznake:"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

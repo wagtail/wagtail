@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -584,6 +584,9 @@ msgstr "permisiune grup colecție"
 msgid "group collection permissions"
 msgstr "permisiuni grup colecție"
 
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s va fi șters de asemenea"
@@ -663,17 +666,8 @@ msgstr ""
 msgid "Public"
 msgstr "Public"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privat. accesibil utlizatorilor autentificați"
-
-msgid "Private, accessible with the following password"
-msgstr "Privat, accesibil cu parola următoare"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
-
-msgid "password"
-msgstr "parolă"
 
 msgid "view restriction"
 msgstr "vezi restricție"

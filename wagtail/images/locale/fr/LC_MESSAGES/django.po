@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -413,15 +413,6 @@ msgstr "Utilisation"
 
 msgid "Sort by"
 msgstr "Ordonner par"
-
-msgid "Entries per page"
-msgstr "Entrées par page"
-
-msgid "Popular Tags:"
-msgstr "Mots-clés populaires :"
-
-msgid "Clear"
-msgstr "Effacer"
 
 msgid "Select all images in listing"
 msgstr "Sélectionner toutes les images dans la liste"
