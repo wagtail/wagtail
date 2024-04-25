@@ -227,7 +227,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("release_date"),
+        FieldPanel("release_date", permission="tests.can_set_release_date"),
     ]
 
 

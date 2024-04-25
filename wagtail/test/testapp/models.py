@@ -2272,6 +2272,9 @@ class FeatureCompleteToy(index.Indexed, models.Model):
     def __str__(self):
         return f"{self.name} ({self.release_date})"
 
+    class Meta:
+        permissions = [("can_set_release_date", "Can set release date")]
+
 
 class PurgeRevisionsProtectedTestModel(models.Model):
     revision = models.OneToOneField(

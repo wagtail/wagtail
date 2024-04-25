@@ -1470,6 +1470,35 @@ class TestEditHandler(WagtailTestUtils, TestCase):
         modal_workflow_script = soup.select_one(f'script[src="{modal_workflow_js}"]')
         self.assertIsNotNone(modal_workflow_script)
 
+    def test_field_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=self.object._meta.app_label,
+                codename=get_permission_codename("change", self.object._meta),
+            ),
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["form"].fields), ["name"])
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="can_set_release_date",
+            )
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["form"].fields), ["name", "release_date"]
+        )
+
 
 class TestDefaultMessages(WagtailTestUtils, TestCase):
     def setUp(self):
