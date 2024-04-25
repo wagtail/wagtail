@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -151,64 +151,6 @@ msgstr "Résultats de recherche améliorés"
 msgid "Add a recommended result"
 msgstr "Ajouter un résultat de recherche mis en avant"
 
-msgid "Search Terms"
-msgstr "Termes de recherche"
-
-msgid "Add new promoted result"
-msgstr "Ajouter un nouveau résultat amélioré"
-
-msgid "Search term(s)"
-msgstr "Terme(s) de recherche"
-
-msgid "Order by search term alphabetically"
-msgstr "Trier par terme de recherche (ordre alphabétique)"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Trier par terme de recherche (ordre alphabétique inverse)"
-
-msgid "Promoted results"
-msgstr "Résultats améliorés"
-
-msgid "Views (past week)"
-msgstr "Vues (semaine dernière)"
-
-msgid "Order by views (lowest first)"
-msgstr "Trier par vues (croissant)"
-
-msgid "Order by views (highest first)"
-msgstr "Trier par vues (décroissant)"
-
-msgid "Edit this promotion"
-msgstr "Modifier cette promotion"
-
-msgid "External link"
-msgstr "Lien externe"
-
-msgid "None"
-msgstr "Aucun"
-
-msgid "Popular search terms"
-msgstr "Termes de recherche populaires"
-
-msgid "Search"
-msgstr "Rechercher"
-
-msgid "Terms"
-msgstr "Termes"
-
-msgid "No results found"
-msgstr "Aucun résultat trouvé"
-
-msgid "Choose from popular search terms"
-msgstr "Choisir parmi les recherches populaires"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -222,6 +164,42 @@ msgid ""
 msgstr ""
 "Aucun résultat de promotion n'a été créé. Pourquoi ne pas <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">en ajouter un</a> ?"
+
+msgid "Popular search terms"
+msgstr "Termes de recherche populaires"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Terms"
+msgstr "Termes"
+
+msgid "Views (past week)"
+msgstr "Vues (semaine dernière)"
+
+msgid "No results found"
+msgstr "Aucun résultat trouvé"
+
+msgid "Choose from popular search terms"
+msgstr "Choisir parmi les recherches populaires"
+
+msgid "External link"
+msgstr "Lien externe"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Search Terms"
+msgstr "Termes de recherche"
+
+msgid "Add new promoted result"
+msgstr "Ajouter un nouveau résultat amélioré"
+
+msgid "Search term(s)"
+msgstr "Terme(s) de recherche"
+
+msgid "Promoted results"
+msgstr "Résultats améliorés"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

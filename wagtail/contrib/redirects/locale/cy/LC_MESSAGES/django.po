@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -175,18 +175,6 @@ msgstr "Gwall"
 msgid "Continue"
 msgstr "Parhau"
 
-msgid "Export redirects"
-msgstr "Allforio ailgyfeiriadau"
-
-msgid "Site"
-msgstr "Safle"
-
-msgid "Edit this redirect"
-msgstr "Golygu'r ailgyfeiriad hwn"
-
-msgid "No redirects found."
-msgstr "Heb ganfod ailgyfeiriadau."
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -200,6 +188,18 @@ msgid ""
 msgstr ""
 "Nid oes unrhyw ailgyfeiriadau wedi'u creu. Pam ddim <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">ychwanegu un</a>?"
+
+msgid "Site"
+msgstr "Safle"
+
+msgid "Edit this redirect"
+msgstr "Golygu'r ailgyfeiriad hwn"
+
+msgid "No redirects found."
+msgstr "Heb ganfod ailgyfeiriadau."
+
+msgid "Export redirects"
+msgstr "Allforio ailgyfeiriadau"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

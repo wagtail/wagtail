@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jan Feřtek, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -256,12 +256,6 @@ msgstr "Použití"
 
 msgid "Sort by"
 msgstr "Řadit podle"
-
-msgid "Entries per page"
-msgstr "Počet položek na stránce"
-
-msgid "Popular Tags:"
-msgstr "Oblíbené štítky"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

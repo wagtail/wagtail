@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -132,6 +132,9 @@ msgstr "Donker"
 msgid "admin theme"
 msgstr "admine thema"
 
+msgid "Default"
+msgstr "Default"
+
 msgid "user profile"
 msgstr "gebruikersprofiel"
 
@@ -231,9 +234,6 @@ msgstr "Weet je zeker dat je deze groep wilt verwijderen?"
 msgid "Add group"
 msgstr "Groep toevoegen"
 
-msgid "View users in this group"
-msgstr "Bekijk gebruikers in deze groep"
-
 msgid "Save"
 msgstr "Opslaan"
 
@@ -308,45 +308,12 @@ msgid "Select all users in listing"
 msgstr "Selecteer alle gebruikers in lijst"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"De groep %(group_name)s heeft geen gebruikers. <a "
-"href=\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
-
-#, python-format
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
 "gebruikers toe</a>."
-
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-msgid "Access level"
-msgstr "Toegangsniveau"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Laatste login"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Actief"
-
-msgid "Inactive"
-msgstr "Inactief"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -369,6 +336,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d gebruiker is verwijderd"
 msgstr[1] "%(num_parent_objects)d gebruikers zijn verwijderd"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Inactive"
+msgstr "Inactief"
 
 msgid "Mark as active"
 msgstr "Markeer als actief"
@@ -408,15 +381,37 @@ msgstr "Groep '%(object)s' is gewijzigd."
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
+msgid "View users in this group"
+msgstr "Bekijk gebruikers in deze groep"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groep '%(object)s' verwijderd."
+
+msgid "Group"
+msgstr "Groep"
 
 msgid "Add a user"
 msgstr "Voeg een gebruiker toe"
 
 msgid "Users"
 msgstr "Gebruikers"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Toegangsniveau"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Meer opties voor '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -432,14 +427,3 @@ msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Gebruiker '%(object)s' is verwijderd."
-
-msgid "Edit"
-msgstr "Wijzig"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Bewerk gebruiker '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Verwijder gebruiker '%(name)s'"

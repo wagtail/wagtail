@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -188,25 +188,6 @@ msgstr "Greška"
 msgid "Continue"
 msgstr "Nastavi"
 
-msgid "Export redirects"
-msgstr "Izvezi preusmjeravanja"
-
-msgid "Site"
-msgstr "Sjedište"
-
-msgid "Edit this redirect"
-msgstr "Uredi ovo preusmjerivanje"
-
-msgid "No redirects found."
-msgstr "Nema pronađenih preusmjeravanja."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s rezultata"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -220,6 +201,18 @@ msgid ""
 msgstr ""
 "Nema postavljenih preusmjeravanja. Zašto ne <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">dodate jedno</a>?"
+
+msgid "Site"
+msgstr "Sjedište"
+
+msgid "Edit this redirect"
+msgstr "Uredi ovo preusmjerivanje"
+
+msgid "No redirects found."
+msgstr "Nema pronađenih preusmjeravanja."
+
+msgid "Export redirects"
+msgstr "Izvezi preusmjeravanja"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

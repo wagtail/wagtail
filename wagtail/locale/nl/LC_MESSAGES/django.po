@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -586,6 +586,9 @@ msgstr "groepsmachtiging binnen collectie"
 msgid "group collection permissions"
 msgstr "groepsmachtigingen binnen collectie"
 
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s zal ook worden verwijderd"
@@ -664,17 +667,8 @@ msgstr ""
 msgid "Public"
 msgstr "Publiek"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Afgeschermd, toegankelijk voor ingelogde gebruikers"
-
-msgid "Private, accessible with the following password"
-msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Afgeschermd, toegankelijk voor gebruikers in bepaalde groepen"
-
-msgid "password"
-msgstr "wachtwoord"
 
 msgid "view restriction"
 msgstr "bekijk restrictie"

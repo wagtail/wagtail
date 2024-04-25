@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -124,22 +124,6 @@ msgstr "إلى"
 msgid "Continue"
 msgstr "أكمل"
 
-msgid "Site"
-msgstr "موقع"
-
-msgid "Edit this redirect"
-msgstr "تحرير إعادة التوجيه"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "عذرًا ، لا توجد عمليات إعادة توجيه تطابق \"<em>%(query_string)s</em>\""
@@ -151,6 +135,12 @@ msgid ""
 msgstr ""
 "لم يتم إنشاء عمليات إعادة توجيه. لماذا لا<a "
 "href=\"%(wagtailredirects_add_redirect_url)s\"> تضيف واحدة</a>؟"
+
+msgid "Site"
+msgstr "موقع"
+
+msgid "Edit this redirect"
+msgstr "تحرير إعادة التوجيه"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

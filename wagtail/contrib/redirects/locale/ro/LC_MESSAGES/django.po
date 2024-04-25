@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -189,25 +189,6 @@ msgstr "Eroare"
 msgid "Continue"
 msgstr "Continuă"
 
-msgid "Export redirects"
-msgstr "Exportează redirecționări"
-
-msgid "Site"
-msgstr "Sait"
-
-msgid "Edit this redirect"
-msgstr "Editează redirecționare"
-
-msgid "No redirects found."
-msgstr "Nu sunt redirecționări."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Există %(counter)s potrivire"
-msgstr[1] "Sunt %(counter)s potriviri"
-msgstr[2] "Sunt %(counter)s potriviri"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -221,6 +202,18 @@ msgid ""
 msgstr ""
 "Nu a fost creată nici o redirecție. De ce să nu <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
+
+msgid "Site"
+msgstr "Sait"
+
+msgid "Edit this redirect"
+msgstr "Editează redirecționare"
+
+msgid "No redirects found."
+msgstr "Nu sunt redirecționări."
+
+msgid "Export redirects"
+msgstr "Exportează redirecționări"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

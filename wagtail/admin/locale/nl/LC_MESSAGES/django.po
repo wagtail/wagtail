@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,6 +101,12 @@ msgstr "Taalregio"
 msgid "All"
 msgstr "Alle"
 
+msgid "Collection"
+msgstr "Collectie"
+
+msgid "Tag"
+msgstr "Tag"
+
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
 
@@ -145,9 +151,6 @@ msgstr "Zoeken"
 
 msgid "All collections"
 msgstr "Alle collecties"
-
-msgid "Collection"
-msgstr "Collectie"
 
 msgid "Parent"
 msgstr "Bovenliggende pagina"
@@ -270,6 +273,9 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
+
+msgid "Parent page"
+msgstr "Bovenliggende pagina"
 
 msgid "Search…"
 msgstr "Zoeken…"
@@ -659,9 +665,6 @@ msgstr ""
 "Deze collectie kan niet verwijderd worden omdat deze niet leeg is. De "
 "collectie bevat:"
 
-msgid "Name"
-msgstr "Naam"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -727,6 +730,12 @@ msgstr "Wil je %(model_name)s nog steeds publiceren?"
 
 msgid "Cancel"
 msgstr "Annuleren"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "Actions"
+msgstr "Acties"
 
 #, python-format
 msgid "No %(model_name)s match your query."
@@ -803,9 +812,6 @@ msgstr "vergrendeld op"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
-
-msgid "Actions"
-msgstr "Acties"
 
 msgid "Unlock"
 msgstr "Ontgrendel"
@@ -1633,31 +1639,6 @@ msgstr "Originele pagina bewerken"
 msgid "Convert this alias into an ordinary page"
 msgstr "Converteer deze alias naar een normale pagina"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Pagina-geschiedenis voor %(subtitle)s"
-
-msgid "Action"
-msgstr "Actie"
-
-msgid "User"
-msgstr "Gebruiker"
-
-msgid "Date / Time"
-msgstr "Datum / tijd"
-
-msgid "Comment"
-msgstr "Opmerking"
-
-msgid "Live version"
-msgstr "Live versie"
-
-msgid "Current draft"
-msgstr "Huidig concept"
-
-msgid "No log entries found."
-msgstr "Geen logboekvermeldingen gevonden."
-
 msgid "Select all pages in listing"
 msgstr "Selecteer alle pagina's in lijst"
 
@@ -1789,15 +1770,6 @@ msgstr "Bevestig"
 msgid "Add child page"
 msgstr "Voeg onderliggende pagina toe"
 
-msgid "Review this version"
-msgstr "Beoordeel deze versie"
-
-msgid "Compare with current version"
-msgstr "Vergelijk met huidige versie"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
-
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1914,8 +1886,23 @@ msgstr "Vergrendeld"
 msgid "No locked pages found."
 msgstr "Geen vergrendelde pagina's gevonden."
 
+msgid "Name"
+msgstr "Naam"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Date / Time"
+msgstr "Datum / tijd"
+
 msgid "Edit this item"
 msgstr "Wijzig item"
+
+msgid "No log entries found."
+msgstr "Geen logboekvermeldingen gevonden."
 
 msgid "By Task"
 msgstr "Op taak"
@@ -1986,9 +1973,6 @@ msgstr "Terug"
 
 msgid "History"
 msgstr "Geschiedenis"
-
-msgid "Root"
-msgstr "Root"
 
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
@@ -2360,14 +2344,9 @@ msgstr "Pagina"
 msgid "Assign to another page"
 msgstr "Wijs toe aan een andere pagina"
 
-msgid "Hide disabled workflows"
-msgstr "Verberg uitgeschakelde workflows"
-
-msgid "Show disabled workflows"
-msgstr "Toon uitgeschakelde workflows"
-
-msgid "Used by"
-msgstr "Gebruikt door"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Stap %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2380,10 +2359,6 @@ msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 snippet type"
 msgstr[1] "%(counter)s snippet types"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Stap %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2430,12 +2405,6 @@ msgid ""
 msgstr ""
 "<a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">Maak er nu een "
 "aan!</a>."
-
-msgid "Hide disabled tasks"
-msgstr "Verberg uitgeschakelde taken"
-
-msgid "Show disabled tasks"
-msgstr "Toon uitgeschakelde taken"
 
 #, python-format
 msgid ""
@@ -2508,10 +2477,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s door %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "zojuist door %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s geleden door %(user_display_name)s"
 
@@ -2529,6 +2494,24 @@ msgstr "Verstuurd naar %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
 
 msgid "Toggle status"
 msgstr "Toon/verberg status"
@@ -2673,6 +2656,21 @@ msgstr "Weet je zeker dat je deze collectie wilt verwijderen?"
 
 msgid "Home"
 msgstr "Home"
+
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
+
+msgid "Review this version"
+msgstr "Beoordeel deze versie"
+
+msgid "Compare with current version"
+msgstr "Vergelijk met huidige versie"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
 
 msgid "Workflow progress"
 msgstr "Workflow-voortgang"
@@ -3078,15 +3076,6 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 
-msgid "Hide commenting actions"
-msgstr "Verberg opmerkingen acties"
-
-msgid "Page history"
-msgstr "Pagina-geschiedenis"
-
-msgid "Page type"
-msgstr "Pagina type"
-
 msgid "Date updated"
 msgstr "Datum bijgewerkt"
 
@@ -3107,6 +3096,9 @@ msgstr "Alles"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "Page type"
+msgstr "Pagina type"
 
 msgid "Exploring"
 msgstr "Verkennen"
@@ -3147,6 +3139,9 @@ msgstr ""
 "Je bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
 "door %(user)s"
 
+msgid "Page history"
+msgstr "Pagina-geschiedenis"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Publicatie van pagina '%(page_title)s' is ingetrokken."
@@ -3174,6 +3169,9 @@ msgstr "Verouderende pagina's"
 
 msgid "Last published at"
 msgstr "Voor het laatst gepubliceerd op"
+
+msgid "Hide commenting actions"
+msgstr "Verberg opmerkingen acties"
 
 msgid "Site history"
 msgstr "Site geschiedenis"
@@ -3219,6 +3217,9 @@ msgstr "Aangevraagd door"
 
 msgid "Add a workflow"
 msgstr "Voeg een workflow toe"
+
+msgid "Used by"
+msgstr "Gebruikt door"
 
 msgid "New workflow"
 msgstr "Nieuwe workflow"
@@ -3370,20 +3371,8 @@ msgstr "Genummerde lijst"
 msgid "Blockquote"
 msgstr "Blokquote"
 
-msgid "Bold"
-msgstr "Bold"
-
-msgid "Italic"
-msgstr "Italic"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Superscript"
-
-msgid "Subscript"
-msgstr "Subscript"
 
 msgid "Strikethrough"
 msgstr "Doorgestreept"

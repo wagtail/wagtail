@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -95,6 +95,12 @@ msgstr "Localidade"
 msgid "All"
 msgstr "Todos"
 
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Tag"
+msgstr "Tag"
+
 msgid "Preferred language"
 msgstr "Idioma preferido"
 
@@ -139,9 +145,6 @@ msgstr "Pesquisar"
 
 msgid "All collections"
 msgstr "Todas as coleções"
-
-msgid "Collection"
-msgstr "Coleção"
 
 msgid "Parent"
 msgstr "Página Raíz"
@@ -257,6 +260,9 @@ msgstr "Você não pode copiar uma página em si mesmo ao copiar subpáginas"
 
 msgid "Select a new parent for this page."
 msgstr "Selecione uma nova página pai para esta página."
+
+msgid "Parent page"
+msgstr "Página raíz"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -590,9 +596,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta coleção não pode ser excluída, porque ela não está vazia. Contém:"
 
-msgid "Name"
-msgstr "Nome"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -639,6 +642,12 @@ msgstr "Você gostaria de publicar esse %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Comment"
+msgstr "Comentário"
+
+msgid "Actions"
+msgstr "Ações"
+
 msgid "Update"
 msgstr "Atualizar"
 
@@ -677,9 +686,6 @@ msgstr "Bloqueado em"
 
 msgid "Edit this page"
 msgstr "Editar essa página"
-
-msgid "Actions"
-msgstr "Ações"
 
 msgid "Unlock"
 msgstr "Desbloquear"
@@ -1112,31 +1118,6 @@ msgstr "Editar página original"
 msgid "Convert this alias into an ordinary page"
 msgstr "Converter este alias em uma página comum"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Histórico da página para %(subtitle)s"
-
-msgid "Action"
-msgstr "Ação"
-
-msgid "User"
-msgstr "Usuário"
-
-msgid "Date / Time"
-msgstr "Data / Hora"
-
-msgid "Comment"
-msgstr "Comentário"
-
-msgid "Live version"
-msgstr "Versão publicada"
-
-msgid "Current draft"
-msgstr "Rascunho atual"
-
-msgid "No log entries found."
-msgstr "Nenhuma entrada de log encontrada."
-
 msgid "Select all pages in listing"
 msgstr "Selecionar todas as páginas da lista"
 
@@ -1186,15 +1167,6 @@ msgstr "Confirmar"
 
 msgid "Add child page"
 msgstr "Adicionar subpágina"
-
-msgid "Review this version"
-msgstr "Revise esta versão"
-
-msgid "Compare with current version"
-msgstr "Compare com a versão atual"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancelar publicação agendada"
 
 msgid "Page types"
 msgstr "Tipos de página"
@@ -1255,8 +1227,23 @@ msgstr "Bloqueado"
 msgid "No locked pages found."
 msgstr "Nenhuma página bloqueada encontrada."
 
+msgid "Name"
+msgstr "Nome"
+
+msgid "Action"
+msgstr "Ação"
+
+msgid "User"
+msgstr "Usuário"
+
+msgid "Date / Time"
+msgstr "Data / Hora"
+
 msgid "Edit this item"
 msgstr "Edite este item"
+
+msgid "No log entries found."
+msgstr "Nenhuma entrada de log encontrada."
 
 msgid "By Task"
 msgstr "Por tarefa"
@@ -1306,9 +1293,6 @@ msgstr "Voltar"
 
 msgid "History"
 msgstr "Histórico"
-
-msgid "Root"
-msgstr "Raiz"
 
 msgid "Current page status:"
 msgstr "Estado atual da página:"
@@ -1479,15 +1463,6 @@ msgstr "Página"
 msgid "Assign to another page"
 msgstr "Atribuir a outra página"
 
-msgid "Hide disabled workflows"
-msgstr "Ocultar fluxos de trabalho desativados"
-
-msgid "Show disabled workflows"
-msgstr "Mostrar fluxos de trabalho desativados"
-
-msgid "Used by"
-msgstr "Usado por"
-
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Fase %(step_number)s"
@@ -1533,12 +1508,6 @@ msgstr "Desculpe, nenhuma tarefa coincide com \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Você não criou nenhuma tarefa."
-
-msgid "Hide disabled tasks"
-msgstr "Ocultar tarefas desativadas"
-
-msgid "Show disabled tasks"
-msgstr "Mostrar tarefas desativadas"
 
 #, python-format
 msgid ""
@@ -1596,6 +1565,24 @@ msgstr "%(time_period)s atrás"
 
 msgid "Log out"
 msgstr "Sair"
+
+msgid "Undo"
+msgstr "Desfazer"
+
+msgid "Redo"
+msgstr "Refazer"
+
+msgid "Bold"
+msgstr "Negrito"
+
+msgid "Italic"
+msgstr "Itálico"
+
+msgid "Superscript"
+msgstr "Sobrescrito"
+
+msgid "Subscript"
+msgstr "Subscrito"
 
 msgid "Comments"
 msgstr "Comentários"
@@ -1669,6 +1656,21 @@ msgstr "Tem certeza de que deseja excluir esta coleção?"
 
 msgid "Home"
 msgstr "Página inicial"
+
+msgid "Live version"
+msgstr "Versão publicada"
+
+msgid "Current draft"
+msgstr "Rascunho atual"
+
+msgid "Review this version"
+msgstr "Revise esta versão"
+
+msgid "Compare with current version"
+msgstr "Compare com a versão atual"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancelar publicação agendada"
 
 msgid "Workflow progress"
 msgstr "Progresso do fluxo de trabalho"
@@ -1934,12 +1936,6 @@ msgstr "Esta página não pode ser salva já que está bloqueada"
 msgid "The page could not be saved due to validation errors"
 msgstr "A página não pode ser salva devido a erros de validação"
 
-msgid "Hide commenting actions"
-msgstr "Ocultar ações de comentários"
-
-msgid "Page history"
-msgstr "Histórico da página"
-
 msgid "Owner"
 msgstr "Proprietário"
 
@@ -1973,6 +1969,9 @@ msgstr ""
 "Você está visualizando uma versão anterior desta página de "
 "<b>%(created_at)s</b> por %(user)s"
 
+msgid "Page history"
+msgstr "Histórico da página"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Página '%(page_title)s' despublicada."
@@ -2000,6 +1999,9 @@ msgstr "Páginas antigas"
 
 msgid "Last published at"
 msgstr "Publicado pela última vez em"
+
+msgid "Hide commenting actions"
+msgstr "Ocultar ações de comentários"
 
 msgid "Site history"
 msgstr "Histórico do site"
@@ -2033,6 +2035,9 @@ msgstr "Solicitado por"
 
 msgid "Add a workflow"
 msgstr "Adicionar um fluxo de trabalho"
+
+msgid "Used by"
+msgstr "Usado por"
 
 msgid "New workflow"
 msgstr "Novo fluxo de trabalho"
@@ -2146,20 +2151,8 @@ msgstr "Lista numerada"
 msgid "Blockquote"
 msgstr "Bloco de citação"
 
-msgid "Bold"
-msgstr "Negrito"
-
-msgid "Italic"
-msgstr "Itálico"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Sobrescrito"
-
-msgid "Subscript"
-msgstr "Subscrito"
 
 msgid "Strikethrough"
 msgstr "Tachado"
