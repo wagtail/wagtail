@@ -50,6 +50,7 @@ class FundingPage(Page):
     edit_handler = TabbedInterface([
         ObjectList(shared_panels, heading='Details'),
         ObjectList(private_panels, heading='Admin only', permission="superuser"),
+        ObjectList(Page.promote_panels, heading='Promote'),
         ObjectList(Page.settings_panels, heading='Settings'), # The default settings are now displayed in the sidebar but need to be in the `TabbedInterface`.
     ])
 ```
