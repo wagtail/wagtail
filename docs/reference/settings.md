@@ -890,4 +890,4 @@ The sidebar "Snippets" menu item is only shown if any snippet models exist
 [without their own menu items](wagtailsnippets_menu_item)
 and by default its view only contains those models.
 This setting can be set to `True` to always show the "Snippets" menu item
-and to have its view include all snippet models for which the user has permission to add, view, or change.
+and to have its view include all snippet models for which the user has permission to add, change, or delete.
