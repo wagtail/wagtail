@@ -1485,9 +1485,6 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
 
 class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
-    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
-        {"label": "Snippets", "url": "/admin/snippets/"},
-    ]
 
     @classmethod
     def setUpTestData(cls):
@@ -1620,3 +1617,33 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         self.assertIsNotNone(template)
         links = template.find_all("a", attrs={"href": add_url})
         self.assertEqual(len(links), 1)
+
+
+class TestSnippetIndexViewBreadcrumbs(SimpleTestCase):
+    def test_snippet_without_menu_item_breadcrumbs(self):
+        self.assertEqual(
+            Advert.snippet_viewset.breadcrumbs_items,
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ],
+        )
+
+    def check_snippet_with_menu_item_breadcrumbs(self, expected):
+        self.assertEqual(DraftStateModel.snippet_viewset.breadcrumbs_items, expected)
+
+    def test_snippet_with_menu_item_breadcrumbs(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+            ],
+        )
+
+    @override_settings(WAGTAILSNIPPETS_MENU_SHOW_ALL=True)
+    def test_snippet_with_menu_item_breadcrumbs_show_all(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ]
+        )
