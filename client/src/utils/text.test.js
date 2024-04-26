@@ -1,5 +1,10 @@
 import { cleanForSlug, escapeHtml } from './text';
 
+// load window.XRegExp polyfill
+import { XRegExp } from '../../../wagtail/admin/static_src/wagtailadmin/js/vendor/xregexp.min';
+
+window.XRegExp = XRegExp;
+
 describe('escapeHtml', () => {
   it('should escape the supplied HTML', () => {
     expect(escapeHtml('7 is > than 5 & 3')).toEqual('7 is &gt; than 5 &amp; 3');
