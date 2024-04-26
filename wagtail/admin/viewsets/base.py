@@ -46,6 +46,7 @@ class ViewSet(WagtailMenuRegisterable):
             key: value
             for key, value in self.get_common_view_kwargs().items()
             if hasattr(view_class, key)
+            and not isinstance(getattr(view_class, key), property)
         }
         filtered_kwargs.update(kwargs)
         return view_class.as_view(**filtered_kwargs)
