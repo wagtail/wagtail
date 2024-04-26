@@ -1,5 +1,10 @@
 import { urlify } from './urlify';
 
+// load window.XRegExp polyfill
+import { XRegExp } from '../../../wagtail/admin/static_src/wagtailadmin/js/vendor/xregexp.min';
+
+window.XRegExp = XRegExp;
+
 describe('urlify', () => {
   beforeAll(() => {
     // load window.URLify
@@ -33,7 +38,7 @@ describe('urlify', () => {
       expect(urlify('This & That', options)).toBe('this-that');
 
       expect(urlify('Lisboa é ótima à beira-mar', options)).toBe(
-        'lisboa-e-otima-a-beira-mar',
+        'lisboa-é-ótima-à-beira-mar',
       );
     });
   });
