@@ -301,6 +301,13 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
+5.2.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+
+
 5.2.4 (03.04.2024)
 ~~~~~~~~~~~~~~~~~~
 
