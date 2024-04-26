@@ -116,7 +116,7 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         }
 
         if not backends_for_hostname:
-            logger.warning("Unable to find purge backend for %s", hostname)
+            logger.info("Unable to find purge backend for %s", hostname)
             continue
 
         for backend_name, backend in backends_for_hostname.items():
