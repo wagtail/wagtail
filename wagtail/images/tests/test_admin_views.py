@@ -1681,6 +1681,22 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
 
+    @override_settings(WAGTAILIMAGES_CHOOSER_PAGE_SIZE=4)
+    def test_chooser_page_size(self):
+        images = [
+            Image(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+            for i in range(1, 12)
+        ]
+        Image.objects.bulk_create(images)
+
+        response = self.get()
+
+        self.assertContains(response, "Page 1 of 3")
+        self.assertEqual(response.status_code, 200)
+
     def test_filter_by_tag(self):
         for i in range(0, 10):
             image = Image.objects.create(
