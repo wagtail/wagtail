@@ -1,6 +1,13 @@
 Changelog
 =========
 
+6.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+
+
 6.0.2 (03.04.2024)
 ~~~~~~~~~~~~~~~~~~
 
