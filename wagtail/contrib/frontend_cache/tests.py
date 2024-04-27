@@ -485,7 +485,7 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_invalidate_specific_location(self):
-        with self.assertLogs(level="WARNING") as log_output:
+        with self.assertLogs(level="INFO") as log_output:
             purge_url_from_cache("http://localhost/foo")
 
         self.assertEqual(PURGED_URLS, [])
