@@ -949,7 +949,7 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.assertIsNone(redirects.first().site)
 
 
-class TestRedirectsEditView(WagtailTestUtils, TestCase):
+class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Create a redirect to edit
         self.redirect = models.Redirect(
@@ -976,6 +976,13 @@ class TestRedirectsEditView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailredirects/edit.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailredirects:index"), "label": "Redirects"},
+                {"url": "", "label": "/test"},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/redirects/%d/" % self.redirect.id

@@ -146,6 +146,8 @@ class EditView(generic.EditView):
     delete_url_name = "wagtailredirects:delete"
     pk_url_kwarg = "redirect_id"
     error_message = gettext_lazy("The redirect could not be saved due to errors.")
+    header_icon = "redirect"
+    _show_breadcrumbs = True
 
     def get_success_message(self):
         return _("Redirect '%(redirect_title)s' updated.") % {
