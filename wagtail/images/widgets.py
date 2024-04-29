@@ -44,6 +44,7 @@ class AdminImageChooser(BaseChooser):
             js=[
                 versioned_static("wagtailimages/js/image-chooser-modal.js"),
                 versioned_static("wagtailimages/js/image-chooser.js"),
+                versioned_static("wagtailimages/js/image-chooser-telepath.js"),
             ]
         )
 
