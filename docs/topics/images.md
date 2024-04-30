@@ -442,6 +442,8 @@ You can encode the image into lossless AVIF or WebP format by using `format-avif
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
+(favicon_generation)=
+
 ### Favicon generation
 
 You can save images as a `.ico` file using `format-ico`, which is especially useful when managing a site's favicon through the Admin.
