@@ -11,6 +11,7 @@ Changelog
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
+ * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
 
 
