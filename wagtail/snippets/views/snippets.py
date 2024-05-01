@@ -233,22 +233,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
 
-    def _get_initial_form_instance(self):
-        instance = self.model()
-
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-
-        return instance
-
-    def get_form_kwargs(self):
-        return {
-            **super().get_form_kwargs(),
-            "instance": self._get_initial_form_instance(),
-            "for_user": self.request.user,
-        }
-
     def get_side_panels(self):
         side_panels = [
             SnippetStatusSidePanel(
@@ -307,9 +291,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
             instance=self.object,
             locked_for_user=self.locked_for_user,
         )
-
-    def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get_side_panels(self):
         side_panels = [
