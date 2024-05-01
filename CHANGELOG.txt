@@ -13,7 +13,7 @@ Changelog
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
 
 
-6.1 (xx.xx.xxxx) - IN DEVELOPMENT
+6.1 (01.05.2024)
 ~~~~~~~~~~~~~~~~
 
  * Refine wording of page & collection privacy using password is a shared password and should not be used for secure content (Rohit Sharma, Jake Howard)
