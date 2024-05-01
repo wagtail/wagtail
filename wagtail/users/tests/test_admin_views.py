@@ -2029,7 +2029,13 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                     perm.content_type.model,
                 )
                 for perm_set in object_perms
-                for perm in [next(v for v in flatten(perm_set) if "perm" in v)["perm"]]
+                for perm in [
+                    next(
+                        v
+                        for v in flatten(perm_set)
+                        if isinstance(v, dict) and "perm" in v
+                    )["perm"]
+                ]
             ]
 
         # Set order on two objects, should appear first and second
