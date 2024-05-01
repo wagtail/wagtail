@@ -6,7 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2023
+# Marco Badan <marco.badan@gmail.com>, 2021-2024
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -131,6 +131,12 @@ msgstr "tema admin"
 
 msgid "Default"
 msgstr "Default"
+
+msgid "Snug"
+msgstr "Compatta"
+
+msgid "density"
+msgstr "densità"
 
 msgid "user profile"
 msgstr "profilo utente"
@@ -265,6 +271,30 @@ msgstr "Sblocca"
 msgid "Custom permissions"
 msgstr "Permessi personalizzati"
 
+msgid "Toggle all"
+msgstr "Attiva/disattiva tutto"
+
+msgid "Toggle all add permissions"
+msgstr "Attiva/disattiva tutti i permessi di aggiunta"
+
+msgid "Toggle all change permissions"
+msgstr "Attiva/disattiva tutti i permessi di modifica"
+
+msgid "Toggle all delete permissions"
+msgstr "Attiva/disattiva tutti i permessi di eliminazione"
+
+msgid "Toggle all publish permissions"
+msgstr "Attiva/disattiva tutti i permessi di pubblicazione"
+
+msgid "Toggle all lock permissions"
+msgstr "Attiva/disattiva tutti i permessi di blocco"
+
+msgid "Toggle all unlock permissions"
+msgstr "Attiva/disattiva tutti i permessi di sblocco"
+
+msgid "Toggle all custom permissions"
+msgstr "Attiva/disattiva tutti i permessi personalizzati"
+
 msgid "Other permissions"
 msgstr "Altri permessi"
 
@@ -306,6 +336,9 @@ msgstr "Elimina utente"
 
 msgid "Select all users in listing"
 msgstr "Seleziona tutti gli utenti nella lista"
+
+msgid "Sorry, no users match your query"
+msgstr "Nessun utente corrisponde alla tua ricerca"
 
 #, python-format
 msgid ""
@@ -394,6 +427,9 @@ msgstr "Visualizza utenti in questo gruppo"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppo '%(object)s' eliminato."
+
+msgid "Last login"
+msgstr "Ultimo accesso"
 
 msgid "Group"
 msgstr "Gruppo"

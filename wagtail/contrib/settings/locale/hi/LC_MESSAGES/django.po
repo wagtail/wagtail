@@ -21,6 +21,9 @@ msgstr ""
 "Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "मूलचर"
+
 #, python-format
 msgid "%(site_setting)s for %(site)s"
 msgstr "%(site_setting)s for %(site)s"
