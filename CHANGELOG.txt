@@ -9,6 +9,7 @@ Changelog
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Fix: Reinstate missing static files in style guide (Sage Abdullah)
  * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
+ * Fix: Fix generic CopyView for models with primary keys that need to be quoted (Sage Abdullah)
 
 
 6.0.2 (03.04.2024)
