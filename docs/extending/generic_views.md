@@ -8,6 +8,8 @@
 
 Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. For convenience, these views are bundled in [viewsets](viewsets_reference).
 
+(modelviewset)=
+
 ## ModelViewSet
 
 The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:

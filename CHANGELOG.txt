@@ -120,6 +120,7 @@ Changelog
 6.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2024-32882: Permission check bypass when editing a model with per-field restrictions through `wagtail.contrib.settings` or `ModelViewSet` (Ben Morse, Joshua Munn, Jake Howard, Sage Abdullah)
  * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Fix: Reinstate missing static files in style guide (Sage Abdullah)
