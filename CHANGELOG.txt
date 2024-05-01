@@ -105,7 +105,7 @@ Changelog
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
 
 
-6.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0.3 (01.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2024-32882: Permission check bypass when editing a model with per-field restrictions through `wagtail.contrib.settings` or `ModelViewSet` (Ben Morse, Joshua Munn, Jake Howard, Sage Abdullah)
