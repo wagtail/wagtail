@@ -14,6 +14,7 @@ from wagtail.test.testapp.models import (
     PanelGenericSettings,
     TabbedGenericSettings,
     TestGenericSetting,
+    TestPermissionedGenericSetting,
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -76,6 +77,11 @@ class BaseTestGenericSettingView(WagtailTestUtils, TestCase):
 class TestGenericSettingCreateView(BaseTestGenericSettingView):
     def setUp(self):
         self.user = self.login()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
 
     def test_get_edit(self):
         response = self.get()
@@ -107,6 +113,38 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+    def test_create_restricted_field_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+
+        self.assertFalse(TestPermissionedGenericSetting.objects.exists())
+        response = self.post(
+            post_data={"sensitive_email": "test@example.com", "title": "test"},
+            setting=TestPermissionedGenericSetting,
+        )
+        self.assertEqual(response.status_code, 302)
+
+        settings = TestPermissionedGenericSetting.objects.get()
+        self.assertEqual(settings.title, "test")
+        self.assertEqual(settings.sensitive_email, "")
+
+    def test_create_restricted_field(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(codename="can_edit_sensitive_email_generic_setting")
+        )
+        self.assertFalse(TestPermissionedGenericSetting.objects.exists())
+        response = self.post(
+            post_data={"sensitive_email": "test@example.com", "title": "test"},
+            setting=TestPermissionedGenericSetting,
+        )
+        self.assertEqual(response.status_code, 302)
+
+        settings = TestPermissionedGenericSetting.objects.get()
+        self.assertEqual(settings.title, "test")
+        self.assertEqual(settings.sensitive_email, "test@example.com")
+
 
 class TestGenericSettingEditView(BaseTestGenericSettingView):
     def setUp(self):
@@ -114,7 +152,12 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         self.test_setting.title = "Setting title"
         self.test_setting.save()
 
-        self.login()
+        self.user = self.login()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
 
     def test_get_edit(self):
         response = self.get()
@@ -161,6 +204,50 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
             status_code=302,
             expected_url=f"{url}{TestGenericSetting.objects.first().pk}/",
         )
+
+    def test_edit_restricted_field(self):
+        test_setting = TestPermissionedGenericSetting()
+        test_setting.sensitive_email = "test@example.com"
+        test_setting.save()
+        self.user.is_superuser = False
+        self.user.save()
+
+        self.user.user_permissions.add(
+            Permission.objects.get(codename="can_edit_sensitive_email_generic_setting")
+        )
+
+        response = self.get(setting=TestPermissionedGenericSetting)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("sensitive_email", list(response.context["form"].fields))
+
+        response = self.post(
+            setting=TestPermissionedGenericSetting,
+            post_data={"sensitive_email": "test-updated@example.com", "title": "title"},
+        )
+        self.assertEqual(response.status_code, 302)
+
+        test_setting.refresh_from_db()
+        self.assertEqual(test_setting.sensitive_email, "test-updated@example.com")
+
+    def test_edit_restricted_field_without_permission(self):
+        test_setting = TestPermissionedGenericSetting()
+        test_setting.sensitive_email = "test@example.com"
+        test_setting.save()
+        self.user.is_superuser = False
+        self.user.save()
+
+        response = self.get(setting=TestPermissionedGenericSetting)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("sensitive_email", list(response.context["form"].fields))
+
+        response = self.post(
+            setting=TestPermissionedGenericSetting,
+            post_data={"sensitive_email": "test-updated@example.com", "title": "title"},
+        )
+        self.assertEqual(response.status_code, 302)
+
+        test_setting.refresh_from_db()
+        self.assertEqual(test_setting.sensitive_email, "test@example.com")
 
 
 class TestAdminPermission(WagtailTestUtils, TestCase):
