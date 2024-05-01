@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.2.5 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.5 (01.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
