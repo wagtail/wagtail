@@ -320,6 +320,7 @@ Changelog
 
  * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+ * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
 
 
 5.2.4 (03.04.2024)
