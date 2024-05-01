@@ -41,6 +41,7 @@ Changelog
  * Populate django-treebeard cache during page routing to improve performance of `get_parent` (Nigel van Keulen)
  * Add a new user profile preference to configure user interface information density (Thibaud Colas)
  * Add additional field types to Elasticsearch mapping (scott-8)
+ * Fix: CVE-2024-32882: Permission check bypass when editing a model with per-field restrictions through `wagtail.contrib.settings` or `ModelViewSet` (Ben Morse, Joshua Munn, Jake Howard, Sage Abdullah)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
