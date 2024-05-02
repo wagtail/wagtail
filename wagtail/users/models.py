@@ -89,6 +89,7 @@ class UserProfile(models.Model):
         SNUG = "snug", _("Snug")
 
     density = models.CharField(
+        # Translators: "Density" is the term used to describe the amount of space between elements in the user interface
         verbose_name=_("density"),
         choices=AdminDensityThemes.choices,
         default=AdminDensityThemes.DEFAULT,
