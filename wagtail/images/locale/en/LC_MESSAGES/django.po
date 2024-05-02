@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -610,23 +610,23 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:51 views/chooser.py:313
+#: views/chooser.py:51 views/chooser.py:314
 msgid "Upload"
 msgstr ""
 
-#: views/chooser.py:52 views/chooser.py:314
+#: views/chooser.py:52 views/chooser.py:315
 msgid "Uploading…"
 msgstr ""
 
-#: views/chooser.py:312 widgets.py:13
+#: views/chooser.py:313 widgets.py:13
 msgid "Choose an image"
 msgstr ""
 
-#: views/chooser.py:315
+#: views/chooser.py:316
 msgid "Choose another image"
 msgstr ""
 
-#: views/chooser.py:316 widgets.py:15
+#: views/chooser.py:317 widgets.py:15
 msgid "Edit this image"
 msgstr ""
 

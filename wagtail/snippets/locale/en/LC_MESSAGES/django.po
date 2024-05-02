@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:77 views/snippets.py:104 views/snippets.py:913
+#: views/snippets.py:77 views/snippets.py:104 views/snippets.py:894
 #: wagtail_hooks.py:44
 msgid "Snippets"
 msgstr ""
@@ -200,17 +200,17 @@ msgstr ""
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:389
+#: views/snippets.py:370
 #, python-format
 msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:395
+#: views/snippets.py:376
 #, python-format
 msgid "%(model_name)s history"
 msgstr ""
 
-#: views/snippets.py:912
+#: views/snippets.py:893
 msgid "Home"
 msgstr ""
 
