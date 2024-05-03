@@ -34,6 +34,12 @@ At any given time, the Wagtail team provides official security support for sever
 When new releases are issued for security reasons, the accompanying notice will include a list of affected versions.
 This list is comprised solely of supported versions of Wagtail: older versions may also be affected, but we do not investigate to determine that, and will not issue patches or new releases for those versions.
 
+## Bug Bounties
+
+Wagtail does not have a "Bug Bounty" program. Whilst we appreciate and accept reports from anyone, and will gladly give credit to you and/or your organisation, we aren't able to "reward" you for reporting the vulnerability.
+
+["Beg Bounties"](https://www.troyhunt.com/beg-bounties/) are ever increasing among security researchers, and it's not something condone or support.
+
 ## How Wagtail discloses security issues
 
 Our process for taking a security issue from private discussion to public disclosure involves multiple steps.
