@@ -52,4 +52,5 @@ repos:
     rev: v1.40.0
     hooks:
       - id: semgrep
-        args: ['--config', '.semgrep.yml', '--error']
+        files: \.py$
+        args: ['--config', '.semgrep.yml', '--disable-version-check', '--error']
