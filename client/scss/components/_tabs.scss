@@ -66,7 +66,7 @@
 
   // Optional animate attr for tabs to animate in
   /* stylelint-disable-next-line selector-attribute-name-disallowed-list */
-  &[data-tabs-animate] &__panel {
+  &[data-w-tabs-animate-value="true"] &__panel {
     @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-1 w-opacity-0;
 
     &.animate-in {

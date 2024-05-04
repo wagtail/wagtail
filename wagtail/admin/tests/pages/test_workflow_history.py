@@ -77,7 +77,7 @@ class TestWorkflowHistoryDetail(WagtailTestUtils, TestCase):
             ),
         )
 
-        self.assertContains(response, '<div class="w-tabs" data-tabs>')
+        self.assertContains(response, '<div class="w-tabs" data-controller="w-tabs" data-w-tabs-selected-value="null">')
 
         self.assertContains(response, '<div class="tab-content">')
 

@@ -60,7 +60,7 @@ const createMinimapLink = (
  */
 const renderMinimap = (container: HTMLElement) => {
   let anchorsContainer: HTMLElement = document.body;
-  const tabs = document.querySelector('[data-tabs]');
+  const tabs = document.querySelector('[data-controller~="w-tabs"]');
 
   // Render the minimap based on the active tab when there are tabs.
   if (tabs) {

@@ -210,7 +210,7 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         self.assertContains(response, self.get_url("edit"))
         self.assertContains(response, self.get_url("workflow_history"))
 
-        self.assertContains(response, '<div class="w-tabs" data-tabs>')
+        self.assertContains(response, '<div class="w-tabs" data-controller="w-tabs" data-w-tabs-selected-value="null">')
         self.assertContains(response, '<div class="tab-content">')
         self.assertContains(response, "Tasks")
         self.assertContains(response, "Timeline")

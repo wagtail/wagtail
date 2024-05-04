@@ -31,7 +31,7 @@ describe('TabsController', () => {
             Coffee
           </a>
         </div>
-        <div class="tab-content tab-content--comments-enabled">
+        <div class="tab-content">
           <section id="tab-tab-1" class="w-tabs__panel " role="tabpanel" aria-labelledby="tab-label-tab-1" data-w-tabs-target="panel">
             All about cheese
           </section>
@@ -48,7 +48,7 @@ describe('TabsController', () => {
   ) => {
     document.body.innerHTML = `<main>${html}</main>`;
     app = Application.start();
-    `app.register(identifier, TabsController);`
+    app.register(identifier, TabsController);
     await Promise.resolve();
   };
 
