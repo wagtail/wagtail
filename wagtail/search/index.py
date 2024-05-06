@@ -127,7 +127,7 @@ class Indexed:
 def get_indexed_models():
     return [
         model
-        for model in apps.get_models()
+        for model in reversed(apps.get_models())
         if issubclass(model, Indexed)
         and not model._meta.abstract
         and model.search_fields
