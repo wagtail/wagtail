@@ -38,7 +38,7 @@ class Button(Component):
 
         # if a 'title' attribute has been passed, correct that to aria-label
         # as that's what will be picked up in renderings that don't use button.render
-        # directly (e.g. _dropdown_items.html)
+        # directly
         if "title" in self.attrs and "aria-label" not in self.attrs:
             self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
@@ -126,11 +126,11 @@ class HeaderButton(Button):
 
 
 # Base class for all listing buttons
-# This is also used by SnippetListingButton defined in wagtail.snippets.widgets
+# This used to include default button class names, but they are no longer
+# necessary since the universal listings design, as such buttons are generally
+# rendered inside a dropdown.
 class ListingButton(Button):
-    def __init__(self, label="", url=None, classname="", **kwargs):
-        classname = f"{classname} button button-small button-secondary".strip()
-        super().__init__(label=label, url=url, classname=classname, **kwargs)
+    pass
 
 
 class PageListingButton(ListingButton):
