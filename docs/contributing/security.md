@@ -38,7 +38,7 @@ This list is comprised solely of supported versions of Wagtail: older versions m
 
 Wagtail does not have a "Bug Bounty" program. Whilst we appreciate and accept reports from anyone, and will gladly give credit to you and/or your organisation, we aren't able to "reward" you for reporting the vulnerability.
 
-["Beg Bounties"](https://www.troyhunt.com/beg-bounties/) are ever increasing among security researchers, and it's not something condone or support.
+["Beg Bounties"](https://www.troyhunt.com/beg-bounties/) are ever increasing among security researchers, and it's not something we condone or support.
 
 ## How Wagtail discloses security issues
 
