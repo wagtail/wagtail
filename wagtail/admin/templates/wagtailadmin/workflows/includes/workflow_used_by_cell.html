@@ -1,17 +1,14 @@
-{% extends "wagtailadmin/tables/title_cell.html" %}
 {% load i18n %}
 
-{% block title %}
-    <a href="{{ link_url }}">
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <a class="w-label-1" href="{{ link_url }}">
         {% blocktrans trimmed count counter=instance.all_pages.count %}
             1 page
         {% plural %}
             {{ counter }} pages
         {% endblocktrans %}
     </a>
-{% endblock %}
 
-{% block extra %}
     {# Only show snippet type count if there's a model with workflows enabled #}
     {% if workflow_enabled_models %}
         <div>
@@ -22,4 +19,4 @@
             {% endblocktrans %}
         </div>
     {% endif %}
-{% endblock %}
+</td>

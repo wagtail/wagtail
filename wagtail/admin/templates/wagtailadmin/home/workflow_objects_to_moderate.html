@@ -23,47 +23,49 @@
                         {% endif %}
                         <tr>
                             <td class="title" valign="top">
-                                <div class="title-wrapper">
-                                    {% admin_edit_url obj as edit_url %}
-                                    {% if page_perms.can_edit or not is_page and edit_url %}
-                                        <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
-                                    {% else %}
-                                        {% latest_str obj %}
-                                    {% endif %}
+                                <div class="w-flex w-items-center w-justify-between w-gap-2">
+                                    <div class="title-wrapper">
+                                        {% admin_edit_url obj as edit_url %}
+                                        {% if page_perms.can_edit or not is_page and edit_url %}
+                                            <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
+                                        {% else %}
+                                            {% latest_str obj %}
+                                        {% endif %}
 
-                                    {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and obj.locale_id %}
-                                        {% locale_label_from_id obj.locale_id as locale_label %}
-                                        {% status locale_label classname="w-status--label" %}
+                                        {% i18n_enabled as show_locale_labels %}
+                                        {% if show_locale_labels and obj.locale_id %}
+                                            {% locale_label_from_id obj.locale_id as locale_label %}
+                                            {% status locale_label classname="w-status--label" %}
+                                        {% endif %}
+                                        {% if is_page %}
+                                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                        {% endif %}
+                                        {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
+                                    </div>
+                                    {% if actions %}
+                                        <ul class="actions">
+                                            <li>
+                                                {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") hide_on_click=True %}
+                                                    {% for action_name, action_label, modal in actions %}
+                                                        <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
+                                                    {% endfor %}
+                                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                                        <a href="{{ edit_url }}">{% trans 'Edit' %}</a>
+                                                    {% endif %}
+                                                    {% if obj.is_previewable %}
+                                                        <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
+                                                    {% endif %}
+                                                    {% if state.live_revision_id %}
+                                                        <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
+                                                    {% endif %}
+                                                    {% if state.previous_revision_id %}
+                                                        <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision_id revision.id %}">{% trans "Compare with previous version" %}</a>
+                                                    {% endif %}
+                                                {% enddropdown %}
+                                            </li>
+                                        </ul>
                                     {% endif %}
-                                    {% if is_page %}
-                                        {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
-                                    {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
                                 </div>
-                                {% if actions %}
-                                    <ul class="actions">
-                                        <li>
-                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") hide_on_click=True %}
-                                                {% for action_name, action_label, modal in actions %}
-                                                    <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
-                                                {% endfor %}
-                                                {% if page_perms.can_edit or not is_page and edit_url %}
-                                                    <a href="{{ edit_url }}">{% trans 'Edit' %}</a>
-                                                {% endif %}
-                                                {% if obj.is_previewable %}
-                                                    <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
-                                                {% endif %}
-                                                {% if state.live_revision_id %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
-                                                {% endif %}
-                                                {% if state.previous_revision_id %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision_id revision.id %}">{% trans "Compare with previous version" %}</a>
-                                                {% endif %}
-                                            {% enddropdown %}
-                                        </li>
-                                    </ul>
-                                {% endif %}
                             </td>
                             <td class="tasks" valign="top">
                                 {% for task in workflow_tasks %}

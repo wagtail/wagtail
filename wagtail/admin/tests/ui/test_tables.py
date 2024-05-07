@@ -153,16 +153,20 @@ class TestTable(TestCase):
                 <tbody>
                     <tr>
                         <td class="title">
-                            <div class="title-wrapper">
-                                <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
+                            <div class="w-flex w-items-center w-justify-between w-gap-2">
+                                <div class="title-wrapper">
+                                    <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
+                                </div>
                             </div>
                         </td>
                         <td>My blog</td>
                     </tr>
                     <tr>
                         <td class="title">
-                            <div class="title-wrapper">
-                                <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
+                            <div class="w-flex w-items-center w-justify-between w-gap-2">
+                                <div class="title-wrapper">
+                                    <a href="/admin/sites/edit/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
+                                </div>
                             </div>
                         </td>
                         <td>My gallery</td>
