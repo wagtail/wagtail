@@ -223,10 +223,6 @@ ul.listing {
 
   .title {
     word-break: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: theme('spacing.2');
 
     .title-wrapper,
     h2 {
