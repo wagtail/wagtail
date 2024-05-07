@@ -242,6 +242,39 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             "Another useless dropdown button in &quot;One more more button&quot; dropdown",
         )
 
+    def test_register_page_listing_more_buttons_with_page_listing_button_class(self):
+        def page_custom_listing_buttons(page, user, next_url=None):
+            yield wagtailadmin_widgets.PageListingButton(
+                "The class that includes default classnames",
+                "/custom-url",
+                priority=10,
+                classname="the-only-class-used",
+            )
+
+        with hooks.register_temporarily(
+            "register_page_listing_more_buttons", page_custom_listing_buttons
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using `wagtail.admin.widgets.PageListingButton` in "
+            "`register_page_listing_more_buttons` or "
+            "`register_page_header_buttons` hooks is deprecated. "
+            "Use `wagtail.admin.widgets.PageButton` instead.",
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        self.assertContains(response, "The class that includes default classnames")
+        # Should not include the default classnames
+        # print(response.content.decode())
+        self.assertContains(response, 'class="the-only-class-used"')
+
     def test_delete_button_with_next_url(self):
         """
         Ensure that the built in delete button supports a next_url provided.

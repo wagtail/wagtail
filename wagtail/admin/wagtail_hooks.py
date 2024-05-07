@@ -52,7 +52,10 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import (
+    ButtonWithDropdownFromHook,
+    PageButton,
+)
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permissions import (
     collection_permission_policy,
@@ -241,7 +244,7 @@ def page_listing_buttons(page, user, next_url=None):
     )
 
 
-class PageListingEditButton(PageListingButton):
+class PageListingEditButton(PageButton):
     label = _("Edit")
     icon_name = "edit"
     aria_label_format = _("Edit '%(title)s'")
@@ -252,7 +255,7 @@ class PageListingEditButton(PageListingButton):
         return self.page_perms.can_edit()
 
 
-class PageListingViewDraftButton(PageListingButton):
+class PageListingViewDraftButton(PageButton):
     label = _("View draft")
     icon_name = "draft"
     aria_label_format = _("Preview draft version of '%(title)s'")
@@ -264,7 +267,7 @@ class PageListingViewDraftButton(PageListingButton):
         return self.page.has_unpublished_changes and self.page.is_previewable()
 
 
-class PageListingViewLiveButton(PageListingButton):
+class PageListingViewLiveButton(PageButton):
     label = _("View live")
     icon_name = "doc-empty"
     aria_label_format = _("View live version of '%(title)s'")
@@ -275,7 +278,7 @@ class PageListingViewLiveButton(PageListingButton):
         return self.page.live and self.page.url
 
 
-class PageListingAddChildPageButton(PageListingButton):
+class PageListingAddChildPageButton(PageButton):
     label = _("Add child page")
     icon_name = "circle-plus"
     aria_label_format = _("Add a child page to '%(title)s'")
@@ -286,7 +289,7 @@ class PageListingAddChildPageButton(PageListingButton):
         return self.page_perms.can_add_subpage()
 
 
-class PageListingMoveButton(PageListingButton):
+class PageListingMoveButton(PageButton):
     label = _("Move")
     icon_name = "arrow-right-full"
     aria_label_format = _("Move page '%(title)s'")
@@ -297,7 +300,7 @@ class PageListingMoveButton(PageListingButton):
         return self.page_perms.can_move()
 
 
-class PageListingCopyButton(PageListingButton):
+class PageListingCopyButton(PageButton):
     label = _("Copy")
     icon_name = "copy"
     aria_label_format = _("Copy page '%(title)s'")
@@ -308,7 +311,7 @@ class PageListingCopyButton(PageListingButton):
         return self.page_perms.can_copy()
 
 
-class PageListingDeleteButton(PageListingButton):
+class PageListingDeleteButton(PageButton):
     label = _("Delete")
     icon_name = "bin"
     aria_label_format = _("Delete page '%(title)s'")
@@ -338,7 +341,7 @@ class PageListingDeleteButton(PageListingButton):
         return self.page_perms.can_delete()
 
 
-class PageListingUnpublishButton(PageListingButton):
+class PageListingUnpublishButton(PageButton):
     label = _("Unpublish")
     icon_name = "download"
     aria_label_format = _("Unpublish page '%(title)s'")
@@ -349,7 +352,7 @@ class PageListingUnpublishButton(PageListingButton):
         return self.page_perms.can_unpublish()
 
 
-class PageListingHistoryButton(PageListingButton):
+class PageListingHistoryButton(PageButton):
     label = _("History")
     icon_name = "history"
     aria_label_format = _("View page history for '%(title)s'")
@@ -360,7 +363,7 @@ class PageListingHistoryButton(PageListingButton):
         return self.page_perms.can_view_revisions()
 
 
-class PageListingSortMenuOrderButton(PageListingButton):
+class PageListingSortMenuOrderButton(PageButton):
     label = _("Sort menu order")
     icon_name = "list-ul"
     aria_label_format = _("Change ordering of child pages of '%(title)s'")
