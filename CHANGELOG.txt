@@ -11,6 +11,7 @@ Changelog
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
  * Fix: Preserve whitespace in comment replies (Elhussein Almasri)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
@@ -23,6 +24,7 @@ Changelog
 
  * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
  * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
 
 
 6.1 (01.05.2024)
