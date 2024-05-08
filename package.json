@@ -58,6 +58,7 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
+    "@rspack/cli": "^1.1.8",
     "@storybook/addon-controls": "^7.6.14",
     "@storybook/addon-docs": "^7.6.14",
     "@storybook/react": "^7.6.14",
@@ -135,8 +136,8 @@
     "uuid": "^9.0.1"
   },
   "scripts": {
-    "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
-    "build": "webpack --config ./client/webpack.config.js --mode production",
+    "start": "rspack --config ./client/rspack.config.js --mode development --watch",
+    "build": "rspack --config ./client/rspack.config.js --mode production",
     "fix:css": "stylelint --fix **/*.scss",
     "fix:js": "eslint --ext .js,.ts,.tsx --fix .",
     "fix": "npm run fix:css && npm run fix:js",
