@@ -3225,10 +3225,17 @@ class PagePermissionTester:
 
     def can_reorder_children(self):
         """
-        Keep reorder permissions the same as publishing, since it immediately affects published pages
-        (and the use-cases for a non-admin needing to do it are fairly obscure...)
+        Reorder permission checking is similar to publishing a subpage, since it immediately
+        affects published pages. However, the it shouldn't care about the 'creatability' of
+        page types, because the action only ever updates pages.
         """
-        return self.can_publish_subpage()
+        if not self.user.is_active:
+            return False
+        specific_class = self.page.specific_class
+        if specific_class is None:
+            return False
+
+        return self.user.is_superuser or ("publish" in self.permissions)
 
     def can_move(self):
         """
