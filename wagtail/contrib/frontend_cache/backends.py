@@ -40,6 +40,9 @@ class BaseBackend:
         """
         return validate_host(hostname, self.hostnames)
 
+    def purge_everything(self):
+        raise NotImplementedError
+
 
 class HTTPBackend(BaseBackend):
     def __init__(self, params):
@@ -100,6 +103,11 @@ class CloudflareBackend(BaseBackend):
         )
         self.cloudflare_token = params.pop("BEARER_TOKEN", None)
         self.cloudflare_zoneid = params.pop("ZONEID")
+        self.cloudflare_purge_endpoint_url = (
+            "https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(
+                self.cloudflare_zoneid
+            )
+        )
 
         if (
             (not self.cloudflare_email and self.cloudflare_api_key)
@@ -118,42 +126,26 @@ class CloudflareBackend(BaseBackend):
                 "The setting 'WAGTAILFRONTENDCACHE' requires both 'EMAIL' and 'API_KEY', or 'BEARER_TOKEN' to be specified."
             )
 
-    def _purge_urls(self, urls):
-        try:
-            purge_url = (
-                "https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(
-                    self.cloudflare_zoneid
-                )
-            )
+    def _make_purge_request(self, urls, method="DELETE"):
 
-            headers = {"Content-Type": "application/json"}
-
-            if self.cloudflare_token:
-                headers["Authorization"] = f"Bearer {self.cloudflare_token}"
-            else:
-                headers["X-Auth-Email"] = self.cloudflare_email
-                headers["X-Auth-Key"] = self.cloudflare_api_key
-
+        headers = {"Content-Type": "application/json"}
+        if self.cloudflare_token:
+            headers["Authorization"] = f"Bearer {self.cloudflare_token}"
+        else:
+            headers["X-Auth-Email"] = self.cloudflare_email
+            headers["X-Auth-Key"] = self.cloudflare_api_key
+        if urls:
             data = {"files": urls}
+        else:
+            data = None
 
-            response = requests.delete(
-                purge_url,
+        try:
+            response = requests.request(
+                method=method,
+                url=self.cloudflare_purge_endpoint_url,
                 json=data,
                 headers=headers,
             )
-
-            try:
-                response_json = response.json()
-            except ValueError:
-                if response.status_code != 200:
-                    response.raise_for_status()
-                else:
-                    for url in urls:
-                        logger.error(
-                            "Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.",
-                            url,
-                        )
-
         except requests.exceptions.HTTPError as e:
             for url in urls:
                 logging.exception(
@@ -161,6 +153,19 @@ class CloudflareBackend(BaseBackend):
                     url,
                     e.response.status_code,
                 )
+            return
+
+        try:
+            response_json = response.json()
+        except ValueError:
+            if response.status_code != 200:
+                response.raise_for_status()
+            else:
+                for url in urls:
+                    logger.error(
+                        "Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.",
+                        url,
+                    )
             return
 
         if response_json["success"] is False:
@@ -179,11 +184,13 @@ class CloudflareBackend(BaseBackend):
         # Break the batched URLs in to chunks to fit within Cloudflare's maximum size for
         # the purge_cache call (https://api.cloudflare.com/#zone-purge-files-by-url)
         for i in range(0, len(urls), self.CHUNK_SIZE):
-            chunk = urls[i : i + self.CHUNK_SIZE]
-            self._purge_urls(chunk)
+            self._make_purge_request(urls[i : i + self.CHUNK_SIZE])
 
     def purge(self, url):
-        self.purge_batch([url])
+        self._make_purge_request(urls=[url])
+
+    def purge_everything(self):
+        self._make_purge_request(urls=None, method="POST")
 
 
 class CloudfrontBackend(BaseBackend):
