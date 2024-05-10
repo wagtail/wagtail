@@ -3231,10 +3231,6 @@ class PagePermissionTester:
         """
         if not self.user.is_active:
             return False
-        specific_class = self.page.specific_class
-        if specific_class is None:
-            return False
-
         return self.user.is_superuser or ("publish" in self.permissions)
 
     def can_move(self):
