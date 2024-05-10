@@ -16,6 +16,7 @@ Changelog
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
+ * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
 
 
 6.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
