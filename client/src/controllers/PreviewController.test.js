@@ -9,6 +9,7 @@ jest.mock('../config/wagtailConfig.js', () => ({
 }));
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 describe('PreviewController', () => {
   let application;
@@ -182,6 +183,9 @@ describe('PreviewController', () => {
     );
     sidePanelContainer.dispatchEvent(new Event('show'));
     await Promise.resolve();
+
+    // There's no spinner, so setTimeout should not be called
+    expect(setTimeout).not.toHaveBeenCalled();
 
     // Should send the preview data to the preview URL
     expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
@@ -607,6 +611,9 @@ describe('PreviewController', () => {
       );
       sidePanelContainer.dispatchEvent(new Event('show'));
       await Promise.resolve();
+
+      // Should set the timeout for the spinner to appear after 2s
+      expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 2000);
 
       // Should send the preview data to the preview URL
       expect(global.fetch).toHaveBeenCalledWith(
