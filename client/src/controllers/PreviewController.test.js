@@ -192,16 +192,42 @@ describe('PreviewController', () => {
     // At this point, there should only be one fetch call (when the panel is opened)
     expect(global.fetch).toHaveBeenCalledTimes(1);
 
+    // Initially, the iframe src should be empty so it doesn't load the preview
+    // until after the request is complete
+    let iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(1);
+    expect(iframes[0].src).toEqual('');
+
     // Simulate the request completing
     await Promise.resolve();
-    await Promise.resolve();
+
+    // Should create a new invisible iframe with the correct URL
+    iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(2);
+    const oldIframe = iframes[0];
+    const newIframe = iframes[1];
+    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.style.width).toEqual('0px');
+    expect(newIframe.style.height).toEqual('0px');
+    expect(newIframe.style.opacity).toEqual('0');
+    expect(newIframe.style.position).toEqual('absolute');
 
     // Simulate the iframe loading
-    const newIframe = document.querySelector('iframe:last-of-type');
     const mockScroll = jest.fn();
     newIframe.contentWindow.scroll = mockScroll;
+    await Promise.resolve();
     newIframe.dispatchEvent(new Event('load'));
     expect(mockScroll).toHaveBeenCalled();
+    iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(1);
+    expect(iframes[0]).toBe(newIframe);
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.getAttribute('style')).toBeNull();
+    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+      oldIframe.contentWindow.scrollX,
+      oldIframe.contentWindow.scrollY,
+    );
 
     // Clear the fetch call history
     jest.clearAllMocks();
