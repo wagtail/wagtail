@@ -1668,6 +1668,14 @@ class MTIChildPage(MTIBasePage):
     pass
 
 
+class NoCreatableSubpageTypesPage(Page):
+    subpage_types = [MTIBasePage]
+
+
+class NoSubpageTypesPage(Page):
+    subpage_types = []
+
+
 class AbstractPage(Page):
     class Meta:
         abstract = True
