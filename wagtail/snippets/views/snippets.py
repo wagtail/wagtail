@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -264,16 +264,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         return context
 
 
-class CopyView(CreateView):
-    def get_object(self):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
-
-    def _get_initial_form_instance(self):
-        instance = self.get_object()
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-        return instance
+class CopyView(generic.CopyViewMixin, CreateView):
+    pass
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):

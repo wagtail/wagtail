@@ -676,12 +676,18 @@ class CreateView(
         return super().form_invalid(form)
 
 
-class CopyView(CreateView):
+class CopyViewMixin:
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
+        return get_object_or_404(
+            self.model, pk=unquote(str(self.kwargs[self.pk_url_kwarg]))
+        )
 
-    def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "instance": self.get_object()}
+    def get_initial_form_instance(self):
+        return self.get_object()
+
+
+class CopyView(CopyViewMixin, CreateView):
+    pass
 
 
 class EditView(

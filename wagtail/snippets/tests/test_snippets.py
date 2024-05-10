@@ -35,7 +35,6 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import CopyView
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -974,20 +973,29 @@ class TestSnippetCopyView(WagtailTestUtils, TestCase):
             StandardSnippet.snippet_viewset.get_url_name("copy"),
             args=(self.snippet.pk,),
         )
-        self.login()
+        self.user = self.login()
 
-    def test_simple(self):
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_form_is_prefilled(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
 
-    def test_form_prefilled(self):
-        request = RequestFactory().get(self.url)
-        view = CopyView()
-        view.model = StandardSnippet
-        view.setup(request, pk=self.snippet.pk)
-
-        self.assertEqual(view._get_initial_form_instance(), self.snippet)
+        # Ensure form is prefilled
+        soup = self.get_soup(response.content)
+        text_input = soup.select_one('input[name="text"]')
+        self.assertEqual(text_input.attrs.get("value"), "Test snippet")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
