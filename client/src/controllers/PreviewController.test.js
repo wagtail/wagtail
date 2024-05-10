@@ -8,6 +8,8 @@ jest.mock('../config/wagtailConfig.js', () => ({
   },
 }));
 
+jest.useFakeTimers();
+
 describe('PreviewController', () => {
   let application;
   let windowSpy;
@@ -157,6 +159,7 @@ describe('PreviewController', () => {
   afterEach(() => {
     application.stop();
     jest.clearAllMocks();
+    jest.clearAllTimers();
     windowSpy.mockRestore();
     localStorage.removeItem('wagtail:preview-panel-device');
   });
@@ -178,7 +181,7 @@ describe('PreviewController', () => {
       '[data-side-panel="preview"]',
     );
     sidePanelContainer.dispatchEvent(new Event('show'));
-    await new Promise(requestAnimationFrame);
+    await Promise.resolve();
 
     // Should send the preview data to the preview URL
     expect(global.fetch).toHaveBeenCalledWith('/admin/pages/1/edit/preview/', {
@@ -188,6 +191,10 @@ describe('PreviewController', () => {
 
     // At this point, there should only be one fetch call (when the panel is opened)
     expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    // Simulate the request completing
+    await Promise.resolve();
+    await Promise.resolve();
 
     // Simulate the iframe loading
     const newIframe = document.querySelector('iframe:last-of-type');
@@ -507,7 +514,8 @@ describe('PreviewController', () => {
       );
 
       mockWindow({ open: jest.fn() });
-      await new Promise(requestAnimationFrame);
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
 
       // Should call window.open() with the correct URL, and the base URL should
       // be used as the second argument to ensure the same tab is reused if it's
@@ -536,7 +544,8 @@ describe('PreviewController', () => {
       );
 
       mockWindow({ open: jest.fn(), alert: jest.fn() });
-      await new Promise(requestAnimationFrame);
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
 
       // Should call window.alert() with the correct message
       expect(window.alert).toHaveBeenCalledWith(
@@ -548,10 +557,6 @@ describe('PreviewController', () => {
     });
 
     it('should only show the spinner after 2s when refreshing the preview', async () => {
-      // Mock a 2s successful request
-      jest.useFakeTimers();
-      fetch.mockResponseSuccessJSON(validAvailableResponse);
-
       // Add the spinner to the preview panel
       const element = document.querySelector('[data-controller="w-preview"]');
       element.insertAdjacentHTML('beforeend', spinner);
@@ -592,10 +597,14 @@ describe('PreviewController', () => {
       expect(iframes.length).toEqual(1);
       expect(iframes[0].src).toEqual('');
 
-      // Should show the spinner after 2s
+      // Should not show the spinner initially
       expect(spinnerElement.hidden).toBe(true);
+
+      // Mock a 2s successful request
       jest.advanceTimersByTime(2000);
       await Promise.resolve();
+
+      // Should show the spinner after 2s
       expect(spinnerElement.hidden).toBe(false);
       await Promise.resolve();
 
