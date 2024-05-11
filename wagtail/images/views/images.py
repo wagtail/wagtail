@@ -1,4 +1,5 @@
 import os
+import re
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -170,20 +171,21 @@ def edit(request, image_id):
 
     if image.is_stored_locally():
         # Give error if image file doesn't exist
-        if not os.path.isfile(image.file.path):
-            messages.error(
-                request,
-                _(
-                    "The source image file could not be found. Please change the source or delete the image."
-                )
-                % {"image_title": image.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailimages:delete", args=(image.id,)), _("Delete")
+        url_pattern = re.compile(r'^https?://')
+        if not url_pattern.match(image.file.path):
+            if not os.path.isfile(image.file.path):
+                messages.error(
+                    request,
+                    _(
+                        "The source image file could not be found. Please change the source or delete the image."
                     )
-                ],
-            )
-
+                    % {"image_title": image.title},
+                    buttons=[
+                        messages.button(
+                            reverse("wagtailimages:delete", args=(image.id,)), _("Delete")
+                        )
+                    ],
+                )
     try:
         filesize = image.get_file_size()
     except SourceImageIOError:
