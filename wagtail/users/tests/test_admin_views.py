@@ -37,8 +37,12 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
-from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
-from wagtail.users.wagtail_hooks import get_group_viewset_cls
+from wagtail.users.views.users import (
+    UserViewSet,
+    get_user_creation_form,
+    get_user_edit_form,
+)
+from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
@@ -64,6 +68,10 @@ class CustomUserEditForm(UserEditForm):
 
 
 class CustomGroupViewSet(GroupViewSet):
+    icon = "custom-icon"
+
+
+class CustomUserViewSet(UserViewSet):
     icon = "custom-icon"
 
 
@@ -2566,44 +2574,58 @@ class TestGroupHistoryView(WagtailTestUtils, TestCase):
 
 
 class TestGroupViewSet(TestCase):
+    app_config_attr = "group_viewset"
+    default_viewset_cls = GroupViewSet
+    custom_viewset_cls = CustomGroupViewSet
+
     def setUp(self):
         self.app_config = apps.get_app_config("wagtailusers")
 
-    def test_get_group_viewset_cls(self):
-        self.assertIs(get_group_viewset_cls(self.app_config), GroupViewSet)
+    def test_get_viewset_cls(self):
+        self.assertIs(
+            get_viewset_cls(self.app_config, self.app_config_attr),
+            self.default_viewset_cls,
+        )
 
-    def test_get_group_viewset_cls_with_custom_form(self):
+    def test_get_viewset_cls_with_custom_form(self):
         with unittest.mock.patch.object(
             self.app_config,
-            "group_viewset",
-            new="wagtail.users.tests.CustomGroupViewSet",
+            self.app_config_attr,
+            new=f"wagtail.users.tests.{self.custom_viewset_cls.__name__}",
         ):
-            group_viewset = get_group_viewset_cls(self.app_config)
-        self.assertIs(group_viewset, CustomGroupViewSet)
+            group_viewset = get_viewset_cls(self.app_config, self.app_config_attr)
+        self.assertIs(group_viewset, self.custom_viewset_cls)
         self.assertEqual(group_viewset.icon, "custom-icon")
 
-    def test_get_group_viewset_cls_custom_form_invalid_value(self):
+    def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
-            self.app_config, "group_viewset", new="asdfasdf"
+            self.app_config, self.app_config_attr, new="asdfasdf"
         ):
-            with self.assertRaises(ImproperlyConfigured) as exc_info:
-                get_group_viewset_cls(self.app_config)
-            self.assertIn(
-                "asdfasdf doesn't look like a module path", str(exc_info.exception)
-            )
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                "asdfasdf doesn't look like a module path",
+            ):
+                get_viewset_cls(self.app_config, self.app_config_attr)
 
-    def test_get_group_viewset_cls_custom_form_does_not_exist(self):
+    def test_get_viewset_cls_custom_form_does_not_exist(self):
         with unittest.mock.patch.object(
             self.app_config,
-            "group_viewset",
+            self.app_config_attr,
             new="wagtail.users.tests.CustomClassDoesNotExist",
         ):
-            with self.assertRaises(ImproperlyConfigured) as exc_info:
-                get_group_viewset_cls(self.app_config)
-            self.assertIn(
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
                 'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
-                str(exc_info.exception),
-            )
+            ):
+                get_viewset_cls(self.app_config, self.app_config_attr)
+
+
+class TestUserViewSet(TestGroupViewSet):
+    app_config_attr = "user_viewset"
+    default_viewset_cls = UserViewSet
+    custom_viewset_cls = CustomUserViewSet
 
     def test_registered_permissions(self):
         group_ct = ContentType.objects.get_for_model(Group)
