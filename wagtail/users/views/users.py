@@ -17,7 +17,6 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.menu import MenuItem
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -371,15 +370,6 @@ class HistoryView(generic.HistoryView):
         return get_user_display_name(self.object)
 
 
-class UsersMenuItem(MenuItem):
-    def is_shown(self, request):
-        return (
-            request.user.has_perm(add_user_perm)
-            or request.user.has_perm(change_user_perm)
-            or request.user.has_perm(delete_user_perm)
-        )
-
-
 class UserViewSet(ModelViewSet):
     icon = "user"
     model = User
@@ -389,7 +379,6 @@ class UserViewSet(ModelViewSet):
     menu_name = "users"
     menu_label = gettext_lazy("Users")
     menu_order = 600
-    menu_item_class = UsersMenuItem
     add_to_settings_menu = True
 
     index_view_class = IndexView
