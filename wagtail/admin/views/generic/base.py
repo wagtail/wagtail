@@ -271,6 +271,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             except KeyError:
                 continue  # invalid filter value
 
+            if value == bound_field.initial:
+                continue  # filter value is the same as the default
+
             if isinstance(filter_def, ModelMultipleChoiceFilter):
                 field = filter_def.field
                 for item in value:

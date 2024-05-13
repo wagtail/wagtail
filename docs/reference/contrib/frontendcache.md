@@ -105,6 +105,10 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
+```{versionchanged} 6.2
+Previous versions allowed passing a dict for `DISTRIBUTION_ID` to allow specifying different distribution IDs for different hostnames. This is now deprecated; instead, multiple distribution IDs should be defined as [multiple backends](frontendcache_multiple_backends), with a `HOSTNAMES` parameter to define the hostnames associated with each one.
+```
+
 Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html). The user will need a policy similar to:
 
 ```json
@@ -119,24 +123,6 @@ Configuration of credentials can done in multiple ways. You won't need to store 
         }
     ]
 }
-```
-
-In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure the mapping matches with the hostnames provided in your site settings.
-
-```python
-WAGTAILFRONTENDCACHE = {
-    'cloudfront': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': {
-            'www.wagtail.org': 'your-distribution-id',
-            'www.madewithwagtail.org': 'your-distribution-id',
-        },
-    },
-}
-```
-
-```{note}
-In most cases, absolute URLs with ``www`` prefixed domain names should be used in your mapping. Only drop the ``www`` prefix if you're absolutely sure you're not using it (for example a subdomain).
 ```
 
 ### Azure CDN
@@ -235,6 +221,56 @@ WAGTAILFRONTENDCACHE = {
 ```
 
 Another option that can be set is `SUBSCRIPTION_ID`. By default the first encountered subscription will be used, but if your credential has access to more subscriptions, you should set this to an explicit value.
+
+(frontendcache_multiple_backends)=
+
+## Multiple backends
+
+Multiple backends can be configured by adding multiple entries in `WAGTAILFRONTENDCACHE`.
+
+By default, a backend will attempt to invalidate all invalidation requests. To only invalidate certain hostnames, specify them in `HOSTNAMES`:
+
+```python
+WAGTAILFRONTENDCACHE = {
+    'main-site': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+        'LOCATION': 'http://localhost:8000',
+        'HOSTNAMES': ['example.com']
+    },
+    'cdn': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+        'BEARER_TOKEN': 'your cloudflare bearer token',
+        'ZONEID': 'your cloudflare domain zone id',
+        'HOSTNAMES': ['cdn.example.com']
+    },
+}
+```
+
+In the above example, invalidations for `cdn.example.com/foo` will be invalidated by Cloudflare, whilst `example.com/foo` will be invalidated with the `main-site` backend. This allows different configuration to be used for each backend, for example by changing the `ZONEID` for the Cloudflare backend:
+
+```python
+
+WAGTAILFRONTENDCACHE = {
+    'main-site': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+        'BEARER_TOKEN': os.environ["CLOUDFLARE_BEARER_TOKEN"],
+        'ZONEID': 'example.com zone id',
+        'HOSTNAMES': ['example.com']
+    },
+    'other-site': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+        'BEARER_TOKEN': os.environ["CLOUDFLARE_BEARER_TOKEN"],
+        'ZONEID': 'example.net zone id',
+        'HOSTNAMES': ['example.net']
+    },
+}
+```
+
+```{note}
+In most cases, absolute URLs with ``www`` prefixed domain names should be used in your mapping. Only drop the ``www`` prefix if you're absolutely sure you're not using it (for example a subdomain).
+```
+
+Much like Django's `ALLOWED_HOSTS`, values in `HOSTNAMES` starting with a `.` can be used as a subdomain wildcard.
 
 ## Advanced usage
 

@@ -3,7 +3,9 @@ $header-button-size: theme('spacing.6');
 
 .w-panel {
   --header-gap: 0;
-  margin-bottom: theme('spacing.10');
+  margin-bottom: calc(
+    theme('spacing.5') + theme('spacing.5') * var(--w-density-factor)
+  );
 
   @include media-breakpoint-up(sm) {
     --header-gap: theme('spacing.4');

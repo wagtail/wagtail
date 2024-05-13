@@ -34,6 +34,12 @@ At any given time, the Wagtail team provides official security support for sever
 When new releases are issued for security reasons, the accompanying notice will include a list of affected versions.
 This list is comprised solely of supported versions of Wagtail: older versions may also be affected, but we do not investigate to determine that, and will not issue patches or new releases for those versions.
 
+## Bug Bounties
+
+Wagtail does not have a "Bug Bounty" program. Whilst we appreciate and accept reports from anyone, and will gladly give credit to you and/or your organisation, we aren't able to "reward" you for reporting the vulnerability.
+
+["Beg Bounties"](https://www.troyhunt.com/beg-bounties/) are ever increasing among security researchers, and it's not something we condone or support.
+
 ## How Wagtail discloses security issues
 
 Our process for taking a security issue from private discussion to public disclosure involves multiple steps.
@@ -46,8 +52,8 @@ On the day of disclosure, we will take the following steps:
 1. Apply the relevant patch(es) to Wagtail's codebase.
    The commit messages for these patches will indicate that they are for security issues, but will not describe the issue in any detail; instead, they will warn of upcoming disclosure.
 2. Issue the relevant release(s), by placing new packages on [the Python Package Index](https://pypi.org/project/wagtail/), tagging the new release(s) in Wagtail's GitHub repository and updating Wagtail's [release notes](../releases/index).
-3. Post a public entry on [Wagtail's blog](https://wagtail.org/blog/), describing the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified).
-4. Post a notice to the [Wagtail discussion board](https://github.com/wagtail/wagtail/discussions), [Slack workspace](https://wagtail.org/slack/) and Twitter feed ([\@WagtailCMS](https://twitter.com/wagtailcms)) that links to the blog post.
+3. Publish a [security advisory](https://github.com/wagtail/wagtail/security/advisories?state=published) on Wagtail's GitHub repository. This describes the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified)
+4. Post a notice to the [Wagtail discussion board](https://github.com/wagtail/wagtail/discussions), [Slack workspace](https://wagtail.org/slack/) and Twitter feed ([\@WagtailCMS](https://twitter.com/wagtailcms)) that links to the security advisory.
 
 If a reported issue is believed to be particularly time-sensitive -- due to a known exploit in the wild, for example -- the time between advance notification and public disclosure may be shortened considerably.
 

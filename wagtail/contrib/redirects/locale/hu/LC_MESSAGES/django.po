@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -187,24 +187,6 @@ msgstr "Hiba"
 msgid "Continue"
 msgstr "Folytatás"
 
-msgid "Export redirects"
-msgstr "Átirányítások exportálása"
-
-msgid "Site"
-msgstr "Webhely"
-
-msgid "Edit this redirect"
-msgstr "Átirányítás szerkesztése"
-
-msgid "No redirects found."
-msgstr "Nincs átirányítás."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -218,6 +200,18 @@ msgid ""
 msgstr ""
 "Még nincs átirányítás létrehozva. Miért nem <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
+
+msgid "Site"
+msgstr "Webhely"
+
+msgid "Edit this redirect"
+msgstr "Átirányítás szerkesztése"
+
+msgid "No redirects found."
+msgstr "Nincs átirányítás."
+
+msgid "Export redirects"
+msgstr "Átirányítások exportálása"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,6 +99,9 @@ msgstr "เลือกโซนเวลาปัจจุบัน"
 msgid "profile picture"
 msgstr "รูปภาพประวัติส่วนตัว"
 
+msgid "Default"
+msgstr "ต้นแบบ"
+
 msgid "user profile"
 msgstr "ข้อมูลส่วนตัวของผู้ใช้"
 
@@ -185,22 +188,6 @@ msgstr "เพิ่มผู้ใช้"
 msgid "Delete user"
 msgstr "ลบทิ้งผู้ใช้นี้"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรงกัน \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "ชื่อผู้ใช้"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Last Login"
-msgstr "ล็อกอินครั้งสุดท้าย,เข้าใช้ครั้งสุดท้าย"
-
-msgid "Admin"
-msgstr "บริหาร"
-
 msgid "Active"
 msgstr "กำลังใช้งานอยู่,กำลังเปิดอยู่"
 
@@ -237,6 +224,15 @@ msgstr "เพิ่มผู้ใช้"
 msgid "Users"
 msgstr "หลายๆผู้ใช้"
 
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+msgid "Admin"
+msgstr "บริหาร"
+
+msgid "Status"
+msgstr "สถานะ"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "ผู้ใช้'%(object)s'ถูกอัพเดทแล้ว"
@@ -247,6 +243,3 @@ msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "ผู้ใช้'%(object)s'ถูกลบทิ้งแล้ว"
-
-msgid "Edit"
-msgstr "แก้ไข"

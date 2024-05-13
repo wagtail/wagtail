@@ -63,7 +63,7 @@
 
 .w-field__input {
   position: relative;
-  margin-top: theme('spacing.[2.5]');
+  margin-top: calc(theme('spacing.[2.5]') * var(--w-density-factor));
 }
 
 .w-field__icon {

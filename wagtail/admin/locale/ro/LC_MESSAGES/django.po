@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Alex Morega, 2023
+# Alex Morega, 2023-2024
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2023
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Alex Morega, 2023\n"
+"Last-Translator: Alex Morega, 2023-2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,12 @@ msgstr "Localizare"
 msgid "All"
 msgstr "Toate"
 
+msgid "Collection"
+msgstr "Colecție"
+
+msgid "Tag"
+msgstr "Adaugă etichetă"
+
 msgid "Preferred language"
 msgstr "Limba preferată"
 
@@ -125,9 +131,6 @@ msgstr "Căutare"
 
 msgid "All collections"
 msgstr "Toate colecțiile"
-
-msgid "Collection"
-msgstr "Colecție"
 
 msgid "Parent"
 msgstr "Bază"
@@ -249,6 +252,9 @@ msgstr "Slug-ul  '%(page_slug)s' este deja folosit la nivelul paginii părinte"
 
 msgid "Select a new parent for this page."
 msgstr "Alege o pagină de bază nouă pentru această pagină."
+
+msgid "Parent page"
+msgstr "Pagină părinte"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -377,7 +383,7 @@ msgid "All items in listing selected"
 msgstr "Toate articolele din listă selectate"
 
 msgid "For search engines"
-msgstr "Pentru mașini de căutare"
+msgstr "Pentru motoare de căutare"
 
 msgid "For site menus"
 msgstr "Pentru meniuri"
@@ -636,9 +642,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Conține:"
 
-msgid "Name"
-msgstr "Nume"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -705,6 +708,12 @@ msgstr "Mai doriți să publicați acest %(model_name)s?"
 msgid "Cancel"
 msgstr "Anulează"
 
+msgid "Comment"
+msgstr "Comentariu"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
 msgid "Update"
 msgstr "Actualizează"
 
@@ -765,9 +774,6 @@ msgstr "Blocat la"
 
 msgid "Edit this page"
 msgstr "Editează această pagină"
-
-msgid "Actions"
-msgstr "Acțiuni"
 
 msgid "Unlock"
 msgstr "Deblochează"
@@ -1626,31 +1632,6 @@ msgstr "Editează pagina originală"
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertează acest alias în pagină obișnuită"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Istoria paginii %(subtitle)s"
-
-msgid "Action"
-msgstr "Acțiune"
-
-msgid "User"
-msgstr "Utilizator"
-
-msgid "Date / Time"
-msgstr "Dată / Timp"
-
-msgid "Comment"
-msgstr "Comentariu"
-
-msgid "Live version"
-msgstr "Versiune live"
-
-msgid "Current draft"
-msgstr "Ciornă curentă"
-
-msgid "No log entries found."
-msgstr "Nu s-au găsit intrări de jurnal."
-
 msgid "Select all pages in listing"
 msgstr "Selectează toate paginile din listă"
 
@@ -1749,15 +1730,6 @@ msgstr "Confirmă"
 
 msgid "Add child page"
 msgstr "Adaugă pagină descendentă"
-
-msgid "Review this version"
-msgstr "Revezi această versiune"
-
-msgid "Compare with current version"
-msgstr "Compară cu versiunea curentă"
-
-msgid "Cancel scheduled publish"
-msgstr "Anulează publicarea programată"
 
 #, python-format
 msgid "There is one matching page"
@@ -1864,8 +1836,23 @@ msgstr "Blocat"
 msgid "No locked pages found."
 msgstr "Nu s-au găsit pagini blocate."
 
+msgid "Name"
+msgstr "Nume"
+
+msgid "Action"
+msgstr "Acțiune"
+
+msgid "User"
+msgstr "Utilizator"
+
+msgid "Date / Time"
+msgstr "Dată / Timp"
+
 msgid "Edit this item"
 msgstr "Editează acest element"
+
+msgid "No log entries found."
+msgstr "Nu s-au găsit intrări de jurnal."
 
 msgid "By Task"
 msgstr "După sarcină"
@@ -1930,9 +1917,6 @@ msgstr "Înapoi"
 
 msgid "History"
 msgstr "Istorie"
-
-msgid "Root"
-msgstr "Pagină de bază"
 
 msgid "Current page status:"
 msgstr "Starea paginii curente:"
@@ -2306,14 +2290,9 @@ msgstr "Pagină"
 msgid "Assign to another page"
 msgstr "Alochează la altă pagină"
 
-msgid "Hide disabled workflows"
-msgstr "Ascunde fluxurile de lucru dezactivate"
-
-msgid "Show disabled workflows"
-msgstr "Arată fluxurile de lucru dezactivate"
-
-msgid "Used by"
-msgstr "Folosit de"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Faza %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2328,10 +2307,6 @@ msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 tip de fragment"
 msgstr[1] "%(counter)s tipuri de fragment"
 msgstr[2] "%(counter)s de tipuri de fragment"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Faza %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2382,12 +2357,6 @@ msgid ""
 msgstr ""
 "De ce să nu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>creați una acum</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Ascunde sarcini dezactivate"
-
-msgid "Show disabled tasks"
-msgstr "Arată sarcini dezactivate"
 
 #, python-format
 msgid ""
@@ -2462,10 +2431,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s de către %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "acum de către %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s în urmă de către %(user_display_name)s"
 
@@ -2483,6 +2448,24 @@ msgstr "Trimis în %(task_name)s la %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
+
+msgid "Undo"
+msgstr "Anulare"
+
+msgid "Redo"
+msgstr "Refacere"
+
+msgid "Bold"
+msgstr "Caractere aldine"
+
+msgid "Italic"
+msgstr "Cursiv"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
 
 msgid "Toggle status"
 msgstr "Comută starea"
@@ -2624,6 +2607,21 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 
 msgid "Home"
 msgstr "Acasă"
+
+msgid "Live version"
+msgstr "Versiune live"
+
+msgid "Current draft"
+msgstr "Ciornă curentă"
+
+msgid "Review this version"
+msgstr "Revezi această versiune"
+
+msgid "Compare with current version"
+msgstr "Compară cu versiunea curentă"
+
+msgid "Cancel scheduled publish"
+msgstr "Anulează publicarea programată"
 
 msgid "Workflow progress"
 msgstr "Progresiune flux de lucru"
@@ -3029,12 +3027,6 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
-msgid "Hide commenting actions"
-msgstr "Ascunde acțiunile de comentare"
-
-msgid "Page history"
-msgstr "Istoria paginii"
-
 msgid "Owner"
 msgstr "Proprietar"
 
@@ -3068,6 +3060,9 @@ msgstr ""
 "Sunteți în process de vizualizare a versiunii precedente a paginii din "
 "<b>%(created_at)s</b> de către %(user)s"
 
+msgid "Page history"
+msgstr "Istoria paginii"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Publicare anulată pentru pagina '%(page_title)s'."
@@ -3095,6 +3090,9 @@ msgstr "Pagini învechite"
 
 msgid "Last published at"
 msgstr "Publicată ultima dată la"
+
+msgid "Hide commenting actions"
+msgstr "Ascunde acțiunile de comentare"
 
 msgid "Site history"
 msgstr "Istorie sait"
@@ -3137,6 +3135,9 @@ msgstr "Solicitat de"
 
 msgid "Add a workflow"
 msgstr "Adăugați flux de lucru"
+
+msgid "Used by"
+msgstr "Folosit de"
 
 msgid "New workflow"
 msgstr "Flux de lucru nou"
@@ -3298,20 +3299,8 @@ msgstr "Listă numerotată"
 msgid "Blockquote"
 msgstr "Citat"
 
-msgid "Bold"
-msgstr "Caractere aldine"
-
-msgid "Italic"
-msgstr "Cursiv"
-
 msgid "Link"
 msgstr "Legătură"
-
-msgid "Superscript"
-msgstr "Superscript"
-
-msgid "Subscript"
-msgstr "Subscript"
 
 msgid "Strikethrough"
 msgstr "Text tăiat"

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -92,6 +92,12 @@ msgstr "Lokalizacja"
 msgid "All"
 msgstr "Wszystkie"
 
+msgid "Collection"
+msgstr "Kolekcja"
+
+msgid "Tag"
+msgstr "Tag"
+
 msgid "Preferred language"
 msgstr "Preferowany język"
 
@@ -136,9 +142,6 @@ msgstr "Szukaj"
 
 msgid "All collections"
 msgstr "Wszystkie kolekcje"
-
-msgid "Collection"
-msgstr "Kolekcja"
 
 msgid "Parent"
 msgstr "Rodzic"
@@ -263,6 +266,9 @@ msgstr "Slug '%(page_slug)s' został już użyty w ramach strony rodzica"
 
 msgid "Select a new parent for this page."
 msgstr "Wybierz nową stronę nadrzędną."
+
+msgid "Parent page"
+msgstr "Strona nadrzędna"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -651,9 +657,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Kolekcja nie mogła zostać usunięta ponieważ nie jest pusta. Zawiera:"
 
-msgid "Name"
-msgstr "Nazwa"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -721,6 +724,12 @@ msgstr "Czy w dalszym ciągu chcesz opublikować ten %(model_name)s?"
 msgid "Cancel"
 msgstr "Anuluj"
 
+msgid "Comment"
+msgstr "Komentarz"
+
+msgid "Actions"
+msgstr "Akcje"
+
 msgid "Update"
 msgstr "Uaktualnij"
 
@@ -785,9 +794,6 @@ msgstr "Zablokowano"
 
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
-
-msgid "Actions"
-msgstr "Akcje"
 
 msgid "Unlock"
 msgstr "Odblokuj"
@@ -1548,31 +1554,6 @@ msgstr "Edytuj oryginalną stronę"
 msgid "Convert this alias into an ordinary page"
 msgstr "Przekształć ten alias w normalną stronę"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historia strony dla %(subtitle)s"
-
-msgid "Action"
-msgstr "Akcja"
-
-msgid "User"
-msgstr "Użytkownik"
-
-msgid "Date / Time"
-msgstr "Data / Czas"
-
-msgid "Comment"
-msgstr "Komentarz"
-
-msgid "Live version"
-msgstr "Wersja Live"
-
-msgid "Current draft"
-msgstr "Aktualny szkic"
-
-msgid "No log entries found."
-msgstr "Brak wpisów w logu."
-
 msgid "Select all pages in listing"
 msgstr "Zaznacz wszystkie strony na liście"
 
@@ -1668,15 +1649,6 @@ msgstr "Potwierdź"
 
 msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
-
-msgid "Review this version"
-msgstr "Zweryfikuj tą wersję"
-
-msgid "Compare with current version"
-msgstr "Porównaj z obecną wersją"
-
-msgid "Cancel scheduled publish"
-msgstr "Anuluj zaplanowaną publikację"
 
 #, python-format
 msgid "There is one matching page"
@@ -1774,8 +1746,23 @@ msgstr "Zablokowany"
 msgid "No locked pages found."
 msgstr "Nie znaleziono zablokowanych stron."
 
+msgid "Name"
+msgstr "Nazwa"
+
+msgid "Action"
+msgstr "Akcja"
+
+msgid "User"
+msgstr "Użytkownik"
+
+msgid "Date / Time"
+msgstr "Data / Czas"
+
 msgid "Edit this item"
 msgstr "Edytuj element"
+
+msgid "No log entries found."
+msgstr "Brak wpisów w logu."
 
 msgid "By Task"
 msgstr "Wg. zadania"
@@ -1840,9 +1827,6 @@ msgstr "Wróć"
 
 msgid "History"
 msgstr "Historia"
-
-msgid "Root"
-msgstr "Główny"
 
 msgid "Current page status:"
 msgstr "Aktualny status strony:"
@@ -2207,14 +2191,9 @@ msgstr "Strona"
 msgid "Assign to another page"
 msgstr "Przypisz do innej strony"
 
-msgid "Hide disabled workflows"
-msgstr "Ukryj wyłączone procesy"
-
-msgid "Show disabled workflows"
-msgstr "Pokaż wyłączone procesy"
-
-msgid "Used by"
-msgstr "Użyte przez"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Krok %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2231,10 +2210,6 @@ msgstr[0] "1 typ skrawka"
 msgstr[1] "%(counter)s typy skrawka"
 msgstr[2] "%(counter)s typów skrawka"
 msgstr[3] "%(counter)s typów skrawka"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Krok %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2285,12 +2260,6 @@ msgid ""
 msgstr ""
 "Dlaczego nie <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>utworzyć jednego teraz</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Ukryj wyłączone zadania"
-
-msgid "Show disabled tasks"
-msgstr "Pokaż wyłączone zadania"
 
 #, python-format
 msgid ""
@@ -2365,10 +2334,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s przez %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "przed chwilą przez %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "Przed %(time_period)s przez %(user_display_name)s"
 
@@ -2382,6 +2347,24 @@ msgstr "Zmiany zażądane o %(finished_at)s"
 #, python-format
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr "Wyślij do %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Cofnij"
+
+msgid "Redo"
+msgstr "Ponów"
+
+msgid "Bold"
+msgstr "Pogrubienie"
+
+msgid "Italic"
+msgstr "Kursywa"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
 
 msgid "Toggle status"
 msgstr "Przełącz status"
@@ -2520,6 +2503,21 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 
 msgid "Home"
 msgstr "Start"
+
+msgid "Live version"
+msgstr "Wersja Live"
+
+msgid "Current draft"
+msgstr "Aktualny szkic"
+
+msgid "Review this version"
+msgstr "Zweryfikuj tą wersję"
+
+msgid "Compare with current version"
+msgstr "Porównaj z obecną wersją"
+
+msgid "Cancel scheduled publish"
+msgstr "Anuluj zaplanowaną publikację"
 
 msgid "Workflow progress"
 msgstr "Postęp procesu"
@@ -2781,12 +2779,6 @@ msgstr "Nie można zapisać zmian zablokownej strony"
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 
-msgid "Hide commenting actions"
-msgstr "Ukryj akcje komentowania"
-
-msgid "Page history"
-msgstr "Historia strony"
-
 msgid "Site"
 msgstr "Serwis"
 
@@ -2817,6 +2809,9 @@ msgstr ""
 "Oglądasz wcześniejszą wersję strony z <b>%(created_at)s</b> autorstwa "
 "%(user)s"
 
+msgid "Page history"
+msgstr "Historia strony"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Cofnięto publikację strony '%(page_title)s'."
@@ -2843,6 +2838,9 @@ msgstr "Starzejące się strony"
 
 msgid "Last published at"
 msgstr "Ostatnio opublikowane"
+
+msgid "Hide commenting actions"
+msgstr "Ukryj akcje komentowania"
 
 msgid "Site history"
 msgstr "Historia serwisu"
@@ -2885,6 +2883,9 @@ msgstr "Zażądane przez"
 
 msgid "Add a workflow"
 msgstr "Dodaj proces"
+
+msgid "Used by"
+msgstr "Użyte przez"
 
 msgid "New workflow"
 msgstr "Nowy proces"
@@ -3047,20 +3048,8 @@ msgstr "Lista numeryczna"
 msgid "Blockquote"
 msgstr "Cytat"
 
-msgid "Bold"
-msgstr "Pogrubienie"
-
-msgid "Italic"
-msgstr "Kursywa"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Superscript"
-
-msgid "Subscript"
-msgstr "Subscript"
 
 msgid "Strikethrough"
 msgstr "Przekreślenie"

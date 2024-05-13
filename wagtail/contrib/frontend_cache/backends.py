@@ -4,11 +4,14 @@ from collections import defaultdict
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse, urlsplit, urlunparse, urlunsplit
 from urllib.request import Request, urlopen
+from warnings import warn
 
 import requests
 from django.core.exceptions import ImproperlyConfigured
+from django.http.request import validate_host
 
 from wagtail import __version__
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 logger = logging.getLogger("wagtail.frontendcache")
 
@@ -19,6 +22,10 @@ class PurgeRequest(Request):
 
 
 class BaseBackend:
+    def __init__(self, params):
+        # If unspecified, invalidate all hosts
+        self.hostnames = params.get("HOSTNAMES", ["*"])
+
     def purge(self, url):
         raise NotImplementedError
 
@@ -27,9 +34,16 @@ class BaseBackend:
         for url in urls:
             self.purge(url)
 
+    def invalidates_hostname(self, hostname):
+        """
+        Can `hostname` be invalidated by this backend?
+        """
+        return validate_host(hostname, self.hostnames)
+
 
 class HTTPBackend(BaseBackend):
     def __init__(self, params):
+        super().__init__(params)
         location_url_parsed = urlparse(params.pop("LOCATION"))
         self.cache_scheme = location_url_parsed.scheme
         self.cache_netloc = location_url_parsed.netloc
@@ -78,6 +92,8 @@ class CloudflareBackend(BaseBackend):
     CHUNK_SIZE = 30
 
     def __init__(self, params):
+        super().__init__(params)
+
         self.cloudflare_email = params.pop("EMAIL", None)
         self.cloudflare_api_key = params.pop("TOKEN", None) or params.pop(
             "API_KEY", None
@@ -174,6 +190,8 @@ class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
         import boto3
 
+        super().__init__(params)
+
         self.client = boto3.client("cloudfront")
         try:
             self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
@@ -181,6 +199,14 @@ class CloudfrontBackend(BaseBackend):
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires the object 'DISTRIBUTION_ID'."
             )
+
+        # Add known hostnames for hostname validation (if not already defined)
+        # RemovedInWagtail70Warning
+        if isinstance(self.cloudfront_distribution_id, dict):
+            if "HOSTNAMES" in params:
+                self.hostnames.extend(self.cloudfront_distribution_id.keys())
+            else:
+                self.hostnames = list(self.cloudfront_distribution_id.keys())
 
     def purge_batch(self, urls):
         paths_by_distribution_id = defaultdict(list)
@@ -190,11 +216,15 @@ class CloudfrontBackend(BaseBackend):
             distribution_id = None
 
             if isinstance(self.cloudfront_distribution_id, dict):
+                warn(
+                    "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
+                    category=RemovedInWagtail70Warning,
+                )
                 host = url_parsed.hostname
                 if host in self.cloudfront_distribution_id:
                     distribution_id = self.cloudfront_distribution_id.get(host)
                 else:
-                    logger.info(
+                    logger.warning(
                         "Couldn't purge '%s' from CloudFront. Hostname '%s' not found in the DISTRIBUTION_ID mapping",
                         url,
                         host,
@@ -235,6 +265,7 @@ class CloudfrontBackend(BaseBackend):
 
 class AzureBaseBackend(BaseBackend):
     def __init__(self, params):
+        super().__init__(params)
         self._credentials = params.pop("CREDENTIALS", None)
         self._subscription_id = params.pop("SUBSCRIPTION_ID", None)
         try:

@@ -508,6 +508,7 @@ Vitor Hugo da Silva Lima <silvalimavitorhugo.gmail.com>
 Portuguese (Portugal) - pt_PT
 -----
 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>
+Daniel Freira
 Diogo Gomes
 Diogo Ribeiro <pdcribeiro95.gmail.com>
 Diogo Silva <diogo_silva30.hotmail.com>

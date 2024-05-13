@@ -29,6 +29,7 @@ from wagtail.coreutils import (
 from wagtail.models import Page, Site
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.utils import deep_update
+from wagtail.utils.version import get_main_version
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -575,3 +576,16 @@ class HashFileLikeTestCase(SimpleTestCase):
             hash_filelike(FakeLargeFile()),
             "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
         )
+
+
+class TestVersion(SimpleTestCase):
+    def test_get_main_version(self):
+        cases = [
+            ((6, 2, 0, "final", 0), False, "6.2"),
+            ((6, 2, 1, "final", 0), False, "6.2"),
+            ((6, 2, 0, "final", 0), True, "6.2"),
+            ((6, 2, 1, "final", 0), True, "6.2.1"),
+        ]
+        for version, include_patch, expected in cases:
+            with self.subTest(version=version, include_patch=include_patch):
+                self.assertEqual(get_main_version(version, include_patch), expected)

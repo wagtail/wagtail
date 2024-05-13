@@ -225,7 +225,7 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         # check that the option for password is visible
         self.assertIsNotNone(input_el)
 
-    @override_settings(WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE=False)
+    @override_settings(WAGTAIL_PRIVATE_PAGE_OPTIONS={"SHARED_PASSWORD": False})
     def test_unset_shared_password_page(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),

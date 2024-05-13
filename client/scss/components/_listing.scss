@@ -27,10 +27,10 @@ ul.listing {
 
   td,
   th {
-    padding: 1.2em 0.3em;
+    padding: calc(1em * var(--w-density-factor)) 0.3em;
 
     @include media-breakpoint-up(sm) {
-      padding: 1.2em 1em;
+      padding: calc(1em * var(--w-density-factor)) 1em;
     }
 
     &.no-padding {
@@ -48,16 +48,11 @@ ul.listing {
   }
 
   td {
-    vertical-align: top;
+    vertical-align: middle;
   }
 
   td.title {
     line-height: 2em;
-    padding: 1em 0.3em;
-
-    @include media-breakpoint-up(sm) {
-      padding: 1em;
-    }
   }
 
   thead {
@@ -228,6 +223,10 @@ ul.listing {
 
   .title {
     word-break: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: theme('spacing.2');
 
     .title-wrapper,
     h2 {
@@ -236,6 +235,7 @@ ul.listing {
       gap: theme('spacing.2');
       margin: 0;
       vertical-align: middle;
+      align-items: center;
 
       a {
         color: inherit;
@@ -246,11 +246,6 @@ ul.listing {
           color: theme('colors.text-link-default');
         }
       }
-    }
-
-    .icon.initial {
-      margin: 3px 0.3em 0 0;
-      vertical-align: top;
     }
   }
 
@@ -267,36 +262,6 @@ ul.listing {
       float: inline-start;
       padding: 0 0.5em 0 0;
       vertical-align: middle;
-    }
-  }
-
-  &--inline-actions td.title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    .title-wrapper {
-      margin-inline-end: 2.5em;
-    }
-
-    .w-status {
-      margin: 0;
-    }
-  }
-
-  &--inline-actions .actions {
-    display: inline-block;
-    margin-top: 0;
-    vertical-align: inherit;
-
-    li {
-      margin-bottom: 0;
-    }
-
-    .button {
-      vertical-align: inherit;
     }
   }
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -192,24 +192,6 @@ msgstr "Fout"
 msgid "Continue"
 msgstr "Doorgaan"
 
-msgid "Export redirects"
-msgstr "Exporteer doorverwijzingen"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Wijzig deze doorverwijzing"
-
-msgid "No redirects found."
-msgstr "Geen doorverwijzingen gevonden"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -222,6 +204,18 @@ msgid ""
 msgstr ""
 "Er zijn nog geen doorverwijzingen aangemaakt. Waarom <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">voeg je er niet een toe</a>?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Edit this redirect"
+msgstr "Wijzig deze doorverwijzing"
+
+msgid "No redirects found."
+msgstr "Geen doorverwijzingen gevonden"
+
+msgid "Export redirects"
+msgstr "Exporteer doorverwijzingen"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

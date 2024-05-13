@@ -54,6 +54,7 @@ For all of our styles, we use:
 -   Global CSS variables for colors, so they can be changed by site implementers.
 -   Global CSS variables for font family, so they can be changed by site implementers.
 -   A `--w-direction-factor` CSS variable, set to `1` by default and `-1` for RTL languages, to allow reversing of calculations of physical values (transforms, background positions) and mirroring of icons and visuals with directional elements like arrows.
+-   The `--w-density-factor` CSS variable, to let users control the information density of the UI. Set to `1` by default, and lower or higher values to reduce or increase the spacing and size of UI elements.
 
 ### Tailwind usage
 

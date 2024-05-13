@@ -126,4 +126,34 @@ describe('KeyboardController', () => {
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('keyboard shortcut with scope value', () => {
+    it('should fail when the scope value is not global', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(`
+      <button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>
+      <input type="text" id="input">
+      `);
+
+      // Simulate keydown while target is text input
+      simulateKey({ key: 'j' }, document.getElementById('input'));
+
+      expect(buttonClickMock).not.toHaveBeenCalled();
+    });
+
+    it('should set the scope value to global when specified', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(`
+      <button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j" data-w-kbd-scope-value="global">Go</button>
+      <input type="text" id="input">
+      `);
+
+      // Simulate keydown while target is text input
+      simulateKey({ key: 'j' }, document.getElementById('input'));
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });

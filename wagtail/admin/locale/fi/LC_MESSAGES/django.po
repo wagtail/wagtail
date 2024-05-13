@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -83,6 +83,12 @@ msgstr "Maa-asetusto"
 msgid "All"
 msgstr "Kaikki"
 
+msgid "Collection"
+msgstr "Kokoelma"
+
+msgid "Tag"
+msgstr "Tunniste"
+
 msgid "Preferred language"
 msgstr "Ensisijainen kieli"
 
@@ -127,9 +133,6 @@ msgstr "Haku"
 
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
-
-msgid "Collection"
-msgstr "Kokoelma"
 
 msgid "Parent"
 msgstr "Isäntä"
@@ -223,6 +226,9 @@ msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%(parent_page_title)s\" alla
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Et voi kopioida sivua itsensä päälle, kun kopioit alasivuja."
+
+msgid "Parent page"
+msgstr "Isäntäsivu"
 
 msgid "Visibility"
 msgstr "Näkyvyys"
@@ -549,9 +555,6 @@ msgid ""
 msgstr ""
 "Tätä kokoelmaa ei voida poistaa koska se ei ole tyhjä. Kokoelma sisältää:"
 
-msgid "Name"
-msgstr "Nimi"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -586,6 +589,12 @@ msgstr "Julkaise %(model_name)s"
 
 msgid "Cancel"
 msgstr "Peruuta"
+
+msgid "Comment"
+msgstr "Kommentti"
+
+msgid "Actions"
+msgstr "Toimet"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -640,9 +649,6 @@ msgstr "Lukittu"
 
 msgid "Edit this page"
 msgstr "Muokkaa tätä sivua"
-
-msgid "Actions"
-msgstr "Toimet"
 
 msgid "Unlock"
 msgstr "Poista lukitus"
@@ -1065,31 +1071,6 @@ msgstr "Muokkaa alkuperäistä sivua"
 msgid "Convert this alias into an ordinary page"
 msgstr "Muunna tämä alias tavalliseksi sivuksi"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Sivun %(subtitle)s sivuhistoria"
-
-msgid "Action"
-msgstr "Toiminto"
-
-msgid "User"
-msgstr "Käyttäjä"
-
-msgid "Date / Time"
-msgstr "Päivä/aika"
-
-msgid "Comment"
-msgstr "Kommentti"
-
-msgid "Live version"
-msgstr "Esillä oleva versio"
-
-msgid "Current draft"
-msgstr "Nykyinen luonnos"
-
-msgid "No log entries found."
-msgstr "Lokimerkintöjä ei löytynyt."
-
 msgid "Select all pages in listing"
 msgstr "Valitse listauksen kaikki sivut"
 
@@ -1149,15 +1130,6 @@ msgstr "Vahvista"
 
 msgid "Add child page"
 msgstr "Lisää alasivu"
-
-msgid "Review this version"
-msgstr "Tarkasta tämä versio"
-
-msgid "Compare with current version"
-msgstr "Vertaa nykyiseen versioon"
-
-msgid "Cancel scheduled publish"
-msgstr "Peruuta ajastettu julkaisu"
 
 #, python-format
 msgid "There is one matching page"
@@ -1248,8 +1220,23 @@ msgstr "Lukittu"
 msgid "No locked pages found."
 msgstr "Lukittuja sivuja ei löytynyt."
 
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "Date / Time"
+msgstr "Päivä/aika"
+
 msgid "Edit this item"
 msgstr "Muokkaa tätä"
+
+msgid "No log entries found."
+msgstr "Lokimerkintöjä ei löytynyt."
 
 msgid "Workflow"
 msgstr "Työnkulku"
@@ -1296,9 +1283,6 @@ msgstr "Takaisin"
 
 msgid "History"
 msgstr "Historia"
-
-msgid "Root"
-msgstr "Juuri"
 
 msgid "Current page status:"
 msgstr "Sivun tila nyt:"
@@ -1587,21 +1571,15 @@ msgstr "Sivu"
 msgid "Assign to another page"
 msgstr "Määritä toiseen sivuun"
 
-msgid "Hide disabled workflows"
-msgstr "Piilota käytöstä poistetut työnkulut"
-
-msgid "Show disabled workflows"
-msgstr "Näytä käytöstä poistetut työnkulut"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Vaihe %(step_number)s"
 
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1  sivu"
 msgstr[1] "%(counter)s sivua"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Vaihe %(step_number)s"
 
 #, python-format
 msgid ""
@@ -1641,12 +1619,6 @@ msgstr "Ei tuloksia haulle \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Et ole luonut yhtäkään tehtävää."
-
-msgid "Hide disabled tasks"
-msgstr "Piilota käytöstä poistetut tehtävät"
-
-msgid "Show disabled tasks"
-msgstr "Näytä käytöstä poistetut tehtävät"
 
 #, python-format
 msgid ""
@@ -1699,6 +1671,24 @@ msgstr "%(time_period)s sitten"
 
 msgid "Log out"
 msgstr "Kirjaudu ulos"
+
+msgid "Undo"
+msgstr "Kumoa"
+
+msgid "Redo"
+msgstr "Tee uudestaan"
+
+msgid "Bold"
+msgstr "Lihavoitu"
+
+msgid "Italic"
+msgstr "Kursiivi"
+
+msgid "Superscript"
+msgstr "Yläindeksi"
+
+msgid "Subscript"
+msgstr "Alaindeksi"
 
 msgid "Comments"
 msgstr "Kommentit"
@@ -1776,6 +1766,21 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
 msgid "Home"
 msgstr "Koti"
+
+msgid "Live version"
+msgstr "Esillä oleva versio"
+
+msgid "Current draft"
+msgstr "Nykyinen luonnos"
+
+msgid "Review this version"
+msgstr "Tarkasta tämä versio"
+
+msgid "Compare with current version"
+msgstr "Vertaa nykyiseen versioon"
+
+msgid "Cancel scheduled publish"
+msgstr "Peruuta ajastettu julkaisu"
 
 msgid "Workflow progress"
 msgstr "Työnkulun edistyminen"
@@ -1974,12 +1979,6 @@ msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 
-msgid "Hide commenting actions"
-msgstr "Piilota kommentointitoiminnot"
-
-msgid "Page history"
-msgstr "Sivun historia"
-
 msgid "Owner"
 msgstr "Omistaja"
 
@@ -2005,6 +2004,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Sivu '%(page_title)s' siirretty."
 
+msgid "Page history"
+msgstr "Sivun historia"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Sivu '%(page_title)s' piilotettu"
@@ -2018,6 +2020,9 @@ msgstr "Sivu '%(page_title)s' ei odota parhaillaan tarkastusta."
 
 msgid "Last published at"
 msgstr "Viimeksi julkaistu"
+
+msgid "Hide commenting actions"
+msgstr "Piilota kommentointitoiminnot"
 
 msgid "Site history"
 msgstr "Sivuston historia"
@@ -2166,20 +2171,8 @@ msgstr "Numeroitu luettelo"
 msgid "Blockquote"
 msgstr "Lainaus"
 
-msgid "Bold"
-msgstr "Lihavoitu"
-
-msgid "Italic"
-msgstr "Kursiivi"
-
 msgid "Link"
 msgstr "Linkki"
-
-msgid "Superscript"
-msgstr "Yläindeksi"
-
-msgid "Subscript"
-msgstr "Alaindeksi"
 
 msgid "Strikethrough"
 msgstr "Yliviivattu"

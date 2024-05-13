@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2019-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -574,6 +574,9 @@ msgstr "safnheimild hóps"
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
 
+msgid "uploaded by user"
+msgstr "hlaðið inn af"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s verður líka eytt"
@@ -652,17 +655,8 @@ msgstr ""
 msgid "Public"
 msgstr "Í birtingu"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Læst, aðgengileg fyrir innskráða notendur"
-
-msgid "Private, accessible with the following password"
-msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
-
-msgid "password"
-msgstr "lykilorð"
 
 msgid "view restriction"
 msgstr "skoða takmörkun"

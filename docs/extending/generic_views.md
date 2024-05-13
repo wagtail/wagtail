@@ -8,6 +8,8 @@
 
 Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. For convenience, these views are bundled in [viewsets](viewsets_reference).
 
+(modelviewset)=
+
 ## ModelViewSet
 
 The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
@@ -98,10 +100,6 @@ If neither `panels` nor `edit_handler` is defined and the {meth}`~ModelViewSet.g
 (modelviewset_copy)=
 
 ### Copy view
-
-```{versionadded} 6.0
-
-```
 
 The copy view is enabled by default and will be accessible by users with the 'add' permission on the model. To disable it, set {attr}`~.ModelViewSet.copy_view_enabled` to `False`.
 

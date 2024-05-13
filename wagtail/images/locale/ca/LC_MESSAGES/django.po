@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,8 +46,8 @@ msgid ""
 "Not a valid .%(extension)s image. The extension does not match the file "
 "format (%(image_format)s)"
 msgstr ""
-"No és una imatge .%(extension)s vàlida. L'extensió no concorda amb el format "
-"de fitxer (%(image_format)s)"
+"No és una imatge .%(extension)s vàlida. L'extensió no coincideix amb el "
+"format de fitxer (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -377,15 +377,6 @@ msgstr "Ús"
 
 msgid "Sort by"
 msgstr "Odenar per"
-
-msgid "Entries per page"
-msgstr "Entrades per pàgina"
-
-msgid "Popular Tags:"
-msgstr "Etiquetes populars:"
-
-msgid "Clear"
-msgstr "Netejar"
 
 msgid "Select all images in listing"
 msgstr "Seleccionar totes les imatges de la llista"

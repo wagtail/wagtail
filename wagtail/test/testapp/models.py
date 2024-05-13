@@ -1626,6 +1626,36 @@ class DefaultStreamPage(Page):
     ]
 
 
+class ComplexDefaultStreamPage(Page):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            (
+                "books",
+                StreamBlock(
+                    [
+                        ("title", CharBlock()),
+                        ("author", CharBlock()),
+                    ]
+                ),
+            ),
+        ],
+        default=[
+            ("rich_text", "<p>My <i>lovely</i> books</p>"),
+            (
+                "books",
+                [("title", "The Great Gatsby"), ("author", "F. Scott Fitzgerald")],
+            ),
+        ],
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        FieldPanel("body"),
+    ]
+
+
 class MTIBasePage(Page):
     is_creatable = False
 
@@ -1653,6 +1683,49 @@ class TestSiteSetting(BaseSiteSetting):
 class TestGenericSetting(BaseGenericSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
+
+
+@register_setting
+class TestPermissionedGenericSetting(BaseGenericSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email",
+            permission="tests.can_edit_sensitive_email_generic_setting",
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_generic_setting",
+                "Can edit sensitive email generic setting.",
+            ),
+        ]
+
+
+@register_setting
+class TestPermissionedSiteSetting(BaseSiteSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email", permission="tests.can_edit_sensitive_email_site_setting"
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_site_setting",
+                "Can edit sensitive email site setting.",
+            ),
+        ]
 
 
 @register_setting
@@ -2243,6 +2316,9 @@ class FeatureCompleteToy(index.Indexed, models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.release_date})"
+
+    class Meta:
+        permissions = [("can_set_release_date", "Can set release date")]
 
 
 class PurgeRevisionsProtectedTestModel(models.Model):

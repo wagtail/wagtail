@@ -10,16 +10,13 @@ from wagtail.models import Page, PageViewRestriction, Site
 from wagtail.renderers import PageRendererNotFoundError, get_page_renderer_for_request
 
 
-def serve(request, path):
-    # we need a valid Site object corresponding to this request in order to proceed
-    site = Site.find_for_request(request)
-    if not site:
-        raise Http404
 
-    path_components = [component for component in path.split("/") if component]
-    page, args, kwargs = site.root_page.localized.specific.route(
-        request, path_components
-    )
+def serve(request, path):
+    route_result = Page.route_for_request(request, path)
+    if route_result is None:
+        raise Http404
+    else:
+        page, args, kwargs = route_result
 
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)

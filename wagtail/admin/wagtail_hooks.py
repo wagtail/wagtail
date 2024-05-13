@@ -64,6 +64,7 @@ from wagtail.templatetags.wagtailcore_tags import (
     wagtail_feature_release_editor_guide_link,
     wagtail_feature_release_whats_new_link,
 )
+from wagtail.utils.version import get_main_version
 from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -975,7 +976,7 @@ def register_reports_menu():
 
 @hooks.register("register_help_menu_item")
 def register_whats_new_in_wagtail_version_menu_item():
-    version = "6.1"
+    version = get_main_version(include_patch=False)
     return DismissibleMenuItem(
         _("What's new in Wagtail %(version)s") % {"version": version},
         wagtail_feature_release_whats_new_link(),

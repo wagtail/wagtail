@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -144,63 +144,6 @@ msgstr "Resultats de cerca promocionada"
 msgid "Add a recommended result"
 msgstr "Afegir un resultat recomanat"
 
-msgid "Search Terms"
-msgstr "Termes de cerca"
-
-msgid "Add new promoted result"
-msgstr "Afegir un nou resultat promocionat"
-
-msgid "Search term(s)"
-msgstr "Cerca paraula(es)"
-
-msgid "Order by search term alphabetically"
-msgstr "Ordena per terme de cerca de forma alfabètica"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Ordena per terme de cerca de forma alfabètica invertida"
-
-msgid "Promoted results"
-msgstr "Resultats promocionats"
-
-msgid "Views (past week)"
-msgstr "Vistes(la setmana pasada)"
-
-msgid "Order by views (lowest first)"
-msgstr "Ordena per vistes (primer les menors)"
-
-msgid "Order by views (highest first)"
-msgstr "Ordena per vistes (primer les majors)"
-
-msgid "Edit this promotion"
-msgstr "Editeu aquesta promoció"
-
-msgid "External link"
-msgstr "Enllaç extern"
-
-msgid "None"
-msgstr "Cap"
-
-msgid "Popular search terms"
-msgstr "Termes de cerca populars"
-
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Terms"
-msgstr "Termes"
-
-msgid "No results found"
-msgstr "No s'han trobat resultats"
-
-msgid "Choose from popular search terms"
-msgstr "Trieu entre els termes de cerca populars"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "S'ha trobat %(counter)s coincidència"
-msgstr[1] "S'ha trobat %(counter)s coincidències"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -214,6 +157,45 @@ msgid ""
 msgstr ""
 "No s'ha creat cap resultat promocionat. per què no n'<a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">afegiu un</a>?"
+
+msgid "No promoted results have been created."
+msgstr "No s'ha creat cap resultat promocionat."
+
+msgid "Popular search terms"
+msgstr "Termes de cerca populars"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Terms"
+msgstr "Termes"
+
+msgid "Views (past week)"
+msgstr "Vistes(la setmana pasada)"
+
+msgid "No results found"
+msgstr "No s'han trobat resultats"
+
+msgid "Choose from popular search terms"
+msgstr "Trieu entre els termes de cerca populars"
+
+msgid "External link"
+msgstr "Enllaç extern"
+
+msgid "None"
+msgstr "Cap"
+
+msgid "Search Terms"
+msgstr "Termes de cerca"
+
+msgid "Add new promoted result"
+msgstr "Afegir un nou resultat promocionat"
+
+msgid "Search term(s)"
+msgstr "Cerca paraula(es)"
+
+msgid "Promoted results"
+msgstr "Resultats promocionats"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

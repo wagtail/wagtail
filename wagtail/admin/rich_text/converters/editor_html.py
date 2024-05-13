@@ -143,7 +143,9 @@ class EditorHTMLConverter:
             elif isinstance(rule, LinkTypeRule):
                 link_rules[rule.link_type] = rule.handler.expand_db_attributes
 
-        return MultiRuleRewriter([LinkRewriter(link_rules), EmbedRewriter(embed_rules)])
+        return MultiRuleRewriter(
+            [LinkRewriter(rules=link_rules), EmbedRewriter(rules=embed_rules)]
+        )
 
     def from_database_format(self, html):
         return self.html_rewriter(html)

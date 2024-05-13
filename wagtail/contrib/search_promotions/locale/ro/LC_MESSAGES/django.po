@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -143,64 +143,6 @@ msgstr "Rezultate de căutare promovate"
 msgid "Add a recommended result"
 msgstr "Adaugă un rezultat recomandat"
 
-msgid "Search Terms"
-msgstr "Termeni de căutare"
-
-msgid "Add new promoted result"
-msgstr "Adaugă rezultat promovat"
-
-msgid "Search term(s)"
-msgstr "Termen de căutare"
-
-msgid "Order by search term alphabetically"
-msgstr "Ordonează alfabetic după termen de căutare"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Ordonează invers în ordine alfabetică după termen de căutare"
-
-msgid "Promoted results"
-msgstr "Rezultate promovate"
-
-msgid "Views (past week)"
-msgstr "Vizualizări (ultima săptămână)"
-
-msgid "Order by views (lowest first)"
-msgstr "Ordonează după vizualizări (ascendent)"
-
-msgid "Order by views (highest first)"
-msgstr "Ordonează după vizualizări (descendent)"
-
-msgid "Edit this promotion"
-msgstr "Editează această promovare"
-
-msgid "External link"
-msgstr "Link extern"
-
-msgid "None"
-msgstr "Nici una"
-
-msgid "Popular search terms"
-msgstr "Termeni populari de căutare"
-
-msgid "Search"
-msgstr "Căută"
-
-msgid "Terms"
-msgstr "Termeni"
-
-msgid "No results found"
-msgstr "Nu sunt rezultate"
-
-msgid "Choose from popular search terms"
-msgstr "Alege din termeni populari de căutare"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Există %(counter)s potrivire"
-msgstr[1] "Sunt %(counter)s potriviri"
-msgstr[2] "Sunt %(counter)s potriviri"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -214,6 +156,42 @@ msgid ""
 msgstr ""
 "Nu a fost creat nici un rezultat de căutare promovat. De ce să nu <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">adăugați unul</a>?"
+
+msgid "Popular search terms"
+msgstr "Termeni populari de căutare"
+
+msgid "Search"
+msgstr "Căută"
+
+msgid "Terms"
+msgstr "Termeni"
+
+msgid "Views (past week)"
+msgstr "Vizualizări (ultima săptămână)"
+
+msgid "No results found"
+msgstr "Nu sunt rezultate"
+
+msgid "Choose from popular search terms"
+msgstr "Alege din termeni populari de căutare"
+
+msgid "External link"
+msgstr "Link extern"
+
+msgid "None"
+msgstr "Nici una"
+
+msgid "Search Terms"
+msgstr "Termeni de căutare"
+
+msgid "Add new promoted result"
+msgstr "Adaugă rezultat promovat"
+
+msgid "Search term(s)"
+msgstr "Termen de căutare"
+
+msgid "Promoted results"
+msgstr "Rezultate promovate"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -1,31 +1,15 @@
 import json
 import warnings
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import Media, widgets
-from django.urls import reverse_lazy
 from django.utils.functional import cached_property
-from django.utils.translation import gettext_lazy
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.rich_text import features as feature_registry
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
-
-
-class LazyStringEncoder(json.JSONEncoder):
-    """
-    Add support for lazy strings to the JSON encoder so that URLs and
-    translations can be resolved when rendering the widget only.
-    """
-
-    lazy_string_types = [type(reverse_lazy("")), type(gettext_lazy(""))]
-
-    def default(self, obj):
-        if type(obj) in self.lazy_string_types:
-            return str(obj)
-
-        return json.JSONEncoder.default(self, obj)
 
 
 class DraftailRichTextArea(widgets.HiddenInput):
@@ -88,7 +72,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
         context = super().get_context(name, value, attrs)
         context["widget"]["attrs"]["data-w-init-detail-value"] = json.dumps(
             self.options,
-            cls=LazyStringEncoder,
+            cls=DjangoJSONEncoder,
         )
         return context
 

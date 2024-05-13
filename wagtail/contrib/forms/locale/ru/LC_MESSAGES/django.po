@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -184,6 +184,10 @@ msgstr "Удалить"
 msgid "Delete selected submissions"
 msgstr "Удалить выбранные"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Форма '%(title)s' еще не заполнялась."
+
 msgid "Total submissions"
 msgstr "Всего добавлений"
 
@@ -193,16 +197,6 @@ msgstr "Последнее добавление"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Заполненные %(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Форма '%(title)s' еще не заполнялась."
-
-msgid "Filter"
-msgstr "Фильтр"
-
-msgid "Apply filters"
-msgstr "Применить фильтры"
 
 msgid "Forms"
 msgstr "Формы"

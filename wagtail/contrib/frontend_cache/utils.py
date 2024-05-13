@@ -1,5 +1,6 @@
 import logging
 import re
+from collections import defaultdict
 from urllib.parse import urlparse, urlunparse
 
 from django.conf import settings
@@ -100,11 +101,29 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
 
         urls = new_urls
 
-    for backend_name, backend in get_backends(backend_settings, backends).items():
-        for url in urls:
-            logger.info("[%s] Purging URL: %s", backend_name, url)
+    urls_by_hostname = defaultdict(list)
 
-        backend.purge_batch(urls)
+    for url in urls:
+        urls_by_hostname[urlparse(url).netloc].append(url)
+
+    backends = get_backends(backend_settings, backends)
+
+    for hostname, urls in urls_by_hostname.items():
+        backends_for_hostname = {
+            backend_name: backend
+            for backend_name, backend in backends.items()
+            if backend.invalidates_hostname(hostname)
+        }
+
+        if not backends_for_hostname:
+            logger.info("Unable to find purge backend for %s", hostname)
+            continue
+
+        for backend_name, backend in backends_for_hostname.items():
+            for url in urls:
+                logger.info("[%s] Purging URL: %s", backend_name, url)
+
+            backend.purge_batch(urls)
 
 
 def _get_page_cached_urls(page):
