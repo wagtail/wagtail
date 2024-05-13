@@ -1,18 +1,12 @@
 from django.apps import apps
-from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
 from wagtail.admin.search import SearchArea
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.views.bulk_actions import (
     AssignRoleBulkAction,
     DeleteBulkAction,
@@ -71,17 +65,6 @@ def register_users_search_area():
         icon_name="user",
         order=600,
     )
-
-
-User = get_user_model()
-
-
-class UserAdminURLFinder(ModelAdminURLFinder):
-    edit_url_name = "wagtailusers_users:edit"
-    permission_policy = ModelPermissionPolicy(User)
-
-
-register_admin_url_finder(User, UserAdminURLFinder)
 
 
 for action_class in [AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction]:
