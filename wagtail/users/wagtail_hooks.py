@@ -10,7 +10,6 @@ from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
 )
-from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
@@ -52,46 +51,6 @@ change_user_perm = "{}.change_{}".format(
 delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
-
-
-class UsersMenuItem(MenuItem):
-    def is_shown(self, request):
-        return (
-            request.user.has_perm(add_user_perm)
-            or request.user.has_perm(change_user_perm)
-            or request.user.has_perm(delete_user_perm)
-        )
-
-
-@hooks.register("register_settings_menu_item")
-def register_users_menu_item():
-    return UsersMenuItem(
-        _("Users"),
-        reverse("wagtailusers_users:index"),
-        name="users",
-        icon_name="user",
-        order=600,
-    )
-
-
-class GroupsMenuItem(MenuItem):
-    def is_shown(self, request):
-        return (
-            request.user.has_perm("auth.add_group")
-            or request.user.has_perm("auth.change_group")
-            or request.user.has_perm("auth.delete_group")
-        )
-
-
-@hooks.register("register_settings_menu_item")
-def register_groups_menu_item():
-    return GroupsMenuItem(
-        _("Groups"),
-        reverse("wagtailusers_groups:index"),
-        name="groups",
-        icon_name="group",
-        order=601,
-    )
 
 
 class UsersSearchArea(SearchArea):
