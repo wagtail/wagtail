@@ -25,8 +25,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
 )
 from wagtail.admin.utils import get_user_display_name
-from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.admin.views.generic.history import HistoryView
+from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
@@ -128,7 +127,7 @@ class UserFilterSet(WagtailFilterSet):
         fields = []
 
 
-class Index(IndexView):
+class IndexView(generic.IndexView):
     """
     Lists the users for management within the admin.
     """
@@ -260,7 +259,7 @@ class Index(IndexView):
         return queryset
 
 
-class Create(CreateView):
+class CreateView(generic.CreateView):
     """
     Provide the ability to create a user within the admin.
     """
@@ -282,7 +281,7 @@ class Create(CreateView):
         )
 
 
-class Edit(EditView):
+class EditView(generic.EditView):
     """
     Provide the ability to edit a user within the admin.
     """
@@ -336,7 +335,7 @@ class Edit(EditView):
         return context
 
 
-class Delete(DeleteView):
+class DeleteView(generic.DeleteView):
     """
     Provide the ability to delete a user within the admin.
     """
@@ -366,7 +365,7 @@ class Delete(DeleteView):
         )
 
 
-class History(HistoryView):
+class HistoryView(generic.HistoryView):
     def get_page_subtitle(self):
         return get_user_display_name(self.object)
 
@@ -378,11 +377,11 @@ class UserViewSet(ModelViewSet):
     add_to_reference_index = False
     filterset_class = UserFilterSet
 
-    index_view_class = Index
-    add_view_class = Create
-    edit_view_class = Edit
-    delete_view_class = Delete
-    history_view_class = History
+    index_view_class = IndexView
+    add_view_class = CreateView
+    edit_view_class = EditView
+    delete_view_class = DeleteView
+    history_view_class = HistoryView
 
     template_prefix = "wagtailusers/users/"
 
