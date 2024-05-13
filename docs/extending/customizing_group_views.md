@@ -107,6 +107,8 @@ INSTALLED_APPS = [
 ]
 ```
 
+If you want to customize the user forms and views instead, see [](custom_userviewset).
+
 (customizing_group_views_permissions_order)=
 
 ## Customizing the group editor permissions ordering

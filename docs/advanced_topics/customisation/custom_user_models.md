@@ -81,3 +81,49 @@ WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
 WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
 WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
 ```
+
+```{versionadded} 6.2
+The ability to customize the `UserViewSet` was added. Instead of customizing the forms via the `WAGTAIL_USER_EDIT_FORM`, `WAGTAIL_USER_CREATION_FORM`, and `WAGTAIL_USER_CUSTOM_FIELDS` settings, we recommend customizing them via the viewset instead, as explained below. The aforementioned settings might be deprecated in a future release.
+```
+
+(custom_userviewset)=
+
+## Custom `UserViewSet`
+
+Alternatively, you can also customize the forms and the views by creating a `UserViewSet` subclass. For example, with the above custom form classes, you can create the following `UserViewSet` subclass:
+
+```python
+from wagtail.users.views.users import UserViewSet as WagtailUserViewSet
+
+from .forms import CustomUserCreationForm, CustomUserEditForm
+
+
+class UserViewSet(WagtailUserViewSet):
+    def get_form_class(self, for_update=False):
+        if for_update:
+            return CustomUserEditForm
+        return CustomUserCreationForm
+```
+
+Then, configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your project folder (which will be the package containing the top-level settings and urls modules), create `apps.py` (if it does not exist already) and add:
+
+```python
+from wagtail.users.apps import WagtailUsersAppConfig
+
+
+class CustomUsersAppConfig(WagtailUsersAppConfig):
+    user_viewset = "myapplication.someapp.viewsets.UserViewSet"
+```
+
+Replace `wagtail.users` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`.
+
+```python
+INSTALLED_APPS = [
+    ...,
+    "myapplication.apps.CustomUsersAppConfig",
+    # "wagtail.users",
+    ...,
+]
+```
+
+If you want to customize the group forms and views, see [](customizing_group_views).
