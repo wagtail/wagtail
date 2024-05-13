@@ -19,27 +19,25 @@ from wagtail.users.views.bulk_actions import (
     DeleteBulkAction,
     SetActiveStateBulkAction,
 )
-from wagtail.users.views.users import UserViewSet
 
 
-def get_group_viewset_cls(app_config):
+def get_viewset_cls(app_config, viewset_name):
     try:
-        group_viewset_cls = import_string(app_config.group_viewset)
+        viewset_cls = import_string(getattr(app_config, viewset_name))
     except (AttributeError, ImportError) as e:
         raise ImproperlyConfigured(
-            "Invalid setting for {appconfig}.group_viewset: {message}".format(
-                appconfig=app_config.__class__.__name__, message=e
-            )
+            f"Invalid setting for {app_config.__class__.__name__}.{viewset_name}: {e}"
         )
-    return group_viewset_cls
+    return viewset_cls
 
 
 @hooks.register("register_admin_viewset")
 def register_viewset():
     app_config = apps.get_app_config("wagtailusers")
-    group_viewset_cls = get_group_viewset_cls(app_config)
+    user_viewset_cls = get_viewset_cls(app_config, "user_viewset")
+    group_viewset_cls = get_viewset_cls(app_config, "group_viewset")
     return [
-        UserViewSet("wagtailusers_users", url_prefix="users"),
+        user_viewset_cls("wagtailusers_users", url_prefix="users"),
         group_viewset_cls("wagtailusers_groups", url_prefix="groups"),
     ]
 
