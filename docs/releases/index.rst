@@ -6,6 +6,7 @@ Release notes
 
    upgrading
    6.2
+   6.1.1
    6.1
    6.0.3
    6.0.2
