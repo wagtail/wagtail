@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
+
+
 6.0.3 (01.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
