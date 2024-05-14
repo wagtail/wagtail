@@ -239,13 +239,6 @@ module.exports = function exports(env, argv) {
         {
           test: /\.(scss|css)$/,
           use: [
-            rspack.CssExtractRspackPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                url: false,
-              },
-            },
             {
               loader: 'postcss-loader',
               options: {
@@ -306,6 +299,10 @@ module.exports = function exports(env, argv) {
 
     // See https://webpack.js.org/configuration/devtool/.
     devtool: isDev ? 'eval-cheap-module-source-map' : false,
+
+    experiments: {
+      css: true,
+    },
 
     // For development mode only.
     watchOptions: {
