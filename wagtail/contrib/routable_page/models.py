@@ -137,12 +137,12 @@ class RoutablePageMixin:
         """
         This method takes a URL path and finds the view to call.
         """
-        view, args, kwargs = self.get_resolver().resolve(path)
+        resolver_match = self.get_resolver().resolve(path)
 
         # Bind the method
-        view = view.__get__(self, type(self))
+        resolver_match.func = resolver_match.func.__get__(self, type(self))
 
-        return view, args, kwargs
+        return resolver_match
 
     def route(self, request, path_components):
         """
@@ -154,7 +154,9 @@ class RoutablePageMixin:
                 if path_components:
                     path += "/".join(path_components) + "/"
 
-                view, args, kwargs = self.resolve_subpage(path)
+                resolver_match = self.resolve_subpage(path)
+                request.routable_resolver_match = resolver_match
+                view, args, kwargs = resolver_match
                 return RouteResult(self, args=(view, args, kwargs))
             except Http404:
                 pass

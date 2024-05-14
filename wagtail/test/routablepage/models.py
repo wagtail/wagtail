@@ -62,6 +62,10 @@ class RoutablePageTest(RoutablePage):
             template="routablepagetests/routable_page_test_alternate.html",
         )
 
+    @route(r"^render-method-with-arg/(?P<slug>.+)/$")
+    def render_method_test_with_arg(self, request, slug):
+        return self.render(request)
+
     def get_route_paths(self):
         return [
             "/",

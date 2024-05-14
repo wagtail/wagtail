@@ -20,6 +20,7 @@ Changelog
  * Allow manually specifying credentials for CloudFront frontend cache backend (Jake Howard)
  * Automatically register permissions for models registered with a `ModelViewSet` (Sage Abdullah)
  * Implement universal listings UI for report views (Sage Abdullah)
+ * Make `routable_resolver_match` attribute available on RoutablePageMixin responses (Andy Chosak)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
