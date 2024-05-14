@@ -7,6 +7,7 @@
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
+# Aurel Pere, 2024
 # Axel Haustant, 2016
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
@@ -14,8 +15,8 @@
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
-# fpoulain <fpoulain@metrodore.fr>, 2018
-# fpoulain <fpoulain@metrodore.fr>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2018
@@ -34,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
+"Last-Translator: Aurel Pere, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -103,6 +104,12 @@ msgstr "Région"
 msgid "All"
 msgstr "Tous"
 
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Tag"
+msgstr "Mot-clé"
+
 msgid "Preferred language"
 msgstr "Langue préférée"
 
@@ -148,9 +155,6 @@ msgstr "Rechercher"
 
 msgid "All collections"
 msgstr "Toutes les collections"
-
-msgid "Collection"
-msgstr "Collection"
 
 msgid "Parent"
 msgstr "Parent"
@@ -272,6 +276,9 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Sélectionner une nouvelle page parente pour cette page"
+
+msgid "Parent page"
+msgstr "Page parente"
 
 msgid "Search…"
 msgstr "Rechercher..."
@@ -665,9 +672,6 @@ msgstr ""
 "Cette collection ne peut être supprimée, car elle n’est pas vide. Elle "
 "contient :"
 
-msgid "Name"
-msgstr "Nom"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -733,6 +737,12 @@ msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Comment"
+msgstr "Commenter"
+
+msgid "Actions"
+msgstr "Actions"
 
 #, python-format
 msgid "No %(model_name)s match your query."
@@ -814,9 +824,6 @@ msgstr "Verrouillé à"
 msgid "Edit this page"
 msgstr "Modifier cette page"
 
-msgid "Actions"
-msgstr "Actions"
-
 msgid "Unlock"
 msgstr "Déverrouiller"
 
@@ -837,6 +844,23 @@ msgstr "Date"
 
 msgid "Site summary"
 msgstr "Sommaire du site"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
+"%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -1673,31 +1697,6 @@ msgstr "Modifier la page originale"
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir cet alias en une page ordinaire"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historique de page pour %(subtitle)s"
-
-msgid "Action"
-msgstr "Action"
-
-msgid "User"
-msgstr "Utilisateur"
-
-msgid "Date / Time"
-msgstr "Date/Heure"
-
-msgid "Comment"
-msgstr "Commenter"
-
-msgid "Live version"
-msgstr "Version publiée"
-
-msgid "Current draft"
-msgstr "Brouillon actuel"
-
-msgid "No log entries found."
-msgstr "Aucune entrée de journal trouvée."
-
 msgid "Select all pages in listing"
 msgstr "Sélectionner toutes les pages dans la liste"
 
@@ -1774,6 +1773,12 @@ msgstr "Tri"
 msgid "Enable ordering of child pages"
 msgstr "Activer le tri des sous-pages"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s sur %(items_count)s entités pour la totalite "
+"du site."
+
 msgid "No results across entire site."
 msgstr "Aucun résultat dans l'ensemble du site."
 
@@ -1781,8 +1786,25 @@ msgstr "Aucun résultat dans l'ensemble du site."
 msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Rechercher dans '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s sur %(items_count)sitems dans '<span class=\"w-"
+"title-ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Pas de résultats dans '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Rechercher dans tout le site"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)sitems"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -1808,15 +1830,6 @@ msgstr "Confirmer"
 
 msgid "Add child page"
 msgstr "Ajouter une sous-page"
-
-msgid "Review this version"
-msgstr "Passer en revue cette version"
-
-msgid "Compare with current version"
-msgstr "Comparer avec la version actuelle"
-
-msgid "Cancel scheduled publish"
-msgstr "Annuler la publication programmée"
 
 #, python-format
 msgid "There is one matching page"
@@ -1903,6 +1916,9 @@ msgstr "Aucune page ne correspond aux critères de ce rapport."
 msgid "Updated"
 msgstr "Mis à jour"
 
+msgid "App"
+msgstr "App"
+
 msgid "Pages"
 msgstr "Pages"
 
@@ -1936,8 +1952,23 @@ msgstr "Verrouillé"
 msgid "No locked pages found."
 msgstr "Aucune page verrouillée trouvée"
 
+msgid "Name"
+msgstr "Nom"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Date / Time"
+msgstr "Date/Heure"
+
 msgid "Edit this item"
 msgstr "Modifier cet item"
+
+msgid "No log entries found."
+msgstr "Aucune entrée de journal trouvée."
 
 msgid "By Task"
 msgstr "Par tâche"
@@ -2008,9 +2039,6 @@ msgstr "Retour"
 
 msgid "History"
 msgstr "Historique"
-
-msgid "Root"
-msgstr "Racine"
 
 msgid "Current page status:"
 msgstr "Status actuel de la page :"
@@ -2380,14 +2408,9 @@ msgstr "Page"
 msgid "Assign to another page"
 msgstr "Assigner à une autre page"
 
-msgid "Hide disabled workflows"
-msgstr "Cacher les workflow désactivés"
-
-msgid "Show disabled workflows"
-msgstr "Afficher les workflows désactivés"
-
-msgid "Used by"
-msgstr "Utilisé par"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Étape %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2402,10 +2425,6 @@ msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 type de fragment"
 msgstr[1] "%(counter)s types de fragments"
 msgstr[2] "%(counter)s types de fragments"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Étape %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2455,12 +2474,6 @@ msgid ""
 msgstr ""
 "Pourquoi ne pas <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>en créer un</a> ?"
-
-msgid "Hide disabled tasks"
-msgstr "Cacher les tâches désactivées"
-
-msgid "Show disabled tasks"
-msgstr "Afficher les tâches désactivées"
 
 #, python-format
 msgid ""
@@ -2535,10 +2548,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s par %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "À l'instant par %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "Il y a %(time_period)s par %(user_display_name)s"
 
@@ -2556,6 +2565,24 @@ msgstr "Envoyé vers %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Redo"
+msgstr "Rétablir"
+
+msgid "Bold"
+msgstr "Gras"
+
+msgid "Italic"
+msgstr "Italique"
+
+msgid "Superscript"
+msgstr "Exposant"
+
+msgid "Subscript"
+msgstr "Indice"
 
 msgid "Toggle status"
 msgstr "Afficher/masquer le statut"
@@ -2703,6 +2730,21 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 
 msgid "Home"
 msgstr "Accueil"
+
+msgid "Live version"
+msgstr "Version publiée"
+
+msgid "Current draft"
+msgstr "Brouillon actuel"
+
+msgid "Review this version"
+msgstr "Passer en revue cette version"
+
+msgid "Compare with current version"
+msgstr "Comparer avec la version actuelle"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
 
 msgid "Workflow progress"
 msgstr "Avancée du workflow"
@@ -3118,15 +3160,6 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
 
-msgid "Hide commenting actions"
-msgstr "Cacher les actions de commentaires"
-
-msgid "Page history"
-msgstr "Historique de la page"
-
-msgid "Page type"
-msgstr "Type de page"
-
 msgid "Date updated"
 msgstr "Date mise à jour"
 
@@ -3139,8 +3172,31 @@ msgstr "Modifié par"
 msgid "Site"
 msgstr "Site"
 
+msgid "Has child pages"
+msgstr "A des pages enfants"
+
+msgid "Any"
+msgstr "Any"
+
 msgid "Yes"
 msgstr "Oui"
+
+msgid "Page type"
+msgstr "Type de page"
+
+msgid "Exploring"
+msgstr "Exploration"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Utiliser le bouton de défilement et appuyer sur les touches haut ou bas pour "
+"bouger l'item, puis appuyer sur entrée pour soumettre la modification"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' a été déplacée avec succès"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3165,6 +3221,9 @@ msgid ""
 msgstr ""
 "Vous passez en revue une version passée de cette page du <b>%(created_at)s</"
 "b> par %(user)s"
+
+msgid "Page history"
+msgstr "Historique de la page"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -3194,6 +3253,9 @@ msgstr "Pages vieillissantes"
 msgid "Last published at"
 msgstr "Dernière publication le"
 
+msgid "Hide commenting actions"
+msgstr "Cacher les actions de commentaires"
+
 msgid "Site history"
 msgstr "Historique du Site"
 
@@ -3208,6 +3270,9 @@ msgstr "Date/Heure"
 
 msgid "Locked pages"
 msgstr "Pages verrouillées"
+
+msgid "Page types usage"
+msgstr "Utilisation des types de page"
 
 msgid "Show"
 msgstr "Afficher"
@@ -3235,6 +3300,9 @@ msgstr "Demandé par"
 
 msgid "Add a workflow"
 msgstr "Ajouter un workflow"
+
+msgid "Used by"
+msgstr "Utilisé par"
 
 msgid "New workflow"
 msgstr "Nouveau workflow"
@@ -3393,20 +3461,8 @@ msgstr "Liste numérotée"
 msgid "Blockquote"
 msgstr "Bloc de citation"
 
-msgid "Bold"
-msgstr "Gras"
-
-msgid "Italic"
-msgstr "Italique"
-
 msgid "Link"
 msgstr "Lien"
-
-msgid "Superscript"
-msgstr "Exposant"
-
-msgid "Subscript"
-msgstr "Indice"
 
 msgid "Strikethrough"
 msgstr "Barré"

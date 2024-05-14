@@ -8,16 +8,16 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2022
+# Marco Badan <marco.badan@gmail.com>, 2021-2022,2024
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,9 @@ msgstr "Wagtail cache frontend"
 msgid "Wagtail sitemaps"
 msgstr "Sitemap Wagtail"
 
+msgid "Unknown content type"
+msgstr "Tipo contenuto sconosciuto"
+
 msgid "Password"
 msgstr "Password"
 
@@ -86,6 +89,28 @@ msgstr "Commenta"
 
 msgid "Locked"
 msgstr "Bloccata"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nessuno può fare modifiche finché %(model_name)s è bloccato"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' è stata bloccata</b> da <b>te</b> il <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' è bloccata</b> da <b>te</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' è bloccata</b>."
+
+msgid "Locked by you"
+msgstr "Bloccata da te"
+
+msgid "Locked by another user"
+msgstr "Bloccata da un altro utente"
 
 msgid "Unlocked"
 msgstr "Sbloccata"
@@ -454,6 +479,9 @@ msgstr "permesso di gruppo nella raccolta"
 msgid "group collection permissions"
 msgstr "Permessi di gruppo nella raccolta"
 
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
+
 msgid "hostname"
 msgstr "hostname"
 
@@ -507,17 +535,8 @@ msgstr ""
 msgid "Public"
 msgstr "Pubblico"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privato, accessibile da utenti loggati"
-
-msgid "Private, accessible with the following password"
-msgstr "Privato, accessibile con la seguente password"
-
 msgid "Private, accessible to users in specific groups"
-msgstr "Privato, accessibile a utenti di gruppi specifici"
-
-msgid "password"
-msgstr "password"
+msgstr "Privata accessibile a utenti di specifici gruppi"
 
 msgid "view restriction"
 msgstr "limitazione visualizzazioni"

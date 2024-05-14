@@ -442,6 +442,8 @@ You can encode the image into lossless AVIF or WebP format by using `format-avif
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
+(favicon_generation)=
+
 ### Favicon generation
 
 You can save images as a `.ico` file using `format-ico`, which is especially useful when managing a site's favicon through the Admin.
@@ -548,6 +550,8 @@ The `image` tag's `preserve-svg` positional argument may be used to restrict the
 ```
 
 In this example, any of the image objects that are SVGs will only have the `fill-400x400` operation applied to them, while raster images will have both the `fill-400x400` and `format-webp` operations applied. If the `preserve-svg` argument is not used in this example, an error will be raised when attempting to convert SVG images to webp, as this is not possible without a rasterization library.
+
+(svg_security_considerations)=
 
 ### Security considerations
 

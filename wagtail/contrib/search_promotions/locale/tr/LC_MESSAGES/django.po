@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,45 +90,6 @@ msgstr "Aşağı indir"
 msgid "Promoted search results"
 msgstr "Tanıtılan arama sonuçları"
 
-msgid "Search Terms"
-msgstr "Arama Terimleri"
-
-msgid "Add new promoted result"
-msgstr "Yeni tanıtılan sonuç ekle"
-
-msgid "Search term(s)"
-msgstr "Arama terimi(leri)"
-
-msgid "Promoted results"
-msgstr "Tanıtılan sonuçlar"
-
-msgid "Views (past week)"
-msgstr "Görüntülenme (geçen hafta)"
-
-msgid "Edit this promotion"
-msgstr "Tanıtımı düzenle"
-
-msgid "External link"
-msgstr "Dış bağlantı"
-
-msgid "None"
-msgstr "Yok"
-
-msgid "Popular search terms"
-msgstr "Yaygın arama terimleri"
-
-msgid "Search"
-msgstr "Ara"
-
-msgid "Terms"
-msgstr "Terimler"
-
-msgid "No results found"
-msgstr "Sonuç bulunamadı"
-
-msgid "Choose from popular search terms"
-msgstr "Yaygın arama terimlerinden seçin"
-
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen sonuç yok"
@@ -140,6 +101,42 @@ msgid ""
 msgstr ""
 "Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
+
+msgid "Popular search terms"
+msgstr "Yaygın arama terimleri"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Terms"
+msgstr "Terimler"
+
+msgid "Views (past week)"
+msgstr "Görüntülenme (geçen hafta)"
+
+msgid "No results found"
+msgstr "Sonuç bulunamadı"
+
+msgid "Choose from popular search terms"
+msgstr "Yaygın arama terimlerinden seçin"
+
+msgid "External link"
+msgstr "Dış bağlantı"
+
+msgid "None"
+msgstr "Yok"
+
+msgid "Search Terms"
+msgstr "Arama Terimleri"
+
+msgid "Add new promoted result"
+msgstr "Yeni tanıtılan sonuç ekle"
+
+msgid "Search term(s)"
+msgstr "Arama terimi(leri)"
+
+msgid "Promoted results"
+msgstr "Tanıtılan sonuçlar"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

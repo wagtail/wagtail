@@ -54,11 +54,11 @@
                                                 {% if obj.is_previewable %}
                                                     <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
                                                 {% endif %}
-                                                {% if state.live_revision %}
+                                                {% if state.live_revision_id %}
                                                     <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote 'live' revision.id %}">{% trans "Compare with live version" %}</a>
                                                 {% endif %}
-                                                {% if state.previous_revision %}
-                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision.id revision.id %}">{% trans "Compare with previous version" %}</a>
+                                                {% if state.previous_revision_id %}
+                                                    <a href="{% url state.revisions_compare_url_name obj.pk|admin_urlquote state.previous_revision_id revision.id %}">{% trans "Compare with previous version" %}</a>
                                                 {% endif %}
                                             {% enddropdown %}
                                         </li>
@@ -89,7 +89,6 @@
         </table>
     {% endpanel %}
 
-    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
     <script>
         document.querySelectorAll('[data-controller="w-dropdown"]').forEach((e) => {

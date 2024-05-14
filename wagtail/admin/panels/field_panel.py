@@ -168,7 +168,7 @@ class FieldPanel(Panel):
                     )
                 return
 
-            # Ensure heading and help_text are consistant accross
+            # Ensure heading and help_text are consistent across
             # Panel, BoundPanel and Field
             if self.panel.heading:
                 self.heading = self.bound_field.label = self.panel.heading

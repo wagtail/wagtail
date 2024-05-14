@@ -45,7 +45,7 @@ describe('SlugController', () => {
     expect(slugInput.value).toEqual('visiter-toulouse-en-t-2025');
   });
 
-  it('should now allow unicode characters by default', () => {
+  it('should allow unicode characters when allow-unicode-value is set to truthy', () => {
     const slugInput = document.querySelector('#id_slug');
     slugInput.setAttribute('data-w-slug-allow-unicode-value', 'true');
 
@@ -229,8 +229,6 @@ describe('compare behaviour', () => {
 });
 
 describe('urlify behaviour', () => {
-  require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
-    .default;
   let application;
 
   beforeEach(() => {
@@ -269,7 +267,7 @@ describe('urlify behaviour', () => {
     expect(slugInput.value).toBe('urlify-testing-on-edit-page');
   });
 
-  it('should transform input with special characters to their ASCII equivalent', () => {
+  it('should transform input with special (unicode) characters to their ASCII equivalent by default', () => {
     const slugInput = document.getElementById('id_slug');
     slugInput.value = 'Some Title with éçà Spaces';
 
@@ -280,6 +278,21 @@ describe('urlify behaviour', () => {
     document.getElementById('id_slug').dispatchEvent(event);
 
     expect(slugInput.value).toBe('some-title-with-eca-spaces');
+  });
+
+  it('should transform input with special (unicode) characters to keep unicode values if allow unicode value is truthy', () => {
+    const value = 'Dê-me fatias de   pizza de manhã --ou-- à noite';
+
+    const slugInput = document.getElementById('id_slug');
+    slugInput.setAttribute('data-w-slug-allow-unicode-value', 'true');
+
+    slugInput.value = value;
+
+    const event = new CustomEvent('custom:event', { detail: { value } });
+
+    document.getElementById('id_slug').dispatchEvent(event);
+
+    expect(slugInput.value).toBe('dê-me-fatias-de-pizza-de-manhã-ou-à-noite');
   });
 
   it('should return an empty string when input contains only special characters', () => {

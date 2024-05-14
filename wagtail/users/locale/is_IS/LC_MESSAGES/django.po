@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -125,6 +125,9 @@ msgstr "Dökkt"
 msgid "admin theme"
 msgstr "Þema stjórnkerfis"
 
+msgid "Default"
+msgstr "Sjálfgefið"
+
 msgid "user profile"
 msgstr "uppsetning notanda"
 
@@ -223,9 +226,6 @@ msgstr "Ertu viss um að þú viljir eyða þessum hóp"
 msgid "Add group"
 msgstr "Bæta við hóp"
 
-msgid "View users in this group"
-msgstr "Skoða notendur í þessari grúppu"
-
 msgid "Save"
 msgstr "Vista"
 
@@ -299,46 +299,12 @@ msgid "Select all users in listing"
 msgstr "Velja alla notendur"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Grúppan %(group_name)s hefur enga notendur. Viltu <a "
-"href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
-
-#, python-format
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Það eru engir skráðir notendur.  Viltu <a "
 "href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
-
-msgid "Username"
-msgstr "Notandanafn"
-
-msgid "Access level"
-msgstr "Aðgangur"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Last Login"
-msgstr "Síðasta innskráning"
-
-msgid "Admin"
-msgstr "Stjórnandi"
-
-msgid "Active"
-msgstr "Virkur"
-
-msgid "Inactive"
-msgstr "Óvirkur"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -361,6 +327,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d notanda hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d notendum hefur verið eytt"
+
+msgid "Active"
+msgstr "Virkur"
+
+msgid "Inactive"
+msgstr "Óvirkur"
 
 msgid "Mark as active"
 msgstr "Virkja"
@@ -400,6 +372,9 @@ msgstr "Hópur '%(object)s' uppfærður."
 msgid "The group could not be saved due to errors."
 msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófanir"
 
+msgid "View users in this group"
+msgstr "Skoða notendur í þessari grúppu"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Hópi '%(object)s' eytt."
@@ -409,6 +384,22 @@ msgstr "Bæta við notanda"
 
 msgid "Users"
 msgstr "Notendur"
+
+msgid "Username"
+msgstr "Notandanafn"
+
+msgid "Admin"
+msgstr "Stjórnandi"
+
+msgid "Access level"
+msgstr "Aðgangur"
+
+msgid "Status"
+msgstr "Staða"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -425,14 +416,3 @@ msgstr ""
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Notanda '%(object)s' eytt."
-
-msgid "Edit"
-msgstr "Breyta"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Breyta notanda '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Eyða notanda '%(name)s'"

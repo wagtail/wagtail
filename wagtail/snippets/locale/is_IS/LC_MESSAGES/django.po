@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2022-2023\n"
@@ -147,30 +147,6 @@ msgstr "Aðgerðir"
 msgid "Select all snippets in listing"
 msgstr "Velja öll snifsi í lista"
 
-msgid "Live version"
-msgstr "Útgáfa í birtingu"
-
-msgid "Current draft"
-msgstr "Núverandi vinnuskjal"
-
-msgid "Preview"
-msgstr "Forskoða"
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "Review this version"
-msgstr "Skoða þessa útgáfu"
-
-msgid "Compare with previous version"
-msgstr "Bera saman við fyrri útgáfu"
-
-msgid "Compare with current version"
-msgstr "Bera saman við núverandi útgáfu"
-
-msgid "Cancel scheduled publish"
-msgstr "Hætta við tímasetta birtingu"
-
 msgid "Choose"
 msgstr "Velja"
 
@@ -186,12 +162,6 @@ msgstr "Færslur"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
-
-msgid "Action"
-msgstr "Aðgerð"
-
-msgid "Date"
-msgstr "Dagsetning"
 
 #, python-format
 msgid "Edit this %(model_name)s"

@@ -67,12 +67,17 @@ class GenericSettingAdminURLFinder(ModelAdminURLFinder):
 
 
 class Registry(list):
-    def register(self, model, **kwargs):
+    def __init__(self):
+        self._model_icons = {}
+
+    def register(self, model, icon="cog", **kwargs):
         from .models import BaseGenericSetting, BaseSiteSetting
 
         """
         Register a model as a setting, adding it to the wagtail admin menu
         """
+        if icon:
+            self._model_icons[model] = icon
 
         # Don't bother registering this if it is already registered
         if model in self:
@@ -82,7 +87,7 @@ class Registry(list):
         # Register a new menu item in the settings menu
         @hooks.register("register_settings_menu_item")
         def menu_hook():
-            return SettingMenuItem(model, **kwargs)
+            return SettingMenuItem(model, icon=self._model_icons.get(model), **kwargs)
 
         @hooks.register("register_permissions")
         def permissions_hook():
@@ -113,13 +118,13 @@ class Registry(list):
 
         return model
 
-    def register_decorator(self, model=None, **kwargs):
+    def register_decorator(self, model=None, icon="cog", **kwargs):
         """
         Register a model as a setting in the Wagtail admin
         """
         if model is None:
-            return lambda model: self.register(model, **kwargs)
-        return self.register(model, **kwargs)
+            return lambda model: self.register(model, icon=icon, **kwargs)
+        return self.register(model, icon=icon, **kwargs)
 
     def get_by_natural_key(self, app_label, model_name):
         """

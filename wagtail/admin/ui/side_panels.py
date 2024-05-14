@@ -15,6 +15,7 @@ class BaseSidePanel(Component):
         icon_name = ""
         has_counter = True
         counter_classname = ""
+        keyboard_shortcut = None
 
         def __init__(self, panel):
             self.panel = panel
@@ -229,7 +230,7 @@ class StatusSidePanel(BaseSidePanel):
         context["last_updated_info"] = self.last_updated_info
         context.update(self.get_scheduled_publishing_context(parent_context))
         context.update(self.get_lock_context(parent_context))
-        if self.object.pk:
+        if self.object.pk and self.usage_url:
             context.update(self.get_usage_context())
         return context
 
@@ -338,6 +339,7 @@ class PreviewSidePanel(BaseSidePanel):
         aria_label = gettext_lazy("Toggle preview")
         icon_name = "mobile-alt"
         has_counter = False
+        keyboard_shortcut = "mod+p"
 
     name = "preview"
     title = gettext_lazy("Preview")

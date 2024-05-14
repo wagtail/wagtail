@@ -146,7 +146,7 @@ def cautious_slugify(value):
 
 def safe_snake_case(value):
     """
-    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    Convert a string to ASCII similar to Django's slugify, with cautious handling of
     non-ASCII alphanumeric characters. See `cautious_slugify`.
 
     Any inner whitespace, hyphens or dashes will be converted to underscores and
@@ -422,10 +422,11 @@ def get_dummy_request(*, path: str = "/", site: "Site" = None) -> HttpRequest:
     if site:
         server_name = site.hostname
         server_port = site.port
-    elif settings.ALLOWED_HOSTS == ["*"]:
-        server_name = "example.com"
     else:
         server_name = settings.ALLOWED_HOSTS[0]
+
+        if server_name == "*":
+            server_name = "example.com"
 
     # `SERVER_PORT` doesn't work when passed to the constructor
     return RequestFactory(SERVER_NAME=server_name).get(path, SERVER_PORT=server_port)

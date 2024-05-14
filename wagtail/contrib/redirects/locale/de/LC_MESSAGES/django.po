@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -211,24 +211,6 @@ msgstr "Fehler"
 msgid "Continue"
 msgstr "Weiter"
 
-msgid "Export redirects"
-msgstr "Weiterleitungen exportieren"
-
-msgid "Site"
-msgstr "Seite"
-
-msgid "Edit this redirect"
-msgstr "Diese Weiterleitung bearbeiten"
-
-msgid "No redirects found."
-msgstr "Keine Weiterleitungen gefunden."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -243,6 +225,18 @@ msgstr ""
 "Sie haben noch keine Weiterleitung erstellt.<a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!"
 "</a>"
+
+msgid "Site"
+msgstr "Seite"
+
+msgid "Edit this redirect"
+msgstr "Diese Weiterleitung bearbeiten"
+
+msgid "No redirects found."
+msgstr "Keine Weiterleitungen gefunden."
+
+msgid "Export redirects"
+msgstr "Weiterleitungen exportieren"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

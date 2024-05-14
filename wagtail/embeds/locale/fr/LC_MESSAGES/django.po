@@ -4,8 +4,8 @@
 #
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
-# fpoulain <fpoulain@metrodore.fr>, 2018
-# fpoulain <fpoulain@metrodore.fr>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2018,2020
 # Loic Teixeira, 2020
@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"

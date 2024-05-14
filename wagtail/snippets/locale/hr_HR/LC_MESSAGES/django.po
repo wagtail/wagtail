@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -148,30 +148,6 @@ msgstr "Postupci"
 msgid "Select all snippets in listing"
 msgstr "Odaberi sve izreske iz popisa"
 
-msgid "Live version"
-msgstr "Verzija uživo"
-
-msgid "Current draft"
-msgstr "Trenutna skica"
-
-msgid "Preview"
-msgstr "Pregled"
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "Review this version"
-msgstr "Pregledaj ovu verziju"
-
-msgid "Compare with previous version"
-msgstr "Usporedi sa prijašnjom verzijom"
-
-msgid "Compare with current version"
-msgstr "Usporedi sa trenutnom verzijom"
-
-msgid "Cancel scheduled publish"
-msgstr "Otkaži zakazano objavljivanje"
-
 msgid "Choose"
 msgstr "Odaberi"
 
@@ -184,11 +160,9 @@ msgstr "Naziv"
 msgid "Instances"
 msgstr "Broj instanci"
 
-msgid "Action"
-msgstr "Radnja"
-
-msgid "Date"
-msgstr "Datum"
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Više opcija za '%(title)s'"
 
 #, python-format
 msgid "Edit this %(model_name)s"

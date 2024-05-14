@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -168,24 +168,6 @@ msgstr "Virhe"
 msgid "Continue"
 msgstr "Jatka"
 
-msgid "Export redirects"
-msgstr "Vie uudelleenohjaukset"
-
-msgid "Site"
-msgstr "Sivusto"
-
-msgid "Edit this redirect"
-msgstr "Muokkaa tätä uudelleenohjausta"
-
-msgid "No redirects found."
-msgstr "Uudelleenohjauksia ei löytynyt."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -199,6 +181,18 @@ msgid ""
 msgstr ""
 "Et ole luonut yhtään uudelleenohjausta. Mikset vaikka <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">lisäisi yhtä nyt</a>?"
+
+msgid "Site"
+msgstr "Sivusto"
+
+msgid "Edit this redirect"
+msgstr "Muokkaa tätä uudelleenohjausta"
+
+msgid "No redirects found."
+msgstr "Uudelleenohjauksia ei löytynyt."
+
+msgid "Export redirects"
+msgstr "Vie uudelleenohjaukset"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

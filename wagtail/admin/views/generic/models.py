@@ -9,6 +9,7 @@ from django.core.exceptions import (
 )
 from django.db import models, transaction
 from django.db.models import Q
+from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -27,6 +28,7 @@ from django.views.generic.edit import (
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
@@ -41,7 +43,6 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
-    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -233,7 +234,7 @@ class IndexView(
             query |= Q(**{field + "__icontains": self.search_query})
         return queryset.filter(query)
 
-    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+    def _get_title_column_class(self, column_class):
         if not issubclass(column_class, ButtonsColumnMixin):
 
             def get_buttons(column, instance, *args, **kwargs):
@@ -244,6 +245,10 @@ class IndexView(
                 (ButtonsColumnMixin, column_class),
                 {"get_buttons": get_buttons},
             )
+        return column_class
+
+    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        column_class = self._get_title_column_class(column_class)
         if not self.model:
             return column_class(
                 "name",
@@ -256,7 +261,32 @@ class IndexView(
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
-        label, attr = label_for_field(field_name, self.model, return_attr=True)
+        lookups = (
+            [field_name]
+            if hasattr(self.model, field_name)
+            else field_name.split(LOOKUP_SEP)
+        )
+        *relations, field = lookups
+        model_class = self.model
+
+        # Iterate over the relation list to try to get the last model
+        # where the field exists
+        foreign_field_name = ""
+        for model in relations:
+            foreign_field = model_class._meta.get_field(model)
+            foreign_field_name = foreign_field.verbose_name
+            model_class = foreign_field.related_model
+
+        label, attr = label_for_field(field, model_class, return_attr=True)
+
+        # For some languages, it may be more appropriate to put the field label
+        # before the related model name
+        if foreign_field_name:
+            label = _("%(related_model_name)s %(field_label)s") % {
+                "related_model_name": foreign_field_name,
+                "field_label": label,
+            }
+
         sort_key = getattr(attr, "admin_order_field", None)
 
         # attr is None if the field is an actual database field,
@@ -264,8 +294,12 @@ class IndexView(
         if attr is None:
             sort_key = field_name
 
+        accessor = field_name
+        # Build the dotted relation if needed, for use in multigetattr
+        if relations:
+            accessor = ".".join(lookups)
         return column_class(
-            field_name,
+            accessor,
             label=capfirst(label),
             sort_key=sort_key,
             **kwargs,
@@ -334,40 +368,8 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
-                    attrs={"data-w-link-reflect-keys-value": '["locale"]'},
                 )
             )
-        return buttons
-
-    @cached_property
-    def header_more_buttons(self):
-        buttons = []
-        if self.list_export:
-            buttons.append(
-                Button(
-                    _("Download XLSX"),
-                    url=self.xlsx_export_url,
-                    icon_name="download",
-                    priority=90,
-                    attrs={
-                        "data-controller": "w-link",
-                        "data-w-link-preserve-keys-value": '["export"]',
-                    },
-                )
-            )
-            buttons.append(
-                Button(
-                    _("Download CSV"),
-                    url=self.csv_export_url,
-                    icon_name="download",
-                    priority=100,
-                    attrs={
-                        "data-controller": "w-link",
-                        "data-w-link-preserve-keys-value": '["export"]',
-                    },
-                )
-            )
-
         return buttons
 
     def get_list_more_buttons(self, instance):
@@ -606,14 +608,16 @@ class CreateView(
         return context
 
     def get_side_panels(self):
-        side_panels = [
-            StatusSidePanel(
-                self.form.instance,
-                self.request,
-                locale=self.locale,
-                translations=self.translations,
+        side_panels = []
+        if self.locale:
+            side_panels.append(
+                StatusSidePanel(
+                    self.form.instance,
+                    self.request,
+                    locale=self.locale,
+                    translations=self.translations,
+                )
             )
-        ]
         return MediaContainer(side_panels)
 
     def get_translations(self):
@@ -624,6 +628,24 @@ class CreateView(
             }
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
+
+    def get_initial_form_instance(self):
+        if self.locale:
+            instance = self.model()
+            instance.locale = self.locale
+            return instance
+
+    def get_form_kwargs(self):
+        if instance := self.get_initial_form_instance():
+            # super().get_form_kwargs() will use self.object as the instance kwarg
+            self.object = instance
+        kwargs = super().get_form_kwargs()
+
+        form_class = self.get_form_class()
+        # Add for_user support for PermissionedForm
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
@@ -668,7 +690,7 @@ class CreateView(
 
 class CopyView(CreateView):
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+        return get_object_or_404(self.model, pk=unquote(str(self.kwargs["pk"])))
 
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "instance": self.get_object()}
@@ -713,13 +735,13 @@ class EditView(
         return self.actions
 
     def get_object(self, queryset=None):
-        if "pk" not in self.kwargs:
-            self.kwargs["pk"] = self.args[0]
-        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
+        if self.pk_url_kwarg not in self.kwargs:
+            self.kwargs[self.pk_url_kwarg] = self.args[0]
+        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
         return super().get_object(queryset)
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         if not self.model:
@@ -732,7 +754,7 @@ class EditView(
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
-        items.append({"url": "", "label": get_latest_str(self.object)})
+        items.append({"url": "", "label": self.get_page_subtitle()})
         return self.breadcrumbs_items + items
 
     def get_side_panels(self):
@@ -754,7 +776,11 @@ class EditView(
         return MediaContainer(side_panels)
 
     def get_last_updated_info(self):
-        return log_registry.get_logs_for_instance(self.object).first()
+        return (
+            log_registry.get_logs_for_instance(self.object)
+            .select_related("user")
+            .first()
+        )
 
     def get_edit_url(self):
         if not self.edit_url_name:
@@ -794,6 +820,13 @@ class EditView(
             }
             for translation in self.object.get_translations().select_related("locale")
         ]
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        form_class = self.get_form_class()
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """

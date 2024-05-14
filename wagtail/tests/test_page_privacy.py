@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
@@ -78,6 +78,23 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
                 },
             )
             self.assertRedirects(response, "/")
+
+    @override_settings(
+        WAGTAIL_PASSWORD_REQUIRED_TEMPLATE="tests/custom_page_password_required.html"
+    )
+    def test_anonymous_user_must_authenticate_with_custom_password_required_template(
+        self
+    ):
+        response = self.client.get("/secret-plans/")
+
+        self.assertNotEqual(
+            "wagtailcore/password_required.html",
+            response.templates[0].name,
+        )
+        self.assertEqual(
+            "tests/custom_page_password_required.html",
+            response.templates[0].name,
+        )
 
     def test_view_restrictions_apply_to_subpages(self):
         underpants_page = Page.objects.get(

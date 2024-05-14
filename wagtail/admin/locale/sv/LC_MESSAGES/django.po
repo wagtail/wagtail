@@ -8,7 +8,7 @@
 # Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2023
+# Martin Sandström <martin@marteinn.se>, 2020-2024
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,12 @@ msgstr "Plats"
 msgid "All"
 msgstr "Alla"
 
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Tag"
+msgstr "Tagg"
+
 msgid "Preferred language"
 msgstr "Föredraget språk"
 
@@ -130,9 +136,6 @@ msgstr "Sök"
 
 msgid "All collections"
 msgstr "Alla samlingar"
-
-msgid "Collection"
-msgstr "Samling"
 
 msgid "Parent"
 msgstr "Topp"
@@ -246,6 +249,12 @@ msgstr "Sluggen '%(page_slug)s' används redan inom föräldersidan"
 
 msgid "Select a new parent for this page."
 msgstr "Välj ny föräldersida"
+
+msgid "Parent page"
+msgstr "Topp-sida"
+
+msgid "Search…"
+msgstr "Sök…"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -626,9 +635,6 @@ msgid ""
 msgstr ""
 "Denna samling kan inte raderas, eftersom den inte är tom. Den innehåller:"
 
-msgid "Name"
-msgstr "Namn"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -640,6 +646,9 @@ msgstr ""
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Ledsen, det finns inga matchningar på \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Det finns inga träffar."
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
@@ -692,6 +701,16 @@ msgstr "Vill du fortfarande publicera denna %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+msgid "Comment"
+msgstr "Kommentera"
+
+msgid "Actions"
+msgstr "Handlingar"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Ingen %(model_name)s matchade din sökning."
 
 msgid "Update"
 msgstr "Uppdatera"
@@ -753,9 +772,6 @@ msgstr "Låstes"
 
 msgid "Edit this page"
 msgstr "Redigera denna sida"
-
-msgid "Actions"
-msgstr "Handlingar"
 
 msgid "Unlock"
 msgstr "Lås upp"
@@ -1326,31 +1342,6 @@ msgstr "Redigera orginalsida"
 msgid "Convert this alias into an ordinary page"
 msgstr "Konvertera denna alias till en vanlig sida"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Sidohistorik för %(subtitle)s"
-
-msgid "Action"
-msgstr "Handling"
-
-msgid "User"
-msgstr "Användare"
-
-msgid "Date / Time"
-msgstr "Datum / Tid"
-
-msgid "Comment"
-msgstr "Kommentar"
-
-msgid "Live version"
-msgstr "Publicerad version"
-
-msgid "Current draft"
-msgstr "Nuvarande utkast"
-
-msgid "No log entries found."
-msgstr "Inga loggposter funna"
-
 msgid "Select all pages in listing"
 msgstr "Välj alla sidor i listan"
 
@@ -1421,6 +1412,20 @@ msgstr "Sortera"
 msgid "Enable ordering of child pages"
 msgstr "Aktivera sortering av undersidor"
 
+msgid "No results across entire site."
+msgstr "Det finns inga träffar på sajten."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Sök i '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr "Inga träffar i '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
+msgid "Search the whole site"
+msgstr "Sök hela sajten"
+
 msgid "Sites menu"
 msgstr "Sajtmeny"
 
@@ -1445,15 +1450,6 @@ msgstr "Bekräfta"
 
 msgid "Add child page"
 msgstr "Lägg till undersida"
-
-msgid "Review this version"
-msgstr "Granska denna version"
-
-msgid "Compare with current version"
-msgstr "Jämför med nuvarande version"
-
-msgid "Cancel scheduled publish"
-msgstr "Avbryt schemalagd publicering"
 
 #, python-format
 msgid "There is one matching page"
@@ -1520,6 +1516,12 @@ msgstr "Uppdaterad"
 msgid "Pages"
 msgstr "Sidor"
 
+msgid "Last edited page"
+msgstr "Senast redigerad sida"
+
+msgid "Last edit"
+msgstr "Senast redigerad"
+
 msgid "Locking status"
 msgstr "Låsstatus"
 
@@ -1541,8 +1543,23 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Inga upplåsta sidor hittades."
 
+msgid "Name"
+msgstr "Namn"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "Date / Time"
+msgstr "Datum / Tid"
+
 msgid "Edit this item"
 msgstr "Redigera objektet"
+
+msgid "No log entries found."
+msgstr "Inga loggposter funna"
 
 msgid "By Task"
 msgstr "Av Uppgift"
@@ -1602,14 +1619,14 @@ msgstr "Filtrera"
 msgid "Add comment"
 msgstr "Lägg till kommentar"
 
+msgid "Show filters"
+msgstr "Visa filter"
+
 msgid "Back"
 msgstr "Tillbaka"
 
 msgid "History"
 msgstr "Historik"
-
-msgid "Root"
-msgstr "Rot"
 
 msgid "Current page status:"
 msgstr "Nuvarande sidstatus:"
@@ -1745,6 +1762,9 @@ msgstr "Förhandsgranskning är utdaterad"
 msgid "Preview mode"
 msgstr "Förhandsgranskningsläge"
 
+msgid "First published"
+msgstr "Först publicerad"
+
 msgid "Edit / Review"
 msgstr "Redigera / Granska"
 
@@ -1758,6 +1778,10 @@ msgstr "Begärdes av <b>%(modified_by)s</b>"
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
 msgstr "Påbörjades vid <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Status %(status)s"
 
 msgid "Timeline"
 msgstr "Tidslinje"
@@ -1890,6 +1914,9 @@ msgstr "Används på följande aktiva arbetsflöden"
 msgid "Not used"
 msgstr "Används ej"
 
+msgid "Disabled"
+msgstr "Inaktiverad"
+
 #, python-format
 msgid "+%(counter)s more"
 msgid_plural "+%(counter)s more"
@@ -1905,24 +1932,15 @@ msgstr "Sida"
 msgid "Assign to another page"
 msgstr "Tilldela till en annan sida"
 
-msgid "Hide disabled workflows"
-msgstr "Dölj inaktiverade arbetsflöden"
-
-msgid "Show disabled workflows"
-msgstr "Visa inaktiverade arbetsflöden"
-
-msgid "Used by"
-msgstr "Används av"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Steg %(step_number)s"
 
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1 sida"
 msgstr[1] "%(counter)s sidor"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Steg %(step_number)s"
 
 #, python-format
 msgid ""
@@ -1973,12 +1991,6 @@ msgstr ""
 "Varför inte <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>skapa en nu</a>?"
 
-msgid "Hide disabled tasks"
-msgstr "Dölj inaktiverade uppgifter"
-
-msgid "Show disabled tasks"
-msgstr "Visa inaktiverade uppgifter"
-
 #, python-format
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
@@ -2025,6 +2037,9 @@ msgstr "Visa full historik"
 msgid "More"
 msgstr "Mer"
 
+msgid "More bulk actions"
+msgstr "Fler massåtgärder"
+
 msgid "0 minutes"
 msgstr "0 minuter"
 
@@ -2048,10 +2063,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s av %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "precis nu av%(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s sedan av %(user_display_name)s"
 
@@ -2065,6 +2076,24 @@ msgstr "Skickad till %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Redo"
+msgstr "Gör om"
+
+msgid "Bold"
+msgstr "Fetstil"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Superscript"
+msgstr "Exponent"
+
+msgid "Subscript"
+msgstr "Index"
 
 msgid "Toggle status"
 msgstr "Växla status"
@@ -2105,6 +2134,9 @@ msgstr "Namn och e-post"
 
 msgid "Profile picture"
 msgstr "Profilbild"
+
+msgid "Theme preferences"
+msgstr "Temainställningar"
 
 msgid "Password"
 msgstr "Lösenord"
@@ -2148,8 +2180,27 @@ msgstr "Är du säker på att du vill radera denna samling?"
 msgid "Home"
 msgstr "Hem"
 
+msgid "Live version"
+msgstr "Publicerad version"
+
+msgid "Current draft"
+msgstr "Nuvarande utkast"
+
+msgid "Review this version"
+msgstr "Granska denna version"
+
+msgid "Compare with current version"
+msgstr "Jämför med nuvarande version"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt schemalagd publicering"
+
 msgid "Workflow progress"
 msgstr "Arbetsflöde framsteg"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s '%(title)s' är nu olåst."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -2182,12 +2233,24 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr "Redigera '%(title)s'"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Kopiera '%(title)s'"
+
 msgid "Inspect"
 msgstr "Inspektera"
 
 #, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Inspektera '%(title)s'"
+
+#, python-format
 msgid "Delete '%(title)s'"
 msgstr "Radera '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Lägg till %(model_name)s"
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -2220,6 +2283,9 @@ msgstr "Version %(revision_id)s av \"%(object)s\" avschemalagd."
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revision %(revision_id)s av \"%(object)s\""
+
+msgid "If you confirm deletion"
+msgstr "Om du bekräftar radering"
 
 msgid "Field"
 msgstr "Fält"
@@ -2442,17 +2508,17 @@ msgstr "Sidan kunde inte sparas eftersom den är låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
-msgid "Hide commenting actions"
-msgstr "Göm kommenteringshandlingar"
-
-msgid "Page history"
-msgstr "Sidhistorik"
+msgid "Owner"
+msgstr "Ägare"
 
 msgid "Site"
 msgstr "Sajt"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "Page type"
+msgstr "Sidtyp"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2477,6 +2543,9 @@ msgid ""
 msgstr ""
 "Du tittar på en tidigare version av sidan från <b>%(created_at)s</b> av "
 "%(user)s"
+
+msgid "Page history"
+msgstr "Sidhistorik"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2505,6 +2574,9 @@ msgstr "Äldre sidor"
 
 msgid "Last published at"
 msgstr "Senast publicerad vid"
+
+msgid "Hide commenting actions"
+msgstr "Göm kommenteringshandlingar"
 
 msgid "Site history"
 msgstr "Sajthistorik"
@@ -2544,6 +2616,9 @@ msgstr "Begärdes av"
 
 msgid "Add a workflow"
 msgstr "Lägg till arbetsflöde"
+
+msgid "Used by"
+msgstr "Används av"
 
 msgid "New workflow"
 msgstr "Nytt arbetsflöde"
@@ -2660,20 +2735,8 @@ msgstr "Numrerad lista"
 msgid "Blockquote"
 msgstr "Blockcitat"
 
-msgid "Bold"
-msgstr "Fetstil"
-
-msgid "Italic"
-msgstr "Kursiv"
-
 msgid "Link"
 msgstr "Länk"
-
-msgid "Superscript"
-msgstr "Exponent"
-
-msgid "Subscript"
-msgstr "Index"
 
 msgid "Strikethrough"
 msgstr "Genomstruket"

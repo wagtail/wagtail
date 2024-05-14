@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -187,24 +187,6 @@ msgstr "Villa"
 msgid "Continue"
 msgstr "Áfram"
 
-msgid "Export redirects"
-msgstr "Flytja út tilvísanir"
-
-msgid "Site"
-msgstr "Vefsvæði"
-
-msgid "Edit this redirect"
-msgstr "Breyta þessari tilvísun"
-
-msgid "No redirects found."
-msgstr "Engar tilvísanir fundust"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Það er %(counter)s niðurstaða"
-msgstr[1] " Það eru %(counter)s niðurstöður        "
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -218,6 +200,18 @@ msgid ""
 msgstr ""
 "Engar tilvísanir hér. Viltu <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">búa til tilvísun</a>?"
+
+msgid "Site"
+msgstr "Vefsvæði"
+
+msgid "Edit this redirect"
+msgstr "Breyta þessari tilvísun"
+
+msgid "No redirects found."
+msgstr "Engar tilvísanir fundust"
+
+msgid "Export redirects"
+msgstr "Flytja út tilvísanir"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."

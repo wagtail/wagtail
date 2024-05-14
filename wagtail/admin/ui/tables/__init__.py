@@ -149,7 +149,10 @@ class Column(BaseColumn):
         if callable(self.accessor):
             return self.accessor(instance)
         else:
-            return multigetattr(instance, self.accessor)
+            try:
+                return multigetattr(instance, self.accessor)
+            except AttributeError:
+                return None
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -515,7 +518,3 @@ class Table(Component):
         @cached_property
         def attrs(self):
             return self.table.get_row_attrs(self.instance)
-
-
-class InlineActionsTable(Table):
-    classname = "listing listing--inline-actions"

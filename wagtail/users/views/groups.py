@@ -1,13 +1,20 @@
+from warnings import warn
+
 from django.contrib.auth.models import Group
-from django.urls import re_path
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import re_path, reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.utils import set_query_params
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.users.views.users import Index
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 _permission_panel_classes = None
 
@@ -45,11 +52,30 @@ class PermissionPanelFormsMixin:
             for cls in get_permission_panel_classes()
         ]
 
+    def process_form(self):
+        form = self.get_form()
+        permission_panels = self.get_permission_panel_forms()
+        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
+            response = self.form_valid(form)
+
+            for panel in permission_panels:
+                panel.save()
+
+            return response
+        else:
+            return self.form_invalid(form)
+
     def get_context_data(self, **kwargs):
         if "permission_panels" not in kwargs:
             kwargs["permission_panels"] = self.get_permission_panel_forms()
 
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+
+        # Add js/css media from the formsets to the existing media
+        for panel in context["permission_panels"]:
+            context["media"] += panel.media
+
+        return context
 
 
 class IndexView(generic.IndexView):
@@ -74,9 +100,6 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '%(object)s' created.")
 
-    def get_page_subtitle(self):
-        return ""
-
     def post(self, request, *args, **kwargs):
         """
         Handle POST requests: instantiate a form instance with the passed
@@ -84,29 +107,7 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
         """
         # Create an object now so that the permission panel forms have something to link them against
         self.object = Group()
-
-        form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            response = self.form_valid(form)
-
-            for panel in permission_panels:
-                panel.save()
-
-            return response
-        else:
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context["form"].media
-        for panel in context["permission_panels"]:
-            form_media += panel.media
-        context["form_media"] = form_media
-
-        return context
+        return self.process_form()
 
 
 class EditView(PermissionPanelFormsMixin, generic.EditView):
@@ -115,35 +116,26 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
     delete_item_label = _("Delete group")
     context_object_name = "group"
 
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("View users in this group"),
+                url=set_query_params(
+                    reverse("wagtailusers_users:index"),
+                    {"group": self.object.pk},
+                ),
+                icon_name="user",
+            )
+        ]
+
     def post(self, request, *args, **kwargs):
         """
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
         self.object = self.get_object()
-
-        form = self.get_form()
-        permission_panels = self.get_permission_panel_forms()
-        if form.is_valid() and all(panel.is_valid() for panel in permission_panels):
-            response = self.form_valid(form)
-
-            for panel in permission_panels:
-                panel.save()
-
-            return response
-        else:
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context["form"].media
-        for panel in context["permission_panels"]:
-            form_media += panel.media
-        context["form_media"] = form_media
-
-        return context
+        return self.process_form()
 
 
 class DeleteView(generic.DeleteView):
@@ -157,7 +149,6 @@ class GroupViewSet(ModelViewSet):
     model = Group
     ordering = ["name"]
     add_to_reference_index = False
-    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView
@@ -168,16 +159,25 @@ class GroupViewSet(ModelViewSet):
 
     @property
     def users_view(self):
-        return Index.as_view()
+        def view(request, pk):
+            legacy_url = reverse(self.get_url_name("users"), args=(pk,))
+            new_url = set_query_params(
+                reverse("wagtailusers_users:index"),
+                {"group": get_object_or_404(Group, pk=pk).pk},
+            )
 
-    @property
-    def users_results_view(self):
-        return Index.as_view(results_only=True)
+            warn(
+                f"Accessing the list of users in a group via {legacy_url} is "
+                f"deprecated, use {new_url} instead.",
+                RemovedInWagtail70Warning,
+            )
+            return redirect(new_url)
+
+        return view
 
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
-                "history_url_name": None,
                 "usage_url_name": None,
                 **kwargs,
             }
@@ -189,7 +189,4 @@ class GroupViewSet(ModelViewSet):
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             re_path(r"(\d+)/users/$", self.users_view, name="users"),
-            re_path(
-                r"(\d+)/users/results/$", self.users_results_view, name="users_results"
-            ),
         ]

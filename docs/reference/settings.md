@@ -321,7 +321,7 @@ This setting enables feature detection once OpenCV is installed, see all details
 ### `WAGTAILIMAGES_INDEX_PAGE_SIZE`
 
 ```python
-WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 30
 ```
 
 Specifies the number of images per page shown on the main Images listing in the Wagtail admin.
@@ -347,12 +347,16 @@ Specifies the number of images shown per page in the image chooser modal.
 ### `WAGTAILIMAGES_RENDITION_STORAGE`
 
 ```python
+# Recommended
+WAGTAILIMAGES_RENDITION_STORAGE = 'my_custom_storage'
+# Or
 WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+WAGTAILIMAGES_RENDITION_STORAGE = MyCustomStorage()
 ```
 
-This setting allows image renditions to be stored using an alternative storage backend. The default is `None`, which will use Django's default `FileSystemStorage`.
+This setting allows image renditions to be stored using an alternative storage configuration. It is recommended to use a storage alias defined in [Django's STORAGES setting](https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES). Alternatively, this setting also accepts a dotted module path to a `Storage` subclass, or an instance of such a subclass. The default is `None`, meaning renditions will use the project's default storage.
 
-Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>`.
+Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>` for more information.
 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
@@ -404,6 +408,10 @@ For this reason, Wagtail provides several serving methods that trade some of the
 
 If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
 
+```{warning}
+Allowing direct access to document URLs within `MEDIA_ROOT` may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
+```
+
 (wagtaildocs_content_types)=
 
 ### `WAGTAILDOCS_CONTENT_TYPES`
@@ -436,9 +444,11 @@ WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
 ```
 
 A list of allowed document extensions that will be validated during document uploading.
-If this isn't supplied all document extensions are allowed.
-Warning: this doesn't always ensure that the uploaded file is valid as files can
-be renamed to have an extension no matter what data they contain.
+If this isn't supplied all document extensions are allowed. This doesn't ensure that the uploaded file is valid, as files can be renamed to have an extension no matter what data they contain.
+
+```{warning}
+Allowing all file types may present a security risk if untrusted users are allowed to upload documents - in this case additional configuration will be required at the webserver level to handle these securely. See [](user_uploaded_files).
+```
 
 ## User Management
 
@@ -634,23 +644,33 @@ WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
 
 For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users can dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
+(frontend_authentication)=
+
 ## Frontend authentication
 
-### `PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 ```
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-### `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
+```{versionchanged} 6.1
+`PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`.
+```
+
+### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
+
+```{versionchanged} 6.1
+`DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`.
+```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
@@ -670,22 +690,22 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`
+### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`
+### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.

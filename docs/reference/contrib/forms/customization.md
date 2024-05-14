@@ -586,11 +586,13 @@ class FormPage(AbstractEmailForm):
     ]
 ```
 
+(custom_form_submission_listing)=
+
 ## Customise form submissions listing in Wagtail Admin
 
 The Admin listing of form submissions can be customized by setting the attribute `submissions_list_view_class` on your FormPage model.
 
-The list view class must be a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a child class of Django's class based {class}`~django.views.generic.list.ListView`.
+The list view class must be a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a subclass of `wagtail.admin.views.generic.base.BaseListingView` and Django's class based {class}`~django.views.generic.list.ListView`.
 
 Example:
 
@@ -601,7 +603,7 @@ from wagtail.contrib.forms.views import SubmissionsListView
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50  # show more submissions per page, default is 20
-    ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
+    default_ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
     ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
 
     # override the method to generate csv filename
@@ -625,6 +627,10 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     # content_panels = ...
+```
+
+```{versionchanged} 6.1
+The `SubmissionsListView` class is now a subclass of Wagtail's generic `BaseListingView`. As a result, the `ordering` attribute has been renamed to `default_ordering`.
 ```
 
 ## Adding a custom field type

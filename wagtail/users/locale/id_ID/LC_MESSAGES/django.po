@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -102,6 +102,9 @@ msgstr "Pilih zona waktu saat ini"
 msgid "profile picture"
 msgstr "gambar profil"
 
+msgid "Default"
+msgstr "Utama"
+
 msgid "user profile"
 msgstr "profil pengguna"
 
@@ -189,20 +192,6 @@ msgstr "Tambah pengguna"
 msgid "Delete user"
 msgstr "Hapus pengguna"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Maaf, tidak ada pengguna yang sesuai dengan \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Username"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Admin"
-msgstr "Admin"
-
 msgid "Active"
 msgstr "Aktif"
 
@@ -239,6 +228,15 @@ msgstr "Tambah pengguna"
 msgid "Users"
 msgstr "Pengguna"
 
+msgid "Username"
+msgstr "Username"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Status"
+msgstr "Status"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Pengguna '%(object)s' berhasil diperbaharui."
@@ -249,6 +247,3 @@ msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Pengguna '%(object)s' dihapus."
-
-msgid "Edit"
-msgstr "Ubah"

@@ -4,6 +4,7 @@ from django.db.models import F
 from django.forms import CheckboxSelectMultiple, RadioSelect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext_lazy as _
 from django_filters.filters import (
     ChoiceFilter,
@@ -67,11 +68,6 @@ class EditedByFilter(MultipleUserFilter):
 
 
 class PageFilterSet(WagtailFilterSet):
-    content_type = MultipleContentTypeFilter(
-        label=_("Page type"),
-        queryset=lambda request: get_page_content_types(include_base_page_type=False),
-        widget=CheckboxSelectMultiple,
-    )
     latest_revision_created_at = DateFromToRangeFilter(
         label=_("Date updated"),
         widget=DateRangePickerWidget,
@@ -119,6 +115,14 @@ class PageFilterSet(WagtailFilterSet):
         fields = []  # only needed for filters being generated automatically
 
 
+class ExplorablePageFilterSet(PageFilterSet):
+    content_type = MultipleContentTypeFilter(
+        label=_("Page type"),
+        queryset=lambda request: get_page_content_types(include_base_page_type=False),
+        widget=CheckboxSelectMultiple,
+    )
+
+
 class IndexView(generic.IndexView):
     template_name = "wagtailadmin/pages/index.html"
     results_template_name = "wagtailadmin/pages/index_results.html"
@@ -137,7 +141,11 @@ class IndexView(generic.IndexView):
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
-    page_title = _("Exploring")
+    index_url_name = None
+    index_results_url_name = None
+    default_ordering = "-latest_revision_created_at"
+    model = Page
+    _show_breadcrumbs = True
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -153,54 +161,15 @@ class IndexView(generic.IndexView):
             sort_key="latest_revision_created_at",
             width="12%",
         ),
-        Column(
-            "type",
-            label=_("Type"),
-            accessor="page_type_display_name",
-            sort_key="content_type",
-            width="12%",
-        ),
         PageStatusColumn(
             "status",
             label=_("Status"),
             sort_key="live",
             width="12%",
         ),
-        NavigateToChildrenColumn("navigate", width="10%"),
     ]
 
-    def get(self, request, parent_page_id=None):
-        if parent_page_id:
-            self.parent_page = get_object_or_404(
-                Page.objects.all().prefetch_workflow_states(), id=parent_page_id
-            )
-        else:
-            self.parent_page = Page.get_first_root_node()
-
-        # This will always succeed because of the check performed by PermissionCheckedMixin.
-        root_page = self.permission_policy.explorable_root_instance(request.user)
-
-        # If this page isn't a descendant of the user's explorable root page,
-        # then redirect to that explorable root page instead.
-        if not (
-            self.parent_page.pk == root_page.pk
-            or self.parent_page.is_descendant_of(root_page)
-        ):
-            return redirect("wagtailadmin_explore", root_page.pk)
-
-        self.parent_page = self.parent_page.specific
-        self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
-
-        if (
-            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-            and not self.parent_page.is_root()
-        ):
-            self.locale = self.parent_page.locale
-            self.translations = self.get_translations()
-        else:
-            self.locale = None
-            self.translations = []
-
+    def get(self, request):
         # Search
         self.query_string = None
         self.is_searching = False
@@ -214,30 +183,19 @@ class IndexView(generic.IndexView):
         if self.query_string:
             self.is_searching = True
 
-        self.is_searching_whole_tree = bool(self.request.GET.get("search_all")) and (
-            self.is_searching or self.is_filtering
-        )
-
         return super().get(request)
 
     def get_valid_orderings(self):
-        valid_orderings = [
-            "title",
-            "-title",
-            "live",
-            "-live",
-            "latest_revision_created_at",
-            "-latest_revision_created_at",
-        ]
+        valid_orderings = super().get_valid_orderings()
 
-        if not self.is_searching:
-            # ordering by page order is only available when not searching
-            valid_orderings.append("ord")
-
+        if self.is_searching:
             # ordering by content type not currently available when searching, due to
             # https://github.com/wagtail/wagtail/issues/6616
-            valid_orderings.append("content_type")
-            valid_orderings.append("-content_type")
+            try:
+                valid_orderings.remove("content_type")
+                valid_orderings.remove("-content_type")
+            except ValueError:
+                pass
 
         return valid_orderings
 
@@ -246,7 +204,7 @@ class IndexView(generic.IndexView):
             # default to ordering by relevance
             default_ordering = None
         else:
-            default_ordering = self.parent_page.get_admin_default_ordering()
+            default_ordering = self.default_ordering
 
         ordering = self.request.GET.get("ordering", default_ordering)
         if ordering not in self.get_valid_orderings():
@@ -255,17 +213,16 @@ class IndexView(generic.IndexView):
         return ordering
 
     def get_base_queryset(self):
-        if self.is_searching or self.is_filtering:
-            if self.is_searching_whole_tree:
-                pages = Page.objects.all()
-            else:
-                pages = self.parent_page.get_descendants()
-        else:
-            pages = self.parent_page.get_children()
+        pages = self.model.objects.filter(depth__gt=1)
+        pages = self._annotate_queryset(pages)
+        return pages
 
-        pages = pages.prefetch_related(
-            "content_type", "sites_rooted_here"
-        ) & self.permission_policy.explorable_instances(self.request.user)
+    def _annotate_queryset(self, pages):
+        pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
+            pk__in=self.permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -309,12 +266,6 @@ class IndexView(generic.IndexView):
         return queryset
 
     def search_queryset(self, queryset):
-        # allow hooks to modify queryset. This should happen as close as possible to the
-        # final queryset, but (for backward compatibility) needs to be passed an actual queryset
-        # rather than a search result object
-        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
-            queryset = hook(self.parent_page, queryset, self.request)
-
         if self.is_searching:
             queryset = queryset.autocomplete(
                 self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
@@ -322,19 +273,125 @@ class IndexView(generic.IndexView):
 
         return queryset
 
-    def get_paginate_by(self, queryset):
-        if self.ordering == "ord":
-            # Don't paginate if sorting by page order - all pages must be shown to
-            # allow drag-and-drop reordering
-            return None
-        else:
-            return self.paginate_by
-
     def get_index_url(self):
-        return reverse("wagtailadmin_explore", args=[self.parent_page.id])
+        return reverse(self.index_url_name)
 
     def get_index_results_url(self):
-        return reverse("wagtailadmin_explore_results", args=[self.parent_page.id])
+        return reverse(self.index_results_url_name)
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [{"url": "", "label": self.get_page_title()}]
+
+    def get_table_kwargs(self):
+        kwargs = super().get_table_kwargs()
+        kwargs["actions_next_url"] = self.index_url
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update(
+            {
+                "ordering": self.ordering,
+                "search_form": self.search_form,
+                "is_searching": self.is_searching,
+            }
+        )
+        return context
+
+
+class ExplorableIndexView(IndexView):
+    """
+    A version of the page listing where the user is presented with a view of a specified parent page;
+    normally this will show the children of that page, but it may show results from the whole tree while
+    searching or filtering.
+    """
+
+    template_name = "wagtailadmin/pages/explorable_index.html"
+    index_url_name = "wagtailadmin_explore"
+    index_results_url_name = "wagtailadmin_explore_results"
+    page_title = _("Exploring")
+    filterset_class = ExplorablePageFilterSet
+
+    @classproperty
+    def columns(cls):
+        columns = super().columns.copy()
+        columns.insert(
+            3,
+            Column(
+                "type",
+                label=_("Type"),
+                accessor="page_type_display_name",
+                sort_key="content_type",
+                width="12%",
+            ),
+        )
+        columns.append(NavigateToChildrenColumn("navigate", width="10%"))
+        return columns
+
+    def get(self, request, parent_page_id=None):
+        if parent_page_id:
+            self.parent_page = get_object_or_404(
+                Page.objects.all().prefetch_workflow_states(), id=parent_page_id
+            )
+        else:
+            self.parent_page = Page.get_first_root_node()
+
+        # This will always succeed because of the check performed by PermissionCheckedMixin.
+        root_page = self.permission_policy.explorable_root_instance(request.user)
+
+        # If this page isn't a descendant of the user's explorable root page,
+        # then redirect to that explorable root page instead.
+        if not (
+            self.parent_page.pk == root_page.pk
+            or self.parent_page.is_descendant_of(root_page)
+        ):
+            return redirect(self.index_url_name, root_page.pk)
+
+        self.parent_page = self.parent_page.specific
+        self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
+
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        if self.i18n_enabled and not self.parent_page.is_root():
+            self.locale = self.parent_page.locale
+            self.translations = self.get_translations()
+        else:
+            self.locale = None
+            self.translations = []
+
+        return super().get(request)
+
+    @cached_property
+    def is_searching_whole_tree(self):
+        return bool(self.request.GET.get("search_all")) and (
+            self.is_searching or self.is_filtering
+        )
+
+    def get_base_queryset(self):
+        if self.is_searching or self.is_filtering:
+            if self.is_searching_whole_tree:
+                pages = Page.objects.all()
+            else:
+                pages = self.parent_page.get_descendants()
+        else:
+            pages = self.parent_page.get_children()
+
+        pages = self._annotate_queryset(pages)
+        return pages
+
+    def search_queryset(self, queryset):
+        # allow hooks to modify queryset. This should happen as close as possible to the
+        # final queryset, but (for backward compatibility) needs to be passed an actual queryset
+        # rather than a search result object
+        for hook in hooks.get_hooks("construct_explorer_page_queryset"):
+            queryset = hook(self.parent_page, queryset, self.request)
+        return super().search_queryset(queryset)
+
+    def get_index_url(self):
+        return reverse(self.index_url_name, args=[self.parent_page.id])
+
+    def get_index_results_url(self):
+        return reverse(self.index_results_url_name, args=[self.parent_page.id])
 
     def get_history_url(self):
         permissions = self.parent_page.permissions_for_user(self.request.user)
@@ -346,7 +403,6 @@ class IndexView(generic.IndexView):
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
         kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
-        kwargs["actions_next_url"] = self.index_url
 
         if self.show_ordering_column:
             kwargs["caption"] = _(
@@ -367,6 +423,36 @@ class IndexView(generic.IndexView):
             }
         return kwargs
 
+    def get_valid_orderings(self):
+        valid_orderings = super().get_valid_orderings()
+
+        if not self.is_searching:
+            # ordering by page order is only available when not searching
+            valid_orderings.append("ord")
+
+        return valid_orderings
+
+    def get_ordering(self):
+        if self.is_searching and not self.is_explicitly_ordered:
+            # default to ordering by relevance
+            default_ordering = None
+        else:
+            default_ordering = self.parent_page.get_admin_default_ordering()
+
+        ordering = self.request.GET.get("ordering", default_ordering)
+        if ordering not in self.get_valid_orderings():
+            ordering = default_ordering
+
+        return ordering
+
+    def get_paginate_by(self, queryset):
+        if self.ordering == "ord":
+            # Don't paginate if sorting by page order - all pages must be shown to
+            # allow drag-and-drop reordering
+            return None
+        else:
+            return self.paginate_by
+
     def get_page_subtitle(self):
         return self.parent_page.get_admin_display_title()
 
@@ -375,8 +461,6 @@ class IndexView(generic.IndexView):
         if self.show_ordering_column:
             self.columns = self.columns.copy()
             self.columns[0] = OrderingColumn("ordering", width="80px", sort_key="ord")
-        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-
         context = super().get_context_data(**kwargs)
 
         if self.is_searching:
@@ -397,10 +481,7 @@ class IndexView(generic.IndexView):
         context.update(
             {
                 "parent_page": self.parent_page,
-                "ordering": self.ordering,
                 "history_url": self.get_history_url(),
-                "search_form": self.search_form,
-                "is_searching": self.is_searching,
                 "is_searching_whole_tree": self.is_searching_whole_tree,
             }
         )
@@ -411,17 +492,6 @@ class IndexView(generic.IndexView):
             context["media"] += side_panels.media
 
         return context
-
-    def get_translations(self):
-        return [
-            {
-                "locale": translation.locale,
-                "url": reverse("wagtailadmin_explore", args=[translation.id]),
-            }
-            for translation in self.parent_page.get_translations()
-            .only("id", "locale")
-            .select_related("locale")
-        ]
 
     def get_side_panels(self):
         # Don't show side panels on the root page
@@ -440,3 +510,14 @@ class IndexView(generic.IndexView):
             ),
         ]
         return MediaContainer(side_panels)
+
+    def get_translations(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse(self.index_url_name, args=[translation.id]),
+            }
+            for translation in self.parent_page.get_translations()
+            .only("id", "locale")
+            .select_related("locale")
+        ]

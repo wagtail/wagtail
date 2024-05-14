@@ -9,12 +9,16 @@ should implement low-level generic functionality which is then imported by highe
 as Page.
 """
 
+from __future__ import annotations
+
 import functools
 import logging
 import posixpath
 import uuid
 from io import StringIO
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
+from warnings import warn
 
 from django import forms
 from django.conf import settings
@@ -92,6 +96,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -125,6 +130,9 @@ from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -1283,6 +1291,43 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    @staticmethod
+    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+        """
+        Find the page route for the given HTTP request object, and URL path. The route
+        result (`page`, `args`, and `kwargs`) will be cached via
+        `request._wagtail_route_for_request`.
+        """
+        if not hasattr(request, "_wagtail_route_for_request"):
+            try:
+                # we need a valid Site object for this request in order to proceed
+                if site := Site.find_for_request(request):
+                    path_components = [
+                        component for component in path.split("/") if component
+                    ]
+                    request._wagtail_route_for_request = (
+                        site.root_page.localized.specific.route(
+                            request, path_components
+                        )
+                    )
+                else:
+                    request._wagtail_route_for_request = None
+            except Http404:
+                # .route() can raise Http404
+                request._wagtail_route_for_request = None
+
+        return request._wagtail_route_for_request
+
+    @staticmethod
+    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+        """
+        Find the page for the given HTTP request object, and URL path. The full
+        page route will be cached via `request._wagtail_route_for_request`
+        """
+        result = Page.route_for_request(request, path)
+        if result is not None:
+            return result[0]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.id:
@@ -1625,6 +1670,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             try:
                 subpage = self.get_children().get(slug=child_slug)
+                # Cache the parent page on the subpage to avoid another db query
+                # Treebeard's get_parent will use the `_cached_parent_obj` attribute if it exists
+                # And update = False
+                setattr(subpage, "_cached_parent_obj", self)
+
             except Page.DoesNotExist:
                 raise Http404
 
@@ -2549,9 +2599,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
-    password_required_template = getattr(
-        settings, "PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/password_required.html"
-    )
+    password_required_template = None
 
     def serve_password_required_response(self, request, form, action_url):
         """
@@ -2561,10 +2609,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             (and zero or more hidden fields that also need to be output on the template)
         action_url = URL that this form should be POSTed to
         """
+
+        password_required_template = self.password_required_template
+
+        if not password_required_template:
+            password_required_template = getattr(
+                settings,
+                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+                "wagtailcore/password_required.html",
+            )
+
+            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
+                warn(
+                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+
+                password_required_template = getattr(
+                    settings,
+                    "PASSWORD_REQUIRED_TEMPLATE",
+                    password_required_template,
+                )
+
         context = self.get_context(request)
         context["form"] = form
         context["action_url"] = action_url
-        return TemplateResponse(request, self.password_required_template, context)
+        return TemplateResponse(request, password_required_template, context)
 
     def with_content_json(self, content):
         """
@@ -2727,7 +2797,31 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
+class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
+    def previous_revision_id_subquery(self, revision_fk_name="revision"):
+        """
+        Returns a Subquery that can be used to annotate a queryset with the ID
+        of the previous revision, based on the revision_fk_name field. Useful
+        to avoid N+1 queries when generating comparison links between revisions.
+
+        The logic is similar to Revision.get_previous().pk.
+        """
+        fk = revision_fk_name
+        return Subquery(
+            Revision.objects.filter(
+                base_content_type_id=OuterRef(f"{fk}__base_content_type_id"),
+                object_id=OuterRef(f"{fk}__object_id"),
+            )
+            .filter(
+                Q(
+                    created_at=OuterRef(f"{fk}__created_at"),
+                    pk__lt=OuterRef(f"{fk}__pk"),
+                )
+                | Q(created_at__lt=OuterRef(f"{fk}__created_at"))
+            )
+            .order_by("-created_at", "-pk")
+            .values_list("pk", flat=True)[:1]
+        )
 
 
 class PageRevisionsManager(RevisionsManager):
@@ -3616,7 +3710,7 @@ class Workflow(AbstractWorkflow):
     pass
 
 
-class GroupApprovalTask(Task):
+class AbstractGroupApprovalTask(Task):
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("groups"),
@@ -3648,24 +3742,37 @@ class GroupApprovalTask(Task):
 
         return super().start(workflow_state, user=user)
 
+    def _user_in_groups(self, user):
+        # Cache the check whether "this user is in any of this
+        # GroupApprovalTask's groups" on the user object, in case we do it
+        # against the same user and task multiple times in a request.
+        # Use a dict to map the task id to the check result, in case we also
+        # check against different GroupApprovalTasks for the same user.
+        cache_attr = "_group_approval_task_checks"
+        if not (checks_cache := getattr(user, cache_attr, {})):
+            setattr(user, cache_attr, checks_cache)
+
+        if self.pk not in checks_cache:
+            checks_cache[self.pk] = self.groups.filter(
+                id__in=user.groups.all()
+            ).exists()
+
+        return checks_cache[self.pk]
+
     def user_can_access_editor(self, obj, user):
-        return (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return user.is_superuser or self._user_in_groups(user)
 
     def locked_for_user(self, obj, user):
-        return not (
-            self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
-        )
+        return not (user.is_superuser or self._user_in_groups(user))
 
     def user_can_lock(self, obj, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self._user_in_groups(user)
 
     def user_can_unlock(self, obj, user):
         return False
 
     def get_actions(self, obj, user):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
+        if user.is_superuser or self._user_in_groups(user):
             return [
                 ("reject", _("Request changes"), True),
                 ("approve", _("Approve"), False),
@@ -3675,10 +3782,8 @@ class GroupApprovalTask(Task):
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
-            return TaskState.objects.filter(
-                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
-            )
+        if user.is_superuser or self._user_in_groups(user):
+            return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
         else:
             return TaskState.objects.none()
 
@@ -3687,8 +3792,13 @@ class GroupApprovalTask(Task):
         return _("Members of the chosen Wagtail Groups can approve this task")
 
     class Meta:
+        abstract = True
         verbose_name = _("Group approval task")
         verbose_name_plural = _("Group approval tasks")
+
+
+class GroupApprovalTask(AbstractGroupApprovalTask):
+    pass
 
 
 class WorkflowStateQuerySet(models.QuerySet):
@@ -4123,10 +4233,10 @@ class WorkflowState(models.Model):
 
 class BaseTaskStateManager(models.Manager):
     def reviewable_by(self, user):
-        tasks = Task.objects.filter(active=True)
+        tasks = Task.objects.filter(active=True).specific()
         states = TaskState.objects.none()
         for task in tasks:
-            states = states | task.specific.get_task_states_user_can_moderate(user=user)
+            states = states | task.get_task_states_user_can_moderate(user=user)
         return states
 
 

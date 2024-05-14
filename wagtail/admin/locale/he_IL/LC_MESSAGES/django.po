@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he_IL\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
-"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: 2;\n"
 
 msgid "Publish"
 msgstr "פרסם"
@@ -78,6 +78,9 @@ msgstr "עד לתאריך"
 msgid "All"
 msgstr "הכל"
 
+msgid "Collection"
+msgstr "אוסף"
+
 msgid "Preferred language"
 msgstr "שפה מועדפת"
 
@@ -118,9 +121,6 @@ msgstr "ערך לחיפוש"
 
 msgid "Search"
 msgstr "חיפוש"
-
-msgid "Collection"
-msgstr "אוסף"
 
 msgid "Parent"
 msgstr "הורה"
@@ -167,7 +167,6 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "זה יעתיק תת-עמוד %(count)s."
 msgstr[1] "זה יעתיק %(count)s תת-עמודים."
 msgstr[2] "זה יעתיק %(count)s תת-עמודים."
-msgstr[3] "זה יעתיק %(count)s תת-עמודים."
 
 msgid "Publish copied page"
 msgstr "פרסם עמוד מועתק"
@@ -191,9 +190,6 @@ msgstr[1] ""
 "%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
 "שלהם?"
 msgstr[2] ""
-"%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
-"שלהם?"
-msgstr[3] ""
 "%(count)s מהדפים שמועתקים מופיעים עכשו באתר. האם אתם רוצים לפרסם את העותקים "
 "שלהם?"
 
@@ -291,9 +287,6 @@ msgstr "ציבורי"
 
 msgid "Private"
 msgstr "פרטי"
-
-msgid "Name"
-msgstr "שם"
 
 msgid "Yes, delete"
 msgstr "כן, מחק"
@@ -447,9 +440,6 @@ msgstr "העתק"
 msgid "Copy this page"
 msgstr "העתק עמוד זה"
 
-msgid "User"
-msgstr "משתמש"
-
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
 
@@ -509,6 +499,12 @@ msgstr "עמודים"
 
 msgid "Locked"
 msgstr "נעול"
+
+msgid "Name"
+msgstr "שם"
+
+msgid "User"
+msgstr "משתמש"
 
 msgid "Edit this item"
 msgstr "ערוך פריט זה"

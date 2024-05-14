@@ -20,6 +20,18 @@ A (possibly empty) :doc:`form media <django:topics/forms/media>` object defining
    Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the `Component` class described below, and user code that works with components should not assume this (for example, it must not use `isinstance` to check whether a given value is a component).
 ```
 
+```{note}
+   Starting with version 6.0, Wagtail uses the [Laces](https://pypi.org/project/laces/) library to provide all the component related implementations.
+
+   The Laces library was extracted from Wagtail to make the concept of "template components" available to the wider Django ecosystem.
+
+   All import paths shown below continue to work, but they are only references to the implementations in Laces.
+
+   "Template components" are not restricted to extensions of the Wagtail admin. You can use the concepts and tools below in your user-facing code as well.
+
+   You can find more information on the use of components in the [Laces documentation](https://github.com/tbrlpld/laces/blob/main/README.md).
+```
+
 (creating_template_components)=
 
 ## Creating components

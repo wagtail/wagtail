@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -259,9 +259,6 @@ msgstr "Byla nerasta"
 
 msgid "Usage"
 msgstr "Panaudojimas"
-
-msgid "Popular Tags:"
-msgstr "Populiarios žymenos:"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

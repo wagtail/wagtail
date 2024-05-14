@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Timo Tuominen, 2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -141,30 +141,6 @@ msgstr "Toimet"
 msgid "Select all snippets in listing"
 msgstr "Valitse kaikki listauksen pätkät"
 
-msgid "Live version"
-msgstr "Esillä oleva versio"
-
-msgid "Current draft"
-msgstr "Nykyinen luonnos"
-
-msgid "Preview"
-msgstr "Esikatsele"
-
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "Review this version"
-msgstr "Tarkasta tämä versio"
-
-msgid "Compare with previous version"
-msgstr "Vertaa edelliseen versioon"
-
-msgid "Compare with current version"
-msgstr "Vertaa nykyiseen versioon"
-
-msgid "Cancel scheduled publish"
-msgstr "Peruuta ajastettu julkaisu"
-
 msgid "Choose"
 msgstr "Valitse"
 
@@ -173,12 +149,6 @@ msgstr "Pätkät"
 
 msgid "Name"
 msgstr "Nimi"
-
-msgid "Action"
-msgstr "Toiminto"
-
-msgid "Date"
-msgstr "Pvm"
 
 #, python-format
 msgid "Edit this %(model_name)s"

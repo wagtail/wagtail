@@ -198,6 +198,17 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     if (current !== previous) this.notify();
   }
 
+  getIsValidNode(node: Node | null) {
+    if (!node || node.nodeType !== node.ELEMENT_NODE) return false;
+
+    const validElements = ['input', 'textarea', 'select'];
+
+    return (
+      validElements.includes((node as Element).localName) ||
+      (node as Element).querySelector(validElements.join(',')) !== null
+    );
+  }
+
   /**
    * Notify the user of changes to the form.
    * Dispatch events to update the footer message via dispatching events.
@@ -288,15 +299,11 @@ export class UnsavedController extends Controller<HTMLFormElement> {
         detail: { initialFormData },
       });
 
-      const isValidInputNode = (node) =>
-        node.nodeType === node.ELEMENT_NODE &&
-        ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName);
-
       const observer = new MutationObserver((mutationList) => {
         const hasMutationWithValidInputNode = mutationList.some(
           (mutation) =>
-            Array.from(mutation.addedNodes).some(isValidInputNode) ||
-            Array.from(mutation.removedNodes).some(isValidInputNode),
+            Array.from(mutation.addedNodes).some(this.getIsValidNode) ||
+            Array.from(mutation.removedNodes).some(this.getIsValidNode),
         );
 
         if (hasMutationWithValidInputNode) this.check();

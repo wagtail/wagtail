@@ -162,5 +162,15 @@ This does not remove unused rendition images, this can be done by clearing the f
 
 Options:
 
--   **--purge-only** :
+-  `--purge-only` :
     This argument will purge all image renditions without regenerating them. They will be regenerated when next requested.
+
+(convert_mariadb_uuids)=
+
+## convert_mariadb_uuids
+
+```sh
+./manage.py convert_mariadb_uuids
+```
+
+For sites using MariaDB, this command must be run once when upgrading to Django 5.0 and MariaDB 10.7 from any earlier version of Django or MariaDB. This is necessary because Django 5.0 introduces support for MariaDB's native UUID type, breaking backwards compatibility with `CHAR`-based UUIDs used in earlier versions of Django and MariaDB. New sites created under Django 5.0+ and MariaDB 10.7+ are unaffected.

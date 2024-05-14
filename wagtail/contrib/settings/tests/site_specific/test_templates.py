@@ -174,7 +174,7 @@ class TestTemplateTag(TemplateTestCase):
 
         self.assertEqual(template.render(context), "")
 
-    def test_get_settings_variable_assigment_use_default(self):
+    def test_get_settings_variable_assignment_use_default(self):
         """
         Check that assigning the setting to a context variable with
         {% get_settings use_default_site=True as wagtail_settings %} works.

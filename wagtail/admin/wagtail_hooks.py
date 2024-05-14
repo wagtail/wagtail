@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext
@@ -64,6 +64,7 @@ from wagtail.templatetags.wagtailcore_tags import (
     wagtail_feature_release_editor_guide_link,
     wagtail_feature_release_whats_new_link,
 )
+from wagtail.utils.version import get_main_version
 from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -743,6 +744,21 @@ def register_core_features(features):
                     # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
                     "href": "^(http:|https:|undefined$)",
                 },
+                "chooserUrls": {
+                    "pageChooser": reverse_lazy("wagtailadmin_choose_page"),
+                    "externalLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_external_link"
+                    ),
+                    "emailLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_email_link"
+                    ),
+                    "phoneLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_phone_link"
+                    ),
+                    "anchorLinkChooser": reverse_lazy(
+                        "wagtailadmin_choose_page_anchor_link"
+                    ),
+                },
             },
             js=[
                 "wagtailadmin/js/page-chooser-modal.js",
@@ -960,7 +976,7 @@ def register_reports_menu():
 
 @hooks.register("register_help_menu_item")
 def register_whats_new_in_wagtail_version_menu_item():
-    version = "6.1"
+    version = get_main_version(include_patch=False)
     return DismissibleMenuItem(
         _("What's new in Wagtail %(version)s") % {"version": version},
         wagtail_feature_release_whats_new_link(),
@@ -980,6 +996,28 @@ def register_editors_guide_menu_item():
         order=1100,
         attrs={"target": "_blank", "rel": "noreferrer"},
         name="editor-guide",
+    )
+
+
+@hooks.register("register_help_menu_item")
+def register_keyboard_shortcuts_menu_item():
+    """
+    Triggers the keyboard shortcuts dialog to open when clicked
+    while preventing the default link click action.
+    """
+
+    return MenuItem(
+        _("Shortcuts"),
+        icon_name="keyboard",
+        order=1200,
+        attrs={
+            "role": "button",  # Ensure screen readers announce this as a button
+            "data-a11y-dialog-show": "keyboard-shortcuts-dialog",
+            "data-action": "w-action#noop:prevent:stop",
+            "data-controller": "w-action",
+        },
+        name="keyboard-shortcuts-trigger",
+        url="#",
     )
 
 
@@ -1061,6 +1099,7 @@ def register_icons(icons):
         "info-circle.svg",
         "italic.svg",
         "key.svg",
+        "keyboard.svg",
         "link.svg",
         "link-external.svg",
         "list-ol.svg",

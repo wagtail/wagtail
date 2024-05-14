@@ -7,7 +7,6 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls.base import reverse
-from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
@@ -93,7 +92,7 @@ def can_choose_page(
 
             if user_perm == "move_to":
                 return page_to_move.permissions_for_user(user).can_move_to(page)
-    if user_perm == "copy_to":
+    if user_perm in {"add_subpage", "copy_to"}:
         return page.permissions_for_user(user).can_add_subpage()
 
     return True
@@ -286,6 +285,11 @@ class BrowseView(View):
         selected_locale = None
         locale_options = []
         if self.i18n_enabled:
+            # Ensure query parameters (e.g. `page_type`, `user_perms`, etc.) are
+            # preserved when switching locales, but reset the pagination as the
+            # number of pages might be different.
+            new_params = request.GET.copy()
+            new_params.pop("p", None)
             if self.parent_page.is_root():
                 # 'locale' is the current value of the "Locale" selector in the UI
                 if request.GET.get("locale"):
@@ -298,25 +302,20 @@ class BrowseView(View):
 
                 # we are at the Root level, so get the locales from the current pages
                 choose_url = reverse("wagtailadmin_choose_page")
-                locale_options = [
-                    {
-                        "locale": locale,
-                        "url": choose_url
-                        + "?"
-                        + urlencode(
-                            {
-                                "page_type": page_type_string,
-                                "locale": locale.language_code,
-                            }
-                        ),
-                    }
-                    for locale in Locale.objects.filter(
-                        pk__in=pages.values_list("locale_id")
-                    ).exclude(pk=active_locale_id)
-                ]
+                for locale in Locale.objects.filter(
+                    pk__in=pages.values_list("locale_id")
+                ).exclude(pk=active_locale_id):
+                    new_params["locale"] = locale.language_code
+                    locale_options.append(
+                        {
+                            "locale": locale,
+                            "url": choose_url + "?" + new_params.urlencode(),
+                        }
+                    )
             else:
                 # We have a parent page (that is not the root page). Use its locale as the selected localer
                 selected_locale = self.parent_page.locale
+                new_params.pop("locale", None)
                 # and get the locales based on its available translations
                 locales_and_parent_pages = {
                     item["locale"]: item["pk"]
@@ -332,17 +331,14 @@ class BrowseView(View):
                         "wagtailadmin_choose_page_child",
                         args=[locales_and_parent_pages[locale.pk]],
                     )
-
                     locale_options.append(
                         {
                             "locale": locale,
-                            "url": choose_child_url
-                            + "?"
-                            + urlencode({"page_type": page_type_string}),
+                            "url": choose_child_url + "?" + new_params.urlencode(),
                         }
                     )
 
-            # finally, filter the browseable pages on the selected locale
+            # finally, filter the browsable pages on the selected locale
             if selected_locale:
                 pages = pages.filter(locale=selected_locale)
 
@@ -355,7 +351,7 @@ class BrowseView(View):
         except InvalidPage:
             raise Http404
 
-        # Annotate each page with can_choose/can_decend flags
+        # Annotate each page with can_choose/can_descend flags
         for page in pages:
             page.can_choose = can_choose_page(
                 page,

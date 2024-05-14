@@ -28,6 +28,9 @@ class IndexView(generic.IndexView):
         ),
     ]
 
+    def get_base_queryset(self):
+        return super().get_base_queryset().select_related("root_page")
+
 
 class CreateView(generic.CreateView):
     page_title = _("Add site")
@@ -53,7 +56,6 @@ class SiteViewSet(ModelViewSet):
     model = Site
     permission_policy = site_permission_policy
     add_to_reference_index = False
-    _show_breadcrumbs = False
 
     index_view_class = IndexView
     add_view_class = CreateView

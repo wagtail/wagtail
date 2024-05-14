@@ -63,9 +63,9 @@ export class SlugController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
-    const unicodeSlugsEnabled = this.allowUnicodeValue;
+    const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-    const newValue = slugify(value.trim(), { unicodeSlugsEnabled });
+    const newValue = slugify(value.trim(), { allowUnicode });
 
     if (!ignoreUpdate) {
       this.element.value = newValue;
@@ -77,6 +77,11 @@ export class SlugController extends Controller<HTMLInputElement> {
   /**
    * Advanced slugify of a string, updates the controlled element's value
    * or can be used to simply return the transformed value.
+   *
+   * The urlify (Django port) function performs extra processing on the string &
+   * is more suitable for creating a slug from the title, rather than sanitising manually.
+   * If the urlify util returns an empty string it will fall back to the slugify method.
+   *
    * If a custom event with detail.value is provided, that value will be used
    * instead of the field's value.
    */
@@ -84,9 +89,13 @@ export class SlugController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
-    const unicodeSlugsEnabled = this.allowUnicodeValue;
+    const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-    const newValue = urlify(value.trim(), { unicodeSlugsEnabled });
+    const trimmedValue = value.trim();
+
+    const newValue =
+      urlify(trimmedValue, { allowUnicode }) ||
+      this.slugify({ detail: { value: trimmedValue } }, true);
 
     if (!ignoreUpdate) {
       this.element.value = newValue;

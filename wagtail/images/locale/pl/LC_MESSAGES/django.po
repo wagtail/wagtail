@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2021,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -388,15 +388,6 @@ msgstr "Użycie"
 
 msgid "Sort by"
 msgstr "Sortuj przez"
-
-msgid "Entries per page"
-msgstr "Wpisów na stronę"
-
-msgid "Popular Tags:"
-msgstr "Popularne Tagi:"
-
-msgid "Clear"
-msgstr "Wyczyść"
 
 msgid "Select all images in listing"
 msgstr "Zaznacz wszystkie dobrazy na liście"

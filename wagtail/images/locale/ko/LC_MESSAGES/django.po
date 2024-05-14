@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -237,9 +237,6 @@ msgstr "파일을 찾을 수 없습니다"
 
 msgid "Usage"
 msgstr "사용"
-
-msgid "Popular Tags:"
-msgstr "인기있는 태그:"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

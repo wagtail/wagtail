@@ -19,7 +19,7 @@
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Lautaro Bringas, 2023
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016,2024
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oluwadamilare Ogunbanjo, 2022
@@ -33,9 +33,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Lautaro Bringas, 2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -102,6 +102,12 @@ msgstr "Región"
 msgid "All"
 msgstr "Todo"
 
+msgid "Collection"
+msgstr "Colección"
+
+msgid "Tag"
+msgstr "Etiqueta"
+
 msgid "Preferred language"
 msgstr "Idioma preferido"
 
@@ -147,9 +153,6 @@ msgstr "Búsqueda"
 
 msgid "All collections"
 msgstr "Todas las colecciones"
-
-msgid "Collection"
-msgstr "Colección"
 
 msgid "Parent"
 msgstr "Padre"
@@ -265,6 +268,9 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Seleccionar una nueva página padre para esta página."
+
+msgid "Parent page"
+msgstr "Página padre"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -645,9 +651,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta colección no puede ser borrada, por que no está vacía. Contiene:"
 
-msgid "Name"
-msgstr "Nombre"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -690,6 +693,12 @@ msgstr "¿Aún te gustaría publicar este %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Actions"
+msgstr "Acciones"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -753,9 +762,6 @@ msgstr "Bloqueado el"
 
 msgid "Edit this page"
 msgstr "Editar esta página"
-
-msgid "Actions"
-msgstr "Acciones"
 
 msgid "Unlock"
 msgstr "Desbloquear"
@@ -1495,31 +1501,6 @@ msgstr "Editar página original"
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir este alias en una página ordinaria"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historial de página para %(subtitle)s"
-
-msgid "Action"
-msgstr "Acción"
-
-msgid "User"
-msgstr "Usuario"
-
-msgid "Date / Time"
-msgstr "Fecha / Hora"
-
-msgid "Comment"
-msgstr "Comentario"
-
-msgid "Live version"
-msgstr "Versión en vivo"
-
-msgid "Current draft"
-msgstr "Borrador actual"
-
-msgid "No log entries found."
-msgstr "No se encontraron entradas de registro."
-
 msgid "Select all pages in listing"
 msgstr "Seleccionar todas las páginas de la lista"
 
@@ -1613,15 +1594,6 @@ msgstr "Confirmar"
 
 msgid "Add child page"
 msgstr "Añadir página hija"
-
-msgid "Review this version"
-msgstr "Revisar esta versión"
-
-msgid "Compare with current version"
-msgstr "Comparar con versión actual"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancelar publicación programada"
 
 #, python-format
 msgid "There is one matching page"
@@ -1718,8 +1690,23 @@ msgstr "Bloqueada"
 msgid "No locked pages found."
 msgstr "Ninguna página bloqueada encontrada."
 
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "Date / Time"
+msgstr "Fecha / Hora"
+
 msgid "Edit this item"
 msgstr "Editar este item"
+
+msgid "No log entries found."
+msgstr "No se encontraron entradas de registro."
 
 msgid "By Task"
 msgstr "Por Tarea"
@@ -1781,9 +1768,6 @@ msgstr "Regresar"
 
 msgid "History"
 msgstr "Historial"
-
-msgid "Root"
-msgstr "Raíz"
 
 msgid "Current page status:"
 msgstr "Estado actual de página:"
@@ -2017,10 +2001,10 @@ msgid ""
 "target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
 "in your web browser</a>."
 msgstr ""
-"Se necesita JavaScript para usar Wagtal, pero está deshabilitado.<br /> Aquí "
-"están las <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
-"rel=\"noreferrer\">instrucciones para habilitar JavaScript en tu navegador</"
-"a>-"
+"Se necesita JavaScript para usar Wagtail, pero está deshabilitado.<br /> "
+"Aquí están las <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instrucciones para habilitar JavaScript "
+"en tu navegador</a>-"
 
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"
@@ -2110,14 +2094,9 @@ msgstr "Página"
 msgid "Assign to another page"
 msgstr "Asignar a otra página"
 
-msgid "Hide disabled workflows"
-msgstr "Ocultar flujos de trabajo deshabilitados"
-
-msgid "Show disabled workflows"
-msgstr "Mostrar flujos de trabajo deshabilitados"
-
-msgid "Used by"
-msgstr "Usado por"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Paso %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2125,10 +2104,6 @@ msgid_plural "%(counter)s pages"
 msgstr[0] "1 página"
 msgstr[1] "%(counter)s páginas"
 msgstr[2] "%(counter)s páginas"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Paso %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2178,12 +2153,6 @@ msgid ""
 msgstr ""
 "¿Por qué no <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>crear ahora una</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Ocultar tareas deshabilitadas"
-
-msgid "Show disabled tasks"
-msgstr "Mostrar tareas deshabilitadas"
 
 #, python-format
 msgid ""
@@ -2255,10 +2224,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s por %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "ahora mismo por %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "hace %(time_period)s por %(user_display_name)s"
 
@@ -2276,6 +2241,24 @@ msgstr "Enviada a %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Deshacer"
+
+msgid "Redo"
+msgstr "Rehacer"
+
+msgid "Bold"
+msgstr "Negrilla"
+
+msgid "Italic"
+msgstr "Italica"
+
+msgid "Superscript"
+msgstr "Superíndice"
+
+msgid "Subscript"
+msgstr "Subíndice"
 
 msgid "Toggle status"
 msgstr "Alternar estado"
@@ -2361,6 +2344,21 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 
 msgid "Home"
 msgstr "Inicio"
+
+msgid "Live version"
+msgstr "Versión en vivo"
+
+msgid "Current draft"
+msgstr "Borrador actual"
+
+msgid "Review this version"
+msgstr "Revisar esta versión"
+
+msgid "Compare with current version"
+msgstr "Comparar con versión actual"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancelar publicación programada"
 
 msgid "Workflow progress"
 msgstr "Progreso de flujo de trabajo"
@@ -2707,12 +2705,6 @@ msgstr "La página no pudo ser guardada debido a que se encuentra bloqueada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La página no ha podido ser guardada debido a errores de validación"
 
-msgid "Hide commenting actions"
-msgstr "Ocultar acciones de comentario"
-
-msgid "Page history"
-msgstr "Historial de página"
-
 msgid "Owner"
 msgstr "Propietario"
 
@@ -2746,6 +2738,9 @@ msgstr ""
 "Estás viendo una versión anterior de esta página desde el <b>%(created_at)s</"
 "b> por %(user)s"
 
+msgid "Page history"
+msgstr "Historial de página"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Página '%(page_title)s' sin publicar."
@@ -2773,6 +2768,9 @@ msgstr "Páginas envejeciendo"
 
 msgid "Last published at"
 msgstr "Última publicación el"
+
+msgid "Hide commenting actions"
+msgstr "Ocultar acciones de comentario"
 
 msgid "Site history"
 msgstr "Historial del sitio"
@@ -2806,6 +2804,9 @@ msgstr "Solicitado por"
 
 msgid "Add a workflow"
 msgstr "Añadir un flujo de trabajo"
+
+msgid "Used by"
+msgstr "Usado por"
 
 msgid "New workflow"
 msgstr "Nuevo flujo de trabajo"
@@ -2922,20 +2923,8 @@ msgstr "Lista numerada"
 msgid "Blockquote"
 msgstr "Bloque de texto citado"
 
-msgid "Bold"
-msgstr "Negrilla"
-
-msgid "Italic"
-msgstr "Italica"
-
 msgid "Link"
 msgstr "Enlace"
-
-msgid "Superscript"
-msgstr "Superíndice"
-
-msgid "Subscript"
-msgstr "Subíndice"
 
 msgid "Strikethrough"
 msgstr "Tachado"

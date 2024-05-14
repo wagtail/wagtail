@@ -2067,7 +2067,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(35):
+        with self.assertNumQueries(33):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2080,7 +2080,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(39):
+        with self.assertNumQueries(37):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -3088,7 +3088,7 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
         # Login
         self.user = self.login()
 
-    def test_commment_notifications_switched_off(self):
+    def test_comment_notifications_switched_off(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
@@ -3104,7 +3104,7 @@ class TestPageSubscriptionSettings(WagtailTestUtils, TestCase):
             ).exists()
         )
 
-    def test_commment_notifications_switched_on(self):
+    def test_comment_notifications_switched_on(self):
         PageSubscription.objects.create(
             page=self.child_page, user=self.user, comment_notifications=True
         )
@@ -3247,7 +3247,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
             [to for email in mail.outbox for to in email.to],
         )
 
-    def test_commments_enabled_by_default(self):
+    def test_comments_enabled_by_default(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
@@ -3261,7 +3261,7 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("w-comments:init", form["data-w-init-event-value"])
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
-    def test_commments_disabled(self):
+    def test_comments_disabled(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )

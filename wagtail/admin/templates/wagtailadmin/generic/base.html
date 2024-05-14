@@ -8,16 +8,8 @@
     {% block header %}
         {% block slim_header %}
             {% if breadcrumbs_items %}
-                {% fragment stripped as actions %}
-                    {% block header_buttons %}
-                        {% for button in header_buttons %}
-                            {% component button %}
-                        {% endfor %}
-                    {% endblock %}
-                {% endfragment %}
-
                 {# Ensure all necessary variables are passed explicitly here #}
-                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters actions=actions only %}
+                {% include "wagtailadmin/shared/headers/slim_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon only %}
             {% endif %}
         {% endblock %}
         {% block main_header %}

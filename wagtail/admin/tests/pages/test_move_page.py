@@ -243,7 +243,7 @@ class TestPageMove(WagtailTestUtils, TestCase):
 
     def test_page_move_after_parent_page_types_changes_to_different_parent_model(self):
         # Test for issue #10348
-        # While BusinesSubIndex cannot be created under a SimplePage, we can
+        # While BusinessSubIndex cannot be created under a SimplePage, we can
         # still create it under a SimplePage invoking django-treebeard's add_child
         # which works great for our purposes.
         self.assertFalse(BusinessSubIndex.can_exist_under(self.section_a))

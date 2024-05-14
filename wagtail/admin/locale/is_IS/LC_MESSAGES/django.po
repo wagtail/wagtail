@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2023\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -79,6 +79,12 @@ msgstr "Þýðing"
 msgid "All"
 msgstr "Allt"
 
+msgid "Collection"
+msgstr "Safn"
+
+msgid "Tag"
+msgstr "Merking"
+
 msgid "Preferred language"
 msgstr "Valið tungumál"
 
@@ -123,9 +129,6 @@ msgstr "Leita"
 
 msgid "All collections"
 msgstr "Öll söfn"
-
-msgid "Collection"
-msgstr "Safn"
 
 msgid "Parent"
 msgstr "Yfirsíða"
@@ -247,6 +250,9 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
+
+msgid "Parent page"
+msgstr "Yfirsíða"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -628,9 +634,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ekki er hægt að eyða safni, af því það er ekki tómt. Það inniheldur:"
 
-msgid "Name"
-msgstr "Nafn"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -697,6 +700,12 @@ msgstr "Viltu samt setja %(model_name)s í loftið?"
 msgid "Cancel"
 msgstr "Hætta við"
 
+msgid "Comment"
+msgstr "Athugasemd"
+
+msgid "Actions"
+msgstr "Aðgerðir"
+
 msgid "Update"
 msgstr "Uppfæra"
 
@@ -757,9 +766,6 @@ msgstr "Læst"
 
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
-
-msgid "Actions"
-msgstr "Aðgerðir"
 
 msgid "Unlock"
 msgstr "Aflæsa"
@@ -1560,31 +1566,6 @@ msgstr "Breyta upprunalegri síðu"
 msgid "Convert this alias into an ordinary page"
 msgstr "Breyta þessari spegilsíðu í venjulega síðu"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Saga síðu %(subtitle)s"
-
-msgid "Action"
-msgstr "Aðgerð"
-
-msgid "User"
-msgstr "Notandi"
-
-msgid "Date / Time"
-msgstr "Dagsetning/Tími"
-
-msgid "Comment"
-msgstr "Athugasemd"
-
-msgid "Live version"
-msgstr "Útgáfa í birtingu"
-
-msgid "Current draft"
-msgstr "Núverandi vinnuskjal"
-
-msgid "No log entries found."
-msgstr "Engar atburðaskráningar fundust."
-
 msgid "Select all pages in listing"
 msgstr "Velja allar síðu"
 
@@ -1681,15 +1662,6 @@ msgstr "Staðfesta"
 
 msgid "Add child page"
 msgstr "Bæta við undirsíðu"
-
-msgid "Review this version"
-msgstr "Skoða þessa útgáfu"
-
-msgid "Compare with current version"
-msgstr "Bera saman við núverandi útgáfu"
-
-msgid "Cancel scheduled publish"
-msgstr "Hætta við tímasetta birtingu"
 
 #, python-format
 msgid "There is one matching page"
@@ -1797,8 +1769,23 @@ msgstr "Læst"
 msgid "No locked pages found."
 msgstr "Engar læstar síður fundust"
 
+msgid "Name"
+msgstr "Nafn"
+
+msgid "Action"
+msgstr "Aðgerð"
+
+msgid "User"
+msgstr "Notandi"
+
+msgid "Date / Time"
+msgstr "Dagsetning/Tími"
+
 msgid "Edit this item"
 msgstr "Breyta þessu"
+
+msgid "No log entries found."
+msgstr "Engar atburðaskráningar fundust."
 
 msgid "By Task"
 msgstr "Eftir skrefi"
@@ -1863,9 +1850,6 @@ msgstr "Til baka"
 
 msgid "History"
 msgstr "Saga"
-
-msgid "Root"
-msgstr "Rót"
 
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
@@ -2231,14 +2215,9 @@ msgstr "Síða"
 msgid "Assign to another page"
 msgstr "Tengja við aðra síðu"
 
-msgid "Hide disabled workflows"
-msgstr "Fela óvirk vinnuflæði"
-
-msgid "Show disabled workflows"
-msgstr "Sýna óvirk vinnuflæði"
-
-msgid "Used by"
-msgstr "Notað af"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Skref %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2251,10 +2230,6 @@ msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 tegund snifsa"
 msgstr[1] "%(counter)s tegundir snifsa"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Skref %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2304,12 +2279,6 @@ msgid ""
 msgstr ""
 "Af hverju ekki <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>búa til nýtt núna</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Fela óvirk skref"
-
-msgid "Show disabled tasks"
-msgstr "Sýna óvirk skref"
 
 #, python-format
 msgid ""
@@ -2384,10 +2353,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s af %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "rétt í þessu af %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s síðan af %(user_display_name)s"
 
@@ -2405,6 +2370,24 @@ msgstr "Sent til %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Bakka"
+
+msgid "Redo"
+msgstr "Endurgera"
+
+msgid "Bold"
+msgstr "Feitletrun"
+
+msgid "Italic"
+msgstr "Skáletrun"
+
+msgid "Superscript"
+msgstr "Yfirskrift"
+
+msgid "Subscript"
+msgstr "Undirskrift"
 
 msgid "Toggle status"
 msgstr "Sýna/fela stöðu"
@@ -2529,6 +2512,21 @@ msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 
 msgid "Home"
 msgstr "Heim"
+
+msgid "Live version"
+msgstr "Útgáfa í birtingu"
+
+msgid "Current draft"
+msgstr "Núverandi vinnuskjal"
+
+msgid "Review this version"
+msgstr "Skoða þessa útgáfu"
+
+msgid "Compare with current version"
+msgstr "Bera saman við núverandi útgáfu"
+
+msgid "Cancel scheduled publish"
+msgstr "Hætta við tímasetta birtingu"
 
 msgid "Workflow progress"
 msgstr "Staða vinnuflæðis"
@@ -2919,12 +2917,6 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
-msgid "Hide commenting actions"
-msgstr "Fela athugasemdaaðgerðir"
-
-msgid "Page history"
-msgstr "Saga síðu"
-
 msgid "Owner"
 msgstr "Eigandi"
 
@@ -2958,6 +2950,9 @@ msgstr ""
 "Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
 
+msgid "Page history"
+msgstr "Saga síðu"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Síða '%(page_title)s' tekin úr birtingu."
@@ -2985,6 +2980,9 @@ msgstr "Elstu síðurnar"
 
 msgid "Last published at"
 msgstr "Síðast sett í loftið"
+
+msgid "Hide commenting actions"
+msgstr "Fela athugasemdaaðgerðir"
 
 msgid "Site history"
 msgstr "Saga síðu"
@@ -3027,6 +3025,9 @@ msgstr "Umbeðið af"
 
 msgid "Add a workflow"
 msgstr "Bæta við vinnuflæði"
+
+msgid "Used by"
+msgstr "Notað af"
 
 msgid "New workflow"
 msgstr "Nýtt vinnuflæði"
@@ -3175,20 +3176,8 @@ msgstr "Númeraður listi"
 msgid "Blockquote"
 msgstr "Inndregin textablokk"
 
-msgid "Bold"
-msgstr "Feitletrun"
-
-msgid "Italic"
-msgstr "Skáletrun"
-
 msgid "Link"
 msgstr "Hlekkur"
-
-msgid "Superscript"
-msgstr "Yfirskrift"
-
-msgid "Subscript"
-msgstr "Undirskrift"
 
 msgid "Strikethrough"
 msgstr "Yfirstrikað"

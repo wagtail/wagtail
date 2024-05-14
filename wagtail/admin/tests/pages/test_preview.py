@@ -447,9 +447,15 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Should show the preview panel
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should have the preview side panel toggle button
+        soup = self.get_soup(response.content)
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
+        self.assertIsNotNone(toggle_button)
+        self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
+        self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
         # Should show the iframe
         self.assertContains(
@@ -571,8 +577,11 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         )
 
         response = self.client.get(history_url)
-        self.assertContains(response, "Preview")
-        self.assertContains(response, preview_url)
+        soup = self.get_soup(response.content)
+
+        preview_link = soup.find("a", {"href": preview_url})
+        self.assertEqual(len(preview_link), 1)
+        self.assertEqual("Preview", preview_link.text)
 
 
 class TestDisablePreviewButton(WagtailTestUtils, TestCase):
@@ -635,5 +644,10 @@ class TestDisablePreviewButton(WagtailTestUtils, TestCase):
             "wagtailadmin_pages:revisions_view",
             args=(stream_page.id, latest_revision.id),
         )
-        self.assertNotContains(response, "Preview")
+
         self.assertNotContains(response, preview_url)
+
+        soup = self.get_soup(response.content)
+
+        preview_link = soup.find("a", {"href": preview_url})
+        self.assertIsNone(preview_link)

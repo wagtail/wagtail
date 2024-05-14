@@ -42,6 +42,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestIncorrectRegistration(SimpleTestCase):
@@ -69,8 +70,6 @@ class BaseSnippetViewSetTests(WagtailTestUtils, TestCase):
 
 
 class TestCustomIcon(BaseSnippetViewSetTests):
-    # TODO: decide what to do with this test, since the new designs after
-    # Universal Listings and unified breadcrumbs/header don't have icons
     model = FullFeaturedSnippet
 
     def setUp(self):
@@ -84,26 +83,28 @@ class TestCustomIcon(BaseSnippetViewSetTests):
     def test_get_views(self):
         pk = quote(self.object.pk)
         views = [
-            # TODO: Some of these views have been migrated to use the slim_header
-            # only, so there is no header_icon anymore.
-            # ("list", []),
-            # ("add", []),
-            # ("edit", [pk]),
-            # ("delete", [pk]),
-            # ("usage", [pk]),
-            ("unpublish", [pk]),
-            ("workflow_history", [pk]),
-            # ("revisions_revert", [pk, self.revision_1.id]),
-            ("revisions_compare", [pk, self.revision_1.id, self.revision_2.id]),
-            ("revisions_unschedule", [pk, self.revision_2.id]),
+            ("list", [], "headers/slim_header.html"),
+            ("add", [], "headers/slim_header.html"),
+            ("edit", [pk], "headers/slim_header.html"),
+            ("delete", [pk], "header.html"),
+            ("usage", [pk], "headers/slim_header.html"),
+            ("unpublish", [pk], "header.html"),
+            ("workflow_history", [pk], "header.html"),
+            ("revisions_revert", [pk, self.revision_1.id], "headers/slim_header.html"),
+            (
+                "revisions_compare",
+                [pk, self.revision_1.id, self.revision_2.id],
+                "header.html",
+            ),
+            ("revisions_unschedule", [pk, self.revision_2.id], "header.html"),
         ]
-        for view_name, args in views:
+        for view_name, args, header in views:
             with self.subTest(view_name=view_name):
                 response = self.client.get(self.get_url(view_name, args))
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(response.context["header_icon"], "cog")
                 self.assertContains(response, "icon icon-cog", count=1)
-                self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
+                self.assertTemplateUsed(response, f"wagtailadmin/shared/{header}")
 
     def test_get_history(self):
         response = self.client.get(self.get_url("history", [quote(self.object.pk)]))
@@ -112,6 +113,10 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             response,
             "wagtailadmin/shared/headers/slim_header.html",
         )
+        # History view icon is not configurable for consistency with pages
+        self.assertEqual(response.context["header_icon"], "history")
+        self.assertContains(response, "icon icon-history")
+        self.assertNotContains(response, "icon icon-cog")
         self.assertTemplateNotUsed(response, "wagtailadmin/shared/header.html")
 
     def test_get_workflow_history_detail(self):
@@ -715,10 +720,12 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
         # One from the country code column, another from the custom foo column
         self.assertContains(response, sort_country_code_url, count=2)
 
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+
+        headings = soup.select("#listing-results table th")
 
         # The bulk actions column plus 6 columns defined in FullFeaturedSnippetViewSet
-        self.assertTagInHTML("<th>", html, count=7, allow_extra_attrs=True)
+        self.assertEqual(len(headings), 7)
 
     def test_falsy_value(self):
         # https://github.com/wagtail/wagtail/issues/10765
@@ -767,6 +774,44 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             html=True,
             count=1,
         )
+
+
+class TestRelatedFieldListDisplay(BaseSnippetViewSetTests):
+    model = SnippetChooserModel
+
+    def setUp(self):
+        super().setUp()
+        url = "https://example.com/free_examples"
+        self.advert = Advert.objects.create(url=url, text="Free Examples")
+        self.ffs = FullFeaturedSnippet.objects.create(text="royale with cheese")
+
+    def test_empty_foreignkey(self):
+        self.no_ffs_chooser = self.model.objects.create(advert=self.advert)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Chosen snippet text")
+        self.assertContains(response, "<td></td>", html=True)
+
+    def test_single_level_relation(self):
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        headers = [
+            header.get_text(strip=True)
+            for header in soup.select("#listing-results table th")
+        ]
+        self.assertIn("Chosen snippet text", headers)
+        self.assertContains(response, "<td>royale with cheese</td>", html=True)
+
+    def test_multi_level_relation(self):
+        self.scm = self.model.objects.create(advert=self.advert, full_featured=self.ffs)
+        dummy_revision = self.ffs.save_revision()
+        timestamp = render_timestamp(dummy_revision.created_at)
+        response = self.client.get(self.get_url("list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Latest revision created at")
+        self.assertContains(response, f"<td>{timestamp}</td>", html=True)
 
 
 class TestListExport(BaseSnippetViewSetTests):
@@ -1529,4 +1574,36 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         add_url = self.get_url("add") + "?locale=fr&customised=param"
         soup = self.get_soup(response.content)
         links = soup.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 1)
+
+    def test_index_results_view_get_add_url_teleports_to_header(self):
+        response = self.client.get(self.get_url("list_results"))
+        add_url = self.get_url("add") + "?customised=param"
+        soup = self.get_soup(response.content)
+        template = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-slim-header-buttons",
+            },
+        )
+        self.assertIsNotNone(template)
+        links = template.find_all("a", attrs={"href": add_url})
+        self.assertEqual(len(links), 1)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_index_results_view_get_add_url_teleports_to_header_with_i18n(self):
+        Locale.objects.create(language_code="fr")
+        response = self.client.get(self.get_url("list_results") + "?locale=fr")
+        add_url = self.get_url("add") + "?locale=fr&customised=param"
+        soup = self.get_soup(response.content)
+        template = soup.find(
+            "template",
+            {
+                "data-controller": "w-teleport",
+                "data-w-teleport-target-value": "#w-slim-header-buttons",
+            },
+        )
+        self.assertIsNotNone(template)
+        links = template.find_all("a", attrs={"href": add_url})
         self.assertEqual(len(links), 1)

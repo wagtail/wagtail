@@ -20,7 +20,25 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Sites"}],
+            response.content,
+        )
+
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(9):
+            self.get()
+
+        sites = [
+            Site(hostname=f"host {i}", port=f"800{i}", root_page_id=2)
+            for i in range(10)
+        ]
+        Site.objects.bulk_create(sites)
+
+        with self.assertNumQueries(9):
+            self.get()
 
 
 class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -56,8 +74,13 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/create.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Sites", "url": "/admin/sites/"},
+                {"label": "New: Site", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_create(self):
         response = self.post(
@@ -201,14 +224,19 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/edit.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/sites/", "label": "Sites"},
+                {"url": "", "label": str(self.localhost)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/sites/edit/%d/" % self.localhost.id
         self.assertEqual(url_finder.get_edit_url(self.localhost), expected_url)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_edit(self):
@@ -357,7 +385,7 @@ class TestSiteDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
-    def test_nonexistant_redirect(self):
+    def test_nonexistent_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_posting_deletes_site(self):
@@ -396,7 +424,6 @@ class TestLimitedPermissions(WagtailTestUtils, TestCase):
     def test_get_create_view(self):
         response = self.client.get(reverse("wagtailsites:add"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/create.html")
 
     def test_create(self):
         response = self.client.post(
@@ -418,7 +445,6 @@ class TestLimitedPermissions(WagtailTestUtils, TestCase):
         edit_url = reverse("wagtailsites:edit", args=(self.localhost.id,))
         response = self.client.get(edit_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsites/edit.html")
 
     def test_edit(self):
         edit_url = reverse("wagtailsites:edit", args=(self.localhost.id,))

@@ -5,7 +5,7 @@
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,12 @@ msgstr "Nyelv"
 msgid "All"
 msgstr "Összes"
 
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+msgid "Tag"
+msgstr "Címkézés"
+
 msgid "Preferred language"
 msgstr "Alapértelmezett nyelv"
 
@@ -129,9 +135,6 @@ msgstr "Keresés"
 
 msgid "All collections"
 msgstr "Összes gyűjtemény"
-
-msgid "Collection"
-msgstr "Gyűjtemény"
 
 msgid "Parent"
 msgstr "Szülő"
@@ -247,6 +250,12 @@ msgstr "A(z) '%(page_slug)s' rövidítés már használatban van a szülőoldal 
 
 msgid "Select a new parent for this page."
 msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
+
+msgid "Parent page"
+msgstr "Szülő oldal"
+
+msgid "Search…"
+msgstr "Keresés..."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -628,9 +637,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Ezt a gyűjteményt nem lehet törölni, mert nem üres. Tartalma:"
 
-msgid "Name"
-msgstr "Név"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -700,6 +706,28 @@ msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
 msgid "Cancel"
 msgstr "Mégsem"
 
+msgid "Comment"
+msgstr "Megjegyzés"
+
+msgid "Actions"
+msgstr "Akciók"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Egyetlen %(model_name)s sem felelt meg a feltételeknek."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Nincs megjeleníthető %(model_name)s. Miért nem <a href=\"%(add_url)s\">ad "
+"hozzá egyet</a>?"
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Nincs megjeleníthető %(model_name)s."
+
 msgid "Update"
 msgstr "Frissítés"
 
@@ -761,9 +789,6 @@ msgstr "Zárolva ekkor: "
 msgid "Edit this page"
 msgstr "Oldal szerkesztése"
 
-msgid "Actions"
-msgstr "Akciók"
-
 msgid "Unlock"
 msgstr "Feloldás"
 
@@ -784,6 +809,20 @@ msgstr "Dátum"
 
 msgid "Site summary"
 msgstr "Oldal összegzés"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
+"only\">%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
+"only\">%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -1578,31 +1617,6 @@ msgstr "Eredeti oldal szerkesztése"
 msgid "Convert this alias into an ordinary page"
 msgstr "Kapcsolt példány konvertálása hagyományos oldallá"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "%(subtitle)s története"
-
-msgid "Action"
-msgstr "Akció"
-
-msgid "User"
-msgstr "Felhasználó"
-
-msgid "Date / Time"
-msgstr "Dátum / idő"
-
-msgid "Comment"
-msgstr "Megjegyzés"
-
-msgid "Live version"
-msgstr "Élő verzió"
-
-msgid "Current draft"
-msgstr "Jelenlegi vázlat"
-
-msgid "No log entries found."
-msgstr "Nincs naplóbejegyzés."
-
 msgid "Select all pages in listing"
 msgstr "Összes oldal kiválasztása a listában"
 
@@ -1664,6 +1678,10 @@ msgstr "Gyermek oldal hozzáadása ehhez: '%(title)s'"
 msgid "Drag"
 msgstr "Megragadás"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s / %(total)s elem"
+
 msgid "Disable ordering of child pages"
 msgstr "Aloldalak sorrendezésének tiltása"
 
@@ -1673,8 +1691,36 @@ msgstr "Sorbarendezés"
 msgid "Enable ordering of child pages"
 msgstr "Aloldalak sorba rendezésének engedélyezése"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s - %(end_index)s / %(items_count)s a teljes oldalon."
+
+msgid "No results across entire site."
+msgstr "Nincs találat a teljes oldalon."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Keresés itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s - %(end_index)s / %(items_count)s itt: '<span class=\"w-"
+"title-ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Nincs találat itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Keresés a teljes oldalon"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s - %(end_index)s / %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Webhely menü"
@@ -1700,15 +1746,6 @@ msgstr "Megerősítés"
 
 msgid "Add child page"
 msgstr "Gyermek oldal hozzáadása"
-
-msgid "Review this version"
-msgstr "Verzió ellenőrzése"
-
-msgid "Compare with current version"
-msgstr "Összehasonlítás a jelenlegi verzióval"
-
-msgid "Cancel scheduled publish"
-msgstr "Időzített közzététel visszavonása"
 
 #, python-format
 msgid "There is one matching page"
@@ -1792,8 +1829,20 @@ msgstr "Egyetlen oldal sem felel meg a feltételeknek."
 msgid "Updated"
 msgstr "Frissítve"
 
+msgid "App"
+msgstr "Névtér"
+
 msgid "Pages"
 msgstr "Oldalak"
+
+msgid "Last edited page"
+msgstr "Utoljára szerkesztett oldal"
+
+msgid "Last edit"
+msgstr "Utolsó szerkesztés"
+
+msgid "No page types found."
+msgstr "Nincs oldaltípus."
 
 msgid "Locking status"
 msgstr "Zárolás státusz"
@@ -1816,8 +1865,23 @@ msgstr "Zárolt"
 msgid "No locked pages found."
 msgstr "Nincs zárolt oldal."
 
+msgid "Name"
+msgstr "Név"
+
+msgid "Action"
+msgstr "Akció"
+
+msgid "User"
+msgstr "Felhasználó"
+
+msgid "Date / Time"
+msgstr "Dátum / idő"
+
 msgid "Edit this item"
 msgstr "Elem szerkesztése"
+
+msgid "No log entries found."
+msgstr "Nincs naplóbejegyzés."
 
 msgid "By Task"
 msgstr "Feladat szerint"
@@ -1877,14 +1941,17 @@ msgstr "Szűrés"
 msgid "Add comment"
 msgstr "Megjegyzés hozzáadása"
 
+msgid "Show filters"
+msgstr "Szűrők megjelenítése"
+
+msgid "Filter by"
+msgstr "Szűrés"
+
 msgid "Back"
 msgstr "Vissza"
 
 msgid "History"
 msgstr "Történet"
-
-msgid "Root"
-msgstr "Gyökér"
 
 msgid "Current page status:"
 msgstr "Oldal jelenlegi státusza:"
@@ -2250,14 +2317,9 @@ msgstr "Oldal"
 msgid "Assign to another page"
 msgstr "Másik oldalhoz rendelés"
 
-msgid "Hide disabled workflows"
-msgstr "Kikapcsolt folyamatok elrejtése"
-
-msgid "Show disabled workflows"
-msgstr "Kikapcsolt folyamatok megjelenítése"
-
-msgid "Used by"
-msgstr "Ezek használják: "
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "%(step_number)s. lépés"
 
 #, python-format
 msgid "1 page"
@@ -2270,10 +2332,6 @@ msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 elem típus"
 msgstr[1] "%(counter)s elem típus"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "%(step_number)s. lépés"
 
 #, python-format
 msgid ""
@@ -2324,12 +2382,6 @@ msgid ""
 msgstr ""
 "Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>hoz "
 "létre egyet most</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Kikapcsolt feladatok elrejtése"
-
-msgid "Show disabled tasks"
-msgstr "Kikapcsolt feladatok megjelenítése"
 
 #, python-format
 msgid ""
@@ -2404,10 +2456,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(user_display_name)s ekkor: %(time)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "%(user_display_name)s épp most"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(user_display_name)s %(time_period)s"
 
@@ -2426,6 +2474,24 @@ msgstr "%(task_name)s lépésben %(started_at)s óta"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
+msgid "Undo"
+msgstr "Visszavonás"
+
+msgid "Redo"
+msgstr "Újra"
+
+msgid "Bold"
+msgstr "Félkövér"
+
+msgid "Italic"
+msgstr "Dőlt"
+
+msgid "Superscript"
+msgstr "Felső index"
+
+msgid "Subscript"
+msgstr "Alsó index"
+
 msgid "Toggle status"
 msgstr "Státusz átállítása"
 
@@ -2440,6 +2506,12 @@ msgstr "Megjegyzések átállítása"
 
 msgid "Comments"
 msgstr "Megjegyzések"
+
+msgid "Toggle checks"
+msgstr "Ellenőrzések kapcsolása"
+
+msgid "Checks"
+msgstr "Ellenőrzések"
 
 msgid "Toggle preview"
 msgstr "Előnézet kapcsolása"
@@ -2566,6 +2638,21 @@ msgstr "Biztosan törli a gyűjteményt?"
 msgid "Home"
 msgstr "Nyitólap"
 
+msgid "Live version"
+msgstr "Élő verzió"
+
+msgid "Current draft"
+msgstr "Jelenlegi vázlat"
+
+msgid "Review this version"
+msgstr "Verzió ellenőrzése"
+
+msgid "Compare with current version"
+msgstr "Összehasonlítás a jelenlegi verzióval"
+
+msgid "Cancel scheduled publish"
+msgstr "Időzített közzététel visszavonása"
+
 msgid "Workflow progress"
 msgstr "Munkafolyamat állapot"
 
@@ -2660,6 +2747,10 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' szerkesztése"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "'%(title)s' másolása"
+
 msgid "Inspect"
 msgstr "Vizsgálat"
 
@@ -2676,11 +2767,23 @@ msgid "More options for '%(title)s'"
 msgstr "'%(title)s' további lehetőségei"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s hozzáadása"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s létrehozása hibák miatt sikertelen"
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Új: %(model_name)s"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "'%(model_name)s' mentése hibák miatt sikertelen."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -2941,17 +3044,43 @@ msgstr "Az oldal mentése nem sikerült, mert zárolva van."
 msgid "The page could not be saved due to validation errors"
 msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
 
-msgid "Hide commenting actions"
-msgstr "Megjegyzés akciók elrejtése"
+msgid "Date updated"
+msgstr "Frissítés dátuma"
 
-msgid "Page history"
-msgstr "Oldaltörténet"
+msgid "Owner"
+msgstr "Létrehozó"
+
+msgid "Edited by"
+msgstr "Szerkesztette"
 
 msgid "Site"
 msgstr "Weboldal"
 
+msgid "Has child pages"
+msgstr "Vannak gyermekoldalai"
+
+msgid "Any"
+msgstr "Bármelyik"
+
 msgid "Yes"
 msgstr "Igen"
+
+msgid "Page type"
+msgstr "Oldal típusa"
+
+msgid "Exploring"
+msgstr "Felfedezés"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókuszáljon a fogd-és-vidd ikonra, majd a fel/le nyilak segítségével "
+"mozgassa az elemet, majd nyomjon entert a változtatások mentéséhez."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' mozgatása sikeres volt."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2976,6 +3105,9 @@ msgid ""
 msgstr ""
 "Az oldal egy korábbi verzióját látja, amelyet %(user)s készített ekkor: "
 "<b>%(created_at)s</b>"
+
+msgid "Page history"
+msgstr "Oldaltörténet"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -3005,6 +3137,9 @@ msgstr "Régi oldalak"
 msgid "Last published at"
 msgstr "Utolsó közzététel ideje"
 
+msgid "Hide commenting actions"
+msgstr "Megjegyzés akciók elrejtése"
+
 msgid "Site history"
 msgstr "Weboldal történet"
 
@@ -3019,6 +3154,9 @@ msgstr "Dátum/idő"
 
 msgid "Locked pages"
 msgstr "Zárolt oldalak"
+
+msgid "Page types usage"
+msgstr "Oldaltípus használat"
 
 msgid "Show"
 msgstr "Megtekintés"
@@ -3046,6 +3184,9 @@ msgstr "Kérelmezte: "
 
 msgid "Add a workflow"
 msgstr "Munkafolyamat hozzáadása"
+
+msgid "Used by"
+msgstr "Ezek használják: "
 
 msgid "New workflow"
 msgstr "Új munkafolyamat"
@@ -3196,20 +3337,8 @@ msgstr "Sorszámozott lista"
 msgid "Blockquote"
 msgstr "Idézet"
 
-msgid "Bold"
-msgstr "Félkövér"
-
-msgid "Italic"
-msgstr "Dőlt"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Felső index"
-
-msgid "Subscript"
-msgstr "Alsó index"
 
 msgid "Strikethrough"
 msgstr "Áthúzott"

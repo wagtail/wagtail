@@ -160,7 +160,7 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # Login to access the admin
         self.login()
 
-        # Make sur the French homepage is published/live
+        # Make sure the French homepage is published/live
         self.fr_homepage.live = True
         self.fr_homepage.save()
         self.assertTrue(self.en_homepage.live)
@@ -259,7 +259,7 @@ class TestMovingTranslatedPages(Utils):
         self.assertEqual(self.en_blog_post.get_parent().id, self.en_blog_index.id)
 
         # Confirm the fr and de blog post pages are under the blog index page
-        # We'll confirm these have not moved after ther POST request.
+        # We'll confirm these have not moved after the POST request.
         original_translated_parent_ids = [
             p.id for p in self.en_blog_index.get_translations()
         ]

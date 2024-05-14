@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -92,6 +92,9 @@ msgstr "preferovaný jazyk"
 
 msgid "Select language for the admin"
 msgstr "Vyberte jazyk pre admin"
+
+msgid "Default"
+msgstr "Predvolené"
 
 msgid "user profile"
 msgstr "používatelský profil"
@@ -177,21 +180,6 @@ msgstr "Pridať používateľa"
 msgid "Delete user"
 msgstr "Zmazať používateľa"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu "
-"\"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Používateľské meno"
-
-msgid "Status"
-msgstr "Postavenie"
-
-msgid "Admin"
-msgstr "Admin"
-
 msgid "Active"
 msgstr "Aktívne"
 
@@ -222,11 +210,23 @@ msgstr "Skupina nemôže byť uložená kvôli chybám."
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' bola vymazaná."
 
+msgid "Group"
+msgstr "Skupina"
+
 msgid "Add a user"
 msgstr "Pridať používateľa"
 
 msgid "Users"
 msgstr "Používatelia"
+
+msgid "Username"
+msgstr "Používateľské meno"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Status"
+msgstr "Postavenie"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -238,6 +238,3 @@ msgstr "Používateľ nemôže byť uložený kvôli chybám."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Používateľ '%(object)s' zmazaný."
-
-msgid "Edit"
-msgstr "Upraviť"

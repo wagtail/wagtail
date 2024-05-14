@@ -28,15 +28,19 @@ urlpatterns = [
     path("api/", include(api_urls)),
     path("failwhale/", home.error_test, name="wagtailadmin_error_test"),
     # TODO: Move into wagtailadmin_pages namespace
-    path("pages/", listing.IndexView.as_view(), name="wagtailadmin_explore_root"),
+    path(
+        "pages/",
+        listing.ExplorableIndexView.as_view(),
+        name="wagtailadmin_explore_root",
+    ),
     path(
         "pages/<int:parent_page_id>/",
-        listing.IndexView.as_view(),
+        listing.ExplorableIndexView.as_view(),
         name="wagtailadmin_explore",
     ),
     path(
         "pages/<int:parent_page_id>/results/",
-        listing.IndexView.as_view(results_only=True),
+        listing.ExplorableIndexView.as_view(results_only=True),
         name="wagtailadmin_explore_results",
     ),
     # bulk actions
@@ -127,6 +131,7 @@ def get_sprite_hash():
     global sprite_hash
     if not sprite_hash:
         content = str(home.sprite(None).content, "utf-8")
+        # SECRET_KEY is used to prevent exposing the Wagtail version
         sprite_hash = hashlib.sha1(
             (content + settings.SECRET_KEY).encode("utf-8")
         ).hexdigest()[:8]
