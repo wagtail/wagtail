@@ -25,7 +25,11 @@
                 {% for identifier, short_label, long_label in formset.permission_types %}
                     <th title="{{ long_label }}">{{ short_label }}</th>
                 {% endfor %}
+<<<<<<< HEAD
                 <th aria-hidden="true">{% comment %} added for visual alignment only {% endcomment %}</th>
+=======
+                <th></th>
+>>>>>>> parent of 7e7b92aa64 (Added aria-hidden=true to empty <th> across admin)
             </tr>
         </thead>
         <tbody id="id_{{ formset.prefix }}-FORMS">
