@@ -22,6 +22,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
 
 
 6.1 (01.05.2024)
@@ -127,6 +128,12 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+
+
+6.0.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
 
 
 6.0.3 (01.05.2024)
