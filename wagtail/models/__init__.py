@@ -3061,10 +3061,10 @@ class BasePermissionTester:
     def user_has_lock(self):
         raise NotImplementedError
 
-    def page_locked(self):
+    def object_locked(self):
         raise NotImplementedError
 
-    def can_add_subpage(self):
+    def can_add_subobject(self):
         raise NotImplementedError
 
     def can_edit(self):
@@ -3094,7 +3094,7 @@ class BasePermissionTester:
     def can_unlock(self):
         raise NotImplementedError
 
-    def can_publish_subpage(self):
+    def can_publish_subobject(self):
         raise NotImplementedError
 
     def can_reorder_children(self):
@@ -3137,6 +3137,21 @@ class PagePermissionTester(BasePermissionTester):
         from wagtail.permissions import page_permission_policy
 
         return page_permission_policy
+
+    ### Aliases for the old methods to conform to the new BasePermissionTester interface.
+    ### The old names are still in use in the codebase, but we may want to move to the
+    ### new names in the future.
+
+    def object_locked(self):
+        return self.page_locked()
+
+    def can_add_subobject(self):
+        return self.can_add_subpage()
+
+    def can_publish_subobject(self):
+        return self.can_publish_subpage()
+
+    ### End of aliases
 
     def user_has_lock(self):
         return self.page.locked_by_id == self.user.pk
@@ -3228,7 +3243,7 @@ class PagePermissionTester(BasePermissionTester):
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page_locked():
+        if self.object_locked():
             return False
 
         return self.user.is_superuser or ("publish" in self.permissions)
@@ -3243,7 +3258,7 @@ class PagePermissionTester(BasePermissionTester):
 
     def can_submit_for_moderation(self):
         return (
-            not self.page_locked()
+            not self.object_locked()
             and self.page.has_workflow
             and not self.page.workflow_in_progress
         )

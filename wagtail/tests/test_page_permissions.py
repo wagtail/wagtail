@@ -63,6 +63,12 @@ class TestPagePermission(TestCase):
         self.assertTrue(unpub_perms.can_add_subpage())
         self.assertTrue(someone_elses_event_perms.can_add_subpage())
 
+        # Aliases for can_add_subpage
+        self.assertFalse(homepage_perms.can_add_subobject())
+        self.assertTrue(christmas_page_perms.can_add_subobject())
+        self.assertTrue(unpub_perms.can_add_subobject())
+        self.assertTrue(someone_elses_event_perms.can_add_subobject())
+
         self.assertFalse(homepage_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
@@ -87,6 +93,11 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_publish_subpage())
         self.assertFalse(christmas_page_perms.can_publish_subpage())
         self.assertFalse(unpub_perms.can_publish_subpage())
+
+        # Aliases for can_publish_subpage
+        self.assertFalse(homepage_perms.can_publish_subobject())
+        self.assertFalse(christmas_page_perms.can_publish_subobject())
+        self.assertFalse(unpub_perms.can_publish_subobject())
 
         self.assertFalse(homepage_perms.can_reorder_children())
         self.assertFalse(christmas_page_perms.can_reorder_children())
@@ -136,6 +147,11 @@ class TestPagePermission(TestCase):
         self.assertTrue(christmas_page_perms.can_add_subpage())
         self.assertTrue(unpub_perms.can_add_subpage())
 
+        # Aliases for can_add_subpage
+        self.assertFalse(homepage_perms.can_add_subobject())
+        self.assertTrue(christmas_page_perms.can_add_subobject())
+        self.assertTrue(unpub_perms.can_add_subobject())
+
         self.assertFalse(homepage_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
@@ -158,6 +174,11 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_publish_subpage())
         self.assertTrue(christmas_page_perms.can_publish_subpage())
         self.assertTrue(unpub_perms.can_publish_subpage())
+
+        # Aliases for can_publish_subpage
+        self.assertFalse(homepage_perms.can_publish_subobject())
+        self.assertTrue(christmas_page_perms.can_publish_subobject())
+        self.assertTrue(unpub_perms.can_publish_subobject())
 
         self.assertFalse(homepage_perms.can_reorder_children())
         self.assertTrue(christmas_page_perms.can_reorder_children())
@@ -213,6 +234,10 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
 
+        # Aliases for can_add_subpage
+        self.assertFalse(homepage_perms.can_add_subobject())
+        self.assertTrue(christmas_page_perms.can_add_subobject())
+
         # add permission lets us edit our own event
         self.assertFalse(christmas_page_perms.can_edit())
         self.assertTrue(moderator_event_perms.can_edit())
@@ -238,6 +263,11 @@ class TestPagePermission(TestCase):
         self.assertFalse(homepage_perms.can_publish_subpage())
         self.assertTrue(christmas_page_perms.can_publish_subpage())
         self.assertTrue(unpub_perms.can_publish_subpage())
+
+        # Aliases for can_publish_subpage
+        self.assertFalse(homepage_perms.can_publish_subobject())
+        self.assertTrue(christmas_page_perms.can_publish_subobject())
+        self.assertTrue(unpub_perms.can_publish_subobject())
 
         # reorder permission is considered equivalent to publish permission
         # (so we can do it on pages we can't edit)
@@ -313,11 +343,13 @@ class TestPagePermission(TestCase):
         unpub_perms = unpublished_event_page.permissions_for_user(user)
 
         self.assertFalse(unpub_perms.can_add_subpage())
+        self.assertFalse(unpub_perms.can_add_subobject())
         self.assertFalse(unpub_perms.can_edit())
         self.assertFalse(unpub_perms.can_delete())
         self.assertFalse(unpub_perms.can_publish())
         self.assertFalse(christmas_page_perms.can_unpublish())
         self.assertFalse(unpub_perms.can_publish_subpage())
+        self.assertFalse(unpub_perms.can_publish_subobject())
         self.assertFalse(unpub_perms.can_reorder_children())
         self.assertFalse(unpub_perms.can_move())
         self.assertFalse(unpub_perms.can_move_to(christmas_page))
@@ -341,6 +373,10 @@ class TestPagePermission(TestCase):
         self.assertTrue(homepage_perms.can_add_subpage())
         self.assertTrue(root_perms.can_add_subpage())
 
+        # Aliases for can_add_subpage
+        self.assertTrue(homepage_perms.can_add_subobject())
+        self.assertTrue(root_perms.can_add_subobject())
+
         self.assertTrue(homepage_perms.can_edit())
         self.assertFalse(
             root_perms.can_edit()
@@ -358,6 +394,10 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(homepage_perms.can_publish_subpage())
         self.assertTrue(root_perms.can_publish_subpage())
+
+        # Aliases for can_publish_subpage
+        self.assertTrue(homepage_perms.can_publish_subobject())
+        self.assertTrue(root_perms.can_publish_subobject())
 
         self.assertTrue(homepage_perms.can_reorder_children())
         self.assertTrue(root_perms.can_reorder_children())
@@ -753,6 +793,7 @@ class TestPagePermission(TestCase):
         perms = christmas_page.permissions_for_user(user)
 
         self.assertFalse(perms.page_locked())
+        self.assertFalse(perms.object_locked())
 
     def test_page_locked_for_locked_page(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
@@ -768,12 +809,14 @@ class TestPagePermission(TestCase):
 
         # The user who locked the page shouldn't see the page as locked
         self.assertFalse(perms.page_locked())
+        self.assertFalse(perms.object_locked())
 
         # Other users should see the page as locked
         other_user = get_user_model().objects.get(email="eventeditor@example.com")
 
         other_perms = christmas_page.permissions_for_user(other_user)
         self.assertTrue(other_perms.page_locked())
+        self.assertTrue(other_perms.object_locked())
 
     @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
     def test_page_locked_for_locked_page_with_global_lock_enabled(self):
@@ -790,6 +833,7 @@ class TestPagePermission(TestCase):
 
         # The user who locked the page should now also see the page as locked
         self.assertTrue(perms.page_locked())
+        self.assertTrue(perms.object_locked())
 
         # Other users should see the page as locked, like before
         other_user = get_user_model().objects.get(email="eventeditor@example.com")
@@ -797,6 +841,7 @@ class TestPagePermission(TestCase):
         other_perms = christmas_page.permissions_for_user(other_user)
 
         self.assertTrue(other_perms.page_locked())
+        self.assertTrue(other_perms.object_locked())
 
     def test_page_locked_in_workflow(self):
         workflow, task = self.create_workflow_and_task()
@@ -812,18 +857,21 @@ class TestPagePermission(TestCase):
         # the moderator is in the group assigned to moderate the task, so the page should
         # not be locked for them
         self.assertFalse(moderator_perms.page_locked())
+        self.assertFalse(moderator_perms.object_locked())
 
         superuser_perms = christmas_page.permissions_for_user(superuser)
 
         # superusers can moderate any GroupApprovalTask, so the page should not be locked
         # for them
         self.assertFalse(superuser_perms.page_locked())
+        self.assertFalse(superuser_perms.object_locked())
 
         editor_perms = christmas_page.permissions_for_user(editor)
 
         # the editor is not in the group assigned to moderate the task, so the page should
         # be locked for them
         self.assertTrue(editor_perms.page_locked())
+        self.assertTrue(editor_perms.object_locked())
 
     def test_page_lock_in_workflow(self):
         workflow, task = self.create_workflow_and_task()
