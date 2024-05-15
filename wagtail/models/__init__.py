@@ -3046,15 +3046,83 @@ class GroupPagePermission(models.Model):
         )
 
 
-class PagePermissionTester:
-    def __init__(self, user, page):
-        from wagtail.permissions import page_permission_policy
+class BasePermissionTester:
+    """A base class for doing permission checks on a model instance."""
 
+    def __init__(self, user, object):
         self.user = user
-        self.permission_policy = page_permission_policy
-        self.page = page
-        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
+        self.object = object
+        self.permission_policy = self.get_permission_policy()
 
+    @classmethod
+    def get_permission_policy(cls):
+        raise NotImplementedError
+
+    def user_has_lock(self):
+        raise NotImplementedError
+
+    def page_locked(self):
+        raise NotImplementedError
+
+    def can_add_subpage(self):
+        raise NotImplementedError
+
+    def can_edit(self):
+        raise NotImplementedError
+
+    def can_delete(self, ignore_bulk=False):
+        raise NotImplementedError
+
+    def can_unpublish(self):
+        raise NotImplementedError
+
+    def can_publish(self):
+        raise NotImplementedError
+
+    def can_submit_for_moderation(self):
+        raise NotImplementedError
+
+    def can_set_view_restrictions(self):
+        raise NotImplementedError
+
+    def can_unschedule(self):
+        raise NotImplementedError
+
+    def can_lock(self):
+        raise NotImplementedError
+
+    def can_unlock(self):
+        raise NotImplementedError
+
+    def can_publish_subpage(self):
+        raise NotImplementedError
+
+    def can_reorder_children(self):
+        raise NotImplementedError
+
+    def can_move(self):
+        raise NotImplementedError
+
+    def can_copy(self):
+        raise NotImplementedError
+
+    def can_move_to(self, destination):
+        raise NotImplementedError
+
+    def can_copy_to(self, destination, recursive=False):
+        raise NotImplementedError
+
+    def can_view_revisions(self):
+        raise NotImplementedError
+
+
+class PagePermissionTester(BasePermissionTester):
+    def __init__(self, user, page):
+        super().__init__(user, page)
+        self.page = page  # For backwards compatibility
+        self.page_is_root = self.page.depth == 1  # Equivalent to page.is_root()
+
+        self.permissions = {}
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
                 # Get the 'action' part of the permission codename, e.g.
@@ -3063,6 +3131,12 @@ class PagePermissionTester:
                 for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
+
+    @classmethod
+    def get_permission_policy(cls):
+        from wagtail.permissions import page_permission_policy
+
+        return page_permission_policy
 
     def user_has_lock(self):
         return self.page.locked_by_id == self.user.pk
