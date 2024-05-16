@@ -191,6 +191,14 @@ This is another image: <embed embedtype="image" id="2" format="left" />
         """
             )
 
+    def test_expand_db_html_mixed_link_types(self):
+        html = '<a href="https://wagtail.org/">foo</a><a linktype="page" id="3">bar</a>'
+        result = expand_db_html(html)
+        self.assertEqual(
+            result,
+            ('<a href="https://wagtail.org/">foo</a><a href="/events/">bar</a>'),
+        )
+
 
 class TestRichTextValue(TestCase):
     fixtures = ["test.json"]
@@ -273,6 +281,12 @@ class TestLinkRewriterTagReplacing(TestCase):
         )
         self.assertNotEqual(link_with_custom_linktype, '<a href="https://wagtail.org">')
         self.assertEqual(link_with_custom_linktype, "<a>")
+
+        # And should properly handle mixed linktypes.
+        self.assertEqual(
+            rewriter('<a href="https://wagtail.org/"><a linktype="page" id="3">'),
+            '<a href="https://wagtail.org/"><a href="/article/3">',
+        )
 
     def test_supported_type_should_follow_given_rules(self):
         # we always have `page` rules by default
