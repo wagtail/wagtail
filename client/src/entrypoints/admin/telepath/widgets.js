@@ -76,13 +76,13 @@ class Widget {
     tempContainer.innerHTML = html.trim();
     const dom = tempContainer.firstChild;
 
-    /* replace the placeholder with the new element */
-    placeholder.replaceWith(dom);
+    /* execute any scripts in the new element(s) */
+    runInlineScripts(tempContainer);
 
-    /* execute any scripts in the new element */
-    runInlineScripts(dom);
+    /* replace the placeholder with the new element(s) */
+    placeholder.replaceWith(...tempContainer.childNodes);
 
-    // Add any extra attributes we received to the HTML of the widget
+    // Add any extra attributes we received to the first element of the widget
     if (typeof options?.attributes === 'object') {
       Object.entries(options.attributes).forEach(([key, value]) => {
         dom.setAttribute(key, value);

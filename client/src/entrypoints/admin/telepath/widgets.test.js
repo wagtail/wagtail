@@ -122,6 +122,40 @@ describe('telepath: wagtail.widgets.Widget with inline JS', () => {
   });
 });
 
+describe('telepath: wagtail.widgets.Widget with multiple top-level nodes', () => {
+  let boundWidget;
+  let widgetDef;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.Widget',
+      _args: [
+        '<input type="text" name="__NAME__" maxlength="255" id="__ID__"><button data-button-state="idle">Click me</button><script>document.getElementById("__ID__").className = "custom-class";</script>',
+        '__ID__',
+      ],
+    });
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      'The Value',
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.querySelector('input').outerHTML).toBe(
+      '<input type="text" name="the-name" maxlength="255" id="the-id" class="custom-class">',
+    );
+    expect(document.querySelector('[data-button-state]').outerHTML).toBe(
+      '<button data-button-state="idle">Click me</button>',
+    );
+    expect(document.querySelector('input').value).toBe('The Value');
+  });
+});
+
 describe('telepath: wagtail.widgets.RadioSelect', () => {
   let boundWidget;
 
