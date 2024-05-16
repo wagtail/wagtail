@@ -4,7 +4,6 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 from collections import defaultdict
-from itertools import chain
 from typing import Callable, Tuple
 
 FIND_A_TAG = re.compile(r"<a(\b[^>]*)>")
@@ -53,16 +52,18 @@ class TagRewriter:
         ]
 
         offset = 0
-        for match, replacement in zip(
-            chain(*matches_by_tag_type.values()), chain(*replacements)
-        ):
-            html = (
-                html[: match.start() + offset]
-                + replacement
-                + html[match.end() + offset :]
-            )
+        for matches, replacements in zip(matches_by_tag_type.values(), replacements):
+            if not replacements:
+                continue
 
-            offset += len(replacement) - match.end() + match.start()
+            for match, replacement in zip(matches, replacements):
+                html = (
+                    html[: match.start() + offset]
+                    + replacement
+                    + html[match.end() + offset :]
+                )
+
+                offset += len(replacement) - match.end() + match.start()
 
         return html
 
