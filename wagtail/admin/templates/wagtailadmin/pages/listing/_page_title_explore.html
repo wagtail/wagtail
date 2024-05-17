@@ -5,7 +5,7 @@
 <div class="title-wrapper">
     {% if page.is_site_root %}
         {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
-            <a href="{% url 'wagtailsites:index' %}" title="{% trans 'Sites menu' %}" class="w-flex w-items-center">{% icon name="site" classname="initial" %}</a>
+            <a href="{% url 'wagtailsites:index' %}" title="{% trans 'Sites menu' %}">{% icon name="site" classname="initial" %}</a>
         {% endif %}
     {% endif %}
 
@@ -17,7 +17,7 @@
         without also reading out the buttons and indicators.
     {% endcomment %}
     {% fragment as page_title %}
-        <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title" class="w-flex w-items-center w-gap-2">
+        <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title">
             {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
             {{ page.get_admin_display_title }}
         </span>
