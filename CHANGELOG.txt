@@ -26,6 +26,7 @@ Changelog
  * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
  * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
  * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
+ * Fix: Fix incorrect rich text to HTML conversion when multiple link / embed types are present (Andy Chosak, Matt Westcott)
 
 
 6.1 (01.05.2024)
