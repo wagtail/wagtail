@@ -51,19 +51,24 @@ class TagRewriter:
             for tag_type, attrs_list in attrs_by_tag_type.items()
         ]
 
-        offset = 0
+        matches_to_replace = []
         for matches, replacements in zip(matches_by_tag_type.values(), replacements):
             if not replacements:
                 continue
 
-            for match, replacement in zip(matches, replacements):
-                html = (
-                    html[: match.start() + offset]
-                    + replacement
-                    + html[match.end() + offset :]
-                )
+            matches_to_replace.extend(zip(matches, replacements))
 
-                offset += len(replacement) - match.end() + match.start()
+        offset = 0
+        for match, replacement in sorted(
+            matches_to_replace, key=lambda match_to_replace: match_to_replace[0].start()
+        ):
+            html = (
+                html[: match.start() + offset]
+                + replacement
+                + html[match.end() + offset :]
+            )
+
+            offset += len(replacement) - match.end() + match.start()
 
         return html
 

@@ -192,11 +192,25 @@ This is another image: <embed embedtype="image" id="2" format="left" />
             )
 
     def test_expand_db_html_mixed_link_types(self):
-        html = '<a href="https://wagtail.org/">foo</a><a linktype="page" id="3">bar</a>'
-        result = expand_db_html(html)
         self.assertEqual(
-            result,
-            ('<a href="https://wagtail.org/">foo</a><a href="/events/">bar</a>'),
+            expand_db_html(
+                '<a href="https://wagtail.org/">foo</a>'
+                '<a linktype="page" id="3">bar</a>'
+            ),
+            '<a href="https://wagtail.org/">foo</a><a href="/events/">bar</a>',
+        )
+
+        self.assertEqual(
+            expand_db_html(
+                '<a linktype="page" id="3">page</a>'
+                '<a linktype="document" id="1">document</a>'
+                '<a linktype="page" id="3">page</a>'
+            ),
+            (
+                '<a href="/events/">page</a>'
+                '<a href="/documents/1/test.pdf">document</a>'
+                '<a href="/events/">page</a>'
+            ),
         )
 
 
