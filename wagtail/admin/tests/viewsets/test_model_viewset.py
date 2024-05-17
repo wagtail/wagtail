@@ -1464,6 +1464,33 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
 
+    def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+        self.assertIsNone(title_wrapper.select_one("a"))
+        self.assertEqual(title_wrapper.text.strip(), self.object.name)
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+        )
+
     def test_copy_disabled(self):
         response = self.client.get(reverse("fctoy_alt1:index"))
 
