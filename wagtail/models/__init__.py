@@ -3226,7 +3226,7 @@ class PagePermissionTester:
     def can_reorder_children(self):
         """
         Reorder permission checking is similar to publishing a subpage, since it immediately
-        affects published pages. However, the it shouldn't care about the 'creatability' of
+        affects published pages. However, it shouldn't care about the 'creatability' of
         page types, because the action only ever updates pages.
         """
         if not self.user.is_active:
