@@ -20,6 +20,12 @@
                 {% formattedfield form.new_password1 %}
                 {% formattedfield form.new_password2 %}
 
+                {# Add the show password checkbox #}
+                <div class="show-password">
+                    <input type="checkbox" id="show-password-checkbox" onclick="togglePasswordVisibility()">
+                    <label for="show-password-checkbox">{% trans "Show password" %}</label>
+                </div>
+
                 <footer class="form-actions">
                     <button type="submit" class="button">{% trans 'Reset password' %}</button>
                 </footer>
@@ -42,4 +48,19 @@
             </div>
         {% endif %}
     </main>
+
+    {# Include the JavaScript for toggling password visibility #}
+    <script>
+        function togglePasswordVisibility() {
+            var passwordFields = document.querySelectorAll('input[type="password"]');
+            var showPasswordCheckbox = document.getElementById('show-password-checkbox');
+            passwordFields.forEach(function(passwordField) {
+                if (showPasswordCheckbox.checked) {
+                    passwordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                }
+            });
+        }
+    </script>
 {% endblock %}
