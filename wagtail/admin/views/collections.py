@@ -140,12 +140,8 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["can_delete"] = (
-            self.permission_policy.instances_user_has_permission_for(
-                self.request.user, "delete"
-            )
-            .filter(pk=self.object.pk)
-            .first()
+        context["can_delete"] = self.permission_policy.user_has_permission_for_instance(
+            self.request.user, "delete", self.object
         )
         return context
 
