@@ -133,7 +133,7 @@ describe('telepath: wagtail.widgets.Widget with multiple top-level nodes', () =>
     widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.Widget',
       _args: [
-        '<input type="text" name="__NAME__" maxlength="255" id="__ID__"><button data-button-state="idle">Click me</button><script>document.getElementById("__ID__").className = "custom-class";</script>',
+        '<!-- here comes a widget --><input type="text" name="__NAME__" maxlength="255" id="__ID__"><button data-button-state="idle">Click me</button><script>document.getElementById("__ID__").className = "custom-class";</script>',
         '__ID__',
       ],
     });

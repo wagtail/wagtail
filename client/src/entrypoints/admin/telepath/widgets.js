@@ -3,18 +3,38 @@ import { runInlineScripts } from '../../../utils/runInlineScripts';
 
 class BoundWidget {
   constructor(
-    element,
+    elementOrNodeList,
     name,
     idForLabel,
     initialState,
     parentCapabilities,
     options,
   ) {
+    // if elementOrNodeList not iterable, it must be a single element
+    const nodeList = elementOrNodeList.forEach
+      ? elementOrNodeList
+      : [elementOrNodeList];
+
+    // look for an input element with the given name, as either a direct element of nodeList
+    // or a descendant
     const selector = `:is(input,select,textarea,button)[name="${name}"]`;
-    // find, including element itself
-    this.input = element.matches(selector)
-      ? element
-      : element.querySelector(selector);
+
+    for (let i = 0; i < nodeList.length; i += 1) {
+      const element = nodeList[i];
+      if (element.nodeType === Node.ELEMENT_NODE) {
+        if (element.matches(selector)) {
+          this.input = element;
+          break;
+        } else {
+          const input = element.querySelector(selector);
+          if (input) {
+            this.input = input;
+            break;
+          }
+        }
+      }
+    }
+
     this.idForLabel = idForLabel;
     this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
@@ -71,27 +91,33 @@ class Widget {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     const idForLabel = this.idPattern.replace(/__ID__/g, id);
 
-    /* write the HTML into a temp container to parse it into an element */
+    /* write the HTML into a temp container to parse it into a node list */
     const tempContainer = document.createElement('div');
     tempContainer.innerHTML = html.trim();
-    const dom = tempContainer.firstChild;
+    const childNodes = Array.from(tempContainer.childNodes);
+
+    /* replace the placeholder with the new nodes */
+    placeholder.replaceWith(...childNodes);
+
+    const childElements = childNodes.filter(
+      (node) => node.nodeType === Node.ELEMENT_NODE,
+    );
 
     /* execute any scripts in the new element(s) */
-    runInlineScripts(tempContainer);
-
-    /* replace the placeholder with the new element(s) */
-    placeholder.replaceWith(...tempContainer.childNodes);
+    childElements.forEach((element) => {
+      runInlineScripts(element);
+    });
 
     // Add any extra attributes we received to the first element of the widget
     if (typeof options?.attributes === 'object') {
       Object.entries(options.attributes).forEach(([key, value]) => {
-        dom.setAttribute(key, value);
+        childElements[0].setAttribute(key, value);
       });
     }
 
     // eslint-disable-next-line new-cap
     return new this.boundWidgetClass(
-      dom,
+      childElements.length === 1 ? childElements[0] : childNodes,
       name,
       idForLabel,
       initialState,
