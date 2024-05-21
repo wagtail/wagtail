@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1515,6 +1515,25 @@ msgstr[2] ""
 "tradotte."
 
 #, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"Eliminando questa pagina verranno eliminate anche le %(translation_count)s "
+"traduzioni di questa pagina."
+msgstr[1] ""
+"Questo eliminerà anche %(descendant_count)s pagine figlio. Eliminando questa "
+"pagina verranno eliminate anche le %(translation_count)s traduzioni di "
+"questa pagina."
+msgstr[2] ""
+"Questo eliminerà anche %(descendant_count)s pagine figlio. Eliminando questa "
+"pagina verranno eliminate anche le %(translation_count)s traduzioni di "
+"questa pagina."
+
+#, python-format
 msgid "This action will delete total <b>%(total_pages)s</b> pages."
 msgstr "Questa azione eliminerà un totale di <b>%(total_pages)s</b> pagine."
 
@@ -1680,6 +1699,10 @@ msgstr "Aggiungi pagina figlio a '%(title)s'"
 msgid "Drag"
 msgstr "Trascina"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Elemento %(index)s di %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Disabilita ordine delle pagine figlio"
 
@@ -1690,8 +1713,23 @@ msgid "Enable ordering of child pages"
 msgstr "Attiva ordine di pagine figlio"
 
 #, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s di %(items_count)s in tutto il sito."
+
+msgid "No results across entire site."
+msgstr "Nessun risultato in tutto il sito."
+
+#, python-format
 msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "cerca in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s di %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
 
 #, python-format
 msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
@@ -2711,12 +2749,24 @@ msgid "Inspect"
 msgstr "Controlla"
 
 #, python-format
+msgid "Inspect '%(title)s'"
+msgstr "Ispeziona '%(title)s'"
+
+#, python-format
 msgid "Delete '%(title)s'"
 msgstr "Elimina '%(title)s'"
 
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Più opzioni per '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Aggiungi %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)snon può essere creato a causa di errori."
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -2726,8 +2776,16 @@ msgid "Editing"
 msgstr "Modifica"
 
 #, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "Impossibile salvare %(model_name)s a causa di errori."
+
+#, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' eliminato."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Sei sicuro di voler eliminare %(model_name)s?"
 
 msgid "Inspecting"
 msgstr "Controllo in corso"
@@ -2737,6 +2795,10 @@ msgstr "Precedenti"
 
 msgid "Latest"
 msgstr "Ultimi"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' sbubblicato."
 
 msgid "If you confirm deletion"
 msgstr "Se confermi l'eliminazione"
@@ -2880,6 +2942,13 @@ msgstr[2] ""
 "Per %(num_parent_objects)d pagine %(num_child_objects)d pagine figlio è "
 "stata annullata la pubblicazione"
 
+msgid "Choose parent"
+msgstr "Scegli un genitore"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Crea un nuovo %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "La pagina '%(page_title)s' è stata convertita in una pagina ordinaria."
@@ -2984,6 +3053,9 @@ msgstr "La pagina non può esser salvata perché è bloccata"
 msgid "The page could not be saved due to validation errors"
 msgstr "La pagina non può esser salvata a causa di errori di validazione"
 
+msgid "Date updated"
+msgstr "Data aggiornamento"
+
 msgid "Owner"
 msgstr "Proprietario"
 
@@ -2993,6 +3065,9 @@ msgstr "Modificata da"
 msgid "Site"
 msgstr "Sito"
 
+msgid "Has child pages"
+msgstr "Ha pagine figlio"
+
 msgid "Any"
 msgstr "Qualsiasi"
 
@@ -3001,6 +3076,10 @@ msgstr "Sì"
 
 msgid "Page type"
 msgstr "Tipologia pagina"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' è stata spostata con successo."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3192,6 +3271,31 @@ msgid "Task '%(object)s' disabled."
 msgstr "Attività '%(object)s' disabilitata."
 
 #, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Questa attività è in corso su %(states_in_progress)d pagina/snippet. La "
+"disattivazione di questa attività farà sì che venga saltata nel flusso di "
+"lavoro di moderazione e non sarà elencata per la selezione durante la "
+"modifica di un flusso di lavoro."
+msgstr[1] ""
+"Questa attività è in corso su %(states_in_progress)d pagine/snippet. La "
+"disattivazione di questa attività farà sì che venga saltata nel flusso di "
+"lavoro di moderazione e non sarà elencata per la selezione durante la "
+"modifica di un flusso di lavoro."
+msgstr[2] ""
+"Questa attività è in corso su %(states_in_progress)d pagine/snippet. La "
+"disattivazione di questa attività farà sì che venga saltata nel flusso di "
+"lavoro di moderazione e non sarà elencata per la selezione durante la "
+"modifica di un flusso di lavoro."
+
+#, python-format
 msgid "Task '%(task_name)s' enabled."
 msgstr "Attività '%(task_name)s' abilitata."
 
@@ -3282,6 +3386,9 @@ msgstr "Azzera scelta"
 
 msgid "Choose another page"
 msgstr "Scegli un'altra pagina"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Le tag sono formate da una singola parola, non sono ammessi spazi."
 
 msgid "Choose another task"
 msgstr "Scegli un'altra attività"

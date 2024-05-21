@@ -6,14 +6,14 @@
 # Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2022
+# Dan Braghis, 2014-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Alex Morega, 2023\n"
+"Last-Translator: Dan Braghis, 2014-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -584,6 +584,9 @@ msgstr "permisiune grup colecție"
 msgid "group collection permissions"
 msgstr "permisiuni grup colecție"
 
+msgid "for content type"
+msgstr "pentru tipul de conținut"
+
 msgid "uploaded by user"
 msgstr "încărcată de utlizator"
 
@@ -666,8 +669,24 @@ msgstr ""
 msgid "Public"
 msgstr "Public"
 
+msgid "Private, accessible with a shared password"
+msgstr "Privat, accesibil cu o parolă partajată"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Privat, accesibil oricărui utlizator autentificat"
+
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
+
+msgid "shared password"
+msgstr "parola comună"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Nu folosiți parolele partajate pentru a proteja conținut senzitiv. Oricine "
+"are această parolă va putea vedea conținutul."
 
 msgid "view restriction"
 msgstr "vezi restricție"
