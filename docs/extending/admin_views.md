@@ -372,7 +372,7 @@ Copy page
     ```
 - Image usage
     ```html
-    {% url 'wagtailimages:image_usage' %}
+    {% url 'wagtailimages:image_usage' image_id %}
     ```
 
 ### AdminURLFinder
