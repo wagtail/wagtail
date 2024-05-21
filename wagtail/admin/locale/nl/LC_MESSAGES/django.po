@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -106,6 +106,9 @@ msgstr "Collectie"
 
 msgid "Tag"
 msgstr "Tag"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filter op maximaal tien meest populaire tags."
 
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
@@ -276,6 +279,20 @@ msgstr "Kies een nieuwe bovenliggende pagina"
 
 msgid "Parent page"
 msgstr "Bovenliggende pagina"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "De nieuwe pagina zal onder deze bovenliggende pagina geplaatst worden."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "Je hebt geen rechten om een pagina te maken onder \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Je kunt geen pagina van het type \"%(page_type)s\" maken onder "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Zoeken…"
@@ -1974,6 +1991,18 @@ msgstr "Terug"
 msgid "History"
 msgstr "Geschiedenis"
 
+msgid "Keyboard shortcuts"
+msgstr "Sneltoetsen"
+
+msgid "All keyboard shortcuts"
+msgstr "Alle sneltoetsen"
+
+msgid "Section"
+msgstr "Sectie"
+
+msgid "Keyboard shortcut"
+msgstr "Sneltoets"
+
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
 
@@ -2495,17 +2524,53 @@ msgstr "Verstuurd naar %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
+msgid "Common actions"
+msgstr "Veel gebruikte acties"
+
+msgid "Cut"
+msgstr "Knippen"
+
+msgid "Paste"
+msgstr "Plakken"
+
+msgid "Paste and match style"
+msgstr "Plakken en opmaak overnemen"
+
+msgid "Paste without formatting"
+msgstr "Plakken zonder opmaak"
+
 msgid "Undo"
 msgstr "Ongedaan maken"
 
 msgid "Redo"
 msgstr "Opnieuw doen"
 
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+msgid "Text content"
+msgstr "Binnen een tekstvak"
+
+msgid "Insert or edit a link"
+msgstr "Link invoegen of wijzigen"
+
+msgid "Text formatting"
+msgstr "Tekst opmaken"
+
 msgid "Bold"
 msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
+
+msgid "Underline"
+msgstr "Onderstrepen"
+
+msgid "Monospace (code)"
+msgstr "Monospace (code)"
+
+msgid "Strike-through"
+msgstr "Doorstrepen"
 
 msgid "Superscript"
 msgstr "Superscript"
@@ -2762,6 +2827,10 @@ msgstr ""
 "publicatie."
 
 #, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s%(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Wijzig '%(title)s'"
 
@@ -2972,6 +3041,13 @@ msgstr[1] ""
 "Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
 "onderliggende pagina's ongedaan gemaakt"
 
+msgid "Choose parent"
+msgstr "Kies bovenliggende pagina"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "%(model_name)s aanmaken"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Pagina '%(page_title)s' is naar een normale pagina geconverteerd."
@@ -3075,6 +3151,9 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
+
+msgid "Is commenting action"
+msgstr "Actie is commentaar"
 
 msgid "Date updated"
 msgstr "Datum bijgewerkt"
@@ -3214,6 +3293,9 @@ msgstr "Workflow taken"
 
 msgid "Requested By"
 msgstr "Aangevraagd door"
+
+msgid "Show disabled"
+msgstr "Toon ook uitgeschakelde"
 
 msgid "Add a workflow"
 msgstr "Voeg een workflow toe"
@@ -3389,6 +3471,9 @@ msgstr "Wat is er nieuw in Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Editor Guide"
+
+msgid "Shortcuts"
+msgstr "Sneltoetsen"
 
 msgid "Help"
 msgstr "Help"

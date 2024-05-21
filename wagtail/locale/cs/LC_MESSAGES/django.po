@@ -5,7 +5,7 @@
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
 # IT Management <hudan@itmanagement.cz>, 2018
-# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2024
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2024\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,13 @@ msgstr "Uzamčeno"
 
 msgid "Unlocked"
 msgstr "Odemčeno"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' je uzamčena a naplánována k zveřejnění {datetime}"
 
 msgid "live"
 msgstr "publikováno"
