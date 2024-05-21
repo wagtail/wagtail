@@ -9,6 +9,12 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
     title = ""
     paginate_by = 50
 
+    def get_page_title(self):
+        # WagtailAdminTemplateMixin uses `page_title`, but the documented approach
+        # for ReportView uses `title`, so we change the reference here to allow
+        # using the generic base template while keeping the `title` attribute
+        return self.title
+
     def get_filtered_queryset(self):
         return self.filter_queryset(self.get_queryset())
 
