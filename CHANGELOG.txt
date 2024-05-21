@@ -20,7 +20,7 @@ Changelog
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
 
 
-6.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+6.1.1 (21.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
