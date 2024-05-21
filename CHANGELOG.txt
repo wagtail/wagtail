@@ -8,6 +8,7 @@ Changelog
  * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
  * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
  * Fix: Fix incorrect rich text to HTML conversion when multiple link / embed types are present (Andy Chosak, Matt Westcott)
+ * Fix: Restore ability for custom widgets in StreamField blocks to have multiple top-level nodes (Sage Abdullah, Matt Westcott)
 
 
 6.1 (01.05.2024)
