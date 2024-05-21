@@ -2,9 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block results %}
-    {% if object_list %}
-        {% include "wagtailadmin/reports/listing/_list_page_types_usage.html" with page_types=object_list %}
-    {% endif %}
+    {% include "wagtailadmin/reports/listing/_list_page_types_usage.html" with page_types=object_list %}
 {% endblock %}
 
 {% block no_results_message %}
