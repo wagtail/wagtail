@@ -1607,3 +1607,25 @@ class TestCustomMethods(BaseSnippetViewSetTests):
         self.assertIsNotNone(template)
         links = template.find_all("a", attrs={"href": add_url})
         self.assertEqual(len(links), 1)
+
+
+class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
+    model = FullFeaturedSnippet
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = cls.model.objects.create(text="Hello World")
+
+    def test_get_edit_view_not_allowed(self):
+        response = self.client.get(self.get_url("edit", args=(quote(self.object.pk),)))
+        self.assertEqual(response.status_code, 200)
+
+        # The custom permission policy disallows any user with [FORBIDDEN]
+        # in their name, even if they are a superuser
+        self.user.first_name = "[FORBIDDEN]"
+        self.user.last_name = "Joe"
+        self.user.save()
+        self.assertTrue(self.user.is_superuser)
+        self.assertEqual(self.user.get_full_name(), "[FORBIDDEN] Joe")
+        response = self.client.get(self.get_url("edit", args=(quote(self.object.pk),)))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))

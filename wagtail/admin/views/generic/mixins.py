@@ -287,14 +287,19 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def user_has_permission(self, permission):
         user = self.request.user
-        if user.is_superuser:
-            return True
-
         # Workflow lock/unlock methods take precedence before the base
         # "lock" and "unlock" permissions -- see PagePermissionTester for reference
         if permission == "lock" and self.current_workflow_task:
+            # Follow the logic in PagePermissionTester.user_can_lock()
+            # (superusers can always lock)
+            if user.is_superuser:
+                return True
             return self.current_workflow_task.user_can_lock(self.object, user)
         if permission == "unlock":
+            # Follow the logic in PagePermissionTester.user_can_unlock()
+            # (superusers can always unlock)
+            if user.is_superuser:
+                return True
             # Allow unlocking even if the user does not have the 'unlock' permission
             # if they are the user who locked the object
             if self.object.locked_by_id == user.pk:
