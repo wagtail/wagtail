@@ -792,7 +792,11 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/page_types_usage.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/page_types_usage_results.html",
+        )
 
     def test_displays_only_page_types(self):
         """Asserts that the correct models are included in the queryset."""

@@ -16,10 +16,8 @@
     <div class="report{% if filters %} filterable{% endif %}">
         <div class="report__results">
             {% block results %}
+                {% include view.results_template_name|default:"wagtailadmin/reports/base_report_results.html" %}
             {% endblock %}
-            {% if page_obj %}
-                {% paginate page_obj base_url=request.path %}
-            {% endif %}
         </div>
         {% if filters %}
             {% include "wagtailadmin/shared/filters.html" %}

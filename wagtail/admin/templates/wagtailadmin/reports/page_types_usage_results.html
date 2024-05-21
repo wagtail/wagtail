@@ -1,10 +1,12 @@
-{% extends "wagtailadmin/reports/base_report.html" %}
+{% extends "wagtailadmin/reports/base_report_results.html" %}
 {% load i18n wagtailadmin_tags %}
 
 {% block results %}
     {% if object_list %}
         {% include "wagtailadmin/reports/listing/_list_page_types_usage.html" with page_types=object_list %}
-    {% else %}
-        <p>{% trans "No page types found." %}</p>
     {% endif %}
+{% endblock %}
+
+{% block no_results_message %}
+    <p>{% trans "No page types found." %}</p>
 {% endblock %}

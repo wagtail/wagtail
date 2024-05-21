@@ -136,6 +136,7 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
 class WorkflowView(ReportView):
     template_name = "wagtailadmin/reports/workflow.html"
+    results_template_name = "wagtailadmin/reports/workflow_results.html"
     title = _("Workflows")
     header_icon = "tasks"
     filterset_class = WorkflowReportFilterSet
@@ -208,6 +209,7 @@ class WorkflowView(ReportView):
 
 class WorkflowTasksView(ReportView):
     template_name = "wagtailadmin/reports/workflow_tasks.html"
+    results_template_name = "wagtailadmin/reports/workflow_tasks_results.html"
     title = _("Workflow tasks")
     header_icon = "thumbtack"
     filterset_class = WorkflowTasksReportFilterSet

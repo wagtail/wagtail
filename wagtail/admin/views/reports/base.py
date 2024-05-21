@@ -6,6 +6,7 @@ from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 class ReportView(SpreadsheetExportMixin, BaseListingView):
     template_name = "wagtailadmin/reports/base_report.html"
+    results_template_name = "wagtailadmin/reports/base_report_results.html"
     title = ""
     paginate_by = 50
 

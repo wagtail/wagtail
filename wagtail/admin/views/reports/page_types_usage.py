@@ -96,7 +96,7 @@ class PageTypesUsageReportFilterSet(WagtailFilterSet):
 
 
 class PageTypesUsageReportView(ReportView):
-    template_name = "wagtailadmin/reports/page_types_usage.html"
+    results_template_name = "wagtailadmin/reports/page_types_usage_results.html"
     title = _("Page types usage")
     header_icon = "doc-empty-inverse"
     filterset_class = PageTypesUsageReportFilterSet
