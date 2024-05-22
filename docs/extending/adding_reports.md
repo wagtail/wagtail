@@ -46,11 +46,28 @@ class UnpublishedChangesReportView(PageReportView):
 
 (string)
 
-The template used to render your report. For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report.html"``,
-which provides an empty report page layout; for ``PageReportView``, this defaults to
-``"wagtailadmin/reports/base_page_report.html"`` which provides a listing based on the explorer views,
+The template used to render your report view.
+For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report.html"``;
+for ``PageReportView``, this defaults to ``"wagtailadmin/reports/base_page_report.html"``.
+Note that this template only provides the skeleton of the view, not the listing table itself.
+The listing table should be implemented in a separate template specified by ``results_template_name`` (see below), to then be rendered via ``{% include %}``.
+Unless you want to customize the overall view, you will rarely need to change this template.
+To customize the listing, change the ``results_template_name`` instead.
+
+.. attribute:: results_template_name
+
+(string)
+
+The template used to render the listing table.
+For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report_results.html"``,
+which provides support for using the ``wagtail.admin.ui.tables`` framework.
+For ``PageReportView``, this defaults to ``"wagtailadmin/reports/base_page_report_results.html"``,
+which provides a default table layout based on the explorer views,
 displaying action buttons, as well as the title, time of the last update, status, and specific type of any pages.
 In this example, we'll change this to a new template in a later section.
+
+.. versionadded:: 6.2
+   The ``results_template_name`` attribute was added to support the use of the ``wagtail.admin.ui.tables`` framework.
 
 .. attribute:: title
 
@@ -115,20 +132,24 @@ preprocessing, set the preprocessing_function to ``None``.
 
 ```
 
-## Customising templates
+## Customizing templates
 
-For this example \"pages with unpublished changes\" report, we'll add an extra column to the listing template, showing the last publication date for each page. To do this, we'll extend two templates: `wagtailadmin/reports/base_page_report.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
+For this example \"pages with unpublished changes\" report, we'll add an extra column to the listing template, showing the last publication date for each page. To do this, we'll extend two templates: `wagtailadmin/reports/base_page_report_results.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
+
+```{versionchanged} 6.2
+Extending `wagtailadmin/reports/base_page_report.html` was changed in favor of extending `wagtailadmin/reports/base_page_report_results.html`. The `listing` and `no_results` blocks were renamed to `results` and `no_results_message`, respectively.
+```
 
 ```html+django
-{# <project>/templates/reports/unpublished_changes_report.html #}
+{# <project>/templates/reports/unpublished_changes_report_results.html #}
 
-{% extends 'wagtailadmin/reports/base_page_report.html' %}
+{% extends 'wagtailadmin/reports/base_page_report_results.html' %}
 
-{% block listing %}
+{% block results %}
     {% include 'reports/include/_list_unpublished_changes.html' %}
 {% endblock %}
 
-{% block no_results %}
+{% block no_results_message %}
     <p>No pages with unpublished changes.</p>
 {% endblock %}
 ```
@@ -149,7 +170,7 @@ For this example \"pages with unpublished changes\" report, we'll add an extra c
 {% endblock %}
 ```
 
-Finally, we'll set `UnpublishedChangesReportView.template_name` to this new template: `'reports/unpublished_changes_report.html'`.
+Finally, we'll set `UnpublishedChangesReportView.results_template_name` to this new template: `'reports/unpublished_changes_report_results.html'`.
 
 ## Adding a menu item and admin URL
 
@@ -203,7 +224,7 @@ from wagtail.models import Page
 class UnpublishedChangesReportView(PageReportView):
 
     header_icon = 'doc-empty-inverse'
-    template_name = 'reports/unpublished_changes_report.html'
+    results_template_name = 'reports/unpublished_changes_report_results.html'
     title = "Pages with unpublished changes"
 
     list_export = PageReportView.list_export + ['last_published_at']
@@ -240,15 +261,15 @@ def register_unpublished_changes_report_url():
 ```
 
 ```html+django
-{# <project>/templates/reports/unpublished_changes_report.html #}
+{# <project>/templates/reports/unpublished_changes_report_results.html #}
 
-{% extends 'wagtailadmin/reports/base_page_report.html' %}
+{% extends 'wagtailadmin/reports/base_page_report_results.html' %}
 
-{% block listing %}
+{% block results %}
     {% include 'reports/include/_list_unpublished_changes.html' %}
 {% endblock %}
 
-{% block no_results %}
+{% block no_results_message %}
     <p>No pages with unpublished changes.</p>
 {% endblock %}
 ```

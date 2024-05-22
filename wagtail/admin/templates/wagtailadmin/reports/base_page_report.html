@@ -1,19 +1,7 @@
 {% extends 'wagtailadmin/reports/base_report.html' %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 
 {% block results %}
-    {% with page_obj as pages %}
-        <div id="page-results">
-            {% if pages %}
-                {% block listing %}
-                    {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
-                {% endblock %}
-                {% paginate pages base_url=request.path %}
-            {% else %}
-                {% block no_results %}
-                    <p>{% trans "No pages match this report's criteria." %}</p>
-                {% endblock %}
-            {% endif %}
-        </div>
-    {% endwith %}
+    {# Rename the paginator `page_obj` to `pages` for backwards-compatibility #}
+    {% include view.results_template_name|default:"wagtailadmin/reports/base_page_report_results.html" with pages=page_obj %}
 {% endblock %}

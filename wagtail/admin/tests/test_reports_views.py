@@ -43,7 +43,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
 
         # Initially there should be no locked pages
         self.assertContains(response, "No locked pages found.")
@@ -79,7 +83,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         # Now the listing should contain our locked page
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
         self.assertNotContains(response, "No locked pages found.")
         self.assertContains(response, "First locked page")
         self.assertContains(response, "Second locked page")
@@ -119,7 +127,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
         self.assertContains(response, "No locked pages found.")
 
     def test_get_with_no_permissions(self):
@@ -538,7 +550,11 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/aging_pages.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/aging_pages_results.html",
+        )
 
     def test_displays_only_published_pages(self):
         response = self.get()

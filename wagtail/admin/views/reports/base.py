@@ -48,6 +48,7 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
 
 class PageReportView(ReportView):
     template_name = "wagtailadmin/reports/base_page_report.html"
+    results_template_name = "wagtailadmin/reports/base_page_report_results.html"
     export_headings = {
         "latest_revision_created_at": _("Updated"),
         "status_string": _("Status"),

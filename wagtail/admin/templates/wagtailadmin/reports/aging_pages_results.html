@@ -1,7 +1,7 @@
-{% extends 'wagtailadmin/reports/base_page_report.html' %}
+{% extends 'wagtailadmin/reports/base_page_report_results.html' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block listing %}
+{% block results %}
     <table class="listing">
         <thead>
             <tr>
@@ -49,6 +49,6 @@
     </table>
 {% endblock %}
 
-{% block no_results %}
+{% block no_results_message %}
     <p>{% trans "No pages found." %}</p>
 {% endblock %}
