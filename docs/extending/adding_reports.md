@@ -46,13 +46,16 @@ class UnpublishedChangesReportView(PageReportView):
 
 (string)
 
-The template used to render your report view.
-For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report.html"``;
-for ``PageReportView``, this defaults to ``"wagtailadmin/reports/base_page_report.html"``.
+The template used to render your report view, defaults to ``"wagtailadmin/reports/base_report.html"``.
 Note that this template only provides the skeleton of the view, not the listing table itself.
 The listing table should be implemented in a separate template specified by ``results_template_name`` (see below), to then be rendered via ``{% include %}``.
 Unless you want to customize the overall view, you will rarely need to change this template.
 To customize the listing, change the ``results_template_name`` instead.
+
+.. versionchanged:: 6.2
+   The default ``template_name`` attribute for ``PageReportView`` was changed from ``"wagtailadmin/reports/base_page_report.html"`` to ``"wagtailadmin/reports/base_report.html"``.
+
+   Additionally, customization of the ``template_name`` should generally be replaced with a ``results_template_name`` customization, unless you intend to completely override the view template and not just the listing table.
 
 .. attribute:: results_template_name
 

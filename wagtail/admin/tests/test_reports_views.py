@@ -43,7 +43,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
             "wagtailadmin/reports/locked_pages_results.html",
@@ -83,7 +87,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         # Now the listing should contain our locked page
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
             "wagtailadmin/reports/locked_pages_results.html",
@@ -127,7 +135,11 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
             "wagtailadmin/reports/locked_pages_results.html",
@@ -550,7 +562,11 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/base_page_report.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
             "wagtailadmin/reports/aging_pages_results.html",

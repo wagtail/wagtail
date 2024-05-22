@@ -1,7 +1,2 @@
 {% extends 'wagtailadmin/reports/base_report.html' %}
-{% load i18n %}
-
-{% block results %}
-    {# Rename the paginator `page_obj` to `pages` for backwards-compatibility #}
-    {% include view.results_template_name|default:"wagtailadmin/reports/base_page_report_results.html" with pages=page_obj %}
-{% endblock %}
+{# Kept for backwards-compatibility only #}
