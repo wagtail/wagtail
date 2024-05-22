@@ -9,6 +9,8 @@ Changelog
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
  * Docs: Refine the adding reports page so that common (page/non-page) class references are at the top and the full page only example has correct heading nesting (Alessandro Chitarrini)
+ * Docs: Add the `wagtail start` command to the management commands reference page (Damilola Oladele)
+ * Docs: Refine the project template page sections and document common issues encountered when creating custom templates (Damilola Oladele)
 
 
 6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
