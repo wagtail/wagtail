@@ -28,8 +28,7 @@ wagtail start mysite
 ```
 
 Running the command creates a new folder `mysite`, which is a template containing everything you need to get started.
-More information on this template is available in
-[the project template reference](/reference/project_template).
+More information on this template is available in [the project template reference](/reference/project_template).
 
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
