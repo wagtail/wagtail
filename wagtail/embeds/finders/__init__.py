@@ -1,3 +1,4 @@
+from functools import lru_cache
 from importlib import import_module
 
 from django.conf import settings
@@ -34,6 +35,7 @@ def _get_config_from_settings():
         ]
 
 
+@lru_cache(maxsize=None)
 def get_finders():
     finders = []
 

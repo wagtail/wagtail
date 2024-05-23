@@ -11,5 +11,7 @@ class WagtailEmbedsAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
+        from . import signal_handlers  # noqa
+
         # Check configuration on startup
         get_finders()
