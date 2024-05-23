@@ -100,6 +100,8 @@ class PageTypesUsageReportView(ReportView):
     title = _("Page types usage")
     header_icon = "doc-empty-inverse"
     filterset_class = PageTypesUsageReportFilterSet
+    index_url_name = "wagtailadmin_reports:page_types_usage"
+    index_results_url_name = "wagtailadmin_reports:page_types_usage_results"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

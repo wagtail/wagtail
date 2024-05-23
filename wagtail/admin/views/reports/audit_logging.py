@@ -108,6 +108,8 @@ class LogEntriesView(ReportView):
     title = _("Site history")
     header_icon = "history"
     filterset_class = SiteHistoryReportFilterSet
+    index_url_name = "wagtailadmin_reports:site_history"
+    index_results_url_name = "wagtailadmin_reports:site_history_results"
 
     export_headings = {
         "object_id": _("ID"),

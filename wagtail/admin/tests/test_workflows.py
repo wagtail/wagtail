@@ -1493,7 +1493,7 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
-class BasePageWorkflowTests(WagtailTestUtils, TestCase):
+class BasePageWorkflowTests(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     model_name = "page"
 
     def setUp(self):
@@ -2927,10 +2927,18 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertContains(response, "test_workflow")
         self.assertContains(response, "Sebastian Mitter")
         self.assertContains(response, "March 31, 2020")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
 
         response = self.client.get(reverse("wagtailadmin_reports:workflow_tasks"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflow tasks"}],
+            response.content,
+        )
 
     def test_workflow_report_filtered(self):
         # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
@@ -2943,11 +2951,51 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         self.assertContains(response, "Sebastian Mitter")
         self.assertContains(response, "March 31, 2020")
 
+        # Should render the export buttons inside the header "more" dropdown
+        # with the filtered URL
+        soup = self.get_soup(response.content)
+        links = soup.select("#w-slim-header-buttons .w-dropdown a")
+        unfiltered_url = reverse("wagtailadmin_reports:workflow")
+        filtered_url = f"{unfiltered_url}?reviewable=true"
+        self.assertEqual(len(links), 2)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
+        )
+
+        # Should render the filter inside the drilldown component
+        inputs = soup.select(".w-drilldown input[name='reviewable'][type='radio']")
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].get("value"), "")
+        self.assertIsNone(inputs[0].get("checked"))
+        self.assertEqual(inputs[1].get("value"), "true")
+        self.assertEqual(inputs[1].get("checked"), "")
+
         response = self.client.get(
             reverse("wagtailadmin_reports:workflow_tasks"), {"reviewable": "true"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
+
+        # Should render the export buttons inside the header "more" dropdown
+        # with the filtered URL
+        soup = self.get_soup(response.content)
+        links = soup.select("#w-slim-header-buttons .w-dropdown a")
+        unfiltered_url = reverse("wagtailadmin_reports:workflow_tasks")
+        filtered_url = f"{unfiltered_url}?reviewable=true"
+        self.assertEqual(len(links), 2)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
+        )
+
+        # Should render the filter inside the drilldown component
+        inputs = soup.select(".w-drilldown input[name='reviewable'][type='radio']")
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].get("value"), "")
+        self.assertIsNone(inputs[0].get("checked"))
+        self.assertEqual(inputs[1].get("value"), "true")
+        self.assertEqual(inputs[1].get("checked"), "")
 
         # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
         self.login(self.submitter)
@@ -3325,7 +3373,7 @@ class TestSnippetNotificationPreferencesHTML(TestSnippetNotificationPreferences)
     pass
 
 
-class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
+class TestDisableViews(BasePageWorkflowTests):
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
         self.login(self.submitter)

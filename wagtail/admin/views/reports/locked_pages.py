@@ -42,6 +42,8 @@ class LockedPagesView(PageReportView):
         "locked_by",
     ]
     filterset_class = LockedPagesReportFilterSet
+    index_url_name = "wagtailadmin_reports:locked_pages"
+    index_results_url_name = "wagtailadmin_reports:locked_pages_results"
 
     def get_filename(self):
         return "locked-pages-report-{}".format(

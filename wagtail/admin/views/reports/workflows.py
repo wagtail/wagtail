@@ -140,6 +140,8 @@ class WorkflowView(ReportView):
     title = _("Workflows")
     header_icon = "tasks"
     filterset_class = WorkflowReportFilterSet
+    index_url_name = "wagtailadmin_reports:workflow"
+    index_results_url_name = "wagtailadmin_reports:workflow_results"
 
     export_headings = {
         "content_object.pk": _("Page/Snippet ID"),
@@ -213,6 +215,8 @@ class WorkflowTasksView(ReportView):
     title = _("Workflow tasks")
     header_icon = "thumbtack"
     filterset_class = WorkflowTasksReportFilterSet
+    index_url_name = "wagtailadmin_reports:workflow_tasks"
+    index_results_url_name = "wagtailadmin_reports:workflow_tasks_results"
 
     export_headings = {
         "workflow_state.content_object.pk": _("Page/Snippet ID"),

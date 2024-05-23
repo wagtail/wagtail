@@ -33,6 +33,8 @@ class AgingPagesView(PageReportView):
     title = _("Aging pages")
     header_icon = "time"
     filterset_class = AgingPagesReportFilterSet
+    index_url_name = "wagtailadmin_reports:aging_pages"
+    index_results_url_name = "wagtailadmin_reports:aging_pages_results"
     export_headings = {
         "status_string": _("Status"),
         "last_published_at": _("Last published at"),

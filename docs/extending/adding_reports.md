@@ -7,6 +7,7 @@ It is possible to create your own custom reports in the Wagtail admin. Two base 
 `wagtail.admin.views.reports.ReportView`, which provides basic listing and spreadsheet export functionality, and
 `wagtail.admin.views.reports.PageReportView`, which additionally provides a default set of fields suitable for page listings.
 For this example, we'll add a report which shows any pages with unpublished changes.
+We will register this view using the `unpublished_changes_report` name for the URL pattern.
 
 ```python
 # <project>/views.py
@@ -14,7 +15,8 @@ from wagtail.admin.views.reports import PageReportView
 
 
 class UnpublishedChangesReportView(PageReportView):
-    pass
+    index_url_name = "unpublished_changes_report"
+    index_results_url_name = "unpublished_changes_report_results"
 ```
 
 ## Defining your report
@@ -70,7 +72,7 @@ displaying action buttons, as well as the title, time of the last update, status
 In this example, we'll change this to a new template in a later section.
 
 .. versionadded:: 6.2
-   The ``results_template_name`` attribute was added to support the use of the ``wagtail.admin.ui.tables`` framework.
+   The ``results_template_name`` attribute was added to support updating the listing via AJAX upon filtering and to allow the use of the ``wagtail.admin.ui.tables`` framework.
 
 .. attribute:: title
 
@@ -85,6 +87,21 @@ The name of your report, which will be displayed in the header. For our example,
 
 The name of the icon, using the standard Wagtail icon names. For example, the locked pages view uses ``"locked"``,
 and for our example report, we'll set it to ``'doc-empty-inverse'``.
+
+.. attribute:: index_url_name
+
+(string)
+
+The name of the URL pattern registered for the report view.
+
+.. attribute:: index_results_url_name
+
+(string)
+
+The name of the URL pattern registered for the results view (the report view with ``.as_view(results_only=True)``).
+
+.. versionadded:: 6.2
+   The ``index_results_url_name`` attribute was added to support updating the listing via AJAX upon filtering.
 
 ```
 
@@ -197,6 +214,8 @@ def register_unpublished_changes_report_menu_item():
 def register_unpublished_changes_report_url():
     return [
         path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
+        # Add a results-only view to add support for AJAX-based filtering
+        path('reports/unpublished-changes/results/', UnpublishedChangesReportView.as_view(results_only=True), name='unpublished_changes_report_results'),
     ]
 ```
 
@@ -225,7 +244,8 @@ from wagtail.admin.views.reports import PageReportView
 from wagtail.models import Page
 
 class UnpublishedChangesReportView(PageReportView):
-
+    index_url_name = "unpublished_changes_report"
+    index_results_url_name = "unpublished_changes_report_results"
     header_icon = 'doc-empty-inverse'
     results_template_name = 'reports/unpublished_changes_report_results.html'
     title = "Pages with unpublished changes"
@@ -260,6 +280,7 @@ def register_unpublished_changes_report_menu_item():
 def register_unpublished_changes_report_url():
     return [
         path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
+        path('reports/unpublished-changes/results/', UnpublishedChangesReportView.as_view(results_only=True), name='unpublished_changes_report_results'),
     ]
 ```
 
