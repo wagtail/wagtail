@@ -625,6 +625,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ]
             for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
+                # The retrieved rendition needs to be associated with the current image instance, so that any
+                # locally-set properties such as contextual_alt_text are respected
+                rendition.image = self
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
