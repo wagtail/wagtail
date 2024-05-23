@@ -1,5 +1,4 @@
 import json
-import re
 from urllib import request as urllib_request
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -7,29 +6,25 @@ from urllib.request import Request
 
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
-from .base import EmbedFinder
+from .oembed import OEmbedFinder
 
 
 class AccessDeniedFacebookOEmbedException(EmbedException):
     pass
 
 
-class FacebookOEmbedFinder(EmbedFinder):
-    """
-    An embed finder that supports the authenticated Facebook oEmbed Endpoint.
-    https://developers.facebook.com/docs/plugins/oembed
-    """
-
-    facebook_video = {
+FACEBOOK_PROVIDERS = [
+    # Videos
+    {
         "endpoint": "https://graph.facebook.com/v11.0/oembed_video",
         "urls": [
             r"^https://(?:www\.)?facebook\.com/.+?/videos/.+$",
             r"^https://(?:www\.)?facebook\.com/video\.php\?(?:v|id)=.+$",
             r"^https://fb.watch/.+$",
         ],
-    }
-
-    facebook_post = {
+    },
+    # Posts
+    {
         "endpoint": "https://graph.facebook.com/v11.0/oembed_post",
         "urls": [
             r"^https://(?:www\.)?facebook\.com/.+?/(?:posts|activity)/.+$",
@@ -42,7 +37,15 @@ class FacebookOEmbedFinder(EmbedFinder):
             # Works for posts with a single photo
             r"^https://(?:www\.)?facebook\.com/.+?/photos/.+$",
         ],
-    }
+    },
+]
+
+
+class FacebookOEmbedFinder(OEmbedFinder):
+    """
+    An embed finder that supports the authenticated Facebook oEmbed Endpoint.
+    https://developers.facebook.com/docs/plugins/oembed
+    """
 
     def __init__(self, omitscript=False, app_id=None, app_secret=None):
         # {settings.facebook_APP_ID}|{settings.facebook_APP_SECRET}
@@ -50,26 +53,7 @@ class FacebookOEmbedFinder(EmbedFinder):
         self.app_secret = app_secret
         self.omitscript = omitscript
 
-        self._endpoints = {}
-
-        for provider in [self.facebook_video, self.facebook_post]:
-            patterns = []
-
-            endpoint = provider["endpoint"].replace("{format}", "json")
-
-            for url in provider["urls"]:
-                patterns.append(re.compile(url))
-
-            self._endpoints[endpoint] = patterns
-
-    def _get_endpoint(self, url):
-        for endpoint, patterns in self._endpoints.items():
-            for pattern in patterns:
-                if re.match(pattern, url):
-                    return endpoint
-
-    def accept(self, url):
-        return self._get_endpoint(url) is not None
+        super().__init__(providers=FACEBOOK_PROVIDERS)
 
     def find_embed(self, url, max_width=None, max_height=None):
         # Find provider
