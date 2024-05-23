@@ -2963,6 +2963,14 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
 
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn("reviewable", clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
+
         # Should render the filter inside the drilldown component
         inputs = soup.select(".w-drilldown input[name='reviewable'][type='radio']")
         self.assertEqual(len(inputs), 2)
@@ -2988,6 +2996,14 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             [link.get("href") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
+
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn("reviewable", clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
         # Should render the filter inside the drilldown component
         inputs = soup.select(".w-drilldown input[name='reviewable'][type='radio']")

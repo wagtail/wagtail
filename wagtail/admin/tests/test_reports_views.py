@@ -37,17 +37,25 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     url_name = None
 
-    def assertActiveFilter(self, soup, filter_name, filter_value):
+    def assertActiveFilter(self, soup, name, value):
         # Should render the export buttons inside the header "more" dropdown
         # with the filtered URL
         links = soup.select("#w-slim-header-buttons .w-dropdown a")
         unfiltered_url = reverse(self.url_name)
-        filtered_url = f"{unfiltered_url}?{filter_name}={filter_value}"
+        filtered_url = f"{unfiltered_url}?{name}={value}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
             [link.get("href") for link in links],
             [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
         )
+
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn(name, clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
 
 class TestLockedPagesView(BaseReportViewTestCase):

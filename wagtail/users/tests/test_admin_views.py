@@ -1625,7 +1625,7 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(names, ["Editors", "Moderators", "Photographers"])
 
 
-class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
+class TestGroupIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1637,7 +1637,7 @@ class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing_results.html")
         # response should not contain page furniture
-        self.assertNotContains(response, "Add a group")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_search(self):
         response = self.get({"q": "Hello"})
