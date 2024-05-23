@@ -173,7 +173,7 @@ class TestBackendConfiguration(TestCase):
         self.assertIs(client._config.credential, mock_credentials)
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.AzureCdnBackend._make_purge_call"
+        "wagtail.contrib.frontend_cache.backends.azure.AzureCdnBackend._make_purge_call"
     )
     def test_azure_cdn_purge(self, make_purge_call_mock):
         backends = get_backends(
@@ -215,7 +215,7 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(call_args[1], ["/home/events/christmas/?test=1", "/blog/"])
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend._make_purge_call"
+        "wagtail.contrib.frontend_cache.backends.azure.AzureFrontDoorBackend._make_purge_call"
     )
     def test_azure_front_door_purge(self, make_purge_call_mock):
         backends = get_backends(
@@ -286,7 +286,7 @@ class TestBackendConfiguration(TestCase):
             log_output.output[0],
         )
 
-    @mock.patch("wagtail.contrib.frontend_cache.backends.urlopen")
+    @mock.patch("wagtail.contrib.frontend_cache.backends.http.urlopen")
     def _test_http_with_side_effect(self, urlopen_mock, urlopen_side_effect):
         # given a backends configuration with one HTTP backend
         backends = get_backends(
@@ -324,7 +324,7 @@ class TestBackendConfiguration(TestCase):
             )
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.CloudfrontBackend._create_invalidation"
+        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
     )
     def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
         backends = get_backends(
@@ -668,7 +668,7 @@ class TestPurgeBatchClass(TestCase):
             ],
         )
 
-    @mock.patch("wagtail.contrib.frontend_cache.backends.requests.delete")
+    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.delete")
     def test_http_error_on_cloudflare_purge_batch(self, requests_delete_mock):
         backend_settings = {
             "cloudflare": {
