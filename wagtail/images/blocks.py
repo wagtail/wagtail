@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.compare import BlockComparison
 from wagtail.blocks import BooleanBlock, CharBlock, ChooserBlock, StructBlock
-from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.images.models import AbstractImage
 from wagtail.telepath import register
 
@@ -95,13 +95,29 @@ class ImageBlock(StructBlock):
 
     def clean(self, value):
         if value is None:
-            return None
+            raise StructBlockValidationError(
+                block_errors={
+                    "image": ValidationError("Expected an image instance, got nothing")
+                }
+            )
 
         if not isinstance(value, AbstractImage):
-            raise ValidationError("Expected an image instance, got %r" % value)
+            raise StructBlockValidationError(
+                block_errors={
+                    "image": ValidationError(
+                        "Expected an image instance, got %r" % value
+                    )
+                }
+            )
 
         if not value.contextual_alt_text and not value.decorative:
-            raise ValidationError("Alt text is required for non-decorative images")
+            raise StructBlockValidationError(
+                block_errors={
+                    "alt_text": ValidationError(
+                        "Alt text is required for non-decorative images"
+                    )
+                }
+            )
 
         return value
 
