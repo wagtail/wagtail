@@ -1,5 +1,4 @@
 import logging
-from collections.abc import Iterable
 
 from django.http.request import validate_host
 
@@ -14,15 +13,15 @@ class BaseBackend:
         # If unspecified, invalidate all hosts
         self.hostnames = params.get("HOSTNAMES", ["*"])
 
-    def purge(self, url: str) -> None:
+    def purge(self, url) -> None:
         raise NotImplementedError
 
-    def purge_batch(self, urls: Iterable[str]) -> None:
+    def purge_batch(self, urls) -> None:
         # Fallback for backends that do not support batch purging
         for url in urls:
             self.purge(url)
 
-    def invalidates_hostname(self, hostname: str) -> bool:
+    def invalidates_hostname(self, hostname) -> bool:
         """
         Can `hostname` be invalidated by this backend?
         """
