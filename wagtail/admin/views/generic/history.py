@@ -60,17 +60,23 @@ class HistoryFilterSet(WagtailFilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        actions = get_actions_for_filter(self.queryset)
+        actions = self.get_action_choices()
         if not actions:
             del self.filters["action"]
         else:
             self.filters["action"].extra["choices"] = actions
 
-        users = self.queryset.get_users()
+        users = self.get_users_queryset()
         if not users.exists():
             del self.filters["user"]
         else:
             self.filters["user"].extra["queryset"] = users
+
+    def get_action_choices(self):
+        return get_actions_for_filter(self.queryset)
+
+    def get_users_queryset(self):
+        return self.queryset.get_users()
 
 
 class ActionColumn(Column):

@@ -11,6 +11,7 @@ from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone, translation
+from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
@@ -378,17 +379,32 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         )
         editors.user_set.add(self.editor)
 
+        # timezone matches TIME_ZONE = "Asia/Tokyo" in tests/settings.py
+        with freeze_time("2024-05-06 12:00:00+09:00"):
+            self.today = timezone.now()
+
         self.create_log = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.create"
+            self.home_page,
+            "wagtail.create",
+            timestamp=self.today - timezone.timedelta(days=4),
+            user=self.user,
         )
         self.edit_log_1 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=3),
         )
         self.edit_log_2 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=2),
+            user=self.editor,
         )
         self.edit_log_3 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=1),
+            title="The FINAL cut",
         )
 
         self.create_comment_log = PageLogEntry.objects.log_action(
@@ -425,11 +441,14 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         self.create_custom_log = ModelLogEntry.objects.log_action(
             self.custom_model,
             "wagtail.create",
+            timestamp=self.today - timezone.timedelta(days=3),
         )
 
         self.edit_custom_log = ModelLogEntry.objects.log_action(
             self.custom_model,
             "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=2),
+            title="the final CUT",
         )
 
     def assert_log_entries(self, response, expected):
@@ -441,10 +460,10 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         actual = {
             choice.get("value")
             for choice in soup.select(
-                f"{self.drilldown_selector} select[name='action'] option"
+                f"{self.drilldown_selector} input[name='action'][type='checkbox']"
             )
         }
-        self.assertSetEqual(actual, set(expected) | {""})
+        self.assertSetEqual(actual, set(expected))
 
     def test_unfiltered(self):
         response = self.get()
@@ -540,6 +559,139 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
 
         soup = self.get_soup(response.content)
         self.assertActiveFilter(soup, "action", "wagtail.edit")
+
+    def test_filter_by_action_multiple(self):
+        response = self.get(params={"action": ["wagtail.edit", "wagtail.create"]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.create_custom_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"action": ["wagtail.edit", "wagtail.create"]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+            ],
+        )
+
+    def test_filter_by_timestamp(self):
+        today = self.today.date()
+        response = self.get(
+            params={"timestamp_from": today - timezone.timedelta(days=3)}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain self.create_log which was created 4 days ago
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        response = self.get(params={"timestamp_to": today - timezone.timedelta(days=2)})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain self.edit_log_3 which was created 1 day ago,
+                # as well as self.create_comment_log, self.edit_comment_log,
+                # and self.create_reply_log which was created without an explicit
+                # timestamp (and thus defaults to the current time)
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        response = self.get(
+            params={
+                "timestamp_from": today - timezone.timedelta(days=3),
+                "timestamp_to": today - timezone.timedelta(days=2),
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain
+                # self.create_log which was created 4 days ago,
+                # self.edit_log_3 which was created 1 day ago,
+                # as well as self.create_comment_log, self.edit_comment_log,
+                # and self.create_reply_log which was created without an explicit
+                # timestamp (and thus defaults to the current time)
+                self.edit_log_1,
+                self.edit_log_2,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+    def test_filter_by_user(self):
+        response = self.get(params={"user": self.editor.pk})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.edit_log_2])
+
+        response = self.get(params={"user": [self.user.pk, self.editor.pk]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.create_log, self.edit_log_2])
+
+    def test_filter_by_label(self):
+        response = self.get(params={"label": "final cut"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.edit_log_3, self.edit_custom_log])
+
+    def test_filter_by_object_type(self):
+        response = self.get(
+            params={"object_type": ContentType.objects.get_for_model(Page).pk}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+
+        response = self.get(
+            params={"object_type": ContentType.objects.get_for_model(Advert).pk}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
 
     def test_is_commenting_action(self):
         response = self.get(params={"is_commenting_action": "false"})
