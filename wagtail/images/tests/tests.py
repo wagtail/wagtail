@@ -67,7 +67,7 @@ class TestImageTag(TestCase):
         # Check that all the required HTML attributes are set
         self.assertIn('width="400"', result)
         self.assertIn('height="300"', result)
-        self.assertNotIn('alt="Test image"', result)
+        self.assertIn('alt="Test image"', result)
 
     def test_image_tag_none(self):
         result = self.render_image_tag(None, "width-500")
@@ -92,7 +92,7 @@ class TestImageTag(TestCase):
         # Check that all the required HTML attributes are set
         self.assertIn('width="400"', result)
         self.assertIn('height="300"', result)
-        self.assertNotIn('alt="Test image"', result)
+        self.assertIn('alt="Test image"', result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
         temp = template.Template(
@@ -226,7 +226,7 @@ class TestMissingImage(TestCase):
         response = self.client.get("/events/christmas/")
         self.assertContains(
             response,
-            '<img src="/media/not-found" width="0" height="0" \
+            '<img src="/media/not-found" width="0" height="0" alt="A missing image" \
             class="feed-image">',
             html=True,
         )
