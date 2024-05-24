@@ -127,7 +127,7 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
         # get the list of private page options from the page
         private_page_options = kwargs.pop("private_page_options", [])
-        
+
         super().__init__(*args, **kwargs)
 
         if not getattr(settings, "WAGTAIL_PRIVATE_PAGE_OPTIONS", {}).get(
@@ -140,9 +140,14 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
             ]
             del self.fields["password"]
         # Remove the fields that are not allowed for the page
-        choices = self.fields['restriction_type'].choices
-        choices = [choice for choice in choices if choice[0] in private_page_options or choice[0] == PageViewRestriction.NONE]
-        self.fields['restriction_type'].choices = choices
+        choices = self.fields["restriction_type"].choices
+        choices = [
+            choice
+            for choice in choices
+            if choice[0] in private_page_options
+            or choice[0] == PageViewRestriction.NONE
+        ]
+        self.fields["restriction_type"].choices = choices
 
     class Meta:
         model = PageViewRestriction

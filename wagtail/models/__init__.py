@@ -1292,7 +1292,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     settings_panels = []
 
     # Privacy options for page
-    private_page_options = ['password', 'groups', 'login']
+    private_page_options = ["password", "groups", "login"]
 
     @staticmethod
     def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:

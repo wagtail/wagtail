@@ -22,7 +22,11 @@ def set_privacy(request, page_id):
         restriction_exists_on_ancestor = False
 
     if request.method == "POST":
-        form = PageViewRestrictionForm(request.POST, instance=restriction, private_page_options=page.private_page_options)
+        form = PageViewRestrictionForm(
+            request.POST,
+            instance=restriction,
+            private_page_options=page.private_page_options,
+        )
         if form.is_valid() and not restriction_exists_on_ancestor:
             if form.cleaned_data["restriction_type"] == PageViewRestriction.NONE:
                 # remove any existing restriction
@@ -49,10 +53,15 @@ def set_privacy(request, page_id):
     else:  # request is a GET
         if not restriction_exists_on_ancestor:
             if restriction:
-                form = PageViewRestrictionForm(instance=restriction, private_page_options=page.private_page_options)
+                form = PageViewRestrictionForm(
+                    instance=restriction, private_page_options=page.private_page_options
+                )
             else:
                 # no current view restrictions on this page
-                form = PageViewRestrictionForm(initial={"restriction_type": "none"}, private_page_options=page.private_page_options)
+                form = PageViewRestrictionForm(
+                    initial={"restriction_type": "none"},
+                    private_page_options=page.private_page_options,
+                )
 
     if restriction_exists_on_ancestor:
         # display a message indicating that there is a restriction at ancestor level -
@@ -65,7 +74,7 @@ def set_privacy(request, page_id):
                 "page_with_restriction": restriction.page,
             },
         )
-    elif len(page.private_page_options)==0:
+    elif len(page.private_page_options) == 0:
         return render_modal_workflow(
             request,
             "wagtailadmin/page_privacy/no_privacy.html",
