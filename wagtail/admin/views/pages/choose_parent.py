@@ -1,4 +1,5 @@
 from django.contrib.admin.utils import quote
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -6,13 +7,10 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import FormView
-from django.contrib.contenttypes.models import ContentType
 
 from wagtail.admin.forms.pages import ParentChooserForm
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.models import Page
-
-
 
 
 class ChooseParentView(WagtailAdminTemplateMixin, FormView):
@@ -62,7 +60,6 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         # Combine them
         return allowed_parent_pages & pages_where_user_can_add
 
-
     def dispatch(self, request, *args, **kwargs):
         parents = self.get_valid_parent_pages(request.user)
 
@@ -72,7 +69,6 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
             parent = parents[0]
             parent_id = quote(parent.pk)
             model_opts = self.model._meta
-            # raise Exception(parent)
             return redirect(
                 "wagtailadmin_pages:add",
                 model_opts.app_label,
@@ -80,8 +76,8 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
                 parent_id,
             )
 
-            # The page can be added in multiple places, so redirect to the
-            # choose_parent view so that the parent can be specified
+        # The page can be added in multiple places, so redirect to the
+        # choose_parent view so that the parent can be specified
         return super().dispatch(request, *args, **kwargs)
 
     def get_form(self):
