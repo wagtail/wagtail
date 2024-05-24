@@ -57,6 +57,26 @@ class AccessibilityItem(BaseItem):
         "p-as-heading",
     ]
 
+    #: Configures whether the custom 'Image alt text quality' rule is enabled.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`__
+    axe_alt_text_rule_enabled = True
+
+    #: A list of bad alt text patterns checked by the 'Image alt text quality' rule.
+    axe_alt_text_rule_patterns = [
+        "apng",
+        "avif",
+        "gif",
+        "jpg",
+        "jpeg",
+        "jfif",
+        "pjpeg",
+        "pjp",
+        "png",
+        "svg",
+        "tif",
+        "webp",
+    ]
+
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
     #: commonly in the format of ``{"enabled": True/False}``. This can be used in
     #: conjunction with :attr:`axe_run_only` to enable or disable specific rules.
@@ -87,6 +107,9 @@ class AccessibilityItem(BaseItem):
             "Link text is empty. Use meaningful text for screen reader users."
         ),
         "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
+        "alt-text-quality": _(
+            "Image alt text has inappropriate pattern. Use meaningful text."
+        ),
     }
 
     def get_axe_include(self, request):
@@ -104,6 +127,26 @@ class AccessibilityItem(BaseItem):
     def get_axe_rules(self, request):
         """Returns a dictionary that maps axe-core rule IDs to a dictionary of rule options."""
         return self.axe_rules
+
+    def get_axe_custom_alt_text_rule_enabled(self, request):
+        """Returns if the custom 'Image alt text quality' rule is enabled."""
+        return self.axe_alt_text_rule_enabled
+
+    def get_axe_custom_alt_text_rule_patterns(self, request):
+        """Returns bad image alt text patterns for the custom 'Image alt text quality' rule."""
+        return self.axe_alt_text_rule_patterns
+
+    def get_axe_custom_alt_text_rule(self, request):
+        """Returns the custom 'Image alt text quality' rule configurations for
+        `axe.configure <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_."""
+        custom_alt_text_rule = {
+            "enabled": self.get_axe_custom_alt_text_rule_enabled(request),
+            "patterns": self.get_axe_custom_alt_text_rule_patterns(request),
+        }
+        # If no patterns are provided, disable the rule
+        if not custom_alt_text_rule["patterns"]:
+            custom_alt_text_rule["enabled"] = False
+        return custom_alt_text_rule
 
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
@@ -144,6 +187,7 @@ class AccessibilityItem(BaseItem):
             "context": self.get_axe_context(request),
             "options": self.get_axe_options(request),
             "messages": self.get_axe_messages(request),
+            "customAltTextRuleConfig": self.get_axe_custom_alt_text_rule(request),
         }
 
     def get_context_data(self, request):

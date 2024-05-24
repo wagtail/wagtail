@@ -4,6 +4,9 @@ import {
   NodeResult,
   Result,
   RunOptions,
+  ImpactValue,
+  Check,
+  Rule,
 } from 'axe-core';
 
 const toSelector = (str: string | string[]) =>
@@ -43,6 +46,7 @@ interface WagtailAxeConfiguration {
   context: ElementContext;
   options: RunOptions;
   messages: Record<string, string>;
+  customAltTextRuleConfig: any;
 }
 
 /**
@@ -68,6 +72,28 @@ export const getAxeConfiguration = (
 
   // Skip initialization of Axe if config fails to load
   return null;
+};
+
+/**
+ * Configuration for the custom Axe rules. Custom 'Image alt text quality' rule is disabled by default.
+ * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+ */
+export const customAxeRulesConfig = {
+  checks: [
+    {
+      id: 'check-image-alt-text',
+    },
+  ] as Check[],
+  rules: [
+    {
+      id: 'alt-text-quality',
+      impact: 'serious' as ImpactValue,
+      selector: 'img[alt]',
+      tags: ['best-practice'],
+      any: ['check-image-alt-text'],
+      enabled: false,
+    },
+  ] as Rule[],
 };
 
 /**

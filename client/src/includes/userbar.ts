@@ -2,7 +2,11 @@ import axe from 'axe-core';
 
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
-import { getAxeConfiguration, renderA11yResults } from './a11y-result';
+import {
+  getAxeConfiguration,
+  renderA11yResults,
+  customAxeRulesConfig,
+} from './a11y-result';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
 
@@ -311,7 +315,30 @@ export class Userbar extends HTMLElement {
 
     if (!this.shadowRoot || !accessibilityTrigger || !config) return;
 
-    // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
+    // If enabled in configurations, add a custom 'Image alt text quality' rule
+    // via Axe API https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+    if (config.customAltTextRuleConfig.enabled) {
+      const imageFileExtensions = config.customAltTextRuleConfig.patterns;
+      const imageFileExtensionsRegex = new RegExp(
+        `\\.(${imageFileExtensions.join('|')})`,
+        'i',
+      );
+
+      const checkImageAltText = (node: Element) => {
+        const image = node as HTMLImageElement;
+        const altText = image.getAttribute('alt') || '';
+        const hasBadAltText = imageFileExtensionsRegex.test(altText);
+        return !hasBadAltText;
+      };
+
+      customAxeRulesConfig.rules[0].enabled = true;
+      customAxeRulesConfig.checks[0].evaluate = checkImageAltText;
+    }
+
+    // Configure custom rules for Axe if any. None of them are enabled by default.
+    axe.configure(customAxeRulesConfig);
+
+    // Initialise Axe based on the configurable context (whole page body by default) and options ('button-name', empty-heading', 'empty-table-header', 'frame-title', 'heading-order', 'input-button-name', 'link-name', and 'p-as-heading' rules by default)
     const results = await axe.run(config.context, config.options);
 
     const a11yErrorsNumber = results.violations.reduce(
