@@ -87,6 +87,9 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotIn(name, clear_button.attrs.get("data-w-swap-src-value"))
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
+    def assertActiveFilterNotRendered(self, soup):
+        self.assertIsNone(soup.select_one(".w-active-filters"))
+
     def assertBreadcrumbs(self, breadcrumbs, html):
         if self.results_only:
             self.assertBreadcrumbsNotRendered(html)
@@ -126,6 +129,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertEqual(len(locked_by_options), 1)
         self.assertEqual(locked_by_options[0].text, "---------")
         self.assertEqual(locked_by_options[0].get("value"), "")
+        self.assertActiveFilterNotRendered(soup)
 
         parent_page = Page.objects.first()
         parent_page.add_child(
@@ -176,6 +180,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertIsNone(locked_by_options[0].value)
         self.assertEqual(locked_by_options[1].text, str(self.user))
         self.assertEqual(locked_by_options[1].get("value"), str(self.user.pk))
+        self.assertActiveFilterNotRendered(soup)
 
         # Locked by current user shown in indicator
         self.assertContains(response, "locked-indicator indicator--is-inverse")
@@ -474,6 +479,11 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
             ],
         )
 
+        # This fails for now because the hide_commenting_actions filter
+        # defaults to False, thus treated as an active filter.
+        # soup = self.get_soup(response.content)
+        # self.assertActiveFilterNotRendered(soup)
+
         # The editor should not see the Advert's log entries.
         self.login(user=self.editor)
         response = self.get()
@@ -501,6 +511,11 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
                 "wagtail.comments.create_reply",
             ],
         )
+
+        # This fails for now because the hide_commenting_actions filter
+        # defaults to False, thus treated as an active filter.
+        # soup = self.get_soup(response.content)
+        # self.assertActiveFilterNotRendered(soup)
 
     def test_filter_by_action(self):
         response = self.get(params={"action": "wagtail.edit"})
@@ -660,6 +675,8 @@ class TestAgingPagesView(BaseReportViewTestCase):
             [{"url": "", "label": "Aging pages"}],
             response.content,
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
 
     def test_displays_only_published_pages(self):
         response = self.get()
@@ -933,6 +950,8 @@ class PageTypesUsageReportViewTest(BaseReportViewTestCase):
             [{"url": "", "label": "Page types usage"}],
             response.content,
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
 
     def test_displays_only_page_types(self):
         """Asserts that the correct models are included in the queryset."""
