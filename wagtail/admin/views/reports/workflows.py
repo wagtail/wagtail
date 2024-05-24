@@ -7,6 +7,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
+from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import (
@@ -15,6 +18,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.utils import get_latest_str
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
     Task,
@@ -135,7 +139,6 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowView(ReportView):
-    template_name = "wagtailadmin/reports/workflow.html"
     results_template_name = "wagtailadmin/reports/workflow_results.html"
     title = _("Workflows")
     header_icon = "tasks"
@@ -172,6 +175,16 @@ class WorkflowView(ReportView):
             self.FORMAT_CSV: get_content_type_label,
             self.FORMAT_XLSX: get_content_type_label,
         }
+
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("By task"),
+                reverse("wagtailadmin_reports:workflow_tasks"),
+                icon_name="thumbtack",
+            )
+        ]
 
     def get_title(self, content_object):
         return get_latest_str(content_object)
@@ -210,7 +223,6 @@ class WorkflowView(ReportView):
 
 
 class WorkflowTasksView(ReportView):
-    template_name = "wagtailadmin/reports/workflow_tasks.html"
     results_template_name = "wagtailadmin/reports/workflow_tasks_results.html"
     title = _("Workflow tasks")
     header_icon = "thumbtack"
@@ -249,6 +261,16 @@ class WorkflowTasksView(ReportView):
             self.FORMAT_CSV: get_content_type_label,
             self.FORMAT_XLSX: get_content_type_label,
         }
+
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("By workflow"),
+                reverse("wagtailadmin_reports:workflow"),
+                icon_name="tasks",
+            )
+        ]
 
     def get_title(self, content_object):
         return get_latest_str(content_object)

@@ -1,9 +1,0 @@
-{% extends 'wagtailadmin/reports/base_report.html' %}
-{% load i18n wagtailadmin_tags %}
-
-{% block actions %}
-    <div>
-        <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
-    </div>
-    {{ block.super }}
-{% endblock %}

@@ -2931,6 +2931,14 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             [{"url": "", "label": "Workflows"}],
             response.content,
         )
+        soup = self.get_soup(response.content)
+        by_task_link = soup.select_one("#w-slim-header-buttons .w-header-button")
+        self.assertIsNotNone(by_task_link)
+        self.assertEqual(
+            by_task_link.get("href"),
+            reverse("wagtailadmin_reports:workflow_tasks"),
+        )
+        self.assertEqual(by_task_link.text.strip(), "By task")
 
         response = self.client.get(reverse("wagtailadmin_reports:workflow_tasks"))
         self.assertEqual(response.status_code, 200)
@@ -2939,6 +2947,14 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
             [{"url": "", "label": "Workflow tasks"}],
             response.content,
         )
+        soup = self.get_soup(response.content)
+        by_task_link = soup.select_one("#w-slim-header-buttons .w-header-button")
+        self.assertIsNotNone(by_task_link)
+        self.assertEqual(
+            by_task_link.get("href"),
+            reverse("wagtailadmin_reports:workflow"),
+        )
+        self.assertEqual(by_task_link.text.strip(), "By workflow")
 
     def test_workflow_report_filtered(self):
         # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
