@@ -36,13 +36,43 @@ from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     url_name = None
+    header_buttons_parent_selector = "#w-slim-header-buttons"
+    drilldown_selector = ".w-drilldown"
+    extra_params = ""
+    results_only = False
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.url = reverse(cls.url_name)
+        if cls.results_only:
+            cls.header_buttons_parent_selector = (
+                '[data-controller="w-teleport"]'
+                '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            )
+            cls.drilldown_selector = (
+                '[data-controller="w-teleport"]'
+                '[data-w-teleport-target-value="#filters-drilldown"]'
+            )
+            cls.extra_params = "&_w_filter_fragment=true"
+
+    def setUp(self):
+        self.user = self.login()
+
+    def get(self, params={}):
+        if self.results_only:
+            params["_w_filter_fragment"] = "true"
+        return self.client.get(self.url, params)
 
     def assertActiveFilter(self, soup, name, value):
         # Should render the export buttons inside the header "more" dropdown
-        # with the filtered URL
-        links = soup.select("#w-slim-header-buttons .w-dropdown a")
+        # with the filtered URL. When used in a results-only view, these are
+        # teleported to the correct element in the skeleton.
+        links_parent = soup.select_one(self.header_buttons_parent_selector)
+        self.assertIsNotNone(links_parent)
+        links = links_parent.select(".w-dropdown a")
         unfiltered_url = reverse(self.url_name)
-        filtered_url = f"{unfiltered_url}?{name}={value}"
+        filtered_url = f"{unfiltered_url}?{name}={value}{self.extra_params}"
         self.assertEqual(len(links), 2)
         self.assertEqual(
             [link.get("href") for link in links],
@@ -57,13 +87,15 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotIn(name, clear_button.attrs.get("data-w-swap-src-value"))
         self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
 
+    def assertBreadcrumbs(self, breadcrumbs, html):
+        if self.results_only:
+            self.assertBreadcrumbsNotRendered(html)
+        else:
+            self.assertBreadcrumbsItemsRendered(breadcrumbs, html)
+
 
 class TestLockedPagesView(BaseReportViewTestCase):
-    def setUp(self):
-        self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
+    url_name = "wagtailadmin_reports:locked_pages"
 
     def test_simple(self):
         response = self.get()
@@ -77,7 +109,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             response,
             "wagtailadmin/reports/locked_pages_results.html",
         )
-        self.assertBreadcrumbsItemsRendered(
+        self.assertBreadcrumbs(
             [{"url": "", "label": "Locked pages"}],
             response.content,
         )
@@ -87,7 +119,9 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(".w-drilldown select[name='locked_by'] option")
+        locked_by_options = soup.select(
+            f"{self.drilldown_selector} select[name='locked_by'] option"
+        )
         # No user locked anything, so there should be no option for the filter
         self.assertEqual(len(locked_by_options), 1)
         self.assertEqual(locked_by_options[0].text, "---------")
@@ -123,7 +157,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
             response,
             "wagtailadmin/reports/locked_pages_results.html",
         )
-        self.assertBreadcrumbsItemsRendered(
+        self.assertBreadcrumbs(
             [{"url": "", "label": "Locked pages"}],
             response.content,
         )
@@ -133,7 +167,9 @@ class TestLockedPagesView(BaseReportViewTestCase):
 
         # Should render the filter inside the drilldown
         soup = self.get_soup(response.content)
-        locked_by_options = soup.select(".w-drilldown select[name='locked_by'] option")
+        locked_by_options = soup.select(
+            f"{self.drilldown_selector} select[name='locked_by'] option"
+        )
         # The options should only display users who have locked pages
         self.assertEqual(len(locked_by_options), 2)
         self.assertEqual(locked_by_options[0].text, "---------")
@@ -285,9 +321,6 @@ class TestFilteredLockedPagesView(BaseReportViewTestCase):
         self.christmas_page.locked_at = timezone.now()
         self.christmas_page.save()
 
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
-
     def test_filter_by_live(self):
         response = self.get(params={"live": "true"})
         self.assertEqual(response.status_code, 200)
@@ -310,6 +343,11 @@ class TestFilteredLockedPagesView(BaseReportViewTestCase):
         self.assertContains(response, "Tentative Unpublished Event")
         self.assertContains(response, "Christmas")
         self.assertNotContains(response, "My locked page")
+
+
+class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
+    url_name = "wagtailadmin_reports:locked_pages_results"
+    results_only = True
 
 
 class TestFilteredLogEntriesView(BaseReportViewTestCase):
@@ -389,9 +427,6 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
             "wagtail.edit",
         )
 
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:site_history"), params)
-
     def assert_log_entries(self, response, expected):
         actual = set(response.context["object_list"])
         self.assertSetEqual(actual, set(expected))
@@ -400,14 +435,16 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         soup = self.get_soup(response.content)
         actual = {
             choice.get("value")
-            for choice in soup.select(".w-drilldown select[name='action'] option")
+            for choice in soup.select(
+                f"{self.drilldown_selector} select[name='action'] option"
+            )
         }
         self.assertSetEqual(actual, set(expected) | {""})
 
     def test_unfiltered(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertBreadcrumbsItemsRendered(
+        self.assertBreadcrumbs(
             [{"url": "", "label": "Site history"}],
             response.content,
         )
@@ -568,6 +605,11 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class TestFilteredLogEntriesResultsView(TestFilteredLogEntriesView):
+    url_name = "wagtailadmin_reports:site_history_results"
+    results_only = True
+
+
 @override_settings(
     USE_L10N=True,
 )
@@ -592,13 +634,12 @@ class TestExcelDateFormatter(TestCase):
 
 
 class TestAgingPagesView(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:aging_pages"
+
     def setUp(self):
         self.user = self.login()
         self.root = Page.objects.first()
         self.home = Page.objects.get(slug="home")
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
 
     def publish_home_page(self):
         self.home.save_revision().publish(user=self.user)
@@ -615,7 +656,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
             response,
             "wagtailadmin/reports/aging_pages_results.html",
         )
-        self.assertBreadcrumbsItemsRendered(
+        self.assertBreadcrumbs(
             [{"url": "", "label": "Aging pages"}],
             response.content,
         )
@@ -766,12 +807,11 @@ class TestAgingPagesView(BaseReportViewTestCase):
         self.assertContains(response, expected_deleted_string)
 
 
-class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
+class TestAgingPagesViewPermissions(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:aging_pages"
+
     def setUp(self):
         self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
 
     def test_simple(self):
         response = self.get()
@@ -823,9 +863,6 @@ class TestFilteredAgingPagesView(BaseReportViewTestCase):
         self.home_page = Page.objects.get(slug="home")
         self.aboutus_page = Page.objects.get(slug="about-us")
 
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
-
     def test_filter_by_live(self):
         response = self.get(params={"live": "true"})
 
@@ -850,7 +887,9 @@ class TestFilteredAgingPagesView(BaseReportViewTestCase):
         self.assertActiveFilter(soup, "content_type", ct_pk)
 
         # Should render the filter inside the drilldown component
-        ct_select = soup.select_one(".w-drilldown select[name='content_type']")
+        ct_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='content_type']"
+        )
         self.assertIsNotNone(ct_select)
         selected_option = ct_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)
@@ -866,14 +905,17 @@ class TestFilteredAgingPagesView(BaseReportViewTestCase):
         self.assertNotContains(response, self.home_page.title)
 
 
+class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
+    url_name = "wagtailadmin_reports:aging_pages_results"
+    results_only = True
+
+
 class PageTypesUsageReportViewTest(BaseReportViewTestCase):
     fixtures = ["test.json"]
+    url_name = "wagtailadmin_reports:page_types_usage"
 
     def setUp(self):
         self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     @staticmethod
     def display_name(content_type):
@@ -887,7 +929,7 @@ class PageTypesUsageReportViewTest(BaseReportViewTestCase):
             response,
             "wagtailadmin/reports/page_types_usage_results.html",
         )
-        self.assertBreadcrumbsItemsRendered(
+        self.assertBreadcrumbs(
             [{"url": "", "label": "Page types usage"}],
             response.content,
         )
@@ -1002,14 +1044,13 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
 
 
 @override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)
-class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
+class PageTypesReportFiltersTests(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:page_types_usage"
+
     def setUp(self):
         self.user = self.login()
         self.default_locale = Locale.get_default()
         self.fr_locale, _ = Locale.objects.get_or_create(language_code="fr")
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     def test_locale_filtering(self):
         # Create pages in default locale
@@ -1073,7 +1114,9 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
 
         # Should render the filter inside the drilldown component
         soup = self.get_soup(response.content)
-        locale_select = soup.select_one(".w-drilldown select[name='page_locale']")
+        locale_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='page_locale']"
+        )
         self.assertIsNotNone(locale_select)
         selected_option = locale_select.select_one("option[selected]")
         self.assertIsNotNone(selected_option)
@@ -1161,14 +1204,14 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         self.assertCountEqual(choices, expected_choices)
 
 
-class TestPageTypesUsageReportViewPermissions(WagtailTestUtils, TestCase):
+class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
+    url_name = "wagtailadmin_reports:page_types_usage_results"
+    results_only = True
+
+
+class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
     fixtures = ["test.json"]
-
-    def setUp(self):
-        self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
+    url_name = "wagtailadmin_reports:page_types_usage"
 
     def test_simple(self):
         response = self.get()
