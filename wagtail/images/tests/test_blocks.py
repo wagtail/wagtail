@@ -28,8 +28,10 @@ class TestImageChooserBlock(TestCase):
     def test_render(self):
         block = ImageChooserBlock()
         html = block.render(self.image)
-        expected_html = '<img src="{}" width="640" height="480">'.format(
-            get_test_image_filename(self.image, "original")
+        expected_html = (
+            '<img alt="Test image" src="{}" width="640" height="480">'.format(
+                get_test_image_filename(self.image, "original")
+            )
         )
 
         self.assertHTMLEqual(html, expected_html)
@@ -44,13 +46,15 @@ class TestImageChooserBlock(TestCase):
             html = block.render(self.bad_image)
         self.assertHTMLEqual(
             html,
-            '<img src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
+            '<img alt="missing image" src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
         )
 
     def test_render_missing(self):
         block = ImageChooserBlock()
         html = block.render(self.bad_image)
-        expected_html = '<img src="/media/not-found" width="0" height="0">'
+        expected_html = (
+            '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        )
 
         self.assertHTMLEqual(html, expected_html)
 

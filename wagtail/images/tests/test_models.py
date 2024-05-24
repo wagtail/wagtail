@@ -381,6 +381,7 @@ class TestResponsiveImage(TestCase):
             img.__html__(),
             f"""
                 <img
+                    alt="Test image"
                     src="{filenames[0]}"
                     srcset="{filenames[0]} 10w, {filenames[1]} 90w"
                     width="10"
@@ -468,6 +469,7 @@ class TestPicture(TestCase):
                 <picture>
                     <source srcset="{filenames[2]} 10w, {filenames[3]} 90w" sizes="100vw" type="image/webp">
                     <img
+                        alt="Test image"
                         sizes="100vw"
                         src="{filenames[0]}"
                         srcset="{filenames[0]} 10w, {filenames[1]} 90w"
@@ -747,9 +749,7 @@ class TestRenditions(TestCase):
 
     def test_alt_attribute(self):
         rendition = self.image.get_rendition("width-400")
-        self.assertNotEqual(
-            rendition.alt, "Test image"
-        )  # Alt text should not default to title
+        self.assertEqual(rendition.alt, "Test image")
 
     def test_full_url(self):
         ren_img = self.image.get_rendition("original")

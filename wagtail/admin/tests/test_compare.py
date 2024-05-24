@@ -913,9 +913,9 @@ class TestStreamFieldComparison(TestCase):
 
         result = comparison.htmldiff()
         self.assertIn('<div class="preview-image deletion">', result)
-        self.assertNotIn('alt="Test image 1"', result)
+        self.assertIn('alt="Test image 1"', result)
         self.assertIn('<div class="preview-image addition">', result)
-        self.assertNotIn('alt="Test image 2"', result)
+        self.assertIn('alt="Test image 2"', result)
 
         self.assertIsInstance(result, SafeString)
         self.assertTrue(comparison.has_changed())
