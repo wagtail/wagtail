@@ -8,7 +8,6 @@ class ImageBlockDefinition extends window.wagtailStreamField.blocks
     const updateStateInput = () => {
       if (isDecorativeField.checked) {
         altTextField.setAttribute('disabled', true);
-        altTextField.value = '';
       } else {
         altTextField.removeAttribute('disabled');
       }
