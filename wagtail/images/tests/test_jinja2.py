@@ -46,7 +46,7 @@ class TestImageJinja(JinjaImagesTestCase):
     def test_image(self):
         self.assertHTMLEqual(
             self.render('{{ image(myimage, "width-200") }}', {"myimage": self.image}),
-            '<img src="{}" width="200" height="150">'.format(
+            '<img alt="Test image" src="{}" width="200" height="150">'.format(
                 get_test_image_filename(self.image, "width-200")
             ),
         )
@@ -80,7 +80,7 @@ class TestImageJinja(JinjaImagesTestCase):
                 '{% set bg=image(myimage, "width-200") %}{{ bg }}',
                 {"myimage": self.image},
             ),
-            '<img src="{}" width="200" height="150">'.format(
+            '<img alt="Test image" src="{}" width="200" height="150">'.format(
                 get_test_image_filename(self.image, "width-200")
             ),
         )
@@ -90,7 +90,7 @@ class TestImageJinja(JinjaImagesTestCase):
             self.render(
                 '{{ image(myimage, "width-200") }}', {"myimage": self.bad_image}
             ),
-            '<img src="/media/not-found" width="0" height="0">',
+            '<img alt="missing image" src="/media/not-found" width="0" height="0">',
         )
 
     def test_invalid_character(self):
@@ -109,7 +109,7 @@ class TestImageJinja(JinjaImagesTestCase):
                 self.render(
                     '{{ image(myimage, "width-200") }}', {"myimage": self.bad_image}
                 ),
-                '<img src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
+                '<img alt="missing image" src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
             )
 
     def test_chaining_filterspecs(self):
@@ -118,7 +118,7 @@ class TestImageJinja(JinjaImagesTestCase):
                 '{{ image(myimage, "width-200|jpegquality-40") }}',
                 {"myimage": self.image},
             ),
-            '<img src="{}" width="200" height="150">'.format(
+            '<img alt="Test image" src="{}" width="200" height="150">'.format(
                 get_test_image_filename(self.image, "width-200.jpegquality-40")
             ),
         )
@@ -158,6 +158,7 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 sizes="100vw"
                 src="{filename_200}"
                 srcset="{filename_200} 200w, {filename_400} 400w"
+                alt="Test image"
                 width="200"
                 height="150"
             >
@@ -216,6 +217,7 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 sizes="100vw"
                 src="/media/not-found"
                 srcset="/media/not-found 0w, /media/not-found 0w"
+                alt="missing image"
                 width="0"
                 height="0"
             >
@@ -246,6 +248,7 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                     sizes="100vw"
                     src="/media/not-found"
                     srcset="/media/not-found 0w, /media/not-found 0w"
+                    alt="missing image"
                     width="0"
                     height="0"
                     decoding="async"
@@ -268,6 +271,7 @@ class TestSrcsetImageJinja(JinjaImagesTestCase):
                 sizes="100vw"
                 src="{filenames[0]}"
                 srcset="{filenames[0]} 200w, {filenames[1]} 400w"
+                alt="Test image"
                 width="200"
                 height="150"
             >
@@ -298,6 +302,7 @@ class TestPictureJinja(JinjaImagesTestCase):
                 sizes="100vw"
                 src="{filenames[4]}"
                 srcset="{filenames[4]} 200w, {filenames[5]} 400w"
+                alt="Test image"
                 width="200"
                 height="150"
             >
@@ -318,6 +323,7 @@ class TestPictureJinja(JinjaImagesTestCase):
             <source srcset="{filename_webp}" type="image/webp">
             <img
                 src="{filename_jpeg}"
+                alt="Test image"
                 width="640"
                 height="480"
             >
@@ -389,6 +395,7 @@ class TestPictureJinja(JinjaImagesTestCase):
                 <source srcset="/media/not-found" type="image/webp">
                 <img
                     src="/media/not-found"
+                    alt="missing image"
                     width="0"
                     height="0"
                 >
@@ -420,6 +427,7 @@ class TestPictureJinja(JinjaImagesTestCase):
                     <source srcset="/media/not-found" type="image/webp">
                     <img
                         src="/media/not-found"
+                        alt="missing image"
                         width="0"
                         height="0"
                         decoding="async"
@@ -445,6 +453,7 @@ class TestPictureJinja(JinjaImagesTestCase):
             <source srcset="{filename_webp}" type="image/webp">
             <img
                 src="{filename_jpeg}"
+                alt="Test image"
                 width="640"
                 height="480"
             >
