@@ -2,10 +2,9 @@ import datetime
 from collections import defaultdict
 
 import django_filters
-from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import IntegerField, Value
+from django.db.models import IntegerField, Q, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
@@ -15,6 +14,7 @@ from wagtail.admin.filters import (
     DateRangePickerWidget,
     WagtailFilterSet,
 )
+from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.coreutils import get_content_type_label
 from wagtail.log_actions import registry as log_action_registry
 from wagtail.models import PageLogEntry
@@ -57,10 +57,10 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
         label=_("Action"),
         # choices are set dynamically in __init__()
     )
-    hide_commenting_actions = django_filters.BooleanFilter(
-        label=_("Hide commenting actions"),
-        method="filter_hide_commenting_actions",
-        widget=forms.CheckboxInput,
+    is_commenting_action = django_filters.BooleanFilter(
+        label=_("Is commenting action"),
+        method="filter_is_commenting_action",
+        widget=BooleanRadioSelect,
     )
     timestamp = django_filters.DateFromToRangeFilter(
         label=_("Date"), widget=DateRangePickerWidget
@@ -77,10 +77,15 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
         queryset=lambda request: get_content_types_for_filter(request.user),
     )
 
-    def filter_hide_commenting_actions(self, queryset, name, value):
-        if value:
-            queryset = queryset.exclude(action__startswith="wagtail.comments")
-        return queryset
+    def filter_is_commenting_action(self, queryset, name, value):
+        if value is None:
+            return queryset
+
+        q = Q(action__startswith="wagtail.comments")
+        if value is False:
+            q = ~q
+
+        return queryset.filter(q)
 
     def filter_object_type(self, queryset, name, value):
         return queryset.filter_on_content_type(value)
@@ -93,7 +98,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
             "action",
             "user",
             "timestamp",
-            "hide_commenting_actions",
+            "is_commenting_action",
         ]
 
     def __init__(self, *args, **kwargs):

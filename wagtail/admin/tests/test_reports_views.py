@@ -479,10 +479,8 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
             ],
         )
 
-        # This fails for now because the hide_commenting_actions filter
-        # defaults to False, thus treated as an active filter.
-        # soup = self.get_soup(response.content)
-        # self.assertActiveFilterNotRendered(soup)
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
 
         # The editor should not see the Advert's log entries.
         self.login(user=self.editor)
@@ -512,10 +510,8 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
             ],
         )
 
-        # This fails for now because the hide_commenting_actions filter
-        # defaults to False, thus treated as an active filter.
-        # soup = self.get_soup(response.content)
-        # self.assertActiveFilterNotRendered(soup)
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
 
     def test_filter_by_action(self):
         response = self.get(params={"action": "wagtail.edit"})
@@ -545,8 +541,8 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
         soup = self.get_soup(response.content)
         self.assertActiveFilter(soup, "action", "wagtail.edit")
 
-    def test_hide_commenting_actions(self):
-        response = self.get(params={"hide_commenting_actions": "on"})
+    def test_is_commenting_action(self):
+        response = self.get(params={"is_commenting_action": "false"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(
             response,
@@ -559,9 +555,24 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
                 self.edit_custom_log,
             ],
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "false")
+
+        response = self.get(params={"is_commenting_action": "true"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "true")
 
         self.login(user=self.editor)
-        response = self.get(params={"hide_commenting_actions": "on"})
+        response = self.get(params={"is_commenting_action": "false"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(
             response,
@@ -572,6 +583,21 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
                 self.edit_log_3,
             ],
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "false")
+
+        response = self.get(params={"is_commenting_action": "true"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "true")
 
     def test_log_entry_with_stale_content_type(self):
         stale_content_type = ContentType.objects.create(
