@@ -4889,6 +4889,16 @@ class TestPageChooserBlock(TestCase):
 
         self.assertSequenceEqual(pages, expected_pages)
 
+    def test_bulk_to_python_distinct_instances(self):
+        page_ids = [2, 2]
+        block = blocks.PageChooserBlock()
+
+        with self.assertNumQueries(1):
+            pages = block.bulk_to_python(page_ids)
+
+        # Ensure that the two retrieved pages are distinct instances
+        self.assertIsNot(pages[0], pages[1])
+
     def test_extract_references(self):
         block = blocks.PageChooserBlock()
         christmas_page = Page.objects.get(slug="christmas")
