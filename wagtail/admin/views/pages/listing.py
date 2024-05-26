@@ -451,7 +451,7 @@ class ExplorableIndexView(IndexView):
             # allow drag-and-drop reordering
             return None
         else:
-            return self.paginate_by
+            return super().get_paginate_by(queryset)
 
     def get_page_subtitle(self):
         return self.parent_page.get_admin_display_title()

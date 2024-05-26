@@ -376,6 +376,25 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.make_pages()
 
         response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"p": 3, "p_size": 10},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page
+        self.assertEqual(response.context["page_obj"].number, 3)
+
+        # Check that we got the correct page size
+        self.assertEqual(len(response.context["page_obj"].object_list), 10)
+        self.assertContains(response, "21-30 of 153")
+
+    def test_pagination_by_page(self):
+        self.make_pages()
+
+        response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p": 2}
         )
 
@@ -385,9 +404,13 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
+
+        # Check that we got the correct page size
+        # paginate_by is set to 50 in IndexView
+        self.assertEqual(len(response.context["page_obj"].object_list), 50)
         self.assertContains(response, "51-100 of 153")
 
-    def test_pagination_invalid(self):
+    def test_pagination_page_invalid(self):
         self.make_pages()
 
         response = self.client.get(
@@ -398,7 +421,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 404)
 
-    def test_pagination_out_of_range(self):
+    def test_pagination_page_out_of_range(self):
         self.make_pages()
 
         response = self.client.get(
@@ -407,6 +430,125 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 404)
+
+    def test_pagination_page_no_value(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p": ""}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page
+        self.assertEqual(response.context["page_obj"].number, 1)
+
+        # Check that we got the correct page size
+        # paginate_by is set to 50 in IndexView
+        self.assertEqual(len(response.context["page_obj"].object_list), 50)
+        self.assertContains(response, "1-50 of 153")
+
+    def test_pagination_by_page_size(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"p_size": 5},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page
+        self.assertEqual(response.context["page_obj"].number, 1)
+
+        # Check that we got the correct page size
+        self.assertEqual(len(response.context["page_obj"].object_list), 5)
+        self.assertContains(response, "1-5 of 153")
+
+    def test_pagination_page_size_invalid(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"p_size": "Hello World!"},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
+
+    def test_pagination_page_size_out_of_range(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p_size": -2}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 404)
+
+    def test_pagination_page_size_no_value(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)), {"p_size": ""}
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page
+        self.assertEqual(response.context["page_obj"].number, 1)
+
+        # Check that we got the correct page size
+        # paginate_by is set to 50 in IndexView
+        self.assertEqual(len(response.context["page_obj"].object_list), 50)
+        self.assertContains(response, "1-50 of 153")
+
+    def test_pagination_page_size_all(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"p_size": "all"},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page
+        self.assertEqual(response.context["page_obj"].number, 1)
+
+        # Check that we got the correct page size
+        self.assertEqual(len(response.context["page_obj"].object_list), 153)
+        self.assertContains(response, "1-153 of 153")
+
+    def test_pagination_page_size_field(self):
+        self.make_pages()
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"p_size": "25"},
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
+
+        # Check that we got the correct page size
+        self.assertEqual(len(response.context["page_obj"].object_list), 25)
+        self.assertContains(response, "1-25 of 153")
+
+        # Check that the select field has the right option selected
+        self.assertRegex(
+            response.content.decode(),
+            r'<option[^>]*selected="selected"[^>]*>\s*25\s*</option>',
+        )
 
     def test_no_pagination_with_custom_ordering(self):
         self.make_pages()

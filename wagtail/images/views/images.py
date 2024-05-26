@@ -70,7 +70,8 @@ class IndexView(generic.IndexView):
     columns = []
 
     def get_paginate_by(self, queryset):
-        return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
+        self.paginate_by = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
+        return super().get_paginate_by(queryset)
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
