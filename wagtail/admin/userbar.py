@@ -63,25 +63,35 @@ class AccessibilityItem(BaseItem):
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
-    # Spec object for axe.configure()
-    # If a rule is added, it's enabled by default, unless specificed "enabled: False"
-    axe_custom_rules = {
-        "checks": [
-            {
-                "id": "check-image-alt-text",
-            }
-        ],
-        "rules": [
-            {
-                "id": "alt-text-quality",
-                "impact": "serious",
-                "selector": "img[alt]",
-                "tags": ["best-practice"],
-                "any": ["check-image-alt-text"],
-                "enabled": True,  # Defaults to True
-            }
-        ],
-    }
+    #: A list used to add custom rules to the existing set of Axe rules, or to override the properties of existing Axe rules
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`__.
+    axe_custom_rules = []
+
+    #: A custom rule to check the quality of the Images alt texts. Added to the list of custom rules and enabled by default.
+    #: Should be used in conjunction with :attr:`_axe_custom_alt_text_check`
+    #: This rule ensures that alt texts doesn't contain antipatterns like file extensions. Returns zero false positives.
+    _axe_custom_alt_text_rule = [
+        {
+            "id": "alt-text-quality",
+            "impact": "serious",
+            "selector": "img[alt]",
+            "tags": ["best-practice"],
+            "any": ["check-image-alt-text"],
+            "enabled": True,  # If ommited, defaults to True
+        }
+    ]
+
+    #: A list used to add custom checks to the existing set of Axe checks, or to override the properties of existing Axe checks
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`__.
+    axe_custom_checks = []
+
+    #: A custom check for the custom Image alt text quality rule. Added to the list of custom checks and enabled by default.
+    #: Should be used in conjunction with :attr:`_axe_custom_alt_text_rule`
+    _axe_custom_alt_text_check = [
+        {
+            "id": "check-image-alt-text",
+        }
+    ]
 
     #: A dictionary that maps axe-core rule IDs to custom translatable strings
     #: to use as the error messages. If an enabled rule does not exist in this
@@ -129,8 +139,24 @@ class AccessibilityItem(BaseItem):
         return self.axe_rules
 
     def get_axe_custom_rules(self, request):
-        """Returns if the custom 'Image alt text quality' rule is enabled."""
-        return self.axe_custom_rules
+        """Returns TODO return nothing if empty both rules and checks"""
+        return self.axe_custom_rules + self._axe_custom_alt_text_rule
+
+    def get_axe_custom_checks(self, request):
+        """Returns TODO return nothing if empty both rules and checks"""
+        return self.axe_custom_checks + self._axe_custom_alt_text_check
+
+    def get_axe_custom_config(self, request):
+        """Returns TODO return nothing if empty both rules and checks"""
+        custom_config = {
+            "rules": self.get_axe_custom_rules(request),
+            "checks": self.get_axe_custom_checks(request),
+        }
+
+        # If both the lists of custom rules and custom checks are empty, no custom configuration should be applied for Axe
+        if not custom_config["rules"] and not custom_config["checks"]:
+            custom_config = ""
+        return custom_config
 
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
@@ -171,7 +197,7 @@ class AccessibilityItem(BaseItem):
             "context": self.get_axe_context(request),
             "options": self.get_axe_options(request),
             "messages": self.get_axe_messages(request),
-            "custom": self.get_axe_custom_rules(request),
+            "custom": self.get_axe_custom_config(request),
         }
 
     def get_context_data(self, request):

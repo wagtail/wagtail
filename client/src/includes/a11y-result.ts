@@ -73,7 +73,9 @@ export const getAxeConfiguration = (
 };
 
 /**
- * Custom rule for checking image alt text. Will be added via the Axe.configure() API
+ * Custom rule for checking image alt text. This rule checks if the alt text for images
+ * contains file extensions or URLs, which are considered poor quality alt text.
+ * The rule will be added via the Axe.configure() API.
  * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */
 export const checkImageAltText = (node: Element) => {
@@ -106,6 +108,7 @@ export const checkImageAltText = (node: Element) => {
 
 /**
  * Defines custom Axe rules, mapping each check to its corresponding JavaScript function.
+ * This object holds the custom checks that will be added to the Axe configuration.
  */
 const customChecks = {
   'check-image-alt-text': checkImageAltText,
@@ -113,7 +116,8 @@ const customChecks = {
 };
 
 /**
- * Configures custom Axe rules.
+ * Configures custom Axe rules by integrating the custom checks with their corresponding
+ * JavaScript functions. It modifies the provided configuration to include these checks.
  */
 const addCustomChecks = (customConfig: Spec): Spec => {
   const modifiedChecks = customConfig?.checks?.map((check) => {
@@ -125,7 +129,6 @@ const addCustomChecks = (customConfig: Spec): Spec => {
     }
     return check;
   });
-
   return {
     ...customConfig,
     checks: modifiedChecks,
@@ -139,23 +142,25 @@ interface A11yReport {
 
 /**
  * Get accessibility testing results from Axe based on the configurable custom checks, context, and options.
+ * It integrates custom rules into the Axe configuration before running the tests.
  */
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
-  // Add custom checks for Axe if any. 'check-image-alt-text' is enabled by default
-  if (config.custom && config.custom.checks && config.custom.rules) {
-    axe.configure(addCustomChecks(config.custom));
+  let customConfig = config.custom;
+  // Apply custom configuration for Axe. Custom 'check-image-alt-text' is enabled by default
+  if (customConfig) {
+    if (customConfig.checks) {
+      customConfig = addCustomChecks(customConfig);
+    }
+    axe.configure(customConfig);
   }
-
   // Initialise Axe based on the context (whole page body by default) and options ('button-name', empty-heading', 'empty-table-header', 'frame-title', 'heading-order', 'input-button-name', 'link-name', 'p-as-heading', and a custom 'alt-text-quality' rules by default)
   const results = await axe.run(config.context, config.options);
-
   const a11yErrorsNumber = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
     0,
   );
-
   return {
     results,
     a11yErrorsNumber,
