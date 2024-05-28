@@ -1,12 +1,10 @@
-import {
+import axe, {
   AxeResults,
   ElementContext,
   NodeResult,
   Result,
   RunOptions,
-  ImpactValue,
-  Check,
-  Rule,
+  Spec,
 } from 'axe-core';
 
 const toSelector = (str: string | string[]) =>
@@ -46,7 +44,7 @@ interface WagtailAxeConfiguration {
   context: ElementContext;
   options: RunOptions;
   messages: Record<string, string>;
-  customAltTextRuleConfig: any;
+  custom: Spec;
 }
 
 /**
@@ -75,25 +73,93 @@ export const getAxeConfiguration = (
 };
 
 /**
- * Configuration for the custom Axe rules. Custom 'Image alt text quality' rule is disabled by default.
+ * Custom rule for checking image alt text. Will be added via the Axe.configure() API
  * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */
-export const customAxeRulesConfig = {
-  checks: [
-    {
-      id: 'check-image-alt-text',
-    },
-  ] as Check[],
-  rules: [
-    {
-      id: 'alt-text-quality',
-      impact: 'serious' as ImpactValue,
-      selector: 'img[alt]',
-      tags: ['best-practice'],
-      any: ['check-image-alt-text'],
-      enabled: false,
-    },
-  ] as Rule[],
+export const checkImageAltText = (node: Element) => {
+  const imageFileExtensions = [
+    'apng',
+    'avif',
+    'gif',
+    'jpg',
+    'jpeg',
+    'jfif',
+    'pjpeg',
+    'pjp',
+    'png',
+    'svg',
+    'tif',
+    'webp',
+  ];
+  const imageURLs = ['http://', 'https://', 'www.'];
+  const altTextAntipatterns = new RegExp(
+    `\\.(${imageFileExtensions.join('|')})|(${imageURLs.join('|')})`,
+    'i',
+  );
+
+  const image = node as HTMLImageElement;
+  const altText = image.getAttribute('alt') || '';
+
+  const hasBadAltText = altTextAntipatterns.test(altText);
+  return !hasBadAltText;
+};
+
+/**
+ * Defines custom Axe rules, mapping each check to its corresponding JavaScript function.
+ */
+const customChecks = {
+  'check-image-alt-text': checkImageAltText,
+  // Add other custom checks here
+};
+
+/**
+ * Configures custom Axe rules.
+ */
+const addCustomChecks = (customConfig: Spec): Spec => {
+  const modifiedChecks = customConfig?.checks?.map((check) => {
+    if (customChecks[check.id]) {
+      return {
+        ...check,
+        evaluate: customChecks[check.id],
+      };
+    }
+    return check;
+  });
+
+  return {
+    ...customConfig,
+    checks: modifiedChecks,
+  };
+};
+
+interface A11yReport {
+  results: AxeResults;
+  a11yErrorsNumber: number;
+}
+
+/**
+ * Get accessibility testing results from Axe based on the configurable custom checks, context, and options.
+ */
+export const getA11yReport = async (
+  config: WagtailAxeConfiguration,
+): Promise<A11yReport> => {
+  // Add custom checks for Axe if any. 'check-image-alt-text' is enabled by default
+  if (config.custom && config.custom.checks && config.custom.rules) {
+    axe.configure(addCustomChecks(config.custom));
+  }
+
+  // Initialise Axe based on the context (whole page body by default) and options ('button-name', empty-heading', 'empty-table-header', 'frame-title', 'heading-order', 'input-button-name', 'link-name', 'p-as-heading', and a custom 'alt-text-quality' rules by default)
+  const results = await axe.run(config.context, config.options);
+
+  const a11yErrorsNumber = results.violations.reduce(
+    (sum, violation) => sum + violation.nodes.length,
+    0,
+  );
+
+  return {
+    results,
+    a11yErrorsNumber,
+  };
 };
 
 /**
