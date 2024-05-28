@@ -1,3 +1,5 @@
+(adding_reports)=
+
 # Adding reports
 
 Reports are views with listings of pages matching a specific query. They can also export these listings in spreadsheet format.
