@@ -4,7 +4,6 @@ import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 from django.urls import reverse
@@ -145,6 +144,8 @@ class WorkflowView(ReportView):
     filterset_class = WorkflowReportFilterSet
     index_url_name = "wagtailadmin_reports:workflow"
     index_results_url_name = "wagtailadmin_reports:workflow_results"
+    permission_policy = page_permission_policy
+    any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
         "content_object.pk": _("Page/Snippet ID"),
@@ -214,13 +215,6 @@ class WorkflowView(ReportView):
     def decorate_paginated_queryset(self, object_list):
         return [obj for obj in object_list if obj.content_object]
 
-    def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
-        ):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)
-
 
 class WorkflowTasksView(ReportView):
     results_template_name = "wagtailadmin/reports/workflow_tasks_results.html"
@@ -229,6 +223,8 @@ class WorkflowTasksView(ReportView):
     filterset_class = WorkflowTasksReportFilterSet
     index_url_name = "wagtailadmin_reports:workflow_tasks"
     index_results_url_name = "wagtailadmin_reports:workflow_tasks_results"
+    permission_policy = page_permission_policy
+    any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
         "workflow_state.content_object.pk": _("Page/Snippet ID"),

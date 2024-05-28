@@ -293,11 +293,13 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
 
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
+    url_name = "wagtailadmin_reports:workflow"
+
     def setUp(self):
         self.user = self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:workflow"), params)
+        return self.client.get(reverse(self.url_name), params)
 
     def test_simple(self):
         response = self.get()
@@ -338,6 +340,10 @@ class TestWorkflowPermissions(WagtailTestUtils, TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
+
+
+class TestWorkflowTaskPermissions(TestWorkflowPermissions):
+    url_name = "wagtailadmin_reports:workflow_tasks"
 
 
 class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

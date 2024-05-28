@@ -3,7 +3,6 @@ import datetime
 import django_filters
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
@@ -44,6 +43,7 @@ class LockedPagesView(PageReportView):
     filterset_class = LockedPagesReportFilterSet
     index_url_name = "wagtailadmin_reports:locked_pages"
     index_results_url_name = "wagtailadmin_reports:locked_pages_results"
+    permission_required = "unlock"
 
     def get_filename(self):
         return "locked-pages-report-{}".format(
@@ -67,8 +67,3 @@ class LockedPagesView(PageReportView):
 
         self.queryset = pages
         return super().get_queryset()
-
-    def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_permission(request.user, "unlock"):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)

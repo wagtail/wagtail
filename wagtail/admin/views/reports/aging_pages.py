@@ -1,6 +1,6 @@
 import django_filters
 from django.contrib.auth import get_user_model
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import ValidationError
 from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
@@ -48,6 +48,7 @@ class AgingPagesView(PageReportView):
         "last_published_by_user",
         "content_type",
     ]
+    any_permission_required = ["add", "change", "publish"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -112,10 +113,3 @@ class AgingPagesView(PageReportView):
         )
 
         return super().get_queryset()
-
-    def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
-        ):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)

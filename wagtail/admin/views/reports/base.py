@@ -2,12 +2,13 @@ from warnings import warn
 
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.permissions import page_permission_policy
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
-class ReportView(SpreadsheetExportMixin, BaseListingView):
+class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView):
     template_name = "wagtailadmin/reports/base_report.html"
     results_template_name = "wagtailadmin/reports/base_report_results.html"
     title = ""
@@ -77,3 +78,4 @@ class PageReportView(ReportView):
         "content_type.model_class._meta.verbose_name.title",
     ]
     context_object_name = "pages"
+    permission_policy = page_permission_policy
