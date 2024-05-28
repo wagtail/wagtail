@@ -185,8 +185,29 @@ window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
 
 class BoundSelect extends BoundWidget {
   getTextLabel() {
-    const selectedOption = this.input.selectedOptions[0];
-    return selectedOption ? selectedOption.text : '';
+    return Array.from(this.input.selectedOptions)
+      .map((option) => option.text)
+      .join(', ');
+  }
+
+  getValue() {
+    if (this.input.multiple) {
+      return Array.from(this.input.selectedOptions).map(
+        (option) => option.value,
+      );
+    }
+    return this.input.value;
+  }
+
+  getState() {
+    return Array.from(this.input.selectedOptions).map((option) => option.value);
+  }
+
+  setState(state) {
+    const options = this.input.options;
+    for (let i = 0; i < options.length; i += 1) {
+      options[i].selected = state.includes(options[i].value);
+    }
   }
 }
 

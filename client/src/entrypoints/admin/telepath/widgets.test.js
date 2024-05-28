@@ -284,7 +284,7 @@ describe('telepath: wagtail.widgets.Select', () => {
       document.getElementById('placeholder'),
       'the-name',
       'the-id',
-      '1',
+      ['1'],
     );
   });
 
@@ -292,10 +292,85 @@ describe('telepath: wagtail.widgets.Select', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
     const select = document.querySelector('select');
     expect(select.options[select.selectedIndex].value).toBe('1');
+    const selectedOptions = document.querySelector('select').selectedOptions;
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].value).toBe('1');
   });
 
   test('getTextLabel() returns the text of selected option', () => {
     expect(boundWidget.getTextLabel()).toBe('Option 1');
+  });
+
+  test('getValue() returns the current value', () => {
+    expect(boundWidget.getValue()).toBe('1');
+  });
+
+  test('getState() returns the current state', () => {
+    expect(boundWidget.getState()).toStrictEqual(['1']);
+  });
+
+  test('setState() changes the current state', () => {
+    boundWidget.setState(['2']);
+    const selectedOptions = document.querySelector('select').selectedOptions;
+    expect(selectedOptions.length).toBe(1);
+    expect(selectedOptions[0].value).toBe('2');
+  });
+});
+
+describe('telepath: wagtail.widgets.Select multiple', () => {
+  let boundWidget;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    const widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.Select',
+      _args: [
+        `<select name="__NAME__" id="__ID__" multiple>
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>`,
+        '__ID__',
+      ],
+    });
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      ['red', 'blue'],
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    const select = document.querySelector('select');
+    expect(select.options[select.selectedIndex].value).toBe('red');
+    const selectedOptions = document.querySelector('select').selectedOptions;
+    expect(selectedOptions.length).toBe(2);
+    expect(selectedOptions[0].value).toBe('red');
+    expect(selectedOptions[1].value).toBe('blue');
+  });
+
+  test('getTextLabel() returns the text of selected options', () => {
+    expect(boundWidget.getTextLabel()).toBe('Red, Blue');
+  });
+
+  test('getValue() returns the current values', () => {
+    expect(boundWidget.getValue()).toStrictEqual(['red', 'blue']);
+  });
+
+  test('getState() returns the current state', () => {
+    expect(boundWidget.getState()).toStrictEqual(['red', 'blue']);
+  });
+
+  test('setState() changes the current state', () => {
+    boundWidget.setState(['red', 'green']);
+    const selectedOptions = document.querySelector('select').selectedOptions;
+    expect(selectedOptions.length).toBe(2);
+    expect(selectedOptions[0].value).toBe('red');
+    expect(selectedOptions[1].value).toBe('green');
   });
 });
 
