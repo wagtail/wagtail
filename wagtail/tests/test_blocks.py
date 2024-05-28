@@ -1122,6 +1122,18 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean("coffee")
 
+    def test_get_form_state(self):
+        block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
+        form_state = block.get_form_state("tea")
+        self.assertEqual(form_state, ["tea"])
+
+    def test_get_form_state_with_radio_widget(self):
+        block = blocks.ChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")], widget=forms.RadioSelect
+        )
+        form_state = block.get_form_state("tea")
+        self.assertEqual(form_state, ["tea"])
+
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
@@ -1507,6 +1519,21 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("coffee")
+
+    def test_get_form_state(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")]
+        )
+        form_state = block.get_form_state(["tea", "coffee"])
+        self.assertEqual(form_state, ["tea", "coffee"])
+
+    def test_get_form_state_with_checkbox_widget(self):
+        block = blocks.ChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")],
+            widget=forms.CheckboxSelectMultiple,
+        )
+        form_state = block.get_form_state(["tea", "coffee"])
+        self.assertEqual(form_state, ["tea", "coffee"])
 
 
 class TestRawHTMLBlock(unittest.TestCase):

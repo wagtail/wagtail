@@ -161,14 +161,16 @@ class BoundRadioSelect {
   }
 
   getState() {
-    return this.element.querySelector(this.selector)?.value;
+    return [this.element.querySelector(this.selector)?.value];
   }
 
   setState(state) {
     const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
-    for (let i = 0; i < inputs.length; i += 1) {
-      inputs[i].checked = inputs[i].value === state;
-    }
+    state.forEach((selectedValue) => {
+      for (let i = 0; i < inputs.length; i += 1) {
+        inputs[i].checked = inputs[i].value === selectedValue;
+      }
+    });
   }
 
   focus() {
