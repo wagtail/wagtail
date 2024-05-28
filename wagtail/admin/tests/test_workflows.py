@@ -2909,6 +2909,9 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
     def assertBreadcrumbs(self, breadcrumbs, html):
         self.assertBreadcrumbsItemsRendered(breadcrumbs, html)
 
+    def assertPageTitle(self, soup, title):
+        self.assertEqual(soup.select_one("title").text.strip(), title)
+
     def get(self, url, params=None):
         return self.client.get(url, params)
 
@@ -2953,6 +2956,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         )
         self.assertEqual(list(by_task_link.children)[-1].strip(), "By task")
         self.assertIsNone(soup.select_one(".w-active-filters"))
+        self.assertPageTitle(soup, "Workflows - Wagtail")
 
         response = self.get(reverse(self.workflow_tasks_url_name))
         self.assertEqual(response.status_code, 200)
@@ -2972,6 +2976,7 @@ class TestPageWorkflowReport(BasePageWorkflowTests):
         )
         self.assertEqual(list(by_task_link.children)[-1].strip(), "By workflow")
         self.assertIsNone(soup.select_one(".w-active-filters"))
+        self.assertPageTitle(soup, "Workflow tasks - Wagtail")
 
     def test_workflow_report_filtered(self):
         # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
@@ -3160,6 +3165,9 @@ class TestPageWorkflowReportResults(TestPageWorkflowReport):
 
     def assertBreadcrumbs(self, breadcrumbs, html):
         self.assertBreadcrumbsNotRendered(html)
+
+    def assertPageTitle(self, soup, title):
+        self.assertIsNone(soup.select_one("title"))
 
     def get(self, url, params=None):
         params = params or {}

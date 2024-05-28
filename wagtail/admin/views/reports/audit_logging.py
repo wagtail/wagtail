@@ -74,7 +74,7 @@ class SiteHistoryReportFilterSet(PageHistoryFilterSet):
 
 class LogEntriesView(ReportView):
     results_template_name = "wagtailadmin/reports/site_history_results.html"
-    title = _("Site history")
+    page_title = _("Site history")
     header_icon = "history"
     filterset_class = SiteHistoryReportFilterSet
     index_url_name = "wagtailadmin_reports:site_history"

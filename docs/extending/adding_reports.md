@@ -76,12 +76,15 @@ In this example, we'll change this to a new template in a later section.
 .. versionadded:: 6.2
    The ``results_template_name`` attribute was added to support updating the listing via AJAX upon filtering and to allow the use of the ``wagtail.admin.ui.tables`` framework.
 
-.. attribute:: title
+.. attribute:: page_title
 
 (string)
 
 The name of your report, which will be displayed in the header. For our example, we'll set it to
 ``"Pages with unpublished changes"``.
+
+.. versionchanged:: 6.2
+   The ``title`` attribute was renamed to ``page_title``.
 
 .. attribute:: header_icon
 
@@ -250,7 +253,7 @@ class UnpublishedChangesReportView(PageReportView):
     index_results_url_name = "unpublished_changes_report_results"
     header_icon = 'doc-empty-inverse'
     results_template_name = 'reports/unpublished_changes_report_results.html'
-    title = "Pages with unpublished changes"
+    page_title = "Pages with unpublished changes"
 
     list_export = PageReportView.list_export + ['last_published_at']
     export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)

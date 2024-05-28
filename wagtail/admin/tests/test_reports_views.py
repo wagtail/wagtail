@@ -33,6 +33,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -97,6 +98,14 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         else:
             self.assertBreadcrumbsItemsRendered(breadcrumbs, html)
 
+    def assertPageTitle(self, soup, title):
+        page_title = soup.select_one("title")
+        if self.results_only:
+            self.assertIsNone(page_title)
+        else:
+            self.assertIsNotNone(page_title)
+            self.assertEqual(page_title.text.strip(), title)
+
 
 class TestLockedPagesView(BaseReportViewTestCase):
     url_name = "wagtailadmin_reports:locked_pages"
@@ -131,6 +140,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertEqual(locked_by_options[0].text, "---------")
         self.assertEqual(locked_by_options[0].get("value"), "")
         self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Locked pages - Wagtail")
 
         parent_page = Page.objects.first()
         parent_page.add_child(
@@ -500,6 +510,7 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
 
         soup = self.get_soup(response.content)
         self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Site history - Wagtail")
 
         # The editor should not see the Advert's log entries.
         self.login(user=self.editor)
@@ -797,6 +808,41 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_deprecated_title_attribute(self):
+        # Remove this test when the deprecation ends
+        with mock.patch.object(
+            LogEntriesView,
+            "page_title",
+            return_value=None,
+            new_callable=mock.PropertyMock,
+        ), mock.patch.object(
+            LogEntriesView,
+            "title",
+            return_value="Deprecated page title",
+            new_callable=mock.PropertyMock,
+        ):
+            with self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "The `title` attribute in `LogEntriesView` (a `ReportView` subclass) is "
+                "deprecated. Use `page_title` instead.",
+            ):
+                self.assertEqual(LogEntriesView.title, "Deprecated page title")
+                self.assertIsNone(LogEntriesView.page_title)
+                response = self.get()
+                self.assertEqual(response.status_code, 200)
+                self.assertPageTitle(
+                    self.get_soup(response.content),
+                    "Deprecated page title - Wagtail",
+                )
+                self.assertEqual(
+                    response.context["page_title"],
+                    "Deprecated page title",
+                )
+                self.assertEqual(
+                    response.context["title"],
+                    "Deprecated page title",
+                )
+
 
 class TestFilteredLogEntriesResultsView(TestFilteredLogEntriesView):
     url_name = "wagtailadmin_reports:site_history_results"
@@ -855,6 +901,7 @@ class TestAgingPagesView(BaseReportViewTestCase):
         )
         soup = self.get_soup(response.content)
         self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Aging pages - Wagtail")
 
     def test_displays_only_published_pages(self):
         response = self.get()
@@ -1130,6 +1177,7 @@ class PageTypesUsageReportViewTest(BaseReportViewTestCase):
         )
         soup = self.get_soup(response.content)
         self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Page types usage - Wagtail")
 
     def test_displays_only_page_types(self):
         """Asserts that the correct models are included in the queryset."""

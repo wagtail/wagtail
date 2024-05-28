@@ -1,7 +1,10 @@
+from warnings import warn
+
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class ReportView(SpreadsheetExportMixin, BaseListingView):
@@ -17,9 +20,17 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
         ]
 
     def get_page_title(self):
+        if self.page_title:
+            return self.page_title
         # WagtailAdminTemplateMixin uses `page_title`, but the documented approach
-        # for ReportView uses `title`, so we change the reference here to allow
-        # using the generic base template while keeping the `title` attribute
+        # for ReportView used `title`, so we need to support both during the
+        # deprecation period. When `title` is removed, this and the `get_context_data`
+        # overrides can be removed.
+        warn(
+            f"The `title` attribute in `{self.__class__.__name__}` (a `ReportView` subclass) "
+            "is deprecated. Use `page_title` instead.",
+            RemovedInWagtail70Warning,
+        )
         return self.title
 
     def get_filtered_queryset(self):
@@ -41,7 +52,7 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["title"] = self.title
+        context["title"] = self.get_page_title()
         return context
 
     def render_to_response(self, context, **response_kwargs):

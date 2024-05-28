@@ -35,7 +35,7 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
 class LockedPagesView(PageReportView):
     results_template_name = "wagtailadmin/reports/locked_pages_results.html"
-    title = _("Locked pages")
+    page_title = _("Locked pages")
     header_icon = "lock"
     list_export = PageReportView.list_export + [
         "locked_at",
