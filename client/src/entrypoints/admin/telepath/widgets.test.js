@@ -216,6 +216,64 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
   });
 });
 
+describe('telepath: wagtail.widgets.RadioSelect for CheckboxSelectMultiple', () => {
+  let boundWidget;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    const widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.RadioSelect',
+      _args: [
+        `<ul id="__ID__">
+          <li>
+            <label for="__ID___0">
+            <input type="checkbox" name="__NAME__" value="red" id="__ID___0"> Red</label>
+          </li>
+          <li>
+            <label for="__ID___1">
+            <input type="checkbox" name="__NAME__" value="green" id="__ID___1"> Green</label>
+          </li>
+          <li>
+            <label for="__ID___2">
+            <input type="checkbox" name="__NAME__" value="blue" id="__ID___2"> Blue</label>
+          </li>
+        </ul>`,
+        '__ID___0',
+      ],
+    });
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      ['red', 'blue'],
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(document.querySelector('input[value="red"]').checked).toBe(true);
+    expect(document.querySelector('input[value="green"]').checked).toBe(false);
+    expect(document.querySelector('input[value="blue"]').checked).toBe(true);
+  });
+
+  test('getValue() returns the current value', () => {
+    expect(boundWidget.getValue()).toStrictEqual(['red', 'blue']);
+  });
+
+  test('getState() returns the current state', () => {
+    expect(boundWidget.getState()).toStrictEqual(['red', 'blue']);
+  });
+
+  test('setState() changes the current state', () => {
+    boundWidget.setState(['red', 'green']);
+    expect(document.querySelector('input[value="red"]').checked).toBe(true);
+    expect(document.querySelector('input[value="green"]').checked).toBe(true);
+    expect(document.querySelector('input[value="blue"]').checked).toBe(false);
+  });
+});
+
 describe('telepath: wagtail.widgets.CheckboxInput', () => {
   let boundWidget;
 

@@ -152,25 +152,33 @@ class BoundRadioSelect {
     this.element = element;
     this.name = name;
     this.idForLabel = idForLabel;
+    this.isMultiple = !!this.element.querySelector(
+      `input[name="${name}"][type="checkbox"]`,
+    );
     this.selector = `input[name="${name}"]:checked`;
     this.setState(initialState);
   }
 
   getValue() {
+    if (this.isMultiple) {
+      return Array.from(this.element.querySelectorAll(this.selector)).map(
+        (el) => el.value,
+      );
+    }
     return this.element.querySelector(this.selector)?.value;
   }
 
   getState() {
-    return [this.element.querySelector(this.selector)?.value];
+    return Array.from(this.element.querySelectorAll(this.selector)).map(
+      (el) => el.value,
+    );
   }
 
   setState(state) {
     const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
-    state.forEach((selectedValue) => {
-      for (let i = 0; i < inputs.length; i += 1) {
-        inputs[i].checked = inputs[i].value === selectedValue;
-      }
-    });
+    for (let i = 0; i < inputs.length; i += 1) {
+      inputs[i].checked = state.includes(inputs[i].value);
+    }
   }
 
   focus() {
