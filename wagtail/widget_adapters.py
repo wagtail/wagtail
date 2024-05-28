@@ -36,7 +36,6 @@ class WidgetAdapter(Adapter):
 
 register(WidgetAdapter(), forms.widgets.Input)
 register(WidgetAdapter(), forms.Textarea)
-register(WidgetAdapter(), forms.CheckboxSelectMultiple)
 
 
 class CheckboxInputAdapter(WidgetAdapter):
@@ -51,6 +50,7 @@ class RadioSelectAdapter(WidgetAdapter):
 
 
 register(RadioSelectAdapter(), forms.RadioSelect)
+register(RadioSelectAdapter(), forms.CheckboxSelectMultiple)
 
 
 class SelectAdapter(WidgetAdapter):
