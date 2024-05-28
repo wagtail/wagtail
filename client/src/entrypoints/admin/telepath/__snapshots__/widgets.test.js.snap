@@ -19,3 +19,11 @@ exports[`telepath: wagtail.widgets.Select it renders correctly 1`] = `
           <option value="2">Option 2</option>
         </select>"
 `;
+
+exports[`telepath: wagtail.widgets.Select multiple it renders correctly 1`] = `
+"<select name="the-name" id="the-id" multiple="">
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>"
+`;
