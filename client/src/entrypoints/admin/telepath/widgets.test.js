@@ -183,7 +183,7 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
       document.getElementById('placeholder'),
       'the-name',
       'the-id',
-      'tea',
+      ['tea'],
     );
   });
 
@@ -198,11 +198,11 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
   });
 
   test('getState() returns the current state', () => {
-    expect(boundWidget.getState()).toBe('tea');
+    expect(boundWidget.getState()).toStrictEqual(['tea']);
   });
 
   test('setState() changes the current state', () => {
-    boundWidget.setState('coffee');
+    boundWidget.setState(['coffee']);
     expect(document.querySelector('input[value="tea"]').checked).toBe(false);
     expect(document.querySelector('input[value="coffee"]').checked).toBe(true);
   });
