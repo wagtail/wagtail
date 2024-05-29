@@ -6,6 +6,7 @@
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
+* Jake Howard (Torchbox)
 * Kalob Taulien
 * LB Johnston
 * Matthew Westcott (Torchbox)
