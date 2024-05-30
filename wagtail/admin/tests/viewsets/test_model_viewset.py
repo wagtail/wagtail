@@ -1535,6 +1535,27 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
 
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        # The alt3 viewset doesn't have "copy" and "inspect" views enabled,
+        # so when only "add" permission is granted, the dropdown should have
+        # no items and thus not be rendered at all
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
+
 
 class TestCopyView(WagtailTestUtils, TestCase):
     def setUp(self):

@@ -206,16 +206,17 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 )
                 hook(more_buttons, instance, self.request.user, {})
 
-        list_buttons.append(
-            ButtonWithDropdown(
-                buttons=more_buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        if more_buttons:
+            list_buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        )
 
         return list_buttons
 
