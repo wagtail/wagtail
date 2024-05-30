@@ -101,10 +101,10 @@ class ExampleForm(forms.Form):
         )
 
 
-# Allow no quotes, single quotes, and double quotes for the ID.
+# Allow single and double quotes for the ID.
 # For simplicity and readability, we don't enforce the opening
 # and closing quotes to match.
-icon_id_pattern = re.compile(r"""id=["']?icon-([a-z0-9-]+)["']?""")
+icon_id_pattern = re.compile(r"""id=["']icon-([a-z0-9-]+)["']""")
 icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
 
 

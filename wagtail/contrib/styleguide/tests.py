@@ -25,7 +25,6 @@ class TestStyleGuide(WagtailTestUtils, TestCase):
     def test_icons(self):
         def register_icons(icons):
             return icons + [
-                "tests/icons/no-quotes.svg",  # id=icon-no-quotes
                 "tests/icons/single-quotes.svg",  # id='icon-single-quotes'
             ]
 
@@ -34,16 +33,6 @@ class TestStyleGuide(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         # Should render the icons in the table
-        self.assertContains(
-            response,
-            '<use href="#icon-no-quotes"></use>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            "<td>Custom icon with no quotes for the id</td>",
-            html=True,
-        )
         self.assertContains(
             response,
             '<use href="#icon-single-quotes"></use>',
