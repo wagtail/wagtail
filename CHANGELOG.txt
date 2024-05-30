@@ -26,6 +26,7 @@ Changelog
 
  * Fix: Fix client-side handling of select inputs within `ChoiceBlock` (Matt Westcott)
  * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
 
 
 6.1.1 (21.05.2024)
