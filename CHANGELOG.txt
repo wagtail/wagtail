@@ -21,7 +21,7 @@ Changelog
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
 
 
-6.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.1.2 (30.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix client-side handling of select inputs within `ChoiceBlock` (Matt Westcott)
