@@ -123,7 +123,7 @@ Changelog
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
 
 
-6.0.5 (xx.xx.xxxx) - IN DEVELOPMENT
+6.0.5 (30.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
