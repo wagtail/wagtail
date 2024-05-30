@@ -390,8 +390,8 @@ msgstr "ข้อความนี้ไม่สามารถลบออก
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Yes, delete"
@@ -735,8 +735,8 @@ msgid "Move down"
 msgstr "เลื่อนลง"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
 
 msgid "Set publishing schedule"
