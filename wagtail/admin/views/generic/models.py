@@ -422,17 +422,20 @@ class IndexView(
         return buttons
 
     def get_list_buttons(self, instance):
-        buttons = self.get_list_more_buttons(instance)
-        return [
-            ButtonWithDropdown(
-                buttons=buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        more_buttons = self.get_list_more_buttons(instance)
+        buttons = []
+        if more_buttons:
+            buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        ]
+        return buttons
 
     @cached_property
     def add_item_label(self):

@@ -319,6 +319,23 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        Advert.objects.create(text="My Lovely advert")
+
+        def remove_all_buttons(buttons, snippet, user):
+            buttons[:] = []
+            self.assertEqual(len(buttons), 0)
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            remove_all_buttons,
+        ):
+            response = self.get()
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
+
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
         snippet.save_revision().publish()
