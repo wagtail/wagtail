@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix client-side handling of select inputs within `ChoiceBlock` (Matt Westcott)
+ * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
 
 
 6.1.1 (21.05.2024)
