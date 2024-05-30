@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2023
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
 # saevarom <saevar@saevar.is>, 2015,2017-2023
@@ -13,7 +13,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2023\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +85,9 @@ msgstr "Safn"
 
 msgid "Tag"
 msgstr "Merking"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Sía út frá tíu vinsælustu merkingunum"
 
 msgid "Preferred language"
 msgstr "Valið tungumál"
@@ -253,6 +257,24 @@ msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
 msgid "Parent page"
 msgstr "Yfirsíða"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "Nýja síðan verður undirsíða þessarar yfirsíðu"
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Þú hefur ekki réttindi til þess að búa til síðu undir \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Þú getur ekki búið til síðu af tegundinni \"%(page_type)s\" undir "
+"\"%(page_title)s\"."
+
+msgid "Search…"
+msgstr "Leita..."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -550,15 +572,15 @@ msgstr "Breyta í hlekk á innri síðu"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Slóðin sem þú slóst inn, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, lítur út fyrir að passa "
-"við innri síðuna %(page)s, sem er með slóðina <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"Slóðin sem þú slóst inn, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, lítur út fyrir að passa við "
+"innri síðuna %(page)s, sem er með slóðina <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -636,11 +658,11 @@ msgstr "Ekki er hægt að eyða safni, af því það er ekki tómt. Það innih
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Engin söfn hafa verið búin til. Hví ekki að <a "
-"href=\"%(add_collection_url)s\">bæta við einu</a>?"
+"Engin söfn hafa verið búin til. Hví ekki að <a href=\"%(add_collection_url)s"
+"\">bæta við einu</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -683,11 +705,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
-"%(model_name)s er núna í skrefi <strong>%(task)s</strong> í "
-"<strong>%(workflow)s</strong>."
+"%(model_name)s er núna í skrefi <strong>%(task)s</strong> í <strong>"
+"%(workflow)s</strong>."
 
 #, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
@@ -705,6 +727,22 @@ msgstr "Athugasemd"
 
 msgid "Actions"
 msgstr "Aðgerðir"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Engin %(model_name)s passa við leit þína."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Hér eru engin %(model_name)s til að sýna. Hví ekki að <a href=\"%(add_url)s"
+"\">Bæta við einu</a>?"
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Það eru engin %(model_name)s til að sýna."
 
 msgid "Update"
 msgstr "Uppfæra"
@@ -790,6 +828,20 @@ msgstr "Upplýsingar um vef"
 
 #, python-format
 msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> síða <span class=\"w-sr-only\">búin til í "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> síður <span class=\"w-sr-only\">búnar til í "
+"%(site_name)s</span>"
+
+#, python-format
+msgid ""
 "Wagtail upgrade available. Your version: <strong>%(current_version)s</"
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
@@ -821,15 +873,15 @@ msgstr "Ýmislegt hefur breyst í Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"Engar áhyggjur, kíktu á <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Notendahandbók Wagtail</a> til þess að sjá hvað hefur "
-"breyst og hvaða spennandi nýjungar eru í boði!"
+"Engar áhyggjur, kíktu á <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Notendahandbók Wagtail</a> til þess að sjá hvað hefur breyst og hvaða "
+"spennandi nýjungar eru í boði!"
 
 msgid "Awaiting your review"
 msgstr "Bíður yfirferðar"
@@ -930,8 +982,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" hefur verið hafnað í yfirferðarskrefi "
-"\"%(task)s\"."
+"%(model_name)s \"%(title)s\" hefur verið hafnað í yfirferðarskrefi \"%(task)s"
+"\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -946,8 +998,8 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi "
-"\"%(task)s\"."
+"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
+"\"."
 
 msgid "You can preview the page here:"
 msgstr "Þú getur forskoðað síðuna hér:"
@@ -969,8 +1021,8 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi "
-"\"%(task)s\"."
+"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
+"\"."
 
 #, python-format
 msgid ""
@@ -1037,11 +1089,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow "
-"\"%(workflow)s\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
+"\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" hefur verið samþykkt í vinnuflæði "
-"\"%(workflow)s\"."
+"%(model_name)s \"%(title)s\" hefur verið samþykkt í vinnuflæði \"%(workflow)s"
+"\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1535,8 +1587,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Þessi síða er núna í skrefi <strong>%(task)s</strong> í "
-"<strong>%(workflow)s</strong>."
+"Þessi síða er núna í skrefi <strong>%(task)s</strong> í <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Að setja þessa síðu í birtingu mun stöðva núverandi vinnuflæði"
@@ -1626,6 +1678,10 @@ msgstr "Bæta undirsíðu við '%(title)s'"
 msgid "Drag"
 msgstr "Draga"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Atriði %(index)s af %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Óvirkja röðun á undirsíðum"
 
@@ -1635,8 +1691,36 @@ msgstr "Raða"
 msgid "Enable ordering of child pages"
 msgstr "Virkja röðun á undirsíðum"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s af %(items_count)s yfir alla síðuna."
+
+msgid "No results across entire site."
+msgstr "Engar niðurstöður á allri síðunni."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Leita í '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s af %(items_count)s í '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Engar niðurstöður í '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Leita í öllu vefsvæðinu"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s af %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Síðuvalmynd"
@@ -1703,8 +1787,8 @@ msgstr ""
 "Veldu hvenær þessi síða á að fara í loftið og/eða verða tekin úr loftinu"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
 "Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að velja "
 "\"Setja í loftið\""
@@ -1745,8 +1829,20 @@ msgstr "Engar síður passa við forsendur þessarar skýrslu."
 msgid "Updated"
 msgstr "Uppfært"
 
+msgid "App"
+msgstr "App"
+
 msgid "Pages"
 msgstr "Síður"
+
+msgid "Last edited page"
+msgstr "Síðu síðast breytt"
+
+msgid "Last edit"
+msgstr "Síðast breytt"
+
+msgid "No page types found."
+msgstr "Engar síðu tengundir fundust."
 
 msgid "Locking status"
 msgstr "Staða á læsingu"
@@ -1845,11 +1941,29 @@ msgstr "Bæta við síum"
 msgid "Add comment"
 msgstr "Bæta við athugasemd"
 
+msgid "Show filters"
+msgstr "Sýna síur"
+
+msgid "Filter by"
+msgstr "Sía eftir"
+
 msgid "Back"
 msgstr "Til baka"
 
 msgid "History"
 msgstr "Saga"
+
+msgid "Keyboard shortcuts"
+msgstr "Lyklaborðs flýtileiðir"
+
+msgid "All keyboard shortcuts"
+msgstr "Allar lyklaborðs flýtileiðir"
+
+msgid "Section"
+msgstr "Kafli"
+
+msgid "Keyboard shortcut"
+msgstr "Lyklaborðs flýtileið"
 
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
@@ -2110,9 +2224,9 @@ msgstr "%(model_name)s hefur ekki verið send inn til yfirferðar ennþá"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript er nauðsynlegt til að nota Wagtail, en það er slökkt á því í "
 "vafranum þínum.<br /> Hér eru <a href=\"https://www.enable-javascript.com/\" "
@@ -2174,14 +2288,12 @@ msgstr "Búa til"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Vinnuflæði eiga við undirsíður líka. Ef þú velur yfirsíðu hérna, þá munu "
-"undirsíður þeirrar síðu einnig nota þetta vinnuflæði. Sjá <a "
-"href=\"%(workflow_pages_url)s\">lista yfir síðurnar</a> sem vinnuflæðið á "
-"við."
+"undirsíður þeirrar síðu einnig nota þetta vinnuflæði. Sjá <a href="
+"\"%(workflow_pages_url)s\">lista yfir síðurnar</a> sem vinnuflæðið á við."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -2235,8 +2347,8 @@ msgstr[1] "%(counter)s tegundir snifsa"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Engin vinnuflæði hafa verið búin til. Hví ekki að <a "
-"href=\"%(add_url)s\">búa til eitt</a>?"
+"Engin vinnuflæði hafa verið búin til. Hví ekki að <a href=\"%(add_url)s"
+"\">búa til eitt</a>?"
 
 #, python-format
 msgid ""
@@ -2371,17 +2483,53 @@ msgstr "Sent til %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+msgid "Common actions"
+msgstr "Algengar aðgerðir"
+
+msgid "Cut"
+msgstr "Klippa"
+
+msgid "Paste"
+msgstr "Líma"
+
+msgid "Paste and match style"
+msgstr "Líma síðu í sama stíl"
+
+msgid "Paste without formatting"
+msgstr "Líma án þess að aðlaga"
+
 msgid "Undo"
 msgstr "Bakka"
 
 msgid "Redo"
 msgstr "Endurgera"
 
+msgid "Save changes"
+msgstr "Vista breytingar"
+
+msgid "Text content"
+msgstr "Innihald texta"
+
+msgid "Insert or edit a link"
+msgstr "Bæta við eða breyta hlekk"
+
+msgid "Text formatting"
+msgstr "Aðlaga texta"
+
 msgid "Bold"
 msgstr "Feitletrun"
 
 msgid "Italic"
 msgstr "Skáletrun"
+
+msgid "Underline"
+msgstr "Undirstrika"
+
+msgid "Monospace (code)"
+msgstr "Jafnstafaletur/monospace (kóði)"
+
+msgid "Strike-through"
+msgstr "Strika í gegn"
 
 msgid "Superscript"
 msgstr "Yfirskrift"
@@ -2403,6 +2551,12 @@ msgstr "Sýna/fela athugasemdir"
 
 msgid "Comments"
 msgstr "Athugasemdir"
+
+msgid "Toggle checks"
+msgstr "Sýna/fela aðvaranir"
+
+msgid "Checks"
+msgstr "Athuganir"
 
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
@@ -2591,8 +2745,8 @@ msgstr "Hætt hefur verið við vinnuflæði á  %(model_name)s '%(object)s'."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
 "Þú ert að skoða eldri útgáfu af þessu %(model_name)s frá <b>%(created_at)s</"
 "b> eftir %(user)s"
@@ -2621,8 +2775,16 @@ msgstr ""
 "til birtingar."
 
 #, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Breyta '%(title)s'"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Afrita '%(title)s'"
 
 msgid "Inspect"
 msgstr "Skoða"
@@ -2640,11 +2802,25 @@ msgid "More options for '%(title)s'"
 msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "Bæta við %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til %(model_name)s þar sem það stóðst ekki villuprófanir"
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nýtt: %(model_name)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að vista %(model_name)s þar sem það stóðst ekki villuprófanir"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -2811,6 +2987,13 @@ msgstr[1] ""
 "%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
 "teknar úr loftinu"
 
+msgid "Choose parent"
+msgstr "Veldu yfirsíðu"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Búa til nýtt %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Síðu '%(page_title)s' hefur verið breytt í venjulega síðu."
@@ -2917,14 +3100,46 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
+msgid "Is commenting action"
+msgstr "Er að gera athugasemd"
+
+msgid "Date updated"
+msgstr "Dagsetning uppfærð"
+
 msgid "Owner"
 msgstr "Eigandi"
+
+msgid "Edited by"
+msgstr "Breytt af"
 
 msgid "Site"
 msgstr "Vefsvæði"
 
+msgid "Has child pages"
+msgstr "Er með undirsíður"
+
+msgid "Any"
+msgstr "Hvað sem er"
+
 msgid "Yes"
 msgstr "Já"
+
+msgid "Page type"
+msgstr "Tegund síðu"
+
+msgid "Exploring"
+msgstr "Skoðar"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókusaðu á draghnappinn og ýttu á upp og niður örvarnar til þess að færa, "
+"ýttu svo á enter til að senda breytinguna."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "Tókst að færa '%(page_title)s' ."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2999,6 +3214,9 @@ msgstr "Dagsetning/Tími"
 msgid "Locked pages"
 msgstr "Læstar síður"
 
+msgid "Page types usage"
+msgstr "Notkun síðutegunda"
+
 msgid "Show"
 msgstr "Sýna"
 
@@ -3022,6 +3240,9 @@ msgstr "Skref vinnuflæðis"
 
 msgid "Requested By"
 msgstr "Umbeðið af"
+
+msgid "Show disabled"
+msgstr "Sýna óvirkt"
 
 msgid "Add a workflow"
 msgstr "Bæta við vinnuflæði"
@@ -3194,6 +3415,9 @@ msgstr "Hvað er nýtt í Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Notendahandbók"
+
+msgid "Shortcuts"
+msgstr "Flýtileiðir"
 
 msgid "Help"
 msgstr "Hjálp"

@@ -262,11 +262,11 @@ msgstr "Ledsen, inga grupper matchar \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Det finns inga grupper konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
+"Det finns inga grupper konfigurerade. Varför inte <a href="
+"\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Är du säker på att du vill radera denna användare?"
@@ -288,11 +288,11 @@ msgstr "Välj alla användare i lista"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Det finns inga användare konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
+"Det finns inga användare konfigurerade. Varför inte <a href="
+"\"%(wagtailusers_add_url)s\">skapa några</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
