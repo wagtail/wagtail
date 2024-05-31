@@ -2,7 +2,11 @@ from warnings import warn
 
 import django_filters
 from django.conf import settings
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth import (
+    get_permission_codename,
+    get_user_model,
+    update_session_auth_hash,
+)
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
@@ -395,3 +399,19 @@ class UserViewSet(ModelViewSet):
         if for_update:
             return get_user_edit_form()
         return get_user_creation_form()
+
+    def get_permissions_to_register(self):
+        # Only register these permissions (and not others e.g. "view_user")
+        # and use the model's meta to get the permission codenames in case the
+        # AUTH_USER_MODEL setting has been changed
+        return (
+            super()
+            .get_permissions_to_register()
+            .filter(
+                codename__in=[
+                    get_permission_codename("add", self.model._meta),
+                    get_permission_codename("change", self.model._meta),
+                    get_permission_codename("delete", self.model._meta),
+                ]
+            )
+        )

@@ -1,8 +1,6 @@
 from django.apps import apps
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Q
 from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
@@ -96,24 +94,6 @@ def register_groups_menu_item():
         icon_name="group",
         order=601,
     )
-
-
-@hooks.register("register_permissions")
-def register_permissions():
-    user_permissions = Q(
-        content_type__app_label=AUTH_USER_APP_LABEL,
-        codename__in=[
-            "add_%s" % AUTH_USER_MODEL_NAME.lower(),
-            "change_%s" % AUTH_USER_MODEL_NAME.lower(),
-            "delete_%s" % AUTH_USER_MODEL_NAME.lower(),
-        ],
-    )
-    group_permissions = Q(
-        content_type__app_label="auth",
-        codename__in=["add_group", "change_group", "delete_group"],
-    )
-
-    return Permission.objects.filter(user_permissions | group_permissions)
 
 
 class UsersSearchArea(SearchArea):

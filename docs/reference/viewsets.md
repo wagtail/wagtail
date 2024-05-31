@@ -78,6 +78,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. automethod:: get_form_class
    .. automethod:: get_edit_handler
+   .. automethod:: get_permissions_to_register
 
    .. autoattribute:: menu_label
 

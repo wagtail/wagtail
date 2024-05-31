@@ -1,5 +1,3 @@
-from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -47,12 +45,6 @@ def register_snippets_menu_item():
         icon_name="snippet",
         order=500,
     )
-
-
-@hooks.register("register_permissions")
-def register_permissions():
-    content_types = ContentType.objects.get_for_models(*get_snippet_models()).values()
-    return Permission.objects.filter(content_type__in=content_types)
 
 
 hooks.register("register_bulk_action", DeleteBulkAction)

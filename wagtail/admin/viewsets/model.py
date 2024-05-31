@@ -1,11 +1,14 @@
 from warnings import warn
 
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
@@ -616,6 +619,18 @@ class ModelViewSet(ViewSet):
         if self.add_to_reference_index:
             ReferenceIndex.register_model(self.model)
 
+    def get_permissions_to_register(self):
+        """
+        Returns a queryset of :class:`~django.contrib.auth.models.Permission`
+        objects to be registered with the :ref:`register_permissions` hook. By
+        default, it returns all permissions for the model.
+        """
+        content_type = ContentType.objects.get_for_model(self.model)
+        return Permission.objects.filter(content_type=content_type)
+
+    def register_permissions(self):
+        hooks.register("register_permissions", self.get_permissions_to_register)
+
     def get_urlpatterns(self):
         urlpatterns = [
             path("", self.index_view, name="index"),
@@ -657,6 +672,7 @@ class ModelViewSet(ViewSet):
         super().on_register()
         self.register_admin_url_finder()
         self.register_reference_index()
+        self.register_permissions()
 
 
 class ModelViewSetGroup(ViewSetGroup):

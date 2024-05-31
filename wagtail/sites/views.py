@@ -75,3 +75,11 @@ class SiteViewSet(ModelViewSet):
 
     def get_form_class(self, for_update=False):
         return SiteForm
+
+    def get_permissions_to_register(self):
+        # Only register these permissions (and not others e.g. "view_site")
+        return (
+            super()
+            .get_permissions_to_register()
+            .filter(codename__in=["add_site", "change_site", "delete_site"])
+        )

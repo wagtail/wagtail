@@ -2605,6 +2605,17 @@ class TestGroupViewSet(TestCase):
                 str(exc_info.exception),
             )
 
+    def test_registered_permissions(self):
+        group_ct = ContentType.objects.get_for_model(Group)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=group_ct)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {"add_group", "change_group", "delete_group"},
+        )
+
 
 class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -2956,4 +2967,18 @@ class TestTemplateTags(WagtailTestUtils, TestCase):
         self.assertEqual(
             top_level_custom_button.text.strip(),
             "Show profile",
+        )
+
+
+class TestAdminPermissions(WagtailTestUtils, TestCase):
+    def test_registered_user_permissions(self):
+        user_ct = ContentType.objects.get_for_model(User)
+        model_name = User._meta.model_name
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=user_ct)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {f"add_{model_name}", f"change_{model_name}", f"delete_{model_name}"},
         )
