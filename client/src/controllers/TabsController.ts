@@ -55,7 +55,7 @@ interface TabLink extends HTMLAnchorElement {
  * Tab contents need to have the `role="tabpanel"` attribute and and `id` attribute that matches the `href` of the tab link with the target 'panel'.
  * Tab buttons should also be wrapped in an element with the `role="tablist"` attribute.
  * Use the target 'trigger' on an Anchor link and set the `href` to the `id` of the tab you would like to trigger.
- * 
+ *
  * @example
  * ```html
  * <div data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
@@ -79,9 +79,9 @@ export class TabsController extends Controller<HTMLElement> {
   static classes = ['selected'];
 
   static targets = ['label', 'panel', 'trigger'];
-  
+
   static values = {
-    animate: { default: true, type: Boolean },
+    animate: { default: false, type: Boolean },
     selected: { default: '', type: String },
     syncURLHash: { default: false, type: Boolean },
     transition: { default: 150, type: Number },
@@ -197,7 +197,7 @@ export class TabsController extends Controller<HTMLElement> {
       label.index = index;
     });
   }
-  
+
   setURLHash(tabId: string) {
     if (!window.history.state || window.history.state.tabContent !== tabId) {
       // Add a new history item to the stack
@@ -322,6 +322,7 @@ export class TabsController extends Controller<HTMLElement> {
   validate() {
     const labels = this.labelTargets;
     const panels = this.panelTargets;
+    console.log(panels)
 
     labels.forEach((label, index) => {
       const panel = panels[index];

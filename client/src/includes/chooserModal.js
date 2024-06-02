@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
 
 const validateCreationForm = (form) => {
@@ -226,9 +225,6 @@ class ChooserModalOnloadHandlerFactory {
       this.searchController.fetchResults(event.currentTarget.href);
       return false;
     });
-
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    if (this.modalHasTabs(modal)) initTabs();
 
     this.updateMultipleChoiceSubmitEnabledState(modal);
     $('[data-multiple-choice-select]', containerElement).on('change', () => {

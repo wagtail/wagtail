@@ -276,7 +276,7 @@ window.comments = (() => {
 
     // Attach the commenting app to the tab navigation, if it exists
     const tabNavElement = formElement.querySelector(
-      '[data-controller="w-tabs"] [role="tablist"]',
+      '[data-controller~="w-tabs"] [role="tablist"]',
     );
     if (tabNavElement) {
       commentApp.setCurrentTab(
