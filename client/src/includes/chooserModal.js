@@ -305,7 +305,7 @@ class ChooserModalOnloadHandlerFactory {
     $(this.creationFormTabSelector, modal.body).replaceWith(
       jsonData.htmlFragment,
     );
-    if (this.modalHasTabs(modal)) initTabs();
+
     this.ajaxifyCreationForm(modal);
   }
 

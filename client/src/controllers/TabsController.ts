@@ -210,7 +210,12 @@ export class TabsController extends Controller<HTMLElement> {
       const cleanedHash = window.location.hash
         .replace(/[^\w\-#]/g, '')
         .replace('#', '');
-      if (cleanedHash) {
+
+      const isCleanHashPresent = this.labelTargets.find(
+        (value) => value.id === cleanedHash,
+      );
+
+      if (cleanedHash && isCleanHashPresent) {
         this.selectedValue = cleanedHash;
       } else {
         // The hash doesn't match a tab on the page then select first tab
@@ -322,7 +327,6 @@ export class TabsController extends Controller<HTMLElement> {
   validate() {
     const labels = this.labelTargets;
     const panels = this.panelTargets;
-    console.log(panels)
 
     labels.forEach((label, index) => {
       const panel = panels[index];
@@ -345,7 +349,10 @@ export class TabsController extends Controller<HTMLElement> {
 
       if (panel.getAttribute('aria-labelledby') !== label.id) {
         // eslint-disable-next-line no-console
-        console.warn(panel, 'Tab panel element must have `aria-labelledby` set to the id of the tab nav element.');
+        console.warn(
+          panel,
+          'Tab panel element must have `aria-labelledby` set to the id of the tab nav element.',
+        );
       }
     });
 
