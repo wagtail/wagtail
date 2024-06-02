@@ -42,10 +42,10 @@ can hook into the rest of your project.
 
 Wagtail provides multiple endpoint classes you can use:
 
--   Pages {class}`wagtail.api.v2.views.PagesAPIViewSet`
--   Images {class}`wagtail.images.api.v2.views.ImagesAPIViewSet`
--   Documents {class}`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
--   Redirects {class}`wagtail.contrib.redirects.api.RedirectsAPIViewSet` see [](redirects_api_endpoint)
+-   Pages `wagtail.api.v2.views.PagesAPIViewSet`
+-   Images `wagtail.images.api.v2.views.ImagesAPIViewSet`
+-   Documents `wagtail.documents.api.v2.views.DocumentsAPIViewSet`
+-   Redirects `wagtail.contrib.redirects.api.RedirectsAPIViewSet` see [](redirects_api_endpoint)
 
 You can subclass any of these endpoint classes to customize their functionality.
 For example, in this case, if you need to change the `APIViewSet` by setting a desired renderer class:
