@@ -263,25 +263,22 @@ def datetime_format_check(app_configs, **kwargs):
 
     for code, label in settings.LANGUAGES:
         with translation.override(code):
-            for wagtail_format, django_formats in [
+            for wagtail_setting, django_setting in [
                 ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
                 ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
                 ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
             ]:
-                wagtail_format_value = getattr(settings, wagtail_format, None)
-                django_formats_value = getattr(settings, django_formats, None)
-
+                wagtail_format_value = getattr(settings, wagtail_setting, None)
                 if wagtail_format_value is None:
                     # Skip the iteration if wagtail_format is not present
                     continue
 
-                input_format = formats.get_format_lazy(wagtail_format_value)
-                input_formats = formats.get_format_lazy(django_formats_value)
-                if str(input_format) not in str(input_formats):
+                input_formats = formats.get_format(django_setting, lang=code)
+                if wagtail_format_value not in input_formats:
                     errors.append(
                         Error(
                             "Configuration error",
-                            hint=f"{wagtail_format} {input_format} must be in {django_formats} for language {label} ({code}).",
+                            hint=f"{wagtail_setting} {wagtail_format_value} must be in {django_setting} for language {label} ({code}).",
                         )
                     )
 

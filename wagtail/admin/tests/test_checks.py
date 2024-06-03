@@ -1,5 +1,6 @@
 from django.core.checks import Error
 from django.test import TestCase, override_settings
+from django.utils.formats import reset_format_cache
 
 from wagtail.admin.checks import datetime_format_check
 from wagtail.test.utils import WagtailTestUtils
@@ -7,6 +8,9 @@ from wagtail.test.utils import WagtailTestUtils
 
 class TestDateTimeChecks(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
+
+    def setUp(self):
+        reset_format_cache()
 
     def test_datetime_format(self):
         with override_settings(
@@ -90,3 +94,19 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
             ),
         ]
         self.assertEqual(errors, expected_errors)
+
+    def test_datetime_format_with_overriden_format(self):
+        with override_settings(
+            WAGTAIL_CONTENT_LANGUAGES=[
+                ("en", "English"),
+            ],
+            LANGUAGES=[
+                ("en", "English"),
+            ],
+            WAGTAIL_DATETIME_FORMAT="%d.%m.%Y. %H:%M",
+            FORMAT_MODULE_PATH=["wagtail.admin.tests.formats"],
+            USE_L10N=True,
+        ):
+            errors = datetime_format_check(None)
+
+        self.assertEqual(errors, [])
