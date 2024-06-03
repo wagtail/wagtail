@@ -110,3 +110,25 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
             errors = datetime_format_check(None)
 
         self.assertEqual(errors, [])
+
+    def test_datetime_format_with_incorrect_overriden_format(self):
+        with override_settings(
+            WAGTAIL_CONTENT_LANGUAGES=[
+                ("en", "English"),
+            ],
+            LANGUAGES=[
+                ("en", "English"),
+            ],
+            WAGTAIL_DATETIME_FORMAT="%m.%d.%Y. %H:%M",
+            FORMAT_MODULE_PATH=["wagtail.admin.tests.formats"],
+            USE_L10N=True,
+        ):
+            errors = datetime_format_check(None)
+
+        expected_errors = [
+            Error(
+                "Configuration error",
+                hint="WAGTAIL_DATETIME_FORMAT %m.%d.%Y. %H:%M must be in DATETIME_INPUT_FORMATS for language English (en).",
+            ),
+        ]
+        self.assertEqual(errors, expected_errors)

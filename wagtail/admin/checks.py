@@ -246,40 +246,31 @@ def datetime_format_check(app_configs, **kwargs):
     """
 
     from django.conf import settings
-    from django.utils import formats, translation
+    from django.utils import formats
 
     errors = []
 
     if not getattr(settings, "USE_L10N", False):
         return errors
 
-    formats.FORMAT_SETTINGS = formats.FORMAT_SETTINGS.union(
-        [
-            "WAGTAIL_DATE_FORMAT",
-            "WAGTAIL_DATETIME_FORMAT",
-            "WAGTAIL_TIME_FORMAT",
-        ]
-    )
-
     for code, label in settings.LANGUAGES:
-        with translation.override(code):
-            for wagtail_setting, django_setting in [
-                ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
-                ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
-                ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
-            ]:
-                wagtail_format_value = getattr(settings, wagtail_setting, None)
-                if wagtail_format_value is None:
-                    # Skip the iteration if wagtail_format is not present
-                    continue
+        for wagtail_setting, django_setting in [
+            ("WAGTAIL_DATE_FORMAT", "DATE_INPUT_FORMATS"),
+            ("WAGTAIL_DATETIME_FORMAT", "DATETIME_INPUT_FORMATS"),
+            ("WAGTAIL_TIME_FORMAT", "TIME_INPUT_FORMATS"),
+        ]:
+            wagtail_format_value = getattr(settings, wagtail_setting, None)
+            if wagtail_format_value is None:
+                # Skip the iteration if wagtail_format is not present
+                continue
 
-                input_formats = formats.get_format(django_setting, lang=code)
-                if wagtail_format_value not in input_formats:
-                    errors.append(
-                        Error(
-                            "Configuration error",
-                            hint=f"{wagtail_setting} {wagtail_format_value} must be in {django_setting} for language {label} ({code}).",
-                        )
+            input_formats = formats.get_format(django_setting, lang=code)
+            if wagtail_format_value not in input_formats:
+                errors.append(
+                    Error(
+                        "Configuration error",
+                        hint=f"{wagtail_setting} {wagtail_format_value} must be in {django_setting} for language {label} ({code}).",
                     )
+                )
 
     return errors
