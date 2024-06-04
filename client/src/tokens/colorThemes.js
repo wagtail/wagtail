@@ -100,6 +100,12 @@ const light = [
         textUtility: 'w-text-surface-button-critical-hover',
         cssVariable: '--w-color-surface-button-critical-hover',
       },
+      'surface-status-label': {
+        value: 'var(--w-color-info-50)',
+        bgUtility: 'w-bg-surface-status-label',
+        textUtility: 'w-text-surface-status-label',
+        cssVariable: '--w-color-surface-status-label',
+      },
     },
   },
   {
@@ -188,6 +194,12 @@ const light = [
         bgUtility: 'w-bg-text-button-critical-outline-hover',
         textUtility: 'w-text-text-button-critical-outline-hover',
         cssVariable: '--w-color-text-button-critical-outline-hover',
+      },
+      'text-status-label': {
+        value: 'var(--w-color-info-100)',
+        bgUtility: 'w-bg-text-status-label',
+        textUtility: 'w-text-text-status-label',
+        cssVariable: '--w-color-text-status-label',
       },
     },
   },
@@ -358,6 +370,12 @@ const dark = [
         textUtility: 'w-text-surface-button-critical-hover',
         cssVariable: '--w-color-surface-button-critical-hover',
       },
+      'surface-status-label': {
+        value: 'var(--w-color-grey-600)',
+        bgUtility: 'w-bg-surface-status-label',
+        textUtility: 'w-text-surface-status-label',
+        cssVariable: '--w-color-surface-status-label',
+      },
     },
   },
   {
@@ -446,6 +464,12 @@ const dark = [
         bgUtility: 'w-bg-text-button-critical-outline-hover',
         textUtility: 'w-text-text-button-critical-outline-hover',
         cssVariable: '--w-color-text-button-critical-outline-hover',
+      },
+      'text-status-label': {
+        value: 'var(--w-color-info-75)',
+        bgUtility: 'w-bg-text-status-label',
+        textUtility: 'w-text-text-status-label',
+        cssVariable: '--w-color-text-status-label',
       },
     },
   },

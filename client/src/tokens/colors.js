@@ -219,6 +219,15 @@ const staticColors = {
       usage: 'Background and icons for information messages',
       contrastText: 'white',
     },
+    75: {
+      hex: '#80B6C7',
+      hsl: 'hsl(194.4, 38.8%, 64.1%)',
+      bgUtility: 'w-bg-info-75',
+      textUtility: 'w-text-info-75',
+      cssVariable: '--w-color-info-75',
+      usage: 'Background and icons for information messages',
+      contrastText: 'white',
+    },
     50: {
       hex: '#E2F5FC',
       hsl: 'hsl(196.2 81.3% 93.7%)',
