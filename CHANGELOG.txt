@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
+ * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
 
 
 6.1.2 (30.05.2024)
