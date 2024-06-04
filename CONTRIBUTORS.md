@@ -889,6 +889,7 @@
 * Maciek Baron
 * Vishesh Garg
 * Paul Craciunoiu
+* Richard Allen
 
 ## Translators
 
