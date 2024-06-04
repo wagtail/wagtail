@@ -45,7 +45,9 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
         expected_errors = [
             Error(
                 "Configuration error",
-                hint="WAGTAIL_DATE_FORMAT %d.%m.%Y. must be in DATE_INPUT_FORMATS for language English (en).",
+                hint="'%d.%m.%Y.' must be in DATE_INPUT_FORMATS for language English (en).",
+                obj="WAGTAIL_DATE_FORMAT",
+                id="wagtailadmin.E003",
             )
         ]
         self.assertEqual(errors, expected_errors)
@@ -86,11 +88,15 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
         expected_errors = [
             Error(
                 "Configuration error",
-                hint="WAGTAIL_DATETIME_FORMAT %d.%m.%Y. %H:%M must be in DATETIME_INPUT_FORMATS for language English (en).",
+                hint="'%d.%m.%Y. %H:%M' must be in DATETIME_INPUT_FORMATS for language English (en).",
+                obj="WAGTAIL_DATETIME_FORMAT",
+                id="wagtailadmin.E003",
             ),
             Error(
                 "Configuration error",
-                hint="WAGTAIL_TIME_FORMAT %I:%M %p must be in TIME_INPUT_FORMATS for language English (en).",
+                hint="'%I:%M %p' must be in TIME_INPUT_FORMATS for language English (en).",
+                obj="WAGTAIL_TIME_FORMAT",
+                id="wagtailadmin.E003",
             ),
         ]
         self.assertEqual(errors, expected_errors)
@@ -128,7 +134,9 @@ class TestDateTimeChecks(WagtailTestUtils, TestCase):
         expected_errors = [
             Error(
                 "Configuration error",
-                hint="WAGTAIL_DATETIME_FORMAT %m.%d.%Y. %H:%M must be in DATETIME_INPUT_FORMATS for language English (en).",
+                hint="'%m.%d.%Y. %H:%M' must be in DATETIME_INPUT_FORMATS for language English (en).",
+                obj="WAGTAIL_DATETIME_FORMAT",
+                id="wagtailadmin.E003",
             ),
         ]
         self.assertEqual(errors, expected_errors)

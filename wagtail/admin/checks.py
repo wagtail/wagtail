@@ -269,7 +269,9 @@ def datetime_format_check(app_configs, **kwargs):
                 errors.append(
                     Error(
                         "Configuration error",
-                        hint=f"{wagtail_setting} {wagtail_format_value} must be in {django_setting} for language {label} ({code}).",
+                        hint=f"'{wagtail_format_value}' must be in {django_setting} for language {label} ({code}).",
+                        obj=wagtail_setting,
+                        id="wagtailadmin.E003",
                     )
                 )
 
