@@ -26,6 +26,7 @@ from wagtail.models import (
     DraftStateMixin,
     Locale,
     LockableMixin,
+    ModelPermissionTester,
     PreviewableMixin,
     RevisionMixin,
     TranslatableMixin,
@@ -250,6 +251,9 @@ class CreateEditViewOptionalFeaturesMixin:
         self.object = self.get_object()
         self.lock = self.get_lock()
         self.locked_for_user = self.lock and self.lock.for_user(request.user)
+        self.permission_tester = ModelPermissionTester(
+            request.user, self.object or self.model()
+        )
         super().setup(request, *args, **kwargs)
 
     @cached_property
@@ -286,41 +290,11 @@ class CreateEditViewOptionalFeaturesMixin:
         return self.workflow_state.all_tasks_with_status()
 
     def user_has_permission(self, permission):
-        user = self.request.user
-        if user.is_superuser:
-            return True
-
-        # Workflow lock/unlock methods take precedence before the base
-        # "lock" and "unlock" permissions -- see PagePermissionTester for reference
-        if permission == "lock" and self.current_workflow_task:
-            return self.current_workflow_task.user_can_lock(self.object, user)
-        if permission == "unlock":
-            # Allow unlocking even if the user does not have the 'unlock' permission
-            # if they are the user who locked the object
-            if self.object.locked_by_id == user.pk:
-                return True
-            if self.current_workflow_task:
-                return self.current_workflow_task.user_can_unlock(self.object, user)
-
-        # Check with base PermissionCheckedMixin logic
-        has_base_permission = super().user_has_permission(permission)
-        if has_base_permission:
-            return True
-
-        # Allow access to the editor if the current workflow task allows it,
-        # even if the user does not normally have edit access. Users with edit
-        # permissions can always edit regardless what this method returns --
-        # see Task.user_can_access_editor() for reference
-        if (
-            permission == "change"
-            and self.current_workflow_task
-            and self.current_workflow_task.user_can_access_editor(
-                self.object, self.request.user
-            )
-        ):
-            return True
-
-        return False
+        # Replace checking for "change" permission from the policy with "edit"
+        # from the tester to handle business logic
+        if permission == "change":
+            return self.permission_tester.can_edit()
+        return super().user_has_permission(permission)
 
     def workflow_action_is_valid(self):
         if not self.current_workflow_task:
@@ -340,10 +314,7 @@ class CreateEditViewOptionalFeaturesMixin:
         if self.request.method != "POST":
             return actions
 
-        if self.draftstate_enabled and (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "publish")
-        ):
+        if self.permission_tester.can_publish():
             actions.append("publish")
 
         if self.workflow_enabled:
@@ -624,13 +595,13 @@ class CreateEditViewOptionalFeaturesMixin:
 
         user_can_lock = (
             not self.lock or isinstance(self.lock, WorkflowLock)
-        ) and self.user_has_permission("lock")
+        ) and self.permission_tester.can_lock()
         user_can_unlock = (
             isinstance(self.lock, BasicLock)
-        ) and self.user_has_permission("unlock")
+        ) and self.permission_tester.can_unlock()
         user_can_unschedule = (
             isinstance(self.lock, ScheduledForPublishLock)
-        ) and self.user_has_permission("publish")
+        ) and self.permission_tester.can_unschedule()
 
         context = {
             "lock": self.lock,

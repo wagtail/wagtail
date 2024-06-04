@@ -3046,15 +3046,282 @@ class GroupPagePermission(models.Model):
         )
 
 
-class PagePermissionTester:
-    def __init__(self, user, page):
-        from wagtail.permissions import page_permission_policy
+class BasePermissionTester:
+    """A base class for doing permission checks on a model instance."""
+
+    def __init__(self, user, object):
+        self.user = user
+        self.object = object
+        self.permission_policy = self.get_permission_policy()
+
+    @classmethod
+    def get_permission_policy(cls):
+        raise NotImplementedError
+
+    def user_has_lock(self):
+        raise NotImplementedError
+
+    def object_locked(self):
+        raise NotImplementedError
+
+    def can_add_subobject(self):
+        raise NotImplementedError
+
+    def can_edit(self):
+        raise NotImplementedError
+
+    def can_delete(self, ignore_bulk=False):
+        raise NotImplementedError
+
+    def can_unpublish(self):
+        raise NotImplementedError
+
+    def can_publish(self):
+        raise NotImplementedError
+
+    def can_submit_for_moderation(self):
+        raise NotImplementedError
+
+    def can_set_view_restrictions(self):
+        raise NotImplementedError
+
+    def can_unschedule(self):
+        raise NotImplementedError
+
+    def can_lock(self):
+        raise NotImplementedError
+
+    def can_unlock(self):
+        raise NotImplementedError
+
+    def can_publish_subobject(self):
+        raise NotImplementedError
+
+    def can_reorder_children(self):
+        raise NotImplementedError
+
+    def can_move(self):
+        raise NotImplementedError
+
+    def can_copy(self):
+        raise NotImplementedError
+
+    def can_move_to(self, destination):
+        raise NotImplementedError
+
+    def can_copy_to(self, destination, recursive=False):
+        raise NotImplementedError
+
+    def can_view_revisions(self):
+        raise NotImplementedError
+
+
+class ModelPermissionTester(BasePermissionTester):
+    def __init__(self, user, object):
+        from wagtail.permission_policies import ModelPermissionPolicy
 
         self.user = user
-        self.permission_policy = page_permission_policy
-        self.page = page
-        self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
+        self.permission_policy = ModelPermissionPolicy(type(object))
+        self.object = object
 
+    def user_has_lock(self):
+        return self.object.locked_by_id == self.user.pk
+
+    def object_locked(self):
+        if not isinstance(self.object, LockableMixin):
+            return False
+        lock = self.object.get_lock()
+        return lock and lock.for_user(self.user)
+
+    def can_edit(self):
+        # Note that this method corresponds to being able to access the editor,
+        # not necessarily to being able to save changes. The latter is determined
+        # by the view.
+
+        if self.permission_policy.user_has_permission_for_instance(
+            self.user, "change", self.object
+        ):
+            return True
+
+        # User who may not have `change` permission may still be able to access
+        # the editor if it is allowed by the workflow task
+        if isinstance(self.object, WorkflowMixin):
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                if current_workflow_task.user_can_access_editor(self.object, self.user):
+                    return True
+
+        return False
+
+    def can_delete(self, ignore_bulk=False):
+        # If the object is live, the user must also have the 'publish' permission
+        # to delete it
+        if (
+            isinstance(self.object, DraftStateMixin)
+            and self.object.live
+            and not self.permission_policy.user_has_permission_for_instance(
+                self.user, "publish", self.object
+            )
+        ):
+            return False
+
+        return self.permission_policy.user_has_permission_for_instance(
+            self.user, "delete", self.object
+        )
+
+    def can_unpublish(self):
+        if not isinstance(self.object, DraftStateMixin) or not self.object.live:
+            return False
+        if self.object_locked():
+            return False
+
+        return self.permission_policy.user_has_permission_for_instance(
+            self.user, "publish", self.object
+        )
+
+    def can_publish(self):
+        if not isinstance(self.object, DraftStateMixin):
+            return False
+
+        return self.permission_policy.user_has_permission_for_instance(
+            self.user, "publish", self.object
+        )
+
+    def can_submit_for_moderation(self):
+        if not isinstance(self.object, WorkflowMixin):
+            return False
+
+        return (
+            not self.object_locked()
+            and self.object.has_workflow
+            and not self.object.workflow_in_progress
+        )
+
+    def can_unschedule(self):
+        return self.can_publish()
+
+    def can_lock(self):
+        if not isinstance(self.object, LockableMixin):
+            return False
+
+        # Per the documentation of Task.user_can_lock:
+        # "Note that returning `False` does not remove permissions from users who
+        # would otherwise have them."
+
+        # Based on the above docs, this permission check's order ideally should be:
+        # - Check if the user normally has the lock permission (via permission_policy)
+        #   - If so, return True. End of check.
+        # - Otherwise, check whether the current Task allows the user (who
+        #   normally do not have permission) to lock the object.
+        #   - If so, return True. End of check
+        # - Otherwise, return False.
+        # If the above order is followed, this would be similar to what we have
+        # in can_edit().
+
+        # However, the above behavior was changed in
+        # https://github.com/wagtail/wagtail/pull/6156 without updating the docs
+        # for Task.user_can_lock.
+        # For consistency and to avoid breaking changes for now, we follow the
+        # existing behaviour in `PagePermissionTester`.
+        # As a result, we check is_superuser first, then the Task if available
+        # (and return whatever the Task returns, even if False), then the policy.
+
+        # TODO: update Task.user_can_lock docs, or change this behavior to match
+        # can_edit() and find a different solution to the original problem.
+
+        # This superuser check can be removed in favour of the policy's check
+        # (which includes superuser checking) once it takes precedence over the
+        # Task's check.
+        if self.user.is_superuser:
+            return True
+
+        if isinstance(self.object, WorkflowMixin):
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                return current_workflow_task.user_can_lock(self.object, self.user)
+
+        return self.permission_policy.user_has_permission_for_instance(
+            self.user, "lock", self.object
+        )
+
+    def can_unlock(self):
+        if not isinstance(self.object, LockableMixin):
+            return False
+
+        # Per the documentation of Task.user_can_unlock:
+        # "Note that returning `False` does not remove permissions from users who
+        # would otherwise have them."
+
+        # Based on the above docs, this permission check's order ideally should be:
+        # - Check if the user has the lock.
+        #   - If so, return True. End of check.
+        # - Otherwise, check if the user has the unlock permission (via permission_policy)
+        #   - If so, return True. End of check.
+        # - Otherwise, check whether the current Task allows the user (who
+        #   normally do not have permission) to unlock the object.
+        #   - If so, return True. End of check.
+        # - Otherwise, return False.
+        # If the above order is followed, this would be similar to what we have
+        # in can_edit().
+
+        # However, the above behavior was changed in
+        # https://github.com/wagtail/wagtail/pull/6156 without updating the docs
+        # for Task.user_can_unlock.
+        # For consistency and to avoid breaking changes for now, we follow the
+        # existing behaviour in `PagePermissionTester`.
+        # As a result, we check is_superuser first, then whether the user has
+        # the lock, then the Task if available (and return whatever the Task
+        # returns, even if False), then the policy.
+
+        # TODO: update Task.user_can_unlock docs, or change this behavior to match
+        # can_edit() and find a different solution to the original problem.
+
+        # This superuser check can be removed in favour of the policy's check
+        # (which includes superuser checking) once it takes precedence over the
+        # Task's check.
+        if self.user.is_superuser:
+            return True
+
+        # Always allow the user to unlock if they have the lock, regardless of
+        # permissions (e.g. if they've lost the permission since locking)
+        if self.user_has_lock():
+            return True
+
+        if isinstance(self.object, WorkflowMixin):
+            current_workflow_task = self.object.current_workflow_task
+            if current_workflow_task:
+                return current_workflow_task.user_can_unlock(self.object, self.user)
+
+        return self.permission_policy.user_has_permission_for_instance(
+            self.user, "unlock", self.object
+        )
+
+    def can_copy(self):
+        # We might want to add additional requirement:
+        # The user needs to have a "view" permission on the object to be copied
+        return self.permission_policy.user_has_permission(self.user, "add")
+
+    def can_view_revisions(self):
+        # This method in PagePermissionTester has been around since before
+        # log actions were introduced. This was used to check for access to the
+        # "revisions index" view, which has since been replaced by the "history"
+        # view. The history view is applicable to all models as it uses log
+        # entries instead of revisions, so we should not require the object to
+        # be an instance of RevisionMixin. Ideally, this method should be
+        # renamed to e.g. can_view_history, then a separate method can be added
+        # for checking access to revisions.
+        return self.permission_policy.user_has_any_permission_for_instance(
+            self.user, {"view", "change", "delete"}, self.object
+        )
+
+
+class PagePermissionTester(BasePermissionTester):
+    def __init__(self, user, page):
+        super().__init__(user, page)
+        self.page = page  # For backwards compatibility
+        self.page_is_root = self.page.depth == 1  # Equivalent to page.is_root()
+
+        self.permissions = {}
         if self.user.is_active and not self.user.is_superuser:
             self.permissions = {
                 # Get the 'action' part of the permission codename, e.g.
@@ -3063,6 +3330,27 @@ class PagePermissionTester:
                 for perm in self.permission_policy.get_cached_permissions_for_user(user)
                 if self.page.path.startswith(perm.page.path)
             }
+
+    @classmethod
+    def get_permission_policy(cls):
+        from wagtail.permissions import page_permission_policy
+
+        return page_permission_policy
+
+    ### Aliases for the old methods to conform to the new BasePermissionTester interface.
+    ### The old names are still in use in the codebase, but we may want to move to the
+    ### new names in the future.
+
+    def object_locked(self):
+        return self.page_locked()
+
+    def can_add_subobject(self):
+        return self.can_add_subpage()
+
+    def can_publish_subobject(self):
+        return self.can_publish_subpage()
+
+    ### End of aliases
 
     def user_has_lock(self):
         return self.page.locked_by_id == self.user.pk
@@ -3154,7 +3442,7 @@ class PagePermissionTester:
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page_locked():
+        if self.object_locked():
             return False
 
         return self.user.is_superuser or ("publish" in self.permissions)
@@ -3169,7 +3457,7 @@ class PagePermissionTester:
 
     def can_submit_for_moderation(self):
         return (
-            not self.page_locked()
+            not self.object_locked()
             and self.page.has_workflow
             and not self.page.workflow_in_progress
         )
