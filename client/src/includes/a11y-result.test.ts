@@ -1,5 +1,12 @@
-import { AxeResults } from 'axe-core';
-import { sortAxeViolations, checkImageAltText } from './a11y-result';
+import axe, { AxeResults, Spec } from 'axe-core';
+import {
+  sortAxeViolations,
+  WagtailAxeConfiguration,
+  customChecks,
+  addCustomChecks,
+  checkImageAltText,
+  getA11yReport,
+} from './a11y-result';
 
 const mockDocument = `
 <div id="a"></div>
@@ -56,63 +63,125 @@ describe('sortAxeViolations', () => {
   });
 });
 
-describe('checkImageAltText', () => {
+describe('customChecks', () => {
+  it('should have function values for each custom check', () => {
+    Object.values(customChecks).forEach((value) => {
+      expect(typeof value).toBe('function');
+    });
+  });
+});
+
+describe('addCustomChecks', () => {
+  it('should integrate custom checks into the Axe spec', () => {
+    const spec: Spec = {
+      checks: [{ id: 'check-id', evaluate: 'functionName' }],
+      rules: [
+        {
+          id: 'rule-id',
+          impact: 'serious',
+          any: ['check-id'],
+        },
+      ],
+    };
+    const modifiedSpec = addCustomChecks(spec);
+    const customCheck = modifiedSpec?.checks?.find(
+      (check) => check.id === 'check-id',
+    );
+    expect(customCheck).toBeDefined();
+    expect(customCheck?.evaluate).toBe('functionName');
+  });
+
+  it('should return spec unchanged if no custom checks match', () => {
+    const spec: Spec = {
+      checks: [{ id: 'non-existent-check', evaluate: '' }],
+    };
+    const modifiedSpec = addCustomChecks(spec);
+    expect(modifiedSpec).toEqual(spec);
+  });
+});
+
+// Options for checkImageAltText function
+const options = {
+  pattern:
+    '\\.(apng|avif|gif|jpg|jpeg|jfif|pjp|png|svg|tif|webp)|(http:\\/\\/|https:\\/\\/|www\\.)',
+};
+
+describe.each`
+  text                                                | result
+  ${'Good alt text with words like GIFted and motif'} | ${true}
+  ${'Bad alt text.png'}                               | ${false}
+  ${'Bad alt text.TIFF more text'}                    | ${false}
+  ${'https://Bad.alt.text'}                           | ${false}
+  ${''}                                               | ${true}
+`('checkImageAltText', ({ text, result }) => {
+  const resultText = result ? 'should not be flagged' : 'should be flagged';
+  test(`alt text: "${text}" ${resultText}`, () => {
+    const image = document.createElement('img');
+    image.setAttribute('alt', text);
+    expect(checkImageAltText(image, options)).toBe(result);
+  });
+});
+
+describe('checkImageAltText edge cases', () => {
+  test('should not flag images with no alt attribute', () => {
+    const image = document.createElement('img');
+    expect(checkImageAltText(image, options)).toBe(true);
+  });
+
+  test('should return null if no pattern is provided', () => {
+    const image = document.createElement('img');
+    image.setAttribute('alt', 'Good alt text with words like GIFted and moTIF');
+    expect(checkImageAltText(image, {})).toBeUndefined();
+  });
+});
+
+jest.mock('axe-core', () => ({
+  configure: jest.fn(),
+  run: jest.fn(),
+}));
+
+describe('getA11yReport', () => {
   beforeEach(() => {
-    document.body.innerHTML = `
-      <img src="image1.jpg" alt="Good alt text with words like GIFted and moTIF">
-      <img src="image2.png" alt="Bad alt text.png">
-      <img src="image3.tiff" alt="Bad alt text.TIFF more text">
-      <img src="image4.png" alt="https://Bad.alt.text">
-      <img src="https://example.com/image5.gif" alt="">
-      <img src="image6.jpg">
-    `;
+    jest.clearAllMocks();
+  });
+  it('should configure Axe with custom rules and return the accessibility report', async () => {
+    const mockResults = {
+      violations: [
+        {
+          nodes: [{}, {}, {}], // 3 nodes with violations
+        },
+      ],
+    };
+    (axe.run as jest.Mock).mockResolvedValue(mockResults);
+    const config: WagtailAxeConfiguration = {
+      context: 'body',
+      options: {},
+      messages: {},
+      spec: {
+        checks: [{ id: 'check-image-alt-text', evaluate: '' }],
+      },
+    };
+    const report = await getA11yReport(config);
+    expect(axe.configure).toHaveBeenCalled();
+    expect(axe.run).toHaveBeenCalledWith(config.context, config.options);
+    expect(report.results).toEqual(mockResults);
+    expect(report.a11yErrorsNumber).toBe(3);
   });
 
-  it('should not flag images with good alt text', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="image1.jpg"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(true);
-  });
-
-  it('should flag images with a file extension in the alt text', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="image2.png"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(false);
-  });
-
-  it('should flag images with a capitalised file extension in the alt text', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="image3.tiff"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(false);
-  });
-
-  it('should flag images with a file URL in the alt text', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="image4.png"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(false);
-  });
-
-  it('should not flag images with empty alt attribute', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="https://example.com/image5.gif"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(true);
-  });
-
-  it('should not flag images with no alt attribute', () => {
-    const image = document.querySelector<HTMLImageElement>(
-      'img[src="image6.jpg"]',
-    );
-    if (!image) return;
-    expect(checkImageAltText(image)).toBe(true);
+  it('should return an accessibility report with zero errors if there are no violations', async () => {
+    const mockResults = {
+      violations: [],
+    };
+    (axe.run as jest.Mock).mockResolvedValue(mockResults);
+    const config: WagtailAxeConfiguration = {
+      context: 'body',
+      options: {},
+      messages: {},
+      spec: {
+        checks: [{ id: 'check-image-alt-text', evaluate: '' }],
+      },
+    };
+    const report = await getA11yReport(config);
+    expect(report.a11yErrorsNumber).toBe(0);
   });
 });

@@ -63,34 +63,36 @@ class AccessibilityItem(BaseItem):
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
-    #: A list used to add custom rules to the existing set of Axe rules, or to override the properties of existing Axe rules
+    #: A list used to add custom rules to the existing set of Axe rules,
+    #: or to override the properties of existing Axe rules. A custom rule
+    #: to check the quality of the images alt texts is added to the list
+    #: and enabled by default. This rule ensures that alt texts don't contain
+    #: antipatterns like file extensions or URLs. Returns zero false positives.
+    #: Should be used in conjunction with `axe_custom_checks`
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`__.
-    axe_custom_rules = []
-
-    #: A custom rule to check the quality of the Images alt texts. Added to the list of custom rules and enabled by default.
-    #: Should be used in conjunction with :attr:`_axe_custom_alt_text_check`
-    #: This rule ensures that alt texts doesn't contain antipatterns like file extensions. Returns zero false positives.
-    _axe_custom_alt_text_rule = [
+    axe_custom_rules = [
         {
             "id": "alt-text-quality",
             "impact": "serious",
             "selector": "img[alt]",
             "tags": ["best-practice"],
             "any": ["check-image-alt-text"],
-            "enabled": True,  # If ommited, defaults to True
-        }
+            "enabled": True,  # If ommited, defaults to True and overrrides configs in `axe_run_only`
+        },
     ]
 
-    #: A list used to add custom checks to the existing set of Axe checks, or to override the properties of existing Axe checks
+    #: A list used to add custom checks to the existing set of Axe checks,
+    #: or to override the properties of existing Axe checks. A custom check
+    #: for the quality of the images alt texts is added and enabled by default.
+    #: Should be used in conjunction with `axe_custom_rules`
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`__.
-    axe_custom_checks = []
-
-    #: A custom check for the custom Image alt text quality rule. Added to the list of custom checks and enabled by default.
-    #: Should be used in conjunction with :attr:`_axe_custom_alt_text_rule`
-    _axe_custom_alt_text_check = [
+    axe_custom_checks = [
         {
             "id": "check-image-alt-text",
-        }
+            "options": {
+                "pattern": "\.(apng|avif|gif|jpg|jpeg|jfif|pjp|png|svg|tif|webp)|(http:\/\/|https:\/\/|www.)"
+            },
+        },
     ]
 
     #: A dictionary that maps axe-core rule IDs to custom translatable strings
@@ -139,24 +141,25 @@ class AccessibilityItem(BaseItem):
         return self.axe_rules
 
     def get_axe_custom_rules(self, request):
-        """Returns TODO return nothing if empty both rules and checks"""
-        return self.axe_custom_rules + self._axe_custom_alt_text_rule
+        """Returns custom rules for Axe"""
+        return self.axe_custom_rules
 
     def get_axe_custom_checks(self, request):
-        """Returns TODO return nothing if empty both rules and checks"""
-        return self.axe_custom_checks + self._axe_custom_alt_text_check
+        """Returns custom checks for Axe"""
+        return self.axe_custom_checks
 
-    def get_axe_custom_config(self, request):
-        """Returns TODO return nothing if empty both rules and checks"""
-        custom_config = {
+    def get_axe_spec(self, request):
+        """Returns spec for Axe, including custom rules and custom checks"""
+        spec = {
             "rules": self.get_axe_custom_rules(request),
             "checks": self.get_axe_custom_checks(request),
         }
 
-        # If both the lists of custom rules and custom checks are empty, no custom configuration should be applied for Axe
-        if not custom_config["rules"] and not custom_config["checks"]:
-            custom_config = ""
-        return custom_config
+        # If both the lists of custom rules and custom checks are empty,
+        # no custom configuration should be applied for Axe
+        if not spec["rules"] and not spec["checks"]:
+            spec = ""
+        return spec
 
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
@@ -197,7 +200,7 @@ class AccessibilityItem(BaseItem):
             "context": self.get_axe_context(request),
             "options": self.get_axe_options(request),
             "messages": self.get_axe_messages(request),
-            "custom": self.get_axe_custom_config(request),
+            "spec": self.get_axe_spec(request),
         }
 
     def get_context_data(self, request):
