@@ -60,7 +60,7 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         # Combine them
         return allowed_parent_pages & pages_where_user_can_add
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         parents = self.get_valid_parent_pages(request.user)
 
         # There's only one available parent for this page type for this
@@ -78,7 +78,7 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
 
         # The page can be added in multiple places, so redirect to the
         # choose_parent view so that the parent can be specified
-        return super().dispatch(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_form(self):
         if self.request.method == "POST":
