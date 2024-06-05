@@ -518,7 +518,7 @@ class ModelViewSet(ViewSet):
 
         def is_shown(_self, request):
             return self.permission_policy.user_has_any_permission(
-                request.user, ("add", "change", "delete")
+                request.user, self.index_view_class.any_permission_required
             )
 
         return type(

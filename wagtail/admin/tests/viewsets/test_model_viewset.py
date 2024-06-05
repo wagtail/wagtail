@@ -58,6 +58,38 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             "/admin/blockcounts/streammodel/",
         )
 
+    def test_menu_item_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type=ContentType.objects.get_for_model(JSONStreamModel),
+            codename=get_permission_codename("view", JSONStreamModel._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        # The group menu item is still shown
+        self.assertContains(
+            response,
+            '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
+        )
+
+        # The menu item for the model is shown
+        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, reverse("streammodel:index"))
+        self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
+
+        # The other items in the group are not shown as the user doesn't have permission
+        self.assertNotContains(response, "JSON MinMaxCount StreamModel")
+        self.assertNotContains(response, reverse("minmaxcount_streammodel:index"))
+        self.assertNotContains(response, "JSON BlockCounts StreamModel")
+        self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
+
 
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
     def setUp(self):
