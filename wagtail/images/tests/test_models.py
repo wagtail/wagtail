@@ -22,6 +22,7 @@ from wagtail.images.models import (
     get_rendition_storage,
 )
 from wagtail.images.rect import Rect
+from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
 from wagtail.test.testapp.models import (
     EventPage,
