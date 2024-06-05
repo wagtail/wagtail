@@ -1483,13 +1483,56 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         )
         self.user.user_permissions.add(admin_permission, add_permission)
 
+        response = self.client.get(reverse("fctoy-alt2:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+
+        # fctoy-alt2 doesn't have inspect view enabled, so the title cell should
+        # not link anywhere
+        self.assertIsNone(title_wrapper.select_one("a"))
+        self.assertEqual(title_wrapper.text.strip(), str(self.object))
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("fctoy-alt2:edit", args=[quote(self.object.pk)]),
+        )
+
+    def test_title_cell_links_to_inspect_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("view", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
         response = self.client.get(reverse("feature_complete_toy:index"))
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
         self.assertIsNotNone(title_wrapper)
-        self.assertIsNone(title_wrapper.select_one("a"))
-        self.assertEqual(title_wrapper.text.strip(), self.object.name)
+        link = title_wrapper.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), self.object.name)
+        self.assertEqual(
+            link.get("href"),
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+        )
+
+        # Should contain the inspect link twice:
+        # once in the title cell and once in the dropdown
+        self.assertContains(
+            response,
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+            count=2,
+        )
 
         # There should be no edit link at all on the page
         self.assertNotContains(
