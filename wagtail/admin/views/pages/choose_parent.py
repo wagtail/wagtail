@@ -42,11 +42,11 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
         else:
             pages_where_user_can_add = Page.objects.none()
 
-            from wagtail.permission_policies.pages import PagePermissionPolicy
+            from wagtail.permissions import page_permission_policy
 
             perms = {
                 perm
-                for perm in PagePermissionPolicy().get_cached_permissions_for_user(user)
+                for perm in page_permission_policy.get_cached_permissions_for_user(user)
                 if perm.permission.codename == "add_page"
             }
 
