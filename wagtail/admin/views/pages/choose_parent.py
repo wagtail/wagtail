@@ -65,9 +65,8 @@ class ChooseParentView(WagtailAdminTemplateMixin, FormView):
 
         # There's only one available parent for this page type for this
         # user, so we send them along with that as the chosen parent page
-        if len(parents) == 1:
-            parent = parents[0]
-            parent_id = quote(parent.pk)
+        if parents.count() == 1:
+            parent_id = quote(parents.values_list("pk", flat=True).get())
             model_opts = self.model._meta
             return redirect(
                 "wagtailadmin_pages:add",
