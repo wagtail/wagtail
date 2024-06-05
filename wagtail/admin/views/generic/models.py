@@ -73,7 +73,7 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
-    any_permission_required = ["add", "change", "delete"]
+    any_permission_required = ["add", "change", "delete", "view"]
     search_fields = None
     search_backend_name = "default"
     is_searchable = None
@@ -249,15 +249,21 @@ class IndexView(
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         column_class = self._get_title_column_class(column_class)
+
+        def get_url(instance):
+            if edit_url := self.get_edit_url(instance):
+                return edit_url
+            return self.get_inspect_url(instance)
+
         if not self.model:
             return column_class(
                 "name",
                 label=gettext_lazy("Name"),
                 accessor=str,
-                get_url=self.get_edit_url,
+                get_url=get_url,
             )
         return self._get_custom_column(
-            field_name, column_class, get_url=self.get_edit_url, **kwargs
+            field_name, column_class, get_url=get_url, **kwargs
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
@@ -328,7 +334,9 @@ class IndexView(
             return reverse(self.copy_url_name, args=(quote(instance.pk),))
 
     def get_inspect_url(self, instance):
-        if self.inspect_url_name:
+        if self.inspect_url_name and self.user_has_any_permission(
+            {"add", "change", "delete", "view"}
+        ):
             return reverse(self.inspect_url_name, args=(quote(instance.pk),))
 
     def get_delete_url(self, instance):
