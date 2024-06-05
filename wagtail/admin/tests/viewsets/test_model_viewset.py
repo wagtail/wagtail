@@ -1375,7 +1375,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_only_add_permission(self):
+    def assert_minimal_permission(self, permission):
         self.user.is_superuser = False
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -1383,7 +1383,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             ),
             Permission.objects.get(
                 content_type__app_label=self.object._meta.app_label,
-                codename=get_permission_codename("add", self.object._meta),
+                codename=get_permission_codename(permission, self.object._meta),
             ),
         )
         self.user.save()
@@ -1405,6 +1405,12 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(values, expected_values)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 0)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 0)
+
+    def test_only_add_permission(self):
+        self.assert_minimal_permission("add")
+
+    def test_only_view_permission(self):
+        self.assert_minimal_permission("view")
 
 
 class TestListingButtons(WagtailTestUtils, TestCase):
