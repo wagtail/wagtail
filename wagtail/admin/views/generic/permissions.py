@@ -34,6 +34,13 @@ class PermissionCheckedMixin:
             self.permission_policy.user_has_permission(self.request.user, permission)
         )
 
+    def user_has_permission_for_instance(self, permission, instance):
+        return not self.permission_policy or (
+            self.permission_policy.user_has_permission_for_instance(
+                self.request.user, permission, instance
+            )
+        )
+
     def user_has_any_permission(self, permissions):
         return not self.permission_policy or (
             self.permission_policy.user_has_any_permission(

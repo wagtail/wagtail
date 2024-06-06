@@ -904,7 +904,9 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
-        context["can_delete"] = self.user_has_permission("delete")
+        context["can_delete"] = self.user_has_permission_for_instance(
+            "delete", self.object
+        )
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label

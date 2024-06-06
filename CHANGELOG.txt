@@ -16,6 +16,7 @@ Changelog
  * Fix: Preserve whitespace in comment replies (Elhussein Almasri)
  * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
  * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: Do not show delete button on model edit views if per-instance permissions prevent deletion (Matt Westcott)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
