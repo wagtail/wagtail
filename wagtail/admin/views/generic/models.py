@@ -919,7 +919,9 @@ class EditView(
         context["submit_button_label"] = self.submit_button_label
         context["can_delete"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "delete")
+            or self.permission_policy.user_has_permission_for_instance(
+                self.request.user, "delete", self.object
+            )
         )
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()

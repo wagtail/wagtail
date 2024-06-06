@@ -549,6 +549,19 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertNotContains(response, "Delete collection")
+
+        # Add delete permission to a different collection and try again,
+        # ensure that it checks against the tree structure, and not just a
+        # "delete collection" permission on any collection
+        # See https://github.com/wagtail/wagtail/issues/10084
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_sub_collection_2,
+            permission=self.delete_permission,
+        )
+        response = self.get(collection_id=self.marketing_sub_collection.id)
+        self.assertNotContains(response, "Delete collection")
+
         # Add delete permission to parent collection and try again
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
