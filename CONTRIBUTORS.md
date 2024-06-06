@@ -817,6 +817,7 @@
 * Alec Baron
 * Saksham Misra
 * Nigel van Keulen
+* Matthias Brück
 
 ## Translators
 
