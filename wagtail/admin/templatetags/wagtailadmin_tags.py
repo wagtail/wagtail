@@ -579,7 +579,6 @@ def bulk_action_choices(context, app_label, model_name):
             ],
         )
         bulk_action_buttons.append(more_button)
-
     return {"buttons": bulk_action_buttons}
 
 
