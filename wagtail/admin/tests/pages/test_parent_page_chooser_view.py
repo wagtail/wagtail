@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import GroupPagePermission, Page
-from wagtail.test.testapp.models import BusinessIndex, EventPage, EventIndex
+from wagtail.test.testapp.models import BusinessIndex, EventIndex, EventPage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
@@ -119,7 +119,7 @@ class TestParentPageChooserView(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             "You cannot create a page of type &quot;Event page&quot; under &quot;%s&quot;."
             % page_with_limited_subtypes.get_admin_display_title(),
         )
-    
+
     def test_skip_if_only_one_valid_parent(self):
         self.assertEqual(EventIndex.objects.count(), 1)
 
