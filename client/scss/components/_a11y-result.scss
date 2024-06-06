@@ -1,32 +1,43 @@
 .w-a11y-result__row {
-  border-top: 1px solid theme('colors.border-furniture');
+  @include box;
+  padding: theme('spacing.4');
 }
 
 .w-a11y-result__header {
   margin: 0;
-  padding: theme('spacing.4') theme('spacing.5');
   width: 100%;
   display: flex;
   justify-content: space-between;
   gap: theme('spacing.2');
-  font: inherit;
-  font-weight: theme('fontWeight.bold');
+  font-size: theme('fontSize.14');
+
+  .w-dialog--userbar & {
+    font-size: theme('fontSize.16');
+  }
 }
 
 .w-a11y-result__name {
-  color: theme('colors.text-label');
+  color: theme('colors.text-context');
+  font-weight: theme('fontWeight.semibold');
 }
 
 .w-a11y-result__container {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 theme('spacing.5') theme('spacing.5') theme('spacing.5');
+  gap: theme('spacing.[2.5]');
+  padding-top: theme('spacing.3');
 }
 
 .w-a11y-result__subtotal_count {
-  color: theme('colors.text-context');
+  color: theme('colors.icon-primary');
   width: theme('spacing.5');
   text-align: center;
+  font-size: theme('fontSize.11');
+  font-weight: theme('fontWeight.normal');
+
+  .w-dialog--userbar & {
+    font-size: theme('fontSize.14');
+  }
 }
 
 .w-a11y-result__selector {
@@ -35,8 +46,6 @@
   background: theme('colors.surface-field-inactive');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
-  margin-inline-end: theme('spacing.[2.5]');
-  margin-bottom: theme('spacing.[2.5]');
   padding: theme('spacing.[1.5]');
 
   &:hover,
@@ -59,7 +68,7 @@
   fill: theme('colors.surface-button-default');
   height: theme('spacing.[3.5]');
   width: theme('spacing.[3.5]');
-  margin-inline-end: theme('spacing.[2.5]');
+  margin-inline-end: theme('spacing.[1.5]');
 }
 
 .w-a11y-result__count {
@@ -69,10 +78,10 @@
   align-items: center;
   background-color: theme('colors.positive.100');
   border-radius: theme('borderRadius.full');
-  font-size: theme('fontSize.14');
+  font-size: theme('fontSize.11');
   line-height: theme('lineHeight.none');
-  height: theme('spacing.5');
-  width: theme('spacing.5');
+  height: theme('spacing.4');
+  width: theme('spacing.4');
   color: theme('colors.text-button');
 
   &.has-errors {

@@ -17,7 +17,7 @@
 </template>
 
 <div class="w-mt-12">
-    <h2 class="w-flex w-items-center w-gap-2"><span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span></h2>
-    <div data-checks-panel></div>
+    <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold"><span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span></h2>
+    <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
 </div>
 {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
