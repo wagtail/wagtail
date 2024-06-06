@@ -8,6 +8,7 @@ Changelog
  * Support a `HOSTNAMES` parameter on `WAGTAILFRONTENDCACHE` to define which hostnames a backend should respond to (Jake Howard, sponsored by Oxfam America)
  * Refactor redirects edit view to use the generic `EditView` and breadcrumbs (Rohit Sharma)
  * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
+ * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
