@@ -12,6 +12,7 @@ from django_filters import DateFromToRangeFilter
 from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
@@ -111,6 +112,9 @@ class DeleteSubmissionsView(TemplateView):
 
     def get_success_url(self):
         """Returns the success URL to redirect to after a successful deletion"""
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
         return self.success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -140,6 +144,13 @@ class DeleteSubmissionsView(TemplateView):
                 "submissions": self.submissions,
             }
         )
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            context.update(
+                {
+                    "next_url": next_url,
+                }
+            )
 
         return context
 
@@ -318,5 +329,7 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
                     "data_rows": data_rows,
                 }
             )
-
+        context["next_url"] = (
+            self.request.path + "?" + self.request.META["QUERY_STRING"]
+        )
         return context
