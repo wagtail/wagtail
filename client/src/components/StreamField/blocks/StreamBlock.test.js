@@ -566,60 +566,17 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     },
   );
 
-  const assertCanAddBlock = () => {
-    // Test duplicate button
-    // querySelector always returns the first element it sees so this only checks the first block
-    expect(
-      document
-        .querySelector('button[title="Duplicate"]')
-        .getAttribute('disabled'),
-    ).toBe(null);
-
-    // Test menu
-    expect(
-      document
-        .querySelector('button[title="Insert a block"]')
-        .getAttribute('disabled'),
-    ).toBe(null);
+  const assertShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
+      'The maximum number of items is 3',
+    );
   };
 
-  const assertCannotAddBlock = () => {
-    // Test duplicate button is still enabled even when at block limit
-    // querySelector always returns the first element it sees so this only checks the first block
-    expect(
-      document
-        .querySelector('button[title="Duplicate"]')
-        .getAttribute('disabled'),
-    ).toBe(null);
-
-    // Test menu
-    expect(
-      document
-        .querySelector('button[title="Insert a block"]')
-        .getAttribute('disabled'),
-    ).toEqual('disabled');
+  const assertNotShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical')).toBe(null);
   };
 
-  test('test can add block when under limit', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      {
-        id: '1',
-        type: 'test_block_a',
-        value: 'First value',
-      },
-      {
-        id: '2',
-        type: 'test_block_b',
-        value: 'Second value',
-      },
-    ]);
-    boundBlock.inserters[0].open();
-
-    assertCanAddBlock();
-  });
-
-  test('initialising at maxNum disables adding new block and duplication', () => {
+  test('test no error message when at limit', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -640,7 +597,36 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     ]);
     boundBlock.inserters[0].open();
 
-    assertCannotAddBlock();
+    assertNotShowingErrorMessage();
+  });
+
+  test('initialising over maxNum shows error message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'Third value',
+      },
+      {
+        id: '4',
+        type: 'test_block_b',
+        value: 'Fourth value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertShowingErrorMessage();
   });
 
   test('addSibling capability works', () => {
@@ -667,7 +653,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     expect(boundBlock.children[1].type).toEqual('test_block_a');
   });
 
-  test('insert disables new block', () => {
+  test('insert at limit triggers error', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -680,24 +666,29 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
         type: 'test_block_b',
         value: 'Second value',
       },
-    ]);
-    boundBlock.inserters[0].open();
-
-    assertCanAddBlock();
-
-    boundBlock.insert(
       {
         id: '3',
         type: 'test_block_b',
         value: 'Third value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertNotShowingErrorMessage();
+
+    boundBlock.insert(
+      {
+        id: '4',
+        type: 'test_block_b',
+        value: 'Fourth value',
       },
       2,
     );
 
-    assertCannotAddBlock();
+    assertShowingErrorMessage();
   });
 
-  test('delete enables new block', () => {
+  test('delete removes error mesage', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -715,14 +706,19 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
         type: 'test_block_b',
         value: 'Third value',
       },
+      {
+        id: '4',
+        type: 'test_block_b',
+        value: 'Fourth value',
+      },
     ]);
     boundBlock.inserters[0].open();
 
-    assertCannotAddBlock();
+    assertShowingErrorMessage();
 
     boundBlock.deleteBlock(2);
 
-    assertCanAddBlock();
+    assertNotShowingErrorMessage();
   });
 });
 
