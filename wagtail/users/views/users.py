@@ -286,6 +286,7 @@ class Edit(EditView):
 
     success_message = gettext_lazy("User '%(object)s' updated.")
     error_message = gettext_lazy("The user could not be saved due to errors.")
+    context_object_name = "user"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -339,6 +340,7 @@ class Delete(DeleteView):
 
     page_title = gettext_lazy("Delete user")
     success_message = gettext_lazy("User '%(object)s' deleted.")
+    context_object_name = "user"
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()

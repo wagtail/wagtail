@@ -58,6 +58,38 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             "/admin/blockcounts/streammodel/",
         )
 
+    def test_menu_item_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type=ContentType.objects.get_for_model(JSONStreamModel),
+            codename=get_permission_codename("view", JSONStreamModel._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        # The group menu item is still shown
+        self.assertContains(
+            response,
+            '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
+        )
+
+        # The menu item for the model is shown
+        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, reverse("streammodel:index"))
+        self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
+
+        # The other items in the group are not shown as the user doesn't have permission
+        self.assertNotContains(response, "JSON MinMaxCount StreamModel")
+        self.assertNotContains(response, reverse("minmaxcount_streammodel:index"))
+        self.assertNotContains(response, "JSON BlockCounts StreamModel")
+        self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
+
 
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -1375,7 +1407,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_only_add_permission(self):
+    def assert_minimal_permission(self, permission):
         self.user.is_superuser = False
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -1383,7 +1415,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             ),
             Permission.objects.get(
                 content_type__app_label=self.object._meta.app_label,
-                codename=get_permission_codename("add", self.object._meta),
+                codename=get_permission_codename(permission, self.object._meta),
             ),
         )
         self.user.save()
@@ -1405,6 +1437,12 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(values, expected_values)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 0)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 0)
+
+    def test_only_add_permission(self):
+        self.assert_minimal_permission("add")
+
+    def test_only_view_permission(self):
+        self.assert_minimal_permission("view")
 
 
 class TestListingButtons(WagtailTestUtils, TestCase):
@@ -1464,6 +1502,76 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
 
+    def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        response = self.client.get(reverse("fctoy-alt2:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+
+        # fctoy-alt2 doesn't have inspect view enabled, so the title cell should
+        # not link anywhere
+        self.assertIsNone(title_wrapper.select_one("a"))
+        self.assertEqual(title_wrapper.text.strip(), str(self.object))
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("fctoy-alt2:edit", args=[quote(self.object.pk)]),
+        )
+
+    def test_title_cell_links_to_inspect_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("view", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+        link = title_wrapper.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), self.object.name)
+        self.assertEqual(
+            link.get("href"),
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+        )
+
+        # Should contain the inspect link twice:
+        # once in the title cell and once in the dropdown
+        self.assertContains(
+            response,
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+            count=2,
+        )
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+        )
+
     def test_copy_disabled(self):
         response = self.client.get(reverse("fctoy_alt1:index"))
 
@@ -1507,6 +1615,27 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.text.strip(), label)
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        # The alt3 viewset doesn't have "copy" and "inspect" views enabled,
+        # so when only "add" permission is granted, the dropdown should have
+        # no items and thus not be rendered at all
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
 
 
 class TestCopyView(WagtailTestUtils, TestCase):

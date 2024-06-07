@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -94,16 +94,6 @@ msgstr "ใช่,ลบทิ้ง"
 msgid "Preview"
 msgstr "ภาพตัวอย่าง"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "กำลังแก้ไข %(title)s"
-
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
-msgid "Delete redirect"
-msgstr "ลบการกำหนดทิศทางทิ้ง"
-
 msgid "From"
 msgstr "จาก"
 
@@ -119,27 +109,21 @@ msgstr "ขออภัย,ไม่มีการเปลี่ยนทิ�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
+"ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a href="
+"\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
 
 msgid "Site"
 msgstr "เว็บไซด์"
 
-msgid "Edit this redirect"
-msgstr "แก้ไขการกำหนดทิศทางนี้"
+msgid "The redirect could not be saved due to errors."
+msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกอัพเดทแล้ว"
-
-msgid "Edit"
-msgstr "แก้ไข"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -148,6 +132,9 @@ msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูก�
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกเพิ่มแล้ว"
+
+msgid "Edit"
+msgstr "แก้ไข"
 
 msgid "The redirect could not be created due to errors."
 msgstr "การกำหนดทิศทางไม่สามารถถูกสร้างขึ้นได้ในขณะที่เกิดข้อผิดพลาด"

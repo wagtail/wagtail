@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -113,16 +113,6 @@ msgstr "취소"
 msgid "Preview"
 msgstr "미리보기"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s 수정"
-
-msgid "Editing"
-msgstr "수정중"
-
-msgid "Delete redirect"
-msgstr "리다이렉트 삭제"
-
 msgid "From"
 msgstr "진입 경로"
 
@@ -140,27 +130,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"만들어진 리다이렉트가 없습니다. 하나 <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">추가</a>해 보는 것은 어떠세요?"
+"만들어진 리다이렉트가 없습니다. 하나 <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">추가</a>해 보는 것은 어떠세요?"
 
 msgid "Site"
 msgstr "사이트"
 
-msgid "Edit this redirect"
-msgstr "이 리다이렉트 수정"
+msgid "The redirect could not be saved due to errors."
+msgstr "에러로 인해 리다이렉트를 저장할 수 없습니다."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "'%(redirect_title)s' 리다이렉트가 업데이트 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "에러로 인해 리다이렉트를 저장할 수 없습니다."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -169,6 +153,9 @@ msgstr "'%(redirect_title)s' 리다이렉트가 삭제 되었습니다."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "'%(redirect_title)s' 리다이렉트가 추가 되었습니다."
+
+msgid "Edit"
+msgstr "수정"
 
 msgid "The redirect could not be created due to errors."
 msgstr "에러로 인해 리다이렉트를 생성할 수 없습니다."

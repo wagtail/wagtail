@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -76,19 +76,19 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
 
 msgid "submitted notifications"
-msgstr "lähetys&shy;ilmoitukset"
+msgstr "lähetysilmoitukset"
 
 msgid "Receive notification when a page is submitted for moderation"
 msgstr "Vastaanota ilmoituksia kun sivu lähetetään hyväksyttäväksi"
 
 msgid "approved notifications"
-msgstr "hyväksymis&shy;ilmoitukset"
+msgstr "hyväksymisilmoitukset"
 
 msgid "Receive notification when your page edit is approved"
 msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hyväksytään"
 
 msgid "rejected notifications"
-msgstr "hylkäys&shy;ilmoitukset"
+msgstr "hylkäysilmoitukset"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hylätään"
@@ -132,6 +132,11 @@ msgstr "admin-teema"
 
 msgid "Default"
 msgstr "Oletus"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "tiiviys"
 
 msgid "user profile"
 msgstr "käyttäjäprofiili"
@@ -260,6 +265,30 @@ msgstr "Avaa lukitus"
 msgid "Custom permissions"
 msgstr "Mukautetut oikeudet"
 
+msgid "Toggle all"
+msgstr "Kaikki päällä/pois"
+
+msgid "Toggle all add permissions"
+msgstr "Lisäysoikeudet päällä/pois"
+
+msgid "Toggle all change permissions"
+msgstr "Muokkausoikeudet päällä/pois"
+
+msgid "Toggle all delete permissions"
+msgstr "Poisto-oikeudet päällä/pois"
+
+msgid "Toggle all publish permissions"
+msgstr "Julkaisuoikeudet päällä/pois"
+
+msgid "Toggle all lock permissions"
+msgstr "Lukitusoikeudet päällä/pois"
+
+msgid "Toggle all unlock permissions"
+msgstr "Lukituksen avauksen oikeudet päällä/pois"
+
+msgid "Toggle all custom permissions"
+msgstr "Kaikki mukautetut oikeudet päällä/pois"
+
 msgid "Other permissions"
 msgstr "Muut oikeudet"
 
@@ -278,11 +307,11 @@ msgstr "Ei löytynyt ryhmää hakuehdolla \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
@@ -302,13 +331,16 @@ msgstr "Poista käyttäjä"
 msgid "Select all users in listing"
 msgstr "Valitse listauksen kaikki käyttäjät"
 
+msgid "Sorry, no users match your query"
+msgstr "Ei kyselyä vastaavia käyttäjiä"
+
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
-"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -382,6 +414,9 @@ msgstr "Näytä tämän ryhmän käyttäjät"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Ryhmä '%(object)s' poistettu."
+
+msgid "Last login"
+msgstr "Viimeksi kirjautunut"
 
 msgid "Group"
 msgstr "Ryhmä"

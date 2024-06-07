@@ -881,6 +881,12 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: password
 
         (text)
+
+    .. attribute:: restriction_type
+
+        (text)
+
+        Options: none, password, groups, login
 ```
 
 ## `Orderable` (abstract)

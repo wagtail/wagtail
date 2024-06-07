@@ -19,15 +19,17 @@ def user_can_edit_snippet_type(user, model):
     return False
 
 
-def user_can_edit_snippets(user):
+def user_can_access_snippets(user):
     """
-    true if user has 'add', 'change' or 'delete' permission
+    true if user has 'add', 'change', 'delete', or 'view' permission
     on any model registered as a snippet type
     """
     snippet_models = get_snippet_models()
 
     for model in snippet_models:
-        if user_can_edit_snippet_type(user, model):
+        if model.snippet_viewset.permission_policy.user_has_any_permission(
+            user, {"add", "change", "delete", "view"}
+        ):
             return True
 
     return False

@@ -7,10 +7,42 @@ Changelog
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
  * Support a `HOSTNAMES` parameter on `WAGTAILFRONTENDCACHE` to define which hostnames a backend should respond to (Jake Howard, sponsored by Oxfam America)
  * Refactor redirects edit view to use the generic `EditView` and breadcrumbs (Rohit Sharma)
+ * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
+ * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
+ * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
+ * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
+ * Fix: Preserve whitespace in comment replies (Elhussein Almasri)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
+ * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: Do not show delete button on model edit views if per-instance permissions prevent deletion (Matt Westcott)
+ * Fix: Remove duplicate header in privacy dialog when a privacy setting is set on a parent page or collection (Matthias Brück)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
+ * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
+ * Docs: Document Wagtail's bug bounty policy (Jake Howard)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
+ * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
+ * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
+ * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
+
+
+6.1.2 (30.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix client-side handling of select inputs within `ChoiceBlock` (Matt Westcott)
+ * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
+
+
+6.1.1 (21.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
+ * Fix: Fix incorrect rich text to HTML conversion when multiple link / embed types are present (Andy Chosak, Matt Westcott)
+ * Fix: Restore ability for custom widgets in StreamField blocks to have multiple top-level nodes (Sage Abdullah, Matt Westcott)
 
 
 6.1 (01.05.2024)
@@ -116,6 +148,18 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+
+
+6.0.5 (30.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
+
+
+6.0.4 (21.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
 
 
 6.0.3 (01.05.2024)

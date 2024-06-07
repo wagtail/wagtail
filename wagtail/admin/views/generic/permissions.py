@@ -19,21 +19,31 @@ class PermissionCheckedMixin:
     any_permission_required = None
 
     def dispatch(self, request, *args, **kwargs):
-        if self.permission_policy is not None:
-            if self.permission_required is not None:
-                if not self.user_has_permission(self.permission_required):
-                    raise PermissionDenied
+        if self.permission_required is not None:
+            if not self.user_has_permission(self.permission_required):
+                raise PermissionDenied
 
-            if self.any_permission_required is not None:
-                if not self.user_has_any_permission(self.any_permission_required):
-                    raise PermissionDenied
+        if self.any_permission_required is not None:
+            if not self.user_has_any_permission(self.any_permission_required):
+                raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
 
     def user_has_permission(self, permission):
-        return self.permission_policy.user_has_permission(self.request.user, permission)
+        return not self.permission_policy or (
+            self.permission_policy.user_has_permission(self.request.user, permission)
+        )
+
+    def user_has_permission_for_instance(self, permission, instance):
+        return not self.permission_policy or (
+            self.permission_policy.user_has_permission_for_instance(
+                self.request.user, permission, instance
+            )
+        )
 
     def user_has_any_permission(self, permissions):
-        return self.permission_policy.user_has_any_permission(
-            self.request.user, permissions
+        return not self.permission_policy or (
+            self.permission_policy.user_has_any_permission(
+                self.request.user, permissions
+            )
         )

@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -230,6 +230,9 @@ msgstr "Et voi kopioida sivua itsensä päälle, kun kopioit alasivuja."
 msgid "Parent page"
 msgstr "Isäntäsivu"
 
+msgid "Search…"
+msgstr "Haku…"
+
 msgid "Visibility"
 msgstr "Näkyvyys"
 
@@ -248,6 +251,12 @@ msgstr "Tähän sivuun on määritetty työnkulku '%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Et voi määrittää tätä työnkulkua samalle sivulle useita kertoja."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Pätkään '%(content_type)s' on jo määritetty työnkulku '%(workflow_name)s'."
 
 msgid "Give your workflow a name"
 msgstr "Anna työnkululle nimi"
@@ -557,15 +566,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Kokoelmia ei ole luotu. Mikset vaikka <a "
-"href=\"%(add_collection_url)s\">loisi kokoelmaa</a>?"
+"Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
+"\">loisi kokoelmaa</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Ei tuloksia haulla \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Ei tuloksia."
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
@@ -684,6 +696,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lue julkaisutiedot."
 
+msgid "Your pages and snippets in a workflow"
+msgstr "Sivusi ja pätkäsi työnkulussa"
+
 msgid "Task started"
 msgstr "Tehtävä aloitettu"
 
@@ -699,15 +714,15 @@ msgstr "Wagtailin versiossa %(version)s on muutoksia!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"Älä huoli, me autamme sinua. Tutustu <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtailin muokkausoppaaseen</a> pysyäksesi ajan tasalla "
-"muutoksista ja uusista ominaisuuksista!"
+"Älä huoli, me autamme sinua. Tutustu <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtailin "
+"muokkausoppaaseen</a> pysyäksesi ajan tasalla muutoksista ja uusista "
+"ominaisuuksista!"
 
 msgid "Awaiting your review"
 msgstr "Odottaa tarkastustasi"
@@ -902,7 +917,7 @@ msgstr[0] "Siirrä 1 sivu"
 msgstr[1] "Siirrä %(counter)s sivua"
 
 msgid "Move"
-msgstr "SIirrä"
+msgstr "Siirrä"
 
 msgid "Are you sure you want to move these pages?"
 msgstr "Haluatko varmasti siirtää nämä sivut?"
@@ -1196,8 +1211,20 @@ msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
 msgid "Updated"
 msgstr "Päivitetty"
 
+msgid "App"
+msgstr "Sovellus"
+
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "Last edited page"
+msgstr "Viimeksi muokattu sivu"
+
+msgid "Last edit"
+msgstr "Viimeisin muokkaus"
+
+msgid "No page types found."
+msgstr "Sivutyyppejä ei löytynyt."
 
 msgid "Locking status"
 msgstr "Lukitsemisen tila"
@@ -1238,8 +1265,14 @@ msgstr "Muokkaa tätä"
 msgid "No log entries found."
 msgstr "Lokimerkintöjä ei löytynyt."
 
+msgid "By Task"
+msgstr "Tehtävän mukaan"
+
 msgid "Workflow"
 msgstr "Työnkulku"
+
+msgid "Page/Snippet"
+msgstr "Sivu/pätkä"
 
 msgid "Requested by"
 msgstr "Pyytänyt"
@@ -1249,6 +1282,15 @@ msgstr "Aloitettu"
 
 msgid "Incomplete task"
 msgstr "Keskeneräinen tehtävä"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Sivuja/pätkiä ei ole vielä lähetetty tarkastettavaksi"
+
+msgid "By Workflow"
+msgstr "Työnkulun mukaan"
+
+msgid "Completed at"
+msgstr "Valmistunut"
 
 msgid "Clear"
 msgstr "Tyhjennä"
@@ -1278,11 +1320,26 @@ msgstr "Toteuta suodatukset"
 msgid "Add comment"
 msgstr "Lisää kommentti"
 
+msgid "Show filters"
+msgstr "Näytä suodattimet"
+
+msgid "Filter by"
+msgstr "Suodata"
+
 msgid "Back"
 msgstr "Takaisin"
 
 msgid "History"
 msgstr "Historia"
+
+msgid "Keyboard shortcuts"
+msgstr "Pikanäppäimet"
+
+msgid "All keyboard shortcuts"
+msgstr "Kaikki pikanäppäimet"
+
+msgid "Keyboard shortcut"
+msgstr "Pikanäppäin"
 
 msgid "Current page status:"
 msgstr "Sivun tila nyt:"
@@ -1449,6 +1506,12 @@ msgstr "Esikatselutila"
 msgid "First published"
 msgstr "Ensin julkaistu"
 
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Tämä%(model_name)s on viitattu %(usage_count)s kerran"
+msgstr[1] "Tämä %(model_name)s on viitattu %(usage_count)s kertaa."
+
 msgid "Edit / Review"
 msgstr "Muokkaa / tarkasta"
 
@@ -1497,14 +1560,14 @@ msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript vaaditaan Wagtaililin käyttöä varten, mutta se on pois käytöstä."
-"<br /> Tässä <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">ohjeita miten saat JavaScriptin "
-"käyttöön selaimessasi</a>."
+"<br /> Tässä <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">ohjeita miten saat JavaScriptin käyttöön selaimessasi</"
+"a>."
 
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
@@ -1539,6 +1602,9 @@ msgstr "Haluatko varmasti poistaa tämän tehtävän käytöstä?"
 msgid "Assign your workflow to pages"
 msgstr "Määritä työnkulkun sivuihin"
 
+msgid "Assign your workflow to snippets"
+msgstr "Määritä työnkulkusi pätkiin"
+
 msgid "Creating…"
 msgstr "Luodaan…"
 
@@ -1550,11 +1616,16 @@ msgstr ""
 "Tämä työnkulku on poistettu käytöstä, joten sitä ei voi määrittää mihinkään "
 "sivuun."
 
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"Tämä työnkulku on poistettu käytöstä, joten sitä ei voi määrittää mihinkään "
+"pätkään."
+
 msgid "Used on the following active workflows"
 msgstr "Käytössä seuraavissa aktiivisissa työnkuluissa"
 
 msgid "Not used"
-msgstr "Ei käytössä"
+msgstr "Ei käytetty"
 
 msgid "Disabled"
 msgstr "Pois käytöstä"
@@ -1564,6 +1635,9 @@ msgid "+%(counter)s more"
 msgid_plural "+%(counter)s more"
 msgstr[0] "+%(counter)s lisää"
 msgstr[1] "+%(counter)s lisää"
+
+msgid "Assigned pages"
+msgstr "Määritetyt sivut"
 
 msgid "Page"
 msgstr "Sivu"
@@ -1580,6 +1654,12 @@ msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1  sivu"
 msgstr[1] "%(counter)s sivua"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 pätkätyyppi"
+msgstr[1] "%(counter)s pätkätyyppiä"
 
 #, python-format
 msgid ""
@@ -1627,6 +1707,13 @@ msgstr ""
 "Tehtäviä ei ole luotu. Haluatko <a href=\"%(add_url)s\">luoda tehtävän</a>?"
 
 #, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Tehtäviä ei ole käytössä. Miksi et <a href=\"%(add_url)s\">lisäisi "
+"sellaista</a>?"
+
+#, python-format
 msgid "Pages that use workflow '%(name)s'"
 msgstr "Sivut jotka seuraavat työnkulkua '%(name)s'"
 
@@ -1659,6 +1746,9 @@ msgstr "Näytä koko historia"
 msgid "More"
 msgstr "Lisää"
 
+msgid "More bulk actions"
+msgstr "Lisää massatoimintoja"
+
 msgid "0 minutes"
 msgstr "0 minuuttia"
 
@@ -1672,17 +1762,53 @@ msgstr "%(time_period)s sitten"
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
+msgid "Common actions"
+msgstr "Yleiset toiminnot"
+
+msgid "Cut"
+msgstr "Leikkaa"
+
+msgid "Paste"
+msgstr "Liitä"
+
+msgid "Paste and match style"
+msgstr "Litää ja sovita tyyliin"
+
+msgid "Paste without formatting"
+msgstr "Liitä ilman muotoilua"
+
 msgid "Undo"
 msgstr "Kumoa"
 
 msgid "Redo"
 msgstr "Tee uudestaan"
 
+msgid "Save changes"
+msgstr "Tallenna muutokset"
+
+msgid "Text content"
+msgstr "Tekstisisältö"
+
+msgid "Insert or edit a link"
+msgstr "Lisää linkki tai muokkaa sitä"
+
+msgid "Text formatting"
+msgstr "Tekstin muotoilu"
+
 msgid "Bold"
-msgstr "Lihavoitu"
+msgstr "Lihavointi"
 
 msgid "Italic"
 msgstr "Kursiivi"
+
+msgid "Underline"
+msgstr "Alleviivaus"
+
+msgid "Monospace (code)"
+msgstr "Tasalevyinen (koodi)"
+
+msgid "Strike-through"
+msgstr "Yliviivaus"
 
 msgid "Superscript"
 msgstr "Yläindeksi"
@@ -1809,12 +1935,20 @@ msgstr "%(model_name)s '%(object)s' luotu ja julkaistu."
 msgid "Edit '%(title)s'"
 msgstr "Muokkaa sivua '%(title)s'"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Kopioi '%(title)s'"
+
 msgid "Inspect"
 msgstr "Tarkastele"
 
 #, python-format
 msgid "Delete '%(title)s'"
 msgstr "Poista '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Lisää %(model_name)s"
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -1888,6 +2022,10 @@ msgstr "1 sivu on julkaistu"
 #, python-format
 msgid "%(num_parent_objects)d pages have been published"
 msgstr "%(num_parent_objects)d sivua on julkaistu"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Luo uusi %(model_name)s"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -1988,6 +2126,13 @@ msgstr "Sivusto"
 msgid "Yes"
 msgstr "Kyllä"
 
+msgid "Page type"
+msgstr "Sivutyyppi"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' on siirretty."
+
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
 msgstr "Sivu '%(page_title)s' ei ole enää lukittu."
@@ -2018,6 +2163,12 @@ msgstr "Käyttävät sivut"
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Sivu '%(page_title)s' ei odota parhaillaan tarkastusta."
 
+msgid "Last published before"
+msgstr "Viimeksi julkaistu ennen"
+
+msgid "Aging pages"
+msgstr "Ikääntyvät sivut"
+
 msgid "Last published at"
 msgstr "Viimeksi julkaistu"
 
@@ -2035,6 +2186,9 @@ msgstr "Päivä/aika"
 
 msgid "Locked pages"
 msgstr "Lukitut sivut"
+
+msgid "Page types usage"
+msgstr "Sivutyyppien käyttö"
 
 msgid "Show"
 msgstr "Näytä"
@@ -2190,6 +2344,9 @@ msgstr "Mitä uutta Wagtail %(version)s sisältää"
 msgid "Editor Guide"
 msgstr "Muokkausopas"
 
+msgid "Shortcuts"
+msgstr "Pikanäppäimet"
+
 msgid "Help"
 msgstr "Tuki"
 
@@ -2204,6 +2361,13 @@ msgstr "Poista valinta"
 
 msgid "Choose another page"
 msgstr "Valitse toinen sivu"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Monisanaiset tunnisteet välilyönneillä suljetaan automaattisesti "
+"lainausmerkkeihin (\")."
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""

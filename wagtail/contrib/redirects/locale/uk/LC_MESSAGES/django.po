@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2023-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -140,16 +140,6 @@ msgstr "Скасувати"
 msgid "Preview"
 msgstr "Попередній перегляд"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редагування %(title)s"
-
-msgid "Editing"
-msgstr "Редагування"
-
-msgid "Delete redirect"
-msgstr "Видалити перенаправлення"
-
 msgid "Summary"
 msgstr "Інформація"
 
@@ -179,33 +169,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ще немає жодного перенаправлення. Чому б не <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
+"Ще немає жодного перенаправлення. Чому б не <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
 
 msgid "Site"
 msgstr "Сайт"
 
-msgid "Edit this redirect"
-msgstr "Редагувати це перенаправлення"
-
-msgid "No redirects found."
-msgstr "Перенаправлень не знайдено."
-
-msgid "Export redirects"
-msgstr "Експортувати перенаправлення"
+msgid "The redirect could not be saved due to errors."
+msgstr "Перенаправлення не може бути збережене через помилки."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Перенаправлення '%(redirect_title)s' оновлено."
-
-msgid "Edit"
-msgstr "Редагувати"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Перенаправлення не може бути збережене через помилки."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -214,6 +192,9 @@ msgstr "Перенаправлення '%(redirect_title)s' видалено."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Перенаправлення '%(redirect_title)s' додано."
+
+msgid "Edit"
+msgstr "Редагувати"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Перенаправлення не може бути створене через помилки."
@@ -240,6 +221,3 @@ msgstr[0] "Імпортовано %(total)d перенапрвлення"
 msgstr[1] "Імпортовано %(total)d перенапрвлень"
 msgstr[2] "Імпортовано %(total)d перенапрвлень"
 msgstr[3] "Імпортовано %(total)d перенапрвлень"
-
-msgid "Export Redirects"
-msgstr "Екпортувати Перенаправлення"

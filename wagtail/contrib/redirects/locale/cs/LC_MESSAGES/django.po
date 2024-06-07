@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -132,16 +132,6 @@ msgstr "Stornovat"
 msgid "Preview"
 msgstr "Náhled"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Úprava %(title)s"
-
-msgid "Editing"
-msgstr "Úprava"
-
-msgid "Delete redirect"
-msgstr "Smazat přesměrování"
-
 msgid "Summary"
 msgstr "Rekapitulace"
 
@@ -172,33 +162,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
+"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
 
 msgid "Site"
 msgstr "Web"
 
-msgid "Edit this redirect"
-msgstr "Upravit toto přesměrování"
-
-msgid "No redirects found."
-msgstr "Nenalezena žádná přesměrování."
-
-msgid "Export redirects"
-msgstr "Export přesměrování"
+msgid "The redirect could not be saved due to errors."
+msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Přesměrování '%(redirect_title)s' bylo upraveno."
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -207,6 +185,9 @@ msgstr "Přesměrování '%(redirect_title)s' bylo smazáno."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Přesměrování nelze vytvořit, zkontrolujte správné vyplnění polí."
@@ -233,6 +214,3 @@ msgstr[0] "Načteno %(total)d přiřazení"
 msgstr[1] "Načteno %(total)d přiřazení"
 msgstr[2] "Načteno %(total)d přiřazení"
 msgstr[3] "Načteno %(total)d přiřazení"
-
-msgid "Export Redirects"
-msgstr "Export přesměrování"

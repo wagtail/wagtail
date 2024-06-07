@@ -146,7 +146,7 @@ def cautious_slugify(value):
 
 def safe_snake_case(value):
     """
-    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    Convert a string to ASCII similar to Django's slugify, with cautious handling of
     non-ASCII alphanumeric characters. See `cautious_slugify`.
 
     Any inner whitespace, hyphens or dashes will be converted to underscores and
