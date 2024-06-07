@@ -137,7 +137,7 @@ def next_event(self, request):
     'year/2015/'
 ```
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {attr}`~wagtail.models.Page.url` or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {attr}`~wagtail.models.Page.get_url` or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
 
 ```python
 >>> event_page.url + event_page.reverse_subpage('events_for_year', args=(2015, ))

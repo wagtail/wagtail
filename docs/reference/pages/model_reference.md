@@ -459,7 +459,6 @@ database queries making them unable to be edited or viewed.
 
 ```{eval-rst}
 .. class:: Locale
-    :noindex:
 
     .. autoattribute:: language_code
 
@@ -494,7 +493,7 @@ Pages already include this mixin, so there is no need to add it.
 
     .. attribute:: locale
 
-        (Foreign Key to `~wagtail.models.Locale`)
+        (Foreign Key to :class:`wagtail.models.Locale`)
 
         For pages, this defaults to the locale of the parent page.
 
@@ -781,7 +780,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
     .. attribute:: objects
 
-        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a `~wagtail.models.RevisionsManager.for_instance` method that lets you query for revisions of a specific object.
+        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a ``wagtail.models.RevisionsManager.for_instance`` method that lets you query for revisions of a specific object.
 
         Example:
 
@@ -1253,7 +1252,7 @@ An abstract base class that represents a record of an action performed on an obj
 
         The object title at the time of the entry creation
 
-        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to `~LogEntryManger.log_action`
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to ``LogEntryManger.log_action``
 
     .. attribute:: user
 
