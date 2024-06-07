@@ -1289,6 +1289,17 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
         )
 
+    def test_delete_submission_with_next_url(self):
+        next_url = "/"
+        response = self.client.post(
+            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,)),
+            {
+                "selected-submissions": FormSubmission.objects.first().id,
+                "next": next_url,
+            },
+        )
+        self.assertRedirects(response, next_url)
+
 
 class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
