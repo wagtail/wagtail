@@ -274,22 +274,43 @@ export class StreamBlock extends BaseSequenceBlock {
       errorMessages.push(message);
     }
 
+    const minNum = this.blockDef.meta.minNum;
+    if (typeof minNum === 'number' && this.children.length < minNum) {
+      const message = gettext(
+        'The minimum number of items is %(min_num)d',
+      ).replace('%(min_num)d', `${minNum}`);
+      errorMessages.push(message);
+    }
+
     // Check if there are any block types that have count limits
-    for (const blockType in this.blockDef.meta.blockCounts) {
-      if (hasOwn(this.blockDef.meta.blockCounts, blockType)) {
-        const blockMaxNum = this.getBlockMax(blockType);
+    for (const [blockType, constraints] of Object.entries(
+      this.blockDef.meta.blockCounts,
+    )) {
+      const blockMaxNum = constraints.max_num;
+      if (typeof blockMaxNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
 
-        if (typeof blockMaxNum === 'number') {
-          const currentBlockCount = this.getBlockCount(blockType);
+        if (currentBlockCount > blockMaxNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The maximum number of items is %(max_num)d',
+          ).replace('%(max_num)d', `${blockMaxNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
+        }
+      }
 
-          if (currentBlockCount > blockMaxNum) {
-            const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
-            const message = gettext(
-              'The maximum number of items is %(max_num)d',
-            ).replace('%(max_num)d', `${blockMaxNum}`);
-            const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
-            errorMessages.push(messageWithPrefix);
-          }
+      const blockMinNum = constraints.min_num;
+      if (typeof blockMinNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
+
+        if (currentBlockCount < blockMinNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The minimum number of items is %(min_num)d',
+          ).replace('%(min_num)d', `${blockMinNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
         }
       }
     }
