@@ -722,6 +722,154 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   });
 });
 
+describe('telepath: wagtail.blocks.StreamBlock with minNum set', () => {
+  // Define a test block
+  const blockDef = new StreamBlockDefinition(
+    '',
+    [
+      [
+        '',
+        [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname: 'w-field w-field--char_field w-field--text_input',
+            },
+          ),
+          new FieldBlockDefinition(
+            'test_block_b',
+            new DummyWidgetDefinition('Block B widget'),
+            {
+              label: 'Test Block <B>',
+              required: true,
+              icon: 'pilcrow',
+              classname:
+                'w-field w-field--char_field w-field--admin_auto_height_text_input',
+            },
+          ),
+        ],
+      ],
+    ],
+    {
+      test_block_a: 'Block A options',
+      test_block_b: 'Block B options',
+    },
+    {
+      label: '',
+      required: true,
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>plenty</strong> of these',
+      helpIcon: '<svg></svg>',
+      maxNum: null,
+      minNum: 2,
+      blockCounts: {},
+      strings: {
+        MOVE_UP: 'Move up',
+        MOVE_DOWN: 'Move down',
+        DELETE: 'Delete & kill with fire',
+        DUPLICATE: 'Duplicate',
+        ADD: 'Add',
+      },
+    },
+  );
+
+  const assertShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
+      'The minimum number of items is 2',
+    );
+  };
+
+  const assertNotShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical')).toBe(null);
+  };
+
+  test('test no error message when at lower limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertNotShowingErrorMessage();
+  });
+
+  test('initialising under minNum shows error message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertShowingErrorMessage();
+  });
+
+  test('inserting to reach lower limit removes error', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertShowingErrorMessage();
+
+    boundBlock.insert(
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+      1,
+    );
+
+    assertNotShowingErrorMessage();
+  });
+
+  test('deleting to under lower limit shows error mesage', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertNotShowingErrorMessage();
+
+    boundBlock.deleteBlock(1);
+
+    assertShowingErrorMessage();
+  });
+});
+
 describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', () => {
   // Define a test block
   const blockDef = new StreamBlockDefinition(
