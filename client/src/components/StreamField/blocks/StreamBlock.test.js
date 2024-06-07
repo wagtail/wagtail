@@ -945,6 +945,16 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     );
   };
 
+  const assertShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
+      'Test Block &lt;A&gt;: The maximum number of items is 2',
+    );
+  };
+
+  const assertNotShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical')).toBe(null);
+  };
+
   test('addSibling capability works', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
@@ -959,6 +969,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         value: 'Second value',
       },
     ]);
+    assertNotShowingErrorMessage();
     const addSibling =
       boundBlock.children[0].block.parentCapabilities.get('addSibling');
     expect(addSibling.getBlockMax('test_block_a')).toEqual(2);
@@ -966,6 +977,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     addSibling.fn({ type: 'test_block_a' });
     expect(boundBlock.children.length).toEqual(3);
     expect(boundBlock.children[1].type).toEqual('test_block_a');
+    assertNotShowingErrorMessage();
   });
 
   test('single instance allows creation of new block and duplication', () => {
@@ -985,6 +997,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
+    assertNotShowingErrorMessage();
   });
 
   test('initialising at max_num retains ability to add new block of that type', () => {
@@ -1009,6 +1022,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
+    assertNotShowingErrorMessage();
   });
 
   test('insert retains ability to add new block', () => {
@@ -1028,6 +1042,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
+    assertNotShowingErrorMessage();
 
     boundBlock.insert(
       {
@@ -1039,9 +1054,22 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     );
 
     assertCanAddBlock();
+    assertNotShowingErrorMessage();
+
+    boundBlock.insert(
+      {
+        id: '4',
+        type: 'test_block_a',
+        value: 'Fourth value',
+      },
+      2,
+    );
+
+    assertCanAddBlock();
+    assertShowingErrorMessage();
   });
 
-  test('delete does not change availability of new block', () => {
+  test('delete removes error message and does not change availability of new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -1059,14 +1087,21 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         type: 'test_block_a',
         value: 'Third value',
       },
+      {
+        id: '4',
+        type: 'test_block_a',
+        value: 'Fourth value',
+      },
     ]);
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
+    assertShowingErrorMessage();
 
     boundBlock.deleteBlock(2);
 
     assertCanAddBlock();
+    assertNotShowingErrorMessage();
   });
 });
 
