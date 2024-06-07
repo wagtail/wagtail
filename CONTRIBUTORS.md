@@ -816,6 +816,7 @@
 * Alec Baron
 * Saksham Misra
 * Nigel van Keulen
+* Julie Rymer
 
 ## Translators
 
