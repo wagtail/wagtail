@@ -425,6 +425,96 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   });
 });
 
+describe('telepath: wagtail.blocks.ListBlock with minNum set', () => {
+  // Define a test block
+  const blockDef = new ListBlockDefinition(
+    'test_listblock',
+    new ParanoidFieldBlockDefinition(
+      '',
+      new DummyWidgetDefinition('The widget'),
+      {
+        label: '',
+        required: true,
+        icon: 'pilcrow',
+        classname:
+          'w-field w-field--char_field w-field--admin_auto_height_text_input',
+      },
+    ),
+    null,
+    {
+      label: 'Test listblock',
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>a few</strong> of these',
+      helpIcon: '<svg></svg>',
+      minNum: 2,
+      strings: {
+        MOVE_UP: 'Move up',
+        MOVE_DOWN: 'Move down',
+        DELETE: 'Delete',
+        DUPLICATE: 'Duplicate',
+        ADD: 'Add',
+      },
+    },
+  );
+
+  const assertShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
+      'The minimum number of items is 2',
+    );
+  };
+
+  const assertNotShowingErrorMessage = () => {
+    expect(document.querySelector('p.help-block.help-critical')).toBe(null);
+  };
+
+  test('test error message not shown when at limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+    ]);
+
+    assertNotShowingErrorMessage();
+  });
+
+  test('initialising at under minNum shows error message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+    ]);
+
+    assertShowingErrorMessage();
+  });
+
+  test('insert removes error message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+    ]);
+
+    assertShowingErrorMessage();
+
+    boundBlock.insert('Second value', 1);
+
+    assertNotShowingErrorMessage();
+  });
+
+  test('delete below limit adds error message', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+    ]);
+
+    assertNotShowingErrorMessage();
+
+    boundBlock.deleteBlock(1);
+
+    assertShowingErrorMessage();
+  });
+});
+
 describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
   let boundBlock;
 

@@ -200,6 +200,17 @@ export class ListBlock extends BaseSequenceBlock {
       }
     }
 
+    const minNum = this.blockDef.meta.minNum;
+
+    if (typeof minNum === 'number') {
+      if (this.children.length < minNum) {
+        const message = gettext(
+          'The minimum number of items is %(min_num)d',
+        ).replace('%(min_num)d', `${minNum}`);
+        errorMessages.push(message);
+      }
+    }
+
     if (errorMessages.length) {
       this.setError({ messages: errorMessages });
     } else {
