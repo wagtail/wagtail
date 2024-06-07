@@ -18,6 +18,7 @@ Changelog
  * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
  * Fix: Do not show delete button on model edit views if per-instance permissions prevent deletion (Matt Westcott)
  * Fix: Remove duplicate header in privacy dialog when a privacy setting is set on a parent page or collection (Matthias Brück)
+ * Fix: Allow renditions of `.ico` images (Julie Rymer)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)

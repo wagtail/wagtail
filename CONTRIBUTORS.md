@@ -818,6 +818,7 @@
 * Saksham Misra
 * Nigel van Keulen
 * Matthias Brück
+* Julie Rymer
 
 ## Translators
 
