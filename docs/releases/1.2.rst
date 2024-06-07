@@ -115,7 +115,7 @@ Bug fixes
 * Dropdown for ``ForeignKey`` s are now styled consistently (Ashia Zawaduk)
 * Date choosers now appear on top of StreamField menus (Sergey Nikitin)
 * Fixed a migration error that was raised when block-updating from 0.8 to 1.1+
-* `Page.copy() <wagtail.core.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
+* :meth:`wagtail.models.Page.copy() <wagtail.models.Page.copy>` no longer breaks on models with a ``ClusterTaggableManager`` or ``ManyToManyField``
 * Validation errors when inserting an embed into a rich text area are now reported back to the editor
 
 Upgrade considerations

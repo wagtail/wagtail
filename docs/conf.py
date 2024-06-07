@@ -35,7 +35,6 @@ html_theme_options = {
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath(".."))
-sys.path.insert(0, os.path.abspath("../i18n.py"))
 
 # Autodoc may need to import some models modules which require django settings
 # be configured
@@ -60,6 +59,10 @@ extensions = [
     "myst_parser",
     "sphinx_wagtail_theme",
 ]
+
+autodoc_type_aliases = {
+    "File": "django.core.files.File",
+}
 
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")

@@ -280,7 +280,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 .. class:: FormSubmissionsPanel(**kwargs)
 
-    This panel adds a single, read-only section in the edit interface for pages implementing the `~wagtail.contrib.forms.models.AbstractForm` model.
+    This panel adds a single, read-only section in the edit interface for pages implementing the ``wagtail.contrib.forms.models.AbstractForm`` model.
     It includes the number of total submissions for the given form and also a link to the listing of submissions.
 
     .. code-block:: python
