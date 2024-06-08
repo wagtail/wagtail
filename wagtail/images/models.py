@@ -474,10 +474,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 "Unrecognised filter format - string or Filter instance expected"
             )
 
-        if 'preserve-svg' in filter.spec:
+        if "preserve-svg" in filter.spec:
             # remove 'preserve-svg' from filter specs for all image types
-            filter.spec = '|'.join(item for item in filter.spec.split(
-                '|') if item != 'preserve-svg')
+            filter.spec = "|".join(
+                item for item in filter.spec.split("|") if item != "preserve-svg"
+            )
             if not filter.spec:
                 # no formatting directives were included in filter
                 raise InvalidFilterSpecError(
