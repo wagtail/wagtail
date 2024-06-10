@@ -1,7 +1,7 @@
 import logging
 import re
 from collections import defaultdict
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -151,6 +151,112 @@ def purge_pages_from_cache(pages, backend_settings=None, backends=None):
 
     if urls:
         purge_urls_from_cache(urls, backend_settings, backends)
+
+
+def purge_site(
+    site,
+    backend_settings=None,
+    backends=None,
+    url_batch_chunk_size=2000,
+):
+    # Classify available backends, prioritising those that are capable
+    # of 'hostname-specific' purges, followed by those capabale of
+    # 'everything' purges
+    purge_hostname_backends = {}
+    purge_everything_backends = {}
+    other_backends = {}
+    for name, backend in get_backends(backend_settings, backends).items():
+        if backend.invalidates_hostname(site.hostname):
+            if backend.hostname_purge_supported():
+                purge_hostname_backends[name] = backend
+            elif backend.allow_everything_purge_for_site(site):
+                purge_everything_backends[name] = backend
+            else:
+                other_backends[name] = backend
+
+    if (
+        not purge_hostname_backends
+        and not purge_everything_backends
+        and not other_backends
+    ):
+        logger.info("Unable to find purge backend for %s", site.hostname)
+        return
+
+    for name, backend in purge_hostname_backends.items():
+        logger.info(f"Purging hostname via backend: {name}")
+        backend.purge_hostname(site.hostname)
+
+        # NOTE: We could potentially return `None` after the first purge here,
+        # but there's technically nothing to stop developers registering
+        # multiple backends for the same hostname, and no way for us to
+        # know what is redundant, or which backend is more important
+
+    for name, backend in purge_everything_backends.items():
+        # This will likely purge more than necessary, but will be more efficient
+        # than cycling through every page in the tree to generate a list of URLs
+
+        # NOTE: It is up to developers to disable 'everything' purges for
+        # backends where it is too disruptive to other services
+        logger.info(f"Purging everything via backend: {name}")
+        backend.purge_everything()
+
+        # NOTE: We could potentially return `None` after the first purge here,
+        # but there's technically nothing to stop developers registering
+        # multiple backends for the same hostname, and no way for us to
+        # know what is redundant, or which backend is more important
+
+    if other_backends:
+        # Count descendants
+        descendant_count = site.root_page.get_descendants().count()
+        logger.info(
+            "Purging %d page URLs for %s",
+            descendant_count,
+            site.hostname,
+        )
+        batch = PurgeBatch()
+        purge_fixed_paths_separately = False
+        for i, page in enumerate(
+            site.root_page.get_descendants()
+            .select_related("locale")
+            .specific(defer=True)
+            .iterator(url_batch_chunk_size),
+            start=1,
+        ):
+            batch.add_page(page)
+            if len(batch.urls) == url_batch_chunk_size:
+                # Purge the current batch
+                batch.purge(backends=other_backends.keys())
+                # Report progress
+                logger.info("Progress: %d/%d", i + 1, descendant_count)
+                # Start a fresh batch
+                batch = PurgeBatch()
+                # For reporting to make sense, fixed paths must be purged separately
+                purge_fixed_paths_separately = True
+
+        if batch.urls and purge_fixed_paths_separately:
+            # Purge the final batch of page urls
+            batch.purge(backends=other_backends.keys())
+            # Report progress
+            logger.info("Progress: %d/%d", descendant_count, descendant_count)
+            # Start a new batch for purging fixed paths
+            batch = PurgeBatch()
+
+        # NOTE: Add hardcoded paths/urls to the current batch
+        additional_paths = getattr(
+            settings, "WAGTAILFRONTENDCACHE_FIXED_SITE_PATHS", []
+        )
+        if additional_paths:
+            logger.info(
+                "Purging %d fixed site paths for %s",
+                len(additional_paths),
+                site.hostname,
+            )
+            base_url = site.root_url
+            for path in additional_paths:
+                batch.add_url(urljoin(base_url, path))
+
+        batch.purge(backends=other_backends.keys())
+    return
 
 
 class PurgeBatch:
