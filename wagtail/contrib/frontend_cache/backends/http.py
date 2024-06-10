@@ -1,6 +1,6 @@
 import logging
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
 from wagtail import __version__
@@ -21,12 +21,12 @@ class PurgeRequest(Request):
 class HTTPBackend(BaseBackend):
     def __init__(self, params):
         super().__init__(params)
-        location_url_parsed = urlparse(params.pop("LOCATION"))
+        location_url_parsed = urlsplit(params.pop("LOCATION"))
         self.cache_scheme = location_url_parsed.scheme
         self.cache_netloc = location_url_parsed.netloc
 
     def purge(self, url):
-        url_parsed = urlparse(url)
+        url_parsed = urlsplit(url)
         host = url_parsed.hostname
 
         # Append port to host if it is set in the original URL
@@ -34,12 +34,11 @@ class HTTPBackend(BaseBackend):
             host += ":" + str(url_parsed.port)
 
         request = PurgeRequest(
-            url=urlunparse(
+            url=urlunsplit(
                 [
                     self.cache_scheme,
                     self.cache_netloc,
                     url_parsed.path,
-                    url_parsed.params,
                     url_parsed.query,
                     url_parsed.fragment,
                 ]

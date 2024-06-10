@@ -146,7 +146,7 @@ class Redirect(models.Model):
         url_parsed = urlparse(url)
 
         # Path must start with / but not end with /
-        path = url_parsed[2]
+        path = url_parsed.path
         if not path.startswith("/"):
             path = "/" + path
 
@@ -154,12 +154,12 @@ class Redirect(models.Model):
             path = path[:-1]
 
         # Parameters must be sorted alphabetically
-        parameters = url_parsed[3]
+        parameters = url_parsed.params
         parameters_components = parameters.split(";")
         parameters = ";".join(sorted(parameters_components))
 
         # Query string components must be sorted alphabetically
-        query_string = url_parsed[4]
+        query_string = url_parsed.query
         query_string_components = query_string.split("&")
         query_string = "&".join(sorted(query_string_components))
 

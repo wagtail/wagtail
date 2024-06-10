@@ -1,5 +1,5 @@
 import re
-import urllib.parse as urlparse
+from urllib.parse import parse_qs, quote, urlencode, urlsplit
 
 from django.conf import settings
 from django.core.paginator import InvalidPage, Paginator
@@ -748,9 +748,9 @@ class EmailLinkView(BaseLinkFormView):
             "subject": self.form.cleaned_data["subject"],
             "body": self.form.cleaned_data["body"],
         }
-        encoded_params = urlparse.urlencode(
+        encoded_params = urlencode(
             {k: v for k, v in params.items() if v is not None and v != ""},
-            quote_via=urlparse.quote,
+            quote_via=quote,
         )
 
         url = "mailto:" + self.form.cleaned_data["email_address"]
@@ -781,11 +781,11 @@ class EmailLinkView(BaseLinkFormView):
     def parse_email_link(self, mailto):
         result = {}
 
-        mail_result = urlparse.urlparse(mailto)
+        mail_result = urlsplit(mailto)
 
         result["email"] = mail_result.path
 
-        query = urlparse.parse_qs(mail_result.query)
+        query = parse_qs(mail_result.query)
         result["subject"] = query["subject"][0] if "subject" in query else ""
         result["body"] = query["body"][0] if "body" in query else ""
 

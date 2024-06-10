@@ -1,5 +1,5 @@
 import json
-import urllib.parse as urlparse
+from urllib.parse import parse_qs, urlsplit
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings
@@ -930,8 +930,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["subject"][0], "Awesome Subject")
         self.assertEqual(query["body"][0], "An example body")
@@ -953,8 +953,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["subject"][0], "Awesome Subject")
         self.assertTrue("body" not in query)
@@ -976,8 +976,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["body"][0], "An example body")
         self.assertTrue("subject" not in query)
