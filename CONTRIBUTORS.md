@@ -819,6 +819,7 @@
 * Nigel van Keulen
 * Matthias Brück
 * Julie Rymer
+* Byron Peebles
 
 ## Translators
 
