@@ -103,11 +103,6 @@ jobs:
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
-            install_extras: |
-              pip uninstall -y django-taggit
-              pip install \
-                git+https://github.com/laymonage/django-taggit.git@django-5.1#egg=django-taggit
-
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
