@@ -17,7 +17,7 @@ import posixpath
 import uuid
 from io import StringIO
 from typing import TYPE_CHECKING
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 from warnings import warn
 
 from django import forms
@@ -702,7 +702,7 @@ class PreviewableMixin:
         """
         url = self._get_dummy_header_url(original_request)
         if url:
-            url_info = urlparse(url)
+            url_info = urlsplit(url)
             hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or (443 if url_info.scheme == "https" else 80)
