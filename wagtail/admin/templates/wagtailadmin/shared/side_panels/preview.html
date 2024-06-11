@@ -4,19 +4,19 @@
 
 <div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
     <div class="preview-panel__sizes">
-        <label class="preview-panel__size-button preview-panel__size-button--mobile">
-            {% icon name="mobile-alt" %}
-            <input type="radio" name="preview-size" value="mobile" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
-        </label>
-        <label class="preview-panel__size-button preview-panel__size-button--tablet">
-            {% icon name="tablet-alt" %}
-            <input type="radio" name="preview-size" value="tablet" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
-        </label>
-        <label class="preview-panel__size-button preview-panel__size-button--desktop">
-            {% icon name="desktop" %}
-            <input type="radio" name="preview-size" value="desktop" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
-        </label>
-
+        {% for size in page.preview_sizes %}
+            <label class="preview-panel__size-button preview-panel__size-button--{{ size.name }}">
+                {% icon name=size.icon %}
+                <input
+                    type="radio"
+                    name="preview-size"
+                    value="{{ size.name }}"
+                    data-device-width="{{ size.device_width }}"
+                    {% if size.default_size %}checked{% endif %}
+                    aria-label="{% trans size.label %}"
+                />
+            </label>
+        {% endfor %}
         <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 

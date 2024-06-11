@@ -1653,6 +1653,35 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
     @property
+    def preview_sizes(self):
+        return [
+            {
+                "name": "mobile",
+                "icon": "mobile-alt",
+                "device_width": 375,
+                "default_size": True,
+                "label": "Preview in mobile size",
+                "template": None,
+            },
+            {
+                "name": "tablet",
+                "icon": "tablet-alt",
+                "device_width": 768,
+                "default_size": False,
+                "label": "Preview in tablet size",
+                "template": None,
+            },
+            {
+                "name": "desktop",
+                "icon": "desktop",
+                "device_width": 1280,
+                "default_size": False,
+                "label": "Preview in desktop size",
+                "template": None,
+            },
+        ]
+
+    @property
     def page_type_display_name(self):
         """
         A human-readable version of this page's type
