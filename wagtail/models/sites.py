@@ -279,3 +279,7 @@ class Site(models.Model):
     @staticmethod
     def clear_site_root_paths_cache():
         cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+
+    @staticmethod
+    def clear_site_for_hostname_cache():
+        cache.delete(_GET_SITE_FOR_HOSTNAME_CACHE_KEY)

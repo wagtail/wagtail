@@ -20,26 +20,26 @@ logger = logging.getLogger("wagtail")
 
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
     Site.clear_site_root_paths_cache()
-    cache.delete("wagtail_site_for_hostname")
+    Site.clear_site_for_hostname_cache()
 
 
 def post_delete_site_signal_handler(instance, **kwargs):
     Site.clear_site_root_paths_cache()
-    cache.delete("wagtail_site_for_hostname")
+    Site.clear_site_for_hostname_cache()
 
 
 def post_save_site_root_page(instance, update_fields=None, **kwargs):
     if not Site.objects.filter(root_page=instance).exists():
         return
 
-    cache.delete("wagtail_site_for_hostname")
+    Site.clear_site_for_hostname_cache()
 
 
 def post_delete_site_root_page(instance, **kwargs):
     if not Site.objects.filter(root_page=instance).exists():
         return
 
-    cache.delete("wagtail_site_for_hostname")
+    Site.clear_site_for_hostname_cache()
 
 
 def pre_delete_page_unpublish(sender, instance, **kwargs):
