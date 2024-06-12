@@ -64,3 +64,6 @@ task_cancelled = Signal()
 # Required as a workaround for https://code.djangoproject.com/ticket/6870
 # provides args: sender, instance
 pre_validate_delete = Signal()
+
+# Translation signals
+copy_for_translation_done = Signal()
