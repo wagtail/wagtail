@@ -20,16 +20,16 @@ To serve your images, set up a Backblaze B2 storage following these steps:
 2. Click **Products** from the top navigation and then select **B2 Cloud Storage** from the dropdown.
 3. Sign up to Backblaze B2 Cloud Storage by following these steps:
 
-    a. Enter your email address and password.  
-    b. Select the appropriate region.  
+    a. Enter your email address and password.
+    b. Select the appropriate region.
     c. Click **Sign Up Now**.
 
 4. Verify your email by following these steps:
 
-    a. Go to **Account > My Settings** in your side navigation.  
-    b. Click **Verify Email** in the **Security section**.  
-    c. Enter your sign-up email address and then click send **Send Code**.  
-    d. Check your email inbox or spam folder for the verification email.  
+    a. Go to **Account > My Settings** in your side navigation.
+    b. Click **Verify Email** in the **Security section**.
+    c. Enter your sign-up email address and then click send **Send Code**.
+    d. Check your email inbox or spam folder for the verification email.
     e. Click the verification link or use the verification code.
 
 5. Create a Bucket by going to **B2 Cloud Storage > Bucket** and clicking **Create a Bucket**.
@@ -212,18 +212,29 @@ ln -s /usr/bin/wslview /usr/local/bin/xdg-open
 If you successfully install flyctl but get an error saying "`fly` is not recognized" or "flyctl: command not found error", then you must add flyctl to your PATH. For more information, read [Getting flyctl: command not found error post install](https://community.fly.io/t/getting-flyctl-command-not-found-error-post-install/4954/1).
 ```
 
-8. Create your Fly.io project by running `fly launch` and answering the resulting prompt questions as follows:
+8. Create your Fly.io project by running `fly launch`. Then press `y` to configure the settings.
+9. You will be taken to an admin screen on fly.io. Fill out the fields as follows:
+
+| Field                                                     | Instruction                                                                          |
+|-----------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Choose a region for deployment                            | Select the region closest to the _AWS_S3_REGION_NAME_ in your _env.production_ file. |
+| CPU & Memory                                              | VM Size - shared-cpu-1x  VM Memory - 512 MB                                          |
+| Database                                                  | Fly Postgres - choose smallest option                                                |
+
+click confirm **Confirm settings**
+
+```{note}
+Not creating the database directly with the application leads to the app and the database not connected.
+If the app is going to be launched again using fly launch,
+it's recommended to create a new database with the launch of the app through the web UI.
+```
+
+10. Back in your terminal, answer the resulting prompt questions as follows:
 
 | Question                                                | Instruction                                                                                                                              |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Choose an app name                                      | Enter a name of your choice. For example, _yourname-wagtail-portfolio_                                                                   |
-| Choose a region for deployment                          | Select the region closest to the _AWS_S3_REGION_NAME_ in your _env.production_ file.                                                     |
 | Overwrite ".../.dockerignore"?                          | Enter _y_                                                                                                                                |
 | Overwrite ".../Dockerfile"?                             | Enter _y_                                                                                                                                |
-| Would you like to set up a Postgresql database now?     | Enter _y_                                                                                                                                |
-| Select configuration                                    | select _Development - Single node, 1x shared CPU, 256MB RAM, 1GB disk_ if available. Otherwise, select the smallest configuration option |
-| Scale single node pg to zero after one hour?            | Enter _y_                                                                                                                                |
-| Would you like to set up an Upstash Redis database now? | Enter _n_                                                                                                                                |
 
 The `fly launch` command creates two new files, `Dockerfile` and `fly.toml`, in your project directory.
 
@@ -268,7 +279,7 @@ Also, check if your `fly.toml` file has the following:
 
 ```toml
 [deploy]
-  release_command = "python manage.py migrate"
+  release_command = "python manage.py migrate --noinput"
 ```
 
 Your `fly.toml` file should look as follows:
@@ -282,7 +293,7 @@ console_command = "/code/manage.py shell"
 
 # add the deploy command:
 [deploy]
-  release_command = "python manage.py migrate"
+  release_command = "python manage.py migrate --noinput"
 
 [env]
   PORT = "8000"

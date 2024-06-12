@@ -823,6 +823,7 @@
 * Arnar Tumi Þorsteinsson
 * Roel Koper
 * Inju Michorius
+* Jeroen de Vries
 
 ## Translators
 
