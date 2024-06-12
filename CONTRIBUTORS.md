@@ -819,6 +819,8 @@
 * Nigel van Keulen
 * Matthias Brück
 * Julie Rymer
+* Byron Peebles
+* Arnar Tumi Þorsteinsson
 
 ## Translators
 

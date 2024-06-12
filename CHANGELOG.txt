@@ -10,6 +10,8 @@ Changelog
  * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
  * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
  * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
+ * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
+ * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
@@ -22,10 +24,12 @@ Changelog
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
+ * Docs: Fix incorrect Sphinx-style code references to use MyST style (Byron Peebles)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
+ * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
 
 
 6.1.2 (30.05.2024)
