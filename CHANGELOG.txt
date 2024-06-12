@@ -51,6 +51,7 @@ Changelog
  * Docs: Improve the Pages Theory page with added & more consistent section headings and admonitions to aid in readability (Clifford Gama)
  * Docs: Fix non-functional link to the community guidelines in the Your first contribution page (Ankit Kumar)
  * Docs: Introduce tags and filters by name in "Writing templates" docs (Clifford Gama)
+ * Docs: Add a new headless section to the documentation, incorporating parts of the 'are we headless' website content (Sævar Öfjörð Magnússon)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
