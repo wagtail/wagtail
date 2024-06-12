@@ -2097,6 +2097,7 @@ class PersonPage(Page):
             "Person",
         ),
         InlinePanel("addresses", label="Address"),
+        InlinePanel("social_links", label="Social links"),
     ]
 
     class Meta:
@@ -2131,6 +2132,29 @@ class AddressTag(TaggedItemBase):
     content_object = ParentalKey(
         to="tests.Address", on_delete=models.CASCADE, related_name="tagged_items"
     )
+
+
+class SocialLink(index.Indexed, ClusterableModel):
+    url = models.URLField()
+    kind = models.CharField(
+        max_length=30,
+        choices=[
+            ("twitter", "Twitter"),
+            ("facebook", "Facebook"),
+        ]
+    )
+    person = ParentalKey(
+        to="tests.PersonPage", related_name="social_links", verbose_name="Person"
+    )
+
+    panels = [
+        FieldPanel("url"),
+        FieldPanel("kind"),
+    ]
+
+    class Meta:
+        verbose_name = "Social link"
+        verbose_name_plural = "Social links"
 
 
 class RestaurantPage(Page):

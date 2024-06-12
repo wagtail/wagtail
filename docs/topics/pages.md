@@ -335,8 +335,9 @@ Wagtail allows the nesting of other models within a page. This is useful for cre
 
 Each inline model requires the following:
 
--   It must inherit from {class}`wagtail.models.Orderable`
 -   It must have a `ParentalKey` to the parent model
+
+Inline model can inherit from {class}`wagtail.models.Orderable` to allow reordering of items in the admin interface.
 
 ````{note}
 The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` field type must be imported from there:
