@@ -66,4 +66,5 @@ task_cancelled = Signal()
 pre_validate_delete = Signal()
 
 # Translation signals
+# provides args: sender, source_obj, target_obj
 copy_for_translation_done = Signal()
