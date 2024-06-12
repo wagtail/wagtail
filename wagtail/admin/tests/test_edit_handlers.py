@@ -52,6 +52,7 @@ from wagtail.test.testapp.models import (
     FormPageWithRedirect,
     GalleryPage,
     PageChooserModel,
+    PersonPage,
     RestaurantPage,
     RestaurantTag,
     SimplePage,
@@ -1520,6 +1521,40 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
                     EventPage, "speakers", label="Speakers", bacon="chunky"
                 ),
             )
+
+
+class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.request = RequestFactory().get("/")
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
+    def test_render(self):
+        """
+        Check that the inline panel renders the panels set on the model
+        when no 'panels' parameter is passed in the InlinePanel definition
+        """
+        social_link_object_list = ObjectList(
+            [
+                InlinePanel(
+                    "social_links",
+                    label="Social Links",
+                )
+            ]
+        ).bind_to_model(PersonPage)
+        PersonPageForm = social_link_object_list.get_form_class()
+
+        person_page = PersonPage()
+        form = PersonPageForm(instance=person_page)
+        panel = social_link_object_list.get_bound_panel(instance=person_page, form=form, request=self.request)
+        result = panel.render_html()
+        # rendered panel must not contain hidden fields for ORDER
+        self.assertNotInHTML(
+            'id="id_social_links-__prefix__-ORDER"',
+            result,
+        )
 
 
 class TestInlinePanelGetComparison(TestCase):
