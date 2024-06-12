@@ -213,7 +213,7 @@ If you successfully install flyctl but get an error saying "`fly` is not recogni
 ```
 
 8. Create your Fly.io project by running `fly launch`. Then press `y` to configure the settings.
-9. It leads to a fly.io website. Fill the folliwng fields as follows
+9. You will be taken to an admin screen on fly.io. Fill out the fields as follows:
 
 | Field                                                     | Instruction                                                                          |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------|
