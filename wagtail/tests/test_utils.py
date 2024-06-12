@@ -28,7 +28,7 @@ from wagtail.coreutils import (
 )
 from wagtail.models import Page, Site
 from wagtail.utils.file import hash_filelike
-from wagtail.utils.utils import deep_update
+from wagtail.utils.utils import deep_update, flatten_choices
 from wagtail.utils.version import get_main_version
 
 
@@ -589,3 +589,12 @@ class TestVersion(SimpleTestCase):
         for version, include_patch, expected in cases:
             with self.subTest(version=version, include_patch=include_patch):
                 self.assertEqual(get_main_version(version, include_patch), expected)
+
+class TestFlattenChoices(SimpleTestCase):
+    def test_tuple_choices(self):
+        choices = [(1, "1st"), (2, "2nd")]
+        self.assertEqual(flatten_choices(choices), {"1": "1st", "2": "2nd"})
+
+    def test_grouped_tuple_choices(self):
+        choices = [("Group", [(1, "1st"), (2, "2nd")])]
+        self.assertEqual(flatten_choices(choices), {"1": "1st", "2": "2nd"})
