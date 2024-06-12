@@ -820,6 +820,7 @@
 * Matthias Brück
 * Julie Rymer
 * Byron Peebles
+* Arnar Tumi Þorsteinsson
 
 ## Translators
 
