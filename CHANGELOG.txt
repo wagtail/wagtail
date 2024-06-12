@@ -31,6 +31,7 @@ Changelog
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
 
 
 6.1.2 (30.05.2024)
