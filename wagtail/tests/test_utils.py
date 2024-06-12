@@ -590,6 +590,7 @@ class TestVersion(SimpleTestCase):
             with self.subTest(version=version, include_patch=include_patch):
                 self.assertEqual(get_main_version(version, include_patch), expected)
 
+
 class TestFlattenChoices(SimpleTestCase):
     def test_tuple_choices(self):
         choices = [(1, "1st"), (2, "2nd")]
