@@ -405,9 +405,22 @@ class BrowseView(View):
 class SearchView(View):
     @property
     def columns(self):
-        cols = [
-            PageTitleColumn("title", label=_("Title")),
-            ParentPageColumn("parent", label=_("Parent")),
+        cols = []
+
+        if self.is_multiple_choice:
+            cols += [
+                PageCheckboxSelectColumn(
+                    "select", label=_("Select"), width="1%", accessor="pk"
+                ),
+                PageTitleColumn("title", label=_("Title")),
+            ]
+        else:
+            cols += [
+                PageTitleColumn("title", label=_("Title")),
+                ParentPageColumn("parent", label=_("Parent")),
+            ]
+
+        cols += [
             DateColumn(
                 "updated",
                 label=_("Updated"),
@@ -422,13 +435,6 @@ class SearchView(View):
             ),
             PageStatusColumn("status", label=_("Status"), width="12%"),
         ]
-        if self.is_multiple_choice:
-            cols.insert(
-                0,
-                PageCheckboxSelectColumn(
-                    "select", label=_("Select"), width="1%", accessor="pk"
-                ),
-            )
         return cols
 
     def get(self, request):
