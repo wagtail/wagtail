@@ -775,6 +775,29 @@ class PreviewableMixin:
     full_url = property(get_full_url)
 
     DEFAULT_PREVIEW_MODES = [("", _("Default"))]
+    DEFAULT_PREVIEW_SIZES = [
+        {
+            "name": "mobile",
+            "icon": "mobile-alt",
+            "device_width": 375,
+            "default_size": True,
+            "label": "Preview in mobile size",
+        },
+        {
+            "name": "tablet",
+            "icon": "tablet-alt",
+            "device_width": 768,
+            "default_size": False,
+            "label": "Preview in tablet size",
+        },
+        {
+            "name": "desktop",
+            "icon": "desktop",
+            "device_width": 1280,
+            "default_size": False,
+            "label": "Preview in desktop size",
+        },
+    ]
 
     @property
     def preview_modes(self):
@@ -797,6 +820,37 @@ class PreviewableMixin:
         If ``preview_modes`` is empty, an ``IndexError`` will be raised.
         """
         return self.preview_modes[0][0]
+
+    @property
+    def preview_sizes(self):
+        """
+        Returns a list of dictionaries, each representing a preview size option for this object.
+        Override this property to customize the preview sizes.
+
+        Each dictionary in the list should include the following keys:
+        - `name`: A string representing the internal name of the preview size.
+        - `icon`: A string specifying the icon's name for the preview size button.
+        - `device_width`: An integer indicating the device's width in pixels.
+        - `default_size`: A boolean, set to `True` for the default preview size.
+        - `label`: A string for the label displayed on the preview size button.
+
+        Example:
+            return [
+                {
+                    'name': 'mobile',
+                    'icon': 'mobile-icon',
+                    'device_width': 320,
+                    'default_size': False,
+                    'label': 'Mobile'
+                },
+                # Add more preview size dictionaries as needed.
+            ]
+
+        Returns:
+            list: A list of dictionaries detailing available preview sizes.
+        """
+
+        return PreviewableMixin.DEFAULT_PREVIEW_SIZES
 
     def is_previewable(self):
         """Returns ``True`` if at least one preview mode is specified in ``preview_modes``."""
@@ -1651,35 +1705,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 )
             )
         )
-
-    @property
-    def preview_sizes(self):
-        return [
-            {
-                "name": "mobile",
-                "icon": "mobile-alt",
-                "device_width": 375,
-                "default_size": True,
-                "label": "Preview in mobile size",
-                "template": None,
-            },
-            {
-                "name": "tablet",
-                "icon": "tablet-alt",
-                "device_width": 768,
-                "default_size": False,
-                "label": "Preview in tablet size",
-                "template": None,
-            },
-            {
-                "name": "desktop",
-                "icon": "desktop",
-                "device_width": 1280,
-                "default_size": False,
-                "label": "Preview in desktop size",
-                "template": None,
-            },
-        ]
 
     @property
     def page_type_display_name(self):
