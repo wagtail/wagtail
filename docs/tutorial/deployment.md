@@ -212,7 +212,7 @@ ln -s /usr/bin/wslview /usr/local/bin/xdg-open
 If you successfully install flyctl but get an error saying "`fly` is not recognized" or "flyctl: command not found error", then you must add flyctl to your PATH. For more information, read [Getting flyctl: command not found error post install](https://community.fly.io/t/getting-flyctl-command-not-found-error-post-install/4954/1).
 ```
 
-8. Create your Fly.io project by running `fly launch`. After running `fly launch` it ask to tweak the settings press `y`.
+8. Create your Fly.io project by running `fly launch`. Then press `y` to configure the settings.
 9. It leads to a fly.io website. Fill the folliwng fields as follows
 
 | Field                                                     | Instruction                                                                          |
