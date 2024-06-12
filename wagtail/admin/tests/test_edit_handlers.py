@@ -1548,7 +1548,9 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
 
         person_page = PersonPage()
         form = PersonPageForm(instance=person_page)
-        panel = social_link_object_list.get_bound_panel(instance=person_page, form=form, request=self.request)
+        panel = social_link_object_list.get_bound_panel(
+            instance=person_page, form=form, request=self.request
+        )
         result = panel.render_html()
         # rendered panel must not contain hidden fields for ORDER
         self.assertNotInHTML(

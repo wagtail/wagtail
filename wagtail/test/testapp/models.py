@@ -2141,7 +2141,7 @@ class SocialLink(index.Indexed, ClusterableModel):
         choices=[
             ("twitter", "Twitter"),
             ("facebook", "Facebook"),
-        ]
+        ],
     )
     person = ParentalKey(
         to="tests.PersonPage", related_name="social_links", verbose_name="Person"
