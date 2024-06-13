@@ -1,3 +1,5 @@
+import { getContentPathSelector } from '../utils/contentPath';
+
 /**
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
@@ -113,4 +115,15 @@ export function initAnchoredPanels(
   if (anchorTarget) {
     anchorTarget.scrollIntoView();
   }
+
+  // Allow for scrolling to a specific content path, e.g. when a user follows a
+  // link from the usage view. It may take a bit for some content to be rendered,
+  // e.g. with inline panels and StreamField blocks, so we need to wait.
+  setTimeout(() => {
+    const selector = getContentPathSelector();
+    const target = document.querySelector<HTMLElement>(selector);
+    if (target) {
+      target.scrollIntoView();
+    }
+  }, 100);
 }
