@@ -63,7 +63,6 @@ GraphQL libraries compatible with Wagtail
 * [wagtail-grapple](https://github.com/GrappleGQL/wagtail-grapple) by GrappleGQL
 * [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) by Patrick Arminio
 
-
 ## Functionality
 
 ### 🟡 Page Preview
@@ -145,10 +144,6 @@ There currently isn’t a way to view a password-protected page from a headless 
 
 TODO
 
-### 🔴 Open API (Swagger)
-
-TODO
-
 ### 🟡 StreamField
 
 TODO
@@ -159,14 +154,10 @@ There are a few options to build your frontend for Wagtail.
 
 ### 🟡 Next.js
 
-Next.js is a frontend option for Headless Wagtail
-
 Next.js is a [popular open source JavaScript framework](https://nextjs.org/) you can choose for building the frontend of your Headless Wagtail website.
 
 There's no specific support for Next.js in Headless Wagtail. This website you're on right now is built with Headless Wagtail and Next.js, so you can have a look at the source code to get an idea how to set up your own project.
 ### 🟡 Nuxt.js
-
-Nuxt.js is a frontend option for Headless Wagtail
 
 Nuxt.js is an [open source JavaScript framework](https://nuxtjs.org/) you can use to build a frontend for your Headless Wagtail project. Several high profile sites run a combination of Wagtail and Nuxt.js, including NASA's [Jet Propulsion Laboratory](https://torchbox.com/blog/nasa-jpl-launches-on-wagtail/). While there is currently no specific support for Nuxt.js, Wagtail's built-in API makes this a straightforward option. Several projects are available on [GitHub](https://github.com/search?q=nuxt+wagtail) for inspiration and exploration.
 
