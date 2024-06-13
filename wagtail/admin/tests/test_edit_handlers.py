@@ -1527,7 +1527,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
-        self.request = RequestFactory().get("/")
+        self.request = get_dummy_request()
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
         self.request.user = user
 
