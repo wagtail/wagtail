@@ -6,6 +6,8 @@ Changelog
 
  * Fix: Allow renditions of `.ico` images (Julie Rymer)
  * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+
 
 6.1.2 (30.05.2024)
 ~~~~~~~~~~~~~~~~~~

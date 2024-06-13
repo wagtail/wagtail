@@ -1,6 +1,7 @@
 import datetime
 import json
 import urllib
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -14,6 +15,8 @@ from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
+from willow.optimizers.base import OptimizerBase
+from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
@@ -3514,6 +3517,35 @@ class TestPreviewView(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
         )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/png")
+
+    def test_preview_with_optimizer(self):
+        """
+        Test that preview works with optimizers
+
+        Willow optimizers require
+        """
+
+        class DummyOptimizer(OptimizerBase):
+            library_name = "dummy"
+            image_format = "png"
+
+            @classmethod
+            def check_library(cls):
+                return True
+
+            @classmethod
+            def process(cls, file_path: str):
+                pass
+
+        # Get the image
+        with patch.object(registry, "_registered_optimizers", [DummyOptimizer]):
+            response = self.client.get(
+                reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
+            )
 
         # Check response
         self.assertEqual(response.status_code, 200)
