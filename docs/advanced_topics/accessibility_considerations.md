@@ -226,7 +226,8 @@ Readability is fundamental to accessibility. One of the ways to improve text con
 
 ### prefers-reduced-motion
 
-Some users may prefer to see a more static version of your site, for example, users with vestibular disorders. You can respect this preference by using the `prefers-reduced-motion` media query in your CSS.
+Some users, such as those with vestibular disorders, may prefer a more static version of your site. You can respect this preference by using the `prefers-reduced-motion` media query in your CSS.
+
 ```css
 @media (prefers-reduced-motion) {
   /* styles to apply if a user's device settings are set to reduced motion */
