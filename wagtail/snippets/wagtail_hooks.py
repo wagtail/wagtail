@@ -8,7 +8,7 @@ from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
 from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import user_can_edit_snippets
+from wagtail.snippets.permissions import user_can_access_snippets
 from wagtail.snippets.views import snippets as snippet_views
 
 
@@ -35,7 +35,7 @@ class SnippetsMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        return not self._all_have_menu_items and user_can_edit_snippets(request.user)
+        return not self._all_have_menu_items and user_can_access_snippets(request.user)
 
 
 @hooks.register("register_admin_menu_item")

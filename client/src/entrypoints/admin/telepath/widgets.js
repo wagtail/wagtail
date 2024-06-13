@@ -152,22 +152,32 @@ class BoundRadioSelect {
     this.element = element;
     this.name = name;
     this.idForLabel = idForLabel;
+    this.isMultiple = !!this.element.querySelector(
+      `input[name="${name}"][type="checkbox"]`,
+    );
     this.selector = `input[name="${name}"]:checked`;
     this.setState(initialState);
   }
 
   getValue() {
+    if (this.isMultiple) {
+      return Array.from(this.element.querySelectorAll(this.selector)).map(
+        (el) => el.value,
+      );
+    }
     return this.element.querySelector(this.selector)?.value;
   }
 
   getState() {
-    return this.element.querySelector(this.selector)?.value;
+    return Array.from(this.element.querySelectorAll(this.selector)).map(
+      (el) => el.value,
+    );
   }
 
   setState(state) {
     const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
     for (let i = 0; i < inputs.length; i += 1) {
-      inputs[i].checked = inputs[i].value === state;
+      inputs[i].checked = state.includes(inputs[i].value);
     }
   }
 
@@ -183,8 +193,29 @@ window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
 
 class BoundSelect extends BoundWidget {
   getTextLabel() {
-    const selectedOption = this.input.selectedOptions[0];
-    return selectedOption ? selectedOption.text : '';
+    return Array.from(this.input.selectedOptions)
+      .map((option) => option.text)
+      .join(', ');
+  }
+
+  getValue() {
+    if (this.input.multiple) {
+      return Array.from(this.input.selectedOptions).map(
+        (option) => option.value,
+      );
+    }
+    return this.input.value;
+  }
+
+  getState() {
+    return Array.from(this.input.selectedOptions).map((option) => option.value);
+  }
+
+  setState(state) {
+    const options = this.input.options;
+    for (let i = 0; i < options.length; i += 1) {
+      options[i].selected = state.includes(options[i].value);
+    }
   }
 }
 

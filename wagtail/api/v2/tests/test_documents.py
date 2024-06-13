@@ -590,7 +590,7 @@ class TestDocumentFind(TestCase):
     },
     WAGTAILAPI_BASE_URL="http://api.example.com",
 )
-@mock.patch("wagtail.contrib.frontend_cache.backends.HTTPBackend.purge")
+@mock.patch("wagtail.contrib.frontend_cache.backends.http.HTTPBackend.purge")
 class TestDocumentCacheInvalidation(TestCase):
     fixtures = ["demosite.json"]
 

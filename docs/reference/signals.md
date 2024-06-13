@@ -194,3 +194,11 @@ This signal is emitted from a `TaskState` when a page's task is canceled.
 -   `instance` - The specific `TaskState` instance.
 -   `user` - The user who canceled the task
 -   `kwargs` - Any other arguments passed to `task_cancelled.send()`
+
+## copy_for_translation_done
+
+This signal is emitted from a `CopyPageForTranslationAction` when a page is being copied to a new locale (translated).
+
+-   `sender` - `CopyPageForTranslationAction`
+-   `source_obj` - The source page
+-   `target_obj` - The copy of the source page in the new locale

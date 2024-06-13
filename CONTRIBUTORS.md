@@ -6,6 +6,7 @@
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
+* Jake Howard (Torchbox)
 * Kalob Taulien
 * LB Johnston
 * Matthew Westcott (Torchbox)
@@ -816,6 +817,11 @@
 * Alec Baron
 * Saksham Misra
 * Nigel van Keulen
+* Matthias Brück
+* Julie Rymer
+* Byron Peebles
+* Arnar Tumi Þorsteinsson
+* Roel Koper
 
 ## Translators
 

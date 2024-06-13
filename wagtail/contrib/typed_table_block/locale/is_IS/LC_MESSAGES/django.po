@@ -5,6 +5,7 @@
 #
 # Translators:
 # saevarom <saevar@saevar.is>, 2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2024
 #
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2021\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2024\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Caption"
+msgstr "Fyrirsögn"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Fyrirsögn sem lýsir almennu innihaldi töflunnar, og er gagnleg fyrir "
+"notendur skjálesara"
 
 msgid "Add column"
 msgstr "Nýr dálkur"

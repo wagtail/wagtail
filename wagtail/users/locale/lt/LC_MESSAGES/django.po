@@ -175,11 +175,11 @@ msgstr "Atsiprašome, jokios grupės neatitinka \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nėra sukonfigūruota jokia grupė. Kodėl gi <a "
-"href=\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
+"Nėra sukonfigūruota jokia grupė. Kodėl gi <a href="
+"\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ar tikrai norite ištrinti šį vartotoją?"

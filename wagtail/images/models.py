@@ -61,6 +61,7 @@ IMAGE_FORMAT_EXTENSIONS = {
     "gif": ".gif",
     "webp": ".webp",
     "svg": ".svg",
+    "ico": ".ico",
 }
 
 
