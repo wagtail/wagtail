@@ -32,6 +32,7 @@ Changelog
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
  * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Docs: Add note about `prefers-reduced-motion` to the accessibility documentation (Roel Koper)
 
 
 6.1.2 (30.05.2024)
