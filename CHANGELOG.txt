@@ -27,6 +27,7 @@ Changelog
  * Fix: Add separators when displaying multiple error messages on a StructBlock (Kyle Bayliss)
  * Fix: Specify `verbose_name` on `TranslatableMixin.locale` so that it is translated when used as a label (Romein van Buren)
  * Fix: Disallow null characters in API filter values (Jochen Wersdörfer)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
