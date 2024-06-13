@@ -19,13 +19,14 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.user = self.login()
         self.root_page = Page.objects.get(id=2)
 
-        page = SimplePage(
-            title="Hello world!",
-            slug="hello-world",
-            content="hello",
-        )
-        self.root_page.add_child(instance=page)
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = SimplePage(
+                title="Hello world!",
+                slug="hello-world",
+                content="hello",
+            )
+            self.root_page.add_child(instance=page)
+            page.save_revision().publish()
         self.page = SimplePage.objects.get(id=page.id)
 
     def test_simple(self):
@@ -69,7 +70,8 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIn("button", classes)
 
     def test_has_private_usage(self):
-        PageChooserModel.objects.create(page=self.page)
+        with self.captureOnCommitCallbacks(execute=True):
+            PageChooserModel.objects.create(page=self.page)
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
         response = self.client.get(usage_url)
 
@@ -82,16 +84,17 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Page chooser model</td>", html=True)
 
     def test_has_editable_usage(self):
-        form_page = FormPageWithRedirect(
-            title="Contact us",
-            slug="contact-us",
-            to_address="to@email.com",
-            from_address="from@email.com",
-            subject="The subject",
-            thank_you_redirect_page=self.page,
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            form_page = FormPageWithRedirect(
+                title="Contact us",
+                slug="contact-us",
+                to_address="to@email.com",
+                from_address="from@email.com",
+                subject="The subject",
+                thank_you_redirect_page=self.page,
+            )
 
-        form_page = self.root_page.add_child(instance=form_page)
+            form_page = self.root_page.add_child(instance=form_page)
 
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
         response = self.client.get(usage_url)
@@ -111,8 +114,9 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, "<td>Form page with redirect</td>", html=True)
 
     def test_pagination(self):
-        for _ in range(50):
-            PageChooserModel.objects.create(page=self.page)
+        with self.captureOnCommitCallbacks(execute=True):
+            for _ in range(50):
+                PageChooserModel.objects.create(page=self.page)
 
         usage_url = reverse("wagtailadmin_pages:usage", args=(self.page.id,))
         response = self.client.get(f"{usage_url}?p=2")

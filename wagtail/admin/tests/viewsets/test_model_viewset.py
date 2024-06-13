@@ -910,10 +910,11 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_usage_view_pagination(self):
-        for i in range(25):
-            VariousOnDeleteModel.objects.create(
-                text=f"Toybox {i}", cascading_toy=self.object
-            )
+        with self.captureOnCommitCallbacks(execute=True):
+            for i in range(25):
+                VariousOnDeleteModel.objects.create(
+                    text=f"Toybox {i}", cascading_toy=self.object
+                )
 
         usage_url = reverse(
             "feature_complete_toy:usage",
@@ -1208,15 +1209,16 @@ class TestHistoryView(WagtailTestUtils, TestCase):
 class TestUsageView(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = cls.create_test_user()
-        cls.object = FeatureCompleteToy.objects.create(name="Buzz")
-        cls.url = reverse(
-            "feature_complete_toy:usage",
-            args=(quote(cls.object.pk),),
-        )
-        cls.tbx = VariousOnDeleteModel.objects.create(
-            text="Toybox", cascading_toy=cls.object
-        )
+        with cls.captureOnCommitCallbacks(execute=True):
+            cls.user = cls.create_test_user()
+            cls.object = FeatureCompleteToy.objects.create(name="Buzz")
+            cls.url = reverse(
+                "feature_complete_toy:usage",
+                args=(quote(cls.object.pk),),
+            )
+            cls.tbx = VariousOnDeleteModel.objects.create(
+                text="Toybox", cascading_toy=cls.object
+            )
 
     def setUp(self):
         self.user = self.login(self.user)

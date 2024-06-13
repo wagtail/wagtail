@@ -11,9 +11,10 @@ from django.db.models.signals import (
     pre_delete,
     pre_migrate,
 )
-from modelcluster.fields import ParentalKey
 
 from wagtail.models import Locale, Page, ReferenceIndex, Site
+
+from .tasks import update_reference_index_task
 
 logger = logging.getLogger("wagtail")
 
@@ -70,25 +71,9 @@ def update_reference_index_on_save(instance, **kwargs):
     if getattr(reference_index_auto_update_disabled, "value", False):
         return
 
-    # If the model is a child model, find the parent instance and index that instead
-    while True:
-        parental_keys = list(
-            filter(
-                lambda field: isinstance(field, ParentalKey),
-                instance._meta.get_fields(),
-            )
-        )
-        if not parental_keys:
-            break
-
-        instance = getattr(instance, parental_keys[0].name)
-        if instance is None:
-            # parent is null, so there is no valid object to record references against
-            return
-
-    if ReferenceIndex.is_indexed(instance._meta.model):
-        with transaction.atomic():
-            ReferenceIndex.create_or_update_for_object(instance)
+    update_reference_index_task.enqueue(
+        instance._meta.app_label, instance._meta.model_name, instance.pk
+    )
 
 
 def remove_reference_index_on_delete(instance, **kwargs):

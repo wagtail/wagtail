@@ -1003,7 +1003,8 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         )
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_document=self.document)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_document=self.document)
         response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
@@ -1025,7 +1026,8 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         )
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_document=self.document)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_document=self.document)
         response = self.client.post(self.delete_url)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertTrue(
@@ -2092,21 +2094,23 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertEqual(doc.get_usage().count(), 0)
 
     def test_used_document_usage_count(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
         self.assertEqual(doc.get_usage().count(), 1)
 
     def test_usage_count_appears(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
         response = self.client.get(reverse("wagtaildocs:edit", args=(1,)))
         self.assertContains(response, "Used 1 time")
 
@@ -2126,12 +2130,13 @@ class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(list(doc.get_usage()), [])
 
     def test_used_document_get_usage(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
 
         self.assertIsInstance(doc.get_usage()[0], tuple)
         self.assertIsInstance(doc.get_usage()[0][0], Page)
@@ -2139,12 +2144,13 @@ class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIsInstance(doc.get_usage()[0][1][0], ReferenceIndex)
 
     def test_usage_page(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         self.assertContains(response, "Christmas")
         self.assertContains(response, '<table class="listing">')
@@ -2174,12 +2180,13 @@ class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
 
         # Create a user with change_document permission but not add_document
         user = self.create_user(

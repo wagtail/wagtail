@@ -984,11 +984,12 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 0)
 
     def test_used_image_document_usage_count(self):
-        page = EventPage.objects.get(id=4)
-        event_page_carousel_item = EventPageCarouselItem()
-        event_page_carousel_item.page = page
-        event_page_carousel_item.image = self.image
-        event_page_carousel_item.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventPage.objects.get(id=4)
+            event_page_carousel_item = EventPageCarouselItem()
+            event_page_carousel_item.page = page
+            event_page_carousel_item.image = self.image
+            event_page_carousel_item.save()
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
@@ -1005,11 +1006,12 @@ class TestGetUsage(TestCase):
         self.assertEqual(list(self.image.get_usage()), [])
 
     def test_used_image_document_get_usage(self):
-        page = EventPage.objects.get(id=4)
-        event_page_carousel_item = EventPageCarouselItem()
-        event_page_carousel_item.page = page
-        event_page_carousel_item.image = self.image
-        event_page_carousel_item.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventPage.objects.get(id=4)
+            event_page_carousel_item = EventPageCarouselItem()
+            event_page_carousel_item.page = page
+            event_page_carousel_item.image = self.image
+            event_page_carousel_item.save()
 
         self.assertIsInstance(self.image.get_usage()[0], tuple)
         self.assertIsInstance(self.image.get_usage()[0][0], Page)
