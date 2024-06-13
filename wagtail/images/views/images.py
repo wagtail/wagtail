@@ -1,9 +1,9 @@
 import os
-from io import BytesIO
+from tempfile import SpooledTemporaryFile
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse, JsonResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -293,10 +293,10 @@ def preview(request, image_id, filter_spec):
 
     try:
         # Temporary image needs to be an instance that Willow can run optimizers on
-        temp_image = BytesIO()
+        temp_image = SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE)
         image = Filter(spec=filter_spec).run(image, temp_image)
         temp_image.seek(0)
-        response = HttpResponse(temp_image)
+        response = FileResponse(temp_image)
         response["Content-Type"] = "image/" + image.format_name
         return response
     except InvalidFilterSpecError:
