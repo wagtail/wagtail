@@ -23,6 +23,7 @@ from wagtail.admin.ui.side_panels import (
     CommentsSidePanel,
     PageStatusSidePanel,
     PreviewSidePanel,
+    SourceLanguageSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
@@ -35,6 +36,7 @@ from wagtail.models import (
     CommentReply,
     Page,
     PageSubscription,
+    TranslatableMixin,
     WorkflowState,
 )
 from wagtail.utils.timestamps import render_timestamp
@@ -867,6 +869,12 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 translations=self.translations,
             ),
         ]
+
+        if (
+            isinstance(self.page, TranslatableMixin)
+            and self.page.locale != self.page.get_default_locale()
+        ):
+            side_panels.append(SourceLanguageSidePanel(self.page, self.request))
         if self.page.is_previewable():
             side_panels.append(
                 PreviewSidePanel(

@@ -355,3 +355,46 @@ class PreviewSidePanel(BaseSidePanel):
         context["preview_url"] = self.preview_url
         context["has_multiple_modes"] = len(self.object.preview_modes) > 1
         return context
+
+
+class SourceLanguageSidePanel(BaseSidePanel):
+    class SidePanelToggle(BaseSidePanel.SidePanelToggle):
+        aria_label = gettext_lazy("Toggle translate panel")
+        icon_name = "globe"
+
+    name = "sourcelanguage"
+    title = gettext_lazy("Source translation")
+    template_name = "wagtailadmin/shared/side_panels/sourcelanguage.html"
+    order = 500
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        locale = self.object.get_default_locale()
+        base_translation_page = self.object.get_translation(
+            locale
+        ).get_latest_revision_as_object()
+
+        # create a completely empty page so the comparison will
+        # show all the content from the base_translation_page
+        empty = base_translation_page.specific_class()
+
+        comparison = (
+            base_translation_page.get_edit_handler()
+            .get_bound_panel(instance=empty, request=self.request, form=None)
+            .get_comparison()
+        )
+        result = []
+        for comp in comparison:
+            diff = comp(base_translation_page.get_latest_revision_as_object(), empty)
+            if diff.has_changed():
+                result += [diff]
+
+        context.update(
+            {
+                "diff": result,
+                "base_translation_page": base_translation_page,
+                "lovely": self.object.locale.language_code == "fr",
+            }
+        )
+
+        return context
