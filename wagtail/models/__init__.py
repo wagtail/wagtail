@@ -2390,8 +2390,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ):
         """
         Copies a given page
-        :param log_action flag for logging the action. Pass None to skip logging.
-            Can be passed an action string. Defaults to 'wagtail.copy'
+
+        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to 'wagtail.copy'
         """
         return CopyPageAction(
             self,
