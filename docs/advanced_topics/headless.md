@@ -161,7 +161,7 @@ There's no specific support for Next.js in Headless Wagtail. This website you're
 
 Nuxt.js is an [open source JavaScript framework](https://nuxtjs.org/) you can use to build a frontend for your Headless Wagtail project. Several high profile sites run a combination of Wagtail and Nuxt.js, including NASA's [Jet Propulsion Laboratory](https://torchbox.com/blog/nasa-jpl-launches-on-wagtail/). While there is currently no specific support for Nuxt.js, Wagtail's built-in API makes this a straightforward option. Several projects are available on [GitHub](https://github.com/search?q=nuxt+wagtail) for inspiration and exploration.
 
-### 🔴 Gatsby
+### 🟡 Gatsby
 Gatsby is a frontend JavaScript framework for generating static websites that you could use for your Headless Wagtail site.
 
 There is currently no specific support for Gatsby in Headless Wagtail. There is a plugin available called gatsby-source-wagtail you can use for connecting Wagtail to a Gatsby frontend. Choosing to use that plugin means committing to using a GraphQL library for your API, since it only works with the wagtail-grapple library.
