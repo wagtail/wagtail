@@ -1,4 +1,5 @@
 import os
+from io import BytesIO
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -291,8 +292,11 @@ def preview(request, image_id, filter_spec):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     try:
-        response = HttpResponse()
-        image = Filter(spec=filter_spec).run(image, response)
+        # Temporary image needs to be an instance that Willow can run optimizers on
+        temp_image = BytesIO()
+        image = Filter(spec=filter_spec).run(image, temp_image)
+        temp_image.seek(0)
+        response = HttpResponse(temp_image)
         response["Content-Type"] = "image/" + image.format_name
         return response
     except InvalidFilterSpecError:
