@@ -224,8 +224,9 @@ If you successfully install flyctl but get an error saying "`fly` is not recogni
 click confirm **Confirm settings**
 
 ```{note}
-Not creating the database directly with the application leads to the app and the database not directly connected. 
-So if the app is going to launched again, the easiest solution is to create a new database directly
+Not creating the database directly with the application leads to the app and the database not connected.
+So if the app is going to launched again using fly launch, 
+the easiest solution is to create a new database with the launch of the app through the web UI.
 ```
 
 10. answering the resulting prompt questions as follows:
