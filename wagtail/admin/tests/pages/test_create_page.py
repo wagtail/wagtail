@@ -1563,6 +1563,10 @@ class TestInlinePanelWithTags(WagtailTestUtils, TestCase):
             "comments-INITIAL_FORMS": 0,
             "comments-MIN_NUM_FORMS": 0,
             "comments-MAX_NUM_FORMS": 1000,
+            "social_links-TOTAL_FORMS": 0,
+            "social_links-INITIAL_FORMS": 0,
+            "social_links-MIN_NUM_FORMS": 0,
+            "social_links-MAX_NUM_FORMS": 1000,
         }
         response = self.client.post(
             reverse(
@@ -1576,6 +1580,49 @@ class TestInlinePanelWithTags(WagtailTestUtils, TestCase):
         )
         new_page = PersonPage.objects.get(slug="mr-benn")
         self.assertEqual(new_page.addresses.first().tags.count(), 2)
+
+
+class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
+    # https://github.com/wagtail/wagtail/issues/11887
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_create(self):
+        post_data = {
+            "title": "Mr Benn",
+            "slug": "mr-benn",
+            "first_name": "William",
+            "last_name": "Benn",
+            "addresses-TOTAL_FORMS": 0,
+            "addresses-INITIAL_FORMS": 0,
+            "addresses-MIN_NUM_FORMS": 0,
+            "addresses-MAX_NUM_FORMS": 1000,
+            "action-publish": "Publish",
+            "comments-TOTAL_FORMS": 0,
+            "comments-INITIAL_FORMS": 0,
+            "comments-MIN_NUM_FORMS": 0,
+            "comments-MAX_NUM_FORMS": 1000,
+            "social_links-TOTAL_FORMS": 1,
+            "social_links-INITIAL_FORMS": 0,
+            "social_links-MIN_NUM_FORMS": 0,
+            "social_links-MAX_NUM_FORMS": 1000,
+            "social_links-0-url": "https://twitter.com/mrbenn",
+            "social_links-0-kind": "twitter",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "personpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        new_page = PersonPage.objects.get(slug="mr-benn")
+        self.assertEqual(new_page.social_links.count(), 1)
 
 
 class TestInlinePanelNonFieldErrors(WagtailTestUtils, TestCase):

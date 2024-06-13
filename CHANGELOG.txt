@@ -25,11 +25,14 @@ Changelog
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
  * Docs: Fix incorrect Sphinx-style code references to use MyST style (Byron Peebles)
+ * Docs: Document the fact that `Orderable` is not required for inline panels (Bojan Mihelac)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Docs: Add note about `prefers-reduced-motion` to the accessibility documentation (Roel Koper)
 
 
 6.1.2 (30.05.2024)
