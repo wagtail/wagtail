@@ -599,3 +599,20 @@ class TestFlattenChoices(SimpleTestCase):
     def test_grouped_tuple_choices(self):
         choices = [("Group", [(1, "1st"), (2, "2nd")])]
         self.assertEqual(flatten_choices(choices), {"1": "1st", "2": "2nd"})
+
+    def test_dictionary_choices(self):
+        choices = {
+            "Martial Arts": {"judo": "Judo", "karate": "Karate"},
+            "Racket": {"badminton": "Badminton", "tennis": "Tennis"},
+            "unknown": "Unknown",
+        }
+        self.assertEqual(
+            flatten_choices(choices),
+            {
+                "judo": "Judo",
+                "karate": "Karate",
+                "badminton": "Badminton",
+                "tennis": "Tennis",
+                "unknown": "Unknown",
+            },
+        )
