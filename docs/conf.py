@@ -64,6 +64,21 @@ autodoc_type_aliases = {
     "File": "django.core.files.File",
 }
 
+# Silence warnings that are not due to missing references:
+nitpick_ignore = [
+    # Sphinx currently cannot resolve type hint names, warns "target not found":
+    ("py:class", "wagtail.images.models.Filter"),
+    ("py:class", "HttpRequest"),
+    ("py:class", "RouteResult"),
+    ("py:class", "wagtail.blocks.base.Block"),
+    ("py:class", "wagtail.blocks.field_block.BaseChoiceBlock"),
+    ("py:class", "wagtail.blocks.field_block.ChooserBlock"),
+    # Warnings due factors other than type hints:
+    ("py:class", "wagtail.documents.views.chooser.BaseDocumentChooserBlock"),
+    ("py:class", "wagtail.blocks.struct_block.BaseStructBlock"),
+    ("py:class", "wagtail.blocks.stream_block.BaseStreamBlock"),
+]
+
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")
 
