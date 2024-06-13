@@ -224,6 +224,22 @@ Readability is fundamental to accessibility. One of the ways to improve text con
 
 (accessibility_resources)=
 
+### prefers-reduced-motion
+
+Some users may prefer to see a more static version of your site, for example, users with vestibular disorders. You can respect this preference by using the `prefers-reduced-motion` media query in your CSS.
+```css
+@media (prefers-reduced-motion) {
+  /* styles to apply if a user's device settings are set to reduced motion */
+    /* for example, disable animations */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+```
+Note that `prefers-reduced-motion` is only applied to users with this setting enabled in their operating system or browser. This feature is supported by Chrome, Safari and Firefox. For more information on reduced motion, see the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
+
+
 ## Accessibility resources
 
 We focus on considerations specific to Wagtail websites, but there is much more to accessibility. Here are valuable resources to learn more, for developers but also designers and authors:
