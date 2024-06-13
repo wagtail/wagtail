@@ -5,7 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow renditions of `.ico` images (Julie Rymer)
-
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
 
 6.1.2 (30.05.2024)
 ~~~~~~~~~~~~~~~~~~
