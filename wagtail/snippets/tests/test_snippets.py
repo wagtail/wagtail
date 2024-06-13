@@ -4129,9 +4129,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4186,9 +4187,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],

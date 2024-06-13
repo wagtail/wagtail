@@ -1453,7 +1453,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
@@ -1476,7 +1477,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         )
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.post()
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertTrue(Image.objects.filter(id=self.image.id).exists())
@@ -1493,18 +1495,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         )
 
     def test_usage_page(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
@@ -1521,9 +1524,10 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_no_tags(self):
-        # tags should not count towards an image's references
-        self.image.tags.add("illustration")
-        self.image.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # tags should not count towards an image's references
+            self.image.tags.add("illustration")
+            self.image.save()
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
@@ -1531,18 +1535,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         # Create a user with change_image permission but not add_image
         user = self.create_user(
