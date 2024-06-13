@@ -152,13 +152,6 @@ class Tabs {
       tabContent.hidden = false;
     }
 
-    if (this.state.initialPageLoad) {
-      // On first load set the scroll to top to avoid scrolling to active section and header covering up tabs
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, this.state.transition * 2);
-    }
-
     // Dispatch tab selected event for the rest of the admin to hook into if needed
     // Trigger tab specific switch event
     this.tabList.dispatchEvent(

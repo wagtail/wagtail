@@ -111,6 +111,6 @@ export function initAnchoredPanels(
   anchorTarget = document.querySelector<HTMLElement>('[data-panel]:target'),
 ) {
   if (anchorTarget) {
-    anchorTarget.scrollIntoView({ behavior: 'smooth' });
+    anchorTarget.scrollIntoView();
   }
 }
