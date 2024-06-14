@@ -3,7 +3,7 @@
 # Headless support
 
 Wagtail has good support for headless sites, but there are some issues developers should take into account when using Wagtail as a headless CMS.
-This page covers most topics related to headless sites, and tries to identify where you might run into issues using 🟢 (good support), 🟡 (workarounds needed or incomplete support) and 🔴 (lacking support).
+This page covers most topics related to headless sites, and tries to identify where you might run into issues using ✅ (good support), ⚠️ (workarounds needed or incomplete support) and 🛑 (lacking support).
 
 Wagtail maintains a current list of issues tagged with #headless on [GitHub](https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AHeadless)
 
@@ -13,7 +13,7 @@ Wagtail maintains a current list of issues tagged with #headless on [GitHub](htt
 
 There are generally two popular options for API when using Wagtail as a headless CMS, REST and GraphQL.
 
-### 🟢 REST
+### ✅ REST
 
 REST (or representational state transfer) was introduced in 2000 as a simpler approach to machine-to-machine communication using the HTTP protocol. Since REST was introduced, RESTful APIs have proliferated across the web to the point where they're essentially the default standard for modern APIs. Many headless content management systems use either RESTful architecture or GraphQL for their APIs. Both options work with Headless Wagtail, so let's explore the upsides and downsides of choosing REST.
 
@@ -39,7 +39,7 @@ REST (or representational state transfer) was introduced in 2000 as a simpler ap
 If you don't want to use Wagtail's built-in REST API, you can build your own using the Django REST framework https://www.django-rest-framework.org/. Remember, Wagtail is just Django!
 ```
 
-### 🟢 GraphQL
+### ✅ GraphQL
 
 GraphQL is a newer API technology than REST. Unlike REST, GraphQL isn't an architecture; it's a data query language that helps simplify API requests. GraphQL was developed by Facebook (now Meta) and open sourced in 2015. It's a newer technology that was designed to provide more flexibility and efficiency than REST. Besides REST, GraphQL is currently the only other API technology that is recommended for Headless Wagtail. Let's have a look at the current upsides and downsides of choosing GraphQL.
 
@@ -65,7 +65,7 @@ GraphQL libraries compatible with Wagtail
 
 ## Functionality
 
-### 🟡 Page Preview
+### ⚠️ Page Preview
 Previews need a workaround currently
 
 There currently isn’t a way to request a draft version of a page using the public API. We typically recommend [wagtail-headless-preview](https://github.com/torchbox/wagtail-headless-preview), a mature and widely used third-party package.
@@ -74,7 +74,7 @@ Ultimately, it would be better if Wagtail provided a way to retrieve draft pages
 
 When autosave is released in Wagtail, generating previews will likely be less of an obstacle since the API would be serving up the latest changes in all circumstances. This is can be achieved using a [workaround](https://github.com/cfpb/wagtail-sharing/pull/47).
 
-### 🟡 Images
+### ⚠️ Images
 
 Additional image considerations are needed for Headless Wagtail
 
@@ -85,7 +85,7 @@ On traditional sites, Wagtail has a template tag that makes it easy for a fronte
 
 Neither of these solutions are easy for a frontend developer. They may not have the access or skills to add an ImageRenditionField, and crafting a URL to the dynamic image serve view is tricky because it needs to be signed and there currently isn’t a library or code snippet to do this from JavaScript. Hashes also need to be generated and the current JS version is complex.
 
-### 🟡 Page URL Routing
+### ⚠️ Page URL Routing
 Headless Wagtail requires different routing
 
 A different approach to routing is needed for Headless Wagtail projects. Unlike the traditional routing for Wagtail, the URL patterns on a headless site are usually configured in the frontend framework (such as [Next.js](https://areweheadlessyet.wagtail.org/nextjs/) or [Gatsby](https://areweheadlessyet.wagtail.org/gatsby/)). Wagtail, by default, resolves URLs to pages using their slugs and location in the page tree.
@@ -96,7 +96,7 @@ The current recommended approach to routing on a Headless Wagtail project is to 
 
 Routes need to be built each time a new site is created and we'd like better documentation to explain this process. One long-term solution for supporting routing in Headless Wagtail may be to manage it through a JS library or a plugin.
 
-### 🟡 Rich Text
+### ⚠️ Rich Text
 
 There are broadly two approaches to handling rich text in Headless Wagtail:
 
@@ -112,7 +112,7 @@ Pre-rendering the HTML on the backend may be more convenient if you're happy wit
 
 This approach is currently the harder approach for managing rich text. A long-term solution for this may involve creating a JS library or plugin.
 
-### 🔴 Multi-Site Support
+### 🛑 Multi-Site Support
 
 Multi-site works differently in Headless Wagtail
 
@@ -132,19 +132,19 @@ The Wagtail API only allows requests from one site at a time to make sure any si
 
 With these approaches, the site record in the Wagtail admin of Headless Wagtail would be set to the domain or port that the end user sees so URLs could be reversed correctly. All API requests would specify the site as a GET parameter.
 
-### 🔴 Form submissions
+### 🛑 Form submissions
 
 There’s currently no official API for a headless site to use to submit data to a Wagtail form.
 
-### 🔴 Password-Protected Pages
+### 🛑 Password-Protected Pages
 
 There currently isn’t a way to view a password-protected page from a headless frontend. The API currently excludes all password-protected pages from queries.
 
-### 🟡 Internationalisation
+### ⚠️ Internationalisation
 
 TODO
 
-### 🟡 StreamField
+### ⚠️ StreamField
 
 TODO
 
@@ -152,16 +152,16 @@ TODO
 
 There are a few options to build your frontend for Wagtail.
 
-### 🟡 Next.js
+### ⚠️ Next.js
 
 Next.js is a [popular open source JavaScript framework](https://nextjs.org/) you can choose for building the frontend of your Headless Wagtail website.
 
 There's no specific support for Next.js in Headless Wagtail. This website you're on right now is built with Headless Wagtail and Next.js, so you can have a look at the source code to get an idea how to set up your own project.
-### 🟡 Nuxt.js
+### ⚠️ Nuxt.js
 
 Nuxt.js is an [open source JavaScript framework](https://nuxtjs.org/) you can use to build a frontend for your Headless Wagtail project. Several high profile sites run a combination of Wagtail and Nuxt.js, including NASA's [Jet Propulsion Laboratory](https://torchbox.com/blog/nasa-jpl-launches-on-wagtail/). While there is currently no specific support for Nuxt.js, Wagtail's built-in API makes this a straightforward option. Several projects are available on [GitHub](https://github.com/search?q=nuxt+wagtail) for inspiration and exploration.
 
-### 🟡 Gatsby
+### ⚠️ Gatsby
 Gatsby is a frontend JavaScript framework for generating static websites that you could use for your Headless Wagtail site.
 
 There is currently no specific support for Gatsby in Headless Wagtail. There is a plugin available called gatsby-source-wagtail you can use for connecting Wagtail to a Gatsby frontend. Choosing to use that plugin means committing to using a GraphQL library for your API, since it only works with the wagtail-grapple library.
@@ -170,12 +170,12 @@ There is currently no specific support for Gatsby in Headless Wagtail. There is 
 
 There are many platforms you can use to host your frontend site, here are some that have been used in combination with Wagtail.
 
-### 🟡 Vercel
+### ⚠️ Vercel
 Vercel is a frontend platform for developer teams that uses Next.js.
 
 Currently, there is no plugin available to use Vercel with Headless Wagtail. Most of the backend server rendering will generate new content anyway, so you can proceed without a plugin if you want.
 
-### 🟢 Netlify
+### ✅ Netlify
 
 Netlify is a [platform for publishing static websites](https://www.netlify.com/) that can be used to create a frontend for your Headless Wagtail site.
 
