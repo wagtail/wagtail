@@ -225,8 +225,8 @@ click confirm **Confirm settings**
 
 ```{note}
 Not creating the database directly with the application leads to the app and the database not connected.
-So if the app is going to launched again using fly launch, 
-the easiest solution is to create a new database with the launch of the app through the web UI.
+If the app is going to be launched again using fly launch, 
+it's recommended to create a new database with the launch of the app through the web UI.
 ```
 
 10. answering the resulting prompt questions as follows:
