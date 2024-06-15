@@ -42,6 +42,20 @@ class BaseImageForm(BaseCollectionMemberForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
+        if not self.instance.image_description:
+            self.errors["image_description"] = self.error_class(
+                ["This field is required"]
+            )
+
+    def is_valid(self):
+        super().is_valid()  # Perform standard validation
+
+        # Check if there's an error for 'image_description'
+        if self.errors.get("image_description"):
+            # Remove the error
+            del self.errors["image_description"]
+
+        return not self.errors  # Return True if no errors remain
 
     def save(self, commit=True):
         if "file" in self.changed_data:
