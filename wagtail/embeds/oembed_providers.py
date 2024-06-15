@@ -401,13 +401,7 @@ polleverywhere = {
     ],
 }
 
-qik = {
-    "endpoint": "http://qik.com/api/oembed.{format}",
-    "urls": [
-        r"^http://qik\.com/.+$",
-        r"^http://qik\.ly/.+$",
-    ],
-}
+
 
 
 rdio = {
@@ -423,14 +417,6 @@ reddit = {
     "endpoint": "https://www.reddit.com/oembed",
     "urls": [
         "^https?://(?:www\\.)?reddit\\.com/r/+[^#?/]+/comments/+[^#?/]+[^#?/].+$",
-    ],
-}
-
-
-revision3 = {
-    "endpoint": "http://revision3.com/api/oembed/",
-    "urls": [
-        r"^http://[-\w]+\.revision3\.com/.+$",
     ],
 }
 
@@ -738,10 +724,8 @@ all_providers = [
     pinterest,
     polldaddy,
     polleverywhere,
-    qik,
     rdio,
     reddit,
-    revision3,
     roomshare,
     sapo,
     screenr,
