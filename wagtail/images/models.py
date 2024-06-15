@@ -261,7 +261,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         height_field="height",
     )
     image_description = models.CharField(
-        max_length=255, verbose_name=_("image description"), default="image description"
+        blank=True, max_length=255, verbose_name=_("image description"), default=""
     )
     width = models.IntegerField(verbose_name=_("width"), editable=False)
     height = models.IntegerField(verbose_name=_("height"), editable=False)
