@@ -4,7 +4,6 @@ const borderRadius = {
   DEFAULT: '0.3125rem', // 5px
   md: '0.625rem', // 10px
   xl: '1.5rem', // 24px
-  xxl: '2rem', // 32px
   full: '100%',
 };
 

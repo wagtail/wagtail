@@ -32,11 +32,9 @@
     padding: theme('spacing.[0.5]') theme('spacing.2');
     color: theme('colors.text-status-label');
     font-weight: theme('fontWeight.medium');
-    // stylelint-disable-next-line property-disallowed-list
-    text-transform: capitalize;
     background: theme('colors.surface-status-label');
     border: 1px solid theme('colors.text-status-label');
-    border-radius: theme('borderRadius.xxl');
+    border-radius: theme('borderRadius.xl');
   }
 }
 

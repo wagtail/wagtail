@@ -212,7 +212,7 @@ const staticColors = {
     },
     100: {
       hex: '#1D7792',
-      hsl: 'hsl(193 66.9% 34.3%)',
+      hsl: 'hsl(193.9 66.9% 34.3%)',
       bgUtility: 'w-bg-info-100',
       textUtility: 'w-text-info-100',
       cssVariable: '--w-color-info-100',
@@ -225,8 +225,8 @@ const staticColors = {
       bgUtility: 'w-bg-info-75',
       textUtility: 'w-text-info-75',
       cssVariable: '--w-color-info-75',
-      usage: 'Background and icons for information messages',
-      contrastText: 'white',
+      usage: 'Info text in the dark theme',
+      contrastText: 'primary',
     },
     50: {
       hex: '#E2F5FC',
