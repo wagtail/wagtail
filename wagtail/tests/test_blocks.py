@@ -5886,7 +5886,7 @@ class TestValidationErrorAsJsonData(TestCase):
 
 
 class TestBlockDefinitionLookup(TestCase):
-    def test_get_block_definition(self):
+    def test_simple_lookup(self):
         lookup = BlockDefinitionLookup(
             [
                 ("wagtail.blocks.CharBlock", [], {"required": True}),
@@ -5910,3 +5910,53 @@ class TestBlockDefinitionLookup(TestCase):
         self.assertIsNot(char_block, char_block_2)
         self.assertEqual(char_block.name, "title")
         self.assertEqual(char_block_2.name, "subtitle")
+
+    def test_structblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            [
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.RichTextBlock", [], {}),
+                (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("title", 0),
+                            ("description", 1),
+                        ],
+                    ],
+                    {},
+                ),
+            ]
+        )
+        struct_block = lookup.get_block(2)
+        self.assertIsInstance(struct_block, blocks.StructBlock)
+        title_block = struct_block.child_blocks["title"]
+        self.assertIsInstance(title_block, blocks.CharBlock)
+        self.assertTrue(title_block.required)
+        description_block = struct_block.child_blocks["description"]
+        self.assertIsInstance(description_block, blocks.RichTextBlock)
+
+    def test_streamblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            [
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.RichTextBlock", [], {}),
+                (
+                    "wagtail.blocks.StreamBlock",
+                    [
+                        [
+                            ("heading", 0),
+                            ("paragraph", 1),
+                        ],
+                    ],
+                    {},
+                ),
+            ]
+        )
+        stream_block = lookup.get_block(2)
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        title_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(title_block, blocks.CharBlock)
+        self.assertTrue(title_block.required)
+        description_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(description_block, blocks.RichTextBlock)
