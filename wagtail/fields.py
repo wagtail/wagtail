@@ -5,6 +5,7 @@ from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
+from django.utils.functional import cached_property
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import (
@@ -87,29 +88,35 @@ class StreamField(models.Field):
         # migrations
 
         # extract kwargs that are to be passed on to the block, not handled by super
-        block_opts = {}
+        self.block_opts = {}
         for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
             if arg in kwargs:
-                block_opts[arg] = kwargs.pop(arg)
+                self.block_opts[arg] = kwargs.pop(arg)
 
         # for a top-level block, the 'blank' kwarg (defaulting to False) always overrides the
         # block's own 'required' meta attribute, even if not passed explicitly; this ensures
         # that the field and block have consistent definitions
-        block_opts["required"] = not kwargs.get("blank", False)
+        self.block_opts["required"] = not kwargs.get("blank", False)
+
+        # Store the `block_types` argument to be handled in the `stream_block` property
+        self.block_types_arg = block_types
 
         super().__init__(**kwargs)
 
-        if isinstance(block_types, Block):
+    @cached_property
+    def stream_block(self):
+        if isinstance(self.block_types_arg, Block):
             # use the passed block as the top-level block
-            self.stream_block = block_types
-        elif isinstance(block_types, type):
+            block = self.block_types_arg
+        elif isinstance(self.block_types_arg, type):
             # block passed as a class - instantiate it
-            self.stream_block = block_types()
+            block = self.block_types_arg()
         else:
             # construct a top-level StreamBlock from the list of block types
-            self.stream_block = StreamBlock(block_types)
+            block = StreamBlock(self.block_types_arg)
 
-        self.stream_block.set_meta_options(block_opts)
+        block.set_meta_options(self.block_opts)
+        return block
 
     @property
     def json_field(self):
