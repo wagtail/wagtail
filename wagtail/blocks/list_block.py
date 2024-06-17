@@ -151,6 +151,12 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_block, **kwargs):
+        if isinstance(child_block, int):
+            child_block = lookup.get_block(child_block)
+        return cls(child_block, **kwargs)
+
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
         child_blocks_with_indexes = []

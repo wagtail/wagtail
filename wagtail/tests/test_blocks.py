@@ -5960,3 +5960,28 @@ class TestBlockDefinitionLookup(TestCase):
         self.assertTrue(title_block.required)
         description_block = stream_block.child_blocks["paragraph"]
         self.assertIsInstance(description_block, blocks.RichTextBlock)
+
+    def test_listblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            [
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.ListBlock", [0], {}),
+            ]
+        )
+        list_block = lookup.get_block(1)
+        self.assertIsInstance(list_block, blocks.ListBlock)
+        list_item_block = list_block.child_block
+        self.assertIsInstance(list_item_block, blocks.CharBlock)
+        self.assertTrue(list_item_block.required)
+
+        # Passing a class as the child block is still valid; this is not converted
+        # to a reference
+        lookup = BlockDefinitionLookup(
+            [
+                ("wagtail.blocks.ListBlock", [blocks.CharBlock], {}),
+            ]
+        )
+        list_block = lookup.get_block(0)
+        self.assertIsInstance(list_block, blocks.ListBlock)
+        list_item_block = list_block.child_block
+        self.assertIsInstance(list_item_block, blocks.CharBlock)
