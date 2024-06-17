@@ -8,6 +8,7 @@ from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     extract_references_from_rich_text,
@@ -83,9 +84,18 @@ class Creator:
 
 
 class StreamField(models.Field):
-    def __init__(self, block_types, use_json_field=True, **kwargs):
-        # use_json_field no longer has any effect but is recognised to support historical
-        # migrations
+    def __init__(self, block_types, use_json_field=True, block_lookup=None, **kwargs):
+        """
+        Construct a StreamField.
+
+        :param block_types: Either a list of block types that are allowed in this StreamField
+            (as a list of tuples of block name and block instance) or a StreamBlock to use as
+            the top level block (as a block instance or class).
+        :param use_json_field: Ignored, but retained for compatibility with historical migrations.
+        :param block_lookup: Used in migrations to provide a more compact block definition -
+            see `wagtail.blocks.definition_lookup.BlockDefinitionLookup`. If passed, `block_types`
+            can contain integer indexes into this lookup table, in place of actual block instances.
+        """
 
         # extract kwargs that are to be passed on to the block, not handled by super
         self.block_opts = {}
@@ -98,22 +108,41 @@ class StreamField(models.Field):
         # that the field and block have consistent definitions
         self.block_opts["required"] = not kwargs.get("blank", False)
 
-        # Store the `block_types` argument to be handled in the `stream_block` property
+        # Store the `block_types` and `block_lookup` arguments to be handled in the `stream_block`
+        # property
         self.block_types_arg = block_types
+        self.block_lookup = block_lookup
 
         super().__init__(**kwargs)
 
     @cached_property
     def stream_block(self):
+        has_block_lookup = self.block_lookup is not None
+        if has_block_lookup:
+            lookup = BlockDefinitionLookup(self.block_lookup)
+
         if isinstance(self.block_types_arg, Block):
             # use the passed block as the top-level block
             block = self.block_types_arg
+        elif isinstance(self.block_types_arg, int) and has_block_lookup:
+            # retrieve block from lookup table to use as the top-level block
+            block = lookup.get_block(self.block_types_arg)
         elif isinstance(self.block_types_arg, type):
             # block passed as a class - instantiate it
             block = self.block_types_arg()
         else:
-            # construct a top-level StreamBlock from the list of block types
-            block = StreamBlock(self.block_types_arg)
+            # construct a top-level StreamBlock from the list of block types.
+            # If an integer is found in place of a block instance, and block_lookup is
+            # provided, it will be replaced with the corresponding block definition.
+            child_blocks = []
+
+            for name, child_block in self.block_types_arg:
+                if isinstance(child_block, int) and has_block_lookup:
+                    child_blocks.append((name, lookup.get_block(child_block)))
+                else:
+                    child_blocks.append((name, child_block))
+
+            block = StreamBlock(child_blocks)
 
         block.set_meta_options(self.block_opts)
         return block
