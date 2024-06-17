@@ -3,13 +3,17 @@ from django.db import transaction
 from django.db.models.signals import post_delete, post_save
 
 from wagtail.images import get_image_model
+from wagtail.tasks import delete_file_from_storage_task
 
 from .tasks import set_image_focal_point_task
 
 
 def post_delete_file_cleanup(instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    transaction.on_commit(lambda: instance.file.delete(False))
+    transaction.on_commit(
+        lambda: delete_file_from_storage_task.enqueue(
+            instance.file.storage.deconstruct(), instance.file.name
+        )
+    )
 
 
 def post_delete_purge_rendition_cache(instance, **kwargs):
