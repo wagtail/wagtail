@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.blocks.base import get_error_json_data
+from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
@@ -5882,3 +5883,30 @@ class TestValidationErrorAsJsonData(TestCase):
                 ],
             },
         )
+
+
+class TestBlockDefinitionLookup(TestCase):
+    def test_get_block_definition(self):
+        lookup = BlockDefinitionLookup(
+            [
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.RichTextBlock", [], {}),
+            ]
+        )
+        char_block = lookup.get_block(0)
+        char_block.set_name("title")
+        self.assertIsInstance(char_block, blocks.CharBlock)
+        self.assertTrue(char_block.required)
+
+        rich_text_block = lookup.get_block(1)
+        self.assertIsInstance(rich_text_block, blocks.RichTextBlock)
+
+        # A subsequent call to get_block with the same index should return a new instance;
+        # this ensures that state changes such as set_name are independent of other blocks
+        char_block_2 = lookup.get_block(0)
+        char_block_2.set_name("subtitle")
+        self.assertIsInstance(char_block, blocks.CharBlock)
+        self.assertTrue(char_block.required)
+        self.assertIsNot(char_block, char_block_2)
+        self.assertEqual(char_block.name, "title")
+        self.assertEqual(char_block_2.name, "subtitle")
