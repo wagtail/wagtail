@@ -721,3 +721,104 @@ class TestGetBlockByContentPath(TestCase):
         self.assertEqual(bound_block.value, "Barnaby Rudge")
         bound_block = field.get_block_by_content_path(self.page.body, ["456", "999"])
         self.assertIsNone(bound_block)
+
+
+class TestConstructStreamFieldFromLookup(TestCase):
+    def test_construct_block_list_from_lookup(self):
+        field = StreamField(
+            [
+                ("heading", 0),
+                ("paragraph", 1),
+                ("button", 3),
+            ],
+            block_lookup=[
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.RichTextBlock", [], {}),
+                ("wagtail.blocks.PageChooserBlock", [], {}),
+                (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("page", 2),
+                            ("link_text", 0),
+                        ]
+                    ],
+                    {},
+                ),
+            ],
+        )
+        stream_block = field.stream_block
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        self.assertEqual(len(stream_block.child_blocks), 3)
+
+        heading_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(heading_block, blocks.CharBlock)
+        self.assertTrue(heading_block.required)
+        self.assertEqual(heading_block.name, "heading")
+
+        paragraph_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(paragraph_block, blocks.RichTextBlock)
+        self.assertEqual(paragraph_block.name, "paragraph")
+
+        button_block = stream_block.child_blocks["button"]
+        self.assertIsInstance(button_block, blocks.StructBlock)
+        self.assertEqual(button_block.name, "button")
+        self.assertEqual(len(button_block.child_blocks), 2)
+        page_block = button_block.child_blocks["page"]
+        self.assertIsInstance(page_block, blocks.PageChooserBlock)
+        link_text_block = button_block.child_blocks["link_text"]
+        self.assertIsInstance(link_text_block, blocks.CharBlock)
+        self.assertEqual(link_text_block.name, "link_text")
+
+    def test_construct_top_level_block_from_lookup(self):
+        field = StreamField(
+            4,
+            block_lookup=[
+                ("wagtail.blocks.CharBlock", [], {"required": True}),
+                ("wagtail.blocks.RichTextBlock", [], {}),
+                ("wagtail.blocks.PageChooserBlock", [], {}),
+                (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("page", 2),
+                            ("link_text", 0),
+                        ]
+                    ],
+                    {},
+                ),
+                (
+                    "wagtail.blocks.StreamBlock",
+                    [
+                        [
+                            ("heading", 0),
+                            ("paragraph", 1),
+                            ("button", 3),
+                        ]
+                    ],
+                    {},
+                ),
+            ],
+        )
+        stream_block = field.stream_block
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        self.assertEqual(len(stream_block.child_blocks), 3)
+
+        heading_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(heading_block, blocks.CharBlock)
+        self.assertTrue(heading_block.required)
+        self.assertEqual(heading_block.name, "heading")
+
+        paragraph_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(paragraph_block, blocks.RichTextBlock)
+        self.assertEqual(paragraph_block.name, "paragraph")
+
+        button_block = stream_block.child_blocks["button"]
+        self.assertIsInstance(button_block, blocks.StructBlock)
+        self.assertEqual(button_block.name, "button")
+        self.assertEqual(len(button_block.child_blocks), 2)
+        page_block = button_block.child_blocks["page"]
+        self.assertIsInstance(page_block, blocks.PageChooserBlock)
+        link_text_block = button_block.child_blocks["link_text"]
+        self.assertIsInstance(link_text_block, blocks.CharBlock)
+        self.assertEqual(link_text_block.name, "link_text")
