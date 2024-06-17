@@ -1,5 +1,4 @@
 {% load i18n wagtailadmin_tags %}
-
 <template id="w-a11y-result-row-template">
     <div class="w-a11y-result__row" data-a11y-result-row>
         <h3 class="w-a11y-result__header">
@@ -10,14 +9,38 @@
     </div>
 </template>
 <template id="w-a11y-result-selector-template">
-    <button class="w-a11y-result__selector" data-a11y-result-selector type="button">
+    <button class="w-a11y-result__selector"
+            data-a11y-result-selector
+            type="button">
         {% icon name="link-external" classname="w-a11y-result__icon" %}
         <span data-a11y-result-selector-text></span>
     </button>
 </template>
-
-<div class="w-mt-12">
-    <h2 class="w-flex w-items-center w-gap-2"><span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span></h2>
-    <div data-checks-panel></div>
+<div class="w-divide-y w-divide-border-furniture w-py-6 w-pl-2 lg:w-pl-8">
+    <div>
+        <h2 class="w-my-5 w-text-16 w-font-bold w-text-text-label">
+            <span>{% trans 'Content metrics' %}</span>
+        </h2>
+        <div class="w-flex w-gap-10">
+            <div>
+                <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Words' %}</h3>
+                <p class="w-font-semibold w-text-text-label" data-content-word-count>0</p>
+            </div>
+            <div>
+                <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Reading time' %}</h3>
+                <p class="w-font-semibold w-text-text-label">
+                    <span data-content-reading-time>0</span>
+                    <span hidden data-content-reading-time-single>{% trans " min" %}</span>
+                    <span data-content-reading-time-plural>{% trans " mins" %}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold w-text-text-label">
+            <span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span>
+        </h2>
+        <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
+    </div>
 </div>
 {{ axe_configuration|json_script:"accessibility-axe-configuration" }}
