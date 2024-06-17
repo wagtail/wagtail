@@ -36,6 +36,9 @@ $positions: (
   ),
 );
 
+// Possible positions for the accessibilty checker dialog.
+$directions: left right;
+
 // =============================================================================
 // Wagtail userbar proper
 // =============================================================================
@@ -213,53 +216,64 @@ $positions: (
   }
 }
 
-.w-dialog--userbar {
-  // Display off to the side of the page rather than in the middle.
-  inset-inline-start: auto;
-  font-family: theme('fontFamily.sans');
-  padding-inline-end: 2rem;
-  z-index: $userbar-z-index;
+@each $direction in $directions {
+  .w-dialog--userbar-#{$direction} {
+    font-family: theme('fontFamily.sans');
+    z-index: $userbar-z-index;
 
-  .w-dialog__close-button {
-    $size: theme('spacing.6');
-    width: $size;
-    height: $size;
-    top: calc(-1 * $size / 2);
-    inset-inline-end: calc(-1 * $size / 2);
-    border-radius: theme('borderRadius.full');
-    border: 2px solid theme('colors.icon-primary');
-    background: theme('colors.surface-page');
-  }
+    @if $direction == 'left' {
+      inset-inline-end: auto;
+      padding-inline-start: 2rem;
+    } @else {
+      inset-inline-start: auto;
+      padding-inline-end: 2rem;
+    }
 
-  .w-dialog__close-icon {
-    color: theme('colors.text-context');
-  }
+    .w-dialog__close-button {
+      $size: theme('spacing.6');
+      width: $size;
+      height: $size;
+      top: calc(-1 * $size / 2);
+      @if $direction == 'left' {
+        inset-inline-start: calc(-1 * $size / 2);
+      } @else {
+        inset-inline-end: calc(-1 * $size / 2);
+      }
+      border-radius: theme('borderRadius.full');
+      border: 2px solid theme('colors.icon-primary');
+      background: theme('colors.surface-page');
+    }
 
-  .w-dialog__content {
-    padding: 0;
-    min-height: unset;
-    max-height: 60vh;
-  }
+    .w-dialog__close-icon {
+      color: theme('colors.text-context');
+    }
 
-  .w-dialog__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .w-dialog__content {
+      padding: 0;
+      min-height: unset;
+      max-height: 60vh;
+    }
 
-  .w-dialog__title {
-    @apply w-h3;
-    padding: theme('spacing.4') theme('spacing.5');
-    margin-bottom: 0;
-  }
+    .w-dialog__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .w-dialog__subtitle {
-    @apply w-body-text;
-    padding-inline-end: theme('spacing.5');
-    display: flex;
-    align-items: center;
-    gap: theme('spacing.2');
-    margin-bottom: 0;
+    .w-dialog__title {
+      @apply w-h3;
+      padding: theme('spacing.4') theme('spacing.5');
+      margin-bottom: 0;
+    }
+
+    .w-dialog__subtitle {
+      @apply w-body-text;
+      padding-inline-end: theme('spacing.5');
+      display: flex;
+      align-items: center;
+      gap: theme('spacing.2');
+      margin-bottom: 0;
+    }
   }
 }
 
