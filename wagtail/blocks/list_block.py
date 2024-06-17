@@ -402,6 +402,12 @@ class ListBlock(Block):
         errors.extend(self.child_block.check(**kwargs))
         return errors
 
+    def deconstruct_with_lookup(self, lookup):
+        path, args, kwargs = super().deconstruct_with_lookup(lookup)
+        if isinstance(args[0], Block):
+            args = (lookup.add_block(args[0]),)
+        return path, args, kwargs
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your

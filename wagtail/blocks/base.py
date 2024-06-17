@@ -420,6 +420,18 @@ class Block(metaclass=BaseBlock):
             self._constructor_args[1],
         )
 
+    def deconstruct_with_lookup(self, lookup):
+        """
+        Like `deconstruct`, but with a `wagtail.blocks.definition_lookup.BlockDefinitionLookupBuilder`
+        object available so that any block instances within the definition can be added to the lookup
+        table to obtain an ID (potentially shared with other matching block definitions, thus reducing
+        the overall definition size) to be used in place of the block. The resulting deconstructed form
+        returned here can then be restored into a block object using `Block.construct_from_lookup`.
+        """
+        # In the base implementation, no substitutions happen, so we ignore the lookup and just call
+        # deconstruct
+        return self.deconstruct()
+
     def __eq__(self, other):
         """
         Implement equality on block objects so that two blocks with matching definitions are considered
