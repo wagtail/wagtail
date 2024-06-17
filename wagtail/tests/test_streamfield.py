@@ -822,3 +822,55 @@ class TestConstructStreamFieldFromLookup(TestCase):
         link_text_block = button_block.child_blocks["link_text"]
         self.assertIsInstance(link_text_block, blocks.CharBlock)
         self.assertEqual(link_text_block.name, "link_text")
+
+
+class TestDeconstructStreamFieldWithLookup(TestCase):
+    def test_deconstruct(self):
+        class ButtonBlock(blocks.StructBlock):
+            page = blocks.PageChooserBlock()
+            link_text = blocks.CharBlock(required=True)
+
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                ("paragraph", blocks.RichTextBlock()),
+                ("button", ButtonBlock()),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("paragraph", 1),
+                    ("button", 3),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": [
+                    ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    ("wagtail.blocks.RichTextBlock", (), {}),
+                    ("wagtail.blocks.PageChooserBlock", (), {}),
+                    (
+                        "wagtail.blocks.StructBlock",
+                        [
+                            [
+                                ("page", 2),
+                                ("link_text", 0),
+                            ]
+                        ],
+                        {},
+                    ),
+                ],
+            },
+        )

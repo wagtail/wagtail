@@ -1,3 +1,4 @@
+from collections import defaultdict
 from importlib import import_module
 
 
@@ -45,3 +46,37 @@ class BlockDefinitionLookup:
             cls = self.block_classes[path] = getattr(module, class_name)
 
         return cls.construct_from_lookup(self, *args, **kwargs)
+
+
+class BlockDefinitionLookupBuilder:
+    """
+    Helper for constructing the lookup data used by BlockDefinitionLookup
+    """
+
+    def __init__(self):
+        self.blocks = []
+
+        # Lookup table mapping the deconstructed tuple forms of blocks (as obtained from
+        # `block.deconstruct_with_lookup`) to their index in the `blocks` list. These
+        # tuples can be compared for equality, but not hashed, so we cannot use them as
+        # dict keys; instead, we index them on the first tuple element (the module path)
+        # and maintain a list of (index, deconstructed_tuple) pairs for each one.
+        self.block_indexes_by_type = defaultdict(list)
+
+    def add_block(self, block):
+        """
+        Add a block to the lookup table, returning an index that can be used to refer to it
+        """
+        deconstructed = block.deconstruct_with_lookup(self)
+
+        # Check if we've already seen this block definition
+        block_indexes = self.block_indexes_by_type[deconstructed[0]]
+        for index, existing_deconstructed in block_indexes:
+            if existing_deconstructed == deconstructed:
+                return index
+
+        # If not, add it to the lookup table
+        index = len(self.blocks)
+        self.blocks.append(deconstructed)
+        block_indexes.append((index, deconstructed))
+        return index

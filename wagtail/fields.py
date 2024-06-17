@@ -8,7 +8,10 @@ from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.blocks.definition_lookup import BlockDefinitionLookup
+from wagtail.blocks.definition_lookup import (
+    BlockDefinitionLookup,
+    BlockDefinitionLookupBuilder,
+)
 from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     extract_references_from_rich_text,
@@ -162,8 +165,13 @@ class StreamField(models.Field):
 
     def deconstruct(self):
         name, path, _, kwargs = super().deconstruct()
-        block_types = list(self.stream_block.child_blocks.items())
+        lookup = BlockDefinitionLookupBuilder()
+        block_types = [
+            (name, lookup.add_block(block))
+            for name, block in self.stream_block.child_blocks.items()
+        ]
         args = [block_types]
+        kwargs["block_lookup"] = lookup.blocks
         return name, path, args, kwargs
 
     def to_python(self, value):

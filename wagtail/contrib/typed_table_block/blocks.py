@@ -267,6 +267,17 @@ class BaseTypedTableBlock(Block):
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 
+    def deconstruct_with_lookup(self, lookup):
+        path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
+        args = [
+            [
+                (name, lookup.add_block(block))
+                for name, block in self.child_blocks.items()
+            ]
+        ]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         for name, child_block in self.child_blocks.items():
