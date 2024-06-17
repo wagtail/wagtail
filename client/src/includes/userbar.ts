@@ -1,3 +1,5 @@
+import axe from 'axe-core';
+
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
 import {
@@ -5,6 +7,8 @@ import {
   getA11yReport,
   renderA11yResults,
 } from './a11y-result';
+import { wagtailPreviewPlugin } from './previewPlugin';
+import { contentMetricsPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
 
@@ -303,14 +307,16 @@ export class Userbar extends HTMLElement {
   See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
   */
 
-  // Initialise axe accessibility checker
+  // Initialise Axe
   async initialiseAxe() {
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    axe.registerPlugin(wagtailPreviewPlugin);
+    axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
+
     const accessibilityTrigger = this.shadowRoot?.getElementById(
       'accessibility-trigger',
     );
-
     const config = getAxeConfiguration(this.shadowRoot);
-
     if (!this.shadowRoot || !accessibilityTrigger || !config) return;
 
     const { results, a11yErrorsNumber } = await getA11yReport(config);
