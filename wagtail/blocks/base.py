@@ -97,6 +97,17 @@ class Block(metaclass=BaseBlock):
 
         self.label = self.meta.label or ""
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, *args, **kwargs):
+        """
+        See `wagtail.blocks.definition_lookup.BlockDefinitionLookup`.
+        Construct a block instance from the provided arguments, using the given BlockDefinitionLookup
+        object to perform any necessary lookups.
+        """
+        # In the base implementation, no lookups take place - args / kwargs are passed
+        # on to the constructor as-is
+        return cls(*args, **kwargs)
+
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
