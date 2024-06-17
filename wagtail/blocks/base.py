@@ -376,7 +376,11 @@ class Block(metaclass=BaseBlock):
         """
         return False
 
-    def deconstruct(self):
+    @cached_property
+    def canonical_module_path(self):
+        """
+        Return the module path string that should be used to refer to this block in migrations.
+        """
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__
         name = self.__class__.__name__
@@ -394,12 +398,13 @@ class Block(metaclass=BaseBlock):
         # if the module defines a DECONSTRUCT_ALIASES dictionary, see if the class has an entry in there;
         # if so, use that instead of the real path
         try:
-            path = module.DECONSTRUCT_ALIASES[self.__class__]
+            return module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = f"{module_name}.{name}"
+            return f"{module_name}.{name}"
 
+    def deconstruct(self):
         return (
-            path,
+            self.canonical_module_path,
             self._constructor_args[0],
             self._constructor_args[1],
         )
