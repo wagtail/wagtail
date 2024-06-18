@@ -3,40 +3,44 @@ interface ContentMetrics {
   readingTime: number;
 }
 
-interface SegmentData {
-  segment: string;
-  isWordLike?: boolean | undefined;
-}
+export const getWordCount = (lang: string, text: string): number => {
+  const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
+  const segments: Intl.SegmentData[] = Array.from(segmenter.segment(text));
+  const wordCount = segments.reduce(
+    (count, segment) => (segment.isWordLike ? count + 1 : count),
+    0,
+  );
 
-export const getContentMetrics = (
-  lang: string,
-  text: string,
-): ContentMetrics => {
-  let wordCount = 0;
+  return wordCount;
+};
 
-  if (typeof Intl.Segmenter === 'function') {
-    const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
-    const segments: SegmentData[] = Array.from(segmenter.segment(text));
-    wordCount = segments.reduce(
-      (count, segment) => (segment.isWordLike ? count + 1 : count),
-      0,
-    );
-  } else {
-    // Fallback to regex if Intl.Segmenter is not supported
-    wordCount =
-      text
-        .trim()
-        .replace(/['";:,.?¿\-!¡]+/g, '')
-        .match(/\S+/g)?.length || 0;
-  }
+/*
+Language-specific reading speeds according to a meta-analysis of 190 studies on reading rates.
+Study preprint: https://osf.io/preprints/psyarxiv/xynwg/
+DOI: https://doi.org/10.1016/j.jml.2019.104047
+ */
+const readingSpeeds = {
+  ar: 181, // Arabic
+  zh: 260, // Chinese
+  nl: 228, // Dutch
+  en: 238, // English
+  fi: 195, // Finnish
+  fr: 214, // French
+  de: 260, // German
+  he: 224, // Hebrew
+  it: 285, // Italian
+  ko: 226, // Korean
+  es: 278, // Spanish
+  sv: 218, // Swedish
+};
 
-  // Silent-reading adults average 238 words per minute
-  const readingTime = Math.round(wordCount / 238);
+export const getReadingTime = (lang: string, wordCount: number): number => {
+  const locale = lang.split('-')[0];
+  // Fallback to English reading speed if the locale is not found
+  const readingSpeed = readingSpeeds[locale] || readingSpeeds.en;
+  const readingTime = Math.round(wordCount / readingSpeed);
 
-  return {
-    wordCount,
-    readingTime,
-  };
+  return readingTime;
 };
 
 const renderContentMetrics = ({ wordCount, readingTime }: ContentMetrics) => {
@@ -79,8 +83,10 @@ export const runContentCheck = () => {
   if (!iframe || !iframeDocument || !text) {
     return;
   }
-  const lang = iframeDocument.documentElement.lang || 'en-US';
-  const contentMetrics = getContentMetrics(lang, text);
+  const lang = iframeDocument.documentElement.lang || 'en';
 
-  renderContentMetrics(contentMetrics);
+  const wordCount = getWordCount(lang, text);
+  const readingTime = getReadingTime(lang, wordCount);
+
+  renderContentMetrics({ wordCount, readingTime });
 };
