@@ -55,7 +55,7 @@ export class FieldBlock {
       console.error(e);
       this.setError({
         messages: [
-          'This widget failed to render, please check the console for details',
+          'This widget failed to render, please check the console for details.',
         ],
       });
       return;

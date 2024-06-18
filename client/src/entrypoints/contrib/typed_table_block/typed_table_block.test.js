@@ -211,7 +211,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     boundBlock.setError({
       blockErrors: {
         0: {
-          1: { messages: ['This is not enough cheese'] },
+          1: { messages: ['This is not enough cheese.'] },
         },
       },
     });
@@ -220,7 +220,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
 
   test('setError shows non-block errors', () => {
     boundBlock.setError({
-      messages: ['This is just generally wrong'],
+      messages: ['This is just generally wrong.'],
     });
     expect(document.body.innerHTML).toMatchSnapshot();
   });

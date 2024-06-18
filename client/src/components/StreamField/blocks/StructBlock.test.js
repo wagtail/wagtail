@@ -170,7 +170,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
   test('setError passes error messages to children', () => {
     boundBlock.setError({
       blockErrors: {
-        size: { messages: ['This is too big'] },
+        size: { messages: ['This is too big.'] },
       },
     });
     expect(document.body.innerHTML).toMatchSnapshot();
@@ -178,7 +178,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
 
   test('setError shows non-block errors', () => {
     boundBlock.setError({
-      messages: ['This is just generally wrong'],
+      messages: ['This is just generally wrong.'],
     });
     expect(document.body.innerHTML).toMatchSnapshot();
   });
