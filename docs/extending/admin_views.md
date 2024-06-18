@@ -353,27 +353,34 @@ Copy page
 
 ### Images
 
-- Images list
-    ```html
-    {% url 'wagtailimages:index' %}
-    ```
+Images list
 
-- Edit image
-    ```html
-    {% url 'wagtailimages:edit' image_id %}
-    ```
-- Delete image
-    ```html
-    {% url 'wagtailimages:delete' image_id %}
-    ```
-- New image
-    ```html
-    {% url 'wagtailimages:add' %}
-    ```
-- Image usage
-    ```html
-    {% url 'wagtailimages:image_usage' image_id %}
-    ```
+```html
+{% url 'wagtailimages:index' %}
+```
+
+Edit image
+
+```html
+{% url 'wagtailimages:edit' image_id %}
+```
+
+Delete image
+
+```html
+{% url 'wagtailimages:delete' image_id %}
+```
+
+New image
+```html
+{% url 'wagtailimages:add' %}
+```
+
+Image usage
+
+```html
+{% url 'wagtailimages:image_usage' image_id %}
+```
 
 ### AdminURLFinder
 To find the url for any model in the admin the `AdminURLFinder` class can be used.
