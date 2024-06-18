@@ -239,6 +239,7 @@ $positions: (
     padding: 0;
     min-height: unset;
     max-height: 60vh;
+    font-size: theme('fontSize.14');
   }
 
   .w-dialog__header {
@@ -247,15 +248,23 @@ $positions: (
     justify-content: space-between;
   }
 
+  .w-dialog__body {
+    padding: 0 theme('spacing.[7.5]') theme('spacing.[7.5]');
+    display: flex;
+    flex-direction: column;
+    gap: theme('spacing.[2.5]');
+  }
+
   .w-dialog__title {
     @apply w-h3;
-    padding: theme('spacing.4') theme('spacing.5');
+    color: theme('colors.text-context');
+    padding: theme('spacing.[7.5]');
     margin-bottom: 0;
   }
 
   .w-dialog__subtitle {
     @apply w-body-text;
-    padding-inline-end: theme('spacing.5');
+    padding-inline-end: theme('spacing.[7.5]');
     display: flex;
     align-items: center;
     gap: theme('spacing.2');

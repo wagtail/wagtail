@@ -464,7 +464,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 ## `Locale`
 
 The `Locale` model defines the set of languages and/or locales that can be used on a site.
-Each `Locale` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
+Each `Locale` record corresponds to a "language code" defined in the {ref}`wagtail_content_languages_setting` setting.
 
 Wagtail will initially set up one `Locale` to act as the default language for all existing content.
 This first locale will automatically pick the value from `WAGTAIL_CONTENT_LANGUAGES` that most closely matches the site primary language code defined in `LANGUAGE_CODE`.

@@ -818,6 +818,12 @@
 * Saksham Misra
 * Nigel van Keulen
 * Matthias Brück
+* Julie Rymer
+* Byron Peebles
+* Arnar Tumi Þorsteinsson
+* Roel Koper
+* Inju Michorius
+* Jeroen de Vries
 
 ## Translators
 
