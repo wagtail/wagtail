@@ -5,15 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022,2024
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022,2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,36 @@ msgstr "Wagtailin taulukkolohko"
 msgid "Row header"
 msgstr "Riviotsikko"
 
+msgid "Table headers"
+msgstr "Taulukon otsikot"
+
+msgid "Display the first row as a header"
+msgstr "Näytä ensimmäinen rivi otsikkona"
+
+msgid "Display the first column as a header"
+msgstr "Näytä ensimmäinen sarake otsikkona"
+
 msgid "Column header"
 msgstr "Sarakeotsikko"
 
+msgid "Display the first row AND first column as headers"
+msgstr "Näytä ensimmäinen rivi JA ensimmäinen sarake otsikkoina"
+
+msgid "No headers"
+msgstr "Ei otsikoita"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Mitkä solut näytetään otsikkoina?"
+
 msgid "Table caption"
 msgstr "Taulukon otsikko"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Otsikko, joka ilmaisee taulukon aiheen ja hyödyttää ruudunlukijaohjelmien "
+"käyttäjiä"
 
 msgid "Table"
 msgstr "Taulukko"

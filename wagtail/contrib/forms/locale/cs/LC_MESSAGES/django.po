@@ -4,7 +4,7 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
-# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2024
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Ivan Pomykacz <mist@alastify.cz>, 2015
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2024\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -57,10 +57,10 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Checkbox"
-msgstr "Zaškrtávací pole"
+msgstr "Zaškrtávací políčko"
 
 msgid "Checkboxes"
-msgstr "Zaškrtávací pole"
+msgstr "Zaškrtávací políčka"
 
 msgid "Drop down"
 msgstr "Rozbalovací seznam"
@@ -93,7 +93,7 @@ msgid "name"
 msgstr "jméno"
 
 msgid "Safe name of the form field, the label converted to ascii_snake_case"
-msgstr "slug (jméno pole v ascii_snake_case verzi)"
+msgstr "Slug (jméno pole v ascii_snake_case verzi)"
 
 msgid "label"
 msgstr "popisek"
@@ -110,8 +110,21 @@ msgstr "vyžadováno"
 msgid "choices"
 msgstr "volby"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Seznam možností oddělený čárkou nebo novým řádkem. Použitelné pouze u "
+"zaškrtávacích políček, přepínacích tlačítek a rozbalovacích seznamů."
+
 msgid "default value"
 msgstr "výchozí hodnota"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Výchozí hodnota. Pro zaškrtávací políčka jsou podporovány hodnoty oddělené "
+"čárkou nebo novými řádky."
 
 msgid "help text"
 msgstr "nápověda"
@@ -123,7 +136,7 @@ msgid "Form"
 msgstr "Formulář"
 
 msgid "Landing page"
-msgstr "Úvodní stránka"
+msgstr "Potvrzovací stránka"
 
 msgid "to address"
 msgstr "příjemce"
@@ -152,6 +165,13 @@ msgstr "Smazat formulářová data %(title)s"
 msgid "Delete form data"
 msgstr "Smazat formulářová data"
 
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Opravdu chcete smazat tento odeslaný formulář?"
+msgstr[1] "Opravdu chcete smazat tyto odeslané formuláře?"
+msgstr[2] "Opravdu chcete smazat tyto odeslané formuláře?"
+msgstr[3] "Opravdu chcete smazat tyto odeslané formuláře?"
+
 msgid "Delete"
 msgstr "Smazat"
 
@@ -179,7 +199,7 @@ msgid "Title"
 msgstr "Název"
 
 msgid "Origin"
-msgstr "Původní"
+msgstr "Původ"
 
 msgid "Pages"
 msgstr "Stránky"
@@ -187,7 +207,10 @@ msgstr "Stránky"
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
-msgstr[0] "Jedno odeslání bylo smazáno."
+msgstr[0] "Odeslání bylo smazáno."
 msgstr[1] "%(count)d odeslání byla smazána."
 msgstr[2] "%(count)d odeslání bylo smazáno."
 msgstr[3] "%(count)d odeslání bylo smazáno."
+
+msgid "Form data"
+msgstr "Formulářová data"

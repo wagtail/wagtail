@@ -1,9 +1,10 @@
 from unittest import mock
 
+from django.conf import settings
 from django.test import TestCase
 
-from wagtail.models import Site
-from wagtail.signals import page_slug_changed
+from wagtail.models import Locale, Site
+from wagtail.signals import copy_for_translation_done, page_slug_changed
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -97,3 +98,49 @@ class TestPageSlugChangedSignal(WagtailTestUtils, TestCase):
 
         # Check the signal was NOT fired
         self.assertEqual(handler.call_count, 0)
+
+
+class TestCopyForTranslationDoneSignal(WagtailTestUtils, TestCase):
+    """
+    Tests for the `wagtail.signals.copy_for_translation_done` signal
+    """
+
+    def setUp(self):
+        # Find root page
+        site = Site.objects.select_related("root_page").get(is_default_site=True)
+        root_page = site.root_page
+
+        # Create a subpage
+        self.subpage = SimplePage(
+            title="Subpage in english", slug="subpage-in-english", content="hello"
+        )
+        root_page.add_child(instance=self.subpage)
+
+        # Get the languages and create locales
+        language_codes = dict(settings.LANGUAGES).keys()
+
+        for language_code in language_codes:
+            Locale.objects.get_or_create(language_code=language_code)
+
+        # Get the locales needed
+        self.locale = Locale.objects.get(language_code="en")
+        self.another_locale = Locale.objects.get(language_code="fr")
+
+        root_page.copy_for_translation(self.another_locale)
+
+    def test_signal_emitted_on_copy_for_translation_done(self):
+        # Connect a mock signal handler to the signal
+        handler = mock.MagicMock()
+        copy_for_translation_done.connect(handler)
+
+        page_to_translate = SimplePage.objects.get(id=self.subpage.id)
+
+        try:
+            with self.captureOnCommitCallbacks(execute=True):
+                page_to_translate.copy_for_translation(self.another_locale)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            copy_for_translation_done.disconnect(handler)
+
+        # Check the signal was fired
+        self.assertEqual(handler.call_count, 1)

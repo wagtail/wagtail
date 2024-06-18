@@ -4,7 +4,7 @@
 #
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
-# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2024
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jan Feřtek, 2023
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jan Feřtek, 2023\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2024\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,14 @@ msgstr "Podporované formáty: %(supported_formats)s."
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Nepodporovaný formát obrázku. Podporovány jsou formáty %(supported_formats)s"
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Neplatný obrázek typu .%(extension)s. Přípona neodpovídá formátu souboru "
+"(%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -168,6 +176,48 @@ msgid "images"
 msgstr "obrázky"
 
 #, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Přidat štítky k 1 obrázku"
+msgstr[1] "Přidat štítky k %(counter)s obrázkům"
+msgstr[2] "Přidat štítky k %(counter)s obrázkům"
+msgstr[3] "Přidat štítky k %(counter)s obrázkům"
+
+msgid "Add tags to images"
+msgstr "Přidat štítky k obrázkům"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Opravdu chcete oštítkovat následující obrázek? "
+msgstr[1] "Opravdu chcete oštítkovat následující obrázky? "
+msgstr[2] "Opravdu chcete oštítkovat následující obrázky? "
+msgstr[3] "Opravdu chcete oštítkovat následující obrázky? "
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Nemáte oprávnění přidávat k tomuto obrázku štítky"
+msgstr[1] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+msgstr[2] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+msgstr[3] "Nemáte oprávnění přidávat k těmto obrázkům štítky"
+
+msgid "Yes, add"
+msgstr "Ano, přidat"
+
+msgid "No, don't add"
+msgstr "Ne, nepřidávat"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Přidat 1 obrázek do nové kolekce "
+msgstr[1] "Přidat %(counter)s obrázky do nové kolekce"
+msgstr[2] "Přidat %(counter)s obrázku do nové kolekce"
+msgstr[3] "Přidat %(counter)s obrázků do nové kolekce"
+
+msgid "Add images to collection"
+msgstr "Přidat obrázky do kolekce"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Použito %(usage_count)sx"
@@ -264,19 +314,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
-"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"V kolekci nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a "
-"href=\"%(wagtailimages_add_image_url)s\">zde</a>."
+"Nebyly nalezeny žádné obrázky. Nový obrázek můžete přidat <a href="
+"\"%(wagtailimages_add_image_url)s\">zde</a>."
 
 msgid "Preview"
 msgstr "Náhled"

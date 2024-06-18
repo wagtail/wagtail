@@ -73,7 +73,7 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
-    any_permission_required = ["add", "change", "delete"]
+    any_permission_required = ["add", "change", "delete", "view"]
     search_fields = None
     search_backend_name = "default"
     is_searchable = None
@@ -249,15 +249,21 @@ class IndexView(
 
     def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
         column_class = self._get_title_column_class(column_class)
+
+        def get_url(instance):
+            if edit_url := self.get_edit_url(instance):
+                return edit_url
+            return self.get_inspect_url(instance)
+
         if not self.model:
             return column_class(
                 "name",
                 label=gettext_lazy("Name"),
                 accessor=str,
-                get_url=self.get_edit_url,
+                get_url=get_url,
             )
         return self._get_custom_column(
-            field_name, column_class, get_url=self.get_edit_url, **kwargs
+            field_name, column_class, get_url=get_url, **kwargs
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
@@ -320,27 +326,25 @@ class IndexView(
         return columns
 
     def get_edit_url(self, instance):
-        if self.edit_url_name:
+        if self.edit_url_name and self.user_has_permission("change"):
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_copy_url(self, instance):
-        if self.copy_url_name:
+        if self.copy_url_name and self.user_has_permission("add"):
             return reverse(self.copy_url_name, args=(quote(instance.pk),))
 
     def get_inspect_url(self, instance):
-        if self.inspect_url_name:
+        if self.inspect_url_name and self.user_has_any_permission(
+            {"add", "change", "delete", "view"}
+        ):
             return reverse(self.inspect_url_name, args=(quote(instance.pk),))
 
     def get_delete_url(self, instance):
-        if self.delete_url_name:
+        if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
     def get_add_url(self):
-        if self.permission_policy and not self.permission_policy.user_has_permission(
-            self.request.user, "add"
-        ):
-            return None
-        if self.add_url_name:
+        if self.add_url_name and self.user_has_permission("add"):
             return self._set_locale_query_param(reverse(self.add_url_name))
 
     @cached_property
@@ -374,16 +378,11 @@ class IndexView(
 
     def get_list_more_buttons(self, instance):
         buttons = []
-        edit_url = self.get_edit_url(instance)
-        can_edit = (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "change")
-        )
-        if edit_url and can_edit:
+        if edit_url := self.get_edit_url(instance):
             buttons.append(
                 ListingButton(
                     _("Edit"),
-                    url=self.get_edit_url(instance),
+                    url=edit_url,
                     icon_name="edit",
                     attrs={
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
@@ -391,9 +390,7 @@ class IndexView(
                     priority=10,
                 )
             )
-        copy_url = self.get_copy_url(instance)
-        can_copy = self.permission_policy.user_has_permission(self.request.user, "add")
-        if copy_url and can_copy:
+        if copy_url := self.get_copy_url(instance):
             buttons.append(
                 ListingButton(
                     _("Copy"),
@@ -405,8 +402,7 @@ class IndexView(
                     priority=20,
                 )
             )
-        inspect_url = self.get_inspect_url(instance)
-        if inspect_url:
+        if inspect_url := self.get_inspect_url(instance):
             buttons.append(
                 ListingButton(
                     _("Inspect"),
@@ -419,12 +415,7 @@ class IndexView(
                     priority=20,
                 )
             )
-        delete_url = self.get_delete_url(instance)
-        can_delete = (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "delete")
-        )
-        if delete_url and can_delete:
+        if delete_url := self.get_delete_url(instance):
             buttons.append(
                 ListingButton(
                     _("Delete"),
@@ -439,17 +430,20 @@ class IndexView(
         return buttons
 
     def get_list_buttons(self, instance):
-        buttons = self.get_list_more_buttons(instance)
-        return [
-            ButtonWithDropdown(
-                buttons=buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        more_buttons = self.get_list_more_buttons(instance)
+        buttons = []
+        if more_buttons:
+            buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        ]
+        return buttons
 
     @cached_property
     def add_item_label(self):
@@ -462,10 +456,7 @@ class IndexView(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context["can_add"] = (
-            self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "add")
-        )
+        context["can_add"] = self.user_has_permission("add")
         if context["can_add"]:
             context["add_url"] = context["header_action_url"] = self.add_url
             context["header_action_label"] = self.add_item_label
@@ -874,11 +865,7 @@ class EditView(
         )
 
     def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
-            )
-        ]
+        return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
         if self.error_message is None:
@@ -917,9 +904,8 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
-        context["can_delete"] = (
-            self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "delete")
+        context["can_delete"] = self.user_has_permission_for_instance(
+            "delete", self.object
         )
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
@@ -1046,7 +1032,7 @@ class DeleteView(
 
 
 class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
-    any_permission_required = ["add", "change", "delete"]
+    any_permission_required = ["add", "change", "delete", "view"]
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
@@ -1149,24 +1135,12 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return [self.get_context_for_field(field_name) for field_name in self.fields]
 
     def get_edit_url(self):
-        if not self.edit_url_name or (
-            self.permission_policy
-            and not self.permission_policy.user_has_permission(
-                self.request.user, "change"
-            )
-        ):
-            return None
-        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+        if self.edit_url_name and self.user_has_permission("change"):
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
-        if not self.delete_url_name or (
-            self.permission_policy
-            and not self.permission_policy.user_has_permission(
-                self.request.user, "delete"
-            )
-        ):
-            return None
-        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
+        if self.delete_url_name and self.user_has_permission("delete"):
+            return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

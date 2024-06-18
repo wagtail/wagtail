@@ -215,6 +215,7 @@ André Bouatchidzé <a.anbz.net>
 Antonin ENFRUN <anton.zorgameuh.org>
 Aurel Pere
 Aurélien Debord <contact.aureliendebord.com>
+Axel H.
 Axel Haustant
 Benoît Vogel <contact.spicy-informatique.com>
 Bertrand Bordage <bordage.bertrand.gmail.com>
@@ -723,6 +724,7 @@ Hồng Quân Nguyễn <ng.hong.quan.gmail.com>
 Loic Teixeira
 Luan Nguyen <lihavim.gmail.com>
 Vu Pham
+stdpi
 
 Welsh - cy
 -----

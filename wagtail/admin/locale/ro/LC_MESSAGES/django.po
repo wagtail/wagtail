@@ -6,15 +6,15 @@
 # Alex Morega, 2023-2024
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2023
+# Dan Braghis, 2014-2024
 # Julian C <jcuotpc@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Alex Morega, 2023-2024\n"
+"Last-Translator: Dan Braghis, 2014-2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,9 @@ msgstr "Colecție"
 
 msgid "Tag"
 msgstr "Adaugă etichetă"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filtrați până la zece cele mai populare etichete."
 
 msgid "Preferred language"
 msgstr "Limba preferată"
@@ -255,6 +258,16 @@ msgstr "Alege o pagină de bază nouă pentru această pagină."
 
 msgid "Parent page"
 msgstr "Pagină părinte"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "Pagina nouă va fi descendentă a acestei pagini."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "Nu aveți permisiunea de a crea o pagină sub \"%(page_title)s\""
+
+msgid "Search…"
+msgstr "Caută…"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -556,15 +569,15 @@ msgstr "Convertește în link internă"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Adresa de internet introdusă, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, se potrivește paginii "
-"interne %(page)s, cu adresa <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(internal_url)s\">%(internal_url)s</a> ."
+"Adresa de internet introdusă, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, se potrivește paginii interne "
+"%(page)s, cu adresa <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(internal_url)s\">%(internal_url)s</a> ."
 
 #, python-format
 msgid ""
@@ -644,11 +657,11 @@ msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Con�
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Nu a fost creată nici o colecție. De ce să nu <a "
-"href=\"%(add_collection_url)s\">adăugați una</a>?"
+"Nu a fost creată nici o colecție. De ce să nu <a href="
+"\"%(add_collection_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -686,16 +699,16 @@ msgid ""
 "This %(model_name)s was marked as needing changes at <strong>%(task)s</"
 "strong> in <strong>%(workflow)s</strong>."
 msgstr ""
-"Acest %(model_name)s a fost marcat cum că necesită schimbări la "
-"<strong>%(task)s</strong> în <strong>%(workflow)s</strong>."
+"Acest %(model_name)s a fost marcat cum că necesită schimbări la <strong>"
+"%(task)s</strong> în <strong>%(workflow)s</strong>."
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
-"Acest %(model_name)s se află la <strong>%(task)s</strong> în "
-"<strong>%(workflow)s</strong>."
+"Acest %(model_name)s se află la <strong>%(task)s</strong> în <strong>"
+"%(workflow)s</strong>."
 
 #, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
@@ -830,10 +843,10 @@ msgstr "S-au schimbat lucruri în Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
 "E în regulă, avem grijă de dvs. Mergeți la <a class=\"w-whats-new__link\" "
 "href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
@@ -1045,11 +1058,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow "
-"\"%(workflow)s\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
+"\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" a fost aprobat în fluxul de lucru "
-"\"%(workflow)s\"."
+"%(model_name)s \"%(title)s\" a fost aprobat în fluxul de lucru \"%(workflow)s"
+"\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1146,8 +1159,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been submitted to workflow "
 "\"%(workflow)s\""
 msgstr ""
-"%(model_name)s \"%(title)s\" a fost trimis la fluxul de lucru "
-"\"%(workflow)s\""
+"%(model_name)s \"%(title)s\" a fost trimis la fluxul de lucru \"%(workflow)s"
+"\""
 
 msgid "Page privacy"
 msgstr "Confidențialitate"
@@ -1770,8 +1783,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Alegeți când această pagină va deveni live sau/și va expira"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
 "Acest program de publicare va fi aplicat numai după ce selectați opțiunea "
 "\"Publică\""
@@ -1811,6 +1824,9 @@ msgstr "Nici o pagină nu corespunde criteriilor acestui raport."
 
 msgid "Updated"
 msgstr "Actualizată"
+
+msgid "App"
+msgstr "Aplicație"
 
 msgid "Pages"
 msgstr "Pagini"
@@ -1912,11 +1928,26 @@ msgstr "Aplică filtre"
 msgid "Add comment"
 msgstr "Adaugă comentariu"
 
+msgid "Filter by"
+msgstr "Filtrează după"
+
 msgid "Back"
 msgstr "Înapoi"
 
 msgid "History"
 msgstr "Istorie"
+
+msgid "Keyboard shortcuts"
+msgstr "Comenzi rapide de la tastatură"
+
+msgid "All keyboard shortcuts"
+msgstr "Toate comenzile rapide de la tastatură"
+
+msgid "Section"
+msgstr "Secțiune"
+
+msgid "Keyboard shortcut"
+msgstr "Comandă rapidă de la tastatură"
 
 msgid "Current page status:"
 msgstr "Starea paginii curente:"
@@ -2182,14 +2213,14 @@ msgstr "Acest %(model_name)s încă nu a fost trimis pentru moderare"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "Wagtail necesită JavaScript pentru utilizare, dar e dezactivat la moment."
-"<br />Vedeți <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instrucțiuni despre cum să activați "
-"JavaScript în browserul dvs. web</a>.        "
+"<br />Vedeți <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instrucțiuni despre cum să activați JavaScript în "
+"browserul dvs. web</a>.        "
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -2247,9 +2278,8 @@ msgstr "Creează"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Fluxurile de lucru se aplică și paginilor descendente. Dacă selectați o "
 "pagină părinte aici, și paginile descendente vor folosi acest flux de lucru. "
@@ -2312,15 +2342,15 @@ msgstr[2] "%(counter)s de tipuri de fragment"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creat nici un flux de lucru. De ce să nu <a "
-"href=\"%(add_url)s\">adăugați unul</a>?"
+"Nu a fost creat nici un flux de lucru. De ce să nu <a href=\"%(add_url)s"
+"\">adăugați unul</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu există nici un flux de lucru activate. De ce să nu <a "
-"href=\"%(add_url)s\">activați unul</a>?"
+"Nu există nici un flux de lucru activate. De ce să nu <a href=\"%(add_url)s"
+"\">activați unul</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Alegeți tipul de sarcină pe care doriți să creați."
@@ -2362,15 +2392,15 @@ msgstr ""
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu a fost creată nici o sarcină. De ce să nu <a "
-"href=\"%(add_url)s\">adăugați una</a>?"
+"Nu a fost creată nici o sarcină. De ce să nu <a href=\"%(add_url)s"
+"\">adăugați una</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nu există nici o sarcină activată. De ce să nu <a "
-"href=\"%(add_url)s\">adăugați una</a>?"
+"Nu există nici o sarcină activată. De ce să nu <a href=\"%(add_url)s"
+"\">adăugați una</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -2449,17 +2479,53 @@ msgstr "Trimis în %(task_name)s la %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
+msgid "Common actions"
+msgstr "Acțiuni comune"
+
+msgid "Cut"
+msgstr "Taie"
+
+msgid "Paste"
+msgstr "Lipește"
+
+msgid "Paste and match style"
+msgstr "Lipește și potrivește stilul"
+
+msgid "Paste without formatting"
+msgstr "Lipește fără formatare"
+
 msgid "Undo"
 msgstr "Anulare"
 
 msgid "Redo"
 msgstr "Refacere"
 
+msgid "Save changes"
+msgstr "Salvează modificările"
+
+msgid "Text content"
+msgstr "Conținut text"
+
+msgid "Insert or edit a link"
+msgstr "Inserează sau editează un link"
+
+msgid "Text formatting"
+msgstr "Formatare text"
+
 msgid "Bold"
 msgstr "Caractere aldine"
 
 msgid "Italic"
 msgstr "Cursiv"
+
+msgid "Underline"
+msgstr "Subliniere"
+
+msgid "Monospace (code)"
+msgstr "Monospațiu (cod)"
+
+msgid "Strike-through"
+msgstr "Baraj"
 
 msgid "Superscript"
 msgstr "Superscript"
@@ -2482,6 +2548,12 @@ msgstr "Comută comentarii"
 
 msgid "Comments"
 msgstr "Comentarii"
+
+msgid "Toggle checks"
+msgstr "Comută verificări"
+
+msgid "Checks"
+msgstr "Verificări"
 
 msgid "Toggle preview"
 msgstr "Comută previzualizarea"
@@ -2684,8 +2756,8 @@ msgstr "Fluxul de lucru pe %(model_name)s '%(object)s' a fost anulat."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
 "Sunteți în curs de vizualizare a versiunii precedente a %(model_name)s din "
 "<b>%(created_at)s</b> de către %(user)s"
@@ -2716,6 +2788,10 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr "Editează '%(title)s'"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Copie '%(title)s'"
+
 msgid "Inspect"
 msgstr "Examinează"
 
@@ -2730,6 +2806,10 @@ msgstr "Șterge '%(title)s'"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Mai multe opțiuni pentru '%(title)s'"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "Adaugă %(model_name)s"
 
 #, python-format
 msgid "New: %(model_name)s"
@@ -2922,6 +3002,9 @@ msgstr[2] ""
 "Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d de "
 "pagini descendente a fost anulată"
 
+msgid "Choose parent"
+msgstr "Alege părinte"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Pagina '%(page_title)s' a fost convertită în pagină obișnuită."
@@ -3027,14 +3110,35 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
+msgid "Is commenting action"
+msgstr "Este acțiune de comentare"
+
+msgid "Date updated"
+msgstr "Data actualizării"
+
 msgid "Owner"
 msgstr "Proprietar"
+
+msgid "Edited by"
+msgstr "Editat de"
 
 msgid "Site"
 msgstr "Sit"
 
+msgid "Has child pages"
+msgstr "Are pagini descendente"
+
+msgid "Any"
+msgstr "Oricare"
+
 msgid "Yes"
 msgstr "Da"
+
+msgid "Page type"
+msgstr "Tip pagină"
+
+msgid "Exploring"
+msgstr "Explorează"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3057,8 +3161,8 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Sunteți în process de vizualizare a versiunii precedente a paginii din "
-"<b>%(created_at)s</b> de către %(user)s"
+"Sunteți în process de vizualizare a versiunii precedente a paginii din <b>"
+"%(created_at)s</b> de către %(user)s"
 
 msgid "Page history"
 msgstr "Istoria paginii"
@@ -3317,6 +3421,9 @@ msgstr "Ce e nou în Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Ghid editor"
+
+msgid "Shortcuts"
+msgstr "Comezi rapide"
 
 msgid "Help"
 msgstr "Ajutor"

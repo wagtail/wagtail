@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -147,16 +147,6 @@ msgstr "取消"
 msgid "Preview"
 msgstr "预览"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "编辑 %(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Delete redirect"
-msgstr "删除重定向"
-
 msgid "Summary"
 msgstr "概要"
 
@@ -183,33 +173,21 @@ msgstr "对不起，没有重定向符合\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"还没有创建过重定向呢。为何不 <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">创建一个</a>?"
+"还没有创建过重定向呢。为何不 <a href=\"%(wagtailredirects_add_redirect_url)s"
+"\">创建一个</a>?"
 
 msgid "Site"
 msgstr "站点"
 
-msgid "Edit this redirect"
-msgstr "编辑重定向"
-
-msgid "No redirects found."
-msgstr "没有找到重定向"
-
-msgid "Export redirects"
-msgstr "导出重定向"
+msgid "The redirect could not be saved due to errors."
+msgstr "重定向不能保存。出现错误。"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "重定向'%(redirect_title)s'已更新"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "重定向不能保存。出现错误。"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -218,6 +196,9 @@ msgstr "重定向 '%(redirect_title)s'已删除"
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "重定向 '%(redirect_title)s'已增加"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "The redirect could not be created due to errors."
 msgstr "重定向无法创建。出现错误。"
@@ -241,6 +222,3 @@ msgstr "尝试读取文件%(filename)s时遇到%(error)s个错误："
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "已导入%(total)d个重定向"
-
-msgid "Export Redirects"
-msgstr "导出重定向"

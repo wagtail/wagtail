@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,43 +57,30 @@ msgstr "是的， 删除"
 msgid "Preview"
 msgstr "预览"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "编辑 %(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Delete redirect"
-msgstr "删除转向"
-
 msgid "To"
 msgstr "到"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"没有任何已保存的转向。为什么不 <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">添加一个</a>?"
-
-msgid "Edit this redirect"
-msgstr "编辑这个转向"
-
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "转向 '%(redirect_title)s' 已更新"
-
-msgid "Edit"
-msgstr "编辑"
+"没有任何已保存的转向。为什么不 <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">添加一个</a>?"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "由于多个错误，转向设置无法保存。"
 
 #, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "转向 '%(redirect_title)s' 已更新"
+
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "转向 '%(redirect_title)s' 已删除"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "The redirect could not be created due to errors."
 msgstr "由于多个错误，转向设置无法创建。"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -131,6 +131,14 @@ msgstr "Ko je %(model_name)s zaklenjen, lahko spreminja le %(user)s"
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "%(model_name)s trenutno čaka moderiranje"
 
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Ta {model_name} čaka na <b>'{task_name}'</b> v delovnem toku "
+"<b>'{workflow_name}'.</b>"
+
 #, python-format
 msgid "Only reviewers for this task can edit the %(model_name)s."
 msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
@@ -140,6 +148,18 @@ msgstr "Odklenjeno"
 
 msgid "Locked by workflow"
 msgstr "Zaklenjeni poteki dela"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Recenzenti lahko urejajo ta %(model_name)s- zaklenite ga, da preprečite "
+"urejanje drugim recenzentom"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Samo pregledovalci lahko urejajo in potrjujejo %(model_name)s"
 
 #, python-brace-format
 msgid ""
@@ -487,6 +507,10 @@ msgstr "zaključeno ob"
 msgid "finished by"
 msgstr "zaključil"
 
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Naloga '%(task_name)s' na reviziji '%(revision_info)s': %(status)s"
+
 msgid "Task state"
 msgstr "Stanje naloge"
 
@@ -523,6 +547,10 @@ msgstr "vnos v dnevnik"
 msgid "log entries"
 msgstr "vnosi v dnevnik"
 
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akcija dnevnika '%(action_name)s' ni bila registrirana."
+
 msgid "system"
 msgstr "sistem"
 
@@ -554,6 +582,12 @@ msgstr "dovoljenje za skupinsko zbiranje"
 msgid "group collection permissions"
 msgstr "dovoljenja za zbirke skupin"
 
+msgid "for content type"
+msgstr "za vrsto vsebine"
+
+msgid "uploaded by user"
+msgstr "ki jo je naložil uporabnik"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "tudi %(model_name)s bo izbrisan"
@@ -570,6 +604,10 @@ msgstr "ne bo naredil nič"
 
 msgid "may prevent deletion"
 msgstr "lahko prepreči izbris"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "bo nastavljen na %(model_name)s vrednost, ki jo določi sistem"
 
 msgid "will unset the reference"
 msgstr "bo razveljavilo referenco"
@@ -628,8 +666,24 @@ msgstr ""
 msgid "Public"
 msgstr "Javno"
 
+msgid "Private, accessible with a shared password"
+msgstr "Zasebno, dostopno s skupnim geslom"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Zasebno, dostopno vsem prijavljenim uporabnikom"
+
 msgid "Private, accessible to users in specific groups"
 msgstr "Zasebno, dostopno uporabnikom iz določenih skupin"
+
+msgid "shared password"
+msgstr "deljeno geslo"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Za zaščito občutljive vsebine ne smete uporabljati skupnih gesel. Vsakdo, ki "
+"ima to geslo, si bo lahko ogledal vsebino."
 
 msgid "view restriction"
 msgstr "omejitev pogleda"
@@ -716,6 +770,12 @@ msgstr "Preimenovano"
 msgid "Revert"
 msgstr "Povrni"
 
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Povrnjeno na prejšnjo revizijo z ID-jem %(revision_id)s od %(created_at)s"
+
 msgid "Reverted to previous revision"
 msgstr "Povrnjeno na prejšnjo revizijo"
 
@@ -801,6 +861,14 @@ msgid "Unschedule publication"
 msgstr "Prekliči objavo"
 
 #, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revizija %(revision_id)s iz %(created_at)s nenačrtovane objave na "
+"%(go_live_at)s."
+
+#, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"
 msgstr "Stran ni predvidena za objavo ob %(go_live_at)s"
 
@@ -829,6 +897,11 @@ msgstr "Posodobljena omejitev pogleda"
 
 msgid "Remove view restrictions"
 msgstr "Odstranite omejitve pogleda"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"Odstranjena je bila omejitev pogleda '%(restriction)s'. Stran je javna."
 
 msgid "Removed view restriction"
 msgstr "Odstranjena omejitev ogleda"
@@ -905,6 +978,10 @@ msgstr "Izbrisal odgovor"
 
 msgid "Workflow: start"
 msgstr "Potek dela: začetek"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' je začel. Naslednji korak '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Potek dela se je začel"

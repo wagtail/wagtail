@@ -333,10 +333,7 @@ class BlogPage(Page):
 
 Wagtail allows the nesting of other models within a page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page.
 
-Each inline model requires the following:
-
--   It must inherit from {class}`wagtail.models.Orderable`
--   It must have a `ParentalKey` to the parent model
+An inline model must have a `ParentalKey` pointing to the parent model. It can also inherit from {class}`wagtail.models.Orderable` to allow reordering of items in the admin interface.
 
 ````{note}
 The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` field type must be imported from there:

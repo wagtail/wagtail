@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -112,8 +112,23 @@ msgstr "Bloccata da te"
 msgid "Locked by another user"
 msgstr "Bloccata da un altro utente"
 
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Solo tu puoi fare modifiche finché %(model_name)s è bloccato"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Questo %(model_name)s è attualmente in attesa di moderazione."
+
 msgid "Unlocked"
 msgstr "Sbloccata"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Solo i revisori possono modificare e approvare %(model_name)s"
+
+msgid "latest revision"
+msgstr "ultima revisione"
 
 msgid "live"
 msgstr "live"
@@ -263,6 +278,9 @@ msgstr "pagina"
 msgid "pages"
 msgstr "pagine"
 
+msgid "object id"
+msgstr "id elemento"
+
 msgid "created at"
 msgstr "creato alle"
 
@@ -336,11 +354,26 @@ msgstr ""
 msgid "tasks"
 msgstr "attività"
 
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"I flussi di lavoro attivi possono essere aggiunti alle pagine/snippet. "
+"Quando disattivi un flusso di lavoro non viene rimosso dalle pagine/snippet "
+"esistenti."
+
 msgid "workflows"
 msgstr "flussi di lavoro"
 
 msgid "groups"
 msgstr "gruppi"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Le pagine/snippet in questo passaggio di un flusso di lavoro saranno "
+"moderati o approvati da questi gruppi di utenti"
 
 msgid "Request changes"
 msgstr "Richiedi modifiche"
@@ -381,6 +414,19 @@ msgstr "richiesto da"
 msgid "current task state"
 msgstr "stato attività corrente"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato "
+"del flusso di lavoro per la pagina/snippet."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Flusso di lavoro '%(workflow_name)s' su %(model_name)s '%(title)s': "
+"%(status)s"
+
 msgid "Not started"
 msgstr "Non iniziato"
 
@@ -407,6 +453,11 @@ msgstr "conclusa il"
 
 msgid "finished by"
 msgstr "conclusa da"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Attività '%(task_name)s' nella revisione '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Stato attività"
@@ -535,8 +586,21 @@ msgstr ""
 msgid "Public"
 msgstr "Pubblico"
 
+msgid "Private, accessible to any logged-in users"
+msgstr "Privata, accessibile a qualsiasi utente loggato"
+
 msgid "Private, accessible to users in specific groups"
 msgstr "Privata accessibile a utenti di specifici gruppi"
+
+msgid "shared password"
+msgstr "password condivisa"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Le password condivise non devono essere utilizzate per proteggere contenuti "
+"sensibili. Chiunque abbia questa password potrà visualizzare il contenuto."
 
 msgid "view restriction"
 msgstr "limitazione visualizzazioni"
@@ -748,6 +812,12 @@ msgstr "Aggiornata restrizione alla visualizzazione"
 
 msgid "Remove view restrictions"
 msgstr "Rimuovi restrizioni alla visualizzazione"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"Rimossa restrizione alla visualizzazione '%(restriction)s'. La pagina è "
+"pubblica."
 
 msgid "Removed view restriction"
 msgstr "Rimossa restrizione alla visualizzazione"

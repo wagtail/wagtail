@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -300,6 +300,20 @@ msgstr "Valitse muoto"
 msgid "Insert image"
 msgstr "Lisää kuva"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> kuva <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> kuvaa <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Vaihda kuvatiedosto:"
 
@@ -378,25 +392,37 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
-"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
-"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a href="
+"\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
 
 msgid "Preview"
 msgstr "Esikatsele"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Image URL"
+msgstr "Kuvan osoite"
+
+msgid "Copy URL"
+msgstr "Kopioi osoite"
+
+msgid "Copied to clipboard"
+msgstr "Kopioitu leikepöydälle"
+
+msgid "Copying to clipboard failed"
+msgstr "Leikepöydälle kopiointi epäonnistui"
 
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"

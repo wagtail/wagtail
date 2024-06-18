@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022,2024
 # saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2022,2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -84,8 +85,8 @@ msgid ""
 msgstr ""
 "<p>Leitarmeðmæli eru leið til þess að mæla með ákveðnum síðum eða ytri "
 "hlekkjum sem birtast ekki endilega efst í leitarniðurstöðum. T.d. getur þú "
-"mælt með aðal styrktar síðunni þinni ef leitað er að orðinu \"<em>gefa</"
-"em>\", sem annars hefði ekki skilað styrktarsíðunni í leitarniðurstöður.</p>"
+"mælt með aðal styrktar síðunni þinni ef leitað er að orðinu \"<em>gefa</em>"
+"\", sem annars hefði ekki skilað styrktarsíðunni í leitarniðurstöður.</p>"
 
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
@@ -140,16 +141,19 @@ msgstr "Bæta við meðmæltum leitarniðurstöðum"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Því miður eru engar meðmæltar niðurstöður sem passa við "
-"\"<em>%(query_string)s</em>\""
+"Því miður eru engar meðmæltar niðurstöður sem passa við \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Engin meðmæli hafa verið búin til. Hví ekki að <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">bæta við einum</a>?"
+"Engin meðmæli hafa verið búin til. Hví ekki að <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">bæta við einum</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Engin leitarorð sem mælt er með hafa verið búin til"
 
 msgid "Popular search terms"
 msgstr "Vinsælir leitarfrasar"
