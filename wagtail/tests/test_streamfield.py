@@ -731,11 +731,11 @@ class TestConstructStreamFieldFromLookup(TestCase):
                 ("paragraph", 1),
                 ("button", 3),
             ],
-            block_lookup=[
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.RichTextBlock", [], {}),
-                ("wagtail.blocks.PageChooserBlock", [], {}),
-                (
+            block_lookup={
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: ("wagtail.blocks.PageChooserBlock", [], {}),
+                3: (
                     "wagtail.blocks.StructBlock",
                     [
                         [
@@ -745,7 +745,7 @@ class TestConstructStreamFieldFromLookup(TestCase):
                     ],
                     {},
                 ),
-            ],
+            },
         )
         stream_block = field.stream_block
         self.assertIsInstance(stream_block, blocks.StreamBlock)
@@ -773,11 +773,11 @@ class TestConstructStreamFieldFromLookup(TestCase):
     def test_construct_top_level_block_from_lookup(self):
         field = StreamField(
             4,
-            block_lookup=[
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.RichTextBlock", [], {}),
-                ("wagtail.blocks.PageChooserBlock", [], {}),
-                (
+            block_lookup={
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: ("wagtail.blocks.PageChooserBlock", [], {}),
+                3: (
                     "wagtail.blocks.StructBlock",
                     [
                         [
@@ -787,7 +787,7 @@ class TestConstructStreamFieldFromLookup(TestCase):
                     ],
                     {},
                 ),
-                (
+                4: (
                     "wagtail.blocks.StreamBlock",
                     [
                         [
@@ -798,7 +798,7 @@ class TestConstructStreamFieldFromLookup(TestCase):
                     ],
                     {},
                 ),
-            ],
+            },
         )
         stream_block = field.stream_block
         self.assertIsInstance(stream_block, blocks.StreamBlock)
@@ -857,11 +857,11 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
             kwargs,
             {
                 "blank": True,
-                "block_lookup": [
-                    ("wagtail.blocks.CharBlock", (), {"required": True}),
-                    ("wagtail.blocks.RichTextBlock", (), {}),
-                    ("wagtail.blocks.PageChooserBlock", (), {}),
-                    (
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.blocks.RichTextBlock", (), {}),
+                    2: ("wagtail.blocks.PageChooserBlock", (), {}),
+                    3: (
                         "wagtail.blocks.StructBlock",
                         [
                             [
@@ -871,6 +871,6 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
                         ],
                         {},
                     ),
-                ],
+                },
             },
         )

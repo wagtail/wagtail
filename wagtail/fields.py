@@ -171,7 +171,7 @@ class StreamField(models.Field):
             for name, block in self.stream_block.child_blocks.items()
         ]
         args = [block_types]
-        kwargs["block_lookup"] = lookup.blocks
+        kwargs["block_lookup"] = lookup.get_lookup_as_dict()
         return name, path, args, kwargs
 
     def to_python(self, value):
