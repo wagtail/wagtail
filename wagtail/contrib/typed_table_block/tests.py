@@ -263,9 +263,9 @@ class TestTableBlock(TestCase):
 class TestBlockDefinitionLookup(TestCase):
     def test_block_lookup(self):
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                (
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: (
                     "wagtail.blocks.ChoiceBlock",
                     [],
                     {
@@ -276,7 +276,7 @@ class TestBlockDefinitionLookup(TestCase):
                         ]
                     },
                 ),
-                (
+                2: (
                     "wagtail.contrib.typed_table_block.blocks.TypedTableBlock",
                     [
                         [
@@ -286,7 +286,7 @@ class TestBlockDefinitionLookup(TestCase):
                     ],
                     {},
                 ),
-            ]
+            }
         )
         struct_block = lookup.get_block(2)
         self.assertIsInstance(struct_block, TypedTableBlock)

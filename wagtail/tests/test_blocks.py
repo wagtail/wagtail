@@ -5888,10 +5888,10 @@ class TestValidationErrorAsJsonData(TestCase):
 class TestBlockDefinitionLookup(TestCase):
     def test_simple_lookup(self):
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.RichTextBlock", [], {}),
-            ]
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+            }
         )
         char_block = lookup.get_block(0)
         char_block.set_name("title")
@@ -5913,10 +5913,10 @@ class TestBlockDefinitionLookup(TestCase):
 
     def test_structblock_lookup(self):
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.RichTextBlock", [], {}),
-                (
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: (
                     "wagtail.blocks.StructBlock",
                     [
                         [
@@ -5926,7 +5926,7 @@ class TestBlockDefinitionLookup(TestCase):
                     ],
                     {},
                 ),
-            ]
+            }
         )
         struct_block = lookup.get_block(2)
         self.assertIsInstance(struct_block, blocks.StructBlock)
@@ -5938,10 +5938,10 @@ class TestBlockDefinitionLookup(TestCase):
 
     def test_streamblock_lookup(self):
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.RichTextBlock", [], {}),
-                (
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: (
                     "wagtail.blocks.StreamBlock",
                     [
                         [
@@ -5951,7 +5951,7 @@ class TestBlockDefinitionLookup(TestCase):
                     ],
                     {},
                 ),
-            ]
+            }
         )
         stream_block = lookup.get_block(2)
         self.assertIsInstance(stream_block, blocks.StreamBlock)
@@ -5963,10 +5963,10 @@ class TestBlockDefinitionLookup(TestCase):
 
     def test_listblock_lookup(self):
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.CharBlock", [], {"required": True}),
-                ("wagtail.blocks.ListBlock", [0], {}),
-            ]
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.ListBlock", [0], {}),
+            }
         )
         list_block = lookup.get_block(1)
         self.assertIsInstance(list_block, blocks.ListBlock)
@@ -5977,9 +5977,9 @@ class TestBlockDefinitionLookup(TestCase):
         # Passing a class as the child block is still valid; this is not converted
         # to a reference
         lookup = BlockDefinitionLookup(
-            [
-                ("wagtail.blocks.ListBlock", [blocks.CharBlock], {}),
-            ]
+            {
+                0: ("wagtail.blocks.ListBlock", [blocks.CharBlock], {}),
+            }
         )
         list_block = lookup.get_block(0)
         self.assertIsInstance(list_block, blocks.ListBlock)

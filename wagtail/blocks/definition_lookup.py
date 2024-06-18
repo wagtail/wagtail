@@ -8,18 +8,18 @@ class BlockDefinitionLookup:
     a compact representation that avoids repeating the same definition whenever a
     block is re-used in multiple places over the block definition tree.
 
-    The underlying data is a list of block definitions, such as:
+    The underlying data is a dict of block definitions, such as:
     ```
-    [
-        ("wagtail.blocks.CharBlock", [], {"required": True}),
-        ("wagtail.blocks.RichTextBlock", [], {}),
-        ("wagtail.blocks.StreamBlock", [
+    {
+        0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+        1: ("wagtail.blocks.RichTextBlock", [], {}),
+        2: ("wagtail.blocks.StreamBlock", [
             [
                 ("heading", 0),
                 ("paragraph", 1),
             ],
         ], {}),
-    ]
+    }
     ```
 
     where each definition is a tuple of (module_path, args, kwargs) similar to that
@@ -80,3 +80,6 @@ class BlockDefinitionLookupBuilder:
         self.blocks.append(deconstructed)
         block_indexes.append((index, deconstructed))
         return index
+
+    def get_lookup_as_dict(self):
+        return dict(enumerate(self.blocks))
