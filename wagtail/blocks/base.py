@@ -439,14 +439,9 @@ class Block(metaclass=BaseBlock):
         attributes identified in MUTABLE_META_ATTRIBUTES, so checking these along with the result of
         deconstruct (which captures the constructor arguments) is sufficient to identify (valid) differences.
 
-        This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
-        in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
-        recurse into the block lists, and left them as Block instances. This __eq__ method therefore
-        came into play when identifying changes within migrations.
-
-        As of Django >=1.9, this *probably* isn't required any more. However, it may be useful in
-        future as a way of identifying blocks that can be re-used within StreamField definitions
-        (https://github.com/wagtail/wagtail/issues/4298#issuecomment-367656028).
+        This was implemented as a workaround for a Django <1.9 bug and is quite possibly not used by Wagtail
+        any more, but has been retained as it provides a sensible definition of equality (and there's no
+        reason to break it).
         """
 
         if not isinstance(other, Block):
