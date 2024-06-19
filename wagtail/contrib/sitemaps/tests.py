@@ -3,6 +3,7 @@ import datetime
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.cache import cache
 from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
@@ -12,8 +13,13 @@ from wagtail.test.testapp.models import EventIndex, SimplePage
 from .sitemap_generator import Sitemap
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestSitemapGenerator(TestCase):
     def setUp(self):
+        cache.clear()
+
         self.home_page = Page.objects.get(id=2)
 
         self.child_page = self.home_page.add_child(
@@ -106,7 +112,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(7):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -124,7 +130,7 @@ class TestSitemapGenerator(TestCase):
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
 
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(6):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -139,7 +145,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(17):
+        with self.assertNumQueries(9):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -158,7 +164,7 @@ class TestSitemapGenerator(TestCase):
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(8):
             urls = [
                 url["location"]
                 for url in sitemap.get_urls(1, django_site, req_protocol)
@@ -259,17 +265,31 @@ class TestSitemapGenerator(TestCase):
         self.assertNotIn(self.child_page.page_ptr.specific, pages)
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestIndexView(TestCase):
+    def setUp(self):
+        cache.clear()
+
     def test_index_view(self):
-        response = self.client.get("/sitemap-index.xml")
+        with self.assertNumQueries(10):
+            response = self.client.get("/sitemap-index.xml")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/xml")
 
 
+@override_settings(
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+)
 class TestSitemapView(TestCase):
+    def setUp(self):
+        cache.clear()
+
     def test_sitemap_view(self):
-        response = self.client.get("/sitemap.xml")
+        with self.assertNumQueries(6):
+            response = self.client.get("/sitemap.xml")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/xml")
@@ -279,7 +299,7 @@ class TestSitemapView(TestCase):
             MIDDLEWARE={
                 "append": "django.contrib.sites.middleware.CurrentSiteMiddleware",
             }
-        ):
+        ), self.assertNumQueries(5):
             response = self.client.get("/sitemap.xml")
 
         self.assertEqual(response.status_code, 200)
