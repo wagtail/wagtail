@@ -3,10 +3,27 @@ import {
   getAxeConfiguration,
   renderA11yResults,
 } from '../../includes/a11y-result';
-import { runContentCheck } from '../../includes/contentMetrics';
+import { wagtailPreviewPlugin } from '../../includes/previewPlugin';
+import {
+  getPreviewContentMetrics,
+  renderContentMetrics,
+} from '../../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
+
+const runContentChecks = async () => {
+  axe.registerPlugin(wagtailPreviewPlugin);
+
+  const contentMetrics = await getPreviewContentMetrics({
+    targetElement: 'main',
+  });
+
+  renderContentMetrics({
+    wordCount: contentMetrics.wordCount,
+    readingTime: contentMetrics.readingTime,
+  });
+};
 
 const runAccessibilityChecks = async (onClickSelector) => {
   const a11yRowTemplate = document.querySelector('#w-a11y-result-row-template');
@@ -207,7 +224,7 @@ function initPreview() {
       // Remove the load event listener so it doesn't fire when switching modes
       newIframe.removeEventListener('load', handleLoad);
 
-      runContentCheck();
+      runContentChecks();
 
       const onClickSelector = () => newTabButton.click();
       runAccessibilityChecks(onClickSelector);

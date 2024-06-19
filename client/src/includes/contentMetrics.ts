@@ -1,7 +1,5 @@
-interface ContentMetrics {
-  wordCount: number;
-  readingTime: number;
-}
+import axe from 'axe-core';
+import { ngettext } from '../utils/gettext';
 
 export const getWordCount = (lang: string, text: string): number => {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
@@ -43,50 +41,68 @@ export const getReadingTime = (lang: string, wordCount: number): number => {
   return readingTime;
 };
 
-const renderContentMetrics = ({ wordCount, readingTime }: ContentMetrics) => {
+interface ContentMetricsOptions {
+  targetElement: string;
+}
+
+interface ContentMetrics {
+  wordCount: number;
+  readingTime: number;
+}
+
+export const contentMetricsPluginInstance = {
+  id: 'metrics',
+  getMetrics(
+    options: ContentMetricsOptions,
+    done: (metrics: ContentMetrics) => void,
+  ) {
+    const main = document.querySelector<HTMLElement>(options.targetElement);
+    const text = main?.innerText || '';
+    const lang = document.documentElement.lang || 'en';
+    const wordCount = getWordCount(lang, text);
+    const readingTime = getReadingTime(lang, wordCount);
+    done({
+      wordCount,
+      readingTime,
+    });
+  },
+};
+
+/**
+ * Calls the `getMetrics` method in the `metrics` plugin instance of the `wagtailPreview` registry.
+ * Wrapped in a promise so we can use async/await syntax instead of callbacks
+ */
+export const getPreviewContentMetrics = (
+  options: ContentMetricsOptions,
+): Promise<ContentMetrics> =>
+  new Promise((resolve) => {
+    axe.plugins.wagtailPreview.run(
+      'metrics',
+      'getMetrics',
+      options,
+      (metrics: ContentMetrics) => {
+        resolve(metrics);
+      },
+    );
+  });
+
+export const renderContentMetrics = ({
+  wordCount,
+  readingTime,
+}: ContentMetrics) => {
   const wordCountContainer = document.querySelector<HTMLElement>(
     '[data-content-word-count]',
   );
   const readingTimeContainer = document.querySelector<HTMLElement>(
     '[data-content-reading-time]',
   );
-  const readingTimeSingleUnit = document.querySelector<HTMLElement>(
-    '[data-content-reading-time-single]',
-  );
-  const readingTimeUnitPluralUnit = document.querySelector<HTMLElement>(
-    '[data-content-reading-time-plural]',
-  );
 
-  if (
-    !wordCountContainer ||
-    !readingTimeContainer ||
-    !readingTimeSingleUnit ||
-    !readingTimeUnitPluralUnit
-  )
-    return;
+  if (!wordCountContainer || !readingTimeContainer) return;
 
-  if (readingTime === 1) {
-    readingTimeSingleUnit.hidden = false;
-    readingTimeUnitPluralUnit.hidden = true;
-  }
   wordCountContainer.textContent = wordCount.toString();
-  readingTimeContainer.textContent = readingTime.toString();
-};
-
-export const runContentCheck = () => {
-  const iframe = document.querySelector<HTMLIFrameElement>(
-    '[data-preview-iframe]',
-  );
-  const iframeDocument =
-    iframe?.contentDocument || iframe?.contentWindow?.document;
-  const text = iframeDocument?.querySelector('main')?.innerText;
-  if (!iframe || !iframeDocument || !text) {
-    return;
-  }
-  const lang = iframeDocument.documentElement.lang || 'en';
-
-  const wordCount = getWordCount(lang, text);
-  const readingTime = getReadingTime(lang, wordCount);
-
-  renderContentMetrics({ wordCount, readingTime });
+  readingTimeContainer.textContent = ngettext(
+    '%(num)s min',
+    '%(num)s mins',
+    readingTime,
+  ).replace('%(num)s', `${readingTime}`);
 };
