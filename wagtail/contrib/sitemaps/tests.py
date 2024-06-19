@@ -240,6 +240,26 @@ class TestSitemapGenerator(TestCase):
             datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
         )
 
+        with self.assertNumQueries(2):
+            self.assertDatesEqual(sitemap.latest_lastmod, sitemap.get_latest_lastmod())
+
+    def test_get_latest_lastmod(self):
+        # give the homepage a lastmod
+        self.home_page.last_published_at = datetime.datetime(
+            2017, 3, 1, 12, 0, 0, tzinfo=datetime.timezone.utc
+        )
+        self.home_page.save()
+
+        request, django_site = self.get_request_and_django_site("/sitemap.xml")
+
+        sitemap = Sitemap(request)
+
+        with self.assertNumQueries(3):
+            self.assertDatesEqual(
+                sitemap.get_latest_lastmod(),
+                datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=datetime.timezone.utc),
+            )
+
     def test_latest_lastmod_missing(self):
         # ensure homepage does not have lastmod
         self.home_page.last_published_at = None
@@ -272,6 +292,9 @@ class TestIndexView(TestCase):
     def setUp(self):
         cache.clear()
 
+        # Clear the cache to that runs are deterministic regarding the sql count
+        ContentType.objects.clear_cache()
+
     def test_index_view(self):
         with self.assertNumQueries(10):
             response = self.client.get("/sitemap-index.xml")
@@ -287,6 +310,9 @@ class TestSitemapView(TestCase):
     def setUp(self):
         cache.clear()
 
+        # Clear the cache to that runs are deterministic regarding the sql count
+        ContentType.objects.clear_cache()
+
     def test_sitemap_view(self):
         with self.assertNumQueries(6):
             response = self.client.get("/sitemap.xml")
@@ -299,7 +325,7 @@ class TestSitemapView(TestCase):
             MIDDLEWARE={
                 "append": "django.contrib.sites.middleware.CurrentSiteMiddleware",
             }
-        ), self.assertNumQueries(5):
+        ), self.assertNumQueries(6):
             response = self.client.get("/sitemap.xml")
 
         self.assertEqual(response.status_code, 200)
