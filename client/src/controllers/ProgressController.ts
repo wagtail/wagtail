@@ -72,6 +72,14 @@ export class ProgressController extends Controller<HTMLButtonElement> {
     });
   }
 
+  deactivate() {
+    this.loadingValue = false;
+
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+  }
+
   loadingValueChanged(isLoading: boolean) {
     const activeClass = this.hasActiveClass
       ? this.activeClass
@@ -103,8 +111,6 @@ export class ProgressController extends Controller<HTMLButtonElement> {
   }
 
   disconnect(): void {
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
+    this.deactivate();
   }
 }
