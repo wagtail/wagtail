@@ -1676,7 +1676,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except Page.DoesNotExist:
                 raise Http404
 
-            return subpage.specific.route(request, remaining_components)
+            specific = subpage.specific
+            setattr(specific, "_cached_parent_obj", self)
+            return specific.route(request, remaining_components)
 
         else:
             # request is for this very page
