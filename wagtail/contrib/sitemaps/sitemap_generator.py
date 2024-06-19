@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from django.utils.functional import cached_property
 
 # Note: avoid importing models here. This module is imported from __init__.py
 # which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
@@ -18,7 +19,8 @@ class Sitemap(DjangoSitemap):
         # (for backwards compatibility from before last_published_at was added)
         return obj.last_published_at or obj.latest_revision_created_at
 
-    def get_wagtail_site(self):
+    @cached_property
+    def wagtail_site(self):
         from wagtail.models import Site
 
         site = Site.find_for_request(self.request)
@@ -28,8 +30,7 @@ class Sitemap(DjangoSitemap):
 
     def items(self):
         return (
-            self.get_wagtail_site()
-            .root_page.get_descendants(inclusive=True)
+            self.wagtail_site.root_page.get_descendants(inclusive=True)
             .live()
             .public()
             .order_by("path")
