@@ -46,16 +46,21 @@ class Sitemap(DjangoSitemap):
 
     def _urls(self, page, protocol, domain):
         urls = []
-        last_mods = set()
+        latest_lastmod = None
+        all_items_lastmod = True  # track if all items have a lastmod
 
         for item in self.paginator.page(page).object_list.iterator():
-            url_info_items = item.get_sitemap_urls(self.request)
-
-            for url_info in url_info_items:
+            for url_info in item.get_sitemap_urls(self.request):
                 urls.append(url_info)
-                last_mods.add(url_info.get("lastmod"))
+                if all_items_lastmod:
+                    lastmod = url_info.get("lastmod")
+                    all_items_lastmod = lastmod is not None
+                    if all_items_lastmod and (
+                        latest_lastmod is None or lastmod > latest_lastmod
+                    ):
+                        latest_lastmod = lastmod
 
-        # last_mods might be empty if the whole site is private
-        if last_mods and None not in last_mods:
-            self.latest_lastmod = max(last_mods)
+        if all_items_lastmod and latest_lastmod:
+            self.latest_lastmod = latest_lastmod
+
         return urls
