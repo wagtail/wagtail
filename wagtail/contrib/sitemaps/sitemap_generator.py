@@ -33,8 +33,7 @@ class Sitemap(DjangoSitemap):
             .live()
             .public()
             .order_by("path")
-            .defer_streamfields()
-            .specific()
+            .specific(defer=True)
         )
 
     def _urls(self, page, protocol, domain):
