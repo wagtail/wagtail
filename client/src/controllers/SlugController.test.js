@@ -229,8 +229,6 @@ describe('compare behaviour', () => {
 });
 
 describe('urlify behaviour', () => {
-  require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
-    .default;
   let application;
 
   beforeEach(() => {

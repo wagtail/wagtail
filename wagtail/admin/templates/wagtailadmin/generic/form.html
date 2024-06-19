@@ -45,6 +45,7 @@
 {% block extra_js %}
     {{ block.super }}
     {{ media.js }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}
 
 {% block extra_css %}

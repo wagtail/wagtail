@@ -321,7 +321,7 @@ This setting enables feature detection once OpenCV is installed, see all details
 ### `WAGTAILIMAGES_INDEX_PAGE_SIZE`
 
 ```python
-WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+WAGTAILIMAGES_INDEX_PAGE_SIZE = 30
 ```
 
 Specifies the number of images per page shown on the main Images listing in the Wagtail admin.
@@ -347,12 +347,16 @@ Specifies the number of images shown per page in the image chooser modal.
 ### `WAGTAILIMAGES_RENDITION_STORAGE`
 
 ```python
+# Recommended
+WAGTAILIMAGES_RENDITION_STORAGE = 'my_custom_storage'
+# Or
 WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+WAGTAILIMAGES_RENDITION_STORAGE = MyCustomStorage()
 ```
 
-This setting allows image renditions to be stored using an alternative storage backend. The default is `None`, which will use Django's default `FileSystemStorage`.
+This setting allows image renditions to be stored using an alternative storage configuration. It is recommended to use a storage alias defined in [Django's STORAGES setting](https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES). Alternatively, this setting also accepts a dotted module path to a `Storage` subclass, or an instance of such a subclass. The default is `None`, meaning renditions will use the project's default storage.
 
-Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>`.
+Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>` for more information.
 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
@@ -676,22 +680,22 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`
+### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`
+### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.

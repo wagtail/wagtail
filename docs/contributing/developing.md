@@ -62,10 +62,9 @@ If you are confident with Python and Node development on Windows and wish to pro
 
 We recommend [Chocolatey](https://chocolatey.org/install) for managing packages in Windows. Once Chocolatey is installed you can then install the [`make`](https://community.chocolatey.org/packages/make) utility in order to run common build and development commands.
 
-To effectively collaborate with other developers on different operating systems, we use CRLF to handle our line endings. You can configure this in Git using:
+We use LF for our line endings. To effectively collaborate with other developers on different operating systems, use Git's automatic CRLF handling by setting the `core.autocrlf` config to `true`:
 
 ```doscon
-#  Configures how Git handles line endings and sets the value to True
 git config --global core.autocrlf true
 ```
 

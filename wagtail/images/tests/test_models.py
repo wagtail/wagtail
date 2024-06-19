@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files import File
-from django.core.files.storage import DefaultStorage, Storage
+from django.core.files.storage import Storage, default_storage, storages
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Prefetch
 from django.db.utils import IntegrityError
@@ -38,8 +38,7 @@ from .utils import (
 
 
 class CustomStorage(Storage):
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class TestImage(TestCase):
@@ -856,39 +855,42 @@ class TestRenditions(TestCase):
             rendition.background_position_style, "background-position: 50% 50%;"
         )
 
-    def test_custom_rendition_backend_setting(self):
-        """
-        Test the usage of WAGTAILIMAGES_RENDITION_STORAGE setting.
-        """
-        # when setting is not set, instance.get_storage() returns DefaultStorage
-        from django.conf import settings
-
-        bkp = settings
-
+    @override_settings()
+    def test_rendition_storage_setting_absent(self):
+        del settings.WAGTAILIMAGES_RENDITION_STORAGE
         self.assertFalse(hasattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE"))
-        rendition1 = self.image.get_rendition("min-120x120")
-        self.assertIsInstance(rendition1.image.file.storage, DefaultStorage)
+        self.assertEqual(get_rendition_storage(), default_storage)
 
-        # when setting is set to a path
-        setattr(
-            settings,
-            "WAGTAILIMAGES_RENDITION_STORAGE",
-            "wagtail.images.tests.test_models.CustomStorage",
+    @override_settings(
+        WAGTAILIMAGES_RENDITION_STORAGE="wagtail.images.tests.test_models.CustomStorage"
+    )
+    def test_rendition_storage_setting_given_dotted_path(self):
+        self.assertIsInstance(get_rendition_storage(), CustomStorage)
+
+    @override_settings(WAGTAILIMAGES_RENDITION_STORAGE=CustomStorage())
+    def test_rendition_storage_setting_given_storage_instance(self):
+        self.assertEqual(
+            get_rendition_storage(), settings.WAGTAILIMAGES_RENDITION_STORAGE
         )
-        backend = get_rendition_storage()
-        self.assertIsInstance(backend, CustomStorage)
 
-        # when setting is set directly, get_rendition_storage() returns the custom storage backend
-        class CustomStorage2(Storage):
-            def __init__(self):
-                super().__init__()
-
-        setattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", CustomStorage2())
-        backend = get_rendition_storage()
-        self.assertIsInstance(backend, CustomStorage2)
-
-        # clean up
-        settings = bkp
+    @override_settings(
+        STORAGES={
+            "default": {
+                "BACKEND": "django.core.files.storage.FileSystemStorage",
+            },
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            },
+            "custom_storage": {
+                "BACKEND": "wagtail.images.tests.test_models.CustomStorage",
+            },
+        },
+        WAGTAILIMAGES_RENDITION_STORAGE="custom_storage",
+    )
+    def test_rendition_storage_setting_given_storage_alias(self):
+        self.assertEqual(
+            get_rendition_storage(), storages[settings.WAGTAILIMAGES_RENDITION_STORAGE]
+        )
 
 
 @override_settings(

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Joren Štekeļs, 2024
 # Maris Serzans <maris.serzans@gmail.com>, 2015
 # Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
+"Last-Translator: Joren Štekeļs, 2024\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,14 @@ msgstr "Publicēt"
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Atkārtoti iesniegt uz %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Iesniegt uz %(workflow_name)s"
+
 msgid "Restart workflow "
 msgstr "Restartēt darbplūsmu"
 
@@ -41,6 +50,10 @@ msgstr "Saglabāt melnrakstu"
 
 msgid "Page locked"
 msgstr "Lapa slēgta"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s un publicēt"
 
 msgid "Wagtail admin"
 msgstr "Wagtail administrācija"
@@ -60,8 +73,17 @@ msgstr "Datums no"
 msgid "Date to"
 msgstr "Datums līdz"
 
+msgid "Locale"
+msgstr "Lokalizācija"
+
 msgid "All"
 msgstr "Viss"
+
+msgid "Preferred language"
+msgstr "Vēlamā valoda"
+
+msgid "Current time zone"
+msgstr "Pašreizējā laika josla"
 
 msgid "First Name"
 msgstr "Vārds"
@@ -71,6 +93,9 @@ msgstr "Uzvārds"
 
 msgid "Email"
 msgstr "E-pasts"
+
+msgid "Upload a profile picture"
+msgstr "Augšupielādēt profila attēlu"
 
 msgid "Enter password"
 msgstr "Ievadīt paroli"
@@ -112,17 +137,32 @@ msgstr ""
 "Atlasīt hierarhisko pozīciju. Piezīme: kolekcija nevar piederēt pati sev vai "
 "kādai no tās apakšpozīcijām."
 
+msgid "Please select another parent"
+msgstr "Lūdzu, izvēlieties citu valodu"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 
 msgid "Add"
 msgstr "Pievienot"
 
+msgid "Add collections"
+msgstr "Pievienot kolekcijas"
+
 msgid "Edit"
 msgstr "Labot"
 
+msgid "Edit collections"
+msgstr "Rediģēt kolekcijas"
+
 msgid "Delete"
 msgstr "Dzēst"
+
+msgid "Delete collections"
+msgstr "Izdzēst kolekcijas"
+
+msgid "You cannot edit another user's comment."
+msgstr "Jūs nevarat rediģēt cita lietotāja komentārus"
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
@@ -196,6 +236,21 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
 
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr ""
+"Tekstuālais identifikators \"%(page_slug)s\" jau tiek izmanots vecāklapā"
+
+msgid "Select a new parent for this page."
+msgstr "Izvēlieties jaunu vecāklapu šai lapai"
+
+msgid "Search…"
+msgstr "Meklēt..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Birka(s) %(value_too_long)s pārsniedz %(max_tag_length)d rakstzīmes "
+
 msgid "Visibility"
 msgstr "Redzamība"
 
@@ -216,6 +271,13 @@ msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
 "Nav iespējams piešķirt darbplūsmu vienai un tai pašai lapai vairākas reizes."
 
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Fragmentam \"%(content_type)s\" jau ir piešķirta \"%(workflow_name)s\" "
+"darbplūsma"
+
 msgid "Give your workflow a name"
 msgstr "Piešķir darbplūsmai nosaukumu"
 
@@ -224,6 +286,27 @@ msgstr "Pievieno uzdevumus savai darbplūsmai "
 
 msgid "Task"
 msgstr "Uzdevums"
+
+msgid "1 page selected"
+msgstr "1 lapa ir atlasīta"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s lapas ir atlasītas"
+
+msgid "1 snippet selected"
+msgstr "1 fragments ir atlasīts"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s fragmenti ir atlasīti"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Visi %(objects)sfragmenti šajā ekrānā ir atlasīti "
+
+msgid "All snippets in listing selected"
+msgstr "Visi fragmenti sarakstā ir atlasīti"
 
 msgid "Content"
 msgstr "Saturs"
@@ -443,6 +526,9 @@ msgstr "Datums"
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
+msgid "Your pages and snippets in a workflow"
+msgstr "Jūsu lapas un fragmenti darbplūsmā"
+
 msgid "Task started"
 msgstr "Uzdevums uzsākts"
 
@@ -646,8 +732,14 @@ msgstr "Rediģēt šo vienību"
 msgid "Workflow"
 msgstr "Darbplūsma"
 
+msgid "Page/Snippet"
+msgstr "Lapa/Fragments"
+
 msgid "Started at"
 msgstr "Sākās plkst."
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Neviena lapa/fragments vēl netika iesniegts moderēšanai"
 
 msgid "Completed at"
 msgstr "Pabeigts plkst."
@@ -683,8 +775,21 @@ msgstr "Parādīt pārlūkā"
 msgid "No"
 msgstr "Nē"
 
+msgid "Assign your workflow to snippets"
+msgstr "Piešķirt jūsu darbplūsmu fragmentiem"
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr "Jūsu darbplūsma ir atspējota un nevar tikt piešķirta fragmentiem."
+
 msgid "Page"
 msgstr "Lapa"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "%(counter)s fragmentu veidi"
+msgstr[1] "1 fragmentu veids"
+msgstr[2] "%(counter)s fragmentu veidi"
 
 msgid "New"
 msgstr "Jauns"
@@ -840,6 +945,54 @@ msgstr "Rādīt"
 
 msgid "Awaiting my review"
 msgstr "Gaida manu pārbaudi"
+
+msgid "Page/Snippet ID"
+msgstr "Lapas/Fragmenta ID"
+
+msgid "Page/Snippet Type"
+msgstr "Lapas/Fragmenta veids"
+
+msgid "Page/Snippet Title"
+msgstr "Lapas/Fragmenta nosaukums"
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapās/fragmentos. Šīs "
+"darbplūsmas atspējošana atcels moderāciju šajās lapās/fragmentos."
+msgstr[1] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapā/fragmentā. Šīs "
+"darbplūsmas atspējošana atcels moderāciju šinī lapā/fragmentā."
+msgstr[2] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapās/fragmentos. Šīs "
+"darbplūsmas atspējošana atcels moderāciju šajās lapās/fragmentos."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapās/fragmentos. Šī "
+"uzdevuma atcelšana izraisīs tā izlaišanu moderācijas darbplūsmā un nebūs "
+"iekļauta sarakstā, rediģējot darbplūsmu."
+msgstr[1] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapā/fragmentā. Šī uzdevuma "
+"atcelšana izraisīs tā izlaišanu moderācijas darbplūsmā un nebūs iekļauta "
+"sarakstā, rediģējot darbplūsmu."
+msgstr[2] ""
+"Šī darbplūsma ir procesā %(states_in_progress)d lapās/fragmentos. Šī "
+"uzdevuma atcelšana izraisīs tā izlaišanu moderācijas darbplūsmā un nebūs "
+"iekļauta sarakstā, rediģējot darbplūsmu."
 
 msgid "Choose an item"
 msgstr "Izvēlies vienību"

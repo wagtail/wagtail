@@ -4,9 +4,9 @@
  */
 export const slugify = (
   value: string,
-  { unicodeSlugsEnabled = false }: { unicodeSlugsEnabled?: boolean } = {},
+  { allowUnicode = false }: { allowUnicode?: boolean } = {},
 ) =>
-  unicodeSlugsEnabled
+  allowUnicode
     ? value
         .replace(/\s+/g, '-')
         .replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '')

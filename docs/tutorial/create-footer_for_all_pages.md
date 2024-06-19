@@ -18,7 +18,6 @@ Now, go to your `base/models.py` file and add the following lines of code:
 
 ```python
 from django.db import models
-from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
@@ -48,9 +47,17 @@ class NavigationSettings(BaseGenericSetting):
 
 In the preceding code, the `register_setting` decorator registers your `NavigationSettings` models. You used the `BaseGenericSetting` base model class to define a settings model that applies to all web pages rather than just one page.
 
-Now, migrate your database by running the commands `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You'll get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't install the [`wagtail.contrib.settings`](../reference/settings.md) module.
+Now, migrate your database by running the commands `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, reload your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You'll get the error _'wagtailsettings' is not a registered namespace_. This is because you haven't installed the [`wagtail.contrib.settings`](../reference/settings.md) module.
 
-The `wagtail.contrib.settings` module defines models that hold common settings across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install `wagtail.contrib.settings`, go to your `mysite/settings/base.py` file and add `"wagtail.contrib.settings"` to the `INSTALLED_APPS` list.
+The `wagtail.contrib.settings` module defines models that hold common settings across all your web pages. So, to successfully import the `BaseGenericSetting` and `register_setting`, you must install the `wagtail.contrib.settings` module on your site. To install `wagtail.contrib.settings`, go to your `mysite/settings/base.py` file and add `"wagtail.contrib.settings"` to the `INSTALLED_APPS` list:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    # Add this line to install wagtail.contrib.settings:
+    "wagtail.contrib.settings",
+]
+```
 
 Also, you have to register the _settings_ context processor. Registering _settings_ context processor makes site-wide settings accessible in your templates. To register the _settings_ context processor, modify your `mysite/settings/base.py` file as follows:
 

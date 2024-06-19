@@ -1,30 +1,11 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ media.js }}
-{% endblock %}
-
-{% block main_header %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
-{% endblock %}
-
-{% block content %}
-    {% block header %}
-        {{ block.super }}
-    {% endblock %}
-
+{% block main_content %}
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
-        <div class="nice-padding w-form-width">
+        <div class="w-form-width">
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
             {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
@@ -69,8 +50,10 @@
                             <button
                                 type="submit"
                                 class="button action-save button-longrunning w-flex-grow"
-                                data-controller="w-progress"
+                                data-controller="w-progress w-kbd"
                                 data-action="w-progress#activate"
+                                data-w-kbd-key-value="mod+s"
+                                data-w-kbd-scope-value="global"
                                 data-w-progress-active-value="{% trans 'Saving…' %}"
                             >
                                 {% icon name="spinner" %}

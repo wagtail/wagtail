@@ -1,18 +1,40 @@
+from warnings import warn
+
+import django_filters
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.forms import CheckboxSelectMultiple
+from django.template import RequestContext
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from wagtail import hooks
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    StatusTagColumn,
+    TitleColumn,
+)
+from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.views.generic.history import HistoryView
+from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
+from wagtail.admin.widgets.button import (
+    BaseDropdownMenuButton,
+    ButtonWithDropdown,
+)
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.coreutils import accepts_kwarg
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.loading import get_custom_form
 
 User = get_user_model()
@@ -64,6 +86,45 @@ def get_users_filter_query(q, model_fields):
     return conditions
 
 
+class UserColumn(TitleColumn):
+    cell_template_name = "wagtailusers/users/user_cell.html"
+
+
+class UserFilterSet(WagtailFilterSet):
+    is_superuser = django_filters.BooleanFilter(
+        label=gettext_lazy("Administrator"),
+        widget=BooleanRadioSelect,
+    )
+    last_login = django_filters.DateFromToRangeFilter(
+        label=gettext_lazy("Last login"),
+        widget=DateRangePickerWidget,
+    )
+    group = django_filters.ModelMultipleChoiceFilter(
+        field_name="groups",
+        queryset=Group.objects.all(),
+        label=gettext_lazy("Group"),
+        widget=CheckboxSelectMultiple,
+    )
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        try:
+            self._meta.model._meta.get_field("is_active")
+        except FieldDoesNotExist:
+            pass
+        else:
+            self.filters["is_active"] = django_filters.BooleanFilter(
+                field_name="is_active",
+                label=gettext_lazy("Active"),
+                widget=BooleanRadioSelect,
+            )
+            self.filters.move_to_end("is_active", last=False)
+
+    class Meta:
+        model = User
+        fields = []
+
+
 class Index(IndexView):
     """
     Lists the users for management within the admin.
@@ -71,72 +132,129 @@ class Index(IndexView):
 
     template_name = "wagtailusers/users/index.html"
     results_template_name = "wagtailusers/users/index_results.html"
-    any_permission_required = ["add", "change", "delete"]
-    permission_policy = ModelPermissionPolicy(User)
-    model = User
-    header_icon = "user"
-    add_item_label = _("Add a user")
+    add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
-    index_url_name = "wagtailusers_users:index"
-    add_url_name = "wagtailusers_users:add"
-    edit_url_name = "wagtailusers_users:edit"
-    default_ordering = "name"
-    paginate_by = 20
     is_searchable = True
     page_title = gettext_lazy("Users")
     show_other_searches = True
-    model_fields = [f.name for f in User._meta.get_fields()]
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.group = get_object_or_404(Group, id=args[0]) if args else None
-        self.group_filter = Q(groups=self.group) if self.group else Q()
+    @cached_property
+    def columns(self):
+        _UserColumn = self._get_title_column_class(UserColumn)
+        return [
+            BulkActionsCheckboxColumn("bulk_actions", obj_type="user"),
+            _UserColumn(
+                "name",
+                accessor=lambda u: get_user_display_name(u),
+                label=gettext_lazy("Name"),
+                sort_key="name"
+                if self.model_fields.issuperset({"first_name", "last_name"})
+                else None,
+                get_url=self.get_edit_url,
+                classname="name",
+            ),
+            Column(
+                self.model.USERNAME_FIELD,
+                accessor="get_username",
+                label=gettext_lazy("Username"),
+                sort_key=self.model.USERNAME_FIELD,
+                classname="username",
+                width="20%",
+            ),
+            Column(
+                "is_superuser",
+                accessor=lambda u: gettext_lazy("Admin") if u.is_superuser else None,
+                label=gettext_lazy("Access level"),
+                sort_key="is_superuser",
+                classname="level",
+                width="10%",
+            ),
+            StatusTagColumn(
+                "is_active",
+                accessor=lambda u: gettext_lazy("Active")
+                if u.is_active
+                else gettext_lazy("Inactive"),
+                primary=lambda u: u.is_active,
+                label=gettext_lazy("Status"),
+                sort_key="is_active" if "is_active" in self.model_fields else None,
+                classname="status",
+                width="10%",
+            ),
+            DateColumn(
+                "last_login",
+                label=gettext_lazy("Last login"),
+                sort_key="last_login",
+                classname="last-login",
+                width="15%",
+            ),
+        ]
 
-    def get_index_results_url(self):
-        if self.group:
-            return reverse("wagtailusers_groups:users_results", args=[self.group.pk])
-        else:
-            return reverse("wagtailusers_users:index_results")
+    @cached_property
+    def model_fields(self):
+        return {f.name for f in User._meta.get_fields()}
 
-    def get_valid_orderings(self):
-        return ["name", "username"]
+    def get_delete_url(self, instance):
+        if user_can_delete_user(self.request.user, instance):
+            return super().get_delete_url(instance)
 
-    def get_queryset(self):
-        model_fields = set(self.model_fields)
-        if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, model_fields)
-            users = User.objects.filter(self.group_filter & conditions)
-        else:
-            users = User.objects.filter(self.group_filter)
+    def get_list_buttons(self, instance):
+        more_buttons = self.get_list_more_buttons(instance)
+        list_buttons = []
 
-        if self.locale:
-            users = users.filter(locale=self.locale)
+        for hook in hooks.get_hooks("register_user_listing_buttons"):
+            if accepts_kwarg(hook, "request_user"):
+                hook_buttons = hook(user=instance, request_user=self.request.user)
+            else:
+                # old-style hook that accepts a context argument instead of request_user
+                hook_buttons = hook(RequestContext(self.request), instance)
+                warn(
+                    "`register_user_listing_buttons` hook functions should accept a `request_user` argument instead of `context` -"
+                    f" {hook.__module__}.{hook.__name__} needs to be updated",
+                    category=RemovedInWagtail70Warning,
+                )
 
-        if "wagtail_userprofile" in model_fields:
+            for button in hook_buttons:
+                if isinstance(button, BaseDropdownMenuButton):
+                    # If the button is a dropdown menu, add it to the top-level
+                    # because we do not support nested dropdowns
+                    list_buttons.append(button)
+                else:
+                    # Otherwise, add it to the default "More" dropdown
+                    more_buttons.append(button)
+
+        list_buttons.append(
+            ButtonWithDropdown(
+                buttons=sorted(more_buttons),
+                icon_name="dots-horizontal",
+                attrs={
+                    "aria-label": _("More options for '%(title)s'")
+                    % {"title": str(instance)},
+                },
+            )
+        )
+
+        return sorted(list_buttons)
+
+    def get_base_queryset(self):
+        users = User._default_manager.all()
+
+        if "wagtail_userprofile" in self.model_fields:
             users = users.select_related("wagtail_userprofile")
-
-        if "last_name" in model_fields and "first_name" in model_fields:
-            users = users.order_by("last_name", "first_name")
-
-        if self.ordering == "username":
-            users = users.order_by(User.USERNAME_FIELD)
 
         return users
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        context_data = super().get_context_data(
-            *args, object_list=object_list, **kwargs
-        )
-        context_data["ordering"] = self.ordering
-        context_data["group"] = self.group
+    def order_queryset(self, queryset):
+        if self.ordering == "name":
+            return queryset.order_by("last_name", "first_name")
+        if self.ordering == "-name":
+            return queryset.order_by("-last_name", "-first_name")
+        return super().order_queryset(queryset)
 
-        context_data.update(
-            {
-                "app_label": User._meta.app_label,
-                "model_name": User._meta.model_name,
-            }
-        )
-        return context_data
+    def search_queryset(self, queryset):
+        if self.is_searching:
+            conditions = get_users_filter_query(self.search_query, self.model_fields)
+            return queryset.filter(conditions)
+        return queryset
 
 
 class Create(CreateView):
@@ -144,15 +262,6 @@ class Create(CreateView):
     Provide the ability to create a user within the admin.
     """
 
-    permission_policy = ModelPermissionPolicy(User)
-    permission_required = "add"
-    model = User
-    form_class = get_user_creation_form()
-    template_name = "wagtailusers/users/create.html"
-    header_icon = "user"
-    add_url_name = "wagtailusers_users:add"
-    index_url_name = "wagtailusers_users:index"
-    edit_url_name = "wagtailusers_users:edit"
     success_message = gettext_lazy("User '%(object)s' created.")
     page_title = gettext_lazy("Add user")
 
@@ -169,25 +278,13 @@ class Create(CreateView):
             self.object,
         )
 
-    def get_add_url(self):
-        return None
-
 
 class Edit(EditView):
     """
     Provide the ability to edit a user within the admin.
     """
 
-    model = User
-    permission_policy = ModelPermissionPolicy(User)
-    form_class = get_user_edit_form()
-    header_icon = "user"
-    template_name = "wagtailusers/users/edit.html"
-    index_url_name = "wagtailusers_users:index"
-    edit_url_name = "wagtailusers_users:edit"
-    delete_url_name = "wagtailusers_users:delete"
     success_message = gettext_lazy("User '%(object)s' updated.")
-    context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
 
     def setup(self, request, *args, **kwargs):
@@ -226,15 +323,11 @@ class Edit(EditView):
             self.object,
         )
 
-    def get_edit_url(self):
-        return reverse(self.edit_url_name, args=(self.object.pk,))
-
-    def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.object.pk,))
+    def get_page_subtitle(self):
+        return get_user_display_name(self.object)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.pop("action_url")
         context["can_delete"] = self.can_delete
         return context
 
@@ -244,15 +337,7 @@ class Delete(DeleteView):
     Provide the ability to delete a user within the admin.
     """
 
-    permission_policy = ModelPermissionPolicy(User)
-    permission_required = "delete"
-    model = User
-    template_name = "wagtailusers/users/confirm_delete.html"
-    delete_url_name = "wagtailusers_users:delete"
-    edit_url_name = "wagtailusers_users:edit"
-    index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
-    context_object_name = "user"
     success_message = gettext_lazy("User '%(object)s' deleted.")
 
     def dispatch(self, request, *args, **kwargs):
@@ -274,3 +359,37 @@ class Delete(DeleteView):
             self.request,
             self.object,
         )
+
+
+class History(HistoryView):
+    def get_page_subtitle(self):
+        return get_user_display_name(self.object)
+
+
+class UserViewSet(ModelViewSet):
+    icon = "user"
+    model = User
+    ordering = "name"
+    add_to_reference_index = False
+    filterset_class = UserFilterSet
+
+    index_view_class = Index
+    add_view_class = Create
+    edit_view_class = Edit
+    delete_view_class = Delete
+    history_view_class = History
+
+    template_prefix = "wagtailusers/users/"
+
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "usage_url_name": None,
+                **kwargs,
+            }
+        )
+
+    def get_form_class(self, for_update=False):
+        if for_update:
+            return get_user_edit_form()
+        return get_user_creation_form()

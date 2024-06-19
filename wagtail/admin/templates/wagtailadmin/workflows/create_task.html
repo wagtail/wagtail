@@ -1,22 +1,11 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/create.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{{ view.page_title }}{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-{% endblock %}
-
-{% block content %}
-    {% block header %}
-        {{ block.super }}
-    {% endblock %}
-
+{% block main_content %}
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        <ul class="fields nice-padding">
+        <ul class="fields">
             {% for field in form %}
                 {% if not field.is_hidden %}
                     <li>{% formattedfield field %}</li>
@@ -33,8 +22,10 @@
                         <button
                             type="submit"
                             class="button action-save button-longrunning w-flex-grow"
-                            data-controller="w-progress"
+                            data-controller="w-progress w-kbd"
                             data-action="w-progress#activate"
+                            data-w-kbd-key-value="mod+s"
+                            data-w-kbd-scope-value="global"
                             data-w-progress-active-value="{% trans 'Creating…' %}"
                         >
                             {% icon name="spinner" %}

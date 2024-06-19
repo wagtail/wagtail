@@ -127,7 +127,9 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if not getattr(settings, "WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE", True):
+        if not getattr(settings, "WAGTAIL_PRIVATE_PAGE_OPTIONS", {}).get(
+            "SHARED_PASSWORD", True
+        ):
             self.fields["restriction_type"].choices = [
                 choice
                 for choice in PageViewRestriction.RESTRICTION_CHOICES
@@ -226,3 +228,39 @@ class MoveForm(forms.Form):
             label=_("New parent page"),
             help_text=_("Select a new parent for this page."),
         )
+
+
+class ParentChooserForm(forms.Form):
+    def __init__(self, child_page_type, user, *args, **kwargs):
+        self.child_page_type = child_page_type
+        self.user = user
+        super().__init__(*args, **kwargs)
+        self.fields["parent_page"] = forms.ModelChoiceField(
+            queryset=Page.objects.all(),
+            widget=widgets.AdminPageChooser(
+                target_models=self.child_page_type.allowed_parent_page_models(),
+                can_choose_root=True,
+                user_perms="add_subpage",
+            ),
+            label=_("Parent page"),
+            help_text=_("The new page will be a child of this given parent page."),
+        )
+
+    def clean_parent_page(self):
+        parent_page = self.cleaned_data["parent_page"].specific_deferred
+        if not parent_page.permissions_for_user(self.user).can_add_subpage():
+            raise forms.ValidationError(
+                _('You do not have permission to create a page under "%(page_title)s".')
+                % {"page_title": parent_page.get_admin_display_title()}
+            )
+        if not self.child_page_type.can_create_at(parent_page):
+            raise forms.ValidationError(
+                _(
+                    'You cannot create a page of type "%(page_type)s" under "%(page_title)s".'
+                )
+                % {
+                    "page_type": self.child_page_type.get_verbose_name(),
+                    "page_title": parent_page.get_admin_display_title(),
+                }
+            )
+        return parent_page

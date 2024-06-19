@@ -1,11 +1,5 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/create.html" %}
 {% load wagtailusers_tags i18n wagtailadmin_tags %}
-
-{% block extra_css %}
-    {{ block.super }}
-
-    {{ form_media.css }}
-{% endblock %}
 
 {% block main_content %}
     <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>

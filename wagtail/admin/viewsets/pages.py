@@ -1,5 +1,6 @@
 from django.urls import path
 
+from wagtail.admin.views.pages.choose_parent import ChooseParentView
 from wagtail.admin.views.pages.listing import IndexView
 from wagtail.models import Page
 
@@ -16,6 +17,8 @@ class PageListingViewSet(ViewSet):
 
     #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.pages.listing.IndexView``.
     index_view_class = IndexView
+    #: The view class to use for choosing the parent page when creating a new page of this page type.
+    choose_parent_view_class = ChooseParentView
     #: Required; the page model class that this viewset will work with.
     model = Page
     #: A list of ``wagtail.admin.ui.tables.Column`` instances for the columns in the listing.
@@ -25,15 +28,28 @@ class PageListingViewSet(ViewSet):
     #: This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = IndexView.filterset_class
 
+    def get_common_view_kwargs(self, **kwargs):
+        return super().get_common_view_kwargs(
+            **{
+                "_show_breadcrumbs": True,
+                "header_icon": self.icon,
+                "model": self.model,
+                "index_url_name": self.get_url_name("index"),
+                "add_url_name": self.get_url_name("choose_parent"),
+                **kwargs,
+            }
+        )
+
     def get_index_view_kwargs(self, **kwargs):
         return {
-            "index_url_name": self.get_url_name("index"),
             "index_results_url_name": self.get_url_name("index_results"),
-            "model": self.model,
             "columns": self.columns,
             "filterset_class": self.filterset_class,
             **kwargs,
         }
+
+    def get_choose_parent_view_kwargs(self, **kwargs):
+        return kwargs
 
     @property
     def index_view(self):
@@ -47,8 +63,15 @@ class PageListingViewSet(ViewSet):
             self.index_view_class, **self.get_index_view_kwargs(), results_only=True
         )
 
+    @property
+    def choose_parent_view(self):
+        return self.construct_view(
+            self.choose_parent_view_class, **self.get_choose_parent_view_kwargs()
+        )
+
     def get_urlpatterns(self):
         return [
             path("", self.index_view, name="index"),
             path("results/", self.index_results_view, name="index_results"),
+            path("choose_parent/", self.choose_parent_view, name="choose_parent"),
         ]

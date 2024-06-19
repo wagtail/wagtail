@@ -20,7 +20,25 @@ class TestSiteIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Sites"}],
+            response.content,
+        )
+
+    def test_num_queries(self):
+        # Warm up the cache
+        self.get()
+        with self.assertNumQueries(9):
+            self.get()
+
+        sites = [
+            Site(hostname=f"host {i}", port=f"800{i}", root_page_id=2)
+            for i in range(10)
+        ]
+        Site.objects.bulk_create(sites)
+
+        with self.assertNumQueries(9):
+            self.get()
 
 
 class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -56,7 +74,13 @@ class TestSiteCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Sites", "url": "/admin/sites/"},
+                {"label": "New: Site", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_create(self):
         response = self.post(
@@ -200,7 +224,13 @@ class TestSiteEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/sites/", "label": "Sites"},
+                {"url": "", "label": str(self.localhost)},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/sites/edit/%d/" % self.localhost.id

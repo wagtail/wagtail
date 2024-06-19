@@ -1,9 +1,10 @@
 from django.test import TestCase
 
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestCustomListing(TestCase, WagtailTestUtils):
+class TestCustomListing(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def test_get(self):
@@ -15,6 +16,16 @@ class TestCustomListing(TestCase, WagtailTestUtils):
         self.assertContains(response, "Christmas")
         self.assertContains(response, "Saint Patrick")
         self.assertNotContains(response, "Welcome to the Wagtail test site!")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Event pages"}],
+            response.content,
+        )
+        soup = self.get_soup(response.content)
+        breadcrumbs_icon = soup.select_one(".w-breadcrumbs__icon")
+        self.assertIsNotNone(breadcrumbs_icon)
+        use = breadcrumbs_icon.select_one("use")
+        self.assertIsNotNone(use)
+        self.assertEqual(use["href"], "#icon-calendar")
 
     def test_filter(self):
         self.login()

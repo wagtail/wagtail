@@ -12,7 +12,7 @@ describe('slugify', () => {
   });
 
   describe('slugify with unicode slugs enabled', () => {
-    const options = { unicodeSlugsEnabled: true };
+    const options = { allowUnicode: true };
 
     it('should return a correct slug', () => {
       expect(slugify('The Price is $72.00!', options)).toBe(

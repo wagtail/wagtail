@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -14,7 +15,7 @@ from django.views import View
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
@@ -23,29 +24,38 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
-from wagtail.models import Collection, Site
+from wagtail.models import Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
-INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
+Image = get_image_model()
+
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
+class ImagesFilterSet(BaseMediaFilterSet):
+    permission_policy = permission_policy
+
+    class Meta:
+        model = Image
+        fields = []
+
+
 class IndexView(generic.IndexView):
-    ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
-        "-created_at": _("Newest"),
-        "created_at": _("Oldest"),
-        "title": _("Title: (A -> Z)"),
-        "-title": _("Title: (Z -> A)"),
-        "file_size": _("File size: (low to high)"),
-        "-file_size": _("File size: (high to low)"),
+        "-created_at": gettext_lazy("Newest"),
+        "created_at": gettext_lazy("Oldest"),
+        "title": gettext_lazy("Title: (A -> Z)"),
+        "-title": gettext_lazy("Title: (Z -> A)"),
+        "file_size": gettext_lazy("File size: (low to high)"),
+        "-file_size": gettext_lazy("File size: (high to low)"),
     }
     default_ordering = "-created_at"
     context_object_name = "images"
     permission_policy = permission_policy
     any_permission_required = ["add", "change", "delete"]
-    model = get_image_model()
+    model = Image
+    filterset_class = ImagesFilterSet
     show_other_searches = True
     header_icon = "image"
     page_title = gettext_lazy("Images")
@@ -54,21 +64,13 @@ class IndexView(generic.IndexView):
     index_results_url_name = "wagtailimages:index_results"
     add_url_name = "wagtailimages:add_multiple"
     edit_url_name = "wagtailimages:edit"
+    _show_breadcrumbs = True
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
+    columns = []
 
     def get_paginate_by(self, queryset):
-        entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
-        try:
-            entries_per_page = int(entries_per_page)
-        except ValueError:
-            entries_per_page = INDEX_PAGE_SIZE
-        if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
-            entries_per_page = INDEX_PAGE_SIZE
-
-        self.entries_per_page = entries_per_page
-
-        return entries_per_page
+        return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
@@ -84,35 +86,22 @@ class IndexView(generic.IndexView):
         )
         return images
 
-    def filter_queryset(self, queryset):
-        # Filter by collection
-        self.current_collection = None
-        collection_id = self.request.GET.get("collection_id")
-        if collection_id:
-            try:
-                self.current_collection = Collection.objects.get(id=collection_id)
-                queryset = queryset.filter(collection=self.current_collection)
-            except (ValueError, Collection.DoesNotExist):
-                pass
-
-        # Filter by tag
-        self.current_tag = self.request.GET.get("tag")
-        # Combining search with tag filter is not yet supported, see
-        # https://github.com/wagtail/wagtail/issues/6616
-        if self.current_tag and not self.search_query:
-            try:
-                queryset = queryset.filter(tags__name=self.current_tag)
-            except AttributeError:
-                self.current_tag = None
-
-        return queryset
+    @cached_property
+    def current_collection(self):
+        # Upon validation, the cleaned data is a Collection instance
+        return self.filters and self.filters.form.cleaned_data.get("collection_id")
 
     def get_add_url(self):
-        # Pass the query string so that the collection filter is preserved
+        # Pass the collection filter to prefill the add form's collection field
         return set_query_params(
             super().get_add_url(),
-            self.request.GET.copy(),
+            {"collection_id": self.current_collection and self.current_collection.pk},
         )
+
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["is_searching"] = self.is_searching
+        return kwargs
 
     def get_next_url(self):
         next_url = self.index_url
@@ -127,30 +116,12 @@ class IndexView(generic.IndexView):
         context.update(
             {
                 "next": self.get_next_url(),
-                "entries_per_page": self.entries_per_page,
-                "current_tag": self.current_tag,
                 "current_collection": self.current_collection,
-                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
         )
 
-        if self.results_only:
-            return context
-
-        collections = self.permission_policy.collections_user_has_any_permission_for(
-            self.request.user, ["add", "change"]
-        )
-        if len(collections) < 2:
-            collections = None
-
-        context.update(
-            {
-                "popular_tags": popular_tags_for_model(get_image_model()),
-                "collections": collections,
-            }
-        )
         return context
 
 

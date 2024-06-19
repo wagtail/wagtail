@@ -51,7 +51,7 @@
             // When enabled, forces users to create new tags through autocomplete
             autocompleteOnly: false,
 
-            // When enabled, quotes are unneccesary for inputting multi-word tags.
+            // When enabled, quotes are unnecessary for inputting multi-word tags.
             allowSpaces: false,
 
             // The below options are for using a single field instead of several

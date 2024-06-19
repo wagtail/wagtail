@@ -6,7 +6,7 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
 /**
  * Adds the ability for a controlled element to update the total count
  * of selected elements within the provided container selector, defaults
- * do `body.`
+ * to `body.`
  *
  * @example
  * <div data-controller="w-count">

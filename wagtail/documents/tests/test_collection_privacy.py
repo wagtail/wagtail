@@ -150,7 +150,9 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         # check that the option for password is visible
         self.assertIsNotNone(input_el)
 
-    @override_settings(WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION=False)
+    @override_settings(
+        WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS={"SHARED_PASSWORD": False}
+    )
     def test_unset_shared_password_with_logged_in_user(self):
         self.login()
         response = self.client.get(

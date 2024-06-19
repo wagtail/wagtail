@@ -38,8 +38,9 @@ const mapIntersections = (
   acc: LinkIntersections,
   { target, isIntersecting }: IntersectionObserverEntry,
 ) => {
-  const href = `#${target.closest('[data-panel]')?.id}` || '';
-  acc[href] = isIntersecting;
+  const id = target.closest('[data-panel]')?.id;
+  if (!id) return acc;
+  acc[`#${id}`] = isIntersecting;
   return acc;
 };
 

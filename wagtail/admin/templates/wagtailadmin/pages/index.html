@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block header %}
-    {% include 'wagtailadmin/shared/headers/slim_header.html' with title=header_title search_url=index_results_url %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with title=header_title icon_name=header_icon search_url=index_results_url buttons=header_buttons %}
 {% endblock %}
 
 {% block listing %}

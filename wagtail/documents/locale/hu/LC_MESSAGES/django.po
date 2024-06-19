@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022,2024
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022,2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -230,6 +230,20 @@ msgid ""
 msgstr ""
 "Még nem töltött fel dokumentumot. Nem szeretne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">feltölteni egyet</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokumentum létrehozva ezen az oldalon: <span "
+"class=\"w-sr-only\">%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokumentum létrehozva ezen az oldalon: <span "
+"class=\"w-sr-only\">%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Több dokumentum hozzáadása"

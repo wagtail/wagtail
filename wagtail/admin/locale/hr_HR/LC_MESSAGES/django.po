@@ -1358,6 +1358,10 @@ msgid "Delete '%(title)s'"
 msgstr "Izbriši '%(title)s'"
 
 #, python-format
+msgid "More options for '%(title)s'"
+msgstr "Više opcija za '%(title)s'"
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Novi: %(model_name)s"
 

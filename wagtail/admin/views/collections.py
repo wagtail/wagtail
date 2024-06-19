@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
+from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.models import Collection
 from wagtail.permissions import collection_permission_policy
@@ -14,17 +15,30 @@ class Index(IndexView):
     permission_policy = collection_permission_policy
     model = Collection
     context_object_name = "collections"
-    template_name = "wagtailadmin/collections/index.html"
+    results_template_name = "wagtailadmin/collections/index_results.html"
     add_url_name = "wagtailadmin_collections:add"
     index_url_name = "wagtailadmin_collections:index"
     page_title = gettext_lazy("Collections")
     add_item_label = gettext_lazy("Add a collection")
     header_icon = "folder-open-1"
+    columns = [
+        TitleColumn(
+            "name",
+            label=gettext_lazy("Name"),
+            url_name="wagtailadmin_collections:edit",
+            id_accessor="0",
+            accessor="1",
+        )
+    ]
+    _show_breadcrumbs = True
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["add", "change", "delete"]
         ).exclude(depth=1)
+
+    def get_table(self, object_list):
+        return super().get_table(object_list.get_indented_choices())
 
 
 class Create(CreateView):
@@ -37,6 +51,7 @@ class Create(CreateView):
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     header_icon = "folder-open-1"
+    _show_breadcrumbs = True
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -67,6 +82,7 @@ class Edit(EditView):
     delete_url_name = "wagtailadmin_collections:delete"
     context_object_name = "collection"
     header_icon = "folder-open-1"
+    _show_breadcrumbs = True
 
     def _user_may_move_collection(self, user, instance):
         """

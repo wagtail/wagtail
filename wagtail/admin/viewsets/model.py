@@ -649,8 +649,8 @@ class ModelViewSet(ViewSet):
     def _legacy_urlpatterns(self):
         # RemovedInWagtail70Warning: Remove legacy URL patterns
         return [
-            path("<int:pk>/", self.redirect_to_edit_view),
-            path("<int:pk>/delete/", self.redirect_to_delete_view),
+            path("<str:pk>/", self.redirect_to_edit_view),
+            path("<str:pk>/delete/", self.redirect_to_delete_view),
         ]
 
     def on_register(self):

@@ -243,6 +243,9 @@ msgstr "El llimac '%(page_slug)s' ja està en ús a la pàgina principal"
 msgid "Select a new parent for this page."
 msgstr "Seleccioneu un nou pare per aquesta pàgina."
 
+msgid "Search…"
+msgstr "Cercar..."
+
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
@@ -700,6 +703,14 @@ msgstr "Cancel·lar"
 #, python-format
 msgid "No %(model_name)s match your query."
 msgstr "Cap %(model_name)s concorda amb la vostra consulta."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"No hi ha %(model_name)s per mostrar. En voleu <a "
+"href=\"%(add_url)s\">afegir</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -1681,6 +1692,10 @@ msgstr "Afegeix una pàgina filla a '%(title)s'"
 msgid "Drag"
 msgstr "Agafa"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Element %(index)s de %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Desactiva l'ordenació de les pàgines fill"
 
@@ -1690,8 +1705,36 @@ msgstr "Ordenació"
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s de %(items_count)s a tot el lloc."
+
+msgid "No results across entire site."
+msgstr "No s'han trobat resultats en tot el lloc."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Cercar a '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s de %(items_count)s a '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"No hi ha resultats a '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Cercar en tot el lloc"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s de %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Menú de llocs"
@@ -1806,8 +1849,20 @@ msgstr "No s'han trobat pàgines que acompleixin aquests criteris d'informe."
 msgid "Updated"
 msgstr "Actualitzat"
 
+msgid "App"
+msgstr "Aplicació"
+
 msgid "Pages"
 msgstr "Pàgines"
+
+msgid "Last edited page"
+msgstr "Última pàgina editada"
+
+msgid "Last edit"
+msgstr "Última edició"
+
+msgid "No page types found."
+msgstr "No s'ha trobat cap tipus de pàgina."
 
 msgid "Locking status"
 msgstr "Estat de bloqueig"
@@ -1890,6 +1945,12 @@ msgstr "Aplica els filtres"
 
 msgid "Add comment"
 msgstr "Afegir comentari"
+
+msgid "Show filters"
+msgstr "Mostrar filtres"
+
+msgid "Filter by"
+msgstr "Filtrar per"
 
 msgid "Back"
 msgstr "Tornar"
@@ -2456,6 +2517,12 @@ msgstr "Mostrar/ocultar comentaris"
 msgid "Comments"
 msgstr "Comentaris"
 
+msgid "Toggle checks"
+msgstr "Commutar marques"
+
+msgid "Checks"
+msgstr "Marques"
+
 msgid "Toggle preview"
 msgstr "Mostrar/ocultar previsualització"
 
@@ -2674,6 +2741,10 @@ msgstr ""
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
 
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Copiar '%(title)s'"
+
 msgid "Inspect"
 msgstr "Inspeccionar"
 
@@ -2690,11 +2761,23 @@ msgid "More options for '%(title)s'"
 msgstr "Més opcions per '%(title)s'"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "Afegir %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "No s'ha pogut crear el %(model_name)s per causa d'errors."
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nou: %(model_name)s"
 
 msgid "Editing"
 msgstr "Editant"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "No s'ha pogut desar el %(model_name)s per causa d'errors."
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -2903,6 +2986,10 @@ msgid "Page '%(page_title)s' deleted."
 msgstr "Pàgina '%(page_title)s' eliminada."
 
 #, python-format
+msgid "Editing %(page_type)s"
+msgstr "Editant %(page_type)s"
+
+#, python-format
 msgid ""
 "Page '%(page_title)s' has been replaced with version from "
 "%(previous_revision_datetime)s."
@@ -2966,11 +3053,43 @@ msgstr "Amagar les accions de comentaris"
 msgid "Page history"
 msgstr "Historial de pàgina"
 
+msgid "Page type"
+msgstr "Tipus de pàgina"
+
+msgid "Date updated"
+msgstr "Data actualitzada"
+
+msgid "Owner"
+msgstr "Propietari"
+
+msgid "Edited by"
+msgstr "Editat per"
+
 msgid "Site"
 msgstr "Lloc web"
 
+msgid "Has child pages"
+msgstr "Té pàgines filles"
+
+msgid "Any"
+msgstr "Algun/a"
+
 msgid "Yes"
 msgstr "Sí"
+
+msgid "Exploring"
+msgstr "Explorant"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Centreu-vos en el botó d'arrossegar i premeu les fletxes amunt o avall per "
+"moure l'element i, a continuació, premeu Intro per enviar el canvi."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "S'ha mogut '%(page_title)s'."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3038,6 +3157,9 @@ msgstr "Data/Hora"
 
 msgid "Locked pages"
 msgstr "Pàgines bloquejades"
+
+msgid "Page types usage"
+msgstr "Ús de tipus de pàgines"
 
 msgid "Show"
 msgstr "Mostra"

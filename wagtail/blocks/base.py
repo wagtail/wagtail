@@ -143,10 +143,10 @@ class Block(metaclass=BaseBlock):
         Return this block's default value (conventionally found in self.meta.default),
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
-        model definition type (e.g. something like StructValue which incorporates a
+        model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.meta.default
+        return self.normalize(self.meta.default)
 
     def clean(self, value):
         """
@@ -159,6 +159,15 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def normalize(self, value):
+        """
+        Given a value for any acceptable type for this block (e.g. string or RichText for a RichTextBlock;
+        dict or StructValue for a StructBlock), return a value of the block's native type (e.g. RichText
+        for RichTextBlock, StructValue for StructBlock). In simple cases this will return the value
+        unchanged.
+        """
+        return value
+
     def to_python(self, value):
         """
         Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
@@ -167,6 +176,9 @@ class Block(metaclass=BaseBlock):
         like the original value but provides a native HTML rendering when inserted into a template; or it
         might be something totally different (e.g. an image chooser will use the image ID as the clean
         value, and turn this back into an actual image object here).
+
+        For blocks that are usable at the top level of a StreamField, this must also accept any type accepted
+        by normalize. (This is because Django calls `Field.to_python` from `Field.clean`.)
         """
         return value
 
@@ -564,14 +576,11 @@ class BlockWidget(forms.Widget):
             error = errors.as_data()[0]
             error_json = json.dumps(get_error_json_data(error))
         else:
-            error_json = "null"
+            error_json = json.dumps(None)
 
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-error="{error_json}"></div>
-                <script>
-                    initBlockWidget('{id}');
-                </script>
+                <div id="{id}" data-block data-controller="w-block" data-w-block-data-value="{block_json}" data-w-block-arguments-value="[{value_json},{error_json}]"></div>
             """,
             id=name,
             block_json=self.block_json,

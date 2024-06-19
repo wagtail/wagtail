@@ -439,6 +439,12 @@ class TestTableBlock(TestCase):
         """
         self.assertHTMLEqual(result, expected)
 
+    def test_empty_table_block_to_python(self):
+        # Should not raise an error
+        # See https://github.com/wagtail/wagtail/issues/11816
+        block = TableBlock()
+        self.assertIsNone(block.to_python(None))
+
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
     def setUp(self):

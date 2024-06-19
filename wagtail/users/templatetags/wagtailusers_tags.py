@@ -1,5 +1,5 @@
-import itertools
 from collections import defaultdict
+from warnings import warn
 
 from django import template
 from django.contrib.auth import get_permission_codename
@@ -9,7 +9,9 @@ from django.utils.text import camel_case_to_spaces
 
 from wagtail import hooks
 from wagtail.admin.models import Admin
+from wagtail.coreutils import accepts_kwarg
 from wagtail.users.permission_order import CONTENT_TYPE_ORDER
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -143,6 +145,7 @@ def format_permissions(permission_bound_field):
         for perm in content_perms:
             content_perms_dict["object"] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
+            attrs = {"data-action": "w-bulk#toggle", "data-w-bulk-target": "item"}
             # identify the main categories of permission, and assign to
             # the relevant dict key, else bung in the 'custom_perms' list
             permission_action = perm.codename.split("_")[0]
@@ -154,16 +157,19 @@ def format_permissions(permission_bound_field):
             if is_known:
                 if permission_action in extra_perms_exist:
                     extra_perms_exist[permission_action] = True
+                checkbox.data["attrs"].update(attrs)
+                checkbox.data["attrs"]["data-w-bulk-group-param"] = permission_action
                 content_perms_dict[permission_action] = {
                     "perm": perm,
                     "checkbox": checkbox,
                 }
             else:
                 extra_perms_exist["custom"] = True
+                attrs["data-w-bulk-group-param"] = "custom"
                 perm_name = normalize_permission_label(perm)
-
                 custom_perms.append(
                     {
+                        "attrs": attrs,
                         "perm": perm,
                         "name": perm_name,
                         "selected": checkbox.data["selected"],
@@ -181,8 +187,24 @@ def format_permissions(permission_bound_field):
 
 @register.inclusion_tag("wagtailadmin/shared/buttons.html", takes_context=True)
 def user_listing_buttons(context, user):
-    button_hooks = hooks.get_hooks("register_user_listing_buttons")
-    buttons = sorted(
-        itertools.chain.from_iterable(hook(context, user) for hook in button_hooks)
+    warn(
+        "`user_listing_buttons` template tag is deprecated.",
+        category=RemovedInWagtail70Warning,
     )
-    return {"user": user, "buttons": buttons}
+
+    buttons = []
+
+    for hook in hooks.get_hooks("register_user_listing_buttons"):
+        if accepts_kwarg(hook, "request_user"):
+            buttons.extend(hook(user=user, request_user=context.get("request").user))
+        else:
+            # old-style hook that accepts a context argument instead of request_user
+            buttons.extend(hook(context, user))
+            warn(
+                "`register_user_listing_buttons` hook functions should accept a "
+                "`request_user` argument instead of `context` - "
+                f"{hook.__module__}.{hook.__name__} needs to be updated",
+                category=RemovedInWagtail70Warning,
+            )
+
+    return {"user": user, "buttons": sorted(buttons)}

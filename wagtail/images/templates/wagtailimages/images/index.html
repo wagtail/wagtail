@@ -9,57 +9,17 @@
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
-{% block listing %}
-    <div>
-        <form class="image-search nice-padding" action="{{ index_url }}" method="GET" novalidate>
-            {% if current_tag %}
-                <input type="hidden" name="tag" value="{{ current_tag }}" />
-            {% endif %}
-
-            {% field_row max_content=True %}
-                {% if collections %}
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                {% endif %}
-
-                {% trans "Sort by" as sort_by %}
-                {% rawformattedfield label_text=sort_by id_for_label="order_images_by" %}
-                    <select id="order_images_by" name="ordering" data-controller="w-submit" data-action="change->w-submit#submit">
-                        {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
-                            <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
-                        {% endfor %}
-                    </select>
-                {% endrawformattedfield %}
-
-                {% trans "Entries per page" as entries_per_page_label %}
-                {% rawformattedfield label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
-                    <select id="entries_per_page" name="entries_per_page" data-controller="w-submit" data-action="change->w-submit#submit">
-                        {% for value in ENTRIES_PER_PAGE_CHOICES %}
-                            <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
-                        {% endfor %}
-                    </select>
-                {% endrawformattedfield %}
-            {% endfield_row %}
-
-            {% if popular_tags %}
-                <fieldset class="tagfilter">
-                    <legend>{% trans 'Popular Tags:' %}</legend>
-                    {% for tag in popular_tags %}
-                        {% if tag.name != current_tag %}
-                            <a class="button button-small button-secondary bicolor button--icon" href="{{ index_url }}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                        {% else %}
-                            <a class="button button-small bicolor button--icon" href="{{ index_url }}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% if current_tag %}
-                        <a class="button button-small bicolor button-secondary button--icon" href="{{ index_url }}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear' %}</a>
-                    {% endif %}
-                </fieldset>
-            {% endif %}
-        </form>
-        <div id="listing-results">
-            {% include "wagtailimages/images/index_results.html" %}
-        </div>
-    </div>
+{% block slim_header %}
+    {% fragment as extra_form_fields %}
+        {% rawformattedfield label_text=_("Sort by") id_for_label="order_images_by" sr_only_label=True %}
+            <select id="order_images_by" name="ordering">
+                {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                    <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                {% endfor %}
+            </select>
+        {% endrawformattedfield %}
+    {% endfragment %}
+    {% include "wagtailimages/images/image_listing_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon extra_form_fields=extra_form_fields only %}
 {% endblock %}
 
 {% block bulk_actions %}

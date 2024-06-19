@@ -15,6 +15,9 @@ from wagtail.admin.ui.tables.pages import (
 )
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.pages.utils import (
+    GenericPageBreadcrumbsMixin,
+)
 from wagtail.models import Page
 
 
@@ -71,10 +74,12 @@ class ContentTypeUseView(BaseListingView):
         return context
 
 
-class UsageView(generic.UsageView):
+class UsageView(GenericPageBreadcrumbsMixin, generic.UsageView):
     model = Page
     pk_url_kwarg = "page_id"
     header_icon = "doc-empty-inverse"
+    usage_url_name = "wagtailadmin_pages:usage"
+    edit_url_name = "wagtailadmin_pages:edit"
 
     def dispatch(self, request, *args, **kwargs):
         if not self.object.permissions_for_user(request.user).can_edit():

@@ -13,6 +13,7 @@
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
+# Matt Westcott <matthew@torchbox.com>, 2024
 # Maylon Pedroso <maylonpedroso@gmail.com>, 2020
 # Oscar Luciano Espirilla Flores, 2020
 # Oscar Luciano Espirilla Flores, 2020
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +84,7 @@ msgid "Wagtail frontend cache"
 msgstr "Cache frontal Wagtail"
 
 msgid "Wagtail routablepage"
-msgstr "Página enrutable Wagtal"
+msgstr "Página enrutable Wagtail"
 
 msgid "Wagtail sitemaps"
 msgstr "Mapas de sitio Wagtail"

@@ -4,7 +4,7 @@
     Variables accepted by this template:
 
     - `breadcrumbs_items` - breadcrumbs items to be rendered, in the format of [{"url": str, "label": str}]
-    - `actions` - prerendered actions to be displayed in the header
+    - `buttons` - buttons to be rendered beside the final breadcrumbs item
     - `side_panels` - list of side panels to be rendered
     - `history_url` - URL to the history view for the current object
     - `title` - title of the current page, to be displayed as a hidden h1 for screen readers
@@ -46,12 +46,18 @@
                         {% endblock %}
 
                         {# Allow actions to be passed as a prerendered variable or defined by extending the template via block_actions #}
-                        {% fragment as block_actions %}{% block actions %}{% endblock %}{% endfragment %}
-                        {% if actions or block_actions %}
+                        {% fragment stripped as actions %}
+                            {% block actions %}
+                                {% for button in buttons %}
+                                    {% component button %}
+                                {% endfor %}
+                            {% endblock %}
+                        {% endfragment %}
+                        {% if actions %}
                             {# Actions divider #}
                             <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
-                            <div class="w-flex w-items-center w-ml-3">
-                                {% firstof actions block_actions %}
+                            <div id="w-slim-header-buttons" class="w-flex w-items-center w-ml-3">
+                                {{ actions }}
                             </div>
                         {% endif %}
                     {% endblock %}
@@ -93,6 +99,10 @@
                                 {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters only %}
                             </div>
                         {% endif %}
+
+                        {% block extra_form_fields %}
+                            {# Add any extra form fields here #}
+                        {% endblock %}
 
                         {% comment %}
                             Add an initial disabled & hidden submit button so that

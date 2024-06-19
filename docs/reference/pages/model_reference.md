@@ -185,6 +185,10 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: route
 
     .. automethod:: serve
+    
+    .. automethod:: route_for_request
+    
+    .. automethod:: find_for_request
 
     .. autoattribute:: context_object_name
 

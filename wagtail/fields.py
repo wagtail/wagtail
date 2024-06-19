@@ -131,59 +131,14 @@ class StreamField(models.Field):
         return name, path, args, kwargs
 
     def to_python(self, value):
-        value = self._to_python(value)
+        result = self.stream_block.to_python(value)
 
         # The top-level StreamValue is passed a reference to the StreamField, to support
         # pickling. This is necessary because unpickling needs access to the StreamBlock
         # definition, which cannot itself be pickled; instead we store a pointer to the
         # field within the model, which gives us a path to retrieve the StreamBlock definition.
-
-        value._stream_field = self
-        return value
-
-    def _to_python(self, value):
-        if value is None or value == "":
-            return StreamValue(self.stream_block, [])
-        elif isinstance(value, StreamValue):
-            return value
-        elif isinstance(value, str):
-            try:
-                unpacked_value = json.loads(value)
-            except ValueError:
-                # value is not valid JSON; most likely, this field was previously a
-                # rich text field before being migrated to StreamField, and the data
-                # was left intact in the migration. Return an empty stream instead
-                # (but keep the raw text available as an attribute, so that it can be
-                # used to migrate that data to StreamField)
-                return StreamValue(self.stream_block, [], raw_text=value)
-
-            if unpacked_value is None:
-                # we get here if value is the literal string 'null'. This should probably
-                # never happen if the rest of the (de)serialization code is working properly,
-                # but better to handle it just in case...
-                return StreamValue(self.stream_block, [])
-
-            return self.stream_block.to_python(unpacked_value)
-        elif value and isinstance(value, list) and isinstance(value[0], dict):
-            # The value is already unpacked since JSONField-based StreamField should
-            # accept deserialised values (no need to call json.dumps() first).
-            # In addition, the value is not a list of (block_name, value) tuples
-            # handled in the `else` block.
-            return self.stream_block.to_python(value)
-        else:
-            # See if it looks like the standard non-smart representation of a
-            # StreamField value: a list of (block_name, value) tuples
-            try:
-                [None for (x, y) in value]
-            except (TypeError, ValueError):
-                # Give up trying to make sense of the value
-                raise TypeError(
-                    "Cannot handle %r (type %r) as a value of StreamField"
-                    % (value, type(value))
-                )
-
-            # Test succeeded, so return as a StreamValue-ified version of that value
-            return StreamValue(self.stream_block, value)
+        result._stream_field = self
+        return result
 
     def get_prep_value(self, value):
         if (

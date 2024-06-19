@@ -2,9 +2,11 @@ import django_filters
 from django import forms
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_languages, get_content_type_label
@@ -16,7 +18,7 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     """
 
     template_name = "wagtailadmin/widgets/daterange_input.html"
-    suffixes = ["after", "before"]
+    suffixes = ["from", "to"]
 
     def __init__(self, attrs=None):
         widgets = (
@@ -191,3 +193,70 @@ class UserModelMultipleChoiceField(django_filters.fields.ModelMultipleChoiceFiel
 
 class MultipleUserFilter(django_filters.ModelMultipleChoiceFilter):
     field_class = UserModelMultipleChoiceField
+
+
+class CollectionChoiceIterator(django_filters.fields.ModelChoiceIterator):
+    @cached_property
+    def min_depth(self):
+        return self.queryset.get_min_depth()
+
+    def choice(self, obj):
+        return (obj.pk, obj.get_indented_name(self.min_depth, html=True))
+
+
+class CollectionChoiceField(django_filters.fields.ModelChoiceField):
+    iterator = CollectionChoiceIterator
+
+
+class CollectionFilter(django_filters.ModelChoiceFilter):
+    field_class = CollectionChoiceField
+
+
+class PopularTagsFilter(django_filters.MultipleChoiceFilter):
+    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
+    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
+    # cannot do further queries to validate the selected tags.
+
+    def __init__(self, *args, use_subquery=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.use_subquery = use_subquery
+
+    def filter(self, qs, value):
+        filtered = super().filter(qs, value)
+        if not self.use_subquery:
+            return filtered
+
+        # Workaround for https://github.com/wagtail/wagtail/issues/6616
+        pks = list(filtered.values_list("pk", flat=True))
+        return qs.filter(pk__in=pks)
+
+
+class BaseMediaFilterSet(WagtailFilterSet):
+    permission_policy = None
+
+    def __init__(
+        self, data=None, queryset=None, *, request=None, prefix=None, is_searching=None
+    ):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        collections_qs = self.permission_policy.collections_user_has_any_permission_for(
+            request.user, ["add", "change"]
+        )
+        # Add collection filter only if there are multiple collections
+        if collections_qs.count() > 1:
+            self.filters["collection_id"] = CollectionFilter(
+                field_name="collection_id",
+                label=_("Collection"),
+                queryset=collections_qs,
+            )
+
+        popular_tags = popular_tags_for_model(self._meta.model)
+
+        if popular_tags:
+            self.filters["tag"] = PopularTagsFilter(
+                label=_("Tag"),
+                field_name="tags__name",
+                choices=[(tag.name, tag.name) for tag in popular_tags],
+                widget=forms.CheckboxSelectMultiple,
+                use_subquery=is_searching,
+                help_text=_("Filter by up to ten most popular tags."),
+            )

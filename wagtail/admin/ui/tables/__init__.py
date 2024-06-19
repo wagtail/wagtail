@@ -149,7 +149,10 @@ class Column(BaseColumn):
         if callable(self.accessor):
             return self.accessor(instance)
         else:
-            return multigetattr(instance, self.accessor)
+            try:
+                return multigetattr(instance, self.accessor)
+            except AttributeError:
+                return None
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)

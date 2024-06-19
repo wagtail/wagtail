@@ -2,15 +2,7 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 
-{% block main_header %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
-{% endblock %}
-
-{% block content %}
-    {% block header %}
-        {{ block.super }}
-    {% endblock %}
-
+{% block main_content %}
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
             <div role="tablist" class="w-tabs__list">
@@ -84,9 +76,4 @@
             </div>
         </form>
     </div>
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
 {% endblock %}

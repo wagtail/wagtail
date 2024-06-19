@@ -2,6 +2,23 @@ import { Application } from '@hotwired/stimulus';
 import { BulkController } from './BulkController';
 
 describe('BulkController', () => {
+  const shiftClick = async (element) => {
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Shift',
+        shiftKey: true,
+      }),
+    );
+    element.click();
+    document.dispatchEvent(
+      new KeyboardEvent('keyup', {
+        key: 'Shift',
+        shiftKey: true,
+      }),
+    );
+    await Promise.resolve();
+  };
+
   const setup = async (
     html = `
     <div id="bulk-container" data-controller="w-bulk" data-action="custom:event@document->w-bulk#toggleAll">
@@ -224,23 +241,6 @@ describe('BulkController', () => {
     const getClickedIds = () =>
       Array.from(document.querySelectorAll(':checked')).map(({ id }) => id);
 
-    const shiftClick = async (element) => {
-      document.dispatchEvent(
-        new KeyboardEvent('keydown', {
-          key: 'Shift',
-          shiftKey: true,
-        }),
-      );
-      element.click();
-      document.dispatchEvent(
-        new KeyboardEvent('keyup', {
-          key: 'Shift',
-          shiftKey: true,
-        }),
-      );
-      await Promise.resolve();
-    };
-
     // initial shift usage should have no impact
     await shiftClick(document.getElementById('c0'));
     expect(getClickedIds()).toHaveLength(1);
@@ -305,5 +305,201 @@ describe('BulkController', () => {
 
     // it should include the previously disabled element, tracking against the DOM, not indexes
     expect(getClickedIds()).toEqual(['c1', 'cx', 'c2', 'c3']);
+  });
+
+  describe('support for groups of checkboxes being used', () => {
+    const html = `
+    <table id="table" data-controller="w-bulk" data-action="custom:event->w-bulk#toggleAll">
+      <caption>
+        Misc items
+        <input id="misc-any" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add change delete" type="checkbox"/>
+        <input id="misc-add-change" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add change" type="checkbox"/>
+        <input id="misc-change-delete" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="change delete" type="checkbox"/>
+        <input id="misc-add-change-delete" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add change delete" type="checkbox"/>
+      </caption>
+      <thead>
+        <tr><th>Name</th><th>Add</th><th>Change</th><th>Delete</th></tr>
+      </thead>
+      <tbody>
+      ${[...Array(5).keys()]
+        .map(
+          (i) => `
+        <tr id="row-${i}">
+          <td>Item ${i + 1}</td>
+          <td><input id="row-${i}-add" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="add" type="checkbox"/></td>
+          <td><input id="row-${i}-change" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="change" type="checkbox"/></td>
+          <td><input id="row-${i}-delete" data-action="w-bulk#toggle" data-w-bulk-target="item" data-w-bulk-group-param="delete" type="checkbox"/></td>
+        </tr>`,
+        )
+        .join('\n')}
+      </tbody>
+      <tfoot>
+        <th scope="row">
+          Check all (Add & Change)
+          <input id="select-all" data-action="w-bulk#toggleAll" data-w-bulk-target="all" type="checkbox"/>
+          <input id="select-all-add-change" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="add change" type="checkbox"/>
+        </th>
+        <td>
+          Check all (Add)
+          <input id="select-all-add" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="add" type="checkbox"/>
+        </td>
+        <td>
+          Check all (Change)
+          <input id="select-all-change" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="change" type="checkbox"/>
+        </td>
+        <td>
+          Check all (Delete)
+          <input id="select-all-delete" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="delete" type="checkbox"/>
+        </td>
+       </tfoot>
+    </table>
+    `;
+
+    it('should allow for the toggleAll method to be used to select all, irrespective of groupings', async () => {
+      const totalCheckboxes = 24;
+
+      await setup(html);
+
+      const allCheckbox = document.getElementById('select-all');
+      expect(allCheckbox.checked).toBe(false);
+      expect(document.querySelectorAll('[type="checkbox"')).toHaveLength(
+        totalCheckboxes,
+      );
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+
+      allCheckbox.click();
+
+      expect(allCheckbox.checked).toBe(true);
+      expect(document.querySelectorAll(':checked')).toHaveLength(
+        totalCheckboxes,
+      );
+
+      allCheckbox.click();
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+    });
+
+    it('should allow for the toggleAll method to be used for single group toggling', async () => {
+      await setup(html);
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+
+      document.getElementById('select-all-delete').click();
+
+      const checked = document.querySelectorAll(':checked');
+
+      expect(checked).toHaveLength(9);
+
+      expect(checked).toEqual(
+        document.querySelectorAll('[data-w-bulk-group-param~="delete"]'),
+      );
+
+      const otherCheckbox = document.getElementById('row-3-add');
+
+      otherCheckbox.click();
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(10);
+
+      document.getElementById('select-all-delete').click();
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(1);
+      expect(otherCheckbox.checked).toEqual(true);
+    });
+
+    it('should allow for the toggleAll method to be used for multi group toggling', async () => {
+      await setup(html);
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+
+      document.getElementById('select-all-add-change').click();
+
+      const checked = document.querySelectorAll(':checked');
+      expect(checked).toHaveLength(17);
+      expect([...checked].map(({ id }) => id)).toEqual(
+        expect.arrayContaining([
+          'misc-any',
+          'misc-add-change',
+          'misc-change-delete',
+          'misc-add-change-delete',
+          'row-0-add',
+          'row-0-change',
+          // ... others not needing explicit call out
+        ]),
+      );
+
+      // specific group select all checkboxes should now be checked automatically
+      expect(document.getElementById('select-all-add').checked).toEqual(true);
+      expect(document.getElementById('select-all-change').checked).toEqual(
+        true,
+      );
+    });
+
+    it('should support shift+click within the groups', async () => {
+      await setup(html);
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+
+      document.getElementById('row-0-change').click();
+
+      await shiftClick(document.getElementById('row-2-change'));
+
+      // only checkboxes in
+      expect(document.getElementById('row-1-change').checked).toEqual(true);
+      expect(document.querySelectorAll(':checked')).toHaveLength(3);
+
+      // now shift again to the last checkbox
+      await shiftClick(document.getElementById('row-4-change'));
+      expect(document.getElementById('row-3-change').checked).toEqual(true);
+      expect(document.querySelectorAll(':checked')).toHaveLength(5);
+    });
+
+    it('should support the group being passed in via a CustomEvent', async () => {
+      await setup(html);
+
+      const table = document.getElementById('table');
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+
+      table.dispatchEvent(
+        new CustomEvent('custom:event', { detail: { group: 'delete' } }),
+      );
+
+      await Promise.resolve();
+
+      const checked = document.querySelectorAll(':checked');
+
+      expect(checked).toHaveLength(9);
+      expect([...checked].map(({ id }) => id)).toEqual([
+        'misc-any',
+        'misc-change-delete',
+        'misc-add-change-delete',
+        'row-0-delete',
+        'row-1-delete',
+        'row-2-delete',
+        'row-3-delete',
+        'row-4-delete',
+        'select-all-delete',
+      ]);
+
+      // now check one of the non-delete checkboxes
+      document.getElementById('row-0-add').click();
+      expect(document.querySelectorAll(':checked')).toHaveLength(10);
+
+      // use force to toggle only the delete checkboxes off
+      table.dispatchEvent(
+        new CustomEvent('custom:event', {
+          detail: { group: 'delete', force: false },
+        }),
+      );
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(1);
+
+      // run a second time to confirm there should be no difference due to force
+      table.dispatchEvent(
+        new CustomEvent('custom:event', {
+          detail: { group: 'delete', force: false },
+        }),
+      );
+
+      expect(document.querySelectorAll(':checked')).toHaveLength(1);
+    });
   });
 });

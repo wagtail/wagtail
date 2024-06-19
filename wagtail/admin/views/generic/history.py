@@ -1,8 +1,9 @@
 from datetime import timedelta
 
 import django_filters
-from django.contrib.admin.utils import quote, unquote
+from django.contrib.admin.utils import quote
 from django.core.paginator import Paginator
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -10,8 +11,13 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy
 from django.views.generic import TemplateView
 
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleUserFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
+from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic.base import (
     BaseListingView,
     BaseObjectMixin,
@@ -23,90 +29,238 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     BaseLogEntry,
     DraftStateMixin,
-    ModelLogEntry,
+    PreviewableMixin,
     Revision,
+    RevisionMixin,
     TaskState,
     WorkflowState,
 )
 
 
-def get_actions_for_filter():
+def get_actions_for_filter(queryset):
     # Only return those actions used by model log entries.
-    actions = set(ModelLogEntry.objects.all().get_actions())
+    actions = set(queryset.get_actions())
     return [action for action in log_registry.get_choices() if action[0] in actions]
 
 
-class HistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(
+class HistoryFilterSet(WagtailFilterSet):
+    action = django_filters.MultipleChoiceFilter(
         label=gettext_lazy("Action"),
+        widget=CheckboxSelectMultiple,
         # choices are set dynamically in __init__()
     )
-    user = django_filters.ModelChoiceFilter(
+    user = MultipleUserFilter(
         label=gettext_lazy("User"),
-        field_name="user",
-        queryset=lambda request: ModelLogEntry.objects.all().get_users(),
+        widget=CheckboxSelectMultiple,
+        # queryset is set dynamically in __init__()
     )
     timestamp = django_filters.DateFromToRangeFilter(
         label=gettext_lazy("Date"), widget=DateRangePickerWidget
     )
 
-    class Meta:
-        model = ModelLogEntry
-        fields = ["action", "user", "timestamp"]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.filters["action"].extra["choices"] = get_actions_for_filter()
+        actions = get_actions_for_filter(self.queryset)
+        if not actions:
+            del self.filters["action"]
+        else:
+            self.filters["action"].extra["choices"] = actions
+
+        users = self.queryset.get_users()
+        if not users.exists():
+            del self.filters["user"]
+        else:
+            self.filters["user"].extra["queryset"] = users
 
 
-class HistoryView(PermissionCheckedMixin, BaseListingView):
+class ActionColumn(Column):
+    def __init__(self, *args, object, url_names, user_can_unschedule, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.object = object
+        self.url_names = url_names
+        self.user_can_unschedule = user_can_unschedule
+        self.revision_enabled = isinstance(object, RevisionMixin)
+        self.draftstate_enabled = isinstance(object, DraftStateMixin)
+
+    @cached_property
+    def cell_template_name(self):
+        if self.revision_enabled:
+            return "wagtailadmin/generic/history/action_cell.html"
+        return super().cell_template_name
+
+    def get_status(self, instance, parent_context):
+        if self.draftstate_enabled:
+            if (
+                instance.action == "wagtail.publish"
+                and instance.revision_id == self.object.live_revision_id
+            ):
+                return gettext("Live version")
+            elif (
+                instance.content_changed
+                and instance.revision_id == self.object.latest_revision_id
+            ):
+                return gettext("Current draft")
+        return None
+
+    def get_actions(self, instance, parent_context):
+        actions = []
+
+        # Do not show the revision actions if the log entry:
+        # - has no revision attached
+        # - has no content changes
+        # - is a "publish" action
+        #   (because we want to show the options on the "edit" action instead)
+        if (
+            not self.revision_enabled
+            or not instance.revision_id
+            or not instance.content_changed
+            or instance.action == "wagtail.publish"
+        ):
+            return actions
+
+        if (
+            isinstance(self.object, PreviewableMixin)
+            and self.object.is_previewable()
+            and (url_name := self.url_names.get("revisions_view"))
+        ):
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Preview")}
+            actions.append(action)
+
+        if instance.revision_id == self.object.latest_revision_id:
+            if url_name := self.url_names.get("edit"):
+                url = reverse(url_name, args=(quote(self.object.pk),))
+                action = {"url": url, "label": gettext("Edit")}
+                actions.append(action)
+        elif url_name := self.url_names.get("revisions_revert"):
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Review this version")}
+            actions.append(action)
+
+        if url_name := self.url_names.get("revisions_compare"):
+            if instance.previous_revision_id:
+                url = reverse(
+                    url_name,
+                    args=(
+                        quote(self.object.pk),
+                        instance.previous_revision_id,
+                        instance.revision_id,
+                    ),
+                )
+                action = {"url": url, "label": gettext("Compare with previous version")}
+                actions.append(action)
+            if instance.revision_id != self.object.latest_revision_id:
+                url = reverse(
+                    url_name,
+                    args=(quote(self.object.pk), instance.revision_id, "latest"),
+                )
+                action = {"url": url, "label": gettext("Compare with current version")}
+                actions.append(action)
+
+        if (
+            (url_name := self.url_names.get("revisions_unschedule"))
+            and instance.revision.approved_go_live_at
+            and self.user_can_unschedule
+        ):
+            url = reverse(url_name, args=(quote(self.object.pk), instance.revision_id))
+            action = {"url": url, "label": gettext("Cancel scheduled publish")}
+            actions.append(action)
+
+        return actions
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["status"] = self.get_status(instance, parent_context)
+        context["actions"] = self.get_actions(instance, parent_context)
+        return context
+
+
+class LogEntryUserColumn(UserColumn):
+    def __init__(self, name, **kwargs):
+        # Instead of accepting a blank_display_name arg, we'll make use of the
+        # BaseLogEntry.user_display_name property which also handles the display
+        # name for a deleted user (as the BaseLogEntry still stores the ID).
+        super().__init__(name, blank_display_name=None, **kwargs)
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        if not context["display_name"]:
+            context["display_name"] = instance.user_display_name
+        return context
+
+
+class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
     results_template_name = "wagtailadmin/generic/history_results.html"
-    history_url_name = None
-    history_results_url_name = None
     header_icon = "history"
     is_searchable = False
     paginate_by = 20
-    filterset_class = HistoryReportFilterSet
+    filterset_class = HistoryFilterSet
     table_class = InlineActionsTable
-    columns = [
-        Column("message", label=gettext_lazy("Action")),
-        UserColumn("user", blank_display_name="system"),
-        DateColumn("timestamp", label=gettext_lazy("Date")),
-    ]
+    history_url_name = None
+    history_results_url_name = None
     edit_url_name = None
+    revisions_view_url_name = None
+    revisions_revert_url_name = None
+    revisions_compare_url_name = None
+    revisions_unschedule_url_name = None
 
-    def setup(self, request, *args, pk, **kwargs):
-        self.pk = pk
-        self.object = self.get_object()
-        super().setup(request, *args, **kwargs)
+    @cached_property
+    def columns(self):
+        return [
+            ActionColumn(
+                "message",
+                label=gettext_lazy("Action"),
+                object=self.object,
+                url_names={
+                    "edit": self.edit_url_name,
+                    "revisions_view": self.revisions_view_url_name,
+                    "revisions_revert": self.revisions_revert_url_name,
+                    "revisions_compare": self.revisions_compare_url_name,
+                    "revisions_unschedule": self.revisions_unschedule_url_name,
+                },
+                user_can_unschedule=self.user_can_unschedule(),
+            ),
+            LogEntryUserColumn("user", width="25%"),
+            DateColumn("timestamp", label=gettext_lazy("Date"), width="15%"),
+        ]
 
-    def get_object(self):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
-        if isinstance(object, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
+    def get_base_object_queryset(self):
+        queryset = super().get_base_object_queryset()
+        if issubclass(queryset.model, RevisionMixin):
+            return queryset.select_related("latest_revision")
+        return queryset
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [
-            {
-                "url": reverse(self.index_url_name),
-                "label": capfirst(self.model._meta.verbose_name_plural),
-            },
-            {
-                "url": self.get_edit_url(self.object),
-                "label": str(self.object),
-            },
+        items = []
+        if self.index_url_name:
+            items.append(
+                {
+                    "url": reverse(self.index_url_name),
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        edit_url = self.get_edit_url(self.object)
+        obj_name = self.get_page_subtitle()
+        if edit_url:
+            items.append(
+                {
+                    "url": edit_url,
+                    "label": obj_name,
+                }
+            )
+        items.append(
             {
                 "url": "",
                 "label": gettext("History"),
-                "sublabel": self.get_page_subtitle(),
-            },
-        ]
+                "sublabel": obj_name,
+            }
+        )
+        return self.breadcrumbs_items + items
 
     @cached_property
     def header_buttons(self):
@@ -136,18 +290,33 @@ class HistoryView(PermissionCheckedMixin, BaseListingView):
     def get_index_results_url(self):
         return self.get_history_results_url(self.object)
 
+    def user_can_unschedule(self):
+        return self.user_has_permission("publish")
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
         context["model_opts"] = BaseLogEntry._meta
         return context
 
-    def get_queryset(self):
-        queryset = log_registry.get_logs_for_instance(self.object).select_related(
-            "revision", "user", "user__wagtail_userprofile"
-        )
-        queryset = self.filter_queryset(queryset)
+    def get_base_queryset(self):
+        queryset = log_registry.get_logs_for_instance(self.object)
+        return self._annotate_queryset(queryset)
+
+    def _annotate_queryset(self, queryset):
+        queryset = queryset.select_related("user", "user__wagtail_userprofile")
+        if isinstance(self.object, RevisionMixin):
+            queryset = queryset.select_related("revision").annotate(
+                previous_revision_id=Revision.objects.previous_revision_id_subquery(),
+            )
         return queryset
+
+    def get_filterset_kwargs(self):
+        # Pass custom queryset so the FilterSet can use it when initialising the
+        # filters, instead of using the default model.objects.all() queryset.
+        kwargs = super().get_filterset_kwargs()
+        kwargs["queryset"] = self.get_base_queryset()
+        return kwargs
 
 
 class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):

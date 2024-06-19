@@ -9,22 +9,6 @@
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
-{% block listing %}
-    <div>
-        {% if collections %}
-            <form class="nice-padding" action="{{ index_url }}" method="GET" novalidate>
-                <ul class="fields">
-                    <li>{% include "wagtailadmin/shared/collection_chooser.html" %}</li>
-                </ul>
-            </form>
-        {% endif %}
-
-        <div id="listing-results">
-            {% include "wagtaildocs/documents/index_results.html" %}
-        </div>
-    </div>
-{% endblock %}
-
 {% block bulk_actions %}
     {% trans "Select all documents in listing" as select_all_text %}
     {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=page_obj parent=current_collection.id %}

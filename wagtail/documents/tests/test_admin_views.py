@@ -93,6 +93,9 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertNotContains(response, "<th>Collection</th>", html=True)
         self.assertNotContains(response, "<td>Root</td>", html=True)
+        soup = self.get_soup(response.content)
+        collection_select = soup.select_one('select[name="collection_id"]')
+        self.assertIsNone(collection_select)
 
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
@@ -104,8 +107,18 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertContains(response, "<th>Collection</th>", html=True)
         self.assertContains(response, "<td>Root</td>", html=True)
+
+        response = self.get()
+        soup = self.get_soup(response.content)
+        collection_options = soup.select(
+            'select[name="collection_id"] option[value]:not(option[value=""])'
+        )
+
         self.assertEqual(
-            [collection.name for collection in response.context["collections"]],
+            [
+                collection.get_text(strip=True).lstrip("↳ ")
+                for collection in collection_options
+            ],
             ["Root", "Evil plans", "Good plans"],
         )
 
@@ -169,7 +182,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
     def test_search_form_rendered(self):
         response = self.get()
         html = response.content.decode()
-        search_url = reverse("wagtaildocs:index")
+        search_url = reverse("wagtaildocs:index_results")
 
         # Search form in the header should be rendered.
         self.assertTagInHTML(
@@ -177,6 +190,101 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             html,
             count=1,
             allow_extra_attrs=True,
+        )
+
+    def test_tags(self):
+        document_two_tags = models.Document.objects.create(
+            title="Test document with two tags"
+        )
+        document_two_tags.tags.add("one", "two")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        current_tags = soup.select("input[name=tag][checked]")
+        self.assertFalse(current_tags)
+
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [tags.get_text(strip=True) for tags in tags],
+            ["one", "two"],
+        )
+
+    def test_tag_filtering(self):
+        models.Document.objects.create(title="Test document with no tags")
+
+        document_one_tag = models.Document.objects.create(
+            title="Test document with one tag"
+        )
+        document_one_tag.tags.add("one")
+
+        document_two_tags = models.Document.objects.create(
+            title="Test document with two tags"
+        )
+        document_two_tags.tags.add("one", "two")
+
+        document_unrelated_tag = models.Document.objects.create(
+            title="Test document with a different tag"
+        )
+        document_unrelated_tag.tags.add("unrelated")
+
+        # no filtering
+        response = self.get()
+        # four documents created above
+        self.assertEqual(response.context["page_obj"].paginator.count, 4)
+
+        # filter all documents with tag 'one'
+        response = self.get({"tag": "one"})
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
+
+        # filter all documents with tag 'two'
+        response = self.get({"tag": "two"})
+        self.assertEqual(response.context["page_obj"].paginator.count, 1)
+
+        # filter all documents with tag 'one' or 'unrelated'
+        response = self.get({"tag": ["one", "unrelated"]})
+        self.assertEqual(response.context["page_obj"].paginator.count, 3)
+
+        soup = self.get_soup(response.content)
+
+        # Should check the 'one' and 'unrelated' tags checkboxes
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [
+                tag.get_text(strip=True)
+                for tag in tags
+                if tag.select_one("input[checked]") is not None
+            ],
+            ["one", "unrelated"],
+        )
+
+        # Should render the active filter pills separately for each tag
+        active_filters = soup.select('[data-w-active-filter-id="id_tag"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            ["Tag: one", "Tag: unrelated"],
+        )
+
+    def test_tag_filtering_preserves_other_params(self):
+        for i in range(1, 130):
+            document = models.Document.objects.create(title="Test document %i" % i)
+            if i % 2 != 0:
+                document.tags.add("even")
+                document.save()
+
+        response = self.get({"tag": "even", "p": 2})
+        self.assertEqual(response.status_code, 200)
+
+        response_body = response.content.decode("utf8")
+
+        # prev link should exist and include tag
+        self.assertTrue(
+            "?p=1&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
+        )
+        # next link should exist and include tag
+        self.assertTrue(
+            "?p=3&amp;tag=even" in response_body or "?tag=even&amp;p=3" in response_body
         )
 
 
@@ -231,6 +339,24 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
         self.assertContains(response, "There are 50 matches")
+
+    def test_tag_filtering_with_search_term(self):
+        models.Document.objects.create(title="Test document with no tags")
+
+        document_one_tag = models.Document.objects.create(
+            title="Test document with one tag"
+        )
+        document_one_tag.tags.add("one")
+
+        document_two_tags = models.Document.objects.create(
+            title="Test document with two tags"
+        )
+        document_two_tags.tags.add("one", "two")
+
+        # The tag shouldn't be ignored, so the result should be the documents
+        # that have the "one" tag and "test" in the title.
+        response = self.get({"tag": "one", "q": "test"})
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
 
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):

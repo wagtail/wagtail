@@ -51,7 +51,7 @@ def message_test(request):
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50
-    ordering = ("submit_time",)
+    default_ordering = ("submit_time",)
     ordering_csv = ("-submit_time",)
 
     def get_csv_filename(self):

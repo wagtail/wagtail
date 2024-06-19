@@ -7,6 +7,7 @@
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
+# Aurel Pere, 2024
 # Axel Haustant, 2016
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
@@ -14,8 +15,8 @@
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
-# fpoulain <fpoulain@metrodore.fr>, 2018
-# fpoulain <fpoulain@metrodore.fr>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira, 2018
@@ -36,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-24 13:51+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
+"Last-Translator: Aurel Pere, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -837,6 +838,23 @@ msgstr "Date"
 
 msgid "Site summary"
 msgstr "Sommaire du site"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
+"%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -1774,6 +1792,12 @@ msgstr "Tri"
 msgid "Enable ordering of child pages"
 msgstr "Activer le tri des sous-pages"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr ""
+"%(start_index)s-%(end_index)s sur %(items_count)s entités pour la totalite "
+"du site."
+
 msgid "No results across entire site."
 msgstr "Aucun résultat dans l'ensemble du site."
 
@@ -1781,8 +1805,25 @@ msgstr "Aucun résultat dans l'ensemble du site."
 msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 msgstr "Rechercher dans '<span class=\"w-title-ellipsis\">%(title)s</span>'"
 
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s sur %(items_count)sitems dans '<span class=\"w-"
+"title-ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Pas de résultats dans '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Rechercher dans tout le site"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)sitems"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -1902,6 +1943,9 @@ msgstr "Aucune page ne correspond aux critères de ce rapport."
 
 msgid "Updated"
 msgstr "Mis à jour"
+
+msgid "App"
+msgstr "App"
 
 msgid "Pages"
 msgstr "Pages"
@@ -3139,8 +3183,28 @@ msgstr "Modifié par"
 msgid "Site"
 msgstr "Site"
 
+msgid "Has child pages"
+msgstr "A des pages enfants"
+
+msgid "Any"
+msgstr "Any"
+
 msgid "Yes"
 msgstr "Oui"
+
+msgid "Exploring"
+msgstr "Exploration"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Utiliser le bouton de défilement et appuyer sur les touches haut ou bas pour "
+"bouger l'item, puis appuyer sur entrée pour soumettre la modification"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' a été déplacée avec succès"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -3208,6 +3272,9 @@ msgstr "Date/Heure"
 
 msgid "Locked pages"
 msgstr "Pages verrouillées"
+
+msgid "Page types usage"
+msgstr "Utilisation des types de page"
 
 msgid "Show"
 msgstr "Afficher"

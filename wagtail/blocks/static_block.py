@@ -30,6 +30,9 @@ class StaticBlock(Block):
     def value_from_datadict(self, data, files, prefix):
         return None
 
+    def normalize(self, value):
+        return None
+
     class Meta:
         admin_text = None
         default = None

@@ -46,6 +46,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     search_fields = CollectionMember.search_fields + [
         index.SearchField("title", boost=10),
         index.AutocompleteField("title"),
+        index.FilterField("id"),
         index.FilterField("title"),
         index.RelatedFields(
             "tags",

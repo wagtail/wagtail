@@ -17,9 +17,10 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
+from django.core.files.storage import InvalidStorageError, default_storage, storages
 from django.db import models
 from django.db.models import Q
 from django.forms.utils import flatatt
@@ -128,8 +129,19 @@ def get_rendition_storage():
     """
     storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
     if isinstance(storage, str):
-        module = import_string(storage)
-        storage = module()
+        try:
+            # First see if the string is a storage alias
+            storage = storages[storage]
+        except InvalidStorageError:
+            # Otherwise treat the string as a dotted path
+            try:
+                module = import_string(storage)
+                storage = module()
+            except ImportError:
+                raise ImproperlyConfigured(
+                    "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
+                )
+
     return storage
 
 
@@ -344,6 +356,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
+        index.FilterField("id"),
     ]
 
     def __str__(self):

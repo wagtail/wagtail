@@ -125,16 +125,14 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
-        return self._to_struct_value(
-            [
-                (
-                    name,
-                    self.meta.default[name]
-                    if name in self.meta.default
-                    else block.get_default(),
-                )
+
+        return self.normalize(
+            {
+                name: self.meta.default[name]
+                if name in self.meta.default
+                else block.get_default()
                 for name, block in self.child_blocks.items()
-            ]
+            }
         )
 
     def value_from_datadict(self, data, files, prefix):
@@ -237,6 +235,14 @@ class BaseStructBlock(Block):
             name: self.child_blocks[name].get_prep_value(val)
             for name, val in value.items()
         }
+
+    def normalize(self, value):
+        if isinstance(value, self.meta.value_class):
+            return value
+
+        return self._to_struct_value(
+            {k: self.child_blocks[k].normalize(v) for k, v in value.items()}
+        )
 
     def get_form_state(self, value):
         return {

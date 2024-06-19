@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
 
@@ -45,12 +46,10 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2020, 1, 1),
         )
         self.puppy_image = Image.objects.create(
             title="a cute puppy",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2022, 2, 2),
         )
 
     def get(self, params={}):
@@ -85,12 +84,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         # page numbers out of range should return 404
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
-
-    def test_per_page(self):
-        response = self.get({"entries_per_page": 60})
-        self.assertContains(
-            response, '<option value="60" selected="selected">60</option>', html=True
-        )
 
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
@@ -152,41 +145,40 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(context["page_obj"].object_list[0], self.puppy_image)
         self.assertEqual(context["page_obj"].object_list[1], self.kitten_image)
 
+    @override_settings(WAGTAILIMAGES_INDEX_PAGE_SIZE=15)
     def test_default_entries_per_page(self):
-        for i in range(1, 33):
-            self.image = Image.objects.create(
+        images = [
+            Image(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
             )
+            for i in range(1, 33)
+        ]
+        Image.objects.bulk_create(images)
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
         object_list = response.context["page_obj"].object_list
-        # The default number of images shown is 30
-        self.assertEqual(len(object_list), 30)
-
-        response = self.get({"entries_per_page": 10})
-        self.assertEqual(response.status_code, 200)
-
-        object_list = response.context["page_obj"].object_list
-        self.assertEqual(len(object_list), 10)
+        # The number of images shown is 15
+        self.assertEqual(len(object_list), 15)
 
     def test_default_entries_per_page_uses_default(self):
-        for i in range(1, 33):
-            self.image = Image.objects.create(
+        images = [
+            Image(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
             )
+            for i in range(1, 33)
+        ]
+        Image.objects.bulk_create(images)
 
         default_num_entries_per_page = 30
-        invalid_num_entries_values = [66, "a"]
-        for value in invalid_num_entries_values:
-            response = self.get({"entries_per_page": value})
-            self.assertEqual(response.status_code, 200)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
 
-            object_list = response.context["page_obj"].object_list
-            self.assertEqual(len(object_list), default_num_entries_per_page)
+        object_list = response.context["page_obj"].object_list
+        self.assertEqual(len(object_list), default_num_entries_per_page)
 
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()
@@ -194,8 +186,16 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         root_collection.add_child(name="Good plans")
 
         response = self.get()
+        soup = self.get_soup(response.content)
+        collection_options = soup.select(
+            'select[name="collection_id"] option[value]:not(option[value=""])'
+        )
+
         self.assertEqual(
-            [collection.name for collection in response.context["collections"]],
+            [
+                collection.get_text(strip=True).lstrip("↳ ")
+                for collection in collection_options
+            ],
             ["Root", "Evil plans", "Good plans"],
         )
 
@@ -235,13 +235,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
-        current_tag = response.context["current_tag"]
-        self.assertIsNone(current_tag)
+        soup = self.get_soup(response.content)
+        current_tags = soup.select("input[name=tag][checked]")
+        self.assertFalse(current_tags)
 
-        tags = response.context["popular_tags"]
-        self.assertTrue(
-            [tag.name for tag in tags] == ["one", "two"]
-            or [tag.name for tag in tags] == ["two", "one"]
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [tags.get_text(strip=True) for tags in tags],
+            ["one", "two"],
         )
 
     def test_tag_filtering(self):
@@ -262,10 +263,16 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         )
         image_two_tags.tags.add("one", "two")
 
+        image_unrelated_tag = Image.objects.create(
+            title="Test image with a different tag",
+            file=get_test_image_file(),
+        )
+        image_unrelated_tag.tags.add("unrelated")
+
         # no filtering
         response = self.get()
-        # three images created above plus the two untagged ones created in setUp()
-        self.assertEqual(response.context["page_obj"].paginator.count, 5)
+        # four images created above plus the two untagged ones created in setUp()
+        self.assertEqual(response.context["page_obj"].paginator.count, 6)
 
         # filter all images with tag 'one'
         response = self.get({"tag": "one"})
@@ -274,6 +281,30 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         # filter all images with tag 'two'
         response = self.get({"tag": "two"})
         self.assertEqual(response.context["page_obj"].paginator.count, 1)
+
+        # filter all images with tag 'one' or 'unrelated'
+        response = self.get({"tag": ["one", "unrelated"]})
+        self.assertEqual(response.context["page_obj"].paginator.count, 3)
+
+        soup = self.get_soup(response.content)
+
+        # Should check the 'one' and 'unrelated' tags checkboxes
+        tags = soup.select("#id_tag label")
+        self.assertCountEqual(
+            [
+                tag.get_text(strip=True)
+                for tag in tags
+                if tag.select_one("input[checked]") is not None
+            ],
+            ["one", "unrelated"],
+        )
+
+        # Should render the active filter pills separately for each tag
+        active_filters = soup.select('[data-w-active-filter-id="id_tag"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            ["Tag: one", "Tag: unrelated"],
+        )
 
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 130):
@@ -302,7 +333,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
     def test_search_form_rendered(self):
         response = self.get()
         html = response.content.decode()
-        search_url = reverse("wagtailimages:index")
+        search_url = reverse("wagtailimages:index_results")
 
         # Search form in the header should be rendered.
         self.assertTagInHTML(
@@ -349,13 +380,17 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2020, 1, 1),
         )
         self.puppy_image = Image.objects.create(
             title="a cute puppy",
             file=get_test_image_file(size=(1, 1)),
-            created_at=datetime.datetime(2022, 2, 2),
         )
+        # The created_at field uses auto_now_add, so changing it needs to be
+        # done after the image is created.
+        self.kitten_image.created_at = local_datetime(2020, 1, 1)
+        self.kitten_image.save()
+        self.puppy_image.created_at = local_datetime(2022, 2, 2)
+        self.puppy_image.save()
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailimages:index"), params)
@@ -406,8 +441,28 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         url = reverse("wagtailimages:add_multiple")
         self.assertContains(
             response,
-            f'<a href="{url}?q=Baker&amp;collection_id={child_collection[0].pk}"',
+            f'<a href="{url}?collection_id={child_collection[0].pk}"',
         )
+
+    def test_search_and_order_by_created_at(self):
+        old_image = Image.objects.create(
+            title="decades old cute tortoise",
+            file=get_test_image_file(size=(1, 1)),
+        )
+        old_image.created_at = local_datetime(2000, 1, 1)
+        old_image.save()
+        response = self.get({"q": "cute", "ordering": "created_at"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["query_string"], "cute")
+        self.assertEqual(
+            list(response.context["page_obj"].object_list),
+            [old_image, self.kitten_image, self.puppy_image],
+        )
+        soup = self.get_soup(response.content)
+        option = soup.select_one('select[name="ordering"] option[selected]')
+        self.assertIsNotNone(option)
+        self.assertEqual(option["value"], "created_at")
+        self.assertEqual(option.get_text(strip=True), "Oldest")
 
     def test_tag_filtering_with_search_term(self):
         Image.objects.create(
@@ -427,10 +482,10 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         )
         image_two_tags.tags.add("one", "two")
 
-        # The tag gets ignored, if a valid search term is present, so this will find all
-        # images, as all of them contain "test" in their titles.
+        # The tag shouldn't be ignored, so the result should be the images
+        # that have the "one" tag and "test" in the title.
         response = self.get({"tag": "one", "q": "test"})
-        self.assertEqual(response.context["page_obj"].paginator.count, 3)
+        self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):

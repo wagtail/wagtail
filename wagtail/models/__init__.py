@@ -9,11 +9,14 @@ should implement low-level generic functionality which is then imported by highe
 as Page.
 """
 
+from __future__ import annotations
+
 import functools
 import logging
 import posixpath
 import uuid
 from io import StringIO
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 from django import forms
@@ -125,6 +128,9 @@ from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -1282,6 +1288,43 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     content_panels = []
     promote_panels = []
     settings_panels = []
+
+    @staticmethod
+    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+        """
+        Find the page route for the given HTTP request object, and URL path. The route
+        result (`page`, `args`, and `kwargs`) will be cached via
+        `request._wagtail_route_for_request`.
+        """
+        if not hasattr(request, "_wagtail_route_for_request"):
+            try:
+                # we need a valid Site object for this request in order to proceed
+                if site := Site.find_for_request(request):
+                    path_components = [
+                        component for component in path.split("/") if component
+                    ]
+                    request._wagtail_route_for_request = (
+                        site.root_page.localized.specific.route(
+                            request, path_components
+                        )
+                    )
+                else:
+                    request._wagtail_route_for_request = None
+            except Http404:
+                # .route() can raise Http404
+                request._wagtail_route_for_request = None
+
+        return request._wagtail_route_for_request
+
+    @staticmethod
+    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+        """
+        Find the page for the given HTTP request object, and URL path. The full
+        page route will be cached via `request._wagtail_route_for_request`
+        """
+        result = Page.route_for_request(request, path)
+        if result is not None:
+            return result[0]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2732,7 +2775,31 @@ class RevisionQuerySet(models.QuerySet):
         )
 
 
-RevisionsManager = models.Manager.from_queryset(RevisionQuerySet)
+class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
+    def previous_revision_id_subquery(self, revision_fk_name="revision"):
+        """
+        Returns a Subquery that can be used to annotate a queryset with the ID
+        of the previous revision, based on the revision_fk_name field. Useful
+        to avoid N+1 queries when generating comparison links between revisions.
+
+        The logic is similar to Revision.get_previous().pk.
+        """
+        fk = revision_fk_name
+        return Subquery(
+            Revision.objects.filter(
+                base_content_type_id=OuterRef(f"{fk}__base_content_type_id"),
+                object_id=OuterRef(f"{fk}__object_id"),
+            )
+            .filter(
+                Q(
+                    created_at=OuterRef(f"{fk}__created_at"),
+                    pk__lt=OuterRef(f"{fk}__pk"),
+                )
+                | Q(created_at__lt=OuterRef(f"{fk}__created_at"))
+            )
+            .order_by("-created_at", "-pk")
+            .values_list("pk", flat=True)[:1]
+        )
 
 
 class PageRevisionsManager(RevisionsManager):
@@ -3621,7 +3688,7 @@ class Workflow(AbstractWorkflow):
     pass
 
 
-class GroupApprovalTask(Task):
+class AbstractGroupApprovalTask(Task):
     groups = models.ManyToManyField(
         Group,
         verbose_name=_("groups"),
@@ -3703,8 +3770,13 @@ class GroupApprovalTask(Task):
         return _("Members of the chosen Wagtail Groups can approve this task")
 
     class Meta:
+        abstract = True
         verbose_name = _("Group approval task")
         verbose_name_plural = _("Group approval tasks")
+
+
+class GroupApprovalTask(AbstractGroupApprovalTask):
+    pass
 
 
 class WorkflowStateQuerySet(models.QuerySet):
