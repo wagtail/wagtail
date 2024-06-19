@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from django.db.models.functions import Coalesce
 from django.utils.functional import cached_property
 
 # Note: avoid importing models here. This module is imported from __init__.py
@@ -14,10 +15,16 @@ class Sitemap(DjangoSitemap):
     def location(self, obj):
         return obj.get_full_url(self.request)
 
-    def lastmod(self, obj):
-        # fall back on latest_revision_created_at if last_published_at is null
-        # (for backwards compatibility from before last_published_at was added)
-        return obj.last_published_at or obj.latest_revision_created_at
+    def get_latest_lastmod(self):
+        return (
+            self.items()
+            .annotate(
+                lastmod=Coalesce("last_published_at", "latest_revision_created_at")
+            )
+            .order_by("-lastmod")
+            .values_list("lastmod", flat=True)
+            .first()
+        )
 
     @cached_property
     def wagtail_site(self):
