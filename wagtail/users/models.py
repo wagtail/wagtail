@@ -72,15 +72,27 @@ class UserProfile(models.Model):
 
     dismissibles = models.JSONField(default=dict, blank=True)
 
-    class AdminThemes(models.TextChoices):
+    class AdminColorThemes(models.TextChoices):
         SYSTEM = "system", _("System default")
         LIGHT = "light", _("Light")
         DARK = "dark", _("Dark")
 
     theme = models.CharField(
         verbose_name=_("admin theme"),
-        choices=AdminThemes.choices,
-        default=AdminThemes.SYSTEM,
+        choices=AdminColorThemes.choices,
+        default=AdminColorThemes.SYSTEM,
+        max_length=40,
+    )
+
+    class AdminDensityThemes(models.TextChoices):
+        DEFAULT = "default", _("Default")
+        SNUG = "snug", _("Snug")
+
+    density = models.CharField(
+        # Translators: "Density" is the term used to describe the amount of space between elements in the user interface
+        verbose_name=_("density"),
+        choices=AdminDensityThemes.choices,
+        default=AdminDensityThemes.DEFAULT,
         max_length=40,
     )
 

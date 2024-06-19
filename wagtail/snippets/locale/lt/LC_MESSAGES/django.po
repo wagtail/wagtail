@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -99,30 +99,6 @@ msgstr "Išsaugoti juodraštį"
 msgid "Actions"
 msgstr "Veiksmai"
 
-msgid "Live version"
-msgstr "Publikuota versija"
-
-msgid "Current draft"
-msgstr "Dabartinis juodraštis"
-
-msgid "Preview"
-msgstr "Peržiūrėti"
-
-msgid "Edit"
-msgstr "Redaguoti"
-
-msgid "Review this version"
-msgstr "Peržiūrėti šią versiją"
-
-msgid "Compare with previous version"
-msgstr "Palyginti su ankstesne versija"
-
-msgid "Compare with current version"
-msgstr "Palyginti su dabartine versija"
-
-msgid "Cancel scheduled publish"
-msgstr "Atšaukti suplanuotą publikavimą"
-
 msgid "Choose"
 msgstr "Pasirinkti"
 
@@ -131,12 +107,6 @@ msgstr "Nuokarpos"
 
 msgid "Name"
 msgstr "Vardas"
-
-msgid "Action"
-msgstr "Veiksmas"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Home"
 msgstr "Namai"

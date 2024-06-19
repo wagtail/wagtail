@@ -18,6 +18,7 @@ import uuid
 from io import StringIO
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
+from warnings import warn
 
 from django import forms
 from django.conf import settings
@@ -95,6 +96,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -2599,9 +2601,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
-    password_required_template = getattr(
-        settings, "PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/password_required.html"
-    )
+    password_required_template = None
 
     def serve_password_required_response(self, request, form, action_url):
         """
@@ -2611,10 +2611,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             (and zero or more hidden fields that also need to be output on the template)
         action_url = URL that this form should be POSTed to
         """
+
+        password_required_template = self.password_required_template
+
+        if not password_required_template:
+            password_required_template = getattr(
+                settings,
+                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+                "wagtailcore/password_required.html",
+            )
+
+            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
+                warn(
+                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+
+                password_required_template = getattr(
+                    settings,
+                    "PASSWORD_REQUIRED_TEMPLATE",
+                    password_required_template,
+                )
+
         context = self.get_context(request)
         context["form"] = form
         context["action_url"] = action_url
-        return TemplateResponse(request, self.password_required_template, context)
+        return TemplateResponse(request, password_required_template, context)
 
     def with_content_json(self, content):
         """

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -95,6 +95,9 @@ msgstr "Pasirinkti kalbą administravimui"
 msgid "profile picture"
 msgstr "profilio nuotrauka"
 
+msgid "Default"
+msgstr "Numatytasis"
+
 msgid "user profile"
 msgstr "vartotojo profilis"
 
@@ -123,9 +126,6 @@ msgstr "Ar tikrai norite ištrinti šią grupę?"
 
 msgid "Add group"
 msgstr "Pridėti grupę"
-
-msgid "View users in this group"
-msgstr "Peržiūrėti šios grupės vartotojus"
 
 msgid "Save"
 msgstr "Išsaugoti"
@@ -175,11 +175,11 @@ msgstr "Atsiprašome, jokios grupės neatitinka \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nėra sukonfigūruota jokia grupė. Kodėl gi <a "
-"href=\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
+"Nėra sukonfigūruota jokia grupė. Kodėl gi <a href="
+"\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ar tikrai norite ištrinti šį vartotoją?"
@@ -196,30 +196,14 @@ msgstr "Pridėti vartotoją"
 msgid "Delete user"
 msgstr "Ištrinti vartotoją"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Vartotojo vardas"
-
-msgid "Status"
-msgstr "Statusas"
-
-msgid "Last Login"
-msgstr "Paskutinis prisijungimas"
-
-msgid "Admin"
-msgstr "Administratorius"
+msgid "Delete selected users"
+msgstr "Ištrinti pasirinktus vartotojus"
 
 msgid "Active"
 msgstr "Aktyvus"
 
 msgid "Inactive"
 msgstr "Neaktyvus"
-
-msgid "Delete selected users"
-msgstr "Ištrinti pasirinktus vartotojus"
 
 msgid "Groups"
 msgstr "Grupės"
@@ -241,6 +225,9 @@ msgstr "Grupė '%(object)s' atnaujinta."
 msgid "The group could not be saved due to errors."
 msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 
+msgid "View users in this group"
+msgstr "Peržiūrėti šios grupės vartotojus"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupė '%(object)s' ištrinta."
@@ -250,6 +237,15 @@ msgstr "Pridėti vartotoją"
 
 msgid "Users"
 msgstr "Vartotojai"
+
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+msgid "Admin"
+msgstr "Administratorius"
+
+msgid "Status"
+msgstr "Statusas"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -261,6 +257,3 @@ msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Vartotojas '%(object)s' ištrintas."
-
-msgid "Edit"
-msgstr "Redaguoti"

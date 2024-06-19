@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -122,6 +122,9 @@ msgstr "选择你所在时区"
 msgid "profile picture"
 msgstr "配置图片"
 
+msgid "Default"
+msgstr "默认"
+
 msgid "user profile"
 msgstr "用户资料"
 
@@ -196,9 +199,6 @@ msgstr "确定要删除该组？"
 msgid "Add group"
 msgstr "添加组"
 
-msgid "View users in this group"
-msgstr "查看此组中的用户"
-
 msgid "Save"
 msgstr "保存"
 
@@ -247,8 +247,8 @@ msgstr "对不起，没有符合“%(query)s”的组"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
 
@@ -271,41 +271,11 @@ msgid "Select all users in listing"
 msgstr "选择列表中的所有用户"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"%(group_name)s组还没有用户，为何不<a href=\"%(wagtailusers_add_url)s\">添加一"
-"些用户</a>？"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
 "目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
-
-msgid "Username"
-msgstr "用户名"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Last Login"
-msgstr "最后登录"
-
-msgid "Admin"
-msgstr "管理"
-
-msgid "Active"
-msgstr "有效"
-
-msgid "Inactive"
-msgstr "无效"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -326,6 +296,12 @@ msgstr "删除选择的用户"
 msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个用户"
+
+msgid "Active"
+msgstr "有效"
+
+msgid "Inactive"
+msgstr "无效"
 
 msgid "Change the active state for selected users"
 msgstr "更改所选用户的活动状态"
@@ -360,15 +336,30 @@ msgstr "组 '%(object)s' 已更新。"
 msgid "The group could not be saved due to errors."
 msgstr "无法保存该组。出现错误。"
 
+msgid "View users in this group"
+msgstr "查看此组中的用户"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "组 '%(object)s' 已删除。"
+
+msgid "Group"
+msgstr "组"
 
 msgid "Add a user"
 msgstr "添加用户"
 
 msgid "Users"
 msgstr "用户"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Admin"
+msgstr "管理"
+
+msgid "Status"
+msgstr "状态"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -384,6 +375,3 @@ msgstr "无法保存用户。出现错误。"
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "用户 '%(object)s' 已删除。"
-
-msgid "Edit"
-msgstr "编辑"

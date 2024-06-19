@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -333,9 +333,6 @@ msgstr "Offentlig"
 msgid "Private"
 msgstr "Privat"
 
-msgid "Name"
-msgstr "Navn"
-
 msgid "Yes, delete"
 msgstr "Ja, slet"
 
@@ -508,12 +505,6 @@ msgstr "Kopier denne side"
 msgid "This page has unsaved changes."
 msgstr "Denne side har ugemte ændringer."
 
-msgid "Live version"
-msgstr "Live version"
-
-msgid "Current draft"
-msgstr "Nuværende skitse"
-
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."
 
@@ -571,11 +562,11 @@ msgstr "Sider"
 msgid "Locked"
 msgstr "Låst"
 
+msgid "Name"
+msgstr "Navn"
+
 msgid "Edit this item"
 msgstr "Rediger denne enhed"
-
-msgid "Root"
-msgstr "Rod"
 
 msgid "Unlocked"
 msgstr "Ulåst"
@@ -608,8 +599,26 @@ msgstr "%(time_period)s siden"
 msgid "Log out"
 msgstr "Log ud"
 
+msgid "Undo"
+msgstr "Gå tilbage"
+
+msgid "Redo"
+msgstr "Gå frem"
+
+msgid "Bold"
+msgstr "Fed"
+
+msgid "Italic"
+msgstr "Skråskrift"
+
 msgid "Home"
 msgstr "Hjem"
+
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "Nuværende skitse"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -680,12 +689,6 @@ msgstr "Liste med prikker"
 
 msgid "Numbered list"
 msgstr "Liste med numre"
-
-msgid "Bold"
-msgstr "Fed"
-
-msgid "Italic"
-msgstr "Skråskrift"
 
 msgid "Link"
 msgstr "Link"

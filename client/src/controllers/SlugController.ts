@@ -89,12 +89,12 @@ export class SlugController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
+    const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-
     const trimmedValue = value.trim();
 
     const newValue =
-      urlify(trimmedValue) ||
+      urlify(trimmedValue, { allowUnicode }) ||
       this.slugify({ detail: { value: trimmedValue } }, true);
 
     if (!ignoreUpdate) {

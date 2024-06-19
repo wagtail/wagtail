@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -93,21 +93,6 @@ msgstr "Gantikan konsep saat ini"
 msgid "Save draft"
 msgstr "Simpan konsep"
 
-msgid "Live version"
-msgstr "Versi aktif"
-
-msgid "Current draft"
-msgstr "Konsep saat ini"
-
-msgid "Preview"
-msgstr "Pratinjau"
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "Cancel scheduled publish"
-msgstr "Batalkan publikasi terjadwal"
-
 msgid "Choose"
 msgstr "Pilih"
 
@@ -116,9 +101,6 @@ msgstr "Potongan"
 
 msgid "Name"
 msgstr "Nama"
-
-msgid "Date"
-msgstr "Tanggal"
 
 msgid "Home"
 msgstr "Beranda"

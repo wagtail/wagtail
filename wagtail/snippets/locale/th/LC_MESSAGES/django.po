@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,21 +91,6 @@ msgstr "แทนที่ฉบับร่างล่าสุด"
 msgid "Save draft"
 msgstr "บันทึกฉบับร่าง"
 
-msgid "Live version"
-msgstr "เวอร์ชันที่กำลังเผยพร่"
-
-msgid "Current draft"
-msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
-
-msgid "Preview"
-msgstr "ภาพตัวอย่าง"
-
-msgid "Edit"
-msgstr "แก้ไข"
-
-msgid "Cancel scheduled publish"
-msgstr "ยกเลิกกำหนดการเผยแพร่"
-
 msgid "Choose"
 msgstr "เลือก"
 
@@ -114,9 +99,6 @@ msgstr "เกร็ดเล็กเกร็ดน้อย"
 
 msgid "Name"
 msgstr "ชื่อ"
-
-msgid "Date"
-msgstr "วันที่"
 
 msgid "Home"
 msgstr "หน้าหลักของเว็บไซด์"

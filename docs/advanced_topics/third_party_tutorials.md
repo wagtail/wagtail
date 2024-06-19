@@ -6,6 +6,16 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Upgrading Wagtail (from 2.5 to 6.0)](https://learnwagtail.com/blog/category/upgrading-wagtail/) (18 April 2024)
+-   [Using Wagtail Form Templates in Software Development Projects](https://devcodef1.com/news/1211030/wagtail-form-templates-in-sd-projects) (9 April 2024)
+-   [Build an Intuitive Link StructBlock in Wagtail: Simplifying Link Management for Content Editors](https://enzedonline.com/en/tech-blog/build-an-intuitive-link-structblock-in-wagtail-simplifying-link-management-for-content-editors/) (9 March 2024)
+-   [Improving Wagtail Richtext Block Revision Diffing](https://onexception.dev/news/1166572/wagtail-richtext-block-revision-diffing) (6 March 2024)
+-   [Wagtail StreamField - Propagating the `required` Attribute on Nested Blocks](https://enzedonline.com/en/tech-blog/wagtail-streamfields-propagating-the-required-attribute-on-nested-blocks/) (20 February 2024)
+-   [An overview of a Wagtail website stack](https://learnwagtail.com/blog/a-peek-inside-our-tech-stack/) (15 February 2024)
+-   [Efficient Cascading Choices in Wagtail Admin: A Smart Chooser Panel Solution](https://enzedonline.com/en/tech-blog/efficient-cascading-choices-in-wagtail-admin-a-smart-chooser-panel-solution/) (27 January 2024)
+-   [How to add an edit link to `wagtail-autocomplete` items](https://dev.to/ordigital/how-to-add-edit-link-in-wagtail-autocomplete-4kg1) (30 January 2024)
+-   [Programmatically Creating a Wagtail page with StreamField](https://usercomp.com/news/1080620/create-wagtail-page-programmatically) (19 December 2023)
+-   [Adding reCAPTCHA V3 to Wagtail's Form Builder Pages](https://enzedonline.com/en/tech-blog/protecting-your-django-forms-implementing-google-recaptcha-v3-for-enhanced-security/) (19 December 2023)
 -   [Guide for managing a complex multi-tenancy setup with Wagtail](https://cynthiakiser.com/blog/2023/11/01/multitenancy-with-wagtail.html) (1 November 2023)
 -   [Wagtail tutorial video series, getting started through to e-commerce integration with PayPal](https://www.youtube.com/playlist?list=PLl5rkhS-ZxnePQpI2Ty63hpAvfUTrqdt1) (1 November 2023)
 -   [Integrating Next.js and Wagtail: Building a Headless, Content-Driven Website](https://blog.traleor.com/headless-nextjs-wagtail/) (21 October 2023)
@@ -13,7 +23,7 @@ the latest Wagtail versions.
 -   [Deploy Wagtail CMS to PythonAnywhere using git push to a bare repo](https://www.nickmoreton.co.uk/articles/deploy-wagtail-cms-to-pythonanywhere/) (27 September 2023)
 -   [Building a custom Django command to check all admin pages are loading correctly in Wagtail](https://www.nickmoreton.co.uk/articles/wagtail-response-checker/) (1 September 2023)
 -   [Integrating ChatGPT with Wagtail for efficient content generation](https://octave.nz/post/integrating-chatgpt-with-wagtail-for-efficient-content-generation-and-content-management) (15 August 2023)
--   [Creating Wagtail Streamfield StructBlocks with a Customised Editor Interface](https://enzedonline.com/en/tech-blog/how-to-create-wagtail-streamfield-structblocks-with-a-customised-editor-interface/) (9 July 2023)
+-   [Creating Wagtail StreamField StructBlocks with a Customised Editor Interface](https://enzedonline.com/en/tech-blog/how-to-create-wagtail-streamfield-structblocks-with-a-customised-editor-interface/) (9 July 2023)
 -   [Wagtail on Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0) (26 June 2023)
 -   [How to create a custom Wagtail CMS page type?](https://itcertifications.medium.com/how-to-create-a-custom-wagtail-cms-page-type-7bf72aff8413) (29 June 2023)
 -   [ Create Stylish Wagtail Pages with Tailwind CSS ](https://www.accordbox.com/blog/create-stylish-wagtail-pages-with-tailwind-css/) (15 June 2023)

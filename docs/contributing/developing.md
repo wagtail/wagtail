@@ -345,7 +345,7 @@ pre-commit install
 
 pre-commit should now run on every commit you make.
 
-(developing_using_a_fork)
+(developing_using_a_fork)=
 
 ## Using forks for installation
 

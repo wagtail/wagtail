@@ -5,14 +5,15 @@
 # Translators:
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017
+# stdpi, 2024
 # Vu Pham, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017-2018\n"
+"Last-Translator: stdpi, 2024\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -24,14 +25,31 @@ msgstr ""
 msgid "Publish"
 msgstr "Xuất bản"
 
+msgid "Submit for moderation"
+msgstr "Yêu cầu xem xét"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Thực hiện lại%(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Thực hiện %(workflow_name)s"
+
 msgid "Restart workflow "
-msgstr "Khởi động lại luồng công việc"
+msgstr "Tiếp tục quy trình"
+
+msgid "Cancel workflow "
+msgstr "Ngừng quy trình"
 
 msgid "Unpublish"
 msgstr "Thu hồi xuất bản"
 
 msgid "Save Draft"
 msgstr "Lưu bản nháp"
+
+msgid "Page locked"
+msgstr "Trang bị khoá"
 
 #, python-format
 msgid "%(label)s and Publish"
@@ -40,14 +58,38 @@ msgstr "%(label)svà Xuất bản"
 msgid "Wagtail admin"
 msgstr "Quản trị viên Wagtail"
 
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Bạn không có quyền truy cập vào khu vực này."
+
+msgid "You do not have permission to access the admin"
+msgstr "Bạn không có quyền truy cập trang quản trị"
+
+msgid "None"
+msgstr "Không có"
+
 msgid "Date from"
 msgstr "Từ ngày"
 
 msgid "Date to"
 msgstr "Đến ngày"
 
+msgid "Locale"
+msgstr "Vùng miền"
+
 msgid "All"
 msgstr "Tất cả"
+
+msgid "Collection"
+msgstr "Bộ sưu tập"
+
+msgid "Tag"
+msgstr "Thẻ"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Lọc theo 10 thẻ phổ biến nhất."
+
+msgid "Preferred language"
+msgstr "Ngôn ngữ ưu tiên"
 
 msgid "Current time zone"
 msgstr "Múi giờ hiện tại"
@@ -61,8 +103,15 @@ msgstr "Họ"
 msgid "Email"
 msgstr "Email"
 
+msgid "Upload a profile picture"
+msgstr "Đăng hình đại diện"
+
 msgid "Enter password"
 msgstr "Nhập mật khẩu"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Tên người dùng %(username_field)skhông trùng với mật khẩu."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -74,26 +123,150 @@ msgstr "Nhập địa chỉ email của bạn để thiết lập lại mật kh
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Từ khoá"
+
 msgid "Search"
 msgstr "Tìm kiếm"
 
-msgid "Collection"
-msgstr "Bộ sưu tập"
+msgid "All collections"
+msgstr "Các mục"
+
+msgid "Parent"
+msgstr "Tập"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Chọn vị trí chỉ định. Tập này không thể nằm trong các tập của nó và chính nó."
+
+msgid "Please select another parent"
+msgstr "Hãy chọn tập khác"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Không thể có nhiều mục quyền hạn trong cùng một tập."
 
 msgid "Add"
 msgstr "Thêm"
 
+msgid "Add collections"
+msgstr "Thêm mục"
+
 msgid "Edit"
 msgstr "Biên tập"
+
+msgid "Edit collections"
+msgstr "Sửa mục"
 
 msgid "Delete"
 msgstr "Xoá"
 
+msgid "Delete collections"
+msgstr "Xoá mục"
+
+msgid "You cannot edit another user's comment."
+msgstr "Không thể sửa bình luận người khác"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Thời hạn đăng phải trước thời điểm hết hạn"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Thời điểm hết hạn phải ở tương lai"
+
 msgid "New title"
 msgstr "Tiêu đề mới"
 
+msgid "New slug"
+msgstr "Đường dẫn mới"
+
+msgid "New parent page"
+msgstr "Thêm một trang cha"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Nhân bản này sẽ có cùng vị trí."
+
+msgid "Copy subpages"
+msgstr "Sao chép trang con"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Tiếp tục sẽ sao chép %(count)s trang."
+
+msgid "Publish copied page"
+msgstr "Đăng các trang đã sao chép"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Trang này đã được đăng. Bạn có muốn đang các bản sao của nó?"
+
+msgid "Publish copies"
+msgstr "Đăng các trang đã sao chép"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "%(count)s trang được sao chép đã được đăng. Bạn có muốn đăng?"
+
+msgid "Alias"
+msgstr "Tên khác"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Giữ bản sao luôn được đồng bộ"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Bạn không có quyền sao chép trang \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "Đường dẫn đã được sử dụng ở trang cha \"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Bạn không thể sao chép một trang vào chính trang đó khi sao chép các trang "
+"con"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "Đường dẫn \"%(page_slug)s\" đã được sử dụng bởi trang cha"
+
+msgid "Select a new parent for this page."
+msgstr "Chọn trang cha mới."
+
+msgid "Parent page"
+msgstr "Trang cha"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "Trang mới sẽ thuộc trang cha này."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "Bạn không có quyền tạo trang trong \"%(page_title)s\""
+
 msgid "Please select at least one group."
 msgstr "Hãy lựa chọn ít nhất một nhóm."
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Trang này đã áp dụng quy trình '%(workflow_name)s'."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "Không thể áp dụng quy trình nhiều lần."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr "Khối `%(content_type)s` đã có quy trình `%(workflow_name)s`."
+
+msgid "Give your workflow a name"
+msgstr "Đặt tên quy trình"
 
 msgid "1 page selected"
 msgstr "1 trang được chọn"
@@ -155,9 +328,6 @@ msgstr "Công khai"
 msgid "Private"
 msgstr "Riêng tư"
 
-msgid "Name"
-msgstr "Tên"
-
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
@@ -166,6 +336,9 @@ msgstr "Không xoá"
 
 msgid "Cancel"
 msgstr "Hủy bỏ"
+
+msgid "Comment"
+msgstr "Bình luận"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -205,9 +378,6 @@ msgstr "Xóa %(title)s"
 msgid "Copy"
 msgstr "Sao chép"
 
-msgid "Comment"
-msgstr "Bình luận"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
@@ -217,6 +387,9 @@ msgstr "Trang"
 
 msgid "Locked"
 msgstr "Đã bị khóa"
+
+msgid "Name"
+msgstr "Tên"
 
 msgid "Download XLSX"
 msgstr "Tải XLSX"
@@ -249,6 +422,9 @@ msgstr "Mới"
 
 msgid "Published"
 msgstr "Đã xuất bản"
+
+msgid "Undo"
+msgstr "Hoàn tác"
 
 msgid "Password"
 msgstr "Mật khẩu"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,41 +100,18 @@ msgstr "아래로 이동"
 msgid "Promoted search results"
 msgstr "프로모션 검색 결과"
 
-msgid "Search Terms"
-msgstr "검색어"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다, \"<em>%(query_string)s</em>\" 와 연관된 프로모션 결과가 없습니다."
 
-msgid "Add new promoted result"
-msgstr "새로운 프로모션 결과 추가"
-
-msgid "Search term(s)"
-msgstr "검색어"
-
-msgid "Order by search term alphabetically"
-msgstr "검색어를 알파벳 순으로 정렬"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "검색어 순서를 알파벳 역순으로 정렬"
-
-msgid "Promoted results"
-msgstr "프로모션 결과"
-
-msgid "Views (past week)"
-msgstr "본 횟수(지난 주)"
-
-msgid "Order by views (lowest first)"
-msgstr "보기별 순서(최소값부터)"
-
-msgid "Order by views (highest first)"
-msgstr "보기별 순서(최대값부터)"
-
-msgid "Edit this promotion"
-msgstr "이 프로모션 수정"
-
-msgid "External link"
-msgstr "외부 링크"
-
-msgid "None"
-msgstr "없음"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"생성된 프로모션 결과가 없습니다. 지금 프로모션 결과를 <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">추가 해 보시는건 어떨까요?"
 
 msgid "Popular search terms"
 msgstr "인기있는 검색어"
@@ -145,29 +122,32 @@ msgstr "검색"
 msgid "Terms"
 msgstr "단어"
 
+msgid "Views (past week)"
+msgstr "본 횟수(지난 주)"
+
 msgid "No results found"
 msgstr "검색 결과가 없습니다"
 
 msgid "Choose from popular search terms"
 msgstr "인기있는 검색어로부터 선택"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s만큼 일치"
+msgid "External link"
+msgstr "외부 링크"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"죄송합니다, \"<em>%(query_string)s</em>\" 와 연관된 프로모션 결과가 없습니다."
+msgid "None"
+msgstr "없음"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"생성된 프로모션 결과가 없습니다. 지금 프로모션 결과를 <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">추가 해 보시는건 어떨까요?"
+msgid "Search Terms"
+msgstr "검색어"
+
+msgid "Add new promoted result"
+msgstr "새로운 프로모션 결과 추가"
+
+msgid "Search term(s)"
+msgstr "검색어"
+
+msgid "Promoted results"
+msgstr "프로모션 결과"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

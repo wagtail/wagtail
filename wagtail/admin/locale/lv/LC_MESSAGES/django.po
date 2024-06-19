@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Joren Štekeļs, 2024\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -79,6 +79,9 @@ msgstr "Lokalizācija"
 msgid "All"
 msgstr "Viss"
 
+msgid "Collection"
+msgstr "Kolekcija"
+
 msgid "Preferred language"
 msgstr "Vēlamā valoda"
 
@@ -123,9 +126,6 @@ msgstr "Meklēt"
 
 msgid "All collections"
 msgstr "Visas kolekcijas"
-
-msgid "Collection"
-msgstr "Kolekcija"
 
 msgid "Parent"
 msgstr "Augstāka līmeņa vienība"
@@ -243,6 +243,9 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Izvēlieties jaunu vecāklapu šai lapai"
+
+msgid "Parent page"
+msgstr "Augstāka līmeņa lapa"
 
 msgid "Search…"
 msgstr "Meklēt..."
@@ -466,9 +469,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 
-msgid "Name"
-msgstr "Nosaukums"
-
 msgid "Yes, delete"
 msgstr "Dzēst"
 
@@ -478,6 +478,12 @@ msgstr "Atsaukt %(title)s publicēšanu"
 
 msgid "Yes, unpublish it"
 msgstr "Atsaukt publicēšanu"
+
+msgid "Comment"
+msgstr "Komentārs"
+
+msgid "Actions"
+msgstr "Darbības"
 
 msgid "Update"
 msgstr "Atjaunot"
@@ -501,9 +507,6 @@ msgstr "Slēgta plkst."
 
 msgid "Edit this page"
 msgstr "Labot šo lapu"
-
-msgid "Actions"
-msgstr "Darbības"
 
 msgid "Unlock"
 msgstr "Atslēgt"
@@ -654,15 +657,6 @@ msgstr "Kopēt šo lapu"
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
-msgid "User"
-msgstr "Lietotājs"
-
-msgid "Comment"
-msgstr "Komentārs"
-
-msgid "Current draft"
-msgstr "Patreizējā sagatave"
-
 msgid "Configure a site now."
 msgstr "Konfigurēt vietni"
 
@@ -725,6 +719,12 @@ msgstr "Lapas"
 
 msgid "Locked"
 msgstr "Slēgts"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid "User"
+msgstr "Lietotājs"
 
 msgid "Edit this item"
 msgstr "Rediģēt šo vienību"
@@ -800,6 +800,12 @@ msgstr "Vairāk"
 msgid "Log out"
 msgstr "Iziet"
 
+msgid "Undo"
+msgstr "Atsaukt"
+
+msgid "Redo"
+msgstr "Atcelt atsaukšanu"
+
 msgid "Password"
 msgstr "Parole"
 
@@ -838,6 +844,9 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 
 msgid "Home"
 msgstr "Sākumlapa"
+
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
 
 #, python-format
 msgid "Edit '%(title)s'"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -86,6 +86,12 @@ msgstr "Plats"
 msgid "All"
 msgstr "Alla"
 
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Tag"
+msgstr "Tagg"
+
 msgid "Preferred language"
 msgstr "Föredraget språk"
 
@@ -130,9 +136,6 @@ msgstr "Sök"
 
 msgid "All collections"
 msgstr "Alla samlingar"
-
-msgid "Collection"
-msgstr "Samling"
 
 msgid "Parent"
 msgstr "Topp"
@@ -234,8 +237,8 @@ msgid ""
 "This slug is already in use within the context of its parent page "
 "\"%(parent_page_title)s\""
 msgstr ""
-"Detta URL-fragment är redan i användning inom ramen för sin topp-"
-"sida\"%(parent_page_title)s\""
+"Detta URL-fragment är redan i användning inom ramen för sin topp-sida"
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
@@ -246,6 +249,9 @@ msgstr "Sluggen '%(page_slug)s' används redan inom föräldersidan"
 
 msgid "Select a new parent for this page."
 msgstr "Välj ny föräldersida"
+
+msgid "Parent page"
+msgstr "Topp-sida"
 
 msgid "Search…"
 msgstr "Sök…"
@@ -543,15 +549,15 @@ msgstr "Konvertera till intern länk"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Den URL du angett, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, verkar matcha den interna "
-"sidan %(page)s, vilket har URL <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(internal_url)s\">%(internal_url)s</a>."
+"Den URL du angett, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, verkar matcha den interna sidan "
+"%(page)s, vilket har URL <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -629,16 +635,13 @@ msgid ""
 msgstr ""
 "Denna samling kan inte raderas, eftersom den inte är tom. Den innehåller:"
 
-msgid "Name"
-msgstr "Namn"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Inga samlingar har skapats. Varför inte <a "
-"href=\"%(add_collection_url)s\">skapa en</a>?"
+"Inga samlingar har skapats. Varför inte <a href=\"%(add_collection_url)s"
+"\">skapa en</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -676,13 +679,13 @@ msgid ""
 "This %(model_name)s was marked as needing changes at <strong>%(task)s</"
 "strong> in <strong>%(workflow)s</strong>."
 msgstr ""
-"Denna %(model_name)s markerades att förändringar behövs vid "
-"<strong>%(task)s</strong> i <strong>%(workflow)s</strong>."
+"Denna %(model_name)s markerades att förändringar behövs vid <strong>"
+"%(task)s</strong> i <strong>%(workflow)s</strong>."
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
 "Denna %(model_name)s är för närvarande vid <strong>%(task)s</strong> i "
 "<strong>%(workflow)s</strong>."
@@ -698,6 +701,12 @@ msgstr "Vill du fortfarande publicera denna %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+msgid "Comment"
+msgstr "Kommentera"
+
+msgid "Actions"
+msgstr "Handlingar"
 
 #, python-format
 msgid "No %(model_name)s match your query."
@@ -764,9 +773,6 @@ msgstr "Låstes"
 msgid "Edit this page"
 msgstr "Redigera denna sida"
 
-msgid "Actions"
-msgstr "Handlingar"
-
 msgid "Unlock"
 msgstr "Lås upp"
 
@@ -819,15 +825,15 @@ msgstr "Saker i Wagtail %(version)s har förändrats!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
 "Oroa dig inte, vi backar upp dig om det behövs. Kolla in <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtails redaktörshandbok</a> för att ta reda på vad som "
-"ändras och några spännande nya funktioner!"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtails redaktörshandbok</a> för att ta reda på vad som ändras och några "
+"spännande nya funktioner!"
 
 msgid "Awaiting your review"
 msgstr "Inväntar din granskning"
@@ -993,8 +999,8 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"Sidan \"%(title)s\" har avvisats i \"%(task)s\" i arbetsflödet "
-"\"%(workflow)s\" av %(rejector)s."
+"Sidan \"%(title)s\" har avvisats i \"%(task)s\" i arbetsflödet \"%(workflow)s"
+"\" av %(rejector)s."
 
 #, python-format
 msgid ""
@@ -1305,8 +1311,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Denna sida är för närvarande vid <strong>%(task)s</strong> i "
-"<strong>%(workflow)s</strong>."
+"Denna sida är för närvarande vid <strong>%(task)s</strong> i <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Publicering av denna sida avbryter det aktuella arbetsflödet."
@@ -1335,31 +1341,6 @@ msgstr "Redigera orginalsida"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Konvertera denna alias till en vanlig sida"
-
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Sidohistorik för %(subtitle)s"
-
-msgid "Action"
-msgstr "Handling"
-
-msgid "User"
-msgstr "Användare"
-
-msgid "Date / Time"
-msgstr "Datum / Tid"
-
-msgid "Comment"
-msgstr "Kommentera"
-
-msgid "Live version"
-msgstr "Publicerad version"
-
-msgid "Current draft"
-msgstr "Nuvarande utkast"
-
-msgid "No log entries found."
-msgstr "Inga loggposter funna"
 
 msgid "Select all pages in listing"
 msgstr "Välj alla sidor i listan"
@@ -1470,15 +1451,6 @@ msgstr "Bekräfta"
 msgid "Add child page"
 msgstr "Lägg till undersida"
 
-msgid "Review this version"
-msgstr "Granska denna version"
-
-msgid "Compare with current version"
-msgstr "Jämför med nuvarande version"
-
-msgid "Cancel scheduled publish"
-msgstr "Avbryt schemalagd publicering"
-
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1571,8 +1543,23 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Inga upplåsta sidor hittades."
 
+msgid "Name"
+msgstr "Namn"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "Date / Time"
+msgstr "Datum / Tid"
+
 msgid "Edit this item"
 msgstr "Redigera objektet"
+
+msgid "No log entries found."
+msgstr "Inga loggposter funna"
 
 msgid "By Task"
 msgstr "Av Uppgift"
@@ -1640,9 +1627,6 @@ msgstr "Tillbaka"
 
 msgid "History"
 msgstr "Historik"
-
-msgid "Root"
-msgstr "Rot"
 
 msgid "Current page status:"
 msgstr "Nuvarande sidstatus:"
@@ -1848,14 +1832,14 @@ msgstr "Denna %(model_name)s har inte skickats in för moderering ännu"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript krävs för att använda Wagtail, men är för närvarande avstängt."
-"<br /> Här finns <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instruktioner hur du aktiverar "
-"JavaScript i din webbläsare</a>."
+"<br /> Här finns <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noreferrer\">instruktioner hur du aktiverar JavaScript i "
+"din webbläsare</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -1912,14 +1896,12 @@ msgstr "Skapa"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Arbetsflöden påverkar också undersidor. Om du väljer en ny föräldersida så "
-"kommer även undersidor använda detta arbetsflöde. Visa <a "
-"href=\"%(workflow_pages_url)s\">listan med sidor</a> ditt arbetsflöde "
-"påverkar."
+"kommer även undersidor använda detta arbetsflöde. Visa <a href="
+"\"%(workflow_pages_url)s\">listan med sidor</a> ditt arbetsflöde påverkar."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Detta arbetsflöde är inaktiverat och kan inte tilldelas några sidor."
@@ -1948,24 +1930,15 @@ msgstr "Sida"
 msgid "Assign to another page"
 msgstr "Tilldela till en annan sida"
 
-msgid "Hide disabled workflows"
-msgstr "Dölj inaktiverade arbetsflöden"
-
-msgid "Show disabled workflows"
-msgstr "Visa inaktiverade arbetsflöden"
-
-msgid "Used by"
-msgstr "Används av"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Steg %(step_number)s"
 
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "1 sida"
 msgstr[1] "%(counter)s sidor"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Steg %(step_number)s"
 
 #, python-format
 msgid ""
@@ -1978,8 +1951,8 @@ msgstr ""
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Det finns inga aktiva arbetsflöden. Varför inte <a "
-"href=\"%(add_url)s\">skapa ett</a>?"
+"Det finns inga aktiva arbetsflöden. Varför inte <a href=\"%(add_url)s"
+"\">skapa ett</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Välj vilken typ av uppgift du vill skapa."
@@ -2015,12 +1988,6 @@ msgid ""
 msgstr ""
 "Varför inte <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>skapa en nu</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Dölj inaktiverade uppgifter"
-
-msgid "Show disabled tasks"
-msgstr "Visa inaktiverade uppgifter"
 
 #, python-format
 msgid ""
@@ -2094,10 +2061,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s av %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "precis nu av%(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s sedan av %(user_display_name)s"
 
@@ -2111,6 +2074,24 @@ msgstr "Skickad till %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Redo"
+msgstr "Gör om"
+
+msgid "Bold"
+msgstr "Fetstil"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Superscript"
+msgstr "Exponent"
+
+msgid "Subscript"
+msgstr "Index"
 
 msgid "Toggle status"
 msgstr "Växla status"
@@ -2196,6 +2177,21 @@ msgstr "Är du säker på att du vill radera denna samling?"
 
 msgid "Home"
 msgstr "Hem"
+
+msgid "Live version"
+msgstr "Publicerad version"
+
+msgid "Current draft"
+msgstr "Nuvarande utkast"
+
+msgid "Review this version"
+msgstr "Granska denna version"
+
+msgid "Compare with current version"
+msgstr "Jämför med nuvarande version"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt schemalagd publicering"
 
 msgid "Workflow progress"
 msgstr "Arbetsflöde framsteg"
@@ -2510,15 +2506,6 @@ msgstr "Sidan kunde inte sparas eftersom den är låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
-msgid "Hide commenting actions"
-msgstr "Göm kommenteringshandlingar"
-
-msgid "Page history"
-msgstr "Sidhistorik"
-
-msgid "Page type"
-msgstr "Sidtyp"
-
 msgid "Owner"
 msgstr "Ägare"
 
@@ -2527,6 +2514,9 @@ msgstr "Sajt"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "Page type"
+msgstr "Sidtyp"
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2551,6 +2541,9 @@ msgid ""
 msgstr ""
 "Du tittar på en tidigare version av sidan från <b>%(created_at)s</b> av "
 "%(user)s"
+
+msgid "Page history"
+msgstr "Sidhistorik"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2579,6 +2572,9 @@ msgstr "Äldre sidor"
 
 msgid "Last published at"
 msgstr "Senast publicerad vid"
+
+msgid "Hide commenting actions"
+msgstr "Göm kommenteringshandlingar"
 
 msgid "Site history"
 msgstr "Sajthistorik"
@@ -2618,6 +2614,9 @@ msgstr "Begärdes av"
 
 msgid "Add a workflow"
 msgstr "Lägg till arbetsflöde"
+
+msgid "Used by"
+msgstr "Används av"
 
 msgid "New workflow"
 msgstr "Nytt arbetsflöde"
@@ -2734,20 +2733,8 @@ msgstr "Numrerad lista"
 msgid "Blockquote"
 msgstr "Blockcitat"
 
-msgid "Bold"
-msgstr "Fetstil"
-
-msgid "Italic"
-msgstr "Kursiv"
-
 msgid "Link"
 msgstr "Länk"
-
-msgid "Superscript"
-msgstr "Exponent"
-
-msgid "Subscript"
-msgstr "Index"
 
 msgid "Strikethrough"
 msgstr "Genomstruket"

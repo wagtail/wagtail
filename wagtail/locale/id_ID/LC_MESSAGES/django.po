@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -237,6 +237,9 @@ msgstr "koleksi-koleksi"
 msgid "group collection permission"
 msgstr "izin grup koleksi"
 
+msgid "uploaded by user"
+msgstr "diunggah oleh pengguna"
+
 msgid "hostname"
 msgstr "hostname"
 
@@ -292,17 +295,8 @@ msgstr ""
 msgid "Public"
 msgstr "Publik"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Pribadi, dapat diakses oleh pengguna yang telah masuk"
-
-msgid "Private, accessible with the following password"
-msgstr "Pribadi, dapat diakses menggunakan kata sandi berikut"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Pribadi, dapat diakses oleh pengguna dalam grup tertentu"
-
-msgid "password"
-msgstr "kata sandi"
 
 msgid "view restriction"
 msgstr "tampilkan batasan"

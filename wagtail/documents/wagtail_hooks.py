@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
@@ -30,6 +32,7 @@ from wagtail.documents.views.bulk_actions import (
 )
 from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.wagtail_hooks import require_wagtail_login
 
 
@@ -180,9 +183,21 @@ def check_view_restrictions(document, request):
 
                 password_required_template = getattr(
                     settings,
-                    "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+                    "WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE",
                     "wagtaildocs/password_required.html",
                 )
+
+                if hasattr(settings, "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE"):
+                    warn(
+                        "The `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                        category=RemovedInWagtail70Warning,
+                    )
+
+                    password_required_template = getattr(
+                        settings,
+                        "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+                        password_required_template,
+                    )
 
                 context = {"form": form, "action_url": action_url}
                 return TemplateResponse(request, password_required_template, context)

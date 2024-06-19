@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -229,6 +229,9 @@ msgstr "مجموعه ها"
 msgid "group collection permission"
 msgstr "مجوز مجموعه گروه"
 
+msgid "uploaded by user"
+msgstr "آپلود‌شده توسط کاربر"
+
 msgid "hostname"
 msgstr "نام میزبان"
 
@@ -283,17 +286,8 @@ msgstr ""
 msgid "Public"
 msgstr "عمومی"
 
-msgid "Private, accessible to logged-in users"
-msgstr "خصوصی، تنها برای اعضای وارد شده قابل دسترسی است"
-
-msgid "Private, accessible with the following password"
-msgstr "خصوصی، تنها با رمزعبور قابل دسترسی است"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "خصوصی، تنها برای اعضای گروه های خاصی قابل دسترسی است"
-
-msgid "password"
-msgstr "رمزعبور"
 
 msgid "view restriction"
 msgstr "دیدن محدودیت"

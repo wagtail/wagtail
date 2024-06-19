@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -340,6 +340,9 @@ msgstr "グループコレクションの権限"
 msgid "group collection permissions"
 msgstr "グループコレクションの権限"
 
+msgid "uploaded by user"
+msgstr "アップロードしたユーザ"
+
 msgid "hostname"
 msgstr "ホスト名"
 
@@ -394,17 +397,8 @@ msgstr ""
 msgid "Public"
 msgstr "公開"
 
-msgid "Private, accessible to logged-in users"
-msgstr "限定公開、ログインユーザのみアクセス可能"
-
-msgid "Private, accessible with the following password"
-msgstr "限定公開、次のパスワードによりアクセス可能"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
-
-msgid "password"
-msgstr "パスワード"
 
 msgid "view restriction"
 msgstr "閲覧権限"

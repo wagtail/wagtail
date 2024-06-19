@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -95,16 +95,6 @@ msgstr "Loos, hamoos"
 msgid "Preview"
 msgstr "Pré-visualizasaun"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Hadia hela %(title)s"
-
-msgid "Editing"
-msgstr "Hadia hela"
-
-msgid "Delete redirect"
-msgstr "hamoos toka dalan"
-
 msgid "From"
 msgstr "Husi"
 
@@ -114,33 +104,27 @@ msgstr "Ba "
 msgid "Continue"
 msgstr "Kontinua"
 
-msgid "Site"
-msgstr "situs"
-
-msgid "Edit this redirect"
-msgstr "Hadia dalan ida ne'e"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Diskulpa, laiha dalan hanesan \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Laiha dalan ne'ebe mak kria ona. Tamba sa <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">hatama ida</a>?"
+"Laiha dalan ne'ebe mak kria ona. Tamba sa <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">hatama ida</a>?"
+
+msgid "Site"
+msgstr "situs"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Buka troka dalan labele labele rai tamba erru sira."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Troka dalan  '%(redirect_title)s' Atualiza ona"
-
-msgid "Edit"
-msgstr "hadia"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Buka troka dalan labele labele rai tamba erru sira."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -149,6 +133,9 @@ msgstr "Troka dalan '%(redirect_title)s' hamos ona."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Troka dalan '%(redirect_title)s' hatama ona."
+
+msgid "Edit"
+msgstr "hadia"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Dalan labele kria tamba tamba erru."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -89,41 +89,19 @@ msgstr "Mine alla"
 msgid "Promoted search results"
 msgstr "Reklaamitud otsingutulemus"
 
-msgid "Search Terms"
-msgstr "Otsinguterminid"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+" Vabandust, mitte ükski reklaamitud tulemus ei sobi \"<em>%(query_string)s</"
+"em>\""
 
-msgid "Add new promoted result"
-msgstr "Lisa uus reklaamitud otsingutulemus"
-
-msgid "Search term(s)"
-msgstr "Otsingutermin(id)"
-
-msgid "Order by search term alphabetically"
-msgstr "Järjestage otsinguterminid tähestikulises järjekorras"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Järjestage otsinguterminid tagurpidi tähestikulises järjekorras"
-
-msgid "Promoted results"
-msgstr "Reklaamitud tulemused"
-
-msgid "Views (past week)"
-msgstr "Vaatamised (eelmine nädal)"
-
-msgid "Order by views (lowest first)"
-msgstr "Järjesta vaadete järgi (madalaim enne)"
-
-msgid "Order by views (highest first)"
-msgstr "Järjesta vaadete järgi (kõrgemad enne)"
-
-msgid "Edit this promotion"
-msgstr "Muutke seda pakkumist"
-
-msgid "External link"
-msgstr "Väline link"
-
-msgid "None"
-msgstr "mitte ühtegi"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+" Reklaamitud tulemusi pole loodud. Lisa <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">üks</a>?"
 
 msgid "Popular search terms"
 msgstr "Populaarsed otsinguterminid"
@@ -134,25 +112,32 @@ msgstr "Otsing"
 msgid "Terms"
 msgstr "Terminid"
 
+msgid "Views (past week)"
+msgstr "Vaatamised (eelmine nädal)"
+
 msgid "No results found"
 msgstr "Tulemusi ei leitud"
 
 msgid "Choose from popular search terms"
 msgstr "Valige populaarsete otsinguterminite hulgast"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-" Vabandust, mitte ükski reklaamitud tulemus ei sobi \"<em>%(query_string)s</"
-"em>\""
+msgid "External link"
+msgstr "Väline link"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-" Reklaamitud tulemusi pole loodud. Lisa <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">üks</a>?"
+msgid "None"
+msgstr "mitte ühtegi"
+
+msgid "Search Terms"
+msgstr "Otsinguterminid"
+
+msgid "Add new promoted result"
+msgstr "Lisa uus reklaamitud otsingutulemus"
+
+msgid "Search term(s)"
+msgstr "Otsingutermin(id)"
+
+msgid "Promoted results"
+msgstr "Reklaamitud tulemused"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -124,6 +124,31 @@ For static colors, either set each color separately (for example `--w-color-prim
 
 ```
 
+(custom_ui_information_density)=
+
+## Custom UI information density
+
+To customize information density of the admin user interface, inject a CSS file using the hook [](insert_global_admin_css). Set the `--w-density-factor` CSS variable to increase or reduce the UI density. The default value is `1`, the "snug" UI theming uses `0.5`. Here are example overrides:
+
+```css
+:root, :host {
+    /* Reduce the UI density by 20% for users of the default theme. */
+    --w-density-factor: 0.8;
+}
+
+:root, :host {
+    /* Increase the UI density by 20% for users of the default theme. */
+    --w-density-factor: 1.2;
+}
+
+.w-density-snug {
+    /* For snug theme users, set a UI density even lower than vanilla Wagtail. */
+    --w-density-factor: 0.25;
+}
+```
+
+UI components which have been designed to use the `--w-density-factor` will increase in size or spacing accordingly.
+
 ## Specifying a site or page in the branding
 
 The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multi-tenanted Wagtail installation:

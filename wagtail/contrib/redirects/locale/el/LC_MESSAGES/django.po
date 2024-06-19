@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -64,9 +64,9 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Συνιστώμενο. Με τις μόνιμες ανακατευθύνσεις οι μηχανές αναζήτησης "
-"\"ξεχνούν\" την παλαιά σελίδα (\"Ανακατεύθυνση από\") και πλέον "
-"χρησιμοποιούν τη νέα σελίδα."
+"Συνιστώμενο. Με τις μόνιμες ανακατευθύνσεις οι μηχανές αναζήτησης \"ξεχνούν"
+"\" την παλαιά σελίδα (\"Ανακατεύθυνση από\") και πλέον χρησιμοποιούν τη νέα "
+"σελίδα."
 
 msgid "redirect to a page"
 msgstr "προώθηση σε ιστοσελίδα"
@@ -111,16 +111,6 @@ msgstr "Ακύρωση"
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Επεξεργασία της %(title)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
-msgid "Delete redirect"
-msgstr "Διαγραφή ανακατεύθυνσης"
-
 msgid "From"
 msgstr "Από"
 
@@ -130,12 +120,6 @@ msgstr "Σε"
 msgid "Continue"
 msgstr "Συνέχεια"
 
-msgid "Site"
-msgstr "Ιστότοπος"
-
-msgid "Edit this redirect"
-msgstr "Διόρθωση της ανακατεύθυνσης"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -144,21 +128,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν ανακατευθύνσεις. Θέλετε να <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">προσθέσετε μερικές</a>;"
+"Δεν υπάρχουν ανακατευθύνσεις. Θέλετε να <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">προσθέσετε μερικές</a>;"
+
+msgid "Site"
+msgstr "Ιστότοπος"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Η ανακατεύθυνση '%(redirect_title)s' αποθηκεύθηκε."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -167,6 +151,9 @@ msgstr "Η ανακατεύθυνση '%(redirect_title)s' διαγράφηκε.
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Η ανακατεύθυνση '%(redirect_title)s' προστέθηκε."
+
+msgid "Edit"
+msgstr "Επεξεργασία"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της ανακατεύθυνσης."

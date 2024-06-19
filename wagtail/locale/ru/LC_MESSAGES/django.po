@@ -7,7 +7,7 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
-# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023-2024
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
@@ -28,18 +28,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail API v2"
 msgstr "Wagtail API v2"
@@ -600,6 +600,12 @@ msgstr "право доступа к коллекции у группы"
 msgid "group collection permissions"
 msgstr "права доступа к коллекции у группы"
 
+msgid "for content type"
+msgstr "для типа содержимого"
+
+msgid "uploaded by user"
+msgstr "загружено пользователем"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)sтакже будут удалены"
@@ -678,17 +684,24 @@ msgstr ""
 msgid "Public"
 msgstr "Публично"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Приватно, доступно для зарегистрированных пользователей"
+msgid "Private, accessible with a shared password"
+msgstr "Приватно, доступ по общему паролю"
 
-msgid "Private, accessible with the following password"
-msgstr "Приватно, доступно со следующим паролем"
+msgid "Private, accessible to any logged-in users"
+msgstr "Приватно, доступ всем вошедшим пользователям"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Приватно, доступно для пользователей из указанных групп"
 
-msgid "password"
-msgstr "пароль"
+msgid "shared password"
+msgstr "общий пароль"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Не следует использовать общие пароли для защиты конфиденциального "
+"содержимого. Любой, у кого есть такой пароль, сможет просмотреть содержимое."
 
 msgid "view restriction"
 msgstr "ограничение на просмотр"

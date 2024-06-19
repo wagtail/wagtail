@@ -9,16 +9,16 @@
 # Gladson <gladsonbrito@gmail.com>, 2017
 # Iuri L. Machado, 2021
 # Iuri L. Machado, 2021
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -237,19 +237,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não adicionou documentos nesta coleção. Por que não <a "
-"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não adicionou documentos nesta coleção. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhum documento. Por que não <a "
-"href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+"Você não enviou nenhum documento. Por que não <a href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Documento <span class=\"w-sr-only\">criado em "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Documentos <span class=\"w-sr-only\">criados em "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Documentos <span class=\"w-sr-only\">criados em "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Adicionar vários documentos"

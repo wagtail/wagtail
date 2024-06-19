@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -230,6 +230,9 @@ msgstr "إذن مجموعة المجموعة"
 msgid "group collection permissions"
 msgstr "مجموعة أذونات المجموعة"
 
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
+
 msgid "hostname"
 msgstr "اسم المضيف"
 
@@ -284,17 +287,8 @@ msgstr ""
 msgid "Public"
 msgstr "عام"
 
-msgid "Private, accessible to logged-in users"
-msgstr "خاصة ، يمكن للمستخدمين الذين يسجلون دخولهم"
-
-msgid "Private, accessible with the following password"
-msgstr "خاص ، يمكن الوصول إليه باستخدام كلمة المرور التالية"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "خاص ، يمكن للمستخدمين الوصول إليه في مجموعات محددة"
-
-msgid "password"
-msgstr "كلمة سر"
 
 msgid "view restriction"
 msgstr "عرض تقييد"

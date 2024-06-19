@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,6 +115,9 @@ msgstr "Välj din nuvarande tidszon"
 msgid "profile picture"
 msgstr "profilbild"
 
+msgid "Default"
+msgstr "Standard"
+
 msgid "user profile"
 msgstr "användarprofil"
 
@@ -211,9 +214,6 @@ msgstr "Är du säker på att du vill radera denna grupp?"
 msgid "Add group"
 msgstr "Lägg till grupp"
 
-msgid "View users in this group"
-msgstr "Visa användare i denna grupp"
-
 msgid "Save"
 msgstr "Spara"
 
@@ -262,11 +262,11 @@ msgstr "Ledsen, inga grupper matchar \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Det finns inga grupper konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
+"Det finns inga grupper konfigurerade. Varför inte <a href="
+"\"%(wagtailusers_create_group_url)s\">skapa några</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Är du säker på att du vill radera denna användare?"
@@ -287,42 +287,12 @@ msgid "Select all users in listing"
 msgstr "Välj alla användare i lista"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Gruppen %(group_name)s har inga användare konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Det finns inga användare konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
-
-msgid "Username"
-msgstr "Användarnamn"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Senaste inloggning"
-
-msgid "Admin"
-msgstr "Administratör"
-
-msgid "Active"
-msgstr "Aktiv"
-
-msgid "Inactive"
-msgstr "Inaktiv"
+"Det finns inga användare konfigurerade. Varför inte <a href="
+"\"%(wagtailusers_add_url)s\">skapa några</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -345,6 +315,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d användare har raderats"
 msgstr[1] "%(num_parent_objects)d användare har raderats"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
 
 msgid "Change the active state for selected users"
 msgstr "Ändra aktiv status för valda användare"
@@ -381,6 +357,9 @@ msgstr "Grupp '%(object)s' uppdaterad."
 msgid "The group could not be saved due to errors."
 msgstr "Gruppen kunde inte sparas p.g.a. fel."
 
+msgid "View users in this group"
+msgstr "Visa användare i denna grupp"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupp '%(object)s' raderad."
@@ -390,6 +369,15 @@ msgstr "Lägg till en användare"
 
 msgid "Users"
 msgstr "Användare"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+msgid "Admin"
+msgstr "Administratör"
+
+msgid "Status"
+msgstr "Status"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -405,6 +393,3 @@ msgstr "Användaren kunde inte sparas p.g.a. fel."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Användare '%(object)s' raderad."
-
-msgid "Edit"
-msgstr "Redigera"

@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2023
+# Roger Pons <rogerpons@gmail.com>, 2017,2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgid "redirects"
 msgstr "redireccions"
 
 msgid "Add redirect"
-msgstr "Afegeix redirecció"
+msgstr "Afegir redirecció"
 
 msgid "Save"
 msgstr "Desa"
@@ -159,16 +159,6 @@ msgstr "Cancel·lar"
 msgid "Preview"
 msgstr "Previsualització"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Edita %(title)s"
-
-msgid "Editing"
-msgstr "Editant"
-
-msgid "Delete redirect"
-msgstr "Esborra redirecció"
-
 msgid "Summary"
 msgstr "Resum"
 
@@ -191,45 +181,27 @@ msgstr "Error"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Export redirects"
-msgstr "Exportar redireccions"
-
-msgid "Site"
-msgstr "Lloc"
-
-msgid "Edit this redirect"
-msgstr "Edita aquesta redirecció"
-
-msgid "No redirects found."
-msgstr "No s'han trobat redireccions."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "S'ha trobat %(counter)s coincidència"
-msgstr[1] "S'ha trobat %(counter)s coincidències"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap redirecció coincideix amb \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"No s'ha creat cap redirecció. Per què no <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">afegeixes una</a>?"
+"No s'ha creat cap redirecció. Voleu <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">afegir-ne una</a>?"
+
+msgid "Site"
+msgstr "Lloc"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "És possible que el redireccionament no s'hagi guardat degut a errors."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redireccionament '%(redirect_title)s' actualitzat."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "És possible que el redireccionament no s'hagi guardat degut a errors."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -239,11 +211,14 @@ msgstr "Redireccionamnet '%(redirect_title)s' eliminat."
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "S'ha afegit la redirecció '%(redirect_title)s'"
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "The redirect could not be created due to errors."
 msgstr "No s'ha pogut crear el redireccionament."
 
 msgid "Search redirects"
-msgstr "Cerca redireccions"
+msgstr "Cercar redireccions"
 
 #, python-format
 msgid "File format of type \"%(extension)s\" is not supported"
@@ -263,6 +238,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "S'ha importat %(total)d redirecció"
 msgstr[1] "S'ha importat %(total)d redireccions"
-
-msgid "Export Redirects"
-msgstr "Exportar Redireccions"

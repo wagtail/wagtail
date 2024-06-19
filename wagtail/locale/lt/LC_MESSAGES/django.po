@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -274,6 +274,9 @@ msgstr "kolekcijos"
 msgid "group collection permission"
 msgstr "grupės kolekcijos leidimas"
 
+msgid "uploaded by user"
+msgstr "įkelta vartotojo"
+
 msgid "hostname"
 msgstr "svetainės kompiuterio vardas"
 
@@ -328,17 +331,8 @@ msgstr ""
 msgid "Public"
 msgstr "Viešas"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privatu, pasiekiama tik prisijungusiems vartotojams"
-
-msgid "Private, accessible with the following password"
-msgstr "Privatu, pasiekiama su žemiau pateiktu slaptažodžiu"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
-
-msgid "password"
-msgstr "slaptažodis"
 
 msgid "view restriction"
 msgstr "žiūrėti apribojimą"

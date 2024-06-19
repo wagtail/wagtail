@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -68,6 +68,9 @@ msgstr "Bitiş tarihi"
 msgid "All"
 msgstr "Hepsi"
 
+msgid "Collection"
+msgstr "Koleksiyon"
+
 msgid "Preferred language"
 msgstr "Tercih edilen dil"
 
@@ -111,9 +114,6 @@ msgstr "Ara"
 
 msgid "All collections"
 msgstr "Tüm koleksiyonlar"
-
-msgid "Collection"
-msgstr "Koleksiyon"
 
 msgid "Parent"
 msgstr "Üst-Ebeveyn"
@@ -193,6 +193,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız"
+
+msgid "Parent page"
+msgstr "Üst sayfa"
 
 msgid "Visibility"
 msgstr "Görünürlük"
@@ -360,16 +363,13 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Bu kolleksiyon silinemedi çünkü boş değil ve şunları içeriyor:"
 
-msgid "Name"
-msgstr "İsim"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Hiç koleksiyon oluşturulmadı. Neden bir adet <a "
-"href=\"%(add_collection_url)s\">eklemiyorsun</a>?"
+"Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
+"\">eklemiyorsun</a>?"
 
 msgid "Yes, delete"
 msgstr "Evet, sil"
@@ -386,6 +386,9 @@ msgstr "Evet, yayından kaldır"
 
 msgid "No, don't unpublish"
 msgstr "Hayır, yayından kaldırma"
+
+msgid "Actions"
+msgstr "Eylemler"
 
 msgid "Update"
 msgstr "Güncelle"
@@ -422,9 +425,6 @@ msgstr "Kilitli"
 
 msgid "Edit this page"
 msgstr "Bu sayfayı düzenle"
-
-msgid "Actions"
-msgstr "Eylemler"
 
 msgid "Unlock"
 msgstr "Kilidi kaldır"
@@ -590,15 +590,6 @@ msgstr "Bu sayfayı kopyala"
 msgid "This page has unsaved changes."
 msgstr "Bu sayfadaki düzenlemeler kaydedilmedi."
 
-msgid "User"
-msgstr "Kullanıcı"
-
-msgid "Live version"
-msgstr "Canlı sürüm"
-
-msgid "Current draft"
-msgstr "Şimdiki taslak"
-
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
 
@@ -643,9 +634,6 @@ msgstr "Bu sayfa genel görünüme karşı korumalıdır"
 msgid "Add child page"
 msgstr "Alt sayfa ekle"
 
-msgid "Cancel scheduled publish"
-msgstr "Zamanlanmış yayını iptal et"
-
 msgid "Page types"
 msgstr "Sayfa türleri"
 
@@ -689,6 +677,12 @@ msgstr "Kilitlendi"
 msgid "No locked pages found."
 msgstr "Kilitli sayfa bulunamadı."
 
+msgid "Name"
+msgstr "İsim"
+
+msgid "User"
+msgstr "Kullanıcı"
+
 msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
 
@@ -707,9 +701,6 @@ msgstr "CSV İndir"
 
 msgid "Filter"
 msgstr "Filtrele"
-
-msgid "Root"
-msgstr "Root (kök)"
 
 msgid "Current page status:"
 msgstr "Şimdiki sayfa durumu:"
@@ -780,6 +771,24 @@ msgstr "%(time_period)s önce"
 msgid "Log out"
 msgstr "Çıkış yap"
 
+msgid "Undo"
+msgstr "Geri al"
+
+msgid "Redo"
+msgstr "Yeniden"
+
+msgid "Bold"
+msgstr "Kalın"
+
+msgid "Italic"
+msgstr "Yatay"
+
+msgid "Superscript"
+msgstr "Üstyazı"
+
+msgid "Subscript"
+msgstr "Altyazı"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -834,6 +843,15 @@ msgstr "Bu koleksiyonu silmek istediğinizden emin misiniz?"
 
 msgid "Home"
 msgstr "Ana Sayfa"
+
+msgid "Live version"
+msgstr "Canlı sürüm"
+
+msgid "Current draft"
+msgstr "Şimdiki taslak"
+
+msgid "Cancel scheduled publish"
+msgstr "Zamanlanmış yayını iptal et"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1003,20 +1021,8 @@ msgstr "Numaralı liste"
 msgid "Blockquote"
 msgstr "Alıntı"
 
-msgid "Bold"
-msgstr "Kalın"
-
-msgid "Italic"
-msgstr "Yatay"
-
 msgid "Link"
 msgstr "Bağlantı"
-
-msgid "Superscript"
-msgstr "Üstyazı"
-
-msgid "Subscript"
-msgstr "Altyazı"
 
 msgid "Strikethrough"
 msgstr "Üstü çizgili"

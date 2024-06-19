@@ -5,7 +5,7 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Axel Haustant, 2016
-# Axel Haustant, 2016
+# Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -185,6 +185,10 @@ msgstr "Supprimer"
 msgid "Delete selected submissions"
 msgstr "Supprimer les réponses sélectionnées"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Aucune soumission pour le formulaire « %(title)s »."
+
 msgid "Total submissions"
 msgstr "Nombre total de soumissions"
 
@@ -194,16 +198,6 @@ msgstr "Soumission la plus récente"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Soumission de %(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Aucune soumission pour le formulaire « %(title)s »."
-
-msgid "Filter"
-msgstr "Filtrer"
-
-msgid "Apply filters"
-msgstr "Appliquer les filtres"
 
 msgid "Forms"
 msgstr "Formulaires"

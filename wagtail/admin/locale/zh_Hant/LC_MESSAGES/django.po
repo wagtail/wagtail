@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -84,6 +84,12 @@ msgstr "語系"
 msgid "All"
 msgstr "全部"
 
+msgid "Collection"
+msgstr "集合"
+
+msgid "Tag"
+msgstr "標籤"
+
 msgid "Preferred language"
 msgstr "首選語言"
 
@@ -127,9 +133,6 @@ msgstr "搜索"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "Collection"
-msgstr "集合"
 
 msgid "Parent"
 msgstr "上一級"
@@ -228,6 +231,9 @@ msgstr "此短標題已被其上階頁面 \"%(parent_page_title)s\" 使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在複製子頁面時不能複製當前頁面本身"
+
+msgid "Parent page"
+msgstr "上一級頁面"
 
 msgid "Visibility"
 msgstr "可見"
@@ -501,13 +507,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "集合非空，不能刪除，它包含有："
 
-msgid "Name"
-msgstr "名稱"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
 
@@ -529,6 +532,12 @@ msgstr "否，不取消發佈"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Comment"
+msgstr "評論"
+
+msgid "Actions"
+msgstr "操作"
 
 msgid "Update"
 msgstr "更新"
@@ -566,9 +575,6 @@ msgstr "鎖定於"
 
 msgid "Edit this page"
 msgstr "編輯此頁"
-
-msgid "Actions"
-msgstr "操作"
 
 msgid "Unlock"
 msgstr "解鎖"
@@ -941,31 +947,6 @@ msgstr "此頁面為其它頁面之別名"
 msgid "Edit original page"
 msgstr "編輯原始面頁"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "%(subtitle)s 頁面歷史"
-
-msgid "Action"
-msgstr "操作"
-
-msgid "User"
-msgstr "使用者"
-
-msgid "Date / Time"
-msgstr "日期/時間"
-
-msgid "Comment"
-msgstr "評論"
-
-msgid "Live version"
-msgstr "線上版本"
-
-msgid "Current draft"
-msgstr "當前草稿"
-
-msgid "No log entries found."
-msgstr "沒有發現任何記錄"
-
 msgid "Select all pages in listing"
 msgstr "選擇列表中的所有頁面"
 
@@ -1016,15 +997,6 @@ msgstr "確認"
 msgid "Add child page"
 msgstr "新增子頁面"
 
-msgid "Review this version"
-msgstr "審核此版本"
-
-msgid "Compare with current version"
-msgstr "與目前版本進行比較"
-
-msgid "Cancel scheduled publish"
-msgstr "取消預定的發佈"
-
 msgid "Page types"
 msgstr "頁面類型"
 
@@ -1068,8 +1040,23 @@ msgstr "已鎖定"
 msgid "No locked pages found."
 msgstr "沒有已被鎖定頁面"
 
+msgid "Name"
+msgstr "名稱"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "User"
+msgstr "使用者"
+
+msgid "Date / Time"
+msgstr "日期/時間"
+
 msgid "Edit this item"
 msgstr "編輯此項"
+
+msgid "No log entries found."
+msgstr "沒有發現任何記錄"
 
 msgid "Workflow"
 msgstr "工作流程"
@@ -1107,9 +1094,6 @@ msgstr "新增評論"
 
 msgid "History"
 msgstr "歷史"
-
-msgid "Root"
-msgstr "根"
 
 msgid "Current page status:"
 msgstr "目前頁面狀態："
@@ -1255,15 +1239,6 @@ msgstr "頁面"
 msgid "Assign to another page"
 msgstr "指派至其它頁面"
 
-msgid "Hide disabled workflows"
-msgstr "隱藏已禁用的工作流程"
-
-msgid "Show disabled workflows"
-msgstr "顯示已禁用之工作流程"
-
-msgid "Used by"
-msgstr "已使用"
-
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "步驟 %(step_number)s"
@@ -1291,12 +1266,6 @@ msgstr "已用於"
 
 msgid "You haven't created any tasks."
 msgstr "尚未建立任何作業"
-
-msgid "Hide disabled tasks"
-msgstr "隱藏已禁用的作業"
-
-msgid "Show disabled tasks"
-msgstr "顯示已禁用的作業"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -1332,6 +1301,24 @@ msgstr "%(time_period)s 前"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "取消復原"
+
+msgid "Bold"
+msgstr "粗體"
+
+msgid "Italic"
+msgstr "斜體"
+
+msgid "Superscript"
+msgstr "上標"
+
+msgid "Subscript"
+msgstr "下標"
 
 msgid "Toggle status"
 msgstr "切換狀態"
@@ -1392,6 +1379,21 @@ msgstr "確定刪除此集合？"
 
 msgid "Home"
 msgstr "首頁"
+
+msgid "Live version"
+msgstr "線上版本"
+
+msgid "Current draft"
+msgstr "當前草稿"
+
+msgid "Review this version"
+msgstr "審核此版本"
+
+msgid "Compare with current version"
+msgstr "與目前版本進行比較"
+
+msgid "Cancel scheduled publish"
+msgstr "取消預定的發佈"
 
 msgid "Workflow progress"
 msgstr "工作流程進度"
@@ -1515,12 +1517,6 @@ msgstr "頁面已被鎖定，無法儲存。"
 msgid "The page could not be saved due to validation errors"
 msgstr "驗證錯誤，無法儲存頁面。"
 
-msgid "Hide commenting actions"
-msgstr "隠藏論論動作"
-
-msgid "Page history"
-msgstr "頁面歷史"
-
 msgid "Site"
 msgstr "網站"
 
@@ -1535,6 +1531,9 @@ msgstr "頁面 '%(page_title)s'已解鎖。"
 msgid "Page '%(page_title)s' moved."
 msgstr "頁面 '%(page_title)s' 已移動。"
 
+msgid "Page history"
+msgstr "頁面歷史"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "頁面'%(page_title)s'已取消發佈。"
@@ -1545,6 +1544,9 @@ msgstr "頁面使用"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "頁面 '%(page_title)s'目前不在等待審核。"
+
+msgid "Hide commenting actions"
+msgstr "隠藏論論動作"
 
 msgid "Site history"
 msgstr "網站歷史"
@@ -1575,6 +1577,9 @@ msgstr "工作流程作業"
 
 msgid "Add a workflow"
 msgstr "增加工作流程"
+
+msgid "Used by"
+msgstr "已使用"
 
 msgid "New workflow"
 msgstr "新增工作流程"
@@ -1679,20 +1684,8 @@ msgstr "編號列表"
 msgid "Blockquote"
 msgstr "區塊引言"
 
-msgid "Bold"
-msgstr "粗體"
-
-msgid "Italic"
-msgstr "斜體"
-
 msgid "Link"
 msgstr "超連接"
-
-msgid "Superscript"
-msgstr "上標"
-
-msgid "Subscript"
-msgstr "下標"
 
 msgid "Strikethrough"
 msgstr "刪除線"

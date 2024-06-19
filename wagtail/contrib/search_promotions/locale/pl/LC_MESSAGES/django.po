@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,9 +22,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Wyszukiwanie promowanych Wagtail"
@@ -125,41 +125,19 @@ msgstr "Promowane wyniki wyszukiwania"
 msgid "Add a recommended result"
 msgstr "Dodaj polecany wynik"
 
-msgid "Search Terms"
-msgstr "Frazy wyszukiwania"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Przykro nam, żadne promowane wyniki nie spełniają wyszukiwania \"<em>"
+"%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Dodaj nowy promowany wynik"
-
-msgid "Search term(s)"
-msgstr "Frazy wyszukiwania"
-
-msgid "Order by search term alphabetically"
-msgstr "Sortuj po wartości wyszukiwania alfabetycznie"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sortuj po wartości wyszukiwania odwrotnie alfabetycznie"
-
-msgid "Promoted results"
-msgstr "Promowane wyniki"
-
-msgid "Views (past week)"
-msgstr "Odsłony (poprzedni tydzień)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sortuj po widokach (najmniej pierwsze)"
-
-msgid "Order by views (highest first)"
-msgstr "Sortuj po widokach (najwięcej pierwsze)"
-
-msgid "Edit this promotion"
-msgstr "Edytuj promocję"
-
-msgid "External link"
-msgstr "Link zewnętrzny"
-
-msgid "None"
-msgstr "Brak"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nie zostały utworzone żadne promowane wyniki. Dlaczego nie <a href="
+"\"%(wagtailsearchpromotions_add_url)s\"> dodać  jednego</a>"
 
 msgid "Popular search terms"
 msgstr "Popularne wyszukiwania"
@@ -170,33 +148,32 @@ msgstr "Szukaj"
 msgid "Terms"
 msgstr "Frazy"
 
+msgid "Views (past week)"
+msgstr "Odsłony (poprzedni tydzień)"
+
 msgid "No results found"
 msgstr "Nie znaleziono"
 
 msgid "Choose from popular search terms"
 msgstr "Wybierz z popularnych fraz wyszukiwania"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Jest %(counter)s dopasowanie"
-msgstr[1] "Jest %(counter)s dopasowań"
-msgstr[2] "Jest %(counter)s dopasowań"
-msgstr[3] "Jest %(counter)s dopasowań"
+msgid "External link"
+msgstr "Link zewnętrzny"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Przykro nam, żadne promowane wyniki nie spełniają wyszukiwania "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Brak"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Nie zostały utworzone żadne promowane wyniki. Dlaczego nie <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\"> dodać  jednego</a>"
+msgid "Search Terms"
+msgstr "Frazy wyszukiwania"
+
+msgid "Add new promoted result"
+msgstr "Dodaj nowy promowany wynik"
+
+msgid "Search term(s)"
+msgstr "Frazy wyszukiwania"
+
+msgid "Promoted results"
+msgstr "Promowane wyniki"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

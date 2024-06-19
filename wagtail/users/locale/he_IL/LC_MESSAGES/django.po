@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -81,6 +81,9 @@ msgstr "הודעות שנדחו"
 msgid "Receive notification when your page edit is rejected"
 msgstr "קבלו התראה כשעריכת העמוד נדחית"
 
+msgid "Default"
+msgstr "ברירת מחדל"
+
 msgid "user profile"
 msgstr "פרופיל משתמש"
 
@@ -149,15 +152,6 @@ msgstr "הוספת משתמש"
 msgid "Delete user"
 msgstr "מחק משתמש"
 
-msgid "Username"
-msgstr "שם משתמש"
-
-msgid "Status"
-msgstr "מצב"
-
-msgid "Admin"
-msgstr "מנהל"
-
 msgid "Active"
 msgstr "מופעל"
 
@@ -188,11 +182,23 @@ msgstr "לא ניתן לשמור את הקבוצה עקב שגיאות"
 msgid "Group '%(object)s' deleted."
 msgstr "קבוצה '%(object)s' נמחקה"
 
+msgid "Group"
+msgstr "קבוצה "
+
 msgid "Add a user"
 msgstr "הוספת משתמש"
 
 msgid "Users"
 msgstr "משתמשים"
+
+msgid "Username"
+msgstr "שם משתמש"
+
+msgid "Admin"
+msgstr "מנהל"
+
+msgid "Status"
+msgstr "מצב"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -200,6 +206,3 @@ msgstr "משתמש '%(object)s' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"
-
-msgid "Edit"
-msgstr "ערוך"

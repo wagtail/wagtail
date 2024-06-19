@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2021\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail style guide"
 msgstr "Wagtail style guide"
+
+msgid "Minimap"
+msgstr "Minimapa"
 
 msgid "Save"
 msgstr "Salvar"

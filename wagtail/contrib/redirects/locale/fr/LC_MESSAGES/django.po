@@ -4,7 +4,7 @@
 #
 # Translators:
 # Axel Haustant, 2016
-# Axel Haustant, 2016
+# Axel H., 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -167,16 +167,6 @@ msgstr "Annuler"
 msgid "Preview"
 msgstr "Prévisualisation"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Modification de %(title)s"
-
-msgid "Editing"
-msgstr "Modification"
-
-msgid "Delete redirect"
-msgstr "Supprimer la règle de redirection"
-
 msgid "Summary"
 msgstr "Sommaire"
 
@@ -199,25 +189,6 @@ msgstr "Erreur"
 msgid "Continue"
 msgstr "Continuer"
 
-msgid "Export redirects"
-msgstr "Exporter les règles de redirection"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Modifier cette règle de redirection"
-
-msgid "No redirects found."
-msgstr "Aucune règle de redirection trouvée."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -226,21 +197,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
+"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Règle de Redirection « %(redirect_title)s » mise à jour."
-
-msgid "Edit"
-msgstr "Modifier"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -249,6 +220,9 @@ msgstr "Règle de Redirection « %(redirect_title)s » supprimée."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Règle de Redirection « %(redirect_title)s » ajoutée."
+
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "The redirect could not be created due to errors."
 msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
@@ -274,6 +248,3 @@ msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d règle de redirection importée"
 msgstr[1] "%(total)d règles de redirection importées"
 msgstr[2] "%(total)d règles de redirection importées"
-
-msgid "Export Redirects"
-msgstr "Exporter les règles de redirection"

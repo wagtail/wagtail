@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -475,6 +475,9 @@ msgstr "ryhmä/kokoelma-oikeus"
 msgid "group collection permissions"
 msgstr "ryhmän oikeudet kokoelmaan"
 
+msgid "uploaded by user"
+msgstr "lähettänyt käyttäjä"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s poistetaan myös"
@@ -542,17 +545,8 @@ msgstr ""
 msgid "Public"
 msgstr "Julkinen"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Yksityinen, näkyy kirjautuneille käyttäjille"
-
-msgid "Private, accessible with the following password"
-msgstr "Yksityinen, nähtävissä tällä salasanalla"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Yksityinen, näkyy tiettyjen ryhmien käyttäjille"
-
-msgid "password"
-msgstr "salasana"
 
 msgid "view restriction"
 msgstr "näyttörajoitus"

@@ -28,7 +28,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2022-2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2022-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -620,6 +620,12 @@ msgstr "Gruppen Sammlungs-Berechtigung"
 msgid "group collection permissions"
 msgstr "Gruppen-Sammlungs-Berechtigungen"
 
+msgid "for content type"
+msgstr "für Inhaltstyp"
+
+msgid "uploaded by user"
+msgstr "Hochgeladen von Benutzer"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "das %(model_name)s-Objekt wird ebenfalls gelöscht"
@@ -698,17 +704,24 @@ msgstr ""
 msgid "Public"
 msgstr "Öffentlich"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privat, nur für angemeldete Benutzer einsehbar"
+msgid "Private, accessible with a shared password"
+msgstr "Privat, zugänglich mit einem gemeinsamen Passwort"
 
-msgid "Private, accessible with the following password"
-msgstr "Privat, einsehbar mit folgendem Passwort"
+msgid "Private, accessible to any logged-in users"
+msgstr "Privat, zugänglich für alle angemeldeten Benutzer"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
 
-msgid "password"
-msgstr "Passwort"
+msgid "shared password"
+msgstr "gemeinsames Passwort"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Gemeinsame Passwörter sollten nicht zum Schutz sensibler Inhalte verwendet "
+"werden. Jeder, der dieses Passwort kennt, kann den Inhalt einsehen."
 
 msgid "view restriction"
 msgstr "Ansichtsrestriktion"

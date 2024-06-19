@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -179,16 +179,6 @@ msgstr "Abbrechen"
 msgid "Preview"
 msgstr "Vorschau"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Bearbeite %(title)s"
-
-msgid "Editing"
-msgstr "Bearbeite"
-
-msgid "Delete redirect"
-msgstr "Weiterleitung löschen"
-
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -211,24 +201,6 @@ msgstr "Fehler"
 msgid "Continue"
 msgstr "Weiter"
 
-msgid "Export redirects"
-msgstr "Weiterleitungen exportieren"
-
-msgid "Site"
-msgstr "Seite"
-
-msgid "Edit this redirect"
-msgstr "Diese Weiterleitung bearbeiten"
-
-msgid "No redirects found."
-msgstr "Keine Weiterleitungen gefunden."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -237,23 +209,22 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Sie haben noch keine Weiterleitung erstellt.<a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!"
-"</a>"
+"Sie haben noch keine Weiterleitung erstellt.<a href="
+"\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!</a>"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "Weiterleitung ‚%(redirect_title)s‘ aktualisiert."
-
-msgid "Edit"
-msgstr "Bearbeiten"
+msgid "Site"
+msgstr "Seite"
 
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Weiterleitung ‚%(redirect_title)s‘ aktualisiert."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -262,6 +233,9 @@ msgstr "Weiterleitung ‚%(redirect_title)s‘ gelöscht."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Weiterleitung ‚%(redirect_title)s‘ hinzugefügt"
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
@@ -286,6 +260,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d Weiterleitung wurde importiert."
 msgstr[1] "%(total)d Weiterleitungen wurden importiert."
-
-msgid "Export Redirects"
-msgstr "Weiterleitungen exportieren"

@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.db import transaction
@@ -16,7 +17,6 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
 from wagtail.admin.views import generic
-from wagtail.admin.views.reports import ReportView
 from wagtail.admin.widgets.button import Button
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
@@ -45,12 +45,12 @@ class RedirectTargetColumn(Column):
     url_name = "wagtailadmin_pages:edit"
 
     def get_value(self, instance):
-        if instance.redirect_page:
+        if instance.redirect_page_id:
             return instance.redirect_page.get_admin_display_title()
         return instance.redirect_link
 
     def get_url(self, instance):
-        if instance.redirect_page:
+        if instance.redirect_page_id:
             return reverse(self.url_name, args=[instance.redirect_page_id])
         return None
 
@@ -105,71 +105,54 @@ class IndexView(generic.IndexView):
             primary=lambda r: r.is_permanent,
         ),
     ]
+    filterset_class = RedirectsReportFilterSet
+    list_export = [
+        "old_path",
+        "link",
+        "get_is_permanent_display",
+        "site",
+    ]
+    export_headings = {
+        "old_path": _("From"),
+        "site": _("Site"),
+        "link": _("To"),
+        "get_is_permanent_display": _("Type"),
+    }
 
     def get_base_queryset(self):
         return super().get_base_queryset().select_related("redirect_page", "site")
 
     @cached_property
-    def header_more_buttons(self):
-        return [
+    def header_more_buttons(self) -> List[Button]:
+        buttons = super().header_more_buttons.copy()
+        buttons.append(
             Button(
                 _("Import redirects"),
                 url=reverse("wagtailredirects:start_import"),
                 icon_name="doc-full-inverse",
-                priority=90,
-            ),
-            Button(
-                _("Export redirects"),
-                url=reverse("wagtailredirects:report"),
-                icon_name="download",
-                priority=100,
-            ),
-        ]
-
-
-@permission_checker.require("change")
-def edit(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
-
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", theredirect
-    ):
-        raise PermissionDenied
-
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES, instance=theredirect)
-        if form.is_valid():
-            with transaction.atomic():
-                form.save()
-                log(instance=theredirect, action="wagtail.edit")
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' updated.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
+                priority=50,
             )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(request, _("The redirect could not be saved due to errors."))
-    else:
-        form = RedirectForm(instance=theredirect)
+        )
+        return buttons
 
-    return TemplateResponse(
-        request,
-        "wagtailredirects/edit.html",
-        {
-            "redirect": theredirect,
-            "form": form,
-            "user_can_delete": permission_policy.user_has_permission(
-                request.user, "delete"
-            ),
-        },
-    )
+
+class EditView(generic.EditView):
+    model = Redirect
+    form_class = RedirectForm
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/edit.html"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    delete_url_name = "wagtailredirects:delete"
+    pk_url_kwarg = "redirect_id"
+    error_message = gettext_lazy("The redirect could not be saved due to errors.")
+    header_icon = "redirect"
+    _show_breadcrumbs = True
+
+    def get_success_message(self):
+        return _("Redirect '%(redirect_title)s' updated.") % {
+            "redirect_title": self.object.title
+        }
 
 
 @permission_checker.require("delete")
@@ -444,27 +427,3 @@ def to_readable_errors(error):
     errors = [x.lstrip("* ") for x in errors]
     errors = ", ".join(errors)
     return errors
-
-
-class RedirectsReportView(ReportView):
-    header_icon = "redirect"
-    title = _("Export Redirects")
-    template_name = "wagtailredirects/reports/redirects_report.html"
-    filterset_class = RedirectsReportFilterSet
-
-    list_export = [
-        "old_path",
-        "link",
-        "get_is_permanent_display",
-        "site",
-    ]
-
-    export_headings = {
-        "old_path": _("From"),
-        "site": _("Site"),
-        "link": _("To"),
-        "get_is_permanent_display": _("Type"),
-    }
-
-    def get_queryset(self):
-        return models.Redirect.objects.all().order_by("old_path")

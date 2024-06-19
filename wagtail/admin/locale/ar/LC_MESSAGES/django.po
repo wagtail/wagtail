@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -87,6 +87,9 @@ msgstr "تاريخ لـ"
 msgid "All"
 msgstr "الكل"
 
+msgid "Collection"
+msgstr "مجموعة"
+
 msgid "Preferred language"
 msgstr "اللغة المفضلة"
 
@@ -131,9 +134,6 @@ msgstr "بحث"
 
 msgid "All collections"
 msgstr "جميع المجموعات"
-
-msgid "Collection"
-msgstr "مجموعة"
 
 msgid "Parent"
 msgstr "والد"
@@ -230,6 +230,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصفحات الفرعية"
+
+msgid "Parent page"
+msgstr "صفحة الأم"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -443,13 +446,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "المجموعة لايمكن حذفها. بسبب احتوائها على محتويات:"
 
-msgid "Name"
-msgstr "اسم"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
@@ -469,6 +469,12 @@ msgstr "نعك ألغ نشره"
 
 msgid "No, don't unpublish"
 msgstr "لا ,ألغ النشر"
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Actions"
+msgstr "النشاطات"
 
 msgid "Update"
 msgstr "حدث"
@@ -502,9 +508,6 @@ msgstr "صفحاتُك المقفلة"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
-
-msgid "Actions"
-msgstr "النشاطات"
 
 msgid "Unlock"
 msgstr "إزالة القفل"
@@ -706,18 +709,6 @@ msgstr "انسخ هذه الصفحة"
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 
-msgid "User"
-msgstr "مستعمل"
-
-msgid "Comment"
-msgstr "تعليق"
-
-msgid "Live version"
-msgstr "نسخة حية"
-
-msgid "Current draft"
-msgstr "المسودة الحالية"
-
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
 
@@ -762,9 +753,6 @@ msgstr "هذه الصفحة محمية من النظر العمومي"
 msgid "Add child page"
 msgstr "أضف صفحة لطفل "
 
-msgid "Cancel scheduled publish"
-msgstr "إلغاء النشر المجدول"
-
 msgid "Page types"
 msgstr "انواع الصفحة"
 
@@ -802,6 +790,12 @@ msgstr "مغلق"
 msgid "No locked pages found."
 msgstr "لم يتم العثور على صفحات مقفلة"
 
+msgid "Name"
+msgstr "اسم"
+
+msgid "User"
+msgstr "مستعمل"
+
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
 
@@ -817,9 +811,6 @@ msgstr "تنزيل ملف CSV"
 
 msgid "Filter"
 msgstr "فلتر"
-
-msgid "Root"
-msgstr "الجذر"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -893,6 +884,18 @@ msgstr "قبل %(time_period)s"
 msgid "Log out"
 msgstr "تسجيل الخروج"
 
+msgid "Undo"
+msgstr "تراجع"
+
+msgid "Redo"
+msgstr "للامام"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
 msgid "Password"
 msgstr "كلمة السر"
 
@@ -931,6 +934,15 @@ msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموع
 
 msgid "Home"
 msgstr "الرئيسة"
+
+msgid "Live version"
+msgstr "نسخة حية"
+
+msgid "Current draft"
+msgstr "المسودة الحالية"
+
+msgid "Cancel scheduled publish"
+msgstr "إلغاء النشر المجدول"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1096,12 +1108,6 @@ msgstr "قائمة ذات تعداد نقطي"
 
 msgid "Numbered list"
 msgstr "قائمة مرقمة"
-
-msgid "Bold"
-msgstr "Bold"
-
-msgid "Italic"
-msgstr "Italic"
 
 msgid "Link"
 msgstr "رابط"

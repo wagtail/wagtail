@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -398,6 +398,9 @@ msgstr "grupi kogumise luba"
 msgid "group collection permissions"
 msgstr "grupikogude load"
 
+msgid "uploaded by user"
+msgstr "kasutaja üles laaditud"
+
 msgid "hostname"
 msgstr "hostinimi"
 
@@ -452,17 +455,8 @@ msgstr ""
 msgid "Public"
 msgstr "Avalik"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privaatne, juurdepääsetav sisseloginud kasutajatele"
-
-msgid "Private, accessible with the following password"
-msgstr "Privaatne, juurdepääsetav järgmise parooliga"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privaatne, juurdepääsetav teatud gruppide kasutajatele"
-
-msgid "password"
-msgstr "parool"
 
 msgid "view restriction"
 msgstr "vaatamise piiramine"

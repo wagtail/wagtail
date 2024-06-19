@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -55,6 +55,9 @@ msgstr "Dátum od"
 msgid "Date to"
 msgstr "Dátum do"
 
+msgid "Collection"
+msgstr "Kolekcie"
+
 msgid "First Name"
 msgstr "Krstné meno"
 
@@ -89,9 +92,6 @@ msgstr "Hľadať"
 
 msgid "All collections"
 msgstr "Všetky kolekcie"
-
-msgid "Collection"
-msgstr "Kolekcie"
 
 msgid "Parent"
 msgstr "Rodič"
@@ -180,6 +180,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nemôžete skopírovať stránku do seba samej."
+
+msgid "Parent page"
+msgstr "Rodičovská strana"
 
 msgid "Visibility"
 msgstr "Viditeľnosť"
@@ -308,16 +311,13 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Táto kolekcia nemôže byť zmazaná, pretože nie je prázdna. Obsahuje:"
 
-msgid "Name"
-msgstr "Názov"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a "
-"href=\"%(add_collection_url)s\">pridajte prvú</a>."
+"Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a href="
+"\"%(add_collection_url)s\">pridajte prvú</a>."
 
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
@@ -331,6 +331,9 @@ msgstr "Áno, odpublikovať"
 
 msgid "No, don't unpublish"
 msgstr "Nie, nepublikovať"
+
+msgid "Actions"
+msgstr "Akcie"
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -361,9 +364,6 @@ msgstr ""
 
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
-
-msgid "Actions"
-msgstr "Akcie"
 
 msgid "Draft"
 msgstr "Koncept"
@@ -519,15 +519,6 @@ msgstr "Kopírovať túto stránku"
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
-msgid "User"
-msgstr "Používateľ"
-
-msgid "Live version"
-msgstr "Živá verzia"
-
-msgid "Current draft"
-msgstr "Aktuálny koncept"
-
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
 
@@ -590,6 +581,12 @@ msgstr "Stránky"
 msgid "Locked"
 msgstr "Zamknuté"
 
+msgid "Name"
+msgstr "Názov"
+
+msgid "User"
+msgstr "Používateľ"
+
 msgid "Edit this item"
 msgstr "Upraviť položku"
 
@@ -602,9 +599,6 @@ msgstr "Stiahnuť CSV"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Root"
-msgstr "Koreň"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
@@ -681,6 +675,12 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 
 msgid "Home"
 msgstr "Domov"
+
+msgid "Live version"
+msgstr "Živá verzia"
+
+msgid "Current draft"
+msgstr "Aktuálny koncept"
 
 #, python-format
 msgid "Edit '%(title)s'"

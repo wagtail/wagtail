@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Wagtail search promotions"
 msgstr "Wagtail promoviranje pretraga"
@@ -138,41 +138,19 @@ msgstr "Promovirani rezultati pretraživanja"
 msgid "Add a recommended result"
 msgstr "Dodaj preporučeni rezultat"
 
-msgid "Search Terms"
-msgstr "Pojmovi za pretraživanje"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Nažalost nisu pronađeni promovirani rezultati koji odgovaraju \"<em>"
+"%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Dodaj novi promovirani rezultat"
-
-msgid "Search term(s)"
-msgstr "Pojam(ovi) za pretraživanje"
-
-msgid "Order by search term alphabetically"
-msgstr "Sortiraj abecedno po pojmu"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sortiraj obrnuto abecedno po pojmu"
-
-msgid "Promoted results"
-msgstr "Promovirani rezultati"
-
-msgid "Views (past week)"
-msgstr "Pregledi (prošli tjedan)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sortiraj po pregledima (prvo najmanje)"
-
-msgid "Order by views (highest first)"
-msgstr "Sortiraj po pregledima (prvo najviše)"
-
-msgid "Edit this promotion"
-msgstr "Uredi ovu promociju"
-
-msgid "External link"
-msgstr "Vanjska poveznica"
-
-msgid "None"
-msgstr "Prazno"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nema postavljenih promoviranih rezultata. Zašto ne <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">dodate jedan</a>?"
 
 msgid "Popular search terms"
 msgstr "Popularni pojmovi za pretraživanje"
@@ -183,32 +161,32 @@ msgstr "Pretraži"
 msgid "Terms"
 msgstr "Pojmovi"
 
+msgid "Views (past week)"
+msgstr "Pregledi (prošli tjedan)"
+
 msgid "No results found"
 msgstr "Nema pronađenih rezultata"
 
 msgid "Choose from popular search terms"
 msgstr "Odaberi među popularnim pojmovima"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Pronađen je %(counter)s rezultat"
-msgstr[1] "Pronađeno je %(counter)s rezultata"
-msgstr[2] "Pronađeno je %(counter)s rezultata"
+msgid "External link"
+msgstr "Vanjska poveznica"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Nažalost nisu pronađeni promovirani rezultati koji odgovaraju "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Prazno"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Nema postavljenih promoviranih rezultata. Zašto ne <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">dodate jedan</a>?"
+msgid "Search Terms"
+msgstr "Pojmovi za pretraživanje"
+
+msgid "Add new promoted result"
+msgstr "Dodaj novi promovirani rezultat"
+
+msgid "Search term(s)"
+msgstr "Pojam(ovi) za pretraživanje"
+
+msgid "Promoted results"
+msgstr "Promovirani rezultati"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -87,6 +87,42 @@ msgstr "เลื่อนลง,ขยับลง"
 msgid "Promoted search results"
 msgstr "ผลการค้นหาที่โปรโมทแล้ว"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีผลโปรโมทที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a href=\"%(wagtailsearchpromotions_add_url)s"
+"\">เพิ่มสักหนึ่งอัน</a>?"
+
+msgid "Popular search terms"
+msgstr "วาระที่ค้นหามากที่สุด"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Terms"
+msgstr "วาระ"
+
+msgid "Views (past week)"
+msgstr "ดู(ของอาทิตย์ที่แล้ว)"
+
+msgid "No results found"
+msgstr "ไม่พบผล"
+
+msgid "Choose from popular search terms"
+msgstr "เลือกจากวาระที่ค้นหามากที่สุด"
+
+msgid "External link"
+msgstr "ลิงค์ภายนอก"
+
+msgid "None"
+msgstr "ไม่มี,ไม่"
+
 msgid "Search Terms"
 msgstr "คำที่ต้องการค้นหา"
 
@@ -98,45 +134,6 @@ msgstr "ค้นหาคำ(s)"
 
 msgid "Promoted results"
 msgstr "ผลที่โปรโมท"
-
-msgid "Views (past week)"
-msgstr "ดู(ของอาทิตย์ที่แล้ว)"
-
-msgid "Edit this promotion"
-msgstr "แก้ไขโปรโมชั่นนี้"
-
-msgid "External link"
-msgstr "ลิงค์ภายนอก"
-
-msgid "None"
-msgstr "ไม่มี,ไม่"
-
-msgid "Popular search terms"
-msgstr "วาระที่ค้นหามากที่สุด"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Terms"
-msgstr "วาระ"
-
-msgid "No results found"
-msgstr "ไม่พบผล"
-
-msgid "Choose from popular search terms"
-msgstr "เลือกจากวาระที่ค้นหามากที่สุด"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย,ไม่มีผลโปรโมทที่ตรงกัน \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">เพิ่มสักหนึ่งอัน</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -107,6 +107,28 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
             )
             self.assertRedirects(response, "/")
 
+    @override_settings(
+        WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE="tests/custom_docs_password_required.html"
+    )
+    def test_anonymous_user_must_authenticate_with_custom_password_required_template(
+        self
+    ):
+        secret_document = Document.objects.create(
+            title="Test document",
+            file=self.fake_file,
+            collection=self.password_collection,
+        )
+        doc_url = reverse(
+            "wagtaildocs_serve", args=(secret_document.id, secret_document.filename)
+        )
+        response = self.client.get(doc_url)
+        self.assertNotEqual(
+            response.templates[0].name, "wagtaildocs/password_required.html"
+        )
+        self.assertEqual(
+            response.templates[0].name, "tests/custom_docs_password_required.html"
+        )
+
     def test_group_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.group_collection)
         self.assertRedirects(response, f"/_util/login/?next={url}")

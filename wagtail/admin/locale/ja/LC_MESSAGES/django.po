@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,6 +91,9 @@ msgstr "まで"
 msgid "All"
 msgstr "全て"
 
+msgid "Collection"
+msgstr "コレクション"
+
 msgid "Preferred language"
 msgstr "好みの言語"
 
@@ -135,9 +138,6 @@ msgstr "検索"
 
 msgid "All collections"
 msgstr "全てのコレクション"
-
-msgid "Collection"
-msgstr "コレクション"
 
 msgid "Parent"
 msgstr "上位階層"
@@ -228,6 +228,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "サブページをコピーするとき、それ自身にコピーすることはできません。"
+
+msgid "Parent page"
+msgstr "親ページ"
 
 msgid "Visibility"
 msgstr "可視性"
@@ -437,13 +440,10 @@ msgid ""
 msgstr ""
 "このコレクションが空でないため削除できません。次のものが含まれています:"
 
-msgid "Name"
-msgstr "名前"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>し"
 "ますか？"
@@ -466,6 +466,12 @@ msgstr "いいえ、非公開にしません"
 
 msgid "Cancel"
 msgstr "キャンセル"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "Actions"
+msgstr "操作"
 
 msgid "Update"
 msgstr "アップデート"
@@ -502,9 +508,6 @@ msgstr "ロック時刻"
 
 msgid "Edit this page"
 msgstr "ページを編集"
-
-msgid "Actions"
-msgstr "操作"
 
 msgid "Unlock"
 msgstr "ロックを解除"
@@ -734,25 +737,6 @@ msgstr "このページは変更が保存されなかった"
 msgid "Edit original page"
 msgstr "元ページを編集"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "%(subtitle)sのページ履歴"
-
-msgid "Action"
-msgstr "アクション"
-
-msgid "User"
-msgstr "ユーザー"
-
-msgid "Comment"
-msgstr "コメント"
-
-msgid "Live version"
-msgstr "ライブ版"
-
-msgid "Current draft"
-msgstr "現在の下書き"
-
 msgid "Configure a site now."
 msgstr "サイトを設定する"
 
@@ -800,9 +784,6 @@ msgstr "確認"
 msgid "Add child page"
 msgstr "子ページを追加"
 
-msgid "Cancel scheduled publish"
-msgstr "予定された公開を取り消す"
-
 msgid "Page types"
 msgstr "ページタイプ"
 
@@ -839,6 +820,15 @@ msgstr "ロックあり"
 
 msgid "No locked pages found."
 msgstr "ロックされたページは見つかりませんでした。"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "User"
+msgstr "ユーザー"
 
 msgid "Edit this item"
 msgstr "アイテムを編集"
@@ -879,9 +869,6 @@ msgstr "コメントを追加"
 
 msgid "History"
 msgstr "履歴"
-
-msgid "Root"
-msgstr "ルート"
 
 msgid "Current page status:"
 msgstr "現在のページ状況："
@@ -963,6 +950,24 @@ msgstr "%(time_period)s前"
 msgid "Log out"
 msgstr "ログアウト"
 
+msgid "Undo"
+msgstr "取り消す"
+
+msgid "Redo"
+msgstr "やり直す"
+
+msgid "Bold"
+msgstr "太字"
+
+msgid "Italic"
+msgstr "斜体"
+
+msgid "Superscript"
+msgstr "上付き文字"
+
+msgid "Subscript"
+msgstr "下付き文字"
+
 msgid "Comments"
 msgstr "コメント"
 
@@ -1016,6 +1021,15 @@ msgstr "コレクションを完全に削除しますか"
 
 msgid "Home"
 msgstr "ホーム"
+
+msgid "Live version"
+msgstr "ライブ版"
+
+msgid "Current draft"
+msgstr "現在の下書き"
+
+msgid "Cancel scheduled publish"
+msgstr "予定された公開を取り消す"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1113,9 +1127,6 @@ msgstr "このページはロックされているため、保存できません
 msgid "The page could not be saved due to validation errors"
 msgstr "このページはエラーにより保存できませんでした。"
 
-msgid "Page history"
-msgstr "ページの履歴"
-
 msgid "Owner"
 msgstr "所有者"
 
@@ -1137,6 +1148,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "ページ：'%(page_title)s' が除去されました。"
+
+msgid "Page history"
+msgstr "ページの履歴"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1201,20 +1215,8 @@ msgstr "段落番号"
 msgid "Blockquote"
 msgstr "引用"
 
-msgid "Bold"
-msgstr "太字"
-
-msgid "Italic"
-msgstr "斜体"
-
 msgid "Link"
 msgstr "リンク"
-
-msgid "Superscript"
-msgstr "上付き文字"
-
-msgid "Subscript"
-msgstr "下付き文字"
 
 msgid "Strikethrough"
 msgstr "取り消し線"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -156,16 +156,6 @@ msgstr "Avbryt"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Endrer %(title)s"
-
-msgid "Editing"
-msgstr "Endrer"
-
-msgid "Delete redirect"
-msgstr "Slett videresending"
-
 msgid "Summary"
 msgstr "Sammendrag"
 
@@ -188,24 +178,6 @@ msgstr "Feil"
 msgid "Continue"
 msgstr "Fortsett"
 
-msgid "Export redirects"
-msgstr "Eksporter videresendinger"
-
-msgid "Site"
-msgstr "Nettsted"
-
-msgid "Edit this redirect"
-msgstr "Endre denne videresendingen"
-
-msgid "No redirects found."
-msgstr "Ingen videresendinger funnet."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -213,21 +185,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
+"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
+
+msgid "Site"
+msgstr "Nettsted"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Videresendingen kunne ikke lagres grunnet feil."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Videresendingen \"%(redirect_title)s\" er oppdatert."
-
-msgid "Edit"
-msgstr "Endre"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Videresendingen kunne ikke lagres grunnet feil."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -236,6 +208,9 @@ msgstr "Videresendingen \"%(redirect_title)s\" er slettet."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Videresendingen \"%(redirect_title)s\" er lagt til."
+
+msgid "Edit"
+msgstr "Endre"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Videresendingen kunne ikke opprettes grunnet feil."
@@ -260,6 +235,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Importerte %(total)d videresending"
 msgstr[1] "Importerte %(total)d videresendinger"
-
-msgid "Export Redirects"
-msgstr "Eksporter Videresendinger"

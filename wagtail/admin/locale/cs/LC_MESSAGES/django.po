@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -90,6 +90,9 @@ msgstr "Místní nastavení (locale)"
 msgid "All"
 msgstr "Vše"
 
+msgid "Collection"
+msgstr "Kolekce"
+
 msgid "Preferred language"
 msgstr "Preferovaný jazyk"
 
@@ -133,9 +136,6 @@ msgstr "Hledat"
 
 msgid "All collections"
 msgstr "Všechny kolekce"
-
-msgid "Collection"
-msgstr "Kolekce"
 
 msgid "Parent"
 msgstr "Nadřazená stránka"
@@ -255,6 +255,9 @@ msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstr
 
 msgid "Select a new parent for this page."
 msgstr "Zvolte novou nadřazenou stránku pro tuto stránku."
+
+msgid "Parent page"
+msgstr "Nadřazená stránka"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -513,16 +516,13 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Tato kolekce nemůže být smazána protože není prázdná. Obsahuje:"
 
-msgid "Name"
-msgstr "Jméno"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a "
-"href=\"%(add_collection_url)s\">zde</a>."
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a href="
+"\"%(add_collection_url)s\">zde</a>."
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -542,6 +542,12 @@ msgstr "Ne, nerušit publikaci"
 
 msgid "Cancel"
 msgstr "Storno"
+
+msgid "Comment"
+msgstr "Komentář"
+
+msgid "Actions"
+msgstr "Akce"
 
 msgid "Update"
 msgstr "Uložit"
@@ -582,9 +588,6 @@ msgstr "Uzamčeno: "
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
-
-msgid "Actions"
-msgstr "Akce"
 
 msgid "Unlock"
 msgstr "Odemknout"
@@ -949,31 +952,6 @@ msgstr "Tato stránka je aliasem od jiné stránky."
 msgid "Edit original page"
 msgstr "Editovat původní stránku"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historie stránky pro %(subtitle)s"
-
-msgid "Action"
-msgstr "Akce"
-
-msgid "User"
-msgstr "Uživatel"
-
-msgid "Date / Time"
-msgstr "Datum / Čas"
-
-msgid "Comment"
-msgstr "Komentář"
-
-msgid "Live version"
-msgstr "Publikovaná verze"
-
-msgid "Current draft"
-msgstr "Aktuální koncept"
-
-msgid "No log entries found."
-msgstr "Nenalezeny žádné záznamy v logu."
-
 msgid "Configure a site now."
 msgstr "Nyní zkonfigurujte web"
 
@@ -1020,15 +998,6 @@ msgstr "Potvrdit"
 
 msgid "Add child page"
 msgstr "Přidat podstránku"
-
-msgid "Review this version"
-msgstr "Revidovat tuto verzi"
-
-msgid "Compare with current version"
-msgstr "Porovnat s aktuální verzí"
-
-msgid "Cancel scheduled publish"
-msgstr "Zrušit naplánované publikování"
 
 msgid "Page types"
 msgstr "Typy stránky"
@@ -1080,8 +1049,23 @@ msgstr "Uzamčeno"
 msgid "No locked pages found."
 msgstr "Nebyly nalezeny žádné uzamčené stránky"
 
+msgid "Name"
+msgstr "Jméno"
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "User"
+msgstr "Uživatel"
+
+msgid "Date / Time"
+msgstr "Datum / Čas"
+
 msgid "Edit this item"
 msgstr "Upravit tuto položku"
+
+msgid "No log entries found."
+msgstr "Nenalezeny žádné záznamy v logu."
 
 msgid "By Task"
 msgstr "Úlohou"
@@ -1131,9 +1115,6 @@ msgstr "Zpět"
 
 msgid "History"
 msgstr "Historie"
-
-msgid "Root"
-msgstr "Počátek"
 
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
@@ -1276,14 +1257,12 @@ msgstr "Vytvořit"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Postupy se uplatní i pro podstránky. Vyberete-li nyní nadřazenou stránku, i "
-"její podřízené stránky použijí tento postup. Zobrazit <a "
-"href=\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento "
-"postup."
+"její podřízené stránky použijí tento postup. Zobrazit <a href="
+"\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento postup."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Tento postup není povolen. Nelze ho proto přiřazovat ke stránkám."
@@ -1310,15 +1289,6 @@ msgstr "Stránka"
 
 msgid "Assign to another page"
 msgstr "Přiřadit k jiné stránce"
-
-msgid "Hide disabled workflows"
-msgstr "Skrýt zakázané postupy"
-
-msgid "Show disabled workflows"
-msgstr "Zobrazovat zakázané postupy"
-
-msgid "Used by"
-msgstr "Použito (kým)"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -1363,12 +1333,6 @@ msgstr "Bohužel, žádná úloha neodpovídá \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Nevytvořil(a) jste žádné úlohy."
-
-msgid "Hide disabled tasks"
-msgstr "Skrýt zakázané úlohy"
-
-msgid "Show disabled tasks"
-msgstr "Zobrazovat zakázané úlohy"
 
 #, python-format
 msgid ""
@@ -1426,6 +1390,24 @@ msgstr "před %(time_period)s"
 
 msgid "Log out"
 msgstr "Odhlásit"
+
+msgid "Undo"
+msgstr "Vrátit zpět"
+
+msgid "Redo"
+msgstr "Opakovat"
+
+msgid "Bold"
+msgstr "Tučné"
+
+msgid "Italic"
+msgstr "Šikmé"
+
+msgid "Superscript"
+msgstr "Superscript (Horní index)"
+
+msgid "Subscript"
+msgstr "Subscript (Dolní index)"
 
 msgid "Comments"
 msgstr "Komentáře"
@@ -1497,6 +1479,21 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 
 msgid "Home"
 msgstr "Domů"
+
+msgid "Live version"
+msgstr "Publikovaná verze"
+
+msgid "Current draft"
+msgstr "Aktuální koncept"
+
+msgid "Review this version"
+msgstr "Revidovat tuto verzi"
+
+msgid "Compare with current version"
+msgstr "Porovnat s aktuální verzí"
+
+msgid "Cancel scheduled publish"
+msgstr "Zrušit naplánované publikování"
 
 msgid "Workflow progress"
 msgstr "Průběh postupu"
@@ -1646,9 +1643,6 @@ msgstr "Stránku nelze uložit, protože je uzamčena"
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
-msgid "Page history"
-msgstr "Historie stránky"
-
 msgid "Site"
 msgstr "Web"
 
@@ -1677,6 +1671,9 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
+
+msgid "Page history"
+msgstr "Historie stránky"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1729,6 +1726,9 @@ msgstr "Požadováno (kým)"
 
 msgid "Add a workflow"
 msgstr "Přidat postup"
+
+msgid "Used by"
+msgstr "Použito (kým)"
 
 msgid "New workflow"
 msgstr "Nový postup"
@@ -1835,20 +1835,8 @@ msgstr "Číslovaný seznam"
 msgid "Blockquote"
 msgstr "Blockquote (Zvýrazněný blok)"
 
-msgid "Bold"
-msgstr "Tučné"
-
-msgid "Italic"
-msgstr "Šikmé"
-
 msgid "Link"
 msgstr "Odkaz"
-
-msgid "Superscript"
-msgstr "Superscript (Horní index)"
-
-msgid "Subscript"
-msgstr "Subscript (Dolní index)"
 
 msgid "Strikethrough"
 msgstr "Přeškrtnuté"

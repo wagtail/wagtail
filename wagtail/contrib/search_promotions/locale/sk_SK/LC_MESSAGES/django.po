@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -92,6 +92,45 @@ msgstr "Posunúť nižšie"
 msgid "Promoted search results"
 msgstr "Propagované výsledky vyhladávania"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</em>"
+"\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Zatiaľ neboli vytvorené žiadne propagované výsledky vyhľadávania. Prečo "
+"nevytvoriť <a href=\"%(wagtailsearchpromotions_add_url)s\">jeden výsledok</"
+"a>?"
+
+msgid "Popular search terms"
+msgstr "Najviac hľadané výrazy"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (posledný týždeň)"
+
+msgid "No results found"
+msgstr "Žiadne výsledky hľadania"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrať z načastejšie hľadaných"
+
+msgid "External link"
+msgstr "Externý odkaz"
+
+msgid "None"
+msgstr "Žiadne"
+
 msgid "Search Terms"
 msgstr "Výrazy vyhladávania"
 
@@ -103,48 +142,6 @@ msgstr "Hľadané výrazy"
 
 msgid "Promoted results"
 msgstr "Propagované výsledky"
-
-msgid "Views (past week)"
-msgstr "Zobrazení (posledný týždeň)"
-
-msgid "Edit this promotion"
-msgstr "Upraviť propagáciu"
-
-msgid "External link"
-msgstr "Externý odkaz"
-
-msgid "None"
-msgstr "Žiadne"
-
-msgid "Popular search terms"
-msgstr "Najviac hľadané výrazy"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Terms"
-msgstr "Výrazy"
-
-msgid "No results found"
-msgstr "Žiadne výsledky hľadania"
-
-msgid "Choose from popular search terms"
-msgstr "Vybrať z načastejšie hľadaných"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</"
-"em>\""
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Zatiaľ neboli vytvorené žiadne propagované výsledky vyhľadávania. Prečo "
-"nevytvoriť <a href=\"%(wagtailsearchpromotions_add_url)s\">jeden výsledok</"
-"a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

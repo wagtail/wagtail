@@ -52,6 +52,8 @@ class Elasticsearch7Mapping:
 
     type_map = {
         "AutoField": "integer",
+        "SmallAutoField": "integer",
+        "BigAutoField": "long",
         "BinaryField": "binary",
         "BooleanField": "boolean",
         "CharField": "string",
@@ -69,10 +71,12 @@ class Elasticsearch7Mapping:
         "NullBooleanField": "boolean",
         "PositiveIntegerField": "integer",
         "PositiveSmallIntegerField": "integer",
+        "PositiveBigIntegerField": "long",
         "SlugField": "string",
         "SmallIntegerField": "integer",
         "TextField": "string",
         "TimeField": "date",
+        "URLField": "string",
     }
 
     keyword_type = "keyword"

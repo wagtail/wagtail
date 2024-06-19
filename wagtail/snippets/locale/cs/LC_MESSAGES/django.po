@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Martin Rejmon, 2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,30 +115,6 @@ msgstr "Uložit návrh"
 msgid "Actions"
 msgstr "Akce"
 
-msgid "Live version"
-msgstr "Publikovaná verze"
-
-msgid "Current draft"
-msgstr "Aktuální koncept"
-
-msgid "Preview"
-msgstr "Náhled"
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "Review this version"
-msgstr "Revidovat tuto verzi"
-
-msgid "Compare with previous version"
-msgstr "Porovnat s předchozí verzí"
-
-msgid "Compare with current version"
-msgstr "Porovnat s aktuální verzí"
-
-msgid "Cancel scheduled publish"
-msgstr "Zrušit naplánované publikování"
-
 msgid "Choose"
 msgstr "Zvolit"
 
@@ -147,12 +123,6 @@ msgstr "Úryvky"
 
 msgid "Name"
 msgstr "Jméno"
-
-msgid "Action"
-msgstr "Akce"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Home"
 msgstr "Domů"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Haitian (Haitian Creole) (http://app.transifex.com/torchbox/"
@@ -37,9 +37,6 @@ msgstr "Anrejistre"
 msgid "Editing"
 msgstr "Modifikasyon"
 
-msgid "Views (past week)"
-msgstr "Vi (semèn pase)"
-
 msgid "Popular search terms"
 msgstr "Tèm rechèch ki popilè"
 
@@ -48,6 +45,9 @@ msgstr "Chèche"
 
 msgid "Terms"
 msgstr "Tèm"
+
+msgid "Views (past week)"
+msgstr "Vi (semèn pase)"
 
 msgid "No results found"
 msgstr "Okenn rezilta pa twouve"

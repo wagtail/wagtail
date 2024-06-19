@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -20,8 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail uporabniki"
@@ -127,6 +127,9 @@ msgstr "Temna"
 
 msgid "admin theme"
 msgstr "predloga skrbnika"
+
+msgid "Default"
+msgstr "Privzeta"
 
 msgid "user profile"
 msgstr "uporabniški profil"
@@ -239,9 +242,6 @@ msgstr "Ali ste prepričani, da želite izbrisati skupino?"
 msgid "Add group"
 msgstr "Dodaj skupino"
 
-msgid "View users in this group"
-msgstr "Ogled uporabnikov v tej skupini"
-
 msgid "Save"
 msgstr "Shrani"
 
@@ -290,11 +290,11 @@ msgstr "Nobena skupina se ne ujema z \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Dodana ni še nobena skupina. Zakaj je ne bi <a "
-"href=\"%(wagtailusers_create_group_url)s\">dodali</a>?"
+"Dodana ni še nobena skupina. Zakaj je ne bi <a href="
+"\"%(wagtailusers_create_group_url)s\">dodali</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ali ste prepričani, da želite izbrisati tega uporabnika?"
@@ -315,45 +315,12 @@ msgid "Select all users in listing"
 msgstr "Izberite vse uporabnike na seznamu"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Skupina %(group_name)s nima določenih uporabnikov. Zakaj jih ne bi <a "
-"href=\"%(wagtailusers_add_url)s\">dodali nekaj</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Ni konfiguriranih uporabnikov. Zakaj jih nebi<a "
-"href=\"%(wagtailusers_add_url)s\">dodali</a>?"
-
-msgid "Username"
-msgstr "Uporabniško ime"
-
-msgid "Access level"
-msgstr "Raven dostopa"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Zadnja prijava"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktiven"
-
-msgid "Inactive"
-msgstr "Neaktiven"
+"Ni konfiguriranih uporabnikov. Zakaj jih nebi<a href="
+"\"%(wagtailusers_add_url)s\">dodali</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -372,6 +339,12 @@ msgstr[0] "%(num_parent_objects)d uporabnik je bil izbrisan"
 msgstr[1] "%(num_parent_objects)d uporabnika sta bili izbrisana"
 msgstr[2] "%(num_parent_objects)d uporabniki so bili izbrisani"
 msgstr[3] "%(num_parent_objects)d uporabniki so bili izbrisani"
+
+msgid "Active"
+msgstr "Aktiven"
+
+msgid "Inactive"
+msgstr "Neaktiven"
 
 msgid "Change the active state for selected users"
 msgstr "Spremenite aktivno stanje za izbrane uporabnike"
@@ -412,6 +385,9 @@ msgstr "Skupina '%(object)s' posodobljena."
 msgid "The group could not be saved due to errors."
 msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 
+msgid "View users in this group"
+msgstr "Ogled uporabnikov v tej skupini"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' izbrisana."
@@ -421,6 +397,22 @@ msgstr "Dodaj uporabnika"
 
 msgid "Users"
 msgstr "Uporabniki"
+
+msgid "Username"
+msgstr "Uporabniško ime"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Raven dostopa"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Več možnosti za '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -436,6 +428,3 @@ msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Uporabnik '%(object)s' izbrisan."
-
-msgid "Edit"
-msgstr "Uredi"

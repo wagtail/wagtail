@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -93,21 +93,6 @@ msgstr "Taslağı kaydet"
 msgid "Actions"
 msgstr "Eylemler"
 
-msgid "Live version"
-msgstr "Canlı sürüm"
-
-msgid "Current draft"
-msgstr "Şimdiki taslak"
-
-msgid "Preview"
-msgstr "Önizleme"
-
-msgid "Edit"
-msgstr "Düzenle"
-
-msgid "Cancel scheduled publish"
-msgstr "Zamanlanmış yayını iptal et"
-
 msgid "Choose"
 msgstr "Seç"
 
@@ -116,9 +101,6 @@ msgstr "Kod parçacıkları (Snippets)"
 
 msgid "Name"
 msgstr "Ad"
-
-msgid "Date"
-msgstr "Tarih"
 
 msgid "Home"
 msgstr "Ana Sayfa"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -498,6 +498,9 @@ msgstr "дозволи для групи колекцій "
 msgid "group collection permissions"
 msgstr "дозвіл для групи колекцій "
 
+msgid "uploaded by user"
+msgstr "надіслано користувачем"
+
 msgid "hostname"
 msgstr "ім'я хоста"
 
@@ -552,17 +555,14 @@ msgstr ""
 msgid "Public"
 msgstr "Загальнодоступний"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Приватний, доступна для користувачів, що здійснили вхід"
-
-msgid "Private, accessible with the following password"
-msgstr "Приватний, доступний з паролем"
+msgid "Private, accessible to any logged-in users"
+msgstr "Приватний, доступний для всіх залогінених користувачів"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Приватний, доступний для користувачів визначених груп"
 
-msgid "password"
-msgstr "пароль"
+msgid "shared password"
+msgstr "спільний пароль"
 
 msgid "view restriction"
 msgstr "обмеження показу"

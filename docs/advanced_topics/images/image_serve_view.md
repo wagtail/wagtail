@@ -123,7 +123,7 @@ urlpatterns = [
 [django-sendfile](https://github.com/johnsensible/django-sendfile) offloads the job of transferring the image data to the web
 server instead of serving it directly from the Django application. This could
 greatly reduce server load in situations where your site has many images being
-downloaded but you're unable to use a [](caching_proxy) or a CDN.
+downloaded but you're unable to use a [caching proxy](performance_frontend_caching) or a CDN.
 
 You first need to install and configure django-sendfile and configure your
 web server to use it. If you haven't done this already, please refer to the

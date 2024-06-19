@@ -5,7 +5,7 @@
 # Translators:
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Axel Haustant, 2016
-# Axel Haustant, 2016
+# Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -249,9 +249,6 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce groupe ?"
 msgid "Add group"
 msgstr "Ajouter un groupe"
 
-msgid "View users in this group"
-msgstr "Voir les utilisateurs dans ce groupe"
-
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -300,11 +297,11 @@ msgstr "Désolé, aucun groupe ne correspond à \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Il n'y a pas de groupe configuré. Pourquoi ne pas <a "
-"href=\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
+"Il n'y a pas de groupe configuré. Pourquoi ne pas <a href="
+"\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
@@ -325,46 +322,12 @@ msgid "Select all users in listing"
 msgstr "Sélectionner tous les utilisateurs dans la liste"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Désolé, aucun utilisateur ne correspond avec \"<em>%(query_string)s</em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Le groupe %(group_name)s n'a pas d'utilisateur configuré. Pourquoi ne pas <a "
-"href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a "
-"href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
-
-msgid "Username"
-msgstr "Identifiant"
-
-msgid "Access level"
-msgstr "Niveau d'accès"
-
-msgid "Status"
-msgstr "Statut"
-
-msgid "Last Login"
-msgstr "Dernière connexion"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Actif"
-
-msgid "Inactive"
-msgstr "Inactif"
+"Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a href="
+"\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -392,6 +355,12 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utilisateur a été supprimé"
 msgstr[1] "%(num_parent_objects)d utilisateurs ont été supprimés"
 msgstr[2] "%(num_parent_objects)d utilisateurs ont été supprimés"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Inactive"
+msgstr "Inactif"
 
 msgid "Mark as active"
 msgstr "Marquer comme actif(ve)"
@@ -433,15 +402,37 @@ msgstr "Groupe « %(object)s » mis à jour."
 msgid "The group could not be saved due to errors."
 msgstr "Le groupe ne peut être enregistré du fait d'erreurs."
 
+msgid "View users in this group"
+msgstr "Voir les utilisateurs dans ce groupe"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groupe « %(object)s » supprimé."
+
+msgid "Group"
+msgstr "Group"
 
 msgid "Add a user"
 msgstr "Ajouter un utilisateur"
 
 msgid "Users"
 msgstr "Utilisateurs"
+
+msgid "Username"
+msgstr "Identifiant"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Niveau d'accès"
+
+msgid "Status"
+msgstr "Statut"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Plus d’options pour « %(title)s »"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -457,14 +448,3 @@ msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilisateur « %(object)s » supprimé."
-
-msgid "Edit"
-msgstr "Modifier"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Modifier l'utilisateur « %(name)s »"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Supprimer l'utilisateur « %(name)s »"

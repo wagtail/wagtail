@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -84,6 +84,42 @@ msgstr "下移"
 msgid "Promoted search results"
 msgstr "推廣搜索結果"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的推廣結果"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"還沒有創建過推廣結果。為何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
+"創建一個</a>？"
+
+msgid "Popular search terms"
+msgstr "熱門關鍵字"
+
+msgid "Search"
+msgstr "搜尋"
+
+msgid "Terms"
+msgstr "詞語"
+
+msgid "Views (past week)"
+msgstr "查看 (上周)"
+
+msgid "No results found"
+msgstr "沒有找到結果"
+
+msgid "Choose from popular search terms"
+msgstr "從熱門關鍵字中選擇"
+
+msgid "External link"
+msgstr "外部連結"
+
+msgid "None"
+msgstr "無"
+
 msgid "Search Terms"
 msgstr "檢索詞"
 
@@ -95,50 +131,6 @@ msgstr "搜索詞條(s)"
 
 msgid "Promoted results"
 msgstr "推廣結果"
-
-msgid "Views (past week)"
-msgstr "查看 (上周)"
-
-msgid "Edit this promotion"
-msgstr "編輯此推廣"
-
-msgid "External link"
-msgstr "外部連結"
-
-msgid "None"
-msgstr "無"
-
-msgid "Popular search terms"
-msgstr "熱門關鍵字"
-
-msgid "Search"
-msgstr "搜尋"
-
-msgid "Terms"
-msgstr "詞語"
-
-msgid "No results found"
-msgstr "沒有找到結果"
-
-msgid "Choose from popular search terms"
-msgstr "從熱門關鍵字中選擇"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "共有 %(counter)s 項符合"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的推廣結果"
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"還沒有創建過推廣結果。為何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
-"創建一個</a>？"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

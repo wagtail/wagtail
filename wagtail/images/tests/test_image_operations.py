@@ -1,4 +1,5 @@
 from io import BytesIO
+from pathlib import Path
 from unittest.mock import patch
 
 from django.test import TestCase, override_settings
@@ -11,6 +12,7 @@ from wagtail.images.exceptions import (
 )
 from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
+from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_avif,
@@ -692,6 +694,16 @@ class TestFormatFilter(TestCase):
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, "ico")
+
+    def test_ico_rendition(self):
+        fil = Filter(spec="width-400|format-ico")
+        good_image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        rendition = get_rendition_or_not_found(good_image, fil)
+        self.assertEqual(Path(rendition.file.name).suffix, ".ico")
 
     def test_webp_lossless(self):
         fil = Filter(spec="width-400|format-webp-lossless")

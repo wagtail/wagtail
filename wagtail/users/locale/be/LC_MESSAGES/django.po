@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -18,9 +18,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Карыстальнік Wagtail"
@@ -127,6 +127,9 @@ msgstr "Цёмная"
 
 msgid "admin theme"
 msgstr "каляровая тэма адміністратара"
+
+msgid "Default"
+msgstr "Па змаўчанні"
 
 msgid "user profile"
 msgstr "профіль карыстальніка"
@@ -243,9 +246,6 @@ msgstr "Вы сапраўды хочаце выдаліць гэты гурт?"
 msgid "Add group"
 msgstr "Дадаць гурт"
 
-msgid "View users in this group"
-msgstr "Прагляд карыстальнікаў групы"
-
 msgid "Save"
 msgstr "Захаваць"
 
@@ -294,11 +294,11 @@ msgstr "Нажаль, ніводны гурт не адпавядае \"%(query)
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Гурты не настроенныя. Давай дададзім <a "
-"href=\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
+"Гурты не настроенныя. Давай дададзім <a href="
+"\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Вы ўпэўнены, што хочаце выдаліць гэтага карыстальніка?"
@@ -319,47 +319,12 @@ msgid "Select all users in listing"
 msgstr "Выбраць усіх карыстальнікаў у спісе"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Прабачце, не знойдзена подыходзячых карыстальнікаў \"<em>%(query_string)s</"
-"em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Гурт %(group_name)s не ўтрымлівае карыстальнікаў. Чаму б не <a "
-"href=\"%(wagtailusers_add_url)s\">дадаць некалькі </a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
 "Карыстальнікі не сканфігураваны. <a href=\"%(wagtailusers_add_url)s\"> "
 "дадаць карыстальніка </a>?"
-
-msgid "Username"
-msgstr "Імя карыстальніка"
-
-msgid "Access level"
-msgstr "Узровень доступу"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Last Login"
-msgstr "Апошні ўваход"
-
-msgid "Admin"
-msgstr "Адміністратар"
-
-msgid "Active"
-msgstr "Актыўны"
-
-msgid "Inactive"
-msgstr "Неактыўны"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -386,6 +351,12 @@ msgstr[0] "%(num_parent_objects)dкарыстальнік быў выдален�
 msgstr[1] "%(num_parent_objects)d карыстальніка выдалілі"
 msgstr[2] "%(num_parent_objects)d карыстальнікаў выдалілі"
 msgstr[3] "%(num_parent_objects)d карыстальнікаў выдалілі"
+
+msgid "Active"
+msgstr "Актыўны"
+
+msgid "Inactive"
+msgstr "Неактыўны"
 
 msgid "Mark as active"
 msgstr "Пазначыць як актыўны"
@@ -429,6 +400,9 @@ msgstr "Адноўлены '%(object)s' гурт."
 msgid "The group could not be saved due to errors."
 msgstr "Гурт не можа быць захавана з-за памылкі."
 
+msgid "View users in this group"
+msgstr "Прагляд карыстальнікаў групы"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Гурт '%(object)s' выдалены."
@@ -438,6 +412,18 @@ msgstr "Дадаць карыстальніка"
 
 msgid "Users"
 msgstr "Карыстальнікі"
+
+msgid "Username"
+msgstr "Імя карыстальніка"
+
+msgid "Admin"
+msgstr "Адміністратар"
+
+msgid "Access level"
+msgstr "Узровень доступу"
+
+msgid "Status"
+msgstr "Статус"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -453,14 +439,3 @@ msgstr "Карыстальнік не можа быць захавана з-за
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Карыстальнік '%(object)s' выдалены."
-
-msgid "Edit"
-msgstr "Рэдактаванне"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Рэдагаваць карыстальніка '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Выдаліць карыстальніка '%(name)s'"

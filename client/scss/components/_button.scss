@@ -321,35 +321,42 @@
 }
 
 .w-header-button {
-  // Temporarily copied from .c-sf-add-button
   display: flex;
   align-items: center;
   justify-content: center;
   gap: theme('spacing.1');
-  height: theme('spacing.slim-header');
+  height: theme('spacing.7');
   appearance: none;
+  background-color: initial;
+  border: 1px solid transparent;
   color: theme('colors.text-button-outline-default');
-  padding: 0;
+  padding: 0 theme('spacing[1.5]');
+  font-size: theme('fontSize.14');
+  font-weight: theme('fontWeight.medium');
   cursor: pointer;
-
-  &--icon-only {
-    width: theme('spacing.7');
-  }
 
   .icon {
     width: theme('spacing.4');
     height: theme('spacing.4');
     padding: theme('spacing.[0.5]');
-    border: 1px solid theme('colors.text-button-outline-default');
+    border: 1px solid currentColor;
     border-radius: theme('borderRadius.full');
     transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    border-color: theme('colors.border-button-outline-hover');
+    background-color: theme('colors.surface-button-outline-hover');
   }
 
   &:hover,
   &:focus-visible {
     .icon {
+      // This ideally should use a solid variant of the icon instead.
       color: theme('colors.surface-page');
+      border-color: theme('colors.text-button-outline-hover');
       background-color: theme('colors.text-button-outline-hover');
     }
+    color: theme('colors.text-link-hover');
   }
 }

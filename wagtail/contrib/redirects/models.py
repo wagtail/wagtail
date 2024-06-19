@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.urls import Resolver404
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import Page
@@ -63,10 +64,10 @@ class Redirect(models.Model):
     def __str__(self):
         return self.title
 
-    @property
+    @cached_property
     def link(self):
         if self.redirect_page:
-            page = self.redirect_page.specific
+            page = self.redirect_page.specific_deferred
             base_url = page.url
             if not self.redirect_page_route_path:
                 return base_url

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -462,6 +462,9 @@ msgstr "permissão de coleção de grupo"
 msgid "group collection permissions"
 msgstr "permissões da coleção de grupo"
 
+msgid "uploaded by user"
+msgstr "carregado pelo utilizador"
+
 msgid "hostname"
 msgstr "nome do servidor"
 
@@ -517,17 +520,8 @@ msgstr ""
 msgid "Public"
 msgstr "Público"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privado, acessível a utilizadores autenticados"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, acessível com a seguinte senha"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privado, acessível aos utilizadores de grupos específicos"
-
-msgid "password"
-msgstr "senha"
 
 msgid "view restriction"
 msgstr "ver restrição"

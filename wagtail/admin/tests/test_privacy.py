@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -117,9 +119,24 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(
             response, "wagtailadmin/page_privacy/ancestor_privacy.html"
         )
+        self.assertContains(
+            response, "This page has been made private by a parent page."
+        )
         self.assertEqual(
             response.context["page_with_restriction"].specific, self.private_page
         )
+        # Should render without any heading, as the dialog already has a heading
+        soup = self.get_soup(json.loads(response.content)["html"])
+        self.assertIsNone(soup.select_one("header"))
+        self.assertIsNone(soup.select_one("h1"))
+
+        # Should link to the edit page for the collection with the restriction
+        link = soup.select_one("a")
+        parent_edit_url = reverse(
+            "wagtailadmin_pages:edit",
+            args=(self.private_page.pk,),
+        )
+        self.assertEqual(link.get("href"), parent_edit_url)
 
     def test_set_password_restriction(self):
         """

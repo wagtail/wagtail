@@ -782,6 +782,12 @@ class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/confirm_delete.html")
         self.assertBreadcrumbsNotRendered(response.content)
 
+        # Should render the form with the correct action URL
+        soup = self.get_soup(response.content)
+        delete_url = reverse("wagtailusers_users:delete", args=(self.test_user.pk,))
+        form_action = soup.select_one("form").attrs["action"]
+        self.assertEqual(form_action, delete_url)
+
     def test_delete(self):
         response = self.post(follow=True)
 
@@ -990,9 +996,13 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         history_link = header.find("a", attrs={"href": history_url})
         self.assertIsNotNone(history_link)
 
+        # Should render the form with the correct action URL
+        edit_url = reverse("wagtailusers_users:edit", args=(self.test_user.pk,))
+        form_action = soup.select_one("form").attrs["action"]
+        self.assertEqual(form_action, edit_url)
+
         url_finder = AdminURLFinder(self.current_user)
-        expected_url = f"/admin/users/edit/{self.test_user.pk}/"
-        self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
+        self.assertEqual(url_finder.get_edit_url(self.test_user), edit_url)
 
     def test_legacy_url_redirect(self):
         with self.assertWarnsMessage(

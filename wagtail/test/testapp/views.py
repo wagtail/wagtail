@@ -229,7 +229,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("release_date"),
+        FieldPanel("release_date", permission="tests.can_set_release_date"),
     ]
 
 
@@ -278,6 +278,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             index_view_class=FeatureCompleteToyIndexView,
             list_display=["name", "strid", "release_date"],
             ordering=["strid"],
+            copy_view_enabled=False,
         ),
     )
 

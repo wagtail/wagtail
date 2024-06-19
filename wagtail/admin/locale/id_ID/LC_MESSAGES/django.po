@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -80,6 +80,9 @@ msgstr "Tanggal akhir"
 msgid "All"
 msgstr "Semua"
 
+msgid "Collection"
+msgstr "Koleksi"
+
 msgid "Preferred language"
 msgstr "Bahasa pilihan"
 
@@ -124,9 +127,6 @@ msgstr "Pencarian"
 
 msgid "All collections"
 msgstr "Semua koleksi"
-
-msgid "Collection"
-msgstr "Koleksi"
 
 msgid "Parent"
 msgstr "Induk"
@@ -203,13 +203,16 @@ msgid ""
 "This slug is already in use within the context of its parent page "
 "\"%(parent_page_title)s\""
 msgstr ""
-"Slug ini telah digunakan dalam konteks halaman induk "
-"\"%(parent_page_title)s\""
+"Slug ini telah digunakan dalam konteks halaman induk \"%(parent_page_title)s"
+"\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ketika melakukan penyalinan sub-halaman, anda tidak dapat menyalin sebuah "
 "halaman ke dirinya sendiri "
+
+msgid "Parent page"
+msgstr "Halaman induk"
 
 msgid "Visibility"
 msgstr "Visibilitas"
@@ -360,16 +363,13 @@ msgid ""
 msgstr ""
 "Koleksi ini tidak kosong sehingga tidak dapat dihapus. Koleksi ini berisi:"
 
-msgid "Name"
-msgstr "Nama"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Belum ada koleksi. Bagaimana kalau <a "
-"href=\"%(add_collection_url)s\">membuat sebuah koleksi</a>?"
+"Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
+"\">membuat sebuah koleksi</a>?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
@@ -383,6 +383,9 @@ msgstr "Ya, tarik publikasi"
 
 msgid "No, don't unpublish"
 msgstr "Tidak, jangan tarik publikasi"
+
+msgid "Comment"
+msgstr "Komentar"
 
 msgid "Update"
 msgstr "Perbarui"
@@ -586,15 +589,6 @@ msgstr "Salin halaman ini"
 msgid "This page has unsaved changes."
 msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
 
-msgid "Comment"
-msgstr "Komentar"
-
-msgid "Live version"
-msgstr "Versi aktif"
-
-msgid "Current draft"
-msgstr "Konsep saat ini"
-
 msgid "Configure a site now."
 msgstr "Atur sebuah situs sekarang."
 
@@ -633,9 +627,6 @@ msgstr "Halaman ini tidak tampak oleh publik"
 msgid "Add child page"
 msgstr "Tambahkan halaman turunan"
 
-msgid "Cancel scheduled publish"
-msgstr "Batalkan publikasi terjadwal"
-
 msgid "Page types"
 msgstr "Jenis Halaman"
 
@@ -667,6 +658,9 @@ msgstr "Halaman"
 msgid "Locked"
 msgstr "Terkunci"
 
+msgid "Name"
+msgstr "Nama"
+
 msgid "Edit this item"
 msgstr "Ubah ini"
 
@@ -688,9 +682,6 @@ msgstr "Unduh CSV"
 
 msgid "Filter"
 msgstr "Saring"
-
-msgid "Root"
-msgstr "Dasar"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -754,6 +745,18 @@ msgstr "%(time_period)s yang lalu"
 msgid "Log out"
 msgstr "Keluar"
 
+msgid "Undo"
+msgstr "Urungkan"
+
+msgid "Redo"
+msgstr "Ulangi"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
 msgid "Password"
 msgstr "Kata Kunci"
 
@@ -792,6 +795,15 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 
 msgid "Home"
 msgstr "Beranda"
+
+msgid "Live version"
+msgstr "Versi aktif"
+
+msgid "Current draft"
+msgstr "Konsep saat ini"
+
+msgid "Cancel scheduled publish"
+msgstr "Batalkan publikasi terjadwal"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -910,12 +922,6 @@ msgstr "Daftar Bullet"
 
 msgid "Numbered list"
 msgstr "Daftar Bernomor"
-
-msgid "Bold"
-msgstr "Bold"
-
-msgid "Italic"
-msgstr "Italic"
 
 msgid "Link"
 msgstr "Tautan"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -215,6 +215,9 @@ msgstr "бүлэг цуглуулгын эрх"
 msgid "group collection permissions"
 msgstr "бүлэг цуглуулгын эрх"
 
+msgid "uploaded by user"
+msgstr "хэрэглэгчийн хуулсан"
+
 msgid "hostname"
 msgstr "хост"
 
@@ -253,17 +256,8 @@ msgstr ""
 msgid "Public"
 msgstr "Нийтэд нээлттэй"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Хувийн, зөвхөн нэвтэрсэн хэрэглэгчид хандах боломжтой"
-
-msgid "Private, accessible with the following password"
-msgstr "Хувийн, нууц үгтэй хүмүүс хандах боломжтой"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Хувийн, тодорхой бүлгийн гишүүд хандах боломжтой"
-
-msgid "password"
-msgstr "нууц үг"
 
 msgid "view restriction"
 msgstr "хязгаарлалтуудыг харах"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -90,6 +90,44 @@ msgstr "Flytt ned"
 msgid "Promoted search results"
 msgstr "Forfremmede søkeresultater"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Beklager, ingen forfremmede resultater samsvarer med \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
+
+msgid "Popular search terms"
+msgstr "Populære søkeord"
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "Terms"
+msgstr "Søkeord"
+
+msgid "Views (past week)"
+msgstr "Visninger (siste uke)"
+
+msgid "No results found"
+msgstr "Ingen resultater funnet"
+
+msgid "Choose from popular search terms"
+msgstr "Velg blant populære søkeord"
+
+msgid "External link"
+msgstr "Ekstern lenke"
+
+msgid "None"
+msgstr "Ingen"
+
 msgid "Search Terms"
 msgstr "Søkeord"
 
@@ -101,53 +139,6 @@ msgstr "Søkeord"
 
 msgid "Promoted results"
 msgstr "Forfremmede resultater"
-
-msgid "Views (past week)"
-msgstr "Visninger (siste uke)"
-
-msgid "Edit this promotion"
-msgstr "Rediger denne promoteringen"
-
-msgid "External link"
-msgstr "Ekstern lenke"
-
-msgid "None"
-msgstr "Ingen"
-
-msgid "Popular search terms"
-msgstr "Populære søkeord"
-
-msgid "Search"
-msgstr "Søk"
-
-msgid "Terms"
-msgstr "Søkeord"
-
-msgid "No results found"
-msgstr "Ingen resultater funnet"
-
-msgid "Choose from popular search terms"
-msgstr "Velg blant populære søkeord"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det er %(counter)s treff"
-msgstr[1] "Det er %(counter)s treff"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Beklager, ingen forfremmede resultater samsvarer med \"<em>%(query_string)s</"
-"em>\""
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

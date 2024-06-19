@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Objavi"
@@ -123,13 +123,13 @@ msgstr "Žal, noben delec ne ustreza \"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"Ustvarili niste nobenega %(snippet_type_name)s delca. Zakaj nebi <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">ustvarili enega sedaj</a>?"
+"Ustvarili niste nobenega %(snippet_type_name)s delca. Zakaj nebi <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">ustvarili enega sedaj</a>?"
 
 msgid "Publishing…"
 msgstr "Objavljanje…"
@@ -155,30 +155,6 @@ msgstr "Dejanja"
 msgid "Select all snippets in listing"
 msgstr "Izberite vse delce na seznamu"
 
-msgid "Live version"
-msgstr "Različica v živo"
-
-msgid "Current draft"
-msgstr "Trenutni osnutek"
-
-msgid "Preview"
-msgstr "Predogled"
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "Review this version"
-msgstr "Preglejte to različico"
-
-msgid "Compare with previous version"
-msgstr "Primerjaj s prejšnjo različico"
-
-msgid "Compare with current version"
-msgstr "Primerjaj s trenutno različico"
-
-msgid "Cancel scheduled publish"
-msgstr "Prekliči načrtovano objavo"
-
 msgid "Choose"
 msgstr "Izberite"
 
@@ -194,12 +170,6 @@ msgstr "Število"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Več možnosti za '%(title)s'"
-
-msgid "Action"
-msgstr "Dejanje"
-
-msgid "Date"
-msgstr "Datum"
 
 #, python-format
 msgid "Edit this %(model_name)s"

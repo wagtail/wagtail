@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2024
 # saevarom <saevar@saevar.is>, 2019-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2019-2023\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2021,2023-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -574,6 +575,12 @@ msgstr "safnheimild hóps"
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
 
+msgid "for content type"
+msgstr "fyrir efnistegund"
+
+msgid "uploaded by user"
+msgstr "hlaðið inn af"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s verður líka eytt"
@@ -652,17 +659,24 @@ msgstr ""
 msgid "Public"
 msgstr "Í birtingu"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Læst, aðgengileg fyrir innskráða notendur"
+msgid "Private, accessible with a shared password"
+msgstr "Læst, aðgengilegt með sameiginlegu lykilorði "
 
-msgid "Private, accessible with the following password"
-msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
+msgid "Private, accessible to any logged-in users"
+msgstr "Læst, aðgengileg fyrir alla innskráða notendur"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
 
-msgid "password"
-msgstr "lykilorð"
+msgid "shared password"
+msgstr "Sameiginlegt lykilorð"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Sameiginleg lykilorð ættu ekki að vera notuð til þess að verja viðkvæmt "
+"efni. Allir sem hafa aðgang að þessu lykilorði munu geta séð efnið."
 
 msgid "view restriction"
 msgstr "skoða takmörkun"

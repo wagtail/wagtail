@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -160,16 +160,6 @@ msgstr "Annuleren"
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Wijzigen %(title)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Delete redirect"
-msgstr "Verwijder doorverwijzing"
-
 msgid "Summary"
 msgstr "Samenvatting"
 
@@ -192,24 +182,6 @@ msgstr "Fout"
 msgid "Continue"
 msgstr "Doorgaan"
 
-msgid "Export redirects"
-msgstr "Exporteer doorverwijzingen"
-
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Wijzig deze doorverwijzing"
-
-msgid "No redirects found."
-msgstr "Geen doorverwijzingen gevonden"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -217,21 +189,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Er zijn nog geen doorverwijzingen aangemaakt. Waarom <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen doorverwijzingen aangemaakt. Waarom <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">voeg je er niet een toe</a>?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "De doorverwijzing kon niet worden opgeslagen door fouten."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Doorverwijzing '%(redirect_title)s' gewijzigd."
-
-msgid "Edit"
-msgstr "Wijzig"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "De doorverwijzing kon niet worden opgeslagen door fouten."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -240,6 +212,9 @@ msgstr "Doorverwijzing '%(redirect_title)s' verwijderd."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Doorverwijzing '%(redirect_title)s' toegevoegd."
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "The redirect could not be created due to errors."
 msgstr "De doorverwijzing kon niet worden aangemaakt door fouten."
@@ -265,6 +240,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d redirect geïmporteerd"
 msgstr[1] "%(total)d doorverwijzingen geïmporteerd"
-
-msgid "Export Redirects"
-msgstr "Exporteer doorverwijzingen"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -40,20 +40,14 @@ msgstr "މައްޗަށް ދޭ"
 msgid "Move down"
 msgstr "ތިރިޔަށް ދޭ"
 
+msgid "Search"
+msgstr "ހޯދާ"
+
 msgid "External link"
 msgstr "ބޭރު ލިންކް"
 
 msgid "None"
 msgstr "None"
-
-msgid "Search"
-msgstr "ހޯދާ"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s މެޗު އެބަހުއްޓެވެ"
-msgstr[1] "%(counter)s މެޗުތައް އެބަހުއްޓެވެ"
 
 msgid "Edit"
 msgstr "އެޑިޓް"

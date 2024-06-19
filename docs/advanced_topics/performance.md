@@ -60,13 +60,17 @@ The same can be achieved in Python using [`generate_image_url`](dynamic_image_ur
 
 When using a queryset to render a list of images or objects with images, you can [prefetch the renditions](prefetching_image_renditions) needed with a single additional query. For long lists of items, or where multiple renditions are used for each item, this can provide a significant boost to performance.
 
-(performance_page_urls)=
+(performance_frontend_caching)=
 
-## Frontend caching
+## Frontend caching proxy
 
-Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
+Many websites use a frontend cache such as [Varnish](https://varnish-cache.org/), [Squid](http://www.squid-cache.org/), [Cloudflare](https://www.cloudflare.com/) or [CloudFront](https://aws.amazon.com/cloudfront/) to support high volumes of traffic with excellent response times. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 Wagtail supports being [integrated](frontend_cache_purging) with many CDNs, so it can inform them when a page changes, so the cache can be cleared immediately and users see the changes sooner.
+
+If you have multiple frontends configured (eg Cloudflare for one site, CloudFront for another), it's recommended to set the [`HOSTNAMES`](frontendcache_multiple_backends) key to the list of hostnames the backend can purge, to prevent unnecessary extra purge requests.
+
+(performance_page_urls)=
 
 ## Page URLs
 
@@ -87,14 +91,6 @@ For details on configuring Wagtail for Elasticsearch, see [](wagtailsearch_backe
 Wagtail is tested on PostgreSQL, SQLite, and MySQL. It may work on some third-party database backends as well, but this is not guaranteed.
 
 We recommend PostgreSQL for production use, however, the choice of database ultimately depends on a combination of factors, including personal preference, team expertise, and specific project requirements. The most important aspect is to ensure that your selected database can meet the performance and scalability requirements of your project.
-
-(caching_proxy)=
-
-## Caching proxy
-
-To support high volumes of traffic with excellent response times, we recommend a caching proxy. Both [Varnish](https://varnish-cache.org/) and [Squid](http://www.squid-cache.org/) have been tested in production. Hosted proxies like [Cloudflare](https://www.cloudflare.com/) should also work well.
-
-Wagtail supports automatic cache invalidation for Varnish/Squid. See [](frontend_cache_purging) for more information.
 
 ### Image attributes
 

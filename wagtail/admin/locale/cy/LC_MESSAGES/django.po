@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,12 @@ msgstr "Dyddiad i"
 msgid "All"
 msgstr "I gyd"
 
+msgid "Collection"
+msgstr "Casgliad"
+
+msgid "Tag"
+msgstr "Tag"
+
 msgid "Preferred language"
 msgstr "Iaith a ffafrir"
 
@@ -115,9 +121,6 @@ msgstr ""
 
 msgid "Search"
 msgstr "Chwillio"
-
-msgid "Collection"
-msgstr "Casgliad"
 
 msgid "Parent"
 msgstr "Rhiant"
@@ -235,6 +238,9 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Ni allwch gopïo tudalen ynddo'i hun wrth gopïo is-dudalennau"
 
+msgid "Parent page"
+msgstr "Tudalen rhiant"
+
 msgid "Visibility"
 msgstr "Gwelededd"
 
@@ -304,9 +310,6 @@ msgstr "Cadw"
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
-msgid "Name"
-msgstr "Enw"
-
 msgid "Yes, delete"
 msgstr "Ia, dileu"
 
@@ -316,14 +319,17 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Cancel"
 msgstr "Canslo"
 
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Actions"
+msgstr "Gweithredoedd"
+
 msgid "Update"
 msgstr "Diweddariad"
 
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
-
-msgid "Actions"
-msgstr "Gweithredoedd"
 
 msgid "Unlock"
 msgstr "Datgloi"
@@ -355,12 +361,6 @@ msgstr "Ia, ei drosi"
 msgid "Copy"
 msgstr "Copio"
 
-msgid "Action"
-msgstr "Gweithred"
-
-msgid "Comment"
-msgstr "Sylw"
-
 msgid "Pagination"
 msgstr "Tudaleniad"
 
@@ -384,6 +384,12 @@ msgstr "Math"
 
 msgid "Pages"
 msgstr "Tudalennau"
+
+msgid "Name"
+msgstr "Enw"
+
+msgid "Action"
+msgstr "Gweithred"
 
 msgid "Workflow"
 msgstr "Llif gwaith"

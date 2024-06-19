@@ -5,14 +5,14 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2022
+# Dan Braghis, 2014-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022\n"
+"Last-Translator: Dan Braghis, 2014-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -228,19 +228,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document în această colecție. De ce să nu <a "
-"href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+"Nu ați încărcat nici un document în această colecție. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici un document. De ce să nu <a "
-"href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+"Nu ați încărcat nici un document. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">creat în "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Documente <span class=\"w-sr-only\">create în "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Documente <span class=\"w-sr-only\">create în "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"

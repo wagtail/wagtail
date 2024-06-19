@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,15 +78,6 @@ msgstr "角色"
 msgid "Add user"
 msgstr "添加用户"
 
-msgid "Username"
-msgstr "用户名"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Admin"
-msgstr "管理"
-
 msgid "Active"
 msgstr "有效"
 
@@ -99,12 +90,18 @@ msgstr "添加用户"
 msgid "Users"
 msgstr "用户"
 
+msgid "Username"
+msgstr "用户名"
+
+msgid "Admin"
+msgstr "管理"
+
+msgid "Status"
+msgstr "状态"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "用户 '%(object)s' 已更新"
 
 msgid "The user could not be saved due to errors."
 msgstr "用户无法保存，页面有错。"
-
-msgid "Edit"
-msgstr "编辑"

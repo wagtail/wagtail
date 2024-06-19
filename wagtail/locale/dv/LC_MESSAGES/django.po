@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -556,6 +556,9 @@ msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަ ލިބިފައިވު�
 msgid "group collection permissions"
 msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަތައް"
 
+msgid "uploaded by user"
+msgstr "ޔޫސަރ އަޕްލޯޑް ކޮށްފައި"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "އަދި %(model_name)s ވެސް ޑިލީޓް ކުރެވޭނެއެވެ"
@@ -631,17 +634,8 @@ msgstr ""
 msgid "Public"
 msgstr "ޕަބްލިކް"
 
-msgid "Private, accessible to logged-in users"
-msgstr "އަމިއްލަ، ލޮގްއިން ވެފައިވާ ފަރާތްތަކަށް އެކްސެސް ކުރެވޭނެ"
-
-msgid "Private, accessible with the following password"
-msgstr "އަމިއްލަ، ތިރީގައިވާ ޕާސްވޯޑުން އެކްސެސް ކުރެވޭނެއެވެ"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "އަމިއްލަ، ވަކި ގްރޫޕްތަކެއްގައި ތިބި ޔޫޒަރުންނަށް އެކްސެސިބަލް"
-
-msgid "password"
-msgstr "ޕާސްވަރޑް"
 
 msgid "view restriction"
 msgstr "ވިއު ރެސްޓްރިކްޝަން"

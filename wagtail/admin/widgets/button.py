@@ -106,10 +106,9 @@ class HeaderButton(Button):
         icon_only=False,
         **kwargs,
     ):
-        classname = f"{classname} w-header-button".strip()
+        classname = f"{classname} w-header-button button".strip()
         attrs = attrs.copy()
         if icon_only:
-            classname = f"{classname} w-header-button--icon-only"
             controller = f"{attrs.get('data-controller', '')} w-tooltip".strip()
             attrs["data-controller"] = controller
             attrs["data-w-tooltip-content-value"] = label

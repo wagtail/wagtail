@@ -2,6 +2,10 @@
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
+```{note}
+We highly recommend working through the [Getting Started tutorial](tutorial), even if you are not planning to create a standalone Wagtail project. This will ensure you have a good understanding of Wagtail concepts.
+```
+
 Wagtail is currently compatible with Django 4.2 and 5.0. First, install the `wagtail` package from PyPI:
 
 ```sh
@@ -119,8 +123,8 @@ With this configuration in place, you are ready to run `python manage.py migrate
 
 Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface); use `python manage.py createsuperuser` if you don't already have one. Wagtail supports custom user models with some restrictions. Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
-## Start developing
+## Define page models and start developing
 
-You're now ready to add a new app to your Django project through `python manage.py startapp`. Remember to add the new app to `INSTALLED_APPS` in your settings.py file and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+Before you can create pages, you must define one or more page models, as described in [Your first Wagtail site](/getting_started/tutorial). The `wagtail start` project template provides a `home` app containing an initial `HomePage` model - when integrating Wagtail into an existing project, you will need to create this app yourself through `python manage.py startapp`. (Remember to add it to `INSTALLED_APPS` in your settings.py file.)
 
-Note that there's one small difference when you're not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which doesn't include any content fields beyond the title. You probably want to replace this with your own `HomePage` class. If you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
+The initial "Welcome to your new Wagtail site!" page is a placeholder using the base `Page` model, and is not directly usable. After defining your own home page model, you should create a new page at the root level through the Wagtail admin interface, and set this as the site's homepage (under Settings / Sites). You can then delete the placeholder page.

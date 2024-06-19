@@ -6,6 +6,7 @@ from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import camel_case_to_spaces
+from django.utils.translation import gettext_noop
 
 from wagtail import hooks
 from wagtail.admin.models import Admin
@@ -53,6 +54,14 @@ def normalize_permission_label(permission: Permission):
             return label[: -len(name)].strip()
 
     return label
+
+
+# normalize_permission_label will return "Can view" for Django's standard "Can view X" permission.
+# formatted_permissions.html passes these labels through {% trans %} - since this is a variable
+# within the template it will not be picked up by makemessages, so we define a translation here
+# instead.
+
+VIEW_PERMISSION_LABEL = gettext_noop("Can view")
 
 
 @register.inclusion_tag("wagtailusers/groups/includes/formatted_permissions.html")

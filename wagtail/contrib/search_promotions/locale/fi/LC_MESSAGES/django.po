@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -97,41 +97,19 @@ msgstr "Nostetut hakutulokset"
 msgid "Add a recommended result"
 msgstr "Lisää suositeltu tulos"
 
-msgid "Search Terms"
-msgstr "Hakutermit"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun \"<em>"
+"%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Lisää uusi nostettu tulos"
-
-msgid "Search term(s)"
-msgstr "Hakutermi(t)"
-
-msgid "Order by search term alphabetically"
-msgstr "Järjestä hakutermin perusteella aakkosjärjestykseen"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Järjestä hakutermin perusteella käänteiseen aakkosjärjestykseen"
-
-msgid "Promoted results"
-msgstr "Nostetut tulokset"
-
-msgid "Views (past week)"
-msgstr "Näytöt (kuluva viikko)"
-
-msgid "Order by views (lowest first)"
-msgstr "Järjestä näyttöjen mukaan (vähiten ensin)"
-
-msgid "Order by views (highest first)"
-msgstr "Järjestä näyttöjen mukaan (eniten ensin)"
-
-msgid "Edit this promotion"
-msgstr "Muokkaa nostoa"
-
-msgid "External link"
-msgstr "Ulkoinen linkki"
-
-msgid "None"
-msgstr "Ei mitään"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Popular search terms"
 msgstr "Suositut hakutermit"
@@ -142,31 +120,32 @@ msgstr "Haku"
 msgid "Terms"
 msgstr "Termit"
 
+msgid "Views (past week)"
+msgstr "Näytöt (kuluva viikko)"
+
 msgid "No results found"
 msgstr "Ei tuloksia"
 
 msgid "Choose from popular search terms"
 msgstr "Valitse suosituista hakutermeistä"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
+msgid "External link"
+msgstr "Ulkoinen linkki"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Ei mitään"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
+msgid "Search Terms"
+msgstr "Hakutermit"
+
+msgid "Add new promoted result"
+msgstr "Lisää uusi nostettu tulos"
+
+msgid "Search term(s)"
+msgstr "Hakutermi(t)"
+
+msgid "Promoted results"
+msgstr "Nostetut tulokset"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

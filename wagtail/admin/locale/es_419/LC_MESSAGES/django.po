@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -74,6 +74,9 @@ msgstr "Fecha hasta"
 msgid "All"
 msgstr "Todos"
 
+msgid "Collection"
+msgstr "Colección"
+
 msgid "Preferred language"
 msgstr "Idioma preferido"
 
@@ -120,9 +123,6 @@ msgstr "Buscar"
 
 msgid "All collections"
 msgstr "Todas las colecciones"
-
-msgid "Collection"
-msgstr "Colección"
 
 msgid "Parent"
 msgstr "Padre"
@@ -543,15 +543,15 @@ msgstr "Convertir a enlace interno"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"La URL que has introducido, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, aparentemente coincide con "
-"la página interna %(page)s, que tiene la URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"La URL que has introducido, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, aparentemente coincide con la "
+"página interna %(page)s, que tiene la URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -629,11 +629,11 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
 
-msgid "Name"
-msgstr "Nombre"
-
 msgid "Saving…"
 msgstr "Guardando..."
+
+msgid "Name"
+msgstr "Nombre"
 
 msgid "Editing"
 msgstr "Editando"

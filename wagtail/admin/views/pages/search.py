@@ -162,6 +162,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["show_locale_labels"] = self.show_locale_labels
+        kwargs["actions_next_url"] = self.get_index_url()
         return kwargs
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:

@@ -644,23 +644,33 @@ WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
 
 For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users can dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
+(frontend_authentication)=
+
 ## Frontend authentication
 
-### `PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 ```
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-### `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
+```{versionchanged} 6.1
+`PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`.
+```
+
+### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
+
+```{versionchanged} 6.1
+`DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`.
+```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Перенаправления Wagtail"
@@ -163,16 +163,6 @@ msgstr "Отмена"
 msgid "Preview"
 msgstr "Предпросмотр"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редактирование %(title)s"
-
-msgid "Editing"
-msgstr "Редактирование"
-
-msgid "Delete redirect"
-msgstr "Удалить перенаправление"
-
 msgid "Summary"
 msgstr "Информация"
 
@@ -195,26 +185,6 @@ msgstr "Ошибка"
 msgid "Continue"
 msgstr "Продолжить"
 
-msgid "Export redirects"
-msgstr "Экспорт перенаправлений"
-
-msgid "Site"
-msgstr "Сайт"
-
-msgid "Edit this redirect"
-msgstr "Редактировать это перенаправление"
-
-msgid "No redirects found."
-msgstr "Перенаправлений не найдено."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Есть %(counter)s совпадение"
-msgstr[1] "Есть %(counter)s совпадений"
-msgstr[2] "Есть %(counter)s совпадений"
-msgstr[3] "Есть %(counter)s совпадений"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -222,21 +192,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Перенаправления еще не созданы. Почему бы не <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">добавить одно</a>?"
+"Перенаправления еще не созданы. Почему бы не <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">добавить одно</a>?"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Перенаправление не может быть сохранено из-за ошибок."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Перенаправление '%(redirect_title)s' обновлено."
-
-msgid "Edit"
-msgstr "Правка"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Перенаправление не может быть сохранено из-за ошибок."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -245,6 +215,9 @@ msgstr "Перенаправление '%(redirect_title)s' удалено."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Перенаправление '%(redirect_title)s' добавлено."
+
+msgid "Edit"
+msgstr "Правка"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Перенаправление не может быть создано из-за ошибок."
@@ -271,6 +244,3 @@ msgstr[0] "Импотрировано %(total)d перенаправление"
 msgstr[1] "Импортировано %(total)d перенаправлений "
 msgstr[2] "Имортировано %(total)d перенаправлений"
 msgstr[3] "Импортровано %(total)d перенаправлений"
-
-msgid "Export Redirects"
-msgstr "Экспорт перенаправлений"

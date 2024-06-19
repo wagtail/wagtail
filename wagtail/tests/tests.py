@@ -9,6 +9,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
+from django.utils.translation import gettext_lazy
 
 from wagtail.coreutils import (
     get_dummy_request,
@@ -535,6 +536,10 @@ class TestRichtextTag(TestCase):
         result = richtext("Hello world!")
         self.assertEqual(result, "Hello world!")
         self.assertIsInstance(result, SafeString)
+
+    def test_call_with_lazy(self):
+        result = richtext(gettext_lazy("test"))
+        self.assertEqual(result, "test")
 
     def test_call_with_none(self):
         result = richtext(None)

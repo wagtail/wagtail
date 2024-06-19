@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -77,6 +77,12 @@ msgstr "Til-dato"
 msgid "All"
 msgstr "Alle"
 
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Tag"
+msgstr "Merkelapp"
+
 msgid "Preferred language"
 msgstr "Foretrukket språk"
 
@@ -121,9 +127,6 @@ msgstr "Søk"
 
 msgid "All collections"
 msgstr "Alle samlinger"
-
-msgid "Collection"
-msgstr "Samling"
 
 msgid "Parent"
 msgstr "Forelder"
@@ -239,6 +242,9 @@ msgstr "Slug-en '%(page_slug)s' er allerede i bruk innenfor foreldersiden"
 
 msgid "Select a new parent for this page."
 msgstr "Velg en ny forelderside for denne siden."
+
+msgid "Parent page"
+msgstr "Foreldreside"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -531,15 +537,15 @@ msgstr "Konverter til intern lenke"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med "
-"den interne siden %(page)s, som har URL-en <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"URL-en du har skrevet inn, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, ser ut til å samsvare med den "
+"interne siden %(page)s, som har URL-en <a target=\"_blank\" rel=\"noreferrer"
+"\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -617,16 +623,13 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Samlingen kan ikke slettes, fordi den ikke er tom. Den inneholder:"
 
-msgid "Name"
-msgstr "Navn"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Ingen samlinger har blitt opprettet. Hvorfor ikke <a "
-"href=\"%(add_collection_url)s\">legg til en</a>?"
+"Ingen samlinger har blitt opprettet. Hvorfor ikke <a href="
+"\"%(add_collection_url)s\">legg til en</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -661,8 +664,8 @@ msgstr "Publiser %(model_name)s"
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
 "Denne %(model_name)s er for øyeblikket ved <strong>%(task)s</strong> i "
 "<strong>%(workflow)s</strong>."
@@ -677,6 +680,9 @@ msgstr "Vil du fortsatt publisere denne %(model_name)s?"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+msgid "Actions"
+msgstr "Handlinger"
 
 msgid "Update"
 msgstr "Oppdatér"
@@ -739,9 +745,6 @@ msgstr "Låst den"
 msgid "Edit this page"
 msgstr "Redigér denne siden"
 
-msgid "Actions"
-msgstr "Handlinger"
-
 msgid "Unlock"
 msgstr "Lås opp"
 
@@ -794,13 +797,13 @@ msgstr "Endringer har skjedd i Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"Ikke bekymre deg, vi har deg. Sjekk ut <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
 "Editor Guide</a> for å få en oversikt over hva som har endret seg og noen "
 "spennende nye funksjoner!"
 
@@ -903,8 +906,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet "
-"%(task)s\"."
+"%(model_name)s \"%(title)s\" har blitt avvist i modereringsstadiet %(task)s"
+"\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1013,21 +1016,6 @@ msgstr "Kopier denne siden"
 msgid "This page has unsaved changes."
 msgstr "Denne siden har endringer som ikke er lagret."
 
-msgid "Action"
-msgstr "Handling"
-
-msgid "User"
-msgstr "Bruker"
-
-msgid "Live version"
-msgstr "Publisert versjon"
-
-msgid "Current draft"
-msgstr "Nåværende kladd"
-
-msgid "No log entries found."
-msgstr "Ingen loggoppføringer funnet."
-
 msgid "Configure a site now."
 msgstr "Konfigurer et nettsted nå."
 
@@ -1075,15 +1063,6 @@ msgstr "Bekreft"
 msgid "Add child page"
 msgstr "Legg til underside"
 
-msgid "Review this version"
-msgstr "Gjennomgå denne versjonen"
-
-msgid "Compare with current version"
-msgstr "Sammenlign med nåværende versjon"
-
-msgid "Cancel scheduled publish"
-msgstr "Avbryt planlagt publisering"
-
 msgid "Page types"
 msgstr "Sidetyper"
 
@@ -1127,8 +1106,20 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Ingen låste sider funnet."
 
+msgid "Name"
+msgstr "Navn"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "User"
+msgstr "Bruker"
+
 msgid "Edit this item"
 msgstr "Endre dette elementet"
+
+msgid "No log entries found."
+msgstr "Ingen loggoppføringer funnet."
 
 msgid "Clear"
 msgstr "Tøm"
@@ -1148,9 +1139,6 @@ msgstr "Last ned CSV"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Root"
-msgstr "Rot"
 
 msgid "Current page status:"
 msgstr "Nåværende sidestatus:"
@@ -1225,6 +1213,24 @@ msgstr "%(time_period)s siden"
 msgid "Log out"
 msgstr "Logg ut"
 
+msgid "Undo"
+msgstr "Angre"
+
+msgid "Redo"
+msgstr "Gjør om"
+
+msgid "Bold"
+msgstr "Fet"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Superscript"
+msgstr "Hevet"
+
+msgid "Subscript"
+msgstr "Senket"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1279,6 +1285,21 @@ msgstr "Er du sikker på at du vil slette denne samlingen?"
 
 msgid "Home"
 msgstr "Hjem"
+
+msgid "Live version"
+msgstr "Publisert versjon"
+
+msgid "Current draft"
+msgstr "Nåværende kladd"
+
+msgid "Review this version"
+msgstr "Gjennomgå denne versjonen"
+
+msgid "Compare with current version"
+msgstr "Sammenlign med nåværende versjon"
+
+msgid "Cancel scheduled publish"
+msgstr "Avbryt planlagt publisering"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1451,20 +1472,8 @@ msgstr "Nummerert liste"
 msgid "Blockquote"
 msgstr "Blokksitat"
 
-msgid "Bold"
-msgstr "Fet"
-
-msgid "Italic"
-msgstr "Kursiv"
-
 msgid "Link"
 msgstr "Lenke"
-
-msgid "Superscript"
-msgstr "Hevet"
-
-msgid "Subscript"
-msgstr "Senket"
 
 msgid "Strikethrough"
 msgstr "Gjennomstreking"

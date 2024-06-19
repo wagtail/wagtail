@@ -9,16 +9,16 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # Matt Westcott <matthew@torchbox.com>, 2023
 # Meteor0id, 2018,2021
-# Storm Heg <storm@stormbase.digital>, 2021-2023
+# Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -586,6 +586,12 @@ msgstr "groepsmachtiging binnen collectie"
 msgid "group collection permissions"
 msgstr "groepsmachtigingen binnen collectie"
 
+msgid "for content type"
+msgstr "voor content type"
+
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s zal ook worden verwijderd"
@@ -664,17 +670,25 @@ msgstr ""
 msgid "Public"
 msgstr "Publiek"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Afgeschermd, toegankelijk voor ingelogde gebruikers"
+msgid "Private, accessible with a shared password"
+msgstr "Afgeschermd, toegankelijk met een gedeeld wachtwoord"
 
-msgid "Private, accessible with the following password"
-msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
+msgid "Private, accessible to any logged-in users"
+msgstr "Afgeschermd, toegankelijk voor alle ingelogde gebruikers"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Afgeschermd, toegankelijk voor gebruikers in bepaalde groepen"
 
-msgid "password"
-msgstr "wachtwoord"
+msgid "shared password"
+msgstr "gedeeld wachtwoord"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Gedeelde wachtwoorden kunnen beter niet gebruikt worden voor gevoelige "
+"inhoud. Iedereen die in het bezit is van het wachtwoord kan deze inhoud "
+"bekijken."
 
 msgid "view restriction"
 msgstr "bekijk restrictie"

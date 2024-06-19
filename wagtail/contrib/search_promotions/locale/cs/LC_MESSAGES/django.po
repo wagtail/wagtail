@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -92,41 +92,19 @@ msgstr "Posunout dolů"
 msgid "Promoted search results"
 msgstr "Upřednostněné výsledky hledání"
 
-msgid "Search Terms"
-msgstr "Hledat výrazy"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné "
+"upřednostněné výsledky"
 
-msgid "Add new promoted result"
-msgstr "Přidat nový upřednostněný výsledek"
-
-msgid "Search term(s)"
-msgstr "Hledaný výraz(y)"
-
-msgid "Order by search term alphabetically"
-msgstr "Seřazeno podle vyhledávacích pojmů abecedně"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Seřazeno podle vyhledávacích pojmů od konce abecedy"
-
-msgid "Promoted results"
-msgstr "Upřednostněné výsledky"
-
-msgid "Views (past week)"
-msgstr "Zobrazení (poslední týden)"
-
-msgid "Order by views (lowest first)"
-msgstr "Seřazeno podle pohledů (od nejnižších)"
-
-msgid "Order by views (highest first)"
-msgstr "Seřazeno podle pohledů (od nejvyšších)"
-
-msgid "Edit this promotion"
-msgstr "Upravit toto upřednostnění"
-
-msgid "External link"
-msgstr "Externí odkaz"
-
-msgid "None"
-msgstr "Nic"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
+"můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
 
 msgid "Popular search terms"
 msgstr "Oblíbené hledané výrazy"
@@ -137,25 +115,32 @@ msgstr "Hledat"
 msgid "Terms"
 msgstr "Výrazy"
 
+msgid "Views (past week)"
+msgstr "Zobrazení (poslední týden)"
+
 msgid "No results found"
 msgstr "Nebyly nalezeny žádné výsledky"
 
 msgid "Choose from popular search terms"
 msgstr "Vybrat z nejčastěji hledaných výrazů"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné "
-"upřednostněné výsledky"
+msgid "External link"
+msgstr "Externí odkaz"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
-"můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
+msgid "None"
+msgstr "Nic"
+
+msgid "Search Terms"
+msgstr "Hledat výrazy"
+
+msgid "Add new promoted result"
+msgstr "Přidat nový upřednostněný výsledek"
+
+msgid "Search term(s)"
+msgstr "Hledaný výraz(y)"
+
+msgid "Promoted results"
+msgstr "Upřednostněné výsledky"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

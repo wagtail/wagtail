@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,6 +101,15 @@ msgstr "Taalregio"
 msgid "All"
 msgstr "Alle"
 
+msgid "Collection"
+msgstr "Collectie"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filter op maximaal tien meest populaire tags."
+
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
 
@@ -145,9 +154,6 @@ msgstr "Zoeken"
 
 msgid "All collections"
 msgstr "Alle collecties"
-
-msgid "Collection"
-msgstr "Collectie"
 
 msgid "Parent"
 msgstr "Bovenliggende pagina"
@@ -270,6 +276,23 @@ msgstr ""
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
+
+msgid "Parent page"
+msgstr "Bovenliggende pagina"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "De nieuwe pagina zal onder deze bovenliggende pagina geplaatst worden."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "Je hebt geen rechten om een pagina te maken onder \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Je kunt geen pagina van het type \"%(page_type)s\" maken onder "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Zoeken…"
@@ -570,16 +593,15 @@ msgstr "Converteer naar interne link"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Het lijkt erop dat de URL <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a> die net ingevoerd is "
-"overeenkomt met de URL <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(internal_url)s\">%(internal_url)s</a> van de interne pagina "
-"%(page)s."
+"Het lijkt erop dat de URL <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a> die net ingevoerd is overeenkomt "
+"met de URL <a target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
+"%(internal_url)s</a> van de interne pagina %(page)s."
 
 #, python-format
 msgid ""
@@ -659,16 +681,13 @@ msgstr ""
 "Deze collectie kan niet verwijderd worden omdat deze niet leeg is. De "
 "collectie bevat:"
 
-msgid "Name"
-msgstr "Naam"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Er zijn nog geen collecties aangemaakt. Waarom <a "
-"href=\"%(add_collection_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen collecties aangemaakt. Waarom <a href="
+"\"%(add_collection_url)s\">voeg je er niet een toe</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -706,16 +725,16 @@ msgid ""
 "This %(model_name)s was marked as needing changes at <strong>%(task)s</"
 "strong> in <strong>%(workflow)s</strong>."
 msgstr ""
-"%(model_name)s werd gemarkeerd als 'wijzigingen nodig' tijdens "
-"<strong>%(task)s</strong> in <strong>%(workflow)s</strong>."
+"%(model_name)s werd gemarkeerd als 'wijzigingen nodig' tijdens <strong>"
+"%(task)s</strong> in <strong>%(workflow)s</strong>."
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
-"%(model_name)s zit momenteel in <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"%(model_name)s zit momenteel in <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 
 #, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
@@ -727,6 +746,12 @@ msgstr "Wil je %(model_name)s nog steeds publiceren?"
 
 msgid "Cancel"
 msgstr "Annuleren"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "Actions"
+msgstr "Acties"
 
 #, python-format
 msgid "No %(model_name)s match your query."
@@ -804,9 +829,6 @@ msgstr "vergrendeld op"
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
-msgid "Actions"
-msgstr "Acties"
-
 msgid "Unlock"
 msgstr "Ontgrendel"
 
@@ -848,9 +870,9 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Er is een upgrade beschikbaar voor Wagtail. Deze versie: "
-"<strong>%(current_version)s</strong>. Nieuwste versie: <strong data-w-"
-"upgrade-target=\"latestVersion\"></strong>."
+"Er is een upgrade beschikbaar voor Wagtail. Deze versie: <strong>"
+"%(current_version)s</strong>. Nieuwste versie: <strong data-w-upgrade-target="
+"\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lees de release notes"
@@ -876,10 +898,10 @@ msgstr "Dingen in Wagtail %(version)s zijn veranderd!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
 "Maak je geen zorgen, wij helpen. Bekijk de <a class=\"w-whats-new__link\" "
 "href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
@@ -1088,8 +1110,8 @@ msgstr "De pagina '%(title)s' is goedgekeurd in workflow '%(workflow)s'."
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow "
-"\"%(workflow)s\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
+"\"."
 msgstr "%(model_name)s '%(title)s' is goedgekeurd in workflow '%(workflow)s'."
 
 #, python-format
@@ -1494,10 +1516,9 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Je kunt de publicatie van deze pagina ook <a "
-"href=\"%(unpublish_url)s\">intrekken</a>. Dit zorgt ervoor dat de pagina "
-"niet meer publiekelijk zichtbaar is en u kunt de pagina later bewerken of "
-"opnieuw publiceren."
+"Je kunt de publicatie van deze pagina ook <a href=\"%(unpublish_url)s"
+"\">intrekken</a>. Dit zorgt ervoor dat de pagina niet meer publiekelijk "
+"zichtbaar is en u kunt de pagina later bewerken of opnieuw publiceren."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1602,8 +1623,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Deze pagina is momenteel op <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"Deze pagina is momenteel op <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Deze pagina publiceren zal de huidige workflow annuleren."
@@ -1632,31 +1653,6 @@ msgstr "Originele pagina bewerken"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Converteer deze alias naar een normale pagina"
-
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Pagina-geschiedenis voor %(subtitle)s"
-
-msgid "Action"
-msgstr "Actie"
-
-msgid "User"
-msgstr "Gebruiker"
-
-msgid "Date / Time"
-msgstr "Datum / tijd"
-
-msgid "Comment"
-msgstr "Opmerking"
-
-msgid "Live version"
-msgstr "Live versie"
-
-msgid "Current draft"
-msgstr "Huidig concept"
-
-msgid "No log entries found."
-msgstr "Geen logboekvermeldingen gevonden."
 
 msgid "Select all pages in listing"
 msgstr "Selecteer alle pagina's in lijst"
@@ -1789,15 +1785,6 @@ msgstr "Bevestig"
 msgid "Add child page"
 msgstr "Voeg onderliggende pagina toe"
 
-msgid "Review this version"
-msgstr "Beoordeel deze versie"
-
-msgid "Compare with current version"
-msgstr "Vergelijk met huidige versie"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
-
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1835,8 +1822,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Kies wanneer deze pagina live moet gaan en/of moet verlopen"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
 "Dit publicatieschema wordt pas van kracht nadat je op 'publiceren' hebt "
 "geklikt"
@@ -1914,8 +1901,23 @@ msgstr "Vergrendeld"
 msgid "No locked pages found."
 msgstr "Geen vergrendelde pagina's gevonden."
 
+msgid "Name"
+msgstr "Naam"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Date / Time"
+msgstr "Datum / tijd"
+
 msgid "Edit this item"
 msgstr "Wijzig item"
+
+msgid "No log entries found."
+msgstr "Geen logboekvermeldingen gevonden."
 
 msgid "By Task"
 msgstr "Op taak"
@@ -1987,8 +1989,17 @@ msgstr "Terug"
 msgid "History"
 msgstr "Geschiedenis"
 
-msgid "Root"
-msgstr "Root"
+msgid "Keyboard shortcuts"
+msgstr "Sneltoetsen"
+
+msgid "All keyboard shortcuts"
+msgstr "Alle sneltoetsen"
+
+msgid "Section"
+msgstr "Sectie"
+
+msgid "Keyboard shortcut"
+msgstr "Sneltoets"
 
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
@@ -2252,9 +2263,9 @@ msgstr "%(model_name)s is nog niet ter goedkeuring ingediend"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "Javascript is uitgeschakeld, maar om Wagtail te kunnen gebruiken dient "
 "JavaScript ingeschakeld te zijn. <br /><a href=\"https://www.enable-"
@@ -2317,9 +2328,8 @@ msgstr "Toevoegen"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Workflows zijn ook van toepassing op onderliggende pagina's. Als je hier een "
 "pagina selecteert, dan gebruiken onderliggende pagina's dezelfde workflow. "
@@ -2360,14 +2370,9 @@ msgstr "Pagina"
 msgid "Assign to another page"
 msgstr "Wijs toe aan een andere pagina"
 
-msgid "Hide disabled workflows"
-msgstr "Verberg uitgeschakelde workflows"
-
-msgid "Show disabled workflows"
-msgstr "Toon uitgeschakelde workflows"
-
-msgid "Used by"
-msgstr "Gebruikt door"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Stap %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2380,10 +2385,6 @@ msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 snippet type"
 msgstr[1] "%(counter)s snippet types"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Stap %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2430,12 +2431,6 @@ msgid ""
 msgstr ""
 "<a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">Maak er nu een "
 "aan!</a>."
-
-msgid "Hide disabled tasks"
-msgstr "Verberg uitgeschakelde taken"
-
-msgid "Show disabled tasks"
-msgstr "Toon uitgeschakelde taken"
 
 #, python-format
 msgid ""
@@ -2508,10 +2503,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s door %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "zojuist door %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s geleden door %(user_display_name)s"
 
@@ -2529,6 +2520,60 @@ msgstr "Verstuurd naar %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
+
+msgid "Common actions"
+msgstr "Veel gebruikte acties"
+
+msgid "Cut"
+msgstr "Knippen"
+
+msgid "Paste"
+msgstr "Plakken"
+
+msgid "Paste and match style"
+msgstr "Plakken en opmaak overnemen"
+
+msgid "Paste without formatting"
+msgstr "Plakken zonder opmaak"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
+
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+msgid "Text content"
+msgstr "Binnen een tekstvak"
+
+msgid "Insert or edit a link"
+msgstr "Link invoegen of wijzigen"
+
+msgid "Text formatting"
+msgstr "Tekst opmaken"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Underline"
+msgstr "Onderstrepen"
+
+msgid "Monospace (code)"
+msgstr "Monospace (code)"
+
+msgid "Strike-through"
+msgstr "Doorstrepen"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
 
 msgid "Toggle status"
 msgstr "Toon/verberg status"
@@ -2674,6 +2719,21 @@ msgstr "Weet je zeker dat je deze collectie wilt verwijderen?"
 msgid "Home"
 msgstr "Home"
 
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
+
+msgid "Review this version"
+msgstr "Beoordeel deze versie"
+
+msgid "Compare with current version"
+msgstr "Vergelijk met huidige versie"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
+
 msgid "Workflow progress"
 msgstr "Workflow-voortgang"
 
@@ -2736,8 +2796,8 @@ msgstr "Workflow voor %(model_name)s '%(object)s' is geannuleerd."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
 "Je bekijkt de vorige versie van %(model_name)s op <b>%(created_at)s</b> door "
 "%(user)s"
@@ -2762,6 +2822,10 @@ msgid ""
 msgstr ""
 "Versie van %(timestamp)s van %(model_name)s '%(object)s' is gepland voor "
 "publicatie."
+
+#, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s%(field_label)s"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2974,6 +3038,13 @@ msgstr[1] ""
 "Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
 "onderliggende pagina's ongedaan gemaakt"
 
+msgid "Choose parent"
+msgstr "Kies bovenliggende pagina"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "%(model_name)s aanmaken"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Pagina '%(page_title)s' is naar een normale pagina geconverteerd."
@@ -3078,14 +3149,8 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 
-msgid "Hide commenting actions"
-msgstr "Verberg opmerkingen acties"
-
-msgid "Page history"
-msgstr "Pagina-geschiedenis"
-
-msgid "Page type"
-msgstr "Pagina type"
+msgid "Is commenting action"
+msgstr "Actie is commentaar"
 
 msgid "Date updated"
 msgstr "Datum bijgewerkt"
@@ -3107,6 +3172,9 @@ msgstr "Alles"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "Page type"
+msgstr "Pagina type"
 
 msgid "Exploring"
 msgstr "Verkennen"
@@ -3147,6 +3215,9 @@ msgstr ""
 "Je bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
 "door %(user)s"
 
+msgid "Page history"
+msgstr "Pagina-geschiedenis"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Publicatie van pagina '%(page_title)s' is ingetrokken."
@@ -3174,6 +3245,9 @@ msgstr "Verouderende pagina's"
 
 msgid "Last published at"
 msgstr "Voor het laatst gepubliceerd op"
+
+msgid "Hide commenting actions"
+msgstr "Verberg opmerkingen acties"
 
 msgid "Site history"
 msgstr "Site geschiedenis"
@@ -3217,8 +3291,14 @@ msgstr "Workflow taken"
 msgid "Requested By"
 msgstr "Aangevraagd door"
 
+msgid "Show disabled"
+msgstr "Toon ook uitgeschakelde"
+
 msgid "Add a workflow"
 msgstr "Voeg een workflow toe"
+
+msgid "Used by"
+msgstr "Gebruikt door"
 
 msgid "New workflow"
 msgstr "Nieuwe workflow"
@@ -3370,20 +3450,8 @@ msgstr "Genummerde lijst"
 msgid "Blockquote"
 msgstr "Blokquote"
 
-msgid "Bold"
-msgstr "Bold"
-
-msgid "Italic"
-msgstr "Italic"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Superscript"
-
-msgid "Subscript"
-msgstr "Subscript"
 
 msgid "Strikethrough"
 msgstr "Doorgestreept"
@@ -3400,6 +3468,9 @@ msgstr "Wat is er nieuw in Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Editor Guide"
+
+msgid "Shortcuts"
+msgstr "Sneltoetsen"
 
 msgid "Help"
 msgstr "Help"

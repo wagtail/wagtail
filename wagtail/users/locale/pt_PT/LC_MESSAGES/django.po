@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -221,9 +221,6 @@ msgstr "Tem a certeza que quer apagar este grupo?"
 msgid "Add group"
 msgstr "Adicionar grupo"
 
-msgid "View users in this group"
-msgstr "Ver os utilizadores deste grupo"
-
 msgid "Save"
 msgstr "Gravar"
 
@@ -272,11 +269,11 @@ msgstr "Desculpe, nenhum grupo corresponde a \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Ainda não foi configurado nenhum grupo. Que tal <a "
-"href=\"%(wagtailusers_create_group_url)s\">criar um</a>?"
+"Ainda não foi configurado nenhum grupo. Que tal <a href="
+"\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Tem a certeza que quer apagar este utilizador?"
@@ -297,46 +294,12 @@ msgid "Select all users in listing"
 msgstr "Selecionar todos os utilizadores da listagem"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Desculpe, nenhum utilizador corresponde a \"<em>%(query_string)s</em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"O grupo %(group_name)s ainda não tem utilizadores configurados. Que tal <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Ainda não existem utilizadores configurados. Que tal <a "
-"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
-
-msgid "Username"
-msgstr "Utilizador"
-
-msgid "Access level"
-msgstr "Level de acesso"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Last Login"
-msgstr "Último início de sessão"
-
-msgid "Admin"
-msgstr "Administração"
-
-msgid "Active"
-msgstr "Ativo"
-
-msgid "Inactive"
-msgstr "Inativo"
+"Ainda não existem utilizadores configurados. Que tal <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -361,6 +324,12 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utilizador foi apagado"
 msgstr[1] "%(num_parent_objects)d utilizadores foram apagados"
 msgstr[2] "%(num_parent_objects)d utilizadores foram apagados"
+
+msgid "Active"
+msgstr "Ativo"
+
+msgid "Inactive"
+msgstr "Inativo"
 
 msgid "Mark as active"
 msgstr "Marcar como ativo"
@@ -402,15 +371,33 @@ msgstr "Grupo '%(object)s' atualizado."
 msgid "The group could not be saved due to errors."
 msgstr "O grupo não pôde ser guardado devido a erros."
 
+msgid "View users in this group"
+msgstr "Ver os utilizadores deste grupo"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupo '%(object)s' apagado."
+
+msgid "Group"
+msgstr "Grupo"
 
 msgid "Add a user"
 msgstr "Adicionar um utilizador"
 
 msgid "Users"
 msgstr "Utilizadores"
+
+msgid "Username"
+msgstr "Utilizador"
+
+msgid "Admin"
+msgstr "Administração"
+
+msgid "Access level"
+msgstr "Level de acesso"
+
+msgid "Status"
+msgstr "Estado"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -426,14 +413,3 @@ msgstr "O utilizador não pôde ser guardado devido a erros."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utilizador '%(object)s' apagado."
-
-msgid "Edit"
-msgstr "Alterar"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Editar usuário '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Deletar usuário '%(name)s'"

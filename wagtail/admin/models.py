@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Model
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -18,7 +19,7 @@ class Admin(Model):
     class Meta:
         default_permissions = []  # don't create the default add / change / delete / view perms
         permissions = [
-            ("access_admin", "Can access Wagtail admin"),
+            ("access_admin", _("Can access Wagtail admin")),
         ]
 
 

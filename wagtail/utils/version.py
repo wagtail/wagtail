@@ -20,10 +20,13 @@ def get_version(version):
     return main + sub
 
 
-def get_main_version(version=None):
+def get_main_version(version=None, include_patch=True):
     """Return main version (X.Y[.Z]) from VERSION."""
     version = get_complete_version(version)
-    parts = 2 if version[2] == 0 else 3
+    if include_patch:
+        parts = 2 if version[2] == 0 else 3
+    else:
+        parts = 2
     return ".".join(str(x) for x in version[:parts])
 
 

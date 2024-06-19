@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,6 +88,42 @@ msgstr "下に移動"
 msgid "Promoted search results"
 msgstr "提案された検索結果"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "<em>%(query_string)s</em>に一致する提案はありません。"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"まだ検索結果への提案がありません。<a href="
+"\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
+
+msgid "Popular search terms"
+msgstr "人気の検索ワード"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Terms"
+msgstr "語句"
+
+msgid "Views (past week)"
+msgstr "閲覧数（一週間）"
+
+msgid "No results found"
+msgstr "結果は見つかりませんでした。"
+
+msgid "Choose from popular search terms"
+msgstr "人気の検索ワードから選択"
+
+msgid "External link"
+msgstr "外部リンク"
+
+msgid "None"
+msgstr "なし"
+
 msgid "Search Terms"
 msgstr "検索ワード"
 
@@ -99,45 +135,6 @@ msgstr "検索ワード"
 
 msgid "Promoted results"
 msgstr "提案された検索結果"
-
-msgid "Views (past week)"
-msgstr "閲覧数（一週間）"
-
-msgid "Edit this promotion"
-msgstr "このプロモーションを編集"
-
-msgid "External link"
-msgstr "外部リンク"
-
-msgid "None"
-msgstr "なし"
-
-msgid "Popular search terms"
-msgstr "人気の検索ワード"
-
-msgid "Search"
-msgstr "検索"
-
-msgid "Terms"
-msgstr "語句"
-
-msgid "No results found"
-msgstr "結果は見つかりませんでした。"
-
-msgid "Choose from popular search terms"
-msgstr "人気の検索ワードから選択"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "<em>%(query_string)s</em>に一致する提案はありません。"
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"まだ検索結果への提案がありません。<a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

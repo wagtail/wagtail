@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,7 +88,7 @@ msgid "Wagtail snippets"
 msgstr "Wagtail Schnipsel"
 
 msgid "Delete selected snippets"
-msgstr "Ausgewählte Schnipsel löschen"
+msgstr "Ausgewählte Elemente löschen"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -116,8 +116,7 @@ msgstr[1] "%(usage_count)s mal benutzt"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr ""
-"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
-"wollen?"
+"Sind Sie sicher, dass Sie das „%(snippet_type_name)s“-Objekt löschen wollen?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
@@ -144,17 +143,17 @@ msgstr "Nein, nicht löschen"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Es gibt leider keine Schnipsel zum Suchbegriff \"<em>%(search_query)s</em>\""
+"Es gibt leider keine Objekte zum Suchbegriff \"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"Sie haben keine „%(snippet_type_name)s“-Schnipsel erstellt. Warum nicht <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">ein neues erstellen</a>?"
+"Sie haben keine „%(snippet_type_name)s“-Objekte erstellt. Warum nicht <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">ein neues erstellen</a>?"
 
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
@@ -178,31 +177,7 @@ msgid "Actions"
 msgstr "Aktionen"
 
 msgid "Select all snippets in listing"
-msgstr "Alle Schnipsel in der Aufzählung auswählen"
-
-msgid "Live version"
-msgstr "Live-Version"
-
-msgid "Current draft"
-msgstr "Aktueller Entwurf"
-
-msgid "Preview"
-msgstr "Vorschau"
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Review this version"
-msgstr "Diese Version überprüfen"
-
-msgid "Compare with previous version"
-msgstr "Mit vorheriger Version vergleichen"
-
-msgid "Compare with current version"
-msgstr "Mit der aktuellen Version vergleichen"
-
-msgid "Cancel scheduled publish"
-msgstr "Geplante Veröffentlichung aufheben"
+msgstr "Alle Elemente in der Aufzählung auswählen"
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -219,12 +194,6 @@ msgstr "Instanzen"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Weitere Optionen für '%(title)s'"
-
-msgid "Action"
-msgstr "Aktion"
-
-msgid "Date"
-msgstr "Datum"
 
 #, python-format
 msgid "Edit this %(model_name)s"

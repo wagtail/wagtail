@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -19,9 +19,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Публікаваць"
@@ -80,6 +80,9 @@ msgstr "Лакаль"
 msgid "All"
 msgstr "Усе"
 
+msgid "Collection"
+msgstr "Калекцыя"
+
 msgid "Preferred language"
 msgstr "Пажаданне па мове"
 
@@ -125,9 +128,6 @@ msgstr "Пошук"
 
 msgid "All collections"
 msgstr "Усе калекцыі"
-
-msgid "Collection"
-msgstr "Калекцыя"
 
 msgid "Parent"
 msgstr "Бацькоўскі элемент"
@@ -406,16 +406,13 @@ msgid ""
 msgstr ""
 "Гэтая калекцыя не можа быць выдалена, таму што яна не пустая. Яна змяшчае:"
 
-msgid "Name"
-msgstr "Імя"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Калекцыі яшчэ не былі створаны. Давай <a "
-"href=\"%(add_collection_url)s\">створым адну</a>?"
+"Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
+"\">створым адну</a>?"
 
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
@@ -435,6 +432,12 @@ msgstr "Не, не публікаваць"
 
 msgid "Cancel"
 msgstr "Адмена"
+
+msgid "Comment"
+msgstr "Каментар"
+
+msgid "Actions"
+msgstr "Дзеянні"
 
 msgid "Update"
 msgstr "Аднаўленне"
@@ -471,9 +474,6 @@ msgstr "Зачынены ў"
 
 msgid "Edit this page"
 msgstr "Змяніць гэтую старонку"
-
-msgid "Actions"
-msgstr "Дзеянні"
 
 msgid "Unlock"
 msgstr "Разблакаваць"
@@ -645,24 +645,6 @@ msgstr "Скапіяваць гэтую старонку"
 msgid "This page has unsaved changes."
 msgstr "На гэтай старонцы засталіся незахаваных часткі."
 
-msgid "Action"
-msgstr "Дзеянне"
-
-msgid "User"
-msgstr "Карыстальнік"
-
-msgid "Date / Time"
-msgstr "Дата / час"
-
-msgid "Comment"
-msgstr "Каментар"
-
-msgid "Live version"
-msgstr "Апублікаваная версія"
-
-msgid "Current draft"
-msgstr "Чарнавік"
-
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
 
@@ -710,9 +692,6 @@ msgstr "Пацвярджэнне "
 msgid "Add child page"
 msgstr "Дадаць даччыную старонку"
 
-msgid "Cancel scheduled publish"
-msgstr "Адмяніць запланаваную публікацыю"
-
 msgid "Page types"
 msgstr "Тыпы старонак"
 
@@ -756,6 +735,18 @@ msgstr "Заблакавана"
 msgid "No locked pages found."
 msgstr "Не знойдзены заблякаваныя старонкі."
 
+msgid "Name"
+msgstr "Імя"
+
+msgid "Action"
+msgstr "Дзеянне"
+
+msgid "User"
+msgstr "Карыстальнік"
+
+msgid "Date / Time"
+msgstr "Дата / час"
+
 msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
 
@@ -783,9 +774,6 @@ msgstr "Назад"
 
 msgid "History"
 msgstr "Гісторыя"
-
-msgid "Root"
-msgstr "Галоўная"
 
 msgid "Current page status:"
 msgstr "Бягучы статус старонкі:"
@@ -883,6 +871,24 @@ msgstr "%(time_period)s таму назад"
 msgid "Log out"
 msgstr "Выйсці"
 
+msgid "Undo"
+msgstr "Адмяніць дзеянне"
+
+msgid "Redo"
+msgstr "Абнавіць"
+
+msgid "Bold"
+msgstr "Тоўсты"
+
+msgid "Italic"
+msgstr "Нахільны"
+
+msgid "Superscript"
+msgstr "Верхні індэкс"
+
+msgid "Subscript"
+msgstr "Ніжні індэкс"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -946,6 +952,15 @@ msgstr "Вы ўпэўнены, што жадаеце выдаліць гэтую
 
 msgid "Home"
 msgstr "Галоўная"
+
+msgid "Live version"
+msgstr "Апублікаваная версія"
+
+msgid "Current draft"
+msgstr "Чарнавік"
+
+msgid "Cancel scheduled publish"
+msgstr "Адмяніць запланаваную публікацыю"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1109,20 +1124,8 @@ msgstr "Нумараваны спіс"
 msgid "Blockquote"
 msgstr "Цытата"
 
-msgid "Bold"
-msgstr "Тоўсты"
-
-msgid "Italic"
-msgstr "Нахільны"
-
 msgid "Link"
 msgstr "Спасылка"
-
-msgid "Superscript"
-msgstr "Верхні індэкс"
-
-msgid "Subscript"
-msgstr "Ніжні індэкс"
 
 msgid "Strikethrough"
 msgstr "Закрэслены"

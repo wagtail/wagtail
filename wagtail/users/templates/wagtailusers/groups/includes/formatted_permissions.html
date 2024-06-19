@@ -96,7 +96,8 @@
                                     <fieldset class="w-p-0">
                                         <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
                                         {% for custom_perm in content_perms_dict.custom %}
-                                            {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="permissions" value=custom_perm.perm.id checked=custom_perm.selected text=custom_perm.name attrs=custom_perm.attrs %}
+                                            {% trans custom_perm.name as custom_perm_label %}
+                                            {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="permissions" value=custom_perm.perm.id checked=custom_perm.selected text=custom_perm_label attrs=custom_perm.attrs %}
                                         {% endfor %}
                                     </fieldset>
                                 {% endif %}
@@ -170,7 +171,7 @@
             <tbody>
                 {% for perm_tuple in other_perms %}
                     <tr>
-                        <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{{ perm_tuple.0.name }}</label></td>
+                        <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{% trans perm_tuple.0.name %}</label></td>
                         <td>
                             {{ perm_tuple.1.tag }}
                         </td>

@@ -1686,6 +1686,49 @@ class TestGenericSetting(BaseGenericSetting):
 
 
 @register_setting
+class TestPermissionedGenericSetting(BaseGenericSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email",
+            permission="tests.can_edit_sensitive_email_generic_setting",
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_generic_setting",
+                "Can edit sensitive email generic setting.",
+            ),
+        ]
+
+
+@register_setting
+class TestPermissionedSiteSetting(BaseSiteSetting):
+    title = models.CharField(max_length=100)
+    sensitive_email = models.EmailField(max_length=50)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel(
+            "sensitive_email", permission="tests.can_edit_sensitive_email_site_setting"
+        ),
+    ]
+
+    class Meta:
+        permissions = [
+            (
+                "can_edit_sensitive_email_site_setting",
+                "Can edit sensitive email site setting.",
+            ),
+        ]
+
+
+@register_setting
 class ImportantPagesSiteSetting(BaseSiteSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
@@ -2054,6 +2097,7 @@ class PersonPage(Page):
             "Person",
         ),
         InlinePanel("addresses", label="Address"),
+        InlinePanel("social_links", label="Social links"),
     ]
 
     class Meta:
@@ -2088,6 +2132,29 @@ class AddressTag(TaggedItemBase):
     content_object = ParentalKey(
         to="tests.Address", on_delete=models.CASCADE, related_name="tagged_items"
     )
+
+
+class SocialLink(index.Indexed, ClusterableModel):
+    url = models.URLField()
+    kind = models.CharField(
+        max_length=30,
+        choices=[
+            ("twitter", "Twitter"),
+            ("facebook", "Facebook"),
+        ],
+    )
+    person = ParentalKey(
+        to="tests.PersonPage", related_name="social_links", verbose_name="Person"
+    )
+
+    panels = [
+        FieldPanel("url"),
+        FieldPanel("kind"),
+    ]
+
+    class Meta:
+        verbose_name = "Social link"
+        verbose_name_plural = "Social links"
 
 
 class RestaurantPage(Page):
@@ -2273,6 +2340,9 @@ class FeatureCompleteToy(index.Indexed, models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.release_date})"
+
+    class Meta:
+        permissions = [("can_set_release_date", "Can set release date")]
 
 
 class PurgeRevisionsProtectedTestModel(models.Model):
