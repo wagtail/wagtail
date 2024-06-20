@@ -36,6 +36,7 @@ install_requires = [
     "anyascii>=0.1.5",
     "telepath>=0.3.1,<1",
     "laces>=0.1,<0.2",
+    "django-tasks==0.1.1",
 ]
 
 # Testing dependencies
