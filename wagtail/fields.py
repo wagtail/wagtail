@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
-from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.blocks import Block, BlockField, StreamBlock
 from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     extract_references_from_rich_text,
@@ -88,7 +88,7 @@ class StreamField(models.Field):
 
         # extract kwargs that are to be passed on to the block, not handled by super
         block_opts = {}
-        for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
+        for arg in ["min_num", "max_num", "block_counts", "collapsed", "value_class"]:
             if arg in kwargs:
                 block_opts[arg] = kwargs.pop(arg)
 
@@ -110,6 +110,10 @@ class StreamField(models.Field):
             self.stream_block = StreamBlock(block_types)
 
         self.stream_block.set_meta_options(block_opts)
+
+    @property
+    def value_class(self):
+        return self.stream_block.meta.value_class
 
     @property
     def json_field(self):
@@ -142,7 +146,7 @@ class StreamField(models.Field):
 
     def get_prep_value(self, value):
         if (
-            isinstance(value, StreamValue)
+            isinstance(value, self.value_class)
             and not (value)
             and value.raw_text is not None
         ):
@@ -151,7 +155,7 @@ class StreamField(models.Field):
             # for reverse migrations that convert StreamField data back into plain text
             # fields.)
             return value.raw_text
-        elif isinstance(value, StreamValue):
+        elif isinstance(value, self.value_class):
             # StreamValue instances must be prepared first.
             return json.dumps(
                 self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder
@@ -163,7 +167,7 @@ class StreamField(models.Field):
             return self.json_field.get_prep_value(value)
 
     def get_db_prep_value(self, value, connection, prepared=False):
-        if not isinstance(value, StreamValue):
+        if not isinstance(value, self.value_class):
             # When querying with JSONField features, the rhs might not be a StreamValue.
             # As of Django 4.2, JSONField value serialisation is handled in
             # get_db_prep_value instead of get_prep_value.

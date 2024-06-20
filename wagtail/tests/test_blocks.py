@@ -20,7 +20,11 @@ from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
-from wagtail.blocks.stream_block import StreamBlockAdapter, StreamBlockValidationError
+from wagtail.blocks.stream_block import (
+    StreamBlockAdapter,
+    StreamBlockValidationError,
+    StreamValue,
+)
 from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.models import Page
 from wagtail.rich_text import RichText
@@ -3201,6 +3205,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
 
         self.assertEqual(list(block.child_blocks.keys()), ["heading", "paragraph"])
+        self.assertIs(block.value_class, StreamValue)
 
     def test_initialisation_with_binary_string_names(self):
         # migrations will sometimes write out names as binary strings, just to keep us on our toes
@@ -3212,6 +3217,20 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
 
         self.assertEqual(list(block.child_blocks.keys()), [b"heading", b"paragraph"])
+
+    def test_initialisation_with_custom_value_class(self):
+        class CustomStreamValue(StreamValue):
+            pass
+
+        block = blocks.StreamBlock(
+            [
+                ("heading", blocks.CharBlock()),
+                ("paragraph", blocks.CharBlock()),
+            ],
+            value_class=CustomStreamValue,
+        )
+
+        self.assertIs(block.value_class, CustomStreamValue)
 
     def test_initialisation_from_subclass(self):
         class ArticleBlock(blocks.StreamBlock):

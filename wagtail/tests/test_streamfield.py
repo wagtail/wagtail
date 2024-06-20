@@ -17,7 +17,9 @@ from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
     ComplexDefaultStreamPage,
+    CustomStreamValue,
     JSONBlockCountsStreamModel,
+    JSONCustomValueStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
     StreamPage,
@@ -224,6 +226,38 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(len(fetched_body), 1)
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
+
+    def test_custom_value_class(self):
+        original_content = json.dumps([{"type": "text", "value": "foo"}])
+
+        obj = JSONCustomValueStreamModel.objects.create(
+            primary_content=original_content,
+            secondary_content=original_content,
+        )
+
+        # Both fields should return instances of CustomStreamValue
+        self.assertIsInstance(obj.primary_content, CustomStreamValue)
+        self.assertIsInstance(obj.secondary_content, CustomStreamValue)
+
+        # It should still be possible to update the fields using a raw dict value
+        new_content = [("rich_text", RichText("<h2>hello world</h2>"))]
+        obj.primary_content = new_content
+        obj.secondary_content = new_content
+        obj.save()
+        obj.refresh_from_db("primary_content", "secondary_content")
+
+        # CustomStreamValue is functionally equivalent to StreamValue, so the same value
+        # transformation should have taken place
+        for streamfield in ("primary_content", "secondary_content"):
+            with self.subTest(streamfield):
+                field_value = getattr(self, streamfield)
+                self.assertEqual(len(field_value), 1)
+                self.assertIsInstance(field_value[0].value, RichText)
+                self.assertEqual(field_value[0].value.source, "<h2>hello world</h2>")
+                # The value is still an instance of the custom value class
+                self.assertIsInstance(field_value, CustomStreamValue)
+                # So, we can do this...
+                self.assertEqual(field_value.level_of_customness(), "medium")
 
     def test_can_append(self):
         self.json_body.body.append(("text", "bar"))

@@ -42,6 +42,7 @@ from wagtail.blocks import (
     RawHTMLBlock,
     RichTextBlock,
     StreamBlock,
+    StreamValue,
     StructBlock,
 )
 from wagtail.contrib.forms.forms import FormBuilder
@@ -1550,6 +1551,40 @@ class JSONBlockCountsStreamModel(models.Model):
             "image": {"min_num": 1, "max_num": 1},
         },
     )
+
+
+class CustomStreamValue(StreamValue):
+    """
+    Used by ``CustomStreamBlock`` and ``JSONCustomValueStreamModel.primary_content`` (below)
+    to demonstrate support for custom value classes with ``StreamField`` and ``StreamBlock``.
+    """
+
+    def level_of_customness(self) -> bool:
+        return "medium"
+
+
+class CustomValueStreamBlock(StreamBlock):
+    text = CharBlock()
+    rich_text = RichTextBlock()
+    image = ImageChooserBlock()
+
+    class Meta:
+        value_class = CustomStreamValue
+
+
+class JSONCustomValueStreamModel(models.Model):
+    # `value_class` can be provided as an init kwarg to StreamField
+    primary_content = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        value_class=CustomStreamValue,
+    )
+
+    # `value_class` can be customised by overriding in StreamBlock.Meta
+    secondary_content = StreamField(CustomValueStreamBlock())
 
 
 class ExtendedImageChooserBlock(ImageChooserBlock):
