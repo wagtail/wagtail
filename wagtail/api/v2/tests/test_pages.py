@@ -683,6 +683,15 @@ class TestPageListing(WagtailTestUtils, TestCase):
             },
         )
 
+    def test_slug_field_containing_null_bytes_gives_error(self):
+        input_with_null_byte = "1\x00����%2527%2522"
+        response = self.get_response(slug=input_with_null_byte)
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {
+            "message": "field filter error. null characters are not allowed for slug"})
+
     # CHILD OF FILTER
 
     def test_child_of_filter(self):
