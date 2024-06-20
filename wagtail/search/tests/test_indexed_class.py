@@ -155,3 +155,58 @@ class TestSearchFields(TestCase):
                 if error.id == "wagtailsearch.W001"
             ]
             self.assertEqual([], errors)
+
+
+class SearchableContentTest(TestCase):
+    def setUp(self):
+        # Initialize SearchableContent object for testing
+        self.searchable_content = index.SearchableContent()
+
+    def test_add_content(self):
+        # Test adding content with a specific boost value
+        self.searchable_content.add_content(2.0, "first heading")
+        self.searchable_content.add_content(1.0, "first paragraph")
+
+        # Check if content is added correctly
+        self.assertEqual(self.searchable_content.as_dict(), {2.0: ["first heading"], 1.0: ["first paragraph"]})
+
+    def test_merge_content(self):
+        # Test merging content from another SearchableContent object
+        other_content = index.SearchableContent({1.5: ["merged paragraph"]})
+        self.searchable_content.merge_content(other_content)
+
+        # Check if content is merged correctly
+        self.assertEqual(self.searchable_content.as_dict(), {1.5: ["merged paragraph"]})
+
+    def test_multiply_boosts(self):
+        # Test multiplying boost values by a given multiplier
+        self.searchable_content.add_content(1.0, "first paragraph")
+        self.searchable_content.multiply_boosts(2)
+
+        # Check if boosts are multiplied correctly
+        self.assertEqual(self.searchable_content.get_unique_boosts(), {2.0})
+
+    def test_get_unique_boosts(self):
+        # Test getting unique boost values
+        self.searchable_content.add_content(2.0, "first heading")
+        self.searchable_content.add_content(1.0, "first paragraph")
+        self.searchable_content.add_content(2.0, "second heading")
+
+        # Check if unique boosts are obtained correctly
+        self.assertEqual(self.searchable_content.get_unique_boosts(), {1.0, 2.0})
+
+    def test_as_dict(self):
+        # Test getting content as a dictionary
+        self.searchable_content.add_content(2.0, "first heading")
+        self.searchable_content.add_content(1.0, "first paragraph")
+
+        # Check if content is obtained as a dictionary correctly
+        self.assertEqual(self.searchable_content.as_dict(), {2.0: ["first heading"], 1.0: ["first paragraph"]})
+
+    def test_as_list(self):
+        # Test getting content as a single list
+        self.searchable_content.add_content(2.0, "first heading")
+        self.searchable_content.add_content(1.0, "first paragraph")
+
+        # Check if content is obtained as a list correctly
+        self.assertEqual(self.searchable_content.as_list(), ["first heading", "first paragraph"])

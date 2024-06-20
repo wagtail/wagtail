@@ -7,6 +7,7 @@ from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.search.index import SearchableContent
 from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     extract_references_from_rich_text,
@@ -21,6 +22,8 @@ class RichTextField(models.TextField):
         # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop("editor", "default")
         self.features = kwargs.pop("features", None)
+        self.search_boost = kwargs.pop("search_boost", 1)
+        self.unique_boosts = set([self.search_boost])
 
         super().__init__(*args, **kwargs)
 
@@ -52,7 +55,8 @@ class RichTextField(models.TextField):
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them
         source = force_str(value)
-        return [get_text_for_indexing(source)]
+        return SearchableContent({self.search_boost:
+                                 [get_text_for_indexing(source)]})
 
     def extract_references(self, value):
         yield from extract_references_from_rich_text(force_str(value))
@@ -110,6 +114,10 @@ class StreamField(models.Field):
             self.stream_block = StreamBlock(block_types)
 
         self.stream_block.set_meta_options(block_opts)
+
+        self.unique_boosts = set()
+        if hasattr(self.stream_block, 'unique_boosts'):
+            self.unique_boosts = self.stream_block.unique_boosts
 
     @property
     def json_field(self):
