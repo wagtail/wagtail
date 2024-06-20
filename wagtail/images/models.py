@@ -252,7 +252,14 @@ class WagtailImageField(models.ImageField):
 
 
 class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Model):
-    title = models.CharField(max_length=255, verbose_name=_("title"))
+    title = models.CharField(
+        max_length=255,
+        verbose_name=_("title"),
+        help_text=_(
+            "A short descriptive title. Used both in the admin and rendered as the "
+            "image's alternative text, the title should describe the image clearly."
+        ),
+    )
     """ Use local ImageField with Willow support.  """
     file = WagtailImageField(
         verbose_name=_("file"),
