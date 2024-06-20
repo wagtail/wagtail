@@ -177,8 +177,11 @@ class Locale(models.Model):
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     locale = models.ForeignKey(
-        Locale, on_delete=models.PROTECT, related_name="+", editable=False,
-        verbose_name=translation.gettext("Locale")
+        Locale,
+        on_delete=models.PROTECT,
+        related_name="+",
+        editable=False,
+        verbose_name=translation.gettext("Locale"),
     )
     locale.wagtail_reference_index_ignore = True
 
