@@ -23,6 +23,7 @@ Changelog
  * Fix: Remove duplicate header in privacy dialog when a privacy setting is set on a parent page or collection (Matthias Brück)
  * Fix: Allow renditions of `.ico` images (Julie Rymer)
  * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Add separators when displaying multiple error messages on a StructBlock (Kyle Bayliss)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)

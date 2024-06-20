@@ -158,7 +158,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
           <div class="w-field__errors" id="mytable-cell-0-1-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
-          <p class="error-message"><span>This is not enough cheese</span></p></div>
+          <p class="error-message">This is not enough cheese.</p></div>
           <div class="w-field__help" id="mytable-cell-0-1-helptext" data-field-help=""></div>
           <div class="w-field__input" data-field-input="">
             <p name="mytable-cell-0-1" id="mytable-cell-0-1">Block B widget</p>
@@ -213,7 +213,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
 `;
 
 exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows non-block errors 1`] = `
-"<div class="typed-table-block "><p class="help-block help-critical">This is just generally wrong</p>
+"<div class="typed-table-block "><p class="help-block help-critical">This is just generally wrong.</p>
         <div class="w-field__wrapper" data-field-wrapper="">
           <label class="w-field__label" for="mytable-caption">
             Caption
