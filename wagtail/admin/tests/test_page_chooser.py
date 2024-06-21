@@ -873,6 +873,91 @@ class TestChooserExternalLinkWithNoServePath(TestChooserExternalLink):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
 
+@override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
+class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
+    prefix = "site/"
+
+    def test_convert_external_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a full
+        # URL without the serve path will trigger the conversion.
+        # Normally this should be converted without any confirmation, but since
+        # the actual URL will include the serve path (thus different from the
+        # input URL), the user should be asked to confirm.
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "http://localhost/about/")
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a full
+        # URL without the serve path will trigger the conversion. The user
+        # should be asked to confirm the conversion as the input URL will be
+        # different from the page's full URL (as the serve path is added and
+        # the query parameters are removed).
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about?test=1",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(
+            response_json["external"]["url"], "http://localhost/about?test=1"
+        )
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a relative
+        # URL without the serve path will trigger the conversion.
+        # Normally this should be converted without any confirmation, but since
+        # the actual URL will include the serve path (thus different from the
+        # input URL), the user should be asked to confirm.
+        response = self.post(
+            {
+                "external-link-chooser-url": "/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "/about/")
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+
+@override_settings(
+    WAGTAIL_I18N_ENABLED=True,
+    ROOT_URLCONF="wagtail.test.urls_multilang",
+)
+class TestChooserExternalLinkWithI18n(TestChooserExternalLinkWithNonRootServePath):
+    prefix = "en/"
+
+
+@override_settings(
+    WAGTAIL_I18N_ENABLED=True,
+    ROOT_URLCONF="wagtail.test.urls_multilang_non_root",
+)
+class TestChooserExternalLinkWithI18nNonRoot(
+    TestChooserExternalLinkWithNonRootServePath
+):
+    prefix = "en/site/"
+
+
 class TestChooserAnchorLink(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
