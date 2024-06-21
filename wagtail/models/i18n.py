@@ -9,6 +9,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import translation
 from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 
 from wagtail.actions.copy_for_translation import CopyForTranslationAction
@@ -181,7 +182,7 @@ class TranslatableMixin(models.Model):
         on_delete=models.PROTECT,
         related_name="+",
         editable=False,
-        verbose_name=translation.gettext("Locale"),
+        verbose_name=_("locale"),
     )
     locale.wagtail_reference_index_ignore = True
 
