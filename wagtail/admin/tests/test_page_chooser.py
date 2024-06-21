@@ -904,12 +904,21 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
         # take the serve path into account, but now it should be correctly
         # converted to an internal link (without needing confirmation as the
         # input URL will be an exact match to the page's full URL).
+
+        # Warm up the cache
         response = self.post(
             {
                 "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
                 "external-link-chooser-link_text": "about",
             }
         )
+        with self.assertNumQueries(14):
+            response = self.post(
+                {
+                    "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
+                    "external-link-chooser-link_text": "about",
+                }
+            )
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "external_link_chosen")
