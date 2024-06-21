@@ -17,8 +17,12 @@ from datetime import datetime
 
 import django
 import sphinx_wagtail_theme
+from sphinx.builders.html import StandaloneHTMLBuilder
 
 from wagtail import VERSION, __version__
+
+# use png images as fallback, required to build pdf
+StandaloneHTMLBuilder.supported_image_types = ["image/gif", "image/png"]
 
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
@@ -226,6 +230,9 @@ html_use_index = False
 htmlhelp_basename = "Wagtaildoc"
 
 # -- Options for LaTeX output ---------------------------------------------
+
+# Xelatex engine is required to include unicode characters in the doc
+latex_engine = "xelatex"
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').

@@ -43,7 +43,7 @@ See :doc:`/reference/contrib/table_block` for documentation. This feature was de
 Improved link handling in rich text
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/images/releasenotes_1_5_unlink.gif
+.. image:: ../_static/images/releasenotes_1_5_unlink.*
 
 The user experience around inserting, editing and removing links inside rich text areas has been greatly improved: link destinations are shown as tooltips, and existing links can be edited as well as unlinked. This feature was developed by Loic Teixeira.
 
