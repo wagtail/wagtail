@@ -724,6 +724,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["external"]["url"], "http://localhost/about?test=1"
         )
+        self.assertEqual(response_json["internal"]["url"], "/about/")
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
     def test_convert_relative_external_link_to_internal_link(self):
@@ -752,6 +753,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
 
         self.assertEqual(response_json["result"]["url"], url)
         self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="exact")
     def test_no_confirm_external_to_internal_link_when_exact(self):
@@ -767,6 +769,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
 
         self.assertEqual(response_json["result"]["url"], url)
         self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="confirm")
     def test_convert_external_link_to_internal_link_with_confirm_setting(self):
@@ -785,6 +788,88 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "confirm_external_to_internal")
 
         self.assertEqual(response_json["external"]["url"], url)
+        self.assertEqual(response_json["internal"]["url"], "/about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+
+@override_settings(ROOT_URLCONF="wagtail.test.headless_urls")
+class TestChooserExternalLinkWithNoServePath(TestChooserExternalLink):
+    def test_convert_external_to_internal_link(self):
+        # Normally this should be converted without any confirmation, but since
+        # the serve path is not registered, the page route will resolve to None,
+        # so the user should be asked to confirm the conversion.
+        # As a result, this test is now identical to
+        # test_convert_external_link_to_internal_link_with_confirm_setting
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "http://localhost/about/")
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about?test=1",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(
+            response_json["external"]["url"], "http://localhost/about?test=1"
+        )
+        # The serve path is not registered, so the page route will resolve to None
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        response = self.post(
+            {
+                "external-link-chooser-url": "/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        # As with test_convert_external_to_internal_link, normally this doesn't
+        # require confirmation, but since the serve path is not registered, the
+        # full URL of the page is None, thus triggering the confirmation
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "/about/")
+        # The serve path is not registered, so the page route will resolve to None
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="confirm")
+    def test_convert_external_link_to_internal_link_with_confirm_setting(self):
+        url = "http://localhost/about/"
+        response = self.post(
+            {
+                "external-link-chooser-url": url,
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The serve path is not registered so the URL can never be identical,
+        # which means the setting doesn't matter in this case, but we keep the
+        # test case anyway to ensure that the confirmation step is triggered
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(response_json["external"]["url"], url)
+        self.assertIsNone(response_json["internal"]["url"])
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
 
