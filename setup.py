@@ -71,7 +71,7 @@ testing_extras = [
 documentation_extras = [
     "pyenchant>=3.1.1,<4",
     "sphinxcontrib-spelling>=7,<8",
-    "Sphinx>=1.5.2",
+    "Sphinx>=7.3",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.3.0",
     "myst_parser==2.0.0",
