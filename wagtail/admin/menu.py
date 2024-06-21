@@ -228,7 +228,7 @@ class WagtailMenuRegisterable:
             url=self.menu_url,
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order or self.menu_order,
+            order=order if order is not None else self.menu_order,
         )
 
     @cached_property
@@ -286,7 +286,7 @@ class WagtailMenuRegisterableGroup(WagtailMenuRegisterable):
             menu=Menu(items=self.get_submenu_items()),
             name=self.menu_name,
             icon_name=self.menu_icon,
-            order=order or self.menu_order,
+            order=order if order is not None else self.menu_order,
         )
 
 
