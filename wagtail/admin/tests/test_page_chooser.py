@@ -912,7 +912,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
                 "external-link-chooser-link_text": "about",
             }
         )
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(11):
             response = self.post(
                 {
                     "external-link-chooser-url": f"http://localhost/{self.prefix}about/",

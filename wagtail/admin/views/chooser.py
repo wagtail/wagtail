@@ -1,4 +1,5 @@
 import re
+from collections import defaultdict
 from urllib.parse import parse_qs, quote, urlencode, urlsplit
 
 from django.conf import settings
@@ -642,40 +643,45 @@ class ExternalLinkView(BaseLinkFormView):
             # Otherwise this could get very annoying accidentally matching coincidentally
             # named pages on different sites
 
+            possible_sites = defaultdict(list)
+
             if match_relative_paths:
-                possible_sites = []
                 for pk, path, url, language_code in sites:
-                    possible_sites.append((pk, url_without_query))
+                    possible_sites[pk].append(url_without_query)
 
                     # If the submitted URL is prefixed with the serve path,
                     # also consider it without the serve path so we can match
                     # the page using Page.route()
                     if serve_path and url_without_query.startswith(serve_path):
-                        possible_sites.append(
-                            (pk, url_without_query[len(serve_path) - 1 :])
+                        possible_sites[pk].append(
+                            url_without_query[len(serve_path) - 1 :]
                         )
             else:
-                possible_sites = []
                 for pk, path, url, language_code in sites:
                     if not submitted_url.startswith(url):
                         continue
-                    possible_sites.append((pk, url_without_query[len(url) :]))
+                    possible_sites[pk].append(url_without_query[len(url) :])
 
                     # If the submitted URL is prefixed with the serve path,
                     # also consider it without the serve path so we can match
                     # the page using Page.route()
                     if serve_path and url_without_query.startswith(url + serve_path):
-                        possible_sites.append(
-                            (pk, url_without_query[len(url) + len(serve_path) - 1 :])
+                        possible_sites[pk].append(
+                            url_without_query[len(url) + len(serve_path) - 1 :]
                         )
 
             # Loop over possible sites to identify a page match
-            for pk, url in possible_sites:
-                try:
-                    route = Site.objects.get(pk=pk).root_page.specific.route(
-                        request,
-                        [component for component in url.split("/") if component],
-                    )
+            for pk, possible_urls in possible_sites.items():
+                site = Site.objects.select_related("root_page").get(pk=pk)
+                root_page = site.root_page.specific
+                for url in possible_urls:
+                    try:
+                        route = root_page.route(
+                            request,
+                            [component for component in url.split("/") if component],
+                        )
+                    except Http404:
+                        continue
 
                     matched_page = route.page.specific
 
@@ -727,9 +733,6 @@ class ExternalLinkView(BaseLinkFormView):
                                 "internal": internal_data,
                             },
                         )
-
-                except Http404:
-                    continue
 
             # Otherwise, with no internal matches, fall back to an external url
             return self.render_chosen_response(result)
