@@ -684,8 +684,7 @@ class TestPageListing(WagtailTestUtils, TestCase):
         )
 
     def test_slug_field_containing_null_bytes_gives_error(self):
-        input_with_null_byte = "\0"
-        response = self.get_response(slug=input_with_null_byte)
+        response = self.get_response(slug="\0")
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
