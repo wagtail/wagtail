@@ -38,6 +38,7 @@ Changelog
  * Fix: Add missing `for_instance` method to `PageLogEntryManager` (Matt Westcott)
  * Fix: Ensure that "User" column on history view is translatable (Romein van Buren)
  * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
+ * Fix: Prevent incorrect menu ordering when order value is 0 (Ben Dickinson)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
