@@ -688,8 +688,10 @@ class TestPageListing(WagtailTestUtils, TestCase):
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {
-            "message": "field filter error. null characters are not allowed for slug"})
+        self.assertEqual(
+            content,
+            {"message": "field filter error. null characters are not allowed for slug"},
+        )
 
     # CHILD OF FILTER
 
