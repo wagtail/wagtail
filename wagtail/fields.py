@@ -96,7 +96,7 @@ class StreamField(models.Field):
             the top level block (as a block instance or class).
         :param use_json_field: Ignored, but retained for compatibility with historical migrations.
         :param block_lookup: Used in migrations to provide a more compact block definition -
-            see `wagtail.blocks.definition_lookup.BlockDefinitionLookup`. If passed, `block_types`
+            see ``wagtail.blocks.definition_lookup.BlockDefinitionLookup``. If passed, ``block_types``
             can contain integer indexes into this lookup table, in place of actual block instances.
         """
 
