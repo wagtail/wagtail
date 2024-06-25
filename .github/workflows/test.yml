@@ -85,6 +85,7 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
             parallel: '--parallel'
+            install_extras: 'pip install djangorestframework==3.15.1'
           - python: '3.11'
             django: 'Django>=5.0,<5.1'
             experimental: false
@@ -207,6 +208,7 @@ jobs:
         include:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
+            install_extras: 'pip install djangorestframework==3.15.1'
     steps:
       - name: Configure sysctl limits
         run: |
@@ -235,6 +237,7 @@ jobs:
           pip install "${{ matrix.django }}"
           pip install "elasticsearch>=5,<6"
           pip install certifi
+          ${{ matrix.install_extras }}
       - name: Test
         run: |
           coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
@@ -303,6 +306,7 @@ jobs:
         include:
           - python: '3.8'
             django: 'Django>=3.2,<3.3'
+            install_extras: 'pip install djangorestframework==3.15.1'
 
     services:
       postgres:
@@ -337,6 +341,7 @@ jobs:
           pip install "${{ matrix.django }}"
           pip install "elasticsearch>=6,<7"
           pip install certifi
+          ${{ matrix.install_extras }}
       - name: Test
         run: |
           coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
