@@ -32,6 +32,9 @@ exports[`SubMenuItem should render with the minimum required props 1`] = `
     <div
       className="sidebar-sub-menu-panel"
     >
+      <SubMenuCloseButton
+        isVisible={false}
+      />
       <h2
         className=" w-h4"
         id="wagtail-sidebar-submenu-reports-title"

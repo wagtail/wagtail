@@ -35,6 +35,9 @@ exports[`PageExplorerMenuItem should render with the minimum required props 1`] 
       isVisible={false}
       widthPx={485}
     >
+      <SubMenuCloseButton
+        isVisible={false}
+      />
       <Provider
         store={
           {
