@@ -67,7 +67,7 @@ class AccessibilityItem(BaseItem):
     #: or to override the properties of existing Axe rules. A custom rule
     #: to check the quality of the images alt texts is added to the list
     #: and enabled by default. This rule ensures that alt texts don't contain
-    #: antipatterns like file extensions or URLs. Returns zero false positives.
+    #: antipatterns like file extensions. Returns zero false positives.
     #: Should be used in conjunction with `axe_custom_checks`
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
@@ -147,13 +147,6 @@ class AccessibilityItem(BaseItem):
         """List of check objects per axe.run API, without evaluate function."""
         return self.axe_custom_checks
 
-    def get_axe_spec(self, request):
-        """Returns spec for Axe, including custom rules and custom checks"""
-        return {
-            "rules": self.get_axe_custom_rules(request),
-            "checks": self.get_axe_custom_checks(request),
-        }
-
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
         return self.axe_messages
@@ -187,6 +180,13 @@ class AccessibilityItem(BaseItem):
         if not options["runOnly"]:
             options.pop("runOnly")
         return options
+
+    def get_axe_spec(self, request):
+        """Returns spec for Axe, including custom rules and custom checks"""
+        return {
+            "rules": self.get_axe_custom_rules(request),
+            "checks": self.get_axe_custom_checks(request),
+        }
 
     def get_axe_configuration(self, request):
         return {
