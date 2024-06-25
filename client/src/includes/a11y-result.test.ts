@@ -2,7 +2,6 @@ import axe, { AxeResults, Spec } from 'axe-core';
 import {
   sortAxeViolations,
   WagtailAxeConfiguration,
-  customChecks,
   addCustomChecks,
   checkImageAltText,
   getA11yReport,
@@ -63,14 +62,6 @@ describe('sortAxeViolations', () => {
   });
 });
 
-describe('customChecks', () => {
-  it('should have function values for each custom check', () => {
-    Object.values(customChecks).forEach((value) => {
-      expect(typeof value).toBe('function');
-    });
-  });
-});
-
 describe('addCustomChecks', () => {
   it('should integrate custom checks into the Axe spec', () => {
     const spec: Spec = {
@@ -102,16 +93,13 @@ describe('addCustomChecks', () => {
 
 // Options for checkImageAltText function
 const options = {
-  pattern:
-    '\\.(apng|avif|gif|jpg|jpeg|jfif|pjp|png|svg|tif|webp)|(http:\\/\\/|https:\\/\\/|www\\.)',
+  pattern: '\\.(avif|gif|jpg|jpeg|png|svg|webp)$',
 };
 
 describe.each`
   text                                                | result
   ${'Good alt text with words like GIFted and motif'} | ${true}
   ${'Bad alt text.png'}                               | ${false}
-  ${'Bad alt text.TIFF more text'}                    | ${false}
-  ${'https://Bad.alt.text'}                           | ${false}
   ${''}                                               | ${true}
 `('checkImageAltText', ({ text, result }) => {
   const resultText = result ? 'should not be flagged' : 'should be flagged';
@@ -126,12 +114,6 @@ describe('checkImageAltText edge cases', () => {
   test('should not flag images with no alt attribute', () => {
     const image = document.createElement('img');
     expect(checkImageAltText(image, options)).toBe(true);
-  });
-
-  test('should return null if no pattern is provided', () => {
-    const image = document.createElement('img');
-    image.setAttribute('alt', 'Good alt text with words like GIFted and moTIF');
-    expect(checkImageAltText(image, {})).toBeUndefined();
   });
 });
 

@@ -78,9 +78,10 @@ export const getAxeConfiguration = (
  * The rule will be added via the Axe.configure() API.
  * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */
-export const checkImageAltText = (node: HTMLImageElement, options) => {
-  if (!options.pattern) return undefined;
-
+export const checkImageAltText = (
+  node: HTMLImageElement,
+  options: { pattern: string },
+) => {
   const altTextAntipatterns = new RegExp(options.pattern, 'i');
   const altText = node.getAttribute('alt') || '';
 
@@ -129,15 +130,8 @@ interface A11yReport {
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
-  let spec = config.spec;
-  // Apply custom configuration for Axe. Custom 'check-image-alt-text' is enabled by default
-  if (spec) {
-    if (spec.checks) {
-      spec = addCustomChecks(spec);
-    }
-    axe.configure(spec);
-  }
-  // Initialise Axe based on the context (whole page body by default) and options ('button-name', empty-heading', 'empty-table-header', 'frame-title', 'heading-order', 'input-button-name', 'link-name', 'p-as-heading', and a custom 'alt-text-quality' rules by default)
+  axe.configure(addCustomChecks(config.spec));
+  // Initialise Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
   const a11yErrorsNumber = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
