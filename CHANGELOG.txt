@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
 
 
 5.2.5 (01.05.2024)
