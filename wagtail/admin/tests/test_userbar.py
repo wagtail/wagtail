@@ -363,7 +363,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
 
             # Override via method
             def get_axe_custom_rules(self, request):
-                return [
+                return super().get_axe_custom_rules(request) + [
                     {
                         "id": "link-text-quality",
                         "impact": "serious",
@@ -372,15 +372,15 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         "any": ["check-link-text"],
                         "enabled": True,
                     }
-                ] + super().get_axe_custom_rules(request)
+                ]
 
             def get_axe_custom_checks(self, request):
-                return [
+                return super().get_axe_custom_checks(request) + [
                     {
                         "id": "check-link-text",
                         "options": {"pattern": "learn more$"},
                     }
-                ] + super().get_axe_custom_checks(request)
+                ]
 
         with hooks.register_temporarily(
             "construct_wagtail_userbar",
