@@ -165,6 +165,39 @@ describe('PreviewController', () => {
     localStorage.removeItem('wagtail:preview-panel-device');
   });
 
+  const expectIframeReloaded = async () => {
+    // Should create a new invisible iframe with the correct URL
+    let iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(2);
+    const oldIframe = iframes[0];
+    const newIframe = iframes[1];
+    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.style.width).toEqual('0px');
+    expect(newIframe.style.height).toEqual('0px');
+    expect(newIframe.style.opacity).toEqual('0');
+    expect(newIframe.style.position).toEqual('absolute');
+
+    // Simulate the iframe loading
+    const mockScroll = jest.fn();
+    newIframe.contentWindow.scroll = mockScroll;
+    await Promise.resolve();
+    newIframe.dispatchEvent(new Event('load'));
+    expect(mockScroll).toHaveBeenCalled();
+    iframes = document.querySelectorAll('iframe');
+    expect(iframes.length).toEqual(1);
+    expect(iframes[0]).toBe(newIframe);
+    expect(newIframe.src).toEqual(expectedUrl);
+    expect(newIframe.getAttribute('style')).toBeNull();
+    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
+      oldIframe.contentWindow.scrollX,
+      oldIframe.contentWindow.scrollY,
+    );
+
+    // Clear the fetch call history
+    jest.clearAllMocks();
+  };
+
   const initializeOpenedPanel = async () => {
     expect(global.fetch).not.toHaveBeenCalled();
 
@@ -198,43 +231,14 @@ describe('PreviewController', () => {
 
     // Initially, the iframe src should be empty so it doesn't load the preview
     // until after the request is complete
-    let iframes = document.querySelectorAll('iframe');
+    const iframes = document.querySelectorAll('iframe');
     expect(iframes.length).toEqual(1);
     expect(iframes[0].src).toEqual('');
 
     // Simulate the request completing
     await Promise.resolve();
 
-    // Should create a new invisible iframe with the correct URL
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(2);
-    const oldIframe = iframes[0];
-    const newIframe = iframes[1];
-    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.style.width).toEqual('0px');
-    expect(newIframe.style.height).toEqual('0px');
-    expect(newIframe.style.opacity).toEqual('0');
-    expect(newIframe.style.position).toEqual('absolute');
-
-    // Simulate the iframe loading
-    const mockScroll = jest.fn();
-    newIframe.contentWindow.scroll = mockScroll;
-    await Promise.resolve();
-    newIframe.dispatchEvent(new Event('load'));
-    expect(mockScroll).toHaveBeenCalled();
-    iframes = document.querySelectorAll('iframe');
-    expect(iframes.length).toEqual(1);
-    expect(iframes[0]).toBe(newIframe);
-    expect(newIframe.src).toEqual(expectedUrl);
-    expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-      oldIframe.contentWindow.scrollX,
-      oldIframe.contentWindow.scrollY,
-    );
-
-    // Clear the fetch call history
-    jest.clearAllMocks();
+    await expectIframeReloaded();
   };
 
   describe('controlling the preview size', () => {
@@ -683,6 +687,92 @@ describe('PreviewController', () => {
 
       // By the end, there should only be one fetch call
       expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('auto update cycle from opening the panel with a valid form -> invalid form -> valid form', () => {
+    it('should behave correctly', async () => {
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.dataset.wPreviewAutoUpdateValue = 'true';
+      await initializeOpenedPanel();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Simulate an invalid form submission
+      const input = document.querySelector('input[name="title"');
+      input.value = '';
+      fetch.mockResponseSuccessJSON(invalidAvailableResponse);
+
+      // After 1s (500ms for check interval, 500ms for request debounce),
+      // should send the preview data to the preview URL
+      await jest.advanceTimersByTime(1000);
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Should not yet have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Simulate the request completing
+      await Promise.resolve();
+
+      // Should set the has-errors class on the controlled element
+      expect(element.classList).toContain('w-preview--has-errors');
+
+      // Should not create a new iframe for reloading the preview
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+
+      jest.clearAllMocks();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Simulate a change in the form
+      input.value = 'New title';
+
+      // After 800ms, the check interval should be triggered but the request
+      // should not be fired yet to wait for the debounce
+      await jest.advanceTimersByTime(800);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Simulate another change (that is valid) in the form
+      input.value = 'New title version two';
+
+      // After 400ms (>1s since the first change), the request should still not
+      // be sent due to the debounce
+      await jest.advanceTimersByTime(400);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // If we wait another 300ms, the request should be sent as it has been
+      // 500ms since the last change
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      await jest.advanceTimersByTime(300);
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Simulate the request completing
+      await Promise.resolve();
+
+      // Should no longer have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Expect the iframe to be reloaded
+      await expectIframeReloaded();
     });
   });
 });
