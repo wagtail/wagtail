@@ -93,7 +93,7 @@ class TestSitemapGenerator(TestCase):
 
     def assertDatesEqual(self, actual, expected):
         # Compare dates as naive or timezone-aware according to USE_TZ
-        if not settings.USE_TZ:
+        if not settings.USE_TZ and timezone.is_aware(expected):
             expected = timezone.make_naive(expected)
         return self.assertEqual(actual, expected)
 
