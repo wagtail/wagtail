@@ -80,7 +80,7 @@ describe('generateColorVariables', () => {
         "--w-color-grey-800-lightness": "11.4%",
         "--w-color-grey-800-saturation": "0%",
         "--w-color-info-100": "hsl(var(--w-color-info-100-hue) var(--w-color-info-100-saturation) var(--w-color-info-100-lightness))",
-        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 1)",
+        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 0.1)",
         "--w-color-info-100-lightness": "calc(var(--w-color-info-125-lightness) + 6.5%)",
         "--w-color-info-100-saturation": "calc(var(--w-color-info-125-saturation) + 0.7%)",
         "--w-color-info-125": "hsl(var(--w-color-info-125-hue) var(--w-color-info-125-saturation) var(--w-color-info-125-lightness))",
