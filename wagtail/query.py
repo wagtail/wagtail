@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
 from django.db.models.functions import Cast, Length, Substr
-from django.db.models.query import BaseIterable, ModelIterable
+from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.models.sites import Site
@@ -607,17 +607,34 @@ class SpecificIterable(BaseIterable):
                 yield tuple(current_chunk)
 
 
-class DeferredSpecificIterable(ModelIterable):
+class DeferredSpecificIterable(BaseIterable):
     def __iter__(self):
-        for obj in super().__iter__():
-            if obj.specific_class:
-                yield obj.specific_deferred
-            else:
-                warnings.warn(
-                    "A specific version of the following object could not be returned "
-                    "because the specific model is not present on the active "
-                    f"branch: <{obj.__class__.__name__} id='{obj.id}' title='{obj.title}' "
-                    f"type='{obj.content_type}'>",
-                    category=RuntimeWarning,
-                )
-                yield obj
+        queryset = self.queryset
+        db = queryset.db
+        model = queryset.model
+        compiler = queryset.query.get_compiler(using=db)
+        # Execute the query. This will also fill compiler.select
+        results = compiler.execute_sql(
+            chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+        )
+        init_list = [f[0].target.attname for f in compiler.select] + ["page_ptr_id"]
+        content_type_index = init_list.index("content_type_id")
+
+        specific_models = {}
+
+        for row in compiler.results_iter(results):
+            content_type_id = row[content_type_index]
+            if (specific_model := specific_models.get(content_type_id)) is None:
+                content_type = ContentType.objects.get_for_id(content_type_id)
+                specific_model = content_type.model_class()
+                if specific_model is None:
+                    warnings.warn(
+                        "A specific version of the following content type could not be returned "
+                        "because the specific model is not present on the active "
+                        f"branch: <{model.__name__} type='{content_type}'>",
+                        category=RuntimeWarning,
+                    )
+                    specific_model = model
+                specific_models[content_type_id] = specific_model
+
+            yield specific_model.from_db(db, init_list, row + [row[0]])
