@@ -290,7 +290,15 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
-        self.assertEqual(response.status_code, 404)
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
@@ -1199,7 +1207,15 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
-        self.assertEqual(response.status_code, 404)
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_num_queries(self):
         workflows = [Workflow.objects.create(name=f"workflow_{i}") for i in range(7)]

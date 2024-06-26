@@ -197,7 +197,11 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailforms:index"), {"p": "Hello world!"})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that it got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_forms_index_pagination_out_of_range(self):
         # Create some more form pages to make pagination kick in
@@ -207,7 +211,13 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailforms:index"), {"p": 99999})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that it got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
@@ -319,7 +329,15 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["page_obj"].object_list), 3)
 
         response = self.client.get(self.forms_index_url, {"p": 4})
-        self.assertEqual(response.status_code, 404)
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
         # now check the French pages.
         response = self.client.get(
@@ -484,7 +502,11 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -495,7 +517,13 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
     def test_list_submissions_default_order(self):
         response = self.client.get(
@@ -1183,7 +1211,11 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -1194,7 +1226,13 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
 
 class TestDeleteFormSubmission(WagtailTestUtils, TestCase):

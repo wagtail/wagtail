@@ -396,7 +396,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_pages()
@@ -406,7 +410,14 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_no_pagination_with_custom_ordering(self):
         self.make_pages()
