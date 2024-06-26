@@ -1,6 +1,8 @@
 import os
 import unittest
+from io import BytesIO
 
+import willow
 from django import forms, template
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -9,7 +11,12 @@ from django.test import TestCase, override_settings
 from django.test.signals import setting_changed
 from django.urls import reverse
 from taggit.forms import TagField, TagWidget
-from willow.image import ImageFile as WillowImageFile
+from willow.image import (
+    AvifImageFile,
+    ImageFile as WillowImageFile,
+    PNGImageFile,
+    SvgImageFile,
+)
 
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
@@ -359,9 +366,13 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
-        for _byte in response:
-            # Ensure the file can actually be read
-            self.assertTrue(_byte)
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, PNGImageFile)
+
 
     def test_get_svg(self):
         image = Image.objects.create(title="Test SVG", file=get_test_image_file_svg())
@@ -378,6 +389,12 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/svg+xml")
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, SvgImageFile)
 
     @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"avif": "avif"})
     def test_get_avif(self):
@@ -395,6 +412,12 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/avif")
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, AvifImageFile)
 
     def test_get_with_extra_component(self):
         """
@@ -415,6 +438,12 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_too_many_extra_components(self):
         """
@@ -446,6 +475,12 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_redirect_action(self):
         signature = generate_signature(self.image.id, "fill-800x600")
@@ -475,7 +510,7 @@ class TestFrontendServeView(TestCase):
 
     def test_get_with_custom_key(self):
         """
-        Test that that the key can be changed on the view
+        Test that the key can be changed on the view
         """
         # Generate signature
         signature = generate_signature(self.image.id, "fill-800x600", key="custom")
@@ -491,10 +526,16 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
+        # Ensure the file can actually be read
+        with BytesIO() as buffer:
+            for _bytes in response:
+                buffer.write(_bytes)
+            image = willow.Image.open(buffer)
+        self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_custom_key_using_default_key(self):
         """
-        Test that that the key can be changed on the view
+        Test that the key can be changed on the view
 
         This tests that the default key no longer works when the key is changed on the view
         """
