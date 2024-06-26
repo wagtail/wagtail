@@ -690,7 +690,7 @@ describe('PreviewController', () => {
     });
   });
 
-  describe('auto update cycle from opening the panel with a valid form -> invalid form -> valid form', () => {
+  describe('auto update cycle from opening the panel with a valid form -> invalid form -> valid form -> closing the panel', () => {
     it('should behave correctly', async () => {
       const element = document.querySelector('[data-controller="w-preview"]');
       element.dataset.wPreviewAutoUpdateValue = 'true';
@@ -773,6 +773,18 @@ describe('PreviewController', () => {
 
       // Expect the iframe to be reloaded
       await expectIframeReloaded();
+
+      // Close the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      await Promise.resolve();
+
+      // Any further changes should not trigger the auto update
+      input.value = 'Changes should be ignored';
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
     });
   });
 });
