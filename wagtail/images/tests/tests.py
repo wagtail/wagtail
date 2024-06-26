@@ -13,10 +13,10 @@ from django.urls import reverse
 from taggit.forms import TagField, TagWidget
 from willow.image import (
     AvifImageFile,
-    ImageFile as WillowImageFile,
     PNGImageFile,
     SvgImageFile,
 )
+from willow.image import ImageFile as WillowImageFile
 
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
@@ -372,7 +372,6 @@ class TestFrontendServeView(TestCase):
                 buffer.write(_bytes)
             image = willow.Image.open(buffer)
         self.assertIsInstance(image, PNGImageFile)
-
 
     def test_get_svg(self):
         image = Image.objects.create(title="Test SVG", file=get_test_image_file_svg())
