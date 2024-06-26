@@ -29,10 +29,12 @@
   }
 
   &--label {
-    color: theme('colors.text-context');
-    background: theme('colors.border-button-small-outline-default');
-    border: theme('colors.border-button-small-outline-default');
-    font-weight: 500;
+    padding: theme('spacing.[0.5]') theme('spacing.2');
+    color: theme('colors.text-status-label');
+    font-weight: theme('fontWeight.medium');
+    background: theme('colors.surface-status-label');
+    border: 1px solid theme('colors.text-status-label');
+    border-radius: theme('borderRadius.xl');
   }
 }
 
