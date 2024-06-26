@@ -1,4 +1,5 @@
 import { Application } from '@hotwired/stimulus';
+import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
 
 jest.mock('../config/wagtailConfig.js', () => ({
@@ -785,6 +786,104 @@ describe('PreviewController', () => {
       input.value = 'Changes should be ignored';
       await jest.advanceTimersByTime(10000);
       expect(global.fetch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('manual update using a button', () => {
+    let refreshButtonElement;
+
+    beforeEach(async () => {
+      await initializeOpenedPanel();
+      application.register('w-progress', ProgressController);
+
+      // Add the refresh button to the preview panel
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.insertAdjacentHTML('beforeend', refreshButton);
+      refreshButtonElement = element.querySelector(
+        '[data-controller="w-progress"]',
+      );
+    });
+
+    it('should update the preview when the button is clicked', async () => {
+      const input = document.querySelector('input[name="title"');
+      input.value = 'Changes should not trigger anything';
+
+      // Should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // Simulate a click on the refresh button
+      refreshButtonElement.click();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+
+      jest.advanceTimersByTime(1);
+      await Promise.resolve();
+
+      expect(refreshButtonElement.disabled).toBe(true);
+
+      // Simulate the request completing
+      await Promise.resolve();
+
+      // Should create a new iframe for reloading the preview
+      await expectIframeReloaded();
+
+      expect(refreshButtonElement.disabled).toBe(false);
+
+      jest.clearAllMocks();
+
+      // Close the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      await Promise.resolve();
+
+      // Any further changes should also not trigger the auto update
+      input.value = 'Changes should never trigger an update';
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+
+    it('should show an alert if the request fails when clicking the refresh button', async () => {
+      const input = document.querySelector('input[name="title"');
+      input.value = 'Changes should not trigger anything';
+
+      // Should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      fetch.mockResponseFailure();
+
+      // Simulate a click on the refresh button
+      refreshButtonElement.click();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+
+      mockWindow({ open: jest.fn(), alert: jest.fn() });
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should call window.alert() with the correct message
+      expect(window.alert).toHaveBeenCalledWith(
+        'Error while sending preview data.',
+      );
     });
   });
 });
