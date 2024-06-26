@@ -44,7 +44,7 @@ describe('ActionController', () => {
       </button>`);
     });
 
-    it('it should allow for a form POST with created data', () => {
+    it('should allow for a form POST with created data', () => {
       const btn = document.querySelector('[data-controller="w-action"]');
       const submitMock = jest.fn();
       window.HTMLFormElement.prototype.submit = submitMock;
@@ -56,6 +56,44 @@ describe('ActionController', () => {
       expect(form.action).toBe('https://www.github.com/');
       expect(new FormData(form).get('csrfmiddlewaretoken')).toBe('potato');
       expect(new FormData(form).get('next')).toBe('http://localhost/');
+    });
+  });
+
+  describe('sendBeacon method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button
+        data-controller="w-action"
+        data-action="blur->w-action#sendBeacon"
+        data-w-action-url-value="https://analytics.example/not-interested"
+      >
+        If you move focus away from this button, a POST request will be sent.
+      </button>
+      <button id="other-button">Other button</button>
+      `);
+    });
+
+    it('should send a POST request using sendBeacon with the CSRF token included', () => {
+      const sendBeaconMock = jest.fn();
+      Object.defineProperty(window.navigator, 'sendBeacon', {
+        value: sendBeaconMock,
+      });
+
+      const btn = document.querySelector('[data-controller="w-action"]');
+      const otherBtn = document.getElementById('other-button');
+      btn.focus();
+      otherBtn.focus();
+
+      expect(sendBeaconMock).toHaveBeenCalledTimes(1);
+      expect(sendBeaconMock).toHaveBeenCalledWith(
+        'https://analytics.example/not-interested',
+        expect.any(FormData),
+      );
+
+      const formData = sendBeaconMock.mock.lastCall[1];
+      expect(
+        Object.fromEntries(formData.entries()).csrfmiddlewaretoken,
+      ).toEqual('potato');
     });
   });
 
