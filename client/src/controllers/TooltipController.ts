@@ -41,11 +41,15 @@ export class TooltipController extends Controller<HTMLElement> {
     placement: { default: 'bottom', type: String },
   };
 
+  static targets = ['content'];
+
   declare contentValue: string;
   declare offsetValue: [number, number];
   declare placementValue: Placement;
+  declare contentTarget: HTMLTemplateElement;
 
   declare readonly hasOffsetValue: boolean;
+  declare readonly hasContentTarget: boolean;
 
   tippy?: Instance<Props>;
 
@@ -72,9 +76,15 @@ export class TooltipController extends Controller<HTMLElement> {
   }
 
   get options(): Partial<Props> {
+    if (this.hasContentTarget) {
+      this.contentTarget.hidden = false;
+    }
+
     return {
-      content: this.contentValue,
+      content: this.hasContentTarget ? this.contentTarget : this.contentValue,
       placement: this.placementValue,
+      allowHTML: this.hasContentTarget,
+      interactive: this.hasContentTarget,
       plugins: this.plugins,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
     };
