@@ -4,7 +4,7 @@
 }
 
 .w-a11y-result__header {
-  margin: 0;
+  margin: 0 0 theme('spacing.[0.5]');
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -19,6 +19,15 @@
 .w-a11y-result__name {
   color: theme('colors.text-context');
   font-weight: theme('fontWeight.semibold');
+}
+
+.w-a11y-result__help {
+  color: theme('colors.text-placeholder');
+  font-size: theme('fontSize.14');
+
+  .w-dialog--userbar & {
+    font-size: theme('fontSize.16');
+  }
 }
 
 .w-a11y-result__container {

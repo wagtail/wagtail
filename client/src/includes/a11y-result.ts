@@ -39,10 +39,14 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
  */
+interface ErrorMessage {
+  error_name: string;
+  help_text: string;
+}
 interface WagtailAxeConfiguration {
   context: ElementContext;
   options: RunOptions;
-  messages: Record<string, string>;
+  messages: Record<string, ErrorMessage>;
 }
 
 /**
@@ -100,7 +104,11 @@ export const renderA11yResults = (
       // Display custom error messages supplied by Wagtail if available,
       // fallback to default error message from Axe
       a11yErrorName.textContent =
-        config.messages[violation.id] || violation.help;
+        config.messages[violation.id].error_name || violation.help;
+      const a11yErrorHelp = currentA11yRow.querySelector(
+        '[data-a11y-result-help]',
+      ) as HTMLDivElement;
+      a11yErrorHelp.textContent = config.messages[violation.id].help_text || '';
       const a11yErrorCount = currentA11yRow.querySelector(
         '[data-a11y-result-count]',
       ) as HTMLSpanElement;
