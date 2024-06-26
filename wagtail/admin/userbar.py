@@ -63,12 +63,8 @@ class AccessibilityItem(BaseItem):
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
-    #: A list used to add custom rules to the existing set of Axe rules,
-    #: or to override the properties of existing Axe rules. A custom rule
-    #: to check the quality of the images alt texts is added to the list
-    #: and enabled by default. This rule ensures that alt texts don't contain
-    #: antipatterns like file extensions. Returns zero false positives.
-    #: Should be used in conjunction with `axe_custom_checks`
+    #: A list to add custom Axe rules or override their properties,
+    #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_rules = [
         {
@@ -82,10 +78,8 @@ class AccessibilityItem(BaseItem):
         },
     ]
 
-    #: A list used to add custom checks to the existing set of Axe checks,
-    #: or to override the properties of existing Axe checks. A custom check
-    #: for the quality of the images alt texts is added and enabled by default.
-    #: Should be used in conjunction with `axe_custom_rules`
+    #: A list to add custom Axe checks or override their properties.
+    #: Should be used in conjunction with ``axe_custom_rules``.
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
     axe_custom_checks = [
         {

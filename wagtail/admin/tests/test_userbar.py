@@ -344,24 +344,14 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
     def test_custom_rules_and_checks(self):
         class CustomRulesAndChecksAccessibilityItem(AccessibilityItem):
             # Override via class attribute
-            axe_custom_rules = [
-                {
-                    "id": "alt-text-quality",
-                    "impact": "serious",
-                    "selector": "img[alt]",
-                    "tags": ["best-practice"],
-                    "any": ["check-image-alt-text"],
-                    "enabled": True,
-                },
-            ]
             axe_custom_checks = [
                 {
                     "id": "check-image-alt-text",
-                    "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$"},
+                    "options": {"pattern": "\\.[a-z]{1,4}$"},
                 },
             ]
 
-            # Override via method
+            # Add via method
             def get_axe_custom_rules(self, request):
                 return super().get_axe_custom_rules(request) + [
                     {
@@ -386,12 +376,12 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             "construct_wagtail_userbar",
             self.get_hook(CustomRulesAndChecksAccessibilityItem),
         ):
+            self.maxDiff = None
             config = self.get_config()
             self.assertEqual(
                 config["spec"],
                 {
                     "rules": [
-                        # Override via class attribute
                         {
                             "id": "alt-text-quality",
                             "impact": "serious",
@@ -400,7 +390,6 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                             "any": ["check-image-alt-text"],
                             "enabled": True,
                         },
-                        # Override via method
                         {
                             "id": "link-text-quality",
                             "impact": "serious",
@@ -411,14 +400,10 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         },
                     ],
                     "checks": [
-                        # Override via class attribute
                         {
                             "id": "check-image-alt-text",
-                            "options": {
-                                "pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$"
-                            },
+                            "options": {"pattern": "\\.[a-z]{1,4}$"},
                         },
-                        # Override via method
                         {
                             "id": "check-link-text",
                             "options": {"pattern": "learn more$"},
@@ -426,45 +411,6 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                     ],
                 },
             )
-
-    def test_pattern_if_custom_alt_text_check_enabled(self):
-        class CustomAltTextAccessibilityItem(AccessibilityItem):
-            axe_custom_checks = [
-                {
-                    "id": "check-image-alt-text",
-                    "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$"},
-                },
-            ]
-
-            def get_axe_custom_checks(self, request):
-                return self.axe_custom_checks + super().get_axe_custom_checks(request)
-
-        with hooks.register_temporarily(
-            "construct_wagtail_userbar",
-            self.get_hook(CustomAltTextAccessibilityItem),
-        ):
-            config = self.get_config()
-            custom_checks = config["spec"]["checks"]
-            self.assertIsInstance(custom_checks, list)
-
-            # Check if the custom check is present
-            check_image_alt_text = next(
-                (
-                    check
-                    for check in custom_checks
-                    if check["id"] == "check-image-alt-text"
-                ),
-                None,
-            )
-
-            if check_image_alt_text:
-                # Verify pattern only if the check is enabled
-                self.assertEqual(
-                    check_image_alt_text["options"]["pattern"],
-                    "\\.(avif|gif|jpg|jpeg|png|svg|webp)$",
-                )
-            else:
-                self.skipTest("check-image-alt-text not enabled in custom checks")
 
 
 class TestUserbarInPageServe(WagtailTestUtils, TestCase):
