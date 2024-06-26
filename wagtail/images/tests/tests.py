@@ -359,6 +359,9 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+        for _byte in response:
+            # Ensure the file can actually be read
+            self.assertTrue(_byte)
 
     def test_get_svg(self):
         image = Image.objects.create(title="Test SVG", file=get_test_image_file_svg())
