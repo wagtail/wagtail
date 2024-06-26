@@ -71,10 +71,7 @@ export class ActionController extends Controller<
    */
   noop() {}
 
-  post(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
+  private createFormElement() {
     const formElement = document.createElement('form');
 
     formElement.action = this.urlValue;
@@ -97,8 +94,19 @@ export class ActionController extends Controller<
       formElement.appendChild(nextElement);
     }
 
+    return formElement;
+  }
+
+  post(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const formElement = this.createFormElement();
     document.body.appendChild(formElement);
     formElement.submit();
+  }
+
+  sendBeacon() {
+    navigator.sendBeacon(this.urlValue, new FormData(this.createFormElement()));
   }
 
   /**
