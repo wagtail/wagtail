@@ -14,6 +14,7 @@ Changelog
  * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Remove reduced opacity for draft page title in listings (Inju Michorius)
  * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
+ * Implement a new design for locale labels in listings (Albina Starykova)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)

@@ -80,7 +80,7 @@ describe('generateColorVariables', () => {
         "--w-color-grey-800-lightness": "11.4%",
         "--w-color-grey-800-saturation": "0%",
         "--w-color-info-100": "hsl(var(--w-color-info-100-hue) var(--w-color-info-100-saturation) var(--w-color-info-100-lightness))",
-        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 1)",
+        "--w-color-info-100-hue": "calc(var(--w-color-info-125-hue) - 0.1)",
         "--w-color-info-100-lightness": "calc(var(--w-color-info-125-lightness) + 6.5%)",
         "--w-color-info-100-saturation": "calc(var(--w-color-info-125-saturation) + 0.7%)",
         "--w-color-info-125": "hsl(var(--w-color-info-125-hue) var(--w-color-info-125-saturation) var(--w-color-info-125-lightness))",
@@ -91,6 +91,10 @@ describe('generateColorVariables', () => {
         "--w-color-info-50-hue": "calc(var(--w-color-info-125-hue) + 2.2)",
         "--w-color-info-50-lightness": "calc(var(--w-color-info-125-lightness) + 65.9%)",
         "--w-color-info-50-saturation": "calc(var(--w-color-info-125-saturation) + 15.1%)",
+        "--w-color-info-75": "hsl(var(--w-color-info-75-hue) var(--w-color-info-75-saturation) var(--w-color-info-75-lightness))",
+        "--w-color-info-75-hue": "calc(var(--w-color-info-125-hue) + 0.4)",
+        "--w-color-info-75-lightness": "calc(var(--w-color-info-125-lightness) + 36.3%)",
+        "--w-color-info-75-saturation": "calc(var(--w-color-info-125-saturation) - 27.4%)",
         "--w-color-positive-100": "hsl(var(--w-color-positive-100-hue) var(--w-color-positive-100-saturation) var(--w-color-positive-100-lightness))",
         "--w-color-positive-100-hue": "162.1",
         "--w-color-positive-100-lightness": "31.6%",
@@ -213,6 +217,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-menu-item-active": "var(--w-color-primary-200)",
         "--w-color-surface-menus": "var(--w-color-primary)",
         "--w-color-surface-page": "var(--w-color-white)",
+        "--w-color-surface-status-label": "var(--w-color-info-50)",
         "--w-color-surface-tooltip": "var(--w-color-primary-200)",
         "--w-color-text-button": "var(--w-color-white)",
         "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-200)",
@@ -228,6 +233,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-text-link-hover": "var(--w-color-secondary-400)",
         "--w-color-text-meta": "var(--w-color-grey-400)",
         "--w-color-text-placeholder": "var(--w-color-grey-400)",
+        "--w-color-text-status-label": "var(--w-color-info-100)",
       }
     `);
   });
@@ -260,6 +266,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-surface-menu-item-active": "var(--w-color-grey-700)",
         "--w-color-surface-menus": "var(--w-color-grey-800)",
         "--w-color-surface-page": "var(--w-color-grey-600)",
+        "--w-color-surface-status-label": "var(--w-color-grey-600)",
         "--w-color-surface-tooltip": "var(--w-color-grey-500)",
         "--w-color-text-button": "var(--w-color-white)",
         "--w-color-text-button-critical-outline-hover": "var(--w-color-critical-50)",
@@ -275,6 +282,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-text-link-hover": "var(--w-color-secondary-75)",
         "--w-color-text-meta": "var(--w-color-grey-150)",
         "--w-color-text-placeholder": "var(--w-color-grey-200)",
+        "--w-color-text-status-label": "var(--w-color-info-75)",
       }
     `);
   });
