@@ -71,7 +71,11 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": "Hello World!"})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -79,7 +83,14 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": 99999})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_ordering(self):
         orderings = ["title", "-created_at"]
@@ -1774,7 +1785,11 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["results"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -1784,7 +1799,14 @@ class TestDocumentChooserView(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["results"].number,
+            response.context["results"].paginator.num_pages,
+        )
 
     def test_construct_queryset_hook_browse(self):
         document = models.Document.objects.create(
