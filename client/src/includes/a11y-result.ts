@@ -40,10 +40,15 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
  */
+
+interface ErrorMessage {
+  error_name: string;
+  help_text: string;
+}
 export interface WagtailAxeConfiguration {
   context: ElementContext;
   options: RunOptions;
-  messages: Record<string, string>;
+  messages: Record<string, ErrorMessage>;
   spec: Spec;
 }
 
@@ -151,7 +156,6 @@ export const renderA11yResults = (
   results: AxeResults,
   config: WagtailAxeConfiguration,
   a11yRowTemplate: HTMLTemplateElement,
-  a11ySelectorTemplate: HTMLTemplateElement,
   onClickSelector: (selectorName: string, event: MouseEvent) => void,
 ) => {
   // Reset contents ahead of rendering new results.
@@ -160,54 +164,42 @@ export const renderA11yResults = (
 
   if (results.violations.length) {
     const sortedViolations = sortAxeViolations(results.violations);
-    sortedViolations.forEach((violation, violationIndex) => {
-      container.appendChild(a11yRowTemplate.content.cloneNode(true));
-      const currentA11yRow = container.querySelectorAll<HTMLDivElement>(
-        '[data-a11y-result-row]',
-      )[violationIndex];
+    let nodeCounter = 0;
+    sortedViolations.forEach((violation) => {
+      violation.nodes.forEach((node) => {
+        container.appendChild(a11yRowTemplate.content.cloneNode(true));
 
-      const a11yErrorName = currentA11yRow.querySelector(
-        '[data-a11y-result-name]',
-      ) as HTMLSpanElement;
-      a11yErrorName.id = `w-a11y-result__name-${violationIndex}`;
-      // Display custom error messages supplied by Wagtail if available,
-      // fallback to default error message from Axe
-      a11yErrorName.textContent =
-        config.messages[violation.id] || violation.help;
-      const a11yErrorCount = currentA11yRow.querySelector(
-        '[data-a11y-result-count]',
-      ) as HTMLSpanElement;
-      a11yErrorCount.textContent = `${violation.nodes.length}`;
+        const currentA11yRow = container.querySelectorAll<HTMLDivElement>(
+          '[data-a11y-result-row]',
+        )[nodeCounter];
+        nodeCounter += 1;
 
-      const a11yErrorContainer = currentA11yRow.querySelector(
-        '[data-a11y-result-container]',
-      ) as HTMLDivElement;
-
-      violation.nodes.forEach((node, nodeIndex) => {
-        a11yErrorContainer.appendChild(
-          a11ySelectorTemplate.content.cloneNode(true),
-        );
-        const currentA11ySelector =
-          a11yErrorContainer.querySelectorAll<HTMLButtonElement>(
-            '[data-a11y-result-selector]',
-          )[nodeIndex];
-
-        currentA11ySelector.setAttribute('aria-describedby', a11yErrorName.id);
-        const currentA11ySelectorText = currentA11ySelector.querySelector(
-          '[data-a11y-result-selector-text]',
+        const a11yErrorName = currentA11yRow.querySelector(
+          '[data-a11y-result-name]',
         ) as HTMLSpanElement;
+        a11yErrorName.id = `w-a11y-result__name-${nodeCounter}`;
+        // Display custom error messages supplied by Wagtail if available,
+        // fallback to default error message from Axe
+        a11yErrorName.textContent =
+          config.messages[violation.id].error_name || violation.help;
+        const a11yErrorHelp = currentA11yRow.querySelector(
+          '[data-a11y-result-help]',
+        ) as HTMLDivElement;
+        a11yErrorHelp.textContent =
+          config.messages[violation.id].help_text || '';
+
         // Special-case when displaying accessibility results within the admin interface.
         const selectorName = toSelector(
           node.target[0] === '#preview-iframe'
             ? node.target[1]
             : node.target[0],
         );
-        // Remove unnecessary details before displaying selectors to the user
-        currentA11ySelectorText.textContent = selectorName.replace(
-          /\[data-block-key="\w{5}"\]/,
-          '',
-        );
-        currentA11ySelector.addEventListener(
+
+        const a11ySelector = currentA11yRow.querySelector(
+          '[data-a11y-result-selector]',
+        ) as HTMLButtonElement;
+        a11ySelector.setAttribute('aria-describedby', a11yErrorName.id);
+        a11ySelector?.addEventListener(
           'click',
           onClickSelector.bind(null, selectorName),
         );

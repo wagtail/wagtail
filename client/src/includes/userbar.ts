@@ -362,21 +362,12 @@ export class Userbar extends HTMLElement {
     const a11yRowTemplate = this.shadowRoot.querySelector<HTMLTemplateElement>(
       '#w-a11y-result-row-template',
     );
-    const a11ySelectorTemplate =
-      this.shadowRoot.querySelector<HTMLTemplateElement>(
-        '#w-a11y-result-selector-template',
-      );
     const a11yOutlineTemplate =
       this.shadowRoot.querySelector<HTMLTemplateElement>(
         '#w-a11y-result-outline-template',
       );
 
-    if (
-      !accessibilityResultsBox ||
-      !a11yRowTemplate ||
-      !a11ySelectorTemplate ||
-      !a11yOutlineTemplate
-    ) {
+    if (!accessibilityResultsBox || !a11yRowTemplate || !a11yOutlineTemplate) {
       return;
     }
 
@@ -460,7 +451,6 @@ export class Userbar extends HTMLElement {
           results,
           config,
           a11yRowTemplate,
-          a11ySelectorTemplate,
           onClickSelector,
         );
       } else {

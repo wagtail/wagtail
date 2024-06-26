@@ -208,22 +208,32 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         config = self.get_config()
         self.assertIsInstance(config.get("messages"), dict)
         self.assertEqual(
-            config["messages"]["empty-heading"],
-            "Empty heading found. Use meaningful text for screen reader users.",
+            config["messages"]["empty-heading"]["error_name"],
+            "Empty heading found",
+        )
+        self.assertEqual(
+            config["messages"]["empty-heading"]["help_text"],
+            "Use meaningful text for screen reader users",
         )
 
     def test_custom_message(self):
         class CustomMessageAccessibilityItem(AccessibilityItem):
             # Override via class attribute
             axe_messages = {
-                "empty-heading": "Headings should not be empty!",
+                "empty-heading": {
+                    "error_name": "Headings should not be empty!",
+                    "help_text": "Use meaningful text!",
+                },
             }
 
             # Override via method
             def get_axe_messages(self, request):
                 return {
                     **super().get_axe_messages(request),
-                    "color-contrast-enhanced": "Increase colour contrast!",
+                    "color-contrast-enhanced": {
+                        "error_name": "Insufficient colour contrast!",
+                        "help_text": "Ensure contrast ratio of at least 4.5:1",
+                    },
                 }
 
         with hooks.register_temporarily(
@@ -234,8 +244,14 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             self.assertEqual(
                 config["messages"],
                 {
-                    "empty-heading": "Headings should not be empty!",
-                    "color-contrast-enhanced": "Increase colour contrast!",
+                    "empty-heading": {
+                        "error_name": "Headings should not be empty!",
+                        "help_text": "Use meaningful text!",
+                    },
+                    "color-contrast-enhanced": {
+                        "error_name": "Insufficient colour contrast!",
+                        "help_text": "Ensure contrast ratio of at least 4.5:1",
+                    },
                 },
             )
 

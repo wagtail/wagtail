@@ -29,9 +29,6 @@ const runContentChecks = async () => {
 
 const runAccessibilityChecks = async (onClickSelector) => {
   const a11yRowTemplate = document.querySelector('#w-a11y-result-row-template');
-  const a11ySelectorTemplate = document.querySelector(
-    '#w-a11y-result-selector-template',
-  );
   const checksPanel = document.querySelector('[data-checks-panel]');
   const config = getAxeConfiguration(document.body);
   const toggleCounter = document.querySelector(
@@ -41,13 +38,7 @@ const runAccessibilityChecks = async (onClickSelector) => {
     '[data-side-panel="checks"] [data-a11y-result-count]',
   );
 
-  if (
-    !a11yRowTemplate ||
-    !a11ySelectorTemplate ||
-    !config ||
-    !toggleCounter ||
-    !panelCounter
-  ) {
+  if (!a11yRowTemplate || !config || !toggleCounter || !panelCounter) {
     return;
   }
 
@@ -75,7 +66,6 @@ const runAccessibilityChecks = async (onClickSelector) => {
     results,
     config,
     a11yRowTemplate,
-    a11ySelectorTemplate,
     onClickSelector,
   );
 };
