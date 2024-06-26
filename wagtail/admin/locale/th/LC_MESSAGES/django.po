@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,6 +67,9 @@ msgstr "จากวันที่"
 msgid "Date to"
 msgstr "ถึงวันที่"
 
+msgid "Collection"
+msgstr "ชุด"
+
 msgid "Preferred language"
 msgstr "ภาษาที่ต้องการใช้"
 
@@ -110,9 +113,6 @@ msgstr "ค้นหา"
 
 msgid "All collections"
 msgstr "ทุกชุด"
-
-msgid "Collection"
-msgstr "ชุด"
 
 msgid "Parent"
 msgstr "หน้าหลัก,หน้าแรก"
@@ -214,6 +214,9 @@ msgstr "Slug '%(page_slug)s' ถูกใช้ไปแล้วภายใต
 
 msgid "Select a new parent for this page."
 msgstr "เลือกหน้าหลักใหม่สำหรับหน้านี้"
+
+msgid "Parent page"
+msgstr "หน้าแรก,หน้าหลัก"
 
 msgid "Search…"
 msgstr "ค้นหา..."
@@ -385,13 +388,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "ข้อความนี้ไม่สามารถลบออกได้เนื่องจากยังมีเนื้อหาเก่าอยู่"
 
-msgid "Name"
-msgstr "ชื่อ"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Yes, delete"
@@ -677,12 +677,6 @@ msgstr "ก๊อปปี้หน้านี้ , คัดลอกหน้
 msgid "This page has unsaved changes."
 msgstr "หน้านี้มีการเปลี่ยนแปลงที่ยังไม่ได้เซฟเอาไว้"
 
-msgid "Live version"
-msgstr "เวอร์ชันที่กำลังเผยพร่"
-
-msgid "Current draft"
-msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
-
 msgid "Configure a site now."
 msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
 
@@ -721,9 +715,6 @@ msgstr "หน้านี้ถูกป้องกันจากสาธา
 msgid "Add child page"
 msgstr "หน้าย่อย"
 
-msgid "Cancel scheduled publish"
-msgstr "ยกเลิกกำหนดการเผยแพร่"
-
 msgid "Page types"
 msgstr "รูปแบบหน้า"
 
@@ -744,8 +735,8 @@ msgid "Move down"
 msgstr "เลื่อนลง"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
 
 msgid "Set publishing schedule"
@@ -769,6 +760,9 @@ msgstr "หลายหน้า"
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
 
+msgid "Name"
+msgstr "ชื่อ"
+
 msgid "Edit this item"
 msgstr "แก้ไขชิ้นนี้"
 
@@ -781,9 +775,6 @@ msgstr "ดาวโหลด ช่องที่ให้เขียนต�
 
 msgid "Filter"
 msgstr "คัดกรอง"
-
-msgid "Root"
-msgstr "ต้นฉบับ"
 
 msgid "Visit the live page"
 msgstr "ไปยังหน้าที่เผยแพร่"
@@ -863,6 +854,18 @@ msgstr "%(time_period)s ที่ผ่านมา"
 msgid "Log out"
 msgstr "ออกจากระบบ"
 
+msgid "Undo"
+msgstr "ถอยหลัง"
+
+msgid "Redo"
+msgstr "ทำใหม่"
+
+msgid "Bold"
+msgstr "ตัวอักษรหนา"
+
+msgid "Italic"
+msgstr "ตัวอักษรเอียง"
+
 msgid "Password"
 msgstr "รหัสผ่าน"
 
@@ -897,6 +900,15 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 
 msgid "Home"
 msgstr "หน้าหลักของเว็บไซด์"
+
+msgid "Live version"
+msgstr "เวอร์ชันที่กำลังเผยพร่"
+
+msgid "Current draft"
+msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
+
+msgid "Cancel scheduled publish"
+msgstr "ยกเลิกกำหนดการเผยแพร่"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
@@ -1051,12 +1063,6 @@ msgstr "รายการสัญลักษณ์"
 
 msgid "Numbered list"
 msgstr "รายการตัวเลข"
-
-msgid "Bold"
-msgstr "ตัวอักษรหนา"
-
-msgid "Italic"
-msgstr "ตัวอักษรเอียง"
 
 msgid "Link"
 msgstr "ลิงค์"

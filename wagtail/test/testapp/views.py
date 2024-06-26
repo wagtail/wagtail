@@ -51,7 +51,7 @@ def message_test(request):
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50
-    ordering = ("submit_time",)
+    default_ordering = ("submit_time",)
     ordering_csv = ("-submit_time",)
 
     def get_csv_filename(self):
@@ -229,7 +229,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("release_date"),
+        FieldPanel("release_date", permission="tests.can_set_release_date"),
     ]
 
 
@@ -278,6 +278,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             index_view_class=FeatureCompleteToyIndexView,
             list_display=["name", "strid", "release_date"],
             ordering=["strid"],
+            copy_view_enabled=False,
         ),
     )
 

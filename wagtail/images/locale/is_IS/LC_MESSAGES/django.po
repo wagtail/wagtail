@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2023
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2024
 # saevarom <saevar@saevar.is>, 2015,2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2021-2023\n"
+"2015-2018,2021-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -294,6 +294,20 @@ msgstr "Veldu snið"
 msgid "Insert image"
 msgstr "Setja inn mynd"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> mynd <span class=\"w-sr-only\">búin til í "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> myndir <span class=\"w-sr-only\">búnar til í "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
 
@@ -362,15 +376,6 @@ msgstr "Notkun"
 msgid "Sort by"
 msgstr "Raða eftir"
 
-msgid "Entries per page"
-msgstr "Atriði á síðu"
-
-msgid "Popular Tags:"
-msgstr "Vinsæl merki:"
-
-msgid "Clear"
-msgstr "Hreinsa"
-
 msgid "Select all images in listing"
 msgstr "Velja allar myndir"
 
@@ -380,25 +385,37 @@ msgstr "Því miður passa engar myndir við \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a "
-"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a "
-"href=\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
 
 msgid "Preview"
 msgstr "Forskoðun"
 
 msgid "URL"
 msgstr "Slóð"
+
+msgid "Image URL"
+msgstr "vefslóð myndar"
+
+msgid "Copy URL"
+msgstr "Afrita slóð"
+
+msgid "Copied to clipboard"
+msgstr "Afritað á klemmuspjald"
+
+msgid "Copying to clipboard failed"
+msgstr "Ekki tókst að afrita á klemmuspjald"
 
 msgid "Add multiple images"
 msgstr "Bæta við mörgum myndum"

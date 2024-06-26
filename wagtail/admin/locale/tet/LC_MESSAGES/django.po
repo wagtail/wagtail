@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -59,6 +59,9 @@ msgstr "Data husi"
 
 msgid "Date to"
 msgstr "Data to'o"
+
+msgid "Collection"
+msgstr "Kolleksaun"
 
 msgid "Preferred language"
 msgstr "Prefere lian"
@@ -103,9 +106,6 @@ msgstr "Buka"
 
 msgid "All collections"
 msgstr "Koleksaun hotu-hotu"
-
-msgid "Collection"
-msgstr "Kolleksaun"
 
 msgid "Parent"
 msgstr "Inan-aman"
@@ -182,6 +182,9 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina oan sira"
+
+msgid "Parent page"
+msgstr "inan-aman"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -348,13 +351,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Koleksaun nee labele hamoos tanba laos mamuk. Iha laran:"
 
-msgid "Name"
-msgstr "Naran"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
 "ida</a>?"
@@ -374,6 +374,9 @@ msgstr "Sin, subar"
 
 msgid "No, don't unpublish"
 msgstr "Lae, la subar"
+
+msgid "Actions"
+msgstr "Asaun sira"
 
 msgid "Update"
 msgstr "Troka"
@@ -403,9 +406,6 @@ msgstr ""
 
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
-
-msgid "Actions"
-msgstr "Asaun sira"
 
 msgid "Draft"
 msgstr "Esbosu"
@@ -564,12 +564,6 @@ msgstr "Kópia pájina ne'e   "
 msgid "This page has unsaved changes."
 msgstr "Pajina ne'e iha sasan troka la salva ona."
 
-msgid "Live version"
-msgstr "revisaun publiku"
-
-msgid "Current draft"
-msgstr "Esbosu agora dadaun"
-
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
 
@@ -614,9 +608,6 @@ msgstr "Pajina nee la publiku"
 msgid "Add child page"
 msgstr "Aumenta pajina iha okos"
 
-msgid "Cancel scheduled publish"
-msgstr "Kansela orariu publiku"
-
 msgid "Page types"
 msgstr "Tipu pajina sira"
 
@@ -648,6 +639,9 @@ msgstr "Pajina sira"
 msgid "Locked"
 msgstr "Xavi tiha ona"
 
+msgid "Name"
+msgstr "Naran"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pajina %(page_num)s husi %(total_pages)s"
@@ -660,9 +654,6 @@ msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filtru"
-
-msgid "Root"
-msgstr "Abut"
 
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
@@ -728,6 +719,12 @@ msgstr "%(time_period)s liubá"
 msgid "Log out"
 msgstr "Sai"
 
+msgid "Undo"
+msgstr " La halo "
+
+msgid "Redo"
+msgstr "Halo fila fali"
+
 msgid "Password"
 msgstr "Seña"
 
@@ -766,6 +763,15 @@ msgstr "Ita boot serteza hamoos koleksaun nee?"
 
 msgid "Home"
 msgstr "Uma"
+
+msgid "Live version"
+msgstr "revisaun publiku"
+
+msgid "Current draft"
+msgstr "Esbosu agora dadaun"
+
+msgid "Cancel scheduled publish"
+msgstr "Kansela orariu publiku"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."

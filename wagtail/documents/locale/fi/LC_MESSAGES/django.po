@@ -7,7 +7,7 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2017
 # Eetu Häivälä, 2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -216,24 +216,38 @@ msgstr "Valitse listauksen kaikki dokumentit"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</"
-"em>\""
+"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a "
-"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a href="
+"\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a "
-"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a "
-"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+"Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a href="
+"\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokumentti <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokumenttia <span class=\"w-sr-only\">luotu "
+"sivustolla %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Lisää useampi dokumentti"

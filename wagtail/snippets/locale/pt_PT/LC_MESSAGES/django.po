@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Felipe Lobato, 2023\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -119,30 +119,6 @@ msgstr "Gravar rascunho"
 msgid "Actions"
 msgstr "Ações"
 
-msgid "Live version"
-msgstr "Versão publicada"
-
-msgid "Current draft"
-msgstr "Rascunho atual"
-
-msgid "Preview"
-msgstr "Visualizar"
-
-msgid "Edit"
-msgstr "Alterar"
-
-msgid "Review this version"
-msgstr "Rever esta versão"
-
-msgid "Compare with previous version"
-msgstr "Comparar com versão anterior"
-
-msgid "Compare with current version"
-msgstr "Comparar com versão atual"
-
-msgid "Cancel scheduled publish"
-msgstr "Desmarcar publicação"
-
 msgid "Choose"
 msgstr "Escolher"
 
@@ -151,12 +127,6 @@ msgstr "Trechos"
 
 msgid "Name"
 msgstr "Nome"
-
-msgid "Action"
-msgstr "Ação"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Home"
 msgstr "Início"

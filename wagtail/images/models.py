@@ -1,3 +1,4 @@
+import concurrent.futures
 import hashlib
 import itertools
 import logging
@@ -5,7 +6,6 @@ import os.path
 import re
 import time
 from collections import OrderedDict, defaultdict
-from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
@@ -17,9 +17,9 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import DEFAULT_CACHE_ALIAS, InvalidCacheBackendError, caches
 from django.core.cache.backends.base import BaseCache
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
+from django.core.files.storage import InvalidStorageError, default_storage, storages
 from django.db import models
 from django.db.models import Q
 from django.forms.utils import flatatt
@@ -59,6 +59,7 @@ IMAGE_FORMAT_EXTENSIONS = {
     "gif": ".gif",
     "webp": ".webp",
     "svg": ".svg",
+    "ico": ".ico",
 }
 
 
@@ -128,8 +129,19 @@ def get_rendition_storage():
     """
     storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
     if isinstance(storage, str):
-        module = import_string(storage)
-        storage = module()
+        try:
+            # First see if the string is a storage alias
+            storage = storages[storage]
+        except InvalidStorageError:
+            # Otherwise treat the string as a dotted path
+            try:
+                module = import_string(storage)
+                storage = module()
+            except ImportError:
+                raise ImproperlyConfigured(
+                    "WAGTAILIMAGES_RENDITION_STORAGE must be either a valid storage alias or dotted module path."
+                )
+
     return storage
 
 
@@ -653,28 +665,22 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
+        # Read file contents into memory
         with self.open_file() as file:
             original_image_bytes = file.read()
 
         to_create = []
 
-        def _generate_single_rendition(filter):
-            # Using ContentFile here ensures we generate all renditions. Simply
-            # passing self.file required several page reloads to generate all
-            image_file = self.generate_rendition_file(
-                filter, source=ContentFile(original_image_bytes, name=self.file.name)
-            )
-            to_create.append(
-                Rendition(
-                    image=self,
-                    filter_spec=filter.spec,
-                    focal_point_key=filter.get_cache_key(self),
-                    file=image_file,
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            for future in concurrent.futures.as_completed(
+                executor.submit(
+                    self.generate_rendition_instance,
+                    filter,
+                    BytesIO(original_image_bytes),
                 )
-            )
-
-        with ThreadPoolExecutor() as executor:
-            executor.map(_generate_single_rendition, filters)
+                for filter in filters
+            ):
+                to_create.append(future.result())
 
         # Rendition generation can take a while. So, if other processes have created
         # identical renditions in the meantime, we should find them to avoid clashes.
@@ -695,7 +701,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filter_map[existing.filter_spec]
             return_value[filter] = existing
 
-            for new in to_create:
+            for new in list(to_create):
                 if (
                     new.filter_spec == existing.filter_spec
                     and new.focal_point_key == existing.focal_point_key
@@ -714,6 +720,23 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             file.delete(save=False)
 
         return return_value
+
+    def generate_rendition_instance(
+        self, filter: "Filter", source: BytesIO
+    ) -> "AbstractRendition":
+        """
+        Use the supplied ``source`` image to create and return an
+        **unsaved** ``Rendition`` instance, with a ``file`` value reflecting
+        the supplied ``filter`` value and focal point values from this object.
+        """
+        return self.get_rendition_model()(
+            image=self,
+            filter_spec=filter.spec,
+            focal_point_key=filter.get_cache_key(self),
+            file=self.generate_rendition_file(
+                filter, source=File(source, name=self.file.name)
+            ),
+        )
 
     def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """

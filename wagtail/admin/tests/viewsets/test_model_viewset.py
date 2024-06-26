@@ -6,7 +6,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 from django.urls import NoReverseMatch, reverse
 from django.utils.formats import date_format, localize
 from django.utils.html import escape
@@ -22,7 +22,6 @@ from wagtail.test.testapp.models import (
     SearchTestModel,
     VariousOnDeleteModel,
 )
-from wagtail.test.testapp.views import FCToyAlt1ViewSet
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -58,6 +57,38 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             reverse("blockcounts_streammodel:index"),
             "/admin/blockcounts/streammodel/",
         )
+
+    def test_menu_item_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type=ContentType.objects.get_for_model(JSONStreamModel),
+            codename=get_permission_codename("view", JSONStreamModel._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        # The group menu item is still shown
+        self.assertContains(
+            response,
+            '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
+        )
+
+        # The menu item for the model is shown
+        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, reverse("streammodel:index"))
+        self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
+
+        # The other items in the group are not shown as the user doesn't have permission
+        self.assertNotContains(response, "JSON MinMaxCount StreamModel")
+        self.assertNotContains(response, reverse("minmaxcount_streammodel:index"))
+        self.assertNotContains(response, "JSON BlockCounts StreamModel")
+        self.assertNotContains(response, reverse("blockcounts_streammodel:index"))
 
 
 class TestTemplateConfiguration(WagtailTestUtils, TestCase):
@@ -1011,25 +1042,106 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         for rendered_row, expected_row in zip(rendered_rows, expected):
             self.assertSequenceEqual(rendered_row, expected_row)
 
-    def test_filters(self):
+    def test_action_filter(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        # Should only show the created and edited options for the filter
+        soup = self.get_soup(response.content)
+        options = soup.select('input[name="action"][type="checkbox"]')
+        self.assertEqual(len(options), 2)
+        self.assertEqual(
+            {option.attrs.get("value") for option in options},
+            {"wagtail.create", "wagtail.edit"},
+        )
+        # Should not show the heading when not searching
+        heading = soup.select_one('h2[role="alert"]')
+        self.assertIsNone(heading)
+
+        # Should only show the edited log
         response = self.client.get(self.url, {"action": "wagtail.edit"})
+        self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         rows = soup.select("#listing-results tbody tr")
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Edited")
 
+        # Should only show the created log
         response = self.client.get(self.url, {"action": "wagtail.create"})
+        self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
         rows = soup.select("#listing-results tbody tr")
         heading = soup.select_one('h2[role="alert"]')
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(heading.string.strip(), "There is 1 match")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].select_one("td").text.strip(), "Created")
 
+        # Should display the heading when there are results
+        heading = soup.select_one('h2[role="alert"]')
+        self.assertEqual(heading.string.strip(), "There is 1 match")
+
+        response = self.client.get(
+            self.url,
+            {"action": ["wagtail.create", "wagtail.edit"]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 2)
+
+    def test_user_filter(self):
+        # A user who absolutely has no permissions to the model
+        self.create_user("no_power")
+
+        # A user who has permissions to the model,
+        # but only has logs for a different object
+        has_power = self.create_superuser("has_power")
+        other_obj = FeatureCompleteToy.objects.create(name="Woody")
+        log(
+            instance=other_obj,
+            action="wagtail.create",
+            content_changed=True,
+            user=has_power,
+        )
+
+        # A user who does not have permissions to the model,
+        # but has logs for the object (e.g. maybe they used to have permissions)
+        previously_has_power = self.create_user("previously_has_power")
+        log(
+            instance=self.object,
+            action="wagtail.edit",
+            content_changed=True,
+            user=previously_has_power,
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Should only show the current user and the previously_has_power user
+        options = soup.select('input[name="user"][type="checkbox"]')
+        self.assertEqual(len(options), 2)
+        self.assertEqual(
+            {option.attrs.get("value") for option in options},
+            {str(self.user.pk), str(previously_has_power.pk)},
+        )
+
+        response = self.client.get(self.url, {"user": str(self.user.pk)})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 2)
+
+        response = self.client.get(self.url, {"user": str(previously_has_power.pk)})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 1)
+
+        # Should allow filtering by multiple users
+        response = self.client.get(
+            self.url,
+            {"user": [str(self.user.pk), str(previously_has_power.pk)]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 3)
+
     def test_filtered_no_results(self):
-        response = self.client.get(self.url, {"timestamp_before": "2020-01-01"})
+        response = self.client.get(self.url, {"timestamp_to": "2020-01-01"})
         soup = self.get_soup(response.content)
         results = soup.select_one("#listing-results")
         table = soup.select_one("#listing-results table")
@@ -1051,6 +1163,19 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         self.assertEqual(results.text.strip(), "There are no log entries to display.")
         self.assertIsNone(table)
 
+        # Should hide the action and user filters as there are no choices for
+        # these filters (since the choices are based on the current queryset)
+        action_inputs = soup.select('input[name="action"]')
+        self.assertEqual(len(action_inputs), 0)
+        user_inputs = soup.select('input[name="user"]')
+        self.assertEqual(len(user_inputs), 0)
+
+        # Should still render the timestamp filter as it is always available
+        timestamp_before_input = soup.select_one('input[name="timestamp_to"]')
+        self.assertIsNotNone(timestamp_before_input)
+        timestamp_after_input = soup.select_one('input[name="timestamp_from"]')
+        self.assertIsNotNone(timestamp_after_input)
+
     def test_edit_view_links_to_history_view(self):
         edit_url = reverse("feature_complete_toy:edit", args=(quote(self.object.pk),))
         response = self.client.get(edit_url)
@@ -1058,6 +1183,19 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         header = soup.select_one(".w-slim-header")
         history_link = header.find("a", attrs={"href": self.url})
         self.assertIsNotNone(history_link)
+
+    def test_deleted_user(self):
+        to_be_deleted = self.create_user("to_be_deleted")
+        user_id = to_be_deleted.pk
+        log(
+            instance=self.object,
+            action="wagtail.edit",
+            content_changed=True,
+            user=to_be_deleted,
+        )
+        to_be_deleted.delete()
+        response = self.client.get(self.url)
+        self.assertContains(response, f"user {user_id} (deleted)")
 
 
 class TestUsageView(WagtailTestUtils, TestCase):
@@ -1269,7 +1407,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
-    def test_only_add_permission(self):
+    def assert_minimal_permission(self, permission):
         self.user.is_superuser = False
         self.user.user_permissions.add(
             Permission.objects.get(
@@ -1277,7 +1415,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             ),
             Permission.objects.get(
                 content_type__app_label=self.object._meta.app_label,
-                codename=get_permission_codename("add", self.object._meta),
+                codename=get_permission_codename(permission, self.object._meta),
             ),
         )
         self.user.save()
@@ -1299,6 +1437,12 @@ class TestInspectView(WagtailTestUtils, TestCase):
         self.assertEqual(values, expected_values)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.edit_url})), 0)
         self.assertEqual(len(soup.find_all("a", attrs={"href": self.delete_url})), 0)
+
+    def test_only_add_permission(self):
+        self.assert_minimal_permission("add")
+
+    def test_only_view_permission(self):
+        self.assert_minimal_permission("view")
 
 
 class TestListingButtons(WagtailTestUtils, TestCase):
@@ -1358,6 +1502,76 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
 
+    def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        response = self.client.get(reverse("fctoy-alt2:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+
+        # fctoy-alt2 doesn't have inspect view enabled, so the title cell should
+        # not link anywhere
+        self.assertIsNone(title_wrapper.select_one("a"))
+        self.assertEqual(title_wrapper.text.strip(), str(self.object))
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("fctoy-alt2:edit", args=[quote(self.object.pk)]),
+        )
+
+    def test_title_cell_links_to_inspect_view_when_no_edit_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        view_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("view", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, view_permission)
+
+        response = self.client.get(reverse("feature_complete_toy:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        title_wrapper = soup.select_one("#listing-results td.title .title-wrapper")
+        self.assertIsNotNone(title_wrapper)
+        link = title_wrapper.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.text.strip(), self.object.name)
+        self.assertEqual(
+            link.get("href"),
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+        )
+
+        # Should contain the inspect link twice:
+        # once in the title cell and once in the dropdown
+        self.assertContains(
+            response,
+            reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
+            count=2,
+        )
+
+        # There should be no edit link at all on the page
+        self.assertNotContains(
+            response,
+            reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
+        )
+
     def test_copy_disabled(self):
         response = self.client.get(reverse("fctoy_alt1:index"))
 
@@ -1402,6 +1616,27 @@ class TestListingButtons(WagtailTestUtils, TestCase):
             self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
 
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label=self.object._meta.app_label,
+            codename=get_permission_codename("add", self.object._meta),
+        )
+        self.user.user_permissions.add(admin_permission, add_permission)
+
+        # The alt3 viewset doesn't have "copy" and "inspect" views enabled,
+        # so when only "add" permission is granted, the dropdown should have
+        # no items and thus not be rendered at all
+        response = self.client.get(reverse("fctoy-alt3:index"))
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
+
 
 class TestCopyView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -1425,14 +1660,11 @@ class TestCopyView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_form_is_prefilled(self):
-        request = RequestFactory().get(self.url)
-        request.user = self.user
-        view = FCToyAlt1ViewSet().copy_view_class()
-        view.setup(request)
-        view.model = self.object.__class__
-        view.kwargs = {"pk": self.object.pk}
-
-        self.assertEqual(view.get_form_kwargs()["instance"], self.object)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        name_input = soup.select_one('input[name="name"]')
+        self.assertEqual(name_input.attrs.get("value"), "Test Toy")
 
 
 class TestEditHandler(WagtailTestUtils, TestCase):
@@ -1467,6 +1699,35 @@ class TestEditHandler(WagtailTestUtils, TestCase):
             rendered_heading = panel.select_one("[data-panel-heading-text]")
             self.assertIsNotNone(rendered_heading)
             self.assertEqual(rendered_heading.text.strip(), expected_heading)
+
+    def test_field_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label=self.object._meta.app_label,
+                codename=get_permission_codename("change", self.object._meta),
+            ),
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["form"].fields), ["name"])
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="can_set_release_date",
+            )
+        )
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["form"].fields), ["name", "release_date"]
+        )
 
 
 class TestDefaultMessages(WagtailTestUtils, TestCase):

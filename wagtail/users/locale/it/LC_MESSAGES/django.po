@@ -6,15 +6,15 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021-2023
+# Marco Badan <marco.badan@gmail.com>, 2021-2024
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,17 @@ msgstr "Scuro"
 msgid "admin theme"
 msgstr "tema admin"
 
+msgid "Default"
+msgstr "Default"
+
+msgid "Snug"
+msgstr "Compatta"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "densità"
+
 msgid "user profile"
 msgstr "profilo utente"
 
@@ -232,9 +243,6 @@ msgstr "Sei sicuro di voler eliminare questo gruppo?"
 msgid "Add group"
 msgstr "Aggiungi gruppo"
 
-msgid "View users in this group"
-msgstr "Visualizza utenti in questo gruppo"
-
 msgid "Save"
 msgstr "Salva"
 
@@ -265,6 +273,30 @@ msgstr "Sblocca"
 msgid "Custom permissions"
 msgstr "Permessi personalizzati"
 
+msgid "Toggle all"
+msgstr "Attiva/disattiva tutto"
+
+msgid "Toggle all add permissions"
+msgstr "Attiva/disattiva tutti i permessi di aggiunta"
+
+msgid "Toggle all change permissions"
+msgstr "Attiva/disattiva tutti i permessi di modifica"
+
+msgid "Toggle all delete permissions"
+msgstr "Attiva/disattiva tutti i permessi di eliminazione"
+
+msgid "Toggle all publish permissions"
+msgstr "Attiva/disattiva tutti i permessi di pubblicazione"
+
+msgid "Toggle all lock permissions"
+msgstr "Attiva/disattiva tutti i permessi di blocco"
+
+msgid "Toggle all unlock permissions"
+msgstr "Attiva/disattiva tutti i permessi di sblocco"
+
+msgid "Toggle all custom permissions"
+msgstr "Attiva/disattiva tutti i permessi personalizzati"
+
 msgid "Other permissions"
 msgstr "Altri permessi"
 
@@ -283,11 +315,11 @@ msgstr "Spiacente, nessun gruppo corrispondente a \"%(query)s\" "
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nessun gruppo configurato. Perché non <a "
-"href=\"%(wagtailusers_create_group_url)s\">ne aggiungi qualcuno</a>?"
+"Nessun gruppo configurato. Perché non <a href="
+"\"%(wagtailusers_create_group_url)s\">ne aggiungi qualcuno</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Sei sicuro di voler eliminare questo utente?"
@@ -307,47 +339,16 @@ msgstr "Elimina utente"
 msgid "Select all users in listing"
 msgstr "Seleziona tutti gli utenti nella lista"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Spiacente, nessun utente corrispondente a \"<em>%(query_string)s</em>\""
+msgid "Sorry, no users match your query"
+msgstr "Nessun utente corrisponde alla tua ricerca"
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Il gruppo  %(group_name)s non ha utenti configurati. Perché non <a "
-"href=\"%(wagtailusers_add_url)s\">ne aggiungi qualcuno</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Non ci sono utenti configurati. Perché non <a "
-"href=\"%(wagtailusers_add_url)s\">ne aggiungi qualcuno</a>?"
-
-msgid "Username"
-msgstr "Username"
-
-msgid "Access level"
-msgstr "Livello di accesso"
-
-msgid "Status"
-msgstr "Stato"
-
-msgid "Last Login"
-msgstr "Ultima Login"
-
-msgid "Admin"
-msgstr "Amministratore"
-
-msgid "Active"
-msgstr "Attivo"
-
-msgid "Inactive"
-msgstr "Inattivo"
+"Non ci sono utenti configurati. Perché non <a href=\"%(wagtailusers_add_url)s"
+"\">ne aggiungi qualcuno</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -372,6 +373,12 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d utente è stato eliminato"
 msgstr[1] "%(num_parent_objects)d utenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d utenti sono stati eliminati"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Inactive"
+msgstr "Inattivo"
 
 msgid "Mark as active"
 msgstr "Segna come attivo"
@@ -416,15 +423,40 @@ msgstr "Gruppo '%(object)s' aggiornato."
 msgid "The group could not be saved due to errors."
 msgstr "Il gruppo non può essere salvato a causa di errori."
 
+msgid "View users in this group"
+msgstr "Visualizza utenti in questo gruppo"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppo '%(object)s' eliminato."
+
+msgid "Last login"
+msgstr "Ultimo accesso"
+
+msgid "Group"
+msgstr "Gruppo"
 
 msgid "Add a user"
 msgstr "Aggiungi un utente"
 
 msgid "Users"
 msgstr "Utenti"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Admin"
+msgstr "Amministratore"
+
+msgid "Access level"
+msgstr "Livello di accesso"
+
+msgid "Status"
+msgstr "Stato"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Più opzioni per '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -440,14 +472,3 @@ msgstr "L'utente non può essere salvato a causa di errori."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Utente '%(object)s' eliminato."
-
-msgid "Edit"
-msgstr "Modifica"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Modifica utente '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Elimina utente '%(name)s'"

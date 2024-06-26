@@ -21,7 +21,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2023-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,17 @@ msgstr "Dunkel"
 msgid "admin theme"
 msgstr "Admin-Theme"
 
+msgid "Default"
+msgstr "Standard"
+
+msgid "Snug"
+msgstr "Eng"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "Dichte"
+
 msgid "user profile"
 msgstr "Benutzerprofil"
 
@@ -254,9 +265,6 @@ msgstr "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?"
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
-msgid "View users in this group"
-msgstr "Benutzer in dieser Gruppe anzeigen"
-
 msgid "Save"
 msgstr "Speichern"
 
@@ -287,6 +295,30 @@ msgstr "Entsperren"
 msgid "Custom permissions"
 msgstr "Benutzerdefinierte Berechtigungen"
 
+msgid "Toggle all"
+msgstr "Alles umschalten"
+
+msgid "Toggle all add permissions"
+msgstr "Alle Hinzufügen-Berechtigungen umschalten"
+
+msgid "Toggle all change permissions"
+msgstr "Alle Ändern-Berechtigungen umschalten"
+
+msgid "Toggle all delete permissions"
+msgstr "Alle Löschen-Berechtigungen umschalten"
+
+msgid "Toggle all publish permissions"
+msgstr "Alle Veröffentlichen-Berechtigungen umschalten"
+
+msgid "Toggle all lock permissions"
+msgstr "Alle Sperren-Berechtigungen umschalten"
+
+msgid "Toggle all unlock permissions"
+msgstr "Alle Entsperren-Berechtigungen umschalten"
+
+msgid "Toggle all custom permissions"
+msgstr "Alle benutzerdefinierten Berechtigungen umschalten"
+
 msgid "Other permissions"
 msgstr "Andere Berechtigung"
 
@@ -305,11 +337,11 @@ msgstr "Es gibt leider keine Gruppen zum Suchbegriff \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Es sind keine Gruppen konfiguriert. <a "
-"href=\"%(wagtailusers_create_group_url)s\">Legen Sie eine an.</a>"
+"Es sind keine Gruppen konfiguriert. <a href="
+"\"%(wagtailusers_create_group_url)s\">Legen Sie eine an.</a>"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?"
@@ -329,47 +361,16 @@ msgstr "Benutzer löschen"
 msgid "Select all users in listing"
 msgstr "Alle Benutzer in der Aufzählung auswählen"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Es gibt leider keine Benutzer zum Suchbegriff „<em>%(query_string)s</em>“."
+msgid "Sorry, no users match your query"
+msgstr "Es gibt leider keine Benutzer zu Ihrer Anfrage"
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Die Gruppe %(group_name)s hat keine eingerichteten Benutzer. Warum nicht <a "
-"href=\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Es sind keine Benutzer eingerichtet. Warum nicht <a "
-"href=\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
-
-msgid "Username"
-msgstr "Benutzername"
-
-msgid "Access level"
-msgstr "Zugriffsebene"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Letzte Anmeldung"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Aktiv"
-
-msgid "Inactive"
-msgstr "Inaktiv"
+"Es sind keine Benutzer eingerichtet. Warum nicht <a href="
+"\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -392,6 +393,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d Benutzer wurde gelöscht"
 msgstr[1] "%(num_parent_objects)d Benutzer wurden gelöscht"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
 
 msgid "Mark as active"
 msgstr "Als aktiv markieren"
@@ -431,15 +438,40 @@ msgstr "Gruppe ‚%(object)s‘ aktualisiert."
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
+msgid "View users in this group"
+msgstr "Benutzer in dieser Gruppe anzeigen"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Gruppe ‚%(object)s‘ gelöscht."
+
+msgid "Last login"
+msgstr "Letzter Login"
+
+msgid "Group"
+msgstr "Gruppe"
 
 msgid "Add a user"
 msgstr "Einen Benutzer hinzufügen"
 
 msgid "Users"
 msgstr "Benutzer"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Zugriffsebene"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Weitere Optionen für '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -455,14 +487,3 @@ msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Benutzer ‚%(object)s‘ gelöscht."
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Benutzer „%(name)s“ bearbeiten"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Benutzer „%(name)s“ löschen"

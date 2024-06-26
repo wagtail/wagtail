@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -232,6 +232,9 @@ msgstr "grup koleksiyon izni"
 msgid "group collection permissions"
 msgstr "grup koleksiyon izinleri"
 
+msgid "uploaded by user"
+msgstr "yükleyen kullanıcı"
+
 msgid "hostname"
 msgstr "ana bilgisayar adı (hostname)"
 
@@ -286,17 +289,8 @@ msgstr ""
 msgid "Public"
 msgstr "Genel"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Gizli, giriş yapan kullanıcılar erişebilir"
-
-msgid "Private, accessible with the following password"
-msgstr "Gizli, şu şifreyle erişilebilir"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Gizli, belirli gruptaki kullanıcılar erişebilir"
-
-msgid "password"
-msgstr "şifre"
 
 msgid "view restriction"
 msgstr "kısıtı gör"

@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -585,6 +585,12 @@ msgstr "permís de col·lecció de grups"
 msgid "group collection permissions"
 msgstr "permisos de col·leccions de grups"
 
+msgid "for content type"
+msgstr "per tipus de contingut"
+
+msgid "uploaded by user"
+msgstr "pujada per l'usuari"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "el/la %(model_name)s serà també esborrat/da"
@@ -663,17 +669,25 @@ msgstr ""
 msgid "Public"
 msgstr "Pública"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privada, accessible a usuaris identificats"
+msgid "Private, accessible with a shared password"
+msgstr "Privat, accessible amb una contrasenya compartida"
 
-msgid "Private, accessible with the following password"
-msgstr "Privada, accessible amb la contrasenya següent"
+msgid "Private, accessible to any logged-in users"
+msgstr "Privat, accessible per qualsevol usuari amb sessió iniciada"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Privada, accessible a usuaris de grups específics"
 
-msgid "password"
-msgstr "contrasenya"
+msgid "shared password"
+msgstr "contrasenya compartida"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Les contrasenyes compartides no s'han d'utilitzar per protegir contingut "
+"sensible. Qualsevol persona que tingui aquesta contrasenya podrà visualitzar "
+"el contingut."
 
 msgid "view restriction"
 msgstr "restricció de visualització"
@@ -685,7 +699,8 @@ msgid "Log in"
 msgstr "Iniciar sessió"
 
 msgid "Your username and password didn't match. Please try again."
-msgstr "El vostre nom d'usuari i contrasenya no concorden. Torneu-ho a provar."
+msgstr ""
+"El vostre nom d'usuari i contrasenya no coincideixen. Torneu-ho a provar."
 
 msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "

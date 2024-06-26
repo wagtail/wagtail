@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -78,6 +78,9 @@ msgstr "עד לתאריך"
 msgid "All"
 msgstr "הכל"
 
+msgid "Collection"
+msgstr "אוסף"
+
 msgid "Preferred language"
 msgstr "שפה מועדפת"
 
@@ -118,9 +121,6 @@ msgstr "ערך לחיפוש"
 
 msgid "Search"
 msgstr "חיפוש"
-
-msgid "Collection"
-msgstr "אוסף"
 
 msgid "Parent"
 msgstr "הורה"
@@ -288,9 +288,6 @@ msgstr "ציבורי"
 msgid "Private"
 msgstr "פרטי"
 
-msgid "Name"
-msgstr "שם"
-
 msgid "Yes, delete"
 msgstr "כן, מחק"
 
@@ -443,9 +440,6 @@ msgstr "העתק"
 msgid "Copy this page"
 msgstr "העתק עמוד זה"
 
-msgid "User"
-msgstr "משתמש"
-
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
 
@@ -505,6 +499,12 @@ msgstr "עמודים"
 
 msgid "Locked"
 msgstr "נעול"
+
+msgid "Name"
+msgstr "שם"
+
+msgid "User"
+msgstr "משתמש"
 
 msgid "Edit this item"
 msgstr "ערוך פריט זה"

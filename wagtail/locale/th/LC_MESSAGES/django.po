@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -243,6 +243,9 @@ msgstr "การสะสมกลุ่มที่จะอนุญาต"
 msgid "group collection permissions"
 msgstr "การสะสมกลุ่มที่จะอนุญาต"
 
+msgid "uploaded by user"
+msgstr "อัพโหลดโดยผู้ใช้"
+
 msgid "hostname"
 msgstr "ชื่อเจ้าของ"
 
@@ -294,17 +297,8 @@ msgstr ""
 msgid "Public"
 msgstr "สาธารณะ"
 
-msgid "Private, accessible to logged-in users"
-msgstr "ส่วนตัว,ผู้ใช้ที่ล็อคอินยังสามารถเข้าระบบได้"
-
-msgid "Private, accessible with the following password"
-msgstr "ส่วนตัว,คุณสามารถใช้ได้เมื่อผู้ใช้มีรหัสผ่าน"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "ส่วนตัว,สำหรับผู้ใช้ที่เป็นกลุ่มเฉพาะเจาะจง"
-
-msgid "password"
-msgstr "รหัสผ่าน"
 
 msgid "view restriction"
 msgstr "ดูข้อจำกัด"

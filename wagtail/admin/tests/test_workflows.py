@@ -115,6 +115,28 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
+    def create_workflows(self):
+        home_page = Page.objects.get(depth=2)
+        workflows = [
+            Workflow.objects.create(name=f"test_workflow_{i}", active=True)
+            for i in range(5)
+        ]
+        task = SimpleTask.objects.create(name="test_task")
+        workflow_tasks = [
+            WorkflowTask(workflow=workflow, task=task) for workflow in workflows
+        ]
+        WorkflowTask.objects.bulk_create(workflow_tasks)
+        workflow_pages = [
+            WorkflowPage(
+                workflow=workflow,
+                page=home_page.add_child(
+                    instance=SimplePage(title="Simple", content="Very simple")
+                ),
+            )
+            for workflow in workflows
+        ]
+        WorkflowPage.objects.bulk_create(workflow_pages)
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_workflows:index"), params)
 
@@ -122,7 +144,10 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Workflows"}],
+            response.content,
+        )
 
         # Initially there should be no workflows listed
         self.assertContains(response, "There are no enabled workflows.")
@@ -136,6 +161,15 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotContains(response, "There are no enabled workflows.")
         self.assertContains(response, "test_workflow")
 
+    def test_num_queries(self):
+        self.create_workflows()
+        self.get()
+        with self.assertNumQueries(23):
+            self.get()
+        self.create_workflows()
+        with self.assertNumQueries(33):
+            self.get()
+
     def test_deactivated(self):
         Workflow.objects.create(name="test_workflow", active=False)
 
@@ -147,11 +181,30 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertContains(
             response, '<span class="w-status">Disabled</span>', html=True
         )
+        # Should display the "Show disabled" option as a filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Show disabled: Yes",
+        )
+        show_disabled_yes = soup.select_one('input[name="show_disabled"][value="true"]')
+        self.assertIsNotNone(show_disabled_yes)
+        self.assertTrue(show_disabled_yes.has_attr("checked"))
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
         response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
+        # Should not display any active filters,
+        # and the "Show disabled" option should be set to "No" by default
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNone(active_filter)
+        show_disabled_no = soup.select_one('input[name="show_disabled"][value="false"]')
+        self.assertIsNotNone(show_disabled_no)
+        self.assertTrue(show_disabled_no.has_attr("checked"))
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -168,6 +221,75 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_ordering(self):
+        workflows = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Workflow.objects.create(name="workflow_1"),
+                Workflow.objects.create(name="workflow_3"),
+                Workflow.objects.create(name="workflow_2"),
+            ],
+            key=lambda workflow: workflow.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], workflows[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
+    def test_search(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
+    def test_search_results(self):
+        Workflow.objects.create(name="foo workflow")
+        Workflow.objects.create(name="bar workflow")
+        Workflow.objects.create(name="bar world workflow")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar workflow")
+        self.assertContains(response, "bar world workflow")
+        self.assertNotContains(response, "foo workflow")
+
+    def test_pagination(self):
+        Workflow.objects.bulk_create(
+            [Workflow(name=f"workflow_{i}") for i in range(1, 50)]
+        )
+
+        url = reverse("wagtailadmin_workflows:index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 20)
+        self.assertContains(response, url + "?p=1")
+        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        self.assertEqual(response.status_code, 404)
 
 
 class TestWorkflowPermissions(WagtailTestUtils, TestCase):
@@ -258,7 +380,13 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Workflows", "url": "/admin/workflows/list/"},
+                {"label": "New: Workflow", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         response = self.post(
@@ -431,7 +559,7 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
 class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.workflow = Workflow.objects.create(name="workflow_to_edit")
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
@@ -481,7 +609,13 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/list/", "label": "Workflows"},
+                {"url": "", "label": str(self.workflow)},
+            ],
+            response.content,
+        )
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
@@ -660,6 +794,52 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         link = WorkflowContentType.objects.get(content_type=self.snippet_content_type)
         self.assertEqual(link.workflow, other_workflow)
 
+    def test_render_enable_button_if_workflow_disabled(self):
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_workflow_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_workflow"),
+        )
+        self.workflow.active = False
+        self.workflow.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
+
     def test_pages_and_content_types_ignored_if_workflow_disabled(self):
         self.workflow.active = False
         self.workflow.save()
@@ -793,7 +973,10 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Tasks"}],
+            response.content,
+        )
 
         # Initially there should be no tasks listed
         self.assertContains(response, "There are no enabled tasks")
@@ -818,12 +1001,32 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertContains(
             response, '<span class="w-status">Disabled</span>', html=True
         )
+        # Should display the "Show disabled" option as a filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Show disabled: Yes",
+        )
+        show_disabled_yes = soup.select_one('input[name="show_disabled"][value="true"]')
+        self.assertIsNotNone(show_disabled_yes)
+        self.assertTrue(show_disabled_yes.has_attr("checked"))
 
         # The listing should not contain task if show_disabled query parameter is 'False'
         response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled tasks")
         self.assertNotContains(response, "test_task")
+
+        # Should not display any active filters,
+        # and the "Show disabled" option should be set to "No" by default
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_show_disabled"]')
+        self.assertIsNone(active_filter)
+        show_disabled_no = soup.select_one('input[name="show_disabled"][value="false"]')
+        self.assertIsNotNone(show_disabled_no)
+        self.assertTrue(show_disabled_no.has_attr("checked"))
 
     def test_permissions(self):
         self.login(user=self.editor)
@@ -840,6 +1043,185 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_ordering(self):
+        tasks = sorted(
+            [
+                # Mix up the creation order to ensure we're not ordering by PK
+                Task.objects.create(name="task_1"),
+                Task.objects.create(name="task_3"),
+                Task.objects.create(name="task_2"),
+            ],
+            key=lambda task: task.name,
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks)
+        self.assertEqual(response.context["object_list"].query.order_by, ("name",))
+
+        response = self.get(params={"ordering": "-name"})
+        self.assertEqual(response.status_code, 200)
+        self.assertSequenceEqual(response.context["object_list"], tasks[::-1])
+        self.assertEqual(response.context["object_list"].query.order_by, ("-name",))
+
+    def test_search(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.get(params={"q": "bAr"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
+
+    def test_search_results(self):
+        Task.objects.create(name="foo task")
+        Task.objects.create(name="bar task")
+        Task.objects.create(name="bar world task")
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:task_index_results"),
+            {"q": "AR"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertContains(response, "bar task")
+        self.assertContains(response, "bar world task")
+        self.assertNotContains(response, "foo task")
+
+    def test_task_type_filter(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+        group_approval_ct = ContentType.objects.get_for_model(GroupApprovalTask).pk
+
+        response = self.get(params={"content_type": [simple_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertNotContains(response, "complex task")
+
+        # Should display the active filter
+        soup = self.get_soup(response.content)
+        active_filter = soup.select_one('[data-w-active-filter-id="id_content_type"]')
+        self.assertIsNotNone(active_filter)
+        self.assertEqual(
+            active_filter.get_text(separator=" ", strip=True),
+            "Type: Simple task",
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertFalse(group_approval_ct_box.has_attr("checked"))
+
+        # Should allow multiple content types to be selected
+        response = self.get(params={"content_type": [simple_ct, group_approval_ct]})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should display the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select('[data-w-active-filter-id="id_content_type"]')
+        self.assertCountEqual(
+            [filter.get_text(separator=" ", strip=True) for filter in active_filters],
+            {"Type: Simple task", "Type: Group approval task"},
+        )
+        simple_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{simple_ct}"]'
+        )
+        self.assertIsNotNone(simple_ct_box)
+        self.assertTrue(simple_ct_box.has_attr("checked"))
+        group_approval_ct_box = soup.select_one(
+            f'input[name="content_type"][value="{group_approval_ct}"]'
+        )
+        self.assertIsNotNone(group_approval_ct_box)
+        self.assertTrue(group_approval_ct_box.has_attr("checked"))
+
+    def test_task_type_filter_hidden_if_single_task_type(self):
+        SimpleTask.objects.create(name="easy task")
+        SimpleTask.objects.create(name="medium task")
+        GroupApprovalTask.objects.create(name="complex task")
+
+        simple_ct = ContentType.objects.get_for_model(SimpleTask).pk
+
+        with mock.patch(
+            "wagtail.admin.views.workflows.get_task_types"
+        ) as get_task_types:
+            get_task_types.return_value = [SimpleTask]
+            response = self.get({"content_type": [simple_ct]})
+
+        # Should not be filtered
+        self.assertContains(response, "easy task")
+        self.assertContains(response, "medium task")
+        self.assertContains(response, "complex task")
+
+        # Should not display the content type filter
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active_filters")
+        self.assertIsNone(active_filters)
+        content_type_filter = soup.select_one('input[name="content_type"]')
+        self.assertIsNone(content_type_filter)
+
+    def test_pagination(self):
+        Task.objects.bulk_create([Task(name=f"task_{i}") for i in range(1, 120)])
+
+        url = reverse("wagtailadmin_workflows:task_index")
+
+        response = self.get({"p": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["object_list"]), 50)
+        self.assertContains(response, url + "?p=1")
+        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=3")
+
+        response = self.get({"p": 4})
+        self.assertEqual(response.status_code, 404)
+
+    def test_num_queries(self):
+        workflows = [Workflow.objects.create(name=f"workflow_{i}") for i in range(7)]
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(20)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+        self.get()
+
+        with self.assertNumQueries(12):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=20)
+
+        tasks = [Task.objects.create(name=f"task_{i}") for i in range(21, 41)]
+        WorkflowTask.objects.bulk_create(
+            [
+                WorkflowTask(workflow=workflow, task=task, sort_order=0)
+                for workflow in workflows
+                for task in tasks
+            ]
+        )
+
+        with self.assertNumQueries(12):
+            response = self.get()
+        self.assertContains(response, "+2 more", count=40)
 
 
 class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -888,7 +1270,13 @@ class TestCreateTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/create_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"label": "Tasks", "url": "/admin/workflows/tasks/index/"},
+                {"label": "New: Simple task", "url": ""},
+            ],
+            response.content,
+        )
 
     def test_get_with_non_task_model(self):
         response = self.get(
@@ -972,7 +1360,7 @@ class TestSelectTaskTypeView(WagtailTestUtils, TestCase):
 class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         delete_existing_workflows()
-        self.login()
+        self.user = self.login()
         self.task = GroupApprovalTask.objects.create(name="test_task")
 
         self.editor = self.create_user(
@@ -1006,7 +1394,13 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/edit_task.html")
-        self.assertBreadcrumbsNotRendered(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": "/admin/workflows/tasks/index/", "label": "Tasks"},
+                {"url": "", "label": str(self.task)},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         self.assertEqual(self.task.groups.count(), 0)
@@ -1044,6 +1438,52 @@ class TestEditTaskView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_render_enable_button_if_task_disabled(self):
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_minimal_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNotNone(enable_button)
+
+    def test_render_enable_button_if_task_disabled_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="change_task"),
+        )
+        self.task.active = False
+        self.task.save()
+        response = self.get()
+        soup = self.get_soup(response.content)
+        enable_url = reverse("wagtailadmin_workflows:enable_task", args=(self.task.pk,))
+        enable_button = soup.find("button", {"data-w-action-url-value": enable_url})
+        self.assertIsNone(enable_button)
 
     def test_admin_url_finder(self):
         editor_url_finder = AdminURLFinder(self.editor)
@@ -3029,6 +3469,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.workflow.refresh_from_db()
         self.assertIs(self.workflow.active, True)
 
+    def test_enable_workflow_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_workflow"),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, True)
+
+    def test_enable_workflow_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.workflow.active = False
+        self.workflow.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable", args=(self.workflow.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.workflow.refresh_from_db()
+        self.assertIs(self.workflow.active, False)
+
     def test_enable_task(self):
         self.login(self.superuser)
         self.task_1.active = False
@@ -3040,6 +3521,47 @@ class TestDisableViews(AdminTemplateTestUtils, BasePageWorkflowTests):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_minimal_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(codename="add_task"),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertEqual(response.status_code, 302)
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, True)
+
+    def test_enable_task_no_permissions(self):
+        self.superuser.is_superuser = False
+        self.superuser.save()
+        self.superuser.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+        )
+        self.login(self.superuser)
+        self.task_1.active = False
+        self.task_1.save()
+
+        response = self.client.post(
+            reverse("wagtailadmin_workflows:enable_task", args=(self.task_1.pk,))
+        )
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.task_1.refresh_from_db()
+        self.assertIs(self.task_1.active, False)
 
 
 class TestDisableViewsWithSnippetWorkflows(TestDisableViews, BaseSnippetWorkflowTests):

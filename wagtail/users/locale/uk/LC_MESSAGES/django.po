@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,6 +127,9 @@ msgstr "Темна"
 msgid "admin theme"
 msgstr "тема адмінки"
 
+msgid "Default"
+msgstr "Початковий"
+
 msgid "user profile"
 msgstr "профіль користувача"
 
@@ -199,9 +202,6 @@ msgstr "Ви впевнені, що хочете видалити цю груп�
 msgid "Add group"
 msgstr "Додати групу"
 
-msgid "View users in this group"
-msgstr "Переглянути користувачів у цій групі"
-
 msgid "Save"
 msgstr "Зберегти"
 
@@ -250,11 +250,11 @@ msgstr "Вибачте, жодна група не збігається з \"%(q
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Немає налаштованих груп. Чому б не <a "
-"href=\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
+"Немає налаштованих груп. Чому б не <a href="
+"\"%(wagtailusers_create_group_url)s\">додати одну</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Ви впевнені, що хочете видалити цього користувача?"
@@ -275,45 +275,12 @@ msgid "Select all users in listing"
 msgstr "Обрати всіх користувачів у списку"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Вибачте, жоден користувач не відповідає \"<em>%(query_string)s</em>\""
-
-#, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Група %(group_name)s не містить користувачів. Чому б не <a "
-"href=\"%(wagtailusers_add_url)s\"> додати одного</a>?"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Немає сконфігурованих користувачів. Чому б не <a "
-"href=\"%(wagtailusers_add_url)s\">додати одного</a>?"
-
-msgid "Username"
-msgstr "Ім'я користувача"
-
-msgid "Access level"
-msgstr "Рівень доступу"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Last Login"
-msgstr "Останній логін"
-
-msgid "Admin"
-msgstr "Адмін"
-
-msgid "Active"
-msgstr "Активний"
-
-msgid "Inactive"
-msgstr "Неактивний"
+"Немає сконфігурованих користувачів. Чому б не <a href="
+"\"%(wagtailusers_add_url)s\">додати одного</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -340,6 +307,12 @@ msgstr[0] "%(num_parent_objects)dкористувач був видалений"
 msgstr[1] "%(num_parent_objects)d користувачів було видалено"
 msgstr[2] "%(num_parent_objects)d користувачів було видалено"
 msgstr[3] "%(num_parent_objects)d користувачів було видалено"
+
+msgid "Active"
+msgstr "Активний"
+
+msgid "Inactive"
+msgstr "Неактивний"
 
 msgid "Mark as active"
 msgstr "Позначити активним"
@@ -383,6 +356,9 @@ msgstr "Групу '%(object)s' оновлено."
 msgid "The group could not be saved due to errors."
 msgstr "Група не може бути збережена через помилки."
 
+msgid "View users in this group"
+msgstr "Переглянути користувачів у цій групі"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Групу '%(object)s' видалено."
@@ -392,6 +368,22 @@ msgstr "Додати користувача"
 
 msgid "Users"
 msgstr "Користувачі"
+
+msgid "Username"
+msgstr "Ім'я користувача"
+
+msgid "Admin"
+msgstr "Адмін"
+
+msgid "Access level"
+msgstr "Рівень доступу"
+
+msgid "Status"
+msgstr "Статус"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Більше опцій для '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -407,6 +399,3 @@ msgstr "Користувач не може бути створений чере�
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Користувача '%(object)s' видалено."
-
-msgid "Edit"
-msgstr "Редагувати"

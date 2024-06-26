@@ -14,6 +14,7 @@ from wagtail.admin.panels import (
 )
 from wagtail.admin.views import generic
 from wagtail.models import Site
+from wagtail.permission_policies import ModelPermissionPolicy
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
@@ -80,13 +81,14 @@ def redirect_to_relevant_instance(request, app_name, model_name):
 
 class EditView(generic.EditView):
     template_name = "wagtailsettings/edit.html"
-    header_icon = "cogs"
     error_message = gettext_lazy("The setting could not be saved due to errors.")
+    permission_required = "change"
 
     def setup(self, request, app_name, model_name, *args, **kwargs):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
+        self.permission_policy = ModelPermissionPolicy(self.model)
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
 
@@ -129,11 +131,14 @@ class EditView(generic.EditView):
 
         media = form.media + edit_handler.media
 
+        header_icon = registry._model_icons.get(self.model)
+
         context.update(
             {
                 "edit_handler": edit_handler,
                 "site_switcher": site_switcher,
                 "media": media,
+                "header_icon": header_icon,
             }
         )
 

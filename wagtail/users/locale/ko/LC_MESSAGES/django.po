@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -99,6 +99,9 @@ msgstr "현재 타임존 선택"
 msgid "profile picture"
 msgstr "프로필 사진"
 
+msgid "Default"
+msgstr "기본값"
+
 msgid "user profile"
 msgstr "사용자 프로필"
 
@@ -170,11 +173,11 @@ msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
-"href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
+"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a href="
+"\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "이 사용자를 확실히 삭제하시겠습니까?"
@@ -190,22 +193,6 @@ msgstr "사용자 추가"
 
 msgid "Delete user"
 msgstr "사용자 삭제"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
-
-msgid "Username"
-msgstr "사용자명"
-
-msgid "Status"
-msgstr "상태"
-
-msgid "Last Login"
-msgstr "최근 로그인"
-
-msgid "Admin"
-msgstr "관리자"
 
 msgid "Active"
 msgstr "활성화"
@@ -237,11 +224,23 @@ msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' 그룹이 삭제 되었습니다."
 
+msgid "Group"
+msgstr "그룹"
+
 msgid "Add a user"
 msgstr "사용자 추가"
 
 msgid "Users"
 msgstr "사용자"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Admin"
+msgstr "관리자"
+
+msgid "Status"
+msgstr "상태"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -253,6 +252,3 @@ msgstr "에러로 인해 사용자를 저장할 수 없습니다."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "'%(object)s' 사용자가 삭제되었습니다."
-
-msgid "Edit"
-msgstr "수정"

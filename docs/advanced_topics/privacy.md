@@ -12,10 +12,10 @@ Users with publish permission on a page can set it to be private by clicking the
 Shared passwords should not be used to protect sensitive content, as the password is shared between all users, and stored in plain text in the database. Where possible, it's recommended to require users log in to access private page content.
 ```
 
-You can disable shared password for pages using `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`.
+You can disable shared password for pages using `WAGTAIL_PRIVATE_PAGE_OPTIONS`.
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 Any existing shared password usage will remain active but will not be viewable by the user within the admin, these can be removed in the Django shell as follows.
@@ -33,10 +33,10 @@ for page in Page.objects.private():
 
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see: [](image_document_permissions)).
 
-You can also disable shared password for collections (which will impact document links) using `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`.
+You can also disable shared password for collections (which will impact document links) using `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`.
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 Any existing shared password usage will remain active but will not be viewable within the admin, these can be removed in the Django shell as follows.
@@ -74,10 +74,10 @@ To integrate Wagtail into a Django site with an existing login mechanism, settin
 
 ## Setting up a global "password required" page
 
-By setting `PASSWORD_REQUIRED_TEMPLATE` in your Django settings file, you can specify the path of a template which will be used for all "password required" forms on the site (except for page types that specifically override it - see below):
+By setting `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` in your Django settings file, you can specify the path of a template which will be used for all "password required" forms on the site (except for page types that specifically override it - see below):
 
 ```python
-PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 ```
 
 This template will receive the same set of context variables that the blocked page would pass to its own template via `get_context()` - including `page` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
@@ -85,7 +85,7 @@ This template will receive the same set of context variables that the blocked pa
 -   **form** - A Django form object for the password prompt; this will contain a field named `password` as its only visible field. Several hidden fields may also be present, so the page must loop over `form.hidden_fields` if not using one of Django's rendering helpers such as `form.as_p`.
 -   **action_url** - The URL that the password form should be submitted to, as a POST request.
 
-A basic template suitable for use as `PASSWORD_REQUIRED_TEMPLATE` might look like this:
+A basic template suitable for use as `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` might look like this:
 
 ```html+django
 <!DOCTYPE HTML>
@@ -119,7 +119,7 @@ A basic template suitable for use as `PASSWORD_REQUIRED_TEMPLATE` might look lik
 </html>
 ```
 
-Password restrictions on documents use a separate template, specified through the setting `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`; this template also receives the context variables `form` and `action_url` as described above.
+Password restrictions on documents use a separate template, specified through the setting `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`; this template also receives the context variables `form` and `action_url` as described above.
 
 ## Setting a "password required" page for a specific page type
 

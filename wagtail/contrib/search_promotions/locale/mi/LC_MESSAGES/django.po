@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -86,15 +86,6 @@ msgstr "Mū ki runga"
 msgid "Move down"
 msgstr "Mū ki raro"
 
-msgid "Views (past week)"
-msgstr "Tirohanga (te wiki kua pāhi)"
-
-msgid "External link"
-msgstr "Hono mōwaho"
-
-msgid "None"
-msgstr "Kore"
-
 msgid "Popular search terms"
 msgstr "Karangatanga rongonui"
 
@@ -104,11 +95,20 @@ msgstr "Haha"
 msgid "Terms"
 msgstr "Karangatanga"
 
+msgid "Views (past week)"
+msgstr "Tirohanga (te wiki kua pāhi)"
+
 msgid "No results found"
 msgstr "Karekau he tukunga iho e kimihia"
 
 msgid "Choose from popular search terms"
 msgstr "Kōhiti mai I ngā karangatanga rongonui"
+
+msgid "External link"
+msgstr "Hono mōwaho"
+
+msgid "None"
+msgstr "Kore"
 
 msgid "Edit"
 msgstr "Whakarerekē"

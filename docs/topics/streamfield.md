@@ -514,8 +514,7 @@ my_page.body[0] = ('heading', "My story")
 del my_page.body[-1]
 
 # Append a rich text block to the stream
-from wagtail.rich_text import RichText
-my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever after.</p>")))
+my_page.body.append(('paragraph', "<p>And they all lived happily ever after.</p>"))
 
 # Save the updated data back to the database
 my_page.save()
@@ -580,10 +579,6 @@ hero_image = my_page.body.first_block_by_name('image')
 (streamfield_search)=
 
 ## Search considerations
-
-```{versionadded} 6.0
-
-```
 
 Like any other field, content in a StreamField can be made searchable by adding the field to the model's search_fields definition - see {ref}`wagtailsearch_indexing_fields`. By default, all text content from the stream will be added to the search index. If you wish to exclude certain block types from being indexed, pass the keyword argument `search_index=False` as part of the block's definition. For example:
 

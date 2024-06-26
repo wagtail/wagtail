@@ -1,7 +1,7 @@
 /**
  *  All tabs and tab content must be nested in an element with the data-tab attribute
  *  All tab buttons need the role="tab" attr and an href with the tab content ID
- *  Tab contents need to have the role="tabpanel" attribute and and ID attribute that matches the href of the tab link.
+ *  Tab contents need to have the role="tabpanel" attribute and ID attribute that matches the href of the tab link.
  *  Tab buttons should also be wrapped in an element with the role="tablist" attribute
  *  Use the attribute data-tab-trigger on an Anchor link and set the href to the #ID of the tab you would like to trigger
  */

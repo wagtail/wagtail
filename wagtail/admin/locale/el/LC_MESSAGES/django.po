@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -82,6 +82,9 @@ msgstr "Ημερομηνία έως"
 msgid "All"
 msgstr "Όλα"
 
+msgid "Collection"
+msgstr "Συλλογή"
+
 msgid "Preferred language"
 msgstr "Γλώσσα επιλογής"
 
@@ -127,9 +130,6 @@ msgstr "Αναζήτηση"
 
 msgid "All collections"
 msgstr "Όλες οι συλλογές"
-
-msgid "Collection"
-msgstr "Συλλογή"
 
 msgid "Parent"
 msgstr "Πατρική"
@@ -233,6 +233,9 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Δεν μπορείτε να αντιγράψετε μια σελίδα στον εαυτό της κατά την αντιγραφή "
 "υποσελίδων."
+
+msgid "Parent page"
+msgstr "Κύρια σελίδα"
 
 msgid "Visibility"
 msgstr "Ορατότητα"
@@ -425,16 +428,13 @@ msgstr ""
 "Δεν είναι δυνατή η διαγραφή της συλλογής επειδή δεν είναι άδεια και περιέχει "
 "τα εξής:"
 
-msgid "Name"
-msgstr "Όνομα"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν συλλογές. Θέλετε να <a "
-"href=\"%(add_collection_url)s\">προσθέσετε μία</a>;"
+"Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
+"\">προσθέσετε μία</a>;"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
@@ -454,6 +454,12 @@ msgstr "Όχι, να μην γίνει κατάργηση της δημοσίε�
 
 msgid "Cancel"
 msgstr "Ακύρωση"
+
+msgid "Comment"
+msgstr "Σχόλιο"
+
+msgid "Actions"
+msgstr "Ενέργειες"
 
 msgid "Update"
 msgstr "Ενημέρωση"
@@ -487,9 +493,6 @@ msgstr ""
 
 msgid "Edit this page"
 msgstr "Διόρθωση της σελίδας"
-
-msgid "Actions"
-msgstr "Ενέργειες"
 
 msgid "Unlock"
 msgstr "Ξεκλείδωμα"
@@ -767,24 +770,6 @@ msgstr "Αντιγραφή αυτής της σελίδας"
 msgid "This page has unsaved changes."
 msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
 
-msgid "Action"
-msgstr "Ενέργεια"
-
-msgid "User"
-msgstr "Χρήστης"
-
-msgid "Date / Time"
-msgstr "Ημερομηνία / Ώρα"
-
-msgid "Comment"
-msgstr "Σχόλιο"
-
-msgid "Live version"
-msgstr "Τρέχουσα έκδοση"
-
-msgid "Current draft"
-msgstr "Τρέχον σχέδιο"
-
 msgid "Select all pages in listing"
 msgstr "Επιλογή όλων των σελίδων της λίστας"
 
@@ -855,6 +840,18 @@ msgstr "Σελίδες"
 
 msgid "Locked"
 msgstr "Κλειδωμένο"
+
+msgid "Name"
+msgstr "Όνομα"
+
+msgid "Action"
+msgstr "Ενέργεια"
+
+msgid "User"
+msgstr "Χρήστης"
+
+msgid "Date / Time"
+msgstr "Ημερομηνία / Ώρα"
 
 msgid "Edit this item"
 msgstr "Επεξεργασία αυτού του στοιχείου"
@@ -944,6 +941,12 @@ msgstr "πριν από %(time_period)s"
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
+msgid "Undo"
+msgstr "Ακύρωση"
+
+msgid "Redo"
+msgstr "Κύρωση"
+
 msgid "Profile"
 msgstr "Προφίλ"
 
@@ -991,6 +994,12 @@ msgstr "Θέλετε να διαγράψετε τη συλλογή;"
 
 msgid "Home"
 msgstr "Αρχική"
+
+msgid "Live version"
+msgstr "Τρέχουσα έκδοση"
+
+msgid "Current draft"
+msgstr "Τρέχον σχέδιο"
 
 msgid "Workflow progress"
 msgstr "Πρόοδος ροής εργασιών"
@@ -1162,9 +1171,6 @@ msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώ
 msgid "The page could not be saved due to validation errors"
 msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
 
-msgid "Page history"
-msgstr "Ιστορικό σελίδας"
-
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
@@ -1181,6 +1187,9 @@ msgstr "Η σελίδα '%(page_title)s' είναι τώρα ξεκλειδωμ�
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Έγινε η μετακίνηση της σελίδας '%(page_title)s'."
+
+msgid "Page history"
+msgstr "Ιστορικό σελίδας"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

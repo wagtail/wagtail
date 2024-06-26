@@ -12,7 +12,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2023
+# Stefan Hammer <stefan@hammerworxx.com>, 2023-2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -156,41 +156,22 @@ msgstr "Hervorgehobene Suchergebnisse"
 msgid "Add a recommended result"
 msgstr "Empfohlenes Ergebnis hinzufügen"
 
-msgid "Search Terms"
-msgstr "Suchbegriffe"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu „<em>"
+"%(query_string)s</em>“ passen."
 
-msgid "Add new promoted result"
-msgstr "Neues hervorgehobenes Suchergebnis hinzufügen"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
 
-msgid "Search term(s)"
-msgstr "Suchbegriff/e"
-
-msgid "Order by search term alphabetically"
-msgstr "Sortiere alphabetisch nach Suchbegriff"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sortiere rückwärts-alphabetisch nach Suchbegriff"
-
-msgid "Promoted results"
-msgstr "Hervorgehobene Suchergebnisse"
-
-msgid "Views (past week)"
-msgstr "Aufrufe (letze Woche)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sortiere nach View (geringster zuerst)"
-
-msgid "Order by views (highest first)"
-msgstr "Sortiere nach View (höchster zuerst)"
-
-msgid "Edit this promotion"
-msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"
-
-msgid "External link"
-msgstr "Externer Link"
-
-msgid "None"
-msgstr "Keine"
+msgid "No promoted results have been created."
+msgstr "Es wurden keine hervorgehobenen Ergebnisse erstellt."
 
 msgid "Popular search terms"
 msgstr "Häufige Suchbegriffe"
@@ -201,31 +182,32 @@ msgstr "Suche"
 msgid "Terms"
 msgstr "Begriffe"
 
+msgid "Views (past week)"
+msgstr "Aufrufe (letze Woche)"
+
 msgid "No results found"
 msgstr "Keine Ergebnisse gefunden"
 
 msgid "Choose from popular search terms"
 msgstr "Wählen Sie aus populären Suchbegriffen"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
+msgid "External link"
+msgstr "Externer Link"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu "
-"„<em>%(query_string)s</em>“ passen."
+msgid "None"
+msgstr "Keine"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
+msgid "Search Terms"
+msgstr "Suchbegriffe"
+
+msgid "Add new promoted result"
+msgstr "Neues hervorgehobenes Suchergebnis hinzufügen"
+
+msgid "Search term(s)"
+msgstr "Suchbegriff/e"
+
+msgid "Promoted results"
+msgstr "Hervorgehobene Suchergebnisse"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

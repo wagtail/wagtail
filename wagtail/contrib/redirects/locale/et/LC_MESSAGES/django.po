@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -123,16 +123,6 @@ msgstr "Tühista"
 msgid "Preview"
 msgstr "Eelvaade"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s muutmine"
-
-msgid "Editing"
-msgstr "Redigeerimine"
-
-msgid "Delete redirect"
-msgstr "Kustuta ümbersuunamine"
-
 msgid "Summary"
 msgstr "Kokkuvõte"
 
@@ -157,12 +147,6 @@ msgstr "Viga"
 msgid "Continue"
 msgstr "Jätka"
 
-msgid "Site"
-msgstr "Sait"
-
-msgid "Edit this redirect"
-msgstr "Muutke seda ümbersuunamist"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -170,21 +154,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ümbersuunamisi pole loodud. Miks mitte <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
+"Ümbersuunamisi pole loodud. Miks mitte <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
+
+msgid "Site"
+msgstr "Sait"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Ümbersuunamist ei õnnestunud vigade tõttu salvestada."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Ümbersuunamine „%(redirect_title)s” on värskendatud."
-
-msgid "Edit"
-msgstr "Muuda"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Ümbersuunamist ei õnnestunud vigade tõttu salvestada."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -193,6 +177,9 @@ msgstr "Ümbersuunamine '%(redirect_title)s' on kustutatud."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Ümbersuunamine'%(redirect_title)s' on lisatud."
+
+msgid "Edit"
+msgstr "Muuda"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Ümbersuunamist ei saanud vigade tõttu luua."

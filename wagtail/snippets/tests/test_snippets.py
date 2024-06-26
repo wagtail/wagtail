@@ -24,9 +24,11 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.blocks.field_block import FieldBlockAdapter
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
@@ -35,7 +37,6 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import CopyView
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -96,6 +97,26 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 302)
 
+    def test_get_with_only_view_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="tests", codename="view_advert"
+            ),
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        link = soup.select_one("tr td a")
+        self.assertEqual(link["href"], reverse("wagtailsnippets_tests_advert:list"))
+        self.assertEqual(link.text.strip(), "Adverts")
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -110,6 +131,29 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
+
+    def test_snippets_menu_item_shown_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="tests", codename="view_advert"
+            ),
+        )
+        self.user.save()
+
+        request = get_dummy_request()
+        request.user = self.user
+        menu_items = admin_menu.menu_items_for_request(request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 1)
+        item = snippets[0]
+        self.assertEqual(item.name, "snippets")
+        self.assertEqual(item.label, "Snippets")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, reverse("wagtailsnippets:index"))
 
 
 class TestSnippetListView(WagtailTestUtils, TestCase):
@@ -319,6 +363,23 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        Advert.objects.create(text="My Lovely advert")
+
+        def remove_all_buttons(buttons, snippet, user):
+            buttons[:] = []
+            self.assertEqual(len(buttons), 0)
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            remove_all_buttons,
+        ):
+            response = self.get()
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
 
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
@@ -974,20 +1035,29 @@ class TestSnippetCopyView(WagtailTestUtils, TestCase):
             StandardSnippet.snippet_viewset.get_url_name("copy"),
             args=(self.snippet.pk,),
         )
-        self.login()
+        self.user = self.login()
 
-    def test_simple(self):
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_form_is_prefilled(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
 
-    def test_form_prefilled(self):
-        request = RequestFactory().get(self.url)
-        view = CopyView()
-        view.model = StandardSnippet
-        view.setup(request, pk=self.snippet.pk)
-
-        self.assertEqual(view._get_initial_form_instance(), self.snippet)
+        # Ensure form is prefilled
+        soup = self.get_soup(response.content)
+        text_input = soup.select_one('input[name="text"]')
+        self.assertEqual(text_input.attrs.get("value"), "Test snippet")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -1095,7 +1165,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
         # The status side panel should be rendered so that the
         # publishing schedule can be configured
@@ -1906,7 +1976,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
 
         # The status side panel should show "No publishing schedule set" info
@@ -4158,7 +4228,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<td class="title">Created</td>', html=True)
+        self.assertContains(response, "<td>Created</td>", html=True)
         self.assertContains(
             response,
             'data-w-tooltip-content-value="Sept. 30, 2021, 10:01 a.m."',
@@ -4190,7 +4260,7 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         edit_url = self.get_url(self.non_revisable_snippet, "edit")
         self.assertNotContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
         )
 
     def test_should_show_actions_on_revisable_snippet(self):
@@ -4213,14 +4283,14 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         # The latest revision should have an "Edit" action instead of "Review"
         self.assertContains(
             response,
-            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            f'<a href="{edit_url}">Edit</a>',
             count=1,
         )
 
         # Any other revision should have a "Review" action
         self.assertContains(
             response,
-            f'<a href="{revert_url}" class="button button-small button-secondary">Review this version</a>',
+            f'<a href="{revert_url}">Review this version</a>',
             count=1,
         )
 
@@ -4261,6 +4331,24 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.get(self.revisable_snippet)
         self.assertEqual(response.status_code, 200)
+
+    def test_num_queries(self):
+        snippet = self.revisable_snippet
+
+        # Warm up the cache
+        self.get(snippet)
+
+        with self.assertNumQueries(14):
+            self.get(snippet)
+
+        for i in range(20):
+            revision = snippet.save_revision(user=self.user, log_action=True)
+            if i % 5 == 0:
+                revision.publish(user=self.user, log_action=True)
+
+        # Should have the same number of queries as before (no N+1 queries)
+        with self.assertNumQueries(14):
+            self.get(snippet)
 
 
 class TestSnippetRevisions(WagtailTestUtils, TestCase):
@@ -4364,7 +4452,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
         )
 
         # Should not show the Unpublish action menu item
@@ -4410,9 +4498,15 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         # Should show the preview panel
         preview_url = self.get_url("preview_on_edit")
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, f'data-action="{preview_url}"')
+
+        # Should have the preview side panel toggle button
+        soup = self.get_soup(response.content)
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
+        self.assertIsNotNone(toggle_button)
+        self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
+        self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
     def test_replace_revision(self):
         get_response = self.get()

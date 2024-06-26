@@ -17,6 +17,10 @@ class ViewSet(WagtailMenuRegisterable):
     For more information on how to use this class, see :ref:`using_base_viewset`.
     """
 
+    #: A special value that, when passed in a kwargs dict to construct a view, indicates that
+    #: the attribute should not be written and should instead be left as the view's initial value
+    UNDEFINED = object()
+
     #: A name for this viewset, used as the default URL prefix and namespace.
     name = None
 
@@ -42,12 +46,13 @@ class ViewSet(WagtailMenuRegisterable):
         in addition to any kwargs passed to this method. Items from get_common_view_kwargs will be
         filtered to only include those that are valid for the given view_class.
         """
+        merged_kwargs = self.get_common_view_kwargs()
+        merged_kwargs.update(kwargs)
         filtered_kwargs = {
             key: value
-            for key, value in self.get_common_view_kwargs().items()
-            if hasattr(view_class, key)
+            for key, value in merged_kwargs.items()
+            if hasattr(view_class, key) and value is not self.UNDEFINED
         }
-        filtered_kwargs.update(kwargs)
         return view_class.as_view(**filtered_kwargs)
 
     def inject_view_methods(self, view_class, method_names):

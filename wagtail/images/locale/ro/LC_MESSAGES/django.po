@@ -6,14 +6,14 @@
 # Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2016,2018-2022
+# Dan Braghis, 2014-2016,2018-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Alex Morega, 2023\n"
+"Last-Translator: Dan Braghis, 2014-2016,2018-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -302,6 +302,23 @@ msgstr "Alege un format"
 msgid "Insert image"
 msgstr "Inserează imagine"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Imagine <span class=\"w-sr-only\">creată în "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
 
@@ -370,15 +387,6 @@ msgstr "Utilizare"
 msgid "Sort by"
 msgstr "Sortează după"
 
-msgid "Entries per page"
-msgstr "Imagini pe pagină"
-
-msgid "Popular Tags:"
-msgstr "Etichete populare:"
-
-msgid "Clear"
-msgstr "Curăță"
-
 msgid "Select all images in listing"
 msgstr "Selectează toate imaginile din listă"
 
@@ -389,25 +397,37 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine în această colecție. De să nu <a "
-"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nu ați încărcat nici o imagine. De să nu <a "
-"href=\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+"Nu ați încărcat nici o imagine. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
 
 msgid "Preview"
 msgstr "Examinare"
 
 msgid "URL"
 msgstr "Adresă de internet"
+
+msgid "Image URL"
+msgstr "URL imagine"
+
+msgid "Copy URL"
+msgstr "Copie URL"
+
+msgid "Copied to clipboard"
+msgstr "Copiat în clipboard"
+
+msgid "Copying to clipboard failed"
+msgstr "Copierea în clipboard nu a reușit"
 
 msgid "Add multiple images"
 msgstr "Adaugă mai multe imagini"

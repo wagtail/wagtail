@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block no_results_message %}
+    {% if showing_disabled %}
+        <p>{% blocktrans trimmed %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+    {% else %}
+        <p>{% blocktrans trimmed %}There are no enabled tasks. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

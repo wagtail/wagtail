@@ -94,14 +94,17 @@ class ExampleForm(forms.Form):
 
     @property
     def media(self):
-        return forms.Media(
+        return super().media + forms.Media(
             css={
                 "all": [versioned_static("wagtailstyleguide/css/animate-progress.css")]
             }
         )
 
 
-icon_id_pattern = re.compile(r"id=\"icon-([a-z0-9-]+)\"")
+# Allow single and double quotes for the ID.
+# For simplicity and readability, we don't enforce the opening
+# and closing quotes to match.
+icon_id_pattern = re.compile(r"""id=["']icon-([a-z0-9-]+)["']""")
 icon_comment_pattern = re.compile(r"<!--!(.*?)-->")
 
 

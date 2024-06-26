@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -109,18 +109,18 @@ msgstr "Nem, mégsem"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Sajnáljuk, de egyelen elem sem felel meg a következő feltételeknek: "
-"\"<em>%(search_query)s</em>\""
+"Sajnáljuk, de egyelen elem sem felel meg a következő feltételeknek: \"<em>"
+"%(search_query)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
 "Még egyetlen %(snippet_type_name)s típusú elem sincs létrehozva. Miért nem "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noopener noreferrer\">hoz létre egy újat most</a>?"
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
@@ -146,30 +146,6 @@ msgstr "Akciók"
 msgid "Select all snippets in listing"
 msgstr "Összes elem kiválasztása a listában"
 
-msgid "Live version"
-msgstr "Élő verzió"
-
-msgid "Current draft"
-msgstr "Jelenlegi vázlat"
-
-msgid "Preview"
-msgstr "Előnézet"
-
-msgid "Edit"
-msgstr "Szerkeszt"
-
-msgid "Review this version"
-msgstr "Verzió ellenőrzése"
-
-msgid "Compare with previous version"
-msgstr "Összehasonlítás az előző verzióval"
-
-msgid "Compare with current version"
-msgstr "Összehasonlítás a jelenlegi verzióval"
-
-msgid "Cancel scheduled publish"
-msgstr "Időzített közzététel visszavonása"
-
 msgid "Choose"
 msgstr "Kiválasztás"
 
@@ -185,12 +161,6 @@ msgstr "Példányok"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "'%(title)s' további lehetőségei"
-
-msgid "Action"
-msgstr "Akció"
-
-msgid "Date"
-msgstr "Dátum"
 
 #, python-format
 msgid "Edit this %(model_name)s"

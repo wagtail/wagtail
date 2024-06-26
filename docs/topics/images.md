@@ -442,12 +442,15 @@ You can encode the image into lossless AVIF or WebP format by using `format-avif
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
+(favicon_generation)=
+
 ### Favicon generation
 
 You can save images as a `.ico` file using `format-ico`, which is especially useful when managing a site's favicon through the Admin.
 
 ```html+django
-<link rel="icon" href="{% image favicon_image format-ico %}" />
+{% image favicon_image format-ico as favicon_image_formatted %}
+<link rel="icon" type="image/x-icon" href="{{ favicon_image_formatted.url }}"/>
 ```
 
 (image_background_colour)=

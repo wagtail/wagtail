@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,12 +39,6 @@ msgstr "ނަން"
 
 msgid "Delete"
 msgstr "ޑިލީޓްކުރެވޭ"
-
-msgid "Filter"
-msgstr "ފިލްޓަރ ކުރޭ"
-
-msgid "Apply filters"
-msgstr "ފިލްޓަރުތައް އެޕްލައި ކޮށްލާ"
 
 msgid "Title"
 msgstr "ޓައިޓަލް"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -78,6 +78,9 @@ msgstr "Дуусах огноо"
 msgid "All"
 msgstr "Бүгд"
 
+msgid "Collection"
+msgstr "Цуглуулга"
+
 msgid "Preferred language"
 msgstr "Сонгосон хэл"
 
@@ -122,9 +125,6 @@ msgstr "Хайлт"
 
 msgid "All collections"
 msgstr "Цуглуулга нэмэх"
-
-msgid "Collection"
-msgstr "Цуглуулга"
 
 msgid "Parent"
 msgstr "Эцэг"
@@ -240,6 +240,9 @@ msgstr "%(page_slug)s ийм нэртэй холбоос эцэг хуудсан
 
 msgid "Select a new parent for this page."
 msgstr "Энэ хуудасны эцгийг шинээр сонгох"
+
+msgid "Parent page"
+msgstr "Эцэг хуудас"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -448,9 +451,6 @@ msgstr "Нийтэд нээлттэй"
 
 msgid "Private"
 msgstr "Хувийн"
-
-msgid "Name"
-msgstr "Нэр"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
@@ -743,15 +743,6 @@ msgstr "Энэ хуудсыг хуулах"
 msgid "This page has unsaved changes."
 msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
 
-msgid "Action"
-msgstr "Үйлдэл"
-
-msgid "Live version"
-msgstr "Нийтлэгдсэн хувилбар"
-
-msgid "Current draft"
-msgstr "Одоогийн ноорог"
-
 msgid "Configure a site now."
 msgstr "Сайтаа тохируулна уу."
 
@@ -793,9 +784,6 @@ msgstr "Энэ хуудас олон нийтэд харагдахгүй хам�
 msgid "Add child page"
 msgstr "Шинэ мэдээ нэмэх"
 
-msgid "Cancel scheduled publish"
-msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
-
 msgid "Page types"
 msgstr "Хуудасны төрөл"
 
@@ -830,6 +818,12 @@ msgstr "Түгжигдсэн"
 msgid "No locked pages found."
 msgstr "Түгжигдсэн хуудас олдсонгүй."
 
+msgid "Name"
+msgstr "Нэр"
+
+msgid "Action"
+msgstr "Үйлдэл"
+
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
@@ -848,9 +842,6 @@ msgstr "Шүүлтүүр"
 
 msgid "History"
 msgstr "Түүх"
-
-msgid "Root"
-msgstr "Үндэс"
 
 msgid "Unschedule"
 msgstr "Төлөвлөгөөг болиулах"
@@ -904,6 +895,18 @@ msgstr "%(time_period)s-н өмнө"
 msgid "Log out"
 msgstr "Гарах"
 
+msgid "Undo"
+msgstr "Буцаах"
+
+msgid "Redo"
+msgstr "Давтах"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
 msgid "Password"
 msgstr "Нууц үг"
 
@@ -942,6 +945,15 @@ msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
 
 msgid "Home"
 msgstr "Нүүр хуудас"
+
+msgid "Live version"
+msgstr "Нийтлэгдсэн хувилбар"
+
+msgid "Current draft"
+msgstr "Одоогийн ноорог"
+
+msgid "Cancel scheduled publish"
+msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1079,12 +1091,6 @@ msgstr "Дугаарласан жагсаалт"
 
 msgid "Blockquote"
 msgstr "Эшлэл"
-
-msgid "Bold"
-msgstr "Bold"
-
-msgid "Italic"
-msgstr "Italic"
 
 msgid "Link"
 msgstr "Холбоос"

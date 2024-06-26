@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -20,10 +20,8 @@ from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
-    DateColumn,
     LiveStatusTagColumn,
     TitleColumn,
-    UserColumn,
 )
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
@@ -49,7 +47,6 @@ from wagtail.models import (
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
-from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -92,9 +89,10 @@ class ModelIndexView(generic.BaseListingView):
                 "name": capfirst(model._meta.verbose_name_plural),
                 "count": model._default_manager.all().count(),
                 "model": model,
+                "url": url,
             }
             for model in get_snippet_models()
-            if user_can_edit_snippet_type(self.request.user, model)
+            if (url := self.get_list_url(model))
         ]
 
     def dispatch(self, request, *args, **kwargs):
@@ -105,8 +103,12 @@ class ModelIndexView(generic.BaseListingView):
     def get_breadcrumbs_items(self):
         return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
 
-    def get_list_url(self, type):
-        return reverse(type["model"].snippet_viewset.get_url_name("list"))
+    def get_list_url(self, model):
+        if model.snippet_viewset.permission_policy.user_has_any_permission(
+            self.request.user,
+            {"add", "change", "delete", "view"},
+        ):
+            return reverse(model.snippet_viewset.get_url_name("list"))
 
     def get_queryset(self):
         return None
@@ -117,7 +119,7 @@ class ModelIndexView(generic.BaseListingView):
             TitleColumn(
                 "name",
                 label=_("Name"),
-                get_url=self.get_list_url,
+                get_url=lambda type: type["url"],
                 sort_key="name",
             ),
             Column(
@@ -208,16 +210,17 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 )
                 hook(more_buttons, instance, self.request.user, {})
 
-        list_buttons.append(
-            ButtonWithDropdown(
-                buttons=more_buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        if more_buttons:
+            list_buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        )
 
         return list_buttons
 
@@ -234,22 +237,6 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
-
-    def _get_initial_form_instance(self):
-        instance = self.model()
-
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-
-        return instance
-
-    def get_form_kwargs(self):
-        return {
-            **super().get_form_kwargs(),
-            "instance": self._get_initial_form_instance(),
-            "for_user": self.request.user,
-        }
 
     def get_side_panels(self):
         side_panels = [
@@ -280,16 +267,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         return context
 
 
-class CopyView(CreateView):
-    def get_object(self):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
-
-    def _get_initial_form_instance(self):
-        instance = self.get_object()
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-        return instance
+class CopyView(generic.CopyViewMixin, CreateView):
+    pass
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
@@ -309,9 +288,6 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
             instance=self.object,
             locked_for_user=self.locked_for_user,
         )
-
-    def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get_side_panels(self):
         side_panels = [
@@ -363,45 +339,8 @@ class UsageView(generic.UsageView):
     view_name = "usage"
 
 
-class ActionColumn(Column):
-    cell_template_name = "wagtailsnippets/snippets/revisions/_actions.html"
-
-    def __init__(self, *args, object=None, view=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.object = object
-        self.view = view
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context["revision_enabled"] = isinstance(self.object, RevisionMixin)
-        context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
-        context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
-        context["can_publish"] = self.view.user_has_permission("publish")
-        context["object"] = self.object
-        context["view"] = self.view
-        return context
-
-
 class HistoryView(history.HistoryView):
     view_name = "history"
-    revisions_view_url_name = None
-    revisions_revert_url_name = None
-    revisions_compare_url_name = None
-    revisions_unschedule_url_name = None
-
-    @cached_property
-    def columns(self):
-        return [
-            ActionColumn(
-                "message",
-                object=self.object,
-                view=self,
-                classname="title",
-                label=_("Action"),
-            ),
-            UserColumn("user", blank_display_name="system"),
-            DateColumn("timestamp", label=_("Date")),
-        ]
 
 
 class InspectView(generic.InspectView):

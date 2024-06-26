@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -79,6 +79,15 @@ msgstr "Localització"
 msgid "All"
 msgstr "Tot"
 
+msgid "Collection"
+msgstr "Col·lecció"
+
+msgid "Tag"
+msgstr "Etiqueta"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filtrar per fins a 10 de les etiquetes més populars."
+
 msgid "Preferred language"
 msgstr "Llengua preferida"
 
@@ -103,7 +112,8 @@ msgstr "Introdueix la contrassenya"
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
-"El vostre %(username_field)s y contrasenya no concorden. Torneu-ho a provar."
+"El vostre %(username_field)s i contrasenya no coincideixen. Torneu-ho a "
+"provar."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
@@ -123,9 +133,6 @@ msgstr "Cercar"
 
 msgid "All collections"
 msgstr "Totes les col·leccions"
-
-msgid "Collection"
-msgstr "Col·lecció"
 
 msgid "Parent"
 msgstr "Pare"
@@ -190,8 +197,8 @@ msgstr "Copiar subpàgines"
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] "Això copiarà %(count)s subplana."
-msgstr[1] "Això copiarà %(count)s subplanes,."
+msgstr[0] "Es copiarà %(count)s subpàgina."
+msgstr[1] "Es copiaran %(count)s subpàgines."
 
 msgid "Publish copied page"
 msgstr "Publicar la plana copiada"
@@ -242,6 +249,23 @@ msgstr "El llimac '%(page_slug)s' ja està en ús a la pàgina principal"
 
 msgid "Select a new parent for this page."
 msgstr "Seleccioneu un nou pare per aquesta pàgina."
+
+msgid "Parent page"
+msgstr "Pàgina pare"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "La nova pàgina serà una filla d'aquesta pàgina pare."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "No teniu permís per crear una pàgina a sota de \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"No podeu crear una pàgina de tipus \"%(page_type)s\" a sota de "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Cercar..."
@@ -543,15 +567,15 @@ msgstr "Convertir a enllaç intern"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"La URL que heu introduït, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, sembla que coincideix amb "
-"la pàgina interna %(page)s, la qual té la URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"La URL que heu introduït, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, sembla que coincideix amb la "
+"pàgina interna %(page)s, la qual té la URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -630,16 +654,13 @@ msgid ""
 msgstr ""
 "Aquesta col·lecció no pot ser eliminada donat que no està buida. Conté:"
 
-msgid "Name"
-msgstr "Nom"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"No ha estat creada cap col·lecció. Per què no n'<a "
-"href=\"%(add_collection_url)s\">afegiu una</a>?"
+"No ha estat creada cap col·lecció. Per què no n'<a href="
+"\"%(add_collection_url)s\">afegiu una</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -652,7 +673,7 @@ msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
 msgid "No, don't delete"
-msgstr "No esborrar"
+msgstr "No suprimir"
 
 #, python-format
 msgid "Unpublish %(title)s"
@@ -677,13 +698,13 @@ msgid ""
 "This %(model_name)s was marked as needing changes at <strong>%(task)s</"
 "strong> in <strong>%(workflow)s</strong>."
 msgstr ""
-"Aquest/a %(model_name)s va ser marcat com que necessita canvis el "
-"<strong>%(task)s</strong> a <strong>%(workflow)s</strong>."
+"Aquest/a %(model_name)s va ser marcat com que necessita canvis el <strong>"
+"%(task)s</strong> a <strong>%(workflow)s</strong>."
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in "
-"<strong>%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>."
 msgstr ""
 "Aquest/a %(model_name)s està actualment a <strong>%(task)s</strong> a "
 "<strong>%(workflow)s</strong>."
@@ -700,17 +721,23 @@ msgstr "Encara voleu publicar aquest/a %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancel·lar"
 
+msgid "Comment"
+msgstr "Comentari"
+
+msgid "Actions"
+msgstr "Accions"
+
 #, python-format
 msgid "No %(model_name)s match your query."
-msgstr "Cap %(model_name)s concorda amb la vostra consulta."
+msgstr "Cap %(model_name)s coincideix amb la vostra consulta."
 
 #, python-format
 msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"No hi ha %(model_name)s per mostrar. En voleu <a "
-"href=\"%(add_url)s\">afegir</a>?"
+"No hi ha %(model_name)s per mostrar. En voleu <a href=\"%(add_url)s"
+"\">afegir</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -777,9 +804,6 @@ msgstr "Bloquejat el"
 msgid "Edit this page"
 msgstr "Edita aquesta pàgina"
 
-msgid "Actions"
-msgstr "Accions"
-
 msgid "Unlock"
 msgstr "Desbloqueja"
 
@@ -821,9 +845,9 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Hi ha disponible una actualització de Wagtail. La vostra versió: "
-"<strong>%(current_version)s</strong>. Nova versió: <strong data-w-upgrade-"
-"target=\"latestVersion\"></strong>."
+"Hi ha disponible una actualització de Wagtail. La vostra versió: <strong>"
+"%(current_version)s</strong>. Nova versió: <strong data-w-upgrade-target="
+"\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Llegiu les notes de publicació."
@@ -849,15 +873,15 @@ msgstr "Coses que han canviat a Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
 "No et preocupis, t'acompanyem. Fes una ullada a la <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Guia de l'editor de Wagtail</a> per conèixer el que ha "
-"canviat i algunes funcions noves i emocionants!"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Guia de l'editor de Wagtail</a> per conèixer el que ha canviat i algunes "
+"funcions noves i emocionants!"
 
 msgid "Awaiting your review"
 msgstr "En espera de la vostra revisió"
@@ -951,8 +975,8 @@ msgstr "El/la %(model_name)s \"%(title)s\" ha estat aprovat/da a \"%(task)s\"."
 msgid ""
 "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr ""
-"La pàgina \"%(title)s\" ha estat rebutjada a la fase de moderació "
-"\"%(task)s\"."
+"La pàgina \"%(title)s\" ha estat rebutjada a la fase de moderació \"%(task)s"
+"\"."
 
 #, python-format
 msgid ""
@@ -1069,8 +1093,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow "
-"\"%(workflow)s\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
+"\"."
 msgstr ""
 "El/la %(model_name)s \"%(title)s\" ha estat aprovat/da en el fluxe de "
 "treball \"%(workflow)s\"."
@@ -1128,8 +1152,8 @@ msgstr "La pàgina \"%(title)s\" ha estat rebutjada durant \"%(workflow)s\"."
 msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr ""
-"El/la %(model_name)s \"%(title)s\" ha estat rebutjat/da durant "
-"\"%(workflow)s\"."
+"El/la %(model_name)s \"%(title)s\" ha estat rebutjat/da durant \"%(workflow)s"
+"\"."
 
 #, python-format
 msgid ""
@@ -1541,8 +1565,8 @@ msgid_plural ""
 "have a combined %(translation_descendant_count)s translated child pages. "
 "Unpublish these too"
 msgstr[0] ""
-"Aquesta pàgina té una pàgina filla i les seves traduccions "
-"tenen%(translation_descendant_count)s pàgines filles traduïdes combinades. "
+"Aquesta pàgina té una pàgina filla i les seves traduccions tenen"
+"%(translation_descendant_count)s pàgines filles traduïdes combinades. "
 "Anul·leu també la publicació d'aquestes"
 msgstr[1] ""
 "Aquesta pàgina té %(live_descendant_count)s pàgines filles i les seves "
@@ -1575,8 +1599,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Aquesta pàgina està actualment a <strong>%(task)s</strong> a "
-"<strong>%(workflow)s</strong>."
+"Aquesta pàgina està actualment a <strong>%(task)s</strong> a <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Publicar aquesta pàgines cancel·larà el fluxe de treball actual."
@@ -1605,31 +1629,6 @@ msgstr "Editar la pàgina original"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir aquest àlies en una pàgina ordinària"
-
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Historial de pàgina de %(subtitle)s"
-
-msgid "Action"
-msgstr "Acció"
-
-msgid "User"
-msgstr "Usuari"
-
-msgid "Date / Time"
-msgstr "Data / Hora"
-
-msgid "Comment"
-msgstr "Comentari"
-
-msgid "Live version"
-msgstr "Versió en viu"
-
-msgid "Current draft"
-msgstr "Esborrany actual"
-
-msgid "No log entries found."
-msgstr "No s'han trobat entrades de registre."
 
 msgid "Select all pages in listing"
 msgstr "Seleccionar totes les pàgines del llistat"
@@ -1761,15 +1760,6 @@ msgstr "Confirmar"
 msgid "Add child page"
 msgstr "Afegeix una pàgina filla"
 
-msgid "Review this version"
-msgstr "Revisar aquesta versió"
-
-msgid "Compare with current version"
-msgstr "Compara amb la versió actual"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancel·lar la publicació programada"
-
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1807,8 +1797,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Trieu quan aquesta pàgina ha de passar a En viu i/o caducar"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
 "Aquesta programació de publicació només serà efectiva quan seleccioneu "
 "l'opció \"Publicar\""
@@ -1885,8 +1875,23 @@ msgstr "Bloquejada"
 msgid "No locked pages found."
 msgstr "No s'ha trobat cap pàgina bloquejada."
 
+msgid "Name"
+msgstr "Nom"
+
+msgid "Action"
+msgstr "Acció"
+
+msgid "User"
+msgstr "Usuari"
+
+msgid "Date / Time"
+msgstr "Data / Hora"
+
 msgid "Edit this item"
 msgstr "Editar aquest element"
+
+msgid "No log entries found."
+msgstr "No s'han trobat entrades de registre."
 
 msgid "By Task"
 msgstr "Per tasca"
@@ -1958,8 +1963,17 @@ msgstr "Tornar"
 msgid "History"
 msgstr "Historial"
 
-msgid "Root"
-msgstr "Arrel"
+msgid "Keyboard shortcuts"
+msgstr "Dreceres de teclat"
+
+msgid "All keyboard shortcuts"
+msgstr "Totes les dreceres de teclat"
+
+msgid "Section"
+msgstr "Secció"
+
+msgid "Keyboard shortcut"
+msgstr "Drecera de teclat"
 
 msgid "Current page status:"
 msgstr "Estat de la pàgina actual:"
@@ -2223,9 +2237,9 @@ msgstr "Aquest/a %(model_name)s encara no ha estat enviat a moderació"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "JavaScript is requerit per utilitzar Wagtail, però actualment està "
 "desactivat.<br /> Aquí hi ha <a href=\"https://www.enable-javascript.com/\" "
@@ -2288,9 +2302,8 @@ msgstr "Crear"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Els fluxes de treball s'apliquen també a les pàgines filles. Si selecciuneu "
 "una pàgina pare aquí, les seves pàgines filles també utilitzaran aquest "
@@ -2329,14 +2342,9 @@ msgstr "Pàgina"
 msgid "Assign to another page"
 msgstr "Assignar a una altra pàgina"
 
-msgid "Hide disabled workflows"
-msgstr "Amagar els fluxes de treball desactivats"
-
-msgid "Show disabled workflows"
-msgstr "Mostrar fluxes de treball desactivats"
-
-msgid "Used by"
-msgstr "Utilitzat per"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Pas %(step_number)s"
 
 #, python-format
 msgid "1 page"
@@ -2349,10 +2357,6 @@ msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 tipus de fragment"
 msgstr[1] "%(counter)s tipus de fragments"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "Pas %(step_number)s"
 
 #, python-format
 msgid ""
@@ -2402,12 +2406,6 @@ msgid ""
 msgstr ""
 "En voleu <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>crear un ara</a>?"
-
-msgid "Hide disabled tasks"
-msgstr "Amagar les tasques deshabilitades"
-
-msgid "Show disabled tasks"
-msgstr "Mostrar les tasques deshabilitades"
 
 #, python-format
 msgid ""
@@ -2480,10 +2478,6 @@ msgid "%(time)s by %(user_display_name)s"
 msgstr "%(time)s per %(user_display_name)s"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "ara mateix per %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "Fa %(time_period)s per %(user_display_name)s"
 
@@ -2501,6 +2495,60 @@ msgstr "Enviat a %(task_name)s %(started_at)s"
 #, python-format
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Common actions"
+msgstr "Accions comunes"
+
+msgid "Cut"
+msgstr "Retallar"
+
+msgid "Paste"
+msgstr "Enganxar"
+
+msgid "Paste and match style"
+msgstr "Enganxar i combinar l'estil"
+
+msgid "Paste without formatting"
+msgstr "Enganxa sense formatar"
+
+msgid "Undo"
+msgstr "Desfés"
+
+msgid "Redo"
+msgstr "Refés"
+
+msgid "Save changes"
+msgstr "Desar els canvis"
+
+msgid "Text content"
+msgstr "Contingut de text"
+
+msgid "Insert or edit a link"
+msgstr "Inserir o editar un enllaç"
+
+msgid "Text formatting"
+msgstr "Formatació del text"
+
+msgid "Bold"
+msgstr "Negreta"
+
+msgid "Italic"
+msgstr "Cursiva"
+
+msgid "Underline"
+msgstr "Subratllat"
+
+msgid "Monospace (code)"
+msgstr "Monoespai (codi)"
+
+msgid "Strike-through"
+msgstr "Ratllat"
+
+msgid "Superscript"
+msgstr "Superíndex"
+
+msgid "Subscript"
+msgstr "Subíndex"
 
 msgid "Toggle status"
 msgstr "Canviar l'estat"
@@ -2648,6 +2696,21 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 msgid "Home"
 msgstr "Inici"
 
+msgid "Live version"
+msgstr "Versió en viu"
+
+msgid "Current draft"
+msgstr "Esborrany actual"
+
+msgid "Review this version"
+msgstr "Revisar aquesta versió"
+
+msgid "Compare with current version"
+msgstr "Compara amb la versió actual"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancel·lar la publicació programada"
+
 msgid "Workflow progress"
 msgstr "Progrés dels fluxe de treball"
 
@@ -2709,11 +2772,11 @@ msgstr "El fluxe de treball a %(model_name)s '%(object)s' ha estat cancel·lat."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
-"Esteu veient una versió anterior d'aquest/a %(model_name)s del "
-"<b>%(created_at)s</b> per %(user)s"
+"Esteu veient una versió anterior d'aquest/a %(model_name)s del <b>"
+"%(created_at)s</b> per %(user)s"
 
 #, python-format
 msgid ""
@@ -2736,6 +2799,10 @@ msgid ""
 msgstr ""
 "La versió de %(timestamp)s de %(model_name)s '%(object)s' ha estat "
 "programada per a publicar."
+
+#, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2942,6 +3009,13 @@ msgstr[1] ""
 "S'ha anul·lat la publicació de %(num_parent_objects)d pàgines i  "
 "%(num_child_objects)d pàgines filles"
 
+msgid "Choose parent"
+msgstr "Triar el pare"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Crear un nou %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "S'ha convertit la pàgina '%(page_title)s' en una pàgina ordinària."
@@ -3047,14 +3121,8 @@ msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
-msgid "Hide commenting actions"
-msgstr "Amagar les accions de comentaris"
-
-msgid "Page history"
-msgstr "Historial de pàgina"
-
-msgid "Page type"
-msgstr "Tipus de pàgina"
+msgid "Is commenting action"
+msgstr "Està comentant l'acció"
 
 msgid "Date updated"
 msgstr "Data actualitzada"
@@ -3076,6 +3144,9 @@ msgstr "Algun/a"
 
 msgid "Yes"
 msgstr "Sí"
+
+msgid "Page type"
+msgstr "Tipus de pàgina"
 
 msgid "Exploring"
 msgstr "Explorant"
@@ -3115,6 +3186,9 @@ msgstr ""
 "Esteu veient una versió anterior d'aquesta pàgina del  <b>%(created_at)s</b> "
 "per %(user)s"
 
+msgid "Page history"
+msgstr "Historial de pàgina"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "S'ha anul·lat la publicació de la pàgina '%(page_title)s'."
@@ -3142,6 +3216,9 @@ msgstr "Pàgines envellides"
 
 msgid "Last published at"
 msgstr "Última publicació"
+
+msgid "Hide commenting actions"
+msgstr "Amagar les accions de comentaris"
 
 msgid "Site history"
 msgstr "Historial del lloc"
@@ -3185,8 +3262,14 @@ msgstr "Tasques de fluxe de treball"
 msgid "Requested By"
 msgstr "Demanat per"
 
+msgid "Show disabled"
+msgstr "Mostrar desactivat"
+
 msgid "Add a workflow"
 msgstr "Afegir un fluxe de treball"
+
+msgid "Used by"
+msgstr "Utilitzat per"
 
 msgid "New workflow"
 msgstr "Nou fluxe de treball"
@@ -3339,20 +3422,8 @@ msgstr "Llista numerada"
 msgid "Blockquote"
 msgstr "Cita de bloc"
 
-msgid "Bold"
-msgstr "Negreta"
-
-msgid "Italic"
-msgstr "Cursiva"
-
 msgid "Link"
 msgstr "Enllaç"
-
-msgid "Superscript"
-msgstr "Superíndex"
-
-msgid "Subscript"
-msgstr "Subíndex"
 
 msgid "Strikethrough"
 msgstr "Ratllat"
@@ -3369,6 +3440,9 @@ msgstr "Què hi ha de nou a Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Guia de l'Editor"
+
+msgid "Shortcuts"
+msgstr "Dreceres"
 
 msgid "Help"
 msgstr "Ajuda"

@@ -186,6 +186,10 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: serve
 
+    .. automethod:: route_for_request
+
+    .. automethod:: find_for_request
+
     .. autoattribute:: context_object_name
 
         Custom name for page instance in page's ``Context``.
@@ -307,7 +311,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: password_required_template
 
-        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
+        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
     .. attribute:: is_creatable
 
@@ -433,7 +437,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 ## `Locale`
 
 The `Locale` model defines the set of languages and/or locales that can be used on a site.
-Each `Locale` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
+Each `Locale` record corresponds to a "language code" defined in the {ref}`wagtail_content_languages_setting` setting.
 
 Wagtail will initially set up one `Locale` to act as the default language for all existing content.
 This first locale will automatically pick the value from `WAGTAIL_CONTENT_LANGUAGES` that most closely matches the site primary language code defined in `LANGUAGE_CODE`.
@@ -508,10 +512,6 @@ The `translation_key` and `locale` fields have a unique key constraint to preven
 This is currently enforced via {attr}`~django.db.models.Options.unique_together` in `TranslatableMixin.Meta`, but may be replaced with a {class}`~django.db.models.UniqueConstraint` in `TranslatableMixin.Meta.constraints` in the future.
 
 If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
-```
-
-```{versionchanged} 6.0
-The system check for `translation_key` and `locale` unique key constraint now allows a `UniqueConstraint` in `Meta.constraints` instead of `unique_together` in `Meta`.
 ```
 
 ### Methods and properties
@@ -854,6 +854,12 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: password
 
         (text)
+
+    .. attribute:: restriction_type
+
+        (text)
+
+        Options: none, password, groups, login
 ```
 
 ## `Orderable` (abstract)

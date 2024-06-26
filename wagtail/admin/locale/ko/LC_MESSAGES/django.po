@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: mirusu400, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -82,6 +82,12 @@ msgstr "현장"
 msgid "All"
 msgstr "모두"
 
+msgid "Collection"
+msgstr "모음"
+
+msgid "Tag"
+msgstr "테그"
+
 msgid "Preferred language"
 msgstr "선호하는 언어"
 
@@ -125,9 +131,6 @@ msgstr "검색"
 
 msgid "All collections"
 msgstr "모든 모음"
-
-msgid "Collection"
-msgstr "모음"
 
 msgid "Parent"
 msgstr "상위"
@@ -232,6 +235,9 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "하위 페이지를 복사할 때 페이지를 그 페이지 자신으로 복사해 넣을 수는 없습니"
 "다."
+
+msgid "Parent page"
+msgstr "상위 페이지"
 
 msgid "Search…"
 msgstr "검색..."
@@ -502,15 +508,15 @@ msgstr "내부 연결로 변경"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내"
-"부 페이지%(page)s,와 연결되는 것 같습니다."
+"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내부 "
+"페이지%(page)s,와 연결되는 것 같습니다."
 
 msgid "Use external link"
 msgstr "외부 링크를 사용하세요."
@@ -572,13 +578,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습니다:"
 
-msgid "Name"
-msgstr "이름"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
 "나 생성</a>해 보는 것은 어떠신가요?"
@@ -601,6 +604,12 @@ msgstr "아니요, 게시를 해제하지 않습니다"
 
 msgid "Cancel"
 msgstr "취소"
+
+msgid "Comment"
+msgstr "댓글"
+
+msgid "Actions"
+msgstr "액션"
 
 msgid "Update"
 msgstr "업데이트"
@@ -648,9 +657,6 @@ msgstr "잠긴 시간:"
 
 msgid "Edit this page"
 msgstr "페이지 변경"
-
-msgid "Actions"
-msgstr "액션"
 
 msgid "Unlock"
 msgstr "잠금 풀기"
@@ -1142,31 +1148,6 @@ msgstr "원래 페이지를 수정하십시오."
 msgid "Convert this alias into an ordinary page"
 msgstr "이 에일리어스를 원래의 페이지로 변환하십시오."
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "%(subtitle)s의 페이지 히스토리"
-
-msgid "Action"
-msgstr "행동"
-
-msgid "User"
-msgstr "사용자"
-
-msgid "Date / Time"
-msgstr "날짜 / 시간"
-
-msgid "Comment"
-msgstr "댓글"
-
-msgid "Live version"
-msgstr "라이브 버전"
-
-msgid "Current draft"
-msgstr "현재 원고"
-
-msgid "No log entries found."
-msgstr "기록 입장이 확인되지 않음"
-
 msgid "Select all pages in listing"
 msgstr "목록의 모든 페이지를 선택하시오."
 
@@ -1254,15 +1235,6 @@ msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니
 msgid "Add child page"
 msgstr "하위 페이지 추가"
 
-msgid "Review this version"
-msgstr "이 버전을 검토헙니다."
-
-msgid "Compare with current version"
-msgstr "현재 버전과 비교합니다."
-
-msgid "Cancel scheduled publish"
-msgstr "예약 게시 취소"
-
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1339,8 +1311,23 @@ msgstr "잠김"
 msgid "No locked pages found."
 msgstr "잠긴 페이지가 없음."
 
+msgid "Name"
+msgstr "이름"
+
+msgid "Action"
+msgstr "행동"
+
+msgid "User"
+msgstr "사용자"
+
+msgid "Date / Time"
+msgstr "날짜 / 시간"
+
 msgid "Edit this item"
 msgstr "이 아이템 수정"
+
+msgid "No log entries found."
+msgstr "기록 입장이 확인되지 않음"
 
 msgid "By Task"
 msgstr "업무에 의해"
@@ -1393,9 +1380,6 @@ msgstr "뒤로"
 
 msgid "History"
 msgstr "자취"
-
-msgid "Root"
-msgstr "기본"
 
 msgid "Current page status:"
 msgstr "현재 페이지 상태:"
@@ -1540,9 +1524,9 @@ msgstr "이 페이지는 조정을 위해 제출되지 않음"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
-"in your web browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
 "Wagtail을 사용하려면 JavaScript가 필요하지만 현재 사용할 수 없습니다. <br />"
 "다음은 웹 브라우저에서 J<a href=\"https://www.enable-javascript.com/\" "
@@ -1594,13 +1578,12 @@ msgstr "생성"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "워크플로우는 하위 페이지에도 적용됩니다. 여기서 상위 페이지를 선택하면 하위 "
-"페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 <a "
-"href=\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
+"페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 <a href="
+"\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "이 워크플로우는 불가하기에 다른 페이지에 할당될 수 없음"
@@ -1625,23 +1608,14 @@ msgstr "페이지"
 msgid "Assign to another page"
 msgstr "다른 페이지에 할당됨"
 
-msgid "Hide disabled workflows"
-msgstr "불가한 작업 숨기기"
-
-msgid "Show disabled workflows"
-msgstr "불가한 작업 표시"
-
-msgid "Used by"
-msgstr "에 의해 사용됨"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "%(step_number)s단계"
 
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "%(counter)s페이지"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "%(step_number)s단계"
 
 #, python-format
 msgid ""
@@ -1685,12 +1659,6 @@ msgstr ""
 
 msgid "You haven't created any tasks."
 msgstr "당신은 어떤 작업도 생성한 적 없음"
-
-msgid "Hide disabled tasks"
-msgstr "불가한 작업 숨기기"
-
-msgid "Show disabled tasks"
-msgstr "불가한 작업 표시"
 
 #, python-format
 msgid ""
@@ -1748,6 +1716,24 @@ msgstr "%(time_period)s 전"
 
 msgid "Log out"
 msgstr "로그아웃"
+
+msgid "Undo"
+msgstr "실행취소"
+
+msgid "Redo"
+msgstr "재실행"
+
+msgid "Bold"
+msgstr "굵게"
+
+msgid "Italic"
+msgstr "기울임꼴"
+
+msgid "Superscript"
+msgstr "위첨자"
+
+msgid "Subscript"
+msgstr "아래첨자"
 
 msgid "Toggle status"
 msgstr "상황이 오락가락하다"
@@ -1830,6 +1816,21 @@ msgstr "이 모음을 지우려는 것이 확실한가요?"
 
 msgid "Home"
 msgstr "홈"
+
+msgid "Live version"
+msgstr "라이브 버전"
+
+msgid "Current draft"
+msgstr "현재 원고"
+
+msgid "Review this version"
+msgstr "이 버전을 검토헙니다."
+
+msgid "Compare with current version"
+msgstr "현재 버전과 비교합니다."
+
+msgid "Cancel scheduled publish"
+msgstr "예약 게시 취소"
 
 msgid "Workflow progress"
 msgstr "작업흐름 과정"
@@ -2063,12 +2064,6 @@ msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
 msgid "The page could not be saved due to validation errors"
 msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 
-msgid "Hide commenting actions"
-msgstr "댓글 달기 숨기기"
-
-msgid "Page history"
-msgstr "페이지 히스토리"
-
 msgid "Owner"
 msgstr "소유자"
 
@@ -2100,6 +2095,9 @@ msgid ""
 "by %(user)s"
 msgstr "당신은 <b>%(created_at)s</b>의 이전 버전을 %(user)s에서 보고 있습니다."
 
+msgid "Page history"
+msgstr "페이지 히스토리"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "'%(page_title)s' 페이지의 게시가 해제 되었습니다"
@@ -2127,6 +2125,9 @@ msgstr "오래된 페이지"
 
 msgid "Last published at"
 msgstr "에 마지막으로 게시됨"
+
+msgid "Hide commenting actions"
+msgstr "댓글 달기 숨기기"
 
 msgid "Site history"
 msgstr "사이트 자취"
@@ -2160,6 +2161,9 @@ msgstr "에 의해 요청됨"
 
 msgid "Add a workflow"
 msgstr "워크플로우 추가"
+
+msgid "Used by"
+msgstr "에 의해 사용됨"
 
 msgid "New workflow"
 msgstr "새로운 워크플로우"
@@ -2273,20 +2277,8 @@ msgstr "숫자 목록"
 msgid "Blockquote"
 msgstr "인용"
 
-msgid "Bold"
-msgstr "굵게"
-
-msgid "Italic"
-msgstr "기울임꼴"
-
 msgid "Link"
 msgstr "링크"
-
-msgid "Superscript"
-msgstr "위첨자"
-
-msgid "Subscript"
-msgstr "아래첨자"
 
 msgid "Strikethrough"
 msgstr "취소선"

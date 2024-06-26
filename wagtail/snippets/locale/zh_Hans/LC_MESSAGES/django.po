@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -118,30 +118,6 @@ msgstr "保存草稿"
 msgid "Actions"
 msgstr "动作"
 
-msgid "Live version"
-msgstr "发布版本"
-
-msgid "Current draft"
-msgstr "当前草稿"
-
-msgid "Preview"
-msgstr "预览"
-
-msgid "Edit"
-msgstr "编辑"
-
-msgid "Review this version"
-msgstr "审核这个修订"
-
-msgid "Compare with previous version"
-msgstr "与上一个版本进行比较"
-
-msgid "Compare with current version"
-msgstr "与当前版本进行比较"
-
-msgid "Cancel scheduled publish"
-msgstr "取消预定的发布"
-
 msgid "Choose"
 msgstr "选择"
 
@@ -153,12 +129,6 @@ msgstr "名字"
 
 msgid "Instances"
 msgstr "实例"
-
-msgid "Action"
-msgstr "行为"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Home"
 msgstr "首页"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2023-2024\n"
@@ -116,30 +116,6 @@ msgstr "Зберегти чернетку"
 msgid "Actions"
 msgstr "Дії"
 
-msgid "Live version"
-msgstr "Версія наживо"
-
-msgid "Current draft"
-msgstr "Поточна чернетка"
-
-msgid "Preview"
-msgstr "Попередній перегляд"
-
-msgid "Edit"
-msgstr "Редагувати"
-
-msgid "Review this version"
-msgstr "Переглянути цю версію"
-
-msgid "Compare with previous version"
-msgstr "Порівняти з попередньою версією"
-
-msgid "Compare with current version"
-msgstr "Порівняти з поточною версією"
-
-msgid "Cancel scheduled publish"
-msgstr "Скасувати заплановану публікацію"
-
 msgid "Choose"
 msgstr "Вибрати"
 
@@ -152,12 +128,6 @@ msgstr "Ім'я"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Більше опцій для '%(title)s'"
-
-msgid "Action"
-msgstr "Дія"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Home"
 msgstr "Головна"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -586,6 +586,9 @@ msgstr "csoportos gyűjtemény engedély"
 msgid "group collection permissions"
 msgstr "csoportos gyűjtemény engedélyek"
 
+msgid "uploaded by user"
+msgstr "feltöltő"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "a(z) %(model_name)s is törölve lesz"
@@ -664,17 +667,8 @@ msgstr ""
 msgid "Public"
 msgstr "Publikus"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privát, csak bejelentkezett felhasználók érik el"
-
-msgid "Private, accessible with the following password"
-msgstr "Privát, csak a következő jelszó megadávásal érhető el"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
-
-msgid "password"
-msgstr "jelszó"
 
 msgid "view restriction"
 msgstr "elérési korlátozás"

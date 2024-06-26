@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -155,16 +155,6 @@ msgstr "Mégsem"
 msgid "Preview"
 msgstr "Előnézet"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s szerkesztése"
-
-msgid "Editing"
-msgstr "Szerkesztés"
-
-msgid "Delete redirect"
-msgstr "Átirányítás törlése"
-
 msgid "Summary"
 msgstr "Összegzés"
 
@@ -187,47 +177,29 @@ msgstr "Hiba"
 msgid "Continue"
 msgstr "Folytatás"
 
-msgid "Export redirects"
-msgstr "Átirányítások exportálása"
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sajnáljuk, de egy átirányítás sem felel meg a következő feltételeknek: \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Még nincs átirányítás létrehozva. Miért nem <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
 
 msgid "Site"
 msgstr "Webhely"
 
-msgid "Edit this redirect"
-msgstr "Átirányítás szerkesztése"
-
-msgid "No redirects found."
-msgstr "Nincs átirányítás."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s találat van"
-msgstr[1] "%(counter)s találat van"
-
-#, python-format
-msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Sajnáljuk, de egy átirányítás sem felel meg a következő feltételeknek: "
-"\"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
-msgstr ""
-"Még nincs átirányítás létrehozva. Miért nem <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
+msgid "The redirect could not be saved due to errors."
+msgstr "Hiba történt az átirányítás mentése közben."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "'%(redirect_title)s' átirányítás módosítva."
-
-msgid "Edit"
-msgstr "Szerkeszt"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Hiba történt az átirányítás mentése közben."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -236,6 +208,9 @@ msgstr "'%(redirect_title)s' átirányítás törölve. "
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "'%(redirect_title)s' átirányítás hozzáadva."
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Hiba történt az átirányítás létrehozása közben."
@@ -260,6 +235,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d átirányítás importálva"
 msgstr[1] "%(total)d átirányítás importálva"
-
-msgid "Export Redirects"
-msgstr "Átirányítások exportálása"

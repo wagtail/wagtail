@@ -205,6 +205,8 @@ WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
 
 Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
+If the url is relative, Wagtail will not convert the link if there are more than one {class}`~wagtail.models.Site` instances. This is to avoid accidentally matching coincidentally named pages on different sites.
+
 (wagtail_date_time_formats)=
 
 ### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
@@ -347,12 +349,16 @@ Specifies the number of images shown per page in the image chooser modal.
 ### `WAGTAILIMAGES_RENDITION_STORAGE`
 
 ```python
+# Recommended
+WAGTAILIMAGES_RENDITION_STORAGE = 'my_custom_storage'
+# Or
 WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+WAGTAILIMAGES_RENDITION_STORAGE = MyCustomStorage()
 ```
 
-This setting allows image renditions to be stored using an alternative storage backend. The default is `None`, which will use Django's default `FileSystemStorage`.
+This setting allows image renditions to be stored using an alternative storage configuration. It is recommended to use a storage alias defined in [Django's STORAGES setting](https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES). Alternatively, this setting also accepts a dotted module path to a `Storage` subclass, or an instance of such a subclass. The default is `None`, meaning renditions will use the project's default storage.
 
-Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>`.
+Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>` for more information.
 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
@@ -640,23 +646,33 @@ WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
 
 For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users can dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
+(frontend_authentication)=
+
 ## Frontend authentication
 
-### `PASSWORD_REQUIRED_TEMPLATE`
+### `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 ```
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-### `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE`
+```{versionchanged} 6.1
+`PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`.
+```
+
+### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
+
+```{versionchanged} 6.1
+`DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`.
+```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
@@ -676,22 +692,22 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE`
+### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_PAGE = False
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.
 
-### `WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION`
+### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
 
 If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
 
 ```python
-WAGTAIL_ALLOW_SHARED_PASSWORD_COLLECTION = False
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 ```
 
 See [](private_pages) for more details.

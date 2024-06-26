@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -318,6 +318,9 @@ msgstr "συλλογές"
 msgid "group collection permission"
 msgstr "άδεια ομάδας συλλογών"
 
+msgid "uploaded by user"
+msgstr "ανέβηκε από το χρήστη"
+
 msgid "hostname"
 msgstr "Όνομα κεντρικού υπολογιστή"
 
@@ -373,18 +376,9 @@ msgstr ""
 msgid "Public"
 msgstr "Δημόσια"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Ιδιωτικό, προσβάσιμο μόνο σε εγγεγραμμένους χρήστες"
-
-msgid "Private, accessible with the following password"
-msgstr "Ιδιωτικό, προσβάσιμο με τον ακόλουθο κωδικό"
-
 msgid "Private, accessible to users in specific groups"
 msgstr ""
 "Ιδιωτικό, προσβάσιμο μόνο σε χρήστες που ανήκουν σε συγκεκριμένες ομάδες"
-
-msgid "password"
-msgstr "κωδικός"
 
 msgid "Log in"
 msgstr "Είσοδος"

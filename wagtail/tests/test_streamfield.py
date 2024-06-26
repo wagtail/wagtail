@@ -16,6 +16,7 @@ from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
+    ComplexDefaultStreamPage,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
@@ -235,6 +236,48 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[0].value, "foo")
         self.assertEqual(fetched_body[1].block_type, "text")
         self.assertEqual(fetched_body[1].value, "bar")
+
+    def test_complex_assignment(self):
+        page = StreamPage(title="Test page", body=[])
+        page.body = [
+            ("rich_text", "<h2>hello world</h2>"),
+            (
+                "books",
+                [
+                    ("title", "Great Expectations"),
+                    ("author", "Charles Dickens"),
+                ],
+            ),
+        ]
+        self.assertEqual(page.body[0].block_type, "rich_text")
+        self.assertIsInstance(page.body[0].value, RichText)
+        self.assertEqual(page.body[0].value.source, "<h2>hello world</h2>")
+        self.assertEqual(page.body[1].block_type, "books")
+        self.assertIsInstance(page.body[1].value, StreamValue)
+        self.assertEqual(len(page.body[1].value), 2)
+        self.assertEqual(page.body[1].value[0].block_type, "title")
+        self.assertEqual(page.body[1].value[0].value, "Great Expectations")
+        self.assertEqual(page.body[1].value[1].block_type, "author")
+        self.assertEqual(page.body[1].value[1].value, "Charles Dickens")
+
+
+class TestComplexDefault(TestCase):
+    def setUp(self):
+        self.page = ComplexDefaultStreamPage(title="Test page")
+
+    def test_default_value(self):
+        self.assertEqual(self.page.body[0].block_type, "rich_text")
+        self.assertIsInstance(self.page.body[0].value, RichText)
+        self.assertEqual(
+            self.page.body[0].value.source, "<p>My <i>lovely</i> books</p>"
+        )
+        self.assertEqual(self.page.body[1].block_type, "books")
+        self.assertIsInstance(self.page.body[1].value, StreamValue)
+        self.assertEqual(len(self.page.body[1].value), 2)
+        self.assertEqual(self.page.body[1].value[0].block_type, "title")
+        self.assertEqual(self.page.body[1].value[0].value, "The Great Gatsby")
+        self.assertEqual(self.page.body[1].value[1].block_type, "author")
+        self.assertEqual(self.page.body[1].value[1].value, "F. Scott Fitzgerald")
 
 
 class TestStreamFieldRenderingBase(TestCase):
@@ -678,3 +721,156 @@ class TestGetBlockByContentPath(TestCase):
         self.assertEqual(bound_block.value, "Barnaby Rudge")
         bound_block = field.get_block_by_content_path(self.page.body, ["456", "999"])
         self.assertIsNone(bound_block)
+
+
+class TestConstructStreamFieldFromLookup(TestCase):
+    def test_construct_block_list_from_lookup(self):
+        field = StreamField(
+            [
+                ("heading", 0),
+                ("paragraph", 1),
+                ("button", 3),
+            ],
+            block_lookup={
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: ("wagtail.blocks.PageChooserBlock", [], {}),
+                3: (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("page", 2),
+                            ("link_text", 0),
+                        ]
+                    ],
+                    {},
+                ),
+            },
+        )
+        stream_block = field.stream_block
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        self.assertEqual(len(stream_block.child_blocks), 3)
+
+        heading_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(heading_block, blocks.CharBlock)
+        self.assertTrue(heading_block.required)
+        self.assertEqual(heading_block.name, "heading")
+
+        paragraph_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(paragraph_block, blocks.RichTextBlock)
+        self.assertEqual(paragraph_block.name, "paragraph")
+
+        button_block = stream_block.child_blocks["button"]
+        self.assertIsInstance(button_block, blocks.StructBlock)
+        self.assertEqual(button_block.name, "button")
+        self.assertEqual(len(button_block.child_blocks), 2)
+        page_block = button_block.child_blocks["page"]
+        self.assertIsInstance(page_block, blocks.PageChooserBlock)
+        link_text_block = button_block.child_blocks["link_text"]
+        self.assertIsInstance(link_text_block, blocks.CharBlock)
+        self.assertEqual(link_text_block.name, "link_text")
+
+    def test_construct_top_level_block_from_lookup(self):
+        field = StreamField(
+            4,
+            block_lookup={
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: ("wagtail.blocks.PageChooserBlock", [], {}),
+                3: (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("page", 2),
+                            ("link_text", 0),
+                        ]
+                    ],
+                    {},
+                ),
+                4: (
+                    "wagtail.blocks.StreamBlock",
+                    [
+                        [
+                            ("heading", 0),
+                            ("paragraph", 1),
+                            ("button", 3),
+                        ]
+                    ],
+                    {},
+                ),
+            },
+        )
+        stream_block = field.stream_block
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        self.assertEqual(len(stream_block.child_blocks), 3)
+
+        heading_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(heading_block, blocks.CharBlock)
+        self.assertTrue(heading_block.required)
+        self.assertEqual(heading_block.name, "heading")
+
+        paragraph_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(paragraph_block, blocks.RichTextBlock)
+        self.assertEqual(paragraph_block.name, "paragraph")
+
+        button_block = stream_block.child_blocks["button"]
+        self.assertIsInstance(button_block, blocks.StructBlock)
+        self.assertEqual(button_block.name, "button")
+        self.assertEqual(len(button_block.child_blocks), 2)
+        page_block = button_block.child_blocks["page"]
+        self.assertIsInstance(page_block, blocks.PageChooserBlock)
+        link_text_block = button_block.child_blocks["link_text"]
+        self.assertIsInstance(link_text_block, blocks.CharBlock)
+        self.assertEqual(link_text_block.name, "link_text")
+
+
+class TestDeconstructStreamFieldWithLookup(TestCase):
+    def test_deconstruct(self):
+        class ButtonBlock(blocks.StructBlock):
+            page = blocks.PageChooserBlock()
+            link_text = blocks.CharBlock(required=True)
+
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                ("paragraph", blocks.RichTextBlock()),
+                ("button", ButtonBlock()),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("paragraph", 1),
+                    ("button", 3),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.blocks.RichTextBlock", (), {}),
+                    2: ("wagtail.blocks.PageChooserBlock", (), {}),
+                    3: (
+                        "wagtail.blocks.StructBlock",
+                        [
+                            [
+                                ("page", 2),
+                                ("link_text", 0),
+                            ]
+                        ],
+                        {},
+                    ),
+                },
+            },
+        )

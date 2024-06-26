@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Wagtail preusmeritve"
@@ -159,16 +159,6 @@ msgstr "Prekliči"
 msgid "Preview"
 msgstr "Predogled"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Urejanje %(title)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
-msgid "Delete redirect"
-msgstr "Izbriši preusmeritev"
-
 msgid "Summary"
 msgstr "Povzetek"
 
@@ -191,26 +181,6 @@ msgstr "Napaka"
 msgid "Continue"
 msgstr "Nadaljuj"
 
-msgid "Export redirects"
-msgstr "Izvozite preusmeritve"
-
-msgid "Site"
-msgstr "Spletno mesto"
-
-msgid "Edit this redirect"
-msgstr "Uredi preusmeritev"
-
-msgid "No redirects found."
-msgstr "Preusmeritve niso bile najdene."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "%(counter)s zadetek"
-msgstr[1] "%(counter)s zadetka"
-msgstr[2] "%(counter)s zadetkov"
-msgstr[3] "%(counter)s zadetkov"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -218,21 +188,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Dodana ni še nobena preusmeritev. Zakaj je nebi <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">dodali</a>?"
+"Dodana ni še nobena preusmeritev. Zakaj je nebi <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">dodali</a>?"
+
+msgid "Site"
+msgstr "Spletno mesto"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Preusmeritev '%(redirect_title)s' posodobljena."
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -241,6 +211,9 @@ msgstr "Preusmeritev '%(redirect_title)s' izbrisana."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Preusmeritev '%(redirect_title)s' dodana."
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
@@ -268,6 +241,3 @@ msgstr[0] "Uvožena%(total)d preusmeritev"
 msgstr[1] "Uvoženi%(total)d preusmeritvi"
 msgstr[2] "Uvoženih %(total)d preusmeritev"
 msgstr[3] "Uvoženih %(total)d preusmeritev"
-
-msgid "Export Redirects"
-msgstr "Izvozite preusmeritve"

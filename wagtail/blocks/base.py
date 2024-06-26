@@ -97,6 +97,17 @@ class Block(metaclass=BaseBlock):
 
         self.label = self.meta.label or ""
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, *args, **kwargs):
+        """
+        See `wagtail.blocks.definition_lookup.BlockDefinitionLookup`.
+        Construct a block instance from the provided arguments, using the given BlockDefinitionLookup
+        object to perform any necessary lookups.
+        """
+        # In the base implementation, no lookups take place - args / kwargs are passed
+        # on to the constructor as-is
+        return cls(*args, **kwargs)
+
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
@@ -143,10 +154,10 @@ class Block(metaclass=BaseBlock):
         Return this block's default value (conventionally found in self.meta.default),
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
-        model definition type (e.g. something like StructValue which incorporates a
+        model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.meta.default
+        return self.normalize(self.meta.default)
 
     def clean(self, value):
         """
@@ -159,6 +170,15 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def normalize(self, value):
+        """
+        Given a value for any acceptable type for this block (e.g. string or RichText for a RichTextBlock;
+        dict or StructValue for a StructBlock), return a value of the block's native type (e.g. RichText
+        for RichTextBlock, StructValue for StructBlock). In simple cases this will return the value
+        unchanged.
+        """
+        return value
+
     def to_python(self, value):
         """
         Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
@@ -167,6 +187,9 @@ class Block(metaclass=BaseBlock):
         like the original value but provides a native HTML rendering when inserted into a template; or it
         might be something totally different (e.g. an image chooser will use the image ID as the clean
         value, and turn this back into an actual image object here).
+
+        For blocks that are usable at the top level of a StreamField, this must also accept any type accepted
+        by normalize. (This is because Django calls `Field.to_python` from `Field.clean`.)
         """
         return value
 
@@ -364,7 +387,11 @@ class Block(metaclass=BaseBlock):
         """
         return False
 
-    def deconstruct(self):
+    @cached_property
+    def canonical_module_path(self):
+        """
+        Return the module path string that should be used to refer to this block in migrations.
+        """
         # adapted from django.utils.deconstruct.deconstructible
         module_name = self.__module__
         name = self.__class__.__name__
@@ -382,15 +409,28 @@ class Block(metaclass=BaseBlock):
         # if the module defines a DECONSTRUCT_ALIASES dictionary, see if the class has an entry in there;
         # if so, use that instead of the real path
         try:
-            path = module.DECONSTRUCT_ALIASES[self.__class__]
+            return module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = f"{module_name}.{name}"
+            return f"{module_name}.{name}"
 
+    def deconstruct(self):
         return (
-            path,
+            self.canonical_module_path,
             self._constructor_args[0],
             self._constructor_args[1],
         )
+
+    def deconstruct_with_lookup(self, lookup):
+        """
+        Like `deconstruct`, but with a `wagtail.blocks.definition_lookup.BlockDefinitionLookupBuilder`
+        object available so that any block instances within the definition can be added to the lookup
+        table to obtain an ID (potentially shared with other matching block definitions, thus reducing
+        the overall definition size) to be used in place of the block. The resulting deconstructed form
+        returned here can then be restored into a block object using `Block.construct_from_lookup`.
+        """
+        # In the base implementation, no substitutions happen, so we ignore the lookup and just call
+        # deconstruct
+        return self.deconstruct()
 
     def __eq__(self, other):
         """
@@ -399,14 +439,9 @@ class Block(metaclass=BaseBlock):
         attributes identified in MUTABLE_META_ATTRIBUTES, so checking these along with the result of
         deconstruct (which captures the constructor arguments) is sufficient to identify (valid) differences.
 
-        This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
-        in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
-        recurse into the block lists, and left them as Block instances. This __eq__ method therefore
-        came into play when identifying changes within migrations.
-
-        As of Django >=1.9, this *probably* isn't required any more. However, it may be useful in
-        future as a way of identifying blocks that can be re-used within StreamField definitions
-        (https://github.com/wagtail/wagtail/issues/4298#issuecomment-367656028).
+        This was implemented as a workaround for a Django <1.9 bug and is quite possibly not used by Wagtail
+        any more, but has been retained as it provides a sensible definition of equality (and there's no
+        reason to break it).
         """
 
         if not isinstance(other, Block):

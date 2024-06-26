@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -76,6 +76,9 @@ msgstr "Kuupäev kuni"
 msgid "All"
 msgstr "Kõik"
 
+msgid "Collection"
+msgstr "Kogumine"
+
 msgid "Preferred language"
 msgstr "Eelistatud keel"
 
@@ -119,9 +122,6 @@ msgstr "Otsing"
 
 msgid "All collections"
 msgstr "Kõik kollektsioonid"
-
-msgid "Collection"
-msgstr "Kogumine"
 
 msgid "Parent"
 msgstr "Vanem"
@@ -202,6 +202,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Alamlehtede kopeerimisel ei saa lehte endasse kopeerida"
+
+msgid "Parent page"
+msgstr "Vanemaleht"
 
 msgid "Visibility"
 msgstr "Nähtavus"
@@ -388,16 +391,13 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Seda kogu ei saa kustutada, kuna see pole tühi. See sisaldab:"
 
-msgid "Name"
-msgstr "Nimi"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Ühtegi kollektsiooni pole loodud. Miks mitte <a "
-"href=\"%(add_collection_url)s\">lisada üks</a>?"
+"Ühtegi kollektsiooni pole loodud. Miks mitte <a href=\"%(add_collection_url)s"
+"\">lisada üks</a>?"
 
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
@@ -417,6 +417,12 @@ msgstr "Ei, ärge avaldamist tühistage"
 
 msgid "Cancel"
 msgstr "Tühista"
+
+msgid "Comment"
+msgstr "Kommentaar"
+
+msgid "Actions"
+msgstr "Toimingud"
 
 msgid "Update"
 msgstr "Uuenda"
@@ -456,9 +462,6 @@ msgstr "Lukustatud kell"
 
 msgid "Edit this page"
 msgstr "Muutke seda lehte"
-
-msgid "Actions"
-msgstr "Toimingud"
 
 msgid "Unlock"
 msgstr "Ava"
@@ -570,8 +573,8 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis "
-"\"%(task)s\"."
+"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis \"%(task)s"
+"\"."
 
 msgid "You can preview the page here:"
 msgstr "Lehte saate eelvaadata siin:"
@@ -581,8 +584,8 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis "
-"\"%(task)s\"."
+"Leht \"%(title)s\" on esitatud kinnitamiseks modereerimise etapis \"%(task)s"
+"\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -728,31 +731,6 @@ msgstr "Kopeeri see leht"
 msgid "This page has unsaved changes."
 msgstr "Sellel lehel on salvestamata muudatusi."
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Lehe ajalugu %(subtitle)s jaoks"
-
-msgid "Action"
-msgstr "Tegevus"
-
-msgid "User"
-msgstr "Kasutaja"
-
-msgid "Date / Time"
-msgstr "Kuupäev Kellaaeg"
-
-msgid "Comment"
-msgstr "Kommentaar"
-
-msgid "Live version"
-msgstr "Reaalajas versioon"
-
-msgid "Current draft"
-msgstr "Praegune mustand"
-
-msgid "No log entries found."
-msgstr "Logikirjeid ei leitud."
-
 msgid "Configure a site now."
 msgstr "Saidi konfigureerimine kohe."
 
@@ -799,15 +777,6 @@ msgstr "Kinnitage"
 
 msgid "Add child page"
 msgstr "Lapse lisamine"
-
-msgid "Review this version"
-msgstr "Vaadake see versioon üle"
-
-msgid "Compare with current version"
-msgstr "Võrdle praeguse versiooniga"
-
-msgid "Cancel scheduled publish"
-msgstr "Ajastatud avaldamise tühistamine"
 
 msgid "Page types"
 msgstr "Lehe tüübid"
@@ -856,8 +825,23 @@ msgstr "Lukustatud"
 msgid "No locked pages found."
 msgstr "Lukustatud lehti ei leitud."
 
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Action"
+msgstr "Tegevus"
+
+msgid "User"
+msgstr "Kasutaja"
+
+msgid "Date / Time"
+msgstr "Kuupäev Kellaaeg"
+
 msgid "Edit this item"
 msgstr "Muutke seda üksust"
+
+msgid "No log entries found."
+msgstr "Logikirjeid ei leitud."
 
 msgid "By Task"
 msgstr "Autor ülesanne"
@@ -904,9 +888,6 @@ msgstr "Tagasi"
 
 msgid "History"
 msgstr "Ajalugu"
-
-msgid "Root"
-msgstr "Juur"
 
 msgid "Current page status:"
 msgstr "Lehe praegune olek:"
@@ -1029,14 +1010,12 @@ msgstr "Loo"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Töövood kehtivad ka alamlehtedele. Kui valite siin vanemlehe, kasutavad seda "
-"töövoogu ka tema alamlehed. Vaadake <a "
-"href=\"%(workflow_pages_url)s\">loendeid lehtedest,</a> kus teie töövoog "
-"kehtib."
+"töövoogu ka tema alamlehed. Vaadake <a href=\"%(workflow_pages_url)s"
+"\">loendeid lehtedest,</a> kus teie töövoog kehtib."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "See töövoog on keelatud, nii et seda ei saa ühele lehele määrata."
@@ -1061,15 +1040,6 @@ msgstr "Leht"
 
 msgid "Assign to another page"
 msgstr "Määra teisele lehele"
-
-msgid "Hide disabled workflows"
-msgstr "Peida puudega töövood"
-
-msgid "Show disabled workflows"
-msgstr "Kuva keelatud töövood"
-
-msgid "Used by"
-msgstr "Kasutatud"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -1114,12 +1084,6 @@ msgstr "Vabandust, ükski ülesanne ei vasta \"<em>%(query_string)s</em>\""
 
 msgid "You haven't created any tasks."
 msgstr "Te pole loonud ühtegi ülesannet."
-
-msgid "Hide disabled tasks"
-msgstr "Peida keelatud ülesanded"
-
-msgid "Show disabled tasks"
-msgstr "Kuva keelatud ülesanded"
 
 #, python-format
 msgid ""
@@ -1177,6 +1141,24 @@ msgstr "%(time_period)s tagasi"
 msgid "Log out"
 msgstr "Logi välja"
 
+msgid "Undo"
+msgstr "Võta tagasi"
+
+msgid "Redo"
+msgstr "Tee uuesti"
+
+msgid "Bold"
+msgstr "Julge"
+
+msgid "Italic"
+msgstr "Kursiiv"
+
+msgid "Superscript"
+msgstr "Ülaindeks"
+
+msgid "Subscript"
+msgstr "Alaindeks"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1231,6 +1213,21 @@ msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
 
 msgid "Home"
 msgstr "Kodu"
+
+msgid "Live version"
+msgstr "Reaalajas versioon"
+
+msgid "Current draft"
+msgstr "Praegune mustand"
+
+msgid "Review this version"
+msgstr "Vaadake see versioon üle"
+
+msgid "Compare with current version"
+msgstr "Võrdle praeguse versiooniga"
+
+msgid "Cancel scheduled publish"
+msgstr "Ajastatud avaldamise tühistamine"
 
 msgid "Workflow progress"
 msgstr "Töövoo edenemine"
@@ -1371,9 +1368,6 @@ msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
 msgid "The page could not be saved due to validation errors"
 msgstr "Valideerimisvigade tõttu ei õnnestunud lehte salvestada"
 
-msgid "Page history"
-msgstr "Lehe ajalugu"
-
 msgid "Site"
 msgstr "Sait"
 
@@ -1402,6 +1396,9 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
+
+msgid "Page history"
+msgstr "Lehe ajalugu"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1453,6 +1450,9 @@ msgstr "Nõutud"
 
 msgid "Add a workflow"
 msgstr "Lisage töövoog"
+
+msgid "Used by"
+msgstr "Kasutatud"
 
 msgid "New workflow"
 msgstr "Uus töövoog"
@@ -1559,20 +1559,8 @@ msgstr "Numbriloend"
 msgid "Blockquote"
 msgstr "Blokeeri pakkumine"
 
-msgid "Bold"
-msgstr "Julge"
-
-msgid "Italic"
-msgstr "Kursiiv"
-
 msgid "Link"
 msgstr "Link"
-
-msgid "Superscript"
-msgstr "Ülaindeks"
-
-msgid "Subscript"
-msgstr "Alaindeks"
 
 msgid "Strikethrough"
 msgstr "Läbikriipsutatud"

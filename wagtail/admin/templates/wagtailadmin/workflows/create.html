@@ -1,30 +1,11 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/create.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ media.js }}
-{% endblock %}
-
-{% block main_header %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon merged=1 only %}
-{% endblock %}
-
-{% block content %}
-    {% block header %}
-        {{ block.super }}
-    {% endblock %}
-
+{% block main_content %}
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        <div class="nice-padding w-form-width">
+        <div class="w-form-width">
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
             {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
@@ -45,8 +26,10 @@
                         <button
                             type="submit"
                             class="button action-save button-longrunning w-flex-grow"
-                            data-controller="w-progress"
+                            data-controller="w-progress w-kbd"
                             data-action="w-progress#activate"
+                            data-w-kbd-key-value="mod+s"
+                            data-w-kbd-scope-value="global"
                             data-w-progress-active-value="{% trans 'Creating…' %}"
                         >
                             {% icon name="spinner" %}

@@ -1,16 +1,10 @@
 import { urlify } from './urlify';
 
 describe('urlify', () => {
-  beforeAll(() => {
-    // load window.URLify
-    require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
-      .default;
-  });
-
   describe('urlify with unicode slugs disabled (default)', () => {
     it('should return a correct slug which is escaped by urlify', () => {
       expect(urlify('This & That')).toBe('this-that');
-
+      expect(urlify('The Price is $72.00!')).toBe('the-price-is-7200');
       expect(urlify('Lisboa é ótima à beira-mar')).toBe(
         'lisboa-e-otima-a-beira-mar',
       );
@@ -18,7 +12,7 @@ describe('urlify', () => {
   });
 
   describe('urlify with unicode slugs enabled', () => {
-    const options = { unicodeSlugsEnabled: true };
+    const options = { allowUnicode: true };
 
     it('should return a correct slug which is escaped by urlify', () => {
       expect(urlify('Before', options)).toBe('before');
@@ -31,9 +25,9 @@ describe('urlify', () => {
         'on-this-day-in-november',
       );
       expect(urlify('This & That', options)).toBe('this-that');
-
+      expect(urlify('The Price is $72.00!', options)).toBe('the-price-is-7200');
       expect(urlify('Lisboa é ótima à beira-mar', options)).toBe(
-        'lisboa-e-otima-a-beira-mar',
+        'lisboa-é-ótima-à-beira-mar',
       );
     });
   });

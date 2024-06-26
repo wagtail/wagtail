@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils.functional import cached_property
 
 # Retain backwards compatibility for imports
 from wagtail.admin.utils import (  # noqa: F401
@@ -25,7 +26,7 @@ def get_breadcrumbs_items_for_page(
     pages = (
         page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
-        .specific()
+        .specific(defer=True)
     )
 
     items = []
@@ -37,3 +38,34 @@ def get_breadcrumbs_items_for_page(
         items.append({"url": url + querystring_value, "label": get_latest_str(page)})
 
     return items
+
+
+class GenericPageBreadcrumbsMixin:
+    """
+    A mixin that allows a view for pages that extends a generic view to combine
+    the page explorer breadcrumbs with the generic view's breadcrumbs.
+
+    This is done by generating the explorer breadcrumbs items for the page as a
+    normalised breadcrumbs items list, and then concatenating that with the last
+    item of the generic view's generated breadcrumbs items.
+    """
+
+    _show_breadcrumbs = True
+    breadcrumbs_items_to_take = 1
+
+    @cached_property
+    def breadcrumbs_items(self):
+        return get_breadcrumbs_items_for_page(self.object, self.request.user)
+
+    def get_breadcrumbs_items(self):
+        # The generic view tends to generate breadcrumbs with items such as
+        # IndexView > EditView > CurrentView,
+        # but we don't want that because we want the preceding items to be links
+        # to the explore view of the page's ancestors for consistency with how
+        # page breadcrumbs have always worked. So we only take the last N items,
+        # which in most cases is the final item that links to the current view.
+        # However, this can be customised in the case of generic views that are
+        # nested inside another generic view.
+        return self.breadcrumbs_items + [
+            super().get_breadcrumbs_items()[-self.breadcrumbs_items_to_take]
+        ]

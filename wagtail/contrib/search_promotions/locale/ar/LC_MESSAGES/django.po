@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -86,6 +86,42 @@ msgstr "تقدم إلى تحت"
 msgid "Promoted search results"
 msgstr "نتائج البحث المطلوب"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق \"<em> %(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"لم يتم إنشاء نتائج ترويجية. لماذا لا <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
+
+msgid "Popular search terms"
+msgstr "مصطلحات البحث الاكثر شعبية"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Terms"
+msgstr "مصطلحات"
+
+msgid "Views (past week)"
+msgstr "المواقع المبحوثة في الأسبوع الماضي"
+
+msgid "No results found"
+msgstr "لاتوجد نتائج"
+
+msgid "Choose from popular search terms"
+msgstr "احتر من المصطلخات الأكثر شعبية"
+
+msgid "External link"
+msgstr "حلقة خارجية"
+
+msgid "None"
+msgstr "لا أحد"
+
 msgid "Search Terms"
 msgstr "مصطلحات البحث"
 
@@ -97,55 +133,6 @@ msgstr "مصطلح , مصطلحات البحث"
 
 msgid "Promoted results"
 msgstr "النتائج المطلوبة"
-
-msgid "Views (past week)"
-msgstr "المواقع المبحوثة في الأسبوع الماضي"
-
-msgid "Edit this promotion"
-msgstr "تحرير هذا العرض"
-
-msgid "External link"
-msgstr "حلقة خارجية"
-
-msgid "None"
-msgstr "لا أحد"
-
-msgid "Popular search terms"
-msgstr "مصطلحات البحث الاكثر شعبية"
-
-msgid "Search"
-msgstr "بحث"
-
-msgid "Terms"
-msgstr "مصطلحات"
-
-msgid "No results found"
-msgstr "لاتوجد نتائج"
-
-msgid "Choose from popular search terms"
-msgstr "احتر من المصطلخات الأكثر شعبية"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "هنالك %(counter)sتَطابق"
-msgstr[1] "هنالك %(counter)sتَطابق"
-msgstr[2] "هنالك %(counter)sتَطابق"
-msgstr[3] "هنالك %(counter)sتَطابق"
-msgstr[4] "هنالك %(counter)sتَطابق"
-msgstr[5] "هنالك %(counter)sتَطابق"
-
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق \"<em> %(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"لم يتم إنشاء نتائج ترويجية. لماذا لا <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

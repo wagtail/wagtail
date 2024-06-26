@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -101,16 +101,6 @@ msgstr "Evet, sil"
 msgid "Preview"
 msgstr "Önizleme"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s düzenleniyor"
-
-msgid "Editing"
-msgstr "Düzenleniyor"
-
-msgid "Delete redirect"
-msgstr "Yönlendirmeyi sil"
-
 msgid "From"
 msgstr "Yönlendiren"
 
@@ -120,33 +110,27 @@ msgstr "Yönlendirilen"
 msgid "Continue"
 msgstr "Devam et"
 
-msgid "Site"
-msgstr "Site"
-
-msgid "Edit this redirect"
-msgstr "Yönlendirmeyi düzenle"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen yönlendirme yok"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Hiç yönedirme oluşturulmadı. Neden <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">bir tane eklemiyorsunuz</a>?"
+"Hiç yönedirme oluşturulmadı. Neden <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">bir tane eklemiyorsunuz</a>?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Hata nedeniyle yönlendirme kaydedilemedi."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "'%(redirect_title)s' yönlendirmesi güncellendi."
-
-msgid "Edit"
-msgstr "Düzenle"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Hata nedeniyle yönlendirme kaydedilemedi."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -155,6 +139,9 @@ msgstr "'%(redirect_title)s' yönlendirmesi silindi."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "'%(redirect_title)s' yönlendirmesi eklendi."
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Hata nedeniyle yönlendirme oluşturulamadı."

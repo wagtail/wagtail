@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -457,6 +457,9 @@ msgstr "群组集合权限"
 msgid "group collection permissions"
 msgstr "群组集合权限"
 
+msgid "uploaded by user"
+msgstr "用户上传"
+
 msgid "hostname"
 msgstr "主机名"
 
@@ -508,17 +511,8 @@ msgstr ""
 msgid "Public"
 msgstr "公开"
 
-msgid "Private, accessible to logged-in users"
-msgstr "私有，登录用户可访问"
-
-msgid "Private, accessible with the following password"
-msgstr "私有，使用下列的密码访问："
-
 msgid "Private, accessible to users in specific groups"
 msgstr "私有，特定用户组中的用户可访问"
-
-msgid "password"
-msgstr "密码"
 
 msgid "view restriction"
 msgstr "查看限制"

@@ -1,8 +1,10 @@
+import django_filters
+from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count, OuterRef
+from django.db.models import Count, OuterRef, Prefetch
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -18,6 +20,7 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm,
     WorkflowContentTypeForm,
@@ -26,7 +29,7 @@ from wagtail.admin.forms.workflows import (
     get_workflow_edit_handler,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.ui.tables import BaseColumn, Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
@@ -36,6 +39,7 @@ from wagtail.models import (
     Workflow,
     WorkflowContentType,
     WorkflowState,
+    WorkflowTask,
 )
 from wagtail.permissions import (
     page_permission_policy,
@@ -48,35 +52,114 @@ from wagtail.workflows import get_task_types
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
 
+class WorkflowTitleColumn(TitleColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_title_cell.html"
+
+
+class WorkflowUsedByColumn(TitleColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_used_by_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["workflow_enabled_models"] = get_workflow_enabled_models()
+        return context
+
+
+class WorkflowTasksColumn(BaseColumn):
+    cell_template_name = "wagtailadmin/workflows/includes/workflow_tasks_cell.html"
+    num_tasks = 5
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["tasks"] = instance.workflow_tasks.all()[: self.num_tasks]
+        context["extra_count"] = instance.workflow_tasks.count() - self.num_tasks
+        return context
+
+
+class BaseWorkflowFilterSet(WagtailFilterSet):
+    show_disabled = django_filters.ChoiceFilter(
+        label=_("Show disabled"),
+        method="filter_show_disabled",
+        choices=(("true", _("Yes")), ("false", _("No"))),
+        widget=forms.RadioSelect,
+        empty_label=None,
+        initial="false",
+    )
+
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        if data is not None:
+            if data.get("show_disabled") is None:
+                filter = self.base_filters["show_disabled"]
+                data = data.copy()
+                data["show_disabled"] = filter.extra["initial"]
+        super().__init__(data, queryset, request=request, prefix=prefix)
+
+    def filter_show_disabled(self, queryset, name, value):
+        if value == "true":
+            return queryset
+        return queryset.filter(active=True)
+
+
+class WorkflowFilterSet(BaseWorkflowFilterSet):
+    class Meta:
+        model = Workflow
+        fields = []
+
+
 class Index(IndexView):
     permission_policy = workflow_permission_policy
     model = Workflow
     context_object_name = "workflows"
     template_name = "wagtailadmin/workflows/index.html"
+    results_template_name = "wagtailadmin/workflows/index_results.html"
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     index_url_name = "wagtailadmin_workflows:index"
+    index_results_url_name = "wagtailadmin_workflows:index_results"
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = "tasks"
+    columns = [
+        WorkflowTitleColumn(
+            "name",
+            label=_("Name"),
+            url_name="wagtailadmin_workflows:edit",
+            width="25%",
+            sort_key="name",
+        ),
+        WorkflowUsedByColumn(
+            "usage",
+            label=_("Used by"),
+            url_name="wagtailadmin_workflows:usage",
+            width="15%",
+        ),
+        WorkflowTasksColumn("tasks", label=_("Tasks")),
+    ]
+    default_ordering = "name"
+    search_fields = ["name"]
+    filterset_class = WorkflowFilterSet
+    _show_breadcrumbs = True
+    paginate_by = 20
 
     def show_disabled(self):
-        return self.request.GET.get("show_disabled", "false") == "true"
+        return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if not self.show_disabled():
-            queryset = queryset.filter(active=True)
+    def get_base_queryset(self):
+        queryset = super().get_base_queryset()
         content_types = WorkflowContentType.objects.filter(
             workflow=OuterRef("pk")
         ).values_list("pk", flat=True)
         queryset = queryset.annotate(content_types=Count(content_types))
-        return queryset
+        return queryset.prefetch_related(
+            "workflow_pages",
+            "workflow_pages__page",
+            "workflow_tasks",
+            "workflow_tasks__task",
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["showing_disabled"] = self.show_disabled()
-        context["workflow_enabled_models"] = get_workflow_enabled_models()
         return context
 
 
@@ -91,6 +174,7 @@ class Create(CreateView):
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
     edit_handler = None
+    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -177,6 +261,7 @@ class Edit(EditView):
     header_icon = "tasks"
     edit_handler = None
     MAX_PAGES = 5
+    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -226,7 +311,7 @@ class Edit(EditView):
         ) and self.object.active
         context["can_enable"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "create")
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
         context["media"] = bound_panel.media + form.media + pages_formset.media
         return context
@@ -334,7 +419,7 @@ def enable_workflow(request, pk):
     workflow = get_object_or_404(Workflow, id=pk)
 
     # Check permissions
-    if not workflow_permission_policy.user_has_permission(request.user, "create"):
+    if not workflow_permission_policy.user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive
@@ -396,33 +481,75 @@ class TaskUsageColumn(Column):
     cell_template_name = "wagtailadmin/workflows/includes/task_usage_cell.html"
 
 
+class TaskFilterSet(BaseWorkflowFilterSet):
+    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+        super().__init__(data, queryset, request=request, prefix=prefix)
+        task_types = get_task_types()
+        ct_ids = [
+            ct.id for ct in ContentType.objects.get_for_models(*task_types).values()
+        ]
+        if len(task_types) > 1:
+            self.filters["content_type"] = MultipleContentTypeFilter(
+                label=_("Type"),
+                widget=forms.CheckboxSelectMultiple,
+                queryset=lambda request: ContentType.objects.filter(pk__in=ct_ids),
+                field_name="content_type",
+            )
+
+    class Meta:
+        model = Task
+        fields = []
+
+
 class TaskIndex(IndexView):
     permission_policy = task_permission_policy
     model = Task
     context_object_name = "tasks"
     template_name = "wagtailadmin/workflows/task_index.html"
+    results_template_name = "wagtailadmin/workflows/task_index_results.html"
     add_url_name = "wagtailadmin_workflows:select_task_type"
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
+    index_results_url_name = "wagtailadmin_workflows:task_index_results"
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = "thumbtack"
     columns = [
         TaskTitleColumn(
-            "name", label=_("Name"), url_name="wagtailadmin_workflows:edit_task"
+            "name",
+            label=_("Name"),
+            url_name="wagtailadmin_workflows:edit_task",
+            sort_key="name",
         ),
-        Column("type", label=_("Type"), accessor="get_verbose_name"),
-        TaskUsageColumn("usage", label=_("Used on"), accessor="active_workflows"),
+        Column("type", label=_("Type"), accessor="get_verbose_name", width="25%"),
+        TaskUsageColumn(
+            "usage", label=_("Used on"), accessor="_active_workflows", width="25%"
+        ),
     ]
+    default_ordering = "name"
+    search_fields = ["name"]
+    filterset_class = TaskFilterSet
+    _show_breadcrumbs = True
+    paginate_by = 50
 
     def show_disabled(self):
-        return self.request.GET.get("show_disabled", "false") == "true"
+        return self.filters.form.cleaned_data.get("show_disabled") == "true"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        if not self.show_disabled():
-            queryset = queryset.filter(active=True)
-        return queryset.specific()
+        return (
+            super()
+            .get_queryset()
+            .specific()
+            .prefetch_related(
+                Prefetch(
+                    "workflow_tasks",
+                    queryset=WorkflowTask.objects.filter(
+                        workflow__active=True
+                    ).select_related("workflow"),
+                    to_attr="_active_workflows",
+                )
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -473,6 +600,7 @@ class CreateTask(CreateView):
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
     header_icon = "thumbtack"
+    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -534,6 +662,7 @@ class EditTask(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
+    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -574,7 +703,7 @@ class EditTask(EditView):
         ) and self.object.active
         context["can_enable"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "create")
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
 
         # TODO: add warning msg when there are pages/snippets currently on this task in a workflow, add interaction like resetting task state when saved
@@ -626,7 +755,7 @@ def enable_task(request, pk):
     task = get_object_or_404(Task, id=pk)
 
     # Check permissions
-    if not task_permission_policy.user_has_permission(request.user, "create"):
+    if not task_permission_policy.user_has_permission(request.user, "add"):
         raise PermissionDenied
 
     # Set workflow to active if inactive

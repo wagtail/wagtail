@@ -133,13 +133,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
 
         # Administrator (or user with add_site permission) should see the
         # sites link with its icon
-        self.assertContains(
-            response,
-            '<a href="/admin/sites/" title="Sites menu"><svg',
-        )
+        url = reverse("wagtailsites:index")
+        link = soup.select_one(f'td a[href="{url}"]')
+        self.assertIsNotNone(link)
+        icon = link.select_one("svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
 
     def test_ordering(self):
         response = self.client.get(
@@ -643,7 +645,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
 
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)),
-            {"latest_revision_created_at_after": "2015-01-01"},
+            {"latest_revision_created_at_from": "2015-01-01"},
         )
         self.assertEqual(response.status_code, 200)
         page_ids = {page.id for page in response.context["pages"]}
@@ -651,7 +653,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertContainsActiveFilter(
             response,
             "Date updated: Jan. 1, 2015 -",
-            "latest_revision_created_at_after=2015-01-01",
+            "latest_revision_created_at_from=2015-01-01",
         )
 
     def test_filter_by_owner(self):
@@ -1271,7 +1273,7 @@ class TestInWorkflowStatus(WagtailTestUtils, TestCase):
         # Warm up cache
         self.client.get(self.url)
 
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(47):
             response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)

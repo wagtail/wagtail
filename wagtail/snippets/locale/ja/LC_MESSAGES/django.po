@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: bayside kent, 2022\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -118,24 +118,6 @@ msgstr "下書きを保存"
 msgid "Actions"
 msgstr "操作"
 
-msgid "Live version"
-msgstr "ライブ版"
-
-msgid "Current draft"
-msgstr "現在の下書き"
-
-msgid "Preview"
-msgstr "プレビュー"
-
-msgid "Edit"
-msgstr "編集"
-
-msgid "Compare with previous version"
-msgstr "前の改定と比較する"
-
-msgid "Cancel scheduled publish"
-msgstr "予定された公開を取り消す"
-
 msgid "Choose"
 msgstr "選択"
 
@@ -144,12 +126,6 @@ msgstr "スニペット"
 
 msgid "Name"
 msgstr "名前"
-
-msgid "Action"
-msgstr "アクション"
-
-msgid "Date"
-msgstr "日付"
 
 msgid "Home"
 msgstr "ホーム"

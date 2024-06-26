@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,16 +127,6 @@ msgstr "取り消し"
 msgid "Preview"
 msgstr "プレビュー"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s を編集"
-
-msgid "Editing"
-msgstr "編集"
-
-msgid "Delete redirect"
-msgstr "リダイレクトを削除"
-
 msgid "Summary"
 msgstr "概要"
 
@@ -159,33 +149,27 @@ msgstr "エラー"
 msgid "Continue"
 msgstr "続ける"
 
-msgid "Site"
-msgstr "サイト"
-
-msgid "Edit this redirect"
-msgstr "リダイレクトを編集"
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "<em>%(query_string)s</em>に一致するリダイレクトはありません。"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "リダイレクトはありません。 <a href=\"%(wagtailredirects_add_redirect_url)s\">"
 "新しく作成</a>しますか？"
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "リダイレクト：'%(redirect_title)s'が更新されました。"
-
-msgid "Edit"
-msgstr "編集"
+msgid "Site"
+msgstr "サイト"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "リダイレクトはエラーにより保存されませんでした。"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "リダイレクト：'%(redirect_title)s'が更新されました。"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -194,6 +178,9 @@ msgstr "リダイレクト： '%(redirect_title)s'が削除されました。"
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "リダイレクト： '%(redirect_title)s'が追加されました。"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "The redirect could not be created due to errors."
 msgstr "リダイレクトはエラーにより作成されませんでした。"

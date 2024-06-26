@@ -23,6 +23,7 @@ from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.utils.utils import flatten_choices
 
 
 class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
@@ -94,7 +95,6 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         if self._show_breadcrumbs:
             context["breadcrumbs_items"] = self.get_breadcrumbs_items()
             context["header_buttons"] = self.get_header_buttons()
-            context["header_more_buttons"] = self.get_header_more_buttons()
         return context
 
     def get_template_names(self):
@@ -121,13 +121,16 @@ class BaseObjectMixin:
     def get_pk(self):
         return unquote(str(self.kwargs[self.pk_url_kwarg]))
 
+    def get_base_object_queryset(self):
+        return self.model._default_manager.all()
+
     def get_object(self):
         if not self.model:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.base.BaseObjectMixin must provide a "
                 "model attribute or a get_object method"
             )
-        return get_object_or_404(self.model, pk=self.pk)
+        return get_object_or_404(self.get_base_object_queryset(), pk=self.pk)
 
 
 class BaseOperationView(BaseObjectMixin, View):
@@ -269,6 +272,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             except KeyError:
                 continue  # invalid filter value
 
+            if value == bound_field.initial:
+                continue  # filter value is the same as the default
+
             if isinstance(filter_def, ModelMultipleChoiceFilter):
                 field = filter_def.field
                 for item in value:
@@ -283,12 +289,13 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                         )
                     )
             elif isinstance(filter_def, MultipleChoiceFilter):
+                choices = flatten_choices(filter_def.field.choices)
                 for item in value:
                     filters.append(
                         ActiveFilter(
                             bound_field.auto_id,
                             filter_def.label,
-                            item,
+                            choices.get(str(item), str(item)),
                             self.get_url_without_filter_param_value(field_name, item),
                         )
                     )
@@ -305,18 +312,22 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             elif isinstance(filter_def, DateFromToRangeFilter):
                 start_date_display = date_format(value.start) if value.start else ""
                 end_date_display = date_format(value.stop) if value.stop else ""
+                widget = filter_def.field.widget
                 filters.append(
                     ActiveFilter(
                         bound_field.auto_id,
                         filter_def.label,
                         "%s - %s" % (start_date_display, end_date_display),
                         self.get_url_without_filter_param(
-                            [f"{field_name}_before", f"{field_name}_after"]
+                            [
+                                widget.suffixed(field_name, suffix)
+                                for suffix in widget.suffixes
+                            ]
                         ),
                     )
                 )
             elif isinstance(filter_def, ChoiceFilter):
-                choices = {str(id): label for id, label in filter_def.field.choices}
+                choices = flatten_choices(filter_def.field.choices)
                 filters.append(
                     ActiveFilter(
                         bound_field.auto_id,

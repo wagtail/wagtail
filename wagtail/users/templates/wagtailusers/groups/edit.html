@@ -1,17 +1,5 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load wagtailusers_tags wagtailadmin_tags i18n %}
-
-{% block extra_css %}
-    {{ block.super }}
-
-    {{ form_media.css }}
-{% endblock %}
-
-{% block main_header %}
-    {% trans "View users in this group" as users_str %}
-    {% url 'wagtailusers_groups:users' group.id as group_users_url %}
-    {% include "wagtailadmin/shared/header.html" with title=page_title action_icon="user" action_url=group_users_url action_text=users_str subtitle=page_subtitle icon="group" %}
-{% endblock %}
 
 {% block main_content %}
     <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>

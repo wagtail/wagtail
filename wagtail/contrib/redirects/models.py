@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.urls import Resolver404
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import Page
@@ -63,10 +64,10 @@ class Redirect(models.Model):
     def __str__(self):
         return self.title
 
-    @property
+    @cached_property
     def link(self):
         if self.redirect_page:
-            page = self.redirect_page.specific
+            page = self.redirect_page.specific_deferred
             base_url = page.url
             if not self.redirect_page_route_path:
                 return base_url
@@ -145,7 +146,7 @@ class Redirect(models.Model):
         url_parsed = urlparse(url)
 
         # Path must start with / but not end with /
-        path = url_parsed[2]
+        path = url_parsed.path
         if not path.startswith("/"):
             path = "/" + path
 
@@ -153,12 +154,12 @@ class Redirect(models.Model):
             path = path[:-1]
 
         # Parameters must be sorted alphabetically
-        parameters = url_parsed[3]
+        parameters = url_parsed.params
         parameters_components = parameters.split(";")
         parameters = ";".join(sorted(parameters_components))
 
         # Query string components must be sorted alphabetically
-        query_string = url_parsed[4]
+        query_string = url_parsed.query
         query_string_components = query_string.split("&")
         query_string = "&".join(sorted(query_string_components))
 

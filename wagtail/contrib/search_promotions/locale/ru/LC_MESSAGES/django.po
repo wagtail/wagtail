@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023-2024
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2015
@@ -17,18 +17,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail search promotions"
 msgstr "Поисковое продвижение Wagtail"
@@ -156,41 +156,22 @@ msgstr "Продвигаемые результаты поиска"
 msgid "Add a recommended result"
 msgstr "Добавить рекомендуемый результат"
 
-msgid "Search Terms"
-msgstr "Поисковые запросы"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, нет продвигаемых результатов, совпадающих с \"<em>"
+"%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Добавить новый продвигаемый результат"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Продвигаемых поисковых запросов пока не создано. Почему бы не <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">добавить один</a>?"
 
-msgid "Search term(s)"
-msgstr "Критерии поиска"
-
-msgid "Order by search term alphabetically"
-msgstr "Упорядочить по алфавиту"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Упорядочить по алфавиту в обратном порядке"
-
-msgid "Promoted results"
-msgstr "Продвигаемые результаты"
-
-msgid "Views (past week)"
-msgstr "Просмотров (прошлая неделя)"
-
-msgid "Order by views (lowest first)"
-msgstr "Упорядочить по видам (нижние первые)"
-
-msgid "Order by views (highest first)"
-msgstr "Упорядочить по видам (высшие первые)"
-
-msgid "Edit this promotion"
-msgstr "Редактировать это продвижение"
-
-msgid "External link"
-msgstr "Внешняя ссылка"
-
-msgid "None"
-msgstr "Ничего"
+msgid "No promoted results have been created."
+msgstr "Продвигаемые поисковые запросы не были созданы."
 
 msgid "Popular search terms"
 msgstr "Популярные поисковые запросы"
@@ -201,33 +182,32 @@ msgstr "Поиск"
 msgid "Terms"
 msgstr "Критерии"
 
+msgid "Views (past week)"
+msgstr "Просмотров (прошлая неделя)"
+
 msgid "No results found"
 msgstr "Ничего не найдено"
 
 msgid "Choose from popular search terms"
 msgstr "Выбрать из популярных поисковых запросов"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Есть %(counter)s совпадение"
-msgstr[1] "Есть %(counter)s совпадений"
-msgstr[2] "Есть %(counter)s совпадений"
-msgstr[3] "Есть %(counter)s совпадений"
+msgid "External link"
+msgstr "Внешняя ссылка"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Извините, нет продвигаемых результатов, совпадающих с "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Ничего"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Продвигаемых поисковых запросов пока не создано. Почему бы не <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">добавить один</a>?"
+msgid "Search Terms"
+msgstr "Поисковые запросы"
+
+msgid "Add new promoted result"
+msgstr "Добавить новый продвигаемый результат"
+
+msgid "Search term(s)"
+msgstr "Критерии поиска"
+
+msgid "Promoted results"
+msgstr "Продвигаемые результаты"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

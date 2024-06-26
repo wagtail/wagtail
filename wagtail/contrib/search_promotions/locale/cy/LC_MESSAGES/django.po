@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -91,38 +91,19 @@ msgstr "Symyd i lawr"
 msgid "Promoted search results"
 msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 
-msgid "Search Terms"
-msgstr "Termau Chwilio"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes unrhyw ganlyniadau wedi'u hyrwyddo yn cyfateb "
+"\"<em>%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
-
-msgid "Search term(s)"
-msgstr "Term(au) chwilio"
-
-msgid "Order by search term alphabetically"
-msgstr "Trefnwch yn ôl term chwilio yn nhrefn yr wyddor"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Trefnwch yn ôl term chwilio bacio yn ôl yr wyddor"
-
-msgid "Promoted results"
-msgstr "Canlyniadau a hyrwyddir"
-
-msgid "Views (past week)"
-msgstr "Golygfeydd (yr wythnos ddiwethaf)"
-
-msgid "Order by views (lowest first)"
-msgstr "Trefn yn ôl golygfeydd (yr isaf yn gyntaf)"
-
-msgid "Order by views (highest first)"
-msgstr "Trefn yn ôl golygfeydd (uchaf yn gyntaf)"
-
-msgid "Edit this promotion"
-msgstr "Golygu'r hyrwyddiad hwn"
-
-msgid "None"
-msgstr "Ddim"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
 
 msgid "Popular search terms"
 msgstr "Termau chwilio poblogaidd"
@@ -133,25 +114,29 @@ msgstr "Chwilio"
 msgid "Terms"
 msgstr "Termau"
 
+msgid "Views (past week)"
+msgstr "Golygfeydd (yr wythnos ddiwethaf)"
+
 msgid "No results found"
 msgstr "Dim chanfuwyd canlyniadau"
 
 msgid "Choose from popular search terms"
 msgstr "Dewiswch o dermau chwilio poblogaidd"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Mae'n ddrwg gennym, nid oes unrhyw ganlyniadau wedi'u hyrwyddo yn cyfateb "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Ddim"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
+msgid "Search Terms"
+msgstr "Termau Chwilio"
+
+msgid "Add new promoted result"
+msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
+
+msgid "Search term(s)"
+msgstr "Term(au) chwilio"
+
+msgid "Promoted results"
+msgstr "Canlyniadau a hyrwyddir"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

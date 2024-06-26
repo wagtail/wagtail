@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -102,41 +102,17 @@ msgstr "Flytta ner"
 msgid "Promoted search results"
 msgstr "Premierade sökresultat"
 
-msgid "Search Terms"
-msgstr "Söktermer"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga premierade resultat matchar \"<em>%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Lägg till ett nytt premierat resultat"
-
-msgid "Search term(s)"
-msgstr "Sökterm(er)"
-
-msgid "Order by search term alphabetically"
-msgstr "Sortera efter sökterm alfabetiskt"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sortera efter sökterm alfabetiskt i fallande ordning"
-
-msgid "Promoted results"
-msgstr "Premierade resultat"
-
-msgid "Views (past week)"
-msgstr "Visningar (förra veckan)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sortera efter antal visningar (lägst först)"
-
-msgid "Order by views (highest first)"
-msgstr "Sortera efter antal visningar (högst först)"
-
-msgid "Edit this promotion"
-msgstr "Redigera denna premiering"
-
-msgid "External link"
-msgstr "Extern länk"
-
-msgid "None"
-msgstr "Ingen"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Inga premierade resultat har skapats. Varför inte <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
 
 msgid "Popular search terms"
 msgstr "Populära söktermer"
@@ -147,29 +123,32 @@ msgstr "Sök"
 msgid "Terms"
 msgstr "Termer"
 
+msgid "Views (past week)"
+msgstr "Visningar (förra veckan)"
+
 msgid "No results found"
 msgstr "Inga resultat funna"
 
 msgid "Choose from popular search terms"
 msgstr "Välj från populära söktermer"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Det finns %(counter)s träff"
-msgstr[1] "Det finns %(counter)s träffar"
+msgid "External link"
+msgstr "Extern länk"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr "Ledsen, inga premierade resultat matchar \"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Ingen"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Inga premierade resultat har skapats. Varför inte <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">skapa en </a>?"
+msgid "Search Terms"
+msgstr "Söktermer"
+
+msgid "Add new promoted result"
+msgstr "Lägg till ett nytt premierat resultat"
+
+msgid "Search term(s)"
+msgstr "Sökterm(er)"
+
+msgid "Promoted results"
+msgstr "Premierade resultat"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

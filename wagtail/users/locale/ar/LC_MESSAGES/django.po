@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -103,6 +103,9 @@ msgstr "اختر منطقتك الزمنية الحالية"
 msgid "profile picture"
 msgstr "الصوره الشخصيه"
 
+msgid "Default"
+msgstr "عادي"
+
 msgid "user profile"
 msgstr "ملف تعريفي للمستخدم"
 
@@ -174,11 +177,11 @@ msgstr "عذرًا ، لا توجد مجموعات تطابق \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"لا توجد مجموعات تم تكوينها. لماذا لا <a "
-"href=\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
+"لا توجد مجموعات تم تكوينها. لماذا لا <a href="
+"\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "هل أنت متأكد من حذف هذا المستخدم؟ "
@@ -194,22 +197,6 @@ msgstr "أضف مستخدم"
 
 msgid "Delete user"
 msgstr "إحذف المستخدم"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "إسم المستخدم"
-
-msgid "Status"
-msgstr "الحالة"
-
-msgid "Last Login"
-msgstr "آخر تسجيل دخول"
-
-msgid "Admin"
-msgstr "إدارة"
 
 msgid "Active"
 msgstr "نشيط"
@@ -241,11 +228,23 @@ msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
 msgid "Group '%(object)s' deleted."
 msgstr "تم حذف المجموعة '%(object)s'."
 
+msgid "Group"
+msgstr "جماعة"
+
 msgid "Add a user"
 msgstr "أضف مستخدم"
 
 msgid "Users"
 msgstr "مستخدمين"
+
+msgid "Username"
+msgstr "إسم المستخدم"
+
+msgid "Admin"
+msgstr "إدارة"
+
+msgid "Status"
+msgstr "الحالة"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -257,6 +256,3 @@ msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "تم حذف المستخدم '%(object)s'."
-
-msgid "Edit"
-msgstr "تحرير"

@@ -12,7 +12,7 @@
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020-2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020-2021,2024
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 # Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2022
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
@@ -20,9 +20,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, "
+"2016-2018,2020-2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +84,9 @@ msgstr "Página roteável Wagtail"
 msgid "Wagtail sitemaps"
 msgstr "Mapa do site Wagtail"
 
+msgid "Unknown content type"
+msgstr "Tipo de conteúdo desconhecido"
+
 msgid "Password"
 msgstr "Senha"
 
@@ -95,8 +99,80 @@ msgstr "Comentário"
 msgid "Locked"
 msgstr "Bloqueado"
 
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr ""
+"Ninguém pode fazer alterações enquanto %(model_name)s estiver bloqueado"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr ""
+"<b>'{title}' estava bloqueado</b> por <b>você</b> em <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' está bloqueado</b> por <b>você</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' está bloqueado</b>."
+
+msgid "Locked by you"
+msgstr "Bloqueado por você"
+
+msgid "Locked by another user"
+msgstr "Bloqueado por outro usuário"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr ""
+"Somente você pode fazer alterações enquanto %(model_name)s estiver bloqueado"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr ""
+"Apenas %(user)s pode fazer alterações enquanto %(model_name)s estiver "
+"bloqueado"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "Este %(model_name)s está aguardando moderação."
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Este {model_name} está aguardando <b>'{task_name}'</b> no fluxo de trabalho "
+"<b>'{workflow_name}'</b>."
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Somente revisores desta tarefa podem editar %(model_name)s."
+
 msgid "Unlocked"
 msgstr "Desbloqueado"
+
+msgid "Locked by workflow"
+msgstr "Bloqueado por fluxo de trabalho"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Os revisores podem editar este %(model_name)s – bloqueie-o para evitar que "
+"outros revisores editem"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Somente revisores podem editar e aprovar o %(model_name)s"
+
+msgid "Locked by schedule"
+msgstr "Bloqueado por agendamento"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Atualmente bloqueado e entrará no ar na data agendada"
 
 msgid "latest revision"
 msgstr "última revisão"
@@ -469,6 +545,36 @@ msgstr "grupo de permissão de coleção"
 msgid "group collection permissions"
 msgstr "grupo de permissões de coleção"
 
+msgid "for content type"
+msgstr "para o tipo de conteúdo"
+
+msgid "uploaded by user"
+msgstr "enviado pelo usuário"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "o %(model_name)s também será excluído"
+
+msgid "prevents deletion"
+msgstr "impede a exclusão"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "será definido como padrão %(model_name)s"
+
+msgid "will do nothing"
+msgstr "não fará nada"
+
+msgid "may prevent deletion"
+msgstr "pode impedir a exclusão"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "será definido como %(model_name)s especificado pelo sistema"
+
+msgid "will unset the reference"
+msgstr "irá desmarcar a referência"
+
 msgid "hostname"
 msgstr "nome do host"
 
@@ -524,17 +630,25 @@ msgstr ""
 msgid "Public"
 msgstr "Público"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privado, acessível a usuários logados"
+msgid "Private, accessible with a shared password"
+msgstr "Privado, acessível com uma senha compartilhada"
 
-msgid "Private, accessible with the following password"
-msgstr "Privado, acessível com a seguinte senha"
+msgid "Private, accessible to any logged-in users"
+msgstr "Privado, acessível a qualquer usuário logado"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Privado, acessível a usuários em grupos específicos"
 
-msgid "password"
-msgstr "senha"
+msgid "shared password"
+msgstr "senha compartilhada"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Senhas compartilhadas não devem ser usadas para proteger conteúdo "
+"confidencial. Qualquer pessoa que possua essa senha poderá visualizar o "
+"conteúdo."
 
 msgid "view restriction"
 msgstr "visualizar restrição"

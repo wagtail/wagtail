@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "Publish"
 msgstr "Objavi"
@@ -78,6 +78,12 @@ msgstr "Datum do"
 msgid "All"
 msgstr "Sve"
 
+msgid "Collection"
+msgstr "Zbirka"
+
+msgid "Tag"
+msgstr "Oznaka"
+
 msgid "Preferred language"
 msgstr "Odabrani jezik"
 
@@ -123,9 +129,6 @@ msgstr "Pretraga"
 
 msgid "All collections"
 msgstr "Sve zbirke"
-
-msgid "Collection"
-msgstr "Zbirka"
 
 msgid "Parent"
 msgstr "Roditelj"
@@ -229,12 +232,15 @@ msgid ""
 "This slug is already in use within the context of its parent page "
 "\"%(parent_page_title)s\""
 msgstr ""
-"Slug se već koristi u kontekstu roditeljske stranice "
-"\"%(parent_page_title)s\""
+"Slug se već koristi u kontekstu roditeljske stranice \"%(parent_page_title)s"
+"\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Ne možete kopirati stranicu unutar same sebe ako kopirate i podstranice."
+
+msgid "Parent page"
+msgstr "Roditeljska stranica"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -465,13 +471,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Zbirku nije moguće izbrisati zato što nije prazna. Ona sadrži:"
 
-msgid "Name"
-msgstr "Naziv"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "Nema postavljenih zbirki. Zašto ne <a href=\"%(add_collection_url)s\">dodate "
 "jednu</a>?"
@@ -494,6 +497,12 @@ msgstr "Ne, nemoj odjaviti"
 
 msgid "Cancel"
 msgstr "Odustani"
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Actions"
+msgstr "Postupci"
 
 msgid "Update"
 msgstr "Ažuriraj"
@@ -533,9 +542,6 @@ msgstr "Zaključano u"
 
 msgid "Edit this page"
 msgstr "Uredi ovu stranicu"
-
-msgid "Actions"
-msgstr "Postupci"
 
 msgid "Unlock"
 msgstr "Odblokiraj"
@@ -701,16 +707,16 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\" by %(requester)s."
 msgstr ""
-"Stranica \"%(title)s\" je poslana na moderiranje u tijek rada "
-"\"%(workflow)s\" od strane korisnika %(requester)s."
+"Stranica \"%(title)s\" je poslana na moderiranje u tijek rada \"%(workflow)s"
+"\" od strane korisnika %(requester)s."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr ""
-"Stranica \"%(title)s\" je poslana na moderiranje u tijek rada "
-"\"%(workflow)s\"."
+"Stranica \"%(title)s\" je poslana na moderiranje u tijek rada \"%(workflow)s"
+"\"."
 
 msgid "Page privacy"
 msgstr "Privatnost stranice"
@@ -836,31 +842,6 @@ msgstr "Stranica je alias od druge stranice."
 msgid "Edit original page"
 msgstr "Uredi originalnu stranicu"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Povijest stranice za %(subtitle)s"
-
-msgid "Action"
-msgstr "Radnja"
-
-msgid "User"
-msgstr "Korisnik"
-
-msgid "Date / Time"
-msgstr "Datum / Vrijeme"
-
-msgid "Comment"
-msgstr "Komentar"
-
-msgid "Live version"
-msgstr "Verzija uživo"
-
-msgid "Current draft"
-msgstr "Trenutna skica"
-
-msgid "No log entries found."
-msgstr "Nema pronađenih zapisa."
-
 msgid "Configure a site now."
 msgstr "Postavite sjedište sada."
 
@@ -901,15 +882,6 @@ msgstr "Stranica je sakrivena od javnosti"
 
 msgid "Confirm"
 msgstr "Potvrdi"
-
-msgid "Review this version"
-msgstr "Pregledaj ovu verziju"
-
-msgid "Compare with current version"
-msgstr "Usporedi sa trenutnom verzijom"
-
-msgid "Cancel scheduled publish"
-msgstr "Otkaži zakazano objavljivanje"
 
 msgid "Page types"
 msgstr "Vrste stranica"
@@ -956,8 +928,23 @@ msgstr "Zaključano"
 msgid "No locked pages found."
 msgstr "Nema zaključanih stranica."
 
+msgid "Name"
+msgstr "Naziv"
+
+msgid "Action"
+msgstr "Radnja"
+
+msgid "User"
+msgstr "Korisnik"
+
+msgid "Date / Time"
+msgstr "Datum / Vrijeme"
+
 msgid "Edit this item"
 msgstr "Uredi ovu stavku"
+
+msgid "No log entries found."
+msgstr "Nema pronađenih zapisa."
 
 msgid "By Task"
 msgstr "Po zadatku"
@@ -1010,9 +997,6 @@ msgstr "Povratak"
 
 msgid "History"
 msgstr "Povijest"
-
-msgid "Root"
-msgstr "Korijen"
 
 msgid "Current page status:"
 msgstr "Trenutni status stranice"
@@ -1131,9 +1115,8 @@ msgstr "Stvori"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Tijekovi rada se primjenjuju i na podređene stranice. Ako odaberete "
 "roditeljsku stranicu, njena djeca će također koristiti ovaj tijek rada. "
@@ -1162,15 +1145,6 @@ msgstr "Stranica"
 
 msgid "Assign to another page"
 msgstr "Pridruži drugu stranicu"
-
-msgid "Hide disabled workflows"
-msgstr "Sakrij onemogućene tijekove rada"
-
-msgid "Show disabled workflows"
-msgstr "Prikaži onemogućene tijekove rada"
-
-msgid "Used by"
-msgstr "Koristi ga"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -1218,12 +1192,6 @@ msgstr ""
 
 msgid "You haven't created any tasks."
 msgstr "Nemate stvorenih zadataka."
-
-msgid "Hide disabled tasks"
-msgstr "Sakrij onemogućene zadatke"
-
-msgid "Show disabled tasks"
-msgstr "Prikaži onemogućene zadatke"
 
 #, python-format
 msgid ""
@@ -1274,6 +1242,24 @@ msgstr "Prije %(time_period)s"
 
 msgid "Log out"
 msgstr "Odjava"
+
+msgid "Undo"
+msgstr "Vrati"
+
+msgid "Redo"
+msgstr "Ponovi"
+
+msgid "Bold"
+msgstr "Podebljano"
+
+msgid "Italic"
+msgstr "Kurziv"
+
+msgid "Superscript"
+msgstr "Eksponent"
+
+msgid "Subscript"
+msgstr "Indeks"
 
 msgid "Comments"
 msgstr "Komentari"
@@ -1330,6 +1316,21 @@ msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 
 msgid "Home"
 msgstr "Naslovna"
+
+msgid "Live version"
+msgstr "Verzija uživo"
+
+msgid "Current draft"
+msgstr "Trenutna skica"
+
+msgid "Review this version"
+msgstr "Pregledaj ovu verziju"
+
+msgid "Compare with current version"
+msgstr "Usporedi sa trenutnom verzijom"
+
+msgid "Cancel scheduled publish"
+msgstr "Otkaži zakazano objavljivanje"
 
 msgid "Workflow progress"
 msgstr "Napredak tijeka rada"
@@ -1464,9 +1465,6 @@ msgstr "Stranica '%(page_title)s' je poslana na moderiranje."
 msgid "The page could not be saved as it is locked"
 msgstr "Nije moguće sačuvati stranicu budući da je zaključana"
 
-msgid "Page history"
-msgstr "Povijest stranice"
-
 msgid "Site"
 msgstr "Sjedište"
 
@@ -1488,6 +1486,9 @@ msgid ""
 msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
+
+msgid "Page history"
+msgstr "Povijest stranice"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -1531,6 +1532,9 @@ msgstr "Zatražio korisnik"
 
 msgid "Add a workflow"
 msgstr "Dodaj tijek rada"
+
+msgid "Used by"
+msgstr "Koristi ga"
 
 msgid "New workflow"
 msgstr "Novi tijek rada"
@@ -1636,20 +1640,8 @@ msgstr "Numerirani popis"
 msgid "Blockquote"
 msgstr "Blok citat"
 
-msgid "Bold"
-msgstr "Podebljano"
-
-msgid "Italic"
-msgstr "Kurziv"
-
 msgid "Link"
 msgstr "Poveznica"
-
-msgid "Superscript"
-msgstr "Eksponent"
-
-msgid "Subscript"
-msgstr "Indeks"
 
 msgid "Strikethrough"
 msgstr "Precrtano"

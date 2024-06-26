@@ -9,16 +9,16 @@
 # Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Thiago Cangussu <cng.thg@gmail.com>, 2014\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,14 @@ msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
 "Não é um formato de imagem suportado. Formatos suportados: "
 "%(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Não é uma imagem .%(extension)s válida. A extensão não corresponde ao "
+"formato do arquivo (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -167,6 +175,13 @@ msgstr "imagem"
 msgid "images"
 msgstr "imagens"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Adicionar tags a 1 imagem"
+msgstr[1] "Adicionar tags a %(counter)s imagens"
+msgstr[2] "Adicionar tags a %(counter)s imagens"
+
 msgid "Add tags to images"
 msgstr "Adicionar tags em imagens"
 
@@ -187,6 +202,13 @@ msgstr "Adicionar"
 
 msgid "No, don't add"
 msgstr "Não adicionar"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Adicionar 1 imagem para nova coleção"
+msgstr[1] "Adicionar %(counter)s imagens para nova coleção"
+msgstr[2] "Adicionar %(counter)s imagens para nova coleção"
 
 msgid "Add images to collection"
 msgstr "Adicionar imagens a uma coleção"
@@ -255,8 +277,24 @@ msgstr "Existente"
 msgid "New"
 msgstr "Adicionar"
 
+msgid "Use new image"
+msgstr "Usar nova imagem"
+
+msgid "Use existing and delete new"
+msgstr "Use o existente e excluir o novo"
+
 msgid "Latest images"
 msgstr "Últimas imagens"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Selecionar %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Você não enviou nenhuma imagem nesta coleção."
+
+msgid "You haven't uploaded any images."
+msgstr "Você não enviou nenhuma imagem."
 
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
@@ -271,6 +309,23 @@ msgstr "Escolha um formato"
 msgid "Insert image"
 msgstr "Inserir imagem"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Imagem <span class=\"w-sr-only\">criada em "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Imagens <span class=\"w-sr-only\">criadas em "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Imagens <span class=\"w-sr-only\">criadas em "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Altere o arquivo de imagem:"
 
@@ -283,6 +338,12 @@ msgstr "Adicionar imagem"
 msgid "Save"
 msgstr "Salvar"
 
+msgid "Keep new image"
+msgstr "Manter nova imagem"
+
+msgid "Delete new image"
+msgstr "Excluir nova imagem"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editando imagem %(title)s"
@@ -292,6 +353,9 @@ msgstr "Editando"
 
 msgid "Delete image"
 msgstr "Apagar imagem"
+
+msgid "Image focal point"
+msgstr "Ponto focal da imagem"
 
 msgid "URL Generator"
 msgstr "Gerador de URL"
@@ -327,8 +391,8 @@ msgstr "Arquivo não encontrado"
 msgid "Usage"
 msgstr "Uso"
 
-msgid "Popular Tags:"
-msgstr "Tags populares:"
+msgid "Sort by"
+msgstr "Ordenar por"
 
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da lista"
@@ -340,25 +404,37 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem nessa coleção. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem nessa coleção. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a "
-"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Você não enviou nenhuma imagem. Por que não <a "
-"href=\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
+"Você não enviou nenhuma imagem. Por que não <a href="
+"\"%(wagtailimages_add_image_url)s\">enviar uma agora</a>?"
 
 msgid "Preview"
 msgstr "Pré-visualizar"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Image URL"
+msgstr "URL da imagem"
+
+msgid "Copy URL"
+msgstr "Copiar URL"
+
+msgid "Copied to clipboard"
+msgstr "Copiado para a área de transferência"
+
+msgid "Copying to clipboard failed"
+msgstr "Falha ao copiar para a área de transferência"
 
 msgid "Add multiple images"
 msgstr "Adicionar múltiplas imagens"
@@ -383,6 +459,13 @@ msgstr ""
 "Carregamento com sucesso. Por favor, atualize esta imagem com um título mais "
 "apropriado, se necessário. Você também pode apagar a imagem completamente se "
 "o upload não era necessário."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Carregamento bem-sucedido. No entanto, sua nova imagem parece ser uma "
+"duplicata da imagem existente. Você pode excluí-la se não for necessário."
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
@@ -461,6 +544,24 @@ msgstr "Escolha outra imagem"
 
 msgid "Edit this image"
 msgstr "Editar esta imagem"
+
+msgid "Newest"
+msgstr "Mais novo"
+
+msgid "Oldest"
+msgstr "Mais antigo"
+
+msgid "Title: (A -> Z)"
+msgstr "Título: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Título: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Tamanho do arquivo: (baixo a alto)"
+
+msgid "File size: (high to low)"
+msgstr "Tamanho do arquivo: (alto a baixo)"
 
 msgid "Images"
 msgstr "Imagens"

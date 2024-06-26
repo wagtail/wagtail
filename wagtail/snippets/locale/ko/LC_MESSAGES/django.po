@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -94,13 +94,13 @@ msgstr "아니오, 지우지 않습니다"
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"당신은 어떤 %(snippet_type_name)s정보도 생성한적 없습니다. <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">새로 생성</a>하는 것은 어떤가요?"
+"당신은 어떤 %(snippet_type_name)s정보도 생성한적 없습니다. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">새로 생성</a>하는 것은 어떤가요?"
 
 msgid "Publishing…"
 msgstr "게시 중..."
@@ -120,30 +120,6 @@ msgstr "초안 저장"
 msgid "Actions"
 msgstr "액션"
 
-msgid "Live version"
-msgstr "라이브 버전"
-
-msgid "Current draft"
-msgstr "현재 원고"
-
-msgid "Preview"
-msgstr "미리보기"
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "Review this version"
-msgstr "이 버전을 검토헙니다."
-
-msgid "Compare with previous version"
-msgstr "이전 버전과 비교합니다."
-
-msgid "Compare with current version"
-msgstr "현재 버전과 비교합니다."
-
-msgid "Cancel scheduled publish"
-msgstr "예약 게시 취소"
-
 msgid "Choose"
 msgstr "선택"
 
@@ -152,12 +128,6 @@ msgstr "스니펫"
 
 msgid "Name"
 msgstr "이름"
-
-msgid "Action"
-msgstr "행동"
-
-msgid "Date"
-msgstr "날짜"
 
 msgid "Home"
 msgstr "홈"

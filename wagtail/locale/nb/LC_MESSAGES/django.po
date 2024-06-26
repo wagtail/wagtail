@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -243,6 +243,9 @@ msgstr "gruppetillatelse for samling"
 msgid "group collection permissions"
 msgstr "gruppetillatelser for samling"
 
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
+
 msgid "hostname"
 msgstr "vertsnavn"
 
@@ -297,17 +300,8 @@ msgstr ""
 msgid "Public"
 msgstr "Offentlig"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privat, tilgjengelig kun for innloggede brukere"
-
-msgid "Private, accessible with the following password"
-msgstr "Privat, tilgjengelig med følgende passord"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, tilgjengelig kun for brukere i spesifikke grupper"
-
-msgid "password"
-msgstr "passord"
 
 msgid "view restriction"
 msgstr "visningsbegrensning"

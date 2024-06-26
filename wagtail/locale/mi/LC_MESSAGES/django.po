@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -376,6 +376,9 @@ msgstr "rōpū kohikohinga whakaae"
 msgid "group collection permissions"
 msgstr "Ngā rōpū kohikohinga whakaae"
 
+msgid "uploaded by user"
+msgstr "Nō te kaiwhakamahi ī tukuatu"
+
 msgid "hostname"
 msgstr "Ingoa-a-manuhiri"
 
@@ -431,17 +434,8 @@ msgstr ""
 msgid "Public"
 msgstr "Marea"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi e takiuru"
-
-msgid "Private, accessible with the following password"
-msgstr "Paraiweti, whakatapoko me tēnei kupu muna"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi i roto ngā rōpū motuhake"
-
-msgid "password"
-msgstr "Kupu muna"
 
 msgid "view restriction"
 msgstr "Kitea ngā aukatinga"

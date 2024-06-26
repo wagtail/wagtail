@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -66,21 +66,6 @@ msgstr "Uz augšu"
 msgid "Move down"
 msgstr "Uz leju"
 
-msgid "Search Terms"
-msgstr "Meklēšanas termini"
-
-msgid "Search term(s)"
-msgstr "Meklēšanas termins(i)"
-
-msgid "Views (past week)"
-msgstr "Skatījumi (pagājusī nedēļa)"
-
-msgid "External link"
-msgstr "Ārēja saite"
-
-msgid "None"
-msgstr "Nav"
-
 msgid "Popular search terms"
 msgstr "Populāri meklēšanas termini"
 
@@ -90,11 +75,26 @@ msgstr "Meklēt"
 msgid "Terms"
 msgstr "Termini"
 
+msgid "Views (past week)"
+msgstr "Skatījumi (pagājusī nedēļa)"
+
 msgid "No results found"
 msgstr "Nav rezultātu"
 
 msgid "Choose from popular search terms"
 msgstr "Izvēlēties starp populāriem meklēšanas terminiem"
+
+msgid "External link"
+msgstr "Ārēja saite"
+
+msgid "None"
+msgstr "Nav"
+
+msgid "Search Terms"
+msgstr "Meklēšanas termini"
+
+msgid "Search term(s)"
+msgstr "Meklēšanas termins(i)"
 
 msgid "Edit"
 msgstr "Labot"

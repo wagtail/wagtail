@@ -29,6 +29,7 @@ except AttributeError:
 
 
 if use_version_strings:
+    # SECRET_KEY is used to prevent exposing the Wagtail version
     VERSION_HASH = hashlib.sha1(
         (__version__ + settings.SECRET_KEY).encode("utf-8")
     ).hexdigest()[:8]

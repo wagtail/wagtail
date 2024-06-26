@@ -434,7 +434,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             return SearchQuery(lexemes, search_type="raw", config=config)
 
         elif isinstance(query, Phrase):
-            return SearchQuery(query.query_string, search_type="phrase")
+            return SearchQuery(query.query_string, search_type="phrase", config=config)
 
         elif isinstance(query, Boost):
             # Not supported

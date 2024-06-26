@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -159,16 +159,6 @@ msgstr "Cancelar"
 msgid "Preview"
 msgstr "Previsualizar"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Delete redirect"
-msgstr "Eliminar redirección"
-
 msgid "Summary"
 msgstr "Sumario"
 
@@ -191,45 +181,27 @@ msgstr "Erro"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Export redirects"
-msgstr "Exportar redireccións"
-
-msgid "Site"
-msgstr "Sitio web"
-
-msgid "Edit this redirect"
-msgstr "Editar esta redirección"
-
-msgid "No redirects found."
-msgstr "Non se atoparon redireccións."
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Hai %(counter)s coincidencia"
-msgstr[1] "Hai %(counter)s coincidencias."
-
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningunha redirección contén \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Non se crearon redireccións. ¿Por qué non <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">engadir unha</a>?"
+"Non se crearon redireccións. ¿Por qué non <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">engadir unha</a>?"
+
+msgid "Site"
+msgstr "Sitio web"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "A redirección non pede ser gardada debido a erros."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redirección '%(redirect_title)s' actualizada"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "A redirección non pede ser gardada debido a erros."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -238,6 +210,9 @@ msgstr "Redirección '%(redirect_title)s' eliminada."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirección '%(redirect_title)s' engadida."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The redirect could not be created due to errors."
 msgstr "A redirección non pede ser creada debido a erros."
@@ -262,6 +237,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Importouse %(total)d redirección"
 msgstr[1] "Importáronse %(total)d redireccións"
-
-msgid "Export Redirects"
-msgstr "Exportar Redireccións"

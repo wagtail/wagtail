@@ -26,7 +26,7 @@ INSTALLED_APPS = [
 
 ## The basics
 
-To use `RoutablePageMixin`, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
+To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
 
 These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object; typically this is done through a call to `django.shortcuts.render`.
 
@@ -39,7 +39,7 @@ import datetime
 from django.http import JsonResponse
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-from wagtail.contrib.routable_page.models import RoutablePageMixin, path
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path, re_path
 
 
 class EventIndexPage(RoutablePageMixin, Page):

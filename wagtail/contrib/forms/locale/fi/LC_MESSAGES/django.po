@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -176,6 +176,10 @@ msgstr "Poista"
 msgid "Delete selected submissions"
 msgstr "Poista valitut tiedot"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Lomaketta '%(title)s' ei ole lähetetty kertaakaan."
+
 msgid "Total submissions"
 msgstr "Lähettyjä yhteensä"
 
@@ -185,16 +189,6 @@ msgstr "Viimeksi lähetetty"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Lähetetyt %(form_title)s -lomakkeet"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Lomaketta '%(title)s' ei ole lähetetty kertaakaan."
-
-msgid "Filter"
-msgstr "Suodatin"
-
-msgid "Apply filters"
-msgstr "Toteuta suodatukset"
 
 msgid "Forms"
 msgstr "Lomakkeet"

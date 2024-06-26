@@ -1,4 +1,5 @@
 import itertools
+import json
 import uuid
 from collections import OrderedDict, defaultdict
 from collections.abc import Mapping, MutableSequence
@@ -88,16 +89,16 @@ class BaseStreamBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-    def get_default(self):
-        """
-        Default values set on a StreamBlock should be a list of (type_name, value) tuples -
-        we can't use StreamValue directly, because that would require a reference back to
-        the StreamBlock that hasn't been built yet.
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
+        if child_blocks:
+            child_blocks = [
+                (name, lookup.get_block(index)) for name, index in child_blocks
+            ]
+        return cls(child_blocks, **kwargs)
 
-        For consistency, then, we need to convert it to a StreamValue here for StreamBlock
-        to work with.
-        """
-        return StreamValue(self, self.meta.default)
+    def empty_value(self, raw_text=None):
+        return StreamValue(self, [], raw_text=raw_text)
 
     def sorted_child_blocks(self):
         """Child blocks, sorted in to their groups."""
@@ -230,19 +231,58 @@ class BaseStreamBlock(Block):
         return StreamValue(self, cleaned_data)
 
     def to_python(self, value):
-        # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field
-        # (and possibly an 'id' too).
-        # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
-        # block types from the list
-        return StreamValue(
-            self,
-            [
-                child_data
-                for child_data in value
-                if child_data["type"] in self.child_blocks
-            ],
-            is_lazy=True,
-        )
+        if isinstance(value, StreamValue):
+            return value
+        elif isinstance(value, str) and value:
+            try:
+                value = json.loads(value)
+            except ValueError:
+                # value is not valid JSON; most likely, this field was previously a
+                # rich text field before being migrated to StreamField, and the data
+                # was left intact in the migration. Return an empty stream instead
+                # (but keep the raw text available as an attribute, so that it can be
+                # used to migrate that data to StreamField)
+                return self.empty_value(raw_text=value)
+
+        if not value:
+            return self.empty_value()
+
+        # ensure value is a list and not some other kind of iterable
+        value = list(value)
+
+        if isinstance(value[0], dict):
+            # value is in JSONish representation - a dict with 'type' and 'value' keys.
+            # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
+            # block types from the list
+            return StreamValue(
+                self,
+                [
+                    child_data
+                    for child_data in value
+                    if child_data["type"] in self.child_blocks
+                ],
+                is_lazy=True,
+            )
+        else:
+            # See if it looks like the standard non-smart representation of a
+            # StreamField value: a list of (block_name, value) tuples
+            try:
+                [None for (x, y) in value]
+            except (TypeError, ValueError) as exc:
+                # Give up trying to make sense of the value
+                raise TypeError(
+                    f"Cannot handle {value!r} (type {type(value)!r}) as a value of a StreamBlock"
+                ) from exc
+
+            # Test succeeded, so return as a StreamValue-ified version of that value
+            return StreamValue(
+                self,
+                [
+                    (k, self.child_blocks[k].normalize(v))
+                    for k, v in value
+                    if k in self.child_blocks
+                ],
+            )
 
     def bulk_to_python(self, values):
         # 'values' is a list of streams, each stream being a list of dicts with 'type', 'value' and
@@ -303,6 +343,9 @@ class BaseStreamBlock(Block):
             # (which has special-case handling for lazy StreamValues to avoid useless
             # round-trips to the full data representation and back)
             return value.get_prep_value()
+
+    def normalize(self, value):
+        return self.to_python(value)
 
     def get_form_state(self, value):
         if not value:
@@ -395,6 +438,17 @@ class BaseStreamBlock(Block):
         """
         path = "wagtail.blocks.StreamBlock"
         args = [list(self.child_blocks.items())]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
+    def deconstruct_with_lookup(self, lookup):
+        path = "wagtail.blocks.StreamBlock"
+        args = [
+            [
+                (name, lookup.add_block(block))
+                for name, block in self.child_blocks.items()
+            ]
+        ]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 

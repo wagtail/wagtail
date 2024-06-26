@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail forms"
 msgstr "Obrazci Wagtail"
@@ -176,6 +176,10 @@ msgstr "Izbriši"
 msgid "Delete selected submissions"
 msgstr "Izbriši izbrane oddaje"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Ni bilo nobenih predložitev '%(title)s' obrazca."
+
 msgid "Total submissions"
 msgstr "Skupaj prispevkov"
 
@@ -185,16 +189,6 @@ msgstr "Najnovejša oddaja"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Oddani obrazci %(form_title)s"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Ni bilo nobenih predložitev '%(title)s' obrazca."
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Apply filters"
-msgstr "Uporabi filter"
 
 msgid "Forms"
 msgstr "Obrazci"

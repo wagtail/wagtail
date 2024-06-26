@@ -407,18 +407,29 @@ Return a QuerySet of `Permission` objects to be shown in the Groups administrati
 
 ### `register_user_listing_buttons`
 
-Add buttons to the user list. This example will add a simple button to the listing:
+Add buttons to the user list.
+
+This hook takes two parameters:
+-  `user`: The user object to generate the button for
+-  `request_user`: The currently logged-in user
+
+This example will add a simple button to the listing if the currently logged-in user is a superuser:
 
 ```python
 from wagtail.users.widgets import UserListingButton
 
 @hooks.register("register_user_listing_buttons")
-def user_listing_external_profile(context, user):
-    yield UserListingButton(
-        "Show profile",
-        f"/goes/to/a/url/{user.pk}",
-        priority=30,
-    )
+def user_listing_external_profile(user, request_user):
+    if request_user.is_superuser:
+        yield UserListingButton(
+            "Show profile",
+            f"/goes/to/a/url/{user.pk}",
+            priority=30,
+        )
+```
+
+```{versionchanged} 6.2
+The hook function was updated to accept a `request_user` argument instead of `context`.
 ```
 
 (filter_form_submissions_for_user)=

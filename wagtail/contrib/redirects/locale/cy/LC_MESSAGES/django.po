@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -143,16 +143,6 @@ msgstr "Canslo"
 msgid "Preview"
 msgstr "Rhagolwg"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Golygu %(title)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
-msgid "Delete redirect"
-msgstr "Dileu ailgyfeiriad"
-
 msgid "Summary"
 msgstr "Crynodeb"
 
@@ -175,41 +165,29 @@ msgstr "Gwall"
 msgid "Continue"
 msgstr "Parhau"
 
-msgid "Export redirects"
-msgstr "Allforio ailgyfeiriadau"
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes unrhyw ailgyfeiriadau yn cyfateb \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nid oes unrhyw ailgyfeiriadau wedi'u creu. Pam ddim <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ychwanegu un</a>?"
 
 msgid "Site"
 msgstr "Safle"
 
-msgid "Edit this redirect"
-msgstr "Golygu'r ailgyfeiriad hwn"
-
-msgid "No redirects found."
-msgstr "Heb ganfod ailgyfeiriadau."
-
-#, python-format
-msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Mae'n ddrwg gennym, nid oes unrhyw ailgyfeiriadau yn cyfateb "
-"\"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
-msgstr ""
-"Nid oes unrhyw ailgyfeiriadau wedi'u creu. Pam ddim <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">ychwanegu un</a>?"
+msgid "The redirect could not be saved due to errors."
+msgstr "Ni fu modd cadw'r ailgyfeiriad oherwydd gwallau."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Ailgyfeiriad '%(redirect_title)s' wedi'i ddiweddaru."
-
-msgid "Edit"
-msgstr "Golygu"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Ni fu modd cadw'r ailgyfeiriad oherwydd gwallau."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -218,6 +196,9 @@ msgstr "Ailgyfeiriad '%(redirect_title)s' wedi'i ddileu."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Ailgyfeiriad '%(redirect_title)s' wedi'i ychwanegu."
+
+msgid "Edit"
+msgstr "Golygu"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Ni fu modd creu'r ailgyfeiriad oherwydd gwallau."
@@ -244,6 +225,3 @@ msgstr[0] "Wedi mewnforio %(total)d ailgyfeiriad"
 msgstr[1] "Wedi mewnforio %(total)d ailgyfeiriadau"
 msgstr[2] "Wedi mewnforio %(total)d ailgyfeiriadau"
 msgstr[3] "Wedi mewnforio %(total)d ailgyfeiriadau"
-
-msgid "Export Redirects"
-msgstr "Allforio Ailgyfeiriadau"

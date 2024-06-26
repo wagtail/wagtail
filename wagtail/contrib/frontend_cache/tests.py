@@ -19,6 +19,7 @@ from wagtail.contrib.frontend_cache.backends import (
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
     PurgeBatch,
@@ -172,7 +173,7 @@ class TestBackendConfiguration(TestCase):
         self.assertIs(client._config.credential, mock_credentials)
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.AzureCdnBackend._make_purge_call"
+        "wagtail.contrib.frontend_cache.backends.azure.AzureCdnBackend._make_purge_call"
     )
     def test_azure_cdn_purge(self, make_purge_call_mock):
         backends = get_backends(
@@ -214,7 +215,7 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(call_args[1], ["/home/events/christmas/?test=1", "/blog/"])
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend._make_purge_call"
+        "wagtail.contrib.frontend_cache.backends.azure.AzureFrontDoorBackend._make_purge_call"
     )
     def test_azure_front_door_purge(self, make_purge_call_mock):
         backends = get_backends(
@@ -285,7 +286,7 @@ class TestBackendConfiguration(TestCase):
             log_output.output[0],
         )
 
-    @mock.patch("wagtail.contrib.frontend_cache.backends.urlopen")
+    @mock.patch("wagtail.contrib.frontend_cache.backends.http.urlopen")
     def _test_http_with_side_effect(self, urlopen_mock, urlopen_side_effect):
         # given a backends configuration with one HTTP backend
         backends = get_backends(
@@ -323,7 +324,7 @@ class TestBackendConfiguration(TestCase):
             )
 
     @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.CloudfrontBackend._create_invalidation"
+        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
     )
     def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
         backends = get_backends(
@@ -336,13 +337,29 @@ class TestBackendConfiguration(TestCase):
                 },
             }
         )
-        backends.get("cloudfront").purge(
-            "http://www.wagtail.org/home/events/christmas/"
-        )
-        backends.get("cloudfront").purge("http://torchbox.com/blog/")
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
+        ):
+            backends.get("cloudfront").purge(
+                "http://www.wagtail.org/home/events/christmas/"
+            )
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
+        ):
+            backends.get("cloudfront").purge("http://torchbox.com/blog/")
 
         _create_invalidation.assert_called_once_with(
             "frontend", ["/home/events/christmas/"]
+        )
+
+        self.assertTrue(
+            backends.get("cloudfront").invalidates_hostname("www.wagtail.org")
+        )
+        self.assertFalse(
+            backends.get("cloudfront").invalidates_hostname("torchbox.com")
         )
 
     def test_multiple(self):
@@ -396,17 +413,11 @@ PURGED_URLS = []
 
 
 class MockBackend(BaseBackend):
-    def __init__(self, config):
-        pass
-
     def purge(self, url):
         PURGED_URLS.append(url)
 
 
 class MockCloudflareBackend(CloudflareBackend):
-    def __init__(self, config):
-        pass
-
     def _purge_urls(self, urls):
         if len(urls) > self.CHUNK_SIZE:
             raise Exception("Cloudflare backend is not chunking requests as expected")
@@ -465,11 +476,34 @@ class TestCachePurgingFunctions(TestCase):
             ],
         )
 
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "varnish": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAMES": ["example.com"],
+            },
+        }
+    )
+    def test_invalidate_specific_location(self):
+        with self.assertLogs(level="INFO") as log_output:
+            purge_url_from_cache("http://localhost/foo")
+
+        self.assertEqual(PURGED_URLS, [])
+        self.assertIn(
+            "Unable to find purge backend for localhost",
+            log_output.output[0],
+        )
+
+        purge_url_from_cache("http://example.com/foo")
+        self.assertEqual(PURGED_URLS, ["http://example.com/foo"])
+
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
         "cloudflare": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockCloudflareBackend",
+            "ZONEID": "zone",
+            "BEARER_TOKEN": "token",
         },
     }
 )
@@ -634,7 +668,7 @@ class TestPurgeBatchClass(TestCase):
             ],
         )
 
-    @mock.patch("wagtail.contrib.frontend_cache.backends.requests.delete")
+    @mock.patch("wagtail.contrib.frontend_cache.backends.cloudflare.requests.delete")
     def test_http_error_on_cloudflare_purge_batch(self, requests_delete_mock):
         backend_settings = {
             "cloudflare": {

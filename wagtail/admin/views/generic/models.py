@@ -28,6 +28,7 @@ from django.views.generic.edit import (
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
@@ -42,7 +43,6 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
-    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -73,7 +73,7 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
-    any_permission_required = ["add", "change", "delete"]
+    any_permission_required = ["add", "change", "delete", "view"]
     search_fields = None
     search_backend_name = "default"
     is_searchable = None
@@ -234,7 +234,7 @@ class IndexView(
             query |= Q(**{field + "__icontains": self.search_query})
         return queryset.filter(query)
 
-    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+    def _get_title_column_class(self, column_class):
         if not issubclass(column_class, ButtonsColumnMixin):
 
             def get_buttons(column, instance, *args, **kwargs):
@@ -245,15 +245,25 @@ class IndexView(
                 (ButtonsColumnMixin, column_class),
                 {"get_buttons": get_buttons},
             )
+        return column_class
+
+    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        column_class = self._get_title_column_class(column_class)
+
+        def get_url(instance):
+            if edit_url := self.get_edit_url(instance):
+                return edit_url
+            return self.get_inspect_url(instance)
+
         if not self.model:
             return column_class(
                 "name",
                 label=gettext_lazy("Name"),
                 accessor=str,
-                get_url=self.get_edit_url,
+                get_url=get_url,
             )
         return self._get_custom_column(
-            field_name, column_class, get_url=self.get_edit_url, **kwargs
+            field_name, column_class, get_url=get_url, **kwargs
         )
 
     def _get_custom_column(self, field_name, column_class=Column, **kwargs):
@@ -316,27 +326,25 @@ class IndexView(
         return columns
 
     def get_edit_url(self, instance):
-        if self.edit_url_name:
+        if self.edit_url_name and self.user_has_permission("change"):
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_copy_url(self, instance):
-        if self.copy_url_name:
+        if self.copy_url_name and self.user_has_permission("add"):
             return reverse(self.copy_url_name, args=(quote(instance.pk),))
 
     def get_inspect_url(self, instance):
-        if self.inspect_url_name:
+        if self.inspect_url_name and self.user_has_any_permission(
+            {"add", "change", "delete", "view"}
+        ):
             return reverse(self.inspect_url_name, args=(quote(instance.pk),))
 
     def get_delete_url(self, instance):
-        if self.delete_url_name:
+        if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
     def get_add_url(self):
-        if self.permission_policy and not self.permission_policy.user_has_permission(
-            self.request.user, "add"
-        ):
-            return None
-        if self.add_url_name:
+        if self.add_url_name and self.user_has_permission("add"):
             return self._set_locale_query_param(reverse(self.add_url_name))
 
     @cached_property
@@ -368,41 +376,13 @@ class IndexView(
             )
         return buttons
 
-    @cached_property
-    def header_more_buttons(self):
-        buttons = []
-        if self.list_export:
-            buttons.append(
-                Button(
-                    _("Download XLSX"),
-                    url=self.xlsx_export_url,
-                    icon_name="download",
-                    priority=90,
-                )
-            )
-            buttons.append(
-                Button(
-                    _("Download CSV"),
-                    url=self.csv_export_url,
-                    icon_name="download",
-                    priority=100,
-                )
-            )
-
-        return buttons
-
     def get_list_more_buttons(self, instance):
         buttons = []
-        edit_url = self.get_edit_url(instance)
-        can_edit = (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "change")
-        )
-        if edit_url and can_edit:
+        if edit_url := self.get_edit_url(instance):
             buttons.append(
                 ListingButton(
                     _("Edit"),
-                    url=self.get_edit_url(instance),
+                    url=edit_url,
                     icon_name="edit",
                     attrs={
                         "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
@@ -410,9 +390,7 @@ class IndexView(
                     priority=10,
                 )
             )
-        copy_url = self.get_copy_url(instance)
-        can_copy = self.permission_policy.user_has_permission(self.request.user, "add")
-        if copy_url and can_copy:
+        if copy_url := self.get_copy_url(instance):
             buttons.append(
                 ListingButton(
                     _("Copy"),
@@ -424,8 +402,7 @@ class IndexView(
                     priority=20,
                 )
             )
-        inspect_url = self.get_inspect_url(instance)
-        if inspect_url:
+        if inspect_url := self.get_inspect_url(instance):
             buttons.append(
                 ListingButton(
                     _("Inspect"),
@@ -438,12 +415,7 @@ class IndexView(
                     priority=20,
                 )
             )
-        delete_url = self.get_delete_url(instance)
-        can_delete = (
-            not self.permission_policy
-            or self.permission_policy.user_has_permission(self.request.user, "delete")
-        )
-        if delete_url and can_delete:
+        if delete_url := self.get_delete_url(instance):
             buttons.append(
                 ListingButton(
                     _("Delete"),
@@ -458,17 +430,20 @@ class IndexView(
         return buttons
 
     def get_list_buttons(self, instance):
-        buttons = self.get_list_more_buttons(instance)
-        return [
-            ButtonWithDropdown(
-                buttons=buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        more_buttons = self.get_list_more_buttons(instance)
+        buttons = []
+        if more_buttons:
+            buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        ]
+        return buttons
 
     @cached_property
     def add_item_label(self):
@@ -481,10 +456,7 @@ class IndexView(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context["can_add"] = (
-            self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "add")
-        )
+        context["can_add"] = self.user_has_permission("add")
         if context["can_add"]:
             context["add_url"] = context["header_action_url"] = self.add_url
             context["header_action_label"] = self.add_item_label
@@ -648,6 +620,24 @@ class CreateView(
             for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
 
+    def get_initial_form_instance(self):
+        if self.locale:
+            instance = self.model()
+            instance.locale = self.locale
+            return instance
+
+    def get_form_kwargs(self):
+        if instance := self.get_initial_form_instance():
+            # super().get_form_kwargs() will use self.object as the instance kwarg
+            self.object = instance
+        kwargs = super().get_form_kwargs()
+
+        form_class = self.get_form_class()
+        # Add for_user support for PermissionedForm
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
+
     def save_instance(self):
         """
         Called after the form is successfully validated - saves the object to the db
@@ -689,12 +679,18 @@ class CreateView(
         return super().form_invalid(form)
 
 
-class CopyView(CreateView):
+class CopyViewMixin:
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
+        return get_object_or_404(
+            self.model, pk=unquote(str(self.kwargs[self.pk_url_kwarg]))
+        )
 
-    def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "instance": self.get_object()}
+    def get_initial_form_instance(self):
+        return self.get_object()
+
+
+class CopyView(CopyViewMixin, CreateView):
+    pass
 
 
 class EditView(
@@ -736,13 +732,13 @@ class EditView(
         return self.actions
 
     def get_object(self, queryset=None):
-        if "pk" not in self.kwargs:
-            self.kwargs["pk"] = self.args[0]
-        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
+        if self.pk_url_kwarg not in self.kwargs:
+            self.kwargs[self.pk_url_kwarg] = self.args[0]
+        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
         return super().get_object(queryset)
 
     def get_page_subtitle(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_breadcrumbs_items(self):
         if not self.model:
@@ -755,7 +751,7 @@ class EditView(
                     "label": capfirst(self.model._meta.verbose_name_plural),
                 }
             )
-        items.append({"url": "", "label": get_latest_str(self.object)})
+        items.append({"url": "", "label": self.get_page_subtitle()})
         return self.breadcrumbs_items + items
 
     def get_side_panels(self):
@@ -777,7 +773,11 @@ class EditView(
         return MediaContainer(side_panels)
 
     def get_last_updated_info(self):
-        return log_registry.get_logs_for_instance(self.object).first()
+        return (
+            log_registry.get_logs_for_instance(self.object)
+            .select_related("user")
+            .first()
+        )
 
     def get_edit_url(self):
         if not self.edit_url_name:
@@ -817,6 +817,13 @@ class EditView(
             }
             for translation in self.object.get_translations().select_related("locale")
         ]
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        form_class = self.get_form_class()
+        if issubclass(form_class, WagtailAdminModelForm):
+            kwargs["for_user"] = self.request.user
+        return kwargs
 
     def save_instance(self):
         """
@@ -858,11 +865,7 @@ class EditView(
         )
 
     def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
-            )
-        ]
+        return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
         if self.error_message is None:
@@ -901,9 +904,8 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
-        context["can_delete"] = (
-            self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, "delete")
+        context["can_delete"] = self.user_has_permission_for_instance(
+            "delete", self.object
         )
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
@@ -1030,7 +1032,7 @@ class DeleteView(
 
 
 class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
-    any_permission_required = ["add", "change", "delete"]
+    any_permission_required = ["add", "change", "delete", "view"]
     template_name = "wagtailadmin/generic/inspect.html"
     page_title = gettext_lazy("Inspecting")
     model = None
@@ -1133,24 +1135,12 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return [self.get_context_for_field(field_name) for field_name in self.fields]
 
     def get_edit_url(self):
-        if not self.edit_url_name or (
-            self.permission_policy
-            and not self.permission_policy.user_has_permission(
-                self.request.user, "change"
-            )
-        ):
-            return None
-        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+        if self.edit_url_name and self.user_has_permission("change"):
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
-        if not self.delete_url_name or (
-            self.permission_policy
-            and not self.permission_policy.user_has_permission(
-                self.request.user, "delete"
-            )
-        ):
-            return None
-        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
+        if self.delete_url_name and self.user_has_permission("delete"):
+            return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

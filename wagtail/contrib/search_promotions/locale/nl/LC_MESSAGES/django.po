@@ -9,17 +9,16 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023
 # Meteor0id, 2018
-# Storm Heg <storm@stormbase.digital>, 2022-2023
+# Storm Heg <storm@stormbase.digital>, 2022-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, "
-"2015,2018,2020,2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -147,41 +146,22 @@ msgstr "Gepromoveerde zoekresultaten"
 msgid "Add a recommended result"
 msgstr "Voeg een aanbevolen resultaat toe"
 
-msgid "Search Terms"
-msgstr "Zoektermen"
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm \"<em>"
+"%(query_string)s</em>\""
 
-msgid "Add new promoted result"
-msgstr "Voeg een gepromoveerd resultaat toe"
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
 
-msgid "Search term(s)"
-msgstr "Zoekterm(en)"
-
-msgid "Order by search term alphabetically"
-msgstr "Sorteer op zoekterm van A-Z"
-
-msgid "Order by search term reverse alphabetically"
-msgstr "Sorteer op zoekterm van Z-A"
-
-msgid "Promoted results"
-msgstr "Gepromoveerde resultaten"
-
-msgid "Views (past week)"
-msgstr "Weergaves (afgelopen week)"
-
-msgid "Order by views (lowest first)"
-msgstr "Sorteer op aantal keer bekeken (laagste eerst)"
-
-msgid "Order by views (highest first)"
-msgstr "Sorteer op aantal keer bekeken (hoogste eerst)"
-
-msgid "Edit this promotion"
-msgstr "Wijzig deze zoekpromotie"
-
-msgid "External link"
-msgstr "Externe link"
-
-msgid "None"
-msgstr "Geen"
+msgid "No promoted results have been created."
+msgstr "Er zijn nog geen gepromoveerde resultaten aangemaakt."
 
 msgid "Popular search terms"
 msgstr "Populaire zoektermen"
@@ -192,31 +172,32 @@ msgstr "Zoeken"
 msgid "Terms"
 msgstr "Termen"
 
+msgid "Views (past week)"
+msgstr "Weergaves (afgelopen week)"
+
 msgid "No results found"
 msgstr "Geen resultaten gevonden"
 
 msgid "Choose from popular search terms"
 msgstr "Kies uit populaire zoektermen"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
+msgid "External link"
+msgstr "Externe link"
 
-#, python-format
-msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm "
-"\"<em>%(query_string)s</em>\""
+msgid "None"
+msgstr "Geen"
 
-#, python-format
-msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
-msgstr ""
-"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
+msgid "Search Terms"
+msgstr "Zoektermen"
+
+msgid "Add new promoted result"
+msgstr "Voeg een gepromoveerd resultaat toe"
+
+msgid "Search term(s)"
+msgstr "Zoekterm(en)"
+
+msgid "Promoted results"
+msgstr "Gepromoveerde resultaten"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."

@@ -1,6 +1,7 @@
 import datetime
 import json
 import urllib
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -14,6 +15,8 @@ from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
+from willow.optimizers.base import OptimizerBase
+from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
@@ -1680,6 +1683,22 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # page numbers out of range should return 404
         response = self.get({"p": 9999})
         self.assertEqual(response.status_code, 404)
+
+    @override_settings(WAGTAILIMAGES_CHOOSER_PAGE_SIZE=4)
+    def test_chooser_page_size(self):
+        images = [
+            Image(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+            for i in range(1, 12)
+        ]
+        Image.objects.bulk_create(images)
+
+        response = self.get()
+
+        self.assertContains(response, "Page 1 of 3")
+        self.assertEqual(response.status_code, 200)
 
     def test_filter_by_tag(self):
         for i in range(0, 10):
@@ -3514,6 +3533,35 @@ class TestPreviewView(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
         )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/png")
+
+    def test_preview_with_optimizer(self):
+        """
+        Test that preview works with optimizers
+
+        Willow optimizers require
+        """
+
+        class DummyOptimizer(OptimizerBase):
+            library_name = "dummy"
+            image_format = "png"
+
+            @classmethod
+            def check_library(cls):
+                return True
+
+            @classmethod
+            def process(cls, file_path: str):
+                pass
+
+        # Get the image
+        with patch.object(registry, "_registered_optimizers", [DummyOptimizer]):
+            response = self.client.get(
+                reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
+            )
 
         # Check response
         self.assertEqual(response.status_code, 200)

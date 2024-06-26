@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2024\n"
@@ -90,6 +90,12 @@ msgstr "Локаль"
 msgid "All"
 msgstr "Усі"
 
+msgid "Collection"
+msgstr "Колекція"
+
+msgid "Tag"
+msgstr "Тег"
+
 msgid "Preferred language"
 msgstr "Бажана мова"
 
@@ -135,9 +141,6 @@ msgstr "Пошук"
 
 msgid "All collections"
 msgstr "Усі колекції"
-
-msgid "Collection"
-msgstr "Колекція"
 
 msgid "Parent"
 msgstr "Предок"
@@ -259,6 +262,9 @@ msgstr "Не можливо скопіювати сторінку в саму с
 
 msgid "Select a new parent for this page."
 msgstr "Виберіть нову батьківську сторінку для цієї сторінки"
+
+msgid "Parent page"
+msgstr "Батьківська сторінка"
 
 msgid "Visibility"
 msgstr "Видимість"
@@ -574,16 +580,13 @@ msgid ""
 msgstr ""
 "Цю колекцію не можна видалити, тому що вона не є порожньою. Вона містить: "
 
-msgid "Name"
-msgstr "Ім'я"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a "
-"href=\"%(add_collection_url)s\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
+"\">створити одну</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -622,6 +625,12 @@ msgstr "Ви все ще хочете опублікувати цю %(model_name
 
 msgid "Cancel"
 msgstr "Скасувати"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Actions"
+msgstr "Дії"
 
 msgid "Update"
 msgstr "Оновити"
@@ -687,9 +696,6 @@ msgstr "Заблоковано в "
 
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
-
-msgid "Actions"
-msgstr "Дії"
 
 msgid "Unlock"
 msgstr "Розблокувати"
@@ -1144,31 +1150,6 @@ msgstr "Редагувати оригінальну сторінку"
 msgid "Convert this alias into an ordinary page"
 msgstr "Конвертувати цей псевдонім в звичайну сторінку"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "Історія змін для %(subtitle)s"
-
-msgid "Action"
-msgstr "Дія"
-
-msgid "User"
-msgstr "Користувач"
-
-msgid "Date / Time"
-msgstr "Дата / Час"
-
-msgid "Comment"
-msgstr "Коментар"
-
-msgid "Live version"
-msgstr "Версія наживо"
-
-msgid "Current draft"
-msgstr "Поточна чернетка"
-
-msgid "No log entries found."
-msgstr "Записи в журналі не знайдені. "
-
 msgid "Select all pages in listing"
 msgstr "Обрати всі сторінки у списку"
 
@@ -1229,15 +1210,6 @@ msgstr "Підтвердити"
 msgid "Add child page"
 msgstr "Додати дочірню сторінку"
 
-msgid "Review this version"
-msgstr "Переглянути цю версію"
-
-msgid "Compare with current version"
-msgstr "Порівняти з поточною версією"
-
-msgid "Cancel scheduled publish"
-msgstr "Скасувати заплановану публікацію"
-
 msgid "Page types"
 msgstr "Типи сторінок"
 
@@ -1265,8 +1237,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
 
 msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"This publishing schedule will only take effect after you select the \"Publish"
+"\" option"
 msgstr ""
 "Графік публікації почне працювати лише після того, як ви натиснете кнопку "
 "\"Опублікувати\""
@@ -1311,8 +1283,23 @@ msgstr "Заблоковано"
 msgid "No locked pages found."
 msgstr "Заблокованих сторінок немає."
 
+msgid "Name"
+msgstr "Ім'я"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "User"
+msgstr "Користувач"
+
+msgid "Date / Time"
+msgstr "Дата / Час"
+
 msgid "Edit this item"
 msgstr "Редагувати цей елемент"
+
+msgid "No log entries found."
+msgstr "Записи в журналі не знайдені. "
 
 msgid "By Task"
 msgstr "За завданням"
@@ -1365,9 +1352,6 @@ msgstr "Назад"
 
 msgid "History"
 msgstr "Історія змін"
-
-msgid "Root"
-msgstr "Корінь"
 
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
@@ -1548,9 +1532,8 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a "
-"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
-"applies to."
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1583,15 +1566,6 @@ msgstr "Сторінка"
 msgid "Assign to another page"
 msgstr "Призначити іншу сторінку"
 
-msgid "Hide disabled workflows"
-msgstr "Приховати вимкнуті робочі процеси"
-
-msgid "Show disabled workflows"
-msgstr "Показати вимкнуті робочі процеси"
-
-msgid "Used by"
-msgstr "Використовується "
-
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Крок %(step_number)s"
@@ -1600,8 +1574,8 @@ msgstr "Крок %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a "
-"href=\"%(add_url)s\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
+"\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -1637,12 +1611,6 @@ msgstr "Вибачте, жодне завдання не відповідає \"
 
 msgid "You haven't created any tasks."
 msgstr "Ви не створили жодних завдань. "
-
-msgid "Hide disabled tasks"
-msgstr "Приховати вимкнуті завдання"
-
-msgid "Show disabled tasks"
-msgstr "Показати вимкнуті завдання"
 
 #, python-format
 msgid ""
@@ -1701,15 +1669,29 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s тому"
 
 #, python-format
-msgid "just now by %(user_display_name)s"
-msgstr "щойно користувачем %(user_display_name)s"
-
-#, python-format
 msgid "%(time_period)s ago by %(user_display_name)s"
 msgstr "%(time_period)s тому користувачем %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Вийти"
+
+msgid "Undo"
+msgstr "Відмінити"
+
+msgid "Redo"
+msgstr "Повторити"
+
+msgid "Bold"
+msgstr "Жирний"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Superscript"
+msgstr "Верхній індекс"
+
+msgid "Subscript"
+msgstr "Нижній індекс"
 
 #, python-format
 msgid "Referenced %(count)s time"
@@ -1794,6 +1776,21 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 
 msgid "Home"
 msgstr "Головна"
+
+msgid "Live version"
+msgstr "Версія наживо"
+
+msgid "Current draft"
+msgstr "Поточна чернетка"
+
+msgid "Review this version"
+msgstr "Переглянути цю версію"
+
+msgid "Compare with current version"
+msgstr "Порівняти з поточною версією"
+
+msgid "Cancel scheduled publish"
+msgstr "Скасувати заплановану публікацію"
 
 msgid "Workflow progress"
 msgstr "Прогрес робочого процесу"
@@ -2089,12 +2086,6 @@ msgstr "Сторінку не можна зберегти, бо вона заб�
 msgid "The page could not be saved due to validation errors"
 msgstr "Сторінку не можна зберегти через помилки валідації"
 
-msgid "Hide commenting actions"
-msgstr "Приховати дії коментування"
-
-msgid "Page history"
-msgstr "Історія змін"
-
 msgid "Site"
 msgstr "Сайт"
 
@@ -2125,6 +2116,9 @@ msgstr ""
 "Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
 "створену %(user)s "
 
+msgid "Page history"
+msgstr "Історія змін"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Сторінку '%(page_title)s' знято з публікації."
@@ -2143,6 +2137,9 @@ msgid ""
 msgstr ""
 "Сторінка '%(page_title)s' не перебуває в очікуванні модерації в завданні "
 "'%(task_name)s'."
+
+msgid "Hide commenting actions"
+msgstr "Приховати дії коментування"
 
 msgid "Site history"
 msgstr "Історія сайту"
@@ -2176,6 +2173,9 @@ msgstr "За вимогою"
 
 msgid "Add a workflow"
 msgstr "Додати робочий процес"
+
+msgid "Used by"
+msgstr "Використовується "
 
 msgid "New workflow"
 msgstr "Новий робочий процес"
@@ -2289,20 +2289,8 @@ msgstr "Пронумерований список"
 msgid "Blockquote"
 msgstr "Цитата"
 
-msgid "Bold"
-msgstr "Жирний"
-
-msgid "Italic"
-msgstr "Курсив"
-
 msgid "Link"
 msgstr "Посилання"
-
-msgid "Superscript"
-msgstr "Верхній індекс"
-
-msgid "Subscript"
-msgstr "Нижній індекс"
 
 msgid "Strikethrough"
 msgstr "Перекреслення"

@@ -6,16 +6,16 @@
 # Harmen <sigmo@sigmo.nl>, 2022
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2023
-# Storm Heg <storm@stormbase.digital>, 2021-2023
+# Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +132,17 @@ msgstr "Donker"
 msgid "admin theme"
 msgstr "admine thema"
 
+msgid "Default"
+msgstr "Default"
+
+msgid "Snug"
+msgstr "Compact"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "informatiedichtheid"
+
 msgid "user profile"
 msgstr "gebruikersprofiel"
 
@@ -231,9 +242,6 @@ msgstr "Weet je zeker dat je deze groep wilt verwijderen?"
 msgid "Add group"
 msgstr "Groep toevoegen"
 
-msgid "View users in this group"
-msgstr "Bekijk gebruikers in deze groep"
-
 msgid "Save"
 msgstr "Opslaan"
 
@@ -264,6 +272,30 @@ msgstr "Ontgrendelen"
 msgid "Custom permissions"
 msgstr "Aangepaste machtigingen"
 
+msgid "Toggle all"
+msgstr "Toon/verberg alle"
+
+msgid "Toggle all add permissions"
+msgstr "Alle toevoegen machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all change permissions"
+msgstr "Alle wijzig machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all delete permissions"
+msgstr "Alle verwijder machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all publish permissions"
+msgstr "Alle publiceer machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all lock permissions"
+msgstr "Alle vergrendel machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all unlock permissions"
+msgstr "Alle ontgrendel machtiging selectievakjes aan/uitzetten"
+
+msgid "Toggle all custom permissions"
+msgstr "Alle speciale machtigingen selectievakjes aan/uitzetten"
+
 msgid "Other permissions"
 msgstr "Overige machtigingen"
 
@@ -283,11 +315,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Er zijn nog geen groepen geconfigureerd. Waarom <a "
-"href=\"%(wagtailusers_create_group_url)s\">voeg je er niet een toe</a>?"
+"Er zijn nog geen groepen geconfigureerd. Waarom <a href="
+"\"%(wagtailusers_create_group_url)s\">voeg je er niet een toe</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Weet je zeker dat je deze gebruiker wilt verwijderen?"
@@ -307,46 +339,16 @@ msgstr "Verwijder gebruiker"
 msgid "Select all users in listing"
 msgstr "Selecteer alle gebruikers in lijst"
 
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
+msgid "Sorry, no users match your query"
+msgstr "Sorry, geen gebruikers komen overeen met je zoekterm"
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"De groep %(group_name)s heeft geen gebruikers. <a "
-"href=\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
 "Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
 "gebruikers toe</a>."
-
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-msgid "Access level"
-msgstr "Toegangsniveau"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Laatste login"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Active"
-msgstr "Actief"
-
-msgid "Inactive"
-msgstr "Inactief"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -369,6 +371,12 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d gebruiker is verwijderd"
 msgstr[1] "%(num_parent_objects)d gebruikers zijn verwijderd"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Inactive"
+msgstr "Inactief"
 
 msgid "Mark as active"
 msgstr "Markeer als actief"
@@ -408,15 +416,40 @@ msgstr "Groep '%(object)s' is gewijzigd."
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
+msgid "View users in this group"
+msgstr "Bekijk gebruikers in deze groep"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groep '%(object)s' verwijderd."
+
+msgid "Last login"
+msgstr "Laatst ingelogd"
+
+msgid "Group"
+msgstr "Groep"
 
 msgid "Add a user"
 msgstr "Voeg een gebruiker toe"
 
 msgid "Users"
 msgstr "Gebruikers"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Access level"
+msgstr "Toegangsniveau"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Meer opties voor '%(title)s'"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -432,14 +465,3 @@ msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Gebruiker '%(object)s' is verwijderd."
-
-msgid "Edit"
-msgstr "Wijzig"
-
-#, python-format
-msgid "Edit user '%(name)s'"
-msgstr "Bewerk gebruiker '%(name)s'"
-
-#, python-format
-msgid "Delete user '%(name)s'"
-msgstr "Verwijder gebruiker '%(name)s'"

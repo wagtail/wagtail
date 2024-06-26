@@ -68,6 +68,7 @@ from wagtail.test.testapp.models import (
     TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.url_routing import RouteResult
 
 
 def get_ct(model):
@@ -210,6 +211,50 @@ class TestSiteRouting(TestCase):
         )
         self.unrecognised_port = "8000"
         self.unrecognised_hostname = "unknown.site.com"
+
+    def test_route_for_request_query_count(self):
+        request = get_dummy_request(site=self.events_site)
+        with self.assertNumQueries(2):
+            # expect queries for site & page
+            Page.route_for_request(request, request.path)
+        with self.assertNumQueries(0):
+            # subsequent lookups should be cached on the request
+            Page.route_for_request(request, request.path)
+
+    def test_route_for_request_value(self):
+        request = get_dummy_request(site=self.events_site)
+        self.assertFalse(hasattr(request, "_wagtail_route_for_request"))
+        result = Page.route_for_request(request, request.path)
+        self.assertTrue(isinstance(result, RouteResult))
+        self.assertEqual(
+            (result[0], result[1], result[2]),
+            (self.events_site.root_page.specific, [], {}),
+        )
+        self.assertTrue(hasattr(request, "_wagtail_route_for_request"))
+        self.assertIs(request._wagtail_route_for_request, result)
+
+    def test_route_for_request_cached(self):
+        request = get_dummy_request(site=self.events_site)
+        m = Mock()
+        request._wagtail_route_for_request = m
+        with self.assertNumQueries(0):
+            self.assertEqual(Page.route_for_request(request, request.path), m)
+
+    def test_route_for_request_suppresses_404(self):
+        request = get_dummy_request(path="does-not-exist", site=self.events_site)
+        self.assertIsNone(Page.route_for_request(request, request.path))
+
+    def test_find_for_request(self):
+        request_200 = get_dummy_request(site=self.events_site)
+        self.assertEqual(
+            Page.find_for_request(request_200, request_200.path),
+            self.events_site.root_page.specific,
+        )
+        request_404 = get_dummy_request(path="does-not-exist", site=self.events_site)
+        self.assertEqual(
+            Page.find_for_request(request_404, request_404.path),
+            None,
+        )
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
@@ -501,6 +546,20 @@ class TestRouting(TestCase):
             self.assertEqual(
                 christmas_page.get_url(request=request), "/events/christmas/"
             )
+
+    def test_cached_parent_obj_set(self):
+        homepage = Page.objects.get(url_path="/home/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        request = get_dummy_request(path="/events/christmas/")
+        (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
+        self.assertEqual(found_page, christmas_page)
+
+        # parent cache should be set
+        events_page = Page.objects.get(url_path="/home/events/").specific
+        with self.assertNumQueries(0):
+            parent = found_page.get_parent(update=False)
+            self.assertEqual(parent, events_page)
 
 
 @override_settings(
@@ -3917,3 +3976,21 @@ class TestPageCacheKey(TestCase):
         self.page.slug = "something-else"
         self.page.save()
         self.assertNotEqual(self.page.cache_key, original_cache_key)
+
+
+class TestPageCachedParentObjExists(TestCase):
+    fixtures = ["test.json"]
+
+    def test_cached_parent_obj_exists(self):
+        # https://github.com/wagtail/wagtail/pull/11737
+
+        # Test if _cached_parent_obj is set after using page.get_parent()
+        # This is treebeard specific, we don't know if their API will change.
+        homepage = Page.objects.get(url_path="/home/")
+        homepage._cached_parent_obj = "_cached_parent_obj_exists"
+        parent = homepage.get_parent(update=False)
+        self.assertEqual(
+            parent,
+            "_cached_parent_obj_exists",
+            "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
+        )

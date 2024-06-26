@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -115,13 +115,13 @@ msgstr "Sentímolo, ningún fragmento coincide con \"<em>%(search_query)s</em>\"
 
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"Non creaches ningún fragmento %(snippet_type_name)s. Por qué non <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
-"rel=\"noreferrer\">crear un agora</a>?"
+"Non creaches ningún fragmento %(snippet_type_name)s. Por qué non <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">crear un agora</a>?"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -147,30 +147,6 @@ msgstr "Accións"
 msgid "Select all snippets in listing"
 msgstr "Seleccionar tódolos fragmentos no listado"
 
-msgid "Live version"
-msgstr "Versión en vivo"
-
-msgid "Current draft"
-msgstr "Borrador actual"
-
-msgid "Preview"
-msgstr "Previsualizar"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Review this version"
-msgstr "Revisar esta versión"
-
-msgid "Compare with previous version"
-msgstr "Comparar con versión anterior"
-
-msgid "Compare with current version"
-msgstr "Comparar ca versión actual"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancelar publicación adiada"
-
 msgid "Choose"
 msgstr "Seleccionar"
 
@@ -186,12 +162,6 @@ msgstr "Instancias"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Máis opcións para '%(title)s'"
-
-msgid "Action"
-msgstr "Acción"
-
-msgid "Date"
-msgstr "Data"
 
 #, python-format
 msgid "Edit this %(model_name)s"

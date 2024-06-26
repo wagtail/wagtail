@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -216,6 +216,9 @@ msgstr "kolekcie"
 msgid "group collection permission"
 msgstr "oprávnenia skupiny ku kolekcii"
 
+msgid "uploaded by user"
+msgstr "nahral používateľ"
+
 msgid "hostname"
 msgstr "hostname"
 
@@ -270,17 +273,8 @@ msgstr ""
 msgid "Public"
 msgstr "Verejná"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Súkromné, prístupné prihláseným používateľom"
-
-msgid "Private, accessible with the following password"
-msgstr "Súkromná, dostupná s nasledujúcim heslom"
-
 msgid "Private, accessible to users in specific groups"
 msgstr "Súkromné, prístupné používateľom v špecifických skupinách"
-
-msgid "password"
-msgstr "heslo"
 
 msgid "view restriction"
 msgstr "zobraziť obmedzenie"

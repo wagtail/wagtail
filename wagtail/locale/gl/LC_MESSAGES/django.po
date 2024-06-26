@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
-# X Bello <xbello@gmail.com>, 2022-2023
+# X Bello <xbello@gmail.com>, 2022-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -580,6 +580,12 @@ msgstr "permiso de grupo da colección"
 msgid "group collection permissions"
 msgstr "permisos de grupo da colección"
 
+msgid "for content type"
+msgstr "para tipo de contido"
+
+msgid "uploaded by user"
+msgstr "subido por usuario"
+
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "o %(model_name)s tamén será borrado"
@@ -658,17 +664,24 @@ msgstr ""
 msgid "Public"
 msgstr "Público"
 
-msgid "Private, accessible to logged-in users"
-msgstr "Privada, accesible a usuarios logueados"
+msgid "Private, accessible with a shared password"
+msgstr "Privado, accesible con contrasinal compartido"
 
-msgid "Private, accessible with the following password"
-msgstr "Privado, accesible co seguinte contrasinal"
+msgid "Private, accessible to any logged-in users"
+msgstr "Privado, accesible a calquer usuario logueado"
 
 msgid "Private, accessible to users in specific groups"
 msgstr "Privada, accesible a usuarios en grupos concretos"
 
-msgid "password"
-msgstr "contrasinal"
+msgid "shared password"
+msgstr "contrasinal compartido"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Os contrasináis compartidos non deben usarse para protexer contido sensible. "
+"Calquera que teña este contrasinal poderá ver o contido."
 
 msgid "view restriction"
 msgstr "ver restricción"

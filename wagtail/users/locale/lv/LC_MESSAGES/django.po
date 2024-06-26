@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,6 +53,9 @@ msgstr "Saņemt paziņojumu, kad lapas labojumi apstiprināti"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Saņemt paziņojumu, kad lapas labojumi atraidīti"
+
+msgid "Default"
+msgstr "Noklusējums"
 
 msgid "Delete"
 msgstr "Dzēst"
@@ -104,11 +107,11 @@ msgstr "Pievienot atļauju lapai"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nav izveidotas grupas. <a "
-"href=\"%(wagtailusers_create_group_url)s\">Pievienot jaunu grupu?</a>"
+"Nav izveidotas grupas. <a href=\"%(wagtailusers_create_group_url)s"
+"\">Pievienot jaunu grupu?</a>"
 
 msgid "Account"
 msgstr "Konts"
@@ -118,19 +121,6 @@ msgstr "Lomas"
 
 msgid "Add user"
 msgstr "Pievienot lietotāju"
-
-#, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Nav lietotāju, kas atbilst \"<em>%(query_string)s</em>\""
-
-msgid "Username"
-msgstr "Lietotājvārds"
-
-msgid "Status"
-msgstr "Statuss"
-
-msgid "Admin"
-msgstr "Administrators"
 
 msgid "Active"
 msgstr "Aktīvs"
@@ -162,11 +152,23 @@ msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' dzēsta."
 
+msgid "Group"
+msgstr "Grupa"
+
 msgid "Add a user"
 msgstr "Pievienot lietotāju"
 
 msgid "Users"
 msgstr "Lietotāji"
+
+msgid "Username"
+msgstr "Lietotājvārds"
+
+msgid "Admin"
+msgstr "Administrators"
+
+msgid "Status"
+msgstr "Statuss"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -174,6 +176,3 @@ msgstr "Lietotājs '%(object)s' atjaunots. "
 
 msgid "The user could not be saved due to errors."
 msgstr "Lietotāju nevarēja saglabāt kļūdu dēļ."
-
-msgid "Edit"
-msgstr "Labot"

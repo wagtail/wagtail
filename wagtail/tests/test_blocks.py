@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.blocks.base import get_error_json_data
+from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.blocks.list_block import ListBlockAdapter, ListBlockValidationError
 from wagtail.blocks.static_block import StaticBlockAdapter
@@ -48,6 +49,13 @@ class ContextCharBlock(blocks.CharBlock):
     def get_context(self, value, parent_context=None):
         value = str(value).upper()
         return super(blocks.CharBlock, self).get_context(value, parent_context)
+
+
+class TestBlock(SimpleTestCase):
+    def test_normalize(self):
+        """The base normalize implementation should return its argument unchanged"""
+        obj = object()
+        self.assertIs(blocks.Block().normalize(obj), obj)
 
 
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
@@ -206,7 +214,8 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
             """A CharBlock with a deliberately perverse JSON (de)serialisation format
-            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't"""
+            so that it visibly blows up if we call to_python / get_prep_value where we shouldn't
+            """
 
             def to_python(self, jsonish_value):
                 # decode as base64 on the way out of the JSON serialisation
@@ -718,6 +727,14 @@ class TestRichTextBlock(TestCase):
 
         self.assertEqual(list(block.extract_references(value)), [(Page, "1", "", "")])
 
+    def test_normalize(self):
+        block = blocks.RichTextBlock()
+        for value in ("Hello, world", RichText("Hello, world")):
+            with self.subTest(value=value):
+                normalized = block.normalize(value)
+                self.assertIsInstance(normalized, RichText)
+                self.assertEqual(normalized.source, "Hello, world")
+
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
@@ -1106,6 +1123,18 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean("coffee")
 
+    def test_get_form_state(self):
+        block = blocks.ChoiceBlock(choices=[("tea", "Tea"), ("coffee", "Coffee")])
+        form_state = block.get_form_state("tea")
+        self.assertEqual(form_state, ["tea"])
+
+    def test_get_form_state_with_radio_widget(self):
+        block = blocks.ChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")], widget=forms.RadioSelect
+        )
+        form_state = block.get_form_state("tea")
+        self.assertEqual(form_state, ["tea"])
+
 
 class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
@@ -1491,6 +1520,21 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("coffee")
+
+    def test_get_form_state(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")]
+        )
+        form_state = block.get_form_state(["tea", "coffee"])
+        self.assertEqual(form_state, ["tea", "coffee"])
+
+    def test_get_form_state_with_checkbox_widget(self):
+        block = blocks.ChoiceBlock(
+            choices=[("tea", "Tea"), ("coffee", "Coffee")],
+            widget=forms.CheckboxSelectMultiple,
+        )
+        form_state = block.get_form_state(["tea", "coffee"])
+        self.assertEqual(form_state, ["tea", "coffee"])
 
 
 class TestRawHTMLBlock(unittest.TestCase):
@@ -2256,6 +2300,53 @@ class TestStructBlock(SimpleTestCase):
         self.assertIs(value.block, copied.block)
         self.assertEqual(value, copied)
 
+    def test_normalize_base_cases(self):
+        """Test the trivially recursive and already normalized cases"""
+        block = blocks.StructBlock([("title", blocks.CharBlock())])
+        self.assertEqual(
+            block.normalize({"title": "Foo"}), block._to_struct_value({"title": "Foo"})
+        )
+        self.assertEqual(
+            block.normalize(block._to_struct_value({"title": "Foo"})),
+            block._to_struct_value({"title": "Foo"}),
+        )
+
+    def test_recursive_normalize(self):
+        """StructBlock.normalize should recursively normalize all children"""
+
+        block = blocks.StructBlock(
+            [
+                (
+                    "inner_stream",
+                    blocks.StreamBlock(
+                        [
+                            ("inner_char", blocks.CharBlock()),
+                            ("inner_int", blocks.IntegerBlock()),
+                        ]
+                    ),
+                ),
+                ("list_of_ints", blocks.ListBlock(blocks.IntegerBlock())),
+            ]
+        )
+
+        # A value in the human friendly format
+        value = {
+            "inner_stream": [("inner_char", "Hello, world"), ("inner_int", 42)],
+            "list_of_ints": [5, 6, 7, 8],
+        }
+
+        normalized = block.normalize(value)
+        self.assertIsInstance(normalized, blocks.StructValue)
+        self.assertIsInstance(normalized["inner_stream"], blocks.StreamValue)
+        self.assertIsInstance(
+            normalized["inner_stream"][0], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(
+            normalized["inner_stream"][1], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(normalized["list_of_ints"], blocks.list_block.ListValue)
+        self.assertIsInstance(normalized["list_of_ints"][0], int)
+
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
     def test_initialisation(self):
@@ -2433,8 +2524,50 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         html = block.render(struct_value)
         self.assertEqual(html, "<div>EMPTY TITLE</div>\n")
 
+    def test_normalize(self):
+        """A normalized StructBlock value should be an instance of the StructBlock's value_class"""
+
+        class CustomStructValue(blocks.StructValue):
+            pass
+
+        class CustomStructBlock(blocks.StructBlock):
+            text = blocks.TextBlock()
+
+            class Meta:
+                value_class = CustomStructValue
+
+        self.assertIsInstance(
+            CustomStructBlock().normalize({"text": "She sells sea shells"}),
+            CustomStructValue,
+        )
+
+    def test_normalize_incorrect_value_class(self):
+        """
+        If StructBlock.normalize is passed a StructValue instance that doesn't
+        match the StructBlock's `value_class', it should convert the value
+        to the correct class.
+        """
+
+        class CustomStructValue(blocks.StructValue):
+            pass
+
+        class CustomStructBlock(blocks.StructBlock):
+            text = blocks.TextBlock()
+
+            class Meta:
+                value_class = CustomStructValue
+
+        block = CustomStructBlock()
+        # Not an instance of CustomStructValue, which CustomStructBlock uses.
+        value = blocks.StructValue(block, {"text": "The quick brown fox"})
+        self.assertIsInstance(block.normalize(value), CustomStructValue)
+
 
 class TestListBlock(WagtailTestUtils, SimpleTestCase):
+    def assert_eq_list_values(self, p, q):
+        # We can't directly compare ListValue instances yet
+        self.assertEqual(list(p), list(q))
+
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -2960,6 +3093,42 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(result[0]["type"], "bullet_list")
         self.assertEqual(len(result[0]["value"]), 2)
         self.assertEqual(result[0]["value"][0]["value"], "foo")
+
+    def test_normalize_base_case(self):
+        """Test normalize when trivially recursive, or already a ListValue"""
+        block = blocks.ListBlock(blocks.IntegerBlock)
+        normalized = block.normalize([0, 1, 1, 2, 3])
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(normalized, [0, 1, 1, 2, 3])
+
+        normalized = block.normalize(
+            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3])
+        )
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(normalized, [0, 1, 1, 2, 3])
+
+    def test_normalize_empty(self):
+        block = blocks.ListBlock(blocks.IntegerBlock())
+        normalized = block.normalize([])
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(normalized, [])
+
+    def test_recursive_normalize(self):
+        """
+        ListBlock.normalize should recursively normalize all values passed to
+        it, and return a ListValue.
+        """
+        inner_list_block = blocks.ListBlock(blocks.IntegerBlock())
+        block = blocks.ListBlock(inner_list_block)
+        values = [
+            [[1, 2, 3]],
+            [blocks.list_block.ListValue(block, [1, 2, 3])],
+        ]
+
+        for value in values:
+            normalized = block.normalize(value)
+            self.assertIsInstance(normalized, blocks.list_block.ListValue)
+            self.assert_eq_list_values(normalized[0], [1, 2, 3])
 
 
 class TestListBlockWithFixtures(TestCase):
@@ -4228,6 +4397,120 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
 
 
+class TestNormalizeStreamBlock(SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.simple_block = blocks.StreamBlock(
+            [("number", blocks.IntegerBlock()), ("text", blocks.TextBlock())]
+        )
+        cls.recursive_block = blocks.StreamBlock(
+            [
+                (
+                    "inner_stream",
+                    blocks.StreamBlock(
+                        [
+                            ("number", blocks.IntegerBlock()),
+                            ("text", blocks.TextBlock()),
+                            ("inner_list", blocks.ListBlock(blocks.IntegerBlock)),
+                        ]
+                    ),
+                ),
+                ("struct", blocks.StructBlock([("bool", blocks.BooleanBlock())])),
+                ("list", blocks.ListBlock(blocks.IntegerBlock)),
+            ]
+        )
+
+    def test_normalize_empty_stream(self):
+        values = [[], "", None]
+        for value in values:
+            with self.subTest(value=value):
+                self.assertEqual(
+                    self.simple_block.normalize(value),
+                    blocks.StreamValue(self.simple_block, []),
+                )
+
+    def test_normalize_base_case(self):
+        """
+        Test normalize when trivially recursive, or already a StreamValue
+        """
+        value = [("number", 1), ("text", "ichiban")]
+        stream_value = blocks.StreamValue(self.simple_block, value)
+        self.assertEqual(stream_value, self.simple_block.normalize(value))
+        self.assertEqual(stream_value, self.simple_block.normalize(stream_value))
+
+    def test_normalize_recursive(self):
+        """
+        A stream block is normalized iff all of its sub-blocks are normalized.
+        """
+        values = (
+            # A smart, "list of tuples" representation
+            [
+                ("struct", {"bool": True}),
+                (
+                    "inner_stream",
+                    [
+                        ("number", 1),
+                        ("text", "one"),
+                        ("inner_list", [0, 1, 1, 2, 3, 5]),
+                    ],
+                ),
+                ("list", [0, 1, 1, 2, 3, 5]),
+            ],
+            # A json-ish representation - the serialized format
+            [
+                {"type": "struct", "value": {"bool": True}},
+                {
+                    "type": "inner_stream",
+                    "value": [
+                        {"type": "number", "value": 1},
+                        {"type": "text", "value": "one"},
+                        {
+                            "type": "inner_list",
+                            "value": [
+                                # Unlike StreamBlock, ListBlock requires that its items
+                                # have IDs, to distinguish the new serialization format
+                                # from the old.
+                                {"type": "item", "value": 0, "id": 1},
+                                {"type": "item", "value": 1, "id": 2},
+                                {"type": "item", "value": 2, "id": 3},
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "type": "list",
+                    "value": [
+                        {"type": "item", "value": 0, "id": 1},
+                        {"type": "item", "value": 1, "id": 2},
+                        {"type": "item", "value": 2, "id": 3},
+                    ],
+                },
+            ],
+        )
+
+        for value in values:
+            with self.subTest(value=value):
+                # Normalize the value.
+                normalized = self.recursive_block.normalize(value)
+                # Then check all of the sub-blocks have been normalized:
+                # the StructBlock child
+                self.assertIsInstance(normalized[0].value, blocks.StructValue)
+                self.assertIsInstance(normalized[0].value["bool"], bool)
+                # the nested StreamBlock child
+                self.assertIsInstance(normalized[1].value, blocks.StreamValue)
+                self.assertIsInstance(normalized[1].value[0].value, int)
+                self.assertIsInstance(normalized[1].value[1].value, str)
+                # the ListBlock child
+                self.assertIsInstance(normalized[2].value[0], int)
+                self.assertIsInstance(normalized[2].value, blocks.list_block.ListValue)
+                # the inner ListBlock nested in the nested streamblock
+                self.assertIsInstance(normalized[1].value[2].value[0], int)
+                self.assertIsInstance(
+                    normalized[1].value[2].value, blocks.list_block.ListValue
+                )
+
+
 class TestStructBlockWithFixtures(TestCase):
     fixtures = ["test.json"]
 
@@ -4741,6 +5024,12 @@ class TestStaticBlock(unittest.TestCase):
         block = blocks.StaticBlock()
         result = block.to_python(None)
         self.assertIsNone(result)
+
+    def test_normalize(self):
+        """
+        StaticBlock.normalize always returns None, as a StaticBlock has no value
+        """
+        self.assertIsNone(blocks.StaticBlock().normalize(11))
 
 
 class TestDateBlock(TestCase):
@@ -5594,3 +5883,105 @@ class TestValidationErrorAsJsonData(TestCase):
                 ],
             },
         )
+
+
+class TestBlockDefinitionLookup(TestCase):
+    def test_simple_lookup(self):
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+            }
+        )
+        char_block = lookup.get_block(0)
+        char_block.set_name("title")
+        self.assertIsInstance(char_block, blocks.CharBlock)
+        self.assertTrue(char_block.required)
+
+        rich_text_block = lookup.get_block(1)
+        self.assertIsInstance(rich_text_block, blocks.RichTextBlock)
+
+        # A subsequent call to get_block with the same index should return a new instance;
+        # this ensures that state changes such as set_name are independent of other blocks
+        char_block_2 = lookup.get_block(0)
+        char_block_2.set_name("subtitle")
+        self.assertIsInstance(char_block, blocks.CharBlock)
+        self.assertTrue(char_block.required)
+        self.assertIsNot(char_block, char_block_2)
+        self.assertEqual(char_block.name, "title")
+        self.assertEqual(char_block_2.name, "subtitle")
+
+    def test_structblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: (
+                    "wagtail.blocks.StructBlock",
+                    [
+                        [
+                            ("title", 0),
+                            ("description", 1),
+                        ],
+                    ],
+                    {},
+                ),
+            }
+        )
+        struct_block = lookup.get_block(2)
+        self.assertIsInstance(struct_block, blocks.StructBlock)
+        title_block = struct_block.child_blocks["title"]
+        self.assertIsInstance(title_block, blocks.CharBlock)
+        self.assertTrue(title_block.required)
+        description_block = struct_block.child_blocks["description"]
+        self.assertIsInstance(description_block, blocks.RichTextBlock)
+
+    def test_streamblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.RichTextBlock", [], {}),
+                2: (
+                    "wagtail.blocks.StreamBlock",
+                    [
+                        [
+                            ("heading", 0),
+                            ("paragraph", 1),
+                        ],
+                    ],
+                    {},
+                ),
+            }
+        )
+        stream_block = lookup.get_block(2)
+        self.assertIsInstance(stream_block, blocks.StreamBlock)
+        title_block = stream_block.child_blocks["heading"]
+        self.assertIsInstance(title_block, blocks.CharBlock)
+        self.assertTrue(title_block.required)
+        description_block = stream_block.child_blocks["paragraph"]
+        self.assertIsInstance(description_block, blocks.RichTextBlock)
+
+    def test_listblock_lookup(self):
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: ("wagtail.blocks.ListBlock", [0], {}),
+            }
+        )
+        list_block = lookup.get_block(1)
+        self.assertIsInstance(list_block, blocks.ListBlock)
+        list_item_block = list_block.child_block
+        self.assertIsInstance(list_item_block, blocks.CharBlock)
+        self.assertTrue(list_item_block.required)
+
+        # Passing a class as the child block is still valid; this is not converted
+        # to a reference
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.ListBlock", [blocks.CharBlock], {}),
+            }
+        )
+        list_block = lookup.get_block(0)
+        self.assertIsInstance(list_block, blocks.ListBlock)
+        list_item_block = list_block.child_block
+        self.assertIsInstance(list_item_block, blocks.CharBlock)

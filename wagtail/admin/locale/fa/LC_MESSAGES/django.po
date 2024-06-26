@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022-2023\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,6 +74,9 @@ msgstr "محلی"
 msgid "All"
 msgstr "همه"
 
+msgid "Collection"
+msgstr "مجموعه"
+
 msgid "Preferred language"
 msgstr "زبان ترجیحی"
 
@@ -117,9 +120,6 @@ msgstr "جستجو"
 
 msgid "All collections"
 msgstr "همه مجموعه ها"
-
-msgid "Collection"
-msgstr "مجموعه"
 
 msgid "Parent"
 msgstr "والد"
@@ -231,6 +231,9 @@ msgstr "اسلاگ '%(page_slug)s' از قبل در صفحه والد استفا
 
 msgid "Select a new parent for this page."
 msgstr "انتخاب یک والد جدید برای این صفحه."
+
+msgid "Parent page"
+msgstr "صفحه والد"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -493,15 +496,15 @@ msgstr "تبدیل به لینک داخلی"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" "
-"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس "
-"<a target=\"_blank\" rel=\"noreferrer\" "
-"href=\"%(internal_url)s\">%(internal_url)s</a>  همخوانی دارد."
+"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس <a "
+"target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
+"%(internal_url)s</a>  همخوانی دارد."
 
 #, python-format
 msgid ""
@@ -576,13 +579,10 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "بدلیل خالی نبودن، مجموعه قابل حذف نیست. حاوی موارد زیر است:"
 
-msgid "Name"
-msgstr "نام"
-
 #, python-format
 msgid ""
-"No collections have been created. Why not <a "
-"href=\"%(add_collection_url)s\">add one</a>?"
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
 msgstr ""
 "مجموعه ای ایجاد نشد. چرا یکی <a href=\"%(add_collection_url)s\">ایجاد</a> "
 "نمیکنید؟"
@@ -609,6 +609,9 @@ msgstr "نه لغو انتشار نشود"
 
 msgid "Cancel"
 msgstr "لغو"
+
+msgid "Actions"
+msgstr "اعمال"
 
 msgid "Update"
 msgstr "بروزرسانی"
@@ -671,9 +674,6 @@ msgstr "قفل شده در"
 msgid "Edit this page"
 msgstr "ویرایش صفحه"
 
-msgid "Actions"
-msgstr "اعمال"
-
 msgid "Unlock"
 msgstr "حذف قفل"
 
@@ -719,13 +719,13 @@ msgstr "چیز هایی در وگتیل %(version)s عوض شده اند!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
-"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
-"changed and some exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
 msgstr ""
-"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
+"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
 "ویرایشگر وگتیل</a> کلیک کنید تا ته توی تغییرات و ویژگی های جدید و هیجان "
 "انگیز را در بیارید!"
 
@@ -975,12 +975,6 @@ msgstr "کپی این صفحه"
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
-msgid "Live version"
-msgstr "نسخه منتشر شده"
-
-msgid "Current draft"
-msgstr "پیشنویس فعلی"
-
 msgid "Configure a site now."
 msgstr "پیکربندی یک سایت"
 
@@ -1028,15 +1022,6 @@ msgstr "تایید"
 msgid "Add child page"
 msgstr "افزودن زیرصفحه"
 
-msgid "Review this version"
-msgstr "بازنگری این نسخه"
-
-msgid "Compare with current version"
-msgstr "مقایسه با نسخه‌ی فعلی"
-
-msgid "Cancel scheduled publish"
-msgstr "لغو انتشار زمانبندی شده"
-
 msgid "Page types"
 msgstr "انواع صفحه"
 
@@ -1083,6 +1068,9 @@ msgstr "قفل شده"
 msgid "No locked pages found."
 msgstr "صفحه‌ی قفل شده‌ای یافت نشد"
 
+msgid "Name"
+msgstr "نام"
+
 msgid "Edit this item"
 msgstr "ویرایش این آیتم"
 
@@ -1113,9 +1101,6 @@ msgstr "فیلتر"
 
 msgid "Add comment"
 msgstr "افزودن نظر"
-
-msgid "Root"
-msgstr "ریشه"
 
 msgid "Current page status:"
 msgstr "وضعیت فعلی صفحه"
@@ -1255,6 +1240,12 @@ msgstr "%(time_period)s پیش"
 msgid "Log out"
 msgstr "خروج"
 
+msgid "Undo"
+msgstr "برگشت"
+
+msgid "Redo"
+msgstr "حذف برگشت"
+
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
@@ -1321,6 +1312,21 @@ msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 msgid "Home"
 msgstr "خانه"
 
+msgid "Live version"
+msgstr "نسخه منتشر شده"
+
+msgid "Current draft"
+msgstr "پیشنویس فعلی"
+
+msgid "Review this version"
+msgstr "بازنگری این نسخه"
+
+msgid "Compare with current version"
+msgstr "مقایسه با نسخه‌ی فعلی"
+
+msgid "Cancel scheduled publish"
+msgstr "لغو انتشار زمانبندی شده"
+
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
 msgstr "%(model_name)s '%(title)s' باز شده است."
@@ -1362,8 +1368,8 @@ msgstr "%(model_name)s '%(object)s' ایجاد و منتشر شد."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from "
-"<b>%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
 msgstr ""
 "شما در حال دیدن بازبینی قبلی %(model_name)s در <b>%(created_at)s</b> توسط "
 "%(user)s هستید"
@@ -1612,12 +1618,6 @@ msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ند�
 msgid "The page could not be saved due to validation errors"
 msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
 
-msgid "Hide commenting actions"
-msgstr "مخفی کردت اعمال مربوط به نظر دهی"
-
-msgid "Page history"
-msgstr "تاریخچه‌ی صفحه"
-
 msgid "Site"
 msgstr "سایت"
 
@@ -1648,6 +1648,9 @@ msgstr ""
 "شما در حال دیدن نسخه قبلی این صفحه در <b>%(created_at)s</b> توسط %(user)s "
 "هستید"
 
+msgid "Page history"
+msgstr "تاریخچه‌ی صفحه"
+
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "صفحه '%(page_title)s' لغو انتشار شد."
@@ -1664,6 +1667,9 @@ msgstr "صفحات سالخورده"
 
 msgid "Last published at"
 msgstr "انتشار قبلی در"
+
+msgid "Hide commenting actions"
+msgstr "مخفی کردت اعمال مربوط به نظر دهی"
 
 msgid "Site history"
 msgstr "تاریخچه سایت"

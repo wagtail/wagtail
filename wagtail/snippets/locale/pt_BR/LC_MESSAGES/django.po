@@ -8,16 +8,15 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021,2024
 # Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<sottomaiormacedotec@gmail.com>, 2021\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -66,9 +65,19 @@ msgstr "%(label)s e publicar"
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
 
+msgid "Delete selected snippets"
+msgstr "Excluir snippets selecionados"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' excluído."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s excluído."
+msgstr[1] "%(count)d %(model_name)s excluídos."
+msgstr[2] "%(count)d %(model_name)s excluídos."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -92,11 +101,24 @@ msgstr "Você tem certeza que deseja excluir essa %(snippet_type_name)s?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Tem certeza de que deseja excluir %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Você não tem permissão para excluir isto %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Você não tem permissão para excluir estes %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Sim, exclua"
 
 msgid "No, don't delete"
 msgstr "Não, não apague"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Desculpe, nenhum snippets corresponde para \"<em>%(search_query)s</em>\""
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -110,35 +132,17 @@ msgstr "Salvando…"
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual"
 
+msgid "Replace current revision"
+msgstr "Substituir a revisão atual"
+
 msgid "Save draft"
 msgstr "Salvar rascunho"
 
 msgid "Actions"
 msgstr "Ações"
 
-msgid "Live version"
-msgstr "Versão publicada"
-
-msgid "Current draft"
-msgstr "Rascunho atual"
-
-msgid "Preview"
-msgstr "Pré-visualizar"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Review this version"
-msgstr "Revise esta versão"
-
-msgid "Compare with previous version"
-msgstr "Compare com a versão anterior"
-
-msgid "Compare with current version"
-msgstr "Compare com a versão atual"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancelar publicação agendada"
+msgid "Select all snippets in listing"
+msgstr "Selecione todos os snippets na listagem"
 
 msgid "Choose"
 msgstr "Escolha"
@@ -149,11 +153,20 @@ msgstr "Fragmentos"
 msgid "Name"
 msgstr "Nome"
 
-msgid "Action"
-msgstr "Ação"
+msgid "Instances"
+msgstr "Instâncias"
 
-msgid "Date"
-msgstr "Data"
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Mais opções para '%(title)s'"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Editar %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s histórico"
 
 msgid "Home"
 msgstr "Página inicial"

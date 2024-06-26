@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -137,6 +137,10 @@ msgstr "ဖျက်သိမ်းပါ"
 msgid "Delete selected submissions"
 msgstr "ရွေးချယ်ထားသောတင်ပြချက်များကို ဖျက်သိမ်းပါ"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "'%(title)s'ဖောင် တင်ပြချက်မျိုး မရှိပါ။"
+
 msgid "Total submissions"
 msgstr "တင်ပြချက်စုစုပေါင်း"
 
@@ -146,13 +150,6 @@ msgstr "နောက်ဆုံးတင်ပြချက်"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "%(form_title)s၏တင်ပြချက်များ"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "'%(title)s'ဖောင် တင်ပြချက်မျိုး မရှိပါ။"
-
-msgid "Filter"
-msgstr "စစ်ထုတ်ပါ"
 
 msgid "Forms"
 msgstr "ဖောင်များ"

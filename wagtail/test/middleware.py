@@ -1,5 +1,8 @@
-from django.http import HttpResponseForbidden
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.utils.deprecation import MiddlewareMixin
+
+from wagtail.models import Page
+from wagtail.views import serve
 
 
 class BlockDodgyUserAgentMiddleware(MiddlewareMixin):
@@ -16,3 +19,13 @@ class BlockDodgyUserAgentMiddleware(MiddlewareMixin):
             and request.headers.get("user-agent") == "EvilHacker"
         ):
             return HttpResponseForbidden("Forbidden")
+
+
+class SimplePageViewInterceptorMiddleware(MiddlewareMixin):
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if serve == view_func:
+            page = Page.find_for_request(request, *view_args, **view_kwargs)
+            if page is None:
+                raise Http404
+            elif page.content == "Intercept me":
+                return HttpResponse("Intercepted")

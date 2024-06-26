@@ -165,6 +165,7 @@ module.exports = {
         ':root, :host': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
+          '--w-density-factor': '1',
           ...transparencies,
           ...generateColorVariables(staticColors),
           ...generateThemeColorVariables(colorThemes.light),
@@ -179,6 +180,9 @@ module.exports = {
         '.w-theme-dark': {
           ...generateThemeColorVariables(colorThemes.dark),
           'color-scheme': 'dark',
+        },
+        '.w-density-snug': {
+          '--w-density-factor': '0.5',
         },
       });
     }),

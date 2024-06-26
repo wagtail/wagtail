@@ -1,7 +1,69 @@
 Changelog
 =========
 
-6.1 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
+ * Support a `HOSTNAMES` parameter on `WAGTAILFRONTENDCACHE` to define which hostnames a backend should respond to (Jake Howard, sponsored by Oxfam America)
+ * Refactor redirects edit view to use the generic `EditView` and breadcrumbs (Rohit Sharma)
+ * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
+ * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
+ * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
+ * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
+ * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
+ * Remove reduced opacity for draft page title in listings (Inju Michorius)
+ * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
+ * Implement a new design for locale labels in listings (Albina Starykova)
+ * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
+ * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
+ * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
+ * Fix: Preserve whitespace in comment replies (Elhussein Almasri)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
+ * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: Do not show delete button on model edit views if per-instance permissions prevent deletion (Matt Westcott)
+ * Fix: Remove duplicate header in privacy dialog when a privacy setting is set on a parent page or collection (Matthias Brück)
+ * Fix: Allow renditions of `.ico` images (Julie Rymer)
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Add separators when displaying multiple error messages on a StructBlock (Kyle Bayliss)
+ * Fix: Specify `verbose_name` on `TranslatableMixin.locale` so that it is translated when used as a label (Romein van Buren)
+ * Fix: Disallow null characters in API filter values (Jochen Wersdörfer)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Fix: Ensure external-to-internal link conversion works when the `wagtail_serve` view is on a non-root path (Sage Abdullah)
+ * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
+ * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
+ * Docs: Document Wagtail's bug bounty policy (Jake Howard)
+ * Docs: Fix incorrect Sphinx-style code references to use MyST style (Byron Peebles)
+ * Docs: Document the fact that `Orderable` is not required for inline panels (Bojan Mihelac)
+ * Docs: Add note about `prefers-reduced-motion` to the accessibility documentation (Roel Koper)
+ * Docs: Update deployment instructions for Fly.io (Jeroen de Vries)
+ * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
+ * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
+ * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
+ * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
+ * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
+ * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
+
+
+6.1.2 (30.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix client-side handling of select inputs within `ChoiceBlock` (Matt Westcott)
+ * Fix: Support SVG icon id attributes with single quotes in the styleguide (Sage Abdullah)
+ * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
+
+
+6.1.1 (21.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix form action URL in user edit and delete views for custom user models (Sage Abdullah)
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
+ * Fix: Address layout issues in the title cell of universal listings (Sage Abdullah)
+ * Fix: Fix incorrect rich text to HTML conversion when multiple link / embed types are present (Andy Chosak, Matt Westcott)
+ * Fix: Restore ability for custom widgets in StreamField blocks to have multiple top-level nodes (Sage Abdullah, Matt Westcott)
+
+
+6.1 (01.05.2024)
 ~~~~~~~~~~~~~~~~
 
  * Refine wording of page & collection privacy using password is a shared password and should not be used for secure content (Rohit Sharma, Jake Howard)
@@ -14,14 +76,34 @@ Changelog
  * Allow displaying permissions linked to the Admin model's content type (Sage Abdullah)
  * Add support for Draftail's JavaScript to use chooserUrls provided by entity options & for the Draftail widget to encode lazy URLs/ translations (Elhussein Almasri)
  * Reimplement search promotions `IndexView` using the `generic.IndexView` (Rohit Sharma, Sage Abdullah, Storm Heg)
+ * Reimplement redirects `IndexView` using the `generic.IndexView` (Rohit Sharma, Sage Abdullah, Temidayo Azeez)
  * Add `PageListingViewSet` for custom per-page-type page listings (Matt Westcott)
+ * Add `ChooseParentView` to `PageListingViewSet` to allow creating pages from custom page listings (Abdelrahman Hamada, Sage Abdullah)
  * Implement new universal listings design for image listing view (Sage Abdullah)
  * Implement new universal listings design for document listing view (Sage Abdullah)
  * Implement new universal listings design for site and locale listing views (Sage Abdullah)
+ * Implement new universal listings design for page and snippet history view (Sage Abdullah)
+ * Implement new universal listings design for form builder submissions view (Sage Abdullah)
+ * Implement new universal listings design for collections listing view (Sage Abdullah)
+ * Implement new universal listings design for groups views (Sage Abdullah)
+ * Implement new universal listings design for users views (Sage Abdullah)
+ * Implement new universal listings design for workflow and task views (Sage Abdullah)
+ * Refine slim header button style to match designs (Sage Abdullah)
  * Add simple admin keyboard shortcuts overview dialog, available in the help sub-menu (Karthik Ayangar, Rohit Sharma)
  * Add ability to bulk toggle permissions in the user group editing view, including shift+click for multiple selections (LB (Ben) Johnston, Kalob Taulien)
  * Update the minimum version of `djangorestframework` to 3.15.1 (Sage Abdullah)
  * Add support for related fields in generic `IndexView.list_display` (Abdelrahman Hamada)
+ * Improve page fetching logic and cache route results per request (Gordon Pendleton)
+ * Optimise rewriting of links / embeds in rich text using bulk database lookups (Andy Chosak)
+ * Add normalization mechanism to StreamField so that assignments and defaults can be passed in a wider range of data types (Joshua Munn, Matt Westcott)
+ * Allow specifying a `STORAGES` alias name for `WAGTAILIMAGES_RENDITION_STORAGE` (Alec Baron)
+ * Update `PASSWORD_REQUIRED_TEMPLATE` setting to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` with deprecation of previous naming (Saksham Misra, LB (Ben) Johnston)
+ * Update `DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` setting to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` with deprecation of previous naming (Saksham Misra, LB (Ben) Johnston)
+ * When editing settings (contrib) use the same icon in the editing view that was declared when registering the setting (Vince Salvino, Rohit Sharma)
+ * Populate django-treebeard cache during page routing to improve performance of `get_parent` (Nigel van Keulen)
+ * Add a new user profile preference to configure user interface information density (Thibaud Colas)
+ * Add additional field types to Elasticsearch mapping (scott-8)
+ * Fix: CVE-2024-32882: Permission check bypass when editing a model with per-field restrictions through `wagtail.contrib.settings` or `ModelViewSet` (Ben Morse, Joshua Munn, Jake Howard, Sage Abdullah)
  * Fix: Fix typo in `__str__` for MySQL search index (Jake Howard)
  * Fix: Ensure that unit tests correctly check for migrations in all core Wagtail apps (Matt Westcott)
  * Fix: Correctly handle `date` objects on `human_readable_date` template tag (Jhonatan Lopes)
@@ -35,6 +117,15 @@ Changelog
  * Fix: Ensure dropdown content cannot get higher than the viewport and add scrolling within content if needed (Chiemezuo Akujobi)
  * Fix: Prevent snippets model index view from crashing when a model does not have an `objects` manager (Jhonatan Lopes)
  * Fix: Fix `get_dummy_request`'s resulting host name when running tests with `ALLOWED_HOSTS = ["*"]` (David Buxton)
+ * Fix: Fix timezone handling in the `timesince_last_update` template tag (Matt Westcott)
+ * Fix: Fix Postgres phrase search to respect the language set in settings (Ihar Marhitych)
+ * Fix: Retain query parameters when switching between locales in the page chooser (Abdelrahman Hamada, Sage Abdullah)
+ * Fix: Add `w-kbd-scope-value` with support for `global` so that specific keyboard shortcuts (e.g. ctrl+s/cmd+s) trigger consistently even when focused on fields (Neeraj Yetheendran)
+ * Fix: Improve exception handling when generating image renditions concurrently (Andy Babic)
+ * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+ * Fix: Reinstate missing static files in style guide (Sage Abdullah)
+ * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
@@ -45,6 +136,10 @@ Changelog
  * Docs: Document risk of XSS attacks on document upload (Matt Westcott, with thanks to Georgios Roumeliotis of TwelveSec for the original report)
  * Docs: Add clarity to how custom StreamField validation works (Tibor Leupold)
  * Docs: Add additional reference to the `wagtail_update_image_renditions` management command on the using images page (LB (Ben) Johnston)
+ * Docs: Correct information about line endings in Window development docs (Sage Abdullah)
+ * Docs: Improve code snippets for "Create a footer for all pages" tutorial section (Drikus Roor)
+ * Docs: Update list of third-party tutorials (LB (Ben) Johnston)
+ * Docs: Update "Integrating into Django" documentation to emphasise creating page models (Matt Westcott)
  * Maintenance: Move RichText HTML whitelist parser to use the faster, built in `html.parser` (Jake Howard)
  * Maintenance: Remove duplicate 'path' in default_exclude_fields_in_copy (Ramchandra Shahi Thakuri)
  * Maintenance: Update unit tests to always use the faster, built in `html.parser` & remove `html5lib` dependency (Jake Howard)
@@ -65,6 +160,35 @@ Changelog
  * Maintenance: Ensure untrusted data sources are logged correctly in the Stimulus `SwapController` (LB (Ben) Johnston)
  * Maintenance: Update Wagtail logo in admin sidebar & favicon plus documentation to the latest version (Osaf AliSayed, Albina Starykova, LB (Ben) Johnston)
  * Maintenance: Remove usage of inline scripts and instead use a new Stimulus controller (`w-block`/`BlockController`) to instantiate `StreamField` blocks (Karthik Ayangar)
+ * Maintenance: Update NPM Babel, TypeScript and Webpack packages (Neeraj Yetheendran)
+ * Maintenance: Replace ad-hoc JavaScript and vendor Mousetrap usage to a new Stimulus controller (`w-kbd`/`KeyboardController`) (Neeraj Yetheendran)
+ * Maintenance: Update django-filter to 24.x (Sebastian Muthwill)
+ * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
+ * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
+ * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+
+
+6.0.5 (30.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-35228: Improper handling of insufficient permissions in `wagtail.contrib.settings` (Victor Miti, Matt Westcott, Jake Howard)
+
+
+6.0.4 (21.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix snippet copy view not prefilling form data (Sage Abdullah)
+
+
+6.0.3 (01.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-32882: Permission check bypass when editing a model with per-field restrictions through `wagtail.contrib.settings` or `ModelViewSet` (Ben Morse, Joshua Munn, Jake Howard, Sage Abdullah)
+ * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+ * Fix: Reinstate missing static files in style guide (Sage Abdullah)
+ * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
+ * Fix: Fix generic CopyView for models with primary keys that need to be quoted (Sage Abdullah)
 
 
 6.0.2 (03.04.2024)
@@ -256,6 +380,21 @@ Changelog
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
  * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
+
+
+5.2.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
+
+
+5.2.5 (01.05.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Respect `WAGTAIL_ALLOW_UNICODE_SLUGS` setting when auto-generating slugs (LB (Ben) Johnston)
+ * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
+ * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
 
 
 5.2.4 (03.04.2024)
