@@ -166,13 +166,14 @@ describe('PreviewController', () => {
     localStorage.removeItem('wagtail:preview-panel-device');
   });
 
-  const expectIframeReloaded = async () => {
+  const expectIframeReloaded = async (
+    expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`,
+  ) => {
     // Should create a new invisible iframe with the correct URL
     let iframes = document.querySelectorAll('iframe');
     expect(iframes.length).toEqual(2);
     const oldIframe = iframes[0];
     const newIframe = iframes[1];
-    const expectedUrl = `http://localhost${url}?mode=form&in_preview_panel=true`;
     expect(newIframe.src).toEqual(expectedUrl);
     expect(newIframe.style.width).toEqual('0px');
     expect(newIframe.style.height).toEqual('0px');
@@ -866,6 +867,75 @@ describe('PreviewController', () => {
 
       // Simulate a click on the refresh button
       refreshButtonElement.click();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+
+      mockWindow({ open: jest.fn(), alert: jest.fn() });
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should call window.alert() with the correct message
+      expect(window.alert).toHaveBeenCalledWith(
+        'Error while sending preview data.',
+      );
+    });
+  });
+
+  describe('switching between different preview modes', () => {
+    let previewModeElement;
+
+    beforeEach(async () => {
+      // Add the preview mode selector to the preview panel
+      const element = document.querySelector('[data-controller="w-preview"]');
+      previewModeElement = element.querySelector(
+        '[data-w-preview-target="mode"]',
+      );
+
+      await initializeOpenedPanel();
+    });
+
+    it('should update the preview with the correct URL when switching to a different mode', async () => {
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // Simulate changing the preview mode
+      previewModeElement.value = 'landing';
+      previewModeElement.dispatchEvent(new Event('change'));
+      await Promise.resolve();
+
+      // Should immediately send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/pages/1/edit/preview/',
+        {
+          body: expect.any(Object),
+          method: 'POST',
+        },
+      );
+
+      // Simulate the request completing
+      await Promise.resolve();
+
+      // Should create a new iframe for reloading the preview using the new URL
+      // with the correct mode query parameter
+      await expectIframeReloaded(
+        `http://localhost${url}?mode=landing&in_preview_panel=true`,
+      );
+
+      jest.clearAllMocks();
+    });
+
+    it('should show an alert if the request fails when clicking the refresh button', async () => {
+      fetch.mockResponseFailure();
+
+      // Simulate changing the preview mode
+      previewModeElement.value = 'landing';
+      previewModeElement.dispatchEvent(new Event('change'));
 
       // Should send the preview data to the preview URL
       expect(global.fetch).toHaveBeenCalledWith(
