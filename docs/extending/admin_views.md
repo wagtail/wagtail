@@ -350,7 +350,7 @@ Delete page
 
 Copy page
 
-```html
+```html+django
 {% url 'wagtailadmin_pages:copy' page_id }
 ```
 
