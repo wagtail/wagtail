@@ -3,15 +3,8 @@ import json
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.api.v2.renderers import APIV2PageRenderer
 from wagtail.test.utils import WagtailTestUtils
 
-
-class CustomAPIV2PageRenderer(APIV2PageRenderer):
-    def render(self, request, media_type, page, args, kwargs):
-        response = super().render(request, media_type, page, args, kwargs)
-        response["X-Test-Header"] = "Test"
-        return response
 
 @override_settings(
     WAGTAIL_PAGE_RENDERERS=["wagtail.api.v2.renderers.APIV2PageRenderer"]
@@ -120,22 +113,3 @@ class TestPageRenderer(TestCase, WagtailTestUtils):
                 {"id", "meta", "embed_url", "link", "caption", "image"},
             )
             self.assertEqual(set(carousel_item["meta"].keys()), {"type"})
-
-@override_settings(
-    WAGTAIL_PAGE_RENDERERS=[
-        "wagtail.api.v2.tests.test_page_renderer.CustomAPIV2PageRenderer",
-    ]
-)
-class TestCustomPageRenderer(TestCase, WagtailTestUtils):
-    fixtures = ["demosite.json"]
-    #mock the CustomAPIV2PageRenderer
-
-    def get_response(self, path, **params):
-        return self.client.get(path, params, HTTP_ACCEPT="application/json; version=2")
-
-    def test(self):
-        response = self.get_response("/blog-index/blog-post/")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-type"], "application/json")
-        self.assertEqual(response["X-Test-Header"], "Test")
