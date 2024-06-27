@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from wagtail import blocks
 from wagtail.blocks.base import get_error_json_data
+from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
@@ -257,3 +258,40 @@ class TestTableBlock(TestCase):
                 "blockErrors": {1: {2: {"messages": ["This field is required."]}}},
             },
         )
+
+
+class TestBlockDefinitionLookup(TestCase):
+    def test_block_lookup(self):
+        lookup = BlockDefinitionLookup(
+            {
+                0: ("wagtail.blocks.CharBlock", [], {"required": True}),
+                1: (
+                    "wagtail.blocks.ChoiceBlock",
+                    [],
+                    {
+                        "choices": [
+                            ("be", "Belgium"),
+                            ("fr", "France"),
+                            ("nl", "Netherlands"),
+                        ]
+                    },
+                ),
+                2: (
+                    "wagtail.contrib.typed_table_block.blocks.TypedTableBlock",
+                    [
+                        [
+                            ("text", 0),
+                            ("country", 1),
+                        ],
+                    ],
+                    {},
+                ),
+            }
+        )
+        struct_block = lookup.get_block(2)
+        self.assertIsInstance(struct_block, TypedTableBlock)
+        text_block = struct_block.child_blocks["text"]
+        self.assertIsInstance(text_block, blocks.CharBlock)
+        self.assertTrue(text_block.required)
+        country_block = struct_block.child_blocks["country"]
+        self.assertIsInstance(country_block, blocks.ChoiceBlock)

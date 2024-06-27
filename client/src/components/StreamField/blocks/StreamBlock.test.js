@@ -318,7 +318,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       ],
       blockErrors: {
         /* block error */
-        1: { messages: ['Not as good as the first one'] },
+        1: { messages: ['Not as good as the first one.'] },
       },
     });
     expect(document.body.innerHTML).toMatchSnapshot();

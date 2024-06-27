@@ -13,6 +13,8 @@ Changelog
  * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
  * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Remove reduced opacity for draft page title in listings (Inju Michorius)
+ * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
+ * Implement a new design for locale labels in listings (Albina Starykova)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
@@ -23,6 +25,11 @@ Changelog
  * Fix: Remove duplicate header in privacy dialog when a privacy setting is set on a parent page or collection (Matthias Brück)
  * Fix: Allow renditions of `.ico` images (Julie Rymer)
  * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Add separators when displaying multiple error messages on a StructBlock (Kyle Bayliss)
+ * Fix: Specify `verbose_name` on `TranslatableMixin.locale` so that it is translated when used as a label (Romein van Buren)
+ * Fix: Disallow null characters in API filter values (Jochen Wersdörfer)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Fix: Ensure external-to-internal link conversion works when the `wagtail_serve` view is on a non-root path (Sage Abdullah)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
@@ -35,6 +42,7 @@ Changelog
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
+ * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
 
 
 6.1.2 (30.05.2024)
@@ -372,6 +380,13 @@ Changelog
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
  * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
+
+
+5.2.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
 
 
 5.2.5 (01.05.2024)

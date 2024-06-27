@@ -905,7 +905,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
         <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
-          <p class="error-message"><span>Not as good as the first one</span></p></div>
+          <p class="error-message">Not as good as the first one.</p></div>
           <div class="w-field__help" id="the-prefix-1-value-helptext" data-field-help=""></div>
           <div class="w-field__input" data-field-input="">
             <p name="the-prefix-1-value" id="the-prefix-1-value">Block B widget</p>

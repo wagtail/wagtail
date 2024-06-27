@@ -151,6 +151,12 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_block, **kwargs):
+        if isinstance(child_block, int):
+            child_block = lookup.get_block(child_block)
+        return cls(child_block, **kwargs)
+
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
         child_blocks_with_indexes = []
@@ -395,6 +401,12 @@ class ListBlock(Block):
         errors = super().check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))
         return errors
+
+    def deconstruct_with_lookup(self, lookup):
+        path, args, kwargs = super().deconstruct_with_lookup(lookup)
+        if isinstance(args[0], Block):
+            args = (lookup.add_block(args[0]),)
+        return path, args, kwargs
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the

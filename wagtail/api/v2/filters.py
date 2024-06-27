@@ -46,6 +46,12 @@ class FieldsFilter(BaseFilterBackend):
                         % (value, field_name, str(e))
                     )
 
+                if "\x00" in str(value):
+                    raise BadRequestError(
+                        "field filter error. null characters are not allowed for %s"
+                        % field_name
+                    )
+
                 if isinstance(field, TaggableManager):
                     for tag in value.split(","):
                         queryset = queryset.filter(**{field_name + "__name": tag})

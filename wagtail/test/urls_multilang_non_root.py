@@ -8,4 +8,4 @@ urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
 ]
 
-urlpatterns += i18n_patterns(path("", include(wagtail_urls)))
+urlpatterns += i18n_patterns(path("site/", include(wagtail_urls)))

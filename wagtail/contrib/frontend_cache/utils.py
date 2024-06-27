@@ -1,7 +1,7 @@
 import logging
 import re
 from collections import defaultdict
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlsplit, urlunsplit
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -80,13 +80,12 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         # Purge the given url for each managed language
         for isocode in languages:
             for url in urls:
-                up = urlparse(url)
-                new_url = urlunparse(
+                up = urlsplit(url)
+                new_url = urlunsplit(
                     (
                         up.scheme,
                         up.netloc,
                         re.sub(langs_regex, "/%s/" % isocode, up.path),
-                        up.params,
                         up.query,
                         up.fragment,
                     )
@@ -104,7 +103,7 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
     urls_by_hostname = defaultdict(list)
 
     for url in urls:
-        urls_by_hostname[urlparse(url).netloc].append(url)
+        urls_by_hostname[urlsplit(url).netloc].append(url)
 
     backends = get_backends(backend_settings, backends)
 

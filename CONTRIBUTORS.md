@@ -824,6 +824,7 @@
 * Roel Koper
 * Inju Michorius
 * Jeroen de Vries
+* Romein van Buren
 
 ## Translators
 
