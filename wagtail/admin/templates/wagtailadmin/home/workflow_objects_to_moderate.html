@@ -89,8 +89,5 @@
         </table>
     {% endpanel %}
 
-    <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'));
-    </script>
+    <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}" data-activate="dashboard"></script>
 {% endif %}

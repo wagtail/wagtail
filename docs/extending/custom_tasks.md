@@ -1,3 +1,5 @@
+(custom_tasks)=
+
 # Adding new Task types
 
 The Workflow system allows users to create tasks, which represent stages of moderation.
@@ -124,6 +126,8 @@ class UserApprovalTask(Task):
 
     task_state_class = UserApprovalTaskState
 ```
+
+(custom_tasks_behavior)=
 
 ## Customising behaviour
 
