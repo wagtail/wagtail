@@ -25,13 +25,12 @@ class APIV2PageRenderer(BasePageRenderer):
     def render(self, request, media_type, page, args, kwargs):
         router = WagtailAPIRouter("")
         serializer_class = self.get_serializer_class(request, page, router)
-        context = kwargs.get("context", {})
-        # Add the base queryset to the context
-        context["base_queryset"] = get_base_queryset(request)
-        context["request"] = request
-        context["router"] = router
         serializer = serializer_class(
             page,
-            context=context,
+            context={
+                "request": request,
+                "router": router,
+                "base_queryset": get_base_queryset(request),
+            },
         )
         return JsonResponse(serializer.data)
