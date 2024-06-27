@@ -4521,6 +4521,9 @@ class PageLogEntryManager(BaseLogEntryManager):
 
         return PageLogEntry.objects.filter(q)
 
+    def for_instance(self, instance):
+        return self.filter(page=instance)
+
 
 class PageLogEntry(BaseLogEntry):
     page = models.ForeignKey(
