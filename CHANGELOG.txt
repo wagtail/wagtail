@@ -31,6 +31,7 @@ Changelog
  * Fix: Disallow null characters in API filter values (Jochen Wersdörfer)
  * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
  * Fix: Ensure external-to-internal link conversion works when the `wagtail_serve` view is on a non-root path (Sage Abdullah)
+ * Fix: Add missing `for_instance` method to `PageLogEntryManager` (Matt Westcott)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
