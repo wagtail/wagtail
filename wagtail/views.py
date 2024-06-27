@@ -6,9 +6,8 @@ from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, PageViewRestriction
 from wagtail.renderers import PageRendererNotFoundError, get_page_renderer_for_request
-
 
 
 def serve(request, path):
