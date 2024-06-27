@@ -142,6 +142,7 @@ By default, the checker includes the following rules to find common accessibilit
 -   `input-button-name`: `<input>` button elements must always have a text label.
 -   `link-name`: `<a>` link elements must always have a text label.
 -   `p-as-heading`: This rule checks for paragraphs that are styled as headings. Paragraphs should not be styled as headings, as they don’t help users who rely on headings to navigate content.
+-   `alt-text-quality`: A custom rule ensures that image alt texts don't contain anti-patterns like file extensions.
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
@@ -155,6 +156,10 @@ The following is the reference documentation for the `AccessibilityItem` class:
     .. autoattribute:: axe_run_only
        :no-value:
     .. autoattribute:: axe_rules
+    .. autoattribute:: axe_custom_rules
+       :no-value:
+    .. autoattribute:: axe_custom_checks
+       :no-value:
     .. autoattribute:: axe_messages
        :no-value:
 
@@ -167,12 +172,15 @@ The following is the reference documentation for the `AccessibilityItem` class:
     .. method:: get_axe_exclude(request)
     .. method:: get_axe_run_only(request)
     .. method:: get_axe_rules(request)
+    .. method:: get_axe_custom_rules(request)
+    .. method:: get_axe_custom_checks(request)
     .. method:: get_axe_messages(request)
 
     For more advanced customization, you can also override the following methods:
 
     .. automethod:: get_axe_context
     .. automethod:: get_axe_options
+    .. automethod:: get_axe_spec
 ```
 
 Here is an example of a custom `AccessibilityItem` subclass that enables more rules:

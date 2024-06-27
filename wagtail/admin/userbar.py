@@ -63,6 +63,31 @@ class AccessibilityItem(BaseItem):
     #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#options-parameter-examples>`__.
     axe_rules = {}
 
+    #: A list to add custom Axe rules or override their properties,
+    #: alongside with ``axe_custom_checks``. Includes Wagtail’s custom rules.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
+    axe_custom_rules = [
+        {
+            "id": "alt-text-quality",
+            "impact": "serious",
+            "selector": "img[alt]",
+            "tags": ["best-practice"],
+            "any": ["check-image-alt-text"],
+            # If omitted, defaults to True and overrides configs in `axe_run_only`.
+            "enabled": True,
+        },
+    ]
+
+    #: A list to add custom Axe checks or override their properties.
+    #: Should be used in conjunction with ``axe_custom_rules``.
+    #: For more details, see `Axe documentation <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure>`_.
+    axe_custom_checks = [
+        {
+            "id": "check-image-alt-text",
+            "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$"},
+        },
+    ]
+
     #: A dictionary that maps axe-core rule IDs to custom translatable strings
     #: to use as the error messages. If an enabled rule does not exist in this
     #: dictionary, Axe's error message for the rule will be used as fallback.
@@ -87,6 +112,9 @@ class AccessibilityItem(BaseItem):
             "Link text is empty. Use meaningful text for screen reader users."
         ),
         "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
+        "alt-text-quality": _(
+            "Image alt text has inappropriate pattern. Use meaningful text."
+        ),
     }
 
     def get_axe_include(self, request):
@@ -104,6 +132,14 @@ class AccessibilityItem(BaseItem):
     def get_axe_rules(self, request):
         """Returns a dictionary that maps axe-core rule IDs to a dictionary of rule options."""
         return self.axe_rules
+
+    def get_axe_custom_rules(self, request):
+        """List of rule objects per axe.run API."""
+        return self.axe_custom_rules
+
+    def get_axe_custom_checks(self, request):
+        """List of check objects per axe.run API, without evaluate function."""
+        return self.axe_custom_checks
 
     def get_axe_messages(self, request):
         """Returns a dictionary that maps axe-core rule IDs to custom translatable strings."""
@@ -139,11 +175,19 @@ class AccessibilityItem(BaseItem):
             options.pop("runOnly")
         return options
 
+    def get_axe_spec(self, request):
+        """Returns spec for Axe, including custom rules and custom checks"""
+        return {
+            "rules": self.get_axe_custom_rules(request),
+            "checks": self.get_axe_custom_checks(request),
+        }
+
     def get_axe_configuration(self, request):
         return {
             "context": self.get_axe_context(request),
             "options": self.get_axe_options(request),
             "messages": self.get_axe_messages(request),
+            "spec": self.get_axe_spec(request),
         }
 
     def get_context_data(self, request):
