@@ -311,11 +311,11 @@ For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.Vi
 
 ## Adding links in admin views
 ### Snippets
-In python you can use `MySnippet.get_url_name(view_name)` to get the name of the snippet view.
-In a template the snippets url names by default are wagtailsnippets_{app_label}_{model_name}:{list/edit/inspect/copy/delete}
+In Python, you can use `MySnippet.get_url_name(view_name)` to get the name of the snippet view.
+In a template the snippets url names by default are `wagtailsnippets_{app_label}_{model_name}:{list/edit/inspect/copy/delete}`
 
-For example linking the BreadTypeSnippet in the bakery demo would look like this
-```{code-block} html
+For example linking the `BreadTypeSnippet` in the bakery demo would look like this
+```html+django
 {% url 'wagtailsnippets_breads_breadtype:list' %}
 {% url 'wagtailsnippets_breads_breadtype:edit' object.id %}
 {% url 'wagtailsnippets_breads_breadtype:inspect' object.id %}
@@ -325,23 +325,26 @@ For example linking the BreadTypeSnippet in the bakery demo would look like this
 ### Pages
 
 New page
-```html
+
+```html+django
 {% url 'wagtailadmin_pages:add' content_type_app_name content_type_model_name parent_id %}
 ```
 
 Page usage
-```html
+
+```html+django
 {% url 'wagtailadmin_pages:usage' page_id %}
 ```
 
 Edit page
-```html
+
+```html+django
 {% url 'wagtailadmin_pages:edit' page_id %}
 ```
 
 Delete page
 
-```html
+```html+django
 {% url 'wagtailadmin_pages:delete' page_id %}
 ```
 
@@ -355,37 +358,38 @@ Copy page
 
 Images list
 
-```html
+```html+django
 {% url 'wagtailimages:index' %}
 ```
 
 Edit image
 
-```html
+```html+django
 {% url 'wagtailimages:edit' image_id %}
 ```
 
 Delete image
 
-```html
+```html+django
 {% url 'wagtailimages:delete' image_id %}
 ```
 
 New image
-```html
+
+```html+django
 {% url 'wagtailimages:add' %}
 ```
 
 Image usage
 
-```html
+```html+django
 {% url 'wagtailimages:image_usage' image_id %}
 ```
 
 ### AdminURLFinder
 To find the url for any model in the admin the `AdminURLFinder` class can be used.
 
-```{code-block} python
+```python
 from wagtail.admin.admin_url_finder import AdminURLFinder
 
 finder = AdminURLFinder
