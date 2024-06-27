@@ -171,6 +171,30 @@ class TestParseQueryString(SimpleTestCase):
         self.assertDictEqual(filters.dict(), {"author": "foo bar", "bar": "beer"})
         self.assertEqual(repr(query), repr(Phrase("hello world")))
 
+    def test_long_queries(self):
+        filters, query = parse_query_string("0" * 60_000)
+        self.assertEqual(filters.dict(), {})
+        self.assertEqual(repr(query), repr(PlainText("0" * 60_000)))
+
+        filters, _ = parse_query_string(f'{"a" * 60_000}:"foo bar"')
+        self.assertEqual(filters.dict(), {"a" * 60_000: "foo bar"})
+
+    def test_long_filter_value(self):
+        filters, _ = parse_query_string(f'foo:ba{"r" * 60_000}')
+        self.assertEqual(filters.dict(), {"foo": f"ba{"r" * 60_000}"})
+
+    def test_joined_filters(self):
+        filters, query = parse_query_string("foo:bar:baz")
+        self.assertEqual(filters.dict(), {"foo": "bar"})
+        self.assertEqual(repr(query), repr(PlainText(":baz")))
+
+        filters, query = parse_query_string("foo:'bar':baz")
+        self.assertEqual(filters.dict(), {"foo": "bar"})
+        self.assertEqual(repr(query), repr(PlainText(":baz")))
+
+        filters, query = parse_query_string("foo:'bar:baz'")
+        self.assertEqual(filters.dict(), {"foo": "bar:baz"})
+
     def test_multiple_phrases(self):
         filters, query = parse_query_string('"hello world" "hi earth"')
 
