@@ -1,8 +1,10 @@
-import axe from 'axe-core';
-
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
-import { getAxeConfiguration, renderA11yResults } from './a11y-result';
+import {
+  getAxeConfiguration,
+  getA11yReport,
+  renderA11yResults,
+} from './a11y-result';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
 
@@ -311,13 +313,7 @@ export class Userbar extends HTMLElement {
 
     if (!this.shadowRoot || !accessibilityTrigger || !config) return;
 
-    // Initialise Axe based on the configurable context (whole page body by default) and options ('empty-heading', 'p-as-heading' and 'heading-order' rules by default)
-    const results = await axe.run(config.context, config.options);
-
-    const a11yErrorsNumber = results.violations.reduce(
-      (sum, violation) => sum + violation.nodes.length,
-      0,
-    );
+    const { results, a11yErrorsNumber } = await getA11yReport(config);
 
     if (results.violations.length) {
       const a11yErrorBadge = document.createElement('span');

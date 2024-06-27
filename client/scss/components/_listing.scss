@@ -223,19 +223,13 @@ ul.listing {
 
   .title {
     word-break: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: theme('spacing.2');
 
     .title-wrapper,
     h2 {
       @apply w-label-1;
-      display: inline-flex;
-      gap: theme('spacing.2');
+      display: inline;
       margin: 0;
       vertical-align: middle;
-      align-items: center;
 
       a {
         color: inherit;
@@ -246,6 +240,11 @@ ul.listing {
           color: theme('colors.text-link-default');
         }
       }
+    }
+
+    .icon-folder {
+      margin: 3px 0.3em 0 0;
+      vertical-align: top;
     }
   }
 
@@ -354,10 +353,6 @@ ul.listing {
 
   table .no-results-message {
     padding-inline-start: 20px;
-  }
-
-  .unpublished .title-wrapper {
-    opacity: 0.7;
   }
 
   .w-status {

@@ -3,18 +3,38 @@ import { runInlineScripts } from '../../../utils/runInlineScripts';
 
 class BoundWidget {
   constructor(
-    element,
+    elementOrNodeList,
     name,
     idForLabel,
     initialState,
     parentCapabilities,
     options,
   ) {
+    // if elementOrNodeList not iterable, it must be a single element
+    const nodeList = elementOrNodeList.forEach
+      ? elementOrNodeList
+      : [elementOrNodeList];
+
+    // look for an input element with the given name, as either a direct element of nodeList
+    // or a descendant
     const selector = `:is(input,select,textarea,button)[name="${name}"]`;
-    // find, including element itself
-    this.input = element.matches(selector)
-      ? element
-      : element.querySelector(selector);
+
+    for (let i = 0; i < nodeList.length; i += 1) {
+      const element = nodeList[i];
+      if (element.nodeType === Node.ELEMENT_NODE) {
+        if (element.matches(selector)) {
+          this.input = element;
+          break;
+        } else {
+          const input = element.querySelector(selector);
+          if (input) {
+            this.input = input;
+            break;
+          }
+        }
+      }
+    }
+
     this.idForLabel = idForLabel;
     this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
@@ -71,27 +91,33 @@ class Widget {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     const idForLabel = this.idPattern.replace(/__ID__/g, id);
 
-    /* write the HTML into a temp container to parse it into an element */
+    /* write the HTML into a temp container to parse it into a node list */
     const tempContainer = document.createElement('div');
     tempContainer.innerHTML = html.trim();
-    const dom = tempContainer.firstChild;
+    const childNodes = Array.from(tempContainer.childNodes);
 
-    /* replace the placeholder with the new element */
-    placeholder.replaceWith(dom);
+    /* replace the placeholder with the new nodes */
+    placeholder.replaceWith(...childNodes);
 
-    /* execute any scripts in the new element */
-    runInlineScripts(dom);
+    const childElements = childNodes.filter(
+      (node) => node.nodeType === Node.ELEMENT_NODE,
+    );
 
-    // Add any extra attributes we received to the HTML of the widget
+    /* execute any scripts in the new element(s) */
+    childElements.forEach((element) => {
+      runInlineScripts(element);
+    });
+
+    // Add any extra attributes we received to the first element of the widget
     if (typeof options?.attributes === 'object') {
       Object.entries(options.attributes).forEach(([key, value]) => {
-        dom.setAttribute(key, value);
+        childElements[0].setAttribute(key, value);
       });
     }
 
     // eslint-disable-next-line new-cap
     return new this.boundWidgetClass(
-      dom,
+      childElements.length === 1 ? childElements[0] : childNodes,
       name,
       idForLabel,
       initialState,
@@ -126,22 +152,32 @@ class BoundRadioSelect {
     this.element = element;
     this.name = name;
     this.idForLabel = idForLabel;
+    this.isMultiple = !!this.element.querySelector(
+      `input[name="${name}"][type="checkbox"]`,
+    );
     this.selector = `input[name="${name}"]:checked`;
     this.setState(initialState);
   }
 
   getValue() {
+    if (this.isMultiple) {
+      return Array.from(this.element.querySelectorAll(this.selector)).map(
+        (el) => el.value,
+      );
+    }
     return this.element.querySelector(this.selector)?.value;
   }
 
   getState() {
-    return this.element.querySelector(this.selector)?.value;
+    return Array.from(this.element.querySelectorAll(this.selector)).map(
+      (el) => el.value,
+    );
   }
 
   setState(state) {
     const inputs = this.element.querySelectorAll(`input[name="${this.name}"]`);
     for (let i = 0; i < inputs.length; i += 1) {
-      inputs[i].checked = inputs[i].value === state;
+      inputs[i].checked = state.includes(inputs[i].value);
     }
   }
 
@@ -157,8 +193,29 @@ window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
 
 class BoundSelect extends BoundWidget {
   getTextLabel() {
-    const selectedOption = this.input.selectedOptions[0];
-    return selectedOption ? selectedOption.text : '';
+    return Array.from(this.input.selectedOptions)
+      .map((option) => option.text)
+      .join(', ');
+  }
+
+  getValue() {
+    if (this.input.multiple) {
+      return Array.from(this.input.selectedOptions).map(
+        (option) => option.value,
+      );
+    }
+    return this.input.value;
+  }
+
+  getState() {
+    return Array.from(this.input.selectedOptions).map((option) => option.value);
+  }
+
+  setState(state) {
+    const options = this.input.options;
+    for (let i = 0; i < options.length; i += 1) {
+      options[i].selected = state.includes(options[i].value);
+    }
   }
 }
 

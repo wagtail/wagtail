@@ -341,6 +341,77 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                 },
             )
 
+    def test_custom_rules_and_checks(self):
+        class CustomRulesAndChecksAccessibilityItem(AccessibilityItem):
+            # Override via class attribute
+            axe_custom_checks = [
+                {
+                    "id": "check-image-alt-text",
+                    "options": {"pattern": "\\.[a-z]{1,4}$"},
+                },
+            ]
+
+            # Add via method
+            def get_axe_custom_rules(self, request):
+                return super().get_axe_custom_rules(request) + [
+                    {
+                        "id": "link-text-quality",
+                        "impact": "serious",
+                        "selector": "a",
+                        "tags": ["best-practice"],
+                        "any": ["check-link-text"],
+                        "enabled": True,
+                    }
+                ]
+
+            def get_axe_custom_checks(self, request):
+                return super().get_axe_custom_checks(request) + [
+                    {
+                        "id": "check-link-text",
+                        "options": {"pattern": "learn more$"},
+                    }
+                ]
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            self.get_hook(CustomRulesAndChecksAccessibilityItem),
+        ):
+            self.maxDiff = None
+            config = self.get_config()
+            self.assertEqual(
+                config["spec"],
+                {
+                    "rules": [
+                        {
+                            "id": "alt-text-quality",
+                            "impact": "serious",
+                            "selector": "img[alt]",
+                            "tags": ["best-practice"],
+                            "any": ["check-image-alt-text"],
+                            "enabled": True,
+                        },
+                        {
+                            "id": "link-text-quality",
+                            "impact": "serious",
+                            "selector": "a",
+                            "tags": ["best-practice"],
+                            "any": ["check-link-text"],
+                            "enabled": True,
+                        },
+                    ],
+                    "checks": [
+                        {
+                            "id": "check-image-alt-text",
+                            "options": {"pattern": "\\.[a-z]{1,4}$"},
+                        },
+                        {
+                            "id": "check-link-text",
+                            "options": {"pattern": "learn more$"},
+                        },
+                    ],
+                },
+            )
+
 
 class TestUserbarInPageServe(WagtailTestUtils, TestCase):
     def setUp(self):

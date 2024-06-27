@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Fabio Santos <f4bio.sa@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -167,16 +167,6 @@ msgstr "Cancelar"
 msgid "Preview"
 msgstr "Pré-visualizar"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Delete redirect"
-msgstr "Excluir redirecionamento"
-
 msgid "Summary"
 msgstr "Sumário"
 
@@ -206,33 +196,21 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Não há redirecionamentos criados. Por que não foi <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
+"Não há redirecionamentos criados. Por que não foi <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adicionado</a>?"
 
 msgid "Site"
 msgstr "Site"
 
-msgid "Edit this redirect"
-msgstr "Edite esse redirecionamento"
-
-msgid "No redirects found."
-msgstr "Nenhum redirecionamento foi encontrado."
-
-msgid "Export redirects"
-msgstr "Exportar redirecionamentos"
+msgid "The redirect could not be saved due to errors."
+msgstr "O redirecionamento não pôde ser salvo devido a erros."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Redirecionar '%(redirect_title)s' atualizado."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "O redirecionamento não pôde ser salvo devido a erros."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -241,6 +219,9 @@ msgstr "Redirecionamento %(redirect_title)s excluído."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirecionamento %(redirect_title)s adicionado."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pode ser criado devido a erros."
@@ -266,6 +247,3 @@ msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Foi importado %(total)dredirecionamento"
 msgstr[1] "Foram importados %(total)d redirecionamentos"
 msgstr[2] "Foram importados %(total)d redirecionamentos"
-
-msgid "Export Redirects"
-msgstr "Exportar Redirecionamentos"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -131,8 +131,10 @@ msgid "Default"
 msgstr "Por defecto"
 
 msgid "Snug"
-msgstr "Cómodo"
+msgstr "Preto"
 
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
 msgid "density"
 msgstr "densidade"
 
@@ -304,11 +306,11 @@ msgstr "Sentímolo, ningún grupo coincide con \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a "
-"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Non hai grupos configurados. ¿Por qué non <a "
-"href=\"%(wagtailusers_create_group_url)s\">engadir algún</a>?"
+"Non hai grupos configurados. ¿Por qué non <a href="
+"\"%(wagtailusers_create_group_url)s\">engadir algún</a>?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Seguro que queres eliminar este usuario?"
@@ -333,11 +335,11 @@ msgstr "Sentímolo, ningún usuario coincide ca túa solicitude"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
 msgstr ""
-"Non hai usuarios configurados. Por qué non <a "
-"href=\"%(wagtailusers_add_url)s\">engadir algún</a>?"
+"Non hai usuarios configurados. Por qué non <a href=\"%(wagtailusers_add_url)s"
+"\">engadir algún</a>?"
 
 #, python-format
 msgid "user %(id)s (deleted)"

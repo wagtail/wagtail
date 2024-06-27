@@ -55,7 +55,7 @@ export class FieldBlock {
       console.error(e);
       this.setError({
         messages: [
-          'This widget failed to render, please check the console for details',
+          'This widget failed to render, please check the console for details.',
         ],
       });
       return;
@@ -128,11 +128,10 @@ export class FieldBlock {
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      error.messages.forEach((message) => {
-        const messageItem = document.createElement('span');
-        messageItem.textContent = message;
-        errorElement.appendChild(messageItem);
-      });
+
+      const errorText = document.createTextNode(error.messages.join(' '));
+
+      errorElement.appendChild(errorText);
       errorContainer.appendChild(errorElement);
     } else {
       this.field.classList.remove('w-field--error');

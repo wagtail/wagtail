@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -42,11 +42,20 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Specifica almeno una raccomandazione per questo termine di ricerca."
 
+msgid "You must recommend a page OR an external link."
+msgstr "Devi consigliare una pagina O un collegamento esterno."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Seleziona solo una pagina OPPURE inserisci un collegamento esterno."
+
 msgid "Query Daily Hits"
 msgstr "Query giornaliere"
 
 msgid "page"
 msgstr "pagina"
+
+msgid "External link URL"
+msgstr "Collegamento esterno"
 
 msgid "description"
 msgstr "descrizione"
@@ -116,16 +125,16 @@ msgstr "Aggiungi un risultato consigliato"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Spiacente, nessun risultato in evidenza corrispondente a "
-"\"<em>%(query_string)s</em>\""
+"Spiacente, nessun risultato in evidenza corrispondente a \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Non è stato creato nessun risultato in evidenza. Perché non ne <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
+"Non è stato creato nessun risultato in evidenza. Perché non ne <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
 
 msgid "Popular search terms"
 msgstr "Termini di ricerca popolari"

@@ -1,9 +1,10 @@
-import {
+import axe, {
   AxeResults,
   ElementContext,
   NodeResult,
   Result,
   RunOptions,
+  Spec,
 } from 'axe-core';
 
 const toSelector = (str: string | string[]) =>
@@ -39,10 +40,11 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
  */
-interface WagtailAxeConfiguration {
+export interface WagtailAxeConfiguration {
   context: ElementContext;
   options: RunOptions;
   messages: Record<string, string>;
+  spec: Spec;
 }
 
 /**
@@ -68,6 +70,77 @@ export const getAxeConfiguration = (
 
   // Skip initialization of Axe if config fails to load
   return null;
+};
+
+/**
+ * Custom rule for checking image alt text. This rule checks if the alt text for images
+ * contains poor quality text like file extensions.
+ * The rule will be added via the Axe.configure() API.
+ * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+ */
+export const checkImageAltText = (
+  node: HTMLImageElement,
+  options: { pattern: string },
+) => {
+  const altTextAntipatterns = new RegExp(options.pattern, 'i');
+  const altText = node.getAttribute('alt') || '';
+
+  const hasBadAltText = altTextAntipatterns.test(altText);
+  return !hasBadAltText;
+};
+
+/**
+ * Defines custom Axe rules, mapping each check to its corresponding JavaScript function.
+ * This object holds the custom checks that will be added to the Axe configuration.
+ */
+export const customChecks = {
+  'check-image-alt-text': checkImageAltText,
+  // Add other custom checks here
+};
+
+/**
+ * Configures custom Axe rules by integrating the custom checks with their corresponding
+ * JavaScript functions. It modifies the provided configuration to include these checks.
+ */
+export const addCustomChecks = (spec: Spec): Spec => {
+  const modifiedChecks = spec?.checks?.map((check) => {
+    if (customChecks[check.id]) {
+      return {
+        ...check,
+        evaluate: customChecks[check.id],
+      };
+    }
+    return check;
+  });
+  return {
+    ...spec,
+    checks: modifiedChecks,
+  };
+};
+
+interface A11yReport {
+  results: AxeResults;
+  a11yErrorsNumber: number;
+}
+
+/**
+ * Get accessibility testing results from Axe based on the configurable custom spec, context, and options.
+ * It integrates custom rules into the Axe configuration before running the tests.
+ */
+export const getA11yReport = async (
+  config: WagtailAxeConfiguration,
+): Promise<A11yReport> => {
+  axe.configure(addCustomChecks(config.spec));
+  // Initialise Axe based on the context and options defined in Python.
+  const results = await axe.run(config.context, config.options);
+  const a11yErrorsNumber = results.violations.reduce(
+    (sum, violation) => sum + violation.nodes.length,
+    0,
+  );
+  return {
+    results,
+    a11yErrorsNumber,
+  };
 };
 
 /**

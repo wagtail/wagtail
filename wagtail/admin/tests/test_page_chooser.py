@@ -1,5 +1,5 @@
 import json
-import urllib.parse as urlparse
+from urllib.parse import parse_qs, urlsplit
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase, TransactionTestCase, override_settings
@@ -724,6 +724,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["external"]["url"], "http://localhost/about?test=1"
         )
+        self.assertEqual(response_json["internal"]["url"], "/about/")
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
     def test_convert_relative_external_link_to_internal_link(self):
@@ -752,6 +753,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
 
         self.assertEqual(response_json["result"]["url"], url)
         self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="exact")
     def test_no_confirm_external_to_internal_link_when_exact(self):
@@ -767,6 +769,7 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
 
         self.assertEqual(response_json["result"]["url"], url)
         self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="confirm")
     def test_convert_external_link_to_internal_link_with_confirm_setting(self):
@@ -785,7 +788,306 @@ class TestChooserExternalLink(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "confirm_external_to_internal")
 
         self.assertEqual(response_json["external"]["url"], url)
+        self.assertEqual(response_json["internal"]["url"], "/about/")
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+
+@override_settings(ROOT_URLCONF="wagtail.test.headless_urls")
+class TestChooserExternalLinkWithNoServePath(TestChooserExternalLink):
+    def test_convert_external_to_internal_link(self):
+        # Normally this should be converted without any confirmation, but since
+        # the serve path is not registered, the page route will resolve to None,
+        # so the user should be asked to confirm the conversion.
+        # As a result, this test is now identical to
+        # test_convert_external_link_to_internal_link_with_confirm_setting
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "http://localhost/about/")
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about?test=1",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(
+            response_json["external"]["url"], "http://localhost/about?test=1"
+        )
+        # The serve path is not registered, so the page route will resolve to None
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        response = self.post(
+            {
+                "external-link-chooser-url": "/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        # As with test_convert_external_to_internal_link, normally this doesn't
+        # require confirmation, but since the serve path is not registered, the
+        # full URL of the page is None, thus triggering the confirmation
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "/about/")
+        # The serve path is not registered, so the page route will resolve to None
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="confirm")
+    def test_convert_external_link_to_internal_link_with_confirm_setting(self):
+        url = "http://localhost/about/"
+        response = self.post(
+            {
+                "external-link-chooser-url": url,
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The serve path is not registered so the URL can never be identical,
+        # which means the setting doesn't matter in this case, but we keep the
+        # test case anyway to ensure that the confirmation step is triggered
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(response_json["external"]["url"], url)
+        self.assertIsNone(response_json["internal"]["url"])
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+
+@override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
+class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
+    prefix = "site/"
+
+    def test_convert_external_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a full
+        # URL without the serve path will trigger the conversion.
+        # Normally this should be converted without any confirmation, but since
+        # the actual URL will include the serve path (thus different from the
+        # input URL), the user should be asked to confirm.
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "http://localhost/about/")
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_external_to_internal_link_with_serve_path(self):
+        # https://github.com/wagtail/wagtail/issues/11996
+        # New behaviour: when using a non-root serve path, entering a full
+        # URL with the serve path will trigger the conversion. Previously, this
+        # would have been considered an external link since the logic does not
+        # take the serve path into account, but now it should be correctly
+        # converted to an internal link (without needing confirmation as the
+        # input URL will be an exact match to the page's full URL).
+
+        # Warm up the cache
+        response = self.post(
+            {
+                "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        with self.assertNumQueries(11):
+            response = self.post(
+                {
+                    "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
+                    "external-link-chooser-link_text": "about",
+                }
+            )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "external_link_chosen")
+        self.assertEqual(response_json["result"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["result"]["id"], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a full
+        # URL without the serve path will trigger the conversion. The user
+        # should be asked to confirm the conversion as the input URL will be
+        # different from the page's full URL (as the serve path is added and
+        # the query parameters are removed).
+        response = self.post(
+            {
+                "external-link-chooser-url": "http://localhost/about?test=1",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(
+            response_json["external"]["url"], "http://localhost/about?test=1"
+        )
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link_with_serve_path(
+        self
+    ):
+        # https://github.com/wagtail/wagtail/issues/11996
+        # New behaviour: when using a non-root serve path, entering a full
+        # URL with the serve path will trigger the conversion. Previously, this
+        # would have been considered an external link since the logic does not
+        # take the serve path into account, but now it should be correctly
+        # converted to an internal link. It still needs a confirmation as the
+        # input URL includes query parameters that will be stripped when matching
+        # it with the page's full URL.
+        response = self.post(
+            {
+                "external-link-chooser-url": f"http://localhost/{self.prefix}about?test=1",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(
+            response_json["external"]["url"],
+            f"http://localhost/{self.prefix}about?test=1",
+        )
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        # Legacy behaviour: when using a non-root serve path, entering a relative
+        # URL without the serve path will trigger the conversion.
+        # Normally this should be converted without any confirmation, but since
+        # the actual URL will include the serve path (thus different from the
+        # input URL), the user should be asked to confirm.
+        response = self.post(
+            {
+                "external-link-chooser-url": "/about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+        self.assertEqual(response_json["external"]["url"], "/about/")
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link_with_serve_path(self):
+        # https://github.com/wagtail/wagtail/issues/11996
+        # New behaviour: when using a non-root serve path, entering a relative
+        # URL with the serve path will trigger the conversion. Previously, this
+        # would have been considered an external link since the logic does not
+        # take the serve path into account, but now it should be correctly
+        # converted to an internal link (without needing confirmation as the
+        # input URL will be an exact match to the page's relative URL).
+        response = self.post(
+            {
+                "external-link-chooser-url": f"/{self.prefix}about/",
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "external_link_chosen")
+        self.assertEqual(response_json["result"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["result"]["id"], self.internal_page.pk)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="")
+    def test_no_conversion_external_to_internal_link_when_disabled_with_serve_path(
+        self
+    ):
+        url = f"http://localhost/{self.prefix}about/"
+        title = "about"
+        response = self.post(
+            {"external-link-chooser-url": url, "external-link-chooser-link_text": title}
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "external_link_chosen")
+
+        self.assertEqual(response_json["result"]["url"], url)
+        self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="exact")
+    def test_no_confirm_external_to_internal_link_when_exact_with_serve_path(self):
+        url = f"http://localhost/{self.prefix}about?test=1"
+        title = "about"
+        response = self.post(
+            {"external-link-chooser-url": url, "external-link-chooser-link_text": title}
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        # Query parameters will get stripped, so this link should be left as an external url with the 'exact' setting
+        self.assertEqual(response_json["step"], "external_link_chosen")
+
+        self.assertEqual(response_json["result"]["url"], url)
+        self.assertEqual(response_json["result"]["title"], title)
+        self.assertNotIn("id", response_json["result"])
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="confirm")
+    def test_convert_external_link_to_internal_link_with_confirm_setting(self):
+        url = f"http://localhost/{self.prefix}about/"
+        response = self.post(
+            {
+                "external-link-chooser-url": url,
+                "external-link-chooser-link_text": "about",
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The url is identical, but the conversion setting is set to 'confirm'
+        # so the user should get asked to confirm the conversion
+        self.assertEqual(response_json["step"], "confirm_external_to_internal")
+
+        self.assertEqual(response_json["external"]["url"], url)
+        self.assertEqual(response_json["internal"]["url"], f"/{self.prefix}about/")
+        self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
+
+
+@override_settings(
+    WAGTAIL_I18N_ENABLED=True,
+    ROOT_URLCONF="wagtail.test.urls_multilang",
+)
+class TestChooserExternalLinkWithI18n(TestChooserExternalLinkWithNonRootServePath):
+    prefix = "en/"
+
+
+@override_settings(
+    WAGTAIL_I18N_ENABLED=True,
+    ROOT_URLCONF="wagtail.test.urls_multilang_non_root",
+)
+class TestChooserExternalLinkWithI18nNonRoot(
+    TestChooserExternalLinkWithNonRootServePath
+):
+    prefix = "en/site/"
 
 
 class TestChooserAnchorLink(WagtailTestUtils, TestCase):
@@ -930,8 +1232,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["subject"][0], "Awesome Subject")
         self.assertEqual(query["body"][0], "An example body")
@@ -953,8 +1255,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["subject"][0], "Awesome Subject")
         self.assertTrue("body" not in query)
@@ -976,8 +1278,8 @@ class TestChooserEmailLink(WagtailTestUtils, TestCase):
         )  # When link text is given, it is used
         self.assertIs(result["prefer_this_title_as_link_text"], True)
 
-        mail_parts = urlparse.urlparse(url)
-        query = urlparse.parse_qs(mail_parts.query)
+        mail_parts = urlsplit(url)
+        query = parse_qs(mail_parts.query)
         self.assertEqual(mail_parts.path, "example@example.com")
         self.assertEqual(query["body"][0], "An example body")
         self.assertTrue("subject" not in query)

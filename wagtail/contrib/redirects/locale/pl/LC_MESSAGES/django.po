@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2018,2020-2021,2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,9 +25,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Przekierowania Wagtail"
@@ -164,16 +164,6 @@ msgstr "Anuluj"
 msgid "Preview"
 msgstr "Podgląd"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Edycja %(title)s"
-
-msgid "Editing"
-msgstr "Edycja"
-
-msgid "Delete redirect"
-msgstr "Usuń przekierowanie"
-
 msgid "Summary"
 msgstr "Podsumowanie"
 
@@ -199,38 +189,26 @@ msgstr "Kontynuuj"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</"
-"em>\""
+"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nie zostały stworzone żadne przekierowania. Czemu nie <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
+"Nie zostały stworzone żadne przekierowania. Czemu nie <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
 
 msgid "Site"
 msgstr "Serwis"
 
-msgid "Edit this redirect"
-msgstr "Edytuj to przekierowanie"
-
-msgid "No redirects found."
-msgstr "Nie znaleziono przekierowań."
-
-msgid "Export redirects"
-msgstr "Eksport przekierowań"
+msgid "The redirect could not be saved due to errors."
+msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Uaktualniono przekierowanie '%(redirect_title)s'."
-
-msgid "Edit"
-msgstr "Edytuj"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -239,6 +217,9 @@ msgstr "Usunięto przekierowanie '%(redirect_title)s'."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Przekierowanie '%(redirect_title)s' dodane."
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
@@ -266,6 +247,3 @@ msgstr[0] "Zaimportowano %(total)d przekierowanie"
 msgstr[1] "Zaimportowano %(total)d przekierowań"
 msgstr[2] "Zaimportowano %(total)d przekierowań"
 msgstr[3] "Zaimportowano %(total)d przekierowań"
-
-msgid "Export Redirects"
-msgstr "Eksport Przekierowań"

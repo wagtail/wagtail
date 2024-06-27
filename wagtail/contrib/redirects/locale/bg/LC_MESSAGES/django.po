@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -59,43 +59,30 @@ msgstr "Да, изтрий го"
 msgid "Preview"
 msgstr "Преглед"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редакция на %(title)s"
-
-msgid "Editing"
-msgstr "Редактиране"
-
-msgid "Delete redirect"
-msgstr "Изтрий пренасочването"
-
 msgid "To"
 msgstr "До"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Няма създадени пренасочвания. Защо не <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">добавите един сега</a>?"
-
-msgid "Edit this redirect"
-msgstr "Редактирайте това пренасочване"
-
-#, python-format
-msgid "Redirect '%(redirect_title)s' updated."
-msgstr "Пренасочването '%(redirect_title)s' обновено."
-
-msgid "Edit"
-msgstr "Редакция"
+"Няма създадени пренасочвания. Защо не <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">добавите един сега</a>?"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Пренасочването не бе запазено поради грешки."
 
 #, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Пренасочването '%(redirect_title)s' обновено."
+
+#, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Пренасочването '%(redirect_title)s' изтрито."
+
+msgid "Edit"
+msgstr "Редакция"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Пренасочването не можеше да бъде създадено поради грешки."

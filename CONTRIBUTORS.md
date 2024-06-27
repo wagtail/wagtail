@@ -6,6 +6,7 @@
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
+* Jake Howard (Torchbox)
 * Kalob Taulien
 * LB Johnston
 * Matthew Westcott (Torchbox)
@@ -816,6 +817,14 @@
 * Alec Baron
 * Saksham Misra
 * Nigel van Keulen
+* Matthias Brück
+* Julie Rymer
+* Byron Peebles
+* Arnar Tumi Þorsteinsson
+* Roel Koper
+* Inju Michorius
+* Jeroen de Vries
+* Romein van Buren
 
 ## Translators
 
@@ -876,5 +885,5 @@
 * Turkish: Saadettin Yasir Akel, Umut Bektaş, Halit Çelik, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez
 * Turkish (Türkiye): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, Aydın Zafer Cengiz, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Halim Turan, Ragıp Ünal
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
-* Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham
+* Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham, stdpi
 * Welsh: Philip Crisp, Adam Hughes

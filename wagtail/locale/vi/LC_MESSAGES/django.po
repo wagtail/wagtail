@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# stdpi, 2024
 # Vu Pham, 2021
 # Vu Pham, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Vu Pham, 2021\n"
+"Last-Translator: stdpi, 2024\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -164,7 +165,40 @@ msgid "Reply to comment"
 msgstr "Trả lời bình luận"
 
 msgid "Workflow: start"
-msgstr "Luồng công việc: bắt đầu"
+msgstr "Quy trình: bắt đầu"
 
 msgid "Workflow started"
-msgstr "Luồng công việc đã bắt đầu"
+msgstr "Quy trình đã bắt đầu"
+
+msgid "Workflow: approve task"
+msgstr "Quy trình: phê duyệt"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Đã phê duyệt '%(task)s' trong quy trình '%(workflow)s'"
+
+msgid "Workflow task approved"
+msgstr "Quy trình đã phê duyệt tác vụ"
+
+msgid "Workflow: reject task"
+msgstr "Quy trình: không phê duyệt"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Quy trình đã không phê duyệt. Quy trình hoàn thành"
+
+msgid "Workflow: resume task"
+msgstr "Quy trình: tiếp tục công việc"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Yêu cầu lại quá trình đối với '%(task)s'"
+
+msgid "Workflow: cancel"
+msgstr "Quy trình: dừng"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Dừng quy trình '%(workflow)s' đối với '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Đã dừng quy trình"

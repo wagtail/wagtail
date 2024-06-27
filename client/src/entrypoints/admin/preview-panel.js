@@ -1,6 +1,6 @@
-import axe from 'axe-core';
 import {
   getAxeConfiguration,
+  getA11yReport,
   renderA11yResults,
 } from '../../includes/a11y-result';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
@@ -32,23 +32,18 @@ const runAccessibilityChecks = async (onClickSelector) => {
   }
 
   // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
-  const context = {
+  config.context = {
     include: {
       fromFrames: ['#preview-iframe'].concat(config.context.include),
     },
   };
   if (config.context.exclude?.length > 0) {
-    context.exclude = {
+    config.context.exclude = {
       fromFrames: ['#preview-iframe'].concat(config.context.exclude),
     };
   }
 
-  const results = await axe.run(context, config.options);
-
-  const a11yErrorsNumber = results.violations.reduce(
-    (sum, violation) => sum + violation.nodes.length,
-    0,
-  );
+  const { results, a11yErrorsNumber } = await getA11yReport(config);
 
   toggleCounter.innerText = a11yErrorsNumber.toString();
   toggleCounter.hidden = a11yErrorsNumber === 0;

@@ -7,16 +7,16 @@
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024
 # Timo Tuominen, 2023
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Timo Tuominen, 2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -149,6 +149,9 @@ msgstr "Pätkät"
 
 msgid "Name"
 msgstr "Nimi"
+
+msgid "Instances"
+msgstr "Instanssit"
 
 #, python-format
 msgid "Edit this %(model_name)s"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -156,16 +156,6 @@ msgstr "Hætta við"
 msgid "Preview"
 msgstr "Forskoða"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Breyti %(title)s"
-
-msgid "Editing"
-msgstr "Breyti"
-
-msgid "Delete redirect"
-msgstr "Eyða tilvísun"
-
 msgid "Summary"
 msgstr "Samantekt"
 
@@ -190,39 +180,27 @@ msgstr "Áfram"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Því miður finnast engar tilvísanir sem passa við \"<em>%(query_string)s</"
-"em>\""
+"Því miður finnast engar tilvísanir sem passa við \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Engar tilvísanir hér. Viltu <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">búa til tilvísun</a>?"
+"Engar tilvísanir hér. Viltu <a href=\"%(wagtailredirects_add_redirect_url)s"
+"\">búa til tilvísun</a>?"
 
 msgid "Site"
 msgstr "Vefsvæði"
 
-msgid "Edit this redirect"
-msgstr "Breyta þessari tilvísun"
-
-msgid "No redirects found."
-msgstr "Engar tilvísanir fundust"
-
-msgid "Export redirects"
-msgstr "Flytja út tilvísanir"
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "Tilvísun '%(redirect_title)s' uppfærð."
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "The redirect could not be saved due to errors."
-msgstr ""
-"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -231,6 +209,9 @@ msgstr "Tilvísun '%(redirect_title)s' eytt."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Tilvísun '%(redirect_title)s' var bætt við."
+
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "The redirect could not be created due to errors."
 msgstr ""
@@ -256,6 +237,3 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Las inn %(total)d tilvísun"
 msgstr[1] "Las inn %(total)d tilvísanir"
-
-msgid "Export Redirects"
-msgstr "Flytja út tilvísanir"

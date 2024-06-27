@@ -7,14 +7,14 @@
 # Daniel Carvalho <dnc331@gmail.com>, 2019
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -41,14 +41,37 @@ msgstr ""
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."
 
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Você deverá inserir um texto de link externo se inserir um URL de link "
+"externo."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Você deve recomendar uma página OU um link externo."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Selecione apenas uma página OU insira um link externo."
+
 msgid "Query Daily Hits"
 msgstr "Acessos diários da query"
 
 msgid "page"
 msgstr "página"
 
+msgid "Choose an internal page for this promotion"
+msgstr "Escolha uma página interna para esta promoção"
+
+msgid "External link URL"
+msgstr "URL do link externo"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Alternativamente, use um link externo para esta promoção"
+
 msgid "description"
 msgstr "descrição"
+
+msgid "Applies to internal page or external link"
+msgstr "Aplica-se à página interna ou link externo"
 
 msgid "search promotion"
 msgstr "promoção de pesquisa"
@@ -91,8 +114,14 @@ msgstr "Mover para cima"
 msgid "Move down"
 msgstr "Mover para baixo"
 
+msgid "Recommended search result"
+msgstr "Resultado de pesquisa recomendado"
+
 msgid "Promoted search results"
 msgstr "Resultados promovidos"
+
+msgid "Add a recommended result"
+msgstr "Adicione um resultado recomendado"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -100,11 +129,14 @@ msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum resultado promovido foi criado. Porque não <a "
-"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+"Nenhum resultado promovido foi criado. Porque não <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Nenhum resultado promovido foi criado."
 
 msgid "Popular search terms"
 msgstr "Termos populares de pesquisa"

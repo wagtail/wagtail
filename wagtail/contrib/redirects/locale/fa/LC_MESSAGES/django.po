@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -103,16 +103,6 @@ msgstr "انصراف"
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
-#, python-format
-msgid "Editing %(title)s"
-msgstr "ویرایش %(title)s"
-
-msgid "Editing"
-msgstr "در حال ویرایش"
-
-msgid "Delete redirect"
-msgstr "حذف ریدایرکت"
-
 msgid "From"
 msgstr "از"
 
@@ -128,27 +118,21 @@ msgstr "متاسفانه هیچ ریدایرکتی منطبق با «<em>%(query
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a "
-"href=\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
+"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
 
 msgid "Site"
 msgstr "سایت"
 
-msgid "Edit this redirect"
-msgstr "ویرایش این ریدایرکت"
+msgid "The redirect could not be saved due to errors."
+msgstr "ریدایرکت به دلیل بروز خطا ذخیره نشد."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' updated."
 msgstr "ریدایرکت  '%(redirect_title)s' بروزرسانی شد."
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "The redirect could not be saved due to errors."
-msgstr "ریدایرکت به دلیل بروز خطا ذخیره نشد."
 
 #, python-format
 msgid "Redirect '%(redirect_title)s' deleted."
@@ -157,6 +141,9 @@ msgstr "ریدایرکت '%(redirect_title)s' حذف شد."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "ریدایرکت '%(redirect_title)s' افزوده شد."
+
+msgid "Edit"
+msgstr "ویرایش"
 
 msgid "The redirect could not be created due to errors."
 msgstr "به دلیل بروز خطا ریدایرکتی ساخته نشد."

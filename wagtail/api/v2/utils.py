@@ -1,4 +1,4 @@
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.utils.encoding import force_str
@@ -21,7 +21,7 @@ def get_base_url(request=None):
 
     if base_url:
         # We only want the scheme and netloc
-        base_url_parsed = urlparse(force_str(base_url))
+        base_url_parsed = urlsplit(force_str(base_url))
 
         return base_url_parsed.scheme + "://" + base_url_parsed.netloc
 
