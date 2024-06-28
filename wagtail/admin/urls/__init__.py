@@ -13,6 +13,7 @@ from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
 from wagtail.admin.auth import require_admin_access
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
+from wagtail.admin.urls import editing_sessions as wagtailadmin_editing_sessions_urls
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
@@ -110,6 +111,13 @@ urlpatterns = [
         "dismissibles/",
         dismissibles.DismissiblesView.as_view(),
         name="wagtailadmin_dismissibles",
+    ),
+    path(
+        "editing-sessions/",
+        include(
+            wagtailadmin_editing_sessions_urls,
+            namespace="wagtailadmin_editing_sessions",
+        ),
     ),
 ]
 
