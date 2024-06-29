@@ -106,9 +106,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
 
         self.apply_migration()
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -132,9 +130,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() + datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -163,9 +159,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() - datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
