@@ -110,6 +110,8 @@ class MigrateStreamData(RunPython):
 
         updated_model_instances_buffer = []
         for instance in model_queryset.iterator(chunk_size=self.chunk_size):
+            if instance.raw_content is None:
+                continue
 
             revision_query_maker.append_instance_data_for_revision_query(instance)
 
