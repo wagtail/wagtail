@@ -109,6 +109,10 @@ export class ActionController extends Controller<
     navigator.sendBeacon(this.urlValue, new FormData(this.createFormElement()));
   }
 
+  reload() {
+    window.location.reload();
+  }
+
   /**
    * Trigger a redirect based on the custom event's detail, the Stimulus param
    * or finally check the controlled element for a value to use.
