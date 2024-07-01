@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 
 from wagtail.admin.models import EditingSession
 from wagtail.admin.utils import get_user_display_name
@@ -76,3 +77,9 @@ def ping(request, app_label, model_name, object_id, session_id):
             ],
         }
     )
+
+
+@require_POST
+def release(request, session_id):
+    EditingSession.objects.filter(id=session_id, user=request.user).delete()
+    return JsonResponse({})
