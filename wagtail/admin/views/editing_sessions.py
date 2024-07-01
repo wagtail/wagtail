@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 from wagtail.admin.models import EditingSession
+from wagtail.admin.utils import get_user_display_name
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 
@@ -52,8 +53,26 @@ def ping(request, app_label, model_name, object_id, session_id):
     session.last_seen_at = timezone.now()
     session.save()
 
+    other_sessions = (
+        EditingSession.objects.filter(
+            content_type=content_type,
+            object_id=unquoted_object_id,
+            last_seen_at__gte=timezone.now() - timezone.timedelta(minutes=1),
+        )
+        .exclude(id=session.id)
+        .select_related("user")
+    )
+
     return JsonResponse(
         {
             "session_id": session.id,
+            "other_sessions": [
+                {
+                    "session_id": other_session.id,
+                    "user": get_user_display_name(other_session.user),
+                    "last_seen_at": other_session.last_seen_at.isoformat(),
+                }
+                for other_session in other_sessions
+            ],
         }
     )
