@@ -3,6 +3,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Count
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
@@ -87,6 +88,12 @@ class EditingSession(models.Model):
         "content_type", "object_id", for_concrete_model=False
     )
     last_seen_at = models.DateTimeField()
+
+    @staticmethod
+    def cleanup():
+        EditingSession.objects.filter(
+            last_seen_at__lt=timezone.now() - timezone.timedelta(hours=1)
+        ).delete()
 
     class Meta:
         indexes = [

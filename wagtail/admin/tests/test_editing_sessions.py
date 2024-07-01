@@ -15,7 +15,7 @@ from wagtail.test.utils import WagtailTestUtils
 
 if settings.USE_TZ:
     TIMESTAMP_PAST = timezone.make_aware(
-        datetime.datetime(2020, 1, 1, 11, 30, 0), timezone=datetime.timezone.utc
+        datetime.datetime(2020, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
     )
     TIMESTAMP_RECENT = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 11, 59, 59), timezone=datetime.timezone.utc
@@ -24,7 +24,7 @@ if settings.USE_TZ:
         datetime.datetime(2020, 1, 1, 12, 0, 0), timezone=datetime.timezone.utc
     )
 else:
-    TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 11, 30, 0)
+    TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 10, 30, 0)
     TIMESTAMP_RECENT = datetime.datetime(2020, 1, 1, 11, 59, 59)
     TIMESTAMP_NOW = datetime.datetime(2020, 1, 1, 12, 0, 0)
 
@@ -272,3 +272,35 @@ class TestPingView(WagtailTestUtils, TestCase):
             )
         )
         self.assertEqual(response.status_code, 404)
+
+
+class TestCleanup(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.create_superuser(
+            "bob", password="password", first_name="Bob", last_name="Testuser"
+        )
+        self.root_page = Page.get_first_root_node()
+
+        self.page = SimplePage(title="Test page", slug="test-page", content="test page")
+        self.root_page.add_child(instance=self.page)
+
+        page_content_type = ContentType.objects.get_for_model(Page)
+
+        self.session = EditingSession.objects.create(
+            user=self.user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_RECENT,
+        )
+        self.old_session = EditingSession.objects.create(
+            user=self.user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_PAST,
+        )
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_cleanup(self):
+        EditingSession.cleanup()
+        self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertFalse(EditingSession.objects.filter(id=self.old_session.id).exists())
