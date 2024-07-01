@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 from wagtail.admin.models import EditingSession
+from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 
 
 def ping(request, app_label, model_name, object_id, session_id):
@@ -18,8 +20,20 @@ def ping(request, app_label, model_name, object_id, session_id):
 
     content_type = ContentType.objects.get_for_model(model)
 
-    obj = get_object_or_404(model, pk=unquoted_object_id)  # noqa: F841
-    # TODO: check we have edit permission on this object
+    obj = get_object_or_404(model, pk=unquoted_object_id)
+    if isinstance(obj, Page):
+        permission_policy = page_permission_policy
+    else:
+        try:
+            permission_policy = model.snippet_viewset.permission_policy
+        except AttributeError:
+            # model is neither a Page nor a snippet
+            raise Http404
+
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", obj
+    ):
+        raise Http404
 
     try:
         session = EditingSession.objects.get(
