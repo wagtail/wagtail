@@ -1,7 +1,9 @@
 import json
+from collections import namedtuple
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_user_model
 from django.db import models, transaction
 from django.forms import Media
 from django.shortcuts import get_object_or_404
@@ -214,6 +216,11 @@ class IndexViewOptionalFeaturesMixin:
             )
             return queryset
         return super()._annotate_queryset_updated_at(queryset)
+
+
+EditingSession = namedtuple(
+    "EditingSession", ["content_object", "user", "last_seen_at", "state"]
+)
 
 
 class CreateEditViewOptionalFeaturesMixin:
@@ -682,6 +689,17 @@ class CreateEditViewOptionalFeaturesMixin:
 
         return context
 
+    def get_active_sessions(self):
+        if not self.revision_enabled or self.view_name == "add":
+            return []
+        User = get_user_model()
+        return [
+            EditingSession(self.object, user, timezone.now(), idx)
+            for idx, user in enumerate(
+                User.objects.all().select_related("wagtail_userprofile")
+            )
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_lock_context())
@@ -696,6 +714,7 @@ class CreateEditViewOptionalFeaturesMixin:
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
+        context["active_sessions"] = self.get_active_sessions()
         return context
 
     def post(self, request, *args, **kwargs):
