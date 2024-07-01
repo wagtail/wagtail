@@ -29,3 +29,43 @@
       );
   }
 }
+
+@keyframes ping-critical {
+  0% {
+    box-shadow: 0 0 0 0
+      hsla(
+        var(--w-color-critical-100-hue),
+        var(--w-color-critical-100-saturation),
+        var(--w-color-critical-100-lightness),
+        0.7
+      );
+  }
+
+  25% {
+    box-shadow: 0 0 0 10px
+      hsla(
+        var(--w-color-critical-100-hue),
+        var(--w-color-critical-100-saturation),
+        var(--w-color-critical-100-lightness),
+        0
+      );
+  }
+
+  50% {
+    box-shadow: 0 0 0 0
+      hsla(
+        var(--w-color-critical-100-hue),
+        var(--w-color-critical-100-saturation),
+        var(--w-color-critical-100-lightness),
+        0
+      );
+  }
+}
+
+.w-ping {
+  &.w-ping--critical {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: ping-critical 5s 5;
+    }
+  }
+}
