@@ -21,13 +21,15 @@ export class DialogController extends Controller<HTMLElement> {
     theme: { default: '', type: String },
   };
 
-  static targets = ['body', 'notify'];
+  static targets = ['body', 'notify', 'confirm'];
 
   declare dialog: A11yDialog;
   declare readonly bodyTarget: HTMLElement;
   declare readonly themeValue: string;
   /** Optional targets that will be dispatched events for key dialog events. */
   declare readonly notifyTargets: HTMLElement[];
+  declare readonly hasConfirmTarget: boolean;
+  declare readonly confirmTarget: HTMLButtonElement;
 
   get eventDetail() {
     return { body: this.bodyTarget, dialog: this.dialog };

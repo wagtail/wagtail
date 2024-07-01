@@ -177,7 +177,7 @@ describe('SessionController', () => {
       document.body.innerHTML = /* html */ `
         <form data-edit-form>
           <input type="text" name="title" value="Title" />
-          <button type="submit">Submit</button>
+          <button type="submit">Save draft</button>
           <button type="button" data-workflow-action-name="approve">Approve</button>
 
           <div
@@ -251,6 +251,7 @@ describe('SessionController', () => {
       expect(handleWorkflowAction).not.toHaveBeenCalled();
       expect(handleDialogShow).toHaveBeenCalled();
       expect(dialog.getAttribute('aria-hidden')).toBeNull();
+      expect(confirmButton.textContent).toEqual('Continue');
 
       confirmButton.click();
 
@@ -326,6 +327,31 @@ describe('SessionController', () => {
       expect(handleWorkflowAction).toHaveBeenCalledTimes(1);
       expect(handleDialogShow).toHaveBeenCalledTimes(3);
       expect(dialog.getAttribute('aria-hidden')).toBeNull();
+    });
+
+    it('should use the action button label as the dialog confirm target label if it has one', async () => {
+      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const confirmButton = document.getElementById('confirm');
+      // Mark the confirm button as DialogController's confirm target
+      confirmButton.setAttribute('data-w-dialog-target', 'confirm');
+
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+
+      submitButton.click();
+
+      // The confirm button should use the last clicked action button's label
+      expect(dialog.getAttribute('aria-hidden')).toBeNull();
+      expect(confirmButton.textContent).toEqual('Save draft');
+
+      confirmButton.click();
+
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+
+      workflowActionButton.click();
+      // The confirm button should be updated to the new action button's label
+      expect(dialog.getAttribute('aria-hidden')).toBeNull();
+      expect(confirmButton.textContent).toEqual('Approve');
     });
   });
 });

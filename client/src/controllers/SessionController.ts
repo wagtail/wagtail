@@ -153,6 +153,10 @@ export class SessionController extends Controller<HTMLElement> {
     // Prevent triggering other event listeners e.g. workflow actions modal
     event.stopImmediatePropagation();
 
+    if (this.wDialogOutlet.hasConfirmTarget && this.lastActionButton) {
+      this.wDialogOutlet.confirmTarget.textContent =
+        this.lastActionButton.textContent;
+    }
     this.wDialogOutlet.show();
   }
 
