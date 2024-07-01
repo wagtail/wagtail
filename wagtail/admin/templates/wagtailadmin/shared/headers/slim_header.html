@@ -118,7 +118,7 @@
                 {% if active_sessions %}
                     {% dialog id='w-unsaved-changes-dialog' icon_name="warning" icon_classname="w-text-critical-200" title=_("Refreshing the page means you will lose any unsaved changes") %}
                         <div class="w-mt-8">
-                            <button class="button" type="button" data-controller="w-action" data-action="w-action#reload">{% trans "Refresh page" %}</button>
+                            <button class="button" type="button" data-controller="w-action" data-action="w-action#reload w-unsaved:confirm@document->w-action#noop:prevent">{% trans "Refresh page" %}</button>
                             <button class="button button-secondary" type="button" data-action="w-dialog#hide">{% trans "Cancel" %}</button>
                         </div>
                     {% enddialog %}
