@@ -127,6 +127,20 @@ export class ActionController extends Controller<
   }
 
   /**
+   * Reload the browser, bypassing the browser dialog triggered by UnsavedController.
+   */
+  forceReload() {
+    window.addEventListener(
+      'w-unsaved:confirm',
+      (event) => {
+        event.preventDefault();
+      },
+      { once: true },
+    );
+    window.location.reload();
+  }
+
+  /**
    * Trigger a redirect based on the custom event's detail, the Stimulus param
    * or finally check the controlled element for a value to use.
    */
