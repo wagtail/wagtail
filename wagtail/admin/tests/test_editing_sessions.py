@@ -304,3 +304,66 @@ class TestCleanup(WagtailTestUtils, TestCase):
         EditingSession.cleanup()
         self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
         self.assertFalse(EditingSession.objects.filter(id=self.old_session.id).exists())
+
+
+class TestReleaseView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.create_superuser(
+            "bob", password="password", first_name="Bob", last_name="Testuser"
+        )
+        self.login(user=self.user)
+        self.root_page = Page.get_first_root_node()
+
+        self.page = SimplePage(title="Test page", slug="test-page", content="test page")
+        self.root_page.add_child(instance=self.page)
+
+        self.other_user = self.create_user(
+            "vic", password="password", first_name="Vic", last_name="Otheruser"
+        )
+
+        page_content_type = ContentType.objects.get_for_model(Page)
+
+        self.session = EditingSession.objects.create(
+            user=self.user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_RECENT,
+        )
+        self.other_session = EditingSession.objects.create(
+            user=self.other_user,
+            content_type=page_content_type,
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_RECENT,
+        )
+
+    def test_release(self):
+        response = self.client.post(
+            reverse("wagtailadmin_editing_sessions:release", args=(self.session.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertTrue(
+            EditingSession.objects.filter(id=self.other_session.id).exists()
+        )
+
+    def test_must_post(self):
+        response = self.client.get(
+            reverse("wagtailadmin_editing_sessions:release", args=(self.session.id,))
+        )
+        self.assertEqual(response.status_code, 405)
+        self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertTrue(
+            EditingSession.objects.filter(id=self.other_session.id).exists()
+        )
+
+    def test_cannot_release_other_users_session(self):
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:release", args=(self.other_session.id,)
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(EditingSession.objects.filter(id=self.session.id).exists())
+        self.assertTrue(
+            EditingSession.objects.filter(id=self.other_session.id).exists()
+        )
