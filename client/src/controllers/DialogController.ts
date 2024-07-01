@@ -72,4 +72,9 @@ export class DialogController extends Controller<HTMLElement> {
   show() {
     this.dialog.show();
   }
+
+  confirm() {
+    this.hide();
+    this.dispatch('confirmed', { cancelable: false });
+  }
 }
