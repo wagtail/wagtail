@@ -1,5 +1,6 @@
 import { Application } from '@hotwired/stimulus';
 import { ActionController } from './ActionController';
+import { UnsavedController } from './UnsavedController';
 
 describe('ActionController', () => {
   let app;
@@ -10,6 +11,7 @@ describe('ActionController', () => {
 
     app = Application.start();
     app.register('w-action', ActionController);
+    app.register('w-unsaved', UnsavedController);
 
     await Promise.resolve();
   };
@@ -22,7 +24,17 @@ describe('ActionController', () => {
       {
         ...Object.getOwnPropertyDescriptors(oldWindowLocation),
         assign: { configurable: true, value: jest.fn() },
-        reload: { configurable: true, value: jest.fn() },
+        reload: {
+          configurable: true,
+          value: jest.fn().mockImplementation(() => {
+            const event = new Event('beforeunload');
+            Object.defineProperty(event, 'returnValue', {
+              value: null,
+              writable: true,
+            });
+            window.dispatchEvent(event);
+          }),
+        },
       },
     );
   });
@@ -135,8 +147,97 @@ describe('ActionController', () => {
     });
 
     it('should reload the page', () => {
+      const beforeUnloadHandler = jest.fn();
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
       document.getElementById('button').click();
+
       expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const event = beforeUnloadHandler.mock.lastCall[0];
+      // These mean the browser confirmation dialog was not shown
+      expect(event.defaultPrevented).toBe(false);
+      expect(event.returnValue).toBeNull();
+
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    });
+
+    it('should not bypass the browser confirmation dialog if the event is prevented', async () => {
+      document.body.innerHTML = /* html */ `
+      <form
+        data-controller="w-unsaved"
+        data-action="beforeunload@window->w-unsaved#confirm"
+        data-w-unsaved-force-value="true"
+        data-w-unsaved-confirmation-value="You have unsaved changes!"
+      >
+      </form>
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#reload"
+      >
+        Reload
+      </button>
+      `;
+      await Promise.resolve();
+      const beforeUnloadHandler = jest.fn();
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
+      document.getElementById('button').click();
+
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const event = beforeUnloadHandler.mock.lastCall[0];
+      // This means the browser confirmation dialog was shown
+      expect(event.returnValue).toBe('You have unsaved changes!');
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    });
+  });
+
+  describe('forceReload method', () => {
+    beforeEach(async () => {
+      await setup(/* html */ `
+      <form
+        data-controller="w-unsaved"
+        data-action="beforeunload@window->w-unsaved#confirm"
+        data-w-unsaved-force-value="true"
+        data-w-unsaved-confirmation-value="You have unsaved changes!"
+      >
+      </form>
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#forceReload"
+      >
+        Force reload
+      </button>`);
+    });
+
+    it('should reload the page without preventing the beforeunload event', () => {
+      const confirmHandler = jest.fn();
+      const beforeUnloadHandler = jest.fn();
+      document.addEventListener('w-unsaved:confirm', confirmHandler);
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
+      document.getElementById('button').click();
+
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const beforeUnloadEvent = beforeUnloadHandler.mock.lastCall[0];
+      // If the browser confirmation was shown, these would be truthy
+      expect(beforeUnloadEvent.defaultPrevented).toBe(false);
+      expect(beforeUnloadEvent.returnValue).toBeNull();
+
+      expect(confirmHandler).toHaveBeenCalledTimes(1);
+      const confirmEvent = confirmHandler.mock.lastCall[0];
+      // We're preventing UnsavedController from triggering the browser confirmation
+      expect(confirmEvent.defaultPrevented).toBe(true);
+
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+      document.removeEventListener('w-unsaved:confirm', confirmHandler);
     });
   });
 
