@@ -22,6 +22,7 @@ describe('ActionController', () => {
       {
         ...Object.getOwnPropertyDescriptors(oldWindowLocation),
         assign: { configurable: true, value: jest.fn() },
+        reload: { configurable: true, value: jest.fn() },
       },
     );
   });
@@ -112,15 +113,30 @@ describe('ActionController', () => {
 
     it('should call click method when button is clicked via Stimulus action', () => {
       const btn = document.getElementById('button');
-      const clickMock = jest.fn();
-      HTMLButtonElement.prototype.click = clickMock;
-
-      btn.addEventListener('some-event', btn.click());
+      const clickMock = jest.spyOn(HTMLButtonElement.prototype, 'click');
 
       const event = new CustomEvent('some-event');
       btn.dispatchEvent(event);
 
       expect(clickMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('reload method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#reload"
+      >
+        Reload
+      </button>`);
+    });
+
+    it('should reload the page', () => {
+      document.getElementById('button').click();
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
     });
   });
 
