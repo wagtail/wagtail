@@ -187,8 +187,8 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
-      ...this.themeOptions,
       trigger: 'click',
+      ...this.themeOptions,
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
@@ -209,6 +209,12 @@ export class DropdownController extends Controller<HTMLElement> {
           maxWidth: 350,
           placement: 'bottom',
           plugins: this.plugins,
+        },
+        'popup': {
+          arrow: true,
+          placement: 'bottom',
+          plugins: this.plugins,
+          trigger: 'mouseenter focus click',
         },
         'drilldown': {
           arrow: false,
