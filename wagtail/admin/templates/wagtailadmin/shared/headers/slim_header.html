@@ -114,6 +114,12 @@
                 {% endif %}
             {% endblock %}
 
+            {% block editing_sessions %}
+                {% if editing_sessions %}
+                    {% component editing_sessions %}
+                {% endif %}
+            {% endblock %}
+
             <div class="w-w-full sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 sm:w-pr-4 sm:w-justify-end">
                 {% block toggles %}
                     {% if side_panels %}
