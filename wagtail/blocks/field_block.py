@@ -1,3 +1,4 @@
+import copy
 import datetime
 from decimal import Decimal
 
@@ -817,11 +818,22 @@ class ChooserBlock(FieldBlock):
         """Return the model instances for the given list of primary keys.
 
         The instances must be returned in the same order as the values and keep None values.
+        If the same ID appears multiple times, a distinct object instance is created for each one.
         """
         objects = self.model_class.objects.in_bulk(values)
-        return [
-            objects.get(id) for id in values
-        ]  # Keeps the ordering the same as in values.
+        seen_ids = set()
+        result = []
+
+        for id in values:
+            obj = objects.get(id)
+            if obj is not None and id in seen_ids:
+                # this object is already in the result list, so we need to make a copy
+                obj = copy.copy(obj)
+
+            result.append(obj)
+            seen_ids.add(id)
+
+        return result
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None

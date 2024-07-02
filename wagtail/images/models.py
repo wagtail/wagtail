@@ -290,6 +290,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     objects = ImageQuerySet.as_manager()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.is_decorative = False
+        self.contextual_alt_text = None
+
     def _set_file_hash(self):
         with self.open_file() as f:
             self.file_hash = hash_filelike(f)
@@ -619,6 +624,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ]
             for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
+                # The retrieved rendition needs to be associated with the current image instance, so that any
+                # locally-set properties such as contextual_alt_text are respected
+                rendition.image = self
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
@@ -1219,7 +1227,10 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @property
     def alt(self):
-        return self.image.default_alt_text
+        if self.image.is_decorative:
+            return ""
+        else:
+            return self.image.contextual_alt_text
 
     @property
     def attrs(self):

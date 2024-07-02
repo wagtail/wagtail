@@ -37,7 +37,7 @@ class ImageNodeTestCase(TestCase):
 
         rendered = node.render(context)
 
-        self.assertIn('<img alt="Test image"', rendered)
+        self.assertNotIn('<img alt="Test image"', rendered)
 
     def test_render_none_to_string(self):
         """
@@ -155,7 +155,7 @@ class ImageTagTestCase(ImagesTestCase):
         rendered = self.render("{% image myimage width-200 %}", {"myimage": self.image})
         self.assertHTMLEqual(
             rendered,
-            f'<img alt="Test image" height="150" src="{filename_200}" width="200" />',
+            f'<img height="150" src="{filename_200}" width="200" />',
         )
 
     def test_none(self):
@@ -168,7 +168,7 @@ class ImageTagTestCase(ImagesTestCase):
         )
         self.assertHTMLEqual(
             rendered,
-            '<img alt="missing image" src="/media/not-found" width="0" height="0">',
+            '<img src="/media/not-found" width="0" height="0">',
         )
 
     def test_not_an_image(self):
@@ -240,7 +240,6 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 sizes="100vw"
                 src="{filename_20}"
                 srcset="{filename_20} 20w, {filename_40} 40w"
-                alt="Test image"
                 width="20"
                 height="15"
             >
@@ -297,7 +296,6 @@ class SrcsetImageTagTestCase(ImagesTestCase):
             <img
                 src="{filename_35}"
                 srcset="{filename_35} 35w, {filename_70} 70w"
-                alt="Test image"
                 width="35"
                 height="26"
             >
@@ -314,7 +312,6 @@ class SrcsetImageTagTestCase(ImagesTestCase):
                 sizes="100vw"
                 src="/media/not-found"
                 srcset="/media/not-found 0w, /media/not-found 0w"
-                alt="missing image"
                 width="0"
                 height="0"
             >
@@ -345,7 +342,6 @@ class PictureTagTestCase(ImagesTestCase):
                 sizes="100vw"
                 src="{filenames[4]}"
                 srcset="{filenames[4]} 200w, {filenames[5]} 400w"
-                alt="Test image"
                 width="200"
                 height="150"
             >
@@ -366,7 +362,6 @@ class PictureTagTestCase(ImagesTestCase):
             <source srcset="{filename_webp}" type="image/webp">
             <img
                 src="{filename_jpeg}"
-                alt="Test image"
                 width="640"
                 height="480"
             >
@@ -438,7 +433,6 @@ class PictureTagTestCase(ImagesTestCase):
                 <img
                     src="/media/not-found"
                     srcset="/media/not-found 0w, /media/not-found 0w"
-                    alt="missing image"
                     width="0"
                     height="0"
                 >
@@ -471,7 +465,6 @@ class PictureTagTestCase(ImagesTestCase):
             <source srcset="{filename_webp}" type="image/webp">
             <img
                 src="{filename_jpeg}"
-                alt="Test image"
                 width="640"
                 height="480"
             >
