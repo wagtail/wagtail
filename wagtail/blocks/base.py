@@ -567,10 +567,14 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
         self._js_context = None
+        self._block_json = None
 
     def _build_block_json(self):
-        self._js_context = JSContext()
-        self._block_json = json.dumps(self._js_context.pack(self.block_def))
+        try:
+            self._js_context = JSContext()
+            self._block_json = json.dumps(self._js_context.pack(self.block_def))
+        except Exception as e:  # noqa: BLE001
+            raise ValueError("Error while serializing block definition: %s" % e) from e
 
     @property
     def js_context(self):
@@ -581,7 +585,7 @@ class BlockWidget(forms.Widget):
 
     @property
     def block_json(self):
-        if self._js_context is None:
+        if self._block_json is None:
             self._build_block_json()
 
         return self._block_json

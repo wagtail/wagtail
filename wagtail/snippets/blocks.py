@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.functional import cached_property
 
 from wagtail.blocks import ChooserBlock
@@ -23,8 +24,15 @@ class SnippetChooserBlock(ChooserBlock):
     def widget(self):
         from wagtail.snippets.widgets import AdminSnippetChooser
 
+        try:
+            icon = self.target_model.snippet_viewset.icon
+        except AttributeError as e:
+            raise ImproperlyConfigured(
+                f"Cannot use SnippetChooserBlock with non-snippet model {self.target_model}"
+            ) from e
+
         # Override the default icon with the icon for the target model
-        self.set_meta_options({"icon": self.target_model.snippet_viewset.icon})
+        self.set_meta_options({"icon": icon})
         return AdminSnippetChooser(self.target_model, icon=self.meta.icon)
 
     class Meta:
