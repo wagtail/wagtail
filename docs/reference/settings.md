@@ -504,6 +504,8 @@ WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
 
+(user_form_settings)=
+
 ### `WAGTAIL_USER_EDIT_FORM`
 
 ```python
