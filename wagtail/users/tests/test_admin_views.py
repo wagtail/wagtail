@@ -33,7 +33,7 @@ from wagtail.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
-from wagtail.users.forms import UserCreationForm, UserEditForm
+from wagtail.users.forms import GroupForm, UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
@@ -57,6 +57,10 @@ def test_avatar_provider(user, default, size=50):
     return "/nonexistent/path/to/avatar.png"
 
 
+class CustomGroupForm(GroupForm):
+    pass
+
+
 class CustomUserCreationForm(UserCreationForm):
     country = forms.CharField(required=True, label="Country")
     attachment = forms.FileField(required=True, label="Attachment")
@@ -70,9 +74,17 @@ class CustomUserEditForm(UserEditForm):
 class CustomGroupViewSet(GroupViewSet):
     icon = "custom-icon"
 
+    def get_form_class(self, for_update=False):
+        return CustomGroupForm
+
 
 class CustomUserViewSet(UserViewSet):
     icon = "custom-icon"
+
+    def get_form_class(self, for_update=False):
+        if for_update:
+            return CustomUserEditForm
+        return CustomUserCreationForm
 
 
 class TestUserFormHelpers(TestCase):
@@ -88,25 +100,45 @@ class TestUserFormHelpers(TestCase):
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm"
     )
     def test_get_user_creation_form_with_custom_form(self):
-        user_form = get_user_creation_form()
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            user_form = get_user_creation_form()
         self.assertIs(user_form, CustomUserCreationForm)
 
     @override_settings(WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditForm")
     def test_get_user_edit_form_with_custom_form(self):
-        user_form = get_user_edit_form()
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            user_form = get_user_edit_form()
         self.assertIs(user_form, CustomUserEditForm)
 
     @override_settings(
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationFormDoesNotExist"
     )
     def test_get_user_creation_form_with_invalid_form(self):
-        self.assertRaises(ImproperlyConfigured, get_user_creation_form)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            self.assertRaises(ImproperlyConfigured, get_user_creation_form)
 
     @override_settings(
         WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditFormDoesNotExist"
     )
     def test_get_user_edit_form_with_invalid_form(self):
-        self.assertRaises(ImproperlyConfigured, get_user_edit_form)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
 class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -474,7 +506,6 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     )
     @override_settings(
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
-        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
     )
     def test_create_with_custom_form(self):
         response = self.post(
@@ -2577,6 +2608,8 @@ class TestGroupViewSet(TestCase):
     app_config_attr = "group_viewset"
     default_viewset_cls = GroupViewSet
     custom_viewset_cls = CustomGroupViewSet
+    create_form_cls = CustomGroupForm
+    edit_form_cls = CustomGroupForm
 
     def setUp(self):
         self.app_config = apps.get_app_config("wagtailusers")
@@ -2596,6 +2629,9 @@ class TestGroupViewSet(TestCase):
             group_viewset = get_viewset_cls(self.app_config, self.app_config_attr)
         self.assertIs(group_viewset, self.custom_viewset_cls)
         self.assertEqual(group_viewset.icon, "custom-icon")
+        viewset = group_viewset()
+        self.assertIs(viewset.get_form_class(for_update=False), self.create_form_cls)
+        self.assertIs(viewset.get_form_class(for_update=True), self.edit_form_cls)
 
     def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
@@ -2626,6 +2662,8 @@ class TestUserViewSet(TestGroupViewSet):
     app_config_attr = "user_viewset"
     default_viewset_cls = UserViewSet
     custom_viewset_cls = CustomUserViewSet
+    create_form_cls = CustomUserCreationForm
+    edit_form_cls = CustomUserEditForm
 
     def test_registered_permissions(self):
         group_ct = ContentType.objects.get_for_model(Group)

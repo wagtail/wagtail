@@ -145,7 +145,7 @@ class UserViewSet(WagtailUserViewSet):
 ```
 
 ```{versionchanged} 6.2
-Instead of customizing the forms via the [`WAGTAIL_USER_EDIT_FORM`, `WAGTAIL_USER_CREATION_FORM`, and `WAGTAIL_USER_CUSTOM_FIELDS` settings](user_form_settings), we recommend customizing them via the viewset instead, as explained above. The aforementioned settings will be deprecated in a future release.
+The [`WAGTAIL_USER_EDIT_FORM`, `WAGTAIL_USER_CREATION_FORM`, and `WAGTAIL_USER_CUSTOM_FIELDS` settings](user_form_settings) have been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()`.
 ```
 
 The group forms and views can be customized in a similar way – see [](customizing_group_views).
