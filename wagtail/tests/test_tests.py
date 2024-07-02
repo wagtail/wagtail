@@ -13,6 +13,7 @@ from wagtail.test.testapp.models import (
     BusinessSubIndex,
     EventIndex,
     EventPage,
+    NoCreatableSubpageTypesPage,
     SectionedRichTextPage,
     SimpleChildPage,
     SimplePage,
@@ -287,6 +288,7 @@ class TestWagtailPageTests(WagtailPageTests):
             BusinessSubIndex,
             BusinessChild,
             BusinessIndex,
+            NoCreatableSubpageTypesPage,
             SimpleParentPage,
         }
         self.assertAllowedParentPageTypes(BusinessIndex, all_but_business)
