@@ -117,11 +117,3 @@ class LocaleViewSet(ModelViewSet):
 
     def get_form_class(self, for_update=False):
         return LocaleForm
-
-    def get_permissions_to_register(self):
-        # Only register these permissions (and not others e.g. "view_locale")
-        return (
-            super()
-            .get_permissions_to_register()
-            .filter(codename__in=["add_locale", "change_locale", "delete_locale"])
-        )

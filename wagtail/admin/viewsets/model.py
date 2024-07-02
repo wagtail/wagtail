@@ -1,5 +1,6 @@
 from warnings import warn
 
+from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
@@ -623,10 +624,18 @@ class ModelViewSet(ViewSet):
         """
         Returns a queryset of :class:`~django.contrib.auth.models.Permission`
         objects to be registered with the :ref:`register_permissions` hook. By
-        default, it returns all permissions for the model.
+        default, it returns all permissions for the model if
+        :attr:`inspect_view_enabled` is set to ``True``. Otherwise, the "view"
+        permission is excluded.
         """
         content_type = ContentType.objects.get_for_model(self.model)
-        return Permission.objects.filter(content_type=content_type)
+        permissions = Permission.objects.filter(content_type=content_type)
+        # Only register the "view" permission if the inspect view is enabled
+        if not self.inspect_view_enabled:
+            permissions = permissions.exclude(
+                codename=get_permission_codename("view", self.model_opts)
+            )
+        return permissions
 
     def register_permissions(self):
         hooks.register("register_permissions", self.get_permissions_to_register)

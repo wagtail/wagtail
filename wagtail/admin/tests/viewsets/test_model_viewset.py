@@ -13,6 +13,7 @@ from django.utils.html import escape
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
@@ -1389,6 +1390,25 @@ class TestInspectView(WagtailTestUtils, TestCase):
         values = [dd.text.strip() for dd in soup.select("dd")]
         self.assertEqual(fields, expected_fields)
         self.assertEqual(values, expected_values)
+
+    def test_view_permission_registered(self):
+        content_type = ContentType.objects.get_for_model(FeatureCompleteToy)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=content_type)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {
+                "add_featurecompletetoy",
+                "change_featurecompletetoy",
+                "delete_featurecompletetoy",
+                # The "view" permission should be registered if inspect view is enabled
+                "view_featurecompletetoy",
+                # Any custom permissions should be registered too
+                "can_set_release_date",
+            },
+        )
 
     def test_disabled(self):
         # An alternate viewset for the same model without inspect_view_enabled = True

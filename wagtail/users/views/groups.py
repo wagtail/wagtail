@@ -190,11 +190,3 @@ class GroupViewSet(ModelViewSet):
         return super().get_urlpatterns() + [
             re_path(r"(\d+)/users/$", self.users_view, name="users"),
         ]
-
-    def get_permissions_to_register(self):
-        # Only register these permissions (and not others e.g. "view_group")
-        return (
-            super()
-            .get_permissions_to_register()
-            .filter(codename__in=["add_group", "change_group", "delete_group"])
-        )
