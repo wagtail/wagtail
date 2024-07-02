@@ -1201,63 +1201,84 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        self.form_model = FormSubmission
         self.login(username="siteeditor", password="password")
         self.form_page = Page.objects.get(url_path="/home/contact-us/")
 
     def test_delete_submission_show_confirmation(self):
         response = self.client.get(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + f"?selected-submissions={FormSubmission.objects.first().id}"
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + f"?&id={FormSubmission.objects.first().id}"
         )
         # Check show confirm page when HTTP method is GET
-        self.assertTemplateUsed(response, "wagtailforms/confirm_delete.html")
+        self.assertTemplateUsed(response, "bulk_actions/confirm_bulk_delete.html")
 
         # Check that the deletion has not happened with GET request
         self.assertEqual(FormSubmission.objects.count(), 2)
 
     def test_delete_submission_with_permissions(self):
         response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + f"?selected-submissions={FormSubmission.objects.first().id}"
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + f"?&id={FormSubmission.objects.first().id}"
         )
 
         # Check that the submission is gone
         self.assertEqual(FormSubmission.objects.count(), 1)
-        # Should be redirected to list of submissions
-        self.assertRedirects(
-            response,
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-        )
 
     def test_delete_multiple_submissions_with_permissions(self):
         response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}&selected-submissions={}".format(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + "?&id={}&id={}".format(
                 FormSubmission.objects.first().id, FormSubmission.objects.last().id
             )
         )
-
         # Check that both submissions are gone
         self.assertEqual(FormSubmission.objects.count(), 0)
-        # Should be redirected to list of submissions
-        self.assertRedirects(
-            response,
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-        )
 
     def test_delete_submission_bad_permissions(self):
         self.login(username="eventeditor", password="password")
 
-        response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + f"?selected-submissions={FormSubmission.objects.first().id}"
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + f"?&id={FormSubmission.objects.first().id}"
         )
 
         # Check that the user received a permission denied response
-        self.assertRedirects(response, "/admin/")
+        self.assertEqual(response.status_code, 200)
 
-        # Check that the deletion has not happened
-        self.assertEqual(FormSubmission.objects.count(), 2)
+        html = response.content.decode()
+        self.assertInHTML(
+            f"<p>You don't have permission to delete this item</p>",
+            html,
+        )
 
     def test_delete_submission_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
@@ -1267,26 +1288,24 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         with self.register_hook(
             "filter_form_submissions_for_user", construct_forms_for_user
         ):
-            response = self.client.post(
-                reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-                + f"?selected-submissions={FormSubmission.objects.first().id}"
+            response = self.client.get(
+                reverse(
+                    "wagtail_bulk_action",
+                    args=(
+                        self.form_model._meta.app_label,
+                        self.form_model._meta.model_name,
+                        "delete",
+                    ),
+                )
+                + f"?&id={FormSubmission.objects.first().id}"
             )
 
         # An user can't delete a from submission with the hook
-        self.assertRedirects(response, "/admin/")
-        self.assertEqual(FormSubmission.objects.count(), 2)
-
-        # An user can delete a form submission without the hook
-        response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(
-                CustomFormPageSubmission.objects.first().id
-            )
-        )
-        self.assertEqual(FormSubmission.objects.count(), 1)
-        self.assertRedirects(
-            response,
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
+        self.assertInHTML(
+            f"<p>You don't have permission to delete this item</p>",
+            html,
         )
 
 
@@ -1294,43 +1313,56 @@ class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        self.form_model = CustomFormPageSubmission
         self.login(username="siteeditor", password="password")
         self.form_page = Page.objects.get(url_path="/home/contact-us-one-more-time/")
 
     def test_delete_submission_show_confirmation(self):
         response = self.client.get(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(
-                CustomFormPageSubmission.objects.first().id
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
             )
+            + "?&id={}".format(CustomFormPageSubmission.objects.first().id)
         )
 
         # Check show confirm page when HTTP method is GET
-        self.assertTemplateUsed(response, "wagtailforms/confirm_delete.html")
+        self.assertTemplateUsed(response, "bulk_actions/confirm_bulk_delete.html")
 
         # Check that the deletion has not happened with GET request
         self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
 
     def test_delete_submission_with_permissions(self):
         response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(
-                CustomFormPageSubmission.objects.first().id
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
             )
+            + "?&id={}".format(CustomFormPageSubmission.objects.first().id)
         )
 
         # Check that the submission is gone
         self.assertEqual(CustomFormPageSubmission.objects.count(), 1)
-        # Should be redirected to list of submissions
-        self.assertRedirects(
-            response,
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-        )
 
     def test_delete_multiple_submissions_with_permissions(self):
         response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}&selected-submissions={}".format(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
+            )
+            + "?&id={}&id={}".format(
                 CustomFormPageSubmission.objects.first().id,
                 CustomFormPageSubmission.objects.last().id,
             )
@@ -1338,27 +1370,28 @@ class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
 
         # Check that both submissions are gone
         self.assertEqual(CustomFormPageSubmission.objects.count(), 0)
-        # Should be redirected to list of submissions
-        self.assertRedirects(
-            response,
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-        )
 
     def test_delete_submission_bad_permissions(self):
         self.login(username="eventeditor", password="password")
 
-        response = self.client.post(
-            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
-            + "?selected-submissions={}".format(
-                CustomFormPageSubmission.objects.first().id
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    self.form_model._meta.app_label,
+                    self.form_model._meta.model_name,
+                    "delete",
+                ),
             )
+            + "?&id={}".format(CustomFormPageSubmission.objects.first().id)
         )
 
-        # Check that the user received a permission denied response
-        self.assertRedirects(response, "/admin/")
-
-        # Check that the deletion has not happened
-        self.assertEqual(CustomFormPageSubmission.objects.count(), 2)
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
+        self.assertInHTML(
+            f"<p>You don't have permission to delete this item</p>",
+            html,
+        )
 
 
 class TestFormsWithCustomSubmissionsList(WagtailTestUtils, TestCase):
