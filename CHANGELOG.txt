@@ -37,6 +37,7 @@ Changelog
  * Fix: Ensure external-to-internal link conversion works when the `wagtail_serve` view is on a non-root path (Sage Abdullah)
  * Fix: Add missing `for_instance` method to `PageLogEntryManager` (Matt Westcott)
  * Fix: Ensure that "User" column on history view is translatable (Romein van Buren)
+ * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
