@@ -9,7 +9,49 @@
 {% resolve_url linkurl as url_path %}
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
-    <p>{% blocktrans trimmed with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    <div>
+        <div class="page-size-selector">
+            <label for="page-size-select">Items per page:</label>
+            <select id="page-size-select" aria-label="Select page size">
+                <option value="{{ url_path }}" selected>
+                    ---
+                </option>
+                <option
+                    value="{{ url_path }}{% querystring p_size=10 p=1 %}"
+                    {% if selected_page_size == "10" %}selected="selected"{% endif %}
+                >
+                    10
+                </option>
+                <option
+                    value="{{ url_path }}{% querystring p_size=25 p=1 %}"
+                    {% if selected_page_size == "25" %}selected="selected"{% endif %}
+                >
+                    25
+                </option>
+                <option
+                    value="{{ url_path }}{% querystring p_size=50 p=1 %}"
+                    {% if selected_page_size == "50" %}selected="selected"{% endif %}
+                >
+                    50
+                </option>
+                <option
+                    value="{{ url_path }}{% querystring p_size=100 p=1 %}"
+                    {% if selected_page_size == "100" %}selected="selected"{% endif %}
+                >
+                    100
+                </option>
+                <option
+                    value="{{ url_path }}{% querystring p_size='all' p=1 %}"
+                    {% if selected_page_size == "all" %}selected="selected"{% endif %}
+                >
+                    All
+                </option>
+            </select>
+        </div>
+        <p>
+            {% blocktrans trimmed with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}
+        </p>
+    </div>
     <ul>
         <li class="prev">
             {% if items.has_previous %}
@@ -29,3 +71,15 @@
         </li>
     </ul>
 </nav>
+
+
+{% block extra_js %}
+    <script>
+        $("#page-size-select").on("change", function() {
+            const selectedValue = $(this).val();
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        })
+    </script>
+{% endblock %}

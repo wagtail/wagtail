@@ -403,13 +403,27 @@ table.listing {
 .pagination {
   text-align: center;
 
-  p {
-    margin: 0;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5em;
+
+    .page-size-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    p {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
   }
 
   ul {
     @include unlist();
-    margin-top: -1.7em;
+    margin-top: -2.4em;
   }
 
   li {
