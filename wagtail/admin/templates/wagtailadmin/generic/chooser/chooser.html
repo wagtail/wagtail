@@ -6,11 +6,11 @@
     {{ creation_form.media.css }}
 {% endif %}
 
-{% comment %} Do not attach JavaScript behaviour (data-tabs) below if there are no actual tabs used {% endcomment %}
-<div class="w-tabs" {% if creation_form %}data-tabs data-tabs-disable-url{% endif %}>
+{% comment %} Do not attach JavaScript behaviour (data-controller="w-tabs") below if there are no actual tabs used {% endcomment %}
+<div class="w-tabs" {% if creation_form %}data-controller="w-tabs"{% endif %}>
     {% if creation_form %}
         <div class="w-tabs__wrapper w-overflow-hidden">
-            <div role="tablist" class="w-tabs__list w-w-full">
+            <div role="tablist" class="w-tabs__list w-w-full" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=view.creation_tab_id title=creation_tab_label %}
             </div>
@@ -24,6 +24,7 @@
         <section
             id="tab-search"
             class="w-tabs__panel"
+            data-w-tabs-target="panel"
             role="tabpanel"
             aria-labelledby="tab-label-search"
         >
@@ -46,7 +47,6 @@
 
             {% if is_multiple_choice %}
                 <form action="{{ chosen_multiple_url }}" method="GET" data-multiple-choice-form>
-
                     <div id="search-results" class="listing">
                         {% include view.results_template_name %}
                     </div>

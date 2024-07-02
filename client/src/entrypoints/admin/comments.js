@@ -276,7 +276,7 @@ window.comments = (() => {
 
     // Attach the commenting app to the tab navigation, if it exists
     const tabNavElement = formElement.querySelector(
-      '[data-tabs] [role="tablist"]',
+      '[data-controller~="w-tabs"] [role="tablist"]',
     );
     if (tabNavElement) {
       commentApp.setCurrentTab(
@@ -285,9 +285,12 @@ window.comments = (() => {
           .getAttribute('href')
           .replace('#', ''),
       );
-      tabNavElement.addEventListener('switch', (e) => {
-        commentApp.setCurrentTab(e.detail.tab);
-      });
+      tabNavElement.addEventListener(
+        'w-tabs:selected',
+        ({ detail: { selected } }) => {
+          commentApp.setCurrentTab(selected);
+        },
+      );
     }
 
     // Show comments app
