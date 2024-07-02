@@ -137,10 +137,10 @@ def next_event(self, request):
     'year/2015/'
 ```
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {attr}`~wagtail.models.Page.url` or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the {meth}`~wagtail.models.Page.get_url` method or the {attr}`~wagtail.models.Page.full_url` attribute on your page:
 
 ```python
->>> event_page.url + event_page.reverse_subpage('events_for_year', args=(2015, ))
+>>> event_page.get_url() + event_page.reverse_subpage('events_for_year', args=(2015, ))
 '/events/year/2015/'
 
 >>> event_page.full_url + event_page.reverse_subpage('events_for_year', args=(2015, ))
@@ -178,6 +178,15 @@ class EventPage(RoutablePageMixin, Page):
 .. automodule:: wagtail.contrib.routable_page.models
 .. autoclass:: RoutablePageMixin
 
+  .. automethod:: route
+
+    This method overrides the default :meth:`Page.route() <wagtail.models.Page.route>`
+    method to route requests to the appropriate view method.
+
+    It sets ``routable_resolver_match`` on the request object to make sub-URL routing
+    information available downstream in the same way that Django sets
+    :attr:`request.resolver_match <django.http.HttpRequest.resolver_match>`.
+
   .. automethod:: render
 
   .. automethod:: get_subpage_urls
@@ -193,12 +202,11 @@ class EventPage(RoutablePageMixin, Page):
 
   .. automethod:: reverse_subpage
 
-```
+    Example:
 
-Example:
+    .. code-block:: python
 
-```python
-url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
+        url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
 ```
 
 (routablepageurl_template_tag)=
