@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -43,7 +44,8 @@ User = get_user_model()
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
 # 'auth.delete_user') for user management actions, but this may vary according to
-# the AUTH_USER_MODEL setting
+# the AUTH_USER_MODEL setting. These are no longer used in the codebase in favour
+# of ModelPermissionPolicy, but are kept here for backwards compatibility.
 add_user_perm = f"{AUTH_USER_APP_LABEL}.add_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm = "{}.change_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
@@ -401,3 +403,29 @@ class UserViewSet(ModelViewSet):
         if for_update:
             return get_user_edit_form()
         return get_user_creation_form()
+
+    @cached_property
+    def search_area_class(self):
+        class UsersSearchArea(SearchArea):
+            def is_shown(search_area, request):
+                return self.permission_policy.user_has_any_permission(
+                    request.user, {"add", "change", "delete"}
+                )
+
+        return UsersSearchArea
+
+    def get_search_area(self):
+        return self.search_area_class(
+            gettext_lazy("Users"),
+            self.get_url_name("index"),
+            name="users",
+            icon_name="user",
+            order=600,
+        )
+
+    def register_search_area(self):
+        hooks.register("register_admin_search_area", self.get_search_area)
+
+    def on_register(self):
+        super().on_register()
+        self.register_search_area()
