@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
@@ -350,8 +351,14 @@ class PreviewSidePanel(BaseSidePanel):
         super().__init__(object, request)
         self.preview_url = preview_url
 
+    def auto_update_interval(self):
+        if getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", True):
+            return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL", 500)
+        return None
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        context["auto_update_interval"] = self.auto_update_interval()
         context["preview_url"] = self.preview_url
         context["has_multiple_modes"] = len(self.object.preview_modes) > 1
         return context

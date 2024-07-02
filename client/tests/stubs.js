@@ -18,6 +18,7 @@ global.wagtailConfig = {
   ADMIN_URLS: {
     PAGES: '/admin/pages/',
   },
+  CSRF_TOKEN: 'potato',
   DATE_FORMATTING: {
     DATE_FORMAT: 'MMM. D, YYYY',
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',

@@ -4,7 +4,7 @@ import {
   updateDismissibles,
 } from './DismissibleController';
 
-jest.mock('../config/wagtailConfig.js', () => ({
+jest.mock('../config/wagtailConfig.ts', () => ({
   WAGTAIL_CONFIG: {
     ADMIN_URLS: { DISMISSIBLES: '/admin/dismissibles/' },
     CSRF_HEADER_NAME: 'X-CSRFToken',

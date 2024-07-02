@@ -1,8 +1,6 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n l10n wagtailadmin_tags %}
 
-{% wagtail_config as settings %}
-
-<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
+<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}"{% if auto_update_interval != None %} data-preview-auto-update-interval="{{ auto_update_interval|unlocalize }}"{% endif %}>
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button preview-panel__size-button--mobile">
             {% icon name="mobile-alt" %}
@@ -25,7 +23,7 @@
         <span class="w-sr-only">{% trans 'Loading'%}</span>
     </div>
 
-    {% if not settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
+    {% if auto_update_interval == None %}
         <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-refresh-preview>{% icon name="rotate" %} Refresh</button>
     {% endif %}
 

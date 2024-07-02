@@ -14,34 +14,6 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        (function(document, window) {
-            window.wagtailConfig = window.wagtailConfig || {};
-            wagtailConfig.ADMIN_API = {
-                PAGES: '{% url "wagtailadmin_api:pages:listing" %}',
-                DOCUMENTS: '{% url "wagtailadmin_api:documents:listing" %}',
-                IMAGES: '{% url "wagtailadmin_api:images:listing" %}',
-                {# // Use this to add an extra query string on all API requests. #}
-                {# // Example value: '&order=-id' #}
-                EXTRA_CHILDREN_PARAMETERS: '',
-            };
-
-            {% i18n_enabled as i18n_enabled %}
-            {% locales as locales %}
-            wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
-            wagtailConfig.LOCALES = {{ locales|safe }};
-
-            {% if locale %}
-                wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code }}'
-            {% endif %}
-
-            wagtailConfig.STRINGS = {% js_translation_strings %};
-
-            wagtailConfig.ADMIN_URLS = {
-                PAGES: '{% url "wagtailadmin_explore_root" %}'
-            };
-        })(document, window);
-    </script>
     {% wagtail_config as config %}
     {{ config|json_script:"wagtail-config" }}
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
