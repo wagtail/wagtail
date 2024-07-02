@@ -111,6 +111,16 @@ urlpatterns = [
         dismissibles.DismissiblesView.as_view(),
         name="wagtailadmin_dismissibles",
     ),
+    path(
+        "active-sessions/",
+        dismissibles.ActiveSessionsView.as_view(),
+        name="wagtailadmin_active_sessions",
+    ),
+    path(
+        "active-sessions/release/",
+        dismissibles.ReleaseView.as_view(),
+        name="wagtailadmin_active_sessions_release",
+    ),
 ]
 
 

@@ -20,6 +20,7 @@ from wagtail.admin.mail import (
     WorkflowStateApprovalEmailNotifier,
     WorkflowStateRejectionEmailNotifier,
 )
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_latest_str,
@@ -2508,11 +2509,53 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
     def test_workflow_dashboard_panel(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertContains(response, "Awaiting your review")
-        # check that ActivateWorkflowActionsForDashboard is present and passes a valid csrf token
-        self.assertRegex(
-            response.content.decode("utf-8"),
-            r"ActivateWorkflowActionsForDashboard\(\'\w+\'\)",
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct data-activate attribute
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "dashboard")
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForDashboard")
+
+    def test_workflow_action_script_included(self):
+        response = self.client.get(self.get_url("edit"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct
+        # data-activate and data-confirm-cancellation-url attributes
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "editor")
+        self.assertEqual(
+            script.get("data-confirm-cancellation-url"),
+            self.get_url("confirm_workflow_cancellation"),
         )
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForEditView")
+
+    @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
+    def test_workflow_action_script_included_without_cancel_confirmation(self):
+        response = self.client.get(self.get_url("edit"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        # check that the workflow-action script is present with the correct data-activate attribute
+        workflow_action_js = versioned_static("wagtailadmin/js/workflow-action.js")
+        scripts = soup.select(f"script[src='{workflow_action_js}']")
+        self.assertEqual(len(scripts), 1)
+        script = scripts[0]
+        self.assertIsNotNone(script)
+        self.assertEqual(script.get("data-activate"), "editor")
+        # data-confirm-cancellation-url attribute should not be present as
+        # WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH is set to False
+        self.assertIsNone(script.get("data-confirm-cancellation-url"))
+        # Should no longer contain inline JS for activating the workflow actions
+        self.assertNotContains(response, "ActivateWorkflowActionsForEditView")
 
     def test_workflow_action_get(self):
         """

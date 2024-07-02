@@ -1,4 +1,5 @@
 import json
+from collections import namedtuple
 from urllib.parse import quote
 
 from django.conf import settings
@@ -878,6 +879,15 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
 
+    def get_active_sessions(self):
+        User = get_user_model()
+        return [
+            EditingSession(self.page, user, timezone.now(), idx)
+            for idx, user in enumerate(
+                User.objects.all().select_related("wagtail_userprofile")
+            )
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_perms = self.page.permissions_for_user(self.request.user)
@@ -925,6 +935,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "active_sessions": self.get_active_sessions(),
             }
         )
 
@@ -941,3 +952,8 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             .select_related("locale")
             if translation.permissions_for_user(self.request.user).can_edit()
         ]
+
+
+EditingSession = namedtuple(
+    "EditingSession", ["content_object", "user", "last_seen_at", "state"]
+)

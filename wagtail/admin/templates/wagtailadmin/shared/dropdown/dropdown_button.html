@@ -8,6 +8,7 @@
     - `toggle_classname` (string?) - additional toggle classes
     - `classname` (string?) - additional component classes
     - `children` - Dropdown contents (`a` and `button` elements only)
+    - `keep_mounted` (boolean?) - Whether or not the dropdown should keep its DOM node mounted when hidden
 {% endcomment %}
 
 <div class="{% classnames 'w-dropdown-button' classname %}">
@@ -16,7 +17,7 @@
         {% fragment as toggle_classes %}{% classnames toggle_classname "button" %}{% endfragment %}
         {# Built with w-sr-only so there is no visible tooltip. #}
         {% fragment as toggle_label %}<span class="w-sr-only">{% trans "More actions" %}</span>{% endfragment %}
-        {% dropdown theme="dropdown-button" toggle_label=toggle_label toggle_classname=toggle_classes toggle_icon=toggle_icon|default:"arrow-down" toggle_tooltip_offset="[0, 0]" %}
+        {% dropdown theme="dropdown-button" toggle_label=toggle_label toggle_classname=toggle_classes toggle_icon=toggle_icon|default:"arrow-down" toggle_tooltip_offset="[0, 0]" keep_mounted=keep_mounted %}
             {{ children }}
         {% enddropdown %}
     {% endif %}
