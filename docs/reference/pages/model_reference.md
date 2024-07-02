@@ -325,6 +325,33 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
         Controls the maximum number of pages of this type that can be created under any one parent page.
 
+    .. attribute:: private_page_options
+
+        Controls what privacy options are available for the page type.
+
+       The following options are available:
+
+       - ``'password'`` - Can restrict to use a shared password
+       - ``'groups'`` - Can restrict to users in specific groups
+       - ``'login'`` - Can restrict to logged in users
+
+        .. code-block:: python
+
+            class BreadPage(Page):
+                ...
+
+                # default 
+                private_page_options = ['password', 'groups', 'login']
+
+                # disable shared password
+                private_page_options = ['groups', 'login']
+
+                # only shared password
+                private_page_options = ['password']
+
+                # no privacy options for this page model
+                private_page_options = []
+
     .. attribute:: exclude_fields_in_copy
 
         An array of field names that will not be included when a Page is copied.
