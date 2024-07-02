@@ -21,5 +21,6 @@ custom_image_filters
 extending_client_side
 rich_text_internals
 extending_draftail
+customizing_richtext_output
 custom_bulk_actions
 ```
