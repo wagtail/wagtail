@@ -3,7 +3,7 @@ from unittest import mock
 from django.core import checks
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
-from django.urls import path
+from django.urls import path, reverse
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import (
@@ -14,9 +14,10 @@ from wagtail.test.routablepage.models import (
     RoutablePageTest,
     RoutablePageWithOverriddenIndexRouteTest,
 )
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestRoutablePage(TestCase):
+class TestRoutablePage(TestCase, WagtailTestUtils):
     model = RoutablePageTest
 
     def setUp(self):
@@ -238,6 +239,42 @@ class TestRoutablePage(TestCase):
             RoutablePageTest, "get_subpage_urls", return_value=[route]
         ):
             self.assertEqual(RoutablePageTest.check(), [warning])
+
+    def test_preview_with_site_cache(self):
+        self.user = self.login()
+        page = self.home_page.add_child(
+            instance=RoutablePageWithOverriddenIndexRouteTest(title="title", live=True)
+        )
+        preview_url = reverse("wagtailadmin_pages:preview_on_edit", args=(page.id,))
+
+        with self.modify_settings(
+            MIDDLEWARE={
+                "append": "django.middleware.cache.FetchFromCacheMiddleware",
+                "prepend": "django.middleware.cache.UpdateCacheMiddleware",
+            }
+        ):
+            post_data = {
+                "title": "test title 1",
+                "slug": "routable-page-test-title",
+            }
+            response = self.client.post(preview_url, post_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertJSONEqual(
+                response.content.decode(), {"is_valid": True, "is_available": True}
+            )
+
+            response = self.client.get(preview_url)
+            self.assertContains(response, "title=test title 1")
+
+            post_data["title"] = "test title 2"
+            response = self.client.post(preview_url, post_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertJSONEqual(
+                response.content.decode(), {"is_valid": True, "is_available": True}
+            )
+
+            response = self.client.get(preview_url)
+            self.assertContains(response, "title=test title 2")
 
 
 class TestRoutablePageTemplateTag(TestCase):
