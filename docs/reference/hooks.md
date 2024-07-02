@@ -1013,7 +1013,10 @@ def page_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.PageListingButton(
         'A page listing button',
         '/goes/to/a/url/',
-        priority=10
+        priority=10,
+        page=page,
+        user=user,
+        classname="my-custom-button-style"
     )
 ```
 
@@ -1038,10 +1041,12 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
 def page_listing_more_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.Button(
+    yield wagtailadmin_widgets.PageListingButton(
         'A dropdown button',
         '/goes/to/a/url/',
-        priority=60
+        priority=60,
+        page=page,
+        user=user,
     )
 ```
 
