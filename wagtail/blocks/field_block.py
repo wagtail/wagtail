@@ -30,6 +30,9 @@ except ImportError:
     from django.forms.fields import CallableChoiceIterator
 
 
+USE_DEFAULT = "__use_default__"
+
+
 class FieldBlock(Block):
     """A block that wraps a Django form field"""
 
@@ -781,22 +784,78 @@ class RawHTMLBlock(FieldBlock):
 
 
 class ChooserBlock(FieldBlock):
-    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
+    """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
+
+    # Subclasses can override these attributes to apply 'select_related'
+    # and 'prefetch_related' to querysets when rendering, without having to
+    # supply them explicitly on inititalization each time
+    default_select_related = None
+    default_prefetch_related = None
+
+    def __init__(
+        self,
+        required=True,
+        help_text=None,
+        validators=(),
+        select_related=USE_DEFAULT,
+        prefetch_related=USE_DEFAULT,
+        **kwargs,
+    ):
         self._required = required
         self._help_text = help_text
         self._validators = validators
+        self._select_related = (
+            self.default_select_related
+            if select_related is USE_DEFAULT
+            else select_related
+        )
+        self._prefetch_related = (
+            self.default_prefetch_related
+            if prefetch_related is USE_DEFAULT
+            else prefetch_related
+        )
         super().__init__(**kwargs)
 
-    """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
+    def deconstruct(self):
+        """
+        Overrides ``FieldBlock.decontruct()`` to exclude 'select_related' and
+        'prefetch_related' values provided on initialisation, as they are considered
+        'rendering optimisations', that do not impact stored data or validation.
+        """
+        name, args, kwargs = super().deconstruct()
+        try:
+            del kwargs["select_related"]
+        except KeyError:
+            pass
+        try:
+            del kwargs["prefetch_related"]
+        except KeyError:
+            pass
+        return name, args, kwargs
 
     @cached_property
     def model_class(self):
         return resolve_model_string(self.target_model)
 
+    def get_base_queryset(self):
+        return self.model_class.objects.all()
+
+    def get_display_queryset(self):
+        """
+        Override this method to apply any additional filtering to the queryset
+        for this block when converting raw values into full objects for display.
+        """
+        qs = self.get_base_queryset()
+        if self._select_related is not None:
+            qs = qs.select_related(self._select_related)
+        if self._prefetch_related is not None:
+            qs = qs.prefetch_related(self._prefetch_related)
+        return qs
+
     @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.model_class.objects.all(),
+            queryset=self.get_base_queryset(),
             widget=self.widget,
             required=self._required,
             validators=self._validators,
@@ -809,7 +868,7 @@ class ChooserBlock(FieldBlock):
             return value
         else:
             try:
-                return self.model_class.objects.get(pk=value)
+                return self.get_display_queryset().get(pk=value)
             except self.model_class.DoesNotExist:
                 return None
 
@@ -818,7 +877,7 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        objects = self.model_class.objects.in_bulk(values)
+        objects = self.get_display_queryset().in_bulk(values)
         return [
             objects.get(id) for id in values
         ]  # Keeps the ordering the same as in values.
@@ -836,7 +895,7 @@ class ChooserBlock(FieldBlock):
             return value
         else:
             try:
-                return self.model_class.objects.get(pk=value)
+                return self.get_base_queryset().get(pk=value)
             except self.model_class.DoesNotExist:
                 return None
 
