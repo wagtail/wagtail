@@ -514,7 +514,9 @@ WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
 
 Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAIL_USER_CREATION_FORM`
 
@@ -524,7 +526,9 @@ WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
 
 Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAIL_USER_CUSTOM_FIELDS`
 
@@ -532,9 +536,11 @@ For further information See {doc}`/advanced_topics/customisation/custom_user_mod
 WAGTAIL_USER_CUSTOM_FIELDS = ['country']
 ```
 
-A list of the extra custom fields to be appended to the default list.
+A list of the extra custom fields to be appended to the default list. The resulting list is passed to {class}`~django.forms.ModelForm`'s `Meta.fields` to generate the form fields.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAILADMIN_USER_LOGIN_FORM`
 

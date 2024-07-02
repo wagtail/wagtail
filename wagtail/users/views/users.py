@@ -58,6 +58,11 @@ delete_user_perm = "{}.delete_{}".format(
 def get_user_creation_form():
     form_setting = "WAGTAIL_USER_CREATION_FORM"
     if hasattr(settings, form_setting):
+        warn(
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+            RemovedInWagtail70Warning,
+        )
         return get_custom_form(form_setting)
     else:
         return UserCreationForm
@@ -66,6 +71,11 @@ def get_user_creation_form():
 def get_user_edit_form():
     form_setting = "WAGTAIL_USER_EDIT_FORM"
     if hasattr(settings, form_setting):
+        warn(
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+            RemovedInWagtail70Warning,
+        )
         return get_custom_form(form_setting)
     else:
         return UserEditForm
