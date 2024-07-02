@@ -36,6 +36,12 @@
                     {% formattedfield form.username %}
                     {% formattedfield form.password %}
 
+                    {# Add the show password checkbox #}
+                    <div class="show-password">
+                        <input type="checkbox" id="show-password-checkbox" onclick="togglePasswordVisibility()">
+                        <label for="show-password-checkbox">{% trans "Show password" %}</label>
+                    </div>
+
                     {% if show_password_reset %}
                         <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten password?" %}</a>
                     {% endif %}
@@ -73,4 +79,17 @@
             </div>
         {% endblock %}
     </main>
+
+    {# Include the JavaScript for toggling password visibility #}
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.querySelector('input[name="password"]');
+            var showPasswordCheckbox = document.getElementById('show-password-checkbox');
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        }
+    </script>
 {% endblock %}
