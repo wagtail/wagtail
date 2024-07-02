@@ -11,6 +11,27 @@ export class MultipleChooserPanel extends InlinePanel {
       ),
     );
 
+    const getChoiceSelectIds = () => {
+      const chooserIds = [];
+      const formsIndexes = this.getActiveFormsIndex();
+
+      for (const formIndex of formsIndexes) {
+        const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+        const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+        const chooserWidget = this.chooserWidgetFactory.getById(chooserFieldId);
+
+        if (
+          chooserWidget !== null &&
+          chooserWidget.state !== null &&
+          chooserWidget.state.id !== null &&
+          typeof parseInt(chooserWidget.state.id, 10) === 'number'
+        ) {
+          chooserIds.push(chooserWidget.state.id);
+        }
+      }
+      return chooserIds;
+    };
+
     const openModalButton = document.getElementById(
       `${opts.formsetPrefix}-OPEN_MODAL`,
     );
@@ -30,6 +51,12 @@ export class MultipleChooserPanel extends InlinePanel {
         },
         { multiple: true },
       );
+      if (opts.allowDuplicates === 'True') {
+        openModalButton.setAttribute(
+          'chooserids',
+          getChoiceSelectIds().join(','),
+        );
+      }
     });
   }
 
