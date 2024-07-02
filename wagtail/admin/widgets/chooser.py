@@ -224,6 +224,7 @@ class AdminPageChooser(BaseChooser):
     icon = "doc-empty-inverse"
     classname = "page-chooser"
     js_constructor = "PageChooser"
+    page_instance = None
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -301,6 +302,9 @@ class AdminPageChooser(BaseChooser):
         parent_id = value_data.get("parent_id")
         if parent_id is not None:
             opts["parentId"] = parent_id
+
+        if self.page_instance is not None:
+            opts["instanceId"] = self.page_instance.id
         return opts
 
     @property
