@@ -1,6 +1,5 @@
 import os
 import unittest
-from io import BytesIO
 
 import willow
 from django import forms, template
@@ -367,10 +366,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
 
     def test_get_svg(self):
@@ -389,10 +385,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/svg+xml")
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, SvgImageFile)
 
     @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"avif": "avif"})
@@ -412,10 +405,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/avif")
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, AvifImageFile)
 
     def test_get_with_extra_component(self):
@@ -438,10 +428,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_too_many_extra_components(self):
@@ -475,10 +462,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_redirect_action(self):
@@ -526,10 +510,7 @@ class TestFrontendServeView(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         # Ensure the file can actually be read
-        with BytesIO() as buffer:
-            for _bytes in response:
-                buffer.write(_bytes)
-            image = willow.Image.open(buffer)
+        image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
 
     def test_get_with_custom_key_using_default_key(self):
