@@ -9,7 +9,7 @@
 
 {% block content %}
     {% fragment as header_title %}
-        {% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
+        {% block branding_welcome %}{% trans site_name|title %}{% endblock %}
     {% endfragment %}
 
 
