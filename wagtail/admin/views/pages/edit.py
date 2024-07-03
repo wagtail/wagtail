@@ -899,13 +899,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "wagtailadmin_editing_sessions:release",
                 args=(session.id,),
             ),
-            list(
-                EditingSession.objects.filter(
-                    content_type=content_type, object_id=self.page.pk
-                )
-                .exclude(id=session.id)
-                .select_related("user", "user__wagtail_userprofile")
-            ),
+            [],
         )
 
     def get_context_data(self, **kwargs):

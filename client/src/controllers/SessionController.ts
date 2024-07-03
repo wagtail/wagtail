@@ -13,15 +13,18 @@ import { DialogController } from './DialogController';
  *   in the edit form, and showing a confirmation dialog instead, before
  *   proceeding with the original action after the user confirms the dialog.
  *
- * Ideally this controller should be used in conjunction with `ActionController`
- * and `DialogController` to compose the user experience.
+ * Ideally this controller should be used in conjunction with `SwapController`,
+ * `ActionController`, and `DialogController` to compose the user experience.
  *
  * @example
  * ```html
  * <form
  *   id="w-editing-sessions"
  *   method="post"
- *   data-controller="w-action w-session"
+ *   data-controller="w-swap w-action w-session"
+ *   data-w-swap-target-value="#w-editing-sessions"
+ *   data-w-swap-src-value="/path/to/ping/session/"
+ *   data-w-swap-json-path-value="html"
  *   data-w-action-continue-value="true"
  *   data-w-action-url-value="/path/to/release/session/"
  *   data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
@@ -68,6 +71,9 @@ export class SessionController extends Controller<HTMLElement> {
         capture: true,
       });
     });
+
+    // Do a ping so the sessions list can be loaded immediately.
+    this.ping();
   }
 
   /**

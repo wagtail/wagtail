@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from wagtail.admin.models import EditingSession
+from wagtail.admin.ui.editing_sessions import EditingSessionsList
 from wagtail.admin.utils import get_user_display_name
 from wagtail.models import Page, Revision, RevisionMixin
 from wagtail.permissions import page_permission_policy
@@ -171,6 +172,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                 }
                 for other_session in other_sessions
             ],
+            "html": EditingSessionsList(other_sessions).render_html(),
         }
     )
 

@@ -33,6 +33,7 @@ describe('SessionController', () => {
     });
 
     it('should dispatch a ping event every 10s by default and can be changed afterwards', async () => {
+      expect(handlePing).not.toHaveBeenCalled();
       document.body.innerHTML = /* html */ `
         <div data-controller="w-session">
           Default
@@ -40,11 +41,12 @@ describe('SessionController', () => {
       `;
       await Promise.resolve();
 
-      expect(handlePing).not.toHaveBeenCalled();
-      jest.advanceTimersByTime(10000);
+      // Should dispatch the event immediately
       expect(handlePing).toHaveBeenCalledTimes(1);
       jest.advanceTimersByTime(10000);
       expect(handlePing).toHaveBeenCalledTimes(2);
+      jest.advanceTimersByTime(10000);
+      expect(handlePing).toHaveBeenCalledTimes(3);
       handlePing.mockClear();
       jest.advanceTimersByTime(123456);
       expect(handlePing).toHaveBeenCalledTimes(12);
@@ -64,6 +66,7 @@ describe('SessionController', () => {
     });
 
     it('should allow setting a custom interval value on init and changing it afterwards', async () => {
+      expect(handlePing).not.toHaveBeenCalled();
       document.body.innerHTML = /* html */ `
         <div data-controller="w-session" data-w-session-interval-value="5000">
           Custom interval
@@ -71,11 +74,12 @@ describe('SessionController', () => {
       `;
       await Promise.resolve();
 
-      expect(handlePing).not.toHaveBeenCalled();
-      jest.advanceTimersByTime(5000);
+      // Should dispatch the event immediately
       expect(handlePing).toHaveBeenCalledTimes(1);
       jest.advanceTimersByTime(5000);
       expect(handlePing).toHaveBeenCalledTimes(2);
+      jest.advanceTimersByTime(5000);
+      expect(handlePing).toHaveBeenCalledTimes(3);
       handlePing.mockClear();
       jest.advanceTimersByTime(123456);
       expect(handlePing).toHaveBeenCalledTimes(24);
