@@ -17,15 +17,23 @@ if settings.USE_TZ:
     TIMESTAMP_PAST = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
     )
-    TIMESTAMP_RECENT = timezone.make_aware(
-        datetime.datetime(2020, 1, 1, 11, 59, 59), timezone=datetime.timezone.utc
+    TIMESTAMP_1 = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 59, 51), timezone=datetime.timezone.utc
+    )
+    TIMESTAMP_2 = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 59, 52), timezone=datetime.timezone.utc
+    )
+    TIMESTAMP_3 = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 59, 53), timezone=datetime.timezone.utc
     )
     TIMESTAMP_NOW = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 12, 0, 0), timezone=datetime.timezone.utc
     )
 else:
     TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 10, 30, 0)
-    TIMESTAMP_RECENT = datetime.datetime(2020, 1, 1, 11, 59, 59)
+    TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
+    TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
+    TIMESTAMP_3 = datetime.datetime(2020, 1, 1, 11, 59, 53)
     TIMESTAMP_NOW = datetime.datetime(2020, 1, 1, 12, 0, 0)
 
 
@@ -54,13 +62,13 @@ class TestPingView(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=page_content_type,
             object_id=self.page.id,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
         self.other_session = EditingSession.objects.create(
             user=self.other_user,
             content_type=page_content_type,
             object_id=self.page.id,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_2,
         )
         self.old_session = EditingSession.objects.create(
             user=self.other_user,
@@ -84,7 +92,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=ContentType.objects.get_for_model(Group),
             object_id=editors.pk,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
         response = self.client.get(
             reverse(
@@ -114,13 +122,13 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
         self.assertEqual(response_json["session_id"], self.session.id)
-        self.assertCountEqual(
+        self.assertEqual(
             response_json["other_sessions"],
             [
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
                 },
             ],
@@ -141,13 +149,13 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
         self.assertEqual(response_json["session_id"], self.session.id)
-        self.assertCountEqual(
+        self.assertEqual(
             response_json["other_sessions"],
             [
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
                 },
             ],
@@ -172,19 +180,19 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(session.is_editing)
 
-        self.assertCountEqual(
+        self.assertEqual(
             response_json["other_sessions"],
             [
                 {
                     "session_id": self.session.id,
                     "user": "Bob Testuser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
                 },
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
                 },
             ],
@@ -213,19 +221,19 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
         self.assertTrue(session.is_editing)
 
-        self.assertCountEqual(
+        self.assertEqual(
             response_json["other_sessions"],
             [
                 {
                     "session_id": self.session.id,
                     "user": "Bob Testuser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
                 },
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
                 },
             ],
@@ -287,15 +295,25 @@ class TestPingView(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             object_id=snippet.pk,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
-        other_session = EditingSession.objects.create(
+        # add two sessions from other_user to test that we correctly merge them into
+        # one record in the response
+        EditingSession.objects.create(
             user=self.other_user,
             content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             object_id=snippet.pk,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_2,
             is_editing=True,
         )
+        other_session_2 = EditingSession.objects.create(
+            user=self.other_user,
+            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            object_id=snippet.pk,
+            last_seen_at=TIMESTAMP_3,
+            is_editing=False,
+        )
+
         # session with last_seen_at too far in the past to be included in the response
         EditingSession.objects.create(
             user=self.other_user,
@@ -312,13 +330,13 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
         self.assertEqual(response_json["session_id"], session.id)
-        self.assertCountEqual(
+        self.assertEqual(
             response_json["other_sessions"],
             [
                 {
-                    "session_id": other_session.id,
+                    "session_id": other_session_2.id,
                     "user": "Vic Otheruser",
-                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": True,
                 },
             ],
@@ -340,7 +358,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             object_id=snippet.pk,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
         response = self.client.get(
             reverse(
@@ -367,7 +385,7 @@ class TestCleanup(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=page_content_type,
             object_id=self.page.id,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
         self.old_session = EditingSession.objects.create(
             user=self.user,
@@ -404,13 +422,13 @@ class TestReleaseView(WagtailTestUtils, TestCase):
             user=self.user,
             content_type=page_content_type,
             object_id=self.page.id,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
         self.other_session = EditingSession.objects.create(
             user=self.other_user,
             content_type=page_content_type,
             object_id=self.page.id,
-            last_seen_at=TIMESTAMP_RECENT,
+            last_seen_at=TIMESTAMP_1,
         )
 
     def test_release(self):
