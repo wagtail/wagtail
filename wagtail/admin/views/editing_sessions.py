@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
@@ -162,6 +163,13 @@ def ping(request, app_label, model_name, object_id, session_id):
     return JsonResponse(
         {
             "session_id": session.id,
+            "ping_url": reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(app_label, model_name, object_id, session.id),
+            ),
+            "release_url": reverse(
+                "wagtailadmin_editing_sessions:release", args=(session.id,)
+            ),
             "other_sessions": [
                 {
                     "session_id": other_session["session_id"],
