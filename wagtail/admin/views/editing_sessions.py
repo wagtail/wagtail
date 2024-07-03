@@ -8,7 +8,7 @@ from django.views.decorators.http import require_POST
 
 from wagtail.admin.models import EditingSession
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page
+from wagtail.models import Page, Revision, RevisionMixin
 from wagtail.permissions import page_permission_policy
 
 
@@ -79,10 +79,41 @@ def ping(request, app_label, model_name, object_id, session_id):
                 "user": other_session.user,
                 "last_seen_at": other_session.last_seen_at,
                 "is_editing": other_session.is_editing,
+                "revision_id": None,
             }
         else:
             if other_session.is_editing:
                 other_session_info["is_editing"] = True
+
+    revision_id = request.GET.get("revision_id", None)
+    if revision_id is not None and issubclass(model, RevisionMixin):
+        all_revisions = obj.revisions.defer("content")
+        try:
+            original_revision = all_revisions.get(id=revision_id)
+        except Revision.DoesNotExist:
+            raise Http404
+
+        newer_revisions = (
+            all_revisions.filter(created_at__gt=original_revision.created_at)
+            .order_by("created_at")
+            .select_related("user")
+        )
+
+        for revision in newer_revisions:
+            try:
+                session_info = other_sessions_lookup[revision.user_id]
+            except KeyError:
+                other_sessions_lookup[revision.user_id] = {
+                    "session_id": None,
+                    "user": revision.user,
+                    "last_seen_at": revision.created_at,
+                    "is_editing": False,
+                    "revision_id": revision.id,
+                }
+            else:
+                session_info["revision_id"] = revision.id
+                if revision.created_at > session_info["last_seen_at"]:
+                    session_info["last_seen_at"] = revision.created_at
 
     return JsonResponse(
         {
@@ -93,6 +124,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "user": get_user_display_name(other_session["user"]),
                     "last_seen_at": other_session["last_seen_at"].isoformat(),
                     "is_editing": other_session["is_editing"],
+                    "revision_id": other_session["revision_id"],
                 }
                 for other_session in sorted(
                     other_sessions_lookup.values(),

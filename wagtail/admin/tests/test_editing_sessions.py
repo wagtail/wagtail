@@ -14,6 +14,9 @@ from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 if settings.USE_TZ:
+    TIMESTAMP_ANCIENT = timezone.make_aware(
+        datetime.datetime(2019, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
+    )
     TIMESTAMP_PAST = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 10, 30, 0), timezone=datetime.timezone.utc
     )
@@ -30,6 +33,7 @@ if settings.USE_TZ:
         datetime.datetime(2020, 1, 1, 12, 0, 0), timezone=datetime.timezone.utc
     )
 else:
+    TIMESTAMP_ANCIENT = datetime.datetime(2019, 1, 1, 10, 30, 0)
     TIMESTAMP_PAST = datetime.datetime(2020, 1, 1, 10, 30, 0)
     TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
     TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
@@ -42,19 +46,26 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.user = self.create_superuser(
             "bob", password="password", first_name="Bob", last_name="Testuser"
         )
+        self.other_user = self.create_user(
+            "vic", password="password", first_name="Vic", last_name="Otheruser"
+        )
+
         self.login(user=self.user)
         self.root_page = Page.get_first_root_node()
 
         self.page = SimplePage(title="Test page", slug="test-page", content="test page")
         self.root_page.add_child(instance=self.page)
+
+        with freeze_time(TIMESTAMP_ANCIENT):
+            self.original_revision = self.page.save_revision(user=self.other_user)
+
+        with freeze_time(TIMESTAMP_PAST):
+            self.original_revision = self.page.save_revision(user=self.user)
+
         self.other_page = SimplePage(
             title="Other page", slug="other-page", content="other page"
         )
         self.root_page.add_child(instance=self.other_page)
-
-        self.other_user = self.create_user(
-            "vic", password="password", first_name="Vic", last_name="Otheruser"
-        )
 
         page_content_type = ContentType.objects.get_for_model(Page)
 
@@ -130,6 +141,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
             ],
         )
@@ -157,12 +169,105 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
             ],
         )
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertTrue(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_revision(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # no revisions have been saved since the original revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        with freeze_time(TIMESTAMP_3):
+            new_revision = self.page.save_revision(user=self.other_user)
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the new revision should be indicated in the response (and last_seen_at should reflect it)
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "revision_id": new_revision.id,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        self.other_session.delete()
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # the new revision should still appear as an "other session" in the response,
+        # even though the editing session record has been deleted
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": None,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "revision_id": new_revision.id,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_new_session(self):
@@ -188,12 +293,14 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
             ],
         )
@@ -229,12 +336,14 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_1.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_2.isoformat(),
                     "is_editing": False,
+                    "revision_id": None,
                 },
             ],
         )
@@ -338,6 +447,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": True,
+                    "revision_id": None,
                 },
             ],
         )
