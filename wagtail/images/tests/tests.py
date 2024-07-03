@@ -1,5 +1,6 @@
 import os
 import unittest
+from io import BytesIO
 
 import willow
 from django import forms, template
@@ -385,7 +386,7 @@ class TestFrontendServeView(TestCase):
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/svg+xml")
         # Ensure the file can actually be read
-        image = willow.Image.open(b"".join(response.streaming_content))
+        image = willow.Image.open(BytesIO(b"".join(response.streaming_content)))
         self.assertIsInstance(image, SvgImageFile)
 
     @override_settings(WAGTAILIMAGES_FORMAT_CONVERSIONS={"avif": "avif"})
