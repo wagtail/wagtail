@@ -1,5 +1,21 @@
 import { Controller } from '@hotwired/stimulus';
 import { DialogController } from './DialogController';
+import { SwapController } from './SwapController';
+import { ActionController } from './ActionController';
+
+interface PingResponse {
+  session_id: string;
+  ping_url: string;
+  release_url: string;
+  other_sessions: {
+    session_id: string | null;
+    user: string;
+    last_seen_at: string;
+    is_editing: boolean;
+    revision_id: number | null;
+  }[];
+  html: string;
+}
 
 /**
  * Manage an editing session by indicating the presence of the user and handling
@@ -201,6 +217,43 @@ export class SessionController extends Controller<HTMLElement> {
     if (!this.hasUnsavedChangesTarget) return;
     const type = event.type.split(':')[1];
     this.unsavedChangesTarget.checked = type !== 'clear';
+  }
+
+  get swapController() {
+    return this.application.getControllerForElementAndIdentifier(
+      this.element,
+      'w-swap',
+    ) as SwapController | null;
+  }
+
+  get actionController() {
+    return this.application.getControllerForElementAndIdentifier(
+      this.element,
+      'w-action',
+    ) as ActionController | null;
+  }
+
+  /**
+   * Update the session state with the latest data from the server.
+   * @param event an event that contains JSON data in the `detail` property. Normally a `w-swap:json` event.
+   */
+  updateSessionData(event: CustomEvent) {
+    const { detail } = event;
+    if (!detail || !detail.data) return;
+    const data: PingResponse = detail.data;
+
+    // Update the ping and release URLs in case the session ID has changed
+    // e.g. when the user has been inactive for too long and resumed their session.
+    // Modify the values via the controllers directly instead of setting the data
+    // attributes so we get type checking.
+    const swapController = this.swapController;
+    if (swapController && data.ping_url) {
+      swapController.srcValue = data.ping_url;
+    }
+    const actionController = this.actionController;
+    if (actionController && data.release_url) {
+      actionController.urlValue = data.release_url;
+    }
   }
 
   disconnect(): void {

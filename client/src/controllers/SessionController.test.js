@@ -1,6 +1,8 @@
 import { Application } from '@hotwired/stimulus';
 import { SessionController } from './SessionController';
 import { DialogController } from './DialogController';
+import { SwapController } from './SwapController';
+import { ActionController } from './ActionController';
 
 jest.useFakeTimers();
 
@@ -10,6 +12,8 @@ describe('SessionController', () => {
   beforeAll(() => {
     application = Application.start();
     application.register('w-session', SessionController);
+    application.register('w-swap', SwapController);
+    application.register('w-action', ActionController);
   });
 
   afterEach(() => {
@@ -387,6 +391,191 @@ describe('SessionController', () => {
       // should not be included in the form
       const form = document.querySelector('form');
       expect(new FormData(form).get('is_editing')).toBeNull();
+    });
+  });
+
+  describe('updating the session state based on JSON data from an event', () => {
+    describe('with complete controller configuration', () => {
+      afterEach(() => {
+        fetch.mockRestore();
+      });
+
+      let element;
+
+      const setup = async () => {
+        document.body.innerHTML = /* html */ `
+        <form
+          method="post"
+          data-controller="w-swap w-action w-session"
+          data-w-swap-target-value="#w-editing-sessions"
+          data-w-swap-json-path-value="html"
+          data-w-swap-src-value="http://localhost/sessions/1/"
+          data-w-action-url-value="http://localhost/sessions/1/release/"
+          data-action="w-session:ping->w-swap#submit w-swap:json->w-session#updateSessionData"
+        >
+          <div id="w-editing-sessions"></div>
+        </form>
+      `;
+        element = document.querySelector('form');
+        await Promise.resolve();
+      };
+
+      it('should update the SwapController and ActionController URL values', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '',
+            ping_url: 'http://localhost/sessions/2/',
+            release_url: 'http://localhost/sessions/2/release/',
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/2/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/2/release/',
+        );
+
+        await Promise.resolve();
+        expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
+          '',
+        );
+
+        // Simulate ping after 10s
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 7</li></ul>',
+            ping_url: 'http://localhost/sessions/999/',
+            release_url: 'http://localhost/sessions/release/999/',
+          }),
+        );
+        jest.advanceTimersByTime(10000);
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/2/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/999/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/release/999/',
+        );
+
+        await Promise.resolve();
+        await Promise.resolve();
+        expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
+          '<ul><li>Session 7</li></ul>',
+        );
+      });
+
+      it('should handle unexpected data gracefully', async () => {
+        fetch.mockResponseSuccessJSON(
+          JSON.stringify({
+            html: '<ul><li>Session 1</li></ul>',
+          }),
+        );
+        await setup();
+
+        expect(global.fetch).toHaveBeenCalledWith(
+          'http://localhost/sessions/1/',
+          expect.any(Object),
+        );
+
+        // Simulate request finishing
+        await Promise.resolve();
+
+        // Simulate JSON parsing
+        await Promise.resolve();
+
+        // Should not update the URL values
+        expect(element.dataset.wSwapSrcValue).toEqual(
+          'http://localhost/sessions/1/',
+        );
+        expect(element.dataset.wActionUrlValue).toEqual(
+          'http://localhost/sessions/1/release/',
+        );
+
+        // Should still update the HTML
+        await Promise.resolve();
+        expect(document.getElementById('w-editing-sessions').innerHTML).toEqual(
+          '<ul><li>Session 1</li></ul>',
+        );
+      });
+    });
+
+    describe('with improper configuration', () => {
+      let element;
+      beforeEach(async () => {
+        document.body.innerHTML = /* html */ `
+        <div
+          data-controller="w-session"
+          data-action="w-swap:json->w-session#updateSessionData"
+        >
+        </div>
+      `;
+        element = document.querySelector('[data-controller="w-session"]');
+        await Promise.resolve();
+      });
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it('should handle the data gracefully even if SwapController and ActionController are not present', async () => {
+        const mock = jest.spyOn(
+          SessionController.prototype,
+          'updateSessionData',
+        );
+        element.dispatchEvent(
+          new CustomEvent('w-swap:json', {
+            detail: {
+              data: {
+                html: '<ul><li>Session 2</li></ul>',
+                ping_url: 'http://localhost/sessions/999/',
+                release_url: 'http://localhost/sessions/release/999/',
+              },
+            },
+          }),
+        );
+
+        expect(mock).toHaveBeenCalledTimes(1);
+        expect(element.dataset.wSwapSrcValue).toBeUndefined();
+        expect(element.dataset.wActionUrlValue).toBeUndefined();
+      });
+
+      it('should handle the event gracefully even if it does not contain data', async () => {
+        const mock = jest.spyOn(
+          SessionController.prototype,
+          'updateSessionData',
+        );
+        element.dispatchEvent(
+          new CustomEvent('w-swap:json', { detail: { foo: 'bar' } }),
+        );
+
+        expect(mock).toHaveBeenCalledTimes(1);
+        expect(element.dataset.wSwapSrcValue).toBeUndefined();
+        expect(element.dataset.wActionUrlValue).toBeUndefined();
+      });
     });
   });
 });
