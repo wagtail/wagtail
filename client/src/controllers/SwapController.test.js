@@ -1213,4 +1213,196 @@ describe('SwapController', () => {
       document.removeEventListener('w-swap:begin', beginEventHandler);
     });
   });
+
+  describe('performing a content update using HTML in JSON response', () => {
+    let button;
+    let results;
+    const onErrorEvent = jest.fn();
+
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <main>
+        <form
+          action="/path/to/editing-sessions/"
+          method="get"
+          data-controller="w-swap"
+          data-action="submit->w-swap#submitLazy:prevent"
+          data-w-swap-target-value="#editing-sessions"
+          data-w-swap-json-path-value="nested.data.results"
+        >
+          <input name="title" type="text"/>
+          <input name="type" type="hidden" value="some-type" />
+          <button type="submit">Submit<button>
+        </form>
+        <div id="editing-sessions"></div>
+      </main>
+      `;
+
+      button = document.querySelector('button');
+      results = getMockResults({ total: 5 });
+    });
+
+    const expectErrorHandled = async () => {
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      button.click();
+
+      jest.runAllTimers(); // update is debounced
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      expect(onErrorEvent).not.toHaveBeenCalled();
+
+      await Promise.resolve(); // trigger next rendering
+
+      await flushPromises(); // resolve all promises
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenLastCalledWith(
+        'Error fetching %s',
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Error),
+      );
+      // eslint-disable-next-line no-console
+      expect(console.error.mock.lastCall[2]).toEqual(
+        expect.objectContaining({
+          message:
+            'Unable to parse as JSON at path "nested.data.results" to a string',
+        }),
+      );
+
+      // should not update any HTML
+      expect(document.getElementById('editing-sessions').innerHTML).toEqual('');
+
+      // should have dispatched a custom event for the error
+      expect(onErrorEvent).toHaveBeenCalledTimes(1);
+      expect(onErrorEvent.mock.calls[0][0].detail).toEqual({
+        error: expect.any(Error),
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      await Promise.resolve(); // trigger next rendering
+    };
+
+    it('should update the target element with the HTML content from the JSON response', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results } } }),
+      );
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      button.click();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      await Promise.resolve();
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should handle non-JSON response gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      fetch.mockResponseSuccessText('<div><p>Some HTML content</p></div>');
+
+      await expectErrorHandled();
+    });
+
+    it('should handle non-existing key gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { differentKey: results } } }),
+      );
+
+      await expectErrorHandled();
+    });
+
+    it('should handle non-string values gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: 123 } } }),
+      );
+
+      await expectErrorHandled();
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: true } } }),
+      );
+
+      await expectErrorHandled();
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: null } } }),
+      );
+
+      await expectErrorHandled();
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: { some: 'object' } } } }),
+      );
+
+      await expectErrorHandled();
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: [1, false, 'hello'] } } }),
+      );
+
+      await expectErrorHandled();
+    });
+  });
 });
