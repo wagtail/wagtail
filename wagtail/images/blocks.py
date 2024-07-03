@@ -80,11 +80,34 @@ class ImageBlock(StructBlock):
         return image
 
     def to_python(self, value):
-        struct_value = super().to_python(value)
+        # For backward compatibility with ImageChooserBlock
+        if isinstance(value, int):
+            from wagtail.images import get_image_model
+
+            Image = get_image_model()
+            image = Image.objects.get(
+                id=value
+            )  # To retrieve specific image instance from db
+            struct_value = {"image": image, "decorative": False, "alt_text": ""}
+        else:
+            struct_value = super().to_python(value)
         return self._struct_value_to_image(struct_value)
 
     def bulk_to_python(self, values):
-        struct_values = super().bulk_to_python(values)
+        # For backward compatibility with ImageChooserBlock
+        struct_values = []
+        for value in values:
+            if isinstance(value, int):
+                from wagtail.images import get_image_model
+
+                Image = get_image_model()
+                image = Image.objects.get(
+                    id=value
+                )  # To retrieve specific image instance from db
+                struct_value = {"image": image, "decorative": False, "alt_text": ""}
+                struct_values.append(struct_value)
+            else:
+                struct_values = super().bulk_to_python(values)
         return [
             self._struct_value_to_image(struct_value) for struct_value in struct_values
         ]
