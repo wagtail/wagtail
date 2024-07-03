@@ -52,6 +52,7 @@ def ping(request, app_label, model_name, object_id, session_id):
         )
 
     session.last_seen_at = timezone.now()
+    session.is_editing = request.GET.get("editing", False)
     session.save()
 
     other_sessions = (
@@ -72,6 +73,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "session_id": other_session.id,
                     "user": get_user_display_name(other_session.user),
                     "last_seen_at": other_session.last_seen_at.isoformat(),
+                    "is_editing": other_session.is_editing,
                 }
                 for other_session in other_sessions
             ],
