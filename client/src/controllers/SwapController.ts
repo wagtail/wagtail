@@ -278,6 +278,12 @@ export class SwapController extends Controller<
           let html: unknown;
           try {
             const json: Record<string, unknown> = await response.json();
+
+            this.dispatch('json', {
+              cancelable: false,
+              detail: { requestUrl, data: json },
+            });
+
             html = this.jsonPathValue
               .split('.')
               .reduce<unknown>(
