@@ -121,11 +121,40 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
                 },
             ],
         )
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_existing_session_with_editing_flag(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"editing": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+        self.assertCountEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertTrue(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_new_session(self):
@@ -140,6 +169,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         new_session_id = response_json["session_id"]
         session = EditingSession.objects.get(id=new_session_id)
         self.assertEqual(session.user, self.user)
+        self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(session.is_editing)
 
         self.assertCountEqual(
             response_json["other_sessions"],
@@ -148,11 +179,54 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "session_id": self.session.id,
                     "user": "Bob Testuser",
                     "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
                 },
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
+                },
+            ],
+        )
+
+        # content_object is a non-specific Page object
+        self.assertEqual(type(session.content_object), Page)
+        self.assertEqual(session.content_object.id, self.page.id)
+
+        self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_new_session_with_editing_flag(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, 999999),
+            ),
+            {"editing": "1"},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        new_session_id = response_json["session_id"]
+        session = EditingSession.objects.get(id=new_session_id)
+        self.assertEqual(session.user, self.user)
+        self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+        self.assertTrue(session.is_editing)
+
+        self.assertCountEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.session.id,
+                    "user": "Bob Testuser",
+                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": False,
                 },
             ],
         )
@@ -220,6 +294,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_RECENT,
+            is_editing=True,
         )
         # session with last_seen_at too far in the past to be included in the response
         EditingSession.objects.create(
@@ -244,11 +319,13 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "session_id": other_session.id,
                     "user": "Vic Otheruser",
                     "last_seen_at": TIMESTAMP_RECENT.isoformat(),
+                    "is_editing": True,
                 },
             ],
         )
         session.refresh_from_db()
         self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(session.is_editing)
 
     def test_ping_snippet_model_without_permission(self):
         snippet = FullFeaturedSnippet.objects.create(text="Test snippet")

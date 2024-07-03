@@ -88,6 +88,7 @@ class EditingSession(models.Model):
         "content_type", "object_id", for_concrete_model=False
     )
     last_seen_at = models.DateTimeField()
+    is_editing = models.BooleanField(default=False)
 
     @staticmethod
     def cleanup():
