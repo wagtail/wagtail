@@ -138,3 +138,20 @@ class TestImageBlock(TestImageChooserBlock):
             "Expected an image instance, got %r" % value,
             str(context.exception.block_errors["image"]),
         )
+
+    def test_to_python_with_int(self):
+        block = ImageBlock()
+        value = block.to_python(self.image.id)
+
+        self.assertEqual(value.id, self.image.id)
+        self.assertEqual(value.contextual_alt_text, "")
+        self.assertFalse(value.decorative)
+
+    def test_to_python_with_dict(self):
+        block = ImageBlock()
+        value = {"image": self.image.id, "alt_text": "Sample text", "decorative": False}
+        result = block.to_python(value)
+
+        self.assertEqual(result.id, self.image.id)
+        self.assertEqual(result.contextual_alt_text, "Sample text")
+        self.assertFalse(result.decorative)
