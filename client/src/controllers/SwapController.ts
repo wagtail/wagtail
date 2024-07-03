@@ -47,6 +47,7 @@ export class SwapController extends Controller<
     loading: { default: false, type: Boolean },
     reflect: { default: false, type: Boolean },
     src: { default: '', type: String },
+    jsonPath: { default: '', type: String },
     target: { default: '#listing-results', type: String },
     wait: { default: 200, type: Number },
   };
@@ -54,12 +55,14 @@ export class SwapController extends Controller<
   declare readonly hasInputTarget: boolean;
   declare readonly hasTargetValue: boolean;
   declare readonly hasUrlValue: boolean;
+  declare readonly hasJsonPathValue: boolean;
   declare readonly inputTarget: HTMLInputElement;
 
   declare iconValue: string;
   declare loadingValue: boolean;
   declare reflectValue: boolean;
   declare srcValue: string;
+  declare jsonPathValue: string;
   declare targetValue: string;
   declare waitValue: number;
 
@@ -267,9 +270,30 @@ export class SwapController extends Controller<
       headers: { 'x-requested-with': 'XMLHttpRequest' },
       signal,
     })
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        if (this.jsonPathValue) {
+          let html: unknown;
+          try {
+            const json: Record<string, unknown> = await response.json();
+            html = this.jsonPathValue
+              .split('.')
+              .reduce<unknown>(
+                (acc, key) => (acc as Record<string, unknown>)[key],
+                json,
+              );
+          } catch {
+            html = undefined;
+          }
+
+          if (typeof html !== 'string') {
+            throw new Error(
+              `Unable to parse as JSON at path "${this.jsonPathValue}" to a string`,
+            );
+          }
+          return html;
         }
         return response.text();
       })
