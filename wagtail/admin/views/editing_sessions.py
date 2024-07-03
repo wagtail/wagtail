@@ -63,19 +63,41 @@ def ping(request, app_label, model_name, object_id, session_id):
         )
         .exclude(id=session.id)
         .select_related("user")
+        .order_by("-last_seen_at")
     )
+
+    # create a lookup of sessions indexed by user ID. Multiple sessions from the same user
+    # are merged, such that the most recently seen one is reported, but is_editing is true
+    # if any session has the editing flag set (not just the latest one).
+    other_sessions_lookup = {}
+    for other_session in other_sessions:
+        try:
+            other_session_info = other_sessions_lookup[other_session.user.pk]
+        except KeyError:
+            other_sessions_lookup[other_session.user.pk] = {
+                "session_id": other_session.id,
+                "user": other_session.user,
+                "last_seen_at": other_session.last_seen_at,
+                "is_editing": other_session.is_editing,
+            }
+        else:
+            if other_session.is_editing:
+                other_session_info["is_editing"] = True
 
     return JsonResponse(
         {
             "session_id": session.id,
             "other_sessions": [
                 {
-                    "session_id": other_session.id,
-                    "user": get_user_display_name(other_session.user),
-                    "last_seen_at": other_session.last_seen_at.isoformat(),
-                    "is_editing": other_session.is_editing,
+                    "session_id": other_session["session_id"],
+                    "user": get_user_display_name(other_session["user"]),
+                    "last_seen_at": other_session["last_seen_at"].isoformat(),
+                    "is_editing": other_session["is_editing"],
                 }
-                for other_session in other_sessions
+                for other_session in sorted(
+                    other_sessions_lookup.values(),
+                    key=lambda other_session: other_session["last_seen_at"],
+                )
             ],
         }
     )
