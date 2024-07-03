@@ -1295,6 +1295,10 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
+      const jsonEventHandler = new Promise((resolve) => {
+        document.addEventListener('w-swap:json', resolve);
+      });
+
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
@@ -1328,6 +1332,14 @@ describe('SwapController', () => {
 
       await Promise.resolve();
 
+      const jsonEvent = await jsonEventHandler;
+
+      // should dispatch json event
+      expect(jsonEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        data: expect.objectContaining({ nested: { data: { results } } }),
+      });
+
       const successEvent = await onSuccess;
 
       // should dispatch success event
@@ -1352,29 +1364,64 @@ describe('SwapController', () => {
     it('should handle non-JSON response gracefully', async () => {
       document.addEventListener('w-swap:error', onErrorEvent);
 
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
+
       fetch.mockResponseSuccessText('<div><p>Some HTML content</p></div>');
 
       await expectErrorHandled();
+
+      // should not dispatch json event
+      expect(jsonEventHandler).not.toHaveBeenCalled();
     });
 
     it('should handle non-existing key gracefully', async () => {
       document.addEventListener('w-swap:error', onErrorEvent);
+
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
 
       fetch.mockResponseSuccessJSON(
         JSON.stringify({ nested: { data: { differentKey: results } } }),
       );
 
       await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { differentKey: results } },
+            }),
+          },
+        }),
+      );
     });
 
     it('should handle non-string values gracefully', async () => {
       document.addEventListener('w-swap:error', onErrorEvent);
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
 
       fetch.mockResponseSuccessJSON(
         JSON.stringify({ nested: { data: { results: 123 } } }),
       );
 
       await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: 123 } },
+            }),
+          },
+        }),
+      );
 
       jest.clearAllMocks();
       fetch.mockResponseSuccessJSON(
@@ -1383,12 +1430,36 @@ describe('SwapController', () => {
 
       await expectErrorHandled();
 
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: true } },
+            }),
+          },
+        }),
+      );
+
       jest.clearAllMocks();
       fetch.mockResponseSuccessJSON(
         JSON.stringify({ nested: { data: { results: null } } }),
       );
 
       await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: null } },
+            }),
+          },
+        }),
+      );
 
       jest.clearAllMocks();
       fetch.mockResponseSuccessJSON(
@@ -1397,12 +1468,36 @@ describe('SwapController', () => {
 
       await expectErrorHandled();
 
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: { some: 'object' } } },
+            }),
+          },
+        }),
+      );
+
       jest.clearAllMocks();
       fetch.mockResponseSuccessJSON(
         JSON.stringify({ nested: { data: { results: [1, false, 'hello'] } } }),
       );
 
       await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: [1, false, 'hello'] } },
+            }),
+          },
+        }),
+      );
     });
   });
 });
