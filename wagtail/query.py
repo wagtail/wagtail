@@ -617,9 +617,8 @@ class DeferredSpecificIterable(BaseIterable):
         results = compiler.execute_sql(
             chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
         )
-        init_list = [f[0].target.attname for f in compiler.select] + ["page_ptr_id"]
+        init_list = [f[0].target.attname for f in compiler.select]
         content_type_index = init_list.index("content_type_id")
-
         specific_models = {}
 
         for row in compiler.results_iter(results):
@@ -637,4 +636,11 @@ class DeferredSpecificIterable(BaseIterable):
                     specific_model = model
                 specific_models[content_type_id] = specific_model
 
-            yield specific_model.from_db(db, init_list, row + [row[0]])
+            if specific_model._meta.pk.attname not in init_list:
+                model_init_list = init_list.copy()
+                model_init_list.append(specific_model._meta.pk.attname)
+                row.append(row[0])  # index 0 is usually the primary key
+            else:
+                model_init_list = init_list
+
+            yield specific_model.from_db(db, model_init_list, row)
