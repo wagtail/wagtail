@@ -41,7 +41,12 @@ export class SessionController extends Controller<HTMLElement> {
 
   static outlets = ['w-dialog'];
 
+  static targets = ['unsavedChanges'];
+
+  declare readonly hasUnsavedChangesTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
+  /** The checkbox input to indicate unsaved changes */
+  declare readonly unsavedChangesTarget: HTMLInputElement;
   /** The confirmation dialog for overwriting changes made by another user */
   declare readonly wDialogOutlet: DialogController;
   /** The interval duration for the ping event */
@@ -174,6 +179,28 @@ export class SessionController extends Controller<HTMLElement> {
       'w-dialog:confirmed',
       this.confirmAction,
     );
+  }
+
+  /**
+   * Sets the unsaved changes input state based on the event type dispatched by
+   * the w-unsaved controller. If the event type is w-unsaved:add, the input is
+   * checked. If the event type is w-unsaved:clear, the input is unchecked.
+   *
+   * @param event w-unsaved:add or w-unsaved:clear
+   * @example - Use via data-action
+   * ```html
+   * <form
+   *   data-controller="w-session"
+   *   data-action="w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges"
+   * >
+   *   <input type="checkbox" data-w-session-target="unsavedChanges" hidden />
+   * </form>
+   * ```
+   */
+  setUnsavedChanges(event: Event) {
+    if (!this.hasUnsavedChangesTarget) return;
+    const type = event.type.split(':')[1];
+    this.unsavedChangesTarget.checked = type !== 'clear';
   }
 
   disconnect(): void {

@@ -354,4 +354,39 @@ describe('SessionController', () => {
       expect(confirmButton.textContent).toEqual('Approve');
     });
   });
+
+  describe('storing unsaved changes state to a checkbox input', () => {
+    beforeEach(() => {
+      document.body.innerHTML = /* html */ `
+        <form data-controller="w-session" data-action="w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges">
+          <input type="checkbox" name="is_editing" data-w-session-target="unsavedChanges" value="1" />
+        </form>
+      `;
+    });
+
+    it('should set the checkbox state to be checked when there is a w-unsaved:add event', async () => {
+      const checkbox = document.querySelector('input');
+      expect(checkbox.checked).toBe(false);
+      document.dispatchEvent(new CustomEvent('w-unsaved:add'));
+      await Promise.resolve();
+      expect(checkbox.checked).toBe(true);
+
+      // should be included in the form
+      const form = document.querySelector('form');
+      expect(new FormData(form).get('is_editing')).toBe('1');
+    });
+
+    it('should set the checkbox state to be unchecked when there is a w-unsaved:clear event', async () => {
+      const checkbox = document.querySelector('input');
+      checkbox.checked = true;
+      expect(checkbox.checked).toBe(true);
+      document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
+      await Promise.resolve();
+      expect(checkbox.checked).toBe(false);
+
+      // should not be included in the form
+      const form = document.querySelector('form');
+      expect(new FormData(form).get('is_editing')).toBeNull();
+    });
+  });
 });
