@@ -96,10 +96,6 @@ $radius: theme('borderRadius.sm');
   white-space: normal;
   border-radius: 0;
 
-  .icon {
-    opacity: 1;
-  }
-
   &:nth-child(n + 2) {
     border-top: $separator;
   }

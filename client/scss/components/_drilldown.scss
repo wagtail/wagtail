@@ -26,7 +26,6 @@
     pointer-events: none;
     width: theme('spacing.5');
     height: theme('spacing.5');
-    opacity: 1;
     margin-inline-end: 0;
   }
 }
@@ -46,7 +45,6 @@
   .icon {
     pointer-events: none;
     margin-inline-end: 0;
-    opacity: 1;
   }
 
   &:hover {
