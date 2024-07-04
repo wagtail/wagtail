@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 import { debounce } from '../utils/debounce';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
  * Allow for an element to trigger an async query that will
@@ -78,11 +79,8 @@ export class SwapController extends Controller<
   submitLazy?: { (...args: any[]): void; cancel(): void };
 
   connect() {
-    const formContainer = this.hasInputTarget
-      ? this.inputTarget.form
-      : this.element;
     this.srcValue =
-      this.srcValue || formContainer?.getAttribute('action') || '';
+      this.srcValue || this.formElement.getAttribute('action') || '';
     const target = this.target;
 
     // set up icons
@@ -200,24 +198,29 @@ export class SwapController extends Controller<
     });
   }
 
+  get formElement() {
+    return (
+      this.hasInputTarget ? this.inputTarget.form || this.element : this.element
+    ) as HTMLFormElement;
+  }
+
   /**
    * Update the target element's content with the response from a request based on the input's form
    * values serialised. Do not account for anything in the main location/URL, simply replace the content within
    * the target element.
    */
   submit() {
-    const form = (
-      this.hasInputTarget ? this.inputTarget.form : this.element
-    ) as HTMLFormElement;
+    const form = this.formElement;
+    const data = new FormData(form);
 
-    // serialise the form to a query string
-    // https://github.com/microsoft/TypeScript/issues/43797
-    const searchParams = new URLSearchParams(new FormData(form) as any);
-
+    // serialise the form to a query string if it's a GET request
+    // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
+    const searchParams = new URLSearchParams(data as any);
     const queryString = '?' + searchParams.toString();
-    const url = this.srcValue;
+    const url =
+      form.method === 'get' ? this.srcValue + queryString : this.srcValue;
 
-    this.replace(url + queryString);
+    this.replace(url, data);
   }
 
   reflectParams(url: string) {
@@ -241,16 +244,18 @@ export class SwapController extends Controller<
    * a faster response does not replace an in flight request.
    */
   async replace(
-    data?:
+    urlSource?:
       | string
       | (CustomEvent<{ url: string }> & { params?: { url?: string } }),
+    data?: FormData,
   ) {
     const target = this.target;
     /** Parse a request URL from the supplied param, as a string or inside a custom event */
     const requestUrl =
-      (typeof data === 'string'
-        ? data
-        : data?.detail?.url || data?.params?.url || '') || this.srcValue;
+      (typeof urlSource === 'string'
+        ? urlSource
+        : urlSource?.detail?.url || urlSource?.params?.url || '') ||
+      this.srcValue;
 
     if (this.abortController) this.abortController.abort();
     this.abortController = new AbortController();
@@ -265,10 +270,15 @@ export class SwapController extends Controller<
     }) as CustomEvent<{ requestUrl: string }>;
 
     if (beginEvent.defaultPrevented) return Promise.resolve();
-
+    const formMethod = this.formElement.getAttribute('method') || undefined;
     return fetch(requestUrl, {
-      headers: { 'x-requested-with': 'XMLHttpRequest' },
+      headers: {
+        'x-requested-with': 'XMLHttpRequest',
+        [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN,
+      },
       signal,
+      method: formMethod,
+      body: formMethod !== 'get' ? data : undefined,
     })
       .then(async (response) => {
         if (!response.ok) {
