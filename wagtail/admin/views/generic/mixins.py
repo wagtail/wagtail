@@ -696,6 +696,7 @@ class CreateEditViewOptionalFeaturesMixin:
             object_id=self.object.pk,
             last_seen_at=timezone.now(),
         )
+        revision_id = self.object.latest_revision_id if self.revision_enabled else None
         return EditingSessionsModule(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
@@ -711,6 +712,7 @@ class CreateEditViewOptionalFeaturesMixin:
                 args=(session.id,),
             ),
             [],
+            revision_id,
         )
 
     def get_context_data(self, **kwargs):

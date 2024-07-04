@@ -900,6 +900,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 args=(session.id,),
             ),
             [],
+            self.page.latest_revision_id,
         )
 
     def get_context_data(self, **kwargs):

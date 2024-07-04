@@ -34,6 +34,10 @@
     data-action="w-session:ping->w-swap#submit visibilitychange@document->w-session#dispatchVisibilityState w-session:visible->w-session#ping w-session:visible->w-session#addInterval w-session:hidden->w-session#clearInterval w-session:hidden->w-action#sendBeacon w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges"
 >
     <input type="checkbox" name="is_editing" value="1" data-w-session-target="unsavedChanges" hidden />
+    {% if revision_id %}
+        {# The ID of the latest revision that was known when this module was initially loaded #}
+        <input type="hidden" name="revision_id" value="{{ revision_id }}" />
+    {% endif %}
     <div id="w-editing-sessions">
         {% component sessions_list %}
     </div>
