@@ -203,6 +203,7 @@ describe('SessionController', () => {
 
         <div
           data-controller="w-session"
+          data-w-session-intercept-value="true"
           data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
         >
         </div>
@@ -229,6 +230,36 @@ describe('SessionController', () => {
       document.removeEventListener('w-dialog:shown', handleDialogShow);
       document.removeEventListener('w-dialog:hidden', handleDialogHidden);
       document.removeEventListener('w-dialog:confirmed', handleDialogConfirmed);
+    });
+
+    it('should not prevent the submit event if the intercept value is unset', async () => {
+      const submitButton = form.querySelector('button[type="submit"]');
+      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const element = document.querySelector('[data-controller="w-session"]');
+      element.removeAttribute('data-w-session-intercept-value');
+      await Promise.resolve();
+
+      submitButton.click();
+
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+      expect(handleWorkflowAction).not.toHaveBeenCalled();
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+      expect(handleDialogShow).not.toHaveBeenCalled();
+    });
+
+    it('should not prevent the submit event if the intercept value is set to false', async () => {
+      const submitButton = form.querySelector('button[type="submit"]');
+      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      const element = document.querySelector('[data-controller="w-session"]');
+      element.setAttribute('data-w-session-intercept-value', 'false');
+      await Promise.resolve();
+
+      submitButton.click();
+
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+      expect(handleWorkflowAction).not.toHaveBeenCalled();
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+      expect(handleDialogShow).not.toHaveBeenCalled();
     });
 
     it('should show the dialog and prevent the submit event', async () => {
@@ -420,12 +451,13 @@ describe('SessionController', () => {
         await Promise.resolve();
       };
 
-      it('should update the SwapController and ActionController URL values', async () => {
+      it('should update the respective controller values', async () => {
         fetch.mockResponseSuccessJSON(
           JSON.stringify({
             html: '',
             ping_url: 'http://localhost/sessions/2/',
             release_url: 'http://localhost/sessions/2/release/',
+            other_sessions: [],
           }),
         );
         await setup();
@@ -459,6 +491,7 @@ describe('SessionController', () => {
             html: '<ul><li>Session 7</li></ul>',
             ping_url: 'http://localhost/sessions/999/',
             release_url: 'http://localhost/sessions/release/999/',
+            other_sessions: [{ session_id: 7, revision_id: 456 }],
           }),
         );
         jest.advanceTimersByTime(10000);
@@ -480,6 +513,7 @@ describe('SessionController', () => {
         expect(element.dataset.wActionUrlValue).toEqual(
           'http://localhost/sessions/release/999/',
         );
+        expect(element.dataset.wSessionInterceptValue).toEqual('true');
 
         await Promise.resolve();
         await Promise.resolve();

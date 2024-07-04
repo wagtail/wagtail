@@ -52,7 +52,7 @@ interface PingResponse {
 export class SessionController extends Controller<HTMLElement> {
   static values = {
     interval: { type: Number, default: 1000 * 10 }, // 10 seconds
-    intercept: { type: Boolean, default: true },
+    intercept: { type: Boolean, default: false },
   };
 
   static outlets = ['w-dialog'];
@@ -254,6 +254,13 @@ export class SessionController extends Controller<HTMLElement> {
     if (actionController && data.release_url) {
       actionController.urlValue = data.release_url;
     }
+
+    // Set the interceptValue to true if any of the other sessions have a
+    // revision ID (assumed to be newer than the one we have loaded)
+    if (!data.other_sessions) return;
+    this.interceptValue = data.other_sessions.some(
+      (session) => session.revision_id,
+    );
   }
 
   disconnect(): void {
