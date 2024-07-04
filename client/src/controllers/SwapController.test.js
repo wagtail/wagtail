@@ -696,6 +696,66 @@ describe('SwapController', () => {
       expect(window.location.search).toEqual('');
     });
 
+    it('should support using the form method as the fetch request method', async () => {
+      const expectedRequestUrl = '/path/to-src-value/?with=param';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('method', 'post');
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'post',
+        }),
+      );
+      // We are using #replace, not #submit, so we should not have a body
+      expect(global.fetch.mock.lastCall[1].body).toBeUndefined();
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
     it('should reflect the query params of the request URL if reflect-value is true', async () => {
       const expectedRequestUrl = '/path/to-src-value/?foo=bar&abc=&xyz=123';
 
@@ -1008,6 +1068,89 @@ describe('SwapController', () => {
       expect(successEvent.detail).toEqual({
         requestUrl:
           '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support using the form method as the fetch request method', async () => {
+      const input = document.getElementById('search');
+      const formElement = document.querySelector('form');
+      const expectedRequestUrl = '/custom/to-src-value/?with=param';
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('method', 'post');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        // The form data should be serialized and sent as the body,
+        // not as query params
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'post',
+          body: expect.any(FormData),
+        }),
+      );
+      expect(
+        Object.fromEntries(global.fetch.mock.lastCall[1].body.entries()),
+      ).toEqual({
+        // eslint-disable-next-line id-length
+        q: 'alpha',
+        type: 'some-type',
+        other: 'something on other',
+      });
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
         results: expect.any(String),
       });
 
