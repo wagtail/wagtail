@@ -1030,6 +1030,268 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             # <StreamPage: stream page>
             pages[-1].body
 
+    def test_deferred_specific_query_on_non_page(self):
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SimplePage.objects.all().specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 2)
+
+        for page in pages:
+            self.assertIsInstance(page, SimplePage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            # Calling `.specific` on its own queryset will mean defer does nothing
+            with self.assertNumQueries(0):
+                page.content
+
+            with self.assertNumQueries(1):
+                # Check we got the right model back
+                self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
+
+    def test_deferred_specific_query_on_inherited_page(self):
+        page = SingleEventPage(
+            title="Mars landing",
+            slug="mars-landing",
+            location="mars",
+            audience="public",
+            cost="free",
+            date_from="2001-01-01",
+        )
+        Page.objects.get(url_path="/home/").add_child(instance=page)
+        page.refresh_from_db()
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SingleEventPage.objects.all().specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(pages, [page])
+
+        for page in pages:
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            # Calling `.specific` on its own queryset will mean defer does nothing
+            with self.assertNumQueries(0):
+                page.excerpt
+
+            with self.assertNumQueries(1):
+                self.assertEqual(
+                    page.path, SingleEventPage.objects.get(id=page.id).path
+                )
+
+    def test_deferred_specific_query_with_limited_fields(self):
+        # Tests the "defer" keyword argument, which defers all specific fields
+        root = Page.objects.get(url_path="/home/")
+        stream_page = StreamPage(
+            title="stream page",
+            slug="stream-page",
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        root.add_child(instance=stream_page)
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = root.get_descendants().only("path").specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 8)
+
+        for page in pages:
+            content_type = page.content_type
+            model = content_type.model_class()
+            self.assertIsInstance(page, model)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                self.assertEqual(page.path, model.objects.get(id=page.id).path)
+
+    def test_deferred_specific_query_on_non_page_with_limited_fields(self):
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SimplePage.objects.only("path").specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 2)
+
+        for page in pages:
+            self.assertIsInstance(page, SimplePage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                page.content
+
+            with self.assertNumQueries(1):
+                self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
+
+    def test_deferred_specific_query_on_inherited_page_with_limited_fields(self):
+        page = SingleEventPage(
+            title="Mars landing",
+            slug="mars-landing",
+            location="mars",
+            audience="public",
+            cost="free",
+            date_from="2001-01-01",
+        )
+        Page.objects.get(url_path="/home/").add_child(instance=page)
+        page.refresh_from_db()
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SingleEventPage.objects.only("path").specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(pages, [page])
+
+        for page in pages:
+            content_type = page.content_type
+            model = content_type.model_class()
+            self.assertIsInstance(page, model)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                page.excerpt
+
+            with self.assertNumQueries(1):
+                self.assertEqual(
+                    page.path, SingleEventPage.objects.get(id=page.id).path
+                )
+
+    def test_deferred_specific_query_with_limited_but_required_fields(self):
+        # Tests the "defer" keyword argument, which defers all specific fields
+        root = Page.objects.get(url_path="/home/")
+        stream_page = StreamPage(
+            title="stream page",
+            slug="stream-page",
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        root.add_child(instance=stream_page)
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = (
+                root.get_descendants()
+                .only("title", "pk", "content_type", "path")
+                .specific(defer=True)
+            )
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 8)
+
+        for page in pages:
+            content_type = page.content_type
+            model = content_type.model_class()
+            self.assertIsInstance(page, model)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                self.assertEqual(page.path, model.objects.get(id=page.id).path)
+
+    def test_deferred_specific_query_on_non_page_with_limited_but_required_fields(self):
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SimplePage.objects.only(
+                "title", "pk", "content_type", "path"
+            ).specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 2)
+
+        for page in pages:
+            self.assertIsInstance(page, SimplePage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                page.content
+
+            with self.assertNumQueries(1):
+                self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
+
+    def test_deferred_specific_query_on_inherited_page_with_limited_but_required_fields(
+        self
+    ):
+        page = SingleEventPage(
+            title="Mars landing",
+            slug="mars-landing",
+            location="mars",
+            audience="public",
+            cost="free",
+            date_from="2001-01-01",
+        )
+        Page.objects.get(url_path="/home/").add_child(instance=page)
+        page.refresh_from_db()
+
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = SingleEventPage.objects.only(
+                "title", "id", "content_type", "path"
+            ).specific(defer=True)
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(pages, [page])
+
+        for page in pages:
+            self.assertIsInstance(page, SingleEventPage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            with self.assertNumQueries(1):
+                page.slug
+
+            with self.assertNumQueries(1):
+                page.excerpt
+
+            with self.assertNumQueries(1):
+                self.assertEqual(
+                    page.path, SingleEventPage.objects.get(id=page.id).path
+                )
+
     def test_specific_query_with_iterator(self):
         queryset = self.live_pages_with_annotations
 
@@ -1283,6 +1545,17 @@ class TestFirstCommonAncestor(TestCase):
     def test_defer_streamfields_with_specific(self):
         self._create_streampage()
         for page in Page.objects.exact_type(StreamPage).defer_streamfields().specific():
+            self.assertNotIn("body", page.__dict__)
+            with self.assertNumQueries(1):
+                page.body
+
+    def test_defer_streamfields_with_specific_deferred(self):
+        self._create_streampage()
+        for page in (
+            Page.objects.exact_type(StreamPage)
+            .defer_streamfields()
+            .specific(defer=True)
+        ):
             self.assertNotIn("body", page.__dict__)
             with self.assertNumQueries(1):
                 page.body

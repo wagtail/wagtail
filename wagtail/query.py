@@ -612,16 +612,28 @@ class DeferredSpecificIterable(BaseIterable):
         queryset = self.queryset
         db = queryset.db
         model = queryset.model
+
+        if deferred_loading_fields := queryset.query.deferred_loading[0]:
+            # We need the content type and id to find the right model, so they
+            # MUST be included in the set of fields
+            deferred_loading_fields.add(model._meta.pk.name)
+            deferred_loading_fields.add("content_type")
+
         compiler = queryset.query.get_compiler(using=db)
+
         # Execute the query. This will also fill compiler.select
         results = compiler.execute_sql(
             chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
         )
+
         init_list = [f[0].target.attname for f in compiler.select]
+
         content_type_index = init_list.index("content_type_id")
+        pk_index = init_list.index(model._meta.pk.attname)
         specific_models = {}
 
         for row in compiler.results_iter(results):
+            pk = row[pk_index]
             content_type_id = row[content_type_index]
             if (specific_model := specific_models.get(content_type_id)) is None:
                 content_type = ContentType.objects.get_for_id(content_type_id)
@@ -630,16 +642,17 @@ class DeferredSpecificIterable(BaseIterable):
                     warnings.warn(
                         "A specific version of the following content type could not be returned "
                         "because the specific model is not present on the active "
-                        f"branch: <{model.__name__} type='{content_type}'>",
+                        f"branch: <{model.__name__} id='{pk}' type='{content_type}'>",
                         category=RuntimeWarning,
                     )
                     specific_model = model
                 specific_models[content_type_id] = specific_model
 
+            # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
             if specific_model._meta.pk.attname not in init_list:
                 model_init_list = init_list.copy()
                 model_init_list.append(specific_model._meta.pk.attname)
-                row = (*row, row[0])  # index 0 is usually the primary key
+                row = (*row, pk)
             else:
                 model_init_list = init_list
 
