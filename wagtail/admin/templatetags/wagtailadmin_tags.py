@@ -29,6 +29,7 @@ from laces.templatetags.laces import component
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.icons import get_icon_sprite_url
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
@@ -1377,3 +1378,6 @@ def human_readable_date(date, description=None, placement="top"):
 # Shadow the laces `component` tag which was extracted from Wagtail. The shadowing
 # is useful to avoid having to update all the templates that use the `component` tag.
 register.tag("component", component)
+
+
+register.simple_tag(get_icon_sprite_url, name="icon_sprite_url")

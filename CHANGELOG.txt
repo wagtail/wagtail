@@ -57,6 +57,7 @@ Changelog
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
  * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
  * Maintenance: Optimise embed finder lookups (Jake Howard)
+ * Maintenance: Improve performance of initial admin loading by moving sprite hashing out of module import time (Jake Howard)
 
 
 6.1.2 (30.05.2024)
