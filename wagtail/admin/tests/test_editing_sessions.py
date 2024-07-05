@@ -156,7 +156,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
             ),
-            {"editing": "1"},
+            {"is_editing": "1"},
         )
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
@@ -318,7 +318,7 @@ class TestPingView(WagtailTestUtils, TestCase):
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, 999999),
             ),
-            {"editing": "1"},
+            {"is_editing": "1"},
         )
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
