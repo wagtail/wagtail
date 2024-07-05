@@ -608,15 +608,20 @@ class SpecificIterable(BaseIterable):
 
 
 class DeferredSpecificIterable(BaseIterable):
+    """
+    A highly-modified version of `ModelIterable`, which returns instances
+    of the specific model, but with only the parent model's fields.
+    """
+
     def __iter__(self):
         queryset = self.queryset
         db = queryset.db
         model = queryset.model
 
+        # We need the content type and id to find the right model, so they
+        # MUST be included in the set of fields
         if queryset.query.deferred_loading[0]:
             queryset = queryset._chain()
-            # We need the content type and id to find the right model, so they
-            # MUST be included in the set of fields
             queryset.query.deferred_loading[0].add(model._meta.pk.name)
             queryset.query.deferred_loading[0].add("content_type")
 
@@ -643,6 +648,7 @@ class DeferredSpecificIterable(BaseIterable):
             pk = row[pk_index]
             content_type_id = row[content_type_index]
 
+            # Find the specific model, so we know what to instantiate
             if (specific_model := specific_models.get(content_type_id)) is None:
                 content_type = ContentType.objects.get_for_id(content_type_id)
                 specific_model = content_type.model_class()
@@ -650,7 +656,7 @@ class DeferredSpecificIterable(BaseIterable):
                     warnings.warn(
                         "A specific version of the following content type could not be returned "
                         "because the specific model is not present on the active "
-                        f"branch: <{model.__name__} id='{pk}' type='{content_type}'>",
+                        f"branch: <{model.__name__} pk='{pk}' type='{content_type}'>",
                         category=RuntimeWarning,
                     )
                     specific_model = model
@@ -662,13 +668,13 @@ class DeferredSpecificIterable(BaseIterable):
                 # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
                 obj = specific_model.from_db(
                     db,
-                    init_list + [specific_model._meta.pk.attname],
+                    [*init_list, specific_model._meta.pk.attname],
                     (*model_fields, pk),
                 )
             else:
                 obj = specific_model.from_db(db, init_list, model_fields)
 
-            # Add any annotated fields back on
+            # Add any annotated fields
             if annotation_col_map:
                 for attr_name, col_pos in annotation_col_map.items():
                     setattr(obj, attr_name, row[col_pos])
