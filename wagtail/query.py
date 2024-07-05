@@ -662,17 +662,13 @@ class DeferredSpecificIterable(BaseIterable):
                     specific_model = model
                 specific_models[content_type_id] = specific_model
 
-            model_fields = row[model_fields_start:model_fields_end]
+            obj = specific_model.from_db(
+                db, init_list, row[model_fields_start:model_fields_end]
+            )
 
+            # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
             if specific_model._meta.pk.attname not in init_list:
-                # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
-                obj = specific_model.from_db(
-                    db,
-                    [*init_list, specific_model._meta.pk.attname],
-                    (*model_fields, pk),
-                )
-            else:
-                obj = specific_model.from_db(db, init_list, model_fields)
+                setattr(obj, specific_model._meta.pk.attname, pk)
 
             # Add any annotated fields
             if annotation_col_map:
