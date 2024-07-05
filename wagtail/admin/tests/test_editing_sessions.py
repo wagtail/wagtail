@@ -10,7 +10,7 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
 from wagtail.models import GroupPagePermission, Page
-from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage
+from wagtail.test.testapp.models import Advert, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 if settings.USE_TZ:
@@ -576,7 +576,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_snippet_model(self):
-        snippet = FullFeaturedSnippet.objects.create(text="Test snippet")
+        snippet = Advert.objects.create(text="Test snippet")
 
         # make user a member of Editors
         self.user.is_superuser = False
@@ -585,12 +585,12 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.user.groups.add(editors)
 
         editors.permissions.add(
-            Permission.objects.get(codename="change_fullfeaturedsnippet"),
+            Permission.objects.get(codename="change_advert"),
         )
 
         session = EditingSession.objects.create(
             user=self.user,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(Advert),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_1,
         )
@@ -598,14 +598,14 @@ class TestPingView(WagtailTestUtils, TestCase):
         # one record in the response
         EditingSession.objects.create(
             user=self.other_user,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(Advert),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_2,
             is_editing=True,
         )
         other_session_2 = EditingSession.objects.create(
             user=self.other_user,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(Advert),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_3,
             is_editing=False,
@@ -614,14 +614,14 @@ class TestPingView(WagtailTestUtils, TestCase):
         # session with last_seen_at too far in the past to be included in the response
         EditingSession.objects.create(
             user=self.other_user,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(Advert),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_PAST,
         )
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("tests", "fullfeaturedsnippet", str(snippet.pk), session.id),
+                args=("tests", "advert", str(snippet.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 200)
@@ -644,7 +644,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertFalse(session.is_editing)
 
     def test_ping_snippet_model_without_permission(self):
-        snippet = FullFeaturedSnippet.objects.create(text="Test snippet")
+        snippet = Advert.objects.create(text="Test snippet")
 
         # make user a member of Editors
         self.user.is_superuser = False
@@ -654,14 +654,14 @@ class TestPingView(WagtailTestUtils, TestCase):
 
         session = EditingSession.objects.create(
             user=self.user,
-            content_type=ContentType.objects.get_for_model(FullFeaturedSnippet),
+            content_type=ContentType.objects.get_for_model(Advert),
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_1,
         )
         response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
-                args=("tests", "fullfeaturedsnippet", str(snippet.pk), session.id),
+                args=("tests", "advert", str(snippet.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
