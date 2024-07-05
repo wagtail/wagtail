@@ -89,7 +89,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
     def test_ping_invalid_model(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("testapp", "invalidmodel", str(self.page.id), self.session.id),
@@ -105,7 +105,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             object_id=editors.pk,
             last_seen_at=TIMESTAMP_1,
         )
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("auth", "group", str(editors.pk), session.id),
@@ -114,7 +114,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_ping_non_existent_object(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", 999999, self.session.id),
@@ -124,7 +124,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_existing_session(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
@@ -151,7 +151,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_existing_session_with_editing_flag(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
@@ -179,7 +179,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_with_revision(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
@@ -210,7 +210,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         with freeze_time(TIMESTAMP_3):
             new_revision = self.page.save_revision(user=self.other_user)
 
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
@@ -240,7 +240,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
         self.other_session.delete()
 
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, self.session.id),
@@ -271,7 +271,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_new_session(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, 999999),
@@ -313,7 +313,7 @@ class TestPingView(WagtailTestUtils, TestCase):
 
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_new_session_with_editing_flag(self):
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, 999999),
@@ -370,7 +370,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             permission=Permission.objects.get(codename="change_page"),
         )
 
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.id, 999999),
@@ -378,7 +378,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.other_page.id, 999999),
@@ -430,7 +430,7 @@ class TestPingView(WagtailTestUtils, TestCase):
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_PAST,
         )
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("tests", "fullfeaturedsnippet", str(snippet.pk), session.id),
@@ -470,13 +470,26 @@ class TestPingView(WagtailTestUtils, TestCase):
             object_id=snippet.pk,
             last_seen_at=TIMESTAMP_1,
         )
-        response = self.client.get(
+        response = self.client.post(
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("tests", "fullfeaturedsnippet", str(snippet.pk), session.id),
             )
         )
         self.assertEqual(response.status_code, 404)
+
+    def test_must_post(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, 999999),
+            )
+        )
+        self.assertEqual(response.status_code, 405)
+        self.assertCountEqual(
+            EditingSession.objects.all(),
+            [self.session, self.other_session, self.old_session],
+        )
 
 
 class TestCleanup(WagtailTestUtils, TestCase):

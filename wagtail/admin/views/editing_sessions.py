@@ -12,6 +12,7 @@ from wagtail.models import Page, Revision, RevisionMixin
 from wagtail.permissions import page_permission_policy
 
 
+@require_POST
 def ping(request, app_label, model_name, object_id, session_id):
     try:
         model = apps.get_model(app_label, model_name)
@@ -52,7 +53,7 @@ def ping(request, app_label, model_name, object_id, session_id):
         )
 
     session.last_seen_at = timezone.now()
-    session.is_editing = request.GET.get("is_editing", False)
+    session.is_editing = request.POST.get("is_editing", False)
     session.save()
 
     other_sessions = (
@@ -85,7 +86,7 @@ def ping(request, app_label, model_name, object_id, session_id):
             if other_session.is_editing:
                 other_session_info["is_editing"] = True
 
-    revision_id = request.GET.get("revision_id", None)
+    revision_id = request.POST.get("revision_id", None)
     if revision_id is not None and issubclass(model, RevisionMixin):
         all_revisions = obj.revisions.defer("content")
         try:
