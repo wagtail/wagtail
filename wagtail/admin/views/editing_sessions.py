@@ -123,6 +123,28 @@ def ping(request, app_label, model_name, object_id, session_id):
                 if newest_revision.created_at > session_info["last_seen_at"]:
                     session_info["last_seen_at"] = newest_revision.created_at
 
+    # Sort the other sessions so that they are presented in the following order:
+    # 1. Prioritise any session with the latest revision. Then,
+    # 2. Prioritise any session that is currently editing. Then,
+    # 3. Prioritise any session with the smallest id, so that new sessions are
+    #    appended to the end of the list (they're shown last). We are not sorting
+    #    by last_seen_at to avoid shifting the order of the sessions as they
+    #    ping the server.
+    other_sessions = sorted(
+        other_sessions_lookup.values(),
+        key=lambda other_session: other_session["session_id"] or 0,
+    )
+    other_sessions = sorted(
+        other_sessions,
+        key=lambda other_session: other_session["is_editing"],
+        reverse=True,
+    )
+    other_sessions = sorted(
+        other_sessions,
+        key=lambda other_session: other_session["revision_id"] or 0,
+        reverse=True,
+    )
+
     return JsonResponse(
         {
             "session_id": session.id,
@@ -134,10 +156,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                     "is_editing": other_session["is_editing"],
                     "revision_id": other_session["revision_id"],
                 }
-                for other_session in sorted(
-                    other_sessions_lookup.values(),
-                    key=lambda other_session: other_session["last_seen_at"],
-                )
+                for other_session in other_sessions
             ],
         }
     )
