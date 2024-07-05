@@ -334,6 +334,47 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertFalse(self.session.is_editing)
 
     @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_new_revision_that_has_no_user(self):
+        # Create a new revision without any user
+        with freeze_time(TIMESTAMP_3):
+            latest_revision = self.page.save_revision()
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    # Should work even if the revision has no associated user
+                    "session_id": None,
+                    "user": "",
+                    "last_seen_at": TIMESTAMP_3.isoformat(),
+                    "is_editing": False,
+                    "revision_id": latest_revision.id,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
     def test_ping_session_ordering(self):
         fourth_user = self.create_user(
             "alyx", password="password", first_name="Alyx", last_name="Fourthuser"
