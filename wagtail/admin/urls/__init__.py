@@ -1,5 +1,4 @@
 import functools
-import hashlib
 
 from django.conf import settings
 from django.http import Http404
@@ -132,23 +131,10 @@ for fn in hooks.get_hooks("register_admin_urls"):
 # Add "wagtailadmin.access_admin" permission check
 urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
-sprite_hash = None
-
-
-def get_sprite_hash():
-    global sprite_hash
-    if not sprite_hash:
-        content = str(home.sprite(None).content, "utf-8")
-        # SECRET_KEY is used to prevent exposing the Wagtail version
-        sprite_hash = hashlib.sha1(
-            (content + settings.SECRET_KEY).encode("utf-8")
-        ).hexdigest()[:8]
-    return sprite_hash
-
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
-    path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
+    path("sprite/", home.sprite, name="wagtailadmin_sprite"),
     path("login/", account.LoginView.as_view(), name="wagtailadmin_login"),
     # Password reset
     path("password_reset/", include(wagtailadmin_password_reset_urls)),
