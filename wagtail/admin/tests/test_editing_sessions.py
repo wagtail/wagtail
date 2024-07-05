@@ -171,6 +171,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["other_sessions"],
             [
+                # Should not cause any changes to the other sessions list,
+                # as the current session is the one that is editing
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
@@ -476,13 +478,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["other_sessions"],
             [
-                {
-                    "session_id": self.session.id,
-                    "user": "Bob Testuser",
-                    "last_seen_at": TIMESTAMP_1.isoformat(),
-                    "is_editing": False,
-                    "revision_id": None,
-                },
+                # The user's original session is not shown as it is not
+                # currently editing nor has it created the latest revision
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
@@ -519,13 +516,8 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(
             response_json["other_sessions"],
             [
-                {
-                    "session_id": self.session.id,
-                    "user": "Bob Testuser",
-                    "last_seen_at": TIMESTAMP_1.isoformat(),
-                    "is_editing": False,
-                    "revision_id": None,
-                },
+                # The user's original session is not shown as it is not
+                # currently editing nor has it created the latest revision
                 {
                     "session_id": self.other_session.id,
                     "user": "Vic Otheruser",
@@ -541,6 +533,236 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertEqual(session.content_object.id, self.page.id)
 
         self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+
+        # The original session should not be changed
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_1)
+        self.assertFalse(self.session.is_editing)
+
+        # Ping with the original session
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # The new session should be shown as it is currently editing
+                {
+                    "session_id": session.id,
+                    "user": "Bob Testuser",
+                    "last_seen_at": TIMESTAMP_NOW.isoformat(),
+                    "is_editing": True,
+                    "revision_id": None,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_new_session_with_revision(self):
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, 999999),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        new_session_id = response_json["session_id"]
+        session = EditingSession.objects.get(id=new_session_id)
+        self.assertEqual(session.user, self.user)
+        self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(session.is_editing)
+
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # The user's original session is not shown as it is not
+                # currently editing nor has it created the latest revision
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        # content_object is a non-specific Page object
+        self.assertEqual(type(session.content_object), Page)
+        self.assertEqual(session.content_object.id, self.page.id)
+
+        self.assertEqual(session.last_seen_at, TIMESTAMP_NOW)
+
+        # The original session should not be changed
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_1)
+        self.assertFalse(self.session.is_editing)
+
+        # Ping with the original session
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # The new session is not shown as it is not
+                # currently editing nor has it created the latest revision
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+        # Save a new revision as the current user
+        with freeze_time(TIMESTAMP_4):
+            new_revision = self.page.save_revision(user=self.user)
+
+        # Ping with the previously "new" session
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, new_session_id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], new_session_id)
+
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # The new revision should be indicated in the response.
+                # In this case, it's attached to the original session. This may
+                # not be exactly true, i.e. the new revision might not be created
+                # by the original session. However, we don't keep track of which
+                # session created which revision, and we don't really need to.
+                # All we need to know is that there is a new revision since the
+                # one the session has in hand. As the new revision happens to
+                # be created by self.user, and the only other session we have
+                # of that user is the original session (self.session), we attach
+                # the new revision to that session.
+                {
+                    "session_id": self.session.id,
+                    "user": "Bob Testuser",
+                    "last_seen_at": TIMESTAMP_NOW.isoformat(),
+                    "is_editing": False,
+                    "revision_id": new_revision.id,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        # Ping with the original self.session
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # In the eye of the original session, the new revision is
+                # attached to the new session (for the same reason as the
+                # previous explanation).
+                {
+                    "session_id": new_session_id,
+                    "user": "Bob Testuser",
+                    "last_seen_at": TIMESTAMP_NOW.isoformat(),
+                    "is_editing": False,
+                    "revision_id": new_revision.id,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
+
+        # Delete the new session
+        session.delete()
+
+        # Ping with the original self.session
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                # The 'other' session of the same user is still shown
+                # as it has the latest revision, even though there are no
+                # other sessions to attach the revision to. The last_seen_at
+                # is set to the time of the revision's creation.
+                {
+                    "session_id": None,
+                    "user": "Bob Testuser",
+                    "last_seen_at": TIMESTAMP_4.isoformat(),
+                    "is_editing": False,
+                    "revision_id": new_revision.id,
+                },
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+            ],
+        )
 
     @freeze_time(TIMESTAMP_NOW)
     def test_user_must_have_edit_permission_on_page(self):

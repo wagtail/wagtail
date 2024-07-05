@@ -123,6 +123,19 @@ def ping(request, app_label, model_name, object_id, session_id):
                 if newest_revision.created_at > session_info["last_seen_at"]:
                     session_info["last_seen_at"] = newest_revision.created_at
 
+    try:
+        users_other_session = other_sessions_lookup[request.user.pk]
+    except KeyError:
+        pass
+    else:
+        # If the user has a different session that is not editing and hasn't
+        # created the latest revision, hide it as it's not relevant.
+        if (
+            not users_other_session["is_editing"]
+            and not users_other_session["revision_id"]
+        ):
+            other_sessions_lookup.pop(request.user.pk)
+
     # Sort the other sessions so that they are presented in the following order:
     # 1. Prioritise any session with the latest revision. Then,
     # 2. Prioritise any session that is currently editing. Then,
