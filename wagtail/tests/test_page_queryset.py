@@ -4,7 +4,7 @@ from unittest import mock
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Value
 from django.test import TestCase, TransactionTestCase
 
 from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
@@ -1291,6 +1291,36 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
                 self.assertEqual(
                     page.path, SingleEventPage.objects.get(id=page.id).path
                 )
+
+    def test_deferred_specific_query_with_annotated_fields(self):
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = (
+                SimplePage.objects.all()
+                .annotate(test_field=Value(10))
+                .specific(defer=True)
+            )
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 2)
+
+        for page in pages:
+            self.assertIsInstance(page, SimplePage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            # Calling `.specific` on its own queryset will mean defer does nothing
+            with self.assertNumQueries(0):
+                page.content
+
+            with self.assertNumQueries(1):
+                # Check we got the right model back
+                self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
+
+            self.assertEqual(page.test_field, 10)
 
     def test_specific_query_with_iterator(self):
         queryset = self.live_pages_with_annotations

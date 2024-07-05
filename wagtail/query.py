@@ -613,11 +613,12 @@ class DeferredSpecificIterable(BaseIterable):
         db = queryset.db
         model = queryset.model
 
-        if deferred_loading_fields := queryset.query.deferred_loading[0]:
+        if queryset.query.deferred_loading[0]:
+            queryset = queryset._chain()
             # We need the content type and id to find the right model, so they
             # MUST be included in the set of fields
-            deferred_loading_fields.add(model._meta.pk.name)
-            deferred_loading_fields.add("content_type")
+            queryset.query.deferred_loading[0].add(model._meta.pk.name)
+            queryset.query.deferred_loading[0].add("content_type")
 
         compiler = queryset.query.get_compiler(using=db)
 
@@ -626,7 +627,13 @@ class DeferredSpecificIterable(BaseIterable):
             chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
         )
 
-        init_list = [f[0].target.attname for f in compiler.select]
+        select_fields = compiler.klass_info["select_fields"]
+        model_fields_start, model_fields_end = select_fields[0], select_fields[-1] + 1
+        init_list = [
+            f[0].target.attname
+            for f in compiler.select[model_fields_start:model_fields_end]
+        ]
+        annotation_col_map = compiler.annotation_col_map
 
         content_type_index = init_list.index("content_type_id")
         pk_index = init_list.index(model._meta.pk.attname)
@@ -635,6 +642,7 @@ class DeferredSpecificIterable(BaseIterable):
         for row in compiler.results_iter(results):
             pk = row[pk_index]
             content_type_id = row[content_type_index]
+
             if (specific_model := specific_models.get(content_type_id)) is None:
                 content_type = ContentType.objects.get_for_id(content_type_id)
                 specific_model = content_type.model_class()
@@ -648,12 +656,21 @@ class DeferredSpecificIterable(BaseIterable):
                     specific_model = model
                 specific_models[content_type_id] = specific_model
 
-            # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
-            if specific_model._meta.pk.attname not in init_list:
-                model_init_list = init_list.copy()
-                model_init_list.append(specific_model._meta.pk.attname)
-                row = (*row, pk)
-            else:
-                model_init_list = init_list
+            model_fields = row[model_fields_start:model_fields_end]
 
-            yield specific_model.from_db(db, model_init_list, row)
+            if specific_model._meta.pk.attname not in init_list:
+                # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
+                obj = specific_model.from_db(
+                    db,
+                    init_list + [specific_model._meta.pk.attname],
+                    (*model_fields, pk),
+                )
+            else:
+                obj = specific_model.from_db(db, init_list, model_fields)
+
+            # Add any annotated fields back on
+            if annotation_col_map:
+                for attr_name, col_pos in annotation_col_map.items():
+                    setattr(obj, attr_name, row[col_pos])
+
+            yield obj
