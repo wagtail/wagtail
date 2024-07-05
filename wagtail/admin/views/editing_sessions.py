@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.contrib.admin.utils import unquote
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -54,7 +55,12 @@ def ping(request, app_label, model_name, object_id, session_id):
 
     session.last_seen_at = timezone.now()
     session.is_editing = request.POST.get("is_editing", False)
-    session.save()
+    try:
+        session.full_clean()
+    except ValidationError:
+        return JsonResponse({"error": "Invalid data"}, status=400)
+    else:
+        session.save()
 
     other_sessions = (
         EditingSession.objects.filter(

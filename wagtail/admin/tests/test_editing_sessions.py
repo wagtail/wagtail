@@ -491,6 +491,21 @@ class TestPingView(WagtailTestUtils, TestCase):
             [self.session, self.other_session, self.old_session],
         )
 
+    def test_invalid_data(self):
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"is_editing": "invalid"},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"error": "Invalid data"})
+        self.assertCountEqual(
+            EditingSession.objects.all(),
+            [self.session, self.other_session, self.old_session],
+        )
+
 
 class TestCleanup(WagtailTestUtils, TestCase):
     def setUp(self):
