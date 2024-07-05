@@ -100,27 +100,28 @@ def ping(request, app_label, model_name, object_id, session_id):
         except Revision.DoesNotExist:
             raise Http404
 
-        newer_revisions = (
+        newest_revision = (
             all_revisions.filter(created_at__gt=original_revision.created_at)
-            .order_by("created_at")
+            .order_by("-created_at", "-pk")
             .select_related("user")
+            .first()
         )
 
-        for revision in newer_revisions:
+        if newest_revision and newest_revision.id != revision_id:
             try:
-                session_info = other_sessions_lookup[revision.user_id]
+                session_info = other_sessions_lookup[newest_revision.user_id]
             except KeyError:
-                other_sessions_lookup[revision.user_id] = {
+                other_sessions_lookup[newest_revision.user_id] = {
                     "session_id": None,
-                    "user": revision.user,
-                    "last_seen_at": revision.created_at,
+                    "user": newest_revision.user,
+                    "last_seen_at": newest_revision.created_at,
                     "is_editing": False,
-                    "revision_id": revision.id,
+                    "revision_id": newest_revision.id,
                 }
             else:
-                session_info["revision_id"] = revision.id
-                if revision.created_at > session_info["last_seen_at"]:
-                    session_info["last_seen_at"] = revision.created_at
+                session_info["revision_id"] = newest_revision.id
+                if newest_revision.created_at > session_info["last_seen_at"]:
+                    session_info["last_seen_at"] = newest_revision.created_at
 
     return JsonResponse(
         {

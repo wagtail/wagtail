@@ -29,6 +29,9 @@ if settings.USE_TZ:
     TIMESTAMP_3 = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 11, 59, 53), timezone=datetime.timezone.utc
     )
+    TIMESTAMP_4 = timezone.make_aware(
+        datetime.datetime(2020, 1, 1, 11, 59, 54), timezone=datetime.timezone.utc
+    )
     TIMESTAMP_NOW = timezone.make_aware(
         datetime.datetime(2020, 1, 1, 12, 0, 0), timezone=datetime.timezone.utc
     )
@@ -38,6 +41,7 @@ else:
     TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
     TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
     TIMESTAMP_3 = datetime.datetime(2020, 1, 1, 11, 59, 53)
+    TIMESTAMP_4 = datetime.datetime(2020, 1, 1, 11, 59, 54)
     TIMESTAMP_NOW = datetime.datetime(2020, 1, 1, 12, 0, 0)
 
 
@@ -48,6 +52,9 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.other_user = self.create_user(
             "vic", password="password", first_name="Vic", last_name="Otheruser"
+        )
+        self.third_user = self.create_user(
+            "gordon", password="password", first_name="Gordon", last_name="Thirduser"
         )
 
         self.login(user=self.user)
@@ -262,6 +269,61 @@ class TestPingView(WagtailTestUtils, TestCase):
                     "last_seen_at": TIMESTAMP_3.isoformat(),
                     "is_editing": False,
                     "revision_id": new_revision.id,
+                },
+            ],
+        )
+        self.session.refresh_from_db()
+        self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
+        self.assertFalse(self.session.is_editing)
+
+    @freeze_time(TIMESTAMP_NOW)
+    def test_ping_with_multiple_revisions_since_own_revision(self):
+        # Create a new revision with the other_user
+        with freeze_time(TIMESTAMP_3):
+            self.page.save_revision(user=self.other_user)
+
+        # Create a new session with the third_user, and save a revision too
+        third_session = EditingSession.objects.create(
+            user=self.third_user,
+            content_type=ContentType.objects.get_for_model(Page),
+            object_id=self.page.id,
+            last_seen_at=TIMESTAMP_3,
+        )
+        with freeze_time(TIMESTAMP_4):
+            latest_revision = self.page.save_revision(user=self.third_user)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            ),
+            {"revision_id": self.original_revision.id},
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = response.json()
+        self.assertEqual(response_json["session_id"], self.session.id)
+
+        # The revision_id should only be set for the session with the latest revision
+        self.assertEqual(
+            response_json["other_sessions"],
+            [
+                {
+                    "session_id": self.other_session.id,
+                    "user": "Vic Otheruser",
+                    # The timestamp isn't updated for the other_session and it
+                    # doesn't have a revision_id. This is because we don't care
+                    # about the fact that this user created a new revision if
+                    # it's not the latest one.
+                    "last_seen_at": TIMESTAMP_2.isoformat(),
+                    "is_editing": False,
+                    "revision_id": None,
+                },
+                {
+                    "session_id": third_session.id,
+                    "user": "Gordon Thirduser",
+                    "last_seen_at": TIMESTAMP_4.isoformat(),
+                    "is_editing": False,
+                    "revision_id": latest_revision.id,
                 },
             ],
         )
