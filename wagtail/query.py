@@ -639,7 +639,7 @@ class DeferredSpecificIterable(BaseIterable):
             if specific_model._meta.pk.attname not in init_list:
                 model_init_list = init_list.copy()
                 model_init_list.append(specific_model._meta.pk.attname)
-                row.append(row[0])  # index 0 is usually the primary key
+                row = (*row, row[0])  # index 0 is usually the primary key
             else:
                 model_init_list = init_list
 
