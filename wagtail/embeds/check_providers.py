@@ -798,7 +798,6 @@ for provider in all_providers:
         }
         non_functional_providers.append(non_functional_provider)
 
-print(non_functional_providers)
 
 
 ''''
