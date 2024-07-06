@@ -1,4 +1,5 @@
 import requests
+
 animoto = {
     "endpoint": "https://animoto.com/services/oembed",
     "urls": [
@@ -687,21 +688,25 @@ youtube = {
     ],
 }
 
-
 all_providers = [
     animoto,
     app_net,
     audioboom,
     bambuser,
     blip_tv,
+    cacoo,
+    chirb,
     circuitlab,
     clickthrough,
+    clikthrough,
     collegehumor,
+    coub,
     crowd_ranking,
     dailymile,
     dailymotion,
     datastudio,
     deviantart,
+    dipdive,
     dipity,
     dotsub,
     etsy,
@@ -709,6 +714,7 @@ all_providers = [
     five_min,
     flickr,
     funny_or_die,
+    geograph_gg,
     geograph_uk,
     github_gist,
     gmep,
@@ -718,6 +724,7 @@ all_providers = [
     ifixit,
     ifttt,
     issuu,
+    justin_tv,
     kickstarter,
     kinomap,
     major_league_gaming,
@@ -732,7 +739,10 @@ all_providers = [
     pinterest,
     polldaddy,
     polleverywhere,
+    qik,
+    rdio,
     reddit,
+    revision3,
     roomshare,
     sapo,
     screenr,
@@ -744,11 +754,13 @@ all_providers = [
     smugmug,
     soundcloud,
     speakerdeck,
+    spotify,
     ted,
     tidal,
     tumblr,
     twenty_three_hq,
     twitter,
+    urtak,
     ustream,
     vhx_tv,
     viddler,
@@ -759,7 +771,173 @@ all_providers = [
     wistia,
     wordpress,
     yandex,
+    yfrog,
     youtube,
 ]
 
+non_functional_providers = []
+formats = 'json'
+for provider in all_providers:
+    endpoint = provider["endpoint"]
+    is_functional = False
+    Reason=""
+    try:
+        response = requests.get(endpoint.replace("{format}", formats), timeout=5)
+        if response.status_code:
+            is_functional = True
+    except requests.exceptions.Timeout:
+        Reason='Timeout'
+    except requests.exceptions.ConnectionError:
+        Reason='ConnectionError'
+    except requests.exceptions.RequestException as e:
+        Reason=f"Error testing with {formats}: {e}"
+    if not is_functional:
+        non_functional_provider={
+            'provider':provider,
+            'Reason':Reason
+        }
+        non_functional_providers.append(non_functional_provider)
 
+print(non_functional_providers)
+
+
+''''
+non_functional_providers=[
+   {
+      "provider":{
+         "endpoint":"http://cacoo.com/oembed.{format}",
+         "urls":[
+            "^https?://cacoo\\.com/.+$"
+         ]
+      },
+      "Reason":"Error testing with json: Exceeded 30 redirects."
+   },
+   {
+      "provider":{
+         "endpoint":"https://chirb.it/oembed.{format}",
+         "urls":[
+            "^https?://chirb\\.it/.+$"
+         ]
+      },
+      "Reason":"Timeout"
+   },
+   {
+      "provider":{
+         "endpoint":"http://demo.clikthrough.com/services/oembed/",
+         "urls":[
+            "^https?://demo\\.clikthrough\\.com/theater/video/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://coub.com/api/oembed.{format}",
+         "urls":[
+            "^https?://coub\\.com/view/.+$",
+            "^https?://coub\\.com/embed/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://api.dipdive.com/oembed.{format}",
+         "urls":[
+            "^http://[-\\w]+\\.dipdive\\.com/media/.+$"
+         ]
+      },
+      "Reason":"Timeout"
+   },
+   {
+      "provider":{
+         "endpoint":"http://www.geograph.org.gg/api/oembed",
+         "urls":[
+            "^https?://(?:[-\\w]+\\.)?geograph\\.org\\.gg/.+$",
+            "^https?://(?:[-\\w]+\\.)?geograph\\.org\\.je/.+$",
+            "^https?://channel-islands\\.geograph\\.org/.+$",
+            "^https?://channel-islands\\.geographs\\.org/.+$",
+            "^https?://(?:[-\\w]+\\.)?channel\\.geographs\\.org/.+$"
+         ]
+      },
+      "Reason":"Timeout"
+   },
+   {
+      "provider":{
+         "endpoint":"http://api.justin.tv/api/embed/from_url.{format}",
+         "urls":[
+            "^https?://(?:www\\.)?justin\\.tv/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://tv.majorleaguegaming.com/oembed",
+         "urls":[
+            "^http://mlg\\.tv/.+$",
+            "^http://tv\\.majorleaguegaming\\.com/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://qik.com/api/oembed.{format}",
+         "urls":[
+            "^http://qik\\.com/.+$",
+            "^http://qik\\.ly/.+$"
+         ]
+      },
+      "Reason":"Timeout"
+   },
+   {
+      "provider":{
+         "endpoint":"http://www.rdio.com/api/oembed",
+         "urls":[
+            "^http://(?:wwww\\.)?rdio\\.com/people/[^#?/]+/playlists/.+$",
+            "^http://[-\\w]+\\.rdio\\.com/artist/[^#?/]+/album/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://revision3.com/api/oembed/",
+         "urls":[
+            "^http://[-\\w]+\\.revision3\\.com/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"https://open.spotify.com/oembed",
+         "urls":[
+            "^https?://open\\.spotify\\.com/.+$",
+            "^https?://spoti\\.fi/.+$"
+         ]
+      },
+      "Reason":"Timeout"
+   },
+   {
+      "provider":{
+         "endpoint":"http://oembed.urtak.com/1/oembed",
+         "urls":[
+            "^https?://(?:[-\\w]+\\.)?urtak\\.com/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   },
+   {
+      "provider":{
+         "endpoint":"http://www.yfrog.com/api/oembed",
+         "urls":[
+            "^https?://(?:www\\.)?yfrog\\.com/.+$",
+            "^https?://(?:www\\.)?yfrog\\.us/.+$"
+         ]
+      },
+      "Reason":"ConnectionError"
+   }
+]
+'''
