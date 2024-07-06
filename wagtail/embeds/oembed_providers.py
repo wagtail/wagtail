@@ -1,4 +1,3 @@
-import requests
 animoto = {
     "endpoint": "https://animoto.com/services/oembed",
     "urls": [
